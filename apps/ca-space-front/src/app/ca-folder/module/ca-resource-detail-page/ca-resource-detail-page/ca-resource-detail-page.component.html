@@ -1,32 +1,8 @@
 <div class="g-page page">
   <ca-hierarchy-object-breadcrumb></ca-hierarchy-object-breadcrumb>
 
-  <fl-async-section [object]="resource$" class="container">
-    <ng-container *flSectionBody="resource$ as resource">
-      <div class="g-layout-row g-layout-between-center g-layout-gap-05em">
-        <div class="g-layout-row g-layout-start-center">
-          <ca-hierarchy-object-icon [style]="resource.style"></ca-hierarchy-object-icon>
-          <h1 flElementEditable (flElementValueChange)="renameResource(resource, $event)">
-            {{ resource.name }}
-          </h1>
-
-          <span class="g-text-light expiration-date">
-            @if (resource.validUntil) {
-              {{ 'resource_expiration_date' | translate }} : {{ resource.validUntil | flDate }}
-            }
-          </span>
-        </div>
-
-        @if (userRole$ | async; as userRole) {
-          @if (userRole.canEdit()) {
-            <button mat-icon-button type="button" (click)="openMenu(resource, userRole, $event)" class="menu">
-              <mat-icon>more_vert</mat-icon>
-            </button>
-          }
-        }
-      </div>
-
-      <iframe [src]="url" class="iframe"></iframe>
-    </ng-container>
-  </fl-async-section>
+  <ca-resource-detail
+    [resourceId]="resourceId$ | async"
+    [userRole]="userRole$ | async"
+    [tags]="tags"></ca-resource-detail>
 </div>

@@ -1,3 +1,13 @@
-@if (hierarchyObject$ | async; as hierarchyObject) {
-  {{ hierarchyObject.name }}
+@if (isLoading) {
+  <div class="center">
+    <fl-loader></fl-loader>
+  </div>
 }
+
+@if (error) {
+  <div class="center">
+    <fl-error-text [errorMessage]="error"></fl-error-text>
+  </div>
+}
+
+<ng-template #container></ng-template>

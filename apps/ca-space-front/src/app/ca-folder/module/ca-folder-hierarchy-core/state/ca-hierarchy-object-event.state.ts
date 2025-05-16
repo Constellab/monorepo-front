@@ -1,17 +1,17 @@
-import { CaHierarchyObjectActionEvent } from '../../ca-folder-detail-page/ca-hierarchy-object-action-menu';
 import { Injectable, OnDestroy } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
+import { CaFolderDetailActionEvent } from '../../../../ca-core/entity-module/ca-folder-core/model/ca-folder-detail-action-menu.class';
 import { CaFolder } from '../../../../ca-core/model/entities/folder/ca-folder.class';
-import { CaDocumentActionEvent } from '../../ca-document-core/ca-document-action-menu';
 import {
   CaHierarchyObject,
   CaHierarchyObjectType,
 } from '../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
+import { CaDocumentActionEvent } from '../../ca-document-core/ca-document-action-menu';
+import { CaHierarchyObjectActionEvent } from '../../ca-folder-detail-page/ca-hierarchy-object-action-menu';
 import {
   CaHierarchyObjectMoveToFolderAction,
   CaHierarchyObjectMoveToTrashAction,
 } from '../../ca-folder-detail-page/ca-hierarchy-object-base-action-menu';
-import { CaFolderDetailActionEvent } from '../../../../ca-core/entity-module/ca-folder-core/model/ca-folder-detail-action-menu.class';
 
 export type CaHierarchyObjectEvent =
   | {
@@ -54,6 +54,19 @@ export class CaHierarchyObjectEventState implements OnDestroy {
 
   public emitEvent(event: CaHierarchyObjectEvent): void {
     this.event$.next(event);
+  }
+
+  public emitRenameEvent(
+    hierarchyObjectId: string,
+    hierarchyObjectType: CaHierarchyObjectType,
+    name: string
+  ): void {
+    this.emitEvent({
+      action: 'update',
+      hierarchyObjectId: hierarchyObjectId,
+      hierarchyObjectType: hierarchyObjectType,
+      hierarchyObject: { name: name },
+    });
   }
 
   public emitCreateEvent(hierarchyObject: CaHierarchyObject, navigateToObject: boolean): void {

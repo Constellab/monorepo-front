@@ -1,0 +1,26 @@
+<fl-async-section [object]="documentPreview$" class="section">
+  <ng-container *flSectionBody="documentPreview$ as documentPreview">
+    <div class="g-layout-row g-layout-between-center g-layout-gap-05em">
+      <div class="g-layout-row g-layout-start-center">
+        <ca-hierarchy-object-icon [style]="documentPreview.document.style"></ca-hierarchy-object-icon>
+        <h1
+          flElementEditable
+          (flElementValueChange)="renameDocument(documentPreview.document, $event)"
+          [flElementDisabled]="!userRole().canEdit()">
+          {{ documentPreview.document.name }}
+        </h1>
+      </div>
+
+      <button mat-icon-button type="button" (click)="openMenu(documentPreview.document, $event)" class="menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+    </div>
+
+    @if (tags()) {
+      <fl-tag-list class="g-text-small" [tags]="tags()" [showNoTagMessage]="false"></fl-tag-list>
+    }
+    @if (documentPreviewUrl) {
+      <iframe [src]="documentPreviewUrl" class="iframe"></iframe>
+    }
+  </ng-container>
+</fl-async-section>

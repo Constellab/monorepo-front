@@ -1,10 +1,10 @@
-import { CaBaseEntity } from '../ca-base-entity.class';
+import { ClRecordTransform } from '@monorepo/core-lib';
 import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
 import { FlFileHelper } from '@monorepo/front-core-lib/fl-translate';
-import { Type } from 'class-transformer';
-import { TeRichText, TeRichTextTransform } from '@monorepo/text-editor';
-import { ClRecordTransform } from '@monorepo/core-lib';
 import { TdTypeStyle } from '@monorepo/technical-doc';
+import { TeRichText, TeRichTextTransform } from '@monorepo/text-editor';
+import { Type } from 'class-transformer';
+import { CaBaseEntity } from '../ca-base-entity.class';
 import { CaRootFolderUserRoleObj } from './ca-folder-user.class';
 
 export interface CaDocumentBasicInfo {
@@ -84,5 +84,8 @@ export class CaFolderStorageUsageDTO {
 }
 
 export class CaDocumentPreviewDTO {
+  @Type(() => CaDocument)
+  document: CaDocument;
+
   previewUrl: string;
 }

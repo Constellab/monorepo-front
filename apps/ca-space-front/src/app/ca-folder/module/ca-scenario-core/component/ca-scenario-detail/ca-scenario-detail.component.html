@@ -1,0 +1,23 @@
+<fl-async-section [object]="scenario$" class="section">
+  <ng-container *flSectionBody="scenario$ as scenario">
+    <div class="g-layout-row g-layout-start-start" flClass.gt-sm="g-layout-row" flClass.lt-md="g-layout-col">
+      <ca-scenario-card-detail
+        [scenario]="scenario"
+        [userRole]="userRole()"
+        [tags]="tags()"
+        class="scenario-card">
+      </ca-scenario-card-detail>
+
+      <!--  lab   -->
+      <div class="lab-card">
+        <ca-lab-card [lab]="scenario.lab"></ca-lab-card>
+      </div>
+    </div>
+
+    <!-- Technical Report -->
+    <ca-scenario-technical-report
+      class="g-section"
+      [scenario]="scenario"
+      [userRole]="userRole()"></ca-scenario-technical-report>
+  </ng-container>
+</fl-async-section>

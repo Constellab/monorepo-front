@@ -1,5 +1,4 @@
-import { CaNoteService } from '../../../../ca-core/service-api/ca-note.service';
-import { Observable } from 'rxjs';
+import { ApplicationRef, EnvironmentInjector } from '@angular/core';
 import {
   TeBlockFigureUploadedResponse,
   TeBlockFileUploadResponse,
@@ -11,7 +10,8 @@ import {
   TeTools,
   TeVariableInlineToolClass,
 } from '@monorepo/text-editor';
-import { ApplicationRef, EnvironmentInjector } from '@angular/core';
+import { Observable } from 'rxjs';
+import { CaNoteService } from '../../../../ca-core/service-api/ca-note.service';
 import {
   CaNoteRichTextViewBlock,
   CaNoteRichTextViewBlockAdditionalData,
@@ -20,7 +20,8 @@ import {
 export class CaNoteTextEditorImageConfig implements TeFigureBlockConfig {
   constructor(
     private noteService: CaNoteService,
-    private noteId: string
+    private noteId: string,
+    private hierarchyObjectToken?: string
   ) {}
 
   imageUploader(): Observable<TeBlockFigureUploadedResponse> {
@@ -28,14 +29,15 @@ export class CaNoteTextEditorImageConfig implements TeFigureBlockConfig {
   }
 
   getImageUrl(filename: string): string {
-    return this.noteService.getFileUrl(this.noteId, filename);
+    return this.noteService.getFileUrl(this.noteId, filename, this.hierarchyObjectToken);
   }
 }
 
 export class CaRichTextFileConfig implements TeFileBlockConfig {
   constructor(
     private noteService: CaNoteService,
-    private noteId: string
+    private noteId: string,
+    private hierarchyObjectToken?: string
   ) {}
 
   fileUploader(): Observable<TeBlockFileUploadResponse> {
@@ -43,7 +45,7 @@ export class CaRichTextFileConfig implements TeFileBlockConfig {
   }
 
   getFileUrl(filename: string): string {
-    return this.noteService.getFileUrl(this.noteId, filename);
+    return this.noteService.getFileUrl(this.noteId, filename, this.hierarchyObjectToken);
   }
 }
 
@@ -53,7 +55,8 @@ export class CaRichTextFileConfig implements TeFileBlockConfig {
 export class CaNoteTextEditorConfig extends TeCompleteConfig {
   constructor(
     private noteService: CaNoteService,
-    private noteId: string
+    private noteId: string,
+    private hierarchyObjectToken?: string
   ) {
     super();
   }
@@ -62,7 +65,11 @@ export class CaNoteTextEditorConfig extends TeCompleteConfig {
     const tools = super.getTools(envInjector, applicationRef);
 
     // configure and add the image block
-    const imageConfig = new CaNoteTextEditorImageConfig(this.noteService, this.noteId);
+    const imageConfig = new CaNoteTextEditorImageConfig(
+      this.noteService,
+      this.noteId,
+      this.hierarchyObjectToken
+    );
     tools.figure = this.getImageConfig(imageConfig, envInjector, applicationRef);
 
     // add the view block
@@ -92,7 +99,7 @@ export class CaNoteTextEditorConfig extends TeCompleteConfig {
     tools.variable = teInlineToolFactory(TeVariableInlineToolClass);
 
     tools.file = this.getFileConfig(
-      new CaRichTextFileConfig(this.noteService, this.noteId),
+      new CaRichTextFileConfig(this.noteService, this.noteId, this.hierarchyObjectToken),
       envInjector,
       applicationRef
     );

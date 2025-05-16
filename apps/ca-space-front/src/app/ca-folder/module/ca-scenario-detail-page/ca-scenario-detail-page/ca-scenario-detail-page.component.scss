@@ -3,11 +3,10 @@
   padding: var(--main-menu-margin) 1em 0 1em;
 }
 
-.scenario-card {
-  margin-right: 2em;
-  flex: 2;
-}
-
-.lab-card {
+.scenario {
+  display: flex;
+  flex-direction: column;
   flex: 1;
+  padding-bottom: 1em;
+  box-sizing: border-box;
 }

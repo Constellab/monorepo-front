@@ -1,9 +1,9 @@
 <div class="g-page page g-layout-col">
   <ca-hierarchy-object-breadcrumb class="g-print-hide"></ca-hierarchy-object-breadcrumb>
 
-  <fl-async-section [object]="note$" class="g-flex-auto">
-    <ng-container *flSectionBody="note$ as note">
-      <ca-note-detail [note]="note" class="detail"></ca-note-detail>
-    </ng-container>
-  </fl-async-section>
+  <ca-note-detail
+    [noteId]="noteId$ | async"
+    [userRole]="userRole$ | async"
+    [tags]="tags"
+    class="note"></ca-note-detail>
 </div>

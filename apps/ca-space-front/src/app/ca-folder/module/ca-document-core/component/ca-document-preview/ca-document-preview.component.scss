@@ -1,0 +1,14 @@
+:host {
+  display: flex;
+  flex: 1;
+}
+
+.section {
+  flex: 1;
+}
+
+.iframe {
+  flex: 1;
+  border: none;
+  background-color: var(--main-background);
+}

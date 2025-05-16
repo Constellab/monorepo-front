@@ -1,8 +1,8 @@
 import { inject, Injectable } from '@angular/core';
-import { CaNote, CaResourceView } from '../model/entities/folder/ca-note.class';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
-import { Observable } from 'rxjs';
 import { TeRichTextBlockModificationWithUser, TeRichTextDTO } from '@monorepo/text-editor';
+import { Observable } from 'rxjs';
+import { CaNote, CaResourceView } from '../model/entities/folder/ca-note.class';
 import { CaLabMinimumDTO } from '../model/entities/lab/ca-lab.class';
 
 @Injectable({
@@ -31,8 +31,12 @@ export class CaNoteService {
 
   ////////////////////////////// METHOD FOR TEXT EDITOR //////////////////////////
 
-  getFileUrl(noteId: string, filename: string): string {
-    return this.apiService.getBaseRouteUrl(`${this.route}/${noteId}/file/${filename}`);
+  getFileUrl(noteId: string, filename: string, token?: string): string {
+    let url = this.apiService.getBaseRouteUrl(`${this.route}/${noteId}/file/${filename}`);
+    if (token) {
+      url += `?token=${token}`;
+    }
+    return url;
   }
 
   getView(noteId: string, viewId: string): Observable<CaResourceView> {

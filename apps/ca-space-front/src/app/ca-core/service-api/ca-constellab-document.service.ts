@@ -1,7 +1,5 @@
 import { inject, Injectable } from '@angular/core';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
-import { Observable } from 'rxjs';
-import { CaConstellabDocument, CaDocument } from '../model/entities/folder/ca-document.class';
 import {
   TeBlockFigureData,
   TeBlockFileUploadResponse,
@@ -9,6 +7,8 @@ import {
   TeRichTextBlockModificationWithUser,
   TeRichTextDTO,
 } from '@monorepo/text-editor';
+import { Observable } from 'rxjs';
+import { CaConstellabDocument, CaDocument } from '../model/entities/folder/ca-document.class';
 
 @Injectable({
   providedIn: 'root',
@@ -62,8 +62,12 @@ export class CaConstellabDocumentService {
     return this.apiService.post(`${this.route}/${documentId}/file`, formData);
   }
 
-  public getConstellabDocumentFileUrl(documentId: string, filename: string): string {
-    return this.apiService.getBaseRouteUrl(`${this.route}/${documentId}/file/${filename}`);
+  public getConstellabDocumentFileUrl(documentId: string, filename: string, token?: string): string {
+    let url = this.apiService.getBaseRouteUrl(`${this.route}/${documentId}/file/${filename}`);
+    if (token) {
+      url += `?token=${token}`;
+    }
+    return url;
   }
 
   getConstellabDocumentHistory(documentId: string): Observable<TeRichTextBlockModificationWithUser[]> {

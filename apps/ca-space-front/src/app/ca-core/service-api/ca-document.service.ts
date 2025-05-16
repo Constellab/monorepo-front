@@ -1,8 +1,8 @@
 import { inject, Injectable } from '@angular/core';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { Observable } from 'rxjs';
-import { CaHierarchyObject } from '../model/entities/folder/ca-hierarchy-object.class';
 import { CaDocument, CaDocumentPreviewDTO } from '../model/entities/folder/ca-document.class';
+import { CaHierarchyObject } from '../model/entities/folder/ca-hierarchy-object.class';
 
 @Injectable({
   providedIn: 'root',
@@ -29,8 +29,12 @@ export class CaDocumentService {
     return this.apiService.getBaseRouteUrl(`${this.route}/${documentId}/preview/${documentName}`);
   }
 
-  public getDocumentDownloadUrl(documentId: string, documentName: string): string {
-    return this.apiService.getBaseRouteUrl(`${this.route}/${documentId}/download/${documentName}`);
+  public getDocumentDownloadUrl(documentId: string, documentName: string, token?: string): string {
+    let url = this.apiService.getBaseRouteUrl(`${this.route}/${documentId}/download/${documentName}`);
+    if (token) {
+      url += `?token=${token}`;
+    }
+    return url;
   }
 
   public renameDocument(documentId: string, name: string): Observable<CaDocument> {

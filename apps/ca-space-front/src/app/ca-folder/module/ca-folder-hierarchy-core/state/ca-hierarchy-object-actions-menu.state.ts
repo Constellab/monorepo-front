@@ -1,17 +1,17 @@
 import { inject, Injectable, Injector } from '@angular/core';
-import { CaHierarchyObjectDetailState } from './ca-hierarchy-object-detail.state';
-import { CaHierarchyObjectEventState } from './ca-hierarchy-object-event.state';
+import { CaHierarchyObjectRouterService } from '../../../../ca-core/entity-module/ca-hierarchy-object-core/ca-hierarchy-object-router.service';
 import {
   CaHierarchyObject,
   CaHierarchyObjectType,
 } from '../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
+import { CaRouterService } from '../../../../ca-core/service/ca-router.service';
 import {
   CaHierarchyObjectActionEvent,
   CaHierarchyObjectActionMenu,
 } from '../../ca-folder-detail-page/ca-hierarchy-object-action-menu';
-import { CaRouterService } from '../../../../ca-core/service/ca-router.service';
 import { CaFolderRightPanelState } from '../../ca-folder-detail-page/state/ca-folder-right-panel.state';
-import { CaHierarchyObjectRouterService } from '../../../../ca-core/entity-module/ca-hierarchy-object-core/ca-hierarchy-object-router.service';
+import { CaHierarchyObjectDetailState } from './ca-hierarchy-object-detail.state';
+import { CaHierarchyObjectEventState } from './ca-hierarchy-object-event.state';
 
 @Injectable()
 export class CaHierarchyObjectActionsMenuState {
@@ -66,7 +66,7 @@ export class CaHierarchyObjectActionsMenuState {
         });
         break;
       case CaHierarchyObjectType.DOCUMENT:
-        this.hierarchyObjectRouter.navigateToDocument(hierarchyObject.id, hierarchyObject.name);
+        this.routerService.navigateToDocumentPreview(hierarchyObject.id);
         break;
     }
   }

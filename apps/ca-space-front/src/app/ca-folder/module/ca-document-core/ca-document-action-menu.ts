@@ -2,28 +2,27 @@ import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
 import { FlOverlayRef, FlPortalService } from '@monorepo/front-core-lib/fl-portal';
 
-import {
-  CaDocumentNameFormDialogComponent,
-  CaDocumentNameFormDialogInput,
-} from './component/ca-document-name-form-dialog/ca-document-name-form-dialog.component';
-import { CaDocument, CaDocumentBasicInfo } from '../../../ca-core/model/entities/folder/ca-document.class';
-import { Observable } from 'rxjs';
-import { CaRouterService } from '../../../ca-core/service/ca-router.service';
+import { Injector } from '@angular/core';
 import {
   TeCompleteConfig,
   TeTextEditorHistoryPortalComponent,
   TeTextEditorHistoryPortalData,
 } from '@monorepo/text-editor';
+import { Observable } from 'rxjs';
+import { CaDocument, CaDocumentBasicInfo } from '../../../ca-core/model/entities/folder/ca-document.class';
+import { CaDocumentService } from '../../../ca-core/service-api/ca-document.service';
 import { CaConstellabDocumentHistoryService } from '../../../ca-core/service/ca-constellab-document-history.service';
+import { CaRouterService } from '../../../ca-core/service/ca-router.service';
 import {
   CaHierarchyObjectActionTags,
   CaHierarchyObjectBaseActionMenu,
   CaHierarchyObjectMoveToFolderAction,
   CaHierarchyObjectMoveToTrashAction,
 } from '../ca-folder-detail-page/ca-hierarchy-object-base-action-menu';
-import { Injector } from '@angular/core';
-import { CaDocumentService } from '../../../ca-core/service-api/ca-document.service';
-import { CaHierarchyObjectRouterService } from '../../../ca-core/entity-module/ca-hierarchy-object-core/ca-hierarchy-object-router.service';
+import {
+  CaDocumentNameFormDialogComponent,
+  CaDocumentNameFormDialogInput,
+} from './component/ca-document-name-form-dialog/ca-document-name-form-dialog.component';
 
 export type CaDocumentActionEvent =
   | {
@@ -37,7 +36,8 @@ export class CaDocumentActionMenu extends CaHierarchyObjectBaseActionMenu {
   constructor(
     injector: Injector,
     protected documentInfo: CaDocumentBasicInfo,
-    tags?: CaHierarchyObjectActionTags
+    tags?: CaHierarchyObjectActionTags,
+    protected hierarchyObjectToken?: string
   ) {
     super(injector, documentInfo.id, tags);
   }
@@ -66,16 +66,18 @@ export class CaDocumentActionMenu extends CaHierarchyObjectBaseActionMenu {
           icon: 'insert_drive_file',
           onClick: () => this.navigateToDocument(),
         });
-
-        menu.push({
-          type: 'downloadLink',
-          text: { text: 'download_document', translateText: true },
-          icon: 'cloud_download',
-          href: this.injector
-            .get(CaDocumentService)
-            .getDocumentDownloadUrl(this.documentInfo.id, this.documentInfo.name),
-        });
       }
+    }
+
+    if (!this.documentInfo.isConstellabDocument) {
+      menu.push({
+        type: 'downloadLink',
+        text: { text: 'download_document', translateText: true },
+        icon: 'cloud_download',
+        href: this.injector
+          .get(CaDocumentService)
+          .getDocumentDownloadUrl(this.documentInfo.id, this.documentInfo.name, this.hierarchyObjectToken),
+      });
     }
 
     if (this.documentInfo.userRole.canEdit()) {
@@ -96,9 +98,7 @@ export class CaDocumentActionMenu extends CaHierarchyObjectBaseActionMenu {
   }
 
   private navigateToDocument(): void {
-    this.injector
-      .get(CaHierarchyObjectRouterService)
-      .navigateToDocument(this.documentInfo.id, this.documentInfo.name);
+    this.injector.get(CaRouterService).navigateToDocumentPreview(this.documentInfo.id);
     this.subject.complete();
   }
 
@@ -134,9 +134,10 @@ export class CaDocumentActionDetailMenu extends CaDocumentActionMenu {
     injector: Injector,
     documentInfo: CaDocumentBasicInfo,
     private textEditorConfig: TeCompleteConfig,
-    tags?: CaHierarchyObjectActionTags
+    tags?: CaHierarchyObjectActionTags,
+    hierarchyObjectToken?: string
   ) {
-    super(injector, documentInfo, tags);
+    super(injector, documentInfo, tags, hierarchyObjectToken);
   }
 
   public openDetailActionsMenu(event: MouseEvent): Observable<CaDocumentActionEvent | null> {

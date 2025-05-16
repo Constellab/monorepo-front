@@ -1,15 +1,7 @@
-import {
-  AfterContentInit,
-  Component,
-  ContentChild,
-  Input,
-  OnInit,
-  ViewContainerRef,
-  inject,
-} from '@angular/core';
-import { FlSectionBodyDirective } from '../fl-section-body';
 import { TemplatePortal } from '@angular/cdk/portal';
+import { AfterContentInit, Component, ContentChild, Input, ViewContainerRef, inject } from '@angular/core';
 import { ClHelpService } from '@monorepo/core-lib';
+import { FlSectionBodyDirective } from '../fl-section-body';
 
 /**
  * Component to display a section containing an object or a list

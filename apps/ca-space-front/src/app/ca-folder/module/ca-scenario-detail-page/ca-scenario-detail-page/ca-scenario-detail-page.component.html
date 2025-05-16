@@ -1,22 +1,9 @@
 <div class="g-page page">
   <ca-hierarchy-object-breadcrumb></ca-hierarchy-object-breadcrumb>
 
-  <fl-section [isLoading]="isLoading" [object]="scenario">
-    <ng-template flSectionBody>
-      <div class="g-layout-start-start" flClass.gt-sm="g-layout-row" flClass.lt-md="g-layout-col">
-        <ca-scenario-card-detail [scenario]="scenario" class="scenario-card"> </ca-scenario-card-detail>
-
-        <!--  lab   -->
-        <div class="lab-card">
-          <ca-lab-card [lab]="scenario.lab"></ca-lab-card>
-        </div>
-      </div>
-
-      <!-- Technical Report -->
-      <ca-scenario-technical-report class="g-section" [scenario]="scenario"></ca-scenario-technical-report>
-
-      <!--  Note  -->
-      <ca-notes-list class="g-section" [notes]="notes"></ca-notes-list>
-    </ng-template>
-  </fl-section>
+  <ca-scenario-detail
+    [scenarioId]="scenarioId$ | async"
+    [userRole]="userRole$ | async"
+    [tags]="tags"
+    class="scenario"></ca-scenario-detail>
 </div>

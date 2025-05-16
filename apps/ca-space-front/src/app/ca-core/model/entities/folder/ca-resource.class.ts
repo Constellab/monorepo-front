@@ -1,10 +1,12 @@
-import { CaBaseEntity } from '../ca-base-entity.class';
+import { ClLuxonDateTimeTransform } from '@monorepo/core-lib';
 import { TdTypeStyle } from '@monorepo/technical-doc';
 import { DateTime } from 'luxon';
-import { ClLuxonDateTimeTransform } from '@monorepo/core-lib';
+import { FlEntity } from '../../../../../../../../libs/front-core-lib/src/lib/fl-core';
 import { CaRootFolderUserRoleObj } from './ca-folder-user.class';
 
-export class CaResource extends CaBaseEntity {
+export class CaResource implements FlEntity {
+  id: string;
+
   resourceId: string;
 
   name: string;

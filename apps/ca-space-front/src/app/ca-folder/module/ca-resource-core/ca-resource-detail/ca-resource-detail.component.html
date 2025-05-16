@@ -1,0 +1,30 @@
+<fl-async-section [object]="resource$" class="container">
+  <ng-container *flSectionBody="resource$ as resource">
+    <div class="g-layout-row g-layout-between-center g-layout-gap-05em">
+      <div class="g-layout-row g-layout-start-center">
+        <ca-hierarchy-object-icon [style]="resource.style"></ca-hierarchy-object-icon>
+        <h1 flElementEditable (flElementValueChange)="renameResource(resource, $event)">
+          {{ resource.name }}
+        </h1>
+
+        <span class="g-text-light expiration-date">
+          @if (resource.validUntil) {
+            {{ 'resource_expiration_date' | translate }} : {{ resource.validUntil | flDate }}
+          }
+        </span>
+      </div>
+
+      @if (userRole().canEdit()) {
+        <button mat-icon-button type="button" (click)="openMenu(resource, $event)" class="menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+      }
+    </div>
+
+    @if (tags()) {
+      <fl-tag-list class="g-text-small" [tags]="tags()" [showNoTagMessage]="false"></fl-tag-list>
+    }
+
+    <iframe [src]="url" class="iframe"></iframe>
+  </ng-container>
+</fl-async-section>

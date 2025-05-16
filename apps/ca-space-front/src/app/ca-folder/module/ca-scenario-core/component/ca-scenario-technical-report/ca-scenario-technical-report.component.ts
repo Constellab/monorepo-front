@@ -1,13 +1,19 @@
-import { Component, inject, Input, NgZone, OnDestroy, OnInit } from '@angular/core';
-import { CaScenario } from '../../../../../ca-core/model/entities/folder/ca-scenario.class';
-import { CaScenarioService } from '../../../../../ca-core/service-api/ca-scenario.service';
-import { CaTechnicalReport } from '../../../../../ca-core/model/entities/folder/ca-technical-report.class';
+import { Component, inject, input, NgZone, OnDestroy, OnInit } from '@angular/core';
+import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatTab, MatTabContent, MatTabGroup } from '@angular/material/tabs';
+import { CoCommunityHelperService } from '@monorepo/community-lib';
+import { ClStringHelper, ClSubscriptionHandler } from '@monorepo/core-lib';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import {
   PrProcessInfoDialogComponent,
   PrProcessInfoDialogInput,
   PrProtocol,
+  PrProtocolModule,
   PrWorkflow,
   PrWorkflowActionSelectNode,
   PrWorkflowActionShowResource,
@@ -17,24 +23,19 @@ import {
   PrWorkflowNodeProcess,
   PrWorkflowResourcesState,
 } from '@monorepo/protocol';
+import { TranslatePipe } from '@ngx-translate/core';
 import { filter, Observable, of } from 'rxjs';
-import { CaWorkflowNodeMenuConfig } from '../../model/ca-workflow-node-menu.config';
-import { ClStringHelper, ClSubscriptionHandler } from '@monorepo/core-lib';
 import { map } from 'rxjs/operators';
 import {
   CaLabConfigDialogComponent,
   CaLabConfigDialogInput,
 } from '../../../../../ca-core/entity-module/ca-lab-core/component/ca-lab-config-dialog/ca-lab-config-dialog.component';
-import { CoCommunityHelperService } from '@monorepo/community-lib';
-import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { MatIcon } from '@angular/material/icon';
-import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
-import { MatButton } from '@angular/material/button';
-import { MatTab, MatTabContent, MatTabGroup } from '@angular/material/tabs';
-import { PrProtocolModule } from '@monorepo/protocol';
+import { CaRootFolderUserRoleObj } from '../../../../../ca-core/model/entities/folder/ca-folder-user.class';
+import { CaScenario } from '../../../../../ca-core/model/entities/folder/ca-scenario.class';
+import { CaTechnicalReport } from '../../../../../ca-core/model/entities/folder/ca-technical-report.class';
+import { CaScenarioService } from '../../../../../ca-core/service-api/ca-scenario.service';
+import { CaWorkflowNodeMenuConfig } from '../../model/ca-workflow-node-menu.config';
 import { CaScenarioTechnicalReportGraphComponent } from '../ca-scenario-technical-report-graph/ca-scenario-technical-report-graph.component';
-import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'ca-scenario-technical-report',
@@ -63,7 +64,8 @@ export class CaScenarioTechnicalReportComponent implements OnInit, OnDestroy {
   private snackBarService = inject(FlSnackBarService);
   private communityHelper = inject(CoCommunityHelperService);
 
-  @Input() scenario: CaScenario;
+  scenario = input.required<CaScenario>();
+  userRole = input.required<CaRootFolderUserRoleObj>();
 
   technicalReport: CaTechnicalReport;
 
@@ -79,10 +81,10 @@ export class CaScenarioTechnicalReportComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.scenarioService
-      .getScenarioTechnicalReport(this.scenario.id)
+      .getScenarioTechnicalReport(this.scenario().id)
       .subscribe((res: CaTechnicalReport) => this.onTechnicalReportSuccess(res));
 
-    this.workflowConfig = new CaWorkflowNodeMenuConfig(this.scenario.lab, this.snackBarService);
+    this.workflowConfig = new CaWorkflowNodeMenuConfig(this.scenario().lab, this.snackBarService);
     this.actionState.init();
 
     this.subscriptions.add(
@@ -120,9 +122,10 @@ export class CaScenarioTechnicalReportComponent implements OnInit, OnDestroy {
 
   openLabConfigDialog(): void {
     const input: CaLabConfigDialogInput = {
-      labConfig: this.scenarioService.getScenarioLabConfig(this.scenario.id),
+      labConfig: this.scenarioService.getScenarioLabConfig(this.scenario().id),
       title: { text: 'lab_configuration', translateText: true },
       helpText: { text: 'scenario_brick_config_help', translateText: true },
+      showDetailButton: this.userRole().canEdit(),
     };
 
     this.dialogService.openSmallDialog(CaLabConfigDialogComponent, { data: input, autoFocus: false });

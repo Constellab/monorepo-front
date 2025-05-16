@@ -1,13 +1,13 @@
 <fl-dialog-header>
-  {{ title | flTranslatableText | async }}
+  {{ data.title | flTranslatableText | async }}
 </fl-dialog-header>
 
 <mat-dialog-content>
-  <p class="g-text-light help-text">{{ helpText | flTranslatableText | async }}</p>
+  <p class="g-text-light help-text">{{ data.helpText | flTranslatableText | async }}</p>
 
-  <fl-async-section [object]="labConfig$">
-    <ng-container *flSectionBody="labConfig$ as conf">
-      <ca-lab-config [labConfig]="conf"></ca-lab-config>
+  <fl-async-section [object]="data.labConfig">
+    <ng-container *flSectionBody="data.labConfig as conf">
+      <ca-lab-config [labConfig]="conf" [showDetailButton]="data.showDetailButton"></ca-lab-config>
     </ng-container>
   </fl-async-section>
 </mat-dialog-content>

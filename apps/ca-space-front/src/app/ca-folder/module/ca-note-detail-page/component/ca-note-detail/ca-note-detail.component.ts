@@ -1,30 +1,29 @@
-import { Component, inject, Injector, Input } from '@angular/core';
-import { CaNote } from '../../../../../ca-core/model/entities/folder/ca-note.class';
-import { CaScenarioService } from '../../../../../ca-core/service-api/ca-scenario.service';
-import { FlEntityArrayObs } from '@monorepo/front-core-lib/fl-core';
+import { Component, inject, Injector, input, output } from '@angular/core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { CaNote } from '../../../../../ca-core/model/entities/folder/ca-note.class';
 
-import {
-  CaScenariosListDialogInput,
-  CaScenarioTableDialogComponent,
-} from '../../../ca-scenario-core/component/ca-scenario-table-dialog/ca-scenario-table-dialog.component';
-import { CaNoteService } from '../../../../../ca-core/service-api/ca-note.service';
-import { CaHierarchyObjectDetailState } from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
-import { CaNoteTextEditorConfig } from '../../../ca-note-core/model/ca-note-text-editor-config.class';
-import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
-import { CaHierarchyObjectIconComponent } from '../../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-icon/ca-hierarchy-object-icon.component';
+import { toObservable } from '@angular/core/rxjs-interop';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
-import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
-import { CaValidatedObjectInfoComponent } from '../../../ca-folder-hierarchy-core/component/ca-validated-object-info/ca-validated-object-info.component';
-import { CaSyncObjectInfoComponent } from '../../../ca-folder-hierarchy-core/component/ca-sync-object-info/ca-sync-object-info.component';
-import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import { CaNoteContentComponent } from '../../../ca-note-core/component/ca-note-content/ca-note-content.component';
-import { TranslatePipe } from '@ngx-translate/core';
-import { CaNoteActionEvent, CaNoteDetailActionMenu } from '../../../ca-note-core/ca-note-action-menu';
-import { FlTagModule } from '@monorepo/front-core-lib/fl-tag';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FlTagModule } from '@monorepo/front-core-lib/fl-tag';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+import { TranslatePipe } from '@ngx-translate/core';
+import { Observable, switchMap } from 'rxjs';
+import { FlSectionModule } from '../../../../../../../../../libs/front-core-lib/src/lib/fl-section';
+import { CaHierarchyObjectIconComponent } from '../../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-icon/ca-hierarchy-object-icon.component';
+import { CaRootFolderUserRoleObj } from '../../../../../ca-core/model/entities/folder/ca-folder-user.class';
+import { CaHierarchyObjectTagDatasource } from '../../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
+import { CaNoteService } from '../../../../../ca-core/service-api/ca-note.service';
+import { CaSyncObjectInfoComponent } from '../../../ca-folder-hierarchy-core/component/ca-sync-object-info/ca-sync-object-info.component';
+import { CaValidatedObjectInfoComponent } from '../../../ca-folder-hierarchy-core/component/ca-validated-object-info/ca-validated-object-info.component';
+import { CaHierarchyObjectEventState } from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-event.state';
+import { CaNoteActionEvent, CaNoteDetailActionMenu } from '../../../ca-note-core/ca-note-action-menu';
+import { CaNoteContentComponent } from '../../../ca-note-core/component/ca-note-content/ca-note-content.component';
 import { CaNoteInfoDialogComponent } from '../../../ca-note-core/component/ca-note-info-dialog/ca-note-info-dialog.component';
+import { CaNoteTextEditorConfig } from '../../../ca-note-core/model/ca-note-text-editor-config.class';
 
 @Component({
   selector: 'ca-note-detail',
@@ -44,18 +43,26 @@ import { CaNoteInfoDialogComponent } from '../../../ca-note-core/component/ca-no
     TranslatePipe,
     FlTagModule,
     FlKeyValueModule,
+    FlSectionModule,
   ],
 })
 export class CaNoteDetailComponent {
-  private scenarioService = inject(CaScenarioService);
+  noteId = input.required<string>();
+  userRole = input.required<CaRootFolderUserRoleObj>();
+  hierarchyObjectToken = input<string>();
+
+  tags = input<CaHierarchyObjectTagDatasource>();
+
+  noteAction = output<CaNoteActionEvent>();
+
   private dialogService = inject(FlDialogService);
   private noteService = inject(CaNoteService);
-  private state = inject(CaHierarchyObjectDetailState);
   private injector = inject(Injector);
+  private eventState = inject(CaHierarchyObjectEventState, { optional: true });
 
-  @Input({ required: true }) note: CaNote;
-
-  tags = this.state.getTags();
+  note$: Observable<CaNote> = toObservable(this.noteId).pipe(
+    switchMap((noteId) => this.noteService.getById(noteId))
+  );
 
   printNote(): void {
     if (window) {
@@ -63,30 +70,16 @@ export class CaNoteDetailComponent {
     }
   }
 
-  openScenariosListDialog(): void {
-    const scenarios = new FlEntityArrayObs(this.scenarioService.getScenariosByNote(this.note.id));
-
-    const input: CaScenariosListDialogInput = {
-      scenarios: scenarios,
-      title: { text: 'note_associated_scenarios', translateText: true },
-    };
-
-    this.dialogService.openMediumDialog(CaScenarioTableDialogComponent, {
-      data: input,
-    });
-  }
-
   async openActionMenu(note: CaNote, event: MouseEvent): Promise<void> {
-    const textEditorConfig = new CaNoteTextEditorConfig(this.noteService, this.note.id);
+    const textEditorConfig = new CaNoteTextEditorConfig(this.noteService, note.id);
 
-    const context = await this.state.getHierarchyContextPromise();
     const noteActionMenu = new CaNoteDetailActionMenu(
       this.injector,
       note.id,
-      context.userRole,
+      this.userRole(),
       textEditorConfig,
       {
-        tags: this.tags,
+        tags: this.tags(),
       }
     );
 
@@ -94,14 +87,14 @@ export class CaNoteDetailComponent {
   }
 
   private onNoteAction(event: CaNoteActionEvent): void {
-    if (event.action === 'moveToTrash') {
-      this.state.navigateToParentFolder();
+    if (this.eventState) {
+      this.eventState.emitHierarchyObjectEvent(event);
     }
   }
 
-  openNoteInformation(): void {
+  openNoteInformation(note: CaNote): void {
     this.dialogService.openSmallDialog(CaNoteInfoDialogComponent, {
-      data: this.note,
+      data: note,
     });
   }
 }

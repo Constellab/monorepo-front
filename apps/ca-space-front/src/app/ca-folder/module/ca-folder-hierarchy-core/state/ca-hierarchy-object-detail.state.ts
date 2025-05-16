@@ -1,4 +1,5 @@
 import { inject, Injectable, OnDestroy } from '@angular/core';
+import { FlQueryParamHandler, FlRouterHelper } from '@monorepo/front-core-lib/fl-core';
 import {
   BehaviorSubject,
   distinctUntilChanged,
@@ -12,11 +13,16 @@ import {
   takeUntil,
 } from 'rxjs';
 import { CaFolderService } from '../../../../ca-core/service-api/ca-folder.service';
-import { FlQueryParamHandler, FlRouterHelper } from '@monorepo/front-core-lib/fl-core';
 
 import { ActivatedRoute, Router } from '@angular/router';
-import { map } from 'rxjs/operators';
 import { ClCoreJsonConvert, ClSubscriptionHandler } from '@monorepo/core-lib';
+import { FlTagDatasource } from '@monorepo/front-core-lib/fl-tag';
+import { map } from 'rxjs/operators';
+import { CaAvailableTagDatasource } from '../../../../ca-core/model/entities/ca-tag.class';
+import {
+  CaRootFolderUserRole,
+  CaRootFolderUserRoleObj,
+} from '../../../../ca-core/model/entities/folder/ca-folder-user.class';
 import {
   CaHierarchyObject,
   CaHierarchyObjectSimple,
@@ -24,15 +30,9 @@ import {
   CaHierarchyObjectTagDatasource,
   CaHierarchyObjectType,
 } from '../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
-import { CaRouterService } from '../../../../ca-core/service/ca-router.service';
 import { CaHierarchyObjectService } from '../../../../ca-core/service-api/ca-hierarchy-object.service';
-import { FlTagDatasource } from '@monorepo/front-core-lib/fl-tag';
-import { CaAvailableTagDatasource } from '../../../../ca-core/model/entities/ca-tag.class';
+import { CaRouterService } from '../../../../ca-core/service/ca-router.service';
 import { CaHierarchyObjectEvent, CaHierarchyObjectEventState } from './ca-hierarchy-object-event.state';
-import {
-  CaRootFolderUserRole,
-  CaRootFolderUserRoleObj,
-} from '../../../../ca-core/model/entities/folder/ca-folder-user.class';
 
 export interface CaHierarchyObjectContext {
   type: CaHierarchyObjectType | 'rootFolders' | 'globalSearch';
@@ -243,12 +243,7 @@ export class CaHierarchyObjectDetailState implements OnDestroy {
 
   private getCurrentParentFolderId(): Promise<string | null> {
     return firstValueFrom(
-      this.getHierarchyContext$().pipe(
-        // the first element is the current object, we return the second element which is the parent
-        map((context) => {
-          return context.hierarchyObject?.parentId ?? null;
-        })
-      )
+      this.getHierarchyContext$().pipe(map((context) => context.hierarchyObject?.parentId ?? null))
     );
   }
 
@@ -337,29 +332,53 @@ export class CaHierarchyObjectDetailState implements OnDestroy {
   //////////////////////////////////// EVENTS /////////////////////////////////////
 
   private onEvent(event: CaHierarchyObjectEvent): void {
-    if (event.hierarchyObjectType !== CaHierarchyObjectType.FOLDER) return;
-
     switch (event.action) {
       case 'update':
-        this.updateFolder(event.hierarchyObjectId, event.hierarchyObject);
+        this.onObjectUpdate(event.hierarchyObjectId, event.hierarchyObjectType, event.hierarchyObject);
         break;
       case 'create':
-        this.addFoldersInTree([event.hierarchyObject]);
+        if (event.hierarchyObjectType === CaHierarchyObjectType.FOLDER) {
+          this.addFoldersInTree([event.hierarchyObject]);
+        }
         if (event.navigateToObject) {
           this.routerService.navigateToFolderDetail(event.hierarchyObjectId);
         }
         break;
       case 'delete':
-        this.onFolderDelete(event.hierarchyObjectId);
+        this.onFolderDelete(event.hierarchyObjectId, event.hierarchyObjectType);
         break;
     }
   }
 
-  private onFolderDelete(folderId: string): void {
-    this.deleteFolderInTree(folderId);
+  private onObjectUpdate(
+    hierarchyObjectId: string,
+    hierarchyObjectType: CaHierarchyObjectType,
+    hierarchyObject: Partial<CaHierarchyObject>
+  ): void {
+    if (hierarchyObjectType === CaHierarchyObjectType.FOLDER) {
+      this.updateFolder(hierarchyObjectId, hierarchyObject);
+    }
+
+    const hierarchyObjectContext = this.hierarchyObject$.value;
+    if (hierarchyObjectContext?.hierarchyObject?.id === hierarchyObjectId) {
+      const clone = ClCoreJsonConvert.deepCloneClassAndMerge(
+        hierarchyObjectContext.hierarchyObject,
+        hierarchyObject,
+        CaHierarchyObject
+      );
+      hierarchyObjectContext.hierarchyObject = clone;
+
+      this.hierarchyObject$.next(hierarchyObjectContext);
+    }
+  }
+
+  private onFolderDelete(hierarchyObjectId: string, hierarchyObjectType: CaHierarchyObjectType): void {
+    if (hierarchyObjectType === CaHierarchyObjectType.FOLDER) {
+      this.deleteFolderInTree(hierarchyObjectId);
+    }
 
     const currentHierarchyObject = this.hierarchyObject$.value.hierarchyObject;
-    if (currentHierarchyObject?.id === folderId) {
+    if (currentHierarchyObject?.id === hierarchyObjectId) {
       this.navigateToParentFolder();
     }
   }

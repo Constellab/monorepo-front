@@ -1,52 +1,8 @@
 <div class="g-page page">
   <ca-hierarchy-object-breadcrumb class="g-print-hide"></ca-hierarchy-object-breadcrumb>
 
-  <fl-section [isLoading]="getIsLoading" [object]="document" class="section">
-    <ng-template flSectionBody>
-      <div class="card-container g-layout-col">
-        <div class="g-layout-row g-layout-between-center">
-          <h1 flElementEditable (flElementValueChange)="renameDocument($event)">{{ document.name }}</h1>
-
-          <div class="g-print-hide g-layout-row g-layout-start-center">
-            <button mat-stroked-button type="button" (click)="toggleEditMode()" class="button g-button-small">
-              <mat-icon>{{ contentFormControl.disabled ? 'edit' : 'visibility' }}</mat-icon>
-              <span>{{ (contentFormControl.disabled ? 'edit' : 'view') | translate }}</span>
-            </button>
-
-            <button mat-stroked-button type="button" (click)="print()" class="button g-button-small">
-              {{ 'print_document' | translate }}
-              <mat-icon>print</mat-icon>
-            </button>
-
-            <button mat-icon-button type="button" (click)="openDocumentActionMenu(document, $event)">
-              <mat-icon>more_vert</mat-icon>
-            </button>
-          </div>
-        </div>
-
-        <fl-tag-list class="g-text-small" [tags]="tags" [showNoTagMessage]="false"></fl-tag-list>
-
-        <div class="g-print-hide doc-header">
-          <fl-creation-info [user]="document.createdBy" [date]="document.createdAt"> </fl-creation-info>
-
-          <div class="g-layout-row g-layout-between-center">
-            <fl-last-modification-info
-              [user]="document.lastModifiedBy"
-              [date]="document.lastModifiedAt"></fl-last-modification-info>
-
-            <te-text-editor-save
-              [formCtrl]="contentFormControl"
-              [saveFunc]="saveDescriptionFunc"
-              [debounceTime]="2500"></te-text-editor-save>
-          </div>
-        </div>
-
-        <te-text-editor
-          [formControl]="contentFormControl"
-          [config]="textEditorConfig"
-          class="g-print-section text-editor"
-          [ngClass]="{ 'text-editor-edit': !contentFormControl.disabled }"></te-text-editor>
-      </div>
-    </ng-template>
-  </fl-section>
+  <ca-constellab-document-detail
+    [documentId]="documentId$ | async"
+    [userRole]="userRole$ | async"
+    [tags]="tags"></ca-constellab-document-detail>
 </div>

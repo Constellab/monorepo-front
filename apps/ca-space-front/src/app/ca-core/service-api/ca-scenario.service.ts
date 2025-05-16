@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
+import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { Observable } from 'rxjs';
 import { CaScenario } from '../model/entities/folder/ca-scenario.class';
-import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { CaTechnicalReport } from '../model/entities/folder/ca-technical-report.class';
 import { CaLabConfig } from '../model/entities/lab/ca-lab-config.class';
 
@@ -13,16 +13,12 @@ export class CaScenarioService {
 
   private readonly route: string = 'scenarios';
 
-  public findById(id: string): Observable<CaScenario> {
+  public getById(id: string): Observable<CaScenario> {
     return this.apiService.get(`${this.route}/${id}`, CaScenario);
   }
 
   public getScenariosByNote(noteId: string): Observable<CaScenario[]> {
     return this.apiService.get(`${this.route}/note/${noteId}`, CaScenario);
-  }
-
-  public update(scenario: Partial<CaScenario>): Observable<CaScenario> {
-    return this.apiService.put(`${this.route}`, scenario, CaScenario);
   }
 
   public getScenarioTechnicalReport(scenarioId: string): Observable<CaTechnicalReport> {

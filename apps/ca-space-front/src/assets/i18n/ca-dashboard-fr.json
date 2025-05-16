@@ -34,6 +34,7 @@
   "no_note": "Aucune lab note",
   "note": "Lab note",
   "note_associated_scenarios": "Scénarios associés",
+  "scenario_associated_notes": "Lab notes associées",
   "resource": "Ressource",
   "url": "URL",
   "print_note": "Imprimer",

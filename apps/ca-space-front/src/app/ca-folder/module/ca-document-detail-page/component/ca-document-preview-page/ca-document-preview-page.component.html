@@ -1,9 +1,6 @@
 <div class="g-page page">
   <ca-hierarchy-object-breadcrumb class="breadcrumbs"></ca-hierarchy-object-breadcrumb>
 
-  <fl-async-section [object]="documentPreview$" class="section">
-    <ng-container *flSectionBody="documentPreview$ as docPreview">
-      <iframe [src]="docPreview" class="iframe"></iframe>
-    </ng-container>
-  </fl-async-section>
+  <ca-document-preview [documentId]="documentId$ | async" [userRole]="userRole$ | async" [tags]="tags">
+  </ca-document-preview>
 </div>

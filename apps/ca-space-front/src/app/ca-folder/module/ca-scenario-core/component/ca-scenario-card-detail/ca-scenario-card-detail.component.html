@@ -1,27 +1,25 @@
 <fl-card class="g-full card">
-  @if (showCardHeader) {
-    <fl-card-header>
-      <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
-        <ca-hierarchy-object-icon [style]="scenario().style"></ca-hierarchy-object-icon>
-        <h2 class="title g-text-dense-height">{{ scenario().title }}</h2>
-      </div>
+  <fl-card-header>
+    <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
+      <ca-hierarchy-object-icon [style]="scenario().style"></ca-hierarchy-object-icon>
+      <h2 class="title g-text-dense-height">{{ scenario().title }}</h2>
+    </div>
 
-      <fl-card-actions>
-        <fl-status-chip [status]="scenario().status"></fl-status-chip>
+    <fl-card-actions>
+      <fl-status-chip [status]="scenario().status"></fl-status-chip>
 
-        @if (userRole$ | async; as userRole) {
-          @if (userRole.canEdit()) {
-            <button mat-icon-button (click)="openActionMenu($event, userRole)" class="menu">
-              <mat-icon>more_vert</mat-icon>
-            </button>
-          }
-        }
-      </fl-card-actions>
-    </fl-card-header>
-  }
+      @if (userRole().canEdit()) {
+        <button mat-icon-button (click)="openActionMenu($event)" class="button">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+      }
+    </fl-card-actions>
+  </fl-card-header>
 
   <fl-card-body>
-    <ca-scenario-info [scenario]="scenario()" [tags]="tags"></ca-scenario-info>
+    @if (tags()) {
+      <ca-scenario-info [scenario]="scenario()" [tags]="tags()"></ca-scenario-info>
+    }
 
     <div class="g-text-centered open-button">
       @if (scenarioRoute()) {

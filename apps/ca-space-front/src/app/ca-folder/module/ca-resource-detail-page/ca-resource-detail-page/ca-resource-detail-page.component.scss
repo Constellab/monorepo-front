@@ -2,24 +2,3 @@
   // reduce padding for full iframe
   padding: 1em 0 0 1em;
 }
-
-.menu {
-  flex-shrink: 0;
-  margin-right: 0.5em;
-}
-
-.container {
-  flex: 1;
-  min-height: 0;
-}
-
-.expiration-date {
-  margin-left: 1em;
-}
-
-.iframe {
-  flex: 1;
-  min-height: 0;
-  width: 100%;
-  border: none;
-}

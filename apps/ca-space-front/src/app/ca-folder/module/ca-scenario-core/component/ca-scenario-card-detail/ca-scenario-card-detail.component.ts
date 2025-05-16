@@ -1,17 +1,18 @@
-import { Component, computed, EventEmitter, inject, Injector, input, Input, Output } from '@angular/core';
+import { Component, computed, inject, Injector, input } from '@angular/core';
+import { MatAnchor, MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
+import { FlStatusModule } from '@monorepo/front-core-lib/fl-status';
+import { TranslatePipe } from '@ngx-translate/core';
+import { FlIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/fl-svg-icon';
+import { CaHierarchyObjectIconComponent } from '../../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-icon/ca-hierarchy-object-icon.component';
+import { CaRootFolderUserRoleObj } from '../../../../../ca-core/model/entities/folder/ca-folder-user.class';
+import { CaHierarchyObjectTagDatasource } from '../../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
 import { CaScenario } from '../../../../../ca-core/model/entities/folder/ca-scenario.class';
 import { CaLabHelper } from '../../../../../ca-core/utils/ca-lab.helper';
-import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
-import { CaHierarchyObjectIconComponent } from '../../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-icon/ca-hierarchy-object-icon.component';
-import { FlStatusModule } from '@monorepo/front-core-lib/fl-status';
-import { CaScenarioInfoComponent } from '../ca-scenario-info/ca-scenario-info.component';
-import { MatAnchor, MatIconButton } from '@angular/material/button';
-import { MatIcon } from '@angular/material/icon';
-import { TranslatePipe } from '@ngx-translate/core';
-import { CaHierarchyObjectDetailState } from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
+import { CaHierarchyObjectEventState } from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-event.state';
 import { CaScenarioActionEvent, CaScenarioActionMenu } from '../../ca-scenario-action-menu';
-import { AsyncPipe } from '@angular/common';
-import { CaRootFolderUserRoleObj } from '../../../../../ca-core/model/entities/folder/ca-folder-user.class';
+import { CaScenarioInfoComponent } from '../ca-scenario-info/ca-scenario-info.component';
 
 /**
  * Detail card of the scenario used in the scenario page
@@ -26,18 +27,18 @@ import { CaRootFolderUserRoleObj } from '../../../../../ca-core/model/entities/f
     FlStatusModule,
     CaScenarioInfoComponent,
     MatAnchor,
-    MatIcon,
     TranslatePipe,
-    MatIconButton,
-    AsyncPipe,
+    MatButtonModule,
+    FlIconModule,
+    MatIconModule,
   ],
 })
 export class CaScenarioCardDetailComponent {
   scenario = input.required<CaScenario>();
+  userRole = input.required<CaRootFolderUserRoleObj>();
+  tags = input<CaHierarchyObjectTagDatasource>();
 
-  @Input() showCardHeader: boolean = true;
-
-  @Output() update: EventEmitter<CaScenario> = new EventEmitter<CaScenario>();
+  private eventState = inject(CaHierarchyObjectEventState, { optional: true });
 
   scenarioRoute = computed(() => {
     if (this.scenario().lab.isRunning()) {
@@ -46,24 +47,19 @@ export class CaScenarioCardDetailComponent {
     return null;
   });
 
-  tags = inject(CaHierarchyObjectDetailState).getTags();
-
-  private state = inject(CaHierarchyObjectDetailState);
   private injector = inject(Injector);
 
-  userRole$ = this.state.getUserRole$();
-
-  openActionMenu(event: MouseEvent, userRole: CaRootFolderUserRoleObj): void {
-    const scenarioActionMenu = new CaScenarioActionMenu(this.injector, this.scenario().id, userRole, {
-      tags: this.tags,
+  openActionMenu(event: MouseEvent): void {
+    const scenarioActionMenu = new CaScenarioActionMenu(this.injector, this.scenario().id, this.userRole(), {
+      tags: this.tags(),
     });
 
-    scenarioActionMenu.openActionMenu(event).subscribe((action) => this.onScenarioAction(action));
+    scenarioActionMenu.openActionMenu(event, false).subscribe((action) => this.onScenarioAction(action));
   }
 
   private onScenarioAction(event: CaScenarioActionEvent): void {
-    if (event.action === 'moveToTrash') {
-      this.state.navigateToParentFolder();
+    if (this.eventState) {
+      this.eventState.emitHierarchyObjectEvent(event);
     }
   }
 }

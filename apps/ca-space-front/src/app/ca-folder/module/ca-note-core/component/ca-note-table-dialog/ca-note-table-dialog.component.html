@@ -1,0 +1,7 @@
+<fl-dialog-header>
+  {{ data.title | flTranslatableText | async }}
+</fl-dialog-header>
+
+<mat-dialog-content>
+  <ca-note-table [datasource]="data.notes"></ca-note-table>
+</mat-dialog-content>

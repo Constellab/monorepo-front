@@ -1,45 +1,51 @@
-<div class="card-container g-layout-col">
-  <div class="g-layout-row g-layout-start-center">
-    <ca-hierarchy-object-icon [style]="note.style" class="g-print-hide icon"></ca-hierarchy-object-icon>
-    <h1 class="title">{{ note.title }}</h1>
+<fl-async-section [object]="note$" class="section">
+  <ng-container *flSectionBody="note$ as note">
+    <div class="card-container g-layout-col">
+      <div class="g-layout-row g-layout-start-center">
+        <ca-hierarchy-object-icon [style]="note.style" class="g-print-hide icon"></ca-hierarchy-object-icon>
+        <h1 class="title">{{ note.title }}</h1>
 
-    <div class="g-print-hide g-layout-row g-layout-start-center">
-      <button
-        mat-stroked-button
-        type="button"
-        (click)="openScenariosListDialog()"
-        class="g-button-small button">
-        {{ 'scenarios' | translate }}
-        <mat-icon flIcon="scenario"></mat-icon>
-      </button>
+        <div class="g-print-hide g-layout-row g-layout-start-center">
+          @if (userRole().canEdit()) {
+            <button
+              mat-stroked-button
+              type="button"
+              (click)="openNoteInformation(note)"
+              class="g-button-small button">
+              {{ 'note_information' | translate }}
+              <mat-icon>info</mat-icon>
+            </button>
+          }
 
-      <button mat-stroked-button type="button" (click)="openNoteInformation()" class="g-button-small button">
-        {{ 'note_information' | translate }}
-        <mat-icon>info</mat-icon>
-      </button>
+          <button mat-stroked-button type="button" (click)="printNote()" class="g-button-small button">
+            {{ 'print_note' | translate }}
+            <mat-icon>print</mat-icon>
+          </button>
 
-      <button mat-stroked-button type="button" (click)="printNote()" class="g-button-small button">
-        {{ 'print_note' | translate }}
-        <mat-icon>print</mat-icon>
-      </button>
+          <button mat-icon-button (click)="openActionMenu(note, $event)">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+        </div>
+      </div>
 
-      <button mat-icon-button (click)="openActionMenu(note, $event)">
-        <mat-icon>more_vert</mat-icon>
-      </button>
+      <div class="g-print-hide">
+        @if (tags()) {
+          <fl-tag-list class="g-text-small" [tags]="tags()" [showNoTagMessage]="false"></fl-tag-list>
+        }
+
+        <!--  Validated info  -->
+        @if (note.isValidated) {
+          <ca-validated-object-info class="g-text-small" [object]="note"></ca-validated-object-info>
+        }
+
+        <!-- Sync info -->
+        <ca-sync-object-info class="g-text-small" [object]="note"></ca-sync-object-info>
+      </div>
+
+      <ca-note-content
+        [noteId]="note.id"
+        [hierarchyObjectToken]="hierarchyObjectToken()"
+        class="note-content"></ca-note-content>
     </div>
-  </div>
-
-  <div class="g-print-hide">
-    <fl-tag-list class="g-text-small" [tags]="tags" [showNoTagMessage]="false"></fl-tag-list>
-
-    <!--  Validated info  -->
-    @if (note.isValidated) {
-      <ca-validated-object-info class="g-text-small" [object]="note"></ca-validated-object-info>
-    }
-
-    <!-- Sync info -->
-    <ca-sync-object-info class="g-text-small" [object]="note"></ca-sync-object-info>
-  </div>
-
-  <ca-note-content [noteId]="note.id" class="note-content"></ca-note-content>
-</div>
+  </ng-container>
+</fl-async-section>

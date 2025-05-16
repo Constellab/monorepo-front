@@ -34,6 +34,7 @@
   "no_note": "No lab note",
   "note": "Lab note",
   "note_associated_scenarios": "Associated scenarios",
+  "scenario_associated_notes": "Associated lab notes",
   "resource": "Resource",
   "url": "URL",
   "print_note": "Print",
