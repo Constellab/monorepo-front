@@ -1,0 +1,55 @@
+<div class="left-panel" haLeftPanel>
+  <mat-icon class="button-close-left-panel" haSidenavButton></mat-icon>
+  <button
+    mat-stroked-button
+    type="button"
+    class="bt first-bt"
+    *haIsAuthenticated
+    (click)="openCreateTagDialog()">
+    <mat-icon>add_circle</mat-icon>
+    {{ 'create_tag' | translate }}
+  </button>
+
+  <mat-divider class="left-panel-separator" *haIsAuthenticated></mat-divider>
+
+  <button
+    mat-stroked-button
+    type="button"
+    class="bt my-tags-bt"
+    *haIsAuthenticated
+    (click)="selectSpaceFilter('my-tag-keys')"
+    [class]="isSpaceFilterSelected('my-tag-keys') ? 'bt-primary' : ''">
+    {{ 'my_tags' | translate }}
+  </button>
+</div>
+
+<div class="main-panel">
+  <fl-infinite-scroll [datasource]="tagsPaginated" infiniteMode="auto" class="list-section">
+    <div class="section-title">
+      <h1 class="title">{{ 'tags' | translate }}</h1>
+    </div>
+    <div class="search-bar-title">
+      <form type="submit" (ngSubmit)="search($event)">
+        <mat-form-field class="section-search-bar">
+          <input
+            matInput
+            [formControl]="labelFilterFormControl"
+            placeholder="{{ 'search_by_label' | translate }}" />
+          <button
+            mat-icon-button
+            matSuffix
+            (click)="search($event)"
+            [matTooltip]="'search' | translate"
+            aria-label="Search by label button">
+            <mat-icon>search</mat-icon>
+          </button>
+        </mat-form-field>
+      </form>
+    </div>
+    @for (tag of tagsPaginated | flDatasourceConnect | async; track tag.id) {
+      <a class="tag-result-card-div" [routerLink]="tag | haDetailRoute">
+        <co-community-tag-list-item [tagKey]="tag"></co-community-tag-list-item>
+      </a>
+    }
+  </fl-infinite-scroll>
+</div>

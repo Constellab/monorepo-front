@@ -1,0 +1,115 @@
+<fl-dialog-header>
+  {{ 'edit_tag_key' | translate }}
+</fl-dialog-header>
+
+<mat-dialog-content>
+  <form [formGroup]="formGp" id="tag-key-form" (ngSubmit)="submit()">
+    <div class="row-form-fields">
+      <mat-form-field>
+        <mat-label>{{ 'label' | translate }}</mat-label>
+        <input
+          matInput
+          formControlName="label"
+          [placeholder]="'label' | translate"
+          autocomplete="off"
+          required />
+        @if (formGp.get('label').hasError('required')) {
+          <mat-error>{{ 'label' | flErrorRequired }}</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field>
+        <span matTextPrefix>{{ technicalNamePrefix }}</span>
+        <input
+          matInput
+          [placeholder]="'technical_name' | translate"
+          formControlName="technicalName"
+          required
+          (change)="technicalNameManuallySet = true" />
+        @if (formGp.get('technicalName').hasError('required')) {
+          <mat-error>{{ 'technical_name' | flErrorRequired }}</mat-error>
+        }
+      </mat-form-field>
+    </div>
+
+    @if (dialogInput.mode === 'create') {
+      <mat-form-field class="g-full">
+        <mat-label>{{ 'type' | translate }}</mat-label>
+        <mat-select formControlName="type">
+          <mat-option *ngFor="let type of tagTypes" [value]="type">
+            {{ type | translate }}
+          </mat-option>
+        </mat-select>
+        @if (formGp.get('type').hasError('required')) {
+          <mat-error>{{ 'type' | flErrorRequired }}</mat-error>
+        }
+      </mat-form-field>
+    }
+
+    <div class="row-form-fields">
+      @if (formGp.get('type').value === 'number') {
+        <mat-form-field>
+          <mat-label>{{ 'unit' | translate }}</mat-label>
+          <input matInput formControlName="unit" [placeholder]="'unit' | translate" />
+        </mat-form-field>
+      }
+
+      <mat-form-field>
+        <mat-label>{{ 'scientific_name' | translate }}</mat-label>
+        <input matInput formControlName="scientificName" [placeholder]="'scientific_name' | translate" />
+      </mat-form-field>
+    </div>
+
+    @if (dialogInput.mode === 'create') {
+      <div>
+        <div>{{ 'visibility' | translate }}</div>
+        <mat-radio-group [formControl]="visibilityFormControl" [required]="true">
+          <div class="spaces-div">
+            <mat-radio-button labelPosition="before" value="PUBLIC" class="primary space-button">
+              {{ 'public' | translate }}
+            </mat-radio-button>
+            <mat-radio-button labelPosition="before" value="SPACE" class="primary space-button">
+              {{ 'space' | translate }}
+            </mat-radio-button>
+          </div>
+        </mat-radio-group>
+      </div>
+
+      @if (visibilityFormControl.value === 'SPACE') {
+        <div class="spaces-title">{{ 'your_spaces' | translate }}</div>
+        <mat-radio-group formControlName="space" [required]="true">
+          <div class="spaces-div">
+            @for (space of spaces; track space.id; let idx = $index) {
+              <mat-radio-button labelPosition="before" [value]="space.id" class="primary">
+                <div class="space-info">
+                  @if (space.photo) {
+                    <img [src]="getSpacePhoto(space.photo)" alt="Space photo" />
+                  }
+                  {{ space.name }}
+                </div>
+              </mat-radio-button>
+            }
+          </div>
+        </mat-radio-group>
+      }
+    }
+  </form>
+</mat-dialog-content>
+
+<div mat-dialog-actions>
+  <button
+    mat-flat-button
+    type="submit"
+    form="tag-key-form"
+    class="g-centered-forced primary"
+    [disabled]="!formGp.valid && !isLoading">
+    @if (dialogInput.mode === 'create') {
+      {{ 'create' | translate }}
+    } @else {
+      {{ 'save' | translate }}
+    }
+    @if (isLoading) {
+      <fl-button-loader></fl-button-loader>
+    }
+  </button>
+</div>

@@ -8,7 +8,6 @@
 
   <mat-divider class="left-panel-separator"></mat-divider>
 
-
   <button
     mat-stroked-button
     type="button"
@@ -49,14 +48,18 @@
             matInput
             [formControl]="titleFormControl"
             placeholder="{{ 'search_by_title' | translate }}" />
-          <button mat-icon-button matSuffix (click)="search($event)" [matTooltip]="'search' | translate"
-                  aria-label="Search by title button">
+          <button
+            mat-icon-button
+            matSuffix
+            (click)="search($event)"
+            [matTooltip]="'search' | translate"
+            aria-label="Search by title button">
             <mat-icon>search</mat-icon>
           </button>
         </mat-form-field>
       </form>
     </div>
-    @for (agent of agentsPaginated | flDatasourceConnect | async; track agent) {
+    @for (agent of agentsPaginated | flDatasourceConnect | async; track agent.id) {
       <a class="agent-result-card-div" [routerLink]="agent | haDetailRoute">
         <co-agent-list-item [agent]="agent"></co-agent-list-item>
       </a>

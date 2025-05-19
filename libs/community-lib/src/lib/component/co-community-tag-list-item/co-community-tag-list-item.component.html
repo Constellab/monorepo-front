@@ -1,0 +1,8 @@
+<co-community-list-item
+  [title]="tagKey().label"
+  [description]="tagKey().description?.getFirstParagraphsText()"
+  [user]="tagKey().createdBy"
+  [date]="!tagKey().publishedAt ? tagKey().createdAt : tagKey().publishedAt"
+  [space]="tagKey().space"
+  [showVisibility]="true">
+</co-community-list-item>

@@ -81,6 +81,8 @@ export class HaBigScreenMainComponent {
 
   iconsPageRoute = HaRouterService.getIconsRoute();
 
+  tagsListRoute = HaRouterService.getTagsListRoute();
+
   currentTheme: Signal<ClTheme> = this.themeState.getCurrentTheme();
 
   isDarkTheme: Signal<boolean> = this.themeState.isDarkTheme;

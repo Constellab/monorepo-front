@@ -1,0 +1,10 @@
+.additional-infos-fields-div {
+  margin-top: 0.5rem;
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+
+  * {
+    width: calc(50% - 0.2rem);
+  }
+}

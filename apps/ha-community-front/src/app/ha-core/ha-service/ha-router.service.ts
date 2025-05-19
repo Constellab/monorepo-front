@@ -126,7 +126,10 @@ export class HaRouterService {
     objectType: string,
     docParentUniqueName: string
   ): string {
-    return `${this.getBrickDocsPageRoute(parentBrickName, parentVersion)}technical-folder/${objectType}/${docParentUniqueName}`;
+    return `${this.getBrickDocsPageRoute(
+      parentBrickName,
+      parentVersion
+    )}technical-folder/${objectType}/${docParentUniqueName}`;
   }
 
   public static getBrickListVersionPageRoute(brickName: string, brickMajor: string): string {
@@ -149,6 +152,16 @@ export class HaRouterService {
 
   public static getUserProfileRoute(userId: string): string {
     return `${this.getProfileRoute()}${userId}`;
+  }
+
+  ///////////////////////////// TAGS //////////////////////////////////
+  public static getTagsListRoute(): string {
+    return '/tags/';
+  }
+
+  public static getTagPageRoute(id: string, technicalName: string): string {
+    console.log('TAGSSS', id, technicalName);
+    return `${this.getTagsListRoute()}${id}/${technicalName}`;
   }
 
   //////////////////////////// OTHERS ////////////////////////////////

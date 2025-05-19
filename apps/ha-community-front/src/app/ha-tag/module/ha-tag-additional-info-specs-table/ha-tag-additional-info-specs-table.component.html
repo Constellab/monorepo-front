@@ -1,0 +1,42 @@
+<mat-table mat-table [dataSource]="dataSource()">
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef>
+      {{ 'name' | translate }}
+    </mat-header-cell>
+    <mat-cell *matCellDef="let additionalInfoSpec">
+      <div>
+        {{ additionalInfoSpec.name }}
+      </div>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="optional">
+    <mat-header-cell *matHeaderCellDef>
+      {{ 'optional' | translate }}
+    </mat-header-cell>
+    <mat-cell *matCellDef="let additionalInfoSpec">
+      <div>
+        {{ additionalInfoSpec.optional ? ('yes' | translate) : ('no' | translate) }}
+      </div>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <mat-header-cell class="actions-cell" *matHeaderCellDef></mat-header-cell>
+    <mat-cell class="actions-cell" *matCellDef="let additionalInfoSpec">
+      <div class="actions-div">
+        <button
+          mat-icon-button
+          (click)="emitOpenEditInfoSpecDialog(additionalInfoSpec.name, additionalInfoSpec)"
+          [matTooltip]="'edit' | translate">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button class="warn" (click)="emitDeleteInfoSpec(additionalInfoSpec.name)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </mat-cell>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+</mat-table>

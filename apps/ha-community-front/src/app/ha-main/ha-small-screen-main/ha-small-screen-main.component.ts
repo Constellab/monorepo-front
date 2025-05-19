@@ -85,6 +85,8 @@ export class HaSmallScreenMainComponent implements OnInit {
 
   iconsPageRoute = HaRouterService.getIconsRoute();
 
+  tagsListRoute = HaRouterService.getTagsListRoute();
+
   currentRoute: HaSmallScreenPossibleRoute;
 
   currentTheme: Signal<ClTheme> = this.themeState.getCurrentTheme();
