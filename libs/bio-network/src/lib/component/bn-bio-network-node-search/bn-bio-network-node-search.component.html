@@ -7,10 +7,7 @@
     [autoActiveFirstOption]="true"
     (optionSelected)="selectObject()">
     <cdk-virtual-scroll-viewport itemSize="48" minBufferPx="200" maxBufferPx="400" class="virtual-scroller">
-      <mat-option
-        *cdkVirtualFor="let object of filteredObjects$ | async"
-        [value]="object"
-        class="g-mat-option-multi-line">
+      <mat-option *cdkVirtualFor="let object of filteredObjects$ | async" [value]="object">
         <div>{{ object.name }}</div>
         <div class="g-text-light g-text-small">{{ object.id }}</div>
       </mat-option>
