@@ -24,6 +24,7 @@ import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import { FlSearchModule } from '@monorepo/front-core-lib/fl-search';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
+import { CoDeprecatedTagComponent } from '@monorepo/community-lib';
 
 @Component({
   selector: 'ha-tag-values-table',
@@ -45,6 +46,7 @@ import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
     FlSearchModule,
     FlCorePipeModule,
     FlKeyValueModule,
+    CoDeprecatedTagComponent,
   ],
   templateUrl: './ha-tag-values-table.component.html',
   styleUrl: './ha-tag-values-table.component.scss',

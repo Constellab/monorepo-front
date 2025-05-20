@@ -4,7 +4,7 @@
       <div class="titles-div">
         <h1>{{ tagKey.label }}</h1>
         <div class="tech-name-div">
-          <h5>{{ tagKey.technicalName }}</h5>
+          <span class="tag-technical-name">{{ tagKey.technicalName }}</span>
           <button mat-icon-button (click)="onCopyTechnicalName()" class="g-button-icon-small">
             <mat-icon>copy</mat-icon>
           </button>
@@ -28,23 +28,28 @@
         @if (canEditTag) {
           <div class="can-edit-bts-div">
             @if (!tagKey.publishedAt) {
-              <button mat-stroked-button class="primary" (click)="publishTagKey()">
+              <button mat-stroked-button (click)="publishTagKey()" class="g-button-small">
                 <mat-icon>share</mat-icon>
                 {{ 'publish_tag' | translate }}
               </button>
             }
-            <button mat-stroked-button class="primary" (click)="openEditTagKeyDialog()">
-              <mat-icon>edit</mat-icon>
-              {{ 'edit_tag_key' | translate }}
-            </button>
-
-            <button
-              mat-icon-button
-              (click)="onDeleteTag()"
-              class="warn"
-              [matTooltip]="!tagKey.publishedAt ? ('delete_tag' | translate) : ('deprecate_tag' | translate)">
-              <mat-icon>delete</mat-icon>
-            </button>
+            @if (!tagKey.deprecated) {
+              <button mat-stroked-button (click)="openEditTagKeyDialog()" class="g-button-small">
+                <mat-icon>edit</mat-icon>
+                {{ 'edit_tag' | translate }}
+              </button>
+              <button
+                mat-icon-button
+                (click)="onDeleteTag()"
+                class="warn"
+                [matTooltip]="
+                  !tagKey.publishedAt ? ('delete_tag' | translate) : ('deprecate_tag' | translate)
+                ">
+                <mat-icon>delete</mat-icon>
+              </button>
+            } @else {
+              <co-deprecated-tag></co-deprecated-tag>
+            }
           </div>
         }
         <div class="tag-visibility-div">
@@ -52,7 +57,6 @@
         </div>
       </div>
     </div>
-
     <div class="tag-page-section">
       <div>
         <div class="card-header tag-div-header">
@@ -63,6 +67,11 @@
             <button
               mat-stroked-button
               class="g-button-small primary"
+              [matTooltip]="
+                descriptionFormControl.disabled
+                  ? ('edit_tag_description' | translate)
+                  : ('save_tag_description' | translate)
+              "
               (click)="onDescriptionEditorButtonClick()">
               <mat-icon>{{ descriptionFormControl.disabled ? 'edit' : 'save' }}</mat-icon>
               {{ descriptionFormControl.disabled ? ('edit' | translate) : ('save' | translate) }}
@@ -79,36 +88,37 @@
       </div>
     </div>
 
-    @if (tagKey.additionalInfosSpecs || (canEditTag && !isBooleanType)) {
-      <div class="additional-info-specs-div tag-page-section">
-        <div class="card-header tag-div-header">
-          <div class="header-title-div">
-            {{ 'additional_info_specs' | translate }}
-          </div>
-          @if (canEditTag) {
-            <button
-              mat-stroked-button
-              class="g-button-small primary"
-              (click)="openAddAdditionalInfoSpecDialog()">
-              <mat-icon>edit</mat-icon>
-              {{ 'edit' | translate }}
-            </button>
-          }
-        </div>
-        @if ((tagKey.additionalInfosSpecs | flObjectKeys).length > 0) {
-          <ha-tag-additional-info-specs-table
-            [dataSource]="tagAdditionalInfosSpecsDatasource"
-            (openEditInfoSpecDialog)="openEditAdditionalInfoSpecDialog($event)"
-            (deleteInfoSpec)="openConfirmDeleteAdditionalInfoSpecDialog($event)">
-          </ha-tag-additional-info-specs-table>
-        }
-      </div>
-    }
+    <!--    @if (tagKey.additionalInfosSpecs || (canEditTag && !isBooleanType)) {-->
+    <!--      <div class="additional-info-specs-div tag-page-section">-->
+    <!--        <div class="card-header tag-div-header">-->
+    <!--          <div class="header-title-div">-->
+    <!--            {{ 'additional_info_specs' | translate }}-->
+    <!--          </div>-->
+    <!--          @if (canEditTag && !tagKey.deprecated) {-->
+    <!--            <button-->
+    <!--              mat-stroked-button-->
+    <!--              class="g-button-small primary"-->
+    <!--              [matTooltip]="'add_additional_info_spec' | translate"-->
+    <!--              (click)="openAddAdditionalInfoSpecDialog()">-->
+    <!--              <mat-icon>add</mat-icon>-->
+    <!--              {{ 'add' | translate }}-->
+    <!--            </button>-->
+    <!--          }-->
+    <!--        </div>-->
+    <!--        @if ((tagKey.additionalInfosSpecs | flObjectKeys).length > 0) {-->
+    <!--          <ha-tag-additional-info-specs-table-->
+    <!--            [dataSource]="tagAdditionalInfosSpecsDatasource"-->
+    <!--            (openEditInfoSpecDialog)="openEditAdditionalInfoSpecDialog($event)"-->
+    <!--            (deleteInfoSpec)="openConfirmDeleteAdditionalInfoSpecDialog($event)">-->
+    <!--          </ha-tag-additional-info-specs-table>-->
+    <!--        }-->
+    <!--      </div>-->
+    <!--    }-->
 
     <div class="tag-values-div tag-page-section">
       <div class="tag-div-header tag-value-div-header">
         <h4>{{ 'tag_values' | translate }}</h4>
-        @if (!isBooleanType && canEditTag) {
+        @if (!isBooleanType && canEditTag && !tagKey.deprecated) {
           <button
             mat-icon-button
             (click)="openCreateTagValueDialog()"

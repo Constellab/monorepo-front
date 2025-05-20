@@ -32,6 +32,7 @@ const coCommunityLibI18nFr: FlLangTranslation = {
     here: 'ici',
     or_chose_a_community_icon: 'Ou choisir une icône de Community dans la liste ci-dessous',
     save: 'Enregistrer',
+    deprecated: 'Déprécié',
   },
 };
 
@@ -65,6 +66,7 @@ const coCommunityLibI18nEn: FlLangTranslation = {
     here: 'here',
     or_chose_a_community_icon: 'Or chose a Community Icon in the list below',
     save: 'Save',
+    deprecated: 'Deprecated',
   },
 };
 export const coCommunityLibI18n: FlTranslateObject = {

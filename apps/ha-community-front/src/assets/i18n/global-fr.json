@@ -451,7 +451,7 @@
   "economy": "Économique",
   "indexing_technique": "Technique d'indexation",
   "create_tag": "Créer un tag",
-  "edit_tag_key": "Éditer la clé du tag",
+  "edit_tag": "Éditer le tag",
   "label": "Label",
   "technical_name": "Nom technique",
   "text": "Texte",
@@ -495,7 +495,12 @@
   "deprecate_tag_value_success": "Valeur du tag dépréciée avec succès",
   "deprecated": "Déprécié",
   "tag_key_created": "Clé du tag créée",
+  "tag_key_updated": "Clé du tag mise à jour",
   "tag_value_pattern_error": "La valeur doit être un {{type}}.",
   "state": "État",
-  "tag-additional-param-spec-created": "Spécification de paramètre supplémentaire créée"
+  "tag-additional-param-spec-created": "Spécification de paramètre supplémentaire créée",
+  "unit": "Unité",
+  "edit_tag_description": "Éditer la description du tag",
+  "save_tag_description": "Sauvegarder la description du tag",
+  "add": "Ajouter"
 }

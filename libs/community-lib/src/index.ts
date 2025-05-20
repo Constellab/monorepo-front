@@ -19,6 +19,7 @@ export * from './lib/component/co-community-icon-select-dialog/co-community-icon
 export * from './lib/component/co-icon-list/co-icon-list.component';
 export * from './lib/component/co-community-app-list-item/co-community-app-list-item.component';
 export * from './lib/component/co-community-tag-list-item/co-community-tag-list-item.component';
+export * from './lib/component/co-deprecated-tag/co-deprecated-tag.component';
 
 // Helpers
 export * from './lib/helper/co-community-helper.service';

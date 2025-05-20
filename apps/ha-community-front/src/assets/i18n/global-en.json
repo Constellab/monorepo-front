@@ -449,7 +449,7 @@
   "economy": "Economy",
   "indexing_technique": "Indexing technique",
   "create_tag": "Create tag",
-  "edit_tag_key": "Edit tag key",
+  "edit_tag": "Edit tag",
   "label": "Label",
   "technical_name": "Technical name",
   "text": "Text",
@@ -492,7 +492,12 @@
   "deprecate_tag_value_success": "Tag value deprecated successfully",
   "deprecated": "Deprecated",
   "tag_key_created": "Tag key created",
+  "tag_key_updated": "Tag key updated",
   "tag_value_pattern_error": "Tag value must be a(n) {{type}}.",
   "state": "State",
-  "tag-additional-param-spec-created": "Tag additional param spec created"
+  "tag-additional-param-spec-created": "Tag additional param spec created",
+  "unit": "Unit",
+  "edit_tag_description": "Edit tag description",
+  "save_tag_description": "Save tag description",
+  "add": "Add"
 }

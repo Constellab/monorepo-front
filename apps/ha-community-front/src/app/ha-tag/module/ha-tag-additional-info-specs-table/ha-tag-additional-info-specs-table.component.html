@@ -39,7 +39,11 @@
     <mat-header-cell *matHeaderCellDef class="g-table-icon-button-cell"></mat-header-cell>
     <mat-cell class="g-table-icon-button-cell" *matCellDef="let additionalInfoSpec">
       <div class="actions-div">
-        <button mat-icon-button class="warn" (click)="emitDeleteInfoSpec(additionalInfoSpec.name)">
+        <button
+          mat-icon-button
+          class="warn"
+          (click)="emitDeleteInfoSpec(additionalInfoSpec.name)"
+          [matTooltip]="'delete' | translate">
           <mat-icon>delete</mat-icon>
         </button>
       </div>

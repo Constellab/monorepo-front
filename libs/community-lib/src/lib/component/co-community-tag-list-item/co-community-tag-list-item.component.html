@@ -7,9 +7,7 @@
   [showVisibility]="true">
   <div leftSide>
     @if (tagKey().deprecated) {
-      <div class="deprecate-tag g-text-small">
-        {{ 'deprecated' | translate }}
-      </div>
+      <co-deprecated-tag></co-deprecated-tag>
     }
   </div>
 </co-community-list-item>

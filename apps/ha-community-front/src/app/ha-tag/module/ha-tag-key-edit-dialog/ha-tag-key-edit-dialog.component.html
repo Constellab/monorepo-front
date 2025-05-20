@@ -1,5 +1,5 @@
 <fl-dialog-header>
-  {{ 'edit_tag_key' | translate }}
+  {{ 'edit_tag' | translate }}
 </fl-dialog-header>
 
 <mat-dialog-content>
@@ -37,7 +37,7 @@
         <mat-label>{{ 'type' | translate }}</mat-label>
         <mat-select formControlName="type">
           <mat-option *ngFor="let type of tagTypes" [value]="type">
-            {{ type | translate }}
+            {{ type }}
           </mat-option>
         </mat-select>
         @if (formGp.get('type').hasError('required')) {
@@ -47,7 +47,7 @@
     }
 
     <div class="row-form-fields">
-      @if (formGp.get('type').value === 'number') {
+      @if (formGp.get('type').value === 'INTEGER' || formGp.get('type').value === 'FLOAT') {
         <mat-form-field>
           <mat-label>{{ 'unit' | translate }}</mat-label>
           <input matInput formControlName="unit" [placeholder]="'unit' | translate" />

@@ -37,7 +37,12 @@ import {
 } from '../../../ha-core/ha-model/ha-entities/ha-tag-value.class';
 import { HaTagValuesTableComponent } from '../ha-tag-values-table/ha-tag-values-table.component';
 import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
-import { CoCommunityLibModule, CoTagKeyEditAdditionalInfoSpec, CoTagKeyType } from '@monorepo/community-lib';
+import {
+  CoCommunityLibModule,
+  CoDeprecatedTagComponent,
+  CoTagKeyEditAdditionalInfoSpec,
+  CoTagKeyType,
+} from '@monorepo/community-lib';
 import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
@@ -63,6 +68,7 @@ import { FlClipboardService } from '@monorepo/front-core-lib/fl-snack-bar';
     RouterLink,
     FlKeyValueModule,
     CoCommunityLibModule,
+    CoDeprecatedTagComponent,
   ],
   templateUrl: './ha-tag-page.component.html',
   styleUrl: './ha-tag-page.component.scss',
@@ -275,7 +281,7 @@ export class HaTagPageComponent implements OnInit {
     const input: FlConfirmDialogInput = {
       title: !this.tagKey.publishedAt ? 'delete_tag' : 'deprecate_tag',
       content: !this.tagKey.publishedAt ? 'delete_tag_content' : 'deprecate_tag_content',
-      successMessage: !this.tagKey.publishedAt ? 'delete_tag_success' : 'deprecate_tag_content',
+      successMessage: !this.tagKey.publishedAt ? 'delete_tag_success' : 'deprecate_tag_success',
       observable: this.tagService.deleteTagKey(this.tagKey.id),
     };
 
@@ -283,7 +289,7 @@ export class HaTagPageComponent implements OnInit {
       .openConfirmDialog(input)
       .afterClosed()
       .subscribe((res) => {
-        if (res.choice && res.result) {
+        if (res.choice && res.result && !res.result.deprecated) {
           this.httpRedirectionService.redirectTo(HaRouterService.getTagsListRoute());
         }
       });
