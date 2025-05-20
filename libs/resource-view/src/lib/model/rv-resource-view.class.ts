@@ -1,12 +1,12 @@
-import { RvTechnicalInfo } from './rv-technical-info.class';
-import { RvResourceViewBoxPlot } from './rv-box-plot.class';
-import { RvResourceViewHistogram } from './rv-histogram.class';
-import { RvResourceViewBasicPlot2d } from './rv-basic-plot-2d.class';
-import { RvResourceVennDiagram } from './rv-venn-diagram.class';
-import { RvResourceViewHeatMap } from './rv-heat-map.class';
-import { RvResourceViewTable } from './rv-table.class';
-import { RvResourceViewVulcanoPlot } from './rv-vulcano-plot.class';
 import { FlPlotlyData } from '@monorepo/front-core-lib/fl-plotly';
+import { RvResourceViewBasicPlot2d } from './rv-basic-plot-2d.class';
+import { RvResourceViewBoxPlot } from './rv-box-plot.class';
+import { RvResourceViewHeatMap } from './rv-heat-map.class';
+import { RvResourceViewHistogram } from './rv-histogram.class';
+import { RvResourceViewTable } from './rv-table.class';
+import { RvTechnicalInfo } from './rv-technical-info.class';
+import { RvResourceVennDiagram } from './rv-venn-diagram.class';
+import { RvResourceViewVulcanoPlot } from './rv-vulcano-plot.class';
 
 // list of available view type
 export type RvResourceViewType =
@@ -28,6 +28,7 @@ export type RvResourceViewType =
   | 'venn-diagram-view'
   | 'heatmap-view'
   | 'html-view'
+  | 'iframe-view'
   | 'markdown-view'
   | 'plotly-view'
   | 'streamlit-view'
@@ -74,6 +75,13 @@ export interface RvResourceViewHTML extends RvResourceViewBase {
   type: 'html-view';
   data: {
     html: string;
+  };
+}
+
+export interface RvResourceViewIframe extends RvResourceViewBase {
+  type: 'iframe-view';
+  data: {
+    src: string;
   };
 }
 

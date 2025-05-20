@@ -1,3 +1,4 @@
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { FlFormInputsManagerConfig } from '@monorepo/front-core-lib/fl-form-inputs-manager';
 import {
   FlSearchConverter,
@@ -6,14 +7,13 @@ import {
   FlSearchSortCriteriaConverter,
 } from '@monorepo/front-core-lib/fl-search';
 import { FlTag } from '@monorepo/front-core-lib/fl-tag';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Type } from 'class-transformer';
 import { LiFolder } from '../entities/li-folder.class';
-import { LiResourceOrigin } from '../entities/resource/li-resource.entity';
 import { LiScenario } from '../entities/li-scenario.entity';
-import { LiSearchConverter } from '../global/li-search-converter.class';
 import { LiTypeEntity } from '../entities/li-type/li-type.entity';
 import { LiUser } from '../entities/li-user.entity';
-import { Type } from 'class-transformer';
+import { LiResourceOrigin } from '../entities/resource/li-resource.entity';
+import { LiSearchConverter } from '../global/li-search-converter.class';
 
 /**
  * Format of the data for the Advanced search form of the resource
@@ -55,6 +55,7 @@ export class LiResourceSearch {
    * Const to configure Form Input Manager for advanced search
    */
   public static searchManagerConfig: FlFormInputsManagerConfig<LiResourceSearchFields> = {
+    name: 'li.name',
     resourceTypingName: 'li.resource_type',
     resourceTypingNames: 'li.resource_type',
     tags: 'flTag.tags',

@@ -1,18 +1,19 @@
-import { RvResourceViewType } from './rv-resource-view.class';
 import { ComponentType } from '@angular/cdk/overlay';
-import { RvViewJsonComponent } from '../component/rv-view-json/rv-view-json.component';
-import { RvViewChart2dComponent } from '../component/rv-view-chart-2d/rv-view-chart2d.component';
-import { RvViewMultiViewsComponent } from '../component/rv-view-multi-views/rv-view-multi-views.component';
-import { RvResourceViewDirective } from './rv-resource-view.directive';
-import { RvViewNetworkComponent } from '../component/rv-view-network/rv-view-network.component';
-import { RvViewSpreadsheetComponent } from '../component/rv-view-spreadsheet/rv-view-spreadsheet.component';
-import { RvViewTextComponent } from '../component/rv-view-text/rv-view-text.component';
-import { RvViewImageComponent } from '../component/rv-view-image/rv-view-image.component';
-import { RvViewHtmlComponent } from '../component/rv-view-html/rv-view-html.component';
-import { RvViewStreamlitComponent } from '../component/rv-view-streamlit/rv-view-streamlit.component';
-import { RvViewPlotlyComponent } from '../component/rv-view-plotly/rv-view-plotly.component';
 import { RvViewAudioComponent } from '../component/rv-view-audio/rv-view-audio.component';
+import { RvViewChart2dComponent } from '../component/rv-view-chart-2d/rv-view-chart2d.component';
+import { RvViewHtmlComponent } from '../component/rv-view-html/rv-view-html.component';
+import { RvViewIframeComponent } from '../component/rv-view-iframe/rv-view-iframe.component';
+import { RvViewImageComponent } from '../component/rv-view-image/rv-view-image.component';
+import { RvViewJsonComponent } from '../component/rv-view-json/rv-view-json.component';
 import { RvViewMarkdownComponent } from '../component/rv-view-markdown/rv-view-markdown.component';
+import { RvViewMultiViewsComponent } from '../component/rv-view-multi-views/rv-view-multi-views.component';
+import { RvViewNetworkComponent } from '../component/rv-view-network/rv-view-network.component';
+import { RvViewPlotlyComponent } from '../component/rv-view-plotly/rv-view-plotly.component';
+import { RvViewSpreadsheetComponent } from '../component/rv-view-spreadsheet/rv-view-spreadsheet.component';
+import { RvViewStreamlitComponent } from '../component/rv-view-streamlit/rv-view-streamlit.component';
+import { RvViewTextComponent } from '../component/rv-view-text/rv-view-text.component';
+import { RvResourceViewType } from './rv-resource-view.class';
+import { RvResourceViewDirective } from './rv-resource-view.directive';
 
 // Information of the view type
 export interface RvResourceViewTypeInfo {
@@ -36,6 +37,9 @@ export const rvDefaultViewTypeInfos: Record<RvResourceViewType, RvResourceViewTy
   },
   'html-view': {
     viewComponent: RvViewHtmlComponent,
+  },
+  'iframe-view': {
+    viewComponent: RvViewIframeComponent,
   },
   'markdown-view': {
     viewComponent: RvViewMarkdownComponent,

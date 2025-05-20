@@ -1,3 +1,4 @@
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { FlFormInputsManagerConfig } from '@monorepo/front-core-lib/fl-form-inputs-manager';
 import {
   FlSearchConverter,
@@ -6,13 +7,12 @@ import {
   FlSearchSortCriteriaConverter,
 } from '@monorepo/front-core-lib/fl-search';
 import { FlTag } from '@monorepo/front-core-lib/fl-tag';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Type } from 'class-transformer';
 import { LiFolder } from '../entities/li-folder.class';
 import { LiScenarioCreationType, LiScenarioStatus } from '../entities/li-scenario.entity';
-import { LiSearchConverter } from '../global/li-search-converter.class';
 import { LiTypeEntity } from '../entities/li-type/li-type.entity';
 import { LiUser } from '../entities/li-user.entity';
-import { Type } from 'class-transformer';
+import { LiSearchConverter } from '../global/li-search-converter.class';
 
 export class LiScenarioSearchFields {
   title: string;
@@ -46,6 +46,7 @@ export class LiScenarioSearch {
    * Const to configure Form Input Manager for advanced search
    */
   public static searchManagerConfig: FlFormInputsManagerConfig<LiScenarioSearchFields> = {
+    title: 'li.title',
     creationTypes: 'li.scenario_creation_type',
     tags: 'flTag.tags',
     folder: 'li.folder',
