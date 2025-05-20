@@ -491,5 +491,8 @@
   "deprecate_tag_value_content": "Are you sure you want to deprecate this tag value ?",
   "deprecate_tag_value_success": "Tag value deprecated successfully",
   "deprecated": "Deprecated",
-  "tag_key_created": "Tag key created"
+  "tag_key_created": "Tag key created",
+  "tag_value_pattern_error": "Tag value must be a(n) {{type}}.",
+  "state": "State",
+  "tag-additional-param-spec-created": "Tag additional param spec created"
 }

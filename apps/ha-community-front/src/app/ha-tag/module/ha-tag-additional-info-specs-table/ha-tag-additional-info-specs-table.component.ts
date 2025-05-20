@@ -45,7 +45,7 @@ export class HaTagAdditionalInfoSpecsTableComponent {
   openEditInfoSpecDialog = output<CoTagKeyEditAdditionalInfoSpec>();
   deleteInfoSpec = output<string>();
 
-  displayedColumns = ['name', 'optional', 'actions'];
+  displayedColumns = ['name', 'optional', 'edit', 'delete'];
 
   emitOpenEditInfoSpecDialog(name: string, infoSpec: CoTagKeyAdditionalInfoSpec): void {
     this.openEditInfoSpecDialog.emit({

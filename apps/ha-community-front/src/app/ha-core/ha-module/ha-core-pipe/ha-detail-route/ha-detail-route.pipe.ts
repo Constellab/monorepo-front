@@ -27,7 +27,6 @@ export class HaDetailRoutePipe implements PipeTransform {
     }
 
     if (value instanceof HaTagKey) {
-      console.log('V', value);
       return HaRouterService.getTagPageRoute(value.id, ClStringHelper.getCleanUrlPath(value.technicalName));
     }
 

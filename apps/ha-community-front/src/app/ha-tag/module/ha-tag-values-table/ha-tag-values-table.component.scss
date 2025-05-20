@@ -1,19 +1,7 @@
-.actions-div {
-  display: flex;
-  flex-direction: row;
-  justify-content: end;
-  gap: 0.25rem;
-}
-
-.actions-cell {
-  width: fit-content;
-  flex: initial !important;
-  padding: 0 0.25rem;
-}
-
 .deprecate-tag {
   padding: 0.6em 0.4em;
   border-radius: 0.5rem;
   background-color: var(--accent-color);
   color: white;
+  width: fit-content;
 }

@@ -14,6 +14,8 @@
         required />
       @if (formGp.get('value').hasError('required')) {
         <mat-error>{{ 'value' | flErrorRequired }}</mat-error>
+      } @else if (formGp.get('value').hasError('pattern')) {
+        <mat-error>{{ 'tag_value_pattern_error' | translate: { type: tagKeyType } }}</mat-error>
       }
     </mat-form-field>
 

@@ -5,7 +5,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { first } from 'rxjs';
 import { HaHttpRedirectionService } from '../../../ha-core/ha-service/ha-http-redirection.service';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
-import { TeBasicConfig, TeRichText, TeTextEditorModule } from '@monorepo/text-editor';
+import { TeCompleteConfig, TeRichText, TeTextEditorModule } from '@monorepo/text-editor';
 import { NgClass } from '@angular/common';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -25,9 +25,9 @@ import {
 } from '../ha-tag-value-edit-dialog/ha-tag-value-edit-dialog.component';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import {
-  HaEditAdditionalInfoSpecDialogComponent,
   HaAddAdditionalInfoSpecDialogInput,
   HaAddAdditionalInfoSpecDialogInputData,
+  HaEditAdditionalInfoSpecDialogComponent,
 } from '../ha-edit-additional-info-spec-dialog/ha-edit-additional-info-spec-dialog.component';
 import { HaTagAdditionalInfoSpecsTableComponent } from '../ha-tag-additional-info-specs-table/ha-tag-additional-info-specs-table.component';
 import {
@@ -76,7 +76,7 @@ export class HaTagPageComponent implements OnInit {
   private clipboardService = inject(FlClipboardService);
 
   tagKey: HaTagKey;
-  textEditorConfig = new TeBasicConfig();
+  textEditorConfig = new TeCompleteConfig();
 
   canEditTag = false;
   descriptionFormControl = new FormControl<TeRichText>(new TeRichText());
@@ -212,7 +212,7 @@ export class HaTagPageComponent implements OnInit {
       .afterClosed()
       .subscribe((res) => {
         if (res.choice && res.result) {
-          this.tagKey = res.result;
+          this.setTagKey(res.result);
         }
       });
   }

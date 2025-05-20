@@ -12,7 +12,7 @@
 
   <ng-container matColumnDef="shortDescription">
     <mat-header-cell *matHeaderCellDef>
-      {{ 'short_description' | translate }}
+      <span>{{ 'short_description' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let tagValue">
       <div>
@@ -23,42 +23,66 @@
 
   <ng-container matColumnDef="additionalInfos">
     <mat-header-cell *matHeaderCellDef>
-      {{ 'additional_infos' | translate }}
+      <span>{{ 'additional_infos' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let tagValue">
       <div>
-        @if (tagValue.additionalInfos) {
-          {{ JSON.stringify(tagValue.additionalInfos) }}
+        @if (tagValue.additionalInfos && (tagValue.additionalInfos | flObjectKeys).length > 0) {
+          @for (additionalInfo of tagValue.additionalInfos | flObjectKeys; track additionalInfo) {
+            @if (tagValue.additionalInfos[additionalInfo]) {
+              <fl-key-value>
+                <fl-key>{{ additionalInfo }}</fl-key>
+                {{ tagValue.additionalInfos[additionalInfo] }}
+              </fl-key-value>
+            }
+          }
         }
       </div>
     </mat-cell>
   </ng-container>
 
-  <ng-container matColumnDef="actions">
-    <mat-header-cell *matHeaderCellDef class="actions-cell"> </mat-header-cell>
-    <mat-cell *matCellDef="let tagValue" class="actions-cell">
-      <div class="actions-div">
-        @if (!tagValue.deprecated) {
-          @if (!hideEditButton()) {
-            <button mat-icon-button (click)="emitEditTagValue(tagValue)" [matTooltip]="'edit' | translate">
-              <mat-icon>edit</mat-icon>
-            </button>
-          }
-          @if (!hideDeleteButton()) {
-            <button
-              mat-icon-button
-              class="warn"
-              (click)="emitDeleteTagValue(tagValue)"
-              [matTooltip]="
-                !tagValue.tagKey.publishedAt ? ('delete' | translate) : ('deprecate_tag_value' | translate)
-              ">
-              <mat-icon>delete</mat-icon>
-            </button>
-          }
-        } @else {
-          <div class="deprecate-tag accent">
+  <ng-container matColumnDef="deprecated">
+    <mat-header-cell *matHeaderCellDef
+      ><span>{{ 'state' | translate }}</span></mat-header-cell
+    >
+    <mat-cell *matCellDef="let tagValue">
+      <div>
+        @if (tagValue.deprecated) {
+          <div class="deprecate-tag">
             {{ 'deprecated' | translate }}
           </div>
+        }
+      </div>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="edit">
+    <mat-header-cell *matHeaderCellDef class="g-table-icon-button-cell"></mat-header-cell>
+    <mat-cell *matCellDef="let tagValue" class="g-table-icon-button-cell">
+      <div>
+        @if (!tagValue.deprecated && !hideEditButton()) {
+          <button mat-icon-button (click)="emitEditTagValue(tagValue)" [matTooltip]="'edit' | translate">
+            <mat-icon>edit</mat-icon>
+          </button>
+        }
+      </div>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="delete">
+    <mat-header-cell *matHeaderCellDef class="g-table-icon-button-cell"> </mat-header-cell>
+    <mat-cell *matCellDef="let tagValue" class="g-table-icon-button-cell">
+      <div>
+        @if (!tagValue.deprecated && !hideDeleteButton()) {
+          <button
+            mat-icon-button
+            class="warn"
+            (click)="emitDeleteTagValue(tagValue)"
+            [matTooltip]="
+              !tagValue.tagKey.publishedAt ? ('delete' | translate) : ('deprecate_tag_value' | translate)
+            ">
+            <mat-icon>delete</mat-icon>
+          </button>
         }
       </div>
     </mat-cell>

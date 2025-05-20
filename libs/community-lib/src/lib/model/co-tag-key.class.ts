@@ -4,10 +4,11 @@ import { CoSpace } from './co-space.class';
 import { CoUser } from './co-user.class';
 
 export enum CoTagKeyType {
-  TEXT = 'text',
-  NUMBER = 'number',
-  BOOLEAN = 'boolean',
-  DATE = 'date',
+  STRING = 'STRING',
+  INT = 'INTEGER',
+  FLOAT = 'FLOAT',
+  BOOLEAN = 'BOOLEAN',
+  DATETIME = 'DATETIME',
 }
 
 export interface CoTagKey {

@@ -12,7 +12,7 @@ import { MatInput } from '@angular/material/input';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { MatButton } from '@angular/material/button';
-import { CoTagKeyAdditionalInfosSpecs } from '@monorepo/community-lib';
+import { CoTagKeyAdditionalInfosSpecs, CoTagKeyType } from '@monorepo/community-lib';
 
 export type HaTagValueEditDialogInput = FlFormDialogInput<Partial<HaTagValueEditDTO>>;
 
@@ -40,12 +40,14 @@ export class HaTagValueEditDialogComponent
   private tagService = inject(HaTagService);
   dialogInput: HaTagValueEditDialogInput = inject(MAT_DIALOG_DATA);
   additionalInfoSpecs: CoTagKeyAdditionalInfosSpecs;
+  tagKeyType: CoTagKeyType;
 
   constructor() {
     super();
   }
 
   ngOnInit(): void {
+    this.tagKeyType = this.dialogInput.object.tagKey.type;
     this.init();
     this.formGp.controls['tagKey'].patchValue(this.dialogInput.object.tagKey);
     if (this.dialogInput.mode === 'update') {
@@ -56,7 +58,7 @@ export class HaTagValueEditDialogComponent
   buildForm(): UntypedFormGroup {
     const formGp: FormGroup = new FormBuilder().group({
       id: [null],
-      value: [null, Validators.required],
+      value: [null, [Validators.required, this.getValueValidators()]],
       shortDescription: [null],
       additionalInfos: [null],
       tagKey: [null, Validators.required],
@@ -98,5 +100,22 @@ export class HaTagValueEditDialogComponent
       formValue.additionalInfos[key] = jsonFormValue[key];
     }
     return formValue;
+  }
+
+  private getValueValidators(): Validators {
+    switch (this.tagKeyType) {
+      case CoTagKeyType.STRING:
+        return Validators.pattern(/^[\s\S]*$/);
+      case CoTagKeyType.INT:
+        return Validators.pattern(/^-?\d+$/);
+      case CoTagKeyType.FLOAT:
+        return Validators.pattern(/^-?\d+(\.\d+)?$/);
+      case CoTagKeyType.BOOLEAN:
+        return Validators.pattern(/^(true|false)$/);
+      case CoTagKeyType.DATETIME:
+        return Validators.pattern(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z$/);
+      default:
+        return Validators.nullValidator;
+    }
   }
 }

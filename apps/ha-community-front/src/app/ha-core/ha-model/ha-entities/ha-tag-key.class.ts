@@ -19,7 +19,7 @@ export class HaTagKey implements CoTagKey {
   publishedAt?: DateTime;
   unit?: string;
   @TeRichTextTransform()
-  description?: TeRichText;
+  description: TeRichText;
   scientificName?: string;
   additionalInfosSpecs?: CoTagKeyAdditionalInfosSpecs;
   @Type(() => HaSpace)

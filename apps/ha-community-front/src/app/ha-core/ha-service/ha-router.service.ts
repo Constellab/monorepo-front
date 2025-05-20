@@ -160,7 +160,6 @@ export class HaRouterService {
   }
 
   public static getTagPageRoute(id: string, technicalName: string): string {
-    console.log('TAGSSS', id, technicalName);
     return `${this.getTagsListRoute()}${id}/${technicalName}`;
   }
 

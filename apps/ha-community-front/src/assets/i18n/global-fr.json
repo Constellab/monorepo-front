@@ -494,5 +494,8 @@
   "deprecate_tag_value_content": "Êtes-vous sûr de vouloir déprécier la valeur du tag ?",
   "deprecate_tag_value_success": "Valeur du tag dépréciée avec succès",
   "deprecated": "Déprécié",
-  "tag_key_created": "Clé du tag créée"
+  "tag_key_created": "Clé du tag créée",
+  "tag_value_pattern_error": "La valeur doit être un {{type}}.",
+  "state": "État",
+  "tag-additional-param-spec-created": "Spécification de paramètre supplémentaire créée"
 }

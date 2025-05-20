@@ -5,4 +5,11 @@
   [date]="!tagKey().publishedAt ? tagKey().createdAt : tagKey().publishedAt"
   [space]="tagKey().space"
   [showVisibility]="true">
+  <div leftSide>
+    @if (tagKey().deprecated) {
+      <div class="deprecate-tag g-text-small">
+        {{ 'deprecated' | translate }}
+      </div>
+    }
+  </div>
 </co-community-list-item>
