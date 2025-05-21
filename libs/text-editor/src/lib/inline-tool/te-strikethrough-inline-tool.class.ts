@@ -1,5 +1,5 @@
-import { InlineTool, SanitizerConfig } from '@editorjs/editorjs';
 import { IconStrikethrough } from '@codexteam/icons';
+import { InlineTool, SanitizerConfig } from '@editorjs/editorjs';
 
 export class TeStrikethroughInlineTool implements InlineTool {
   /**
@@ -22,6 +22,7 @@ export class TeStrikethroughInlineTool implements InlineTool {
    */
   public static get sanitize(): SanitizerConfig {
     return {
+      strike: {},
       s: {},
     } as SanitizerConfig;
   }
