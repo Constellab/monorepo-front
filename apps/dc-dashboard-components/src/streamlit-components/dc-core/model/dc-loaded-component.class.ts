@@ -11,7 +11,7 @@ export class DcLoadedComponent {
   private subscription: Subscription;
 
   constructor(
-    public readonly id: string,
+    public id: string,
     private element: HTMLElement,
     private componentRef: ComponentRef<DcDynamicComponent>,
     private componentEvent: DcDynamicComponentEvent
@@ -61,5 +61,7 @@ export class DcLoadedComponent {
       this.subscription.unsubscribe();
       this.subscription = undefined;
     }
+    // clear the id to indicate that the component is destroyed
+    this.id = undefined;
   }
 }

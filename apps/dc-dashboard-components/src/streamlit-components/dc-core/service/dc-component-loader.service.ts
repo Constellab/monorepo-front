@@ -93,7 +93,13 @@ export class DcComponentLoaderService implements OnDestroy {
       loadedComponent.listenToElementRemoval();
     }
     this.app.attachView(componentRef.hostView);
-    this.components.push(loadedComponent);
+    this.addComponent(loadedComponent);
+  }
+
+  private addComponent(component: DcLoadedComponent): void {
+    this.components.push(component);
+    // refresh the list of components
+    this.components = this.components.filter((c) => c.id != null);
   }
 
   private async getComponentType(
