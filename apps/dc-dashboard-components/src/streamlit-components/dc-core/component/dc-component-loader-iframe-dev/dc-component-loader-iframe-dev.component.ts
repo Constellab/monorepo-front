@@ -63,11 +63,6 @@ export class DcComponentLoaderIframeDevComponent implements OnInit {
     // don't listen to element removal because we are in the iframe
     // so we don't have access to the main app and when the iframe is removed
     // the component is removed too
-    await this.componentLoaderService.createOrUpdateComponent(
-      data,
-      this.div.nativeElement,
-      streamlitEvent,
-      false
-    );
+    await this.componentLoaderService.createOrUpdateComponent(data, this.div.nativeElement, streamlitEvent);
   }
 }

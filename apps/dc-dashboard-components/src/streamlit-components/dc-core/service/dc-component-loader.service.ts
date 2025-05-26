@@ -44,9 +44,11 @@ export class DcComponentLoaderService implements OnDestroy {
   public async createOrUpdateComponent(
     data: DcComponentData,
     element: HTMLElement,
-    componentEvent: DcDynamicComponentEvent,
-    listenToElementRemoval: boolean
+    componentEvent: DcDynamicComponentEvent
   ): Promise<void> {
+    // refresh the list of components to remove those that have been removed from the DOM
+    this.destroyedRemovedComponents();
+
     const id: string = data.container_class;
     const component = this.findById(id);
     if (component) {
@@ -55,7 +57,7 @@ export class DcComponentLoaderService implements OnDestroy {
       return;
     } else {
       // if the component does not exist, we create it
-      await this.createComponent(id, data, element, componentEvent, listenToElementRemoval);
+      await this.createComponent(id, data, element, componentEvent);
     }
   }
 
@@ -64,14 +66,12 @@ export class DcComponentLoaderService implements OnDestroy {
    * @param data
    * @param element
    * @param componentEvent
-   * @param listenToElementRemoval if true, listen to the element removal to destroy the component
    */
   private async createComponent(
     id: string,
     data: DcComponentData,
     element: HTMLElement,
-    componentEvent: DcDynamicComponentEvent,
-    listenToElementRemoval: boolean
+    componentEvent: DcDynamicComponentEvent
   ): Promise<void> {
     const componentType = await this.getComponentType(data.component);
     const factory = this.resolver.resolveComponentFactory(componentType);
@@ -88,18 +88,21 @@ export class DcComponentLoaderService implements OnDestroy {
     loadedComponent.setInput(data);
     loadedComponent.listenToComponentOutput();
 
-    // as this is not created in angular context, we need to manually check if the element is removed
-    if (listenToElementRemoval) {
-      loadedComponent.listenToElementRemoval();
-    }
     this.app.attachView(componentRef.hostView);
-    this.addComponent(loadedComponent);
+    this.components.push(loadedComponent);
   }
 
-  private addComponent(component: DcLoadedComponent): void {
-    this.components.push(component);
-    // refresh the list of components
-    this.components = this.components.filter((c) => c.id != null);
+  /**
+   * Destroys components that have been removed from the DOM.
+   */
+  private destroyedRemovedComponents(): void {
+    for (const component of this.components) {
+      if (!this.document.body.contains(component.element)) {
+        // if the component container is not in the document, we remove it from the list
+        this.components = this.components.filter((c) => c.id !== component.id);
+        component.destroyComponent();
+      }
+    }
   }
 
   private async getComponentType(

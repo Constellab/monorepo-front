@@ -83,12 +83,7 @@ export class DcComponentLoaderProdComponent implements OnInit, OnDestroy {
       data.componentData.container_class,
       this.document
     );
-    await this.componentLoaderService.createOrUpdateComponent(
-      data.componentData,
-      container,
-      iframeEvent,
-      true
-    );
+    await this.componentLoaderService.createOrUpdateComponent(data.componentData, container, iframeEvent);
   }
 
   /**

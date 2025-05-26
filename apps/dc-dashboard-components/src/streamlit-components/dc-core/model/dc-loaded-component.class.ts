@@ -7,12 +7,11 @@ import {
 } from '../../../core/model/dc-dynamic-component.class';
 
 export class DcLoadedComponent {
-  private observer: MutationObserver;
   private subscription: Subscription;
 
   constructor(
-    public id: string,
-    private element: HTMLElement,
+    public readonly id: string,
+    public readonly element: HTMLElement,
     private componentRef: ComponentRef<DcDynamicComponent>,
     private componentEvent: DcDynamicComponentEvent
   ) {}
@@ -29,39 +28,14 @@ export class DcLoadedComponent {
     );
   }
 
-  public listenToElementRemoval(): void {
-    // Create a parent observer
-    this.observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        mutation.removedNodes.forEach((node) => {
-          if (node === this.element || node.contains(this.element)) {
-            this.destroyComponent();
-          }
-        });
-      });
-    });
-
-    // Start observing the parent element
-    this.observer.observe(this.element.parentNode, {
-      childList: true,
-      subtree: true,
-    });
-  }
-
   public destroyComponent(): void {
     if (this.componentRef) {
       this.componentRef.destroy();
       this.componentRef = undefined;
     }
-    if (this.observer) {
-      this.observer.disconnect();
-      this.observer = undefined;
-    }
     if (this.subscription) {
       this.subscription.unsubscribe();
       this.subscription = undefined;
     }
-    // clear the id to indicate that the component is destroyed
-    this.id = undefined;
   }
 }

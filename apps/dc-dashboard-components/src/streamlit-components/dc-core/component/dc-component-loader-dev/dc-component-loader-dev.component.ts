@@ -122,6 +122,6 @@ export class DcComponentLoaderDevComponent implements OnInit {
     };
     // create the component
     // don't listen to element removal because there is not iframe in dev mode
-    this.componentLoaderService.createOrUpdateComponent(componentData, element, streamlitEvent, false).then();
+    this.componentLoaderService.createOrUpdateComponent(componentData, element, streamlitEvent).then();
   }
 }
