@@ -1,18 +1,18 @@
-import { Component, EventEmitter, inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ClCoreJsonConvert } from '@monorepo/core-lib';
 import { FlInputSearchModule } from '@monorepo/front-core-lib/fl-input-search';
 import { FlTranslatableText, FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { LiResource, LiResourceSearchFields } from '@monorepo/lab-lib/li-core';
-import { FormsModule } from '@angular/forms';
-import { DcComponentData, DcDynamicComponent } from '../../../core/model/dc-dynamic-component.class';
-import { ClCoreJsonConvert } from '@monorepo/core-lib';
-import { DcCoreMainDirective } from '../../dc-core/directive/dc-core-main-prod/dc-core-main.directive';
 import { LiSelectResourceComponent } from '@monorepo/lab-lib/li-resource';
+import { DcComponentData, DcDynamicComponent } from '../../../core/model/dc-dynamic-component.class';
+import { DcCoreMainDirective } from '../../dc-core/directive/dc-core-main-prod/dc-core-main.directive';
 
 export interface DcSelectResourceInput {
   placeholder: string;
   default_resource?: any;
-  default_filters?: LiResourceSearchFields;
+  default_filters?: Partial<LiResourceSearchFields>;
   column_tags_filter_keys?: string[];
 }
 
@@ -29,7 +29,7 @@ export interface DcSelectResourceOutput {
   hostDirectives: [DcCoreMainDirective],
 })
 export class DcSelectResourceComponent
-  implements OnInit, DcDynamicComponent<DcSelectResourceInput, DcSelectResourceOutput>, OnDestroy
+implements OnInit, DcDynamicComponent<DcSelectResourceInput, DcSelectResourceOutput>
 {
   @Input() inputData: DcComponentData<DcSelectResourceInput>;
   @Output() outputEvent = new EventEmitter<DcSelectResourceOutput>();
@@ -67,9 +67,5 @@ export class DcSelectResourceComponent
     } else {
       this.outputEvent.emit({ resourceId: null });
     }
-  }
-
-  ngOnDestroy(): void {
-    console.log('Detroooooooy');
   }
 }

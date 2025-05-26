@@ -1,4 +1,4 @@
-import { EventEmitter } from '@angular/core';
+import { EventEmitter, Signal } from '@angular/core';
 
 /**
  * Auth info for the dc components
@@ -17,8 +17,8 @@ export enum DcDynamicComponentEnum {
   TEXT_EDITOR = 'text-editor',
   PROCESS_CONFIG = 'process-config',
   MENU_BUTTON = 'menu-button',
+  TREE_MENU = 'tree-menu',
 }
-
 
 /**
  * Object passed to the dashboard components from the streamlit back
@@ -37,6 +37,11 @@ export interface DcComponentData<T = any> {
    * Which component to load
    */
   component: DcDynamicComponentEnum;
+
+  /**
+   * Unique id of the component data
+   */
+  timestamp: number;
   /**
    * Data for the component specific to the component type
    */
@@ -46,8 +51,8 @@ export interface DcComponentData<T = any> {
 /**
  * Interface for dynamic components
  */
-export interface DcDynamicComponent<INPUT= any, OUTPUT = any> {
-  inputData: DcComponentData<INPUT>;
+export interface DcDynamicComponent<INPUT = any, OUTPUT = any> {
+  inputData: DcComponentData<INPUT> | Signal<DcComponentData<INPUT>>;
   outputEvent: EventEmitter<OUTPUT>;
 }
 
@@ -58,4 +63,3 @@ export interface DcDynamicComponent<INPUT= any, OUTPUT = any> {
 export interface DcDynamicComponentEvent {
   setComponentValue(jsonData: any): void;
 }
-

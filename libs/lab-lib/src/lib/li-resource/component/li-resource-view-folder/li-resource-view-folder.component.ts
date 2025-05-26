@@ -1,13 +1,21 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, OnDestroy, OnInit, inject } from '@angular/core';
-import { FlClipboardService } from '@monorepo/front-core-lib/fl-snack-bar';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import {
+  MatTree,
+  MatTreeNode,
+  MatTreeNodeDef,
+  MatTreeNodePadding,
+  MatTreeNodeToggle,
+} from '@angular/material/tree';
+import { FlDatasourceTree, FlTree } from '@monorepo/front-core-lib/fl-core';
+import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
 } from '@monorepo/front-core-lib/fl-dialog';
-import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
-import { FlDatasourceTree, FlTree } from '@monorepo/front-core-lib/fl-core';
 import {
   FlDynamicFieldFormDialogComponent,
   FlDynamicFieldFormDialogInput,
@@ -16,6 +24,7 @@ import {
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { FlMenuDynamic, FlMenuDynamicService } from '@monorepo/front-core-lib/fl-menu-dynamic';
 import { FlPortalAction, FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
+import { FlClipboardService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import {
   LiFileResourceService,
@@ -25,23 +34,14 @@ import {
   LiResourceViewFolderContentTree,
   LiRouterService,
 } from '@monorepo/lab-lib/li-core';
+import { RvResourceViewDirective } from '@monorepo/resource-view';
+import { TranslatePipe } from '@ngx-translate/core';
+import { LiResourceDetailState } from '../../state/li-resource-detail.state';
 import {
   LiFsNodeTypesSelectionDialogComponent,
   LiFsNodeTypesSelectionDialogInput,
   LiFsNodeTypesSelectionDialogResult,
 } from '../li-fs-node-types-selection-dialog/li-fs-node-types-selection-dialog.component';
-import { LiResourceDetailState } from '../../state/li-resource-detail.state';
-import { MatIcon } from '@angular/material/icon';
-import { MatIconButton } from '@angular/material/button';
-import {
-  MatTree,
-  MatTreeNode,
-  MatTreeNodeDef,
-  MatTreeNodePadding,
-  MatTreeNodeToggle,
-} from '@angular/material/tree';
-import { RvResourceViewDirective } from '@monorepo/resource-view';
-import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * Resource view for folder

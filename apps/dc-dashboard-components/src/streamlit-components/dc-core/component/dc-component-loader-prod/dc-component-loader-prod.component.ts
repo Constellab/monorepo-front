@@ -1,5 +1,7 @@
-import { Component, inject, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
+import { Component, inject, OnDestroy, OnInit, Renderer2 } from '@angular/core';
+import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
+import { DcMainToIframeEventEmitter } from '../../../../core/iframe-event/dc-iframe-event-emitter.class';
 import {
   DcIframeToMainEventListener,
   DcMainToIframeEventResponse,
@@ -9,9 +11,7 @@ import {
   DcIframeEventAction,
   DcIframeEventInitData,
 } from '../../../../core/iframe-event/dc-iframe-event.class';
-import { DcMainToIframeEventEmitter } from '../../../../core/iframe-event/dc-iframe-event-emitter.class';
 import { DcComponentLoaderService } from '../../service/dc-component-loader.service';
-import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
 
 /**
  * Component used in production mode to load the dynamic component
@@ -83,7 +83,12 @@ export class DcComponentLoaderProdComponent implements OnInit, OnDestroy {
       data.componentData.container_class,
       this.document
     );
-    await this.componentLoaderService.createComponent(data.componentData, container, iframeEvent, true);
+    await this.componentLoaderService.createOrUpdateComponent(
+      data.componentData,
+      container,
+      iframeEvent,
+      true
+    );
   }
 
   /**

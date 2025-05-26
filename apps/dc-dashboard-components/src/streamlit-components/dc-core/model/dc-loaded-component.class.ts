@@ -1,16 +1,17 @@
 import { ComponentRef } from '@angular/core';
+import { Subscription } from 'rxjs';
 import {
   DcComponentData,
   DcDynamicComponent,
   DcDynamicComponentEvent,
 } from '../../../core/model/dc-dynamic-component.class';
-import { Subscription } from 'rxjs';
 
 export class DcLoadedComponent {
   private observer: MutationObserver;
   private subscription: Subscription;
 
   constructor(
+    public readonly id: string,
     private element: HTMLElement,
     private componentRef: ComponentRef<DcDynamicComponent>,
     private componentEvent: DcDynamicComponentEvent
@@ -18,7 +19,7 @@ export class DcLoadedComponent {
 
   public setInput(data: DcComponentData): void {
     // set the input data to the component
-    this.componentRef.instance.inputData = data;
+    this.componentRef.setInput('inputData', data);
   }
 
   public listenToComponentOutput(): void {

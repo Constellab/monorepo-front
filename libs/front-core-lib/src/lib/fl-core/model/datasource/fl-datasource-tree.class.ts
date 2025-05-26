@@ -1,9 +1,9 @@
+import { MatTree } from '@angular/material/tree';
+import { ClHelpService } from '@monorepo/core-lib';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { ClHelpService } from '@monorepo/core-lib';
-import { FlTree } from './fl-tree-object.class';
 import { FlEntity } from '../fl-entity.class';
-import { MatTree } from '@angular/material/tree';
+import { FlTree } from './fl-tree-object.class';
 
 export class FlDatasourceTree<T extends FlEntity> {
   private tree$ = new BehaviorSubject<FlTree<T>>(new FlTree<T>({ id: null } as T, []));
@@ -28,6 +28,17 @@ export class FlDatasourceTree<T extends FlEntity> {
 
   disconnect(): void {
     this.tree$.complete();
+  }
+
+  setData(objects: T[], getChildren: (object: T) => T[] | null): void {
+    this.tree.children = [];
+    this.tree.addOrReplaceNodesAndChildren(objects, null, getChildren);
+    this.sortAndEmits();
+  }
+
+  refreshNodeObjectsAndChildren(objects: T[], getChildren: (object: T) => T[] | null): void {
+    this.tree.refreshNodeObjectsAndChildren(objects, null, getChildren);
+    this.sortAndEmits();
   }
 
   /////////////////////////////// FIND ///////////////////////////////
@@ -69,8 +80,8 @@ export class FlDatasourceTree<T extends FlEntity> {
 
   //////////////////////////////////////// ADD ////////////////////////////////////////
 
-  public addOrReplaceNode(node: T | T[], parentNodeId: string): void {
-    const nodes: T[] = ClHelpService.convertObjectOrArrayToArray(node);
+  public addOrReplaceNode(object: T | T[], parentNodeId: string): void {
+    const nodes: T[] = ClHelpService.convertObjectOrArrayToArray(object);
     for (const node of nodes) {
       this.tree.addOrReplaceNode(node, parentNodeId);
     }
@@ -78,12 +89,13 @@ export class FlDatasourceTree<T extends FlEntity> {
     this.sortAndEmits();
   }
 
-  public addOrReplaceObject(node: T | T[], parentNodeId: string): void {
-    const nodes: T[] = ClHelpService.convertObjectOrArrayToArray(node);
-
-    for (const node of nodes) {
-      this.tree.addOrReplaceNode(node, parentNodeId);
-    }
+  public addOrReplaceNodesAndChildren(
+    object: T | T[],
+    parentNodeId: string,
+    getChildren: (object: T) => T[] | null
+  ): void {
+    const nodes: T[] = ClHelpService.convertObjectOrArrayToArray(object);
+    this.tree.addOrReplaceNodesAndChildren(nodes, parentNodeId, getChildren);
     this.sortAndEmits();
   }
 

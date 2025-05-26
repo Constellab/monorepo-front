@@ -54,8 +54,8 @@
     "lab-manager-standalone:build-prod": "node --max_old_space_size=4096 ./node_modules/nx/bin/nx build lab-manager-standalone --prod",
     "lab-manager-standalone:build-image": "docker build -f apps/lab-manager-standalone/Dockerfile -t lab-manager-standalone .",
     "lab-manager-standalone:run-image-dev": "docker run --rm -p 82:80 -e API_URL=http://localhost:3000 -e COMMUNITY_API_URL=https://api.constellab.community -e COMMUNITY_FRONT_URL=https://constellab.community/ lab-manager-standalone",
-    "dc-streamlit-components:serve": " nx run dc-dashboard-components:serve-streamlit-components:development -- --no-hmr --port=4201",
-    "dc-streamlit-components:serve-iframe": " nx run dc-dashboard-components:serve-streamlit-components:development-iframe -- --no-hmr --port=4201",
+    "dc-streamlit-components:serve": "nx run dc-dashboard-components:serve-streamlit-components:development -- --no-hmr --port=4201",
+    "dc-streamlit-components:serve-iframe": "nx run dc-dashboard-components:serve-streamlit-components:development-iframe -- --no-hmr --port=4201",
     "dc-streamlit-components:build-prod": "nx run dc-dashboard-components:build-streamlit-components:production --base-href='.'",
     "dc-iframe-message:serve": "nx run dc-dashboard-components:serve-iframe-message:development -- --no-hmr --port=4201",
     "dc-iframe-message:build-prod": "nx run dc-dashboard-components:build-iframe-message:production --base-href='.'"

@@ -92,25 +92,72 @@ export class FlTree<T extends FlEntity> {
     return false;
   }
 
-  public addOrReplaceNode(node: T, parentNodeId: string): boolean {
-    this.deleteNodeById(node.id);
+  public addOrReplaceNode(object: T, parentNodeId: string, initChildren: boolean = false): boolean {
+    this.deleteNodeById(object.id);
 
     const parentNode = this.findNodeById(parentNodeId);
     if (!parentNode) return false;
 
-    const newNode = new FlTree<T>(node);
+    const newNode = new FlTree<T>(object, initChildren ? [] : undefined);
     parentNode.addOrReplaceDirectChild(newNode);
 
     return true;
   }
 
-  public addOrReplaceObject(node: T, parentNodeId: string): void {
-    const existingNode = this.findNodeById(node.id);
+  public addOrReplaceObject(object: T, parentNodeId: string): void {
+    const existingNode = this.findNodeById(object.id);
     if (existingNode) {
-      this.updateNodeObject(node);
+      this.updateNodeObject(object);
       return;
     } else {
-      this.addOrReplaceNode(node, parentNodeId);
+      this.addOrReplaceNode(object, parentNodeId);
+    }
+  }
+
+  public addOrReplaceNodesAndChildren(
+    objects: T[],
+    parentNodeId: string,
+    getChildren: (object: T) => T[] | null
+  ): void {
+    for (const object of objects) {
+      this.addOrReplaceNode(object, parentNodeId, true);
+
+      const childrenNodes = getChildren(object);
+      if (childrenNodes) {
+        this.addOrReplaceNodesAndChildren(childrenNodes, object.id, getChildren);
+      }
+    }
+  }
+
+  /**
+   * Refreshes the node objects and their children based on the newChildren list.
+   * It deletes children that are not in the newChildren list
+   * and adds or replaces objects in the newChildren list.
+   */
+  public refreshNodeObjectsAndChildren(
+    newChildren: T[],
+    parentNodeId: string,
+    getChildren: (object: T) => T[] | null
+  ): void {
+    if (!newChildren) return;
+
+    // delete children that are not in the newChildren list
+    if (this.childrenAreLoaded()) {
+      const existingChildrenIds = this.children.map((child) => child.object.id);
+      for (const childId of existingChildrenIds) {
+        const newChild = newChildren.find((c) => c.id === childId);
+        if (!newChild) {
+          this.deleteNodeById(childId);
+        }
+      }
+    }
+
+    // add or replace objects in the newChildren list
+    for (const object of newChildren) {
+      this.addOrReplaceObject(object, parentNodeId);
+      const node = this.findNodeById(object.id);
+      const subChildren = getChildren(object);
+      node.refreshNodeObjectsAndChildren(subChildren, object.id, getChildren);
     }
   }
 

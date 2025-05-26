@@ -1,5 +1,6 @@
 import { Component, inject, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 
+import { ClTheme } from '@monorepo/core-lib';
 import { RenderData, Streamlit } from 'streamlit-component-lib';
 import { DcIframeToMainEventEmitter } from '../../core/iframe-event/dc-iframe-event-emitter.class';
 import { DcMainToIframeEventListener } from '../../core/iframe-event/dc-iframe-event-listener.class';
@@ -8,7 +9,6 @@ import {
   DcIframeEventAction,
   DcMainToIframeEvent,
 } from '../../core/iframe-event/dc-iframe-event.class';
-import { ClTheme } from '@monorepo/core-lib';
 import { DcComponentData } from '../../core/model/dc-dynamic-component.class';
 
 /**
@@ -27,30 +27,35 @@ import { DcComponentData } from '../../core/model/dc-dynamic-component.class';
   styleUrl: './dc-iframe-message.component.scss',
 })
 export class DcIframeMessageComponent implements OnInit, OnDestroy {
-  private isInitialized: boolean = false;
   private renderer = inject(Renderer2);
 
   private iframeEventEmitter = new DcIframeToMainEventEmitter(dcGetIframeMessageHost());
   private parentEventListener: DcMainToIframeEventListener;
 
+  private lastTimestamp: number = 0;
+
   ngOnInit(): void {
+    this.parentEventListener = new DcMainToIframeEventListener(
+      dcGetIframeMessageHost(),
+      this.renderer,
+      window
+    );
+    this.parentEventListener.listenToIframeEvents().subscribe((event) => this.onParentMessage(event));
+
     Streamlit.events.addEventListener(Streamlit.RENDER_EVENT, (event: Event) => {
       const customEvent: CustomEvent<RenderData> = event as CustomEvent<RenderData>;
 
-      if (!this.isInitialized) {
-        this.isInitialized = true;
-        this.parentEventListener = new DcMainToIframeEventListener(
-          dcGetIframeMessageHost(),
-          this.renderer,
-          window
-        );
-        this.parentEventListener.listenToIframeEvents().subscribe((event) => this.onParentMessage(event));
-
-        const clTheme: ClTheme =
-          customEvent.detail.theme.base === 'dark' ? ClTheme.DARK_THEME : ClTheme.LIGHT_THEME;
-
-        this.postEventMessage(customEvent.detail.args, clTheme);
+      const data: DcComponentData = customEvent.detail.args;
+      if (this.lastTimestamp === data.timestamp) {
+        return; // avoid reloading the component if the timestamp is the same
       }
+
+      this.lastTimestamp = data.timestamp;
+
+      const clTheme: ClTheme =
+        customEvent.detail.theme.base === 'dark' ? ClTheme.DARK_THEME : ClTheme.LIGHT_THEME;
+
+      this.postEventMessage(data, clTheme);
     });
 
     Streamlit.setComponentReady();

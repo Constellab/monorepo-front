@@ -1,4 +1,10 @@
 import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { FlFormHelper } from '@monorepo/front-core-lib/fl-core';
+import { FlDynamicFieldModule, FlDynamicFormGroupConfig } from '@monorepo/front-core-lib/fl-dynamic-field';
+import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 import {
   TdConfig,
   TdConfigureSpecsForm,
@@ -7,14 +13,8 @@ import {
   TdParamSpecsValues,
   TdTechnicalDocModule,
 } from '@monorepo/technical-doc';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { FlDynamicFieldModule, FlDynamicFormGroupConfig } from '@monorepo/front-core-lib/fl-dynamic-field';
-import { FlFormHelper } from '@monorepo/front-core-lib/fl-core';
-import { MatButtonModule } from '@angular/material/button';
-import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
-import { MatIconModule } from '@angular/material/icon';
-import { DcCoreMainDirective } from '../../dc-core/directive/dc-core-main-prod/dc-core-main.directive';
 import { DcComponentData, DcDynamicComponent } from '../../../core/model/dc-dynamic-component.class';
+import { DcCoreMainDirective } from '../../dc-core/directive/dc-core-main-prod/dc-core-main.directive';
 
 export interface DcProcessConfigConfig {
   process_description: string;
@@ -39,7 +39,7 @@ export interface DcProcessConfigConfig {
   hostDirectives: [DcCoreMainDirective],
 })
 export class DcProcessConfigComponent
-  implements OnInit, DcDynamicComponent<DcProcessConfigConfig, TdParamSpecsValues>
+implements OnInit, DcDynamicComponent<DcProcessConfigConfig, TdParamSpecsValues>
 {
   @Input() inputData: DcComponentData<DcProcessConfigConfig>;
   @Output() outputEvent = new EventEmitter<TdParamSpecsValues>();

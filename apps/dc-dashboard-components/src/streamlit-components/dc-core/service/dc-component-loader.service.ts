@@ -1,3 +1,5 @@
+import { ComponentType } from '@angular/cdk/overlay';
+import { DOCUMENT } from '@angular/common';
 import {
   ApplicationRef,
   ComponentFactoryResolver,
@@ -12,9 +14,7 @@ import {
   DcDynamicComponentEnum,
   DcDynamicComponentEvent,
 } from '../../../core/model/dc-dynamic-component.class';
-import { ComponentType } from '@angular/cdk/overlay';
 import { DcLoadedComponent } from '../model/dc-loaded-component.class';
-import { DOCUMENT } from '@angular/common';
 
 /**
  * Service to dynamically create the component at the specified location
@@ -41,7 +41,33 @@ export class DcComponentLoaderService implements OnDestroy {
    * @param componentEvent
    * @param listenToElementRemoval if true, listen to the element removal to destroy the component
    */
-  public async createComponent(
+  public async createOrUpdateComponent(
+    data: DcComponentData,
+    element: HTMLElement,
+    componentEvent: DcDynamicComponentEvent,
+    listenToElementRemoval: boolean
+  ): Promise<void> {
+    const id: string = data.container_class;
+    const component = this.findById(id);
+    if (component) {
+      // if the component already exists, we update its data
+      component.setInput(data);
+      return;
+    } else {
+      // if the component does not exist, we create it
+      await this.createComponent(id, data, element, componentEvent, listenToElementRemoval);
+    }
+  }
+
+  /**
+   * Dynamically create the component at the specified location
+   * @param data
+   * @param element
+   * @param componentEvent
+   * @param listenToElementRemoval if true, listen to the element removal to destroy the component
+   */
+  private async createComponent(
+    id: string,
     data: DcComponentData,
     element: HTMLElement,
     componentEvent: DcDynamicComponentEvent,
@@ -57,7 +83,7 @@ export class DcComponentLoaderService implements OnDestroy {
     element.appendChild(container);
 
     const componentRef = factory.create(this.injector, [], container);
-    const loadedComponent = new DcLoadedComponent(container, componentRef, componentEvent);
+    const loadedComponent = new DcLoadedComponent(id, container, componentRef, componentEvent);
 
     loadedComponent.setInput(data);
     loadedComponent.listenToComponentOutput();
@@ -93,9 +119,18 @@ export class DcComponentLoaderService implements OnDestroy {
       case DcDynamicComponentEnum.MENU_BUTTON:
         const { DcMenuComponent } = await import('../../dc-components/dc-menu/dc-menu.component');
         return DcMenuComponent;
+      case DcDynamicComponentEnum.TREE_MENU:
+        const { DcTreeMenuComponent } = await import(
+          '../../dc-components/dc-tree-menu/dc-tree-menu.component'
+        );
+        return DcTreeMenuComponent;
       default:
         throw new Error(`Unknown component type: ${dynamicComponent}`);
     }
+  }
+
+  private findById(id: string): DcLoadedComponent | undefined {
+    return this.components.find((component) => component.id === id);
   }
 
   ngOnDestroy(): void {
