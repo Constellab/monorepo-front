@@ -23,7 +23,7 @@ import {
 } from '../../fl-tag.class';
 import { BehaviorSubject, combineLatest, startWith, Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
-import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
+import { FlDatasourcePaginated, FlDatasourceSortCriteria } from '@monorepo/front-core-lib/fl-core';
 
 export interface FlAddTagEvent<T = any> {
   key: FlTagKeySearchResult<T>;
@@ -80,6 +80,8 @@ export class FlAddTagInputComponent implements OnInit, OnDestroy {
 
   filteredOptions: FlTagInputSearchDatasourcePaginated;
 
+  filteredCommunityOptions: FlTagInputSearchDatasourcePaginated;
+
   // provided when adding a new tag. It is set when the key has been defined but not the value
   // this is a temp storage
   currentTagKey: FlTagKeySearchResult;
@@ -91,9 +93,15 @@ export class FlAddTagInputComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.filteredOptions = new FlTagInputSearchDatasourcePaginated(
       (page, size, filter) => this.tagService.searchTag(filter.filtersCriteria, page, size),
-      20,
+      10,
       { initFirstPage: false }
     );
+
+    this.filteredCommunityOptions = new FlTagInputSearchDatasourcePaginated(
+      (page, size, filter) => this.tagService.searchCommunityTag(filter.filtersCriteria, page, size),
+      10,
+      { initFirstPage: false }
+    )
 
     if (this.disableFilteredOptions) return;
     combineLatest([this.inputCtrl.valueChanges.pipe(startWith('')), this.mode$.asObservable()])
@@ -103,9 +111,9 @@ export class FlAddTagInputComponent implements OnInit, OnDestroy {
 
   private loadPage(inputText: string, mode: FlTagMode): void {
     if (mode === 'value') {
-      this.filteredOptions.getFirstPage({ key: this.currentTagKey.content, value: inputText });
+      this.getDatasourceFirstPages({ key: this.currentTagKey.content, value: inputText });
     } else {
-      this.filteredOptions.getFirstPage({ key: inputText });
+      this.getDatasourceFirstPages({ key: inputText });
     }
   }
 
@@ -117,6 +125,7 @@ export class FlAddTagInputComponent implements OnInit, OnDestroy {
       this.currentTagKey = null;
     }
     this.filteredOptions.clear();
+    this.filteredCommunityOptions?.clear();
 
     // clear the input
     this.input.nativeElement.value = '';
@@ -191,6 +200,12 @@ export class FlAddTagInputComponent implements OnInit, OnDestroy {
     this.switchMode('key');
     this.addChip(key);
     this.focusInput();
+  }
+
+  private getDatasourceFirstPages(filtersCriteria?: FlTagSearchFilter,
+                                  sortsCriteria?: FlDatasourceSortCriteria[]): void{
+    this.filteredOptions.getFirstPage(filtersCriteria, sortsCriteria);
+    this.filteredCommunityOptions?.getFirstPage(filtersCriteria, sortsCriteria);
   }
 
   focusInput(): void {

@@ -110,6 +110,7 @@ export class TdEditParamSpecDialogComponent implements OnInit {
         if (paramSpecFormInfoList[this.spec.type]) {
           this.initForm(this.spec.type, paramSpecFormInfoList);
         }
+
         this.isLoading = false;
       },
       error: () => {

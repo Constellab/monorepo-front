@@ -16,7 +16,7 @@ import {
   HaTagValueDatasourcePaginated,
   HaTagValueEditDTO,
 } from '../ha-model/ha-entities/ha-tag-value.class';
-import { CoTagKeyEditAdditionalInfoSpec } from '@monorepo/community-lib';
+import { TdParamSpec, TdParamSpecs } from '@monorepo/technical-doc';
 
 @Injectable({
   providedIn: 'root',
@@ -94,33 +94,28 @@ export class HaTagService {
     return this.apiService.put(`${this.route}/publish/${tagKeyId}`, {}, HaTagKey);
   }
 
-  createAdditionalInfoSpec(
-    tagKeyId: string,
-    additionalParamSpec: CoTagKeyEditAdditionalInfoSpec
-  ): Observable<HaTagKey> {
-    return this.apiService.post(
-      `${this.route}/additional-info-spec/${tagKeyId}`,
-      additionalParamSpec,
-      HaTagKey
-    );
+  createAdditionalInfoSpec(tagKey: string, specName: string, spec: TdParamSpec): Observable<TdParamSpecs> {
+    return this.apiService.post(`${this.route}/additional-info-spec/${tagKey}`, {
+      specName: specName,
+      spec: spec,
+    });
   }
 
-  updateAdditionalInfoSpec(
-    tagKeyId: string,
-    additionalParamSpec: CoTagKeyEditAdditionalInfoSpec
-  ): Observable<HaTagKey> {
-    return this.apiService.put(
-      `${this.route}/additional-info-spec/${tagKeyId}`,
-      additionalParamSpec,
-      HaTagKey
-    );
+  updateAdditionalInfoSpec(tagKey: string, specName: string, spec: TdParamSpec): Observable<TdParamSpecs> {
+    return this.apiService.put(`${this.route}/additional-info-spec/${tagKey}/${specName}`, spec);
   }
 
-  deleteAdditionalInfoSpec(tagKeyId: string, additionalParamSpecName: string): Observable<HaTagKey> {
-    return this.apiService.delete(
-      `${this.route}/additional-info-spec/${tagKeyId}/${additionalParamSpecName}`,
-      HaTagKey
-    );
+  renameAndEditAdditionalInfoSpec(
+    tagKey: string,
+    oldName: string,
+    newName: string,
+    spec: TdParamSpec
+  ): Observable<TdParamSpecs> {
+    return this.apiService.put(`${this.route}/additional-info-spec/${tagKey}/${oldName}/${newName}`, spec);
+  }
+
+  deleteAdditionalInfoSpec(tagKey: string, specName: string): Observable<TdParamSpecs> {
+    return this.apiService.delete(`${this.route}/additional-info-spec/${tagKey}/${specName}`);
   }
 
   getAllValueWithFilters(tagKeyId: string, page: number, size: number): Observable<ClPage<HaTagValue>> {

@@ -38,15 +38,23 @@
                 <mat-icon>edit</mat-icon>
                 {{ 'edit_tag' | translate }}
               </button>
-              <button
-                mat-icon-button
-                (click)="onDeleteTag()"
-                class="warn"
-                [matTooltip]="
-                  !tagKey.publishedAt ? ('delete_tag' | translate) : ('deprecate_tag' | translate)
-                ">
-                <mat-icon>delete</mat-icon>
-              </button>
+              @if (!tagKey.publishedAt) {
+                <button
+                  mat-icon-button
+                  (click)="onDeleteTag()"
+                  class="warn"
+                  [matTooltip]="'delete_tag' | translate">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              } @else {
+                <button
+                  mat-icon-button
+                  (click)="onDeleteTag()"
+                  class="warn"
+                  [matTooltip]="'deprecate_tag' | translate">
+                  <mat-icon flIcon="archive"></mat-icon>
+                </button>
+              }
             } @else {
               <co-deprecated-tag></co-deprecated-tag>
             }
@@ -88,36 +96,9 @@
       </div>
     </div>
 
-    <!--    @if (tagKey.additionalInfosSpecs || (canEditTag && !isBooleanType)) {-->
-    <!--      <div class="additional-info-specs-div tag-page-section">-->
-    <!--        <div class="card-header tag-div-header">-->
-    <!--          <div class="header-title-div">-->
-    <!--            {{ 'additional_info_specs' | translate }}-->
-    <!--          </div>-->
-    <!--          @if (canEditTag && !tagKey.deprecated) {-->
-    <!--            <button-->
-    <!--              mat-stroked-button-->
-    <!--              class="g-button-small primary"-->
-    <!--              [matTooltip]="'add_additional_info_spec' | translate"-->
-    <!--              (click)="openAddAdditionalInfoSpecDialog()">-->
-    <!--              <mat-icon>add</mat-icon>-->
-    <!--              {{ 'add' | translate }}-->
-    <!--            </button>-->
-    <!--          }-->
-    <!--        </div>-->
-    <!--        @if ((tagKey.additionalInfosSpecs | flObjectKeys).length > 0) {-->
-    <!--          <ha-tag-additional-info-specs-table-->
-    <!--            [dataSource]="tagAdditionalInfosSpecsDatasource"-->
-    <!--            (openEditInfoSpecDialog)="openEditAdditionalInfoSpecDialog($event)"-->
-    <!--            (deleteInfoSpec)="openConfirmDeleteAdditionalInfoSpecDialog($event)">-->
-    <!--          </ha-tag-additional-info-specs-table>-->
-    <!--        }-->
-    <!--      </div>-->
-    <!--    }-->
-
     <div class="tag-values-div tag-page-section">
       <div class="tag-div-header tag-value-div-header">
-        <h4>{{ 'tag_values' | translate }}</h4>
+        <h4>{{ 'predefined_tag_values' | translate }}</h4>
         @if (!isBooleanType && canEditTag && !tagKey.deprecated) {
           <button
             mat-icon-button
@@ -129,14 +110,16 @@
       </div>
 
       @if (tagValues) {
-        <fl-infinite-table-container [datasource]="tagValues">
-          <ha-tag-values-table
-            (editTagValue)="openEditTagValueDialog($event)"
-            (deleteTagValue)="openConfirmDeleteTagValueDialog($event)"
-            [hideEditButton]="!canEditTag"
-            [hideDeleteButton]="!canEditTag || isBooleanType"
-            [dataSource]="tagValues"></ha-tag-values-table>
-        </fl-infinite-table-container>
+        <co-tag-values-table
+          [dataSource]="tagValues"
+          [hideEditButton]="!canEditTag"
+          [hideDeleteButton]="!canEditTag || isBooleanType"
+          [deleteButtonToolTip]="!tagKey.publishedAt ? ('delete_tag_value' | translate) :('deprecate_tag_value' | translate)"
+          [showEditAdditionalInfoSpecsButton]="canEditTag"
+          (editTagValue)="openEditTagValueDialog($event)"
+          (deleteTagValue)="openConfirmDeleteTagValueDialog($event)"
+          (openEditAdditionalInfoSpecsDialog)="openEditAdditionalInfoSpecDialog()">
+        </co-tag-values-table>
       }
     </div>
   }

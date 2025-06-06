@@ -155,6 +155,7 @@
     "switch_to_read_only_mode": "Switch to read-only mode",
     "share_a_new_agent_version": "Share a new agent version",
     "view_agent_in_community": "View agent in Community",
-    "community_agent_tooltip": "This task is a Community agent"
+    "community_agent_tooltip": "This task is a Community agent",
+    "tags": "Tags"
   }
 }

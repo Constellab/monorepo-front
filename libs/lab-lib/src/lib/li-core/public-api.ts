@@ -95,5 +95,6 @@ export * from './model/search/li-scenario-search.class';
 export * from './model/search/li-scenario-template-search.class';
 export * from './model/search/li-type-search.class';
 export * from './model/search/li-view-config-search.class';
+export * from './model/search/li-tag-search.class';
 export * from './model/entities/process/li-workflow-action.class';
 export * from './li.config';

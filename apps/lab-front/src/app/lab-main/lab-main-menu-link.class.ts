@@ -4,7 +4,7 @@ import {
   liConstNoteTemplateFullRoute,
   liConstResourceFullRoute,
   liConstScenarioFullRoute,
-  liConstScenarioTemplateRoute,
+  liConstScenarioTemplateRoute, liConstTagFullRoute,
   liConstViewFullRoute,
 } from '@monorepo/lab-lib/li-core';
 
@@ -51,6 +51,12 @@ export function getMainMenuLinks(): LabMainMenuLink[] {
       icon: 'note_template',
       route: liConstNoteTemplateFullRoute,
     },
+    {
+      label: 'biox.tags',
+      icon: 'tag',
+      route: liConstTagFullRoute,
+      divider: true
+    }
   ];
 }
 

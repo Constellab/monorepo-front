@@ -41,12 +41,22 @@
       {{ 'documentation' | translate }}
     </div>
     <mat-menu #docMenu="matMenu">
-      <a mat-menu-item [routerLink]="productDocRoute" class="doc-menu-item">{{
-        'product_doc' | translate
-      }}</a>
-      <a mat-menu-item [routerLink]="techDocRoute" class="doc-menu-item">{{ 'tech_doc' | translate }}</a>
-      <a mat-menu-item [routerLink]="iconsPageRoute" class="doc-menu-item">{{ 'icons' | translate }}</a>
-      <a mat-menu-item [routerLink]="tagsListRoute" class="doc-menu-item">{{ 'tags' | translate }}</a>
+      <a mat-menu-item [routerLink]="productDocRoute">
+        <mat-icon>menu_book</mat-icon>
+        <span>{{'product_doc' | translate }}</span>
+      </a>
+      <a mat-menu-item [routerLink]="techDocRoute">
+        <mat-icon>integration_instructions</mat-icon>
+        <span>{{ 'tech_doc' | translate }}</span>
+      </a>
+      <a mat-menu-item [routerLink]="iconsPageRoute">
+        <mat-icon>face</mat-icon>
+        <span>{{ 'icons' | translate }}</span>
+      </a>
+      <a mat-menu-item [routerLink]="tagsListRoute">
+        <mat-icon flIcon="tag"></mat-icon>
+        <span>{{ 'tags' | translate }}</span>
+      </a>
       <!--      <a mat-menu-item [routerLink]="foaPageRoute" class="doc-menu-item">{{ 'foa' | translate }}</a>-->
     </mat-menu>
 

@@ -59,6 +59,15 @@ export class CaTagService extends FlTagService implements OnDestroy {
     }
   }
 
+  searchCommunityTag(
+    filters: Partial<FlTagSearchFilter>,
+    page: number,
+    pageSize: number
+  ): Observable<ClPageI<FlTagSearchResult>> {
+    // TODO: Implement community tag search for space if needed
+    return null;
+  }
+
   /**
    * Filter locally the result
    * @param strResult

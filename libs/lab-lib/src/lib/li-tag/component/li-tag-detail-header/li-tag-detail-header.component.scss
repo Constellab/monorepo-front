@@ -1,0 +1,38 @@
+:host {
+  display: block;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  box-sizing: border-box;
+}
+
+.container {
+  padding: 0.5em 1em;
+  background-color: var(--card-background);
+  border-radius: var(--card-radius);
+}
+
+.header-left {
+  word-break: break-word;
+}
+
+.subtitle {
+  margin-top: 0.5em;
+  line-height: 1.2em;
+}
+
+.button {
+  flex-shrink: 0;
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+}
+
+.separator {
+  margin-right: 5px;
+}
+
+.circle-color {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}

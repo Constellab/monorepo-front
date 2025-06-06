@@ -1,0 +1,78 @@
+.page {
+  padding-bottom: 1em;
+}
+
+.status-icon {
+  margin-right: 0.5em;
+}
+
+.title {
+  font-size: 2em;
+}
+
+.scenarios {
+  margin-top: 1em;
+  display: block;
+}
+
+.separator {
+  margin-top: 1em;
+  display: block;
+}
+
+.action-buttons {
+  margin-left: 5px;
+}
+
+.container {
+  margin-top: 1em;
+  flex-direction: row;
+  box-sizing: border-box;
+  display: flex;
+  height: 100%;
+}
+
+.left-section {
+  // make the left section shrink more that the right
+  flex: 1 20 30em;
+  max-width: 30em;
+  padding-bottom: 1em;
+}
+
+.right-section {
+  flex: 1 1 var(--article-width);
+  margin-left: 2em;
+  z-index: 999;
+}
+
+.values-title{
+  margin-bottom: 1rem;
+}
+
+.tag-values-header-div{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media (max-width: 1280px) {
+  .left-section {
+    flex: 1;
+    max-width: var(--article-width);
+    width: 100%;
+  }
+
+  .right-section {
+    width: 100%;
+  }
+
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .values-title{
+    margin-top: 2rem;
+  }
+}

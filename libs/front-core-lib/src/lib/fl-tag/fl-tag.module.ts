@@ -29,6 +29,7 @@ import { FlTagValueToStringPipe } from './pipe/fl-tag-value-to-string.pipe';
 import { FlAddTagInputComponent } from './component/fl-add-tag-input/fl-add-tag-input.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 
 @NgModule({
   declarations: [
@@ -73,6 +74,7 @@ import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scr
     FlCoreComponentModule,
     FlColorModule,
     FlInfiniteScrollModule,
+    FlIconModule,
   ],
 })
 export class FlTagModule {

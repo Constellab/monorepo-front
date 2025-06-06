@@ -7,6 +7,7 @@ import { LiScenario } from './li-scenario.entity';
 import { LiScenarioTemplate } from './process/li-scenario-template.entity';
 import { LiViewConfig } from './resource/li-view-config.entity';
 import { TypeHelpOptions } from 'class-transformer/types/interfaces/type-help-options.interface';
+import { LiTagKeyModel } from './li-tag.entity';
 
 export type LiEntityType =
   | 'SCENARIO'
@@ -15,7 +16,8 @@ export type LiEntityType =
   | 'NOTE'
   | 'SCENARIO_TEMPLATE'
   | 'NOTE_TEMPLATE'
-  | 'FOLDER';
+  | 'FOLDER'
+  | 'TAG';
 
 export const labEntityTypeIcon: Record<LiEntityType, string> = {
   SCENARIO: 'scenario',
@@ -25,6 +27,7 @@ export const labEntityTypeIcon: Record<LiEntityType, string> = {
   SCENARIO_TEMPLATE: 'scenario_template',
   NOTE_TEMPLATE: 'note_template',
   FOLDER: 'folder',
+  TAG: 'tag',
 };
 
 export class LiNavigableEntity {
@@ -68,6 +71,8 @@ const LabNavigableEntityGroupedFactory: any = (json: TypeHelpOptions) => {
       return LiNoteTemplate;
     case 'FOLDER':
       return LiFolder;
+    case 'TAG':
+      return LiTagKeyModel;
     default:
       throw new Error(`[LabNavigableEntityGroupedFactory] Type ${json.newObject.type} is not supported`);
   }

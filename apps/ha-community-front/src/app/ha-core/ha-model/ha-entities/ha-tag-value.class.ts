@@ -1,8 +1,9 @@
 import { HaTagKey } from './ha-tag-key.class';
 import { Type } from 'class-transformer';
 import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
+import { CoTagValue, CoTagValueEditDTO } from '@monorepo/community-lib';
 
-export class HaTagValue {
+export class HaTagValue implements CoTagValue{
   id: string;
   value: string;
   deprecated: boolean;
@@ -12,7 +13,7 @@ export class HaTagValue {
   tagKey: HaTagKey;
 }
 
-export class HaTagValueEditDTO {
+export class HaTagValueEditDTO implements CoTagValueEditDTO{
   id?: string;
   value: string;
   shortDescription?: string;

@@ -13,5 +13,17 @@ export * from './component/li-tag-form-dialog/li-tag-form-dialog.component';
 export * from './component/li-tag-help-dialog/li-tag-help-dialog.component';
 export * from './component/li-tag-list/li-tag-list.component';
 export * from './component/li-tag-origins/li-tag-origins.component';
+export * from './component/li-tag-search/li-tag-search.component';
+export * from './component/li-tag-search-form/li-tag-search-form.component';
+export * from './component/li-tag-table/li-tag-table.component';
+export * from './component/li-tag-value-format-options/li-tag-value-format-options.component';
+export * from './component/li-tag-detail/li-tag-detail.component';
+export * from './component/li-tag-detail-header/li-tag-detail-header.component';
+export * from './component/li-tag-values-table/li-tag-values-table.component';
+// eslint-disable-next-line max-len
+export * from './component/li-sync-imported-community-tags-dialog/li-sync-imported-community-tags-dialog.component';
+export * from './component/li-share-tag-to-community-dialog/li-share-tag-to-community-dialog.component';
 
 export * from './pipe/li-get-entity-tags.pipe';
+
+export * from './state/li-tag-detail.state';

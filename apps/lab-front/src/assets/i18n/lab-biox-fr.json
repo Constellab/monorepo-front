@@ -155,6 +155,7 @@
     "switch_to_read_only_mode": "Basculer en mode lecture seule",
     "share_a_new_agent_version": "Partager une nouvelle version de l'agent",
     "view_agent_in_community": "Voir l'agent dans Community",
-    "community_agent_tooltip": "Cette tâche est un agent de Community"
+    "community_agent_tooltip": "Cette tâche est un agent de Community",
+    "tags": "Tags"
   }
 }

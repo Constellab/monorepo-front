@@ -18,8 +18,8 @@
         <mat-error>{{ 'li.title' | flErrorRequired }}</mat-error>
       }
       @if (sameTitleCount$ | async; as count) {
-        <mat-hint class="g-warning-text"
-          >{{ 'li.scenario_with_same_name_exist' | translate: { count: count } }}
+        <mat-hint class="g-warning-text">
+          {{ 'li.scenario_with_same_name_exist' | translate: { count: count } }}
         </mat-hint>
       }
     </mat-form-field>

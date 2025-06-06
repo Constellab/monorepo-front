@@ -64,8 +64,9 @@ export class HaEditAdditionalInfoSpecDialogComponent
     });
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   create(formValue: CoTagKeyEditAdditionalInfoSpec): Observable<HaTagKey> {
-    return this.tagService.createAdditionalInfoSpec(this.tagKeyId, formValue);
+    throw new Error('Method not implemented.');
   }
   update(formValue: CoTagKeyEditAdditionalInfoSpec): Observable<HaTagKey> {
     return this.tagService.updateAdditionalInfoSpec(this.tagKeyId, formValue);

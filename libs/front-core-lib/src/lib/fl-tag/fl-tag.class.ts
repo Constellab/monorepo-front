@@ -3,13 +3,14 @@ import { DateTime } from 'luxon';
 import { ClPageI } from '@monorepo/core-lib';
 import { FlArrayObs } from '@monorepo/front-core-lib/fl-core';
 
-export type FlTagValue = string | number | DateTime;
+export type FlTagValue = string | boolean | number | DateTime;
 
 /**
  * Simple tag with key value
  */
 export interface FlTag {
   key: string;
+  label?: string;
   value?: FlTagValue;
 }
 
@@ -68,6 +69,12 @@ export interface FlTagSearchFilter {
 
 export abstract class FlTagService {
   public abstract searchTag(
+    filters: Partial<FlTagSearchFilter>,
+    page: number,
+    pageSize: number
+  ): Observable<ClPageI<FlTagSearchResult>>;
+
+  public abstract searchCommunityTag(
     filters: Partial<FlTagSearchFilter>,
     page: number,
     pageSize: number

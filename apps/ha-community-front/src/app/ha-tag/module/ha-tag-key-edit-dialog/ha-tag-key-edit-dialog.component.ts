@@ -61,7 +61,7 @@ export class HaTagKeyEditDialogComponent
   private coServiceConfig = inject(HaCoServiceConfig);
   dialogInput: HaTagKeyEditDialogInput = inject(MAT_DIALOG_DATA);
 
-  tagTypes: string[] = Object.values(CoTagKeyType);
+  tagTypes: string[] = [CoTagKeyType.STRING]; // TODO: Add other tag types when the lab is ready
   visibilityFormControl: FormControl<'PUBLIC' | 'SPACE'>;
   spaces: HaSpace[];
 
@@ -111,7 +111,6 @@ export class HaTagKeyEditDialogComponent
       label: [null, Validators.required],
       type: [null, Validators.required],
       unit: [null],
-      scientificName: [null],
       space: [null],
     });
   }

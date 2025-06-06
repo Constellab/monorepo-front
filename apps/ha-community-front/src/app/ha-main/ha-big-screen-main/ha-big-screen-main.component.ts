@@ -22,6 +22,7 @@ import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directiv
 import { HaIsAdminDirective } from '../../ha-core/ha-module/ha-core-directive/ha-is-admin/ha-is-admin.directive';
 import { CdkScrollable } from '@angular/cdk/scrolling';
 import { TranslatePipe } from '@ngx-translate/core';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 
 @Component({
   selector: 'ha-big-screen-main',
@@ -48,6 +49,7 @@ import { TranslatePipe } from '@ngx-translate/core';
     RouterOutlet,
     AsyncPipe,
     TranslatePipe,
+    FlIconModule,
   ],
 })
 export class HaBigScreenMainComponent {

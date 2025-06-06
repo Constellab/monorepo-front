@@ -1,0 +1,5 @@
+@for (option of valueFormatOptions; track option) {
+  <mat-option [value]="option">
+    {{ 'li.value_format_' + option | translate }}
+  </mat-option>
+}

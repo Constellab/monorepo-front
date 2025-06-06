@@ -13,6 +13,7 @@ export const liConstDocRoute = 'doc';
 export const liConstScenarioTemplateRoute = 'scenario-template';
 export const liConstNoteTemplateRoute = 'note-template';
 export const liConstOpenRoute = 'open';
+export const liConstTagRoute = 'tag';
 export const liConstLoginRoute = '/login';
 
 export const liConstScenarioFullRoute = `/${liConstBaseRoute}/${liConstScenarioRoute}`;
@@ -24,3 +25,4 @@ export const liConstMonitoringFullRoute = `/${liConstBaseRoute}/${liConstMonitor
 export const liConstDocFullRoute = `/${liConstBaseRoute}/${liConstDocRoute}`;
 export const liConstScenarioTemplateFullRoute = `/${liConstBaseRoute}/${liConstScenarioTemplateRoute}`;
 export const liConstNoteTemplateFullRoute = `/${liConstBaseRoute}/${liConstNoteTemplateRoute}`;
+export const liConstTagFullRoute = `/${liConstBaseRoute}/${liConstTagRoute}`;

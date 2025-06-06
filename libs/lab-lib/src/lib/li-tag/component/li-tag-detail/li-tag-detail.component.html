@@ -1,0 +1,101 @@
+<div class="g-page page">
+  @if (tagKeyModel()) {
+    <div class="g-flex-auto">
+      <div class="g-layout-row g-layout-start-center">
+        @if (tagKeyModel().isCommunityTag) {
+          <mat-icon flIcon="community-icon"
+                    class="g-icon-big status-icon"></mat-icon>
+        }
+        <div class="g-flex-auto g-flex">
+          <fl-text-icon>
+            <mat-icon flIcon="tag" class="g-icon-big"></mat-icon>
+            <h1
+              flElementEditable
+              (flElementValueChange)="updateLabel($event)"
+              class="title"
+              [flElementDisabled]="tagKeyModel().isCommunityTag">
+              {{ tagKeyModel().label }}
+            </h1>
+          </fl-text-icon>
+        </div>
+
+        @if (tagKeyModel().deprecated) {
+          <co-deprecated-tag></co-deprecated-tag>
+        }
+
+        @if (!tagKeyModel().deprecated && !tagKeyModel().isCommunityTag) {
+          <div class="g-print-hide action-buttons">
+            <button mat-icon-button type="button" [matMenuTriggerFor]="tagMenu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+          </div>
+
+          <mat-menu #tagMenu="matMenu">
+            <button mat-menu-item (click)="shareTagKey()">
+              <mat-icon>share</mat-icon>
+              {{ 'li.share_tag_to_community' | translate }}
+            </button>
+          </mat-menu>
+        }
+      </div>
+
+      <div class="container">
+        <div class="left-section">
+          <div class="g-text-small g-text-light">
+            <div class="g-layout-row-wrap g-layout-start-center g-layout-gap-05em">
+              <div>{{ 'li.key' | translate }} :</div>
+              <b>{{ tagKeyModel().key }}</b>
+            </div>
+          </div>
+
+          <div class="g-text-small g-text-light">
+            <div class="g-layout-row-wrap g-layout-start-center g-layout-gap-05em">
+              <div>{{ 'li.value_format' | translate }} :</div>
+              <div>
+                {{ 'li.value_format_' + tagKeyModel().valueFormat | translate }}
+              </div>
+            </div>
+          </div>
+
+          <!--  Created by & Last modified bt  -->
+          <p class="g-text-small g-text-light separator">
+            <fl-creation-info [user]="null" [date]="tagKeyModel().createdAt"></fl-creation-info>
+          </p>
+          <p class="g-text-small g-text-light">
+            <fl-last-modification-info
+              [user]="null"
+              [date]="tagKeyModel().lastModifiedAt"></fl-last-modification-info>
+          </p>
+
+          @if (tagKeyModel().description) {
+            <p class="g-text-small g-text-light separator">{{ 'li.description' | translate }}</p>
+            <te-text-editor
+              class="g-text-small g-text-light"
+              [disabled]="true"
+              [config]="textEditorConfig"
+              [ngModel]="tagKeyModel().description"></te-text-editor>
+          }
+        </div>
+
+        <div class="right-section">
+          @if (tagKeyValues$()) {
+            <div class="tag-values-header-div">
+              <h2 class="values-title">{{ 'li.values' | translate }}</h2>
+              <button mat-icon-button type="button"
+                      class="g-print-hide"
+                      [matTooltip]="'li.create' | translate"
+                      (click)="openAddTagValueDialog()">
+                <mat-icon>add</mat-icon>
+              </button>
+            </div>
+            <co-tag-values-table
+              (editTagValue)="openEditTagValueDialog($event)"
+              [dataSource]="tagKeyValues$()"
+              [showIsCommunityTagValue]="true"
+              [hideDeleteButton]="true"></co-tag-values-table>
+          }
+        </div>
+      </div>
+    </div>
+  }
+</div>

@@ -13,7 +13,7 @@ import {
   liConstOpenRoute,
   liConstResourceRoute,
   liConstScenarioRoute,
-  liConstScenarioTemplateRoute,
+  liConstScenarioTemplateRoute, liConstTagRoute,
   liConstViewRoute,
 } from '@monorepo/lab-lib/li-core';
 import { labDocumentationRoutes } from '../lab-documentation/lab-documentation-routes';
@@ -24,6 +24,7 @@ import { labResourceRoutes } from '../lab-resource/lab-resource-routes';
 import { labScenarioRoutes } from '../lab-scenario/lab-scenario-routes';
 import { labScenarioTemplateRoutes } from '../lab-scenario-template/lab-scenario-template-routes';
 import { labViewRoutes } from '../lab-view/lab-view-routes';
+import { labTagRoutes } from '../lab-tag/lab-tag-routes';
 
 export const labMainRoutes: Routes = [
   {
@@ -92,6 +93,11 @@ export const labMainRoutes: Routes = [
       {
         path: liConstDocRoute,
         children: labDocumentationRoutes,
+      },
+      //////////////////////// TAG ////////////////////////
+      {
+        path: liConstTagRoute,
+        children: labTagRoutes,
       },
       //////////////////////// MONITORING  /////////////////////////
       {

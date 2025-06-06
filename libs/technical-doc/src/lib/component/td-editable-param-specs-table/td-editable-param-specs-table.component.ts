@@ -1,6 +1,5 @@
-import { Component, inject, Input, output } from '@angular/core';
-import { FlArrayObs } from '@monorepo/front-core-lib/fl-core';
-import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
+import { Component, inject, Input, OnInit, output } from '@angular/core';
+import { FlArrayObs, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { ClHelpService, ClStringHelper } from '@monorepo/core-lib';
@@ -24,7 +23,7 @@ export interface TdEditableParamSpec extends TdParamSpecBase {
   ],
   standalone: false,
 })
-export class TdEditableParamSpecsTableComponent {
+export class TdEditableParamSpecsTableComponent implements OnInit {
   private dynamicParamSpecState = inject(TdAbstractDynamicParamSpecState);
   private translateService = inject(FlTranslateService);
 
@@ -38,26 +37,35 @@ export class TdEditableParamSpecsTableComponent {
 
   @Input() columnsToDisplayWithExpand = ['expand', ...this.columns, 'menu'];
 
+  @Input() displayWithExpand: boolean = true;
+
   table: FlArrayObs<TdEditableParamSpec> = this.dynamicParamSpecState.paramSpecsTable;
 
   expandedElement: TdEditableParamSpec | null;
 
-  onEditElementClick = output<TdEditableParamSpec>();
+  editElementClick = output<TdEditableParamSpec>();
 
-  onDeleteElementClick = output<TdEditableParamSpec>();
+  deleteElementClick = output<TdEditableParamSpec>();
+
+  ngOnInit(): void {
+    if (!this.displayWithExpand) this.columnsToDisplayWithExpand = this.columns;
+  }
 
   edit(event: Event, element: TdEditableParamSpec): void {
     ClHelpService.stopEventPropagation(event);
-    this.onEditElementClick.emit(element);
+    this.editElementClick.emit(element);
   }
 
   delete(event: Event, element: TdEditableParamSpec): void {
     ClHelpService.stopEventPropagation(event);
-    this.onDeleteElementClick.emit(element);
+    this.deleteElementClick.emit(element);
   }
 
   getColumnValue(element: any, column: string): string {
     if (!element[column]) {
+      if (column === 'human_name') {
+        return element['name'] ? ClStringHelper.capitalize(element['name']) : '';
+      }
       return '';
     }
 

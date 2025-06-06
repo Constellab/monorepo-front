@@ -1,7 +1,19 @@
-<mat-table mat-table [dataSource]="dataSource()" flSearchTableSort>
+<mat-table mat-table [dataSource]="dataSource()">
+
+  <ng-container matColumnDef="isCommunityTagValue">
+    <mat-header-cell *matHeaderCellDef class="g-table-icon-button-cell"></mat-header-cell>
+    <mat-cell *matCellDef="let tagValue" class="g-table-icon-button-cell">
+      <div>
+        @if (tagValue.isCommunityTagValue) {
+          <mat-icon flIcon="community-icon" class="g-icon-small"></mat-icon>
+        }
+      </div>
+    </mat-cell>
+  </ng-container>
+
   <ng-container matColumnDef="value">
-    <mat-header-cell *matHeaderCellDef mat-sort-header>
-      <span>{{ 'value' | translate }}</span>
+    <mat-header-cell *matHeaderCellDef>
+      <span>{{ 'li.value' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let tagValue">
       <div>
@@ -12,7 +24,7 @@
 
   <ng-container matColumnDef="shortDescription">
     <mat-header-cell *matHeaderCellDef>
-      <span>{{ 'short_description' | translate }}</span>
+      <span>{{ 'li.short_description' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let tagValue">
       <div>
@@ -23,7 +35,7 @@
 
   <ng-container matColumnDef="additionalInfos">
     <mat-header-cell *matHeaderCellDef>
-      <span>{{ 'additional_infos' | translate }}</span>
+      <span>{{ 'li.additional_info' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let tagValue">
       <div>
@@ -43,7 +55,7 @@
 
   <ng-container matColumnDef="deprecated">
     <mat-header-cell *matHeaderCellDef>
-      <span>{{ 'state' | translate }}</span>
+      <span>{{ 'li.state' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let tagValue">
       <div>
@@ -54,35 +66,25 @@
     </mat-cell>
   </ng-container>
 
-  <ng-container matColumnDef="edit">
-    <mat-header-cell *matHeaderCellDef class="g-table-icon-button-cell"></mat-header-cell>
-    <mat-cell *matCellDef="let tagValue" class="g-table-icon-button-cell">
-      <div>
-        @if (!tagValue.deprecated && !hideEditButton()) {
-          <button mat-icon-button (click)="emitEditTagValue(tagValue)" [matTooltip]="'edit' | translate">
+  <ng-container matColumnDef="actions">
+    <mat-header-cell class="g-table-icon-button-cell" *matHeaderCellDef></mat-header-cell>
+    <mat-cell class="g-table-icon-button-cell" *matCellDef="let tagValue">
+      @if (!tagValue.isCommunityTagValue) {
+        <!--   Mat menu containing action buttons   -->
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu" xPosition="before">
+          <button mat-menu-item type="button" (click)="openEditTagValue(tagValue)">
             <mat-icon>edit</mat-icon>
+            <span>{{ 'li.edit_tag_value' | translate }}</span>
           </button>
-        }
-      </div>
-    </mat-cell>
-  </ng-container>
-
-  <ng-container matColumnDef="delete">
-    <mat-header-cell *matHeaderCellDef class="g-table-icon-button-cell"></mat-header-cell>
-    <mat-cell *matCellDef="let tagValue" class="g-table-icon-button-cell">
-      <div>
-        @if (!tagValue.deprecated && !hideDeleteButton()) {
-          <button
-            mat-icon-button
-            class="warn"
-            (click)="emitDeleteTagValue(tagValue)"
-            [matTooltip]="
-              !tagValue.tagKey.publishedAt ? ('delete' | translate) : ('deprecate_tag_value' | translate)
-            ">
-            <mat-icon>delete</mat-icon>
+          <button mat-menu-item type="button" (click)="openDeleteTagValue(tagValue)" class="warn">
+            <mat-icon>clear</mat-icon>
+            <span>{{ 'li.delete_tag_value' | translate }}</span>
           </button>
-        }
-      </div>
+        </mat-menu>
+      }
     </mat-cell>
   </ng-container>
 

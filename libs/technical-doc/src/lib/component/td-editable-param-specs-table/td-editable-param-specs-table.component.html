@@ -65,7 +65,7 @@
             }
           </div>
           <div class="additional-infos-div">
-            @if (Object.keys(element.additional_info).length > 0) {
+            @if (element.additional_info && Object.keys(element.additional_info).length > 0) {
               @for (key of Object.keys(element.additional_info); track key) {
                 @if (element.additional_info[key]) {
                   <fl-key-value>
@@ -78,7 +78,7 @@
               }
             }
           </div>
-          @if (!(element.short_description?.length > 0) && !(Object.keys(element.additional_info).length > 0)) {
+          @if (!(element.short_description?.length > 0) && (!element.additional_info || !(Object.keys(element.additional_info).length > 0))) {
             <div class="empty-table">
               {{ 'td.no_additional_info' | translate }}
             </div>
@@ -98,6 +98,6 @@
   </table>
 } @else {
   <div class="empty-table">
-    {{ 'td.no_param_spec' | translate }}
+    {{ 'td.no_specs' | translate }}
   </div>
 }

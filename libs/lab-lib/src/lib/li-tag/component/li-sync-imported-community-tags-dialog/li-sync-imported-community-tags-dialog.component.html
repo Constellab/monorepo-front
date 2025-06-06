@@ -1,0 +1,72 @@
+<fl-dialog-header>
+  {{ 'li.synchronize_community_tags' | translate }}
+</fl-dialog-header>
+
+<fl-async-section [object]="notSynchronizedTags$">
+  <ng-container *flSectionBody="notSynchronizedTags$ as notSynchronizedTags">
+    @if (notSynchronizedTags.tagKeysNotSynchronized?.length > 0) {
+      <mat-dialog-content class="tag-not-synchronized-content">
+        <mat-accordion>
+          @for (
+            tagKeyToSynchronize of notSynchronizedTags.tagKeysNotSynchronized;
+            track tagKeyToSynchronize.oldKey.id
+          ) {
+            <mat-expansion-panel [hideToggle]="!(tagKeyToSynchronize.notSynchronizedValues?.length > 0)">
+              <mat-expansion-panel-header>
+                <mat-panel-title>{{ tagKeyToSynchronize.oldKey.key }}</mat-panel-title>
+                <mat-panel-description>
+                  @for (keyField of tagKeyToSynchronize.notSynchronizedFields; track keyField) {
+                    <span>{{ keyField }}</span>
+                  }
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              @if (tagKeyToSynchronize.notSynchronizedValues?.length > 0) {
+                <div>
+                  <table class="tag-not-synchronized-table">
+                    <thead>
+                    <tr>
+                      <th class="tag-not-synchronized-th">{{ 'li.value' | translate }}</th>
+                      <th class="tag-not-synchronized-th">{{ 'li.changes' | translate }}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                      @for (
+                        valueToSynchronize of tagKeyToSynchronize.notSynchronizedValues;
+                        track valueToSynchronize.newValue.id
+                        ) {
+                        <tr>
+                          <td>
+                            {{ 'li.values' | translate }}
+                          </td>
+                          <td>
+                            @for (keyField of valueToSynchronize.notSynchronizedFields; track keyField) {
+                              <span>{{ keyField }}</span>
+                            }
+                          </td>
+                        </tr>
+                      }
+                    </tbody>
+                  </table>
+                </div>
+              }
+            </mat-expansion-panel>
+          }
+        </mat-accordion>
+      </mat-dialog-content>
+      <div mat-dialog-actions>
+        <button
+          mat-flat-button
+          type="submit"
+          form="insert-doc-template-form"
+          class="g-centered-forced primary"
+          (click)="synchronizeTags(notSynchronizedTags)">
+          {{ 'li.synchronize_community_tags' | translate }}
+        </button>
+      </div>
+    } @else {
+      <mat-dialog-content>
+        {{ 'li.no_tags_to_synchronize' | translate }}
+      </mat-dialog-content>
+    }
+  </ng-container>
+</fl-async-section>

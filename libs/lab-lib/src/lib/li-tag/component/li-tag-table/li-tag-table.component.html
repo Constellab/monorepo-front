@@ -1,0 +1,56 @@
+<mat-table mat-table [dataSource]="datasource" flSearchTableSort>
+  <!-- Key -->
+  <ng-container matColumnDef="key">
+    <mat-header-cell *matHeaderCellDef class="g-cell-header-with-left-border" mat-sort-header>
+      <span> {{ 'li.key' | translate}} </span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let tag" class="g-cell-with-left-border" [style.border-left-color]="tag | flTagColor | async">
+      @if (!rowSelectable) {
+        <a [routerLink]="tag | liDetailRoute" [target]="rowLinkTarget" class="g-row-link"></a>
+      }
+
+      <div>
+        @if (tag.isCommunityTag) {
+          <fl-text-icon class="g-text-dense-height text">
+            <mat-icon flIcon="community-icon"></mat-icon>
+            {{tag.key}}
+          </fl-text-icon>
+        } @else {
+          <div class="g-text-dense-height text">{{tag.key}}</div>
+        }
+      </div>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Label -->
+  <ng-container matColumnDef="label">
+    <mat-header-cell *matHeaderCellDef class="g-column-width-2">
+      <span> {{ 'li.label' | translate}} </span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let tag" class="g-column-width-2">
+        <div class="g-text-dense-height text">{{tag.label}}</div>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Value format -->
+  <ng-container matColumnDef="valueFormat">
+    <mat-header-cell *matHeaderCellDef class="g-column-width-2">
+      <span> {{ 'li.value_format' | translate}} </span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let tag" class="g-column-width-2">
+        <div class="g-text-dense-height text">{{tag.valueFormat}}</div>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <mat-header-cell *matHeaderCellDef class="g-table-icon-button-cell"> </mat-header-cell>
+    <mat-cell *matCellDef="let row" class="g-table-icon-button-cell">
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
+  <mat-row
+    *matRowDef="let row; columns: columns"
+    class="g-table-row-selectable g-row-link-container"
+    (click)="rowClicked(row)"></mat-row>
+</mat-table>

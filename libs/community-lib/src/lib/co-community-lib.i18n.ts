@@ -10,7 +10,7 @@ const coCommunityLibI18nFr: FlLangTranslation = {
     task_visibility: 'Visibilité de la tâche',
     version: 'Version',
     public: 'Public',
-    title: 'Title',
+    title: 'Titre',
     space: 'Space',
     type: 'Type',
     create: 'Créer',
@@ -33,6 +33,19 @@ const coCommunityLibI18nFr: FlLangTranslation = {
     or_chose_a_community_icon: 'Ou choisir une icône de Community dans la liste ci-dessous',
     save: 'Enregistrer',
     deprecated: 'Déprécié',
+    value: 'Valeur',
+    short_description: 'Description',
+    additional_info: 'Informations supplémentaires',
+    edit_additional_info_specs: 'Modifier les spécifications des informations supplémentaires',
+    status: 'Statut',
+    edit_tag_value: 'Modifier la valeur du tag',
+    create_tag_value: 'Créer une valeur de tag',
+    delete_tag_value: 'Supprimer la valeur du tag',
+    tag_value_created: "Valeur du tag créée",
+    tag_value_updated: "Valeur du tag mise à jour",
+    description: 'Description',
+    update: 'Mettre à jour',
+    active: 'Actif'
   },
 };
 
@@ -67,6 +80,19 @@ const coCommunityLibI18nEn: FlLangTranslation = {
     or_chose_a_community_icon: 'Or chose a Community Icon in the list below',
     save: 'Save',
     deprecated: 'Deprecated',
+    value: 'Value',
+    short_description: 'Short description',
+    additional_info: 'Additional info',
+    edit_additional_info_specs: 'Edit additional info specs',
+    status: 'Status',
+    edit_tag_value: 'Edit tag value',
+    create_tag_value: 'Create tag value',
+    delete_tag_value: 'Delete tag value',
+    tag_value_created: "Tag value created",
+    tag_value_updated: "Tag value updated",
+    description: 'Description',
+    update: 'Update',
+    active: 'Active'
   },
 };
 export const coCommunityLibI18n: FlTranslateObject = {

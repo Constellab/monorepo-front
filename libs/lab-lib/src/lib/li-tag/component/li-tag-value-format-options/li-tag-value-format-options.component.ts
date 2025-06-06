@@ -1,0 +1,33 @@
+import { AfterViewInit, Component, inject } from '@angular/core';
+import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib/fl-core';
+import { MatOption } from '@angular/material/core';
+import { TranslatePipe } from '@ngx-translate/core';
+import { MatSelect } from '@angular/material/select';
+import { LiTagValueFormat } from '@monorepo/lab-lib/li-core';
+
+@Component({
+  selector: 'li-tag-value-format-options',
+  imports: [MatOption, TranslatePipe],
+  templateUrl: './li-tag-value-format-options.component.html',
+  styleUrl: './li-tag-value-format-options.component.scss',
+})
+export class LiTagValueFormatOptionsComponent
+  extends FlEmbeddedOptionsAbstractDirective
+  implements AfterViewInit
+{
+  select: MatSelect;
+
+  valueFormatOptions: LiTagValueFormat[] = ['STRING', 'INTEGER', 'FLOAT', 'BOOLEAN', 'DATETIME'];
+
+  constructor() {
+    const select = inject(MatSelect, { host: true, optional: true });
+
+    super(select);
+
+    this.select = select;
+  }
+
+  ngAfterViewInit(): void {
+    this.initOptions();
+  }
+}

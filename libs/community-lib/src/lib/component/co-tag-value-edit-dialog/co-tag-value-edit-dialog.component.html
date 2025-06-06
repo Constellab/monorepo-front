@@ -1,15 +1,20 @@
 <fl-dialog-header>
-  {{ 'edit_tag_value' | translate }}
+  @if (dialogInput.mode === 'update') {
+    {{ 'coCommunityLib.edit_tag_value' | translate }}
+  } @else {
+    {{ 'coCommunityLib.create_tag_value' | translate }}
+  }
+
 </fl-dialog-header>
 
 <mat-dialog-content>
   <form [formGroup]="formGp" id="tag-value-form" (ngSubmit)="submit()">
     <mat-form-field class="g-full">
-      <mat-label>{{ 'value' | translate }}</mat-label>
+      <mat-label>{{ 'coCommunityLib.value' | translate }}</mat-label>
       <input
         matInput
         formControlName="value"
-        [placeholder]="'value' | translate"
+        [placeholder]="'coCommunityLib.value' | translate"
         [disabled]="dialogInput.mode === 'update'"
         required />
       @if (formGp.get('value').hasError('required')) {
@@ -20,13 +25,13 @@
     </mat-form-field>
 
     <mat-form-field class="g-full">
-      <mat-label>{{ 'description' | translate }}</mat-label>
+      <mat-label>{{ 'coCommunityLib.short_description' | translate }}</mat-label>
       <input matInput formControlName="shortDescription" [placeholder]="'description' | translate" />
     </mat-form-field>
 
     @if (additionalInfoSpecs && (additionalInfoSpecs | flObjectKeys).length > 0) {
       <div class="additional-infos-div">
-        <div>{{ 'additional_infos' | translate }}</div>
+        <div>{{ 'coCommunityLib.additional_info' | translate }}</div>
         <div class="additional-infos-fields-div">
           @for (additionalInfo of additionalInfoSpecs | flObjectKeys; track additionalInfo) {
             <mat-form-field>
@@ -51,7 +56,11 @@
     form="tag-value-form"
     class="g-centered-forced primary"
     [disabled]="!formGp.valid && !isLoading">
-    {{ 'create' | translate }}
+    @if (dialogInput.mode === 'update') {
+      {{ 'coCommunityLib.update' | translate }}
+    } @else {
+      {{ 'coCommunityLib.create' | translate }}
+    }
     @if (isLoading) {
       <fl-button-loader></fl-button-loader>
     }

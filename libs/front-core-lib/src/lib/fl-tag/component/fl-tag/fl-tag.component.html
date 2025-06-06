@@ -5,7 +5,11 @@
   <div class="color" [style.background-color]="flTag | flTagColor: tagColorer | async"></div>
 
   <div class="text">
-    {{ flTag.key }}
+    @if (flTag.label) {
+      {{flTag.label}}
+    } @else {
+      {{ flTag.key }}
+    }
     @if (flTag.value) {
       : {{ flTag.value }}
     }

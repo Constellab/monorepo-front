@@ -1,3 +1,11 @@
-<div class="deprecate-tag g-text-small">
-  {{ 'coCommunityLib.deprecated' | translate }}
-</div>
+@if (isDeprecated()) {
+  <div class="tag deprecate-tag g-text-small">
+    {{ 'coCommunityLib.deprecated' | translate }}
+  </div>
+} @else {
+  <div class="tag active-tag g-text-small">
+    {{ 'coCommunityLib.active' | translate }}
+  </div>
+}
+
+

@@ -75,7 +75,9 @@ export class LiManageEntityTagsDialogComponent {
   }
 
   addTag(tagEvent: FlAddTagEvent<LiTagKeyModel>): void {
-    const tag = LiTag.newUserTag(tagEvent.key.content, tagEvent.value.content);
+    const tag = tagEvent.key.entity.isCommunityTag ?
+      LiTag.newCommunityTag(tagEvent.key.content, tagEvent.value.content) :
+      LiTag.newUserTag(tagEvent.key.content, tagEvent.value.content);
     if (this.currentTags.findItem(tag)) {
       this.snackBarService.openErrorMessage({ text: 'li.tag_already_exists', translateText: true });
       return;

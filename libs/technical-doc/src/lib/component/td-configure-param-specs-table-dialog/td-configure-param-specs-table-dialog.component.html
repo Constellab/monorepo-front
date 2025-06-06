@@ -8,8 +8,8 @@
   </div>
 
   <td-editable-param-specs-table
-    (onEditElementClick)="openEditParamSpecDialog($event)"
-    (onDeleteElementClick)="openDeleteParamDialog($event)"></td-editable-param-specs-table>
+    (editElementClick)="openEditParamSpecDialog($event)"
+    (deleteElementClick)="openDeleteParamDialog($event)"></td-editable-param-specs-table>
 </mat-dialog-content>
 <mat-dialog-actions class="action-div">
   <button mat-flat-button class="primary" (click)="openEditParamSpecDialog()">

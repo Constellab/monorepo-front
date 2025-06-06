@@ -356,6 +356,7 @@
     "add_tag_propagation_help": "Liste des objets qui seront taggés suite à la propagation du tag, merci de valider la création du tag.",
     "delete_tag_propagation_help": "Liste des objets qui seront détaggés suite à la suppression du tag propagé, merci de valider la suppression du tag.",
     "tag_key": "Clé",
+    "value": "Valeur",
     "tag_value": "Valeur",
     "tag_is_propagable": "Propagable",
     "tag_is_not_propagable": "Non propagable",
@@ -450,6 +451,24 @@
     "credentials_type_LAB": "LAB",
     "credentials_type_OTHER": "Autre",
     "log_show_stack_trace": "Afficher la stack trace",
-    "log_hide_stack_trace": "Cacher la stack trace"
+    "log_hide_stack_trace": "Cacher la stack trace",
+    "key": "Clé",
+    "label": "Label",
+    "value_format": "Format de la valeur",
+    "value_format_STRING": "Chaîne de caractères",
+    "value_format_INTEGER": "Nombre entier",
+    "value_format_FLOAT": "Nombre décimal",
+    "value_format_BOOLEAN": "Booléen",
+    "value_format_DATETIME": "Date et heure",
+    "deprecated": "Obsolète",
+    "values": "Valeurs",
+    "details": "Détails",
+    "share_tag_to_community": "Partager le tag dans Community",
+    "visibility": "Visibilité",
+    "space": "Space",
+    "share_tag": "Partager le tag",
+    "your_spaces": "Vos espaces",
+    "synchronize_community_tags": "Synchroniser les tags de Community",
+    "changes": "Modifications"
   }
 }

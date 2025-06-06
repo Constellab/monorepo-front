@@ -7,7 +7,7 @@ import {
   FlTagService,
   FlTagValue,
 } from '@monorepo/front-core-lib/fl-tag';
-import { Injectable, inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import {
   LiCreateTagResponse,
   LiEntityTagType,
@@ -15,12 +15,17 @@ import {
   LiTagDatasource,
   LiTagDetail,
   LiTagKeyModel,
-  LiTagOrigin,
-  LiTagValueModel,
+  LiTagKeyModelDatasource,
+  LiTagOrigin, LiTagsNotSynchronized, LiTagValueEditDTO,
+  LiTagValueModel, LiTagValueModelDatasource,
   TagPropagationImpactDTO,
 } from '../model/entities/li-tag.entity';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { LiTagSearch, LiTagSearchFields } from '../model/search/li-tag-search.class';
+import { FlDatasourceGetPageData, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
+import { FlSearchConverter } from '@monorepo/front-core-lib/fl-search';
+import { CoTagValueEditDTO } from '@monorepo/community-lib';
 
 @Injectable({
   providedIn: 'root',
@@ -34,6 +39,35 @@ export class LiTagService extends FlTagService {
     super();
   }
 
+  public getTagKeyByKey(key: string): Observable<LiTagKeyModel> {
+    return this.apiService.get(`${this.route}/${key}`, LiTagKeyModel);
+  }
+
+  public getSearchDatasource(): LiTagKeyModelDatasource<LiTagSearchFields> {
+    return new FlEntityPaginatedDatasource(
+      (page: number, pageSize: number, data) => this.search(page, pageSize, data),
+      20,
+      { initFirstPage: false }
+    );
+  }
+
+  public search(
+    page: number,
+    pageSize: number,
+    data: FlDatasourceGetPageData<LiTagSearchFields>
+  ): Observable<ClPage<LiTagKeyModel>> {
+    const searchInput = FlSearchConverter.convertDatasourceGetPageDataToSearchParams(
+      data,
+      LiTagSearch.filterConverter,
+      LiTagSearch.sortConverter
+    );
+    return this.apiService.post(`${this.route}/search`, searchInput, LiTagKeyModel, {
+      page: page,
+      pageSize: pageSize,
+      resultIsPaginated: true,
+    });
+  }
+
   public searchKeys(key: string, page: number, pageSize: number): Observable<ClPage<LiTagKeyModel>> {
     const strKey = key ? '/' + key : '';
     return this.apiService.get(`${this.route}/search/key${strKey}`, LiTagKeyModel, {
@@ -41,6 +75,26 @@ export class LiTagService extends FlTagService {
       pageSize: pageSize,
       resultIsPaginated: true,
     });
+  }
+
+  public getTagKeyValuesPaginated(
+    tagKey: string,
+    page: number,
+    size: number
+  ): Observable<ClPage<LiTagValueModel>> {
+    return this.apiService.get(`${this.route}/key/${tagKey}/values`, LiTagValueModel, {
+      page: page,
+      pageSize: size,
+      resultIsPaginated: true,
+    });
+  }
+
+  public getTagKeyValues(tagKey: string): LiTagValueModelDatasource {
+    return new FlEntityPaginatedDatasource(
+      (page: number, pageSize: number) => this.getTagKeyValuesPaginated(tagKey, page, pageSize),
+      20,
+      { initFirstPage: false }
+    );
   }
 
   public searchValues(
@@ -93,6 +147,65 @@ export class LiTagService extends FlTagService {
     }
   }
 
+  searchCommunityTag(
+    filters: Partial<FlTagSearchFilter>,
+    page: number,
+    pageSize: number
+  ): Observable<ClPageI<FlTagSearchResult>> {
+    if (filters.value == null) {
+      return this.getAllCommunityAgentsWithFilters(
+        [],
+        filters.key,
+        false,
+        page,
+        pageSize
+      ).pipe(
+        // Convert the ClPage<LiTagKeyModel> to ClPage<FlTagSearchResult>
+        map((page) =>
+          page.map(
+            (tag) =>
+              ({
+                type: 'key',
+                content: tag.key,
+                entity: tag,
+              }) as FlTagSearchResult
+          )
+        )
+      );
+    } else {
+      return this.getCommunityTagValues(filters.key, page, pageSize).pipe(
+        // Convert the ClPage<LiTagValueModel> to ClPage<FlTagSearchResult>
+        map((page) =>
+          page.map(
+            (tag) =>
+              ({
+                type: 'value',
+                content: tag.value,
+                entity: tag,
+              }) as FlTagSearchResult
+          )
+        )
+      );
+    }
+  }
+
+  public shareTagToCommunity(key: string,
+                             mode: 'PUBLIC' | 'SPACE',
+                             spaceSelected: string): Observable<LiTagKeyModel> {
+    return this.apiService.post(`${this.route}/share-tag-to-community/${key}`, {
+      publish_mode: mode,
+      space_selected: spaceSelected,
+    }, LiTagKeyModel);
+  }
+
+  public getValuesDatasource(key: string): LiTagValueModelDatasource {
+    return new FlEntityPaginatedDatasource(
+      (page: number, pageSize: number) => this.searchValues(key, '', page, pageSize),
+      20,
+      { initFirstPage: true }
+    );
+  }
+
   public createTag(tagKey: string, tagValue: FlTagValue): Observable<LiCreateTagResponse> {
     return this.apiService.post(`${this.route}/${tagKey}/${tagValue}`, null, LiCreateTagResponse);
   }
@@ -122,7 +235,7 @@ export class LiTagService extends FlTagService {
   addEntityTags(
     entityType: string,
     entityId: string,
-    tags: FlTag[],
+    tags: LiTag[],
     propagate: boolean
   ): Observable<LiTag[]> {
     return this.apiService.post(`${this.route}/entity/${entityType}/${entityId}/${propagate}`, tags, LiTag);
@@ -171,5 +284,66 @@ export class LiTagService extends FlTagService {
       tag,
       TagPropagationImpactDTO
     );
+  }
+
+  /////////////////////////////////// COMMUNITY TAGS ////////////////////////////////////////////
+
+  /**
+   * Call http post to get all community tags with filters
+   * @param spacesFilter
+   * @param labelFilter
+   * @param personalOnly
+   * @param page
+   * @param size
+   * @return a list of agents
+   */
+  public getAllCommunityAgentsWithFilters(
+    spacesFilter: string[],
+    labelFilter: string,
+    personalOnly: boolean,
+    page: number,
+    size: number
+  ): Observable<ClPage<LiTagKeyModel>> {
+    return this.apiService.post(
+      `${this.route}/get-community-available-tags`,
+      { spacesFilter: spacesFilter, labelFilter: labelFilter, personalOnly: personalOnly },
+      LiTagKeyModel,
+      { page: page, pageSize: size, resultIsPaginated: true }
+    );
+  }
+
+  public getCommunityTagValues(
+    tagKey: string,
+    page: number,
+    size: number
+  ): Observable<ClPage<LiTagValueModel>> {
+    return this.apiService.get(`${this.route}/get-community-tag-values/${tagKey}`, LiTagValueModel, {
+      page: page,
+      pageSize: size,
+      resultIsPaginated: true,
+    });
+  }
+
+  public getNotSynchronizedCommunityTags(): Observable<LiTagsNotSynchronized> {
+    return this.apiService.get(
+      `${this.route}/community/get-not-synchronized-community-tags`, LiTagsNotSynchronized);
+  }
+
+  public synchronizeCommunityTags(tagsNotSynchronized: LiTagsNotSynchronized): Observable<void> {
+    return this.apiService.post(
+      `${this.route}/community/synchronize-community-tags`, tagsNotSynchronized
+    );
+  }
+
+  public createTagValue(tagValueEdit: CoTagValueEditDTO): Observable<LiTagValueModel> {
+    const validTagValueEdit: LiTagValueEditDTO = LiTagValueEditDTO.fromCoTagValueEditDTO(tagValueEdit);
+    return this.apiService.post(
+      `${this.route}/${tagValueEdit.tagKey.technicalName}/create-value`, validTagValueEdit, LiTagValueModel);
+  }
+
+  public updateTagValue(tagValueEdit: CoTagValueEditDTO): Observable<LiTagValueModel> {
+    const validTagValueEdit: LiTagValueEditDTO = LiTagValueEditDTO.fromCoTagValueEditDTO(tagValueEdit);
+    return this.apiService.put(
+      `${this.route}/${tagValueEdit.tagKey.technicalName}/update-value`, validTagValueEdit, LiTagValueModel);
   }
 }

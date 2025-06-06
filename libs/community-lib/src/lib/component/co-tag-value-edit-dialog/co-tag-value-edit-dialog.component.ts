@@ -1,44 +1,44 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FlDialogModule, FlFormDialogAbstractDirective } from '@monorepo/front-core-lib/fl-dialog';
-import { TranslatePipe } from '@ngx-translate/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
-import { HaTagValue, HaTagValueEditDTO } from '../../../ha-core/ha-model/ha-entities/ha-tag-value.class';
-import { HaTagService } from '../../../ha-core/ha-service/ha-tag.service';
-import { Observable } from 'rxjs';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { CoConfig } from '../../service/co-service-config.config';
 import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
-import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
-import { MatInput } from '@angular/material/input';
+import { CoTagValue, CoTagValueEditDTO } from '../../model/co-tag-value.class';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { FlDialogModule, FlFormDialogAbstractDirective } from '@monorepo/front-core-lib/fl-dialog';
+import { CoTagKeyAdditionalInfosSpecs, CoTagKeyType } from '../../model/co-tag-key.class';
+import { FormBuilder, FormGroup, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { TranslatePipe } from '@ngx-translate/core';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { MatButton } from '@angular/material/button';
-import { CoTagKeyAdditionalInfosSpecs, CoTagKeyType } from '@monorepo/community-lib';
+import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
 
-export type HaTagValueEditDialogInput = FlFormDialogInput<Partial<HaTagValueEditDTO>>;
+export type CoTagValueEditDialogInput = FlFormDialogInput<Partial<CoTagValueEditDTO>>;
 
 @Component({
-  selector: 'ha-tag-value-edit-dialog',
+  selector: 'co-tag-value-edit-dialog',
   imports: [
     FlDialogModule,
     TranslatePipe,
     ReactiveFormsModule,
-    MatFormField,
-    MatInput,
     FlCorePipeModule,
     FlLoaderModule,
     MatButton,
     MatError,
-    MatLabel,
+    MatFormField,
+    MatInput,
+    MatLabel
   ],
-  templateUrl: './ha-tag-value-edit-dialog.component.html',
-  styleUrl: './ha-tag-value-edit-dialog.component.scss',
+  templateUrl: './co-tag-value-edit-dialog.component.html',
+  styleUrl: './co-tag-value-edit-dialog.component.scss',
 })
-export class HaTagValueEditDialogComponent
-  extends FlFormDialogAbstractDirective<Partial<HaTagValueEditDTO>, HaTagValue>
+export class CoTagValueEditDialogComponent
+  extends FlFormDialogAbstractDirective<Partial<CoTagValueEditDTO>, CoTagValue>
   implements OnInit
 {
-  private tagService = inject(HaTagService);
-  dialogInput: HaTagValueEditDialogInput = inject(MAT_DIALOG_DATA);
+  private coConfig = inject(CoConfig);
+  dialogInput: CoTagValueEditDialogInput = inject(MAT_DIALOG_DATA);
   additionalInfoSpecs: CoTagKeyAdditionalInfosSpecs;
   tagKeyType: CoTagKeyType;
 
@@ -75,31 +75,31 @@ export class HaTagValueEditDialogComponent
     return formGp;
   }
 
-  create(formValue: HaTagValueEditDTO): Observable<HaTagValue> {
+  create(formValue: CoTagValueEditDTO): Observable<CoTagValue> {
     formValue = this.cleanFormValue(formValue);
-    return this.tagService.createValue(formValue);
+    return this.coConfig.createTagValue(formValue);
   }
 
-  update(formValue: HaTagValueEditDTO): Observable<HaTagValue> {
+  update(formValue: CoTagValueEditDTO): Observable<CoTagValue> {
     formValue = this.cleanFormValue(formValue);
-    return this.tagService.updateValue(formValue);
+    return this.coConfig.updateTagValue(formValue);
   }
 
-  getCreateSuccessMessage(): string {
-    return 'tag_value_created';
-  }
-
-  getUpdateSuccessMessage(): string {
-    return 'tag_value_updated';
-  }
-
-  cleanFormValue(formValue: HaTagValueEditDTO): HaTagValueEditDTO {
+  cleanFormValue(formValue: CoTagValueEditDTO): CoTagValueEditDTO {
     formValue.additionalInfos = {};
     const jsonFormValue = JSON.parse(JSON.stringify(formValue));
     for (const key in this.additionalInfoSpecs) {
       formValue.additionalInfos[key] = jsonFormValue[key];
     }
     return formValue;
+  }
+
+  getCreateSuccessMessage(): string {
+    return 'coCommunityLib.tag_value_created';
+  }
+
+  getUpdateSuccessMessage(): string {
+    return 'coCommunityLib.tag_value_updated';
   }
 
   private getValueValidators(): Validators {

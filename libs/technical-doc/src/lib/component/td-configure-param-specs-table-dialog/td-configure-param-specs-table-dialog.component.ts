@@ -45,14 +45,7 @@ export class TdConfigureParamSpecsTableDialogComponent {
         viewContainerRef: this.viewContainerRef,
       })
       .afterClosed()
-      .subscribe((output: TdConfigI) => this.onEditClosed(output));
-  }
-
-  private onEditClosed(output: TdConfigI): void {
-    if (output && output.specs[this.data.configSpecName]) {
-      this.data.paramSpecs = output.specs[this.data.configSpecName].additional_info.specs;
-      this.dynamicParamSpecState.setParamSpecs(this.data.paramSpecs);
-    }
+      .subscribe((output: TdParamSpecs | TdConfigI) => this.onEditClosed(output));
   }
 
   openDeleteParamDialog(param: TdEditableParamSpec): void {
@@ -60,17 +53,28 @@ export class TdConfigureParamSpecsTableDialogComponent {
       title: 'td.confirm_param_spec_deletion_title',
       content: 'td.confirm_param_spec_deletion_content',
       successMessage: 'td.confirm_param_spec_deletion_success',
+      observable: this.dynamicParamSpecState.deleteParamSpec(this.data.configSpecName, param.name),
     };
 
     this.dialogService
       .openConfirmDialog(input)
       .afterClosed()
-      .subscribe((res: FlConfirmDialogResult<TdConfigI>) => this.deleteParam(res, param.name));
+      .subscribe((res: FlConfirmDialogResult<TdParamSpecs | TdConfigI>) => {
+        if (!res || !res.choice || 'values' in res.result) return;
+        this.dynamicParamSpecState.setParamSpecs(res.result as TdParamSpecs);
+      });
   }
 
-  private deleteParam(res: FlConfirmDialogResult, paramName: string): void {
-    if (res.choice) {
-      this.dynamicParamSpecState.deleteParamSpec(this.data.configSpecName, paramName).subscribe();
+  private onEditClosed(output: TdParamSpecs | TdConfigI): void {
+    if (!output) return;
+
+    if ('specs' in output) {
+      this.data.paramSpecs = (output as TdConfigI).specs[this.data.configSpecName].additional_info.specs;
+      this.dynamicParamSpecState.setParamSpecs(this.data.paramSpecs);
+      return;
+    } else {
+      this.data.paramSpecs = output as TdParamSpecs;
+      this.dynamicParamSpecState.setParamSpecs(this.data.paramSpecs);
     }
   }
 }

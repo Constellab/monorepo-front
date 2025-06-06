@@ -53,6 +53,17 @@ export class LabMonitoringTagsPageComponent implements OnInit {
       (page, size) => this.tagService.searchKeys(null, page, size),
       20
     );
+
+    this.tagService.getAllCommunityAgentsWithFilters([], '', false, 0, 20).subscribe((response) => {
+      if (response && response.objects) {
+        for (const obj of response.objects) {
+          this.tagService.getCommunityTagValues(obj.key, 0, 20).subscribe((tagValues) => {
+            console.log('TAG VALUES', tagValues);
+          });
+        }
+      }
+      console.log('RES', response);
+    });
   }
 
   openAddTagDialog(): void {

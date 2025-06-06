@@ -5,9 +5,17 @@ import { LiBaseEntity } from '../global/li-entity.entity';
 import { LiEntityType, LiNavigableEntityGrouped } from './li-navigable-entity.entity';
 import { LiUser } from './li-user.entity';
 import { TypeHelpOptions } from 'class-transformer/types/interfaces/type-help-options.interface';
+import { TeRichText, TeRichTextTransform } from '@monorepo/text-editor';
+import {
+  CoTagKey,
+  CoTagKeyAdditionalInfosSpecs,
+  CoTagKeyType,
+  CoTagValue,
+  CoTagValueEditDTO,
+} from '@monorepo/community-lib';
 
 export type LiEntityTagType = 'SCENARIO' | 'NOTE' | 'RESOURCE' | 'VIEW' | 'SCENARIO_TEMPLATE';
-export type LiTagValueFormat = 'STRING' | 'INTEGER' | 'FLOAT' | 'DATETIME';
+export type LiTagValueFormat = 'STRING' | 'INTEGER' | 'FLOAT' | 'BOOLEAN' | 'DATETIME';
 
 /**
  * Object representing the tag
@@ -16,7 +24,13 @@ export class LiTag implements FlTag, FlEntity {
   id: string;
 
   key: string;
+
+  label?: string;
+
   value: FlTagValue;
+
+  @Expose({ name: 'is_community_tag' })
+  isCommunityTag: boolean;
 
   @Expose({ name: 'is_user_origin' })
   isUserOrigin: boolean;
@@ -26,6 +40,16 @@ export class LiTag implements FlTag, FlEntity {
     tag.key = key;
     tag.value = value;
     tag.isUserOrigin = true;
+    tag.isCommunityTag = false;
+    return tag;
+  }
+
+  public static newCommunityTag(key: string, value: FlTagValue): LiTag {
+    const tag = new LiTag();
+    tag.key = key;
+    tag.value = value;
+    tag.isUserOrigin = true;
+    tag.isCommunityTag = true;
     return tag;
   }
 }
@@ -106,6 +130,9 @@ export class LiTagDetail implements FlTag, FlEntity {
   id: string;
 
   key: string;
+
+  label: string;
+
   value: FlTagValue;
 
   @Expose({ name: 'is_propagable' })
@@ -118,14 +145,27 @@ export class LiTagDetail implements FlTag, FlEntity {
 /**
  * Object representing the tags entity
  */
-export class LiTagKeyModel extends LiBaseEntity {
+export class LiTagKeyModel extends LiBaseEntity{
   key: string;
+
+  label?: string;
 
   @Expose({ name: 'value_format' })
   valueFormat: LiTagValueFormat;
 
   @Expose({ name: 'is_propagable' })
   isPropagable: boolean;
+
+  @TeRichTextTransform()
+  description: TeRichText;
+
+  deprecated: boolean;
+
+  @Expose({ name: 'is_community_tag' })
+  isCommunityTag: boolean;
+
+  @Expose({name: 'additional_infos_specs'})
+  additionalInfosSpecs?: CoTagKeyAdditionalInfosSpecs;
 
   clone(): LiTagKeyModel {
     const clone = new LiTagKeyModel();
@@ -137,17 +177,41 @@ export class LiTagKeyModel extends LiBaseEntity {
   toString(): string {
     return this.key;
   }
+
+  toCoTagKey(): CoTagKey {
+    return {
+      id: this.id,
+      technicalName: this.key,
+      label: this.label,
+      type: this.valueFormat as CoTagKeyType,
+      deprecated: this.deprecated,
+      createdAt: this.createdAt,
+      description: this.description,
+      additionalInfosSpecs: this.additionalInfosSpecs,
+    } as CoTagKey;
+  }
 }
 
-export type LiTagKeyModelDatasource = FlDatasourcePaginated<LiTagKeyModel>;
+export type LiTagKeyModelDatasource<F = void> = FlDatasourcePaginated<LiTagKeyModel, F>;
 
-export class LiTagValueModel extends LiBaseEntity {
+export class LiTagValueModel extends LiBaseEntity implements CoTagValue{
   key: string;
 
   value: FlTagValue;
 
   @Expose({ name: 'value_format' })
   valueFormat: LiTagValueFormat;
+
+  @Expose({ name: 'is_community_tag_value'})
+  isCommunityTagValue?: boolean;
+
+  @Expose({ name: 'short_description' })
+  shortDescription?: string;
+
+  @Expose({ name: 'additional_infos' })
+  additionalInfos?: Record<string, any>;
+
+  deprecated: boolean;
 
   toString(): string {
     return this.value.toString();
@@ -190,4 +254,62 @@ export class LiCreateTagResponse {
   @Expose({ name: 'value_model' })
   @Type(() => LiTagValueModel)
   valueModel: LiTagValueModel;
+}
+
+export class LiTagValueNotSynchronized {
+  @Type(() => LiTagValueModel)
+  @Expose({ name: 'old_value' })
+  oldValue: LiTagValueModel;
+
+  @Type(() => LiTagValueModel)
+  @Expose({ name: 'new_value' })
+  newValue: LiTagValueModel;
+
+  @Expose({ name: 'not_synchronized_fields' })
+  notSynchronizedFields: string[];
+}
+
+export class LiTagKeyNotSynchronized {
+  @Type(() => LiTagKeyModel)
+  @Expose({name: 'old_key'})
+  oldKey: LiTagKeyModel;
+
+  @Type(() => LiTagKeyModel)
+  @Expose({name: 'new_key'})
+  newKey: LiTagKeyModel;
+
+  @Expose({name: 'not_synchronized_fields'})
+  notSynchronizedFields: string[];
+
+  @Type(() => LiTagValueNotSynchronized)
+  @Expose({name: 'not_synchronized_values'})
+  notSynchronizedValues: LiTagValueNotSynchronized[];
+}
+
+export class LiTagsNotSynchronized {
+  @Type(() => LiTagKeyNotSynchronized)
+  @Expose({name: 'tag_keys_not_synchronized'})
+  tagKeysNotSynchronized: LiTagKeyNotSynchronized[];
+}
+
+
+export class LiTagValueEditDTO {
+  id?: string;
+  value: FlTagValue;
+  @Expose({ name: 'short_description' })
+  shortDescription?: string;
+  @Expose({ name: 'additional_infos' })
+  additionalInfos?: Record<string, any>;
+  @Expose({ name: 'tag_key' })
+  tagKey: string;
+
+  static fromCoTagValueEditDTO(editDto: CoTagValueEditDTO): LiTagValueEditDTO {
+    const dto = new LiTagValueEditDTO();
+    dto.id = editDto.id;
+    dto.value = editDto.value;
+    dto.shortDescription = editDto.shortDescription;
+    dto.additionalInfos = editDto.additionalInfos;
+    dto.tagKey = editDto.tagKey.technicalName;
+    return dto;
+  }
 }

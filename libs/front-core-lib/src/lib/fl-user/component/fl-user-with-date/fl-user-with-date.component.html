@@ -1,4 +1,8 @@
 <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
-  <fl-user-inline [user]="user" [showName]="false"></fl-user-inline>
-  <fl-from-now [date]="date" class="g-text-dense-height"></fl-from-now>
+  @if (user) {
+    <fl-user-inline [user]="user" [showName]="false"></fl-user-inline>
+  }
+  @if (date) {
+    <fl-from-now [date]="date" class="g-text-dense-height"></fl-from-now>
+  }
 </div>

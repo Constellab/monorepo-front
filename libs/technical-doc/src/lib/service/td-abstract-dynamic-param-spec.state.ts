@@ -29,22 +29,22 @@ export abstract class TdAbstractDynamicParamSpecState implements OnDestroy {
     configSpecName: string,
     paramName: string,
     paramSpec: TdParamSpec
-  ): Observable<TdConfigI>;
+  ): Observable<TdConfigI | TdParamSpecs>;
 
   abstract editParamSpec(
     configSpecName: string,
     paramName: string,
     paramSpec: TdParamSpec
-  ): Observable<TdConfigI>;
+  ): Observable<TdConfigI | TdParamSpecs>;
 
   abstract renameAndEditParamSpec(
     configSpecName: string,
     oldName: string,
     newName: string,
     paramSpec: TdParamSpec
-  ): Observable<TdConfigI>;
+  ): Observable<TdConfigI | TdParamSpecs>;
 
-  abstract deleteParamSpec(configSpecName: string, paramName: string): Observable<TdConfigI>;
+  abstract deleteParamSpec(configSpecName: string, paramName: string): Observable<TdConfigI | TdParamSpecs>;
 
   abstract getParamSpecsInfos(): Observable<TdEditParamSpecDict>;
 

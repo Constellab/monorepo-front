@@ -8,6 +8,7 @@ import { LiScenario } from '../../model/entities/li-scenario.entity';
 import { LiScenarioTemplate } from '../../model/entities/process/li-scenario-template.entity';
 import { LiViewConfig } from '../../model/entities/resource/li-view-config.entity';
 import { Pipe, PipeTransform } from '@angular/core';
+import { LiTagKeyModel } from '../../model/entities/li-tag.entity';
 
 /**
  * Pipe to get the detail route of an object
@@ -42,6 +43,9 @@ export class LiDetailRoutePipe implements PipeTransform {
         return LiRouterService.getNoteTemplateDetailRoute(id);
       case 'VIEW':
         return LiRouterService.getViewConfigRedirectRoute(id);
+      case 'TAG':
+        const key: string = (value as LiTagKeyModel).key;
+        return LiRouterService.getTagDetailRoute(key);
       default:
         console.error(`[liDetailRoute] object type ${objectType} not supported`);
         return null;
@@ -61,6 +65,8 @@ export class LiDetailRoutePipe implements PipeTransform {
       return 'NOTE_TEMPLATE';
     } else if (obj instanceof LiViewConfig) {
       return 'VIEW';
+    } else if (obj instanceof LiTagKeyModel) {
+      return 'TAG';
     } else {
       console.error('[liDetailRoute] The object is not supported');
       return null;

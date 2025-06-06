@@ -19,34 +19,29 @@ import {
 } from '../ha-tag-key-edit-dialog/ha-tag-key-edit-dialog.component';
 import { FlConfirmDialogInput, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { MatTooltip } from '@angular/material/tooltip';
-import {
-  HaTagValueEditDialogComponent,
-  HaTagValueEditDialogInput,
-} from '../ha-tag-value-edit-dialog/ha-tag-value-edit-dialog.component';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import {
-  HaAddAdditionalInfoSpecDialogInput,
-  HaAddAdditionalInfoSpecDialogInputData,
-  HaEditAdditionalInfoSpecDialogComponent,
-} from '../ha-edit-additional-info-spec-dialog/ha-edit-additional-info-spec-dialog.component';
-import { HaTagAdditionalInfoSpecsTableComponent } from '../ha-tag-additional-info-specs-table/ha-tag-additional-info-specs-table.component';
-import {
-  HaTagValue,
   HaTagValueDatasourceFilters,
   HaTagValueDatasourcePaginated,
 } from '../../../ha-core/ha-model/ha-entities/ha-tag-value.class';
-import { HaTagValuesTableComponent } from '../ha-tag-values-table/ha-tag-values-table.component';
 import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
 import {
   CoCommunityLibModule,
   CoDeprecatedTagComponent,
+  CoTagAdditionalInfoSpecState,
   CoTagKeyEditAdditionalInfoSpec,
   CoTagKeyType,
+  CoTagValue,
+  CoTagValueEditDialogComponent,
+  CoTagValueEditDialogInput,
+  CoTagValuesTableComponent,
 } from '@monorepo/community-lib';
 import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
 import { FlClipboardService } from '@monorepo/front-core-lib/fl-snack-bar';
+import { TdAbstractDynamicParamSpecState, TdParamSpecs, TdTechnicalDocModule } from '@monorepo/technical-doc';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 
 @Component({
   selector: 'ha-tag-page',
@@ -60,8 +55,6 @@ import { FlClipboardService } from '@monorepo/front-core-lib/fl-snack-bar';
     MatIconButton,
     MatTooltip,
     FlCorePipeModule,
-    HaTagAdditionalInfoSpecsTableComponent,
-    HaTagValuesTableComponent,
     FlInfiniteScrollModule,
     FlDateModule,
     FlUserModule,
@@ -69,9 +62,13 @@ import { FlClipboardService } from '@monorepo/front-core-lib/fl-snack-bar';
     FlKeyValueModule,
     CoCommunityLibModule,
     CoDeprecatedTagComponent,
+    CoTagValuesTableComponent,
+    TdTechnicalDocModule,
+    FlIconModule,
   ],
   templateUrl: './ha-tag-page.component.html',
   styleUrl: './ha-tag-page.component.scss',
+  providers: [{ provide: TdAbstractDynamicParamSpecState, useClass: CoTagAdditionalInfoSpecState }],
 })
 export class HaTagPageComponent implements OnInit {
   private tagService = inject(HaTagService);
@@ -80,6 +77,9 @@ export class HaTagPageComponent implements OnInit {
   private authenticatedUserService = inject(HaAuthenticatedUserService);
   private dialogService = inject(FlDialogService);
   private clipboardService = inject(FlClipboardService);
+  private tagAdditionalInfoSpecState = inject(
+    TdAbstractDynamicParamSpecState
+  ) as CoTagAdditionalInfoSpecState;
 
   tagKey: HaTagKey;
   textEditorConfig = new TeCompleteConfig();
@@ -149,7 +149,6 @@ export class HaTagPageComponent implements OnInit {
         label: this.tagKey.label,
         technicalName: this.tagKey.technicalName,
         space: this.tagKey.space?.id,
-        scientificName: this.tagKey.scientificName,
         unit: this.tagKey.unit,
         type: this.tagKey.type,
       },
@@ -167,42 +166,8 @@ export class HaTagPageComponent implements OnInit {
       });
   }
 
-  openAddAdditionalInfoSpecDialog(): void {
-    const input: HaAddAdditionalInfoSpecDialogInput = {
-      mode: 'create',
-      object: {
-        tagKeyId: this.tagKey.id,
-      } as HaAddAdditionalInfoSpecDialogInputData,
-    };
-
-    this.dialogService
-      .openSmallDialog(HaEditAdditionalInfoSpecDialogComponent, { data: input })
-      .afterClosed()
-      .subscribe((tagKey) => {
-        if (tagKey) {
-          this.setTagKey(tagKey);
-        }
-      });
-  }
-
-  openEditAdditionalInfoSpecDialog(additionalInfoSpec: CoTagKeyEditAdditionalInfoSpec): void {
-    const input: HaAddAdditionalInfoSpecDialogInput = {
-      mode: 'update',
-      object: {
-        tagKeyId: this.tagKey.id,
-        name: additionalInfoSpec.name,
-        optional: additionalInfoSpec.optional,
-      } as HaAddAdditionalInfoSpecDialogInputData,
-    };
-
-    this.dialogService
-      .openSmallDialog(HaEditAdditionalInfoSpecDialogComponent, { data: input })
-      .afterClosed()
-      .subscribe((tagKey) => {
-        if (tagKey) {
-          this.setTagKey(tagKey);
-        }
-      });
+  openEditAdditionalInfoSpecDialog(): void {
+    this.tagAdditionalInfoSpecState.openEditConfigDialog();
   }
 
   openConfirmDeleteAdditionalInfoSpecDialog(name: string): void {
@@ -224,7 +189,7 @@ export class HaTagPageComponent implements OnInit {
   }
 
   openCreateTagValueDialog(): void {
-    const input: HaTagValueEditDialogInput = {
+    const input: CoTagValueEditDialogInput = {
       mode: 'create',
       object: {
         tagKey: this.tagKey,
@@ -232,34 +197,34 @@ export class HaTagPageComponent implements OnInit {
     };
 
     this.dialogService
-      .openSmallDialog(HaTagValueEditDialogComponent, { data: input })
+      .openSmallDialog(CoTagValueEditDialogComponent, { data: input })
       .afterClosed()
       .subscribe((tagValue) => {
         if (tagValue) this.updateTagValues();
       });
   }
 
-  openEditTagValueDialog(tagValue: HaTagValue): void {
-    const input: HaTagValueEditDialogInput = {
+  openEditTagValueDialog(tagValue: CoTagValue): void {
+    const input: CoTagValueEditDialogInput = {
       mode: 'update',
       object: {
         tagKey: this.tagKey,
         id: tagValue.id,
-        value: tagValue.value,
+        value: tagValue.value as string,
         additionalInfos: tagValue.additionalInfos,
         shortDescription: tagValue.shortDescription,
       },
     };
 
     this.dialogService
-      .openSmallDialog(HaTagValueEditDialogComponent, { data: input })
+      .openSmallDialog(CoTagValueEditDialogComponent, { data: input })
       .afterClosed()
       .subscribe((tagValue) => {
         if (tagValue) this.updateTagValues();
       });
   }
 
-  openConfirmDeleteTagValueDialog(tagValue: HaTagValue): void {
+  openConfirmDeleteTagValueDialog(tagValue: CoTagValue): void {
     const input: FlConfirmDialogInput = {
       title: !this.tagKey.publishedAt ? 'delete_tag_value' : 'deprecate_tag_value',
       content: !this.tagKey.publishedAt ? 'delete_tag_value_content' : 'deprecate_tag_value_content',
@@ -309,6 +274,14 @@ export class HaTagPageComponent implements OnInit {
       }
       this.getTagKey(params.id, params.technicalName);
     });
+
+    this.tagAdditionalInfoSpecState.onAdditionalInfoSpecsChanged$.subscribe(
+      (additionalInfoSpecs: TdParamSpecs) => {
+        if (additionalInfoSpecs && additionalInfoSpecs !== this.tagKey.additionalInfosSpecs) {
+          this.tagKey.additionalInfosSpecs = additionalInfoSpecs;
+        }
+      }
+    );
   }
 
   private getTagKey(id: string, technicalName: string): void {
@@ -329,15 +302,7 @@ export class HaTagPageComponent implements OnInit {
     this.descriptionFormControl.setValue(tagKey.description);
     this.descriptionFormControl.disable();
 
-    this.tagAdditionalInfosSpecsDatasource = [];
-    if (tagKey.additionalInfosSpecs) {
-      for (const key in tagKey.additionalInfosSpecs) {
-        this.tagAdditionalInfosSpecsDatasource.push({
-          name: key,
-          optional: tagKey.additionalInfosSpecs[key].optional,
-        });
-      }
-    }
+    this.tagAdditionalInfoSpecState.init(tagKey);
 
     this.tagValues = this.tagService.getAllValueWithFiltersPaginated();
     this.updateTagValues();

@@ -1,0 +1,52 @@
+<fl-dialog-header>
+  {{'li.share_tag_to_community' | translate}}
+</fl-dialog-header>
+
+<mat-dialog-content>
+  @if (spaces && spaces.length > 0) {
+    <form (ngSubmit)="shareTag()" id="share-tag-form" [formGroup]="formGp">
+      <div>
+        <div>{{ 'li.visibility' | translate }}</div>
+        <mat-radio-group formControlName="publishMode" [required]="true">
+          <div class="spaces-div">
+            <mat-radio-button labelPosition="before" value="PUBLIC" class="primary space-button">
+              {{ 'li.public' | translate }}
+            </mat-radio-button>
+            <mat-radio-button labelPosition="before" value="SPACE" class="primary space-button">
+              {{ 'li.space' | translate }}
+            </mat-radio-button>
+          </div>
+        </mat-radio-group>
+      </div>
+
+      @if (formGp.value.publishMode === 'SPACE') {
+        <div class="spaces-title">{{ 'li.your_spaces' | translate }}</div>
+        <mat-radio-group formControlName="spaceSelected" [required]="true">
+          <div class="spaces-div">
+            @for (space of spaces; track space.id) {
+              <mat-radio-button labelPosition="before" [value]="space.id" class="primary">
+                <div class="space-info">
+                  {{ space.name }}
+                </div>
+              </mat-radio-button>
+            }
+          </div>
+        </mat-radio-group>
+      }
+    </form>
+  } @else {
+    <div class="g-text-centered">
+      <fl-loader size="medium"></fl-loader>
+    </div>
+  }
+
+</mat-dialog-content>
+
+@if (spaces && spaces.length > 0) {
+  <div mat-dialog-actions>
+    <button mat-flat-button type="submit" form="share-tag-form" class="g-centered-forced primary">
+      {{ 'li.share_tag' | translate }}
+    </button>
+  </div>
+}
+

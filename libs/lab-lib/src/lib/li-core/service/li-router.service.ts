@@ -8,7 +8,7 @@ import {
   liConstNoteTemplateFullRoute,
   liConstResourceFullRoute,
   liConstScenarioFullRoute,
-  liConstScenarioTemplateFullRoute,
+  liConstScenarioTemplateFullRoute, liConstTagFullRoute,
 } from '../utils/li-base-route';
 
 /**
@@ -97,6 +97,14 @@ export class LiRouterService {
 
   public static getLoginRoute(): string {
     return `/login`;
+  }
+
+  public static getTagSearchRoute(): string {
+    return liConstTagFullRoute;
+  }
+
+  public static getTagDetailRoute(key: string): string {
+    return `${liConstTagFullRoute}/${key}`;
   }
 
   /////////////////// MONITORING ///////////////////

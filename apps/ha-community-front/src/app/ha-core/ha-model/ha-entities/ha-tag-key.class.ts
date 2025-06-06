@@ -4,7 +4,8 @@ import { TeRichText, TeRichTextTransform } from '@monorepo/text-editor';
 import { Type } from 'class-transformer';
 import { HaSpace } from './ha-space.class';
 import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
-import { CoTagKey, CoTagKeyAdditionalInfosSpecs, CoTagKeyType } from '@monorepo/community-lib';
+import { CoTagKey, CoTagKeyType } from '@monorepo/community-lib';
+import { TdParamSpecs } from '@monorepo/technical-doc';
 
 export class HaTagKey implements CoTagKey {
   id: string;
@@ -20,8 +21,7 @@ export class HaTagKey implements CoTagKey {
   unit?: string;
   @TeRichTextTransform()
   description: TeRichText;
-  scientificName?: string;
-  additionalInfosSpecs?: CoTagKeyAdditionalInfosSpecs;
+  additionalInfosSpecs?: TdParamSpecs;
   @Type(() => HaSpace)
   space?: HaSpace;
   tagCoAuthors?: HaUser[];
@@ -33,7 +33,6 @@ export class HaTagKeyEditDTO {
   label: string;
   type: CoTagKeyType;
   unit?: string;
-  scientificName?: string;
   space?: string;
 }
 
