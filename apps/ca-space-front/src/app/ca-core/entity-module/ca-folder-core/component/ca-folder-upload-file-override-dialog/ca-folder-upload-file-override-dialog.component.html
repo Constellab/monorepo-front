@@ -6,10 +6,10 @@
   <form (ngSubmit)="submit()" id="ca-folder-upload-file-override-dialog-form" class="form">
     <p class="help">{{ text }}</p>
     <mat-radio-group class="g-form-input" [formControl]="formCtrl">
-      <mat-radio-button [value]="modes.REPLACE">
+      <mat-radio-button [value]="modes.REPLACE" class="radio-button">
         {{ replaceText }}
       </mat-radio-button>
-      <mat-radio-button [value]="modes.RENAME">
+      <mat-radio-button [value]="modes.RENAME" class="radio-button">
         {{ renameText }}
       </mat-radio-button>
     </mat-radio-group>
