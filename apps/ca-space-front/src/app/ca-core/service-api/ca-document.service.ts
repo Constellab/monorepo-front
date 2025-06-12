@@ -1,7 +1,13 @@
 import { inject, Injectable } from '@angular/core';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { Observable } from 'rxjs';
-import { CaDocument, CaDocumentPreviewDTO } from '../model/entities/folder/ca-document.class';
+import {
+  CaDocument,
+  CaDocumentCheckSameNameRequest,
+  CaDocumentCheckSameNameResponse,
+  CaDocumentPreviewDTO,
+  CaDocumentUploadOverrideMode,
+} from '../model/entities/folder/ca-document.class';
 import { CaHierarchyObject } from '../model/entities/folder/ca-hierarchy-object.class';
 
 @Injectable({
@@ -12,17 +18,32 @@ export class CaDocumentService {
 
   private readonly route: string = 'documents';
 
-  public uploadDocument(file: File, folderId: string): Observable<CaHierarchyObject> {
+  public uploadDocument(
+    file: File,
+    folderId: string,
+    overrideMode: CaDocumentUploadOverrideMode
+  ): Observable<CaHierarchyObject> {
     const formData = new FormData();
     formData.append('file', file);
-    return this.apiService.post(`${this.route}/folder/${folderId}`, formData, CaHierarchyObject);
+    return this.apiService.post(
+      `${this.route}/folder/${folderId}/upload/files/${overrideMode}`,
+      formData,
+      CaHierarchyObject
+    );
+  }
+
+  public checkDocumentsExistsInFolder(
+    folderId: string,
+    request: CaDocumentCheckSameNameRequest
+  ): Observable<CaDocumentCheckSameNameResponse> {
+    return this.apiService.post(`${this.route}/folder/${folderId}/check-same-name`, request);
   }
 
   public uploadFolder(files: File[], folderId: string): Observable<void> {
     const formData: FormData = new FormData();
     files.forEach((file) => formData.append('file', file));
 
-    return this.apiService.post(`${this.route}/folder/${folderId}/folder`, formData);
+    return this.apiService.post(`${this.route}/folder/${folderId}/upload/folder`, formData);
   }
 
   public getDocumentPreviewUrl(documentId: string, documentName: string): string {

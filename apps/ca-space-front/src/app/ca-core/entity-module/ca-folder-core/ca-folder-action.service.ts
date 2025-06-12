@@ -2,27 +2,35 @@ import { inject, Injectable } from '@angular/core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlPortalAction, FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
 
-import { CaFolderService } from '../../service-api/ca-folder.service';
+import { ClHelpService } from '@monorepo/core-lib';
 import { filter, mergeMap, Observable, of } from 'rxjs';
-import {
-  CaFolderFormDialogComponent,
-  CaFolderFormDialogInput,
-} from './component/ca-folder-form-dialog/ca-folder-form-dialog.component';
-import { CaFolder, CaFolderWithHierarchy } from '../../model/entities/folder/ca-folder.class';
+import { map, share, switchMap } from 'rxjs/operators';
 import {
   CaDocumentNameFormDialogComponent,
   CaDocumentNameFormDialogInput,
 } from '../../../ca-folder/module/ca-document-core/component/ca-document-name-form-dialog/ca-document-name-form-dialog.component';
-import { CaConstellabDocument } from '../../model/entities/folder/ca-document.class';
-import { ClHelpService } from '@monorepo/core-lib';
+import {
+  CaConstellabDocument,
+  CaDocumentUploadOverrideMode,
+} from '../../model/entities/folder/ca-document.class';
+import { CaFolder, CaFolderWithHierarchy } from '../../model/entities/folder/ca-folder.class';
 import { CaHierarchyObject } from '../../model/entities/folder/ca-hierarchy-object.class';
-import { map } from 'rxjs/operators';
+import { CaDocumentService } from '../../service-api/ca-document.service';
+import { CaFolderService } from '../../service-api/ca-folder.service';
+import { CaHierarchyObjectService } from '../../service-api/ca-hierarchy-object.service';
+import {
+  CaFolderFormDialogComponent,
+  CaFolderFormDialogInput,
+} from './component/ca-folder-form-dialog/ca-folder-form-dialog.component';
+import {
+  CaFolderUploadFileErrorDialogInput,
+  CaFolderUploadFileErrorDialogOutput,
+  CaFolderUploadFileOverrideDialogComponent,
+} from './component/ca-folder-upload-file-override-dialog/ca-folder-upload-file-override-dialog.component';
 import {
   CaSelectFolderDialogComponent,
   CaSelectFolderDialogInput,
 } from './component/ca-select-folder-dialog/ca-select-folder-dialog.component';
-import { CaHierarchyObjectService } from '../../service-api/ca-hierarchy-object.service';
-import { CaDocumentService } from '../../service-api/ca-document.service';
 
 /**
  * Service to gather action on folder that can be done in multiple location from the UI
@@ -87,13 +95,46 @@ export class CaFolderActionService {
       .afterClosed();
   }
 
+  /**
+   * Upload files to the folder. First it checks if there are files with the same name in the folder.
+   * If there are, it opens a dialog to ask the user what to do.
+   * After that, it uploads the files using the selected override mode.
+   * @param folderId
+   * @param fileEvent
+   */
   public uploadDocument(folderId: string, fileEvent: File | File[]): void {
     const files = ClHelpService.convertObjectOrArrayToArray(fileEvent);
 
+    const fileNames = files.map((file) => file.name);
+
+    // observable that contains the override mode to use for the upload
+    // it checks if there are files with the same name in the folder
+    // if there are, it opens a dialog to ask the user what to do
+    // of there are no files with the same name, it returns ERROR mode
+    const getOverrideMode$: Observable<CaDocumentUploadOverrideMode> = this.documentService
+      .checkDocumentsExistsInFolder(folderId, { names: fileNames })
+      .pipe(
+        switchMap((response) => {
+          // if there are some file with the same name, we ask the user what to do
+          if (response.folderHasFileWithSameName) {
+            return this.openUploadFileOverrideDialog(fileNames);
+          } else {
+            // otherwise we upload the file using ERROR mode for override
+            return of(CaDocumentUploadOverrideMode.ERROR);
+          }
+        }),
+        // use the share so the check and dialog is only done once
+        // then the upload is done 1 time per file
+        share()
+      );
+
+    // generate an action for each file to upload
     for (const file of files) {
       const action: FlPortalAction = {
         type: this.uploadDocumentActionName,
-        action: this.documentService.uploadDocument(file, folderId),
+        action: getOverrideMode$.pipe(
+          switchMap((overrideMode) => this.documentService.uploadDocument(file, folderId, overrideMode))
+        ),
         text: {
           text: 'uploading_document',
           translateText: true,
@@ -104,6 +145,23 @@ export class CaFolderActionService {
 
       this.actionService.addAction(action, false);
     }
+  }
+
+  private openUploadFileOverrideDialog(fileNames: string[]): Observable<CaDocumentUploadOverrideMode> {
+    const input: CaFolderUploadFileErrorDialogInput = {
+      fileNames: fileNames,
+    };
+    return this.dialogService
+      .openSmallDialog(CaFolderUploadFileOverrideDialogComponent, { data: input })
+      .afterClosed()
+      .pipe(
+        map((result: CaFolderUploadFileErrorDialogOutput) => {
+          if (result == null) {
+            throw new Error('User cancelled the upload');
+          }
+          return result;
+        })
+      );
   }
 
   public uploadFolder(folderId: string, fileEvent: File | File[]): void {

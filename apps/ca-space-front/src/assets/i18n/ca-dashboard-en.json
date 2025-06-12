@@ -249,5 +249,13 @@
   "folder_user_role_help_VIEWER": "Read only access on the folder and its sub folders.",
   "folder_user_update_role": "Update user role",
   "folder_user_shared_info": "Shared information",
-  "folder_users": "Folder users"
+  "folder_users": "Folder users",
+  "import_option": "Import options",
+  "file_already_exists": "File {{name}} already exists in this folder. Do you want to replace the existing file with a new version or keep both?",
+  "file_import_replace": "Replace existing file",
+  "file_import_rename": "Keep existing file and rename the new one",
+  "files_already_exist": "One or more files already exist in this folder. Do you want to replace the existing items with a new version or keep all items?",
+  "files_import_replace": "Replace existing files",
+  "files_import_rename": "Keep existing files and rename the new ones",
+  "file_import_confirm": "Import"
 }

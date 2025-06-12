@@ -93,3 +93,17 @@ export class CaDocumentPreviewDTO {
 
   previewUrl: string;
 }
+
+export enum CaDocumentUploadOverrideMode {
+  ERROR = 'ERROR', // throw an error if the document already exists
+  REPLACE = 'REPLACE', // replace the existing document with the new one
+  RENAME = 'RENAME', // rename the new document with '_1' if it already exists
+}
+
+export interface CaDocumentCheckSameNameRequest {
+  names: string[];
+}
+
+export interface CaDocumentCheckSameNameResponse {
+  folderHasFileWithSameName: boolean;
+}

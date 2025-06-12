@@ -1,0 +1,30 @@
+<fl-dialog-header>
+  {{ 'import_option' | translate }}
+</fl-dialog-header>
+
+<mat-dialog-content>
+  <form (ngSubmit)="submit()" id="ca-folder-upload-file-override-dialog-form" class="form">
+    <p class="help">{{ text }}</p>
+    <mat-radio-group class="g-form-input" [formControl]="formCtrl">
+      <mat-radio-button [value]="modes.REPLACE">
+        {{ replaceText }}
+      </mat-radio-button>
+      <mat-radio-button [value]="modes.RENAME">
+        {{ renameText }}
+      </mat-radio-button>
+    </mat-radio-group>
+  </form>
+</mat-dialog-content>
+
+<div mat-dialog-actions>
+  <button
+    mat-stroked-button
+    type="submit"
+    form="ca-folder-upload-file-override-dialog-form"
+    class="yes-button primary">
+    {{ 'file_import_confirm' | translate }}
+  </button>
+  <button mat-stroked-button type="button" (click)="cancel()" class="warn">
+    {{ 'cancel' | translate }}
+  </button>
+</div>

@@ -249,5 +249,13 @@
   "folder_user_role_help_VIEWER": "Accès en lecture seule sur le dossier et ses sous-dossiers.",
   "folder_user_update_role": "Modifier le rôle de l'utilisateur",
   "folder_user_shared_info": "Information sur le partage",
-  "folder_users": "Utilisateurs du dossier"
+  "folder_users": "Utilisateurs du dossier",
+  "import_option": "Options d'importation",
+  "file_already_exists": "Le fichier {{name}} existe déjà dans ce dossier. Voulez-vous remplacer le fichier existant par une nouvelle version ou conserver les deux ?",
+  "file_import_replace": "Remplacer le fichier existant",
+  "file_import_rename": "Conserver le fichier existant et renommer le nouveau",
+  "files_already_exist": "Un ou plusieurs fichier existent déjà dans ce dossier. Voulez-vous remplacer les éléments existants par une nouvelle version ou conserver tous les éléments ?",
+  "files_import_replace": "Remplacer les fichiers existants",
+  "files_import_rename": "Conserver les fichiers existants et renommer les nouveaux",
+  "file_import_confirm": "Importer"
 }
