@@ -1,43 +1,44 @@
 import { Component, inject, Injector, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ClHelpService } from '@monorepo/core-lib';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
+import { FlQueryParamHandler, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
+import { FlDragModule, FlDropEvent } from '@monorepo/front-core-lib/fl-drag';
+import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
 import { firstValueFrom, Observable } from 'rxjs';
-import { CaFolderDetailState } from '../../state/ca-folder-detail.state';
 import { map } from 'rxjs/operators';
 import {
   CaHierarchyObject,
   CaHierarchyObjectDatasource,
 } from '../../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
+import { CaFolderDetailState } from '../../state/ca-folder-detail.state';
 import { CaFolderRightPanelState } from '../../state/ca-folder-right-panel.state';
-import { ClHelpService } from '@monorepo/core-lib';
-import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
-import { FlDragModule, FlDropEvent } from '@monorepo/front-core-lib/fl-drag';
-import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
-import { FlQueryParamHandler, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 
-import { CaFolder } from '../../../../../ca-core/model/entities/folder/ca-folder.class';
-import {
-  CaHierarchyObjectTableComponent,
-  CaHierarchyObjectTableEvent,
-} from '../../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-table/ca-hierarchy-object-table.component';
+import { AsyncPipe } from '@angular/common';
+import { MatIcon } from '@angular/material/icon';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
+import { TranslatePipe } from '@ngx-translate/core';
+import { CaFolderActionService } from '../../../../../ca-core/entity-module/ca-folder-core/ca-folder-action.service';
 import {
   CaFolderActionEvent,
   CaFolderActionsMenu,
 } from '../../../../../ca-core/entity-module/ca-folder-core/model/ca-folder-actions-menu.class';
 import { CaHierarchyObjectSearchFields } from '../../../../../ca-core/entity-module/ca-hierarchy-object-core/ca-hierarchy-object-search.class';
-import { CaHierarchyObjectBreadcrumbComponent } from '../../../ca-folder-hierarchy-core/component/ca-hierarchy-object-breadcrumb/ca-hierarchy-object-breadcrumb.component';
-import { CaFolderDetailComponent } from '../ca-folder-detail/ca-folder-detail.component';
-import { CaFolderDetailActionsComponent } from '../ca-folder-detail-actions/ca-folder-detail-actions.component';
-import { CaHierarchyObjectSearchFormComponent } from '../../../ca-hierarchy-object-detail-page/ca-hierarchy-object-search-form/ca-hierarchy-object-search-form.component';
-import { MatIcon } from '@angular/material/icon';
-import { AsyncPipe } from '@angular/common';
-import { TranslatePipe } from '@ngx-translate/core';
-import { CaFolderActionService } from '../../../../../ca-core/entity-module/ca-folder-core/ca-folder-action.service';
-import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
+import {
+  CaHierarchyObjectTableComponent,
+  CaHierarchyObjectTableEvent,
+} from '../../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-table/ca-hierarchy-object-table.component';
 import { CaUser } from '../../../../../ca-core/model/entities/ca-user.class';
-import { CaHierarchyObjectEventState } from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-event.state';
+import { CaFolder } from '../../../../../ca-core/model/entities/folder/ca-folder.class';
+import { CaRouterService } from '../../../../../ca-core/service/ca-router.service';
 import { CaHierarchyObjectActionsMenuComponent } from '../../../ca-folder-hierarchy-core/component/ca-hierarchy-object-actions-menu/ca-hierarchy-object-actions-menu.component';
+import { CaHierarchyObjectBreadcrumbComponent } from '../../../ca-folder-hierarchy-core/component/ca-hierarchy-object-breadcrumb/ca-hierarchy-object-breadcrumb.component';
 import { CaHierarchyObjectActionsMenuState } from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-actions-menu.state';
 import { CaHierarchyObjectDetailState } from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
+import { CaHierarchyObjectEventState } from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-event.state';
+import { CaHierarchyObjectSearchFormComponent } from '../../../ca-hierarchy-object-detail-page/ca-hierarchy-object-search-form/ca-hierarchy-object-search-form.component';
+import { CaFolderDetailActionsComponent } from '../ca-folder-detail-actions/ca-folder-detail-actions.component';
+import { CaFolderDetailComponent } from '../ca-folder-detail/ca-folder-detail.component';
 
 /**
  * Page for a folder detail
@@ -86,6 +87,7 @@ export class CaFolderDetailPageComponent implements OnInit {
   private eventState = inject(CaHierarchyObjectEventState);
   private actionsMenuState = inject(CaHierarchyObjectActionsMenuState);
   private hierarchyObjectDetailState = inject(CaHierarchyObjectDetailState);
+  private routerService = inject(CaRouterService);
 
   users$: Observable<CaUser[]>;
 
@@ -169,6 +171,11 @@ export class CaFolderDetailPageComponent implements OnInit {
 
   private onFolderAction(folderEvent: CaFolderActionEvent): void {
     if (!folderEvent) return;
+    // special case for creating a constellab document, do emit the event and navigate to the document detail
+    if (folderEvent.action === 'createConstellabDocument') {
+      this.routerService.navigateToDocumentDetail(folderEvent.document.document.id);
+      return;
+    }
     this.eventState.emitFolderEvent(folderEvent);
   }
 }
