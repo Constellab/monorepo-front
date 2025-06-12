@@ -1,9 +1,9 @@
 <div class="container">
   @if (note$ | async; as note) {
-    <div class="g-layout-row g-layout-between header">
+    <div class="g-layout-row g-layout-between g-layout-gap-05em header">
       <div class="g-layout-row g-layout-start-center g-layout-gap-1em">
         <ca-hierarchy-object-icon [style]="note.style"></ca-hierarchy-object-icon>
-        <h2 class="title">{{ note.title }}</h2>
+        <h2 class="title g-text-dense-height">{{ note.title }}</h2>
       </div>
 
       <div>
