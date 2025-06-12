@@ -138,7 +138,7 @@ export class CaFolderDetailPageComponent implements OnInit {
     const items = event.event.dataTransfer.items;
     for (let i = 0; i < items.length; i++) {
       const entry = items[i].webkitGetAsEntry();
-      if (entry.isDirectory) {
+      if (entry?.isDirectory) {
         this.snackBarService.openErrorMessage('drop_folder_error');
         return;
       }
