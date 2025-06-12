@@ -19,8 +19,15 @@
     @if (tags()) {
       <fl-tag-list class="g-text-small" [tags]="tags()" [showNoTagMessage]="false"></fl-tag-list>
     }
+
     @if (documentPreviewUrl) {
-      <iframe [src]="documentPreviewUrl" class="iframe"></iframe>
+      @if (documentPreview.document.isImage()) {
+        <div class="image-container">
+          <img [src]="documentPreviewUrl" class="image" [alt]="documentPreview.document.name" />
+        </div>
+      } @else {
+        <iframe [src]="documentPreviewUrl" class="iframe"></iframe>
+      }
     }
   </ng-container>
 </fl-async-section>

@@ -3,12 +3,15 @@ import { toObservable } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-import { switchMap, tap } from 'rxjs';
+import { Observable, switchMap, tap } from 'rxjs';
 import { FlFormModule } from '../../../../../../../../../libs/front-core-lib/src/lib/fl-form';
 import { FlSectionModule } from '../../../../../../../../../libs/front-core-lib/src/lib/fl-section/fl-section.module';
 import { FlTagModule } from '../../../../../../../../../libs/front-core-lib/src/lib/fl-tag/fl-tag.module';
 import { CaHierarchyObjectIconComponent } from '../../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-icon/ca-hierarchy-object-icon.component';
-import { CaDocument } from '../../../../../ca-core/model/entities/folder/ca-document.class';
+import {
+  CaDocument,
+  CaDocumentPreviewDTO,
+} from '../../../../../ca-core/model/entities/folder/ca-document.class';
 import { CaRootFolderUserRoleObj } from '../../../../../ca-core/model/entities/folder/ca-folder-user.class';
 import {
   CaHierarchyObjectTagDatasource,
@@ -45,7 +48,7 @@ export class CaDocumentPreviewComponent {
 
   documentPreviewUrl: SafeUrl;
 
-  documentPreview$ = toObservable(this.documentId).pipe(
+  documentPreview$: Observable<CaDocumentPreviewDTO> = toObservable(this.documentId).pipe(
     switchMap((id) => this.documentService.generateDocumentPreview(id)),
     tap(
       (preview) =>

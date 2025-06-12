@@ -31,6 +31,10 @@ export class CaDocument extends CaBaseEntity {
     return this.type === 'CONSTELLAB_DOCUMENT';
   }
 
+  isImage(): boolean {
+    return this.mimeType.startsWith('image/');
+  }
+
   public static supportsPreview(documentName: string): boolean {
     const extension = FlFileHelper.getFileExtension(documentName);
     return ['doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx'].includes(extension);
