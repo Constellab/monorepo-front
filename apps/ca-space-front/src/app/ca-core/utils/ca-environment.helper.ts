@@ -1,5 +1,5 @@
-import { CaEnvironment } from '../../../environments/ca-environment.class';
 import { environment } from '../../../environments/ca-environment';
+import { CaEnvironment } from '../../../environments/ca-environment.class';
 
 export class CaEnvironmentHelper {
   public static getEnv(): CaEnvironment {
@@ -28,6 +28,10 @@ export class CaEnvironmentHelper {
 
   public static getRecaptchaSiteKey(): string {
     return CaEnvironmentHelper.getEnv().settings.captchaSiteKey;
+  }
+
+  public static getDifyChatbotToken(): string | null {
+    return CaEnvironmentHelper.getEnv().settings.difyChatbotToken;
   }
 
   public static getSupportMail(): string {

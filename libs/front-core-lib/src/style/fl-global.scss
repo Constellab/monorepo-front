@@ -319,3 +319,25 @@ figure {
   border-radius: 18px;
   width: fit-content;
 }
+
+// Dify chat
+#dify-chatbot-bubble-button {
+  background-color: var(--primary-color) !important;
+}
+#dify-chatbot-bubble-window {
+  width: 40rem !important;
+  border-radius: 20px;
+}
+
+// button used in dev environment to fake the dify chat button
+#dify-fake-button {
+  background-color: var(--primary-color) !important;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  z-index: 9999;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 8px 0px;
+}

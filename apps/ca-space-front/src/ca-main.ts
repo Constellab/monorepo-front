@@ -15,7 +15,6 @@ import { FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
 import { FlPortalActionsModule } from '@monorepo/front-core-lib/fl-portal-actions';
 import { FlSnackBarModule } from '@monorepo/front-core-lib/fl-snack-bar';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
-import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
 import { FlHttpInterceptorService, FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { environment } from './environments/ca-environment';
@@ -37,6 +36,8 @@ import {
 import { BnBioNetworkModule } from '@monorepo/bio-network';
 import { CoCommunityLibModule } from '@monorepo/community-lib';
 import { ClSupportedLanguage } from '@monorepo/core-lib';
+import { FlDifyLoaderService } from '@monorepo/front-core-lib/fl-chatbot';
+import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
 import { LmlBrickService } from '@monorepo/lab-manager-lib';
 import { PrProtocolModule } from '@monorepo/protocol';
 import { RV_MODULE_CONFIG, RvResourceViewModuleBasicConfig } from '@monorepo/resource-view';
@@ -60,6 +61,10 @@ import { caEnvironmentPath, CaEnvironmentSettings } from './environments/ca-envi
 
 function loadThemeOnInit(themeService: FlThemeService): void {
   themeService.init();
+}
+
+function loadDify(difyService: FlDifyLoaderService): void {
+  difyService.load(CaEnvironmentHelper.getDifyChatbotToken(), CaEnvironmentHelper.isProduction());
 }
 
 function configureCaptcha(): FlCaptchaModuleConfig {
@@ -120,6 +125,7 @@ function bootstrapApp(): void {
         multi: true,
       },
       provideAppInitializer(() => loadThemeOnInit(inject(FlThemeService))),
+      provideAppInitializer(() => loadDify(inject(FlDifyLoaderService))),
       provideAppInitializer(() => initRootInjector(inject(Injector))),
       provideAppInitializer(() => TeFixInit.fixEditorInit()),
       { provide: FL_CAPTCHA_MODULE_CONFIG, useFactory: configureCaptcha },
@@ -159,6 +165,7 @@ if (environment.production) {
     communityFrontUrl: 'http://localhost:4200',
     frontDomain: 'localhost',
     captchaSiteKey: '123456',
+    difyChatbotToken: '',
   };
   bootstrapApp();
 }
