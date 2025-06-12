@@ -6,6 +6,9 @@
   <fl-async-section [object]="codelabInfo$">
     <ng-container *flSectionBody="codelabInfo$ as codelabInfo">
       <p>{{ 'codelab_description' | translate }}</p>
+      <p>
+        <strong>⚠️ {{ 'codelab_description_browser' | translate }}</strong>
+      </p>
 
       <fl-key-value>
         <fl-key>{{ 'codelab_link' | translate }}</fl-key>
