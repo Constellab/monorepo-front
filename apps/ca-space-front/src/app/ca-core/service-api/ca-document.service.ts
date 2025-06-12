@@ -20,9 +20,9 @@ export class CaDocumentService {
 
   public uploadFolder(files: File[], folderId: string): Observable<void> {
     const formData: FormData = new FormData();
-    files.forEach((file) => formData.append('files', file));
+    files.forEach((file) => formData.append('file', file));
 
-    return this.apiService.post(`${this.route}/folder/${folderId}`, formData);
+    return this.apiService.post(`${this.route}/folder/${folderId}/folder`, formData);
   }
 
   public getDocumentPreviewUrl(documentId: string, documentName: string): string {
