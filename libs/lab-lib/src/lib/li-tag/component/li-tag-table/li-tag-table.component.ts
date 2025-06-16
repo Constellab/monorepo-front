@@ -20,7 +20,6 @@ import { FlTagModule } from '@monorepo/front-core-lib/fl-tag';
 import { AsyncPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { MatIcon } from '@angular/material/icon';
-import { MatIconButton } from '@angular/material/button';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 
@@ -45,7 +44,6 @@ import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
     MatRow,
     MatRowDef,
     MatIcon,
-    MatIconButton,
     FlTextIconModule,
     FlIconModule,
   ],

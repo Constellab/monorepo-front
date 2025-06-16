@@ -49,22 +49,94 @@ export interface CoTagKeyEditAdditionalInfoSpec extends CoTagKeyAdditionalInfoSp
 
 export type CoTagKeyAdditionalInfosSpecs = Record<string, CoTagKeyAdditionalInfoSpec>;
 
-export const coAdditionalInfoInfoDict = (defaultValue: any = null): TdEditParamSpecDetail => {
+export function coAdditionalInfoInfoDict(type: string, defaultValue: any = null): TdEditParamSpecDetail {
+  const otherFields: Record<string, any> = {};
+
+  if (type === 'str') {
+    otherFields['min_length'] = {
+      additional_info: {},
+      default_value: null,
+      optional: true,
+      short_description: null,
+      type: 'int',
+      human_name: 'Min Length',
+      visibility: 'public',
+      unit: null,
+    };
+
+    otherFields['max_length'] = {
+      additional_info: {},
+      default_value: null,
+      optional: true,
+      short_description: null,
+      type: 'int',
+      human_name: 'Max Length',
+      visibility: 'public',
+      unit: null,
+    };
+
+    otherFields['allowed_values'] = {
+      additional_info: {},
+      default_value: null,
+      optional: true,
+      short_description: null,
+      type: 'list',
+      human_name: 'Allowed Values',
+      visibility: 'public',
+      unit: null,
+    };
+  }
+
+  if (type === 'int' || type === 'float') {
+    otherFields['min_value'] = {
+      additional_info: {},
+      default_value: null,
+      optional: true,
+      short_description: null,
+      type: type,
+      human_name: 'Min Value',
+      visibility: 'public',
+      unit: null,
+    };
+
+    otherFields['max_value'] = {
+      additional_info: {},
+      default_value: null,
+      optional: true,
+      short_description: null,
+      type: type,
+      human_name: 'Max Value',
+      visibility: 'public',
+      unit: null,
+    };
+
+    otherFields['allowed_values'] = {
+      additional_info: {},
+      default_value: null,
+      optional: true,
+      short_description: null,
+      type: 'list',
+      human_name: 'Allowed Values',
+      visibility: 'public',
+      unit: null,
+    };
+  }
+
   return {
-    additional_info: null,
+    additional_info: otherFields,
     default_value: {
       additional_info: {},
       default_value: defaultValue,
       optional: true,
       short_description: null,
-      type: 'str',
+      type: type as any,
       human_name: 'Default Value',
       visibility: 'public',
       unit: null,
     },
     optional: {
       additional_info: {},
-      default_value: false,
+      default_value: true,
       human_name: 'Optional',
       visibility: 'public',
       unit: null,
@@ -85,18 +157,18 @@ export const coAdditionalInfoInfoDict = (defaultValue: any = null): TdEditParamS
     short_description: {
       additional_info: {},
       default_value: null,
-      type: 'text',
+      type: 'str',
       short_description: null,
       visibility: 'public',
       human_name: 'Short Description',
       unit: null,
       optional: true,
     },
-  }
+  };
 }
 export const coAdditionalInfoInfosDict: TdEditParamSpecDict = {
-  str: coAdditionalInfoInfoDict(null),
-  int: coAdditionalInfoInfoDict(0),
-  float: coAdditionalInfoInfoDict(0.0),
-  bool: coAdditionalInfoInfoDict(false),
-}
+  str: coAdditionalInfoInfoDict('str', null),
+  int: coAdditionalInfoInfoDict('int', 0),
+  float: coAdditionalInfoInfoDict('float', 0.0),
+  bool: coAdditionalInfoInfoDict('bool', false),
+};

@@ -4,7 +4,7 @@ import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
 import { CoTagValue, CoTagValueEditDTO } from '../../model/co-tag-value.class';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FlDialogModule, FlFormDialogAbstractDirective } from '@monorepo/front-core-lib/fl-dialog';
-import { CoTagKeyAdditionalInfosSpecs, CoTagKeyType } from '../../model/co-tag-key.class';
+import { CoTagKeyType } from '../../model/co-tag-key.class';
 import { FormBuilder, FormGroup, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -13,6 +13,12 @@ import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { MatButton } from '@angular/material/button';
 import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
+import {
+  TdConfig,
+  TdConfigureSpecsForm,
+  TdConfigureSpecsFormComponent,
+  TdTechnicalDocModule,
+} from '@monorepo/technical-doc';
 
 export type CoTagValueEditDialogInput = FlFormDialogInput<Partial<CoTagValueEditDTO>>;
 
@@ -28,7 +34,8 @@ export type CoTagValueEditDialogInput = FlFormDialogInput<Partial<CoTagValueEdit
     MatError,
     MatFormField,
     MatInput,
-    MatLabel
+    MatLabel,
+    TdTechnicalDocModule,
   ],
   templateUrl: './co-tag-value-edit-dialog.component.html',
   styleUrl: './co-tag-value-edit-dialog.component.scss',
@@ -39,8 +46,9 @@ export class CoTagValueEditDialogComponent
 {
   private coConfig = inject(CoConfig);
   dialogInput: CoTagValueEditDialogInput = inject(MAT_DIALOG_DATA);
-  additionalInfoSpecs: CoTagKeyAdditionalInfosSpecs;
   tagKeyType: CoTagKeyType;
+  additionalInfoConfig: TdConfig;
+  additionalInfoFormGp: FormGroup<TdConfigureSpecsForm>;
 
   constructor() {
     super();
@@ -48,6 +56,11 @@ export class CoTagValueEditDialogComponent
 
   ngOnInit(): void {
     this.tagKeyType = this.dialogInput.object.tagKey.type;
+    this.additionalInfoConfig = TdConfig.fromSpecs(
+      this.dialogInput.object.tagKey.additionalInfosSpecs,
+      this.dialogInput.object.additionalInfos
+    );
+    this.additionalInfoFormGp = TdConfigureSpecsFormComponent.buildFormGroup(this.additionalInfoConfig);
     this.init();
     this.formGp.controls['tagKey'].patchValue(this.dialogInput.object.tagKey);
     if (this.dialogInput.mode === 'update') {
@@ -56,42 +69,25 @@ export class CoTagValueEditDialogComponent
   }
 
   buildForm(): UntypedFormGroup {
-    const formGp: FormGroup = new FormBuilder().group({
+    return new FormBuilder().group({
       id: [null],
       value: [null, [Validators.required, this.getValueValidators()]],
       shortDescription: [null],
-      additionalInfos: [null],
+      additionalInfos: this.additionalInfoFormGp,
       tagKey: [null, Validators.required],
     });
-
-    this.additionalInfoSpecs = this.dialogInput.object.tagKey?.additionalInfosSpecs;
-    const additionalInfos = this.dialogInput.object.additionalInfos || {};
-    for (const key in this.additionalInfoSpecs) {
-      const spec = this.additionalInfoSpecs[key];
-      const value = additionalInfos[key] || null;
-      formGp.addControl(key, new FormBuilder().control(value, spec.optional ? [] : [Validators.required]));
-    }
-
-    return formGp;
   }
 
   create(formValue: CoTagValueEditDTO): Observable<CoTagValue> {
-    formValue = this.cleanFormValue(formValue);
+    if ('public' in formValue.additionalInfos)
+      formValue.additionalInfos = formValue.additionalInfos['public'];
     return this.coConfig.createTagValue(formValue);
   }
 
   update(formValue: CoTagValueEditDTO): Observable<CoTagValue> {
-    formValue = this.cleanFormValue(formValue);
+    if ('public' in formValue.additionalInfos)
+      formValue.additionalInfos = formValue.additionalInfos['public'];
     return this.coConfig.updateTagValue(formValue);
-  }
-
-  cleanFormValue(formValue: CoTagValueEditDTO): CoTagValueEditDTO {
-    formValue.additionalInfos = {};
-    const jsonFormValue = JSON.parse(JSON.stringify(formValue));
-    for (const key in this.additionalInfoSpecs) {
-      formValue.additionalInfos[key] = jsonFormValue[key];
-    }
-    return formValue;
   }
 
   getCreateSuccessMessage(): string {

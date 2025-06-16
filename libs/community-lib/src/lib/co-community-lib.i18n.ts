@@ -41,11 +41,14 @@ const coCommunityLibI18nFr: FlLangTranslation = {
     edit_tag_value: 'Modifier la valeur du tag',
     create_tag_value: 'Créer une valeur de tag',
     delete_tag_value: 'Supprimer la valeur du tag',
-    tag_value_created: "Valeur du tag créée",
-    tag_value_updated: "Valeur du tag mise à jour",
+    tag_value_created: 'Valeur du tag créée',
+    tag_value_updated: 'Valeur du tag mise à jour',
     description: 'Description',
     update: 'Mettre à jour',
-    active: 'Actif'
+    active: 'Actif',
+    // eslint-disable-next-line max-len
+    tag_additional_info_spec_description:
+      'Configurez les spécifications des informations supplémentaires du tag',
   },
 };
 
@@ -88,11 +91,12 @@ const coCommunityLibI18nEn: FlLangTranslation = {
     edit_tag_value: 'Edit tag value',
     create_tag_value: 'Create tag value',
     delete_tag_value: 'Delete tag value',
-    tag_value_created: "Tag value created",
-    tag_value_updated: "Tag value updated",
+    tag_value_created: 'Tag value created',
+    tag_value_updated: 'Tag value updated',
     description: 'Description',
     update: 'Update',
-    active: 'Active'
+    active: 'Active',
+    tag_additional_info_spec_description: 'Configure the tag additional info specs',
   },
 };
 export const coCommunityLibI18n: FlTranslateObject = {

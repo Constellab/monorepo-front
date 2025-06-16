@@ -1,4 +1,4 @@
-import { Component, computed, input, Signal } from '@angular/core';
+import { Component, computed, input, OnInit, Signal } from '@angular/core';
 import { TdConfig, TdConfigI } from '../../model/td-config.class';
 import { FormBuilder, FormGroup, UntypedFormGroup } from '@angular/forms';
 import {
@@ -22,7 +22,7 @@ export interface TdConfigureSpecsForm {
   templateUrl: './td-configure-specs-form.component.html',
   styleUrl: './td-configure-specs-form.component.scss',
 })
-export class TdConfigureSpecsFormComponent {
+export class TdConfigureSpecsFormComponent implements OnInit {
   configData = input.required<TdConfig>();
 
   formGp = input.required<FormGroup>();
@@ -52,6 +52,11 @@ export class TdConfigureSpecsFormComponent {
         value
       ),
     });
+  }
+
+  ngOnInit(): void {
+    console.log(this.publicFormGp(), this.protectedFormGp());
+    console.log(this.configData(), this.publicConfig());
   }
 
   public static buildValues(formGp: FormGroup<TdConfigureSpecsForm>): TdParamSpecsValues {

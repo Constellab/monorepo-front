@@ -40,6 +40,10 @@ export class CoTagAdditionalInfoSpecState extends TdAbstractDynamicParamSpecStat
     const input: TdConfigureParamSpecsTableDialogInput = {
       paramSpecs: paramSpecs,
       configSpecName: this.tagKey.technicalName,
+      dynamicParamsDescription: {
+        text: 'coCommunityLib.tag_additional_info_spec_description',
+        translateText: true,
+      },
     };
 
     this.dialogService.openMediumDialog(TdConfigureParamSpecsTableDialogComponent, {

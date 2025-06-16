@@ -46,6 +46,10 @@ export class LabDynamicParamSpecState extends TdAbstractDynamicParamSpecState im
     const input: TdConfigureParamSpecsTableDialogInput = {
       paramSpecs: paramsSpecs,
       configSpecName: configName,
+      dynamicParamsDescription: {
+        text: 'li.agent_params_spec_description',
+        translateText: true,
+      },
     };
 
     this.dialogService.openMediumDialog(TdConfigureParamSpecsTableDialogComponent, {

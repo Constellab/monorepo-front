@@ -469,6 +469,7 @@
     "share_tag": "Partager le tag",
     "your_spaces": "Vos espaces",
     "synchronize_community_tags": "Synchroniser les tags de Community",
-    "changes": "Modifications"
+    "changes": "Modifications",
+    "agent_params_spec_description": "Vous pouvez ajouter, modifier ou supprimer des paramètres pour configurer votre agent, les valeurs de ces paramètres seront accessibles dans le code de votre agent en utilisant le dictionnaire 'params'."
   }
 }

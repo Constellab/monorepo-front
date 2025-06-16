@@ -469,6 +469,7 @@
     "share_tag": "Share the tag",
     "your_spaces": "Your spaces",
     "synchronize_community_tags": "Synchronize Community tags",
-    "changes": "Changes"
+    "changes": "Changes",
+    "agent_params_spec_description": "You can add, edit or delete parameters to configure your agent, values of these parameters will be accessible in the code of your agent by using the dictionnary 'params'."
   }
 }

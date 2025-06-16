@@ -13,10 +13,12 @@ import {
   TdEditParamSpecDialogInput,
 } from '../td-edit-param-spec-dialog/td-edit-param-spec-dialog.component';
 import { TdConfigI } from '../../model/td-config.class';
+import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
 
 export interface TdConfigureParamSpecsTableDialogInput {
   configSpecName: string;
   paramSpecs: TdParamSpecs;
+  dynamicParamsDescription: FlTranslatableText;
 }
 
 @Component({
@@ -30,6 +32,8 @@ export class TdConfigureParamSpecsTableDialogComponent {
   private dialogService = inject(FlDialogService);
   private viewContainerRef = inject(ViewContainerRef);
   private dynamicParamSpecState = inject(TdAbstractDynamicParamSpecState);
+
+  description: FlTranslatableText = this.data.dynamicParamsDescription;
 
   openEditParamSpecDialog(param: TdEditableParamSpec = null): void {
     const input: TdEditParamSpecDialogInput = {
