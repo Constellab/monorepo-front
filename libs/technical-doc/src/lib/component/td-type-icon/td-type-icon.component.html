@@ -8,5 +8,10 @@
     class="icon">
   </mat-icon>
 } @else {
-  <img [ngSrc]="iconFull()" [width]="iconSize()" [height]="iconSize()" [alt]="iconTechnicalName()" />
+  <img
+    [ngSrc]="iconFull()"
+    [width]="iconSize()"
+    [height]="iconSize()"
+    [alt]="iconTechnicalName()"
+    draggable="false" />
 }
