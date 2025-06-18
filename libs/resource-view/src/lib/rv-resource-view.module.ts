@@ -39,7 +39,7 @@ import { RvViewIframeComponent } from './component/rv-view-iframe/rv-view-iframe
 import { RvViewImageComponent } from './component/rv-view-image/rv-view-image.component';
 import { RvViewMarkdownComponent } from './component/rv-view-markdown/rv-view-markdown.component';
 import { RvViewPlotlyComponent } from './component/rv-view-plotly/rv-view-plotly.component';
-import { RvViewStreamlitComponent } from './component/rv-view-streamlit/rv-view-streamlit.component';
+import { RvViewAppComponent } from './component/rv-view-app/rv-view-app.component';
 
 /**
  * When imported a RV_MODULE_CONFIG must be provided, which is an instance of RvResourceViewModuleConfig.
@@ -85,7 +85,7 @@ import { RvViewStreamlitComponent } from './component/rv-view-streamlit/rv-view-
     RvRichTextResourceViewComponent,
     RvViewImageComponent,
     RvViewHtmlComponent,
-    RvViewStreamlitComponent,
+    RvViewAppComponent,
     RvViewPlotlyComponent,
     RvViewAudioComponent,
     RvViewMarkdownComponent,
@@ -104,7 +104,7 @@ import { RvViewStreamlitComponent } from './component/rv-view-streamlit/rv-view-
     RvRichTextResourceViewComponent,
     RvViewImageComponent,
     RvViewHtmlComponent,
-    RvViewStreamlitComponent,
+    RvViewAppComponent,
     RvViewPlotlyComponent,
     RvViewAudioComponent,
     RvViewMarkdownComponent,

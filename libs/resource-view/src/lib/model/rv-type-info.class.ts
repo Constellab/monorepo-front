@@ -1,4 +1,5 @@
 import { ComponentType } from '@angular/cdk/overlay';
+import { RvViewAppComponent } from '../component/rv-view-app/rv-view-app.component';
 import { RvViewAudioComponent } from '../component/rv-view-audio/rv-view-audio.component';
 import { RvViewChart2dComponent } from '../component/rv-view-chart-2d/rv-view-chart2d.component';
 import { RvViewHtmlComponent } from '../component/rv-view-html/rv-view-html.component';
@@ -10,7 +11,6 @@ import { RvViewMultiViewsComponent } from '../component/rv-view-multi-views/rv-v
 import { RvViewNetworkComponent } from '../component/rv-view-network/rv-view-network.component';
 import { RvViewPlotlyComponent } from '../component/rv-view-plotly/rv-view-plotly.component';
 import { RvViewSpreadsheetComponent } from '../component/rv-view-spreadsheet/rv-view-spreadsheet.component';
-import { RvViewStreamlitComponent } from '../component/rv-view-streamlit/rv-view-streamlit.component';
 import { RvViewTextComponent } from '../component/rv-view-text/rv-view-text.component';
 import { RvResourceViewType } from './rv-resource-view.class';
 import { RvResourceViewDirective } from './rv-resource-view.directive';
@@ -92,8 +92,8 @@ export const rvDefaultViewTypeInfos: Record<RvResourceViewType, RvResourceViewTy
   'plotly-view': {
     viewComponent: RvViewPlotlyComponent,
   },
-  'streamlit-view': {
-    viewComponent: RvViewStreamlitComponent,
+  'app-view': {
+    viewComponent: RvViewAppComponent,
   },
   'audio-view': {
     viewComponent: RvViewAudioComponent,

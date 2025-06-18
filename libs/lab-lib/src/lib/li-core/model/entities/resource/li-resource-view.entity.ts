@@ -1,10 +1,10 @@
-import { Expose, Type } from 'class-transformer';
-import { LiResourceViewFolder } from './li-resource-view-folder.class';
-import { LiViewConfig } from './li-view-config.entity';
 import { RvResourceView, RvResourceViewBase, RvResourceViewType } from '@monorepo/resource-view';
 import { TdParamSpecs, TdParamSpecsValues, TdTypeStyle } from '@monorepo/technical-doc';
 import { TeRichTextDTO } from '@monorepo/text-editor';
+import { Expose, Type } from 'class-transformer';
 import { LiRichTextObjectType } from '../../../entity-service/li-rich-text.service';
+import { LiResourceViewFolder } from './li-resource-view-folder.class';
+import { LiViewConfig } from './li-view-config.entity';
 
 // list of available view type
 export type LiResourceViewType = RvResourceViewType | 'view' | 'resources-list-view' | 'folder-view';
@@ -100,5 +100,5 @@ export const excludedViewInNote: string[] = [
   'resources-list-view',
   'empty-view',
   'rich-text-view',
-  'streamlit-view',
+  'app-view',
 ];

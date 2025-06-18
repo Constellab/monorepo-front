@@ -1,7 +1,7 @@
 import { ClLuxonDateTimeTransform } from '@monorepo/core-lib';
-import { DateTime } from 'luxon';
-import { Expose, Type } from 'class-transformer';
 import { FlArrayObs } from '@monorepo/front-core-lib/fl-core';
+import { Expose, Type } from 'class-transformer';
+import { DateTime } from 'luxon';
 
 export class LiLogInfo {
   name: string;
@@ -42,7 +42,7 @@ export class LiLogLine {
 
   message: string;
 
-  context: 'MAIN' | 'SCENARIO' | 'STREAMLIT';
+  context: 'MAIN' | 'SCENARIO' | 'STREAMLIT' | 'REFLEX';
 
   @Expose({ name: 'context_id' })
   contextId: string;

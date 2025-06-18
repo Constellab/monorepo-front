@@ -31,7 +31,7 @@ export type RvResourceViewType =
   | 'iframe-view'
   | 'markdown-view'
   | 'plotly-view'
-  | 'streamlit-view'
+  | 'app-view'
   | 'audio-view';
 
 export interface RvResourceViewBase {
@@ -111,8 +111,8 @@ export interface RvResourceViewPlotly extends RvResourceViewBase {
   data: FlPlotlyData;
 }
 
-export interface RvResourceViewStreamlit extends RvResourceViewBase {
-  type: 'streamlit-view';
+export interface RvResourceViewApp extends RvResourceViewBase {
+  type: 'app-view';
   data: {
     url: {
       host_url: string;
@@ -141,7 +141,7 @@ export type RvResourceView =
   | RvResourceViewHTML
   | RvResourceViewMarkdown
   | RvResourceViewPlotly
-  | RvResourceViewStreamlit
+  | RvResourceViewApp
   | RvResourceViewAudio;
 
 export type RvViewChartType =

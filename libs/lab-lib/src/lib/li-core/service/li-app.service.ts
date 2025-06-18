@@ -1,18 +1,18 @@
-import { FlApiWithCacheService } from '@monorepo/front-core-lib/fl-api';
 import { Injectable, inject } from '@angular/core';
-import { LiStreamlitStatus } from '../model/global/li-streamlit.class';
+import { FlApiWithCacheService } from '@monorepo/front-core-lib/fl-api';
 import { Observable } from 'rxjs';
+import { LiAppsStatus } from '../model/global/li-app.class';
 
 @Injectable({
   providedIn: 'root',
 })
-export class LiStreamlitService {
+export class LiAppService {
   private apiService = inject(FlApiWithCacheService);
 
-  private readonly route: string = 'streamlit';
+  private readonly route: string = 'apps';
 
-  public getStatus(): Observable<LiStreamlitStatus> {
-    return this.apiService.get(`${this.route}/status`, LiStreamlitStatus);
+  public getStatus(): Observable<LiAppsStatus> {
+    return this.apiService.get(`${this.route}/status`, LiAppsStatus);
   }
 
   public stopAllApps(): Observable<void> {

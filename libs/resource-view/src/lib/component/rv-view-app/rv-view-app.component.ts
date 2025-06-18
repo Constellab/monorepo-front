@@ -1,23 +1,20 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { RvResourceViewDirective } from '../../model/rv-resource-view.directive';
-import { RvResourceViewStreamlit } from '../../model/rv-resource-view.class';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { RvResourceViewApp } from '../../model/rv-resource-view.class';
+import { RvResourceViewDirective } from '../../model/rv-resource-view.directive';
 
 /**
- * Show streamlit app in an iframe
+ * Show app in an iframe
  * It passes the query params to the iframe
  */
 @Component({
-  selector: 'rv-view-streamlit',
-  templateUrl: './rv-view-streamlit.component.html',
-  styleUrl: './rv-view-streamlit.component.scss',
+  selector: 'rv-view-app',
+  templateUrl: './rv-view-app.component.html',
+  styleUrl: './rv-view-app.component.scss',
   standalone: false,
 })
-export class RvViewStreamlitComponent
-  extends RvResourceViewDirective<RvResourceViewStreamlit>
-  implements OnInit
-{
+export class RvViewAppComponent extends RvResourceViewDirective<RvResourceViewApp> implements OnInit {
   private sanitize = inject(DomSanitizer);
   private route = inject(ActivatedRoute);
 
@@ -30,7 +27,7 @@ export class RvViewStreamlitComponent
       const params: Record<string, string> = this.view.data.url.params;
 
       if (this.moduleConfig.enableQueryParams()) {
-        // merge the front url params with the url params of the streamlit app
+        // merge the front url params with the url params of the app
         for (const key in urlsParams) {
           // skip the key if it is already in the url
           if (!params[key]) {

@@ -8,6 +8,7 @@
     class="icon">
   </mat-icon>
 } @else {
+  <!-- Disable drag to prevent breaking parent drag mechanism -->
   <img
     [ngSrc]="iconFull()"
     [width]="iconSize()"
