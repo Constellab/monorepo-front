@@ -11,7 +11,6 @@ export class TeTextEditorUndoRedo {
     switch (undoResult.type) {
       case TeRichTextModificationType.CREATED:
         this.editor.blocks.delete(undoResult.index);
-        this.setCaret(undoResult.index - 1);
         break;
       case TeRichTextModificationType.DELETED:
         if (this.editor.blocks.getById(undoResult.blockId) != null) {
@@ -19,7 +18,6 @@ export class TeTextEditorUndoRedo {
         }
         const deletedBlock = richTextAggregate.richText.getBlock(undoResult.blockId);
         this.editor.blocks.insertMany([deletedBlock], undoResult.index);
-        this.setCaret(undoResult.index);
         break;
       case TeRichTextModificationType.UPDATED:
         const updatedBlock = richTextAggregate.richText.getBlock(undoResult.blockId);
@@ -28,9 +26,9 @@ export class TeTextEditorUndoRedo {
         break;
       case TeRichTextModificationType.MOVED:
         this.editor.blocks.move(undoResult.oldIndex, undoResult.index);
-        this.setCaret(undoResult.oldIndex);
         break;
     }
+    this.setCaret(undoResult.blockId, undoResult.index);
   }
 
   public redoEvent(richTextAggregate: TeRichTextAggregate): void {
@@ -45,11 +43,9 @@ export class TeTextEditorUndoRedo {
         }
         const createdBlock = richTextAggregate.richText.getBlock(redoResult.blockId);
         this.editor.blocks.insertMany([createdBlock], redoResult.index);
-        this.setCaret(redoResult.index);
         break;
       case TeRichTextModificationType.DELETED:
         this.editor.blocks.delete(redoResult.index);
-        this.setCaret(redoResult.index - 1);
         break;
       case TeRichTextModificationType.UPDATED:
         const updatedBlock = richTextAggregate.richText.getBlock(redoResult.blockId);
@@ -58,20 +54,24 @@ export class TeTextEditorUndoRedo {
         break;
       case TeRichTextModificationType.MOVED:
         this.editor.blocks.move(redoResult.index, redoResult.oldIndex);
-        this.setCaret(redoResult.index);
         break;
     }
+    this.setCaret(redoResult.blockId, redoResult.index);
   }
 
-  private setCaret(index: number): void {
-    if (index < 0) {
-      index = 0;
-    }
+  private setCaret(blockId: string, index: number): void {
+    const block = this.editor.blocks.getById(blockId);
+    if (block) {
+      this.editor.caret.setToBlock(blockId, 'end');
+    } else {
+      if (index < 0) {
+        index = 0;
+      }
 
-    if (index >= this.editor.blocks.getBlocksCount()) {
-      index = this.editor.blocks.getBlocksCount() - 1;
+      if (index >= this.editor.blocks.getBlocksCount()) {
+        index = this.editor.blocks.getBlocksCount() - 1;
+      }
+      this.editor.caret.setToBlock(index, 'end');
     }
-
-    this.editor.caret.setToBlock(index, 'end');
   }
 }
