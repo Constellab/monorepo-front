@@ -174,8 +174,8 @@ export class HaStoryEditPageComponent implements OnInit {
           this.canSaveTopic = name && name.trim() !== '';
           return name
             ? this._filter(name)
-                .slice(0, 3)
-                .filter((topic) => !this.story.topics.find((t) => t.id === topic.id))
+              .slice(0, 3)
+              .filter((topic) => !this.story.topics.find((t) => t.id === topic.id))
             : this.topics.slice(0, 3).filter((topic) => !this.story.topics.find((t) => t.id === topic.id));
         })
       );
@@ -243,7 +243,7 @@ export class HaStoryEditPageComponent implements OnInit {
 
   publish(): void {
     if (
-      this.contentEditionFormControl.value.getFiguresBlocks().length > 0 ||
+      this.contentEditionFormControl.value.getFiguresBlocks()?.length > 0 ||
       this.story.mainPicture != null
     ) {
       this.contentHasError = false;
@@ -270,7 +270,7 @@ export class HaStoryEditPageComponent implements OnInit {
 
   save(): void {
     if (
-      this.contentEditionFormControl.value.getFirstFigureLink().length > 0 ||
+      this.contentEditionFormControl.value.getFirstFigureLink()?.length > 0 ||
       this.story.mainPicture != null
     ) {
       this.contentHasError = false;
