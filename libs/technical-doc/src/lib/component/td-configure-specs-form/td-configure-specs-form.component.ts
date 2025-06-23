@@ -1,4 +1,4 @@
-import { Component, computed, input, OnInit, Signal } from '@angular/core';
+import { Component, computed, input, Signal } from '@angular/core';
 import { TdConfig, TdConfigI } from '../../model/td-config.class';
 import { FormBuilder, FormGroup, UntypedFormGroup } from '@angular/forms';
 import {
@@ -22,7 +22,7 @@ export interface TdConfigureSpecsForm {
   templateUrl: './td-configure-specs-form.component.html',
   styleUrl: './td-configure-specs-form.component.scss',
 })
-export class TdConfigureSpecsFormComponent implements OnInit {
+export class TdConfigureSpecsFormComponent {
   configData = input.required<TdConfig>();
 
   formGp = input.required<FormGroup>();
@@ -43,20 +43,12 @@ export class TdConfigureSpecsFormComponent implements OnInit {
 
   // build the form group to configure specs
   public static buildFormGroup(configData: TdConfigI): FormGroup<TdConfigureSpecsForm> {
-    const labConfig = TdConfig.fromSpecs(configData.specs, configData.values);
-    const value = labConfig.mergeConfigWithDefault();
+    const config = TdConfig.fromSpecs(configData.specs, configData.values);
+    const value = config.mergeConfigWithDefault();
     return new FormBuilder().group({
-      public: FlDynamicFormHelper.generateFormGroup(labConfig.getDynamicFormFieldsConfig('public'), value),
-      protected: FlDynamicFormHelper.generateFormGroup(
-        labConfig.getDynamicFormFieldsConfig('protected'),
-        value
-      ),
+      public: FlDynamicFormHelper.generateFormGroup(config.getDynamicFormFieldsConfig('public'), value),
+      protected: FlDynamicFormHelper.generateFormGroup(config.getDynamicFormFieldsConfig('protected'), value),
     });
-  }
-
-  ngOnInit(): void {
-    console.log(this.publicFormGp(), this.protectedFormGp());
-    console.log(this.configData(), this.publicConfig());
   }
 
   public static buildValues(formGp: FormGroup<TdConfigureSpecsForm>): TdParamSpecsValues {

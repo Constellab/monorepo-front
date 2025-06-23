@@ -1,8 +1,8 @@
 <fl-dialog-header>
-  {{'li.share_tag_to_community' | translate}}
+  {{ 'li.share_tag_to_community' | translate }}
 </fl-dialog-header>
 
-<mat-dialog-content>
+<mat-dialog-content class="share-tag-to-community-content">
   @if (spaces && spaces.length > 0) {
     <form (ngSubmit)="shareTag()" id="share-tag-form" [formGroup]="formGp">
       <div>
@@ -39,7 +39,6 @@
       <fl-loader size="medium"></fl-loader>
     </div>
   }
-
 </mat-dialog-content>
 
 @if (spaces && spaces.length > 0) {
@@ -49,4 +48,3 @@
     </button>
   </div>
 }
-

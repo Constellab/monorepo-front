@@ -29,7 +29,6 @@ import {
   CoCommunityLibModule,
   CoDeprecatedTagComponent,
   CoTagAdditionalInfoSpecState,
-  CoTagKeyEditAdditionalInfoSpec,
   CoTagKeyType,
   CoTagValue,
   CoTagValueEditDialogComponent,
@@ -92,7 +91,6 @@ export class HaTagPageComponent implements OnInit {
 
   profileRoute = HaRouterService.getProfileRoute();
 
-  tagAdditionalInfosSpecsDatasource: CoTagKeyEditAdditionalInfoSpec[];
   tagValues: HaTagValueDatasourcePaginated<HaTagValueDatasourceFilters>;
 
   ngOnInit(): void {
@@ -168,24 +166,6 @@ export class HaTagPageComponent implements OnInit {
 
   openEditAdditionalInfoSpecDialog(): void {
     this.tagAdditionalInfoSpecState.openEditConfigDialog();
-  }
-
-  openConfirmDeleteAdditionalInfoSpecDialog(name: string): void {
-    const input: FlConfirmDialogInput = {
-      title: 'delete_tag_additional_info_spec',
-      content: 'delete_tag_additional_info_spec_content',
-      successMessage: 'delete_tag_additional_info_spec_success',
-      observable: this.tagService.deleteAdditionalInfoSpec(this.tagKey.id, name),
-    };
-
-    this.dialogService
-      .openConfirmDialog(input)
-      .afterClosed()
-      .subscribe((res) => {
-        if (res.choice && res.result) {
-          this.setTagKey(res.result);
-        }
-      });
   }
 
   openCreateTagValueDialog(): void {

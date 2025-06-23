@@ -11,26 +11,28 @@
       <h2>{{ 'li.tags' | translate }}</h2>
     </fl-text-icon>
 
-    <fl-search-header-actions>
-      <button mat-icon-button (click)="syncImportedCommunityTags()" [matTooltip]="'li.synchronize_community_tags' | translate">
+    <fl-search-header-actions class="g-layout-row g-layout-start-center">
+      <button
+        mat-icon-button
+        (click)="syncImportedCommunityTags()"
+        [matTooltip]="'li.synchronize_community_tags' | translate">
         <mat-icon>sync</mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        type="button"
+        class="accent"
+        [matTooltip]="'li.create_tag' | translate"
+        (click)="openCreateDialog()">
+        <mat-icon>add</mat-icon>
       </button>
     </fl-search-header-actions>
   </fl-search-header>
 
-  <fl-search-header-actions class="g-layout-row g-layout-start-center">
-    <button
-      mat-icon-button
-      type="button"
-      class="accent"
-      [matTooltip]="'li.create_tag' | translate"
-      matTooltipPosition="before"
-      >
-      <mat-icon>add</mat-icon>
-    </button>
-  </fl-search-header-actions>
-
   <fl-search-result>
-    <li-tag-table [datasource]="datasource" [columns]="columns" (tagSelected)="onTagSelected($event)"></li-tag-table>
+    <li-tag-table
+      [datasource]="datasource"
+      [columns]="columns"
+      (tagSelected)="onTagSelected($event)"></li-tag-table>
   </fl-search-result>
 </fl-search>

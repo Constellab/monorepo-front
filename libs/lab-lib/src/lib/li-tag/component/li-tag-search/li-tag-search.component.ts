@@ -6,6 +6,7 @@ import {
   FlSearchState,
 } from '@monorepo/front-core-lib/fl-search';
 import {
+  LiRouterService,
   LiTagKeyModel,
   LiTagKeyModelDatasource,
   LiTagSearch,
@@ -26,6 +27,8 @@ import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { LiTagSearchFormComponent } from '../li-tag-search-form/li-tag-search-form.component';
 import { LiSyncImportedCommunityTagsDialogComponent } from '../li-sync-imported-community-tags-dialog/li-sync-imported-community-tags-dialog.component';
 import { FlPortalAction, FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
+import { LiTagCreateDialogComponent } from '../li-tag-create-dialog/li-tag-create-dialog.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'li-tag-search',
@@ -50,6 +53,7 @@ export class LiTagSearchComponent implements OnInit {
   private dialogService = inject(FlDialogService);
   private themeService = inject(FlThemeService);
   private actionService = inject(FlPortalActionsService);
+  private router = inject(Router);
 
   fullPageSearch = input<boolean>(true);
 
@@ -81,6 +85,17 @@ export class LiTagSearchComponent implements OnInit {
     }
   }
 
+  openCreateDialog(): void {
+    this.dialogService
+      .openSmallDialog(LiTagCreateDialogComponent, {})
+      .afterClosed()
+      .subscribe((result: LiTagKeyModel) => {
+        if (result) {
+          this.router.navigate([LiRouterService.getTagDetailRoute(result.key)]);
+        }
+      });
+  }
+
   onTagSelected(tag: LiTagKeyModel): void {
     this.tagSelected.emit(tag);
   }
@@ -95,7 +110,7 @@ export class LiTagSearchComponent implements OnInit {
             type: 'sync-community-tags',
             action: this.tagService.synchronizeCommunityTags(result),
             text: {
-              text: 'li.synchronization-community-tags',
+              text: 'li.synchronization_community_tags',
               translateText: true,
             },
           };

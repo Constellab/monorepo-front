@@ -50,7 +50,13 @@ export class LiTagCheckPropagationComponent {
     const input = inject<LiTagCheckPropagationInput>(MAT_DIALOG_DATA);
 
     this.impactDTO$ = input.impactDTO$.pipe(share());
-    this.tags = new LiTagDatasource(this.impactDTO$.pipe(map((impactDTO) => impactDTO.tags)));
+    this.tags = new LiTagDatasource(
+      this.impactDTO$.pipe(
+        map((impactDTO) => {
+          return impactDTO.tags;
+        })
+      )
+    );
 
     this.title = input.mode === 'ADD' ? 'li.add_tag_propagation_title' : 'li.delete_tag_propagation_title';
     this.tagListText = input.mode === 'ADD' ? 'li.tags_to_propagate' : 'li.tag_to_delete';

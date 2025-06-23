@@ -3,8 +3,12 @@
     <div class="g-flex-auto">
       <div class="g-layout-row g-layout-start-center">
         @if (tagKeyModel().isCommunityTag) {
-          <mat-icon flIcon="community-icon"
-                    class="g-icon-big status-icon"></mat-icon>
+          <co-tag-community-tag
+            size="big"
+            class="status-icon"
+            [key]="tagKeyModel().key"></co-tag-community-tag>
+          <!--          <mat-icon flIcon="community-icon"-->
+          <!--                    class="g-icon-big status-icon"></mat-icon>-->
         }
         <div class="g-flex-auto g-flex">
           <fl-text-icon>
@@ -14,7 +18,7 @@
               (flElementValueChange)="updateLabel($event)"
               class="title"
               [flElementDisabled]="tagKeyModel().isCommunityTag">
-              {{ tagKeyModel().label }}
+              {{ tagKeyModel().label ?? tagKeyModel().key }}
             </h1>
           </fl-text-icon>
         </div>
@@ -34,6 +38,11 @@
             <button mat-menu-item (click)="shareTagKey()">
               <mat-icon>share</mat-icon>
               {{ 'li.share_tag_to_community' | translate }}
+            </button>
+
+            <button mat-menu-item (click)="openDeleteTagKeyDialog()" class="warn">
+              <mat-icon>delete</mat-icon>
+              {{ 'li.delete_tag' | translate }}
             </button>
           </mat-menu>
         }
@@ -81,18 +90,34 @@
           @if (tagKeyValues$()) {
             <div class="tag-values-header-div">
               <h2 class="values-title">{{ 'li.values' | translate }}</h2>
-              <button mat-icon-button type="button"
-                      class="g-print-hide"
-                      [matTooltip]="'li.create' | translate"
-                      (click)="openAddTagValueDialog()">
-                <mat-icon>add</mat-icon>
-              </button>
+              @if (!tagKeyModel().deprecated) {
+                <div class="g-layout-row g-layout-start-center">
+                  @if (!tagKeyModel().isCommunityTag) {
+                    <button
+                      class="g-button-small"
+                      mat-flat-button
+                      (click)="openEditAdditionalInfoSpecDialog()">
+                      {{ 'coCommunityLib.edit_additional_info_specs' | translate }}
+                    </button>
+                  }
+                  <button
+                    mat-icon-button
+                    type="button"
+                    class="g-print-hide"
+                    [matTooltip]="'li.create_tag_value' | translate"
+                    (click)="openAddTagValueDialog()">
+                    <mat-icon>add</mat-icon>
+                  </button>
+                </div>
+              }
             </div>
             <co-tag-values-table
               (editTagValue)="openEditTagValueDialog($event)"
+              (deleteTagValue)="openDeleteTagValueDialog($event)"
+              [deleteButtonToolTip]="'li.delete_tag_value' | translate"
               [dataSource]="tagKeyValues$()"
               [showIsCommunityTagValue]="true"
-              [hideDeleteButton]="true"></co-tag-values-table>
+              [tagKey]="tagKeyModel().key"></co-tag-values-table>
           }
         </div>
       </div>

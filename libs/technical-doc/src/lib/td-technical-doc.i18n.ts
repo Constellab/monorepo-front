@@ -69,6 +69,8 @@ const tdTechnicalDocI18nFr: FlLangTranslation = {
     delete: 'Delete',
     no_value_in_array: 'Aucune valeur pour cette config',
     advanced_configuration: 'Configuration avancée',
+    yes: 'Oui',
+    no: 'Non',
   },
 };
 
@@ -139,6 +141,8 @@ const tdTechnicalDocI18nEn: FlLangTranslation = {
     delete: 'Delete',
     no_value_in_array: 'No value for this config',
     advanced_configuration: 'Advanced config',
+    yes: 'Yes',
+    no: 'No',
   },
 };
 

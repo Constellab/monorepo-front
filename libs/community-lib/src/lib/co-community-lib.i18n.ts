@@ -49,6 +49,7 @@ const coCommunityLibI18nFr: FlLangTranslation = {
     // eslint-disable-next-line max-len
     tag_additional_info_spec_description:
       'Configurez les spécifications des informations supplémentaires du tag',
+    imported_from_community: 'Importé depuis Community',
   },
 };
 
@@ -97,6 +98,7 @@ const coCommunityLibI18nEn: FlLangTranslation = {
     update: 'Update',
     active: 'Active',
     tag_additional_info_spec_description: 'Configure the tag additional info specs',
+    imported_from_community: 'Imported from Community',
   },
 };
 export const coCommunityLibI18n: FlTranslateObject = {

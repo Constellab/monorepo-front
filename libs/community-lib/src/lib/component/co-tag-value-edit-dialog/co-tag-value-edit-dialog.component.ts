@@ -57,8 +57,8 @@ export class CoTagValueEditDialogComponent
   ngOnInit(): void {
     this.tagKeyType = this.dialogInput.object.tagKey.type;
     this.additionalInfoConfig = TdConfig.fromSpecs(
-      this.dialogInput.object.tagKey.additionalInfosSpecs,
-      this.dialogInput.object.additionalInfos
+      this.dialogInput.object.tagKey.additionalInfosSpecs ?? {},
+      this.dialogInput.object.additionalInfos ?? {}
     );
     this.additionalInfoFormGp = TdConfigureSpecsFormComponent.buildFormGroup(this.additionalInfoConfig);
     this.init();

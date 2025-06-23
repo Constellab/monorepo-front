@@ -8,7 +8,10 @@
     </mat-panel-title>
 
     <mat-panel-description class="g-layout-row g-layout-end">
-      <a mat-icon-button [routerLink]="tagMonitoringRoute" [matTooltip]="'li.go_to_tag_management' | translate">
+      <a
+        mat-icon-button
+        [routerLink]="tagMonitoringRoute"
+        [matTooltip]="'li.go_to_tag_management' | translate">
         <mat-icon>settings</mat-icon>
       </a>
     </mat-panel-description>
@@ -32,7 +35,7 @@
     textNoMoreResult="">
     <div class="g-layout-row-wrap g-layout-gap-05em g-text-small">
       @for (tagKey of tagKeys | flDatasourceConnect | async; track tagKey.key) {
-        <fl-tag class="chip" [flTag]="{ key: tagKey.key }" (click)="onKeyClick(tagKey)"></fl-tag>
+        <fl-tag class="chip" [flTag]="tagKey.toFlTag()" (click)="onKeyClick(tagKey)"></fl-tag>
       }
     </div>
   </fl-infinite-scroll>

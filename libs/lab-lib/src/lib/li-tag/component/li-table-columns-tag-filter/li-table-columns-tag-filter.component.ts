@@ -50,7 +50,11 @@ export class LiTableColumnsTagFilterComponent extends FlFormFieldDirective<FlTag
   }
 
   addTag(tag: FlAddTagEvent): void {
-    this.selectedTags.addItem({ key: tag.key.content, value: tag.value.content });
+    this.selectedTags.addItem({
+      key: tag.key.content,
+      value: tag.value.content,
+      isCommunityTagKey: tag.key.entity?.isCommunityTag,
+    });
     this.setAndEmitValue(this.selectedTags.array);
   }
 

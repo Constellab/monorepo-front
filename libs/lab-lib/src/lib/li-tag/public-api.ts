@@ -23,6 +23,7 @@ export * from './component/li-tag-values-table/li-tag-values-table.component';
 // eslint-disable-next-line max-len
 export * from './component/li-sync-imported-community-tags-dialog/li-sync-imported-community-tags-dialog.component';
 export * from './component/li-share-tag-to-community-dialog/li-share-tag-to-community-dialog.component';
+export * from './component/li-tag-create-dialog/li-tag-create-dialog.component';
 
 export * from './pipe/li-get-entity-tags.pipe';
 

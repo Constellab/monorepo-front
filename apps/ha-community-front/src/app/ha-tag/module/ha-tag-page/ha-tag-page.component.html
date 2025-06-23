@@ -99,26 +99,33 @@
     <div class="tag-values-div tag-page-section">
       <div class="tag-div-header tag-value-div-header">
         <h4>{{ 'predefined_tag_values' | translate }}</h4>
-        @if (!isBooleanType && canEditTag && !tagKey.deprecated) {
-          <button
-            mat-icon-button
-            (click)="openCreateTagValueDialog()"
-            [matTooltip]="'add_tag_value' | translate">
-            <mat-icon>add_circle</mat-icon>
-          </button>
+        @if (canEditTag && !tagKey.deprecated) {
+          <div class="g-layout-row g-layout-start-center">
+            <button class="g-button-small" mat-flat-button (click)="openEditAdditionalInfoSpecDialog()">
+              {{ 'coCommunityLib.edit_additional_info_specs' | translate }}
+            </button>
+            @if (!isBooleanType) {
+              <button
+                mat-icon-button
+                (click)="openCreateTagValueDialog()"
+                [matTooltip]="'add_tag_value' | translate">
+                <mat-icon>add_circle</mat-icon>
+              </button>
+            }
+          </div>
         }
       </div>
 
       @if (tagValues) {
         <co-tag-values-table
           [dataSource]="tagValues"
-          [hideEditButton]="!canEditTag"
+          [hideEditButton]="!canEditTag || tagKey.deprecated"
           [hideDeleteButton]="!canEditTag || isBooleanType"
-          [deleteButtonToolTip]="!tagKey.publishedAt ? ('delete_tag_value' | translate) :('deprecate_tag_value' | translate)"
-          [showEditAdditionalInfoSpecsButton]="canEditTag"
+          [deleteButtonToolTip]="
+            !tagKey.publishedAt ? ('delete_tag_value' | translate) : ('deprecate_tag_value' | translate)
+          "
           (editTagValue)="openEditTagValueDialog($event)"
-          (deleteTagValue)="openConfirmDeleteTagValueDialog($event)"
-          (openEditAdditionalInfoSpecsDialog)="openEditAdditionalInfoSpecDialog()">
+          (deleteTagValue)="openConfirmDeleteTagValueDialog($event)">
         </co-tag-values-table>
       }
     </div>

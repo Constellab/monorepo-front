@@ -6,7 +6,11 @@ import {
   MatCellDef,
   MatColumnDef,
   MatHeaderCell,
-  MatHeaderCellDef, MatHeaderRow, MatHeaderRowDef, MatRow, MatRowDef,
+  MatHeaderCellDef,
+  MatHeaderRow,
+  MatHeaderRowDef,
+  MatRow,
+  MatRowDef,
   MatTable,
 } from '@angular/material/table';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
@@ -18,7 +22,7 @@ import { CoDeprecatedTagComponent } from '../co-deprecated-tag/co-deprecated-tag
 import { MatIconButton } from '@angular/material/button';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
-import { MatTooltip } from '@angular/material/tooltip';
+import { CoTagCommunityIconComponent } from '../co-tag-community-icon/co-tag-community-icon.component';
 
 @Component({
   selector: 'co-tag-values-table',
@@ -44,7 +48,7 @@ import { MatTooltip } from '@angular/material/tooltip';
     MatHeaderRowDef,
     MatRow,
     MatRowDef,
-    MatTooltip,
+    CoTagCommunityIconComponent,
   ],
   templateUrl: './co-tag-values-table.component.html',
   styleUrl: './co-tag-values-table.component.scss',
@@ -52,10 +56,10 @@ import { MatTooltip } from '@angular/material/tooltip';
 export class CoTagValuesTableComponent implements OnInit {
   dataSource = input.required<FlDatasourcePaginated<CoTagValue, any>>();
 
+  tagKey = input<string>('');
   hideEditButton = input<boolean>(false);
   hideDeleteButton = input<boolean>(false);
   showIsCommunityTagValue = input<boolean>(false);
-  showEditAdditionalInfoSpecsButton = input<boolean>(false);
   deleteButtonToolTip = input<string>('');
 
   columnsDef: FlTableColumnStatic<CoTagValue>[] = [
@@ -68,7 +72,6 @@ export class CoTagValuesTableComponent implements OnInit {
 
   editTagValue = output<CoTagValue>();
   deleteTagValue = output<CoTagValue>();
-  openEditAdditionalInfoSpecsDialog = output<void>();
 
   ngOnInit(): void {
     if (this.showIsCommunityTagValue()) {
@@ -86,9 +89,5 @@ export class CoTagValuesTableComponent implements OnInit {
 
   emitDeleteTagValue(tagValue: CoTagValue): void {
     this.deleteTagValue.emit(tagValue);
-  }
-
-  emitOpenEditAdditionalInfoSpecsDialog(): void {
-    this.openEditAdditionalInfoSpecsDialog.emit();
   }
 }

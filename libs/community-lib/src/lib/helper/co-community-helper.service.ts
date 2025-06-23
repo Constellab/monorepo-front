@@ -46,6 +46,14 @@ export class CoCommunityHelperService {
     return `${this.getCommunityUrl()}/agents/${agentId}/${title}/version/${versionNum}`;
   }
 
+  public getCommunityTagsUrl(): string {
+    return `${this.getCommunityUrl()}/tags`;
+  }
+
+  public getCommunityTagUrl(tagKey: string): string {
+    return `${this.getCommunityTagsUrl()}/${tagKey}`;
+  }
+
   /////////////////////////////////// SPECIFIC ROUTES //////////////////////////////////////
 
   public getDataLabOverviewRoute(): string {

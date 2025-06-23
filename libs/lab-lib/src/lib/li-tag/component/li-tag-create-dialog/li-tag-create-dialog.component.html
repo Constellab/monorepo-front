@@ -1,0 +1,50 @@
+<fl-dialog-header>
+  {{ 'li.create_tag' | translate }}
+</fl-dialog-header>
+
+<mat-dialog-content>
+  <form [formGroup]="formGp" id="tag-key-form" (ngSubmit)="submit()">
+    <mat-form-field class="g-full g-form-input">
+      <mat-label>{{ 'li.label' | translate }}</mat-label>
+      <input
+        matInput
+        formControlName="label"
+        [placeholder]="'li.label' | translate"
+        autocomplete="off"
+        required />
+      @if (formGp.get('label').hasError('required')) {
+        <mat-error>{{ 'li.label' | flErrorRequired }}</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field class="g-full g-form-input">
+      <mat-label>{{ 'li.key' | translate }}</mat-label>
+      <input
+        matInput
+        formControlName="key"
+        [placeholder]="'li.key' | translate"
+        (change)="keyChanged = true"
+        required />
+      @if (formGp.get('key').hasError('required')) {
+        <mat-error>{{ 'li.key' | flErrorRequired }}</mat-error>
+      }
+      @if (formGp.get('key').hasError('pattern')) {
+        <mat-error>{{ 'li.key_invalid' | translate }}</mat-error>
+      }
+    </mat-form-field>
+  </form>
+
+  <div mat-dialog-actions>
+    <button
+      mat-flat-button
+      type="submit"
+      form="tag-key-form"
+      class="g-centered-forced primary"
+      [disabled]="!formGp.valid && !isLoading">
+      {{ 'li.create_tag' | translate }}
+      @if (isLoading) {
+        <fl-button-loader></fl-button-loader>
+      }
+    </button>
+  </div>
+</mat-dialog-content>

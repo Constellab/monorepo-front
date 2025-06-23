@@ -94,7 +94,9 @@ export class LiTagListComponent implements OnInit {
     );
 
     const data: LiTagDetailPortalInput = {
-      entityTagId: tag.id,
+      tagKey: tag.key,
+      tagValue: tag.value?.toString(),
+      tagEntityId: tag.id,
     };
     this.portalService.createPortal(LiTagDetailPortalComponent, config, data);
   }

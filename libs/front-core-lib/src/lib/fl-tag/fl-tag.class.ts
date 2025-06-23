@@ -12,6 +12,7 @@ export interface FlTag {
   key: string;
   label?: string;
   value?: FlTagValue;
+  isCommunityTagKey?: boolean;
 }
 
 export class FlTagDatasource<T extends FlTag = FlTag> extends FlArrayObs<T> {

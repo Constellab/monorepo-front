@@ -30,25 +30,6 @@ export interface CoTagKey {
   tagCoAuthors?: CoUser[];
 }
 
-export class CoTagKeyEditDTO {
-  id?: string;
-  technicalName: string;
-  label: string;
-  type: CoTagKeyType;
-  unit?: string;
-  space?: string;
-}
-
-export interface CoTagKeyAdditionalInfoSpec {
-  optional: boolean;
-}
-
-export interface CoTagKeyEditAdditionalInfoSpec extends CoTagKeyAdditionalInfoSpec {
-  name: string;
-}
-
-export type CoTagKeyAdditionalInfosSpecs = Record<string, CoTagKeyAdditionalInfoSpec>;
-
 export function coAdditionalInfoInfoDict(type: string, defaultValue: any = null): TdEditParamSpecDetail {
   const otherFields: Record<string, any> = {};
 

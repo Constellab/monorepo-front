@@ -19,9 +19,9 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { FlTagModule } from '@monorepo/front-core-lib/fl-tag';
 import { AsyncPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { MatIcon } from '@angular/material/icon';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { CoTagCommunityIconComponent } from '@monorepo/community-lib';
 
 @Component({
   selector: 'li-tag-table',
@@ -43,9 +43,9 @@ import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
     MatHeaderRowDef,
     MatRow,
     MatRowDef,
-    MatIcon,
     FlTextIconModule,
     FlIconModule,
+    CoTagCommunityIconComponent,
   ],
   templateUrl: './li-tag-table.component.html',
   styleUrl: './li-tag-table.component.scss',

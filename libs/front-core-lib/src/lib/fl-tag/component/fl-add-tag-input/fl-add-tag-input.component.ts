@@ -37,7 +37,7 @@ class FlTagInputSearchDatasourcePaginated extends FlDatasourcePaginated<
   FlTagSearchFilter
 > {
   protected equals(a: FlTagSearchResult, b: FlTagSearchResult): boolean {
-    return a.content === b.content;
+    return a.entity?.id === b.entity?.id && a.content === b.content;
   }
 }
 
@@ -70,6 +70,8 @@ export class FlAddTagInputComponent implements OnInit, OnDestroy {
    */
   @Input() disableFilteredOptions: boolean = false;
 
+  @Input() searchCommunityTags: boolean = false;
+
   @Output() addTag: EventEmitter<FlAddTagEvent> = new EventEmitter();
 
   @ViewChild('input') input: ElementRef<HTMLInputElement>;
@@ -97,11 +99,13 @@ export class FlAddTagInputComponent implements OnInit, OnDestroy {
       { initFirstPage: false }
     );
 
-    this.filteredCommunityOptions = new FlTagInputSearchDatasourcePaginated(
-      (page, size, filter) => this.tagService.searchCommunityTag(filter.filtersCriteria, page, size),
-      10,
-      { initFirstPage: false }
-    )
+    if (this.searchCommunityTags) {
+      this.filteredCommunityOptions = new FlTagInputSearchDatasourcePaginated(
+        (page, size, filter) => this.tagService.searchCommunityTag(filter.filtersCriteria, page, size),
+        10,
+        { initFirstPage: false }
+      );
+    }
 
     if (this.disableFilteredOptions) return;
     combineLatest([this.inputCtrl.valueChanges.pipe(startWith('')), this.mode$.asObservable()])
@@ -110,10 +114,11 @@ export class FlAddTagInputComponent implements OnInit, OnDestroy {
   }
 
   private loadPage(inputText: string, mode: FlTagMode): void {
+    const key = this.currentTagKey?.entity ? this.currentTagKey.entity.key : inputText;
     if (mode === 'value') {
-      this.getDatasourceFirstPages({ key: this.currentTagKey.content, value: inputText });
+      this.getDatasourceFirstPages({ key: key, value: inputText });
     } else {
-      this.getDatasourceFirstPages({ key: inputText });
+      this.getDatasourceFirstPages({ key: key });
     }
   }
 
@@ -202,8 +207,11 @@ export class FlAddTagInputComponent implements OnInit, OnDestroy {
     this.focusInput();
   }
 
-  private getDatasourceFirstPages(filtersCriteria?: FlTagSearchFilter,
-                                  sortsCriteria?: FlDatasourceSortCriteria[]): void{
+  private getDatasourceFirstPages(
+    filtersCriteria?: FlTagSearchFilter,
+    sortsCriteria?: FlDatasourceSortCriteria[]
+  ): void {
+    if (!filtersCriteria.key || filtersCriteria.key.length == 0) return;
     this.filteredOptions.getFirstPage(filtersCriteria, sortsCriteria);
     this.filteredCommunityOptions?.getFirstPage(filtersCriteria, sortsCriteria);
   }

@@ -23,10 +23,16 @@
   text-transform: capitalize;
 }
 
-.tag-key{
+.tag-key {
   text-transform: capitalize;
 }
 
-.community-icon{
-  margin-left: auto;
+.current-add-tag-mat-chip {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  .tag-community-icon {
+    margin-right: 4px;
+  }
 }

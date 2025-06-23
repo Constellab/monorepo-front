@@ -1,5 +1,6 @@
 import { inject, Injectable, OnDestroy, Signal, signal, WritableSignal } from '@angular/core';
 import { LiTagKeyModel, LiTagService, LiTagValueModelDatasource } from '@monorepo/lab-lib/li-core';
+import { TdParamSpecs } from '@monorepo/technical-doc';
 
 @Injectable()
 export class LiTagDetailState implements OnDestroy {
@@ -28,6 +29,18 @@ export class LiTagDetailState implements OnDestroy {
 
   public onNewTagKey(tagKey: LiTagKeyModel): void {
     this._values$.set(this.tagService.getValuesDatasource(tagKey.key));
+  }
+
+  public updateTagKey(tagKey: LiTagKeyModel): void {
+    this._tagKey.set(tagKey);
+  }
+
+  public updateTagKeyAdditionalInfoSpecs(additionalInfoSpecs: TdParamSpecs): void {
+    const tagKey = this._tagKey();
+    if (tagKey) {
+      tagKey.additionalInfosSpecs = additionalInfoSpecs;
+      this._tagKey.set(tagKey);
+    }
   }
 
   public ngOnDestroy(): void {

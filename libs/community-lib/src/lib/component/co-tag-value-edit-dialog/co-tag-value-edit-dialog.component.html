@@ -8,7 +8,7 @@
 
 <mat-dialog-content>
   <form [formGroup]="formGp" id="tag-value-form" (ngSubmit)="submit()">
-    <mat-form-field class="g-full">
+    <mat-form-field class="g-full g-form-input">
       <mat-label>{{ 'coCommunityLib.value' | translate }}</mat-label>
       <input
         matInput
@@ -23,7 +23,7 @@
       }
     </mat-form-field>
 
-    <mat-form-field class="g-full">
+    <mat-form-field class="g-full g-form-input">
       <mat-label>{{ 'coCommunityLib.short_description' | translate }}</mat-label>
       <input matInput formControlName="shortDescription" [placeholder]="'description' | translate" />
     </mat-form-field>
