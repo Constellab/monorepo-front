@@ -47,7 +47,7 @@ export class LabDynamicParamSpecState extends TdAbstractDynamicParamSpecState im
       paramSpecs: paramsSpecs,
       configSpecName: configName,
       dynamicParamsDescription: {
-        text: 'li.agent_params_spec_description',
+        text: 'biox.agent_params_spec_description',
         translateText: true,
       },
     };

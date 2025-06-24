@@ -10,11 +10,13 @@
   }
 
   <div class="text">
-    @if (flTag.label) {
-      {{ flTag.label }}
-    } @else {
-      {{ flTag.key }}
-    }
+    <span class="g-text-capitalize">
+      @if (flTag.label) {
+        {{ flTag.label }}
+      } @else {
+        {{ flTag.key }}
+      }
+    </span>
     @if (flTag.value) {
       : {{ flTag.value }}
     }

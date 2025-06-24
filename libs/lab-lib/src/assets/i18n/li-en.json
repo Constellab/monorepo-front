@@ -472,7 +472,6 @@
     "synchronize_community_tags": "Synchronize Community tags",
     "synchronization_community_tags": "Synchronization of Community tags",
     "changes": "Changes",
-    "agent_params_spec_description": "You can add, edit or delete parameters to configure your agent, values of these parameters will be accessible in the code of your agent by using the dictionnary 'params'.",
     "create_tag": "Create tag",
     "no_tags_to_synchronize": "All your Community tags are already synchronized",
     "delete_tag_key": "Delete tag key",
