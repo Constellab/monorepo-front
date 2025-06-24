@@ -1,19 +1,22 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FL_PORTAL_DATA, FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
 import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
 import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { FlTagModule } from '@monorepo/front-core-lib/fl-tag';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { LiTagDetail, LiTagService } from '@monorepo/lab-lib/li-core';
+import { LiTagKeyModel, LiTagService, LiTagValueModel } from '@monorepo/lab-lib/li-core';
 import { LiTagOriginsComponent } from '../li-tag-origins/li-tag-origins.component';
 import { MatDivider } from '@angular/material/divider';
-import { Observable } from 'rxjs';
 import { TranslatePipe } from '@ngx-translate/core';
+import { CoTagCommunityIconComponent } from '@monorepo/community-lib';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 
 export interface LiTagDetailPortalInput {
-  entityTagId: string;
+  tagKey: string;
+  tagValue: string;
+  tagEntityId: string;
 }
 
 @Component({
@@ -31,16 +34,27 @@ export interface LiTagDetailPortalInput {
     TranslatePipe,
     FlDateModule,
     FlTagModule,
+    CoTagCommunityIconComponent,
+    FlCorePipeModule,
   ],
 })
-export class LiTagDetailPortalComponent {
+export class LiTagDetailPortalComponent implements OnInit {
+  private input = inject<LiTagDetailPortalInput>(FL_PORTAL_DATA);
   private tagService = inject(LiTagService);
 
-  tagDetail$: Observable<LiTagDetail>;
+  tagKeyModel: LiTagKeyModel;
 
-  constructor() {
-    const input = inject<LiTagDetailPortalInput>(FL_PORTAL_DATA);
+  tagValueModel: LiTagValueModel;
 
-    this.tagDetail$ = this.tagService.getEntityTag(input.entityTagId);
+  tagEntityId: string;
+
+  ngOnInit(): void {
+    this.tagEntityId = this.input.tagEntityId;
+    this.tagService
+      .getTagKeyByKey(this.input.tagKey)
+      .subscribe((tagKeyModel) => (this.tagKeyModel = tagKeyModel));
+    this.tagService
+      .getTagValueByKeyAndValue(this.input.tagKey, this.input.tagValue)
+      .subscribe((tagValueModel) => (this.tagValueModel = tagValueModel));
   }
 }

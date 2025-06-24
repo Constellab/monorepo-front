@@ -12,7 +12,7 @@ const flTagI18nFr: FlLangTranslation = {
     basic_input_helper_text: "'Entrer' ou 'Tab' pour ajouter un tag",
     update_tags: 'Modifier les tags',
     no_tag: 'Aucun tag',
-    community_tags: 'Tags de Community',
+    import_from_community: 'Importer depuis Community',
   },
 };
 
@@ -24,7 +24,7 @@ const flTagI18nEn: FlLangTranslation = {
     basic_input_helper_text: "'Enter' or 'Tab' to add a tag",
     update_tags: 'Update tags',
     no_tag: 'No tag',
-    community_tags: 'Community tags',
+    import_from_community: 'Import from Community',
   },
 };
 

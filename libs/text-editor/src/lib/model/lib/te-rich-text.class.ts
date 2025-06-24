@@ -155,7 +155,10 @@ export class TeRichText {
         result += block.data.text.trim() + ' ';
       }
     }
-    return result.replace(/<[^>]*>/g, '');
+    return result
+      .replaceAll(/<[^>]*>/g, '')
+      .replaceAll('&nbsp;', ' ')
+      .trim();
   }
 
   ///////////////////////////////////// HEADER ///////////////////////////////////////////////

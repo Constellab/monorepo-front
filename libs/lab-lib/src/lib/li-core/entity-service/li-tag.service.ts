@@ -13,11 +13,13 @@ import {
   LiEntityTagType,
   LiTag,
   LiTagDatasource,
-  LiTagDetail,
   LiTagKeyModel,
   LiTagKeyModelDatasource,
-  LiTagOrigin, LiTagsNotSynchronized, LiTagValueEditDTO,
-  LiTagValueModel, LiTagValueModelDatasource,
+  LiTagOrigin,
+  LiTagsNotSynchronized,
+  LiTagValueEditDTO,
+  LiTagValueModel,
+  LiTagValueModelDatasource,
   TagPropagationImpactDTO,
 } from '../model/entities/li-tag.entity';
 import { Observable } from 'rxjs';
@@ -26,6 +28,7 @@ import { LiTagSearch, LiTagSearchFields } from '../model/search/li-tag-search.cl
 import { FlDatasourceGetPageData, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 import { FlSearchConverter } from '@monorepo/front-core-lib/fl-search';
 import { CoTagValueEditDTO } from '@monorepo/community-lib';
+import { TdParamSpec, TdParamSpecs } from '@monorepo/technical-doc';
 
 @Injectable({
   providedIn: 'root',
@@ -39,8 +42,23 @@ export class LiTagService extends FlTagService {
     super();
   }
 
+  public createTagKey(key: string, label: string): Observable<LiTagKeyModel> {
+    return this.apiService.post(`${this.route}/key`, { key: key, label: label }, LiTagKeyModel);
+  }
+
   public getTagKeyByKey(key: string): Observable<LiTagKeyModel> {
     return this.apiService.get(`${this.route}/${key}`, LiTagKeyModel);
+  }
+
+  public getTagValueByKeyAndValue(key: string, value: FlTagValue): Observable<LiTagValueModel> {
+    return this.apiService.post(
+      `${this.route}/${key}/get-value`,
+      {
+        value: value,
+        tag_key: key,
+      },
+      LiTagValueModel
+    );
   }
 
   public getSearchDatasource(): LiTagKeyModelDatasource<LiTagSearchFields> {
@@ -153,13 +171,7 @@ export class LiTagService extends FlTagService {
     pageSize: number
   ): Observable<ClPageI<FlTagSearchResult>> {
     if (filters.value == null) {
-      return this.getAllCommunityAgentsWithFilters(
-        [],
-        filters.key,
-        false,
-        page,
-        pageSize
-      ).pipe(
+      return this.getAllCommunityAgentsWithFilters([], filters.key, false, page, pageSize).pipe(
         // Convert the ClPage<LiTagKeyModel> to ClPage<FlTagSearchResult>
         map((page) =>
           page.map(
@@ -189,13 +201,19 @@ export class LiTagService extends FlTagService {
     }
   }
 
-  public shareTagToCommunity(key: string,
-                             mode: 'PUBLIC' | 'SPACE',
-                             spaceSelected: string): Observable<LiTagKeyModel> {
-    return this.apiService.post(`${this.route}/share-tag-to-community/${key}`, {
-      publish_mode: mode,
-      space_selected: spaceSelected,
-    }, LiTagKeyModel);
+  public shareTagToCommunity(
+    key: string,
+    mode: 'PUBLIC' | 'SPACE',
+    spaceSelected: string
+  ): Observable<LiTagKeyModel> {
+    return this.apiService.post(
+      `${this.route}/share-tag-to-community/${key}`,
+      {
+        publish_mode: mode,
+        space_selected: spaceSelected,
+      },
+      LiTagKeyModel
+    );
   }
 
   public getValuesDatasource(key: string): LiTagValueModelDatasource {
@@ -220,6 +238,18 @@ export class LiTagService extends FlTagService {
       null,
       LiCreateTagResponse
     );
+  }
+
+  public updateTagLabel(tagKey: string, label: string): Observable<LiTagKeyModel> {
+    return this.apiService.put(`${this.route}/${tagKey}/label`, { key: tagKey, label: label }, LiTagKeyModel);
+  }
+
+  public deleteTagKey(tagKey: string): Observable<void> {
+    return this.apiService.delete(`${this.route}/${tagKey}`);
+  }
+
+  public deleteTagValue(tagValueId: string): Observable<void> {
+    return this.apiService.delete(`${this.route}/value/${tagValueId}`);
   }
 
   public deleteTag(tagKey: string, tagValue: FlTagValue): Observable<void> {
@@ -251,10 +281,6 @@ export class LiTagService extends FlTagService {
 
   public getEntityTagsDatasource(entityType: LiEntityTagType, entityId: string): LiTagDatasource {
     return new LiTagDatasource(this.getEntityTags(entityType, entityId));
-  }
-
-  public getEntityTag(entityTagId: string): Observable<LiTagDetail> {
-    return this.apiService.get(`${this.route}/entity/${entityTagId}`, LiTagDetail);
   }
 
   public getEntityTagOrigins(entityTagId: string): Observable<LiTagOrigin[]> {
@@ -326,24 +352,59 @@ export class LiTagService extends FlTagService {
 
   public getNotSynchronizedCommunityTags(): Observable<LiTagsNotSynchronized> {
     return this.apiService.get(
-      `${this.route}/community/get-not-synchronized-community-tags`, LiTagsNotSynchronized);
+      `${this.route}/community/get-not-synchronized-community-tags`,
+      LiTagsNotSynchronized
+    );
   }
 
   public synchronizeCommunityTags(tagsNotSynchronized: LiTagsNotSynchronized): Observable<void> {
-    return this.apiService.post(
-      `${this.route}/community/synchronize-community-tags`, tagsNotSynchronized
-    );
+    return this.apiService.post(`${this.route}/community/synchronize-community-tags`, tagsNotSynchronized);
   }
 
   public createTagValue(tagValueEdit: CoTagValueEditDTO): Observable<LiTagValueModel> {
     const validTagValueEdit: LiTagValueEditDTO = LiTagValueEditDTO.fromCoTagValueEditDTO(tagValueEdit);
     return this.apiService.post(
-      `${this.route}/${tagValueEdit.tagKey.technicalName}/create-value`, validTagValueEdit, LiTagValueModel);
+      `${this.route}/${tagValueEdit.tagKey.technicalName}/create-value`,
+      validTagValueEdit,
+      LiTagValueModel
+    );
   }
 
   public updateTagValue(tagValueEdit: CoTagValueEditDTO): Observable<LiTagValueModel> {
     const validTagValueEdit: LiTagValueEditDTO = LiTagValueEditDTO.fromCoTagValueEditDTO(tagValueEdit);
     return this.apiService.put(
-      `${this.route}/${tagValueEdit.tagKey.technicalName}/update-value`, validTagValueEdit, LiTagValueModel);
+      `${this.route}/${tagValueEdit.tagKey.technicalName}/update-value`,
+      validTagValueEdit,
+      LiTagValueModel
+    );
+  }
+
+  public createTagAdditionalInfoSpec(
+    tagKey: string,
+    specName: string,
+    spec: TdParamSpec
+  ): Observable<TdParamSpecs> {
+    return this.apiService.post(`${this.route}/${tagKey}/additional-info-spec/${specName}`, spec);
+  }
+
+  public updateTagAdditionalInfoSpec(
+    tagKey: string,
+    specName: string,
+    spec: TdParamSpec
+  ): Observable<TdParamSpecs> {
+    return this.apiService.put(`${this.route}/${tagKey}/additional-info-spec/${specName}`, spec);
+  }
+
+  public renameAndUpdateTagAdditionalInfoSpec(
+    tagKey: string,
+    oldName: string,
+    newName: string,
+    spec: TdParamSpec
+  ): Observable<TdParamSpecs> {
+    return this.apiService.put(`${this.route}/${tagKey}/additional-info-spec/${oldName}/${newName}`, spec);
+  }
+
+  public deleteTagAdditionalInfoSpec(tagKey: string, specName: string): Observable<TdParamSpecs> {
+    return this.apiService.delete(`${this.route}/${tagKey}/additional-info-spec/${specName}`);
   }
 }

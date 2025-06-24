@@ -25,6 +25,8 @@ export class HaTagKey implements CoTagKey {
   @Type(() => HaSpace)
   space?: HaSpace;
   tagCoAuthors?: HaUser[];
+  likes: number;
+  comments: number;
 }
 
 export class HaTagKeyEditDTO {

@@ -1,36 +1,73 @@
 <fl-portal>
   <fl-portal-content>
-    <fl-async-section [object]="tagDetail$">
-      <ng-container *flSectionBody="tagDetail$ as tagDetail">
-        <div class="g-layout-row g-layout-start-center g-layout-gap-1em">
-          <div class="color" [style.background-color]="tagDetail | flTagColor | async"></div>
-          <div>
-            <fl-key-value>
-              <fl-key>{{ 'li.tag_key' | translate }}</fl-key>
-              <span class="tag">{{ tagDetail.key }}</span>
-            </fl-key-value>
+    @if (tagKeyModel) {
+      <div class="g-layout-row g-layout-start-center g-layout-gap-1em">
+        <div class="color" [style.background-color]="tagKeyModel.key | flTagColor | async"></div>
+        <div>
+          <fl-key-value>
+            <fl-key>{{ 'li.tag_key' | translate }}</fl-key>
+            <span class="tag">{{ tagKeyModel.key }}</span>
+          </fl-key-value>
 
+          <fl-key-value>
+            <fl-key>{{ 'li.label' | translate }}</fl-key>
+            <span class="tag">{{ tagKeyModel.label }}</span>
+          </fl-key-value>
+
+          @if (tagValueModel) {
             <fl-key-value>
               <fl-key>{{ 'li.tag_value' | translate }}</fl-key>
-              <span class="tag">{{ tagDetail.value }}</span>
+              <span class="tag">{{ tagValueModel.value }}</span>
             </fl-key-value>
-          </div>
+          }
         </div>
+        @if (tagKeyModel.isCommunityTag) {
+          <co-tag-community-tag [key]="tagKeyModel.key" size="big"></co-tag-community-tag>
+        }
+      </div>
 
+      @if (tagKeyModel.additionalInfosSpecs && (tagKeyModel.additionalInfosSpecs | flObjectKeys).length > 0) {
         <mat-divider class="divider"></mat-divider>
+        <div>{{ 'li.additional_info_specs' | translate }}</div>
+        <table class="g-text-small">
+          <tr>
+            <th>{{ 'li.spec' | translate }}</th>
+            <th>{{ 'td.type' | translate }}</th>
+            <th>{{ 'td.optional' | translate }}</th>
+            @if (tagValueModel) {
+              <th>{{ 'li.value' | translate }}</th>
+            }
+          </tr>
+          @for (spec of tagKeyModel.additionalInfosSpecs | flObjectKeys; track spec) {
+            <tr>
+              <td class="spec-value">{{ spec }}</td>
+              <td>{{ tagKeyModel.additionalInfosSpecs[spec].type }}</td>
+              <td>
+                {{ (tagKeyModel.additionalInfosSpecs[spec].optional ? 'td.yes' : 'td.no') | translate }}
+              </td>
+              @if (tagValueModel && tagValueModel.additionalInfos && tagValueModel.additionalInfos[spec]) {
+                <td class="spec-value">{{ tagValueModel.additionalInfos[spec] }}</td>
+              } @else {
+                <td class="spec-value">None</td>
+              }
+            </tr>
+          }
+        </table>
+      }
 
-        <fl-key-value>
-          <fl-key>{{ 'li.created_at' | translate }}</fl-key>
-          {{ tagDetail.createdAt | flDate: 'DATE_TIME' }}
-        </fl-key-value>
+      <mat-divider class="divider"></mat-divider>
 
-        <fl-text-ok-nok
-          [value]="tagDetail.isPropagable"
-          [okText]="'li.tag_is_propagable' | translate"
-          [nokText]="'li.tag_is_not_propagable' | translate"></fl-text-ok-nok>
+      <fl-key-value>
+        <fl-key>{{ 'li.created_at' | translate }}</fl-key>
+        {{ tagKeyModel.createdAt | flDate: 'DATE_TIME' }}
+      </fl-key-value>
 
-        <li-tag-origins [tagEntityId]="tagDetail.id" class="origins"></li-tag-origins>
-      </ng-container>
-    </fl-async-section>
+      <fl-text-ok-nok
+        [value]="tagKeyModel.isPropagable"
+        [okText]="'li.tag_is_propagable' | translate"
+        [nokText]="'li.tag_is_not_propagable' | translate"></fl-text-ok-nok>
+
+      <li-tag-origins [tagEntityId]="tagEntityId" class="origins"></li-tag-origins>
+    }
   </fl-portal-content>
 </fl-portal>

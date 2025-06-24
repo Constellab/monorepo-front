@@ -22,3 +22,25 @@
 .tag {
   text-transform: capitalize;
 }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+tr:first-child {
+  border-top: none;
+}
+
+tr {
+  border-top: 2px solid var(--hover-color);
+}
+
+td,
+th {
+  text-align: left;
+}
+
+.spec-value {
+  font-weight: 600;
+}

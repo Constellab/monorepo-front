@@ -3,13 +3,15 @@
 </fl-dialog-header>
 
 <mat-dialog-content>
-  <div class="agent-params-description-div">
-    {{ 'td.param_spec_description' | translate }}
-  </div>
+  <div class="dynamic-params-table-div">
+    <div class="dynamic-params-description-div">
+      {{ description | flTranslatableText | async }}
+    </div>
 
-  <td-editable-param-specs-table
-    (editElementClick)="openEditParamSpecDialog($event)"
-    (deleteElementClick)="openDeleteParamDialog($event)"></td-editable-param-specs-table>
+    <td-editable-param-specs-table
+      (editElementClick)="openEditParamSpecDialog($event)"
+      (deleteElementClick)="openDeleteParamDialog($event)"></td-editable-param-specs-table>
+  </div>
 </mat-dialog-content>
 <mat-dialog-actions class="action-div">
   <button mat-flat-button class="primary" (click)="openEditParamSpecDialog()">

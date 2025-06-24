@@ -87,13 +87,19 @@ export class LiTagFiltersComponent extends FlFormFieldDirective<FlTag[]> impleme
   }
 
   addTag(tag: FlAddTagEvent): void {
-    this.selectedTags.addItem({ key: tag.key.content, value: tag.value.content });
+    const flTag: FlTag = {
+      key: tag.key.entity ? tag.key.entity.key : tag.key.content,
+      value: tag.value.entity ? tag.value.entity.value : tag.value.content,
+      isCommunityTagKey: tag.key.entity?.isCommunityTag,
+      label: tag.key.entity?.label,
+    };
+    this.selectedTags.addItem(flTag);
     this.setAndEmitValue(this.selectedTags.array);
   }
 
   onKeyClick(key: LiTagKeyModel): void {
     // when a key is clicked, set the key in the add tag input
-    this.addTagInputComponent.setKey({ type: 'key', content: key.key, entity: key });
+    this.addTagInputComponent.setKey({ type: 'key', content: key.label ?? key.key, entity: key });
   }
 
   callChangeEvent(value: FlTag[]): void {

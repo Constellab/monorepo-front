@@ -21,7 +21,7 @@
   <!-- Add section -->
   <h2>{{ 'li.add_tags_to_entity' | translate }}</h2>
 
-  <fl-add-tag-input class="section" (addTag)="addTag($event)"></fl-add-tag-input>
+  <fl-add-tag-input class="section" (addTag)="addTag($event)" [searchCommunityTags]="true"></fl-add-tag-input>
 
   <li-tag-list
     [tags]="newTags"

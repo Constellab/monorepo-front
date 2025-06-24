@@ -62,7 +62,7 @@ export class TdEditableParamSpecsTableComponent implements OnInit {
   }
 
   getColumnValue(element: any, column: string): string {
-    if (!element[column]) {
+    if (!element[column] && column !== 'optional') {
       if (column === 'human_name') {
         return element['name'] ? ClStringHelper.capitalize(element['name']) : '';
       }
@@ -89,9 +89,9 @@ export class TdEditableParamSpecsTableComponent implements OnInit {
       return ClStringHelper.snakeCaseToSentence(element[column]);
     } else if (this.isBoolean(element[column])) {
       if (element[column] === true) {
-        return this.translateService.translate('yes');
+        return this.translateService.translate('td.yes');
       } else {
-        return this.translateService.translate('no');
+        return this.translateService.translate('td.no');
       }
     }
     return element[column];

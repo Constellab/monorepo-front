@@ -3,12 +3,26 @@
 
   <mat-chip-grid #chipGrid>
     @if (currentTagKey) {
-      <mat-chip-row (removed)="removeTempTag()" class="g-chips-grey-round">
+      <mat-chip-row (removed)="removeTempTag()" class="g-chips-grey-round g-layout-row">
         <div
           matChipAvatar
           class="color"
-          [style.background-color]="currentTagKey.content | flTagColor | async"></div>
-        <span class="tag-key">{{ currentTagKey.content }} :</span>
+          [style.background-color]="
+            (currentTagKey.entity ? currentTagKey.entity.key : currentTagKey.content) | flTagColor | async
+          "></div>
+        <div class="current-add-tag-mat-chip">
+          @if (currentTagKey.entity?.isCommunityTag) {
+            <mat-icon flIcon="community-icon" class="g-icon-tiny tag-community-icon"></mat-icon>
+          }
+          <span class="tag-key"
+            >{{
+              currentTagKey.entity && currentTagKey.entity.label
+                ? currentTagKey.entity.label
+                : currentTagKey.content
+            }}
+            :</span
+          >
+        </div>
       </mat-chip-row>
     }
     @if (disableFilteredOptions) {
@@ -45,32 +59,45 @@
           @if (item.type === 'key') {
             <div
               class="color color-option"
-              [style.background-color]="item.content | flTagColor | async"></div>
+              [style.background-color]="
+                (item.entity ? item.entity.key : item.content) | flTagColor | async
+              "></div>
           }
-          <span class="option">{{ item.content }}</span>
+          @if (item.entity?.isCommunityTag) {
+            <mat-icon flIcon="community-icon" class="g-icon-small"></mat-icon>
+          }
+          <span class="option" [ngClass]="mode$.getValue() === 'key' ? 'g-text-capitalize' : ''">{{
+            item.entity && item.entity.label ? item.entity.label : item.content
+          }}</span>
         </div>
       </mat-option>
     }
-    @if(filteredCommunityOptions && filteredCommunityOptions | flDatasourceConnect | async; as filteredCommunityOptions) {
+    @if (
+      filteredCommunityOptions && filteredCommunityOptions | flDatasourceConnect | async;
+      as filteredCommunityOptions
+    ) {
       @if (filteredCommunityOptions.length > 0) {
-        <mat-optgroup [label]="'flTag.community_tags' | translate">
+        <mat-optgroup [label]="'flTag.import_from_community' | translate">
           @for (item of filteredCommunityOptions; track item) {
             <mat-option [value]="item" class="g-mat-option-no-wrap">
               <div class="option-container g-layout-row g-layout-start-center g-layout-gap-05em">
                 @if (item.type === 'key') {
                   <div
                     class="color color-option"
-                    [style.background-color]="item.content | flTagColor | async"></div>
+                    [style.background-color]="
+                      (item.entity ? item.entity.key : item.content) | flTagColor | async
+                    "></div>
                 }
-                <span class="option">{{ item.content }}</span>
-                <mat-icon flIcon="community-icon" class="community-icon"></mat-icon>
+                <mat-icon flIcon="community-icon" class="g-icon-small"></mat-icon>
+                <span class="option" [ngClass]="mode$.getValue() === 'key' ? 'g-text-capitalize' : ''">
+                  {{ item.entity ? item.entity.key : item.content }}
+                </span>
               </div>
             </mat-option>
           }
         </mat-optgroup>
       }
     }
-
   </mat-autocomplete>
   @if (allowUnknownTag && helpText) {
     <mat-hint>{{ helpText | translate }}</mat-hint>

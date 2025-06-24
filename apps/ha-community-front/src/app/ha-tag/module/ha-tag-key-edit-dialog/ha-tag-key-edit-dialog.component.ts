@@ -7,7 +7,7 @@ import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
 import { FormBuilder, FormControl, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 import { TranslatePipe } from '@ngx-translate/core';
-import { MatError, MatInput, MatPrefix } from '@angular/material/input';
+import { MatError, MatInput } from '@angular/material/input';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
@@ -47,7 +47,6 @@ export type HaTagKeyEditDialogInput = FlFormDialogInput<HaTagKeyEditDTO>;
     FlSectionModule,
     MatButton,
     MatError,
-    MatPrefix,
   ],
   templateUrl: './ha-tag-key-edit-dialog.component.html',
   styleUrl: './ha-tag-key-edit-dialog.component.scss',

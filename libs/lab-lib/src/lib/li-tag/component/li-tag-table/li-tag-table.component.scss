@@ -1,3 +1,10 @@
 .text {
   word-break: break-word;
 }
+
+.inline-community-tag-key {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+}

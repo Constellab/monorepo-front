@@ -209,11 +209,13 @@ export class TdEditParamSpecDialogComponent implements OnInit {
     );
 
     if (specs.additional_info) {
+      configs.subConfigs['additional_info'] = {
+        controlType: 'formGroup',
+        subConfigs: {},
+      };
       for (const specName of Object.keys(specs.additional_info)) {
-        configs.subConfigs[specName] = TdParamSpecConfig.convertParamSpecToAbstractConfig(
-          specs.additional_info[specName],
-          ''
-        );
+        configs.subConfigs['additional_info'].subConfigs[specName] =
+          TdParamSpecConfig.convertParamSpecToAbstractConfig(specs.additional_info[specName], '');
       }
     }
     return configs;

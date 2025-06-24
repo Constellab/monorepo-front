@@ -454,6 +454,7 @@
     "log_hide_stack_trace": "Cacher la stack trace",
     "key": "Clé",
     "label": "Label",
+    "create_tag_value": "Créer une valeur du tag",
     "value_format": "Format de la valeur",
     "value_format_STRING": "Chaîne de caractères",
     "value_format_INTEGER": "Nombre entier",
@@ -469,6 +470,21 @@
     "share_tag": "Partager le tag",
     "your_spaces": "Vos espaces",
     "synchronize_community_tags": "Synchroniser les tags de Community",
-    "changes": "Modifications"
+    "synchronization_community_tags": "Synchronisation des tags de Community",
+    "changes": "Modifications",
+    "create_tag": "Créer un tag",
+    "no_tags_to_synchronize": "Tous les tags de Community sont déjà synchronisés",
+    "include_deprecated_tags": "Inclure les tags obsolètes",
+    "delete_tag": "Supprimer le tag",
+    "delete_tag_value": "Supprimer la valeur du tag",
+    "value_created": "Valeur créée",
+    "short_description_modified": "Description courte modifiée",
+    "additional_info_specs": "Spécifications des informations supplémentaires",
+    "additional_info": "Informations supplémentaire",
+    "additional_info_modified": "Informations supplémentaires modifiées",
+    "additional_info_specs_modified": "Spécifications des informations supplémentaires modifiées",
+    "description_modified": "Description modifiée",
+    "label_modified": "Label modifié",
+    "spec": "Spécification"
   }
 }

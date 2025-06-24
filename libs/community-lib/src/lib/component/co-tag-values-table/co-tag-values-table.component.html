@@ -5,7 +5,7 @@
       <mat-cell *matCellDef="let tagValue" class="g-table-icon-button-cell">
         <div>
           @if (tagValue.isCommunityTagValue) {
-            <mat-icon flIcon="community-icon" class="g-icon-small"></mat-icon>
+            <co-tag-community-tag size="small" [key]="tagKey()"></co-tag-community-tag>
           }
         </div>
       </mat-cell>
@@ -36,12 +36,6 @@
     <ng-container matColumnDef="additionalInfos">
       <mat-header-cell *matHeaderCellDef>
         <span>{{ 'coCommunityLib.additional_info' | translate }}</span>
-        @if (showEditAdditionalInfoSpecsButton()) {
-          <button mat-icon-button (click)="emitOpenEditAdditionalInfoSpecsDialog()"
-                  class="g-button-icon-small" [matTooltip]="'coCommunityLib.edit_additional_info_specs' | translate">
-            <mat-icon>edit</mat-icon>
-          </button>
-        }
       </mat-header-cell>
       <mat-cell *matCellDef="let tagValue">
         <div>

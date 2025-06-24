@@ -20,13 +20,18 @@
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+}
+
+.tag-key {
   text-transform: capitalize;
 }
 
-.tag-key{
-  text-transform: capitalize;
-}
+.current-add-tag-mat-chip {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 
-.community-icon{
-  margin-left: auto;
+  .tag-community-icon {
+    margin-right: 4px;
+  }
 }

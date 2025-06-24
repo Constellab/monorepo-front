@@ -4,12 +4,11 @@
   } @else {
     {{ 'coCommunityLib.create_tag_value' | translate }}
   }
-
 </fl-dialog-header>
 
 <mat-dialog-content>
   <form [formGroup]="formGp" id="tag-value-form" (ngSubmit)="submit()">
-    <mat-form-field class="g-full">
+    <mat-form-field class="g-full g-form-input">
       <mat-label>{{ 'coCommunityLib.value' | translate }}</mat-label>
       <input
         matInput
@@ -24,27 +23,18 @@
       }
     </mat-form-field>
 
-    <mat-form-field class="g-full">
+    <mat-form-field class="g-full g-form-input">
       <mat-label>{{ 'coCommunityLib.short_description' | translate }}</mat-label>
       <input matInput formControlName="shortDescription" [placeholder]="'description' | translate" />
     </mat-form-field>
 
-    @if (additionalInfoSpecs && (additionalInfoSpecs | flObjectKeys).length > 0) {
-      <div class="additional-infos-div">
-        <div>{{ 'coCommunityLib.additional_info' | translate }}</div>
-        <div class="additional-infos-fields-div">
-          @for (additionalInfo of additionalInfoSpecs | flObjectKeys; track additionalInfo) {
-            <mat-form-field>
-              <mat-label>{{ additionalInfo }}</mat-label>
-              <input
-                matInput
-                [formControlName]="additionalInfo"
-                [placeholder]="additionalInfo"
-                [required]="!additionalInfoSpecs[additionalInfo].optional" />
-            </mat-form-field>
-          }
-        </div>
+    @if (additionalInfoConfig && (additionalInfoConfig.specs | flObjectKeys).length > 0) {
+      <div class="additional-infos-fields-div">
+        <span>{{ 'coCommunityLib.additional_info' | translate }}</span>
       </div>
+      <td-configure-specs-form
+        [formGp]="additionalInfoFormGp"
+        [configData]="additionalInfoConfig"></td-configure-specs-form>
     }
   </form>
 </mat-dialog-content>

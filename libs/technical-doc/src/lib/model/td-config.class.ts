@@ -57,7 +57,6 @@ export class TdConfig implements TdConfigI {
       if (visibility && configSpec.visibility !== visibility) continue;
       configs.subConfigs[specName] = this.convertToAbstractConfig(record[specName], specName);
     }
-
     return configs;
   }
 

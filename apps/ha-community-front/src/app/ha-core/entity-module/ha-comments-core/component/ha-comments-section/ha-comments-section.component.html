@@ -14,19 +14,15 @@
       <fl-card-body>
         <te-text-editor
           [config]="textEditorConfig"
-          [(ngModel)]="commentInputData"
+          [formControl]="formControlCommentInputData"
           [placeholder]="'write_a_comment' | translate"
           class="text-editor"
           (keydown.control.enter)="sendComment()"></te-text-editor>
       </fl-card-body>
       <fl-card-footer>
         <div class="comment-write-card-footer">
-          @if (!commentInputData.isEmpty()) {
-            <button
-              mat-flat-button
-              class="primary"
-              [disabled]="isLoading"
-              (click)="sendComment()">
+          @if (!formControlCommentInputData.value?.isEmpty()) {
+            <button mat-flat-button class="primary" [disabled]="isLoading" (click)="sendComment()">
               @if (isLoading) {
                 <fl-button-loader></fl-button-loader>
               }
@@ -35,16 +31,13 @@
               }
             </button>
           }
-
         </div>
       </fl-card-footer>
     </fl-card>
   } @else {
     <div class="login-div">
       <p>{{ 'login_to_post_a_comment' | translate }}</p>
-      <a mat-flat-button class="primary" [routerLink]="loginRoute">{{
-          'login' | translate
-        }}</a>
+      <a mat-flat-button class="primary" [routerLink]="loginRoute">{{ 'login' | translate }}</a>
     </div>
   }
 

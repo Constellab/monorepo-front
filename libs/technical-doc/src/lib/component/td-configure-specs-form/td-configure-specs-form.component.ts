@@ -43,14 +43,11 @@ export class TdConfigureSpecsFormComponent {
 
   // build the form group to configure specs
   public static buildFormGroup(configData: TdConfigI): FormGroup<TdConfigureSpecsForm> {
-    const labConfig = TdConfig.fromSpecs(configData.specs, configData.values);
-    const value = labConfig.mergeConfigWithDefault();
+    const config = TdConfig.fromSpecs(configData.specs, configData.values);
+    const value = config.mergeConfigWithDefault();
     return new FormBuilder().group({
-      public: FlDynamicFormHelper.generateFormGroup(labConfig.getDynamicFormFieldsConfig('public'), value),
-      protected: FlDynamicFormHelper.generateFormGroup(
-        labConfig.getDynamicFormFieldsConfig('protected'),
-        value
-      ),
+      public: FlDynamicFormHelper.generateFormGroup(config.getDynamicFormFieldsConfig('public'), value),
+      protected: FlDynamicFormHelper.generateFormGroup(config.getDynamicFormFieldsConfig('protected'), value),
     });
   }
 

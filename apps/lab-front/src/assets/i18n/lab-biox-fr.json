@@ -156,6 +156,7 @@
     "share_a_new_agent_version": "Partager une nouvelle version de l'agent",
     "view_agent_in_community": "Voir l'agent dans Community",
     "community_agent_tooltip": "Cette tâche est un agent de Community",
-    "tags": "Tags"
+    "tags": "Tags",
+    "agent_params_spec_description": "Vous pouvez ajouter, modifier ou supprimer des paramètres pour configurer votre agent, les valeurs de ces paramètres seront accessibles dans le code de votre agent en utilisant le dictionnaire 'params'."
   }
 }

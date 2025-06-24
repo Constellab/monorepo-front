@@ -22,6 +22,7 @@ export * from './lib/component/co-community-tag-list-item/co-community-tag-list-
 export * from './lib/component/co-deprecated-tag/co-deprecated-tag.component';
 export * from './lib/component/co-tag-values-table/co-tag-values-table.component';
 export * from './lib/component/co-tag-value-edit-dialog/co-tag-value-edit-dialog.component';
+export * from './lib/component/co-tag-community-icon/co-tag-community-icon.component';
 
 // Helpers
 export * from './lib/helper/co-community-helper.service';
@@ -36,7 +37,6 @@ export * from './lib/model/co-icon.class';
 export * from './lib/model/co-community-app.class';
 export * from './lib/model/co-tag-key.class';
 export * from './lib/model/co-tag-value.class';
-
 
 // States
 export * from './lib/state/co-tag-additional-info-spec.state';

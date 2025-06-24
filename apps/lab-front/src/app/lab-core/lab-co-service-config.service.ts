@@ -40,11 +40,11 @@ export class LabCoServiceConfig extends CoConfig {
     specName: string,
     spec: TdParamSpec
   ): Observable<TdParamSpecs> {
-    throw new Error('Method not implemented.');
+    return this.tagService.createTagAdditionalInfoSpec(tagKey, specName, spec);
   }
 
   public deleteAdditionalInfoSpec(tagKey: string, specName: string): Observable<TdParamSpecs> {
-    throw new Error('Method not implemented.');
+    return this.tagService.deleteTagAdditionalInfoSpec(tagKey, specName);
   }
 
   public editAdditionalInfoSpec(
@@ -52,7 +52,7 @@ export class LabCoServiceConfig extends CoConfig {
     specName: string,
     spec: TdParamSpec
   ): Observable<TdParamSpecs> {
-    throw new Error('Method not implemented.');
+    return this.tagService.updateTagAdditionalInfoSpec(tagKey, specName, spec);
   }
 
   public renameAndEditAdditionalInfoSpec(
@@ -61,6 +61,6 @@ export class LabCoServiceConfig extends CoConfig {
     newName: string,
     spec: TdParamSpec
   ): Observable<TdParamSpecs> {
-    throw new Error('Method not implemented.');
+    return this.tagService.renameAndUpdateTagAdditionalInfoSpec(tagKey, oldName, newName, spec);
   }
 }

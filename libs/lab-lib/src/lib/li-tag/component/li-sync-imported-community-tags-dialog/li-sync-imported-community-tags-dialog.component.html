@@ -16,7 +16,7 @@
                 <mat-panel-title>{{ tagKeyToSynchronize.oldKey.key }}</mat-panel-title>
                 <mat-panel-description>
                   @for (keyField of tagKeyToSynchronize.notSynchronizedFields; track keyField) {
-                    <span>{{ keyField }}</span>
+                    <span>{{ 'li.' + keyField | translate }}</span>
                   }
                 </mat-panel-description>
               </mat-expansion-panel-header>
@@ -24,23 +24,23 @@
                 <div>
                   <table class="tag-not-synchronized-table">
                     <thead>
-                    <tr>
-                      <th class="tag-not-synchronized-th">{{ 'li.value' | translate }}</th>
-                      <th class="tag-not-synchronized-th">{{ 'li.changes' | translate }}</th>
-                    </tr>
+                      <tr>
+                        <th class="tag-not-synchronized-th">{{ 'li.value' | translate }}</th>
+                        <th class="tag-not-synchronized-th">{{ 'li.changes' | translate }}</th>
+                      </tr>
                     </thead>
                     <tbody>
                       @for (
                         valueToSynchronize of tagKeyToSynchronize.notSynchronizedValues;
                         track valueToSynchronize.newValue.id
-                        ) {
+                      ) {
                         <tr>
                           <td>
-                            {{ 'li.values' | translate }}
+                            {{ valueToSynchronize.newValue.value }}
                           </td>
                           <td>
                             @for (keyField of valueToSynchronize.notSynchronizedFields; track keyField) {
-                              <span>{{ keyField }}</span>
+                              <span>{{ 'li.' + keyField | translate }}</span>
                             }
                           </td>
                         </tr>
@@ -65,7 +65,9 @@
       </div>
     } @else {
       <mat-dialog-content>
-        {{ 'li.no_tags_to_synchronize' | translate }}
+        <div class="g-text-centered">
+          {{ 'li.no_tags_to_synchronize' | translate }}
+        </div>
       </mat-dialog-content>
     }
   </ng-container>
