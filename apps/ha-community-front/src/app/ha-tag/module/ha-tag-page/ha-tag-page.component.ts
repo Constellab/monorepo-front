@@ -41,6 +41,11 @@ import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
 import { FlClipboardService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { TdAbstractDynamicParamSpecState, TdParamSpecs, TdTechnicalDocModule } from '@monorepo/technical-doc';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { HaCommunityPageDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
+import { HaCommentsSectionComponent } from '../../../ha-core/entity-module/ha-comments-core/component/ha-comments-section/ha-comments-section.component';
+import { HaEntityType } from '../../../ha-core/ha-model/ha-entities/ha-entity-type';
+import { HaCommentButtonComponent } from '../../../ha-core/entity-module/ha-util-component-core/component/ha-comment-button/ha-comment-button.component';
+import { HaLikeButtonComponent } from '../../../ha-core/entity-module/ha-util-component-core/component/ha-like-button/ha-like-button.component';
 
 @Component({
   selector: 'ha-tag-page',
@@ -64,12 +69,15 @@ import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
     CoTagValuesTableComponent,
     TdTechnicalDocModule,
     FlIconModule,
+    HaCommentsSectionComponent,
+    HaCommentButtonComponent,
+    HaLikeButtonComponent,
   ],
   templateUrl: './ha-tag-page.component.html',
   styleUrl: './ha-tag-page.component.scss',
   providers: [{ provide: TdAbstractDynamicParamSpecState, useClass: CoTagAdditionalInfoSpecState }],
 })
-export class HaTagPageComponent implements OnInit {
+export class HaTagPageComponent extends HaCommunityPageDirective implements OnInit {
   private tagService = inject(HaTagService);
   private activeRoute = inject(ActivatedRoute);
   private httpRedirectionService = inject(HaHttpRedirectionService);
@@ -92,6 +100,8 @@ export class HaTagPageComponent implements OnInit {
   profileRoute = HaRouterService.getProfileRoute();
 
   tagValues: HaTagValueDatasourcePaginated<HaTagValueDatasourceFilters>;
+
+  commentType: HaEntityType = HaEntityType.TAG;
 
   ngOnInit(): void {
     this.authenticatedUserService.getUser().subscribe((user) => {
@@ -247,6 +257,10 @@ export class HaTagPageComponent implements OnInit {
     });
   }
 
+  scrollToComments(commentsSection: any): void {
+    commentsSection.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+  }
+
   private checkRouteParams(): void {
     this.activeRoute.params.pipe(first()).subscribe((params) => {
       if (!params.id) {
@@ -295,6 +309,19 @@ export class HaTagPageComponent implements OnInit {
         this.canEditTag = true;
       }
     }
+
+    super.setMetaTags(
+      {
+        text: 'ha.tag.title',
+        translateParam: { param: { technicalName: this.tagKey.technicalName } },
+      },
+      {
+        text: 'ha.tag.description',
+        translateParam: { param: { technicalName: this.tagKey.technicalName } },
+      },
+      null,
+      HaRouterService.getTagPageRoute(this.tagKey.id, this.tagKey.technicalName)
+    );
   }
 
   private updateTagValues(): void {

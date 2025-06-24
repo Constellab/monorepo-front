@@ -3,4 +3,5 @@ export enum HaEntityType {
   AGENT = 'agent',
   STORY = 'story',
   APP = 'app',
+  TAG = 'tag',
 }

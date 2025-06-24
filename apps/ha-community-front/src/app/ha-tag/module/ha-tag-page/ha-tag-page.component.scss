@@ -85,3 +85,11 @@ table {
     margin-left: auto;
   }
 }
+
+.tag-like-comment {
+  margin-left: 0.5em;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}

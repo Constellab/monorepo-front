@@ -22,6 +22,8 @@ export interface CoTagKey {
   createdBy?: CoUser;
   lastModifiedAt: DateTime;
   lastModifiedBy: CoUser;
+  likes: number;
+  comments: number;
   publishedAt?: DateTime;
   unit?: string;
   description?: TeRichText;

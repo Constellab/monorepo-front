@@ -8,6 +8,13 @@
           <button mat-icon-button (click)="onCopyTechnicalName()" class="g-button-icon-small">
             <mat-icon>copy</mat-icon>
           </button>
+
+          <div class="tag-like-comment">
+            <ha-like-button [entityType]="commentType" [entityId]="tagKey.id"></ha-like-button>
+            <ha-comment-button
+              (clicked)="scrollToComments(comments)"
+              [commentsCount]="tagKey.comments"></ha-comment-button>
+          </div>
         </div>
         <div class="small-text user-date-info">
           <a [routerLink]="profileRoute + tagKey.createdBy?.id">
@@ -100,7 +107,7 @@
       <div class="tag-div-header tag-value-div-header">
         <h4>{{ 'predefined_tag_values' | translate }}</h4>
         @if (canEditTag && !tagKey.deprecated) {
-          <div class="g-layout-row g-layout-start-center">
+          <div class="g-layout-row g-layout-start-center g-gap-05em">
             <button class="g-button-small" mat-flat-button (click)="openEditAdditionalInfoSpecDialog()">
               {{ 'coCommunityLib.edit_additional_info_specs' | translate }}
             </button>
@@ -127,6 +134,15 @@
           (editTagValue)="openEditTagValueDialog($event)"
           (deleteTagValue)="openConfirmDeleteTagValueDialog($event)">
         </co-tag-values-table>
+      }
+    </div>
+
+    <div #comments>
+      @if (currentUser && tagKey) {
+        <ha-comments-section
+          [commentType]="commentType"
+          [entity]="tagKey"
+          [user]="currentUser"></ha-comments-section>
       }
     </div>
   }

@@ -27,6 +27,8 @@ import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { AsyncPipe } from '@angular/common';
 import { HaDetailRoutePipe } from '../../../ha-core/ha-module/ha-core-pipe/ha-detail-route/ha-detail-route.pipe';
 import { CoCommunityTagListItemComponent } from '@monorepo/community-lib';
+import { HaCommunityPageDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
+import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
 
 @Component({
   selector: 'ha-tag-list-page',
@@ -56,7 +58,7 @@ import { CoCommunityTagListItemComponent } from '@monorepo/community-lib';
   styleUrl: './ha-tag-list-page.component.scss',
   standalone: true,
 })
-export class HaTagListPageComponent implements OnInit {
+export class HaTagListPageComponent extends HaCommunityPageDirective implements OnInit {
   private dialogService = inject(FlDialogService);
   private tagService = inject(HaTagService);
   private router: Router = inject(Router);
@@ -68,6 +70,17 @@ export class HaTagListPageComponent implements OnInit {
   ngOnInit(): void {
     this.tagsPaginated = this.tagService.getAllWithFiltersPaginated();
     this.updateTags();
+
+    super.setMetaTags(
+      {
+        text: 'ha.tag_list.title',
+      },
+      {
+        text: 'ha.tag_list.description',
+      },
+      null,
+      HaRouterService.getTagsListRoute()
+    );
   }
 
   openCreateTagDialog(): void {
