@@ -1,21 +1,23 @@
 <div>
-  <strong>{{ 'li.share_link_download' | translate }}</strong> :
-  <span
-    class="g-text-link"
+  <strong>{{ 'li.share_link_download' | translate }}</strong> -
+  <span>{{ 'li.share_link_download_help' | translate }}</span> :
+  <div
+    class="g-text-link g-text-light"
     (click)="copyDownloadLink()"
     [matTooltip]="'li.share_link_click_to_copy' | translate">
     {{ shareLink().downloadLink }}
-  </span>
+  </div>
 </div>
 
 @if (shareLink().previewLink) {
-  <div>
-    <strong>{{ 'li.share_link_preview' | translate }}</strong> :
-    <span
-      class="g-text-link"
+  <div class="preview-link">
+    <strong>{{ 'li.share_link_preview' | translate }}</strong> -
+    <span>{{ 'li.share_link_preview_help' | translate }}</span> :
+    <div
+      class="g-text-link g-text-light"
       (click)="copyPreviewLink()"
       [matTooltip]="'li.share_link_click_to_copy' | translate">
       {{ shareLink().previewLink }}
-    </span>
+    </div>
   </div>
 }

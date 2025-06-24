@@ -1,19 +1,21 @@
-@if (shareLink().validUntil) {
-  {{ 'li.share_link_exist' | translate }}
-  <span
-    [matTooltip]="shareLink().validUntil | flDate: 'DATE_TIME_WITH_SECONDS'"
-    [ngClass]="{ 'g-warn-text': !shareLink().isValid() }">
-    {{ shareLink().validUntil | flDate }}
-  </span>
-  @if (!shareLink().isValid()) {
-    <span class="g-warn-text"> ({{ 'li.shared_link_expired' | translate }})</span>
+<fl-text-icon>
+  <mat-icon>calendar_month</mat-icon>
+  @if (shareLink().validUntil) {
+    {{ 'li.share_link_exist' | translate }}
+    <span
+      [matTooltip]="shareLink().validUntil | flDate: 'DATE_TIME_WITH_SECONDS'"
+      [ngClass]="{ 'g-warn-text': !shareLink().isValid() }">
+      {{ shareLink().validUntil | flDate }}
+    </span>
+    @if (!shareLink().isValid()) {
+      <span class="g-warn-text"> ({{ 'li.shared_link_expired' | translate }})</span>
+    }
+  } @else {
+    {{ 'li.share_link_no_valid_until' | translate }}
   }
-} @else {
-  {{ 'li.share_link_no_valid_until' | translate }}
-}
+</fl-text-icon>
 
 <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
-  <div>{{ 'li.shared_by' | translate }}</div>
   <fl-user-inline [user]="shareLink().createdBy"></fl-user-inline>
   <div>-</div>
   <fl-from-now [date]="shareLink().createdAt"></fl-from-now>
