@@ -1,4 +1,4 @@
-import { AsyncPipe, JsonPipe } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { MatAnchor, MatButton } from '@angular/material/button';
 import {
@@ -45,7 +45,6 @@ import { Observable } from 'rxjs';
     RouterLink,
     FlCoreComponentModule,
     AsyncPipe,
-    JsonPipe,
     TranslatePipe,
     LiDetailRoutePipe,
   ],

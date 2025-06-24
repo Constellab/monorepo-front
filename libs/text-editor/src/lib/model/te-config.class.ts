@@ -1,43 +1,43 @@
-import { ToolConstructable, ToolSettings } from '@editorjs/editorjs/types/tools';
 import { ApplicationRef, EnvironmentInjector } from '@angular/core';
+import { ToolConstructable, ToolSettings } from '@editorjs/editorjs/types/tools';
+import { BlockToolData } from '@editorjs/editorjs/types/tools/block-tool-data';
+import InlineCode from '@editorjs/inline-code';
+import { flRootInjector } from '@monorepo/front-core-lib/fl-core';
+import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+import {
+  TeAudioTranscriptionBlockTune,
+  TeAudioTranscriptionConfig,
+} from '../block-tune/te-audio-transcription-block-tune.class';
+import { TeDragBlockTune } from '../block-tune/te-drag-block-tune.class';
+import { TeCodeBlock } from '../block/te-code-block.class';
+import { TeComponentInitData } from '../block/te-component-block.class';
+import { TeFigureBlock, TeFigureBlockConfig } from '../block/te-figure-block.class';
+import { TeFileBlock, TeFileBlockConfig } from '../block/te-file-block';
+import { TeFormulaBlock } from '../block/te-formula-block.class';
 import {
   teGetHeaderWithIdBlockDefaultConfig,
   TeHeaderWithIdBlock,
   TeHeaderWithIdBlockConfig,
 } from '../block/te-header-with-id-block.class';
-import InlineCode from '@editorjs/inline-code';
-import { TeFormulaBlock } from '../block/te-formula-block.class';
 import { TeHintBlock } from '../block/te-hint-block.class';
-import { TeVideoBlock } from '../block/te-video-block.class';
-import { flRootInjector } from '@monorepo/front-core-lib/fl-core';
-import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
-import { TeFigureBlock, TeFigureBlockConfig } from '../block/te-figure-block.class';
-import { TeCodeBlock } from '../block/te-code-block.class';
-import { teComponentBlockFactory } from './te-block-factory.class';
-import { TeStrikethroughInlineTool } from '../inline-tool/te-strikethrough-inline-tool.class';
-import { TeDragBlockTune } from '../block-tune/te-drag-block-tune.class';
-import { TeHelper } from './te.helper';
-import { TeVariableInlineToolClass } from '../inline-tool/te-variable-inline-tool.class';
+import { TeIframeBlock } from '../block/te-iframe-block.class';
+import { TeNestedListBlock } from '../block/te-nested-list-block.class';
 import { TeParagraphBlock } from '../block/te-paragraph-block.class';
-import { teInlineToolFactory } from '../inline-tool/te-inline-tool.factory';
-import { TeUnderlineInlineTool } from '../inline-tool/te-underline-inline-tool.class';
+import TeTable from '../block/te-table-block.class';
+import { TeTimestampBlock } from '../block/te-timestamp-block.class';
+import { TeVideoBlock } from '../block/te-video-block.class';
+import { TeBoldInlineTool } from '../inline-tool/te-bold-inline-tool.class';
 import { TeCleanStyleInlineTool } from '../inline-tool/te-clean-style-inline-tool.class';
 import { TeFakeInlineTool } from '../inline-tool/te-fake-inline-tool.class';
-import { TeNestedListBlock } from '../block/te-nested-list-block.class';
-import { TeMentionConfig, TeMentionInlineTool } from '../plugin/te-mention.class';
-import { TeFileBlock, TeFileBlockConfig } from '../block/te-file-block';
-import { BlockToolData } from '@editorjs/editorjs/types/tools/block-tool-data';
-import { TeComponentInitData } from '../block/te-component-block.class';
-import TeTable from '../block/te-table-block.class';
-import {
-  TeAudioTranscriptionBlockTune,
-  TeAudioTranscriptionConfig,
-} from '../block-tune/te-audio-transcription-block-tune.class';
-import { teBlockTuneFactory } from './te-block-tune-factory.class';
-import { TeTimestampBlock } from '../block/te-timestamp-block.class';
-import { TeIframeBlock } from '../block/te-iframe-block.class';
 import { TeFormulaInlineToolClass } from '../inline-tool/te-formula-inline-tool.class';
-import { TeBoldInlineTool } from '../inline-tool/te-bold-inline-tool.class';
+import { teInlineToolFactory } from '../inline-tool/te-inline-tool.factory';
+import { TeStrikethroughInlineTool } from '../inline-tool/te-strikethrough-inline-tool.class';
+import { TeUnderlineInlineTool } from '../inline-tool/te-underline-inline-tool.class';
+import { TeVariableInlineToolClass } from '../inline-tool/te-variable-inline-tool.class';
+import { TeMentionConfig, TeMentionInlineTool } from '../plugin/te-mention.class';
+import { teComponentBlockFactory } from './te-block-factory.class';
+import { teBlockTuneFactory } from './te-block-tune-factory.class';
+import { TeHelper } from './te.helper';
 
 export type TeTools = { [toolName: string]: ToolConstructable | ToolSettings };
 
@@ -211,7 +211,7 @@ export abstract class TeConfig {
   }
 
   getBasicInlineToolbar(): string[] {
-    return ['convertTo', 'bold', 'italic', 'underline', 'strikethrough', 'link', 'inlineCode', 'cleanStyle'];
+    return ['convertTo', 'bold', 'italic', 'underline', 'strikethrough', 'link', 'cleanStyle'];
   }
 
   getFullInlineToolbar(variable: boolean = false): string[] {
