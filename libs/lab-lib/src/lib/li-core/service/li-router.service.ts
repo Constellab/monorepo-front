@@ -8,7 +8,8 @@ import {
   liConstNoteTemplateFullRoute,
   liConstResourceFullRoute,
   liConstScenarioFullRoute,
-  liConstScenarioTemplateFullRoute, liConstTagFullRoute,
+  liConstScenarioTemplateFullRoute,
+  liConstTagFullRoute,
 } from '../utils/li-base-route';
 
 /**
@@ -114,10 +115,6 @@ export class LiRouterService {
 
   public static getMonitoringUsageRoute(): string {
     return `${LiRouterService.getMonitoringRoute()}/usage`;
-  }
-
-  public static getMonitoringTagsRoute(): string {
-    return `${LiRouterService.getMonitoringRoute()}/tags`;
   }
 
   public static getMonitoringVenvsRoute(): string {

@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild, inject } from '@angular/core';
+import { Component, EventEmitter, inject, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import {
   FlAddTagEvent,
   FlAddTagInputComponent,
@@ -16,18 +16,14 @@ import {
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { LiRouterService, LiTagKeyModel, LiTagService } from '@monorepo/lab-lib/li-core';
+import { LiTagKeyModel, LiTagService } from '@monorepo/lab-lib/li-core';
 import {
   MatExpansionPanel,
-  MatExpansionPanelDescription,
   MatExpansionPanelHeader,
   MatExpansionPanelTitle,
 } from '@angular/material/expansion';
 import { MatIcon } from '@angular/material/icon';
-import { MatIconAnchor } from '@angular/material/button';
-import { MatTooltip } from '@angular/material/tooltip';
 import { NgControl } from '@angular/forms';
-import { RouterLink } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 
 /**
@@ -44,10 +40,6 @@ import { TranslatePipe } from '@ngx-translate/core';
     MatExpansionPanelTitle,
     FlTextIconModule,
     MatIcon,
-    MatExpansionPanelDescription,
-    MatIconAnchor,
-    RouterLink,
-    MatTooltip,
     FlTagModule,
     FlInfiniteScrollModule,
     AsyncPipe,
@@ -66,8 +58,6 @@ export class LiTagFiltersComponent extends FlFormFieldDirective<FlTag[]> impleme
   selectedTags: FlTagDatasource = new FlTagDatasource();
 
   tagKeys: FlDatasourcePaginated<LiTagKeyModel>;
-
-  tagMonitoringRoute = LiRouterService.getMonitoringTagsRoute();
 
   constructor() {
     const ngControl = inject(NgControl, { optional: true, self: true });

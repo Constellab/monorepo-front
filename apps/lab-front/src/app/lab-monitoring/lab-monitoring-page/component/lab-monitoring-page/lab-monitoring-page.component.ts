@@ -29,11 +29,6 @@ export class LabMonitoringPageComponent {
       route: LiRouterService.getMonitoringUsageRoute(),
     },
     {
-      label: { text: 'g.tags', translateText: true },
-      icon: 'tag',
-      route: LiRouterService.getMonitoringTagsRoute(),
-    },
-    {
       label: { text: 'monitoring.venv_list', translateText: true },
       icon: 'takeout_dining',
       route: LiRouterService.getMonitoringVenvsRoute(),

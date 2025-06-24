@@ -12,7 +12,8 @@ export const labMonitoringRoutes: Routes = [
         path: '',
         loadComponent: () =>
           import(
-            './lab-monitoring-page/component/lab-monitoring-dashboard-page/lab-monitoring-dashboard-page.component'
+            './lab-monitoring-page/component/lab-monitoring-dashboard-page/' +
+              'lab-monitoring-dashboard-page.component'
           ).then((m) => m.LabMonitoringDashboardPageComponent),
       },
       {
@@ -21,13 +22,6 @@ export const labMonitoringRoutes: Routes = [
           import(
             './lab-monitoring-page/component/lab-monitoring-usage-page/lab-monitoring-usage-page.component'
           ).then((m) => m.LabMonitoringUsagePageComponent),
-      },
-      {
-        path: 'tags',
-        loadComponent: () =>
-          import(
-            './lab-monitoring-page/component/lab-monitoring-tags-page/lab-monitoring-tags-page.component'
-          ).then((m) => m.LabMonitoringTagsPageComponent),
       },
       {
         path: 'virtual-envs',
@@ -47,14 +41,16 @@ export const labMonitoringRoutes: Routes = [
         path: 'credentials',
         loadComponent: () =>
           import(
-            './lab-monitoring-page/component/lab-monitoring-credentials-page/lab-monitoring-credentials-page.component'
+            './lab-monitoring-page/component/lab-monitoring-credentials-page/' +
+              'lab-monitoring-credentials-page.component'
           ).then((m) => m.LabMonitoringCredentialsPageComponent),
       },
       {
         path: 'activity',
         loadComponent: () =>
           import(
-            './lab-monitoring-page/component/lab-monitoring-activity-page/lab-monitoring-activity-page.component'
+            './lab-monitoring-page/component/lab-monitoring-activity-page/' +
+              'lab-monitoring-activity-page.component'
           ).then((m) => m.LabMonitoringActivityPageComponent),
       },
       {
