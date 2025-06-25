@@ -1,0 +1,31 @@
+<div class="created-by-pp">
+  <fl-user-profile-picture [user]="notification().createdBy" [size]="4"></fl-user-profile-picture>
+</div>
+<div class="notification-content">
+  <div
+    class="notification-text g-text-dense-height"
+    [matTooltip]="notification().text"
+    [matTooltipShowDelay]="1000">
+    {{ notification().text }}
+  </div>
+
+  <!--      Detail informations    -->
+  <fl-text-icon iconPosition="start" gap="3px">
+    <mat-icon class="g-icon-tiny g-text-light" [flIcon]="notificationIcon()"> </mat-icon>
+    <span class="g-text-tiny g-text-light">{{ notification().text2 }}</span>
+  </fl-text-icon>
+
+  <div class="g-text-tiny g-text-light">
+    <fl-from-now [date]="notification().createdAt"></fl-from-now>
+  </div>
+</div>
+
+@if (notification().isHttpLink()) {
+  <mat-icon class="http-link g-text-light g-icon-small">open_in_new</mat-icon>
+}
+
+<div class="notification-read-div">
+  @if (!notification().isRead) {
+    <div class="not-read-dot"></div>
+  }
+</div>

@@ -1,0 +1,54 @@
+:host {
+  min-height: 80px;
+  max-height: 80px;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  margin-right: 0.5em;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-radius: 10px;
+}
+
+:host:hover {
+  background-color: var(--hover-color);
+}
+
+.created-by-pp {
+  width: 20%;
+  flex-shrink: 0;
+}
+
+.notification-content {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.notification-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  // multi-line ellipsis
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.http-link {
+  flex-shrink: 0;
+  margin-right: 5px;
+}
+
+.notification-read-div {
+  width: 15px;
+  flex-shrink: 0;
+}
+
+.not-read-dot {
+  position: relative;
+  width: 10px;
+  height: 10px;
+  background-color: var(--primary-color);
+  border-radius: 50%;
+}

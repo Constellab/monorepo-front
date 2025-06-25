@@ -16,27 +16,6 @@
   margin-left: 0.4em;
 }
 
-.notification {
-  min-height: 80px;
-  max-height: 80px;
-  background-color: var(--card-background);
-  margin-bottom: 5px;
-  margin-top: 5px;
-  margin-right: 0.5em;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  border-radius: 10px;
-}
-
-.notification:hover {
-  background-color: var(--hover-color);
-}
-
-.created-by-pp {
-  width: 20%;
-}
-
 .infinite-scroll {
   height: 100%;
 }
@@ -44,35 +23,6 @@
 .divider {
   width: calc(100% - 0.5em);
   margin-bottom: 0.5em;
-}
-
-.notification-content {
-  width: 75%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.notification-text {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  // multi-line ellipsis
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-}
-
-.notification-read-div {
-  width: 5%;
-  height: 100%;
-}
-
-.not-read-dot {
-  position: relative;
-  width: 0.75em;
-  height: 0.75em;
-  background-color: var(--primary-color);
-  border-radius: 0.75em;
 }
 
 .read-all-text {

@@ -21,41 +21,18 @@
       </div>
 
       @for (notif of notifications | flDatasourceConnect | async; track notif.id) {
-        <a
-          class="notification"
-          [routerLink]="getNotificationLink(notif.link)"
-          [queryParams]="getNotificationQueryParams(notif.link)"
-          (click)="markAsRead(notif)">
-          <div class="created-by-pp">
-            <fl-user-profile-picture [user]="notif.createdBy" [size]="4"></fl-user-profile-picture>
-          </div>
-          <div class="notification-content">
-            <div
-              class="notification-text g-text-dense-height"
-              [matTooltip]="notif.text"
-              [matTooltipShowDelay]="1000">
-              {{ notif.text }}
-            </div>
-
-            <!--      Detail informations    -->
-            <fl-text-icon iconPosition="start" gap="3px">
-              <mat-icon
-                class="g-icon-tiny g-text-light"
-                [flIcon]="getNotificationObjectIcon(notif.objectType)">
-              </mat-icon>
-              <span class="g-text-tiny g-text-light">{{ notif.text2 }}</span>
-            </fl-text-icon>
-
-            <div class="g-text-tiny g-text-light">
-              <fl-from-now [date]="notif.createdAt"></fl-from-now>
-            </div>
-          </div>
-          <div class="notification-read-div">
-            @if (!notif.isRead) {
-              <div class="not-read-dot"></div>
-            }
-          </div>
-        </a>
+        @if (notif.isHttpLink()) {
+          <a [href]="notif.link" target="_blank" (click)="markAsRead(notif)">
+            <ca-notification-info [notification]="notif"></ca-notification-info>
+          </a>
+        } @else {
+          <a
+            [routerLink]="notif.getRoute()"
+            [queryParams]="notif.getRouteQueryParams()"
+            (click)="markAsRead(notif)">
+            <ca-notification-info [notification]="notif"></ca-notification-info>
+          </a>
+        }
       }
     </fl-infinite-scroll>
   </fl-portal-content>

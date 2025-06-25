@@ -1,24 +1,21 @@
+import { AsyncPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
+import { MatDivider } from '@angular/material/divider';
+import { RouterLink } from '@angular/router';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
+import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
+import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
+import { FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+import { TranslatePipe } from '@ngx-translate/core';
 import {
   CaNotification,
   CaNotificationDatasourcePaginated,
-  CaNotificationType,
 } from '../../ca-core/model/entities/ca-notification.class';
-import { ClStringHelper } from '@monorepo/core-lib';
 import { CaNotificationState } from '../../ca-core/state/ca-notification.state';
-import { FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
-import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
-import { MatDivider } from '@angular/material/divider';
-import { RouterLink } from '@angular/router';
-import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import { MatTooltip } from '@angular/material/tooltip';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { MatIcon } from '@angular/material/icon';
-import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
-import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
-import { AsyncPipe } from '@angular/common';
-import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
-import { TranslatePipe } from '@ngx-translate/core';
+import { CaNotificationInfoComponent } from '../ca-notification-info/ca-notification-info.component';
 
 @Component({
   selector: 'ca-notifications-portal',
@@ -30,14 +27,13 @@ import { TranslatePipe } from '@ngx-translate/core';
     MatDivider,
     RouterLink,
     FlUserModule,
-    MatTooltip,
     FlTextIconModule,
-    MatIcon,
     FlIconModule,
     FlDateModule,
     AsyncPipe,
     FlCorePipeModule,
     TranslatePipe,
+    CaNotificationInfoComponent,
   ],
 })
 export class CaNotificationsPortalComponent {
@@ -51,37 +47,5 @@ export class CaNotificationsPortalComponent {
 
   markAllNotificationsAsRead(): void {
     this.notificationState.markAllAsRead();
-  }
-
-  getNotificationLink(link: string): string {
-    const l = link.split('?');
-    return ClStringHelper.isHttpLink(l[0]) ? l[0] : l[0];
-  }
-
-  getNotificationQueryParams(link: string): { [query: string]: string } {
-    const l = link.split('?');
-    const qP: { [query: string]: string } = {};
-    if (l[1]) {
-      for (const query of l[1].split('&')) {
-        const q = query.split('=');
-        qP[q[0]] = q[1];
-      }
-    }
-    return qP;
-  }
-
-  getNotificationObjectIcon(objectType: CaNotificationType): string {
-    switch (objectType) {
-      case 'DOCUMENT':
-      case 'MESSAGE':
-      case 'SCENARIO':
-      case 'NOTE':
-      case 'FOLDER':
-        return 'folder';
-      case 'USER':
-        return 'people';
-      default:
-        return 'campaign';
-    }
   }
 }
