@@ -12,8 +12,8 @@ export const labMonitoringRoutes: Routes = [
         path: '',
         loadComponent: () =>
           import(
-            './lab-monitoring-page/component/lab-monitoring-dashboard-page/' +
-              'lab-monitoring-dashboard-page.component'
+            // eslint-disable-next-line max-len
+            './lab-monitoring-page/component/lab-monitoring-dashboard-page/lab-monitoring-dashboard-page.component'
           ).then((m) => m.LabMonitoringDashboardPageComponent),
       },
       {
@@ -41,16 +41,16 @@ export const labMonitoringRoutes: Routes = [
         path: 'credentials',
         loadComponent: () =>
           import(
-            './lab-monitoring-page/component/lab-monitoring-credentials-page/' +
-              'lab-monitoring-credentials-page.component'
+            // eslint-disable-next-line max-len
+            './lab-monitoring-page/component/lab-monitoring-credentials-page/lab-monitoring-credentials-page.component'
           ).then((m) => m.LabMonitoringCredentialsPageComponent),
       },
       {
         path: 'activity',
         loadComponent: () =>
           import(
-            './lab-monitoring-page/component/lab-monitoring-activity-page/' +
-              'lab-monitoring-activity-page.component'
+            // eslint-disable-next-line max-len
+            './lab-monitoring-page/component/lab-monitoring-activity-page/lab-monitoring-activity-page.component'
           ).then((m) => m.LabMonitoringActivityPageComponent),
       },
       {
