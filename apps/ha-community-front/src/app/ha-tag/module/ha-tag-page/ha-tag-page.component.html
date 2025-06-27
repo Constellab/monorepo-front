@@ -108,7 +108,7 @@
         <h4>{{ 'predefined_tag_values' | translate }}</h4>
         @if (canEditTag && !tagKey.deprecated) {
           <div class="g-layout-row g-layout-start-center g-gap-05em">
-            <button class="g-button-small" mat-flat-button (click)="openEditAdditionalInfoSpecDialog()">
+            <button class="g-button-small" mat-stroked-button (click)="openEditAdditionalInfoSpecDialog()">
               {{ 'coCommunityLib.edit_additional_info_specs' | translate }}
             </button>
             @if (!isBooleanType) {

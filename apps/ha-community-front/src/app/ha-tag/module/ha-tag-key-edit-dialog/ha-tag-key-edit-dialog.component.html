@@ -32,7 +32,7 @@
       </mat-form-field>
     </div>
 
-    @if (dialogInput.mode === 'create') {
+    @if (dialogInput.mode === 'create' && tagTypes.length > 1) {
       <mat-form-field class="g-full">
         <mat-label>{{ 'type' | translate }}</mat-label>
         <mat-select formControlName="type">

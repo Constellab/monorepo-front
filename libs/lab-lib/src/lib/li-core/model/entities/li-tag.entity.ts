@@ -45,6 +45,7 @@ export class LiTag implements FlTag, FlEntity {
     const tag = new LiTag();
     tag.key = key;
     tag.value = value;
+    tag.label = tagKeyEntity?.label;
     tag.isUserOrigin = true;
     tag.isCommunityTagKey = tagKeyEntity?.isCommunityTag ?? false;
     tag.isCommunityTagValue = tagValueEntity?.isCommunityTagValue ?? false;

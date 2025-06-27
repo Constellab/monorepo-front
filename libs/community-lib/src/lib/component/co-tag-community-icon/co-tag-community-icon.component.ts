@@ -5,6 +5,11 @@ import { MatTooltip } from '@angular/material/tooltip';
 import { TranslatePipe } from '@ngx-translate/core';
 import { CoCommunityHelperService } from '../../helper/co-community-helper.service';
 
+export interface CoTagCommunityTagInput {
+  id: string;
+  key: string;
+}
+
 @Component({
   selector: 'co-tag-community-tag',
   imports: [FlIconModule, MatIcon, MatTooltip, TranslatePipe],
@@ -14,7 +19,7 @@ import { CoCommunityHelperService } from '../../helper/co-community-helper.servi
 export class CoTagCommunityIconComponent {
   private communityHelperService = new CoCommunityHelperService();
 
-  key = input.required<string>();
+  key = input.required<CoTagCommunityTagInput>();
 
   size = input<'small' | 'normal' | 'big'>('normal');
 

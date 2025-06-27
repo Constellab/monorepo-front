@@ -2,6 +2,7 @@ import { TdTypingName } from '@monorepo/technical-doc';
 import { CoConfig } from '../service/co-service-config.config';
 import { inject, Injectable } from '@angular/core';
 import { ClBrick } from '@monorepo/core-lib';
+import { CoTagCommunityTagInput } from '../component/co-tag-community-icon/co-tag-community-icon.component';
 
 export type CoBrickVersionPath = 'latest' | string;
 
@@ -50,8 +51,8 @@ export class CoCommunityHelperService {
     return `${this.getCommunityUrl()}/tags`;
   }
 
-  public getCommunityTagUrl(tagKey: string): string {
-    return `${this.getCommunityTagsUrl()}/${tagKey}`;
+  public getCommunityTagUrl(tagKey: CoTagCommunityTagInput): string {
+    return `${this.getCommunityTagsUrl()}/${tagKey.id}/${tagKey.key}`;
   }
 
   /////////////////////////////////// SPECIFIC ROUTES //////////////////////////////////////

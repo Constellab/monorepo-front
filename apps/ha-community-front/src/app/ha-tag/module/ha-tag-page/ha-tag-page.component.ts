@@ -126,7 +126,7 @@ export class HaTagPageComponent extends HaCommunityPageDirective implements OnIn
       .saveTagKeyDescription(this.tagKey.id, this.descriptionFormControl.value)
       .subscribe((tagKey: HaTagKey) => {
         if (tagKey != null) {
-          this.setTagKey(tagKey);
+          this.setTagKey(tagKey, false);
         }
         this.descriptionFormControl.disable();
       });
@@ -289,7 +289,7 @@ export class HaTagPageComponent extends HaCommunityPageDirective implements OnIn
     });
   }
 
-  private setTagKey(tagKey: HaTagKey): void {
+  private setTagKey(tagKey: HaTagKey, updateValue: boolean = true): void {
     this.tagKey = tagKey;
     this.isBooleanType = tagKey.type === CoTagKeyType.BOOLEAN;
 
@@ -298,8 +298,10 @@ export class HaTagPageComponent extends HaCommunityPageDirective implements OnIn
 
     this.tagAdditionalInfoSpecState.init(tagKey);
 
-    this.tagValues = this.tagService.getAllValueWithFiltersPaginated();
-    this.updateTagValues();
+    if (updateValue) {
+      this.tagValues = this.tagService.getAllValueWithFiltersPaginated();
+      this.updateTagValues();
+    }
 
     if (this.currentUser) {
       if (
@@ -313,11 +315,11 @@ export class HaTagPageComponent extends HaCommunityPageDirective implements OnIn
     super.setMetaTags(
       {
         text: 'ha.tag.title',
-        translateParam: { param: { technicalName: this.tagKey.technicalName } },
+        translateParam: { param: { label: this.tagKey.label } },
       },
       {
         text: 'ha.tag.description',
-        translateParam: { param: { technicalName: this.tagKey.technicalName } },
+        translateParam: { param: { label: this.tagKey.label } },
       },
       null,
       HaRouterService.getTagPageRoute(this.tagKey.id, this.tagKey.technicalName)

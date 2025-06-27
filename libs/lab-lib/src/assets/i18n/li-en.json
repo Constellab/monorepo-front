@@ -489,6 +489,7 @@
     "additional_info_specs_modified": "Additional information specs modified",
     "description_modified": "Description modified",
     "label_modified": "Label modified",
-    "spec": "Spec"
+    "spec": "Spec",
+    "delete_tag_value_content": "Are you sure you want to delete the tag value ? This will also delete all the objects that use this tag value."
   }
 }

@@ -81,7 +81,6 @@ export class LiManageEntityTagsDialogComponent {
       tagEvent.key.entity,
       tagEvent.value.entity
     );
-    console.log(this.currentTags.findItem(tag), tag);
     if (this.currentTags.findItem(tag)) {
       this.snackBarService.openErrorMessage({ text: 'li.tag_already_exists', translateText: true });
       return;

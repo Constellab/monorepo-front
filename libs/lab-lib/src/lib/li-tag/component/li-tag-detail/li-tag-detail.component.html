@@ -3,10 +3,7 @@
     <div class="g-flex-auto">
       <div class="g-layout-row g-layout-start-center">
         @if (tagKeyModel().isCommunityTag) {
-          <co-tag-community-tag
-            size="big"
-            class="status-icon"
-            [key]="tagKeyModel().key"></co-tag-community-tag>
+          <co-tag-community-tag size="big" class="status-icon" [key]="tagKeyModel()"></co-tag-community-tag>
           <!--          <mat-icon flIcon="community-icon"-->
           <!--                    class="g-icon-big status-icon"></mat-icon>-->
         }
@@ -76,8 +73,21 @@
               [date]="tagKeyModel().lastModifiedAt"></fl-last-modification-info>
           </p>
 
-          @if (tagKeyModel().description) {
-            <p class="g-text-small g-text-light separator">{{ 'li.description' | translate }}</p>
+          @if (
+            tagKeyModel().description && !tagKeyModel().description.isEmpty() && tagKeyModel().isCommunityTag
+          ) {
+            <div class="description-header separator">
+              <p class="g-text-small g-text-light">{{ 'li.description' | translate }}</p>
+              @if (!tagKeyModel().isCommunityTag) {
+                <button
+                  mat-icon-button
+                  class="g-button-icon-small"
+                  [matTooltip]="'li.edit_description' | translate">
+                  <mat-icon class="g-icon-small">edit</mat-icon>
+                </button>
+              }
+            </div>
+
             <te-text-editor
               class="g-text-small g-text-light"
               [disabled]="true"
@@ -95,7 +105,7 @@
                   @if (!tagKeyModel().isCommunityTag) {
                     <button
                       class="g-button-small"
-                      mat-flat-button
+                      mat-stroked-button
                       (click)="openEditAdditionalInfoSpecDialog()">
                       {{ 'coCommunityLib.edit_additional_info_specs' | translate }}
                     </button>
@@ -117,7 +127,7 @@
               [deleteButtonToolTip]="'li.delete_tag_value' | translate"
               [dataSource]="tagKeyValues$()"
               [showIsCommunityTagValue]="true"
-              [tagKey]="tagKeyModel().key"></co-tag-values-table>
+              [tagKey]="tagKeyModel()"></co-tag-values-table>
           }
         </div>
       </div>

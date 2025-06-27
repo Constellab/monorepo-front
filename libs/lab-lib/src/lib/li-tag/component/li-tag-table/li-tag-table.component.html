@@ -1,8 +1,8 @@
 <mat-table mat-table [dataSource]="datasource" flSearchTableSort>
   <!-- Key -->
-  <ng-container matColumnDef="key">
+  <ng-container matColumnDef="label">
     <mat-header-cell *matHeaderCellDef class="g-cell-header-with-left-border" mat-sort-header>
-      <span> {{ 'li.key' | translate }} </span>
+      <span> {{ 'li.label' | translate }} </span>
     </mat-header-cell>
     <mat-cell
       *matCellDef="let tag"
@@ -15,23 +15,23 @@
       <div>
         @if (tag.isCommunityTag) {
           <div class="g-text-dense-height text inline-community-tag-key">
-            <co-tag-community-tag [key]="tag.key"></co-tag-community-tag>
-            <span>{{ tag.key }}</span>
+            <co-tag-community-tag [key]="tag"></co-tag-community-tag>
+            <span>{{ tag.label }}</span>
           </div>
         } @else {
-          <div class="g-text-dense-height text">{{ tag.key }}</div>
+          <div class="g-text-dense-height text">{{ tag.label }}</div>
         }
       </div>
     </mat-cell>
   </ng-container>
 
   <!-- Label -->
-  <ng-container matColumnDef="label">
+  <ng-container matColumnDef="key">
     <mat-header-cell *matHeaderCellDef class="g-column-width-2">
-      <span> {{ 'li.label' | translate }} </span>
+      <span> {{ 'li.key' | translate }} </span>
     </mat-header-cell>
     <mat-cell *matCellDef="let tag" class="g-column-width-2">
-      <div class="g-text-dense-height text">{{ tag.label }}</div>
+      <div class="g-text-dense-height text">{{ tag.key }}</div>
     </mat-cell>
   </ng-container>
 

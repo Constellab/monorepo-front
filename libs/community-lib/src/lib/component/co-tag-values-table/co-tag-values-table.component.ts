@@ -22,7 +22,10 @@ import { CoDeprecatedTagComponent } from '../co-deprecated-tag/co-deprecated-tag
 import { MatIconButton } from '@angular/material/button';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
-import { CoTagCommunityIconComponent } from '../co-tag-community-icon/co-tag-community-icon.component';
+import {
+  CoTagCommunityIconComponent,
+  CoTagCommunityTagInput,
+} from '../co-tag-community-icon/co-tag-community-icon.component';
 
 @Component({
   selector: 'co-tag-values-table',
@@ -56,7 +59,7 @@ import { CoTagCommunityIconComponent } from '../co-tag-community-icon/co-tag-com
 export class CoTagValuesTableComponent implements OnInit {
   dataSource = input.required<FlDatasourcePaginated<CoTagValue, any>>();
 
-  tagKey = input<string>('');
+  tagKey = input<CoTagCommunityTagInput>();
   hideEditButton = input<boolean>(false);
   hideDeleteButton = input<boolean>(false);
   showIsCommunityTagValue = input<boolean>(false);

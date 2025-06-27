@@ -108,7 +108,7 @@ export class HaTagKeyEditDialogComponent
       id: [null],
       technicalName: [null, Validators.required],
       label: [null, Validators.required],
-      type: [null, Validators.required],
+      type: [CoTagKeyType.STRING, Validators.required],
       unit: [null],
       space: [null],
     });
@@ -149,7 +149,7 @@ export class HaTagKeyEditDialogComponent
 
   onVisibilityChange(visibility: 'PUBLIC' | 'SPACE'): void {
     if (visibility === 'PUBLIC') {
-      this.formGp.controls['space'].setValue(null);
+      this.formGp.controls['space'].patchValue('public');
     } else {
       this.formGp.controls['space'].patchValue(this.spaces[0].id);
     }

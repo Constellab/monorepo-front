@@ -57,7 +57,7 @@ export class LiTagSearchComponent implements OnInit {
 
   fullPageSearch = input<boolean>(true);
 
-  @Input() columns: FlTableColumnStatic<LiTagKeyModel>[] = ['key', 'label', 'valueFormat'];
+  @Input() columns: FlTableColumnStatic<LiTagKeyModel>[] = ['label', 'key', 'valueFormat'];
 
   tagSelected = output<LiTagKeyModel>();
 

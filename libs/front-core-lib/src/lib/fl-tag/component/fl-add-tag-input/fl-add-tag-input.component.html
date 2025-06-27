@@ -90,7 +90,17 @@
                 }
                 <mat-icon flIcon="community-icon" class="g-icon-small"></mat-icon>
                 <span class="option" [ngClass]="mode$.getValue() === 'key' ? 'g-text-capitalize' : ''">
-                  {{ item.entity ? item.entity.key : item.content }}
+                  @if (item.entity) {
+                    @if (mode$.getValue() === 'value') {
+                      {{ item.content }}
+                    } @else if (item.entity.label) {
+                      {{ item.entity.label }}
+                    } @else {
+                      {{ item.entity.key }}
+                    }
+                  } @else {
+                    {{ item.content }}
+                  }
                 </span>
               </div>
             </mat-option>

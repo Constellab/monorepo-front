@@ -7,3 +7,15 @@
   width: auto;
   margin-bottom: 32px;
 }
+
+.bt {
+  width: 100%;
+  border-radius: 18px !important;
+  height: 56px;
+  padding: 8px;
+}
+
+.bt-primary {
+  background-color: var(--primary-color);
+  color: var(--color-text-primary);
+}

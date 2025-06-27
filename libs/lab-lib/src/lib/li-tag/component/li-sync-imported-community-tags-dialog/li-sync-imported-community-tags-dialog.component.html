@@ -13,11 +13,16 @@
           ) {
             <mat-expansion-panel [hideToggle]="!(tagKeyToSynchronize.notSynchronizedValues?.length > 0)">
               <mat-expansion-panel-header>
-                <mat-panel-title>{{ tagKeyToSynchronize.oldKey.key }}</mat-panel-title>
+                <mat-panel-title>
+                  {{ tagKeyToSynchronize.oldKey.label }}
+                  <span class="g-text-small g-text-light">({{ tagKeyToSynchronize.oldKey.key }})</span>
+                </mat-panel-title>
                 <mat-panel-description>
-                  @for (keyField of tagKeyToSynchronize.notSynchronizedFields; track keyField) {
-                    <span>{{ 'li.' + keyField | translate }}</span>
-                  }
+                  <div class="g-layout-col">
+                    @for (keyField of tagKeyToSynchronize.notSynchronizedFields; track keyField) {
+                      <span>{{ 'li.' + keyField | translate }}</span>
+                    }
+                  </div>
                 </mat-panel-description>
               </mat-expansion-panel-header>
               @if (tagKeyToSynchronize.notSynchronizedValues?.length > 0) {

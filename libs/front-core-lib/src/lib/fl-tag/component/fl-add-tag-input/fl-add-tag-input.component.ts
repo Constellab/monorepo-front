@@ -111,6 +111,8 @@ export class FlAddTagInputComponent implements OnInit, OnDestroy {
     combineLatest([this.inputCtrl.valueChanges.pipe(startWith('')), this.mode$.asObservable()])
       .pipe(debounceTime(this.searchDebounceTime))
       .subscribe(([inputText, mode]) => this.loadPage(inputText, mode));
+
+    this.inputCtrl.setValue('', { emitEvent: true });
   }
 
   private loadPage(inputText: string, mode: FlTagMode): void {
@@ -211,7 +213,7 @@ export class FlAddTagInputComponent implements OnInit, OnDestroy {
     filtersCriteria?: FlTagSearchFilter,
     sortsCriteria?: FlDatasourceSortCriteria[]
   ): void {
-    if (!filtersCriteria.key || filtersCriteria.key.length == 0) return;
+    if (filtersCriteria.key == null) return;
     this.filteredOptions.getFirstPage(filtersCriteria, sortsCriteria);
     this.filteredCommunityOptions?.getFirstPage(filtersCriteria, sortsCriteria);
   }

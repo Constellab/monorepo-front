@@ -487,6 +487,7 @@
     "additional_info_specs_modified": "Spécifications des informations supplémentaires modifiées",
     "description_modified": "Description modifiée",
     "label_modified": "Label modifié",
-    "spec": "Spécification"
+    "spec": "Spécification",
+    "delete_tag_value_content": "Êtes-vous sûr de vouloir supprimer cette valeur de tag ? La valeur sera supprimée de tous les objets qui l'utilisent."
   }
 }

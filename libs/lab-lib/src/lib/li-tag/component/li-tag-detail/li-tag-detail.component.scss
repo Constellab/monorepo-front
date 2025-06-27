@@ -24,6 +24,13 @@
   margin-left: 5px;
 }
 
+.description-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5em;
+}
+
 .container {
   margin-top: 1em;
   flex-direction: row;
@@ -45,11 +52,11 @@
   z-index: 999;
 }
 
-.values-title{
+.values-title {
   margin-bottom: 1rem;
 }
 
-.tag-values-header-div{
+.tag-values-header-div {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -72,7 +79,7 @@
     align-items: center;
   }
 
-  .values-title{
+  .values-title {
     margin-top: 2rem;
   }
 }
