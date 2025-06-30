@@ -1,6 +1,5 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, EventEmitter, inject, Injector, Input, Output } from '@angular/core';
-import { MatIcon } from '@angular/material/icon';
 import { MatSortHeader } from '@angular/material/sort';
 import {
   MatCell,
@@ -44,7 +43,6 @@ import { TranslatePipe } from '@ngx-translate/core';
     MatHeaderRowDef,
     MatRow,
     MatRowDef,
-    MatIcon,
     FlTextIconModule,
     FlIconModule,
     CoTagCommunityIconComponent,
