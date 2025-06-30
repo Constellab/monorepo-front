@@ -41,6 +41,18 @@
                 <span>{{ 'teTextEditor.modifications_history' | translate }}</span>
               </button>
 
+              @if (userHasEditRight()) {
+                <button mat-menu-item type="button" (click)="downloadDocMarkdown(documentation().id)">
+                  <mat-icon>download</mat-icon>
+                  <span>{{ 'download_markdown' | translate }}</span>
+                </button>
+              }
+
+              <button mat-menu-item type="button" (click)="openSendDocToDify(documentation().id)" *haIsAdmin>
+                <mat-icon>send</mat-icon>
+                <span>{{ 'send_to_dify' | translate }}</span>
+              </button>
+
               <button mat-menu-item type="button" (click)="openResourceDelete()">
                 <mat-icon>delete</mat-icon>
                 <span>{{ 'delete' | translate }}</span>

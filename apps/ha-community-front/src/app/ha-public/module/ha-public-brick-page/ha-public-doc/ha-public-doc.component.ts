@@ -32,6 +32,13 @@ import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { Ha404Component } from '../../ha404/ha404.component';
 import { HaTextEditorRightSidePanelComponent } from '../../../../ha-core/entity-module/ha-util-component-core/component/ha-text-editor-right-side-panel/ha-text-editor-right-side-panel.component';
 import { TranslatePipe } from '@ngx-translate/core';
+import { FlFileHelper } from '@monorepo/front-core-lib/fl-translate';
+import { HaIsAdminDirective } from '../../../../ha-core/ha-module/ha-core-directive/ha-is-admin/ha-is-admin.directive';
+import {
+  HaAdminSendToDifyDialogComponent,
+  HaAdminSendToDifyDialogInput,
+} from '../../../../ha-admin/module/ha-admin-send-brick-docs-to-dify-dialog/ha-admin-send-to-dify-dialog.component';
+import { HaEntityType } from '../../../../ha-core/ha-model/ha-entities/ha-entity-type';
 
 @Component({
   selector: 'ha-public-doc',
@@ -52,6 +59,7 @@ import { TranslatePipe } from '@ngx-translate/core';
     Ha404Component,
     HaTextEditorRightSidePanelComponent,
     TranslatePipe,
+    HaIsAdminDirective,
   ],
 })
 export class HaPublicDocComponent extends HaCommunityPageDirective implements OnInit, OnDestroy {
@@ -196,6 +204,20 @@ export class HaPublicDocComponent extends HaCommunityPageDirective implements On
         this.historyOverlayRef = null;
       });
     }
+  }
+
+  downloadDocMarkdown(docId: string): void {
+    const zipFileUrl = this.documentationService.urlToDownloadDocMarkdown(docId);
+    FlFileHelper.downloadUrl(zipFileUrl);
+  }
+
+  openSendDocToDify(docId: string): void {
+    const data: HaAdminSendToDifyDialogInput = {
+      entityType: HaEntityType.DOC,
+      entityId: docId,
+    };
+
+    this.dialogService.openSmallDialog(HaAdminSendToDifyDialogComponent, { data: data });
   }
 
   private onDocLoaded(doc: HaDocumentation): void {

@@ -21,7 +21,7 @@ import { HaFileServiceInterface } from '../entity-module/ha-file-core/model/ha-f
   providedIn: 'root',
 })
 export class HaDocumentationService
-  implements HaFileServiceInterface<HaDocumentation>, TeTextEditorHistoryService
+implements HaFileServiceInterface<HaDocumentation>, TeTextEditorHistoryService
 {
   private apiService = inject(FlApiService);
 
@@ -137,5 +137,9 @@ export class HaDocumentationService
 
   rollbackContent(entityId: string, modificationId: string): Observable<HaDocumentation> {
     return this.apiService.put(`${this.route}/history/rollback/${entityId}/${modificationId}`, {});
+  }
+
+  public urlToDownloadDocMarkdown(docId: string): string {
+    return this.apiService.getBaseRouteUrl(`${this.route}/download-doc-markdown/${docId}`);
   }
 }

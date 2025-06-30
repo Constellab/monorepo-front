@@ -503,5 +503,6 @@
   "unit": "Unit",
   "edit_tag_description": "Edit tag description",
   "save_tag_description": "Save tag description",
-  "add": "Add"
+  "add": "Add",
+  "download_markdown": "Download markdown"
 }
