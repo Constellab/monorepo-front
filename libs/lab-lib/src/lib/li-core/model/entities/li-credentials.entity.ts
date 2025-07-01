@@ -1,11 +1,12 @@
-import { Expose, Type } from 'class-transformer';
 import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
-import { LiBaseEntityWithUser } from './li-user.entity';
 import { TdParamSpecs } from '@monorepo/technical-doc';
+import { Expose, Type } from 'class-transformer';
+import { LiBaseEntityWithUser } from './li-user.entity';
 
 export enum LiCredentialsType {
   BASIC = 'BASIC',
   S3 = 'S3',
+  S3_LAB_SERVER = 'S3_LAB_SERVER',
   LAB = 'LAB',
   OTHER = 'OTHER',
 }

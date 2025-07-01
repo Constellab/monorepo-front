@@ -450,6 +450,7 @@
     "resource_origin_S3_FOLDER_STORAGE": "Folder document",
     "credentials_type_BASIC": "Username / password",
     "credentials_type_S3": "S3",
+    "credentials_type_S3_LAB_SERVER": "S3 Lab Server",
     "credentials_type_LAB": "LAB",
     "credentials_type_OTHER": "Other",
     "log_show_stack_trace": "Show stack trace",
