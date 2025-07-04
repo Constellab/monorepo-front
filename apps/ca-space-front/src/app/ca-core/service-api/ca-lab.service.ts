@@ -1,4 +1,8 @@
 import { inject, Injectable } from '@angular/core';
+import { FlApiService } from '@monorepo/front-core-lib/fl-api';
+import { FlDatasourceGetPageData, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
+import { FlSearchConverter } from '@monorepo/front-core-lib/fl-search';
+import { FlFileHelper } from '@monorepo/front-core-lib/fl-translate';
 import { Observable, tap } from 'rxjs';
 import {
   CaLab,
@@ -11,44 +15,8 @@ import {
   CaLabStopRequestDTO,
   CaLabWithSpace,
 } from '../model/entities/lab/ca-lab.class';
-import { FlApiService } from '@monorepo/front-core-lib/fl-api';
-import { FlDatasourceGetPageData, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
-import { FlFileHelper } from '@monorepo/front-core-lib/fl-translate';
-import { FlSearchConverter } from '@monorepo/front-core-lib/fl-search';
 
 import { ClPage, ClPageI } from '@monorepo/core-lib';
-import {
-  CaLabManagerRecommendedVersion,
-  CaLabManagerRestoreBackupConfigDTO,
-} from '../model/entities/lab/ca-lab-manager.class';
-import { CaLabUser, CaLabUserRole } from '../model/entities/lab/ca-lab-user.class';
-import { CaLabSearch, CaLabSearchFields } from '../entity-module/ca-lab-core/model/ca-lab-search.class';
-import { CaServerCompleteInfo } from '../model/entities/lab/ca-lab-server.class';
-import { CaLabConfig } from '../model/entities/lab/ca-lab-config.class';
-import { CaLabGreenOption, CaLabGreenOptionFormDto } from '../model/entities/lab/ca-lab-green-option.class';
-import {
-  CaLabStatusRunRequest,
-  CaLabStatusRunResponse,
-  CaLabStorageResponse,
-} from '../model/entities/lab/ca-lab-stats.dto';
-import {
-  CaLabFreeCreateDto,
-  CaLabFreeGetDto,
-  CaLabFreeUpdateDto,
-} from '../model/entities/lab/ca-lab-free.class';
-import { CaLabBackupHistory, CaLabBackupStatusDTO } from '../model/entities/lab/ca-lab-backup.class';
-import {
-  CaLabAdminForm,
-  CaLabCloudCreateDTO,
-  CaLabDesktopForm,
-  CaRequestLabForm,
-} from '../model/entities/lab/ca-lab.form';
-import {
-  CaLabStatusHistorySearch,
-  CaLabStatusHistorySearchFields,
-} from '../../ca-lab/component/lab/ca-lab-status-history-page/ca-lab-status-history-page.component';
-import { CaLabUpdateVolumeDTO, CaLabVolume } from '../model/entities/lab/ca-lab-volume.class';
-import { CaUser } from '../model/entities/ca-user.class';
 import {
   LmlAdminerInfo,
   LmlComposeRestartOptions,
@@ -63,7 +31,39 @@ import {
   LmlPullBiotaOptions,
 } from '@monorepo/lab-manager-lib';
 import { map } from 'rxjs/operators';
+import {
+  CaLabStatusHistorySearch,
+  CaLabStatusHistorySearchFields,
+} from '../../ca-lab/component/lab/ca-lab-status-history-page/ca-lab-status-history-page.component';
+import { CaLabSearch, CaLabSearchFields } from '../entity-module/ca-lab-core/model/ca-lab-search.class';
+import { CaUser } from '../model/entities/ca-user.class';
+import { CaLabBackupHistory, CaLabBackupStatusDTO } from '../model/entities/lab/ca-lab-backup.class';
+import { CaLabConfig } from '../model/entities/lab/ca-lab-config.class';
 import { CaLabDesktopGenerateConfig } from '../model/entities/lab/ca-lab-desktop.class';
+import {
+  CaLabFreeCreateDto,
+  CaLabFreeGetDto,
+  CaLabFreeUpdateDto,
+} from '../model/entities/lab/ca-lab-free.class';
+import { CaLabGreenOption, CaLabGreenOptionFormDto } from '../model/entities/lab/ca-lab-green-option.class';
+import {
+  CaLabManagerRecommendedVersion,
+  CaLabManagerRestoreBackupConfigDTO,
+} from '../model/entities/lab/ca-lab-manager.class';
+import { CaServerCompleteInfo } from '../model/entities/lab/ca-lab-server.class';
+import {
+  CaLabStatusRunRequest,
+  CaLabStatusRunResponse,
+  CaLabStorageResponse,
+} from '../model/entities/lab/ca-lab-stats.dto';
+import { CaLabUser, CaLabUserRole } from '../model/entities/lab/ca-lab-user.class';
+import { CaLabUpdateVolumeDTO, CaLabVolume } from '../model/entities/lab/ca-lab-volume.class';
+import {
+  CaLabAdminForm,
+  CaLabCloudCreateDTO,
+  CaLabDesktopForm,
+  CaRequestLabForm,
+} from '../model/entities/lab/ca-lab.form';
 
 @Injectable({
   providedIn: 'root',
@@ -422,6 +422,14 @@ export class CaLabService {
 
   public migrateToGithub(id: string): Observable<CaLabStatusDTO> {
     return this.apiService.put(`${this.route}/${id}/lab-configurer/migrate`, null, CaLabStatusDTO);
+  }
+
+  public migrateToDnsChallenge(id: string): Observable<CaLabStatusDTO> {
+    return this.apiService.put(
+      `${this.route}/${id}/lab-configurer/migrate-dns-challenge`,
+      null,
+      CaLabStatusDTO
+    );
   }
 
   public stopCurrentServerTask(id: string): Observable<CaLabStatusDTO> {

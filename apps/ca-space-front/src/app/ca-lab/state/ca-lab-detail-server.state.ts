@@ -1,7 +1,4 @@
 import { inject, Injectable } from '@angular/core';
-import { CaLabService } from '../../ca-core/service-api/ca-lab.service';
-import { CaLabServerCompleteInfoDialogComponent } from '../component/server/ca-lab-server-complete-info-dialog/ca-lab-server-complete-info-dialog.component';
-import { CaLabDetailPageState } from './ca-lab-detail-page.state';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
@@ -9,6 +6,9 @@ import {
 } from '@monorepo/front-core-lib/fl-dialog';
 import { FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
 import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
+import { CaLabService } from '../../ca-core/service-api/ca-lab.service';
+import { CaLabServerCompleteInfoDialogComponent } from '../component/server/ca-lab-server-complete-info-dialog/ca-lab-server-complete-info-dialog.component';
+import { CaLabDetailPageState } from './ca-lab-detail-page.state';
 
 import { Observable } from 'rxjs';
 import {
@@ -101,6 +101,15 @@ export class CaLabDetailServerState {
     };
 
     this.openDialog(input, this.labService.migrateToGithub(this.state.getLabId()));
+  }
+
+  migrateToDnsChallenge(): void {
+    const input: FlConfirmDialogInput = {
+      title: 'lab_configurer_migrate_dns',
+      content: 'lab_configurer_migrate_dns_confirmation',
+    };
+
+    this.openDialog(input, this.labService.migrateToDnsChallenge(this.state.getLabId()));
   }
 
   deleteServer(): void {
