@@ -1,6 +1,4 @@
 import { ClLuxonDateTimeTransform } from '@monorepo/core-lib';
-import { DateTime } from 'luxon';
-import { Expose, Type } from 'class-transformer';
 import { FlEntity, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 import {
   FlStatus,
@@ -8,11 +6,13 @@ import {
   FlStatusHelper,
   FlStatusTransform,
 } from '@monorepo/front-core-lib/fl-status';
-import { LiBaseEntityWithUser, LiUser } from './li-user.entity';
+import { TeRichText, TeRichTextTransform } from '@monorepo/text-editor';
+import { Expose, Type } from 'class-transformer';
+import { DateTime } from 'luxon';
 import { LiEntity } from '../global/li-entity.entity';
 import { LiFolder, LiFolderObject } from './li-folder.class';
+import { LiBaseEntityWithUser, LiUser } from './li-user.entity';
 import { LiRunningProcessInfo } from './process/li-process.entity';
-import { TeRichText, TeRichTextTransform } from '@monorepo/text-editor';
 
 export type LiScenarioStatus =
   | 'DRAFT'
@@ -95,6 +95,10 @@ export class LiScenario extends LiBaseEntityWithUser implements LiFolderObject {
   @Expose({ name: 'last_sync_by' })
   @Type(() => LiUser)
   lastSyncBy?: LiUser;
+
+  @Expose({ name: 'last_run_by' })
+  @Type(() => LiUser)
+  lastRunBy?: LiUser;
 
   get isSynced(): boolean {
     return this.lastSyncAt != null;

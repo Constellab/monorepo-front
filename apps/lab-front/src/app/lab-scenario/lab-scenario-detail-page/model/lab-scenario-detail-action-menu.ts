@@ -1,4 +1,4 @@
-import { DateTime } from 'luxon';
+import { Injector } from '@angular/core';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
@@ -8,7 +8,6 @@ import { FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
 import { FlPortalActionResult, FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
-import { Injector } from '@angular/core';
 import {
   LiFolder,
   LiProcessService,
@@ -19,22 +18,23 @@ import {
   LiScenarioService,
   LiTagDatasource,
 } from '@monorepo/lab-lib/li-core';
+import { LiValidateObjectDialogComponent, LiValidateObjectDialogInput } from '@monorepo/lab-lib/li-entity';
 import { LiLogBetweenDatesDialogInput, LiLogsBetweenDatesDialogComponent } from '@monorepo/lab-lib/li-log';
 import {
   LiMonitorBetweenDatesDialogComponent,
   LiMonitorBetweenDatesDialogInput,
 } from '@monorepo/lab-lib/li-monitor';
 import { LiNavigableEntityService, LiNavigableImpactConfig } from '@monorepo/lab-lib/li-navigable-entity';
-import { LiProgressBarInfoDialogComponent } from '@monorepo/lab-lib/li-progress-bar';
-import { LiValidateObjectDialogComponent, LiValidateObjectDialogInput } from '@monorepo/lab-lib/li-entity';
-import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { LiProcessRunInfoData, LiProgressBarInfoDialogComponent } from '@monorepo/lab-lib/li-progress-bar';
 import { LiScenarioActionEvent, LiScenarioActionMenu } from '@monorepo/lab-lib/li-scenario';
-import { LabScenarioDetailPageState } from '../state/lab-scenario-detail-page.state';
 import {
   LiScenarioTemplateFormDialogComponent,
   LiScenarioTemplateFormDialogInput,
 } from '@monorepo/lab-lib/li-scenario-template';
+import { DateTime } from 'luxon';
+import { Observable } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
+import { LabScenarioDetailPageState } from '../state/lab-scenario-detail-page.state';
 
 /**
  * Action menu for a lab scenario
@@ -255,13 +255,20 @@ export class LabScenarioDetailActionMenu extends LiScenarioActionMenu {
   }
 
   public openProgressInformation(): void {
+    const data$: Observable<LiProcessRunInfoData> = this.injector
+      .get(LabScenarioDetailPageState)
+      .getMainProtocol$()
+      .pipe(
+        map((flow) => ({
+          progressBar: flow.progressBar,
+          runBy: flow.runBy,
+        }))
+      );
+
     this.injector
       .get(FlDialogService)
       .openBigDialog(LiProgressBarInfoDialogComponent, {
-        data: this.injector
-          .get(LabScenarioDetailPageState)
-          .getMainProtocol$()
-          .pipe(map((flow) => flow.progressBar)),
+        data: data$,
       })
       .afterClosed()
       .subscribe(() => this.subject.complete());

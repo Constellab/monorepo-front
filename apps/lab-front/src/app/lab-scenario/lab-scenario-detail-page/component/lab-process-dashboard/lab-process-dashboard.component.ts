@@ -1,26 +1,19 @@
 import { AsyncPipe } from '@angular/common';
-import { CoCommunityHelperService, CoCommunityLibModule } from '@monorepo/community-lib';
 import { Component, HostListener, inject, OnDestroy, OnInit, signal, WritableSignal } from '@angular/core';
-import { DateTime } from 'luxon';
+import { MatIconButton } from '@angular/material/button';
+import { MatDialogContent } from '@angular/material/dialog';
+import { MatIcon } from '@angular/material/icon';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
+import { MatTooltip } from '@angular/material/tooltip';
+import { CoCommunityHelperService, CoCommunityLibModule } from '@monorepo/community-lib';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
-import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlStatusModule } from '@monorepo/front-core-lib/fl-status';
-import { LabConfigureProcessComponent } from '../lab-configure-process/lab-configure-process.component';
-import { LabProcessDashboardConfigState } from '../../state/lab-process-dashboard-config-state.service';
-import {
-  LabProcessEditStyleDialogComponent,
-  LabProcessEditStyleDialogInputData,
-} from '../lab-process-edit-style-dialog/lab-process-edit-style-dialog.component';
-import { LabProcessIoPanelComponent } from '../lab-process-io-panel/lab-process-io-panel.component';
-import { LabScenarioDetailPageState } from '../../state/lab-scenario-detail-page.state';
-import { LabWorkflowEditConfig } from '../../model/lab-workflow-edit-config.class';
-import { LabWorkflowNodeDetailState } from '../../state/lab-workflow-node-detail.state';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import {
   LiCreateCommunityAgentVersionResDto,
   LiProcess,
   LiProcessService,
-  LiProgressBar,
   LiProtocolService,
   LiTaskGeneratorService,
 } from '@monorepo/lab-lib/li-core';
@@ -29,7 +22,8 @@ import {
   LiMonitorBetweenDatesDialogComponent,
   LiMonitorBetweenDatesDialogInput,
 } from '@monorepo/lab-lib/li-monitor';
-import { LiProgressBarInfoDialogComponent } from '@monorepo/lab-lib/li-progress-bar';
+import { LiProcessRunInfoData, LiProgressBarInfoDialogComponent } from '@monorepo/lab-lib/li-progress-bar';
+import { LiSystemConfigDialogComponent } from '@monorepo/lab-lib/li-system';
 import {
   LiShareAgentCommunityDialogComponent,
   LiShareAgentCommunityDialogData,
@@ -37,17 +31,22 @@ import {
   LiTypeDialogComponent,
   LiTypeDialogInput,
 } from '@monorepo/lab-lib/li-type';
-import { LiSystemConfigDialogComponent } from '@monorepo/lab-lib/li-system';
-import { MatDialogContent } from '@angular/material/dialog';
-import { MatIcon } from '@angular/material/icon';
-import { MatIconButton } from '@angular/material/button';
-import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
-import { MatTooltip } from '@angular/material/tooltip';
-import { Observable, Subscription } from 'rxjs';
 import { TdParamSpecVisibility, TdTypingName } from '@monorepo/technical-doc';
 import { TranslatePipe } from '@ngx-translate/core';
+import { DateTime } from 'luxon';
+import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { LabCoServiceConfig } from '../../../../lab-core/lab-co-service-config.service';
+import { LabWorkflowEditConfig } from '../../model/lab-workflow-edit-config.class';
+import { LabProcessDashboardConfigState } from '../../state/lab-process-dashboard-config-state.service';
+import { LabScenarioDetailPageState } from '../../state/lab-scenario-detail-page.state';
+import { LabWorkflowNodeDetailState } from '../../state/lab-workflow-node-detail.state';
+import { LabConfigureProcessComponent } from '../lab-configure-process/lab-configure-process.component';
+import {
+  LabProcessEditStyleDialogComponent,
+  LabProcessEditStyleDialogInputData,
+} from '../lab-process-edit-style-dialog/lab-process-edit-style-dialog.component';
+import { LabProcessIoPanelComponent } from '../lab-process-io-panel/lab-process-io-panel.component';
 
 /**
  * Complete dashboard to edit, view and run a workflow node
@@ -156,9 +155,16 @@ export class LabProcessDashboardComponent implements OnInit, OnDestroy {
   }
 
   openProgressDetails(): void {
-    const progressBar$: Observable<LiProgressBar> = this.process$.pipe(map((process) => process.progressBar));
+    const data$: Observable<LiProcessRunInfoData> = this.process$.pipe(
+      map((process) => ({
+        progressBar: process.progressBar,
+        brickVersionOnCreate: process.brickVersionOnCreate,
+        brickVersionOnRun: process.brickVersionOnRun,
+        runBy: process.runBy,
+      }))
+    );
 
-    this.dialogService.openBigDialog(LiProgressBarInfoDialogComponent, { data: progressBar$ });
+    this.dialogService.openBigDialog(LiProgressBarInfoDialogComponent, { data: data$ });
   }
 
   openProcessLogs(process: LiProcess): void {

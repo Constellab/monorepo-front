@@ -1,10 +1,5 @@
 import { ClLuxonDateTimeTransform } from '@monorepo/core-lib';
-import { DateTime } from 'luxon';
-import { Expose, Type } from 'class-transformer';
 import { FlStatus, FlStatusTransform } from '@monorepo/front-core-lib/fl-status';
-import { LiBaseEntityWithUser } from '../li-user.entity';
-import { LiEntity } from '../../global/li-entity.entity';
-import { LiProgressBar, LiProgressMessage } from '../li-progress-bar.entity';
 import {
   PrOI,
   PrProcess,
@@ -19,6 +14,11 @@ import {
   TdTypeStyle,
   TdTypingName,
 } from '@monorepo/technical-doc';
+import { Expose, Type } from 'class-transformer';
+import { DateTime } from 'luxon';
+import { LiEntity } from '../../global/li-entity.entity';
+import { LiProgressBar, LiProgressMessage } from '../li-progress-bar.entity';
+import { LiBaseEntityWithUser, LiUser } from '../li-user.entity';
 
 export type LiProcessClass = 'TASK' | 'PROTOCOL';
 
@@ -68,7 +68,11 @@ export class LiProcess extends LiBaseEntityWithUser {
   brickVersionOnCreate: string;
 
   @Expose({ name: 'brick_version_on_run' })
-  brickVersionOnRun: string;
+  brickVersionOnRun?: string;
+
+  @Expose({ name: 'run_by' })
+  @Type(() => LiUser)
+  runBy?: LiUser;
 
   @Expose({ name: 'started_at' })
   @ClLuxonDateTimeTransform()

@@ -2,9 +2,50 @@
   margin-bottom: 1em;
 }
 
+.header-table {
+  border: none;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.header-cell {
+  border: none;
+  vertical-align: top;
+}
+
+.left-column {
+  padding-right: 20px;
+}
+
+.middle-column {
+  padding-right: 20px;
+}
+
+.right-column {
+  text-align: right;
+}
+
+.info-table {
+  border: none;
+  border-collapse: collapse;
+}
+
+.info-cell {
+  border: none;
+  padding: 2px 10px 2px 0;
+}
+
+.process-info {
+  margin-left: 5em;
+}
+
 .slide {
   // prevent horizontal scroll due to slide-toggle
   padding-right: 10px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.5em;
 }
 
 .divider {

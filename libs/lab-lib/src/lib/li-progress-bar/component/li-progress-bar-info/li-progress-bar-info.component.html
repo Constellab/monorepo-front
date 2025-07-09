@@ -1,48 +1,111 @@
-<div class="header g-layout-row">
-  <div class="g-flex-auto">
-    @if (elapsedTime$ | async; as elapsedTime) {
-      <fl-key-value>
-        <fl-key>{{ 'li.execution_time' | translate }}</fl-key>
-        {{ elapsedTime | flDuration }}
-      </fl-key-value>
-    }
+<table class="header header-table">
+  <tr>
+    <td class="header-cell left-column">
+      @if (processRunInfo$ | async; as processRunInfo) {
+        <table class="info-table">
+          @if (elapsedTime$ | async; as elapsedTime) {
+            <tr>
+              <td class="info-cell">
+                <fl-key-value>
+                  <fl-key>{{ 'li.execution_time' | translate }}</fl-key>
+                  {{ elapsedTime | flDuration }}
+                </fl-key-value>
+              </td>
+            </tr>
+          }
 
-    @if (progressBar$ | async; as progressBar) {
-      @if (progressBar.startedAt) {
-        <fl-key-value>
-          <fl-key>{{ 'li.begin_date' | translate }}</fl-key>
-          {{ progressBar.startedAt | flDate: 'DATE_TIME_WITH_SECONDS' }}
-        </fl-key-value>
+          @if (processRunInfo.progressBar.startedAt) {
+            <tr>
+              <td class="info-cell">
+                <fl-key-value>
+                  <fl-key>{{ 'li.begin_date' | translate }}</fl-key>
+                  {{ processRunInfo.progressBar.startedAt | flDate: 'DATE_TIME_WITH_SECONDS' }}
+                </fl-key-value>
+              </td>
+            </tr>
+          }
+
+          @if (processRunInfo.progressBar.endedAt) {
+            <tr>
+              <td class="info-cell">
+                <fl-key-value>
+                  <fl-key>{{ 'li.end_date' | translate }}</fl-key>
+                  {{ processRunInfo.progressBar.endedAt | flDate: 'DATE_TIME_WITH_SECONDS' }}
+                </fl-key-value>
+              </td>
+            </tr>
+          }
+
+          @if (processRunInfo.progressBar.secondStart) {
+            <tr>
+              <td class="info-cell">
+                <fl-text-icon class="g-text-light g-text-small" gap="5px">
+                  <mat-icon class="g-icon-small">info</mat-icon>
+                  {{ 'li.progress_bar_multiple_start' | translate }}
+                </fl-text-icon>
+              </td>
+            </tr>
+          }
+        </table>
       }
+    </td>
 
-      @if (progressBar.endedAt) {
-        <fl-key-value>
-          <fl-key>{{ 'li.end_date' | translate }}</fl-key>
-          {{ progressBar.endedAt | flDate: 'DATE_TIME_WITH_SECONDS' }}
-        </fl-key-value>
+    <td class="header-cell middle-column">
+      @if (processRunInfo$ | async; as processRunInfo) {
+        <table class="info-table">
+          @if (processRunInfo.brickVersionOnCreate) {
+            <tr>
+              <td class="info-cell">
+                <fl-key-value>
+                  <fl-key>{{ 'li.brick_version_on_create' | translate }}</fl-key>
+                  {{ processRunInfo.brickVersionOnCreate }}
+                </fl-key-value>
+              </td>
+            </tr>
+          }
+
+          @if (processRunInfo.brickVersionOnRun) {
+            <tr>
+              <td class="info-cell">
+                <fl-key-value>
+                  <fl-key>{{ 'li.brick_version_on_run' | translate }}</fl-key>
+                  {{ processRunInfo.brickVersionOnRun }}
+                </fl-key-value>
+              </td>
+            </tr>
+          }
+
+          @if (processRunInfo.runBy) {
+            <tr>
+              <td class="info-cell">
+                <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
+                  <div>{{ 'li.process_run_by' | translate }}</div>
+                  <fl-user-inline [user]="processRunInfo.runBy"></fl-user-inline>
+                </div>
+              </td>
+            </tr>
+          }
+        </table>
       }
+    </td>
 
-      @if (progressBar.secondStart) {
-        <fl-text-icon class="g-text-light g-text-small" gap="5px">
-          <mat-icon class="g-icon-small">info</mat-icon>
-          {{ 'li.progress_bar_multiple_start' | translate }}
-        </fl-text-icon>
-      }
-    }
-  </div>
+    <td class="header-cell right-column">
+      <div class="slide">
+        @if (liveMode) {
+          <fl-loader size="small"></fl-loader>
+        }
 
-  <div class="slide g-layout-row g-layout-start-center g-layout-gap-05em">
-    @if (liveMode) {
-      <fl-loader size="small"></fl-loader>
-    }
+        @if (showLiveModeToggle) {
+          <mat-slide-toggle [(ngModel)]="liveMode" (ngModelChange)="liveModeChanged()" labelPosition="before">
+            {{ 'li.progress_bar_live_messages' | translate }}
+          </mat-slide-toggle>
+        }
+      </div>
+    </td>
+  </tr>
+</table>
 
-    @if (showLiveModeToggle) {
-      <mat-slide-toggle [(ngModel)]="liveMode" (ngModelChange)="liveModeChanged()" labelPosition="before">
-        {{ 'li.progress_bar_live_messages' | translate }}
-      </mat-slide-toggle>
-    }
-  </div>
-</div>
+<!---------------------------- MESSAGES  --------------------------------------->
 
 <div
   (flInfiniteScroll)="loadMoreMessagesManually()"

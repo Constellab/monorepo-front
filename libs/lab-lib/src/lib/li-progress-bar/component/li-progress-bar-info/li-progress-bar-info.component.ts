@@ -1,11 +1,16 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, Input, OnDestroy, OnInit, inject } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButton } from '@angular/material/button';
+import { MatDivider } from '@angular/material/divider';
+import { MatIcon } from '@angular/material/icon';
+import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
 import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
 import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FlUser, FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import {
   LiProgressBar,
   LiProgressBarMessages,
@@ -13,16 +18,19 @@ import {
   LiProgressMessage,
   LiProgressMessageDatasource,
 } from '@monorepo/lab-lib/li-core';
-import { LiProgressMessageComponent } from '../li-progress-message/li-progress-message.component';
-import { MatButton } from '@angular/material/button';
-import { MatDivider } from '@angular/material/divider';
-import { MatIcon } from '@angular/material/icon';
-import { MatSlideToggle } from '@angular/material/slide-toggle';
-import { Observable, Subscription, mergeMap } from 'rxjs';
 import { TranslatePipe } from '@ngx-translate/core';
+import { Observable, Subscription, mergeMap } from 'rxjs';
 import { filter, first, map } from 'rxjs/operators';
+import { LiProgressMessageComponent } from '../li-progress-message/li-progress-message.component';
 
-interface LabProgressWithMessage {
+export interface LiProcessRunInfoData {
+  progressBar: LiProgressBar;
+  brickVersionOnCreate?: string;
+  brickVersionOnRun?: string;
+  runBy?: FlUser;
+}
+
+interface LiProgressWithMessage {
   progressBar?: LiProgressBar;
   messages: LiProgressBarMessages;
 }
@@ -49,12 +57,13 @@ interface LabProgressWithMessage {
     AsyncPipe,
     TranslatePipe,
     FlDateModule,
+    FlUserModule,
   ],
 })
 export class LiProgressBarInfoComponent implements OnInit, OnDestroy {
   private progressBarService = inject(LiProgressBarService);
 
-  @Input({ required: true }) progressBar$: Observable<LiProgressBar>;
+  @Input({ required: true }) processRunInfo$: Observable<LiProcessRunInfoData>;
 
   @Input({ required: true }) scrollableElement: HTMLElement;
 
@@ -85,18 +94,20 @@ export class LiProgressBarInfoComponent implements OnInit, OnDestroy {
     this.messageDatasource = new LiProgressMessageDatasource();
     this.messages$ = this.messageDatasource.connect();
 
-    this.elapsedTime$ = this.progressBar$.pipe(map((progressBar) => progressBar.elapsedTime));
+    this.elapsedTime$ = this.processRunInfo$.pipe(
+      map((processRunInfo) => processRunInfo.progressBar.elapsedTime)
+    );
 
     // every time the progress bar updated (reload from state), refresh the message list
-    this.subscription = this.progressBar$
+    this.subscription = this.processRunInfo$
       .pipe(
         filter(() => this.liveMode !== false),
-        mergeMap((progressBar) => this.getMessages(progressBar))
+        mergeMap((processRunInfo) => this.getMessages(processRunInfo.progressBar))
       )
       .subscribe((messages) => this.addMessageToList(messages));
   }
 
-  private getMessages(progressBar: LiProgressBar): Observable<LabProgressWithMessage> {
+  private getMessages(progressBar: LiProgressBar): Observable<LiProgressWithMessage> {
     this.progressBarId = progressBar.id;
 
     // init live mode and show live mode toggle on first load
@@ -139,13 +150,13 @@ export class LiProgressBarInfoComponent implements OnInit, OnDestroy {
     }
   }
 
-  private loadMoreMessagesSuccess(progressWithMessage: LabProgressWithMessage): void {
+  private loadMoreMessagesSuccess(progressWithMessage: LiProgressWithMessage): void {
     this.loadMoreIsLoading = false;
     this.addMessageToList(progressWithMessage);
   }
 
   // add message to the list, avoid duplicate and respect order
-  private addMessageToList(progressWithMessage: LabProgressWithMessage): void {
+  private addMessageToList(progressWithMessage: LiProgressWithMessage): void {
     if (this.liveMode) {
       // in live mode we clear all messages
       this.messageDatasource.clear();
@@ -177,10 +188,12 @@ export class LiProgressBarInfoComponent implements OnInit, OnDestroy {
     if (this.liveMode === true) {
       this.messageDatasource.clear();
       this.loadMoreCompleted = false;
-      this.progressBar$
+      this.processRunInfo$
         .pipe(first())
-        .subscribe((progressBar) =>
-          this.getMessages(progressBar).subscribe((messages) => this.addMessageToList(messages))
+        .subscribe((processRunInfo) =>
+          this.getMessages(processRunInfo.progressBar).subscribe((messages) =>
+            this.addMessageToList(messages)
+          )
         );
     }
   }

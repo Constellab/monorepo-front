@@ -12,10 +12,10 @@
 </fl-dialog-header>
 
 <mat-dialog-content #content class="g-styled-scrollbar">
-  <fl-async-section [object]="progressBar$">
+  <fl-async-section [object]="processRunInfo$">
     <ng-container *flSectionBody>
       <li-progress-bar-info
-        [progressBar$]="progressBar$"
+        [processRunInfo$]="processRunInfo$"
         [scrollableElement]="content"
         class="container"></li-progress-bar-info>
     </ng-container>
