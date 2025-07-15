@@ -31,6 +31,7 @@ export interface TdEditParamSpecDetail {
   default_value: TdParamSpecSimple;
   optional: TdParamSpecSimple;
   short_description: TdParamSpecSimple;
+  human_name: TdParamSpecSimple;
   additional_info: Record<string, TdParamSpecSimple>;
 }
 
@@ -39,9 +40,11 @@ export interface TdEditParamSpecDetail {
  */
 export type TdEditParamSpecDict = Record<string, TdEditParamSpecDetail>;
 
+export type TdCompleteEditParamSpecDict = Record<string, TdEditParamSpecDict>;
+
 export interface TdEditParamSpecDialogInput {
   configSpecName: string;
-  paramSpecFormInfoList$: Observable<TdEditParamSpecDict>;
+  paramSpecFormInfoList$: Observable<TdCompleteEditParamSpecDict>;
   spec?: TdParamSpec;
   name?: string;
 }
@@ -65,13 +68,15 @@ export class TdEditParamSpecDialogComponent implements OnInit {
 
   isLoading: boolean;
 
+  isButtonLoading: boolean = false;
+
   private spec: TdParamSpec;
 
   private name: string;
 
   private possibleTypes: FlDynamicFieldSelectKeyNameOption[] = [];
 
-  private paramSpecFormInfoList$: Observable<TdEditParamSpecDict>;
+  private paramSpecFormInfoList$: Observable<TdCompleteEditParamSpecDict>;
 
   private configSpecName: string;
 
@@ -102,13 +107,28 @@ export class TdEditParamSpecDialogComponent implements OnInit {
     // Subscribe to the paramSpecFormInfoList$ observable to get the possible types from the python backend
     // Then init the form with the current type of the spec if it exists, otherwise the default type is 'str'
     this.paramSpecFormInfoList$.subscribe({
-      next: (paramSpecFormInfoList: TdEditParamSpecDict) => {
-        for (const paramSpecInfo of Object.keys(paramSpecFormInfoList)) {
-          const humanName: string = ClStringHelper.snakeCaseToSentence(paramSpecInfo);
-          this.possibleTypes.push({ key: paramSpecInfo as TdParamSpecType, humanName: humanName });
+      next: (paramSpecFormInfoList: TdCompleteEditParamSpecDict) => {
+        const groups = Object.keys(paramSpecFormInfoList);
+        let specInfoList: TdEditParamSpecDict = {};
+        let typeExists = false;
+
+        for (const group of groups) {
+          for (const paramSpecInfo of Object.keys(paramSpecFormInfoList[group])) {
+            const humanName: string = ClStringHelper.snakeCaseToSentence(paramSpecInfo);
+            this.possibleTypes.push({
+              key: paramSpecInfo as TdParamSpecType,
+              humanName: humanName,
+              group: group,
+            });
+          }
+          specInfoList = Object.assign({}, specInfoList, paramSpecFormInfoList[group]);
+          if (Object.keys(paramSpecFormInfoList[group]).includes(this.spec.type)) {
+            typeExists = true;
+          }
         }
-        if (paramSpecFormInfoList[this.spec.type]) {
-          this.initForm(this.spec.type, paramSpecFormInfoList);
+
+        if (typeExists) {
+          this.initForm(this.spec.type, specInfoList);
         }
 
         this.isLoading = false;
@@ -121,6 +141,7 @@ export class TdEditParamSpecDialogComponent implements OnInit {
 
   saveParamSpec(): void {
     if (this.formGroup.valid) {
+      this.isButtonLoading = true;
       if (this.isEdit) {
         const oldName = this.name != this.formGroup.get('name').value ? this.name : null;
         if (oldName) {
@@ -132,18 +153,33 @@ export class TdEditParamSpecDialogComponent implements OnInit {
               this.formGroup.get('name').value,
               this.formGroup.value
             )
-            .subscribe((config: TdConfigI) => this.dialogRef.close(config));
+            .subscribe({
+              next: (config: TdConfigI) => this.dialogRef.close(config),
+              error: () => {
+                this.isButtonLoading = false;
+              },
+            });
         } else {
           // Edit the param spec if the name field is not changed and it's update mode
           this.dynamicParamSpecState
             .editParamSpec(this.configSpecName, this.formGroup.get('name').value, this.formGroup.value)
-            .subscribe((config: TdConfigI) => this.dialogRef.close(config));
+            .subscribe({
+              next: (config: TdConfigI) => this.dialogRef.close(config),
+              error: () => {
+                this.isButtonLoading = false;
+              },
+            });
         }
       } else {
         // Create the param spec if it's create mode
         this.dynamicParamSpecState
           .addParamSpec(this.configSpecName, this.formGroup.get('name').value, this.formGroup.value)
-          .subscribe((config: TdConfigI) => this.dialogRef.close(config));
+          .subscribe({
+            next: (config: TdConfigI) => this.dialogRef.close(config),
+            error: () => {
+              this.isButtonLoading = false;
+            },
+          });
       }
     }
   }
@@ -194,28 +230,29 @@ export class TdEditParamSpecDialogComponent implements OnInit {
       controlType: 'formGroup',
       subConfigs: {},
     };
-
-    configs.subConfigs['name'] = TdParamSpecConfig.convertParamSpecToAbstractConfig(specs.name, '');
-    configs.subConfigs['optional'] = TdParamSpecConfig.convertParamSpecToAbstractConfig(specs.optional, '');
+    configs.subConfigs['name'] = TdParamSpecConfig.convertParamSpecToAbstractConfig(specs.name);
+    configs.subConfigs['optional'] = TdParamSpecConfig.convertParamSpecToAbstractConfig(specs.optional);
 
     configs.subConfigs['short_description'] = TdParamSpecConfig.convertParamSpecToAbstractConfig(
-      specs.short_description,
-      ''
+      specs.short_description
     );
 
+    specs.human_name.human_name = this.translateService.translate('td.label');
+    configs.subConfigs['human_name'] = TdParamSpecConfig.convertParamSpecToAbstractConfig(specs.human_name);
+
     configs.subConfigs['default_value'] = TdParamSpecConfig.convertParamSpecToAbstractConfig(
-      specs.default_value,
-      ''
+      specs.default_value
     );
 
     if (specs.additional_info) {
       configs.subConfigs['additional_info'] = {
         controlType: 'formGroup',
+        placeholder: this.translateService.translate('td.additional_info'),
         subConfigs: {},
       };
       for (const specName of Object.keys(specs.additional_info)) {
         configs.subConfigs['additional_info'].subConfigs[specName] =
-          TdParamSpecConfig.convertParamSpecToAbstractConfig(specs.additional_info[specName], '');
+          TdParamSpecConfig.convertParamSpecToAbstractConfig(specs.additional_info[specName]);
       }
     }
     return configs;

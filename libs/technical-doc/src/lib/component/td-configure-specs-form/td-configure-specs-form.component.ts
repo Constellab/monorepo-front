@@ -31,9 +31,9 @@ export class TdConfigureSpecsFormComponent {
   publicFormGp: Signal<UntypedFormGroup> = computed(() => this.formGp().get('public') as FormGroup);
   protectedFormGp: Signal<UntypedFormGroup> = computed(() => this.formGp().get('protected') as FormGroup);
 
-  publicConfig: Signal<FlDynamicFormGroupConfig | FlDynamicEditableFormGroupConfig> = computed(() =>
-    this.configData().getDynamicFormFieldsConfig('public')
-  );
+  publicConfig: Signal<FlDynamicFormGroupConfig | FlDynamicEditableFormGroupConfig> = computed(() => {
+    return this.configData().getDynamicFormFieldsConfig('public');
+  });
 
   protectedConfig: Signal<FlDynamicFormGroupConfig> = computed(() =>
     this.configData().getDynamicFormFieldsConfig('protected')

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { CoConfig, CoTagValue } from '@monorepo/community-lib';
-import { TdParamSpecs } from '@monorepo/technical-doc';
+import { CoConfig, CoTagValue, CoTagValueEditDTO } from '@monorepo/community-lib';
+import { TdParamSpec, TdParamSpecs } from '@monorepo/technical-doc';
 import { Observable } from 'rxjs';
 
 import { CaEnvironmentHelper } from '../../utils/ca-environment.helper';
@@ -21,27 +21,39 @@ export class CaCoServiceConfig extends CoConfig {
     return CaEnvironmentHelper.getCommunityFrontUrl();
   }
 
-  addAdditionalInfoSpec(): Observable<TdParamSpecs> {
-    return undefined;
+  addAdditionalInfoSpec(tagKey: string, specName: string, spec: TdParamSpec): Observable<TdParamSpecs> {
+    throw new Error(`Error: addAdditionalInfoSpec not implemented in
+    CaCoServiceConfig for tagKey: ${tagKey} and specName: ${specName} with spec: ${JSON.stringify(spec)}`);
   }
 
-  createTagValue(): Observable<CoTagValue> {
-    return undefined;
+  createTagValue(tagValueEdit: CoTagValueEditDTO): Observable<CoTagValue> {
+    throw new Error(`Error: createTagValue not implemented
+    in CaCoServiceConfig for tagValueEdit: ${JSON.stringify(tagValueEdit)}`);
   }
 
-  deleteAdditionalInfoSpec(): Observable<TdParamSpecs> {
-    return undefined;
+  deleteAdditionalInfoSpec(tagKey: string, specName: string): Observable<TdParamSpecs> {
+    throw new Error(`Error: deleteAdditionalInfoSpec not implemented in
+    CaCoServiceConfig for tagKey: ${tagKey} and specName: ${specName}`);
   }
 
-  editAdditionalInfoSpec(): Observable<TdParamSpecs> {
-    return undefined;
+  editAdditionalInfoSpec(tagKey: string, specName: string, spec: TdParamSpec): Observable<TdParamSpecs> {
+    throw new Error(`Error: editAdditionalInfoSpec not implemented in
+    CaCoServiceConfig for tagKey: ${tagKey} and specName: ${specName} with spec: ${JSON.stringify(spec)}`);
   }
 
-  renameAndEditAdditionalInfoSpec(): Observable<TdParamSpecs> {
-    return undefined;
+  renameAndEditAdditionalInfoSpec(
+    tagKey: string,
+    oldName: string,
+    newName: string,
+    spec: TdParamSpec
+  ): Observable<TdParamSpecs> {
+    throw new Error(`Error: renameAndEditAdditionalInfoSpec not implemented in
+    CaCoServiceConfig for tagKey: ${tagKey}, oldName: ${oldName}
+    , newName: ${newName} with spec: ${JSON.stringify(spec)}`);
   }
 
-  updateTagValue(): Observable<CoTagValue> {
-    return undefined;
+  updateTagValue(tagValueEdit: CoTagValueEditDTO): Observable<CoTagValue> {
+    throw new Error(`Error: updateTagValue not implemented in
+    CaCoServiceConfig for tagValueEdit: ${JSON.stringify(tagValueEdit)}`);
   }
 }

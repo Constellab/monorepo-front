@@ -2,8 +2,22 @@
 <mat-form-field class="g-full" subscriptSizing="dynamic">
   <mat-label>{{ placeholder }}</mat-label>
   <mat-select [placeholder]="placeholder" [formControl]="formCtrl" [required]="required">
-    @for (option of selectOptions(); track option.key) {
-      <mat-option [value]="option.key">{{ option.humanName }}</mat-option>
+    @if (selectOptionsGroups()) {
+      @for (selectOptionsGroupKey of selectOptionsGroups() | flObjectKeys; track selectOptionsGroupKey) {
+        <mat-optgroup [label]="selectOptionsGroupKey" class="opt-group">
+          @for (option of selectOptionsGroups()[selectOptionsGroupKey]; track option.key) {
+            <mat-option [value]="option.key">
+              <span>{{ option.humanName }}</span>
+            </mat-option>
+          }
+        </mat-optgroup>
+      }
+    } @else {
+      @for (option of selectOptions(); track option.key) {
+        <mat-option [value]="option.key">
+          <span>{{ option.humanName }}</span>
+        </mat-option>
+      }
     }
   </mat-select>
 

@@ -1,24 +1,24 @@
-import { NgClass } from '@angular/common';
 import { Component, computed, effect, inject, Input, OnInit, Signal } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { MatButton } from '@angular/material/button';
-import { MatChip } from '@angular/material/chips';
-import { MatIcon } from '@angular/material/icon';
-import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
+import { HaAgentService } from '../../../ha-core/ha-service/ha-agent.service';
+import { HaAgentVersion } from '../../../ha-core/ha-model/ha-entities/ha-agent-version.class';
+import { FlClipboardService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { FlCodeEditorLanguage, FlCodeEditorModule } from '@monorepo/front-core-lib/fl-code-editor';
 import { FlDebouncer } from '@monorepo/front-core-lib/fl-core';
-import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
-import { FlClipboardService } from '@monorepo/front-core-lib/fl-snack-bar';
-import { TdTechnicalDocModule } from '@monorepo/technical-doc';
 import { TeBasicConfig, TeRichText } from '@monorepo/text-editor';
-import { TeTextEditorModule } from '@monorepo/text-editor';
-import { TranslatePipe } from '@ngx-translate/core';
-import { Subscription } from 'rxjs';
-
-import { HaAgentVersion } from '../../../ha-core/ha-model/ha-entities/ha-agent-version.class';
 import { HaBrickVersion } from '../../../ha-core/ha-model/ha-entities/ha-brick-version.class';
-import { HaAgentService } from '../../../ha-core/ha-service/ha-agent.service';
 import { HaAgentPageState } from '../../state/ha-agent-page.state';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { Subscription } from 'rxjs';
+import { MatChip } from '@angular/material/chips';
+import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { TeTextEditorModule } from '@monorepo/text-editor';
+import { NgClass } from '@angular/common';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
+import { TdTechnicalDocModule } from '@monorepo/technical-doc';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
+import { TranslatePipe } from '@ngx-translate/core';
+import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
 
 @Component({
   selector: 'ha-agent-version-detail',
@@ -36,6 +36,7 @@ import { HaAgentPageState } from '../../state/ha-agent-page.state';
     FlCodeEditorModule,
     FlCorePipeModule,
     TranslatePipe,
+    FlKeyValueModule,
   ],
 })
 export class HaAgentVersionDetailComponent implements OnInit {

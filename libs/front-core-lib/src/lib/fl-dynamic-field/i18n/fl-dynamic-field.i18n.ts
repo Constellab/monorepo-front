@@ -15,6 +15,7 @@ const flDynamicFieldI18nFr: FlLangTranslation = {
       'Suppression désactivée, le formulaire nécessite au moins  {{value}} valeur(s)',
     form_array_add_disable: 'Ajout désactivée, le formulaire support au maximum {{value}} valeur(s)',
     save: 'Enregistrer',
+    key: 'Clé',
   },
 };
 
@@ -31,6 +32,7 @@ const flDynamicFieldI18nEn: FlLangTranslation = {
     form_array_delete_disable: "Can't delete, it needs at least {{value}} value(s)",
     form_array_add_disable: "Can't add, it supports maximum {{value}} value(s)",
     save: 'Save',
+    key: 'Key',
   },
 };
 

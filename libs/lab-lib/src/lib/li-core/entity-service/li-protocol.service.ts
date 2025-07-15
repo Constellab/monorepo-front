@@ -5,14 +5,14 @@ import { FlApiWithCacheService } from '@monorepo/front-core-lib/fl-api';
 import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 import { FlFileHelper } from '@monorepo/front-core-lib/fl-translate';
 import {
-  TdEditParamSpecDict,
+  TdCompleteEditParamSpecDict,
   TdIOSpec,
   TdParamSpec,
   TdParamSpecsValues,
   TdParamSpecVisibility,
   TdTypeStyle,
 } from '@monorepo/technical-doc';
-import { Observable, tap } from 'rxjs';
+import { delay, Observable, tap } from 'rxjs';
 
 import {
   LiAgent,
@@ -28,6 +28,7 @@ import {
   LiScenarioTemplate,
 } from '../model/entities/process/li-scenario-template.entity';
 import { LiProtocolUpdateDTO } from '../model/entities/process/li-workflow-action.class';
+
 
 @Injectable({
   providedIn: 'root',
@@ -507,7 +508,10 @@ export class LiProtocolService {
 
   ///////////////////////////////////////////////// PARAM SPEC /////////////////////////////////////////////
 
-  public getParamSpecsInfos(protocolId: string, processName: string): Observable<TdEditParamSpecDict> {
+  public getParamSpecsInfos(
+    protocolId: string,
+    processName: string
+  ): Observable<TdCompleteEditParamSpecDict> {
     return this.apiService.get(`${this.baseRoute}/${protocolId}/process/${processName}/get-param-spec-types`);
   }
 
@@ -518,11 +522,13 @@ export class LiProtocolService {
     name: string,
     paramSpec: TdParamSpec
   ): Observable<LiProtocolUpdateDTO> {
-    return this.apiService.post(
-      `${this.baseRoute}/${protocolId}/process/${processName}/${configSpecName}/dynamic-param-spec/${name}`,
-      paramSpec,
-      LiProtocolUpdateDTO
-    );
+    return this.apiService
+      .post(
+        `${this.baseRoute}/${protocolId}/process/${processName}/${configSpecName}/dynamic-param-spec/${name}`,
+        paramSpec,
+        LiProtocolUpdateDTO
+      )
+      .pipe(delay(3000));
   }
 
   public updateDynamicParamSpec(

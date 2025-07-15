@@ -71,6 +71,8 @@ const tdTechnicalDocI18nFr: FlLangTranslation = {
     advanced_configuration: 'Configuration avancée',
     yes: 'Oui',
     no: 'Non',
+    additional_info: 'Information(s) additionnelle(s)',
+    label: 'Label',
   },
 };
 
@@ -143,6 +145,8 @@ const tdTechnicalDocI18nEn: FlLangTranslation = {
     advanced_configuration: 'Advanced config',
     yes: 'Yes',
     no: 'No',
+    additional_info: 'Additional information',
+    label: 'Label',
   },
 };
 

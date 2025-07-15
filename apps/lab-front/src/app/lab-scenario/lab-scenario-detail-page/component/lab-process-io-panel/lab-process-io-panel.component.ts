@@ -1,5 +1,5 @@
 import { AsyncPipe, NgClass } from '@angular/common';
-import { Component, HostBinding, inject,Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostBinding, inject, Input, input,OnDestroy, OnInit } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
@@ -58,6 +58,8 @@ export class LabProcessIoPanelComponent implements OnInit, OnDestroy {
   @Input() nodeProcess$: Observable<PrWorkflowNodeProcess>;
 
   @Input() mode: 'input' | 'output';
+
+  showAddPortButton = input.required<boolean>();
 
   @HostBinding('class.is-opened')
   isOpened: boolean = false;

@@ -177,6 +177,7 @@
   <!-- Content -->
   <div class="g-layout-row g-layout-start-stretch section-container">
     <lab-process-io-panel
+      [showAddPortButton]="!isCommunityAgent || isCodeShown()"
       [nodeProcess$]="nodeProcess$"
       mode="input"
       class="section input-section"></lab-process-io-panel>
@@ -186,6 +187,7 @@
       [process$]="process$"></lab-configure-process>
 
     <lab-process-io-panel
+      [showAddPortButton]="!isCommunityAgent || isCodeShown()"
       [nodeProcess$]="nodeProcess$"
       mode="output"
       class="section output-section"></lab-process-io-panel>

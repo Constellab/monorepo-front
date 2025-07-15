@@ -9,9 +9,16 @@
     }
   </h4>
 
+  <div class="version-type-info">
+    <fl-key-value>
+      <fl-key class="key">{{ 'agent_version_type' | translate }}</fl-key>
+      <span>{{ agentVersion().type }}</span>
+    </fl-key-value>
+  </div>
+
   @if (brickDependencies() && brickDependencies().length > 0) {
     <div>
-      <div>{{ 'necessary_bricks' | translate }} :</div>
+      <div class="key">{{ 'necessary_bricks' | translate }} :</div>
       <div class="brick-dependencies-div">
         @for (brickDep of brickDependencies(); track brickDep) {
           <mat-chip> {{ brickDep?.brickMajorVersion?.brick?.name }} {{ brickDep?.version }} </mat-chip>

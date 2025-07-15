@@ -11,12 +11,13 @@ import {
 } from '@monorepo/front-core-lib/fl-portal-actions';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { FlTranslatableText, FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
-import { LiProcess, LiProtocolService, LiProtocolUpdateDTO } from '@monorepo/lab-lib/li-core';
+import { LiProtocolService, LiProtocolUpdateDTO } from '@monorepo/lab-lib/li-core';
 import {
   LiNavigableCallActionResult,
   LiNavigableEntityService,
   LiNavigableImpactConfig,
 } from '@monorepo/lab-lib/li-navigable-entity';
+import { Observable, of, Subscription, switchMap, tap } from 'rxjs';
 import {
   PrAddNodeWithConnection,
   PrNodeRelativeCoord,
@@ -54,9 +55,6 @@ export enum LabWorkflowAction {
   RUN_PROCESS = 'workflow-run-process',
   ADD_INTERFACE = 'workflow-add-interface',
   ADD_OUTERFACE = 'workflow-add-outerface',
-  ADD_DYNAMIC_PARAM_SPEC = 'workflow-add-dynamic-param-spec',
-  UPDATE_DYNAMIC_PARAM_SPEC = 'workflow-update-dynamic-param-spec',
-  DELETE_DYNAMIC_PARAM_SPEC = 'workflow-delete-dynamic-param-spec',
 }
 
 interface LabWorkflowEventConnectionAdditionalInfo {
@@ -309,6 +307,10 @@ export class LabWorkflowEditConfig implements OnDestroy {
     return this.executeUpdateAction(action, labProcess);
   }
 
+  public updateProcessDynamicConfig(actionResult: LiProtocolUpdateDTO): void {
+    this.refreshProtocolAndParent(actionResult);
+  }
+
   public runProcess(protocolId: string, processInstanceName: string): void {
     const labProcess = this.getAndCheckProcessNodeObject(protocolId, processInstanceName);
     if (labProcess == null) return;
@@ -432,45 +434,6 @@ export class LabWorkflowEditConfig implements OnDestroy {
     };
 
     return this.addIoFace(action, protocolId, processInstanceName);
-  }
-
-  public addParamSpecUpdateAction(
-    process: LiProcess,
-    obs: Observable<LiProtocolUpdateDTO>
-  ): Observable<FlPortalActionResult<LiProtocolUpdateDTO> | null> {
-    const action: FlPortalAction = {
-      type: LabWorkflowAction.ADD_DYNAMIC_PARAM_SPEC,
-      action: obs,
-      text: { text: 'pr.adding_param_spec', translateText: true },
-    };
-
-    return this.executeUpdateAction(action, process);
-  }
-
-  public deleteParamSpecUpdateAction(
-    process: LiProcess,
-    obs: Observable<LiProtocolUpdateDTO>
-  ): Observable<FlPortalActionResult<LiProtocolUpdateDTO> | null> {
-    const action: FlPortalAction = {
-      type: LabWorkflowAction.DELETE_DYNAMIC_PARAM_SPEC,
-      action: obs,
-      text: { text: 'pr.deleting_param_spec', translateText: true },
-    };
-
-    return this.executeUpdateAction(action, process);
-  }
-
-  public updateParamSpecUpdateAction(
-    process: LiProcess,
-    obs: Observable<LiProtocolUpdateDTO>
-  ): Observable<FlPortalActionResult<LiProtocolUpdateDTO> | null> {
-    const action: FlPortalAction = {
-      type: LabWorkflowAction.UPDATE_DYNAMIC_PARAM_SPEC,
-      action: obs,
-      text: { text: 'pr.updating_param_spec', translateText: true },
-    };
-
-    return this.executeUpdateAction(action, process);
   }
 
   private addIoFace(
@@ -866,9 +829,6 @@ export class LabWorkflowEditConfig implements OnDestroy {
       LabWorkflowAction.RUN_PROCESS,
       LabWorkflowAction.ADD_INTERFACE,
       LabWorkflowAction.ADD_OUTERFACE,
-      LabWorkflowAction.ADD_DYNAMIC_PARAM_SPEC,
-      LabWorkflowAction.UPDATE_DYNAMIC_PARAM_SPEC,
-      LabWorkflowAction.DELETE_DYNAMIC_PARAM_SPEC,
     ]);
   }
 

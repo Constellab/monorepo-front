@@ -53,10 +53,11 @@ export class TdConfig implements TdConfigI {
     };
     for (const specName in record) {
       const configSpec: TdParamSpec = record[specName];
+      configSpec.human_name = configSpec.human_name ?? specName;
 
       // if a visibility is specified, only get the config for this visibility
       if (visibility && configSpec.visibility !== visibility) continue;
-      configs.subConfigs[specName] = this.convertToAbstractConfig(record[specName], specName);
+      configs.subConfigs[specName] = this.convertToAbstractConfig(record[specName]);
     }
     return configs;
   }
@@ -69,9 +70,15 @@ export class TdConfig implements TdConfigI {
   ): FlDynamicEditableFormGroupConfig | FlDynamicFormGroupConfig {
     const subConfigs: Record<string, FlDynamicFormAbstractControl> = {};
     for (const specName in record) {
-      subConfigs[specName] = this.convertToAbstractConfig(record[specName], specName);
+      const spec: TdParamSpec = record[specName];
+      spec.human_name = spec.human_name ?? specName;
+      if (editionMode && !spec.short_description?.startsWith(`Key : '${specName}'`)) {
+        spec.short_description = `Key : '${specName}'${
+          spec.short_description ? ' - ' + spec.short_description : ''
+        }`;
+      }
+      subConfigs[specName] = this.convertToAbstractConfig(record[specName]);
     }
-
     if (editionMode) {
       return {
         controlType: 'editableFormGroup',
@@ -87,16 +94,13 @@ export class TdConfig implements TdConfigI {
     }
   }
 
-  private convertToAbstractConfig(
-    spec: TdParamSpec,
-    defaultPlaceholder: string
-  ): FlDynamicFormAbstractControl {
+  private convertToAbstractConfig(spec: TdParamSpec): FlDynamicFormAbstractControl {
     if (spec.type === 'param_set') {
       const defaultValues = this.getConfigSpecDefaultValue(spec);
       return {
         controlType: 'formArray',
         formGpConfig: this.convertRecordToFieldConfigs(spec.additional_info.param_set),
-        placeholder: spec.human_name ?? defaultPlaceholder,
+        placeholder: spec.human_name,
         hint: spec.short_description,
         minSize: spec.optional ? 0 : 1,
         maxSize:
@@ -113,7 +117,7 @@ export class TdConfig implements TdConfigI {
         spec.short_description
       );
     } else {
-      return TdParamSpecConfig.convertParamSpecToAbstractConfig(spec, defaultPlaceholder);
+      return TdParamSpecConfig.convertParamSpecToAbstractConfig(spec);
     }
   }
 

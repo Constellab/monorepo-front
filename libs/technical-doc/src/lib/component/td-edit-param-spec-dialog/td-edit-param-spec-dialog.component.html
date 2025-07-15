@@ -12,8 +12,16 @@
   } @else {
     <fl-dynamic-form-group class="g-form-field-compact" [control]="formGroup" [config]="formGroupConfig">
     </fl-dynamic-form-group>
-    <button mat-flat-button (click)="saveParamSpec()" type="button" class="save-button primary">
+    <button
+      mat-flat-button
+      (click)="saveParamSpec()"
+      type="button"
+      class="save-button primary"
+      [disabled]="formGroup.invalid || isButtonLoading">
       {{ 'td.save' | translate }}
+      @if (isButtonLoading) {
+        <fl-button-loader></fl-button-loader>
+      }
     </button>
   }
 </mat-dialog-content>

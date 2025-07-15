@@ -504,5 +504,6 @@
   "edit_tag_description": "Edit tag description",
   "save_tag_description": "Save tag description",
   "add": "Add",
-  "download_markdown": "Download markdown"
+  "download_markdown": "Download markdown",
+  "agent_version_type": "Agent version type"
 }

@@ -15,7 +15,7 @@
             {{ port.text }}
           </div>
           <div class="port-menu">
-            @if (isDynamicPorts$ | async) {
+            @if ((isDynamicPorts$ | async) && showAddPortButton()) {
               <button
                 mat-icon-button
                 [matMenuTriggerFor]="menu"
@@ -45,7 +45,7 @@
     }
 
     <div class="g-text-centered add-container">
-      @if (isDynamicPorts$ | async) {
+      @if ((isDynamicPorts$ | async) && showAddPortButton()) {
         <button
           mat-icon-button
           type="button"
