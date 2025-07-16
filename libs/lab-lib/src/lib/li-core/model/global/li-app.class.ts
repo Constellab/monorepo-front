@@ -28,7 +28,10 @@ export class LiAppInstance {
 export class LiAppProcessStatus {
   id: string;
 
-  status: 'RUNNING' | 'STOPPED';
+  status: 'RUNNING' | 'STOPPED' | 'STARTING';
+
+  @Expose({ name: 'status_text' })
+  statusText?: string;
 
   @Expose({ name: 'running_apps' })
   @Type(() => LiAppInstance)
@@ -41,4 +44,20 @@ export class LiAppProcessStatus {
 export class LiAppsStatus {
   @Type(() => LiAppProcessStatus)
   processes: LiAppProcessStatus[];
+}
+
+// App detail
+export class LiAppInstanceUrl {
+  @Expose({ name: 'host_url' })
+  hostUrl: string;
+
+  params: Record<string, string>;
+}
+
+export class LiAppInstanceDetail {
+  @Type(() => LiAppInstance)
+  app: LiAppInstance;
+
+  @Type(() => LiAppInstanceUrl)
+  url: LiAppInstanceUrl;
 }

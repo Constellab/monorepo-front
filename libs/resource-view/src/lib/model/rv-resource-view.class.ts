@@ -114,10 +114,11 @@ export interface RvResourceViewPlotly extends RvResourceViewBase {
 export interface RvResourceViewApp extends RvResourceViewBase {
   type: 'app-view';
   data: {
-    url: {
-      host_url: string;
-      params: Record<string, string>;
-    };
+    app_id: string;
+    app_url: { host_url: string; params: Record<string, string> };
+    get_status_route: string; // route to get the app status
+    status: 'RUNNING' | 'STOPPED' | 'STARTING';
+    status_text?: string;
   };
 }
 
