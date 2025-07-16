@@ -6,19 +6,22 @@
       @for (origin of origins; track origin) {
         <li>
           <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
-            <div>{{ origin.originTypeText | translate }} :</div>
+            <div>{{ origin.originTypeText | translate }}</div>
 
-            @if (origin.isUserOrigin) {
-              <fl-user-inline [user]="$any(origin.originObject)" class="user-inline"></fl-user-inline>
-            } @else if (origin.originEntityType) {
-              <a
-                [routerLink]="origin.originId | liDetailRoute: origin.originEntityType"
-                target="_blank"
-                class="g-text-link"
-                >{{ origin.originObject ?? origin.originId }}
-              </a>
-            } @else {
-              {{ origin.originObject ?? origin.originId }}
+            @if (origin.showOriginId) {
+              <div>:</div>
+              @if (origin.isUserOrigin) {
+                <fl-user-inline [user]="$any(origin.originObject)" class="user-inline"></fl-user-inline>
+              } @else if (origin.originEntityType) {
+                <a
+                  [routerLink]="origin.originId | liDetailRoute: origin.originEntityType"
+                  target="_blank"
+                  class="g-text-link"
+                  >{{ origin.originObject ?? origin.originId }}
+                </a>
+              } @else {
+                {{ origin.originObject ?? origin.originId }}
+              }
             }
           </div>
         </li>
