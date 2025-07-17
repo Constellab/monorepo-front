@@ -41,8 +41,7 @@ export class LabDynamicParamSpecState extends TdAbstractDynamicParamSpecState im
   openEditConfigDialog(configName: string): void {
     if (this.process.config.specs[configName]?.type != 'dynamic') return;
 
-    const paramsSpecs: TdParamSpecs = (this.process.config.specs[configName].additional_info.specs =
-      this.process.config.values);
+    const paramsSpecs: TdParamSpecs = this.process.config.specs[configName].additional_info.specs;
 
     const input: TdConfigureParamSpecsTableDialogInput = {
       paramSpecs: paramsSpecs,

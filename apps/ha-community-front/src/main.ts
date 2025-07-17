@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import {
   ApplicationConfig,
   enableProdMode,
+  inject,
   mergeApplicationConfig,
   provideAppInitializer,
 } from '@angular/core';
@@ -17,11 +18,17 @@ import { TranslateLoader } from '@ngx-translate/core';
 
 import { HaAppComponent } from './app/ha-app.component';
 import { haAppConfig } from './app/ha-app.config';
+import { FlDifyLoaderService } from '@monorepo/front-core-lib/fl-chatbot';
+import { HaEnvironmentHelper } from './app/ha-core/ha-model/ha-config/ha-environment.helper';
 import { environment } from './environments/ha-environment';
 import { haEnvironmentPath, HaEnvironmentSettings } from './environments/ha-environment.class';
 
 function translationLoaderFactory(http: HttpClient, config: FlTranslateModuleConfig): FlTranslationLoader {
   return new FlTranslationLoader(http, config.filenames, config.folder, config.fileSuffix);
+}
+
+function loadDify(difyService: FlDifyLoaderService): void {
+  difyService.load(HaEnvironmentHelper.getDifyChatbotToken(), HaEnvironmentHelper.isProduction());
 }
 
 function bootstrapApp(): void {
@@ -33,6 +40,7 @@ function bootstrapApp(): void {
         deps: [HttpClient, FL_TRANSLATE_MODULE_CONFIG],
       },
       provideAppInitializer(() => TeFixInit.fixEditorInit()),
+      provideAppInitializer(() => loadDify(inject(FlDifyLoaderService))),
     ],
   };
 

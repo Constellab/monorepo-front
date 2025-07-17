@@ -12,6 +12,8 @@ const flDialogEn: FlLangTranslation = {
     close: 'Close',
     yes: 'Yes',
     no: 'No',
+    warning: 'Warning',
+    cancel: 'Cancel',
   },
 };
 
@@ -23,6 +25,8 @@ const flDialogFr: FlLangTranslation = {
     close: 'Fermer',
     yes: 'Oui',
     no: 'Non',
+    warning: 'Avertissement',
+    cancel: 'Annuler',
   },
 };
 

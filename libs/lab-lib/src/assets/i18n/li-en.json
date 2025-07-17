@@ -496,6 +496,6 @@
     "label_modified": "Label modified",
     "spec": "Spec",
     "delete_tag_value_content": "Are you sure you want to delete the tag value ? This will also delete all the objects that use this tag value.",
-    "system": "System"
+    "warnings": "Warnings"
   }
 }

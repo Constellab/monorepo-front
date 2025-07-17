@@ -3,6 +3,11 @@ import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { ActivatedRoute, Router } from '@angular/router';
+import {
+  FlDialogService,
+  FlWarningDialogComponent,
+  FlWarningDialogData,
+} from '@monorepo/front-core-lib/fl-dialog';
 import { CoCommunityLibModule } from '@monorepo/community-lib';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
@@ -22,6 +27,10 @@ import {
   HaAgentEditStyleDialogInputData,
 } from '../ha-agent-edit-style-dialog/ha-agent-edit-style-dialog.component';
 import { HaAgentVersionDetailComponent } from '../ha-agent-version-detail/ha-agent-version-detail.component';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { Ha404Component } from '../../../ha-public/module/ha404/ha404.component';
+import { TranslatePipe } from '@ngx-translate/core';
+import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
 
 @Component({
   selector: 'ha-agent-version-page',
@@ -93,7 +102,30 @@ export class HaAgentVersionPageComponent extends HaCommunityPageDirective implem
   }
 
   publishAgentVersion(agentVersionId: string): void {
-    this.agentPageState.publishAgentVersion(agentVersionId);
+    const warnings: FlTranslatableText[] = [];
+    if (this.agentVersion().versionInfos?.isEmpty()) {
+      warnings.push('agent_version_publish_no_version_info_warning');
+    }
+    if (this.agentVersion().agent?.description?.isEmpty()) {
+      warnings.push('agent_no_description_warning');
+    }
+
+    if (warnings.length == 0) {
+      this.agentPageState.publishAgentVersion(agentVersionId);
+      return;
+    }
+    const data: FlWarningDialogData = {
+      title: 'publish_agent_version',
+      warnings: warnings,
+      confirmText: 'publish',
+    };
+
+    this.dialogService
+      .openSmallDialog(FlWarningDialogComponent, { data: data })
+      .afterClosed()
+      .subscribe((result) => {
+        if (result) this.agentPageState.publishAgentVersion(agentVersionId);
+      });
   }
 
   deleteAgentVersion(): void {

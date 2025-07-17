@@ -157,6 +157,10 @@
     "view_agent_in_community": "View agent in Community",
     "community_agent_tooltip": "This task is a Community agent",
     "tags": "Tags",
-    "agent_params_spec_description": "You can add, edit or delete parameters to configure your agent, values of these parameters will be accessible in the code of your agent by using the dictionnary 'params'."
+    "agent_params_spec_description": "You can add, edit or delete parameters to configure your agent, values of these parameters will be accessible in the code of your agent by using the dictionnary 'params'.",
+    "share_agent_warning.no_config": "This agent has no configuration, you should add a configuration before sharing it to the Community.",
+    "share_agent_warning.parameter_without_description": "Some parameters of the agent have no description, you should add a description to each parameter before sharing it to the Community.",
+    "share_agent_warning.input_port_with_type_resource": "Some input ports of the agent have the resource type 'Resource', you should set the proper resource type for each input port before sharing it to the Community.",
+    "share_agent_warning.output_port_with_type_resource": "Some output ports of the agent have the resource type 'Resource', you should set the proper resource type for each output port before sharing it to the Community."
   }
 }

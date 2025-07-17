@@ -10,6 +10,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 
 import { FlCorePipeModule } from '../fl-core-pipe/fl-core-pipe.module';
+import { FlWarningDialogComponent } from './component/fl-warning-dialog/fl-warning-dialog.component';
 import { FlLoaderModule } from '../fl-loader/fl-loader.module';
 import { FlSnackBarModule } from '../fl-snack-bar/fl-snack-bar.module';
 import { FlTranslateModule } from '../fl-translate/fl-translate.module';
@@ -23,7 +24,12 @@ import { FlDialogService } from './fl-dialog.service';
  * Core modules containing components
  */
 @NgModule({
-  declarations: [FlConfirmDialogComponent, FlDialogHeaderComponent, FlDialogHeaderActionsComponent],
+  declarations: [
+    FlConfirmDialogComponent,
+    FlDialogHeaderComponent,
+    FlDialogHeaderActionsComponent,
+    FlWarningDialogComponent,
+  ],
   exports: [FlDialogHeaderComponent, FlDialogHeaderActionsComponent, MatDialogModule],
   imports: [
     CommonModule,

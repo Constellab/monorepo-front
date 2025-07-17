@@ -17,7 +17,6 @@ export interface LabConfigureProtocolDialogInput {
   selector: 'lab-configure-protocol-dialog',
   templateUrl: './lab-configure-protocol-dialog.component.html',
   styleUrls: ['./lab-configure-protocol-dialog.component.scss'],
-  providers: [LabProcessDashboardConfigState],
   imports: [FlDialogModule, MatDialogContent, LabConfigureProtocolComponent, TranslatePipe],
 })
 export class LabConfigureProtocolDialogComponent {

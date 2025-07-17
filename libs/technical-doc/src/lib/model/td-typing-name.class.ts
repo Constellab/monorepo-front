@@ -24,6 +24,7 @@ export class TdTypingName {
   };
 
   public static resource = {
+    resource: 'RESOURCE.gws_core.Resource',
     file: 'RESOURCE.gws_core.File',
     folder: 'RESOURCE.gws_core.Folder',
     tableFile: 'RESOURCE.gws_core.TableFile',

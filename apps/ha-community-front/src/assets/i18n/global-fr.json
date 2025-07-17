@@ -120,6 +120,7 @@
   "categories": "Catégories",
   "last_modified": "Dernière modification",
   "published": "Publié",
+  "publish": "Publier",
   "webinaires": "Webinaires",
   "forum": "Forum",
   "create_brick": "Créer une brique",
@@ -234,6 +235,7 @@
   "last_modification": "Dernière modification",
   "cannot_publish_agent_version_without_code": "Impossible de publier une version d'agent sans code",
   "publish_agent_version": "Publier la version de l'agent",
+  "confirm_publish_agent_version": "Confirmer la publication de la version de l'agent",
   "publish_agent_version_confirmation": "Êtes-vous sûr de vouloir publier cette version de l'agent ? Une fois publiée, le code ainsi que les autres informations ne pourront plus être modifiés.",
   "agent_version_published": "Version de l'agent publiée",
   "latest_version_infos": "Informations sur la dernière version",
@@ -507,5 +509,7 @@
   "save_tag_description": "Sauvegarder la description du tag",
   "add": "Ajouter",
   "download_markdown": "Télécharger en Markdown",
-  "agent_version_type": "Type de version de l'agent"
+  "agent_version_type": "Type de version de l'agent",
+  "agent_version_publish_no_version_info_warning": "Vous n'avez pas renseigné d'informations sur la version de l'agent. Si vous publiez cette version, elle sera publiée sans informations.",
+  "agent_no_description_warning": "Votre agent n'a pas de description générale. Il est recommandé d'en ajouter une pour aider les utilisateurs à comprendre son fonctionnement."
 }

@@ -1,0 +1,28 @@
+<fl-dialog-header>
+  {{ data.title | flTranslatableText | async }}
+</fl-dialog-header>
+
+<mat-dialog-content>
+  <div class="warning-container">
+    @for (warning of data.warnings; track warning) {
+      <p class="g-warn-text">
+        {{ 'flDialog.warning' | translate }} :
+        {{ warning | flTranslatableText | async }}
+      </p>
+    }
+  </div>
+</mat-dialog-content>
+
+<div mat-dialog-actions>
+  <button
+    mat-stroked-button
+    (click)="closeDialog(true)"
+    type="button"
+    class="yes-button primary"
+    tabindex="-1">
+    {{ data.confirmText | flTranslatableText | async }}
+  </button>
+  <button mat-stroked-button type="button" (click)="closeDialog(false)" class="warn" tabindex="-1">
+    {{ 'flDialog.cancel' | translate }}
+  </button>
+</div>

@@ -1,5 +1,9 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, HostListener, inject, OnDestroy, OnInit, signal, WritableSignal } from '@angular/core';
+import {
+  FlWarningDialogComponent,
+  FlWarningDialogData,
+} from '@monorepo/front-core-lib/fl-dialog';
 import { MatIconButton } from '@angular/material/button';
 import { MatDialogContent } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
@@ -38,6 +42,7 @@ import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { LabCoServiceConfig } from '../../../../lab-core/lab-co-service-config.service';
+import { FlTranslatableText, FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import { LabWorkflowEditConfig } from '../../model/lab-workflow-edit-config.class';
 import { LabProcessDashboardConfigState } from '../../state/lab-process-dashboard-config-state.service';
 import { LabScenarioDetailPageState } from '../../state/lab-scenario-detail-page.state';
@@ -86,6 +91,7 @@ export class LabProcessDashboardComponent implements OnInit, OnDestroy {
   private communityHelper = inject(CoCommunityHelperService);
   private protocolService = inject(LiProtocolService);
   private labCoServiceConfig = inject(LabCoServiceConfig);
+  private translateService = inject(FlTranslateService);
 
   process$ = this.nodeState.getProcess$();
   nodeProcess$ = this.nodeState.getNode$();
@@ -208,6 +214,28 @@ export class LabProcessDashboardComponent implements OnInit, OnDestroy {
     this.nodeState.updateCommunityAgentCodeParamsVisibility(process, newVisibility);
   }
 
+  checkAndOpenShareAgentToCommunityDialog(process: LiProcess, newVersion: boolean = false): void {
+    const warnings: FlTranslatableText[] = this.checkAgentWarnings(process);
+    if (warnings.length > 0) {
+      const data: FlWarningDialogData = {
+        title: 'li.share_agent_to_community',
+        warnings: warnings,
+        confirmText: 'li.share',
+      };
+
+      this.dialogService
+        .openSmallDialog(FlWarningDialogComponent, { data: data })
+        .afterClosed()
+        .subscribe((result) => {
+          if (result) {
+            this.onConfirmShareAgent(process, newVersion);
+          }
+        });
+    } else {
+      this.onConfirmShareAgent(process, newVersion);
+    }
+  }
+
   openShareCommunityAgentNewVersionDialog(process: LiProcess): void {
     this.dialogService
       .openMediumDialog(LiShareAgentNewVersionCommunityDialogComponent, {
@@ -270,5 +298,58 @@ export class LabProcessDashboardComponent implements OnInit, OnDestroy {
     this.protocolService.getCurrentAgent(agentVersionId).subscribe((agent) => {
       if (agent) this.communityAgentPageUrl = this.labCoServiceConfig.getCommunityAgentPageUrl(agent.id);
     });
+  }
+
+  private onConfirmShareAgent(process: LiProcess, newVersion: boolean): void {
+    if (newVersion) {
+      this.openShareCommunityAgentNewVersionDialog(process);
+    } else {
+      this.openShareCommunityAgentDialog(process);
+    }
+  }
+
+  private checkAgentWarnings(process: LiProcess): FlTranslatableText[] {
+    const warnings: string[] = [];
+    if (Object.keys(process.config.specs?.params?.additional_info?.specs)?.length == 0) {
+      warnings.push('biox.share_agent_warning.no_config');
+    }
+    for (const param of Object.keys(process.config.specs.params.additional_info.specs)) {
+      const spec = process.config.specs.params.additional_info.specs[param];
+      if (spec.short_description == null || spec.short_description === '') {
+        warnings.push('biox.share_agent_warning.parameter_without_description');
+        break;
+      }
+    }
+
+    for (const input_key of Object.keys(process.inputs.ports)) {
+      const input = process.inputs.ports[input_key];
+      let hasInputOfTypeResource = false;
+      for (const resource_type of input.specs.resource_types) {
+        if (resource_type.typing_name === TdTypingName.resource.resource) {
+          hasInputOfTypeResource = true;
+          break;
+        }
+      }
+      if (hasInputOfTypeResource) {
+        warnings.push('biox.share_agent_warning.input_port_with_type_resource');
+        break;
+      }
+    }
+
+    for (const output_key of Object.keys(process.outputs.ports)) {
+      const output = process.outputs.ports[output_key];
+      let hasOutputOfTypeResource = false;
+      for (const resource_type of output.specs.resource_types) {
+        if (resource_type.typing_name === TdTypingName.resource.resource) {
+          hasOutputOfTypeResource = true;
+          break;
+        }
+      }
+      if (hasOutputOfTypeResource) {
+        warnings.push('biox.share_agent_warning.output_port_with_type_resource');
+        break;
+      }
+    }
+    return warnings;
   }
 }

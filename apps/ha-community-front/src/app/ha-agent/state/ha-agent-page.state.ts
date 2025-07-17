@@ -277,7 +277,7 @@ export class HaAgentPageState {
     }
     this.dialogService
       .openConfirmDialog({
-        title: 'publish_agent_version',
+        title: 'confirm_publish_agent_version',
         content: 'publish_agent_version_confirmation',
         successMessage: 'agent_version_published',
         observable: this.agentService.publishAgentVersion(agentVersionId),

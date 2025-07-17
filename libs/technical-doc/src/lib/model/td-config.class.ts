@@ -72,11 +72,6 @@ export class TdConfig implements TdConfigI {
     for (const specName in record) {
       const spec: TdParamSpec = record[specName];
       spec.human_name = spec.human_name ?? specName;
-      if (editionMode && !spec.short_description?.startsWith(`Key : '${specName}'`)) {
-        spec.short_description = `Key : '${specName}'${
-          spec.short_description ? ' - ' + spec.short_description : ''
-        }`;
-      }
       subConfigs[specName] = this.convertToAbstractConfig(record[specName]);
     }
     if (editionMode) {
