@@ -96,13 +96,6 @@
       "@monorepo/front-core-lib/fl-theme": ["libs/front-core-lib/src/lib/fl-theme/index.ts"],
       "@monorepo/front-core-lib/fl-translate": ["libs/front-core-lib/src/lib/fl-translate/index.ts"],
       "@monorepo/front-core-lib/fl-user": ["libs/front-core-lib/src/lib/fl-user/index.ts"],
-      "@monorepo/lab-manager-lib": ["libs/lab-manager-lib/src/index.ts"],
-      "@monorepo/mail": ["libs/mail/src/index.ts"],
-      "@monorepo/protocol": ["libs/protocol/src/index.ts"],
-      "@monorepo/resource-view": ["libs/resource-view/src/index.ts"],
-      "@monorepo/spreadsheet": ["libs/spreadsheet/src/index.ts"],
-      "@monorepo/technical-doc": ["libs/technical-doc/src/index.ts"],
-      "@monorepo/text-editor": ["libs/text-editor/src/index.ts"],
       "@monorepo/lab-lib/li-activity": ["libs/lab-lib/src/lib/li-activity/index.ts"],
       "@monorepo/lab-lib/li-brick": ["libs/lab-lib/src/lib/li-brick/index.ts"],
       "@monorepo/lab-lib/li-config": ["libs/lab-lib/src/lib/li-config/index.ts"],
@@ -128,7 +121,14 @@
       "@monorepo/lab-lib/li-transformer": ["libs/lab-lib/src/lib/li-transformer/index.ts"],
       "@monorepo/lab-lib/li-type": ["libs/lab-lib/src/lib/li-type/index.ts"],
       "@monorepo/lab-lib/li-venv": ["libs/lab-lib/src/lib/li-venv/index.ts"],
-      "@monorepo/lab-lib/li-view-config": ["libs/lab-lib/src/lib/li-view-config/index.ts"]
+      "@monorepo/lab-lib/li-view-config": ["libs/lab-lib/src/lib/li-view-config/index.ts"],
+      "@monorepo/lab-manager-lib": ["libs/lab-manager-lib/src/index.ts"],
+      "@monorepo/mail": ["libs/mail/src/index.ts"],
+      "@monorepo/protocol": ["libs/protocol/src/index.ts"],
+      "@monorepo/resource-view": ["libs/resource-view/src/index.ts"],
+      "@monorepo/spreadsheet": ["libs/spreadsheet/src/index.ts"],
+      "@monorepo/technical-doc": ["libs/technical-doc/src/index.ts"],
+      "@monorepo/text-editor": ["libs/text-editor/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

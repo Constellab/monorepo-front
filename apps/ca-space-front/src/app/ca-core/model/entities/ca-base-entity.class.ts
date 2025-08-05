@@ -1,8 +1,9 @@
-import { CaUser } from './ca-user.class';
-import { DateTime } from 'luxon';
 import { ClLuxonDateTimeTransform } from '@monorepo/core-lib';
-import { CaEntity } from './ca-entity.entity';
 import { Type } from 'class-transformer';
+import { DateTime } from 'luxon';
+
+import { CaEntity } from './ca-entity.entity';
+import { CaUser } from './ca-user.class';
 
 export class CaBaseEntity extends CaEntity {
   @ClLuxonDateTimeTransform()

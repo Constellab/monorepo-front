@@ -1,8 +1,8 @@
 import { OverlayRef } from '@angular/cdk/overlay';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
 import { ComponentRef, EmbeddedViewRef } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 /**
  * Wrapper for the OverlayRef

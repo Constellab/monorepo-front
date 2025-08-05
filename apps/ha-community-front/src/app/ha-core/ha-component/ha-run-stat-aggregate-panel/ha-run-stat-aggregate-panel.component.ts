@@ -1,14 +1,15 @@
-import { Component, computed, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, computed, input } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
+
 import {
   HaRunStatAggregate,
   HaRunStatAggregateObjectType,
 } from '../../ha-model/ha-entities/ha-run-stat-aggregate.class';
-import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
-import { MatIconModule } from '@angular/material/icon';
-import { MatTooltip } from '@angular/material/tooltip';
 
 @Component({
   selector: 'ha-run-stat-aggregate-panel',

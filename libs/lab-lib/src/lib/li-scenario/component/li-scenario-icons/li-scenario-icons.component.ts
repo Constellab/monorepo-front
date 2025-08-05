@@ -1,9 +1,9 @@
+import { NgClass } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
-import { LiScenario } from '@monorepo/lab-lib/li-core';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
-import { NgClass } from '@angular/common';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { LiScenario } from '@monorepo/lab-lib/li-core';
 import { TranslatePipe } from '@ngx-translate/core';
 
 /**

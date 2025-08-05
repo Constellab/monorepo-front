@@ -1,5 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
+
 import { CaFolderDetailActionEvent } from '../../../../ca-core/entity-module/ca-folder-core/model/ca-folder-detail-action-menu.class';
 import { CaFolder } from '../../../../ca-core/model/entities/folder/ca-folder.class';
 import {

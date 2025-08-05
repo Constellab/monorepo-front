@@ -1,7 +1,3 @@
-import { SpSheetChartSelection } from './sp-sheet-chart-selection.class';
-import { SpSheetChartSerieSelectionForm } from './sp-sheet-chart-selection-form.class';
-import { SpSheet } from '../sp-sheet.class';
-import { SpSheetSelection } from '../selection/sp-sheet-selection.class';
 import {
   ChChartBoxPlot,
   ChChartBoxPlotSerie,
@@ -9,6 +5,11 @@ import {
   chChartGetBoxPlotData,
   ChChartMultiSerie,
 } from '@monorepo/chart';
+
+import { SpSheetSelection } from '../selection/sp-sheet-selection.class';
+import { SpSheet } from '../sp-sheet.class';
+import { SpSheetChartSelection } from './sp-sheet-chart-selection.class';
+import { SpSheetChartSerieSelectionForm } from './sp-sheet-chart-selection-form.class';
 
 export class SpSheetChartSelectionBoxPlot extends SpSheetChartSelection {
   constructor(

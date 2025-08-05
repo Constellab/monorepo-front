@@ -1,11 +1,11 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
-import { FlDynamicFormAbstractControl, FlDynamicFormHelper } from '@monorepo/front-core-lib/fl-dynamic-field';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Observable } from 'rxjs';
 import { AbstractControl } from '@angular/forms';
-import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FlFormHelper } from '@monorepo/front-core-lib/fl-core';
+import { FlDynamicFormAbstractControl, FlDynamicFormHelper } from '@monorepo/front-core-lib/fl-dynamic-field';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
+import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
+import { Observable } from 'rxjs';
 
 export interface FlDynamicFieldFormDialogInput {
   title: FlTranslatableText;

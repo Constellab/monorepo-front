@@ -1,19 +1,19 @@
+import { TeBlockType } from './te-block.class';
+import { TeHTMLEditorJSON,TeRichText } from './te-rich-text.class';
 import {
-  TeRichTextAggregate,
   TeNewFullRichTextDTO,
   TeOldRichTextContentWithModificationsI,
+  TeRichTextAggregate,
 } from './te-rich-text-aggregate.class';
-import { TeRichText, TeHTMLEditorJSON } from './te-rich-text.class';
-import { TeRichTextModifications } from './te-rich-text-modifications.class';
 import {
   TeRichTextBlockModification,
   TeRichTextModificationType,
 } from './te-rich-text-block-modification.class';
-import { TeBlockType } from './te-block.class';
 import {
   TeRichTextBlockModificationWithUser,
   TeRichTextGetUserFunction,
 } from './te-rich-text-block-modification.dto';
+import { TeRichTextModifications } from './te-rich-text-modifications.class';
 import { TeUser } from './te-user.class';
 
 describe('TeRichTextAggregate', () => {

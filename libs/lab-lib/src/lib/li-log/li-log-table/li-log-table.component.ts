@@ -1,13 +1,7 @@
-import { Component, Input, inject } from '@angular/core';
-import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
-import { FlDatasource } from '@monorepo/front-core-lib/fl-core';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { FlFileHelper } from '@monorepo/front-core-lib/fl-translate';
-import {
-  LiLogCompleteInfoDialogComponent,
-  LiLogCompleteInfoDialogInput,
-} from '../li-log-complete-info-dialog/li-log-complete-info-dialog.component';
-import { LiLogInfo, LiLogService } from '@monorepo/lab-lib/li-core';
+import { Component, inject,Input } from '@angular/core';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import {
   MatCell,
   MatCellDef,
@@ -20,10 +14,17 @@ import {
   MatRowDef,
   MatTable,
 } from '@angular/material/table';
-import { MatIcon } from '@angular/material/icon';
-import { MatIconButton } from '@angular/material/button';
-import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
+import { FlDatasource } from '@monorepo/front-core-lib/fl-core';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlFileHelper } from '@monorepo/front-core-lib/fl-translate';
+import { LiLogInfo, LiLogService } from '@monorepo/lab-lib/li-core';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import {
+  LiLogCompleteInfoDialogComponent,
+  LiLogCompleteInfoDialogInput,
+} from '../li-log-complete-info-dialog/li-log-complete-info-dialog.component';
 
 @Component({
   selector: 'li-log-table',

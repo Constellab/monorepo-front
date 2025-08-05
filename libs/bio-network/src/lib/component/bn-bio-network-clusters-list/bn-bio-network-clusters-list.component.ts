@@ -1,9 +1,10 @@
 import { Component, inject, OnInit } from '@angular/core';
+import { MatSelectChange } from '@angular/material/select';
 import { Observable } from 'rxjs';
+
+import { BnBioNetworkClusterSelection } from '../../model/bn-bio-network.class';
 import { BnBioNetworkState } from '../../state/bn-bio-network.state';
 import { BnBioNetworkOptionsState } from '../../state/bn-bio-network-options.state';
-import { BnBioNetworkClusterSelection } from '../../model/bn-bio-network.class';
-import { MatSelectChange } from '@angular/material/select';
 
 /**
  * Show the list of cluster with possibility to select them and color them

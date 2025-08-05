@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { LiResourceViewListComponent } from './li-resource-view-list.component';
 
 describe('LabResourcesListComponent', () => {

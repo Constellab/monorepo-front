@@ -1,12 +1,12 @@
 import {
   Component,
   EventEmitter,
+  inject,
   Input,
   OnDestroy,
   Output,
   TemplateRef,
   ViewChild,
-  inject,
 } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';

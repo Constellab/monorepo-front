@@ -1,11 +1,12 @@
+import { isPlatformBrowser } from '@angular/common';
 import { Component, ElementRef, inject, Input, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
+import { FlHighlight } from '@monorepo/front-core-lib/fl-markdown';
+
 import {
   TdResourceFunctionArg,
   TdTechDocFunction,
   TdTechDocFunctionType,
 } from '../../model/td-resource-type.class';
-import { isPlatformBrowser } from '@angular/common';
-import { FlHighlight } from '@monorepo/front-core-lib/fl-markdown';
 
 @Component({
   selector: 'td-resource-doc-function-signature',

@@ -1,21 +1,7 @@
 import { Component, inject, Input } from '@angular/core';
-import {
-  CaServerStandard,
-  CaServerStandardDatasource,
-} from '../../../../model/entities/server/ca-server-standard.class';
-import {
-  FlConfirmDialogInput,
-  FlConfirmDialogResult,
-  FlDialogService,
-} from '@monorepo/front-core-lib/fl-dialog';
-import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
-
-import { CaServerService } from '../../../../service-api/ca-server.service';
-import {
-  CaServerStandardFormDialogComponent,
-  CaServerStandardFormDialogInput,
-} from '../ca-server-standard-form-dialog/ca-server-standard-form-dialog.component';
-import { CaServerPricesDialogComponent } from '../ca-server-prices-dialog/ca-server-prices-dialog.component';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import {
   MatCell,
   MatCellDef,
@@ -28,12 +14,26 @@ import {
   MatRowDef,
   MatTable,
 } from '@angular/material/table';
-import { CaServerStandardPriceComponent } from '../ca-server-standard-price/ca-server-standard-price.component';
+import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
+import {
+  FlConfirmDialogInput,
+  FlConfirmDialogResult,
+  FlDialogService,
+} from '@monorepo/front-core-lib/fl-dialog';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import { MatIconButton } from '@angular/material/button';
-import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
-import { MatIcon } from '@angular/material/icon';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import {
+  CaServerStandard,
+  CaServerStandardDatasource,
+} from '../../../../model/entities/server/ca-server-standard.class';
+import { CaServerService } from '../../../../service-api/ca-server.service';
+import { CaServerPricesDialogComponent } from '../ca-server-prices-dialog/ca-server-prices-dialog.component';
+import {
+  CaServerStandardFormDialogComponent,
+  CaServerStandardFormDialogInput,
+} from '../ca-server-standard-form-dialog/ca-server-standard-form-dialog.component';
+import { CaServerStandardPriceComponent } from '../ca-server-standard-price/ca-server-standard-price.component';
 
 @Component({
   selector: 'ca-server-standard-table',

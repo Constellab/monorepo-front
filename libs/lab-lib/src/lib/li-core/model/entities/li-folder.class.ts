@@ -1,8 +1,9 @@
-import { DateTime } from 'luxon';
 import { FlEntity } from '@monorepo/front-core-lib/fl-core';
+import { Type } from 'class-transformer';
+import { DateTime } from 'luxon';
+
 import { LiEntity } from '../global/li-entity.entity';
 import { LiUser } from './li-user.entity';
-import { Type } from 'class-transformer';
 
 export class LiFolder extends LiEntity {
   name: string;

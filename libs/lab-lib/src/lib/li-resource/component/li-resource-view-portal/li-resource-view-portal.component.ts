@@ -1,21 +1,22 @@
 import { Component, inject } from '@angular/core';
-import { FL_PORTAL_DATA, FlOverlayRef, FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
-import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
-import { FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
-import { FlResizeModule } from '@monorepo/front-core-lib/fl-resize';
-import { LiResourceDetailState } from '../../state/li-resource-detail.state';
-import { LiResourceView, LiViewConfig, LiViewConfigService } from '@monorepo/lab-lib/li-core';
-import { MatIcon } from '@angular/material/icon';
 import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
 import { MatMenuItem } from '@angular/material/menu';
 import { MatTooltip } from '@angular/material/tooltip';
-import { RvResourceViewModule, RvViewConfig } from '@monorepo/resource-view';
-import { TdTechnicalDocModule } from '@monorepo/technical-doc';
-import { TranslatePipe } from '@ngx-translate/core';
+import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
+import { FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
+import { FL_PORTAL_DATA, FlOverlayRef, FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
+import { FlResizeModule } from '@monorepo/front-core-lib/fl-resize';
+import { LiResourceView, LiViewConfig, LiViewConfigService } from '@monorepo/lab-lib/li-core';
 import {
   LiViewConfigActionsMenuComponent,
   LiViewConfigFavoriteComponent,
 } from '@monorepo/lab-lib/li-view-config';
+import { RvResourceViewModule, RvViewConfig } from '@monorepo/resource-view';
+import { TdTechnicalDocModule } from '@monorepo/technical-doc';
+import { TranslatePipe } from '@ngx-translate/core';
+
+import { LiResourceDetailState } from '../../state/li-resource-detail.state';
 
 export interface LiResourceViewPortalInput {
   labView: LiResourceView;

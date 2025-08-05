@@ -1,6 +1,7 @@
 import { Observable } from 'rxjs';
-import { HaFile } from './ha-file';
+
 import { HaBaseEntityWithFiles } from './ha-base-entity-with-files';
+import { HaFile } from './ha-file';
 
 export interface HaFileServiceInterface<T extends HaBaseEntityWithFiles> {
   getById(entityId: string): Observable<T>;

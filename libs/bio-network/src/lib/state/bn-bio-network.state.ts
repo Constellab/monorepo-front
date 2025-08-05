@@ -1,20 +1,21 @@
 import { inject, Injectable, OnDestroy } from '@angular/core';
+import { ClHelpService } from '@monorepo/core-lib';
+import { FlColorHelper } from '@monorepo/front-core-lib/fl-core';
+import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
+import { FlFileHelper, FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { debounceTime, map } from 'rxjs/operators';
+
 import {
   BnBioNetwork,
   BnBioNetworkClusterSelection,
   BnBioNetworkCompartment,
   FlPathwayDatabase,
 } from '../model/bn-bio-network.class';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { BnBioNetworkFactory } from '../utils/bn-bio-network.factory';
-import { ClHelpService } from '@monorepo/core-lib';
-import { BnBioNetworkHelper } from '../utils/bn-bio-network.helper';
-import { debounceTime, map } from 'rxjs/operators';
-import { BnBioNetworkEngineState } from './bn-bio-network-engine.state';
-import { FlColorHelper } from '@monorepo/front-core-lib/fl-core';
-import { FlFileHelper, FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
-import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
 import { BnBioNetworkGraph } from '../model/bn-bio-network-graph.class';
+import { BnBioNetworkFactory } from '../utils/bn-bio-network.factory';
+import { BnBioNetworkHelper } from '../utils/bn-bio-network.helper';
+import { BnBioNetworkEngineState } from './bn-bio-network-engine.state';
 
 /**
  * State containing the data for the pathway

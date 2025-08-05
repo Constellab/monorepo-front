@@ -1,20 +1,20 @@
-import { ClDateHelper } from '@monorepo/core-lib';
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
-import { DateTime } from 'luxon';
-import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
-import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
-import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { Component, inject,OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { LiMonitorBetweenDatesComponent } from '@monorepo/lab-lib/li-monitor';
-import { LiMonitorGraphicsBetweenDates, LiMonitorService } from '@monorepo/lab-lib/li-core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTimepickerModule } from '@angular/material/timepicker';
-import { Observable, Subscription, debounceTime } from 'rxjs';
+import { ClDateHelper } from '@monorepo/core-lib';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { LiMonitorGraphicsBetweenDates, LiMonitorService } from '@monorepo/lab-lib/li-core';
+import { LiMonitorBetweenDatesComponent } from '@monorepo/lab-lib/li-monitor';
 import { TranslatePipe } from '@ngx-translate/core';
+import { DateTime } from 'luxon';
+import { debounceTime,Observable, Subscription } from 'rxjs';
 
 export enum LabMonitoringRunPeriod {
   CURRENT_DAY = 'CURRENT_DAY',

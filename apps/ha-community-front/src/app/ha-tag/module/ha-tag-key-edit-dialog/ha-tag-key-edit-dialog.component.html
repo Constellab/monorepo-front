@@ -36,9 +36,11 @@
       <mat-form-field class="g-full">
         <mat-label>{{ 'type' | translate }}</mat-label>
         <mat-select formControlName="type">
-          <mat-option *ngFor="let type of tagTypes" [value]="type">
-            {{ type }}
-          </mat-option>
+          @for (type of tagTypes; track type) {
+            <mat-option [value]="type">
+              {{ type }}
+            </mat-option>
+          }
         </mat-select>
         @if (formGp.get('type').hasError('required')) {
           <mat-error>{{ 'type' | flErrorRequired }}</mat-error>

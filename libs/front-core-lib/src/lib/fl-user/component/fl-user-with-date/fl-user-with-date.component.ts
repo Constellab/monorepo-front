@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DateTime } from 'luxon';
+
 import { FlUser } from '../../model/fl-user.class';
 
 /**

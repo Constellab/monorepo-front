@@ -1,9 +1,10 @@
+import { inject,Injectable } from '@angular/core';
 import { ClPageI } from '@monorepo/core-lib';
 import { FlApiWithCacheService } from '@monorepo/front-core-lib/fl-api';
-import { Injectable, inject } from '@angular/core';
-import { LiViewModel } from '../model/global/li-view-model.entity';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+
+import { LiViewModel } from '../model/global/li-view-model.entity';
 
 @Injectable({
   providedIn: 'root',

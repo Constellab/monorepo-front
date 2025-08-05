@@ -1,18 +1,8 @@
+import { NgClass } from '@angular/common';
 import { Component, inject, Input } from '@angular/core';
-import { CaSpaceInvitService } from '../../../../ca-core/service-api/ca-space-invit.service';
-import {
-  FlConfirmDialogInput,
-  FlConfirmDialogResult,
-  FlDialogService,
-} from '@monorepo/front-core-lib/fl-dialog';
-import { FlDatasourcePaginated, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
-
-import {
-  CaSpaceUserRoleDialogComponent,
-  CaSpaceUserRoleDialogInput,
-} from '../ca-space-user-role-dialog/ca-space-user-role-dialog.component';
-import { CaSpaceInvit } from '../../../../ca-core/model/entities/space/ca-space-invit.class';
-import { CaSpaceRole } from '../../../../ca-core/model/entities/space/ca-space-user.class';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import {
   MatCell,
   MatCellDef,
@@ -26,12 +16,22 @@ import {
   MatTable,
 } from '@angular/material/table';
 import { MatTooltip } from '@angular/material/tooltip';
-import { NgClass } from '@angular/common';
-import { MatIconButton } from '@angular/material/button';
-import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
-import { MatIcon } from '@angular/material/icon';
-import { TranslatePipe } from '@ngx-translate/core';
+import { FlDatasourcePaginated, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
+import {
+  FlConfirmDialogInput,
+  FlConfirmDialogResult,
+  FlDialogService,
+} from '@monorepo/front-core-lib/fl-dialog';
+import { TranslatePipe } from '@ngx-translate/core';
+
+import { CaSpaceInvit } from '../../../../ca-core/model/entities/space/ca-space-invit.class';
+import { CaSpaceRole } from '../../../../ca-core/model/entities/space/ca-space-user.class';
+import { CaSpaceInvitService } from '../../../../ca-core/service-api/ca-space-invit.service';
+import {
+  CaSpaceUserRoleDialogComponent,
+  CaSpaceUserRoleDialogInput,
+} from '../ca-space-user-role-dialog/ca-space-user-role-dialog.component';
 
 /**
  * Table for the SpaceInvit entity with actions

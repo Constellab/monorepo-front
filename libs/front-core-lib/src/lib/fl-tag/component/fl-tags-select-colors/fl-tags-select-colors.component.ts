@@ -11,9 +11,10 @@ import {
 } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { ClHelpService } from '@monorepo/core-lib';
+import { Subscription } from 'rxjs';
+
 import { FlTagValue, FlTagWithColor } from '../../fl-tag.class';
 import { FlTagColorer, FlTagColorWithSelection } from '../../fl-tag-colorer.class';
-import { Subscription } from 'rxjs';
 
 interface FlTagGroupColor {
   key: string;

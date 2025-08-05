@@ -1,7 +1,8 @@
 import { Component, inject, input } from '@angular/core';
 import { toObservable } from '@angular/core/rxjs-interop';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { switchMap } from 'rxjs';
-import { FlSectionModule } from '../../../../../../../../../libs/front-core-lib/src/lib/fl-section';
+
 import { CaLabCardComponent } from '../../../../../ca-core/entity-module/ca-lab-core/component/ca-lab-card/ca-lab-card.component';
 import { CaRootFolderUserRoleObj } from '../../../../../ca-core/model/entities/folder/ca-folder-user.class';
 import { CaHierarchyObjectTagDatasource } from '../../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';

@@ -1,5 +1,5 @@
-import { HaEnvironment } from '../../../../environments/ha-environment.class';
 import { environment } from '../../../../environments/ha-environment';
+import { HaEnvironment } from '../../../../environments/ha-environment.class';
 
 export class HaEnvironmentHelper {
   public static getEnv(): HaEnvironment {

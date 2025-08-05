@@ -4,14 +4,14 @@ import {
   EventEmitter,
   HostBinding,
   HostListener,
+  inject,
   Input,
   Output,
   Renderer2,
-  inject,
 } from '@angular/core';
-import { DateTime } from 'luxon';
 import { ClDateHelper } from '@monorepo/core-lib';
 import { FlKeyboardKey } from '@monorepo/front-core-lib/fl-core';
+import { DateTime } from 'luxon';
 
 @Directive({
   selector: '[flElementEditable]',

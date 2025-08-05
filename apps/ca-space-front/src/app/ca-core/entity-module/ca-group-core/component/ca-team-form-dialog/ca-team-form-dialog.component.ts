@@ -1,18 +1,19 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FlDialogModule, FlFormDialogAbstractDirective } from '@monorepo/front-core-lib/fl-dialog';
-import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
-import { CaGroup, CaSaveTeamDTO } from '../../../../model/entities/ca-group.entity';
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { CaGroupService } from '../../../../service-api/ca-group.service';
+import { MatButton } from '@angular/material/button';
 import { MatDialogActions, MatDialogContent } from '@angular/material/dialog';
 import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
+import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
 import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
-import { MatButton } from '@angular/material/button';
-import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
+import { FlDialogModule, FlFormDialogAbstractDirective } from '@monorepo/front-core-lib/fl-dialog';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { TranslatePipe } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+
+import { CaGroup, CaSaveTeamDTO } from '../../../../model/entities/ca-group.entity';
+import { CaGroupService } from '../../../../service-api/ca-group.service';
 
 export type CaTeamFormDialogInput = FlFormDialogInput<CaSaveTeamDTO>;
 

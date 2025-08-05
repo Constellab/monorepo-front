@@ -1,4 +1,16 @@
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { Component, inject,OnDestroy, OnInit } from '@angular/core';
+import { MatIconButton } from '@angular/material/button';
+import { MatDialogContent, MatDialogRef } from '@angular/material/dialog';
+import { MatIcon } from '@angular/material/icon';
+import {
+  MatList,
+  MatListItem,
+  MatListItemLine,
+  MatListItemMeta,
+  MatListItemTitle,
+} from '@angular/material/list';
+import { MatTooltip } from '@angular/material/tooltip';
+import { RouterLink } from '@angular/router';
 import { FlArrayObs, FlEntityArrayObs } from '@monorepo/front-core-lib/fl-core';
 import {
   FlConfirmDialogInput,
@@ -16,20 +28,8 @@ import {
   LiScenarioService,
 } from '@monorepo/lab-lib/li-core';
 import { LiRunningScenarioTableComponent } from '@monorepo/lab-lib/li-scenario';
-import { MatDialogContent, MatDialogRef } from '@angular/material/dialog';
-import { MatIcon } from '@angular/material/icon';
-import { MatIconButton } from '@angular/material/button';
-import {
-  MatList,
-  MatListItem,
-  MatListItemLine,
-  MatListItemMeta,
-  MatListItemTitle,
-} from '@angular/material/list';
-import { MatTooltip } from '@angular/material/tooltip';
-import { RouterLink } from '@angular/router';
-import { Subscription, tap, zip } from 'rxjs';
 import { TranslatePipe } from '@ngx-translate/core';
+import { Subscription, tap, zip } from 'rxjs';
 
 @Component({
   selector: 'lab-queue-jobs-dialog',

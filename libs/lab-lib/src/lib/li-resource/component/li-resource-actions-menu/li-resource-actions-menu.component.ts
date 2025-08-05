@@ -1,15 +1,24 @@
 import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
+import { RouterLink } from '@angular/router';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlPortalActionResult } from '@monorepo/front-core-lib/fl-portal-actions';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlTranslatableText, FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+import { LiResource, LiResourceService, LiRouterService, LiTagService } from '@monorepo/lab-lib/li-core';
+import { LiNavigableEntityService, LiNavigableImpactConfig } from '@monorepo/lab-lib/li-navigable-entity';
+import { LiSharedEntityInfoDialogComponent, LiSharedEntityInfoDialogInput } from '@monorepo/lab-lib/li-share';
+import { LiManageEntityTagsDialogComponent, LiManageEntityTagsDialogInput } from '@monorepo/lab-lib/li-tag';
+import { TranslatePipe } from '@ngx-translate/core';
+
+import { LiResourceDownloadService } from '../../service/li-resource-download.service';
 import {
   LiImportResourceDialogComponent,
   LiImportResourceDialogInput,
 } from '../li-import-resource-dialog/li-import-resource-dialog.component';
-import { LiNavigableEntityService, LiNavigableImpactConfig } from '@monorepo/lab-lib/li-navigable-entity';
-import { LiResource, LiResourceService, LiRouterService, LiTagService } from '@monorepo/lab-lib/li-core';
 import {
   LiResourceUpdateFolderDialogComponent,
   LiResourceUpdateFolderDialogInput,
@@ -19,14 +28,6 @@ import {
   LiUpdateResourceNameDialogComponent,
 } from '../li-update-resource-name-dialog/li-update-resource-name-dialog.component';
 import { LiUpdateResourceTypeComponent } from '../li-update-resource-type/li-update-resource-type.component';
-import { MatIcon } from '@angular/material/icon';
-import { MatIconButton } from '@angular/material/button';
-import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
-import { RouterLink } from '@angular/router';
-import { TranslatePipe } from '@ngx-translate/core';
-import { LiSharedEntityInfoDialogComponent, LiSharedEntityInfoDialogInput } from '@monorepo/lab-lib/li-share';
-import { LiManageEntityTagsDialogComponent, LiManageEntityTagsDialogInput } from '@monorepo/lab-lib/li-tag';
-import { LiResourceDownloadService } from '../../service/li-resource-download.service';
 
 /**
  * Action menu button for resources, it has a ng-content for custom buttons

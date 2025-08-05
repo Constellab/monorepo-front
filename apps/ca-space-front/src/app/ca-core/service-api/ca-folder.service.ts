@@ -1,4 +1,23 @@
 import { inject, Injectable } from '@angular/core';
+import { ClHelpService, ClPage, ClPageI } from '@monorepo/core-lib';
+import { FlApiService } from '@monorepo/front-core-lib/fl-api';
+import { FlDatasourceGetPageData, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
+import { FlSearchConverter } from '@monorepo/front-core-lib/fl-search';
+import { TeBlockFigureUploadedResponse, TeRichText } from '@monorepo/text-editor';
+import { Observable } from 'rxjs';
+
+import {
+  CaActivitySearch,
+  CaActivitySearchFields,
+} from '../entity-module/ca-activity-core/model/ca-activity-search.class';
+import {
+  CaHierarchyObjectSearch,
+  CaHierarchyObjectSearchFields,
+} from '../entity-module/ca-hierarchy-object-core/ca-hierarchy-object-search.class';
+import { CaActivity } from '../model/entities/ca-activity.class';
+import { CaBucketLocationDTO } from '../model/entities/ca-object-storage.class';
+import { CaUser } from '../model/entities/ca-user.class';
+import { CaFolderStorageUsageDTO } from '../model/entities/folder/ca-document.class';
 import {
   CaFolder,
   CaFolderStorageDTO,
@@ -6,35 +25,16 @@ import {
   CaGetFolderDescriptionDTO,
   CnSaveFolderDTO,
 } from '../model/entities/folder/ca-folder.class';
-import { Observable } from 'rxjs';
-import { ClHelpService, ClPage, ClPageI } from '@monorepo/core-lib';
-import { CaUser } from '../model/entities/ca-user.class';
-import { CaBucketLocationDTO } from '../model/entities/ca-object-storage.class';
-import { CaFolderStorageUsageDTO } from '../model/entities/folder/ca-document.class';
 import {
   CaFolderUser,
   CaFolderUserConfig,
   CaRootFolderUserRole,
 } from '../model/entities/folder/ca-folder-user.class';
-import { CaActivity } from '../model/entities/ca-activity.class';
-import {
-  CaActivitySearch,
-  CaActivitySearchFields,
-} from '../entity-module/ca-activity-core/model/ca-activity-search.class';
-import { TeBlockFigureUploadedResponse, TeRichText } from '@monorepo/text-editor';
-import { FlApiService } from '@monorepo/front-core-lib/fl-api';
-import { FlDatasourceGetPageData, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
-import { FlSearchConverter } from '@monorepo/front-core-lib/fl-search';
-
 import {
   CaHierarchyObject,
   CaHierarchyObjectDatasource,
   CaHierarchyObjectSimple,
 } from '../model/entities/folder/ca-hierarchy-object.class';
-import {
-  CaHierarchyObjectSearch,
-  CaHierarchyObjectSearchFields,
-} from '../entity-module/ca-hierarchy-object-core/ca-hierarchy-object-search.class';
 
 /**
  * Service to manage folder entity

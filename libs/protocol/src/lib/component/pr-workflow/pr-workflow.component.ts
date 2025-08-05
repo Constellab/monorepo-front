@@ -8,21 +8,22 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { PrWorkflowManagerState } from '../../state/pr-workflow-manager-state';
-import { PrWorkflow, PrWorkflowMode } from '../../model/workflow/pr-workflow.class';
+import { FlPortalConnectedPosition, FlPortalService } from '@monorepo/front-core-lib/fl-portal';
 import { Observable, Subscription } from 'rxjs';
-import { PrWorkflowNodeMenuConfig } from '../../model/workflow/pr-workflow-node-menu.config';
+
+import { PrWorkflow, PrWorkflowMode } from '../../model/workflow/pr-workflow.class';
 import {
   PrWorkflowActionEvent,
   PrWorkflowActionShowIOFace,
 } from '../../model/workflow/pr-workflow-action-event.class';
-import { FlPortalConnectedPosition, FlPortalService } from '@monorepo/front-core-lib/fl-portal';
+import { PrWorkflowNodeMenuConfig } from '../../model/workflow/pr-workflow-node-menu.config';
+import { PrWorkflowActionState } from '../../state/pr-workflow-action-state';
+import { PrWorkflowManagerState } from '../../state/pr-workflow-manager-state';
 import {
   PrIoFaceConnectedNodeDatasource,
   PrIofaceInfoPortalComponent,
   PrIofaceInfoPortalData,
 } from '../pr-ioface-info-portal/pr-ioface-info-portal.component';
-import { PrWorkflowActionState } from '../../state/pr-workflow-action-state';
 
 @Component({
   selector: 'pr-workflow',

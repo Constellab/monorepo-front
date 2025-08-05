@@ -1,13 +1,13 @@
-import { TeKeyListener } from './te-key-listener.class';
-import { FlEmojiPickerPortalComponent } from '@monorepo/front-core-lib/fl-emoji-picker';
-import { FlEmojiPickerPortalInput } from '@monorepo/front-core-lib/fl-emoji-picker';
 import { FlHtmlHelper } from '@monorepo/front-core-lib/fl-core';
 import { FlKeyboardKey } from '@monorepo/front-core-lib/fl-core';
+import { flRootInjector } from '@monorepo/front-core-lib/fl-core';
+import { FlEmojiPickerPortalComponent } from '@monorepo/front-core-lib/fl-emoji-picker';
+import { FlEmojiPickerPortalInput } from '@monorepo/front-core-lib/fl-emoji-picker';
 import { FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
 import { FlPortalService } from '@monorepo/front-core-lib/fl-portal';
-import { flRootInjector } from '@monorepo/front-core-lib/fl-core';
 
 import { TeHelper } from '../model/te.helper';
+import { TeKeyListener } from './te-key-listener.class';
 import { TePortalPlugin } from './te-portal-plugin.class';
 
 export class TeEmoji extends TePortalPlugin {

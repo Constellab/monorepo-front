@@ -2,6 +2,7 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/c
 import { inject, Injectable } from '@angular/core';
 import { CoCommunityHelperService } from '@monorepo/community-lib';
 import { Observable } from 'rxjs';
+
 import { CaCurrentSpaceService } from '../service-api/ca-current-space.service';
 import { CaEnvironmentHelper } from '../utils/ca-environment.helper';
 

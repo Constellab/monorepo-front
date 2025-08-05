@@ -1,7 +1,8 @@
-import { ChChartData, ChChartDataContainer } from './ch-chart-data.class';
 import { ClHelpService } from '@monorepo/core-lib';
 import { FlTagHelper } from '@monorepo/front-core-lib/fl-tag';
+
 import { ChLegend } from '../legend/ch-chart-legend-multi-series.class';
+import { ChChartData, ChChartDataContainer } from './ch-chart-data.class';
 
 /**
  * Key to distinguish a serie form another

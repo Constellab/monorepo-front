@@ -1,7 +1,8 @@
 import { ClLuxonDateTimeTransform } from '@monorepo/core-lib';
+import { FlEntity } from '@monorepo/front-core-lib/fl-core';
 import { TdTypeStyle } from '@monorepo/technical-doc';
 import { DateTime } from 'luxon';
-import { FlEntity } from '../../../../../../../../libs/front-core-lib/src/lib/fl-core';
+
 import { CaRootFolderUserRoleObj } from './ca-folder-user.class';
 
 export class CaResource implements FlEntity {

@@ -36,6 +36,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { DateTime } from 'luxon';
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
+
 import { LabCoServiceConfig } from '../../../../lab-core/lab-co-service-config.service';
 import { LabWorkflowEditConfig } from '../../model/lab-workflow-edit-config.class';
 import { LabProcessDashboardConfigState } from '../../state/lab-process-dashboard-config-state.service';

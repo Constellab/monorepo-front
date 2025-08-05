@@ -1,33 +1,33 @@
+import { AsyncPipe } from '@angular/common';
 import { Component, inject, Input, OnInit } from '@angular/core';
-import { CaSpace } from '../../../../ca-core/model/entities/space/ca-space.class';
+import { MatButton, MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
 } from '@monorepo/front-core-lib/fl-dialog';
-
-import { CaSpaceService } from '../../../../ca-core/service-api/ca-space.service';
-import { CaRouterService } from '../../../../ca-core/service/ca-router.service';
-import { CaCurrentSpaceService } from '../../../../ca-core/service-api/ca-current-space.service';
-import { Observable } from 'rxjs';
-import { CaRequestNewLicensesComponent } from '../ca-request-new-licenses/ca-request-new-licenses.component';
-import { CaSpaceSettingsDto } from '../../../../ca-core/model/entities/space/ca-space.dto';
-import { map } from 'rxjs/operators';
-import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
-import { CaIsSpaceAdminDirective } from '../../../../ca-core/module/ca-core-directive/ca-is-space-admlin/ca-is-space-admin.directive';
-import { MatButton, MatIconButton } from '@angular/material/button';
-import { MatTooltip } from '@angular/material/tooltip';
-import { MatIcon } from '@angular/material/icon';
+import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
 import { FlImageModule, FlUploadImageDialogConfig } from '@monorepo/front-core-lib/fl-image';
+import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { TranslatePipe } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 import {
   CaSpacePhotoComponent
 } from '../../../../ca-core/entity-module/ca-space-core/component/ca-space-photo/ca-space-photo.component';
-import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
-import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
-import { AsyncPipe } from '@angular/common';
-import { TranslatePipe } from '@ngx-translate/core';
+import { CaSpace } from '../../../../ca-core/model/entities/space/ca-space.class';
+import { CaSpaceSettingsDto } from '../../../../ca-core/model/entities/space/ca-space.dto';
+import { CaIsSpaceAdminDirective } from '../../../../ca-core/module/ca-core-directive/ca-is-space-admlin/ca-is-space-admin.directive';
+import { CaRouterService } from '../../../../ca-core/service/ca-router.service';
+import { CaCurrentSpaceService } from '../../../../ca-core/service-api/ca-current-space.service';
+import { CaSpaceService } from '../../../../ca-core/service-api/ca-space.service';
+import { CaRequestNewLicensesComponent } from '../ca-request-new-licenses/ca-request-new-licenses.component';
 
 /**
  * Show all the information about a space

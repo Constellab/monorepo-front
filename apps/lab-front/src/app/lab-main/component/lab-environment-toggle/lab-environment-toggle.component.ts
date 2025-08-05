@@ -1,8 +1,9 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSlideToggle, MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { Subscription } from 'rxjs';
 import { TranslatePipe } from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
+
 import { LabDevEnvironmentService } from '../../../lab-core/lab-dev-environment.service';
 import { LabEnvStore } from '../../../lab-core/lab-env.store';
 

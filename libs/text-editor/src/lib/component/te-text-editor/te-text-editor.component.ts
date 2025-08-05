@@ -1,19 +1,20 @@
+import { isPlatformBrowser } from '@angular/common';
 import {
   Component,
   EventEmitter,
   HostBinding,
+  inject,
   Input,
   OnInit,
   Output,
   PLATFORM_ID,
-  inject,
 } from '@angular/core';
-import { TeConfig } from '../../model/te-config.class';
-import { FlFormFieldDirective } from '@monorepo/front-core-lib/fl-core';
 import { NgControl } from '@angular/forms';
-import { isPlatformBrowser } from '@angular/common';
-import { TeEvent } from '../../model/te-event.class';
+import { FlFormFieldDirective } from '@monorepo/front-core-lib/fl-core';
+
 import { TeRichText } from '../../model/lib';
+import { TeConfig } from '../../model/te-config.class';
+import { TeEvent } from '../../model/te-event.class';
 
 @Component({
   selector: 'te-text-editor',

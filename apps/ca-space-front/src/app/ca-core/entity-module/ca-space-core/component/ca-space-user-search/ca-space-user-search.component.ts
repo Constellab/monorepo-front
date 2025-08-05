@@ -1,39 +1,41 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { FlConfirmDialogInput } from '@monorepo/front-core-lib/fl-dialog';
-import { FlConfirmDialogResult } from '@monorepo/front-core-lib/fl-dialog';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { FlSavedSearch } from '@monorepo/front-core-lib/fl-search';
-import { FlSearchConfig } from '@monorepo/front-core-lib/fl-search';
-import { FlSearchState } from '@monorepo/front-core-lib/fl-search';
+import { Component, inject,OnInit } from '@angular/core';
+import { MatButton, MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
+import {
+  FlConfirmDialogInput,
+  FlConfirmDialogResult,
+  FlDialogService,
+} from '@monorepo/front-core-lib/fl-dialog';
+import { FlSavedSearch, FlSearchConfig, FlSearchState } from '@monorepo/front-core-lib/fl-search';
+import { FlSearchModule } from '@monorepo/front-core-lib/fl-search';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
+import { TranslatePipe } from '@ngx-translate/core';
 
+import { CaCurrentSpaceInvitDialogComponent } from '../../../../../ca-structure/ca-space-page/component/ca-current-space-invit-dialog/ca-current-space-invit-dialog.component';
+import {
+  CaSpaceUserRoleDialogComponent,
+  CaSpaceUserRoleDialogInput,
+} from '../../../../../ca-structure/ca-space-page/component/ca-space-user-role-dialog/ca-space-user-role-dialog.component';
 import {
   CaSpaceRole,
   CaSpaceUser,
   CaSpaceUserDatasource,
 } from '../../../../model/entities/space/ca-space-user.class';
-import { CaSpaceSearchFields } from '../../model/ca-space-search.class';
+import { CaIsAdminDirective } from '../../../../module/ca-core-directive/ca-is-admin/ca-is-admin.directive';
+import { CaIsSpaceAdminDirective } from '../../../../module/ca-core-directive/ca-is-space-admlin/ca-is-space-admin.directive';
 import { CaCurrentSpaceService } from '../../../../service-api/ca-current-space.service';
-import { CaSpaceUserSearch, CaSpaceUserSearchFields } from '../../model/ca-space-user-search.class';
 import {
   CaGroupAddUserDialogComponent,
   CaGroupAddUserDialogInput,
 } from '../../../ca-group-core/component/ca-group-add-user-dialog/ca-group-add-user-dialog.component';
-import {
-  CaSpaceUserRoleDialogComponent,
-  CaSpaceUserRoleDialogInput,
-} from '../../../../../ca-structure/ca-space-page/component/ca-space-user-role-dialog/ca-space-user-role-dialog.component';
-import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
-import { FlSearchModule } from '@monorepo/front-core-lib/fl-search';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { MatIcon } from '@angular/material/icon';
-import { CaIsAdminDirective } from '../../../../module/ca-core-directive/ca-is-admin/ca-is-admin.directive';
-import { MatIconButton } from '@angular/material/button';
-import { MatTooltip } from '@angular/material/tooltip';
+import { CaSpaceSearchFields } from '../../model/ca-space-search.class';
+import { CaSpaceUserSearch, CaSpaceUserSearchFields } from '../../model/ca-space-user-search.class';
 import { CaSpaceUserSearchFormComponent } from '../ca-space-user-search-form/ca-space-user-search-form.component';
 import { CaSpaceUserTableComponent } from '../ca-space-user-table/ca-space-user-table.component';
-import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'ca-space-user-search',
@@ -51,6 +53,8 @@ import { TranslatePipe } from '@ngx-translate/core';
     CaSpaceUserSearchFormComponent,
     CaSpaceUserTableComponent,
     TranslatePipe,
+    CaIsSpaceAdminDirective,
+    MatButton,
   ],
 })
 export class CaSpaceUserSearchComponent implements OnInit {
@@ -199,5 +203,9 @@ export class CaSpaceUserSearchComponent implements OnInit {
     if (result.choice) {
       this.datasource.removeItem(user);
     }
+  }
+
+  openInvitationDialog(): void {
+    this.dialogService.openBigDialog(CaCurrentSpaceInvitDialogComponent, { autoFocus: false });
   }
 }

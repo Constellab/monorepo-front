@@ -1,7 +1,7 @@
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
-import { filter } from 'rxjs/operators';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
+import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 /**
  * Action to be shown in the screen

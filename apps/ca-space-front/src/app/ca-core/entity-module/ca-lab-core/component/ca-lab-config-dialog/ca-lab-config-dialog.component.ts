@@ -5,6 +5,7 @@ import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { FlTranslatableText, FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 import { Observable } from 'rxjs';
+
 import { CaLabConfig } from '../../../../model/entities/lab/ca-lab-config.class';
 import { CaLabConfigComponent } from '../ca-lab-config/ca-lab-config.component';
 

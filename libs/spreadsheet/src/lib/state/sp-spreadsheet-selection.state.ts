@@ -1,13 +1,14 @@
-import { Injectable, OnDestroy, inject } from '@angular/core';
+import { inject,Injectable, OnDestroy } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
+
+import { SpCellsRange } from '../model/selection/sp-cells-range.class';
 import {
   SpSheetSingleSelection,
   SpSheetSingleSelectionFull,
 } from '../model/selection/sp-sheet-single-selection.class';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { SpSpreadsheetState } from './sp-spreadsheet.state';
-import { SpSheet } from '../model/sp-sheet.class';
-import { SpCellsRange } from '../model/selection/sp-cells-range.class';
 import { SpCellCoord } from '../model/sp-cell-coord.class';
+import { SpSheet } from '../model/sp-sheet.class';
+import { SpSpreadsheetState } from './sp-spreadsheet.state';
 
 /**
  * Unique state shared across the spreadsheet to manage the selection

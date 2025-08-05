@@ -1,9 +1,10 @@
 import { Component, inject, OnDestroy, OnInit, viewChild, ViewContainerRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { FlServerError } from '../../../../../../libs/front-core-lib/src/lib/fl-api';
-import { FlCoreComponentModule } from '../../../../../../libs/front-core-lib/src/lib/fl-core-component/fl-core-component.module';
-import { FlLoaderModule } from '../../../../../../libs/front-core-lib/src/lib/fl-loader/fl-loader.module';
-import { FlSectionModule } from '../../../../../../libs/front-core-lib/src/lib/fl-section/fl-section.module';
+import { FlServerError } from '@monorepo/front-core-lib/fl-api';
+import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+
 import { CaSpaceInterceptor } from '../../ca-core/interceptor/ca-space-interceptor.service';
 import {
   CaRootFolderUserRole,

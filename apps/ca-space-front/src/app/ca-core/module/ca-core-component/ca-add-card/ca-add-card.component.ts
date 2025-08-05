@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { MatRipple } from '@angular/material/core';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 
 /**
  * Simple card use to add an object

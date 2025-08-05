@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+
 import { CaSpaceUserSearchComponent } from '../../../../ca-core/entity-module/ca-space-core/component/ca-space-user-search/ca-space-user-search.component';
 
 @Component({

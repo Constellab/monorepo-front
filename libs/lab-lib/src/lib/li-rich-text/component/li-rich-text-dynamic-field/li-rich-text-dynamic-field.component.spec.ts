@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { LiRichTextDynamicFieldComponent } from './li-rich-text-dynamic-field.component';
 
 describe('LiRichTextDynamicFieldComponent', () => {

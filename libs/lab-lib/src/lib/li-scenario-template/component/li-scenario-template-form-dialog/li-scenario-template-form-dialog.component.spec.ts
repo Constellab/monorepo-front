@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { LiScenarioTemplateFormDialogComponent } from './li-scenario-template-form-dialog.component';
 
 describe('LiScenarioTemplateFormDialogComponent', () => {

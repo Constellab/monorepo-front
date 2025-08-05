@@ -1,4 +1,5 @@
-import { Pipe, PipeTransform, inject } from '@angular/core';
+import { inject,Pipe, PipeTransform } from '@angular/core';
+
 import { HaBrickService } from '../../../ha-service/ha-brick.service';
 
 @Pipe({ name: 'haBrickImage' })

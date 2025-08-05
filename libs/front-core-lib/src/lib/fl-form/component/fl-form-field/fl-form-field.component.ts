@@ -5,16 +5,16 @@ import {
   ContentChild,
   DoCheck,
   ElementRef,
+  inject,
   Input,
   OnDestroy,
   OnInit,
   Renderer2,
-  inject,
 } from '@angular/core';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
+import { FlFormFieldDirective } from '@monorepo/front-core-lib/fl-core';
 import { Observable, Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
-import { FlFormFieldDirective } from '@monorepo/front-core-lib/fl-core';
 
 /**
  * Component to wrap around a custom form field to handle form error status like mat-form-field

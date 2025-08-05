@@ -1,6 +1,6 @@
+import { SpCellsRange } from '../selection/sp-cells-range.class';
 import { SpSheet } from '../sp-sheet.class';
 import { SpSheetAction } from './sp-sheet.action';
-import { SpCellsRange } from '../selection/sp-cells-range.class';
 
 /**
  * Sheet action to update multiple cells value

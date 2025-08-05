@@ -1,20 +1,20 @@
 import { AsyncPipe } from '@angular/common';
-import { CoAgent, CoCommunityLibModule } from '@monorepo/community-lib';
-import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
-import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
+import { Component, EventEmitter, inject,Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatIconButton } from '@angular/material/button';
+import { MatChipOption } from '@angular/material/chips';
+import { MatDivider } from '@angular/material/divider';
+import { MatFormField, MatSuffix } from '@angular/material/form-field';
+import { MatIcon } from '@angular/material/icon';
+import { MatInput } from '@angular/material/input';
+import { CoAgent, CoCommunityLibModule } from '@monorepo/community-lib';
+import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
 import {
   LiAgent,
   LiAgentDatasourcePaginated,
   LiCommunitySpace,
   LiProtocolService,
 } from '@monorepo/lab-lib/li-core';
-import { MatChipOption } from '@angular/material/chips';
-import { MatDivider } from '@angular/material/divider';
-import { MatFormField, MatSuffix } from '@angular/material/form-field';
-import { MatIcon } from '@angular/material/icon';
-import { MatIconButton } from '@angular/material/button';
-import { MatInput } from '@angular/material/input';
 import { TranslatePipe } from '@ngx-translate/core';
 
 /**

@@ -1,7 +1,8 @@
 import { inject, Injectable } from '@angular/core';
+import { CoIcon } from '@monorepo/community-lib';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { Observable } from 'rxjs';
-import { CoIcon } from '@monorepo/community-lib';
+
 import { HaIconCreateDto } from '../ha-model/ha-entities/ha-icon.class';
 
 @Injectable({

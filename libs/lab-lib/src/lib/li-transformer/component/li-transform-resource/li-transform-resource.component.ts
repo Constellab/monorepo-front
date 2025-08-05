@@ -1,6 +1,5 @@
 import { CdkDrag, CdkDragDrop, CdkDragHandle, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
-import { ChangeDetectorRef, Component, Input, OnInit, inject } from '@angular/core';
-import { ClHelpService } from '@monorepo/core-lib';
+import { ChangeDetectorRef, Component, inject,Input, OnInit } from '@angular/core';
 import {
   ControlContainer,
   FormArray,
@@ -11,10 +10,15 @@ import {
   UntypedFormArray,
   UntypedFormGroup,
 } from '@angular/forms';
+import { MatButton, MatIconButton } from '@angular/material/button';
+import { MatAccordion, MatExpansionPanel, MatExpansionPanelHeader } from '@angular/material/expansion';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { ClHelpService } from '@monorepo/core-lib';
+import { FlGlobalValidators } from '@monorepo/front-core-lib/fl-core';
 import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlDynamicFieldConfigService } from '@monorepo/front-core-lib/fl-dynamic-field';
-import { FlGlobalValidators } from '@monorepo/front-core-lib/fl-core';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { LiProcessDynamicFieldConfig } from '@monorepo/lab-lib/li-config';
 import {
@@ -23,10 +27,11 @@ import {
   LiTypeEntity,
   LiTypeService,
 } from '@monorepo/lab-lib/li-core';
-import { MatAccordion, MatExpansionPanel, MatExpansionPanelHeader } from '@angular/material/expansion';
-import { MatButton, MatIconButton } from '@angular/material/button';
-import { MatIcon } from '@angular/material/icon';
-import { MatTooltip } from '@angular/material/tooltip';
+import {
+  LiSelectTypeDialogComponent,
+  LiSelectTypeDialogInput,
+  LiTypeShowDetailButtonComponent,
+} from '@monorepo/lab-lib/li-type';
 import {
   TdConfig,
   TdConfigureSpecsForm,
@@ -34,11 +39,6 @@ import {
   TdTechnicalDocModule,
 } from '@monorepo/technical-doc';
 import { TranslatePipe } from '@ngx-translate/core';
-import {
-  LiSelectTypeDialogComponent,
-  LiSelectTypeDialogInput,
-  LiTypeShowDetailButtonComponent,
-} from '@monorepo/lab-lib/li-type';
 
 interface LiSelectedTransformer {
   transformer: LiProcessType;

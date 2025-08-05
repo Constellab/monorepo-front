@@ -10,8 +10,6 @@ export class HaMetadataService {
   private titleService = inject(Title);
   private translateService = inject(FlTranslateService);
 
-  setLinkCanonical(url: string): void {}
-
   setPageTitle(title: string, hasTranslation: boolean = false, data?: any): void {
     if (hasTranslation) {
       this.translateService.get(title, data).subscribe((titleTrad: string) => {
@@ -56,7 +54,10 @@ export class HaMetadataService {
     const description: string = this.getMetaTag('og:description', true);
     const image: string = this.getMetaTag('og:image', true);
 
-    return `https://www.facebook.com/sharer/sharer.php?u=${url}&title=${title}&description=${description}&picture=${image}`;
+    return (
+      `https://www.facebook.com/sharer/sharer.php?u=${url}&title=${title}` +
+      `&description=${description}&picture=${image}`
+    );
   }
 
   getTwitterShareUrl(): string {
@@ -66,7 +67,10 @@ export class HaMetadataService {
     const image: string = this.getMetaTag('twitter:image');
     const site: string = this.getMetaTag('twitter:site');
 
-    return `https://twitter.com/intent/tweet?text=${title}&card=${card}&description=${description}&image=${image}&site=${site}`;
+    return (
+      `https://twitter.com/intent/tweet?text=${title}&card=${card}` +
+      `&description=${description}&image=${image}&site=${site}`
+    );
   }
 
   getLinkedInShareUrl(): string {
@@ -75,7 +79,10 @@ export class HaMetadataService {
     const description: string = this.getMetaTag('og:description', true);
     const image: string = this.getMetaTag('og:image', true);
 
-    return `https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${title}&summary=${description}&source=${image}`;
+    return (
+      `https://www.linkedin.com/shareArticle?mini=true&url=${url}` +
+      `&title=${title}&summary=${description}&source=${image}`
+    );
   }
 
   private setTwitterMetaTags(

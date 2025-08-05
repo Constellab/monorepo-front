@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+
 import { TdTypeStyle, tdTypeStyleDefault } from '../../model/td-type.class';
 
 /**

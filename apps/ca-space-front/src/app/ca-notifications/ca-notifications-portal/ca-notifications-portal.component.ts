@@ -10,6 +10,7 @@ import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { TranslatePipe } from '@ngx-translate/core';
+
 import {
   CaNotification,
   CaNotificationDatasourcePaginated,

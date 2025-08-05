@@ -1,25 +1,26 @@
+import { AsyncPipe } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
-import { CaHierarchyObjectDetailState } from '../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { MatDrawer, MatDrawerContainer, MatDrawerContent } from '@angular/material/sidenav';
+import { RouterOutlet } from '@angular/router';
+import { FlQueryParamHandler } from '@monorepo/front-core-lib/fl-core';
+import { FlSearchState } from '@monorepo/front-core-lib/fl-search';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import { CaHierarchyObjectTreeComponent } from '../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-tree/ca-hierarchy-object-tree.component';
 import {
   CaHierarchyObjectSimple,
   CaHierarchyObjectsTreeDatasource,
   CaHierarchyObjectType,
 } from '../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
 import { CaRouterService } from '../../../../ca-core/service/ca-router.service';
-import { map } from 'rxjs/operators';
-import { MatDrawer, MatDrawerContainer, MatDrawerContent } from '@angular/material/sidenav';
-import { RouterOutlet } from '@angular/router';
-import { AsyncPipe } from '@angular/common';
-import { FlQueryParamHandler } from '@monorepo/front-core-lib/fl-core';
-import { CaHierarchyObjectTreeComponent } from '../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-tree/ca-hierarchy-object-tree.component';
-import { CaHierarchyObjectTagsFilterComponent } from '../ca-hierarchy-object-tags-filter/ca-hierarchy-object-tags-filter.component';
-import { FlSearchState } from '@monorepo/front-core-lib/fl-search';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { CaHierarchyObjectSearchState } from '../../ca-folder-hierarchy-core/state/ca-hierarchy-object-search.state';
-import { CaHierarchyObjectEventState } from '../../ca-folder-hierarchy-core/state/ca-hierarchy-object-event.state';
-import { CaHierarchyObjectActionsMenuState } from '../../ca-folder-hierarchy-core/state/ca-hierarchy-object-actions-menu.state';
 import { CaFolderRightPanelState } from '../../ca-folder-detail-page/state/ca-folder-right-panel.state';
+import { CaHierarchyObjectActionsMenuState } from '../../ca-folder-hierarchy-core/state/ca-hierarchy-object-actions-menu.state';
+import { CaHierarchyObjectDetailState } from '../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
+import { CaHierarchyObjectEventState } from '../../ca-folder-hierarchy-core/state/ca-hierarchy-object-event.state';
+import { CaHierarchyObjectSearchState } from '../../ca-folder-hierarchy-core/state/ca-hierarchy-object-search.state';
+import { CaHierarchyObjectTagsFilterComponent } from '../ca-hierarchy-object-tags-filter/ca-hierarchy-object-tags-filter.component';
 
 /**
  * Detail page for the folder objects (folder, scenario, note).

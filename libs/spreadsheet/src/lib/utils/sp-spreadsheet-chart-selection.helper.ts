@@ -1,12 +1,13 @@
-import { SpSheetMultiSelection } from '../model/selection/sp-sheet-multi-selection.class';
-import { SpSheet } from '../model/sp-sheet.class';
 import { AbstractControl, ValidatorFn } from '@angular/forms';
-import { SpSpreadsheetHelper } from './sp-spreadsheet.helper';
+import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+
+import { SpSheetMultiSelection } from '../model/selection/sp-sheet-multi-selection.class';
 import {
   SpSheetSingleSelection,
   SpSheetSingleSelectionFull,
 } from '../model/selection/sp-sheet-single-selection.class';
-import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+import { SpSheet } from '../model/sp-sheet.class';
+import { SpSpreadsheetHelper } from './sp-spreadsheet.helper';
 
 /**
  * Class linked to {@link SpSheetChartSerieSelectionComponent} to help handle different

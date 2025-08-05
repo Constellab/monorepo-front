@@ -1,10 +1,11 @@
-import { Component, inject, ViewContainerRef } from '@angular/core';
+import { Component, inject, input, ViewContainerRef } from '@angular/core';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+
+import { LmlLabManagerService } from '../../lml-lab-manager.service';
 import { LmlLabManagerState } from '../../lml-lab-manager.state';
 import { LmlLabManagerStatus } from '../../model/lml-lab-manager.class';
-import { LmlLabManagerService } from '../../lml-lab-manager.service';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { LmlAdminerInfoDialogComponent } from '../lml-adminer-info-dialog/lml-adminer-info-dialog.component';
 import { LmlDockerContainerErrorDialogComponent } from '../lml-docker-container-error-dialog/lml-docker-container-error-dialog.component';
 
@@ -35,6 +36,9 @@ interface LmlCurrentStatusInfo {
   standalone: false,
 })
 export class LmlManagerStatusComponent {
+  // if true a loader with text is displayed when the lab manager is busy
+  showCurrentAction = input<boolean>(true);
+
   private managerState = inject(LmlLabManagerState);
   private managerService = inject(LmlLabManagerService);
   private dialogService = inject(FlDialogService);

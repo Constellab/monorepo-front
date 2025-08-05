@@ -11,6 +11,7 @@ import {
   TeVariableInlineToolClass,
 } from '@monorepo/text-editor';
 import { Observable } from 'rxjs';
+
 import { CaNoteService } from '../../../../ca-core/service-api/ca-note.service';
 import {
   CaNoteRichTextViewBlock,

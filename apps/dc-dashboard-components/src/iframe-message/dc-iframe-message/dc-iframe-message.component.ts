@@ -1,14 +1,14 @@
 import { Component, inject, OnDestroy, OnInit, Renderer2 } from '@angular/core';
-
 import { ClTheme } from '@monorepo/core-lib';
 import { RenderData, Streamlit } from 'streamlit-component-lib';
-import { DcIframeToMainEventEmitter } from '../../core/iframe-event/dc-iframe-event-emitter.class';
-import { DcMainToIframeEventListener } from '../../core/iframe-event/dc-iframe-event-listener.class';
+
 import {
   dcGetIframeMessageHost,
   DcIframeEventAction,
   DcMainToIframeEvent,
 } from '../../core/iframe-event/dc-iframe-event.class';
+import { DcIframeToMainEventEmitter } from '../../core/iframe-event/dc-iframe-event-emitter.class';
+import { DcMainToIframeEventListener } from '../../core/iframe-event/dc-iframe-event-listener.class';
 import { DcComponentData } from '../../core/model/dc-dynamic-component.class';
 
 /**

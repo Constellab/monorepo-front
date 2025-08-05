@@ -1,15 +1,16 @@
 import { Component, ElementRef, inject, Input, OnInit, ViewChild } from '@angular/core';
-import { BnBioNetwork } from '../../model/bn-bio-network.class';
-import { BnBioNetworkState } from '../../state/bn-bio-network.state';
 import { MatDrawer } from '@angular/material/sidenav';
+
+import { BnBioNetwork } from '../../model/bn-bio-network.class';
+import { BnBioNetworkMainRenderer } from '../../renderer/bn-bio-network-main.renderer';
+import { BnBioNetworkZoomRenderer } from '../../renderer/bn-bio-network-zoom.renderer';
+import { BnBioNetworkState } from '../../state/bn-bio-network.state';
 import { BnBioNetworkDrawerState } from '../../state/bn-bio-network-drawer.state';
+import { BnBioNetworkEngineState } from '../../state/bn-bio-network-engine.state';
+import { BnBioNetworkGridState } from '../../state/bn-bio-network-grid.state';
 import { BnBioNetworkOptionsState } from '../../state/bn-bio-network-options.state';
 import { BnBioNetworkSelectionState } from '../../state/bn-bio-network-selection.state';
-import { BnBioNetworkMainRenderer } from '../../renderer/bn-bio-network-main.renderer';
-import { BnBioNetworkGridState } from '../../state/bn-bio-network-grid.state';
-import { BnBioNetworkZoomRenderer } from '../../renderer/bn-bio-network-zoom.renderer';
 import { BnBioNetworkSimulationState } from '../../state/bn-bio-network-simulation.state';
-import { BnBioNetworkEngineState } from '../../state/bn-bio-network-engine.state';
 
 @Component({
   selector: 'bn-bio-network',

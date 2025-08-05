@@ -7,6 +7,7 @@ import {
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
+
 import { FlPlotlyData } from '../plotly-data.class';
 
 @Component({

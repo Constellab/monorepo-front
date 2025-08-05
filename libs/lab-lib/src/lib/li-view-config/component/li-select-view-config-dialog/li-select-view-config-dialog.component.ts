@@ -1,9 +1,10 @@
 import { Component, inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { LiViewConfig } from '@monorepo/lab-lib/li-core';
-import { LiViewConfigSearchComponent } from '../li-view-config-search/li-view-config-search.component';
-import { MAT_DIALOG_DATA, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { LiViewConfigSearchComponent } from '../li-view-config-search/li-view-config-search.component';
 
 @Component({
   selector: 'li-select-view-config-dialog',

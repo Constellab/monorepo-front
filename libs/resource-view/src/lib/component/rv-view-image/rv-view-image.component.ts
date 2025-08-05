@@ -1,7 +1,8 @@
-import { Component, OnInit, SecurityContext, inject } from '@angular/core';
-import { RvResourceViewDirective } from '../../model/rv-resource-view.directive';
-import { RvResourceViewImage } from '../../model/rv-resource-view.class';
+import { Component, inject,OnInit, SecurityContext } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+
+import { RvResourceViewImage } from '../../model/rv-resource-view.class';
+import { RvResourceViewDirective } from '../../model/rv-resource-view.directive';
 
 @Component({
   selector: 'rv-view-image',

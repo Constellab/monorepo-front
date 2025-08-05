@@ -1,23 +1,24 @@
-import {
-  CaHierarchyObject,
-  CaHierarchyObjectType,
-} from '../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
+import { Injector } from '@angular/core';
+import { Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 import {
   CaFolderActionEvent,
   CaFolderActionsMenu,
 } from '../../../ca-core/entity-module/ca-folder-core/model/ca-folder-actions-menu.class';
+import { CaRootFolderUserRoleObj } from '../../../ca-core/model/entities/folder/ca-folder-user.class';
+import {
+  CaHierarchyObject,
+  CaHierarchyObjectType,
+} from '../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
 import { CaDocumentActionEvent, CaDocumentActionMenu } from '../ca-document-core/ca-document-action-menu';
-import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { CaNoteActionEvent, CaNoteActionMenu } from '../ca-note-core/ca-note-action-menu';
 import {
   CaResourceActionEvent,
   CaResourceActionMenu,
 } from '../ca-resource-detail-page/ca-resource-action-menu';
-import { CaNoteActionEvent, CaNoteActionMenu } from '../ca-note-core/ca-note-action-menu';
 import { CaScenarioActionEvent, CaScenarioActionMenu } from '../ca-scenario-core/ca-scenario-action-menu';
 import { CaHierarchyObjectActionTags } from './ca-hierarchy-object-base-action-menu';
-import { Injector } from '@angular/core';
-import { CaRootFolderUserRoleObj } from '../../../ca-core/model/entities/folder/ca-folder-user.class';
 
 export type CaHierarchyObjectActionEvent =
   | {

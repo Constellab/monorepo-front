@@ -1,3 +1,4 @@
+import { ENTER, TAB } from '@angular/cdk/keycodes';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -10,10 +11,10 @@ import {
   ViewChild,
 } from '@angular/core';
 import { NgControl, UntypedFormControl } from '@angular/forms';
-import { ENTER, TAB } from '@angular/cdk/keycodes';
 import { ClHelpService } from '@monorepo/core-lib';
-import { FlTag, FlTagValue } from '../../fl-tag.class';
 import { FlFormFieldDirective } from '@monorepo/front-core-lib/fl-core';
+
+import { FlTag, FlTagValue } from '../../fl-tag.class';
 import { FlTagHelper } from '../../fl-tag.helper';
 
 type FlTagInput = FlTag[] | Record<string, FlTagValue>;

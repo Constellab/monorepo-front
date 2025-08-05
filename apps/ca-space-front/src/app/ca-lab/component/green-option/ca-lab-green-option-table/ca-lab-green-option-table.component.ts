@@ -1,17 +1,7 @@
 import { Component, inject, Input } from '@angular/core';
-import { FlArrayObs, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
-import {
-  FlConfirmDialogInput,
-  FlConfirmDialogResult,
-  FlDialogService,
-} from '@monorepo/front-core-lib/fl-dialog';
-
-import { CaLabGreenOption } from '../../../../ca-core/model/entities/lab/ca-lab-green-option.class';
-import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
-import {
-  CaLabGreenOptionFormDialogComponent,
-  CaLabGreenOptionFormDialogInput,
-} from '../ca-lab-green-option-form-dialog/ca-lab-green-option-form-dialog.component';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import {
   MatCell,
   MatCellDef,
@@ -24,13 +14,23 @@ import {
   MatRowDef,
   MatTable,
 } from '@angular/material/table';
+import { FlArrayObs, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
+import {
+  FlConfirmDialogInput,
+  FlConfirmDialogResult,
+  FlDialogService,
+} from '@monorepo/front-core-lib/fl-dialog';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { CaLabGreenOptionValueComponent } from '../ca-lab-green-option-value/ca-lab-green-option-value.component';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import { MatIconButton } from '@angular/material/button';
-import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
-import { MatIcon } from '@angular/material/icon';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { CaLabGreenOption } from '../../../../ca-core/model/entities/lab/ca-lab-green-option.class';
+import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
+import {
+  CaLabGreenOptionFormDialogComponent,
+  CaLabGreenOptionFormDialogInput,
+} from '../ca-lab-green-option-form-dialog/ca-lab-green-option-form-dialog.component';
+import { CaLabGreenOptionValueComponent } from '../ca-lab-green-option-value/ca-lab-green-option-value.component';
 
 @Component({
   selector: 'ca-lab-green-option-table',

@@ -1,6 +1,6 @@
 import { ApplicationRef, EnvironmentInjector, Type } from '@angular/core';
-import { BlockTune, BlockTuneConstructable } from '@editorjs/editorjs/types/block-tunes/block-tune';
 import { API, BlockAPI, SanitizerConfig, ToolConfig } from '@editorjs/editorjs';
+import { BlockTune, BlockTuneConstructable } from '@editorjs/editorjs/types/block-tunes/block-tune';
 import { BlockTuneData } from '@editorjs/editorjs/types/block-tunes/block-tune-data';
 import { MenuConfig } from '@editorjs/editorjs/types/tools';
 

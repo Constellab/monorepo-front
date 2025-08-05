@@ -1,16 +1,17 @@
-import { AfterViewInit, Component, OnInit, inject } from '@angular/core';
-import { LabScenarioDetailPageState } from '../../state/lab-scenario-detail-page.state';
-import { Observable, of } from 'rxjs';
+import { AfterViewInit, Component, inject,OnInit } from '@angular/core';
+import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { PrWorkflow, PrWorkflowMode } from '@monorepo/protocol';
+import { PrProtocolModule } from '@monorepo/protocol';
+import { TranslatePipe } from '@ngx-translate/core';
+import { Observable, of } from 'rxjs';
+import { first } from 'rxjs/operators';
+
 import { LabWorkflowEditConfig } from '../../model/lab-workflow-edit-config.class';
 import { LabWorkflowNodeMenuConfig } from '../../model/lab-workflow-node-menu.config';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { first } from 'rxjs/operators';
-import { PrProtocolModule } from '@monorepo/protocol';
+import { LabScenarioDetailPageState } from '../../state/lab-scenario-detail-page.state';
 import { LabWorkflowActionsComponent } from '../lab-workflow-actions/lab-workflow-actions.component';
-import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
-import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
-import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'lab-workflow',

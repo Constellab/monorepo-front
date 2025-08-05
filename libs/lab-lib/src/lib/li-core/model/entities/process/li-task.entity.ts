@@ -1,4 +1,5 @@
 import { Expose } from 'class-transformer';
+
 import { LiProcess } from './li-process.entity';
 
 export class LiTask extends LiProcess {

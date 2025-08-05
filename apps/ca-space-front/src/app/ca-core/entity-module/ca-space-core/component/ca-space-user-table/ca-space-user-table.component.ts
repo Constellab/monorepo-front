@@ -1,28 +1,29 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { CaSpaceUser, CaSpaceUserDatasource } from '../../../../model/entities/space/ca-space-user.class';
-import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
-import {
-  MatTable,
-  MatColumnDef,
-  MatHeaderCellDef,
-  MatHeaderCell,
-  MatCellDef,
-  MatCell,
-  MatHeaderRowDef,
-  MatHeaderRow,
-  MatRowDef,
-  MatRow,
-} from '@angular/material/table';
-import { MatSort, MatSortHeader } from '@angular/material/sort';
-import { FlSearchModule } from '@monorepo/front-core-lib/fl-search';
-import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIconButton } from '@angular/material/button';
-import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
 import { MatIcon } from '@angular/material/icon';
+import { MatMenu, MatMenuItem,MatMenuTrigger } from '@angular/material/menu';
+import { MatSort, MatSortHeader } from '@angular/material/sort';
+import {
+  MatCell,
+  MatCellDef,
+  MatColumnDef,
+  MatHeaderCell,
+  MatHeaderCellDef,
+  MatHeaderRow,
+  MatHeaderRowDef,
+  MatRow,
+  MatRowDef,
+  MatTable,
+} from '@angular/material/table';
+import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
+import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
+import { FlSearchModule } from '@monorepo/front-core-lib/fl-search';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { CaSpaceUser, CaSpaceUserDatasource } from '../../../../model/entities/space/ca-space-user.class';
 
 /**
  * Table to list the users of a space

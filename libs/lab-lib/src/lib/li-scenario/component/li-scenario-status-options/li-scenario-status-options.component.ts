@@ -1,10 +1,10 @@
-import { AfterViewInit, Component, OnInit, inject } from '@angular/core';
-import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib/fl-core';
-import { FlStatus } from '@monorepo/front-core-lib/fl-status';
+import { AfterViewInit, Component, inject,OnInit } from '@angular/core';
 import { MatOption } from '@angular/material/core';
 import { MatSelect } from '@angular/material/select';
-import { TranslatePipe } from '@ngx-translate/core';
+import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib/fl-core';
+import { FlStatus } from '@monorepo/front-core-lib/fl-status';
 import { labScenarioStatusDict } from '@monorepo/lab-lib/li-core';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'li-scenario-status-options',

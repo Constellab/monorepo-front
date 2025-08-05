@@ -1,20 +1,20 @@
-import { NgModule, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FlTranslateModule } from '../fl-translate/fl-translate.module';
-import { FlSnackBarModule } from '../fl-snack-bar/fl-snack-bar.module';
-import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
-import { FlDialogModule } from '../fl-dialog/fl-dialog.module';
-import { FlPrettyJsonComponent } from './fl-pretty-json/fl-pretty-json.component';
-import { MatTreeModule } from '@angular/material/tree';
-import { MatIconModule } from '@angular/material/icon';
-
-import { FlTextIconModule } from '../fl-text-icon/fl-text-icon.module';
-import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
-import { flJsonEditorI18n } from './i18n/fl-json-editor.i18n';
-import { FlPrettyJsonDialogComponent } from './fl-pretty-json-dialog/fl-pretty-json-dialog.component';
-import { MatDialogModule } from '@angular/material/dialog';
+import { inject,NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatTreeModule } from '@angular/material/tree';
+import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
+import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+
+import { FlDialogModule } from '../fl-dialog/fl-dialog.module';
+import { FlSnackBarModule } from '../fl-snack-bar/fl-snack-bar.module';
+import { FlTextIconModule } from '../fl-text-icon/fl-text-icon.module';
+import { FlTranslateModule } from '../fl-translate/fl-translate.module';
+import { FlPrettyJsonComponent } from './fl-pretty-json/fl-pretty-json.component';
+import { FlPrettyJsonDialogComponent } from './fl-pretty-json-dialog/fl-pretty-json-dialog.component';
+import { flJsonEditorI18n } from './i18n/fl-json-editor.i18n';
 
 /**
  * Module containing a component to edit json in html

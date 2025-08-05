@@ -1,5 +1,3 @@
-import { FlAdvancedSearchInput, FlSearchCriteria, FlSearchOperator } from './fl-search.class';
-import { DateTime } from 'luxon';
 import { ClDateHelper, ClHelpService, ClLuxonDateTimeTransform } from '@monorepo/core-lib';
 import {
   FlDatasourceGetPageData,
@@ -7,6 +5,9 @@ import {
   FlEntity,
   FlSortCriteria,
 } from '@monorepo/front-core-lib/fl-core';
+import { DateTime } from 'luxon';
+
+import { FlAdvancedSearchInput, FlSearchCriteria, FlSearchOperator } from './fl-search.class';
 
 /**
  * Object used to convert an object attribute to a {@link FlSearchCriteria} to perform a advanced search

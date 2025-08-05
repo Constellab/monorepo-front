@@ -1,39 +1,39 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { MatButton, MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import {
   FlEntityPaginatedDatasource,
   FlFormDialogInput,
   FlTableColumnStatic,
 } from '@monorepo/front-core-lib/fl-core';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import {
   FlSavedSearch,
   FlSearchConfig,
   FlSearchModule,
   FlSearchState,
 } from '@monorepo/front-core-lib/fl-search';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
+import { TranslatePipe } from '@ngx-translate/core';
 
 import { CaLab, CaLabDatasource } from '../../../../model/entities/lab/ca-lab.class';
+import { CaIsAdminDirective } from '../../../../module/ca-core-directive/ca-is-admin/ca-is-admin.directive';
 import { CaLabService } from '../../../../service-api/ca-lab.service';
 import { CaLabSearch, CaLabSearchFields } from '../../model/ca-lab-search.class';
 import {
   CaLabAdminFormDialogComponent,
   CaLabAdminFormDialogInput,
 } from '../ca-lab-admin-form-dialog/ca-lab-admin-form-dialog.component';
+import { CaLabFreeAdminFormDialogComponent } from '../ca-lab-free-admin-form-dialog/ca-lab-free-admin-form-dialog.component';
 import {
   CaLabSearchFormComponent,
   CaLabSearchMode,
 } from '../ca-lab-search-form/ca-lab-search-form.component';
-import { CaLabFreeAdminFormDialogComponent } from '../ca-lab-free-admin-form-dialog/ca-lab-free-admin-form-dialog.component';
-import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { MatIcon } from '@angular/material/icon';
-import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
-import { CaIsAdminDirective } from '../../../../module/ca-core-directive/ca-is-admin/ca-is-admin.directive';
-import { MatButton, MatIconButton } from '@angular/material/button';
-import { MatTooltip } from '@angular/material/tooltip';
 import { CaLabTableComponent } from '../ca-lab-table/ca-lab-table.component';
-import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'ca-lab-search',

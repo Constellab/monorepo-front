@@ -1,16 +1,16 @@
 import { inject, Injectable, REQUEST } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
-import { ClDateHelper } from '@monorepo/core-lib';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { map } from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
+import { ClDateHelper } from '@monorepo/core-lib';
 import {
   FlAcceptanceCookie,
   FlAcceptanceCookiesConfig,
   FlCookieOptions,
   FlPlatformService
 } from '@monorepo/front-core-lib/fl-core';
+import { CookieService } from 'ngx-cookie-service';
+import { Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 /**
  * Service to manage browser cookies.

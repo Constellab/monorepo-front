@@ -1,4 +1,5 @@
 import { inject, Injectable, Injector } from '@angular/core';
+
 import { CaHierarchyObjectRouterService } from '../../../../ca-core/entity-module/ca-hierarchy-object-core/ca-hierarchy-object-router.service';
 import {
   CaHierarchyObject,

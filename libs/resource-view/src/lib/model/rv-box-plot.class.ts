@@ -5,6 +5,7 @@ import {
   ChChartConfig,
   ChChartMultiSerie,
 } from '@monorepo/chart';
+
 import { RvResourceViewBase } from './rv-resource-view.class';
 
 export interface RvResourceViewBoxPlot extends RvResourceViewBase {

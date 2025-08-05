@@ -1,6 +1,7 @@
-import { CoTagValue, CoTagValueEditDTO } from '../model/co-tag-value.class';
-import { Observable } from 'rxjs';
 import { TdParamSpec, TdParamSpecs } from '@monorepo/technical-doc';
+import { Observable } from 'rxjs';
+
+import { CoTagValue, CoTagValueEditDTO } from '../model/co-tag-value.class';
 
 export abstract class CoConfig {
   public abstract getSpacePhotoUrl(filename: string): string;

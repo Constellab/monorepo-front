@@ -1,11 +1,12 @@
-import { PrWorkflowNode } from '../node/pr-workflow-node.class';
-import { PrWorkflowConnection } from './pr-workflow-connection.class';
-import Drawflow, { ConnectionEvent } from 'drawflow';
-import { PrWorkflowLayer } from './pr-workflow-layer.class';
-import { BehaviorSubject, first, map, Observable, Subject } from 'rxjs';
 import { NgZone } from '@angular/core';
-import { PrWorkflowPort } from './pr-workflow-port.class';
+import Drawflow, { ConnectionEvent } from 'drawflow';
+import { BehaviorSubject, first, map, Observable, Subject } from 'rxjs';
+
+import { PrWorkflowNode } from '../node/pr-workflow-node.class';
 import { PrWorkflowNodeProtocol } from '../node/pr-workflow-node-protocol.class';
+import { PrWorkflowConnection } from './pr-workflow-connection.class';
+import { PrWorkflowLayer } from './pr-workflow-layer.class';
+import { PrWorkflowPort } from './pr-workflow-port.class';
 
 export type PrWorkflowMode = 'edit' | 'readOnly';
 

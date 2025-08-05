@@ -6,15 +6,15 @@ import {
 } from '@monorepo/front-core-lib/fl-dialog';
 import { FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
 import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
-import { CaLabService } from '../../ca-core/service-api/ca-lab.service';
-import { CaLabServerCompleteInfoDialogComponent } from '../component/server/ca-lab-server-complete-info-dialog/ca-lab-server-complete-info-dialog.component';
-import { CaLabDetailPageState } from './ca-lab-detail-page.state';
-
 import { Observable } from 'rxjs';
+
+import { CaLabService } from '../../ca-core/service-api/ca-lab.service';
 import {
   CaLabManagerUpdateDialogComponent,
   CaLabManagerUpdateDialogInput,
 } from '../component/manager/ca-lab-manager-update-dialog/ca-lab-manager-update-dialog.component';
+import { CaLabServerCompleteInfoDialogComponent } from '../component/server/ca-lab-server-complete-info-dialog/ca-lab-server-complete-info-dialog.component';
+import { CaLabDetailPageState } from './ca-lab-detail-page.state';
 
 /**
  * State in the lab detail page to manage the server status.

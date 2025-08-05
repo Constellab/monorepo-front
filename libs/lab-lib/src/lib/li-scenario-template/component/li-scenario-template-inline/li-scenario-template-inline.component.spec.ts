@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { LiScenarioTemplateInlineComponent } from './li-scenario-template-inline.component';
 
 describe('LiScenarioTemplateInlineComponent', () => {

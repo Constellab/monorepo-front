@@ -10,7 +10,7 @@ describe('LabTagSearchPageComponent', () => {
     await TestBed.configureTestingModule({
       imports: [LabTagSearchPageComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(LabTagSearchPageComponent);
     component = fixture.componentInstance;

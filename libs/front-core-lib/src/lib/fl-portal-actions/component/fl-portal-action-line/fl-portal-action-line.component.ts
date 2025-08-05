@@ -1,12 +1,13 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
-import { FlPortalActionDetail, FlPortalActionDetailStatusEvent } from '../../model/fl-portal-actions.class';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
 } from '@monorepo/front-core-lib/fl-dialog';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import { FlPortalActionDetail, FlPortalActionDetailStatusEvent } from '../../model/fl-portal-actions.class';
 
 /**
  * Component inside {@link FlPortalActionsComponent} that subscribe

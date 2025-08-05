@@ -1,12 +1,10 @@
-import { BehaviorSubject, Observable, Subscription, merge } from 'rxjs';
+import { inject,Injectable } from '@angular/core';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
 } from '@monorepo/front-core-lib/fl-dialog';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
-import { Injectable, inject } from '@angular/core';
-import { LabWorkflowFactory } from '../model/lab-workflow.factory';
 import {
   LiProcess,
   LiProtocol,
@@ -18,7 +16,10 @@ import {
 } from '@monorepo/lab-lib/li-core';
 import { PrWorkflow, PrWorkflowLayer } from '@monorepo/protocol';
 import { TeRichText } from '@monorepo/text-editor';
+import { BehaviorSubject, merge,Observable, Subscription } from 'rxjs';
 import { filter, map, tap } from 'rxjs/operators';
+
+import { LabWorkflowFactory } from '../model/lab-workflow.factory';
 
 @Injectable()
 export class LabScenarioDetailPageState {

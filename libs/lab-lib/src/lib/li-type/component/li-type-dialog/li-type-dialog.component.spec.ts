@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { LiTypeDialogComponent } from './li-type-dialog.component';
 
 describe('LiProcessTypePortalComponent', () => {

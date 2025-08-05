@@ -1,19 +1,20 @@
 import { inject, Injectable, Injector, REQUEST } from '@angular/core';
+import { DateAdapter } from '@angular/material/core';
+import { ClDateHelper, clLangIsSupported, ClStringHelper, ClSupportedLanguage } from '@monorepo/core-lib';
+import { FlPlatformService } from '@monorepo/front-core-lib/fl-core';
 import { TranslateService } from '@ngx-translate/core';
+import { Settings } from 'luxon';
+import { CookieService } from 'ngx-cookie-service';
+import { Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import { FL_TRANSLATE_MODULE_CONFIG, FlTranslateModuleConfig } from '../model/fl-translate-module-config';
 import {
   FlTranslatableText,
   FlTranslateMode,
   FlTranslateObject,
   FlTranslateParam,
 } from '../model/fl-translate-param';
-import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { FL_TRANSLATE_MODULE_CONFIG, FlTranslateModuleConfig } from '../model/fl-translate-module-config';
-import { CookieService } from 'ngx-cookie-service';
-import { DateAdapter } from '@angular/material/core';
-import { Settings } from 'luxon';
-import { ClDateHelper, clLangIsSupported, ClStringHelper, ClSupportedLanguage } from '@monorepo/core-lib';
-import { FlPlatformService } from '@monorepo/front-core-lib/fl-core';
 
 @Injectable()
 export class FlTranslateService {
@@ -57,7 +58,7 @@ export class FlTranslateService {
   public init(): void {
     const defaultLang = this.getDefaultLanguage();
     // this language will be used as a fallback when a translation isn't found in the current language
-    this.translateService.setDefaultLang(defaultLang);
+    this.translateService.setFallbackLang(defaultLang);
 
     // set the app language
     const userLang = this.getUserLanguage();

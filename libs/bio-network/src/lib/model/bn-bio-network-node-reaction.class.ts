@@ -1,3 +1,7 @@
+import { ClHelpService } from '@monorepo/core-lib';
+
+import { BnBioNetworkHelper } from '../utils/bn-bio-network.helper';
+import { BnBioNetworkLinkHelper } from '../utils/bn-bio-network-link.helper';
 import {
   BnBioNetworkClusterInfo,
   BnBioNetworkMetaboliteLevel,
@@ -5,10 +9,7 @@ import {
 } from './bn-bio-network.class';
 import { BnBioNetworkNode } from './bn-bio-network-node.class';
 import { BnBioNetworkNodeCofactor } from './bn-bio-network-node-cofactor.class';
-import { ClHelpService } from '@monorepo/core-lib';
 import { BnBioNetworkNodeMetabolite } from './bn-bio-network-node-metabolite.class';
-import { BnBioNetworkHelper } from '../utils/bn-bio-network.helper';
-import { BnBioNetworkLinkHelper } from '../utils/bn-bio-network-link.helper';
 
 export class BnBioNetworkNodeReaction extends BnBioNetworkNode {
   public type: 'reaction';

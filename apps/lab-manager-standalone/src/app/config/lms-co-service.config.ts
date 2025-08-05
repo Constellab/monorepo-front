@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Injectable } from '@angular/core';
 import { CoConfig, CoTagValue, CoTagValueEditDTO } from '@monorepo/community-lib';
-import { LmsEnvironmentHelper } from './lms-environmnet.helper';
 import { TdParamSpec, TdParamSpecs } from '@monorepo/technical-doc';
 import { Observable } from 'rxjs';
+
+import { LmsEnvironmentHelper } from './lms-environmnet.helper';
 
 @Injectable({
   providedIn: 'root',

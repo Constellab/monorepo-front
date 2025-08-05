@@ -33,6 +33,13 @@
             <mat-icon>info</mat-icon>
             {{ 'lab_installed_brick' | translate }}
           </button>
+
+          @if (lab.typeObj.isDesktop && (isOwner$ | async)) {
+            <button mat-menu-item type="button" (click)="openDeleteDesktopLabDialog(lab)" class="warn">
+              <mat-icon>delete</mat-icon>
+              <span>{{ 'delete_desktop_lab' | translate }}</span>
+            </button>
+          }
         </mat-menu>
       </fl-card-actions>
     </fl-card-header>
@@ -112,7 +119,7 @@
         </fl-text-icon>
 
         <div class="command">{{ 'lab_desktop_manager_command' | translate }} :</div>
-        <code class="g-text-small">{{ desktopRunLabManagerCommand$ | async }}</code>
+        <code class="g-text-small desktop-commands">{{ desktopRunLabManagerCommand$ | async }}</code>
 
         <div class="generate-config">{{ 'lab_desktop_generate_config' | translate }} :</div>
         <div class="download-config-button">

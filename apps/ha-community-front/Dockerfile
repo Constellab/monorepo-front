@@ -1,5 +1,5 @@
 # Build step
-FROM node:20-alpine3.20 AS buildContainer
+FROM node:22-alpine3.22 AS buildContainer
 
 WORKDIR /app
 
@@ -12,7 +12,7 @@ COPY . .
 RUN npm run ha-community-front:build-prod
 
 # Production step
-FROM node:20-alpine3.20 AS production
+FROM node:22-alpine3.22 AS production
 
 WORKDIR /app
 # Copy the entry point

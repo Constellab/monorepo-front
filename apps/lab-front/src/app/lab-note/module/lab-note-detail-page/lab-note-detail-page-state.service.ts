@@ -1,7 +1,7 @@
-import { BehaviorSubject, Observable } from 'rxjs';
-import { Injectable, OnDestroy, inject } from '@angular/core';
+import { inject,Injectable, OnDestroy } from '@angular/core';
 import { LiNote, LiNoteService } from '@monorepo/lab-lib/li-core';
 import { TeRichText } from '@monorepo/text-editor';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
 @Injectable()

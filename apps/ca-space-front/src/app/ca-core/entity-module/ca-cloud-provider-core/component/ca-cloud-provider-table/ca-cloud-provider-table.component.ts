@@ -1,20 +1,7 @@
 import { Component, inject, Input } from '@angular/core';
-import {
-  FlConfirmDialogInput,
-  FlConfirmDialogResult,
-  FlDialogService,
-} from '@monorepo/front-core-lib/fl-dialog';
-import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
-
-import {
-  CaCloudProvider,
-  CaCloudProviderDatasource,
-} from '../../../../model/entities/ca-cloud-provider.class';
-import { CaCloudProviderService } from '../../../../service-api/ca-cloud-provider.service';
-import {
-  CaCloudProviderFormDialogComponent,
-  CaCloudProviderFormDialogInput,
-} from '../ca-cloud-provider-form-dialog/ca-cloud-provider-form-dialog.component';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import {
   MatCell,
   MatCellDef,
@@ -27,12 +14,25 @@ import {
   MatRowDef,
   MatTable,
 } from '@angular/material/table';
-import { CaCloudProviderInlineComponent } from '../ca-cloud-provider-inline/ca-cloud-provider-inline.component';
+import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
+import {
+  FlConfirmDialogInput,
+  FlConfirmDialogResult,
+  FlDialogService,
+} from '@monorepo/front-core-lib/fl-dialog';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import { MatIconButton } from '@angular/material/button';
-import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
-import { MatIcon } from '@angular/material/icon';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import {
+  CaCloudProvider,
+  CaCloudProviderDatasource,
+} from '../../../../model/entities/ca-cloud-provider.class';
+import { CaCloudProviderService } from '../../../../service-api/ca-cloud-provider.service';
+import {
+  CaCloudProviderFormDialogComponent,
+  CaCloudProviderFormDialogInput,
+} from '../ca-cloud-provider-form-dialog/ca-cloud-provider-form-dialog.component';
+import { CaCloudProviderInlineComponent } from '../ca-cloud-provider-inline/ca-cloud-provider-inline.component';
 
 @Component({
   selector: 'ca-cloud-provider-table',

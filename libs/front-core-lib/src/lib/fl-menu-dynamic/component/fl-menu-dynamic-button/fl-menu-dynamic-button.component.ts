@@ -1,11 +1,12 @@
 import { Component, computed, EventEmitter, input, Output, Signal } from '@angular/core';
+import { FlThemeHelper } from '@monorepo/front-core-lib/fl-theme';
+
 import {
   FlMenuDynamic,
   FlMenuDynamicButton,
   FlMenuDynamicDownloadLink,
   FlMenuDynamicLink,
 } from '../../model/fl-menu-dynamic.class';
-import { FlThemeHelper } from '@monorepo/front-core-lib/fl-theme';
 
 /**
  * Leaf button of the DynamicMenu, doesn't work for parent buttons

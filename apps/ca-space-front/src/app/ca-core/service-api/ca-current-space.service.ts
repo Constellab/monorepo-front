@@ -1,21 +1,21 @@
 import { inject, Injectable } from '@angular/core';
-import { CaSpaceService } from './ca-space.service';
-import { CaSpace } from '../model/entities/space/ca-space.class';
+import { Title } from '@angular/platform-browser';
+import { ClPage } from '@monorepo/core-lib';
 import {
   FlCleanableService,
   FlCleanerService,
   FlDatasourceGetPageData,
 } from '@monorepo/front-core-lib/fl-core';
 import { FlCookieService } from '@monorepo/front-core-lib/fl-dialog';
-
 import { BehaviorSubject, filter, firstValueFrom, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { CaUserDatasourcePaginated } from '../model/entities/ca-user.class';
-import { Title } from '@angular/platform-browser';
-import { CaSpaceRole, CaSpaceUser } from '../model/entities/space/ca-space-user.class';
+
 import { CaSpaceUserSearchFields } from '../entity-module/ca-space-core/model/ca-space-user-search.class';
-import { ClPage } from '@monorepo/core-lib';
+import { CaUserDatasourcePaginated } from '../model/entities/ca-user.class';
+import { CaSpace } from '../model/entities/space/ca-space.class';
+import { CaSpaceRole, CaSpaceUser } from '../model/entities/space/ca-space-user.class';
 import { CaEnvironmentHelper } from '../utils/ca-environment.helper';
+import { CaSpaceService } from './ca-space.service';
 
 /**
  * Service to manage the current space

@@ -1,30 +1,10 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { HaTagService } from '../../../ha-core/ha-service/ha-tag.service';
-import { HaTagKey } from '../../../ha-core/ha-model/ha-entities/ha-tag-key.class';
-import { ActivatedRoute, RouterLink } from '@angular/router';
-import { first } from 'rxjs';
-import { HaHttpRedirectionService } from '../../../ha-core/ha-service/ha-http-redirection.service';
-import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
-import { TeCompleteConfig, TeRichText, TeTextEditorModule } from '@monorepo/text-editor';
 import { NgClass } from '@angular/common';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { TranslatePipe } from '@ngx-translate/core';
-import { HaAuthenticatedUserService } from '../../../ha-core/ha-service/ha-authenticated-user.service';
-import { HaUser } from '../../../ha-core/ha-model/ha-entities/ha-user';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
-import {
-  HaTagKeyEditDialogComponent,
-  HaTagKeyEditDialogInput,
-} from '../ha-tag-key-edit-dialog/ha-tag-key-edit-dialog.component';
-import { FlConfirmDialogInput, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { MatTooltip } from '@angular/material/tooltip';
-import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
-import {
-  HaTagValueDatasourceFilters,
-  HaTagValueDatasourcePaginated,
-} from '../../../ha-core/ha-model/ha-entities/ha-tag-value.class';
-import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import {
   CoCommunityLibModule,
   CoDeprecatedTagComponent,
@@ -35,17 +15,38 @@ import {
   CoTagValueEditDialogInput,
   CoTagValuesTableComponent,
 } from '@monorepo/community-lib';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
-import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+import { FlConfirmDialogInput, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
 import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
 import { FlClipboardService } from '@monorepo/front-core-lib/fl-snack-bar';
-import { TdAbstractDynamicParamSpecState, TdParamSpecs, TdTechnicalDocModule } from '@monorepo/technical-doc';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
-import { HaCommunityPageDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+import { TdAbstractDynamicParamSpecState, TdParamSpecs, TdTechnicalDocModule } from '@monorepo/technical-doc';
+import { TeCompleteConfig, TeRichText, TeTextEditorModule } from '@monorepo/text-editor';
+import { TranslatePipe } from '@ngx-translate/core';
+import { first } from 'rxjs';
+
 import { HaCommentsSectionComponent } from '../../../ha-core/entity-module/ha-comments-core/component/ha-comments-section/ha-comments-section.component';
-import { HaEntityType } from '../../../ha-core/ha-model/ha-entities/ha-entity-type';
 import { HaCommentButtonComponent } from '../../../ha-core/entity-module/ha-util-component-core/component/ha-comment-button/ha-comment-button.component';
 import { HaLikeButtonComponent } from '../../../ha-core/entity-module/ha-util-component-core/component/ha-like-button/ha-like-button.component';
+import { HaEntityType } from '../../../ha-core/ha-model/ha-entities/ha-entity-type';
+import { HaTagKey } from '../../../ha-core/ha-model/ha-entities/ha-tag-key.class';
+import {
+  HaTagValueDatasourceFilters,
+  HaTagValueDatasourcePaginated,
+} from '../../../ha-core/ha-model/ha-entities/ha-tag-value.class';
+import { HaUser } from '../../../ha-core/ha-model/ha-entities/ha-user';
+import { HaCommunityPageDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
+import { HaAuthenticatedUserService } from '../../../ha-core/ha-service/ha-authenticated-user.service';
+import { HaHttpRedirectionService } from '../../../ha-core/ha-service/ha-http-redirection.service';
+import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
+import { HaTagService } from '../../../ha-core/ha-service/ha-tag.service';
+import {
+  HaTagKeyEditDialogComponent,
+  HaTagKeyEditDialogInput,
+} from '../ha-tag-key-edit-dialog/ha-tag-key-edit-dialog.component';
 
 @Component({
   selector: 'ha-tag-page',

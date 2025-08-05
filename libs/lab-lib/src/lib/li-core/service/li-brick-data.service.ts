@@ -1,7 +1,8 @@
+import { inject,Injectable } from '@angular/core';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
-import { Injectable, inject } from '@angular/core';
-import { LiBrickData } from '../model/global/li-brick-data.class';
 import { Observable } from 'rxjs';
+
+import { LiBrickData } from '../model/global/li-brick-data.class';
 
 @Injectable({
   providedIn: 'root',

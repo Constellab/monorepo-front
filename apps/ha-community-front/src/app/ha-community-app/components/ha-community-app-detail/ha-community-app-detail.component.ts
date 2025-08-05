@@ -1,32 +1,33 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
-import { HaCommentsSectionComponent } from '../../../ha-core/entity-module/ha-comments-core/component/ha-comments-section/ha-comments-section.component';
-import { HaCommunityAppState } from '../../state/ha-community-app.state';
-import { HaUser } from '../../../ha-core/ha-model/ha-entities/ha-user';
-import { HaAuthenticatedUserService } from '../../../ha-core/ha-service/ha-authenticated-user.service';
-import { TranslatePipe } from '@ngx-translate/core';
-import { TeRichText, TeTextEditorModule } from '@monorepo/text-editor';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AsyncPipe, NgOptimizedImage } from '@angular/common';
-import { HaAppPicturePipe } from '../../../ha-core/ha-module/ha-core-pipe/ha-app-picture/ha-app-picture.pipe';
-import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
-import { HaCommunityAppTextEditorConfig } from '../../utils/ha-community-app-text-editor.config';
-import { HaCommunityAppService } from '../../../ha-core/ha-service/ha-community-app.service';
+import { Component, inject, OnInit } from '@angular/core';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { CoCommunityLibModule } from '@monorepo/community-lib';
+import { ClStringHelper } from '@monorepo/core-lib';
+import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+import { TeRichText, TeTextEditorModule } from '@monorepo/text-editor';
+import { TranslatePipe } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+
+import { HaCommentsSectionComponent } from '../../../ha-core/entity-module/ha-comments-core/component/ha-comments-section/ha-comments-section.component';
+import { HaCommunityApp } from '../../../ha-core/ha-model/ha-entities/ha-community-app.class';
+import { HaEntityType } from '../../../ha-core/ha-model/ha-entities/ha-entity-type';
+import { HaUser } from '../../../ha-core/ha-model/ha-entities/ha-user';
+import { HaCommunityPageDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
+import { HaAppPicturePipe } from '../../../ha-core/ha-module/ha-core-pipe/ha-app-picture/ha-app-picture.pipe';
+import { HaAuthenticatedUserService } from '../../../ha-core/ha-service/ha-authenticated-user.service';
+import { HaCommunityAppService } from '../../../ha-core/ha-service/ha-community-app.service';
+import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
+import { HaCommunityAppState } from '../../state/ha-community-app.state';
+import { HaCommunityAppTextEditorConfig } from '../../utils/ha-community-app-text-editor.config';
 import {
   HaCommunityAppCreateDialogComponent,
   HaCreateCommunityAppInput,
 } from '../ha-community-app-create-dialog/ha-community-app-create-dialog.component';
-import { HaCommunityApp } from '../../../ha-core/ha-model/ha-entities/ha-community-app.class';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { MatIcon } from '@angular/material/icon';
-import { HaEntityType } from '../../../ha-core/ha-model/ha-entities/ha-entity-type';
-import { HaCommunityPageDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
-import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
-import { ClStringHelper } from '@monorepo/core-lib';
-import { CoCommunityLibModule } from '@monorepo/community-lib';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'ha-community-app-detail',

@@ -1,6 +1,6 @@
-import { Component, Directive, ElementRef, HostListener, Renderer2, inject } from '@angular/core';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { Component, Directive, ElementRef, HostListener, inject,Renderer2 } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 
 interface FlImageFullscreenDialogInput {
   src: string;

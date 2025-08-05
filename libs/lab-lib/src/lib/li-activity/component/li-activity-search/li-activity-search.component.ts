@@ -1,21 +1,22 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject,OnInit } from '@angular/core';
+import { MatIcon } from '@angular/material/icon';
 import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
-import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import {
   FlSavedSearch,
   FlSearchConfig,
   FlSearchModule,
   FlSearchState,
 } from '@monorepo/front-core-lib/fl-search';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
 import { LiActivityDatasource } from '@monorepo/lab-lib/li-core';
-import { LiActivitySearch, LiActivitySearchFields } from '../../model/li-activity-search.class';
-import { LiActivitySearchFormComponent } from '../li-activity-search-form/li-activity-search-form.component';
-import { LiActivityService } from '../../service/li-activity.service';
-import { LiActivityTableComponent } from '../li-activity-table/li-activity-table.component';
-import { MatIcon } from '@angular/material/icon';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { LiActivitySearch, LiActivitySearchFields } from '../../model/li-activity-search.class';
+import { LiActivityService } from '../../service/li-activity.service';
+import { LiActivitySearchFormComponent } from '../li-activity-search-form/li-activity-search-form.component';
+import { LiActivityTableComponent } from '../li-activity-table/li-activity-table.component';
 
 @Component({
   selector: 'li-activity-search',

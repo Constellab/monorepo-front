@@ -1,8 +1,9 @@
 import { inject, Pipe, PipeTransform, SecurityContext } from '@angular/core';
-import { marked } from 'marked';
 import { DomSanitizer, SafeHtml, SafeResourceUrl } from '@angular/platform-browser';
 import { ClStringHelper, ClYoutubeHelper } from '@monorepo/core-lib';
+import { marked } from 'marked';
 import { markedHighlight } from 'marked-highlight';
+
 import { FlHighlight } from './fl-highlight.class';
 
 marked.use(

@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { LiSelectResourceDialogComponent } from './li-select-resource-dialog.component';
 
 describe('LiSelectResourceDialogComponent', () => {

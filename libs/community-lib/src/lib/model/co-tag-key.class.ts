@@ -1,8 +1,9 @@
-import { DateTime } from 'luxon';
+import { TdEditParamSpecDetail, TdEditParamSpecDict, TdParamSpecs } from '@monorepo/technical-doc';
 import { TeRichText } from '@monorepo/text-editor';
+import { DateTime } from 'luxon';
+
 import { CoSpace } from './co-space.class';
 import { CoUser } from './co-user.class';
-import { TdEditParamSpecDetail, TdEditParamSpecDict, TdParamSpecs } from '@monorepo/technical-doc';
 
 export enum CoTagKeyType {
   STRING = 'STRING',

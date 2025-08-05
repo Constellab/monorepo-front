@@ -1,31 +1,31 @@
+import { AsyncPipe } from '@angular/common';
 import { Component, inject, Input, OnInit } from '@angular/core';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
+import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlPortalActionResult, FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
-import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
-
-import {
-  CaLabFolder,
-  CaLabFolderDatasource,
-} from '../../../../ca-core/model/entities/lab/ca-lab-folder.class';
-import { CaLabDetailPageState } from '../../../state/ca-lab-detail-page.state';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { TranslatePipe } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { CaLabFolderService } from '../../../../ca-core/service-api/ca-lab-folder.service';
+
 import {
   CaSelectFolderDialogComponent,
   CaSelectFolderDialogInput,
 } from '../../../../ca-core/entity-module/ca-folder-core/component/ca-select-folder-dialog/ca-select-folder-dialog.component';
 import { CaHierarchyObject } from '../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
-import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { MatIcon } from '@angular/material/icon';
-import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
-import { MatIconButton } from '@angular/material/button';
-import { MatTooltip } from '@angular/material/tooltip';
-import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+import {
+  CaLabFolder,
+  CaLabFolderDatasource,
+} from '../../../../ca-core/model/entities/lab/ca-lab-folder.class';
+import { CaLabFolderService } from '../../../../ca-core/service-api/ca-lab-folder.service';
+import { CaLabDetailPageState } from '../../../state/ca-lab-detail-page.state';
 import { CaLabFoldersTableComponent } from '../ca-lab-folders-table/ca-lab-folders-table.component';
-import { AsyncPipe } from '@angular/common';
-import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'ca-lab-folders-list',

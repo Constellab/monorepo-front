@@ -1,4 +1,7 @@
-import { Component, Input, inject } from '@angular/core';
+import { Component, inject,Input } from '@angular/core';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
@@ -7,9 +10,6 @@ import {
 import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
 import { FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
 import { LiRouterService, LiScenarioTemplate, LiScenarioTemplateService } from '@monorepo/lab-lib/li-core';
-import { MatIcon } from '@angular/material/icon';
-import { MatIconButton } from '@angular/material/button';
-import { MatTooltip } from '@angular/material/tooltip';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({

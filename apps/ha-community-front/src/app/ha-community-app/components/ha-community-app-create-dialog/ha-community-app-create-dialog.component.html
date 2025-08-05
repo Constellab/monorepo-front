@@ -1,5 +1,5 @@
 <fl-dialog-header>
-  @if (dialogInput.mode == 'create') {
+  @if (dialogInput.mode === 'create') {
     {{ 'add_an_app' | translate }}
   } @else {
     {{ 'edit_app' | translate }}
@@ -71,7 +71,7 @@
     form="app-form"
     class="g-centered-forced primary"
     [disabled]="!formGp.valid && !isLoading">
-    @if (dialogInput.mode == 'create') {
+    @if (dialogInput.mode === 'create') {
       {{ 'create' | translate }}
     } @else {
       {{ 'edit' | translate }}

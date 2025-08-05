@@ -1,5 +1,6 @@
 import { Component, inject, Input, OnInit, ViewContainerRef } from '@angular/core';
 import { SpSheetChartConfig, SpSpreadsheet, SpSpreadsheetPageLoader } from '@monorepo/spreadsheet';
+
 import { RvResourceViewDirective } from '../../model/rv-resource-view.directive';
 import { RvResourceViewTable, rvTableToSpreadsheet } from '../../model/rv-table.class';
 

@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { LiSharedEntityOriginComponent } from './li-shared-entity-origin.component';
 
 describe('LabResourceShareOriginComponent', () => {

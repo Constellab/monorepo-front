@@ -1,9 +1,10 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { SpSheetChart2dSerieSelectionForm } from '../../model/chart/sp-sheet-chart-selection-form.class';
+import { Component, inject,OnInit } from '@angular/core';
 import { FormBuilder, FormControl, UntypedFormGroup, Validators } from '@angular/forms';
-import { SpSpreadsheetChartSerieSelectionInput } from '../../model/chart/sp-sheet-chart-config.class';
 import { FL_PORTAL_DATA } from '@monorepo/front-core-lib/fl-portal';
 import { FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
+
+import { SpSpreadsheetChartSerieSelectionInput } from '../../model/chart/sp-sheet-chart-config.class';
+import { SpSheetChart2dSerieSelectionForm } from '../../model/chart/sp-sheet-chart-selection-form.class';
 
 /**
  * Portal to select one serie during chart selection

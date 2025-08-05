@@ -7,16 +7,17 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { BnBioNetworkState } from '../../state/bn-bio-network.state';
-import { filter, Observable } from 'rxjs';
-import { BnBioNetworkGraph } from '../../model/bn-bio-network-graph.class';
-import { debounceTime, map, startWith } from 'rxjs/operators';
-import { BnBioNetworkObject } from '../../model/bn-bio-network.class';
-import { BnBioNetworkSelectionState } from '../../state/bn-bio-network-selection.state';
-import { ClHelpService, ClStringHelper, ClSubscriptionHandler } from '@monorepo/core-lib';
-import { BnBioNetworkDrawerState } from '../../state/bn-bio-network-drawer.state';
-import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
 import { FormControl } from '@angular/forms';
+import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
+import { ClHelpService, ClStringHelper, ClSubscriptionHandler } from '@monorepo/core-lib';
+import { filter, Observable } from 'rxjs';
+import { debounceTime, map, startWith } from 'rxjs/operators';
+
+import { BnBioNetworkObject } from '../../model/bn-bio-network.class';
+import { BnBioNetworkGraph } from '../../model/bn-bio-network-graph.class';
+import { BnBioNetworkState } from '../../state/bn-bio-network.state';
+import { BnBioNetworkDrawerState } from '../../state/bn-bio-network-drawer.state';
+import { BnBioNetworkSelectionState } from '../../state/bn-bio-network-selection.state';
 
 /**
  * Component to search on metabolite and reactions and select the object

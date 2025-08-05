@@ -1,11 +1,12 @@
+import { CoAgentType, CoCreateAgentFormData } from '@monorepo/community-lib';
+import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
+import { TdTypeStyle } from '@monorepo/technical-doc';
+import { TeRichText, TeRichTextTransform } from '@monorepo/text-editor';
+
+import { HaAgentVersionFileInput } from './ha-agent-version.class';
 import { HaEntity } from './ha-entity.class';
 import { HaSpace } from './ha-space.class';
-import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
-import { HaAgentVersionFileInput } from './ha-agent-version.class';
-import { TeRichText, TeRichTextTransform } from '@monorepo/text-editor';
-import { CoAgentType, CoCreateAgentFormData } from '@monorepo/community-lib';
 import { HaUser } from './ha-user';
-import { TdTypeStyle } from '@monorepo/technical-doc';
 
 export class HaAgent extends HaEntity {
   title: string;

@@ -1,32 +1,32 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
-import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
-import {
-  CaLabBackupStatusDatasource,
-  CaLabBackupStatusDTO,
-} from '../../../../ca-core/model/entities/lab/ca-lab-backup.class';
+import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
+import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
 } from '@monorepo/front-core-lib/fl-dialog';
-import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { TranslatePipe } from '@ngx-translate/core';
 
 import {
-  CaLabBackupsStatusesAdminComponent,
-} from '../ca-lab-backups-statuses-admin/ca-lab-backups-statuses-admin.component';
-import { CaAuthenticatedUserService } from '../../../../ca-core/service-api/ca-authenticated-user.service';
-import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { MatIcon } from '@angular/material/icon';
-import { MatButton } from '@angular/material/button';
-import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
-import {
-  CaLabBackupStatusTableComponent,
-} from '../ca-lab-backup-status-table/ca-lab-backup-status-table.component';
-import { TranslatePipe } from '@ngx-translate/core';
+  CaLabBackupStatusDatasource,
+  CaLabBackupStatusDTO,
+} from '../../../../ca-core/model/entities/lab/ca-lab-backup.class';
 import {
   CaIsAdminDirective
 } from '../../../../ca-core/module/ca-core-directive/ca-is-admin/ca-is-admin.directive';
+import { CaAuthenticatedUserService } from '../../../../ca-core/service-api/ca-authenticated-user.service';
+import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
+import {
+  CaLabBackupStatusTableComponent,
+} from '../ca-lab-backup-status-table/ca-lab-backup-status-table.component';
+import {
+  CaLabBackupsStatusesAdminComponent,
+} from '../ca-lab-backups-statuses-admin/ca-lab-backups-statuses-admin.component';
 
 /**
  * Statuses of all lab backups

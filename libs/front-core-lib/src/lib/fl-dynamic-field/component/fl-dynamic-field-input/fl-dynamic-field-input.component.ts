@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+
 import { FlDynamicFieldAbstractDirective } from '../../model/fl-dynamic-field-abstract.directive';
 
 @Component({

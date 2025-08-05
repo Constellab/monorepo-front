@@ -1,18 +1,18 @@
+import { Injector } from '@angular/core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
 import { FlOverlayRef, FlPortalService } from '@monorepo/front-core-lib/fl-portal';
-
-import { Injector } from '@angular/core';
 import {
   TeCompleteConfig,
   TeTextEditorHistoryPortalComponent,
   TeTextEditorHistoryPortalData,
 } from '@monorepo/text-editor';
 import { Observable } from 'rxjs';
+
 import { CaDocument, CaDocumentBasicInfo } from '../../../ca-core/model/entities/folder/ca-document.class';
-import { CaDocumentService } from '../../../ca-core/service-api/ca-document.service';
 import { CaConstellabDocumentHistoryService } from '../../../ca-core/service/ca-constellab-document-history.service';
 import { CaRouterService } from '../../../ca-core/service/ca-router.service';
+import { CaDocumentService } from '../../../ca-core/service-api/ca-document.service';
 import {
   CaHierarchyObjectActionTags,
   CaHierarchyObjectBaseActionMenu,

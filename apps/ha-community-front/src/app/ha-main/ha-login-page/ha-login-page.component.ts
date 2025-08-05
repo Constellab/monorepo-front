@@ -1,12 +1,13 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { HaAuthenticatedUserService } from '../../ha-core/ha-service/ha-authenticated-user.service';
 import { Location } from '@angular/common';
-import { HaConstellabHelper } from '../../ha-core/ha-model/ha-config/ha-constellab.helper';
+import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { FlAuthModule } from '@monorepo/front-core-lib/fl-auth';
 import { FlLoginSavedRoute } from '@monorepo/front-core-lib/fl-core';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
-import { FlAuthModule } from '@monorepo/front-core-lib/fl-auth';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { HaConstellabHelper } from '../../ha-core/ha-model/ha-config/ha-constellab.helper';
+import { HaAuthenticatedUserService } from '../../ha-core/ha-service/ha-authenticated-user.service';
 
 @Component({
   selector: 'ha-login-page',

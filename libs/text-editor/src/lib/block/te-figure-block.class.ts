@@ -1,12 +1,13 @@
-import { TeComponentBlock } from './te-component-block.class';
-import { TeFigureComponent } from '../component/te-figure/te-figure.component';
-import { ToolboxConfig } from '@editorjs/editorjs/types/tools/tool-settings';
 import { Type } from '@angular/core';
-import { Observable } from 'rxjs';
-import { PasteConfig } from '@editorjs/editorjs/types/configs/paste-config';
 import { PasteEvent } from '@editorjs/editorjs';
-import { TeHelper } from '../model/te.helper';
+import { PasteConfig } from '@editorjs/editorjs/types/configs/paste-config';
+import { ToolboxConfig } from '@editorjs/editorjs/types/tools/tool-settings';
+import { Observable } from 'rxjs';
+
+import { TeFigureComponent } from '../component/te-figure/te-figure.component';
 import { TeBlockFigureData, TeBlockFigureUploadedResponse } from '../model/lib';
+import { TeHelper } from '../model/te.helper';
+import { TeComponentBlock } from './te-component-block.class';
 
 /**
  * Config for the text editor to manage image (upload and retrieve)

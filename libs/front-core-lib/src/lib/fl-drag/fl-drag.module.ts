@@ -1,7 +1,8 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FlDraggableDirective } from './fl-draggable/fl-draggable.directive';
+import { NgModule } from '@angular/core';
+
 import { FlDragHoverDirective } from './fl-drag-hover/fl-drag-hover.directive';
+import { FlDraggableDirective } from './fl-draggable/fl-draggable.directive';
 
 @NgModule({
   declarations: [FlDraggableDirective, FlDragHoverDirective],

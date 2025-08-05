@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { LiViewConfigActionsMenuComponent } from './li-view-config-actions-menu.component';
 
 describe('LiViewConfigActionsMenuComponent', () => {

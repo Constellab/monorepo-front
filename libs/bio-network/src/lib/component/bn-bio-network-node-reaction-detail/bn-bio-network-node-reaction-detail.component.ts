@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-
 import { filter, map, switchMap } from 'rxjs/operators';
-import { BnBioNetworkNodeReaction } from '../../model/bn-bio-network-node-reaction.class';
-import { BnBioNetworkDrawerState } from '../../state/bn-bio-network-drawer.state';
-import { BnBioNetworkState } from '../../state/bn-bio-network.state';
-import { BnBioNetworkSelectionState } from '../../state/bn-bio-network-selection.state';
+
 import { BnBioNetworkNode } from '../../model/bn-bio-network-node.class';
+import { BnBioNetworkNodeReaction } from '../../model/bn-bio-network-node-reaction.class';
+import { BnBioNetworkState } from '../../state/bn-bio-network.state';
+import { BnBioNetworkDrawerState } from '../../state/bn-bio-network-drawer.state';
+import { BnBioNetworkSelectionState } from '../../state/bn-bio-network-selection.state';
 
 /**
  * Detail information about one reaction node

@@ -1,10 +1,10 @@
 import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
-
 import { Router } from '@angular/router';
-import { FlAuthLogin2FaResponse, FlAuthLoginResponse, FlAuthService } from '../../service/fl-auth.service';
+import { FlLoginSavedRoute, FlQueryParamHandler } from '@monorepo/front-core-lib/fl-core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { FlLoginSavedRoute, FlQueryParamHandler } from '@monorepo/front-core-lib/fl-core';
+
+import { FlAuthLogin2FaResponse, FlAuthLoginResponse, FlAuthService } from '../../service/fl-auth.service';
 
 export interface FlCompleteLoginQueryParam {
   twoFAUrlCode: string;

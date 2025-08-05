@@ -2,11 +2,10 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
-    "types": []
+    "types": [],
+    "moduleResolution": "bundler"
   },
-  "files": [
-    "dc-iframe-message-main.ts"
-  ],
+  "files": ["dc-iframe-message-main.ts"],
   "include": [
     "../../../../libs/front-core-lib/src/types.d.ts",
     "../../../../libs/text-editor/src/types.d.ts"

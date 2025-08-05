@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { CaActivitySearchComponent } from './ca-activity-search.component';
 
 describe('CaActivitySearchComponent', () => {

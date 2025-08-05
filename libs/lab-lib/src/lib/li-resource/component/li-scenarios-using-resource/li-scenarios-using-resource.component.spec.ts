@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { LiScenariosUsingResourceComponent } from './li-scenarios-using-resource.component';
 
 describe('LabResourcesUsedInScenarioComponent', () => {

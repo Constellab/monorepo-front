@@ -1,29 +1,30 @@
-import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
-import { CaMainMenuLink, caMainMenuLinks } from '../../model/ca-main-menu-link.class';
-import { CaAuthenticatedUserService } from '../../../ca-core/service-api/ca-authenticated-user.service';
-import { FlPortalConfig, FlPortalService } from '@monorepo/front-core-lib/fl-portal';
-import {
-  CaNotificationsPortalComponent,
-} from '../../../ca-notifications/ca-notifications-portal/ca-notifications-portal.component';
-import { CaMySpacesPortalComponent } from '../ca-my-spaces-portal/ca-my-spaces-portal.component';
-import { MatSidenav, MatSidenavContainer, MatSidenavContent } from '@angular/material/sidenav';
-import { Observable } from 'rxjs';
-import { CaCurrentSpaceService } from '../../../ca-core/service-api/ca-current-space.service';
-import { map } from 'rxjs/operators';
-import { CaNotificationState } from '../../../ca-core/state/ca-notification.state';
-import { FlExpansionMenuModule } from '@monorepo/front-core-lib/fl-expansion-menu';
 import { AsyncPipe, NgClass, NgOptimizedImage } from '@angular/common';
+import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { MatBadge } from '@angular/material/badge';
-import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
 import { MatAnchor, MatButton } from '@angular/material/button';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { MatTooltip } from '@angular/material/tooltip';
 import { MatIcon } from '@angular/material/icon';
+import { MatSidenav, MatSidenavContainer, MatSidenavContent } from '@angular/material/sidenav';
+import { MatTooltip } from '@angular/material/tooltip';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
+import { FlExpansionMenuModule } from '@monorepo/front-core-lib/fl-expansion-menu';
+import { FlPortalConfig, FlPortalService } from '@monorepo/front-core-lib/fl-portal';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { TranslatePipe } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 import {
   CaAuthenticatedUserInlineComponent
 } from '../../../ca-core/entity-module/ca-user-core/component/ca-authenticated-user-inline/ca-authenticated-user-inline.component';
+import { CaAuthenticatedUserService } from '../../../ca-core/service-api/ca-authenticated-user.service';
+import { CaCurrentSpaceService } from '../../../ca-core/service-api/ca-current-space.service';
+import { CaNotificationState } from '../../../ca-core/state/ca-notification.state';
+import {
+  CaNotificationsPortalComponent,
+} from '../../../ca-notifications/ca-notifications-portal/ca-notifications-portal.component';
+import { CaMainMenuLink, caMainMenuLinks } from '../../model/ca-main-menu-link.class';
+import { CaMySpacesPortalComponent } from '../ca-my-spaces-portal/ca-my-spaces-portal.component';
 
 /**
  * Main app component. Menu on the left and page on the right

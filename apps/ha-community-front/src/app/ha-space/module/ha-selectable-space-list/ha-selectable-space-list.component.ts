@@ -1,12 +1,13 @@
-import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
-import { HaUser } from '../../../ha-core/ha-model/ha-entities/ha-user';
-import { HaSpaceService } from '../../../ha-core/ha-service/ha-space.service';
-import { Observable } from 'rxjs';
-import { HaSpace } from '../../../ha-core/ha-model/ha-entities/ha-space.class';
-import { HaCoServiceConfig } from '../../../ha-core/ha-model/ha-config/ha-co-service.config';
+import { AsyncPipe } from '@angular/common';
+import { Component, EventEmitter, inject,Input, OnInit, Output } from '@angular/core';
 import { MatChipOption } from '@angular/material/chips';
 import { MatIcon } from '@angular/material/icon';
-import { AsyncPipe } from '@angular/common';
+import { Observable } from 'rxjs';
+
+import { HaCoServiceConfig } from '../../../ha-core/ha-model/ha-config/ha-co-service.config';
+import { HaSpace } from '../../../ha-core/ha-model/ha-entities/ha-space.class';
+import { HaUser } from '../../../ha-core/ha-model/ha-entities/ha-user';
+import { HaSpaceService } from '../../../ha-core/ha-service/ha-space.service';
 
 @Component({
   selector: 'ha-selectable-space-list',

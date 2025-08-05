@@ -1,14 +1,14 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { LiCommunitySpace, LiProtocolService, LiRouterService, LiTagService } from '@monorepo/lab-lib/li-core';
-import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
-import { TranslatePipe } from '@ngx-translate/core';
-import { MatButton } from '@angular/material/button';
 import { FormBuilder, FormsModule, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
-import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
-import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+import { MatButton } from '@angular/material/button';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
 import { Router } from '@angular/router';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+import { LiCommunitySpace, LiProtocolService, LiRouterService, LiTagService } from '@monorepo/lab-lib/li-core';
+import { TranslatePipe } from '@ngx-translate/core';
 
 export interface LiShareTagToCommunityDialogInput {
   tagKey: string;

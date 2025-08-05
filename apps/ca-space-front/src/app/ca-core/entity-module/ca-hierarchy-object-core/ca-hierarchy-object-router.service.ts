@@ -1,11 +1,12 @@
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+
 import {
   CaHierarchyObject,
   CaHierarchyObjectType,
 } from '../../model/entities/folder/ca-hierarchy-object.class';
-import { CaDocumentService } from '../../service-api/ca-document.service';
 import { CaRouterService } from '../../service/ca-router.service';
+import { CaDocumentService } from '../../service-api/ca-document.service';
 
 @Injectable({ providedIn: 'root' })
 export class CaHierarchyObjectRouterService {

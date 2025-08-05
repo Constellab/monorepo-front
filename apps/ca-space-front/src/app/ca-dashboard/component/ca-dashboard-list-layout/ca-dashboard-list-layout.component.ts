@@ -1,14 +1,15 @@
+import { NgTemplateOutlet } from '@angular/common';
 import { Component, ContentChild, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
+import { MatIcon } from '@angular/material/icon';
+import { RouterLink } from '@angular/router';
 import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
-import { RouterLink } from '@angular/router';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { MatIcon } from '@angular/material/icon';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
-import { NgTemplateOutlet } from '@angular/common';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { TranslatePipe } from '@ngx-translate/core';
+
 import { CaAddCardComponent } from '../../../ca-core/module/ca-core-component/ca-add-card/ca-add-card.component';
 import { CaDetailRoutePipe } from '../../../ca-core/module/ca-core-pipe/ca-detail-route/ca-detail-route.pipe';
-import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * Layout component for the dashboard to structure the list section

@@ -1,12 +1,13 @@
+import { NgClass, NgOptimizedImage } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
-import { CaSettingsService } from '../../../ca-core/service-api/ca-settings.service';
-import { CaYoutubeVideo } from '../../../ca-core/model/entities/server/ca-server-standard.class';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { MatIcon } from '@angular/material/icon';
-import { MatIconButton } from '@angular/material/button';
-import { NgClass, NgOptimizedImage } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { CaYoutubeVideo } from '../../../ca-core/model/entities/server/ca-server-standard.class';
+import { CaSettingsService } from '../../../ca-core/service-api/ca-settings.service';
 
 @Component({
   selector: 'ca-dashboard-videos',

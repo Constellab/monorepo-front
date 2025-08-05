@@ -1,10 +1,11 @@
 import { AfterViewInit, Component, inject, OnInit } from '@angular/core';
+import { MatOptgroup, MatOption } from '@angular/material/core';
+import { MatSelect } from '@angular/material/select';
 import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib/fl-core';
+import { TranslatePipe } from '@ngx-translate/core';
+
 import { CaCountry } from '../../../../model/entities/ca-country.entity';
 import { CaCountryService } from '../../../../service-api/ca-country.service';
-import { MatSelect } from '@angular/material/select';
-import { MatOptgroup, MatOption } from '@angular/material/core';
-import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'ca-select-city-options',

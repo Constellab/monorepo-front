@@ -4,6 +4,7 @@
   "projectType": "application",
   "sourceRoot": "apps/lab-front/src",
   "prefix": "lab",
+  "tags": ["front"],
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:application",
@@ -120,7 +121,8 @@
           "buildTarget": "lab-front:build:production"
         }
       },
-      "defaultConfiguration": "development"
+      "defaultConfiguration": "development",
+      "continuous": true
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
@@ -141,6 +143,5 @@
         "jestConfig": "apps/lab-front/jest.config.ts"
       }
     }
-  },
-  "tags": ["front"]
+  }
 }

@@ -1,19 +1,20 @@
-import { ChChart2AxisRenderer } from './ch-chart-renderer.class';
 import { select } from 'd3';
-import { ChChartDataWithSerie } from '../model/data/ch-chart-serie.class';
-import { ChChart2dDatum } from '../model/data/ch-chart-data.class';
-import { ChChartScale, ChChartScaleBand } from '../model/scale/ch-chart-scale.class';
-import { ChChart2dMultiSerie } from '../model/data/ch-chart-multi-serie.class';
-import { ChChartDataBin } from '../model/data/ch-chart-data-bin.class';
+
 import {
   ChChartBinDataPortalComponent,
   ChChartBinDataPortalInput,
 } from '../component/ch-chart-data-portal/ch-chart-bin-data-portal/ch-chart-bin-data-portal.component';
-import { ChChartScaleColor } from '../model/scale/ch-chart-scale-color.class';
-import { ChChartPortalHandler } from '../model/portal-handler/ch-chart-portal-handler.class';
 import {
   ChChartDataWithSeriePortalInput,
 } from '../component/ch-chart-data-portal/ch-chart-data-with-serie-portal/ch-chart-data-with-serie-portal.component';
+import { ChChart2dDatum } from '../model/data/ch-chart-data.class';
+import { ChChartDataBin } from '../model/data/ch-chart-data-bin.class';
+import { ChChart2dMultiSerie } from '../model/data/ch-chart-multi-serie.class';
+import { ChChartDataWithSerie } from '../model/data/ch-chart-serie.class';
+import { ChChartPortalHandler } from '../model/portal-handler/ch-chart-portal-handler.class';
+import { ChChartScale, ChChartScaleBand } from '../model/scale/ch-chart-scale.class';
+import { ChChartScaleColor } from '../model/scale/ch-chart-scale-color.class';
+import { ChChart2AxisRenderer } from './ch-chart-renderer.class';
 
 /**
  * Renderer for bar plot or histogram

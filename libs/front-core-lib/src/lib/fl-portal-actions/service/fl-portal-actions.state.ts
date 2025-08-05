@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { ClHelpService } from '@monorepo/core-lib';
-import { FlPortalAction, FlPortalActionDetail, FlPortalActionResult } from '../model/fl-portal-actions.class';
-import { filter } from 'rxjs/operators';
 import { FlCleanableService, FlCleanerService } from '@monorepo/front-core-lib/fl-core';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { filter } from 'rxjs/operators';
+
+import { FlPortalAction, FlPortalActionDetail, FlPortalActionResult } from '../model/fl-portal-actions.class';
 
 /**
  * Service to handle the state of the actions

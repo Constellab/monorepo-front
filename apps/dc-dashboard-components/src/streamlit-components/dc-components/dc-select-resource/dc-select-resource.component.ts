@@ -6,6 +6,7 @@ import { FlTranslatableText, FlTranslateModule } from '@monorepo/front-core-lib/
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { LiResource, LiResourceSearchFields } from '@monorepo/lab-lib/li-core';
 import { LiSelectResourceComponent } from '@monorepo/lab-lib/li-resource';
+
 import { DcComponentData, DcDynamicComponent } from '../../../core/model/dc-dynamic-component.class';
 import { DcCoreMainDirective } from '../../dc-core/directive/dc-core-main-prod/dc-core-main.directive';
 

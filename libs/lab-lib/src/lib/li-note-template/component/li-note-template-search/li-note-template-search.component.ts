@@ -1,13 +1,16 @@
-import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { Component, EventEmitter, inject,Input, OnInit, Output } from '@angular/core';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
 import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
-import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import {
   FlSavedSearch,
   FlSearchConfig,
   FlSearchModule,
   FlSearchState,
 } from '@monorepo/front-core-lib/fl-search';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
 import {
@@ -18,13 +21,11 @@ import {
   LiNoteTemplateService,
   LiRouterService,
 } from '@monorepo/lab-lib/li-core';
+import { TranslatePipe } from '@ngx-translate/core';
+
 import { LiNoteTemplateFormDialogComponent } from '../li-note-template-form-dialog/li-note-template-form-dialog.component';
 import { LiNoteTemplateSearchFormComponent } from '../li-note-template-search-form/li-note-template-search-form.component';
 import { LiNoteTemplateTableComponent } from '../li-note-template-table/li-note-template-table.component';
-import { MatIcon } from '@angular/material/icon';
-import { MatIconButton } from '@angular/material/button';
-import { MatTooltip } from '@angular/material/tooltip';
-import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'li-note-template-search',

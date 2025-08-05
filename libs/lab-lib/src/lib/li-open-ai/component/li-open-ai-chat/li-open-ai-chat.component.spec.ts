@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { LiOpenAiChatComponent } from './li-open-ai-chat.component';
 
 describe('LiOpenAiChatComponent', () => {

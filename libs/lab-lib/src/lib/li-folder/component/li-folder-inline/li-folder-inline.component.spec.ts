@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { LiFolderInlineComponent } from './li-folder-inline.component';
 
 describe('LiFolderInlineComponent', () => {

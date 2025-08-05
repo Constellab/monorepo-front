@@ -3,13 +3,14 @@ import { toObservable } from '@angular/core/rxjs-interop';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
+import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FlTagModule } from '@monorepo/front-core-lib/fl-tag';
+import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 import { Observable, switchMap, tap } from 'rxjs';
-import { FlDateModule } from '../../../../../../../../libs/front-core-lib/src/lib/fl-date';
-import { FlFormModule } from '../../../../../../../../libs/front-core-lib/src/lib/fl-form';
-import { FlSectionModule } from '../../../../../../../../libs/front-core-lib/src/lib/fl-section/fl-section.module';
-import { FlIconModule } from '../../../../../../../../libs/front-core-lib/src/lib/fl-svg-icon/fl-icon.module';
-import { FlTagModule } from '../../../../../../../../libs/front-core-lib/src/lib/fl-tag/fl-tag.module';
-import { FlTranslateModule } from '../../../../../../../../libs/front-core-lib/src/lib/fl-translate';
+
 import { CaHierarchyObjectIconComponent } from '../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-icon/ca-hierarchy-object-icon.component';
 import { CaRootFolderUserRoleObj } from '../../../../ca-core/model/entities/folder/ca-folder-user.class';
 import {

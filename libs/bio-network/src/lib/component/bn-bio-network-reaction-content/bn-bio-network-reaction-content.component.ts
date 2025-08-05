@@ -1,11 +1,12 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { firstValueFrom, Observable, of, switchMap } from 'rxjs';
-import { BnBioNetworkState } from '../../state/bn-bio-network.state';
-import { BnBioNetworkNodeReaction } from '../../model/bn-bio-network-node-reaction.class';
 import { map } from 'rxjs/operators';
-import { BnBioNetworkGraph } from '../../model/bn-bio-network-graph.class';
-import { BnBioNetworkSelectionState } from '../../state/bn-bio-network-selection.state';
+
 import { BnBioNetworkMetabolite } from '../../model/bn-bio-network.class';
+import { BnBioNetworkGraph } from '../../model/bn-bio-network-graph.class';
+import { BnBioNetworkNodeReaction } from '../../model/bn-bio-network-node-reaction.class';
+import { BnBioNetworkState } from '../../state/bn-bio-network.state';
+import { BnBioNetworkSelectionState } from '../../state/bn-bio-network-selection.state';
 
 /**
  * Section to display the substrate and products of a reaction

@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { LiObjectValidationInfoComponent } from './li-object-validation-info.component';
 
 describe('LiObjectValidationInfoComponent', () => {

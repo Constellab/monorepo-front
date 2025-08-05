@@ -1,8 +1,9 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
+
 import { LmlLabManagerService } from '../../lml-lab-manager.service';
-import { LmlBrickVersionDTODatasource, LmlLabManagerConfig } from '../../model/lml-lab-manager.class';
 import { LmlLabManagerState } from '../../lml-lab-manager.state';
+import { LmlBrickVersionDTODatasource, LmlLabManagerConfig } from '../../model/lml-lab-manager.class';
 
 /**
  * Component to configure the lab (bricks)

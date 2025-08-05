@@ -1,43 +1,43 @@
+import { NgClass } from '@angular/common';
 import { Component, computed, inject, OnInit, Signal } from '@angular/core';
-import { HaAgentTextEditorConfig } from '../ha-agent-core/ha-agent-text-editor.config';
-import { HaAgent } from '../../../ha-core/ha-model/ha-entities/ha-agent.class';
-import { HaAgentService } from '../../../ha-core/ha-service/ha-agent.service';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { MatButton, MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { TeRichText, TeTextEditorModule } from '@monorepo/text-editor';
+import { CoCommunityLibModule } from '@monorepo/community-lib';
+import { ClStringHelper } from '@monorepo/core-lib';
+import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
 } from '@monorepo/front-core-lib/fl-dialog';
+import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+import { TeRichText, TeTextEditorModule } from '@monorepo/text-editor';
+import { TranslatePipe } from '@ngx-translate/core';
 
+import { HaCommentsSectionComponent } from '../../../ha-core/entity-module/ha-comments-core/component/ha-comments-section/ha-comments-section.component';
+import { HaCommentButtonComponent } from '../../../ha-core/entity-module/ha-util-component-core/component/ha-comment-button/ha-comment-button.component';
+import { HaLikeButtonComponent } from '../../../ha-core/entity-module/ha-util-component-core/component/ha-like-button/ha-like-button.component';
+import { HaRunStatAggregatePanelComponent } from '../../../ha-core/ha-component/ha-run-stat-aggregate-panel/ha-run-stat-aggregate-panel.component';
+import { HaTdServiceConfig } from '../../../ha-core/ha-model/ha-config/ha-td-service.config';
+import { HaAgent } from '../../../ha-core/ha-model/ha-entities/ha-agent.class';
+import { HaEntityType } from '../../../ha-core/ha-model/ha-entities/ha-entity-type';
+import { HaRunStatAggregate } from '../../../ha-core/ha-model/ha-entities/ha-run-stat-aggregate.class';
+import { HaUser } from '../../../ha-core/ha-model/ha-entities/ha-user';
+import { HaCommunityPageDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
+import { HaAgentService } from '../../../ha-core/ha-service/ha-agent.service';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
 import { HaAgentPageState } from '../../state/ha-agent-page.state';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { HaAgentTextEditorConfig } from '../ha-agent-core/ha-agent-text-editor.config';
 import {
   HaAgentEditStyleDialogComponent,
   HaAgentEditStyleDialogInputData,
 } from '../ha-agent-edit-style-dialog/ha-agent-edit-style-dialog.component';
-import { HaCommunityPageDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
-import { HaTdServiceConfig } from '../../../ha-core/ha-model/ha-config/ha-td-service.config';
-import { ClStringHelper } from '@monorepo/core-lib';
-import { HaRunStatAggregate } from '../../../ha-core/ha-model/ha-entities/ha-run-stat-aggregate.class';
-import { CoCommunityLibModule } from '@monorepo/community-lib';
-import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
-import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
-import { NgClass } from '@angular/common';
-import { HaLikeButtonComponent } from '../../../ha-core/entity-module/ha-util-component-core/component/ha-like-button/ha-like-button.component';
-import { HaCommentButtonComponent } from '../../../ha-core/entity-module/ha-util-component-core/component/ha-comment-button/ha-comment-button.component';
-import { MatButton, MatIconButton } from '@angular/material/button';
-import { MatTooltip } from '@angular/material/tooltip';
-import { MatIcon } from '@angular/material/icon';
-import { HaRunStatAggregatePanelComponent } from '../../../ha-core/ha-component/ha-run-stat-aggregate-panel/ha-run-stat-aggregate-panel.component';
-import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { HaAgentVersionDetailComponent } from '../ha-agent-version-detail/ha-agent-version-detail.component';
-import { TranslatePipe } from '@ngx-translate/core';
-import { HaCommentsSectionComponent } from '../../../ha-core/entity-module/ha-comments-core/component/ha-comments-section/ha-comments-section.component';
-import { HaUser } from '../../../ha-core/ha-model/ha-entities/ha-user';
-import { HaEntityType } from '../../../ha-core/ha-model/ha-entities/ha-entity-type';
 
 @Component({
   selector: 'ha-agent-overview',

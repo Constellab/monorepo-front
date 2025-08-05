@@ -1,17 +1,18 @@
+import { AsyncPipe } from '@angular/common';
 import { AfterViewInit, Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { MatOption } from '@angular/material/core';
+import { MatSelect } from '@angular/material/select';
 import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib/fl-core';
+import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
+import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
 import { Observable } from 'rxjs';
+
 import {
   CaBucketCredentials,
   CaBucketCredentialsDatasource,
 } from '../../../../model/entities/ca-object-storage.class';
 import { CaObjectStorageService } from '../../../../service-api/ca-object-storage.service';
-import { MatSelect } from '@angular/material/select';
-import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
-import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
-import { MatOption } from '@angular/material/core';
 import { CaBucketCredentialsInlineComponent } from '../ca-bucket-credentials-inline/ca-bucket-credentials-inline.component';
-import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'ca-select-bucket-credentials-options',

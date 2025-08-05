@@ -1,17 +1,18 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, OnInit, inject, input, output } from '@angular/core';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { Component, inject, input, OnInit, output } from '@angular/core';
+import { NgControl } from '@angular/forms';
+import { MatIcon } from '@angular/material/icon';
 import { FlFormFieldDirective, FlInputSearchFilter } from '@monorepo/front-core-lib/fl-core';
-import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlInputSearchAdvancedButton, FlInputSearchModule } from '@monorepo/front-core-lib/fl-input-search';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlTranslatableText, FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { LiScenario, LiScenarioDatasource, LiScenarioService } from '@monorepo/lab-lib/li-core';
+import { Observable } from 'rxjs';
+
 import { LiScenarioInlineComponent } from '../li-scenario-inline/li-scenario-inline.component';
 import { LiSelectScenarioDialogComponent } from '../li-select-scenario-dialog/li-select-scenario-dialog.component';
-import { MatIcon } from '@angular/material/icon';
-import { NgControl } from '@angular/forms';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'li-select-scenario',

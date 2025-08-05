@@ -1,13 +1,14 @@
 import { Component, inject, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { TranslatePipe } from '@ngx-translate/core';
+
 import { LabBiotaDataDatasource } from '../../../../model/lab-biota-data.class';
 import { LabBiotaDatabase, labBiotaDatabaseGroups } from '../../../../model/lab-biota-database.class';
 import { LabBiotaDatabaseService } from '../../../../service/lab-biota-database.service';
-import { ActivatedRoute } from '@angular/router';
-import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { LabBiotaDatabaseTableComponent } from '../../../lab-biota-core/lab-biota-database-table/lab-biota-database-table.component';
-import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * component to show the detail of a biota database

@@ -1,24 +1,24 @@
 import { inject, Injectable, OnDestroy } from '@angular/core';
+import { ClSubscriptionHandler } from '@monorepo/core-lib';
+import { FlStatusEvent, flStatutEventResponse, flStatutEventSuccess } from '@monorepo/front-core-lib/fl-core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlPortalActionResult, FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
-import { FlStatusEvent, flStatutEventResponse, flStatutEventSuccess } from '@monorepo/front-core-lib/fl-core';
 import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
-
 import { BehaviorSubject, combineLatest, distinct, filter, first, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 import {
   LmlDockerUpFormComponent,
   LmlDockerUpFormInput,
 } from './component/lml-docker-up-form/lml-docker-up-form.component';
 import { LmlPullBiotaFormDialogComponent } from './component/lml-pull-biota-form-dialog/lml-pull-biota-form-dialog.component';
+import { LmlLabManagerService } from './lml-lab-manager.service';
 import {
   LmlComposeUpOptions,
   LmlDockerInspect,
   LmlLabManagerStatus,
   LmlNewVersionAvailable,
 } from './model/lml-lab-manager.class';
-import { LmlLabManagerService } from './lml-lab-manager.service';
-import { ClSubscriptionHandler } from '@monorepo/core-lib';
-import { map } from 'rxjs/operators';
 
 interface LmlAdditionalData {
   refreshDockerContainers?: boolean;

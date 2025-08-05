@@ -1,9 +1,10 @@
 import { Component, Input } from '@angular/core';
-import { Observable } from 'rxjs';
 import { RvResourceView } from '@monorepo/resource-view';
-import { TeElementBlockDirective } from '@monorepo/text-editor';
-import { HaDocViewConfig } from '../ha-doc-content-view.class';
 import { RvResourceViewModule } from '@monorepo/resource-view';
+import { TeElementBlockDirective } from '@monorepo/text-editor';
+import { Observable } from 'rxjs';
+
+import { HaDocViewConfig } from '../ha-doc-content-view.class';
 
 @Component({
   selector: 'ha-doc-content-view',

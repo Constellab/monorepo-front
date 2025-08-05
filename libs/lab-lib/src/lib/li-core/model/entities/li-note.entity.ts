@@ -1,11 +1,12 @@
 import { ClLuxonDateTimeTransform } from '@monorepo/core-lib';
-import { DateTime } from 'luxon';
-import { Expose, Type } from 'class-transformer';
 import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
-import { LiBaseEntityWithUser, LiUser } from './li-user.entity';
+import { Expose, Type } from 'class-transformer';
+import { DateTime } from 'luxon';
+
 import { LiEntity } from '../global/li-entity.entity';
 import { LiFolder, LiFolderObject } from './li-folder.class';
 import { LiNoteTemplate } from './li-note-template.entity';
+import { LiBaseEntityWithUser, LiUser } from './li-user.entity';
 
 export class LiNote extends LiBaseEntityWithUser implements LiFolderObject {
   title: string;

@@ -1,7 +1,7 @@
 import { Component, inject, input } from '@angular/core';
+import { MatTooltip } from '@angular/material/tooltip';
 import { FlClipboardService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { LiShareLink } from '@monorepo/lab-lib/li-core';
-import { MatTooltip } from '@angular/material/tooltip';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({

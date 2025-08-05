@@ -1,31 +1,32 @@
+import { AsyncPipe } from '@angular/common';
 import { Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { CaFolderService } from '../../../../../ca-core/service-api/ca-folder.service';
-import { CaFolder } from '../../../../../ca-core/model/entities/folder/ca-folder.class';
+import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
 } from '@monorepo/front-core-lib/fl-dialog';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
-import { CaFolderRightPanelState } from '../../state/ca-folder-right-panel.state';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { MatIcon } from '@angular/material/icon';
-import { CaFolderDetailInfoComponent } from '../ca-folder-detail-info/ca-folder-detail-info.component';
-import { MatButton } from '@angular/material/button';
-import { CaFolderStorageSettingsComponent } from '../ca-folder-storage-settings/ca-folder-storage-settings.component';
-import { CaFolderStorageUsageSectionComponent } from '../ca-folder-storage-usage-section/ca-folder-storage-usage-section.component';
 import { TranslatePipe } from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
+
+import { CaFolder } from '../../../../../ca-core/model/entities/folder/ca-folder.class';
+import { CaHierarchyObject } from '../../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
+import { CaChatService } from '../../../../../ca-core/service-api/ca-chat.service';
+import { CaFolderService } from '../../../../../ca-core/service-api/ca-folder.service';
+import { CaHierarchyObjectService } from '../../../../../ca-core/service-api/ca-hierarchy-object.service';
+import { CaHierarchyObjectDetailState } from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
 import {
   CaHierarchyObjectEvent,
   CaHierarchyObjectEventState,
 } from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-event.state';
-import { CaHierarchyObject } from '../../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
-import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
-import { CaHierarchyObjectService } from '../../../../../ca-core/service-api/ca-hierarchy-object.service';
-import { CaChatService } from '../../../../../ca-core/service-api/ca-chat.service';
-import { CaHierarchyObjectDetailState } from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
-import { AsyncPipe } from '@angular/common';
+import { CaFolderRightPanelState } from '../../state/ca-folder-right-panel.state';
+import { CaFolderDetailInfoComponent } from '../ca-folder-detail-info/ca-folder-detail-info.component';
+import { CaFolderStorageSettingsComponent } from '../ca-folder-storage-settings/ca-folder-storage-settings.component';
+import { CaFolderStorageUsageSectionComponent } from '../ca-folder-storage-usage-section/ca-folder-storage-usage-section.component';
 
 @Component({
   selector: 'ca-folder-settings',

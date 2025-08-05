@@ -1,5 +1,5 @@
-import { FormControl } from '@angular/forms';
 import { Directive, Input } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 /**
  * Generic type for the Dynamic control components

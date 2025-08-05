@@ -1,7 +1,7 @@
 import { Directive, ElementRef, inject, Input, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 /**
  * Directive similar to routerLinkActive but without the need

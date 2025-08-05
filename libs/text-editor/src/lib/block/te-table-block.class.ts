@@ -1,5 +1,6 @@
-import Table from '@editorjs/table';
 import { SanitizerConfig } from '@editorjs/editorjs/types/configs';
+import Table from '@editorjs/table';
+
 import { TeHelper } from '../model/te.helper';
 
 export default class TeTable extends Table {

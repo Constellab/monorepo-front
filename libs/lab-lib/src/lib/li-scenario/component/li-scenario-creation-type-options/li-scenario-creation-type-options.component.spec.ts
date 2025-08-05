@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { LiScenarioCreationTypeOptionsComponent } from './li-scenario-creation-type-options.component';
 
 describe('LiScenarioCreationTypeOptionsComponent', () => {

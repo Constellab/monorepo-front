@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { LiProcessTypeTableComponent } from './li-process-type-table.component';
 
 describe('LiProcessTypeTableComponent', () => {

@@ -1,23 +1,23 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject,OnInit } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
+import { MatButton } from '@angular/material/button';
+import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent } from '@angular/material/dialog';
+import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
 import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { FlDialogModule, FlFormDialogAbstractDirective } from '@monorepo/front-core-lib/fl-dialog';
-import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
-import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import {
   LiCreateScenarioTemplateDTO,
   LiProtocolService,
   LiScenarioTemplate,
   LiScenarioTemplateService,
 } from '@monorepo/lab-lib/li-core';
-import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent } from '@angular/material/dialog';
-import { MatButton } from '@angular/material/button';
-import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
-import { MatInput } from '@angular/material/input';
-import { Observable } from 'rxjs';
 import { TeBasicConfig, TeRichText, TeTextEditorModule } from '@monorepo/text-editor';
 import { TranslatePipe } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
 
 export interface LiScenarioTemplateFormDialogInput extends FlFormDialogInput<LiScenarioTemplate> {
   protocolId?: string;

@@ -1,24 +1,24 @@
 import { CdkScrollable } from '@angular/cdk/scrolling';
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject,OnInit } from '@angular/core';
+import { FormsModule, ReactiveFormsModule, UntypedFormControl, Validators } from '@angular/forms';
+import { MatButton } from '@angular/material/button';
+import { MatOption } from '@angular/material/core';
+import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
+import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatSelect } from '@angular/material/select';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
-import { FormsModule, ReactiveFormsModule, UntypedFormControl, Validators } from '@angular/forms';
 import {
   LiFileResourceService,
   LiResource,
   LiResourceService,
   LiTypeEntity,
 } from '@monorepo/lab-lib/li-core';
-import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
-import { MatButton } from '@angular/material/button';
-import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
-import { MatOption } from '@angular/material/core';
-import { MatSelect } from '@angular/material/select';
-import { Observable } from 'rxjs';
 import { TranslatePipe } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
 
 /**
  * Dialog to update the type of a file

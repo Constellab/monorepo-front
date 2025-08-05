@@ -1,7 +1,8 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { BnBioNetworkEngineConfig, BnBioNetworkEngineState } from '../../state/bn-bio-network-engine.state';
 import { FormBuilder } from '@angular/forms';
+import { Subscription } from 'rxjs';
+
+import { BnBioNetworkEngineConfig, BnBioNetworkEngineState } from '../../state/bn-bio-network-engine.state';
 
 @Component({
   selector: 'bn-bio-network-engine-config',

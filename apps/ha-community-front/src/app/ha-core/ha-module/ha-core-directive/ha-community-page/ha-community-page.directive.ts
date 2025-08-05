@@ -1,7 +1,8 @@
-import { HaMetadataService } from '../../../ha-service/ha-metadata.service';
-import { FlTranslatableText, FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import { Directive, inject, OnDestroy } from '@angular/core';
+import { FlTranslatableText, FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import { forkJoin, Subscription } from 'rxjs';
+
+import { HaMetadataService } from '../../../ha-service/ha-metadata.service';
 
 @Directive()
 export class HaCommunityPageDirective implements OnDestroy {

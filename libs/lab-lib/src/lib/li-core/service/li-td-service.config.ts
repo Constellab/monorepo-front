@@ -1,7 +1,8 @@
+import { inject,Injectable } from '@angular/core';
 import { CoCommunityHelperService } from '@monorepo/community-lib';
-import { Injectable, inject } from '@angular/core';
-import { LiRouterService } from './li-router.service';
 import { TdTechnicalDocServiceConfig, TdTechnicalDocUrl, TdTypingName } from '@monorepo/technical-doc';
+
+import { LiRouterService } from './li-router.service';
 
 /**
  * Class to configure the TdModule

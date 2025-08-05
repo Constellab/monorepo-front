@@ -1,19 +1,20 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, computed, effect, inject } from '@angular/core';
+import { MatIcon } from '@angular/material/icon';
 import { FlOverlayRef, FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { LiResourceDetailState } from '../../state/li-resource-detail.state';
 import {
   LiResourceService,
   LiResourceViewSpec,
   LiViewConfig,
   LiViewConfigDatasource,
 } from '@monorepo/lab-lib/li-core';
-import { LiResourceViewSpecCardComponent } from '../li-resource-view-spec-card/li-resource-view-spec-card.component';
-import { MatIcon } from '@angular/material/icon';
-import { Observable, of } from 'rxjs';
 import { TranslatePipe } from '@ngx-translate/core';
+import { Observable, of } from 'rxjs';
+
+import { LiResourceDetailState } from '../../state/li-resource-detail.state';
+import { LiResourceViewSpecCardComponent } from '../li-resource-view-spec-card/li-resource-view-spec-card.component';
 
 @Component({
   selector: 'li-resource-available-views-portal',

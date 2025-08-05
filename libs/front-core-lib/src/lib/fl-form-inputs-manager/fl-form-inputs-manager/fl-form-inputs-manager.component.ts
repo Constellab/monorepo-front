@@ -1,10 +1,11 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, inject } from '@angular/core';
+import { Component, EventEmitter, inject,Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormGroupDirective, NgForm, UntypedFormGroup } from '@angular/forms';
-import { Subscription } from 'rxjs';
-import { FlFormFilledInput, FlFormInputsManagerConfig } from '../fl-form-inputs-manager.class';
-import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
 import { FlFormHelper } from '@monorepo/front-core-lib/fl-core';
 import { FlMouseButton } from '@monorepo/front-core-lib/fl-core';
+import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
+import { Subscription } from 'rxjs';
+
+import { FlFormFilledInput, FlFormInputsManagerConfig } from '../fl-form-inputs-manager.class';
 
 /**
  * Component that works with form to display the list of form input not null in a chip list

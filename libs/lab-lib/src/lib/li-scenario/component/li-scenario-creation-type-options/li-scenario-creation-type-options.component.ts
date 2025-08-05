@@ -1,12 +1,12 @@
 import { AfterViewInit, Component, inject } from '@angular/core';
-import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
-import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib/fl-core';
-import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
-import { MatIcon } from '@angular/material/icon';
 import { MatOption } from '@angular/material/core';
+import { MatIcon } from '@angular/material/icon';
 import { MatSelect } from '@angular/material/select';
-import { TranslatePipe } from '@ngx-translate/core';
+import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib/fl-core';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { flScenarioCreationTypes } from '@monorepo/lab-lib/li-core';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'li-scenario-creation-type-options',

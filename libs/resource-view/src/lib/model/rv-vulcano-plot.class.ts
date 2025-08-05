@@ -1,6 +1,7 @@
 import { ChChart2dDatum, ChChart2dMultiSerie, ChChartConfig, ChChartVulcanoPlot } from '@monorepo/chart';
-import { RvResourceViewBase } from './rv-resource-view.class';
+
 import { rvResourceBuildBasicChart2d, RvResourceViewChart2dData } from './rv-basic-plot-2d.class';
+import { RvResourceViewBase } from './rv-resource-view.class';
 
 export interface RvResourceViewVulcanoPlot extends RvResourceViewBase {
   type: 'vulcano-plot-view';

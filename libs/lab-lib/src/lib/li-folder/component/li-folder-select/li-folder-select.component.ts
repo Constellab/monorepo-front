@@ -1,16 +1,6 @@
-import { ClHelpService } from '@monorepo/core-lib';
-import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
-import { FlColorModule } from '@monorepo/front-core-lib/fl-color';
-import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
-import { FlFlatTreeControl, FlFormFieldDirective } from '@monorepo/front-core-lib/fl-core';
-import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
-import {
-  LiConfig,
-  LiFolder,
-  LiFolderService,
-  LiFolderWithChildren,
-  LiSystemService,
-} from '@monorepo/lab-lib/li-core';
+import { NgClass } from '@angular/common';
+import { Component, EventEmitter, inject,Input, OnInit, Output } from '@angular/core';
+import { NgControl } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
 import {
   MatTree,
@@ -20,8 +10,18 @@ import {
   MatTreeNodeDef,
   MatTreeNodePadding,
 } from '@angular/material/tree';
-import { NgClass } from '@angular/common';
-import { NgControl } from '@angular/forms';
+import { ClHelpService } from '@monorepo/core-lib';
+import { FlColorModule } from '@monorepo/front-core-lib/fl-color';
+import { FlFlatTreeControl, FlFormFieldDirective } from '@monorepo/front-core-lib/fl-core';
+import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+import {
+  LiConfig,
+  LiFolder,
+  LiFolderService,
+  LiFolderWithChildren,
+  LiSystemService,
+} from '@monorepo/lab-lib/li-core';
 import { TranslatePipe } from '@ngx-translate/core';
 
 interface LabFolderFlatNode {

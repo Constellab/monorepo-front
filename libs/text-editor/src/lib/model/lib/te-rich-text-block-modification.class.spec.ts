@@ -1,10 +1,11 @@
 import { DateTime } from 'luxon';
+
+import { TeBlockData,TeBlockType } from './te-block.class';
 import {
   TeRichTextBlockModification,
-  TeRichTextModificationType,
   TeRichTextModificationDifference,
+  TeRichTextModificationType,
 } from './te-rich-text-block-modification.class';
-import { TeBlockType, TeBlockData } from './te-block.class';
 import { TeRichTextBlockModificationDTO } from './te-rich-text-block-modification.dto';
 
 describe('TeRichTextBlockModification', () => {

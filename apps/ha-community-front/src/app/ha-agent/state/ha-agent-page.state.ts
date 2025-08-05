@@ -1,25 +1,25 @@
 import { computed, inject, Injectable, Signal, signal, WritableSignal } from '@angular/core';
+import { ClStringHelper } from '@monorepo/core-lib';
+import { FlStatusEvent } from '@monorepo/front-core-lib/fl-core';
+import { FlConfirmDialogResult, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
+import { TeRichText } from '@monorepo/text-editor';
+
 import { HaAgent } from '../../ha-core/ha-model/ha-entities/ha-agent.class';
 import {
   HaAgentVersion,
   HaAgentVersionState,
 } from '../../ha-core/ha-model/ha-entities/ha-agent-version.class';
-import { HaAgentService } from '../../ha-core/ha-service/ha-agent.service';
-import { HaAuthenticatedUserService } from '../../ha-core/ha-service/ha-authenticated-user.service';
-import { ClStringHelper } from '@monorepo/core-lib';
-import { HaRouterService } from '../../ha-core/ha-service/ha-router.service';
-import { HaHttpRedirectionService } from '../../ha-core/ha-service/ha-http-redirection.service';
-import { HaUser } from '../../ha-core/ha-model/ha-entities/ha-user';
-import { TeRichText } from '@monorepo/text-editor';
 import { HaBrickVersion } from '../../ha-core/ha-model/ha-entities/ha-brick-version.class';
-import { FlConfirmDialogResult, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
-import { FlStatusEvent } from '@monorepo/front-core-lib/fl-core';
-
 import {
   HaRunStatAggregate,
   HaRunStatAggregateObjectType,
 } from '../../ha-core/ha-model/ha-entities/ha-run-stat-aggregate.class';
+import { HaUser } from '../../ha-core/ha-model/ha-entities/ha-user';
+import { HaAgentService } from '../../ha-core/ha-service/ha-agent.service';
+import { HaAuthenticatedUserService } from '../../ha-core/ha-service/ha-authenticated-user.service';
+import { HaHttpRedirectionService } from '../../ha-core/ha-service/ha-http-redirection.service';
+import { HaRouterService } from '../../ha-core/ha-service/ha-router.service';
 import { HaRunStatAggregateService } from '../../ha-core/ha-service/ha-run-stat-aggregate.service';
 
 @Injectable()

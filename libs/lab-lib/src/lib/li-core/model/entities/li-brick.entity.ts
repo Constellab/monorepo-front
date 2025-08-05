@@ -1,11 +1,12 @@
 import { ClVersion, ClVersionTransform } from '@monorepo/core-lib';
-import { Expose, Type } from 'class-transformer';
 import {
   FlStatus,
   FlStatusDict,
   FlStatusHelper,
   FlStatusTransform,
 } from '@monorepo/front-core-lib/fl-status';
+import { Expose, Type } from 'class-transformer';
+
 import { LiEntity } from '../global/li-entity.entity';
 
 export type LiBrickMessageStatus = 'INFO' | 'ERROR' | 'CRITICAL' | 'WARNING';

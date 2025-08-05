@@ -1,27 +1,28 @@
-import { ChChartColorFunction, ChChartScaleColorMulti } from '../scale/ch-chart-scale-color.class';
-import { ChChart2dMultiSerie } from '../data/ch-chart-multi-serie.class';
-import { ChChartContainer, ChChartContainer2Axis } from '../drawer/ch-chart-container.class';
-import { ChChartScaleLinear, ChChartScaleNumber } from '../scale/ch-chart-scale.class';
-import { ChChartAxis } from '../drawer/ch-chart-axis.class';
-import { ChChartSVGLegend } from '../legend/ch-chart-legend.class';
-import { ChChartLegendMultiSeries } from '../legend/ch-chart-legend-multi-series.class';
-import { ChChart2dBrush, ChChartBrush } from '../drawer/ch-chart-brush.class';
-import { ChChart2AxisRenderer } from '../../renderer/ch-chart-renderer.class';
-import { ChChartRendererLinePlot } from '../../renderer/ch-chart-renderer-line.plot';
-import { ChChartRendererScatterPlot } from '../../renderer/ch-chart-renderer-scatter.plot';
-import { ChChartConfig, ChChartRightSectionConfig } from '../ch-chart-config.class';
+import { FlColorHelper } from '@monorepo/front-core-lib/fl-core';
+import { FlTagColorer } from '@monorepo/front-core-lib/fl-tag';
+
 import {
   ChChartLegendMultiSeriesComponent,
   ChChartLegendMultiSeriesInput,
 } from '../../component/ch-chart-right-section/ch-chart-legend-multi-series/ch-chart-legend-multi-series.component';
-import { ChChart2dDatum } from '../data/ch-chart-data.class';
 import {
   ChChartLegendSeriesWithTagsComponent,
   ChChartLegendSerieWithTagsInput,
 } from '../../component/ch-chart-right-section/ch-chart-legend-series-with-tags/ch-chart-legend-series-with-tags.component';
+import { ChChart2AxisRenderer } from '../../renderer/ch-chart-renderer.class';
+import { ChChartRendererLinePlot } from '../../renderer/ch-chart-renderer-line.plot';
+import { ChChartRendererScatterPlot } from '../../renderer/ch-chart-renderer-scatter.plot';
+import { ChChartConfig, ChChartRightSectionConfig } from '../ch-chart-config.class';
+import { ChChart2dDatum } from '../data/ch-chart-data.class';
+import { ChChart2dMultiSerie } from '../data/ch-chart-multi-serie.class';
 import { ChChartDataWithSerie } from '../data/ch-chart-serie.class';
-import { FlColorHelper } from '@monorepo/front-core-lib/fl-core';
-import { FlTagColorer } from '@monorepo/front-core-lib/fl-tag';
+import { ChChartAxis } from '../drawer/ch-chart-axis.class';
+import { ChChart2dBrush, ChChartBrush } from '../drawer/ch-chart-brush.class';
+import { ChChartContainer, ChChartContainer2Axis } from '../drawer/ch-chart-container.class';
+import { ChChartSVGLegend } from '../legend/ch-chart-legend.class';
+import { ChChartLegendMultiSeries } from '../legend/ch-chart-legend-multi-series.class';
+import { ChChartScaleLinear, ChChartScaleNumber } from '../scale/ch-chart-scale.class';
+import { ChChartColorFunction, ChChartScaleColorMulti } from '../scale/ch-chart-scale-color.class';
 
 // abstract class to build line or scatter plot
 export abstract class ChChartLinear2d extends ChChartConfig {

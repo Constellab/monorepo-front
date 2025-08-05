@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
+
 import { CaCity } from '../../../../model/entities/ca-city.entity';
 import { CaCountryFlagPipe } from '../../pipe/ca-country-flag/ca-country-flag.pipe';
 

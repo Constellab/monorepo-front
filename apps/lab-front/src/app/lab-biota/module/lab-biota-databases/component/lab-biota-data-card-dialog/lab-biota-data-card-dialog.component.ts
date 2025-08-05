@@ -1,7 +1,8 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { LabBiotaData } from '../../../../model/lab-biota-data.class';
+import { Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
+
+import { LabBiotaData } from '../../../../model/lab-biota-data.class';
 import { LabBiotaDataCardComponent } from '../lab-biota-data-card/lab-biota-data-card.component';
 
 /**

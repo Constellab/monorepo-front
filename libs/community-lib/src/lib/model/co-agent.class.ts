@@ -1,7 +1,8 @@
+import { TdTypeStyle } from '@monorepo/technical-doc';
 import { DateTime } from 'luxon';
+
 import { CoSpace } from './co-space.class';
 import { CoUser } from './co-user.class';
-import { TdTypeStyle } from '@monorepo/technical-doc';
 
 export class CoAgent {
   id: string;

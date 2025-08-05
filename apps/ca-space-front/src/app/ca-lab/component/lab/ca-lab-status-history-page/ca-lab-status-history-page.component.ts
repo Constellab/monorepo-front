@@ -1,6 +1,10 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { CaLabDetailPageState } from '../../../state/ca-lab-detail-page.state';
-import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
+import { FormBuilder, FormGroup, ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
+import { MatOption } from '@angular/material/core';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatIcon } from '@angular/material/icon';
+import { MatSelect } from '@angular/material/select';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 import { FlFormInputsManagerConfig } from '@monorepo/front-core-lib/fl-form-inputs-manager';
 import {
@@ -13,22 +17,18 @@ import {
   FlSearchSortCriteriaConverter,
   FlSearchState,
 } from '@monorepo/front-core-lib/fl-search';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
+import { TranslatePipe } from '@ngx-translate/core';
+import { Type } from 'class-transformer';
 
 import {
   CaLabStatus,
   CaLabStatusHistoryDatasource,
 } from '../../../../ca-core/model/entities/lab/ca-lab.class';
-import { FormBuilder, FormGroup, ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
-import { Type } from 'class-transformer';
-import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { MatIcon } from '@angular/material/icon';
-import { MatFormField, MatLabel } from '@angular/material/form-field';
-import { MatSelect } from '@angular/material/select';
-import { MatOption } from '@angular/material/core';
 import { CaStatusHistoryTableComponent } from '../../../../ca-core/module/ca-status/ca-status-history-table/ca-status-history-table.component';
-import { TranslatePipe } from '@ngx-translate/core';
+import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
+import { CaLabDetailPageState } from '../../../state/ca-lab-detail-page.state';
 
 export class CaLabStatusHistorySearchFields {
   @Type(() => FlSearchDateInterval)

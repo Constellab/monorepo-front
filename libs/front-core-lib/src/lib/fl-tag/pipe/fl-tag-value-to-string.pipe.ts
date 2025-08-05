@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+
 import { FlTagValue } from '../fl-tag.class';
 import { FlTagHelper } from '../fl-tag.helper';
 

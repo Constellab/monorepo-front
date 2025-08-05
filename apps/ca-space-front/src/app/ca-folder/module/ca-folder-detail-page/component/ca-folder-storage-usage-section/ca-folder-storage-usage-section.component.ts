@@ -1,11 +1,12 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
+import { MatIcon } from '@angular/material/icon';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { TranslatePipe } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
+
+import { CaFolderStorageUsageComponent } from '../../../../../ca-core/entity-module/ca-folder-core/component/ca-folder-storage-usage/ca-folder-storage-usage.component';
 import { CaFolderStorageUsageDTO } from '../../../../../ca-core/model/entities/folder/ca-document.class';
 import { CaFolderService } from '../../../../../ca-core/service-api/ca-folder.service';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { MatIcon } from '@angular/material/icon';
-import { CaFolderStorageUsageComponent } from '../../../../../ca-core/entity-module/ca-folder-core/component/ca-folder-storage-usage/ca-folder-storage-usage.component';
-import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'ca-folder-storage-usage-section',

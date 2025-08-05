@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 import { LiConfig, LiResourceViewRichText, LiRichTextObjectType } from '@monorepo/lab-lib/li-core';
-import { LabEnvironmentHelper } from './lab-environment.helper';
-import { TeConfig } from '@monorepo/text-editor';
 import { LiNoteResourceTextEditorConfig } from '@monorepo/lab-lib/li-resource';
+import { TeConfig } from '@monorepo/text-editor';
+
 import {
   LabNoteTextEditorConfig
 } from '../lab-note/module/lab-note-detail-page/lab-note-text-editor-config.class';
 import {
   LabNoteTemplateTextEditorConfig
 } from '../lab-note-template/lab-note-template-detail-page/lab-note-template-text-editor-config.class';
+import { LabEnvironmentHelper } from './lab-environment.helper';
 
 @Injectable({
   providedIn: 'root'

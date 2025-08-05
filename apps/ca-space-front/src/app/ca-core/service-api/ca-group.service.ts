@@ -1,12 +1,12 @@
 import { inject, Injectable } from '@angular/core';
+import { ClPage, ClPageI } from '@monorepo/core-lib';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { FlDatasourceGetPageData, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 import { FlSearchConverter } from '@monorepo/front-core-lib/fl-search';
-
 import { Observable } from 'rxjs';
-import { CaGroup, CaGroupDatasource, CaUserGroup } from '../model/entities/ca-group.entity';
-import { ClPage, ClPageI } from '@monorepo/core-lib';
+
 import { CaTeamSearch, CaTeamSearchFields } from '../entity-module/ca-group-core/model/ca-team.search.class';
+import { CaGroup, CaGroupDatasource, CaUserGroup } from '../model/entities/ca-group.entity';
 
 @Injectable({
   providedIn: 'root',

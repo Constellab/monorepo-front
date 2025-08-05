@@ -1,8 +1,7 @@
+import { NgClass } from '@angular/common';
 import { Component, inject, Input, input, OnDestroy, OnInit, Signal, viewChild } from '@angular/core';
-import {
-  CaHierarchyObjectSimple,
-  CaHierarchyObjectsTreeDatasource,
-} from '../../../../model/entities/folder/ca-hierarchy-object.class';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
 import {
   MatTree,
   MatTreeNode,
@@ -10,17 +9,19 @@ import {
   MatTreeNodePadding,
   MatTreeNodeToggle,
 } from '@angular/material/tree';
-import { CaNotificationType } from '../../../../model/entities/ca-notification.class';
-import { ClSubscriptionHandler } from '@monorepo/core-lib';
-import { MatIconButton } from '@angular/material/button';
-import { MatIcon } from '@angular/material/icon';
-import { CaHierarchyObjectIconComponent } from '../ca-hierarchy-object-icon/ca-hierarchy-object-icon.component';
 import { RouterLink } from '@angular/router';
-import { CaNotificationMarkDirective } from '../../../ca-notification-core/directive/ca-notification-mark/ca-notification-mark.directive';
-import { Observable, switchMap } from 'rxjs';
-import { NgClass } from '@angular/common';
+import { ClSubscriptionHandler } from '@monorepo/core-lib';
 import { FlTree } from '@monorepo/front-core-lib/fl-core';
+import { Observable, switchMap } from 'rxjs';
+
+import { CaNotificationType } from '../../../../model/entities/ca-notification.class';
+import {
+  CaHierarchyObjectSimple,
+  CaHierarchyObjectsTreeDatasource,
+} from '../../../../model/entities/folder/ca-hierarchy-object.class';
 import { CaFolderService } from '../../../../service-api/ca-folder.service';
+import { CaNotificationMarkDirective } from '../../../ca-notification-core/directive/ca-notification-mark/ca-notification-mark.directive';
+import { CaHierarchyObjectIconComponent } from '../ca-hierarchy-object-icon/ca-hierarchy-object-icon.component';
 
 @Component({
   selector: 'ca-hierarchy-object-tree',

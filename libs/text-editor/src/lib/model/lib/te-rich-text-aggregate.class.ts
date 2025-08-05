@@ -1,3 +1,4 @@
+import { TeBlock, TeBlockType } from './te-block.class';
 import { TeHTMLEditorJSON, TeRichText, TeRichTextDTO } from './te-rich-text.class';
 import {
   TeRichTextBlockModification,
@@ -8,7 +9,6 @@ import {
   TeRichTextBlockModificationWithUser,
   TeRichTextGetUserFunction,
 } from './te-rich-text-block-modification.dto';
-import { TeBlock, TeBlockType } from './te-block.class';
 import { TeRichTextModifications } from './te-rich-text-modifications.class';
 
 /**

@@ -1,7 +1,8 @@
 import { inject, Injectable } from '@angular/core';
-import { CaStats } from '../model/entities/ca-stats.class';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { Observable } from 'rxjs';
+
+import { CaStats } from '../model/entities/ca-stats.class';
 
 @Injectable({
   providedIn: 'root',

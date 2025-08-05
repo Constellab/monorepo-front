@@ -1,8 +1,9 @@
-import { TdTypingName } from '@monorepo/technical-doc';
-import { CoConfig } from '../service/co-service-config.config';
 import { inject, Injectable } from '@angular/core';
 import { ClBrick } from '@monorepo/core-lib';
+import { TdTypingName } from '@monorepo/technical-doc';
+
 import { CoTagCommunityTagInput } from '../component/co-tag-community-icon/co-tag-community-icon.component';
+import { CoConfig } from '../service/co-service-config.config';
 
 export type CoBrickVersionPath = 'latest' | string;
 

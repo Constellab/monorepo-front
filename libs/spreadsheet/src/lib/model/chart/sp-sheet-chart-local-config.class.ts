@@ -1,30 +1,31 @@
-import { SpSheet } from '../sp-sheet.class';
-import {
-  SpSheetChart2dSerieSelectionForm,
-  SpSheetChartSelectionFormAdditional,
-  SpSheetSelectionRange,
-} from './sp-sheet-chart-selection-form.class';
-import { SpSheetChartSelectionBarPlot } from './sp-sheet-chart-selection-bar-plot.class';
-import { SpSheetChartSelectionBoxPlot } from './sp-sheet-chart-selection-box-plot.class';
-import { SpSheetChartSelectionHeatMap } from './sp-sheet-chart-selection-heat-map.class';
-import { SpSheetChartSelectionBasic } from './sp-sheet-chart-selection-basic.class';
-import { SpSheetChartSelection } from './sp-sheet-chart-selection.class';
-import {
-  SpSheetChartConfig,
-  SpSpreadsheetChartSerieSelectionInput,
-  SpSpreadsheetGenerateChartOptions,
-} from './sp-sheet-chart-config.class';
-import { SpSheetChartSelectionVulcanoPlot } from './sp-sheet-chart-selection-vulcano-plot.class';
-import { FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
-import { FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
-import { FlPortalConfig } from '@monorepo/front-core-lib/fl-portal';
 import {
   ChChartHistogramMode,
   ChChartPortalConfig,
   ChChartPortalService,
   ChChartType,
 } from '@monorepo/chart';
+import { FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
+import { FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
+import { FlPortalConfig } from '@monorepo/front-core-lib/fl-portal';
+
+import { SpSheet } from '../sp-sheet.class';
+import {
+  SpSheetChartConfig,
+  SpSpreadsheetChartSerieSelectionInput,
+  SpSpreadsheetGenerateChartOptions,
+} from './sp-sheet-chart-config.class';
+import { SpSheetChartSelection } from './sp-sheet-chart-selection.class';
+import { SpSheetChartSelectionBarPlot } from './sp-sheet-chart-selection-bar-plot.class';
+import { SpSheetChartSelectionBasic } from './sp-sheet-chart-selection-basic.class';
+import { SpSheetChartSelectionBoxPlot } from './sp-sheet-chart-selection-box-plot.class';
+import {
+  SpSheetChart2dSerieSelectionForm,
+  SpSheetChartSelectionFormAdditional,
+  SpSheetSelectionRange,
+} from './sp-sheet-chart-selection-form.class';
+import { SpSheetChartSelectionHeatMap } from './sp-sheet-chart-selection-heat-map.class';
 import { SpSheetChartSelectionHistogram } from './sp-sheet-chart-selection-histogram.class';
+import { SpSheetChartSelectionVulcanoPlot } from './sp-sheet-chart-selection-vulcano-plot.class';
 
 /**
  * Main config class to generate chart from the sheet locally

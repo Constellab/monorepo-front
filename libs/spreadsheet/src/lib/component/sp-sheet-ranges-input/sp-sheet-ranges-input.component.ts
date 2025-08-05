@@ -1,12 +1,13 @@
 import { Component, EventEmitter, inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, NgControl, UntypedFormGroup } from '@angular/forms';
-import { SpSpreadsheetState } from '../../state/sp-spreadsheet.state';
-import { Observable, of, Subscription } from 'rxjs';
-import { SpSheetSelectionRange } from '../../model/chart/sp-sheet-chart-selection-form.class';
-import { SpSheetSingleSelection } from '../../model/selection/sp-sheet-single-selection.class';
-import { SpSpreadsheetChartSelectionHelper } from '../../utils/sp-spreadsheet-chart-selection.helper';
-import { SpCellsMultipleRange } from '../../model/selection/sp-cells-multiple-range.class';
 import { FlFormFieldDirective } from '@monorepo/front-core-lib/fl-core';
+import { Observable, of, Subscription } from 'rxjs';
+
+import { SpSheetSelectionRange } from '../../model/chart/sp-sheet-chart-selection-form.class';
+import { SpCellsMultipleRange } from '../../model/selection/sp-cells-multiple-range.class';
+import { SpSheetSingleSelection } from '../../model/selection/sp-sheet-single-selection.class';
+import { SpSpreadsheetState } from '../../state/sp-spreadsheet.state';
+import { SpSpreadsheetChartSelectionHelper } from '../../utils/sp-spreadsheet-chart-selection.helper';
 
 interface SpSpreadsheetRangeForm {
   type: 'range' | 'columns';

@@ -1,22 +1,7 @@
-import { ClCredentials } from '@monorepo/core-lib';
-import { Component, Input, inject } from '@angular/core';
-import { FlArrayObs, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
-import {
-  FlCheckCredentialsDialogComponent,
-  FlCheckCredentialsDialogInput,
-} from '@monorepo/front-core-lib/fl-auth';
-import {
-  FlConfirmDialogInput,
-  FlConfirmDialogResult,
-  FlDialogService,
-} from '@monorepo/front-core-lib/fl-dialog';
-import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import { LiCredentials, LiCredentialsData } from '@monorepo/lab-lib/li-core';
-import {
-  LiCredentialsFormDialogComponent,
-  LiCredentialsFormDialogInput,
-} from '../li-credentials-form-dialog/li-credentials-form-dialog.component';
-import { LiCredentialsService } from '../../service/li-credentials.service';
+import { Component, inject,Input } from '@angular/core';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import {
   MatCell,
   MatCellDef,
@@ -29,10 +14,26 @@ import {
   MatRowDef,
   MatTable,
 } from '@angular/material/table';
-import { MatIcon } from '@angular/material/icon';
-import { MatIconButton } from '@angular/material/button';
-import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
+import { ClCredentials } from '@monorepo/core-lib';
+import {
+  FlCheckCredentialsDialogComponent,
+  FlCheckCredentialsDialogInput,
+} from '@monorepo/front-core-lib/fl-auth';
+import { FlArrayObs, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
+import {
+  FlConfirmDialogInput,
+  FlConfirmDialogResult,
+  FlDialogService,
+} from '@monorepo/front-core-lib/fl-dialog';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+import { LiCredentials, LiCredentialsData } from '@monorepo/lab-lib/li-core';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { LiCredentialsService } from '../../service/li-credentials.service';
+import {
+  LiCredentialsFormDialogComponent,
+  LiCredentialsFormDialogInput,
+} from '../li-credentials-form-dialog/li-credentials-form-dialog.component';
 
 @Component({
   selector: 'li-credentials-table',

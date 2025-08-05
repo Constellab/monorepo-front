@@ -1,6 +1,6 @@
-import { TeRichTextBlockModificationsDTO } from './te-rich-text-block-modification.dto';
 import { TeBlockListItem, TeBlockType } from './te-block.class';
 import { TeRichTextDTO } from './te-rich-text.class';
+import { TeRichTextBlockModificationsDTO } from './te-rich-text-block-modification.dto';
 
 export abstract class TeRichTextMigrator {
   public migrateRichText(content: TeRichTextDTO): TeRichTextDTO {

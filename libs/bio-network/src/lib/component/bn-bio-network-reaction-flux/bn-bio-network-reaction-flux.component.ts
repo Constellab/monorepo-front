@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+
 import { BnBioNetworkReaction, BnBioNetworkReactionDataFlux } from '../../model/bn-bio-network.class';
 import { BnBioNetworkHelper } from '../../utils/bn-bio-network.helper';
 

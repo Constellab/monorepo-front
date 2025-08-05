@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { LiSelectTypeComponent } from './li-select-type.component';
 
 describe('LiSelectTypeComponent', () => {

@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostListener, OnInit, inject } from '@angular/core';
+import { Directive, ElementRef, HostListener, inject,OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Directive({ selector: '[haSidenavButton]' })

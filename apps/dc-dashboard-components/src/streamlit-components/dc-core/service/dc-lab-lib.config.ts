@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { LiConfig } from '@monorepo/lab-lib/li-core';
 import { TeConfig } from '@monorepo/text-editor';
+
 import { DcEnvironmentHelper } from '../dc-environment.helper';
 
 @Injectable({

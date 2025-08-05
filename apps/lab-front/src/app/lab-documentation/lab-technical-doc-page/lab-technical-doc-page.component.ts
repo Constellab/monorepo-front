@@ -1,13 +1,13 @@
-import { ActivatedRoute } from '@angular/router';
 import { CdkScrollable } from '@angular/cdk/scrolling';
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject,OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { FlArticleModule } from '@monorepo/front-core-lib/fl-article';
 import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
-import { LiTypeDetailComponent } from '@monorepo/lab-lib/li-type';
 import { LiTypeEntity, LiTypeService } from '@monorepo/lab-lib/li-core';
-import { Observable, mergeMap } from 'rxjs';
+import { LiTypeDetailComponent } from '@monorepo/lab-lib/li-type';
 import { TdTechnicalDocModule } from '@monorepo/technical-doc';
+import { mergeMap,Observable } from 'rxjs';
 
 @Component({
   selector: 'lab-technical-doc-page',

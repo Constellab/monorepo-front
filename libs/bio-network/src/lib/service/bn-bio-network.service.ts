@@ -1,4 +1,5 @@
 import { Observable } from 'rxjs';
+
 import { BnBioNetworkMetaboliteLevel } from '../model/bn-bio-network.class';
 
 export interface BnUpdateMetabolite {

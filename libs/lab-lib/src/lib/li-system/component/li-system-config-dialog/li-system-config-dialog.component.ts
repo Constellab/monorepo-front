@@ -1,12 +1,12 @@
 import { CdkScrollable } from '@angular/cdk/scrolling';
 import { Component, inject } from '@angular/core';
+import { MatDialogContent } from '@angular/material/dialog';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { LiSystemConfig, LiSystemService } from '@monorepo/lab-lib/li-core';
-import { MatDialogContent } from '@angular/material/dialog';
-import { Observable } from 'rxjs';
 import { TranslatePipe } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
 
 /**
  * Dialog to list the pip packages of the system

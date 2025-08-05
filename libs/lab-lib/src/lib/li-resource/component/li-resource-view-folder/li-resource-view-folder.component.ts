@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { Component, inject,OnDestroy, OnInit } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import {
@@ -36,6 +36,7 @@ import {
 } from '@monorepo/lab-lib/li-core';
 import { RvResourceViewDirective } from '@monorepo/resource-view';
 import { TranslatePipe } from '@ngx-translate/core';
+
 import { LiResourceDetailState } from '../../state/li-resource-detail.state';
 import {
   LiFsNodeTypesSelectionDialogComponent,

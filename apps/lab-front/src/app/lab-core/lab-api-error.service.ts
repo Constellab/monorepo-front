@@ -1,8 +1,8 @@
+import { PlatformLocation } from '@angular/common';
+import { inject, Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { flAuthExpiredCookie, FlCleanerService, FlLoginSavedRoute } from '@monorepo/front-core-lib/fl-core';
 import { FlCookieService } from '@monorepo/front-core-lib/fl-dialog';
-import { inject, Injectable } from '@angular/core';
-import { PlatformLocation } from '@angular/common';
-import { Router } from '@angular/router';
 import { LiApiErrorService, liConstLoginRoute } from '@monorepo/lab-lib/li-core';
 
 @Injectable()

@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { CaServerCloud } from '../../../../model/entities/server/ca-server-cloud.class';
 import { NgOptimizedImage } from '@angular/common';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { CaServerCloud } from '../../../../model/entities/server/ca-server-cloud.class';
 
 @Component({
   selector: 'ca-server-cloud-inline',

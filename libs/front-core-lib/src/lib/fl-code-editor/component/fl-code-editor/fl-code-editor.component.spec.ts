@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { FlCodeEditorComponent } from './fl-code-editor.component';
 
 describe('FlCodeEditorComponent', () => {

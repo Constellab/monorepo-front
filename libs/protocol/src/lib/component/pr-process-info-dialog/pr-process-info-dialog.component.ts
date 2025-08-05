@@ -1,7 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { PrProtocol } from '../../model/pr-protocol.class';
 import { CoCommunityHelperService } from '@monorepo/community-lib';
+
+import { PrProtocol } from '../../model/pr-protocol.class';
 
 export interface PrProcessInfoDialogInput {
   process: PrProtocol;

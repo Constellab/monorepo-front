@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { LiScenarioIconsComponent } from './li-scenario-icons.component';
 
 describe('LiScenarioIconsComponent', () => {

@@ -6,6 +6,6 @@
   text-overflow: ellipsis;
   padding: 6px 8px;
   // same color as tooltip
-  background-color: var(--mdc-plain-tooltip-container-color, var(--mat-sys-inverse-surface));
-  color: var(--mdc-plain-tooltip-supporting-text-color, var(--mat-sys-inverse-on-surface));
+  background-color: var(--mat-tooltip-container-color, var(--mat-sys-inverse-surface));
+  color: var(--mat-tooltip-supporting-text-color, var(--mat-sys-inverse-on-surface));
 }

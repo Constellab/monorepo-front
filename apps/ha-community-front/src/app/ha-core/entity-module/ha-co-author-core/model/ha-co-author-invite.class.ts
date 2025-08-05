@@ -1,10 +1,11 @@
-import { HaStory } from '../../../ha-model/ha-entities/ha-story.class';
 import { Type } from 'class-transformer';
-import { HaUser } from '../../../ha-model/ha-entities/ha-user';
-import { HaInviteStatus } from '../../../ha-model/ha-entities/ha-invite';
-import { HaBaseEntity } from '../../../ha-model/ha-entities/ha-entity.class';
-import { HaBrick } from '../../../ha-model/ha-entities/ha-brick.class';
+
 import { HaAgent } from '../../../ha-model/ha-entities/ha-agent.class';
+import { HaBrick } from '../../../ha-model/ha-entities/ha-brick.class';
+import { HaBaseEntity } from '../../../ha-model/ha-entities/ha-entity.class';
+import { HaInviteStatus } from '../../../ha-model/ha-entities/ha-invite';
+import { HaStory } from '../../../ha-model/ha-entities/ha-story.class';
+import { HaUser } from '../../../ha-model/ha-entities/ha-user';
 
 export class HaCoAuthorInvite extends HaBaseEntity {
   email: string;

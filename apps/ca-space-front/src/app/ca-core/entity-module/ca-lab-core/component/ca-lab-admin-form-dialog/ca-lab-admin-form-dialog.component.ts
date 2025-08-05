@@ -1,32 +1,32 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { CaLabType, CaLabWithSpace } from '../../../../model/entities/lab/ca-lab.class';
-import { Observable } from 'rxjs';
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
-import { FlDialogModule, FlFormDialogAbstractDirective } from '@monorepo/front-core-lib/fl-dialog';
-import { FlFormDialogInput, FlGlobalValidators, FlPlatformService } from '@monorepo/front-core-lib/fl-core';
-
-import { CaLabValidator } from '../../../../model/entities/lab/ca-lab.validator';
-import { CaLabAdminForm } from '../../../../model/entities/lab/ca-lab.form';
-import { CaLabService } from '../../../../service-api/ca-lab.service';
-import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent } from '@angular/material/dialog';
-import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
-import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
-import { FlRadioButtonBigModule } from '@monorepo/front-core-lib/fl-radio-button-big';
-import { MatIcon } from '@angular/material/icon';
-import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
-import { MatInput } from '@angular/material/input';
-import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
-import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
-import { CaSelectSpaceComponent } from '../../../ca-space-core/component/ca-select-space/ca-select-space.component';
-import { MatSelect, MatSelectTrigger } from '@angular/material/select';
+import { MatButton } from '@angular/material/button';
 import { MatOption } from '@angular/material/core';
-import { CaSelectServerCloudComponent } from '../../../ca-server-core/component/ca-select-server-cloud/ca-select-server-cloud.component';
+import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent } from '@angular/material/dialog';
+import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatIcon } from '@angular/material/icon';
+import { MatInput } from '@angular/material/input';
+import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
+import { MatSelect, MatSelectTrigger } from '@angular/material/select';
+import { FlFormDialogInput, FlGlobalValidators, FlPlatformService } from '@monorepo/front-core-lib/fl-core';
+import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
+import { FlDialogModule, FlFormDialogAbstractDirective } from '@monorepo/front-core-lib/fl-dialog';
+import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { FlRadioButtonBigModule } from '@monorepo/front-core-lib/fl-radio-button-big';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { TranslatePipe } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+
+import { CaLabType, CaLabWithSpace } from '../../../../model/entities/lab/ca-lab.class';
+import { CaLabAdminForm } from '../../../../model/entities/lab/ca-lab.form';
+import { CaLabValidator } from '../../../../model/entities/lab/ca-lab.validator';
+import { CaLabService } from '../../../../service-api/ca-lab.service';
 import { CaCloudProviderRegionInlineComponent } from '../../../ca-cloud-provider-core/component/ca-cloud-provider-region-inline/ca-cloud-provider-region-inline.component';
 import { CaSelectCloudProviderRegionOptionsComponent } from '../../../ca-cloud-provider-core/component/ca-select-cloud-provider-region-options/ca-select-cloud-provider-region-options.component';
-import { MatButton } from '@angular/material/button';
-import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
-import { TranslatePipe } from '@ngx-translate/core';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { CaSelectServerCloudComponent } from '../../../ca-server-core/component/ca-select-server-cloud/ca-select-server-cloud.component';
+import { CaSelectSpaceComponent } from '../../../ca-space-core/component/ca-select-space/ca-select-space.component';
 
 export interface CaLabAdminFormDialogInput extends FlFormDialogInput<CaLabAdminForm> {
   id?: string; // only on update mode

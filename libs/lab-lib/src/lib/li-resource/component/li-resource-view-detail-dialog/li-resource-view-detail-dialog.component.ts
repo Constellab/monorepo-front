@@ -1,11 +1,12 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject,OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { LiResourceService, LiResourceView } from '@monorepo/lab-lib/li-core';
-import { LiResourceViewDetailComponent } from '../li-resource-view-detail/li-resource-view-detail.component';
-import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
-import { Observable } from 'rxjs';
 import { TdParamSpecsValues } from '@monorepo/technical-doc';
+import { Observable } from 'rxjs';
+
+import { LiResourceViewDetailComponent } from '../li-resource-view-detail/li-resource-view-detail.component';
 
 export type LiResourceViewDetailDialogInput =
   | {

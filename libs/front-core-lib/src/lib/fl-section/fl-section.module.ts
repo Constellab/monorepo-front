@@ -1,18 +1,18 @@
-import { inject, NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FlSectionComponent } from './fl-section/fl-section.component';
-import { FlSectionHeaderComponent } from './fl-section-header/fl-section-header.component';
-import { FlSectionActionsComponent } from './fl-section-actions/fl-section-actions.component';
-
-import { MatIconModule } from '@angular/material/icon';
-import { FlSectionBodyDirective } from './fl-section-body';
 import { PortalModule } from '@angular/cdk/portal';
-import { FlAsyncSectionComponent } from './fl-async-section/fl-async-section.component';
-import { FlLoaderModule } from '../fl-loader/fl-loader.module';
-import { FlTranslateModule } from '../fl-translate/fl-translate.module';
+import { CommonModule } from '@angular/common';
+import { inject, NgModule } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
 import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+
+import { FlLoaderModule } from '../fl-loader/fl-loader.module';
+import { FlTranslateModule } from '../fl-translate/fl-translate.module';
+import { FlAsyncSectionComponent } from './fl-async-section/fl-async-section.component';
 import { flSectionI18n } from './fl-section.i18n';
+import { FlSectionComponent } from './fl-section/fl-section.component';
+import { FlSectionActionsComponent } from './fl-section-actions/fl-section-actions.component';
+import { FlSectionBodyDirective } from './fl-section-body';
+import { FlSectionHeaderComponent } from './fl-section-header/fl-section-header.component';
 
 /**
  * Module SectionList which is a section of a page displaying a list of element

@@ -1,9 +1,10 @@
-import { PrWorkflowNode } from '../model/node/pr-workflow-node.class';
-import { PrWorkflow, PrWorkflowMode } from '../model/workflow/pr-workflow.class';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { PrWorkflowLayer } from '../model/workflow/pr-workflow-layer.class';
+
+import { PrWorkflowNode } from '../model/node/pr-workflow-node.class';
 import { PrWorkflowNodeProtocol } from '../model/node/pr-workflow-node-protocol.class';
+import { PrWorkflow, PrWorkflowMode } from '../model/workflow/pr-workflow.class';
+import { PrWorkflowLayer } from '../model/workflow/pr-workflow-layer.class';
 import { PrWorkflowNodeMenuConfig } from '../model/workflow/pr-workflow-node-menu.config';
 
 /**

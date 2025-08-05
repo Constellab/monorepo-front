@@ -1,17 +1,18 @@
+import { AsyncPipe } from '@angular/common';
 import { AfterViewInit, Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { CaServerService } from '../../../../service-api/ca-server.service';
+import { MatOption } from '@angular/material/core';
+import { MatSelect } from '@angular/material/select';
+import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib/fl-core';
+import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
+import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
+import { Observable } from 'rxjs';
+
 import {
   CaServerCloud,
   CaServerCloudDatasource,
 } from '../../../../model/entities/server/ca-server-cloud.class';
-import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib/fl-core';
-import { Observable } from 'rxjs';
-import { MatSelect } from '@angular/material/select';
-import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
-import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
-import { MatOption } from '@angular/material/core';
+import { CaServerService } from '../../../../service-api/ca-server.service';
 import { CaServerCloudInlineComponent } from '../ca-server-cloud-inline/ca-server-cloud-inline.component';
-import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'ca-select-server-cloud-options',

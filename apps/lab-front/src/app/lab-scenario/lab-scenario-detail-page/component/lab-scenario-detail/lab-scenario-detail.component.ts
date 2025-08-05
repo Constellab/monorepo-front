@@ -1,24 +1,25 @@
 import { AsyncPipe } from '@angular/common';
-import { ClSubscriptionHandler } from '@monorepo/core-lib';
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
-import { FlArticleModule } from '@monorepo/front-core-lib/fl-article';
-import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
-import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
-import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+import { Component, inject,OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { LabScenarioDetailPageState } from '../../state/lab-scenario-detail-page.state';
-import { LabScenarioLinkedNotesComponent } from '../lab-scenario-linked-notes/lab-scenario-linked-notes.component';
-import { LiFolder, LiScenario, LiScenarioService, LiTagDatasource } from '@monorepo/lab-lib/li-core';
-import { LiFolderInlineSelectComponent } from '@monorepo/lab-lib/li-folder';
-import { LiObjectSyncInfoComponent, LiObjectValidationInfoComponent } from '@monorepo/lab-lib/li-entity';
-import { LiTagListComponent } from '@monorepo/lab-lib/li-tag';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
-import { Observable, tap } from 'rxjs';
+import { ClSubscriptionHandler } from '@monorepo/core-lib';
+import { FlArticleModule } from '@monorepo/front-core-lib/fl-article';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
+import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+import { LiFolder, LiScenario, LiScenarioService, LiTagDatasource } from '@monorepo/lab-lib/li-core';
+import { LiObjectSyncInfoComponent, LiObjectValidationInfoComponent } from '@monorepo/lab-lib/li-entity';
+import { LiFolderInlineSelectComponent } from '@monorepo/lab-lib/li-folder';
+import { LiTagListComponent } from '@monorepo/lab-lib/li-tag';
 import { TeBasicConfig, TeRichText, TeTextEditorModule } from '@monorepo/text-editor';
 import { TranslatePipe } from '@ngx-translate/core';
+import { Observable, tap } from 'rxjs';
+
+import { LabScenarioDetailPageState } from '../../state/lab-scenario-detail-page.state';
+import { LabScenarioLinkedNotesComponent } from '../lab-scenario-linked-notes/lab-scenario-linked-notes.component';
 
 /**
  * Component inside LabScenarioDetailPage to show scenario information but not workflow

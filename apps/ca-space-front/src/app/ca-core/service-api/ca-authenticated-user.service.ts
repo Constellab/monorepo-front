@@ -1,18 +1,18 @@
-import { inject, Injectable } from '@angular/core';
-import { CaUser } from '../model/entities/ca-user.class';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { Location } from '@angular/common';
+import { DOCUMENT,inject, Injectable } from '@angular/core';
+import { ClSupportedLanguage, ClTheme, ClUserCategory } from '@monorepo/core-lib';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { FlCleanableService, FlCleanerService } from '@monorepo/front-core-lib/fl-core';
 import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 
-import { ClSupportedLanguage, ClTheme, ClUserCategory } from '@monorepo/core-lib';
-import { CaCurrentSpaceService } from './ca-current-space.service';
+import { CaUser } from '../model/entities/ca-user.class';
 import { CaSpaceInfoDto } from '../model/entities/space/ca-space.class';
-import { CaSpaceService } from './ca-space.service';
-import { DOCUMENT, Location } from '@angular/common';
 import { CaEnvironmentHelper } from '../utils/ca-environment.helper';
+import { CaCurrentSpaceService } from './ca-current-space.service';
+import { CaSpaceService } from './ca-space.service';
 
 /**
  * Service to handle the current authenticated user

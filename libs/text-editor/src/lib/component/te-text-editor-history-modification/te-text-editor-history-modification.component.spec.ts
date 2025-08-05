@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { TeTextEditorHistoryModificationComponent } from './te-text-editor-history-modification.component';
 
 describe('TeTextEditorHistoryModificationComponent', () => {

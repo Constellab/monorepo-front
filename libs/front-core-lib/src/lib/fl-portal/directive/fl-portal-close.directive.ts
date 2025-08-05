@@ -1,4 +1,5 @@
-import { Directive, HostListener, Input, inject } from '@angular/core';
+import { Directive, HostListener, inject,Input } from '@angular/core';
+
 import { FlOverlayRef } from '../model/fl-overlay-ref.class';
 
 @Directive({

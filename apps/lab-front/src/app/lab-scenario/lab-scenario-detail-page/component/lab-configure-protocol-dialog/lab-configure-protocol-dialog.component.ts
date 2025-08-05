@@ -1,9 +1,10 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
-import { LabProcessDashboardConfigState } from '../../state/lab-process-dashboard-config-state.service';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
-import { LabConfigureProtocolComponent } from '../lab-configure-protocol/lab-configure-protocol.component';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { LabProcessDashboardConfigState } from '../../state/lab-process-dashboard-config-state.service';
+import { LabConfigureProtocolComponent } from '../lab-configure-protocol/lab-configure-protocol.component';
 
 export interface LabConfigureProtocolDialogInput {
   protocolId: string;

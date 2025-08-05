@@ -1,4 +1,6 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject,OnInit } from '@angular/core';
+import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import {
   FlConfirmDialogInput,
@@ -8,12 +10,10 @@ import {
 import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { LiVEnvsStatus, LiVenvArrayObs, LiVenvService } from '@monorepo/lab-lib/li-core';
+import { LiVenvArrayObs, LiVenvService,LiVEnvsStatus } from '@monorepo/lab-lib/li-core';
 import { LiVenvTableComponent } from '@monorepo/lab-lib/li-venv';
-import { MatButton } from '@angular/material/button';
-import { MatIcon } from '@angular/material/icon';
-import { Observable, share } from 'rxjs';
 import { TranslatePipe } from '@ngx-translate/core';
+import { Observable, share } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 /**

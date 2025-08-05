@@ -1,10 +1,11 @@
+import { Component, inject,OnInit } from '@angular/core';
 import { ClCoreJsonConvert } from '@monorepo/core-lib';
-import { Component, OnInit, inject } from '@angular/core';
 import { FlArrayObs, FlEntityArrayObs, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import { LiResource, LiResourceViewResourcesList } from '@monorepo/lab-lib/li-core';
+import { RvResourceViewDirective } from '@monorepo/resource-view';
+
 import { LiResourceDetailState } from '../../state/li-resource-detail.state';
 import { LiResourceTableComponent } from '../li-resource-table/li-resource-table.component';
-import { RvResourceViewDirective } from '@monorepo/resource-view';
 
 /**
  * View of resource that show a list of other resources

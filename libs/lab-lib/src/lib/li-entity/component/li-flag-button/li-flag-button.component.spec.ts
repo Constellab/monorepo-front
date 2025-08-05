@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { LiFlagButtonComponent } from './li-flag-button.component';
 
 describe('LabHighlightButtonComponent', () => {

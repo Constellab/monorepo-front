@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { TeMentionInlineComponent } from './te-mention-inline.component';
 
 describe('TeMentionInlineComponent', () => {

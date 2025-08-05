@@ -1,8 +1,9 @@
 import { Component, ElementRef, HostBinding, Input, OnInit, ViewChild } from '@angular/core';
-import { TeElementBlockDirective } from '../../model/te-element.directive';
-import { TeFileBlockConfig } from '../../block/te-file-block';
 import { FlInputFileDirective } from '@monorepo/front-core-lib/fl-input-file';
+
+import { TeFileBlockConfig } from '../../block/te-file-block';
 import { TeBlockFileUploadResponse } from '../../model/lib';
+import { TeElementBlockDirective } from '../../model/te-element.directive';
 
 @Component({
   selector: 'te-file',

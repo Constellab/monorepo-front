@@ -10,7 +10,7 @@ describe('LiShareTagToCommunityDialogComponent', () => {
     await TestBed.configureTestingModule({
       imports: [LiShareTagToCommunityDialogComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(LiShareTagToCommunityDialogComponent);
     component = fixture.componentInstance;

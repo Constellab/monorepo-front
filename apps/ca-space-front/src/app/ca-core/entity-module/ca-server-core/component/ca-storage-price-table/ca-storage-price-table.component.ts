@@ -1,16 +1,7 @@
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
-import {
-  FlConfirmDialogInput,
-  FlConfirmDialogResult,
-  FlDialogService,
-} from '@monorepo/front-core-lib/fl-dialog';
-import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
-
-import { CaServerService } from '../../../../service-api/ca-server.service';
-import {
-  CaStoragePrice,
-  CaStoragePriceDatasource,
-} from '../../../../model/entities/server/ca-storage-price.class';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import {
   MatCell,
   MatCellDef,
@@ -23,12 +14,21 @@ import {
   MatRowDef,
   MatTable,
 } from '@angular/material/table';
-import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import { MatIconButton } from '@angular/material/button';
-import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
-import { MatIcon } from '@angular/material/icon';
-import { TranslatePipe } from '@ngx-translate/core';
+import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
+import {
+  FlConfirmDialogInput,
+  FlConfirmDialogResult,
+  FlDialogService,
+} from '@monorepo/front-core-lib/fl-dialog';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+import { TranslatePipe } from '@ngx-translate/core';
+
+import {
+  CaStoragePrice,
+  CaStoragePriceDatasource,
+} from '../../../../model/entities/server/ca-storage-price.class';
+import { CaServerService } from '../../../../service-api/ca-server.service';
 
 @Component({
   selector: 'ca-storage-price-table',

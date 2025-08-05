@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { LiActivityTableComponent } from './li-activity-table.component';
 
 describe('LiActivityTableComponent', () => {

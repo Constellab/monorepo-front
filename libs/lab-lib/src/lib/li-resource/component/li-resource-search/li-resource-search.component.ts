@@ -1,5 +1,8 @@
-import { ClCoreJsonConvert, ClHelpService } from '@monorepo/core-lib';
 import { Component, EventEmitter, inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { ClCoreJsonConvert, ClHelpService } from '@monorepo/core-lib';
 import {
   FlDatasourcePaginated,
   FlEntityPaginatedDatasource,
@@ -7,7 +10,6 @@ import {
 } from '@monorepo/front-core-lib/fl-core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlDragModule, FlDropEvent } from '@monorepo/front-core-lib/fl-drag';
-import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlInputFileModule } from '@monorepo/front-core-lib/fl-input-file';
 import { FlPortalAction, FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
 import {
@@ -17,6 +19,7 @@ import {
   FlSearchState,
 } from '@monorepo/front-core-lib/fl-search';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlTag } from '@monorepo/front-core-lib/fl-tag';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
@@ -29,23 +32,21 @@ import {
   LiRouterService,
 } from '@monorepo/lab-lib/li-core';
 import {
+  LiQuickConfigureProcessDialogComponent,
+  LiQuickConfigureProcessDialogInput,
+} from '@monorepo/lab-lib/li-process';
+import { TdParamSpecsValues } from '@monorepo/technical-doc';
+import { TranslatePipe } from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
+
+import {
   LiFsNodeTypesSelectionDialogComponent,
   LiFsNodeTypesSelectionDialogInput,
   LiFsNodeTypesSelectionDialogMode,
   LiFsNodeTypesSelectionDialogResult,
 } from '../li-fs-node-types-selection-dialog/li-fs-node-types-selection-dialog.component';
-import {
-  LiQuickConfigureProcessDialogComponent,
-  LiQuickConfigureProcessDialogInput,
-} from '@monorepo/lab-lib/li-process';
 import { LiResourceSearchFormComponent } from '../li-resource-search-form/li-resource-search-form.component';
 import { LiResourceTableComponent } from '../li-resource-table/li-resource-table.component';
-import { MatIcon } from '@angular/material/icon';
-import { MatIconButton } from '@angular/material/button';
-import { MatTooltip } from '@angular/material/tooltip';
-import { Subscription } from 'rxjs';
-import { TdParamSpecsValues } from '@monorepo/technical-doc';
-import { TranslatePipe } from '@ngx-translate/core';
 
 export const labResourceSearchName: string = 'li-resource';
 

@@ -1,17 +1,18 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FlDialogModule, FlFormDialogAbstractDirective } from '@monorepo/front-core-lib/fl-dialog';
-import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { CaSpaceStorage } from '../../../../ca-core/model/entities/space/ca-space.dto';
-import { CaSpaceService } from '../../../../ca-core/service-api/ca-space.service';
+import { MatButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent } from '@angular/material/dialog';
 import { MatError, MatFormField, MatHint, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
-import { MatButton } from '@angular/material/button';
-import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
+import { FlDialogModule, FlFormDialogAbstractDirective } from '@monorepo/front-core-lib/fl-dialog';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { TranslatePipe } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+
+import { CaSpaceStorage } from '../../../../ca-core/model/entities/space/ca-space.dto';
+import { CaSpaceService } from '../../../../ca-core/service-api/ca-space.service';
 
 interface CaStorageLimit {
   limit: number;

@@ -1,18 +1,19 @@
 import { Component, inject } from '@angular/core';
-import { CaServerService } from '../../../../service-api/ca-server.service';
-import { FlDialogModule, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { MatIconButton } from '@angular/material/button';
+import { MatDialogContent } from '@angular/material/dialog';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
 import { FlEntityArrayObs, FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
-import { CaStoragePriceFormDialogComponent } from '../ca-storage-price-form-dialog/ca-storage-price-form-dialog.component';
+import { FlDialogModule, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { TranslatePipe } from '@ngx-translate/core';
+
 import {
   CaStoragePrice,
   CaStoragePriceDatasource,
 } from '../../../../model/entities/server/ca-storage-price.class';
-import { MatIconButton } from '@angular/material/button';
-import { MatTooltip } from '@angular/material/tooltip';
-import { MatIcon } from '@angular/material/icon';
-import { MatDialogContent } from '@angular/material/dialog';
+import { CaServerService } from '../../../../service-api/ca-server.service';
+import { CaStoragePriceFormDialogComponent } from '../ca-storage-price-form-dialog/ca-storage-price-form-dialog.component';
 import { CaStoragePriceTableComponent } from '../ca-storage-price-table/ca-storage-price-table.component';
-import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'ca-storage-prices-dialog',

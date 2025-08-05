@@ -1,9 +1,10 @@
-import { Injectable, inject } from '@angular/core';
-import { SpSpreadsheetSelectionState } from './sp-spreadsheet-selection.state';
+import { inject,Injectable } from '@angular/core';
+import { FlClipboardService } from '@monorepo/front-core-lib/fl-snack-bar';
+
+import { SpCellCoord } from '../model/sp-cell-coord.class';
 import { SpSpreadsheetState } from './sp-spreadsheet.state';
 import { SpSpreadsheetActions } from './sp-spreadsheet-actions.state';
-import { SpCellCoord } from '../model/sp-cell-coord.class';
-import { FlClipboardService } from '@monorepo/front-core-lib/fl-snack-bar';
+import { SpSpreadsheetSelectionState } from './sp-spreadsheet-selection.state';
 
 /**
  * Unique state shared across the spreadsheet to handle clipboard

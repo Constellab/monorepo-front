@@ -1,9 +1,10 @@
+import { inject,Injectable } from '@angular/core';
 import { ClPageI } from '@monorepo/core-lib';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { FlEntityPaginatedDatasource, FlInputSearchFilter } from '@monorepo/front-core-lib/fl-core';
-import { Injectable, inject } from '@angular/core';
-import { LiUser, LiUserDatasourcePaginated } from '../model/entities/li-user.entity';
 import { Observable } from 'rxjs';
+
+import { LiUser, LiUserDatasourcePaginated } from '../model/entities/li-user.entity';
 
 @Injectable({ providedIn: 'root' })
 export class LiUserService {

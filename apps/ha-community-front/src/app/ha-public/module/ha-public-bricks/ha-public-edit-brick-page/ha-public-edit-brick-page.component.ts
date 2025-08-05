@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+
 import { HaPublicEditBrickFormComponent } from '../ha-public-edit-brick-form/ha-public-edit-brick-form.component';
 
 @Component({

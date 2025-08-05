@@ -1,12 +1,13 @@
-import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
+import { Component, EventEmitter, inject,Input, OnInit, Output } from '@angular/core';
+import { MatIcon } from '@angular/material/icon';
 import { FlEntityPaginatedDatasource, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
-import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import {
   FlSavedSearch,
   FlSearchConfig,
   FlSearchModule,
   FlSearchState,
 } from '@monorepo/front-core-lib/fl-search';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlTag } from '@monorepo/front-core-lib/fl-tag';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
@@ -17,10 +18,10 @@ import {
   LiViewConfigSearchFields,
   LiViewConfigService,
 } from '@monorepo/lab-lib/li-core';
+import { TranslatePipe } from '@ngx-translate/core';
+
 import { LiViewConfigSearchFormComponent } from '../li-view-config-search-form/li-view-config-search-form.component';
 import { LiViewConfigTableComponent } from '../li-view-config-table/li-view-config-table.component';
-import { MatIcon } from '@angular/material/icon';
-import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * Search on view config, only work for search linked to a note

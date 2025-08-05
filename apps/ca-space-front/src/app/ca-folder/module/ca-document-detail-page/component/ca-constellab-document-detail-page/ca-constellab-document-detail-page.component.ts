@@ -9,6 +9,7 @@ import { FlTagModule } from '@monorepo/front-core-lib/fl-tag';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { TeTextEditorModule } from '@monorepo/text-editor';
 import { map } from 'rxjs/operators';
+
 import { CaConstellabDocumentDetailComponent } from '../../../ca-document-core/component/ca-constellab-document-detail/ca-constellab-document-detail.component';
 import { CaHierarchyObjectBreadcrumbComponent } from '../../../ca-folder-hierarchy-core/component/ca-hierarchy-object-breadcrumb/ca-hierarchy-object-breadcrumb.component';
 import { CaHierarchyObjectDetailState } from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';

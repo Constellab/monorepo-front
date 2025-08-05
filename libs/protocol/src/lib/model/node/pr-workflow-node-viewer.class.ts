@@ -1,8 +1,9 @@
-import { PrWorkflowNodeResource, PrWorkNodeIoExternalButton } from './pr-workflow-node-resource.class';
-import { map, Observable, of } from 'rxjs';
-import { PrProcess } from '../pr-process.class';
-import { TdTypingName } from '@monorepo/technical-doc';
 import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
+import { TdTypingName } from '@monorepo/technical-doc';
+import { map, Observable, of } from 'rxjs';
+
+import { PrProcess } from '../pr-process.class';
+import { PrWorkflowNodeResource, PrWorkNodeIoExternalButton } from './pr-workflow-node-resource.class';
 
 export class PrWorkflowNodeViewer extends PrWorkflowNodeResource<PrProcess> {
   protected initPorts(object: PrProcess): void {

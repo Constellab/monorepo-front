@@ -1,14 +1,4 @@
 import {
-  ElementRef,
-  Injectable,
-  Injector,
-  Renderer2,
-  RendererFactory2,
-  TemplateRef,
-  ViewContainerRef,
-  inject,
-} from '@angular/core';
-import {
   BlockScrollStrategy,
   CloseScrollStrategy,
   ComponentType,
@@ -19,10 +9,22 @@ import {
   OverlayRef,
 } from '@angular/cdk/overlay';
 import { ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
+import {
+  ElementRef,
+  inject,
+  Injectable,
+  Injector,
+  Renderer2,
+  RendererFactory2,
+  TemplateRef,
+  ViewContainerRef,
+} from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
-import { filter, first, map } from 'rxjs/operators';
+import { FlEventWrapper } from '@monorepo/front-core-lib/fl-core';
 import { merge, Observable } from 'rxjs';
-import { FlPortalConfig, FlRelativePortalConfig } from '../model/fl-portal-config.class';
+import { filter, first, map } from 'rxjs/operators';
+
+import { FlOverlayRef } from '../model/fl-overlay-ref.class';
 import {
   FL_PORTAL_DATA,
   FlOverlayConfig,
@@ -31,8 +33,7 @@ import {
   FlPortalDefaultPosition,
   FlRelativeOverlayConfig,
 } from '../model/fl-portal.class';
-import { FlOverlayRef } from '../model/fl-overlay-ref.class';
-import { FlEventWrapper } from '@monorepo/front-core-lib/fl-core';
+import { FlPortalConfig, FlRelativePortalConfig } from '../model/fl-portal-config.class';
 
 /**
  * Service to simplify creation of portal relative to an element

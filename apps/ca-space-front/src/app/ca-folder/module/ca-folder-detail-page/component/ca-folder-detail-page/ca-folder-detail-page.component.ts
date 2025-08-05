@@ -1,23 +1,17 @@
+import { AsyncPipe } from '@angular/common';
 import { Component, inject, Injector, OnInit } from '@angular/core';
+import { MatIcon } from '@angular/material/icon';
 import { ActivatedRoute } from '@angular/router';
 import { ClHelpService } from '@monorepo/core-lib';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { FlQueryParamHandler, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import { FlDragModule, FlDropEvent } from '@monorepo/front-core-lib/fl-drag';
 import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
-import { firstValueFrom, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import {
-  CaHierarchyObject,
-  CaHierarchyObjectDatasource,
-} from '../../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
-import { CaFolderDetailState } from '../../state/ca-folder-detail.state';
-import { CaFolderRightPanelState } from '../../state/ca-folder-right-panel.state';
-
-import { AsyncPipe } from '@angular/common';
-import { MatIcon } from '@angular/material/icon';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { TranslatePipe } from '@ngx-translate/core';
+import { firstValueFrom, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 import { CaFolderActionService } from '../../../../../ca-core/entity-module/ca-folder-core/ca-folder-action.service';
 import {
   CaFolderActionEvent,
@@ -30,6 +24,10 @@ import {
 } from '../../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-table/ca-hierarchy-object-table.component';
 import { CaUser } from '../../../../../ca-core/model/entities/ca-user.class';
 import { CaFolder } from '../../../../../ca-core/model/entities/folder/ca-folder.class';
+import {
+  CaHierarchyObject,
+  CaHierarchyObjectDatasource,
+} from '../../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
 import { CaRouterService } from '../../../../../ca-core/service/ca-router.service';
 import { CaHierarchyObjectActionsMenuComponent } from '../../../ca-folder-hierarchy-core/component/ca-hierarchy-object-actions-menu/ca-hierarchy-object-actions-menu.component';
 import { CaHierarchyObjectBreadcrumbComponent } from '../../../ca-folder-hierarchy-core/component/ca-hierarchy-object-breadcrumb/ca-hierarchy-object-breadcrumb.component';
@@ -37,8 +35,10 @@ import { CaHierarchyObjectActionsMenuState } from '../../../ca-folder-hierarchy-
 import { CaHierarchyObjectDetailState } from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
 import { CaHierarchyObjectEventState } from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-event.state';
 import { CaHierarchyObjectSearchFormComponent } from '../../../ca-hierarchy-object-detail-page/ca-hierarchy-object-search-form/ca-hierarchy-object-search-form.component';
-import { CaFolderDetailActionsComponent } from '../ca-folder-detail-actions/ca-folder-detail-actions.component';
+import { CaFolderDetailState } from '../../state/ca-folder-detail.state';
+import { CaFolderRightPanelState } from '../../state/ca-folder-right-panel.state';
 import { CaFolderDetailComponent } from '../ca-folder-detail/ca-folder-detail.component';
+import { CaFolderDetailActionsComponent } from '../ca-folder-detail-actions/ca-folder-detail-actions.component';
 
 /**
  * Page for a folder detail

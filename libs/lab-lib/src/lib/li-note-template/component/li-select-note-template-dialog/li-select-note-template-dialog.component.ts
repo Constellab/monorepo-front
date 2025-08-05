@@ -1,9 +1,10 @@
 import { Component, inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { LiNoteTemplate } from '@monorepo/lab-lib/li-core';
-import { LiNoteTemplateSearchComponent } from '../li-note-template-search/li-note-template-search.component';
-import { MAT_DIALOG_DATA, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { LiNoteTemplateSearchComponent } from '../li-note-template-search/li-note-template-search.component';
 
 export interface LiSelectNoteTemplateDialogInput {
   mode: 'selection' | 'link';

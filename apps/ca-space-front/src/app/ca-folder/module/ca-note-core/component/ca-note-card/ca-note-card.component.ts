@@ -1,8 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { CaNote } from '../../../../../ca-core/model/entities/folder/ca-note.class';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
-import { TranslatePipe } from '@ngx-translate/core';
 import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
+import { TranslatePipe } from '@ngx-translate/core';
+
+import { CaNote } from '../../../../../ca-core/model/entities/folder/ca-note.class';
 
 /**
  * Simple card to display a note

@@ -1,12 +1,12 @@
 import { Component, inject } from '@angular/core';
 import { NgControl } from '@angular/forms';
-import { TdTypeStyle } from '@monorepo/technical-doc';
 import { FlColorHelper, FlFormFieldDirective } from '@monorepo/front-core-lib/fl-core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
+import { TdTypeStyle } from '@monorepo/technical-doc';
 
-import { CoCommunityIconSelectDialogComponent } from '../co-community-icon-select-dialog/co-community-icon-select-dialog.component';
 import { CoIcon } from '../../model/co-icon.class';
+import { CoCommunityIconSelectDialogComponent } from '../co-community-icon-select-dialog/co-community-icon-select-dialog.component';
 
 @Component({
   selector: 'co-update-type-icon-form',

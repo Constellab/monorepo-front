@@ -1,14 +1,15 @@
 import { Injector } from '@angular/core';
+import { FlEntityArrayObs } from '@monorepo/front-core-lib/fl-core';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
 import { FlPortalService } from '@monorepo/front-core-lib/fl-portal';
 import { TeTextEditorHistoryPortalComponent, TeTextEditorHistoryPortalData } from '@monorepo/text-editor';
 import { Observable } from 'rxjs';
-import { FlEntityArrayObs } from '../../../../../../../libs/front-core-lib/src/lib/fl-core';
-import { FlDialogService } from '../../../../../../../libs/front-core-lib/src/lib/fl-dialog';
+
 import { CaRootFolderUserRoleObj } from '../../../ca-core/model/entities/folder/ca-folder-user.class';
-import { CaScenarioService } from '../../../ca-core/service-api/ca-scenario.service';
 import { CaNoteHistoryService } from '../../../ca-core/service/ca-note-history.service';
 import { CaRouterService } from '../../../ca-core/service/ca-router.service';
+import { CaScenarioService } from '../../../ca-core/service-api/ca-scenario.service';
 import {
   CaHierarchyObjectActionTags,
   CaHierarchyObjectBaseActionMenu,

@@ -1,10 +1,11 @@
 import { inject, Injectable } from '@angular/core';
 import { CoConfig } from '@monorepo/community-lib';
-import { HaEnvironmentHelper } from './ha-environment.helper';
+import { TdParamSpec, TdParamSpecs } from '@monorepo/technical-doc';
+import { Observable } from 'rxjs';
+
 import { HaTagService } from '../../ha-service/ha-tag.service';
 import { HaTagValue, HaTagValueEditDTO } from '../ha-entities/ha-tag-value.class';
-import { Observable } from 'rxjs';
-import { TdParamSpec, TdParamSpecs } from '@monorepo/technical-doc';
+import { HaEnvironmentHelper } from './ha-environment.helper';
 
 @Injectable({
   providedIn: 'root',

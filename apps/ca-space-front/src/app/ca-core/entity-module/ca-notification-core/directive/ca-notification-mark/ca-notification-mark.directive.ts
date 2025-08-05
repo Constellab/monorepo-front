@@ -1,8 +1,9 @@
 import { ChangeDetectorRef, Directive, HostBinding, inject, Input, OnDestroy, OnInit } from '@angular/core';
-import { CaNotificationType } from '../../../../model/entities/ca-notification.class';
-import { CaNotificationState, CaNotificationStateFind } from '../../../../state/ca-notification.state';
 import { mergeMap, Observable, of, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
+
+import { CaNotificationType } from '../../../../model/entities/ca-notification.class';
+import { CaNotificationState, CaNotificationStateFind } from '../../../../state/ca-notification.state';
 
 @Directive({ selector: '[caNotificationMark]' })
 export class CaNotificationMarkDirective implements OnInit, OnDestroy {

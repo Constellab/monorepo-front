@@ -1,12 +1,12 @@
+import { Injector } from '@angular/core';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
 } from '@monorepo/front-core-lib/fl-dialog';
 import { FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
-import { FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
 import { FlPortalService } from '@monorepo/front-core-lib/fl-portal';
-import { Injector } from '@angular/core';
+import { FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
 import {
   LiFolder,
   LiNote,
@@ -16,13 +16,14 @@ import {
   LiRouterService,
   LiTagDatasource,
 } from '@monorepo/lab-lib/li-core';
-import { LiNoteActionEvent, LiNoteActionMenu } from '@monorepo/lab-lib/li-note';
 import { LiValidateObjectDialogComponent, LiValidateObjectDialogInput } from '@monorepo/lab-lib/li-entity';
-import { Observable } from 'rxjs';
+import { LiNoteActionEvent, LiNoteActionMenu } from '@monorepo/lab-lib/li-note';
 import { TeTextEditorHistoryPortalComponent, TeTextEditorHistoryPortalData } from '@monorepo/text-editor';
+import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { LabNoteTextEditorConfig } from './lab-note-text-editor-config.class';
+
 import { LabNoteDetailPageState } from './lab-note-detail-page-state.service';
+import { LabNoteTextEditorConfig } from './lab-note-text-editor-config.class';
 
 export class LabNoteDetailActionMenu extends LiNoteActionMenu {
   constructor(

@@ -1,6 +1,7 @@
-import { inject, Injectable } from '@angular/core';
 import { HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+
 import { FlTranslateService } from './fl-translate.service';
 
 @Injectable()
@@ -17,8 +18,8 @@ export class FlHttpInterceptorService implements HttpInterceptor {
       headers: req.headers
         ? req.headers.append('lang', lang)
         : new HttpHeaders({
-            lang: lang,
-          }),
+          lang: lang,
+        }),
     });
     return next.handle(req);
   }

@@ -1,5 +1,10 @@
+import { NgClass } from '@angular/common';
+import { Component, inject,OnInit } from '@angular/core';
+import { MatButton } from '@angular/material/button';
+import { MAT_DIALOG_DATA, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
+import { MatDivider } from '@angular/material/divider';
+import { MatIcon } from '@angular/material/icon';
 import { CoCommunityLibModule } from '@monorepo/community-lib';
-import { Component, OnInit, inject } from '@angular/core';
 import { FlConfirmDialogInput, FlDialogModule, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
@@ -10,18 +15,14 @@ import {
   LiProtocolService,
   LiUser,
 } from '@monorepo/lab-lib/li-core';
+import { TranslatePipe } from '@ngx-translate/core';
+
 import {
   LiCreateAgentCommunityDialogData,
   LiCreateCommunityAgentDialogComponent,
   LiCreateCommunityAgentDialogMode,
 } from '../li-create-community-agent-dialog/li-create-community-agent-dialog.component';
 import { LiSelectCommunityAgentComponent } from '../li-select-community-agent/li-select-community-agent.component';
-import { MAT_DIALOG_DATA, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
-import { MatButton } from '@angular/material/button';
-import { MatDivider } from '@angular/material/divider';
-import { MatIcon } from '@angular/material/icon';
-import { NgClass } from '@angular/common';
-import { TranslatePipe } from '@ngx-translate/core';
 
 export interface LiShareAgentCommunityDialogData {
   processId: string;

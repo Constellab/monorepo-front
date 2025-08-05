@@ -1,15 +1,16 @@
 import { combineLatest, Observable, Subscription } from 'rxjs';
-import { BnBioNetworkOptions } from '../state/bn-bio-network-options.state';
-import { BnBioNetworkGraphRenderer } from './bn-bio-network-main.renderer';
+
 import { BnBioNetworkClusterSelection, BnBioNetworkMetaboliteLevel } from '../model/bn-bio-network.class';
 import { BnBioNetworkGraphObject } from '../model/bn-bio-network-graph.class';
+import { BnBioNetworkNode } from '../model/bn-bio-network-node.class';
+import { BnBioNetworkNodeReaction } from '../model/bn-bio-network-node-reaction.class';
 import {
   BnBioNetworkSelectionEvent,
   BnBioNetworkSelectionEventSingleNode,
   BnBioNetworkSelectionMode,
 } from '../model/bn-bio-network-selection.class';
-import { BnBioNetworkNodeReaction } from '../model/bn-bio-network-node-reaction.class';
-import { BnBioNetworkNode } from '../model/bn-bio-network-node.class';
+import { BnBioNetworkOptions } from '../state/bn-bio-network-options.state';
+import { BnBioNetworkGraphRenderer } from './bn-bio-network-main.renderer';
 
 export type BnBioNetworkObjectColorFunction = (node: BnBioNetworkGraphObject) => string;
 

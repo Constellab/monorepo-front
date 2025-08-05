@@ -1,10 +1,12 @@
 import { Component, inject, OnInit } from '@angular/core';
+import { MatButton } from '@angular/material/button';
+import { MatDivider } from '@angular/material/divider';
+import { MatIcon } from '@angular/material/icon';
+import { MatMenu, MatMenuContent, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
+import { Router, RouterLink } from '@angular/router';
 import { FlConfirmDialogInput, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlExpansionMenuModule } from '@monorepo/front-core-lib/fl-expansion-menu';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
-import { LabEnvDevDirective } from '../../../lab-core/directive/lab-env-dev.directive';
-import { LabEnvironmentToggleComponent } from '../lab-environment-toggle/lab-environment-toggle.component';
-import { LabQueueJobsDialogComponent } from '../lab-queue-jobs-dialog/lab-queue-jobs-dialog.component';
 import {
   LiAuthService,
   liConstLoginRoute,
@@ -12,14 +14,13 @@ import {
   LiSystemInfo,
   LiSystemService,
 } from '@monorepo/lab-lib/li-core';
-import { MatButton } from '@angular/material/button';
-import { MatDivider } from '@angular/material/divider';
-import { MatIcon } from '@angular/material/icon';
-import { MatMenu, MatMenuContent, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
-import { Router, RouterLink } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
-import { LabEnvironmentHelper } from '../../../lab-core/lab-environment.helper';
+
+import { LabEnvDevDirective } from '../../../lab-core/directive/lab-env-dev.directive';
 import { LabEnvStore } from '../../../lab-core/lab-env.store';
+import { LabEnvironmentHelper } from '../../../lab-core/lab-environment.helper';
+import { LabEnvironmentToggleComponent } from '../lab-environment-toggle/lab-environment-toggle.component';
+import { LabQueueJobsDialogComponent } from '../lab-queue-jobs-dialog/lab-queue-jobs-dialog.component';
 
 /**
  * Component for the settings button on top right of the screen

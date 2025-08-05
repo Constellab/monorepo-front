@@ -1,10 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
-import { FlUserConfig, FlUserConfigSearchNameMode } from '../../service/fl-user-config.config';
-import { Observable } from 'rxjs';
+import { Component, EventEmitter, inject,Input, OnInit, Output } from '@angular/core';
 import { NgControl } from '@angular/forms';
-import { FlUser } from '../../model/fl-user.class';
 import { FlDatasourcePaginated, FlInputSearchFilter } from '@monorepo/front-core-lib/fl-core';
 import { FlFormFieldDirective } from '@monorepo/front-core-lib/fl-core';
+import { Observable } from 'rxjs';
+
+import { FlUser } from '../../model/fl-user.class';
+import { FlUserConfig, FlUserConfigSearchNameMode } from '../../service/fl-user-config.config';
 
 /**
  * Input/Select component to search for a user and select one.

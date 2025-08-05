@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { LiNoteTemplateSearchComponent } from './li-note-template-search.component';
 
 describe('LiNoteTemplateSearchComponent', () => {

@@ -1,32 +1,33 @@
+import { inject,Injectable } from '@angular/core';
 import { ClHelpService, ClPageI } from '@monorepo/core-lib';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
-import {
-  FlConfirmDialogInput,
-  FlConfirmDialogResult,
-  FlDialogService,
-} from '@monorepo/front-core-lib/fl-dialog';
 import {
   FlDatasourceGetPageData,
   FlEntityPaginatedDatasource,
   FlInputSearchFilter,
 } from '@monorepo/front-core-lib/fl-core';
-import { FlSearchConverter } from '@monorepo/front-core-lib/fl-search';
-import { Injectable, inject } from '@angular/core';
 import {
-  LiNote,
-  LiNoteDatasource,
-  LiNoteForm,
-  LiNoteInsertTemplateDTO,
-} from '../model/entities/li-note.entity';
-import { LiNoteSearch, LiNoteSearchFields } from '../model/search/li-note-search.class';
-import { LiScenario } from '../model/entities/li-scenario.entity';
-import { Observable } from 'rxjs';
+  FlConfirmDialogInput,
+  FlConfirmDialogResult,
+  FlDialogService,
+} from '@monorepo/front-core-lib/fl-dialog';
+import { FlSearchConverter } from '@monorepo/front-core-lib/fl-search';
 import {
   TeRichText,
   TeRichTextBlockModificationWithUser,
   TeRichTextDTO,
   TeTextEditorHistoryService,
 } from '@monorepo/text-editor';
+import { Observable } from 'rxjs';
+
+import {
+  LiNote,
+  LiNoteDatasource,
+  LiNoteForm,
+  LiNoteInsertTemplateDTO,
+} from '../model/entities/li-note.entity';
+import { LiScenario } from '../model/entities/li-scenario.entity';
+import { LiNoteSearch, LiNoteSearchFields } from '../model/search/li-note-search.class';
 
 @Injectable({ providedIn: 'root' })
 export class LiNoteService implements TeTextEditorHistoryService {

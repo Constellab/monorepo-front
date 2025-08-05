@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ChChartSerieSimple } from '../../../model/data/ch-chart-serie.class';
-import { ChChartRightSectionDirective } from '../ch-chart-right-section.directive';
-import { Observable } from 'rxjs';
-import { ChChartScaleColor } from '../../../model/scale/ch-chart-scale-color.class';
 import { FlTagColorer, FlTagWithColor } from '@monorepo/front-core-lib/fl-tag';
+import { Observable } from 'rxjs';
+
+import { ChChartSerieSimple } from '../../../model/data/ch-chart-serie.class';
+import { ChChartScaleColor } from '../../../model/scale/ch-chart-scale-color.class';
+import { ChChartRightSectionDirective } from '../ch-chart-right-section.directive';
 
 export interface ChChartLegendSerieWithTagsInput {
   series: ChChartSerieSimple[];

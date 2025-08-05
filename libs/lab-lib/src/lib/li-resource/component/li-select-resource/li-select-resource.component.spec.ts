@@ -10,7 +10,7 @@ describe('LiSelectResourceComponent', () => {
     await TestBed.configureTestingModule({
       imports: [LiSelectResourceComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(LiSelectResourceComponent);
     component = fixture.componentInstance;

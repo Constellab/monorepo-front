@@ -1,10 +1,11 @@
-import { CaServerCloud } from '../server/ca-server-cloud.class';
+import { LmlLabManagerConfig } from '@monorepo/lab-manager-lib';
 import { Type } from 'class-transformer';
-import { CaSpace } from '../space/ca-space.class';
+
 import { CaCloudProviderRegion } from '../ca-cloud-provider.class';
+import { CaServerCloud } from '../server/ca-server-cloud.class';
+import { CaSpace } from '../space/ca-space.class';
 import { CaLabBillingMode, CaLabDesktopPlatform, CaLabType } from './ca-lab.class';
 import { CaLabVolumeType } from './ca-lab-volume.class';
-import { LmlLabManagerConfig } from '@monorepo/lab-manager-lib';
 
 export class CaLabAdminForm {
   id: string;

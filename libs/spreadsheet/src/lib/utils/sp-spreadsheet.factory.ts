@@ -1,4 +1,3 @@
-import { SpSheet } from '../model/sp-sheet.class';
 import {
   ClCSVDelimiter,
   clCSVDelimiters,
@@ -7,6 +6,8 @@ import {
   clCSVLineSeparator,
 } from '@monorepo/core-lib';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+
+import { SpSheet } from '../model/sp-sheet.class';
 
 /**
  * Factory to create a spreadsheet

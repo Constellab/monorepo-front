@@ -1,10 +1,11 @@
 import { Component, inject } from '@angular/core';
-import { CnLabBackupHistoryDetail } from '../../../../model/entities/lab/ca-lab-backup.class';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
+import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
 import { FL_PORTAL_DATA, FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
 import { FlStatusModule } from '@monorepo/front-core-lib/fl-status';
-import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
-import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { CnLabBackupHistoryDetail } from '../../../../model/entities/lab/ca-lab-backup.class';
 
 @Component({
   selector: 'ca-lab-backup-history-detail-portal',

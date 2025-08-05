@@ -1,14 +1,14 @@
 import { Component, inject, output } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
-import { FlFileHelper, FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 import { FlInputFileModule } from '@monorepo/front-core-lib/fl-input-file';
 import { FlSnackBarModule, FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-
-import { LmsLabService } from '../../service/lms-lab.service';
-import { MatIconModule } from '@angular/material/icon';
+import { FlFileHelper, FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 import { lastValueFrom } from 'rxjs';
+
 import { LmsLabManagerConfiguration } from '../../model/lms-lab-manager.class';
+import { LmsLabService } from '../../service/lms-lab.service';
 import { LmsLabState } from '../../service/lms-lab.state';
 
 /**
@@ -45,7 +45,7 @@ export class LmsConfigureLabManagerComponent {
     let json: LmsLabManagerConfiguration;
     try {
       json = await lastValueFrom(FlFileHelper.readBlobContent(event, true));
-    } catch (error) {
+    } catch {
       this.snackBarService.openErrorMessage('lms.incorrect_configuration_file');
       return;
     }

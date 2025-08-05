@@ -1,12 +1,13 @@
+import { FlCoord } from '@monorepo/front-core-lib/fl-core';
 import { SimulationNodeDatum } from 'd3';
+
 import {
   BnBioNetworkMetabolite,
   BnBioNetworkMetaboliteLevel,
   BnBioNetworkReaction,
 } from './bn-bio-network.class';
-import { BnBioNetworkLink } from './bn-bio-network-node-link.class';
 import { BnBioNetworkGraphObject } from './bn-bio-network-graph.class';
-import { FlCoord } from '@monorepo/front-core-lib/fl-core';
+import { BnBioNetworkLink } from './bn-bio-network-node-link.class';
 
 export type BnBioNetworkNodeType = 'metabolite' | 'reaction' | 'cofactor';
 

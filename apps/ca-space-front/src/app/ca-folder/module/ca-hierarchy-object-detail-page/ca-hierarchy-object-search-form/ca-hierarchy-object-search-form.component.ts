@@ -1,24 +1,25 @@
 import { Component, computed, inject, input, OnDestroy, OnInit } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
+import { MatOption } from '@angular/material/core';
+import { MatFormField, MatLabel, MatPrefix } from '@angular/material/form-field';
+import { MatIcon } from '@angular/material/icon';
+import { MatInput } from '@angular/material/input';
+import { MatSelect, MatSelectTrigger } from '@angular/material/select';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { FlSearchState } from '@monorepo/front-core-lib/fl-search';
+import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+import { TranslatePipe } from '@ngx-translate/core';
+import { debounceTime, merge, Observable, Subscription } from 'rxjs';
+
+import { CaHierarchyObjectIconComponent } from '../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-icon/ca-hierarchy-object-icon.component';
+import { CaUserListInlineComponent } from '../../../../ca-core/entity-module/ca-user-core/component/ca-user-list-inline/ca-user-list-inline.component';
+import { CaUser } from '../../../../ca-core/model/entities/ca-user.class';
 import {
   CaHierarchyObjectInfo,
   caHierarchyObjectTypeInfos,
 } from '../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
-import { debounceTime, merge, Observable, Subscription } from 'rxjs';
-import { CaUser } from '../../../../ca-core/model/entities/ca-user.class';
-import { MatFormField, MatLabel, MatPrefix } from '@angular/material/form-field';
-import { MatInput } from '@angular/material/input';
-import { MatIcon } from '@angular/material/icon';
-import { MatSelect, MatSelectTrigger } from '@angular/material/select';
-import { MatOption } from '@angular/material/core';
-import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
-import { TranslatePipe } from '@ngx-translate/core';
-import { CaHierarchyObjectIconComponent } from '../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-icon/ca-hierarchy-object-icon.component';
-import { CaUserListInlineComponent } from '../../../../ca-core/entity-module/ca-user-core/component/ca-user-list-inline/ca-user-list-inline.component';
 import { CaRouterService } from '../../../../ca-core/service/ca-router.service';
 import { CaHierarchyObjectContext } from '../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
-import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 
 export type CaHierarchyObjectSearchFormContext =
   | CaHierarchyObjectContext

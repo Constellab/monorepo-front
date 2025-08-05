@@ -1,24 +1,25 @@
+import { Injector } from '@angular/core';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
-import { CaFolderInfo } from '../../../model/entities/folder/ca-folder.class';
-import { CaFolderActionEvent, CaFolderActionsMenu } from './ca-folder-actions-menu.class';
-import { CaRouterService } from '../../../service/ca-router.service';
 import { Observable } from 'rxjs';
+
+import { CaHierarchyObjectActionTags } from '../../../../ca-folder/module/ca-folder-detail-page/ca-hierarchy-object-base-action-menu';
 import {
   CaFolderUserConfigDialogComponent,
   CaFolderUserConfigDialogInput,
 } from '../../../../ca-folder/module/ca-folder-detail-page/component/ca-folder-user-config-dialog/ca-folder-user-config-dialog.component';
-import { CaHierarchyObjectActionTags } from '../../../../ca-folder/module/ca-folder-detail-page/ca-hierarchy-object-base-action-menu';
-import { Injector } from '@angular/core';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import {
-  CaHierarchyObjectTrashDialogComponent,
-  CaHierarchyObjectTrashDialogInput,
-} from '../../../../ca-folder/module/ca-hierarchy-object-detail-page/ca-hierarchy-object-trash-dialog/ca-hierarchy-object-trash-dialog.component';
-import { CaHierarchyObject } from '../../../model/entities/folder/ca-hierarchy-object.class';
 import {
   CaFolderUsersDialogComponent,
   CaFolderUsersDialogInput,
 } from '../../../../ca-folder/module/ca-folder-detail-page/component/ca-folder-users-dialog/ca-folder-users-dialog.component';
+import {
+  CaHierarchyObjectTrashDialogComponent,
+  CaHierarchyObjectTrashDialogInput,
+} from '../../../../ca-folder/module/ca-hierarchy-object-detail-page/ca-hierarchy-object-trash-dialog/ca-hierarchy-object-trash-dialog.component';
+import { CaFolderInfo } from '../../../model/entities/folder/ca-folder.class';
+import { CaHierarchyObject } from '../../../model/entities/folder/ca-hierarchy-object.class';
+import { CaRouterService } from '../../../service/ca-router.service';
+import { CaFolderActionEvent, CaFolderActionsMenu } from './ca-folder-actions-menu.class';
 
 export type CaFolderDetailActionEvent =
   | CaFolderActionEvent

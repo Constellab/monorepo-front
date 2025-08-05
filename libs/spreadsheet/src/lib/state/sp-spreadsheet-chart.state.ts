@@ -1,20 +1,21 @@
-import { Injectable, OnDestroy, inject } from '@angular/core';
+import { inject,Injectable, OnDestroy } from '@angular/core';
+import { FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
+import { FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
+import { FlPortalConfig } from '@monorepo/front-core-lib/fl-portal';
+import { FlPortalService } from '@monorepo/front-core-lib/fl-portal';
+import { FlPortalActionResult } from '@monorepo/front-core-lib/fl-portal-actions';
+import { FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
+import { Observable, Subscription } from 'rxjs';
+
 import { SpSheetChartSelectionComponent } from '../component/sp-sheet-chart-selection/sp-sheet-chart-selection.component';
-import { SpSpreadsheetSelectionState } from './sp-spreadsheet-selection.state';
 import {
   SpSheetChartSelectionForm,
   SpSheetChartSelectionResult,
   SpSpreadsheetChartSelectionInput,
 } from '../model/chart/sp-sheet-chart-selection-form.class';
 import { SpSpreadsheetState } from './sp-spreadsheet.state';
-import { Observable, Subscription } from 'rxjs';
-import { FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
-import { FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
-import { FlPortalActionResult } from '@monorepo/front-core-lib/fl-portal-actions';
-import { FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
-import { FlPortalConfig } from '@monorepo/front-core-lib/fl-portal';
-import { FlPortalService } from '@monorepo/front-core-lib/fl-portal';
-import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
+import { SpSpreadsheetSelectionState } from './sp-spreadsheet-selection.state';
 
 interface SelectionWithOverlay {
   selection: SpSheetChartSelectionForm;

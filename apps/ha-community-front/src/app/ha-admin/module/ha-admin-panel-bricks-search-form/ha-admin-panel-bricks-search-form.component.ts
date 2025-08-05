@@ -1,12 +1,13 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FlSearchModule, FlSearchState } from '@monorepo/front-core-lib/fl-search';
-import { HaBrick, HaBrickVisibility } from '../../../ha-core/ha-model/ha-entities/ha-brick.class';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
-import { TranslatePipe } from '@ngx-translate/core';
 import { MatInput } from '@angular/material/input';
 import { MatOption, MatSelect } from '@angular/material/select';
 import { CoCommunityLibModule } from '@monorepo/community-lib';
+import { FlSearchModule, FlSearchState } from '@monorepo/front-core-lib/fl-search';
+import { TranslatePipe } from '@ngx-translate/core';
+
+import { HaBrick, HaBrickVisibility } from '../../../ha-core/ha-model/ha-entities/ha-brick.class';
 
 @Component({
   selector: 'ha-admin-panel-bricks-search-form',

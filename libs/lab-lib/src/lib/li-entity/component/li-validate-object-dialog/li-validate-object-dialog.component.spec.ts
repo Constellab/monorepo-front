@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { LiValidateObjectDialogComponent } from './li-validate-object-dialog.component';
 
 describe('LabValidateObjectComponent', () => {

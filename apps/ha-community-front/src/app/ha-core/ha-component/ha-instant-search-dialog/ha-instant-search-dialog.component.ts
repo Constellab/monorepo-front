@@ -1,3 +1,5 @@
+import { CdkScrollable } from '@angular/cdk/overlay';
+import { NgClass } from '@angular/common';
 import {
   AfterContentInit,
   Component,
@@ -8,18 +10,17 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import { HaInstantSearchService } from '../../ha-service/ha-instant-search.service';
+import { MAT_DIALOG_DATA, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
+import { MatIcon } from '@angular/material/icon';
+import { MatFormField, MatInput, MatPrefix, MatSuffix } from '@angular/material/input';
+import { Router, RouterLink } from '@angular/router';
+import { ClHelpService, ClStringHelper, ClTheme } from '@monorepo/core-lib';
+import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 import { BaseHit } from 'instantsearch.js';
 import { connectHits, connectSearchBox } from 'instantsearch.js/es/connectors';
-import { MatFormField, MatInput, MatPrefix, MatSuffix } from '@angular/material/input';
-import { MatIcon } from '@angular/material/icon';
-import { Router, RouterLink } from '@angular/router';
-import { CdkScrollable } from '@angular/cdk/overlay';
-import { MAT_DIALOG_DATA, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
-import { ClHelpService, ClStringHelper, ClTheme } from '@monorepo/core-lib';
 import { configure, poweredBy } from 'instantsearch.js/es/widgets';
-import { NgClass } from '@angular/common';
-import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
+
+import { HaInstantSearchService } from '../../ha-service/ha-instant-search.service';
 
 export class HaInstanceSearchDialogData {
   theme: ClTheme;

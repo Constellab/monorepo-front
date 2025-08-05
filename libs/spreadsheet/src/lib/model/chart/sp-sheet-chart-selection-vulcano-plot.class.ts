@@ -1,7 +1,8 @@
-import { SpSheet } from '../sp-sheet.class';
-import { SpSheetChart2dSerieSelectionForm } from './sp-sheet-chart-selection-form.class';
-import { SpSheetChartSelection } from './sp-sheet-chart-selection.class';
 import { ChChart2dMultiSerie, ChChartConfig, ChChartVulcanoPlot } from '@monorepo/chart';
+
+import { SpSheet } from '../sp-sheet.class';
+import { SpSheetChartSelection } from './sp-sheet-chart-selection.class';
+import { SpSheetChart2dSerieSelectionForm } from './sp-sheet-chart-selection-form.class';
 
 export class SpSheetChartSelectionVulcanoPlot extends SpSheetChartSelection {
   constructor(

@@ -1,6 +1,7 @@
-import { PrResource } from '../model/pr-resource.class';
-import { Observable, of } from 'rxjs';
 import { FlStatusEvent } from '@monorepo/front-core-lib/fl-core';
+import { Observable, of } from 'rxjs';
+
+import { PrResource } from '../model/pr-resource.class';
 
 export abstract class PrWorkflowResourcesState {
   public abstract getResource(resourceId: string): Observable<FlStatusEvent<PrResource>>;

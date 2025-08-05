@@ -1,4 +1,5 @@
 import { FlPlotlyData } from '@monorepo/front-core-lib/fl-plotly';
+
 import { RvResourceViewBasicPlot2d } from './rv-basic-plot-2d.class';
 import { RvResourceViewBoxPlot } from './rv-box-plot.class';
 import { RvResourceViewHeatMap } from './rv-heat-map.class';
@@ -114,10 +115,11 @@ export interface RvResourceViewPlotly extends RvResourceViewBase {
 export interface RvResourceViewApp extends RvResourceViewBase {
   type: 'app-view';
   data: {
-    url: {
-      host_url: string;
-      params: Record<string, string>;
-    };
+    app_id: string;
+    app_url: { host_url: string; params: Record<string, string> };
+    get_status_route: string; // route to get the app status
+    status: 'RUNNING' | 'STOPPED' | 'STARTING';
+    status_text?: string;
   };
 }
 

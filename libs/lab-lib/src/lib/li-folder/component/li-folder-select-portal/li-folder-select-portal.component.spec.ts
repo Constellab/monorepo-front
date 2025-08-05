@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { LiFolderSelectPortalComponent } from './li-folder-select-portal.component';
 
 describe('LiFolderSelectPortalComponent', () => {

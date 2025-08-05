@@ -1,16 +1,17 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
-import { share } from 'rxjs';
-import { CaServerService } from '../../../../service-api/ca-server.service';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { FlGlobalValidators } from '@monorepo/front-core-lib/fl-core';
-import { CaStoragePrice } from '../../../../model/entities/server/ca-storage-price.class';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { MatIcon } from '@angular/material/icon';
-import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
-import { MatMiniFabButton } from '@angular/material/button';
-import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { AsyncPipe, DecimalPipe } from '@angular/common';
+import { Component, inject, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatMiniFabButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { FlGlobalValidators } from '@monorepo/front-core-lib/fl-core';
+import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { TranslatePipe } from '@ngx-translate/core';
+import { share } from 'rxjs';
+
+import { CaStoragePrice } from '../../../../model/entities/server/ca-storage-price.class';
+import { CaServerService } from '../../../../service-api/ca-server.service';
 
 export interface CaLabSelectVolumeForm {
   storageSize: FormControl<number>;

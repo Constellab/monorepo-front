@@ -1,13 +1,13 @@
-import { FlHtmlHelper } from '@monorepo/front-core-lib/fl-core';
-import { FlKeyboardKey } from '@monorepo/front-core-lib/fl-core';
-import { FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
-import { FlPortalAbsolutePosition } from '@monorepo/front-core-lib/fl-portal';
-import { flRootInjector } from '@monorepo/front-core-lib/fl-core';
-import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
-
+import { SanitizerConfig } from '@editorjs/editorjs/types/configs';
 import { BlockToolConstructorOptions } from '@editorjs/editorjs/types/tools/block-tool';
 import { ClHelpService } from '@monorepo/core-lib';
-import { SanitizerConfig } from '@editorjs/editorjs/types/configs';
+import { FlHtmlHelper } from '@monorepo/front-core-lib/fl-core';
+import { FlKeyboardKey } from '@monorepo/front-core-lib/fl-core';
+import { flRootInjector } from '@monorepo/front-core-lib/fl-core';
+import { FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
+import { FlPortalAbsolutePosition } from '@monorepo/front-core-lib/fl-portal';
+import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+
 import { TeBlockListData, TeBlockListType } from './lib';
 
 /**

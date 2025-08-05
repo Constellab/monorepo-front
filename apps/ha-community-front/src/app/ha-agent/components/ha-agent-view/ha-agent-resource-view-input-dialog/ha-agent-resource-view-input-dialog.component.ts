@@ -1,10 +1,11 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
-import { HaAgentService } from '../../../../ha-core/ha-service/ha-agent.service';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
-import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { FlInputFileModule } from '@monorepo/front-core-lib/fl-input-file';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { HaAgentService } from '../../../../ha-core/ha-service/ha-agent.service';
 
 export interface HaAgentResourceViewInputDialogInputData {
   agentId: string;

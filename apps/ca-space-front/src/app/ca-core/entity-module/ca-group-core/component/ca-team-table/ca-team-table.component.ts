@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { FlArrayObs, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
-import { CaGroup } from '../../../../model/entities/ca-group.entity';
+import { MatSortHeader } from '@angular/material/sort';
 import {
   MatCell,
   MatCellDef,
@@ -13,13 +12,15 @@ import {
   MatRowDef,
   MatTable,
 } from '@angular/material/table';
-import { MatSortHeader } from '@angular/material/sort';
-import { FlSearchModule } from '@monorepo/front-core-lib/fl-search';
 import { RouterLink } from '@angular/router';
+import { FlArrayObs, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
+import { FlSearchModule } from '@monorepo/front-core-lib/fl-search';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import { CaTeamActionMenuComponent } from '../ca-team-action-menu/ca-team-action-menu.component';
-import { CaDetailRoutePipe } from '../../../../module/ca-core-pipe/ca-detail-route/ca-detail-route.pipe';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { CaGroup } from '../../../../model/entities/ca-group.entity';
+import { CaDetailRoutePipe } from '../../../../module/ca-core-pipe/ca-detail-route/ca-detail-route.pipe';
+import { CaTeamActionMenuComponent } from '../ca-team-action-menu/ca-team-action-menu.component';
 
 @Component({
   selector: 'ca-team-table',

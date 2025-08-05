@@ -11,14 +11,15 @@ import {
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
-import { ChChartState } from '../../state/ch-chart.state';
 import { ClHelpService } from '@monorepo/core-lib';
-import { ChChartConfig } from '../../model/ch-chart-config.class';
-import { debounceTime, filter, map } from 'rxjs/operators';
-import { ChChartRightSectionDirective } from '../ch-chart-right-section/ch-chart-right-section.directive';
-import { FlMenuDynamic, FlMenuDynamicService } from '@monorepo/front-core-lib/fl-menu-dynamic';
 import { FlResizeObservable } from '@monorepo/front-core-lib/fl-core';
+import { FlMenuDynamic, FlMenuDynamicService } from '@monorepo/front-core-lib/fl-menu-dynamic';
 import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
+import { debounceTime, filter, map } from 'rxjs/operators';
+
+import { ChChartConfig } from '../../model/ch-chart-config.class';
+import { ChChartState } from '../../state/ch-chart.state';
+import { ChChartRightSectionDirective } from '../ch-chart-right-section/ch-chart-right-section.directive';
 
 interface Size {
   width: number;

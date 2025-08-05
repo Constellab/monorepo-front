@@ -1,6 +1,5 @@
-import { Component, inject, makeStateKey, OnInit, PLATFORM_ID, TransferState } from '@angular/core';
-
 import { isPlatformServer } from '@angular/common';
+import { Component, inject, makeStateKey, OnInit, PLATFORM_ID, TransferState } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 @Component({

@@ -1,21 +1,22 @@
-import { ChChartRightSectionConfig } from '../ch-chart-config.class';
-import { ChChart2dMultiSerie } from '../data/ch-chart-multi-serie.class';
-import { ChChartLinear2d } from './ch-chart-linear-2d.class';
-import { ChChart2AxisRenderer } from '../../renderer/ch-chart-renderer.class';
+import { FlColorHelper } from '@monorepo/front-core-lib/fl-core';
+
 import {
   ChChartLegendSeriesWithTagsComponent,
   ChChartLegendSerieWithTagsInput,
 } from '../../component/ch-chart-right-section/ch-chart-legend-series-with-tags/ch-chart-legend-series-with-tags.component';
+import { ChChart2AxisRenderer } from '../../renderer/ch-chart-renderer.class';
+import { ChChartRendererScatterPlot } from '../../renderer/ch-chart-renderer-scatter.plot';
 import {
   ChChartLine,
   ChChartRendererStraightLines,
 } from '../../renderer/ch-chart-renderer-straight-lines.class';
+import { ChChartRightSectionConfig } from '../ch-chart-config.class';
+import { ChChart2dDatum } from '../data/ch-chart-data.class';
+import { ChChart2dMultiSerie } from '../data/ch-chart-multi-serie.class';
+import { ChChartDataWithSerie } from '../data/ch-chart-serie.class';
 import { ChChartSVGLegend } from '../legend/ch-chart-legend.class';
 import { ChChartColorFunction, chChartTransparentColorOpacity } from '../scale/ch-chart-scale-color.class';
-import { ChChartDataWithSerie } from '../data/ch-chart-serie.class';
-import { ChChart2dDatum } from '../data/ch-chart-data.class';
-import { ChChartRendererScatterPlot } from '../../renderer/ch-chart-renderer-scatter.plot';
-import { FlColorHelper } from '@monorepo/front-core-lib/fl-core';
+import { ChChartLinear2d } from './ch-chart-linear-2d.class';
 
 export class ChChartVulcanoPlot extends ChChartLinear2d {
   constructor(

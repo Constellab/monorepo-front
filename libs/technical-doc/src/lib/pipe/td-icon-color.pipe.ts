@@ -1,5 +1,6 @@
 import { inject, Pipe, PipeTransform } from '@angular/core';
 import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
+
 import { TdTypeStyleIconColor } from '../model/td-type.class';
 
 @Pipe({

@@ -1,12 +1,12 @@
+import { HttpClient } from '@angular/common/http';
+import { ApplicationRef, EnvironmentInjector } from '@angular/core';
 import {
   TeBlockFigureUploadedResponse,
   TeCompleteConfig,
   TeFigureBlockConfig,
   TeTools,
 } from '@monorepo/text-editor';
-import { ApplicationRef, EnvironmentInjector } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
 
 export class DcRichTextImageConfig implements TeFigureBlockConfig {
   constructor(

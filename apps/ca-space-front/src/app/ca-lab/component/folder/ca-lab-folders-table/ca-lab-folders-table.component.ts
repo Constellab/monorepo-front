@@ -1,17 +1,7 @@
 import { Component, inject, Input } from '@angular/core';
-import {
-  CaLabFolder,
-  CaLabFolderDatasource,
-} from '../../../../ca-core/model/entities/lab/ca-lab-folder.class';
-import {
-  FlConfirmDialogInput,
-  FlConfirmDialogResult,
-  FlDialogService,
-} from '@monorepo/front-core-lib/fl-dialog';
-import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
-import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
-
-import { CaLabFolderService } from '../../../../ca-core/service-api/ca-lab-folder.service';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import {
   MatCell,
   MatCellDef,
@@ -24,13 +14,23 @@ import {
   MatRowDef,
   MatTable,
 } from '@angular/material/table';
-import { CaHierarchyObjectInlineComponent } from '../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-inline/ca-hierarchy-object-inline.component';
-import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import { MatIconButton } from '@angular/material/button';
-import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
-import { MatIcon } from '@angular/material/icon';
-import { TranslatePipe } from '@ngx-translate/core';
+import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
+import {
+  FlConfirmDialogInput,
+  FlConfirmDialogResult,
+  FlDialogService,
+} from '@monorepo/front-core-lib/fl-dialog';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+import { TranslatePipe } from '@ngx-translate/core';
+
+import { CaHierarchyObjectInlineComponent } from '../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-inline/ca-hierarchy-object-inline.component';
+import {
+  CaLabFolder,
+  CaLabFolderDatasource,
+} from '../../../../ca-core/model/entities/lab/ca-lab-folder.class';
+import { CaLabFolderService } from '../../../../ca-core/service-api/ca-lab-folder.service';
 
 @Component({
   selector: 'ca-lab-folders-table',

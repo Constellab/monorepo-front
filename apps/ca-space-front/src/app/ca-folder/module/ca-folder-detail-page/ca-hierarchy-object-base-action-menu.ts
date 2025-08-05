@@ -1,26 +1,27 @@
-import { FlBaseActionMenu, FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
-import {
-  CaHierarchyObject,
-  CaHierarchyObjectTagDatasource,
-} from '../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
-import { Observable } from 'rxjs';
-import {
-  CaHierarchyObjectTagsDialogComponent,
-  CaHierarchyObjectTagsDialogInput,
-} from '../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-tags-dialog/ca-hierarchy-object-tags-dialog.component';
-import { CaAvailableTagDatasource } from '../../../ca-core/model/entities/ca-tag.class';
 import { Injector } from '@angular/core';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
 } from '@monorepo/front-core-lib/fl-dialog';
-import { CaHierarchyObjectService } from '../../../ca-core/service-api/ca-hierarchy-object.service';
+import { FlBaseActionMenu, FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
+import { Observable } from 'rxjs';
+
 import { CaFolderActionService } from '../../../ca-core/entity-module/ca-folder-core/ca-folder-action.service';
+import {
+  CaHierarchyObjectTagsDialogComponent,
+  CaHierarchyObjectTagsDialogInput,
+} from '../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-tags-dialog/ca-hierarchy-object-tags-dialog.component';
 import {
   CaHierarchyObjectTokenDialogInput,
   CaHierarchyObjectTokensDialogComponent,
 } from '../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-tokens-dialog/ca-hierarchy-object-tokens-dialog.component';
+import { CaAvailableTagDatasource } from '../../../ca-core/model/entities/ca-tag.class';
+import {
+  CaHierarchyObject,
+  CaHierarchyObjectTagDatasource,
+} from '../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
+import { CaHierarchyObjectService } from '../../../ca-core/service-api/ca-hierarchy-object.service';
 
 export type CaHierarchyObjectMoveToTrashAction = {
   action: 'moveToTrash';

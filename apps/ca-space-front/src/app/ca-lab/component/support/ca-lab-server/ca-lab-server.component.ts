@@ -10,8 +10,10 @@ import { FlStatusModule } from '@monorepo/front-core-lib/fl-status';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { TranslatePipe } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
+
 import { CaLabStatusDTO } from '../../../../ca-core/model/entities/lab/ca-lab.class';
 import { CaIsAdminDirective } from '../../../../ca-core/module/ca-core-directive/ca-is-admin/ca-is-admin.directive';
+import { CaLabDetailConfigPageState } from '../../../state/ca-lab-detail-config-page.state';
 import { CaLabDetailPageState } from '../../../state/ca-lab-detail-page.state';
 import { CaLabDetailServerState } from '../../../state/ca-lab-detail-server.state';
 
@@ -35,12 +37,11 @@ import { CaLabDetailServerState } from '../../../state/ca-lab-detail-server.stat
   ],
 })
 export class CaLabServerComponent {
-  private state = inject(CaLabDetailPageState);
   private serverState = inject(CaLabDetailServerState);
 
-  status$: Observable<CaLabStatusDTO> = this.state.getStatus$();
+  status$: Observable<CaLabStatusDTO> = inject(CaLabDetailConfigPageState).getStatus$();
 
-  isCloud$: Observable<boolean> = this.state.isCloud$();
+  isCloud$: Observable<boolean> = inject(CaLabDetailPageState).isCloud$();
 
   openServerInfoDialog(): void {
     this.serverState.openServerInfoDialog();

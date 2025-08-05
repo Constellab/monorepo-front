@@ -1,4 +1,4 @@
-import { ActivityObjectType, ActivityType, LiUser } from '@monorepo/lab-lib/li-core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { FlFormInputsManagerConfig } from '@monorepo/front-core-lib/fl-form-inputs-manager';
 import {
   FlSearchConverter,
@@ -6,7 +6,7 @@ import {
   FlSearchFilterCriteriaConverter,
   FlSearchSortCriteriaConverter,
 } from '@monorepo/front-core-lib/fl-search';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { ActivityObjectType, ActivityType, LiUser } from '@monorepo/lab-lib/li-core';
 import { Type } from 'class-transformer';
 
 export class LiActivitySearchFields {

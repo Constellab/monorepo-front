@@ -1,7 +1,8 @@
 import { Directive, ElementRef, EventEmitter, HostListener, Input, OnDestroy, Output } from '@angular/core';
-import { FlMouseHoverChange } from './fl-mouse-hover-change.class';
 import { ClOnChange } from '@monorepo/core-lib';
+
 import { FlHtmlHelper } from '../utils/fl-html.helper';
+import { FlMouseHoverChange } from './fl-mouse-hover-change.class';
 
 /**
  * Abstract directive to be extended to handle a MouseHover enter (with delay)

@@ -1,9 +1,10 @@
-import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
-import { SpSpreadsheetState } from '../../state/sp-spreadsheet.state';
-import { Observable } from 'rxjs';
-import { SpSheet } from '../../model/sp-sheet.class';
-import { MatButtonToggleChange } from '@angular/material/button-toggle';
+import { ChangeDetectionStrategy, Component, inject,OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { MatButtonToggleChange } from '@angular/material/button-toggle';
+import { Observable } from 'rxjs';
+
+import { SpSheet } from '../../model/sp-sheet.class';
+import { SpSpreadsheetState } from '../../state/sp-spreadsheet.state';
 
 /**
  * Component to show the list of sheets with possibility to select one

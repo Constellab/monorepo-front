@@ -1,4 +1,5 @@
 import { InlineTool, InlineToolConstructorOptions } from '@editorjs/editorjs/types/tools/inline-tool';
+
 import { TeElementInlineDirective } from '../model/te-element.directive';
 
 /**

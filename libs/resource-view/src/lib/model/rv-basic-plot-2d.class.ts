@@ -8,6 +8,7 @@ import {
   ChChartSerie,
   ChChartStackedBar,
 } from '@monorepo/chart';
+
 import { RvResourceViewBase } from './rv-resource-view.class';
 
 export interface RvResourceViewBasicPlot2d extends RvResourceViewBase {

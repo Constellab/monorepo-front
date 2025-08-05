@@ -1,35 +1,36 @@
+import { AsyncPipe } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
-import { CaSpaceService } from '../../../ca-core/service-api/ca-space.service';
-import { combineLatestWith, Observable } from 'rxjs';
-import { CaSpace } from '../../../ca-core/model/entities/space/ca-space.class';
-import { map } from 'rxjs/operators';
-import { CaCurrentSpaceService } from '../../../ca-core/service-api/ca-current-space.service';
-import { CaRouterService } from '../../../ca-core/service/ca-router.service';
+import { MatDivider } from '@angular/material/divider';
+import { MatIcon } from '@angular/material/icon';
+import { RouterLink } from '@angular/router';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { TranslatePipe } from '@ngx-translate/core';
+import { combineLatestWith, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 import {
   CaSpaceFormDialogComponent,
   CaSpaceFormDialogInput,
 } from '../../../ca-core/entity-module/ca-space-core/component/ca-space-form-dialog/ca-space-form-dialog.component';
-import { CaEnvironmentHelper } from '../../../ca-core/utils/ca-environment.helper';
-import { CaSpaceSettingsDto } from '../../../ca-core/model/entities/space/ca-space.dto';
-import { CaAuthenticatedUserService } from '../../../ca-core/service-api/ca-authenticated-user.service';
-import { FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
-import { RouterLink } from '@angular/router';
-import {
-  CaSpacePhotoComponent,
-} from '../../../ca-core/entity-module/ca-space-core/component/ca-space-photo/ca-space-photo.component';
-import { MatDivider } from '@angular/material/divider';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { MatIcon } from '@angular/material/icon';
-import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
-import {
-  CaExternalSpaceLinkDirective,
-} from '../../../ca-core/entity-module/ca-space-core/pipe/ca-external-space-link.directive';
 import {
   CaSpaceInlineComponent,
 } from '../../../ca-core/entity-module/ca-space-core/component/ca-space-inline/ca-space-inline.component';
-import { AsyncPipe } from '@angular/common';
-import { TranslatePipe } from '@ngx-translate/core';
+import {
+  CaSpacePhotoComponent,
+} from '../../../ca-core/entity-module/ca-space-core/component/ca-space-photo/ca-space-photo.component';
+import {
+  CaExternalSpaceLinkDirective,
+} from '../../../ca-core/entity-module/ca-space-core/pipe/ca-external-space-link.directive';
+import { CaSpace } from '../../../ca-core/model/entities/space/ca-space.class';
+import { CaSpaceSettingsDto } from '../../../ca-core/model/entities/space/ca-space.dto';
+import { CaRouterService } from '../../../ca-core/service/ca-router.service';
+import { CaAuthenticatedUserService } from '../../../ca-core/service-api/ca-authenticated-user.service';
+import { CaCurrentSpaceService } from '../../../ca-core/service-api/ca-current-space.service';
+import { CaSpaceService } from '../../../ca-core/service-api/ca-space.service';
+import { CaEnvironmentHelper } from '../../../ca-core/utils/ca-environment.helper';
 
 /**
  * Portal to list the space of the user with possibility to switch between them

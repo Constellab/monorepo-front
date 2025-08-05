@@ -1,5 +1,20 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, EventEmitter, inject, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { NgControl } from '@angular/forms';
+import {
+  MatExpansionPanel,
+  MatExpansionPanelHeader,
+  MatExpansionPanelTitle,
+} from '@angular/material/expansion';
+import { MatIcon } from '@angular/material/icon';
+import {
+  FlDatasourcePaginated,
+  FlEntityPaginatedDatasource,
+  FlFormFieldDirective,
+} from '@monorepo/front-core-lib/fl-core';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
+import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import {
   FlAddTagEvent,
   FlAddTagInputComponent,
@@ -7,23 +22,8 @@ import {
   FlTagDatasource,
   FlTagModule,
 } from '@monorepo/front-core-lib/fl-tag';
-import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
-import {
-  FlDatasourcePaginated,
-  FlEntityPaginatedDatasource,
-  FlFormFieldDirective,
-} from '@monorepo/front-core-lib/fl-core';
-import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
-import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { LiTagKeyModel, LiTagService } from '@monorepo/lab-lib/li-core';
-import {
-  MatExpansionPanel,
-  MatExpansionPanelHeader,
-  MatExpansionPanelTitle,
-} from '@angular/material/expansion';
-import { MatIcon } from '@angular/material/icon';
-import { NgControl } from '@angular/forms';
 import { TranslatePipe } from '@ngx-translate/core';
 
 /**

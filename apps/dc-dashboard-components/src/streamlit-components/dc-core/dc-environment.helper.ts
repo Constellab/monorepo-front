@@ -1,5 +1,5 @@
-import { DcEnvironment } from '../dc-environment/dc-environment.class';
 import { environment } from '../dc-environment/dc-environment';
+import { DcEnvironment } from '../dc-environment/dc-environment.class';
 
 /**
  * Static class to access environment

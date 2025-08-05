@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { LiNoteInlineComponent } from './li-note-inline.component';
 
 describe('LiNoteInlineComponent', () => {

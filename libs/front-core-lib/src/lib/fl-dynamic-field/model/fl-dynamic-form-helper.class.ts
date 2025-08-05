@@ -6,16 +6,17 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
+import { ClHelpService } from '@monorepo/core-lib';
+import { FlGlobalValidators } from '@monorepo/front-core-lib/fl-core';
+
 import {
+  FlDynamicEditableFormGroupConfig,
   FlDynamicFieldConfig,
   FlDynamicFieldConfigInput,
   FlDynamicFormAbstractControl,
   FlDynamicFormArrayConfig,
   FlDynamicFormGroupConfig,
-  FlDynamicEditableFormGroupConfig,
 } from './fl-dynamic-field-config.class';
-import { ClHelpService } from '@monorepo/core-lib';
-import { FlGlobalValidators } from '@monorepo/front-core-lib/fl-core';
 
 /**
  * Helper to generate AbstractControl based on FlDynamicConfig

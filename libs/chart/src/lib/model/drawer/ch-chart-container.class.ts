@@ -1,4 +1,6 @@
+import { ClHelpService } from '@monorepo/core-lib';
 import { Selection } from 'd3-selection';
+
 import {
   ChChart2AxisRenderer,
   ChChart2AxisRendererInput,
@@ -6,7 +8,6 @@ import {
   ChChartNoAxisRendererInput,
 } from '../../renderer/ch-chart-renderer.class';
 import { ChChartAxis } from './ch-chart-axis.class';
-import { ClHelpService } from '@monorepo/core-lib';
 
 interface ChChartContainerMargin {
   top: number;

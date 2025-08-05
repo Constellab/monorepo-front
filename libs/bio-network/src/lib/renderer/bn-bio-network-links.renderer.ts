@@ -1,23 +1,24 @@
-import { BnBioNetworkLink } from '../model/bn-bio-network-node-link.class';
+import { Observable } from 'rxjs';
+
 import { BnBioNetworkMetaboliteLevel } from '../model/bn-bio-network.class';
+import { BnBioNetworkNode } from '../model/bn-bio-network-node.class';
+import { BnBioNetworkNodeCofactor } from '../model/bn-bio-network-node-cofactor.class';
+import { BnBioNetworkLink } from '../model/bn-bio-network-node-link.class';
+import { BnBioNetworkNodeReaction } from '../model/bn-bio-network-node-reaction.class';
+import {
+  BnBioNetworkLinkColorFunction,
+  BnBioNetworkParticleColor,
+} from '../model/bn-bio-network-particle-color.class';
+import {
+  BnBioNetworkSelectionEvent,
+  BnBioNetworkSelectionMode,
+} from '../model/bn-bio-network-selection.class';
 import { BnBioNetworkOptions } from '../state/bn-bio-network-options.state';
 import { BnBioNetworkGraphRenderer } from './bn-bio-network-main.renderer';
 import {
   BnBioNetworkObjectColorFunction,
   BnBioNetworkObjectRenderer,
 } from './bn-bio-network-object.renderer';
-import { Observable } from 'rxjs';
-import {
-  BnBioNetworkSelectionEvent,
-  BnBioNetworkSelectionMode,
-} from '../model/bn-bio-network-selection.class';
-import { BnBioNetworkNodeCofactor } from '../model/bn-bio-network-node-cofactor.class';
-import {
-  BnBioNetworkLinkColorFunction,
-  BnBioNetworkParticleColor,
-} from '../model/bn-bio-network-particle-color.class';
-import { BnBioNetworkNode } from '../model/bn-bio-network-node.class';
-import { BnBioNetworkNodeReaction } from '../model/bn-bio-network-node-reaction.class';
 
 export class BnBioNetworkLinksRenderer extends BnBioNetworkObjectRenderer {
   constructor(

@@ -1,7 +1,8 @@
 import { ClRecordTransform } from '@monorepo/core-lib';
-import { Expose, Type } from 'class-transformer';
-import { LiProcess } from './li-process.entity';
 import { PrProtocolIntOut, PrProtocolLink } from '@monorepo/protocol';
+import { Expose, Type } from 'class-transformer';
+
+import { LiProcess } from './li-process.entity';
 
 export interface LiProcessLayout {
   x: number;

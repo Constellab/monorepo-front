@@ -1,5 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FL_PORTAL_DATA } from '@monorepo/front-core-lib/fl-portal';
+
 import { FlUser } from '../../model/fl-user.class';
 import { FlUserConfig } from '../../service/fl-user-config.config';
 

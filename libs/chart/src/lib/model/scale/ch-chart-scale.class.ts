@@ -1,5 +1,5 @@
-import { InterpolatorFactory, NumberValue, ScaleBand } from 'd3-scale';
 import { AxisScale, interpolateRound, Numeric, scaleBand, scaleLinear } from 'd3';
+import { InterpolatorFactory, NumberValue, ScaleBand } from 'd3-scale';
 
 export interface ChD3Scale<Value> extends AxisScale<Value> {
   (value: Value): number;

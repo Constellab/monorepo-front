@@ -1,4 +1,5 @@
 /* eslint-disable @nx/enforce-module-boundaries */
+import { isPlatformBrowser } from '@angular/common';
 import {
   Component,
   ElementRef,
@@ -9,23 +10,22 @@ import {
   PLATFORM_ID,
   ViewChild,
 } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
-import { EditorState, Extension } from '@codemirror/state';
-import { EditorView, keymap } from '@codemirror/view';
-import { basicSetup } from 'codemirror';
-import { defaultKeymap, indentWithTab } from '@codemirror/commands';
 import { FormControl } from '@angular/forms';
-import { HighlightStyle, StreamLanguage, syntaxHighlighting } from '@codemirror/language';
-import { tags as t } from '@lezer/highlight';
-import { python } from '@codemirror/lang-python';
+import { defaultKeymap, indentWithTab } from '@codemirror/commands';
 import { json } from '@codemirror/lang-json';
-import { shell } from '@codemirror/legacy-modes/mode/shell';
-import { r } from '@codemirror/legacy-modes/mode/r';
-import { yaml } from '@codemirror/legacy-modes/mode/yaml';
+import { python } from '@codemirror/lang-python';
+import { HighlightStyle, StreamLanguage, syntaxHighlighting } from '@codemirror/language';
 import { julia } from '@codemirror/legacy-modes/mode/julia';
 import { perl } from '@codemirror/legacy-modes/mode/perl';
-import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
+import { r } from '@codemirror/legacy-modes/mode/r';
+import { shell } from '@codemirror/legacy-modes/mode/shell';
+import { yaml } from '@codemirror/legacy-modes/mode/yaml';
+import { EditorState, Extension } from '@codemirror/state';
+import { EditorView, keymap } from '@codemirror/view';
+import { tags as t } from '@lezer/highlight';
 import { FlCodeEditorLanguage } from '@monorepo/front-core-lib/fl-code-editor';
+import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
+import { basicSetup } from 'codemirror';
 
 /**
  * Python IDE editor component using CodeMirror.

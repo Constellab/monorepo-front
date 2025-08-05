@@ -10,18 +10,19 @@ import {
   TemplateRef,
   ViewChild,
 } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
 import { FormControl } from '@angular/forms';
+import { ClHelpService, clRxjsElasticSearch } from '@monorepo/core-lib';
+import { FlDatasourcePaginated, FlInputSearchFilter } from '@monorepo/front-core-lib/fl-core';
+import { Observable, Subscription } from 'rxjs';
+
 import {
   FlInputSearchOptionContext,
   FlInputSearchOptionDirective,
 } from '../../directive/fl-input-search-option.directive';
-import { ClHelpService, clRxjsElasticSearch } from '@monorepo/core-lib';
 import {
   FlInputSearchPrefixContext,
   FlInputSearchPrefixDirective,
 } from '../../directive/fl-input-search-prefix.directive';
-import { FlDatasourcePaginated, FlInputSearchFilter } from '@monorepo/front-core-lib/fl-core';
 
 /**
  * Additional config, if provided, a button is showed in the input

@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CaCurrentSpaceInvitListComponent } from './ca-current-space-invit-list.component';
+import { CaCurrentSpaceInvitDialogComponent } from './ca-current-space-invit-dialog.component';
 
 describe('CaSpaceInvitListComponent', () => {
-  let component: CaCurrentSpaceInvitListComponent;
-  let fixture: ComponentFixture<CaCurrentSpaceInvitListComponent>;
+  let component: CaCurrentSpaceInvitDialogComponent;
+  let fixture: ComponentFixture<CaCurrentSpaceInvitDialogComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CaCurrentSpaceInvitListComponent],
+      declarations: [CaCurrentSpaceInvitDialogComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(CaCurrentSpaceInvitListComponent);
+    fixture = TestBed.createComponent(CaCurrentSpaceInvitDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

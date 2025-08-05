@@ -10,7 +10,7 @@ describe('LiTagValuesTableComponent', () => {
     await TestBed.configureTestingModule({
       imports: [LiTagValuesTableComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(LiTagValuesTableComponent);
     component = fixture.componentInstance;

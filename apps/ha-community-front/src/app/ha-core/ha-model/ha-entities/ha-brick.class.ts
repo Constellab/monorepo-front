@@ -1,10 +1,11 @@
-import { HaEntity } from './ha-entity.class';
-import { HaReferenceDTO, HaRepoType } from './ha-version.class';
-import { ClVersion } from '@monorepo/core-lib';
-import { HaSpace } from './ha-space.class';
-import { Type } from 'class-transformer';
-import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
 import { CoBrick } from '@monorepo/community-lib';
+import { ClVersion } from '@monorepo/core-lib';
+import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
+import { Type } from 'class-transformer';
+
+import { HaEntity } from './ha-entity.class';
+import { HaSpace } from './ha-space.class';
+import { HaReferenceDTO, HaRepoType } from './ha-version.class';
 
 export enum HaBrickVisibility {
   PRIVATE = 'private',

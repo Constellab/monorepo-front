@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { RvResourceViewDirective } from '../../model/rv-resource-view.directive';
+
 import { RvResourceViewMulti } from '../../model/rv-resource-view.class';
+import { RvResourceViewDirective } from '../../model/rv-resource-view.directive';
 
 @Component({
   selector: 'rv-view-multi-views',

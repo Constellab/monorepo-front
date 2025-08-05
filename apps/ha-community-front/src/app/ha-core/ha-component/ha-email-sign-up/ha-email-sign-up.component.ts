@@ -1,10 +1,11 @@
+import { NgClass } from '@angular/common';
 import { Component, computed, input, OnInit, Signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { HaConstellabHelper } from '../../ha-model/ha-config/ha-constellab.helper';
-import { ClStringHelper } from '@monorepo/core-lib';
 import { MatAnchor } from '@angular/material/button';
-import { NgClass } from '@angular/common';
+import { ClStringHelper } from '@monorepo/core-lib';
 import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
+
+import { HaConstellabHelper } from '../../ha-model/ha-config/ha-constellab.helper';
 
 @Component({
   selector: 'ha-email-sign-up',

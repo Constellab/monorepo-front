@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
+import { MatIcon } from '@angular/material/icon';
+import { RouterOutlet } from '@angular/router';
 import {
   FlHorizontalNavBarItem,
   FlHorizontalNavBarModule,
 } from '@monorepo/front-core-lib/fl-horizontal-nav-bar';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { LiRouterService } from '@monorepo/lab-lib/li-core';
-import { MatIcon } from '@angular/material/icon';
-import { RouterOutlet } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({

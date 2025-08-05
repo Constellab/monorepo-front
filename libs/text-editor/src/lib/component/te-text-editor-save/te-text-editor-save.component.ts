@@ -1,7 +1,8 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { debounceTime, Observable, Subscription, tap } from 'rxjs';
 import { FlDebouncer } from '@monorepo/front-core-lib/fl-core';
+import { debounceTime, Observable, Subscription, tap } from 'rxjs';
+
 import { TeRichText } from '../../model/lib';
 
 /**

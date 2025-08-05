@@ -1,22 +1,23 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
-import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
-import {
-  CaRootFolderNotifOptions,
-  CaFolderUserConfig,
-} from '../../../../../ca-core/model/entities/folder/ca-folder-user.class';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CaFolderService } from '../../../../../ca-core/service-api/ca-folder.service';
-import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
-import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { MatIcon } from '@angular/material/icon';
-import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
-import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
 import { MatButton } from '@angular/material/button';
-import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
+import { MatIcon } from '@angular/material/icon';
+import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import {
+  CaFolderUserConfig,
+  CaRootFolderNotifOptions,
+} from '../../../../../ca-core/model/entities/folder/ca-folder-user.class';
+import { CaFolderService } from '../../../../../ca-core/service-api/ca-folder.service';
 
 export interface CaFolderUserConfigDialogInput {
   folderId: string;

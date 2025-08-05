@@ -1,18 +1,18 @@
-import { ChChartConfig, ChChartRightSectionConfig } from '../ch-chart-config.class';
-import { ChChartContainer, ChChartContainer2Axis } from '../drawer/ch-chart-container.class';
-import { ChChartSVGLegend } from '../legend/ch-chart-legend.class';
-import { ChChartBrush } from '../drawer/ch-chart-brush.class';
-import { ChChart3dDatum, ChChartDataContainer } from '../data/ch-chart-data.class';
-import { ChChartScaleColor, ChChartScaleColorLinear } from '../scale/ch-chart-scale-color.class';
-import { ChChartDomain } from '../ch-chart-domain.class';
-import { ChChartLegendHeatMap } from '../legend/ch-chart-legend-heat-map.class';
-import { ChChartScaleBand } from '../scale/ch-chart-scale.class';
-import { ChChartAxis, ChChartAxisBand } from '../drawer/ch-chart-axis.class';
-import { ChChartRendererHeatMap } from '../../renderer/ch-chart-renderer-heat-map.plot';
 import {
   ChChartLegendHeatMapComponent,
 } from '../../component/ch-chart-right-section/ch-chart-legend-heat-map/ch-chart-legend-heat-map.component';
+import { ChChartRendererHeatMap } from '../../renderer/ch-chart-renderer-heat-map.plot';
+import { ChChartConfig, ChChartRightSectionConfig } from '../ch-chart-config.class';
+import { ChChartDomain } from '../ch-chart-domain.class';
 import { ChChartLabelFormatter } from '../ch-chart-label-formatter.class';
+import { ChChart3dDatum, ChChartDataContainer } from '../data/ch-chart-data.class';
+import { ChChartAxis, ChChartAxisBand } from '../drawer/ch-chart-axis.class';
+import { ChChartBrush } from '../drawer/ch-chart-brush.class';
+import { ChChartContainer, ChChartContainer2Axis } from '../drawer/ch-chart-container.class';
+import { ChChartSVGLegend } from '../legend/ch-chart-legend.class';
+import { ChChartLegendHeatMap } from '../legend/ch-chart-legend-heat-map.class';
+import { ChChartScaleBand } from '../scale/ch-chart-scale.class';
+import { ChChartScaleColor, ChChartScaleColorLinear } from '../scale/ch-chart-scale-color.class';
 
 /**
  * Data container for heat map data

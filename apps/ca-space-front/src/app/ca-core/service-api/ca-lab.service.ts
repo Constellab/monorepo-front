@@ -1,22 +1,9 @@
 import { inject, Injectable } from '@angular/core';
+import { ClPage, ClPageI } from '@monorepo/core-lib';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { FlDatasourceGetPageData, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 import { FlSearchConverter } from '@monorepo/front-core-lib/fl-search';
 import { FlFileHelper } from '@monorepo/front-core-lib/fl-translate';
-import { Observable, tap } from 'rxjs';
-import {
-  CaLab,
-  CaLabCodelabDTO,
-  CaLabDatasource,
-  CaLabFindOneDto,
-  CaLabServerInfoDTO,
-  CaLabStatusDTO,
-  CaLabStatusHistory,
-  CaLabStopRequestDTO,
-  CaLabWithSpace,
-} from '../model/entities/lab/ca-lab.class';
-
-import { ClPage, ClPageI } from '@monorepo/core-lib';
 import {
   LmlAdminerInfo,
   LmlComposeRestartOptions,
@@ -30,13 +17,33 @@ import {
   LmlLabManagerStatus,
   LmlPullBiotaOptions,
 } from '@monorepo/lab-manager-lib';
+import { Observable, tap } from 'rxjs';
 import { map } from 'rxjs/operators';
+
 import {
   CaLabStatusHistorySearch,
   CaLabStatusHistorySearchFields,
 } from '../../ca-lab/component/lab/ca-lab-status-history-page/ca-lab-status-history-page.component';
 import { CaLabSearch, CaLabSearchFields } from '../entity-module/ca-lab-core/model/ca-lab-search.class';
 import { CaUser } from '../model/entities/ca-user.class';
+import {
+  CaLab,
+  CaLabBusyStatusDTO,
+  CaLabCodelabDTO,
+  CaLabDatasource,
+  CaLabFindOneDto,
+  CaLabServerInfoDTO,
+  CaLabStatusDTO,
+  CaLabStatusHistory,
+  CaLabStopRequestDTO,
+  CaLabWithSpace,
+} from '../model/entities/lab/ca-lab.class';
+import {
+  CaLabAdminForm,
+  CaLabCloudCreateDTO,
+  CaLabDesktopForm,
+  CaRequestLabForm,
+} from '../model/entities/lab/ca-lab.form';
 import { CaLabBackupHistory, CaLabBackupStatusDTO } from '../model/entities/lab/ca-lab-backup.class';
 import { CaLabConfig } from '../model/entities/lab/ca-lab-config.class';
 import { CaLabDesktopGenerateConfig } from '../model/entities/lab/ca-lab-desktop.class';
@@ -58,12 +65,6 @@ import {
 } from '../model/entities/lab/ca-lab-stats.dto';
 import { CaLabUser, CaLabUserRole } from '../model/entities/lab/ca-lab-user.class';
 import { CaLabUpdateVolumeDTO, CaLabVolume } from '../model/entities/lab/ca-lab-volume.class';
-import {
-  CaLabAdminForm,
-  CaLabCloudCreateDTO,
-  CaLabDesktopForm,
-  CaRequestLabForm,
-} from '../model/entities/lab/ca-lab.form';
 
 @Injectable({
   providedIn: 'root',
@@ -156,6 +157,10 @@ export class CaLabService {
   //////////////////////////// STATUS ////////////////////////////////
   public getStatus(id: string): Observable<CaLabStatusDTO> {
     return this.apiService.get(`${this.route}/${id}/status`, CaLabStatusDTO);
+  }
+
+  public getBusyStatus(id: string): Observable<CaLabBusyStatusDTO> {
+    return this.apiService.get(`${this.route}/${id}/status/busy`, CaLabBusyStatusDTO);
   }
 
   public refreshStatus(id: string): Observable<CaLabStatusDTO> {
@@ -531,6 +536,10 @@ export class CaLabService {
 
   public updateLabDesktop(entity: CaLabDesktopForm): Observable<CaLab> {
     return this.apiService.put(`${this.route}/${entity.id}/desktop`, entity, CaLab);
+  }
+
+  public deleteLabDesktop(id: string): Observable<void> {
+    return this.apiService.delete(`${this.route}/${id}/desktop`);
   }
 
   //////////////////////////// ADMIN ////////////////////////////////

@@ -1,22 +1,22 @@
-import { Observable } from 'rxjs';
+import { InlineTool, SanitizerConfig } from '@editorjs/editorjs';
 import { ClPageI } from '@monorepo/core-lib';
 import { FlDatasourceGetPageData } from '@monorepo/front-core-lib/fl-core';
 import { FlHtmlHelper } from '@monorepo/front-core-lib/fl-core';
 import { FlKeyboardKey } from '@monorepo/front-core-lib/fl-core';
+import { flRootInjector } from '@monorepo/front-core-lib/fl-core';
 import { FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
 import { FlPortalService } from '@monorepo/front-core-lib/fl-portal';
-import { flRootInjector } from '@monorepo/front-core-lib/fl-core';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import { FlUser } from '@monorepo/front-core-lib/fl-user';
+import { Observable } from 'rxjs';
 
-import { TeKeyListener } from './te-key-listener.class';
 import {
   TeMentionPortalComponent,
   TeMentionPortalInput,
 } from '../component/te-mention-portal/te-mention-portal.component';
 import { TeHelper } from '../model/te.helper';
 import { TeElementInlineDirective } from '../model/te-element.directive';
-import { InlineTool, SanitizerConfig } from '@editorjs/editorjs';
+import { TeKeyListener } from './te-key-listener.class';
 import { TePortalPlugin } from './te-portal-plugin.class';
 
 export interface TeMentionSearchFilter {

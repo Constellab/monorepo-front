@@ -1,7 +1,18 @@
 import { inject, Injectable } from '@angular/core';
+import { ClPage, ClVersion } from '@monorepo/core-lib';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { FlDatasourceGetPageData, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
+import { FlSearchConverter } from '@monorepo/front-core-lib/fl-search';
+import { TdTypeEntity } from '@monorepo/technical-doc';
 import { Observable } from 'rxjs';
+
+import {
+  HaAdminPanelBrickSearch,
+  HaAdminPanelBrickSearchFields,
+} from '../../ha-admin/model/ha-admin-panel-brick-search.class';
+import { HaProfileDatasourceFilters } from '../../ha-profile/component/ha-profile/ha-profile.component';
+import { HaBrickCoAuthorInvite } from '../entity-module/ha-co-author-core/model/ha-co-author-invite.class';
+import { HaCoAuthorService } from '../entity-module/ha-co-author-core/model/ha-co-author-service';
 import {
   HaBrick,
   HaBrickCreationDTO,
@@ -9,22 +20,12 @@ import {
   HaBrickDatasourcePaginated,
   HaEditBrickDTO,
 } from '../ha-model/ha-entities/ha-brick.class';
-import { HaNode } from '../ha-model/ha-entities/ha-node.class';
-import { HaDocumentation, HaDocumentationSearchDTO } from '../ha-model/ha-entities/ha-documentation.class';
-import { HaNewVersionDTO, HaReferenceDTO } from '../ha-model/ha-entities/ha-version.class';
 import { HaBrickVersion } from '../ha-model/ha-entities/ha-brick-version.class';
-import { TdTypeEntity } from '@monorepo/technical-doc';
-import { ClPage, ClVersion } from '@monorepo/core-lib';
-import { HaBrickCoAuthorInvite } from '../entity-module/ha-co-author-core/model/ha-co-author-invite.class';
-import { HaCoAuthorService } from '../entity-module/ha-co-author-core/model/ha-co-author-service';
-import { HaUser } from '../ha-model/ha-entities/ha-user';
+import { HaDocumentation, HaDocumentationSearchDTO } from '../ha-model/ha-entities/ha-documentation.class';
+import { HaNode } from '../ha-model/ha-entities/ha-node.class';
 import { HaStory } from '../ha-model/ha-entities/ha-story.class';
-import { HaProfileDatasourceFilters } from '../../ha-profile/component/ha-profile/ha-profile.component';
-import {
-  HaAdminPanelBrickSearch,
-  HaAdminPanelBrickSearchFields,
-} from '../../ha-admin/model/ha-admin-panel-brick-search.class';
-import { FlSearchConverter } from '@monorepo/front-core-lib/fl-search';
+import { HaUser } from '../ha-model/ha-entities/ha-user';
+import { HaNewVersionDTO, HaReferenceDTO } from '../ha-model/ha-entities/ha-version.class';
 
 @Injectable({
   providedIn: 'root',

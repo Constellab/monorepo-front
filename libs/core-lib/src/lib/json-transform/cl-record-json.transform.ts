@@ -1,4 +1,6 @@
 import { Transform } from 'class-transformer';
+
+import { ClRecordWrapper } from '../model/cl-record-wrapper.class';
 import {
   ClCoreJsonConvert,
   ClDeserializationRef,
@@ -6,7 +8,6 @@ import {
   ClSerializeItem,
   ClTransformFnParams,
 } from './cl-json.converter';
-import { ClRecordWrapper } from '../model/cl-record-wrapper.class';
 
 /**
  * Converter decorator for Record Wrapper

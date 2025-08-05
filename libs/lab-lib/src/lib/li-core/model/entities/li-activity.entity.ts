@@ -1,5 +1,6 @@
-import { Expose, Type } from 'class-transformer';
 import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
+import { Expose, Type } from 'class-transformer';
+
 import { LiBaseEntity } from '../global/li-entity.entity';
 import { LiUser } from './li-user.entity';
 

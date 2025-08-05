@@ -1,19 +1,20 @@
-import { ActivatedRoute, Router } from '@angular/router';
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
-import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
-import { LabScenarioDetailComponent } from '../lab-scenario-detail/lab-scenario-detail.component';
-import { LabScenarioDetailHeaderComponent } from '../lab-scenario-detail-header/lab-scenario-detail-header.component';
-import { LabScenarioDetailPageState } from '../../state/lab-scenario-detail-page.state';
-import { LabWorkflowComponent } from '../lab-workflow/lab-workflow.component';
-import { LabWorkflowEditConfig } from '../../model/lab-workflow-edit-config.class';
-import { LabWorkflowFactory } from '../../model/lab-workflow.factory';
-import { LabWorkflowNodeDetailState } from '../../state/lab-workflow-node-detail.state';
-import { LiScenario } from '@monorepo/lab-lib/li-core';
+import { Component, inject,OnDestroy, OnInit } from '@angular/core';
 import { MatTab, MatTabContent, MatTabGroup } from '@angular/material/tabs';
-import { Observable } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+import { LiScenario } from '@monorepo/lab-lib/li-core';
 import { PrWorkflowActionState } from '@monorepo/protocol';
 import { TranslatePipe } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
+
+import { LabWorkflowFactory } from '../../model/lab-workflow.factory';
+import { LabWorkflowEditConfig } from '../../model/lab-workflow-edit-config.class';
+import { LabScenarioDetailPageState } from '../../state/lab-scenario-detail-page.state';
+import { LabWorkflowNodeDetailState } from '../../state/lab-workflow-node-detail.state';
+import { LabScenarioDetailComponent } from '../lab-scenario-detail/lab-scenario-detail.component';
+import { LabScenarioDetailHeaderComponent } from '../lab-scenario-detail-header/lab-scenario-detail-header.component';
+import { LabWorkflowComponent } from '../lab-workflow/lab-workflow.component';
 
 /**
  * Page for the biox scenario detail with workflow view/edit

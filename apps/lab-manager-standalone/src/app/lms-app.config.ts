@@ -1,24 +1,24 @@
-import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter } from '@angular/router';
-import { lmsAppRoutes } from './lms-app.routes';
-import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
-import { FlApiModule } from '@monorepo/front-core-lib/fl-api';
-import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
-import { FlIconModule, flIconsDefault } from '@monorepo/front-core-lib/fl-svg-icon';
-import { flLuxonDateFormat, flMatFormFieldConfig, flTooltipConfig } from '@monorepo/front-core-lib/fl-core';
-import { FlPortalActionsModule } from '@monorepo/front-core-lib/fl-portal-actions';
-import { FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
-import { FlSnackBarModule } from '@monorepo/front-core-lib/fl-snack-bar';
-
-import { ClSupportedLanguage } from '@monorepo/core-lib';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
+import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { MAT_TOOLTIP_DEFAULT_OPTIONS } from '@angular/material/tooltip';
-import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
-import { LmsApiServiceConfig } from './config/lms-api-module.config';
-import { LmsApiErrorService } from './service/lms-api-error.service';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LuxonDateAdapter } from '@angular/material-luxon-adapter';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { provideRouter } from '@angular/router';
+import { ClSupportedLanguage } from '@monorepo/core-lib';
+import { FlApiModule } from '@monorepo/front-core-lib/fl-api';
+import { flLuxonDateFormat, flMatFormFieldConfig, flTooltipConfig } from '@monorepo/front-core-lib/fl-core';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
+import { FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
+import { FlPortalActionsModule } from '@monorepo/front-core-lib/fl-portal-actions';
+import { FlSnackBarModule } from '@monorepo/front-core-lib/fl-snack-bar';
+import { FlIconModule, flIconsDefault } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
+
+import { LmsApiServiceConfig } from './config/lms-api-module.config';
+import { lmsAppRoutes } from './lms-app.routes';
+import { LmsApiErrorService } from './service/lms-api-error.service';
 
 export const lmsAppConfig: ApplicationConfig = {
   providers: [

@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { HaRunStatAggregatePanelComponent } from './ha-run-stat-aggregate-panel.component';
 
 describe('HaRunStatAggregatePanelComponent', () => {

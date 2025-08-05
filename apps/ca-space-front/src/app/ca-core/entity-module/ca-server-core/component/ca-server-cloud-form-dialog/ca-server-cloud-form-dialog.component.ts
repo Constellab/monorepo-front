@@ -1,27 +1,28 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
-import { CaServerCloud } from '../../../../model/entities/server/ca-server-cloud.class';
-import { CaServerService } from '../../../../service-api/ca-server.service';
-import { Observable } from 'rxjs';
-import { FlDialogModule, FlFormDialogAbstractDirective } from '@monorepo/front-core-lib/fl-dialog';
+import { MatButton } from '@angular/material/button';
 import { MatDialogActions, MatDialogContent } from '@angular/material/dialog';
 import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
 import { MatSelect } from '@angular/material/select';
+import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
+import { FlDialogModule, FlFormDialogAbstractDirective } from '@monorepo/front-core-lib/fl-dialog';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { TranslatePipe } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+
+import { CaServerCloud } from '../../../../model/entities/server/ca-server-cloud.class';
+import { CaServerService } from '../../../../service-api/ca-server.service';
 import {
   CaSelectCloudProviderOptionsComponent,
 } from '../../../ca-cloud-provider-core/component/ca-select-cloud-provider-options/ca-select-cloud-provider-options.component';
-import { MatInput } from '@angular/material/input';
-import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
-import {
-  CaSelectServerStandardOptionsComponent,
-} from '../ca-select-server-standard-options/ca-select-server-standard-options.component';
 import {
   CaSelectDiskTypeOptionsComponent,
 } from '../ca-select-disk-type-options/ca-select-disk-type-options.component';
-import { MatButton } from '@angular/material/button';
-import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
-import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
-import { TranslatePipe } from '@ngx-translate/core';
+import {
+  CaSelectServerStandardOptionsComponent,
+} from '../ca-select-server-standard-options/ca-select-server-standard-options.component';
 
 /**
  * Dialog to create or update a server info

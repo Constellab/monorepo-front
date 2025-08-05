@@ -1,10 +1,20 @@
 import { Component, inject, Input, input, OnInit, output } from '@angular/core';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { Router } from '@angular/router';
+import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlPortalAction, FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
 import {
   FlSavedSearch,
   FlSearchConfig,
   FlSearchModule,
   FlSearchState,
 } from '@monorepo/front-core-lib/fl-search';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
 import {
   LiRouterService,
   LiTagKeyModel,
@@ -14,21 +24,12 @@ import {
   LiTagService,
   LiTagsNotSynchronized,
 } from '@monorepo/lab-lib/li-core';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
-import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { TranslatePipe } from '@ngx-translate/core';
-import { MatIconButton } from '@angular/material/button';
-import { MatTooltip } from '@angular/material/tooltip';
-import { MatIcon } from '@angular/material/icon';
-import { LiTagTableComponent } from '../li-tag-table/li-tag-table.component';
-import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
-import { LiTagSearchFormComponent } from '../li-tag-search-form/li-tag-search-form.component';
+
 import { LiSyncImportedCommunityTagsDialogComponent } from '../li-sync-imported-community-tags-dialog/li-sync-imported-community-tags-dialog.component';
-import { FlPortalAction, FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
 import { LiTagCreateDialogComponent } from '../li-tag-create-dialog/li-tag-create-dialog.component';
-import { Router } from '@angular/router';
+import { LiTagSearchFormComponent } from '../li-tag-search-form/li-tag-search-form.component';
+import { LiTagTableComponent } from '../li-tag-table/li-tag-table.component';
 
 @Component({
   selector: 'li-tag-search',

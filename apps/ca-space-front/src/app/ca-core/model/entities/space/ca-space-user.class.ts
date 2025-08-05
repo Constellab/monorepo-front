@@ -1,8 +1,9 @@
-import { Type } from 'class-transformer';
-import { CaUser } from '../ca-user.class';
-import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
 import { ClLuxonDateTimeTransform } from '@monorepo/core-lib';
+import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
+import { Type } from 'class-transformer';
 import { DateTime } from 'luxon';
+
+import { CaUser } from '../ca-user.class';
 
 export enum CaSpaceRole {
   ADMIN = 'ADMIN',

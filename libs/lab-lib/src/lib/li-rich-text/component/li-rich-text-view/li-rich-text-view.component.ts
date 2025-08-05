@@ -1,4 +1,4 @@
-import { Component, Input, inject } from '@angular/core';
+import { Component, inject,Input } from '@angular/core';
 import {
   LiNoteResourceService,
   LiResourceService,
@@ -6,9 +6,9 @@ import {
   LiRichTextObjectType,
   LiRichTextService,
 } from '@monorepo/lab-lib/li-core';
-import { Observable } from 'rxjs';
 import { RvResourceViewModule, RvViewConfig } from '@monorepo/resource-view';
 import { TeElementBlockDirective } from '@monorepo/text-editor';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 /**

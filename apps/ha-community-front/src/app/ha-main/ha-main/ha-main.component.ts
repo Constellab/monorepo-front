@@ -1,3 +1,5 @@
+import { BreakpointObserver } from '@angular/cdk/layout';
+import { isPlatformBrowser } from '@angular/common';
 import {
   AfterContentInit,
   Component,
@@ -8,18 +10,17 @@ import {
   PLATFORM_ID,
   Signal,
 } from '@angular/core';
-import { HaAuthenticatedUserService } from '../../ha-core/ha-service/ha-authenticated-user.service';
-import { FlCookieService, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { ClHelpService, ClSupportedLanguage, ClTheme } from '@monorepo/core-lib';
-import { HaEnvironmentHelper } from '../../ha-core/ha-model/ha-config/ha-environment.helper';
-import { isPlatformBrowser } from '@angular/common';
-import { HaCookieConsentComponent } from '../ha-cookie-consent/ha-cookie-consent.component';
-import { BreakpointObserver } from '@angular/cdk/layout';
-import { HaThemeState } from '../../ha-core/ha-state/ha-theme.state';
-import { HaInstantSearchDialogComponent } from '../../ha-core/ha-component/ha-instant-search-dialog/ha-instant-search-dialog.component';
+import { FlCookieService, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+
 import { environment } from '../../../environments/ha-environment';
+import { HaInstantSearchDialogComponent } from '../../ha-core/ha-component/ha-instant-search-dialog/ha-instant-search-dialog.component';
+import { HaEnvironmentHelper } from '../../ha-core/ha-model/ha-config/ha-environment.helper';
+import { HaAuthenticatedUserService } from '../../ha-core/ha-service/ha-authenticated-user.service';
 import { HaJsonLdState } from '../../ha-core/ha-state/ha-json-ld.state';
+import { HaThemeState } from '../../ha-core/ha-state/ha-theme.state';
 import { HaBigScreenMainComponent } from '../ha-big-screen-main/ha-big-screen-main.component';
+import { HaCookieConsentComponent } from '../ha-cookie-consent/ha-cookie-consent.component';
 import { HaSmallScreenMainComponent } from '../ha-small-screen-main/ha-small-screen-main.component';
 
 @Component({

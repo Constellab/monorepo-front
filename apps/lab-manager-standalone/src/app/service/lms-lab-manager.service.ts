@@ -1,3 +1,6 @@
+import { inject, Injectable, ViewContainerRef } from '@angular/core';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlFileHelper } from '@monorepo/front-core-lib/fl-translate';
 import {
   LmlAdminerInfo,
   LmlComposeRestartOptions,
@@ -14,12 +17,10 @@ import {
   LmlPullBiotaOptions,
 } from '@monorepo/lab-manager-lib';
 import { Observable, tap } from 'rxjs';
-import { inject, Injectable, ViewContainerRef } from '@angular/core';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { FlFileHelper } from '@monorepo/front-core-lib/fl-translate';
+
 import { LmsConfigureLabManagerDialogComponent } from '../components/lms-configure-lab-manager-dialog/lms-configure-lab-manager-dialog.component';
-import { LmsLabService } from './lms-lab.service';
 import { LmsUpdateLabManagerDialogComponent } from '../components/lms-update-lab-manager-dialog/lms-update-lab-manager-dialog.component';
+import { LmsLabService } from './lms-lab.service';
 
 @Injectable()
 export class LmsLabManagerService extends LmlLabManagerService {

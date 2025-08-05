@@ -3,15 +3,16 @@ import {
   ElementRef,
   EventEmitter,
   HostListener,
+  inject,
   Input,
   Output,
   Renderer2,
-  inject,
 } from '@angular/core';
 import { ClHelpService } from '@monorepo/core-lib';
+import { FlFileHelper } from '@monorepo/front-core-lib/fl-translate';
+
 import { FlDropEvent } from '../fl-drag.class';
 import { FlDragManagerService } from '../fl-drag-manager.service';
-import { FlFileHelper } from '@monorepo/front-core-lib/fl-translate';
 
 /**
  * Directive to add a class to the host element when a file or element is drag

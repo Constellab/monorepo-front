@@ -1,8 +1,9 @@
+import { Subscription } from 'rxjs';
+
 import { PrWorkflowNode } from '../node/pr-workflow-node.class';
-import { PrWorkflowPort } from './pr-workflow-port.class';
 import { PrWorkflowNodeInterface } from '../node/pr-workflow-node-interface.class';
 import { PrWorkflowNodeOuterface } from '../node/pr-workflow-node-outerface.class';
-import { Subscription } from 'rxjs';
+import { PrWorkflowPort } from './pr-workflow-port.class';
 
 export class PrWorkflowConnection {
   constructor(

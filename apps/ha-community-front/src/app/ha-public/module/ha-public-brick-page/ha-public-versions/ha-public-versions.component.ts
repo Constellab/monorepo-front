@@ -1,19 +1,20 @@
 import { Component, computed, inject, Signal } from '@angular/core';
-import { HaBrickVersionDataSource } from '../../../../ha-core/ha-model/ha-entities/ha-brick-version.class';
-import { HaBrickVersionService } from '../../../../ha-core/ha-service/ha-brick-version.service';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
-import { HaNewVersionDTO } from '../../../../ha-core/ha-model/ha-entities/ha-version.class';
-import { HaPublicAddVersionDialogComponent } from '../ha-public-add-version-dialog/ha-public-add-version-dialog.component';
-import { HaNodeDTO } from '../../../../ha-core/ha-model/ha-entities/ha-node.class';
-import { HaBrickPageState } from '../../../state/ha-brick-page.state';
-import { HaBrick } from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
-import { HaCommunityPageDirective } from '../../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
-import { HaRouterService } from '../../../../ha-core/ha-service/ha-router.service';
-import { Router } from '@angular/router';
 import { MatButton } from '@angular/material/button';
-import { HaPublicBrickVersionsTableComponent } from '../ha-public-brick-versions-table/ha-public-brick-versions-table.component';
+import { Router } from '@angular/router';
+import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { HaBrick } from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
+import { HaBrickVersionDataSource } from '../../../../ha-core/ha-model/ha-entities/ha-brick-version.class';
+import { HaNodeDTO } from '../../../../ha-core/ha-model/ha-entities/ha-node.class';
+import { HaNewVersionDTO } from '../../../../ha-core/ha-model/ha-entities/ha-version.class';
+import { HaCommunityPageDirective } from '../../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
+import { HaBrickVersionService } from '../../../../ha-core/ha-service/ha-brick-version.service';
+import { HaRouterService } from '../../../../ha-core/ha-service/ha-router.service';
+import { HaBrickPageState } from '../../../state/ha-brick-page.state';
+import { HaPublicAddVersionDialogComponent } from '../ha-public-add-version-dialog/ha-public-add-version-dialog.component';
+import { HaPublicBrickVersionsTableComponent } from '../ha-public-brick-versions-table/ha-public-brick-versions-table.component';
 
 @Component({
   selector: 'ha-public-versions-page',

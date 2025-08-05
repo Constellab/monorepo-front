@@ -1,8 +1,9 @@
-import { Directive, OnDestroy, OnInit, inject } from '@angular/core';
-import { FlSearchState } from '../../model/fl-search.state';
+import { Directive, inject,OnDestroy, OnInit } from '@angular/core';
 import { MatSort, Sort } from '@angular/material/sort';
-import { Subscription } from 'rxjs';
 import { FlSortDirection } from '@monorepo/front-core-lib/fl-core';
+import { Subscription } from 'rxjs';
+
+import { FlSearchState } from '../../model/fl-search.state';
 
 /**
  * Directive to put on a mat-table to connect the sorting of the table with the search state

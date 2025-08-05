@@ -1,15 +1,15 @@
-import { Component, Input, OnDestroy, OnInit, inject } from '@angular/core';
-import { FlConfirmDialogResult, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { Component, inject,Input, OnDestroy, OnInit } from '@angular/core';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
 import { FlEntityArrayObs, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
+import { FlConfirmDialogResult, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlPortalActionResult, FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { LiNote, LiNoteService } from '@monorepo/lab-lib/li-core';
 import { LiNoteTableComponent, LiSelectNoteDialogComponent } from '@monorepo/lab-lib/li-note';
-import { MatIcon } from '@angular/material/icon';
-import { MatIconButton } from '@angular/material/button';
-import { MatTooltip } from '@angular/material/tooltip';
-import { Subscription } from 'rxjs';
 import { TranslatePipe } from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 /**

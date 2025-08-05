@@ -1,15 +1,16 @@
+import { Component, inject,OnInit } from '@angular/core';
+import { MatButton } from '@angular/material/button';
+import { MAT_DIALOG_DATA, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { CoCommunityLibModule } from '@monorepo/community-lib';
-import { Component, OnInit, inject } from '@angular/core';
 import { FlDialogModule, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { LiAgent, LiProtocolService, LiUser } from '@monorepo/lab-lib/li-core';
+import { TranslatePipe } from '@ngx-translate/core';
+
 import {
   LiShareAgentCommunityDialogComponent,
   LiShareAgentCommunityDialogData,
 } from '../li-share-agent-community-dialog/li-share-agent-community-dialog.component';
-import { MAT_DIALOG_DATA, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
-import { MatButton } from '@angular/material/button';
-import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'li-share-agent-new-version-community-dialog',

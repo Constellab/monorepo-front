@@ -1,18 +1,9 @@
+import { NgTemplateOutlet } from '@angular/common';
 import { Component, ContentChild, inject, Input, TemplateRef } from '@angular/core';
-import { CaUser, CaUserDatasourcePaginated } from '../../../../model/entities/ca-user.class';
-import {
-  FlConfirmDialogInput,
-  FlConfirmDialogResult,
-  FlDialogService,
-} from '@monorepo/front-core-lib/fl-dialog';
-import { FlTableColumnStatic, FlViewContext } from '@monorepo/front-core-lib/fl-core';
-
-import { ClUserStatus } from '@monorepo/core-lib';
-import { CaUserAccountsService } from '../../../../service-api/ca-user-accounts.service';
-import {
-  CaUserUpdateLicenseDialogInput,
-  CaUserUpdateLicenseFormDialogComponent,
-} from '../ca-user-update-license-form-dialog/ca-user-update-license-form-dialog.component';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
+import { MatSortHeader } from '@angular/material/sort';
 import {
   MatCell,
   MatCellDef,
@@ -25,19 +16,28 @@ import {
   MatRowDef,
   MatTable,
 } from '@angular/material/table';
-import { MatSortHeader } from '@angular/material/sort';
-import { FlSearchModule } from '@monorepo/front-core-lib/fl-search';
-import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
-import { MatIconButton } from '@angular/material/button';
-import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { RouterLink } from '@angular/router';
-import { NgTemplateOutlet } from '@angular/common';
-import { CaDetailRoutePipe } from '../../../../module/ca-core-pipe/ca-detail-route/ca-detail-route.pipe';
+import { ClUserStatus } from '@monorepo/core-lib';
+import { FlTableColumnStatic, FlViewContext } from '@monorepo/front-core-lib/fl-core';
+import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
+import {
+  FlConfirmDialogInput,
+  FlConfirmDialogResult,
+  FlDialogService,
+} from '@monorepo/front-core-lib/fl-dialog';
+import { FlSearchModule } from '@monorepo/front-core-lib/fl-search';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { CaUser, CaUserDatasourcePaginated } from '../../../../model/entities/ca-user.class';
+import { CaDetailRoutePipe } from '../../../../module/ca-core-pipe/ca-detail-route/ca-detail-route.pipe';
+import { CaUserAccountsService } from '../../../../service-api/ca-user-accounts.service';
+import {
+  CaUserUpdateLicenseDialogInput,
+  CaUserUpdateLicenseFormDialogComponent,
+} from '../ca-user-update-license-form-dialog/ca-user-update-license-form-dialog.component';
 
 /**
  * Table to display users

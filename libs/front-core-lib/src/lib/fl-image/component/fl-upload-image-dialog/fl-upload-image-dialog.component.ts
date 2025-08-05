@@ -1,9 +1,9 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject,OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Observable } from 'rxjs';
+import { FlCompressBlobOption, FlImageHelper } from '@monorepo/front-core-lib/fl-core';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
-import { FlCompressBlobOption, FlImageHelper } from '@monorepo/front-core-lib/fl-core';
+import { Observable } from 'rxjs';
 
 export interface FlUploadImageDialogInput {
   config: FlUploadImageDialogConfig;

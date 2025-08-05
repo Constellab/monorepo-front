@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+
 import { ChChartLabelFormatter } from '../model/ch-chart-label-formatter.class';
 
 /**

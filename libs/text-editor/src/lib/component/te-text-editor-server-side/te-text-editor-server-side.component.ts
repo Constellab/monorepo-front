@@ -1,8 +1,9 @@
 import { Component, inject, Input, OnInit, Renderer2, ViewEncapsulation } from '@angular/core';
 import edjsHTML from 'editorjs-html';
+
+import { TeFigureBlock } from '../../block/te-figure-block.class';
 import { TeRichText } from '../../model/lib';
 import { TeConfig } from '../../model/te-config.class';
-import { TeFigureBlock } from '../../block/te-figure-block.class';
 
 @Component({
   selector: 'te-text-editor-server-side',

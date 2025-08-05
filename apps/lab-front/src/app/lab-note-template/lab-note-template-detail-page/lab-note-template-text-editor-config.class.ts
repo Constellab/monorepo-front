@@ -8,10 +8,10 @@ import {
 import { LiRichTextFileViewBlock, LiRichTextViewBlockAdditionalData } from '@monorepo/lab-lib/li-rich-text';
 import {
   TeCompleteConfig,
-  TeTools,
-  TeVariableInlineToolClass,
   teComponentBlockFactory,
   teInlineToolFactory,
+  TeTools,
+  TeVariableInlineToolClass,
 } from '@monorepo/text-editor';
 
 /**

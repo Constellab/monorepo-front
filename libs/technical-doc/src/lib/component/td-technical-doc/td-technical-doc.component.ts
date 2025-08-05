@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+
 import { TdTypeEntity } from '../../model/td-type.class';
 
 @Component({

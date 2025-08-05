@@ -1,4 +1,5 @@
 import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import { ClBrick } from '@monorepo/core-lib';
 import { FlEntityPaginatedDatasource, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import {
   FlSavedSearch,
@@ -8,7 +9,6 @@ import {
   FlSearchState,
 } from '@monorepo/front-core-lib/fl-search';
 import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
-import { LiProcessTypeTableComponent } from '../li-process-type-table/li-process-type-table.component';
 import {
   LiTypeEntity,
   LiTypeEntityDatasource,
@@ -17,8 +17,9 @@ import {
   LiTypeSearchFields,
   LiTypeService,
 } from '@monorepo/lab-lib/li-core';
+
+import { LiProcessTypeTableComponent } from '../li-process-type-table/li-process-type-table.component';
 import { LiTypeSearchFormComponent } from '../li-type-search-form/li-type-search-form.component';
-import { ClBrick } from '@monorepo/core-lib';
 
 @Component({
   selector: 'li-type-search',

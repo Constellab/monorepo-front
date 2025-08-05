@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
+import { MatButton } from '@angular/material/button';
+import { MatCheckbox } from '@angular/material/checkbox';
 import {
   MAT_DIALOG_DATA,
   MatDialogActions,
@@ -8,16 +9,16 @@ import {
   MatDialogContent,
   MatDialogRef,
 } from '@angular/material/dialog';
-import { CaLab } from '../../../../ca-core/model/entities/lab/ca-lab.class';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
+import { TranslatePipe } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
-import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
-import { MatCheckbox } from '@angular/material/checkbox';
-import { MatButton } from '@angular/material/button';
-import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
-import { TranslatePipe } from '@ngx-translate/core';
+
+import { CaLab } from '../../../../ca-core/model/entities/lab/ca-lab.class';
+import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
 
 export interface CaStopLabDialogInput {
   labId: string;

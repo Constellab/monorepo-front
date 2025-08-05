@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
-import { CaLoginGuard } from './guard/ca-login.guard';
 import { FlResetPasswordPageComponent } from '@monorepo/front-core-lib/fl-auth';
+
+import { CaLoginGuard } from './guard/ca-login.guard';
 
 export const caLoginRoutes: Routes = [
   {

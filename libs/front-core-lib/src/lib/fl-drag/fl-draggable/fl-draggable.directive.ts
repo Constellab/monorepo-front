@@ -3,12 +3,13 @@ import {
   ElementRef,
   EventEmitter,
   HostListener,
+  inject,
   Input,
   OnInit,
   Output,
   Renderer2,
-  inject,
 } from '@angular/core';
+
 import { FlDragManagerService } from '../fl-drag-manager.service';
 
 @Directive({

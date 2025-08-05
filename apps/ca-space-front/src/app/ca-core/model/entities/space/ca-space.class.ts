@@ -1,7 +1,8 @@
-import { CaBaseEntity } from '../ca-base-entity.class';
 import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
-import { CaUser } from '../ca-user.class';
 import { Type } from 'class-transformer';
+
+import { CaBaseEntity } from '../ca-base-entity.class';
+import { CaUser } from '../ca-user.class';
 import { CaSpaceRole } from './ca-space-user.class';
 
 export type CaSpaceType = 'ENTREPRISE' | 'PERSONAL';

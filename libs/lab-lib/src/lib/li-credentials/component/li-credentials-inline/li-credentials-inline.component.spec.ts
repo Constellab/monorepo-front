@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { LiCredentialsInlineComponent } from './li-credentials-inline.component';
 
 describe('LiCredentialsInlineComponent', () => {

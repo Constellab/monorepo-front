@@ -1,8 +1,5 @@
 import { Component, inject } from '@angular/core';
-import {
-  CaLabBackupPeriod,
-  CaLabVolumePeriod,
-} from '../../../../ca-core/model/entities/lab/ca-lab-stats.dto';
+import { MatButton } from '@angular/material/button';
 import {
   MAT_DIALOG_DATA,
   MatDialogActions,
@@ -11,10 +8,14 @@ import {
 } from '@angular/material/dialog';
 import { FlArrayObs } from '@monorepo/front-core-lib/fl-core';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
-import { CaLabVolumePriceTableComponent } from '../ca-lab-volume-price-table/ca-lab-volume-price-table.component';
-import { CaLabBackupStoragePriceTableComponent } from '../ca-lab-backup-storage-price-table/ca-lab-backup-storage-price-table.component';
-import { MatButton } from '@angular/material/button';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import {
+  CaLabBackupPeriod,
+  CaLabVolumePeriod,
+} from '../../../../ca-core/model/entities/lab/ca-lab-stats.dto';
+import { CaLabBackupStoragePriceTableComponent } from '../ca-lab-backup-storage-price-table/ca-lab-backup-storage-price-table.component';
+import { CaLabVolumePriceTableComponent } from '../ca-lab-volume-price-table/ca-lab-volume-price-table.component';
 
 export interface CaLabStoragePriceDialogInput {
   volumes: CaLabVolumePeriod[];

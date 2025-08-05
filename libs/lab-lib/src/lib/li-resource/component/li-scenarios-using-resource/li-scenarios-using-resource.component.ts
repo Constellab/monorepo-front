@@ -1,13 +1,13 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, inject,Input, OnInit } from '@angular/core';
+import { MatIcon } from '@angular/material/icon';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { FlEntityPaginatedDatasource, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
-import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { LiScenario, LiScenarioDatasource, LiScenarioService } from '@monorepo/lab-lib/li-core';
-import { MatIcon } from '@angular/material/icon';
-import { TranslatePipe } from '@ngx-translate/core';
 import { LiScenarioTableComponent } from '@monorepo/lab-lib/li-scenario';
+import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * Component to list in a Table the scenarios that use a resource

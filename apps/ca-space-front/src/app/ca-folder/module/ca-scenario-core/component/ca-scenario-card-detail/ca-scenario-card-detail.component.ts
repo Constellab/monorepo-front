@@ -3,8 +3,9 @@ import { MatAnchor, MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { FlStatusModule } from '@monorepo/front-core-lib/fl-status';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { TranslatePipe } from '@ngx-translate/core';
-import { FlIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/fl-svg-icon';
+
 import { CaHierarchyObjectIconComponent } from '../../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-icon/ca-hierarchy-object-icon.component';
 import { CaRootFolderUserRoleObj } from '../../../../../ca-core/model/entities/folder/ca-folder-user.class';
 import { CaHierarchyObjectTagDatasource } from '../../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';

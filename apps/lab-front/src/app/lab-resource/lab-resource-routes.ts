@@ -1,5 +1,5 @@
+import { inject,Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Router, Routes, UrlTree } from '@angular/router';
-import { Injectable, inject } from '@angular/core';
 import { LiRouterService, LiViewConfigService } from '@monorepo/lab-lib/li-core';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';

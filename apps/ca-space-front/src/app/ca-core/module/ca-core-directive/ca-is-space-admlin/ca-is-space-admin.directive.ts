@@ -1,10 +1,12 @@
 import { Directive, inject, OnDestroy, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
-import { CaCurrentSpaceService } from '../../../service-api/ca-current-space.service';
-import { CaAuthenticatedUserService } from '../../../service-api/ca-authenticated-user.service';
 import { FlAbstractIfDirective } from '@monorepo/front-core-lib/fl-core';
 
+import { CaAuthenticatedUserService } from '../../../service-api/ca-authenticated-user.service';
+import { CaCurrentSpaceService } from '../../../service-api/ca-current-space.service';
+
 /**
- * Structural directive that work like ngIf, and show element only is user is admin of the current space (or g admin)
+ * Structural directive that work like ngIf, and show element
+ * only is user is admin of the current space (or g admin)
  */
 @Directive({ selector: '[caIsSpaceAdmin]' })
 export class CaIsSpaceAdminDirective extends FlAbstractIfDirective implements OnInit, OnDestroy {

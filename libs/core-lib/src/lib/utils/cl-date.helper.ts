@@ -1,6 +1,6 @@
-import { DateTime, Duration } from 'luxon';
+import { DateTime, Duration, DurationLikeObject } from 'luxon';
+
 import { ClHelpService } from './cl-help.service';
-import { DurationLikeObject } from 'luxon/src/duration';
 
 /**
  * Input for {@HelperService} function that support date input. It uses DateInput

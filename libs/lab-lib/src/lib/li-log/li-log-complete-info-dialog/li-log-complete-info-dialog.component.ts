@@ -1,10 +1,11 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject,OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { LiLogCompleteInfo, LiLogService } from '@monorepo/lab-lib/li-core';
-import { LiLogCompleteInfoComponent } from '../li-log-complete-info/li-log-complete-info.component';
-import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
+
+import { LiLogCompleteInfoComponent } from '../li-log-complete-info/li-log-complete-info.component';
 
 export interface LiLogCompleteInfoDialogInput {
   logName: string;

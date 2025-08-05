@@ -1,18 +1,19 @@
+import { ClSubscriptionHandler } from '@monorepo/core-lib';
+import { FlCoord } from '@monorepo/front-core-lib/fl-core';
 import Drawflow, { ConnectionEvent } from 'drawflow';
+
+import { PrWorkflowActionState } from '../../state/pr-workflow-action-state';
+import { PrWorkflowResourcesState } from '../../state/pr-workflow-resources.state';
 import { PrWorkflowNode } from '../node/pr-workflow-node.class';
-import { PrWorkflowConnection } from './pr-workflow-connection.class';
-import { PrWorkflowPort, PrWorkflowPortType } from './pr-workflow-port.class';
-import { PrConnection } from './pr-workflow-action.class';
-import { PrWorkflowNodeProcess } from '../node/pr-workflow-node-process.class';
 import { PrWorkflowNodeInterface } from '../node/pr-workflow-node-interface.class';
 import { PrWorkflowNodeOuterface } from '../node/pr-workflow-node-outerface.class';
-import { FlCoord } from '@monorepo/front-core-lib/fl-core';
+import { PrWorkflowNodeProcess } from '../node/pr-workflow-node-process.class';
 import { PrWorkflowNodeProtocol } from '../node/pr-workflow-node-protocol.class';
-import { PrProcess } from '../pr-process.class';
 import { PrOI, PrPort } from '../pr-io.class';
-import { ClSubscriptionHandler } from '@monorepo/core-lib';
-import { PrWorkflowResourcesState } from '../../state/pr-workflow-resources.state';
-import { PrWorkflowActionState } from '../../state/pr-workflow-action-state';
+import { PrProcess } from '../pr-process.class';
+import { PrConnection } from './pr-workflow-action.class';
+import { PrWorkflowConnection } from './pr-workflow-connection.class';
+import { PrWorkflowPort, PrWorkflowPortType } from './pr-workflow-port.class';
 
 export class PrWorkflowLayer {
   public readonly children: Record<string, PrWorkflowLayer> = {};

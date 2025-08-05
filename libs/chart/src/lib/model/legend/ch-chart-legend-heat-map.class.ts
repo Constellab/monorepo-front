@@ -1,7 +1,8 @@
-import { ChChartSVGLegend } from './ch-chart-legend.class';
-import { Selection } from 'd3-selection';
-import { ChChartScaleColor } from '../scale/ch-chart-scale-color.class';
 import { axisRight, scaleLinear } from 'd3';
+import { Selection } from 'd3-selection';
+
+import { ChChartScaleColor } from '../scale/ch-chart-scale-color.class';
+import { ChChartSVGLegend } from './ch-chart-legend.class';
 
 /**
  * Class to draw a heat map legend

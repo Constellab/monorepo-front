@@ -1,35 +1,35 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import {
   FlSavedSearch,
   FlSearchConfig,
   FlSearchModule,
   FlSearchState,
 } from '@monorepo/front-core-lib/fl-search';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
+import { TranslatePipe } from '@ngx-translate/core';
 
-import {
-  CaBucketFull,
-  CaBucketFullDatasource,
-} from '../../../../ca-core/model/entities/ca-object-storage.class';
 import {
   CaBucketSearch,
   CaBucketSearchFields,
 } from '../../../../ca-core/entity-module/ca-object-storage-core/model/ca-bucket-search.class';
+import {
+  CaBucketFull,
+  CaBucketFullDatasource,
+} from '../../../../ca-core/model/entities/ca-object-storage.class';
 import { CaObjectStorageService } from '../../../../ca-core/service-api/ca-object-storage.service';
 import {
   CaBucketFormDialogComponent,
   CaBucketFormDialogInput,
 } from '../ca-bucket-form-dialog/ca-bucket-form-dialog.component';
-import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { MatIcon } from '@angular/material/icon';
-import { MatIconButton } from '@angular/material/button';
-import { MatTooltip } from '@angular/material/tooltip';
 import { CaBucketSearchFormComponent } from '../ca-bucket-search-form/ca-bucket-search-form.component';
 import { CaBucketTableComponent } from '../ca-bucket-table/ca-bucket-table.component';
-import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'ca-bucket-search',

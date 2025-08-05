@@ -25,7 +25,7 @@
       <a class="agent-versions-list-item" [routerLink]="'version/' + agentVersion.version">
         V{{ agentVersion.version }}
         <span class="g-text-small">
-          @if (agentVersion.versionState == 'PUBLISHED') {
+          @if (agentVersion.versionState === 'PUBLISHED') {
             <fl-from-now [date]="agentVersion.createdAt"></fl-from-now>
           } @else {
             <span class="g-warn-text">

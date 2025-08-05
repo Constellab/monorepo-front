@@ -1,12 +1,13 @@
 import { Component, computed, inject, OnInit } from '@angular/core';
-import { HaCommunityApp } from '../../../ha-core/ha-model/ha-entities/ha-community-app.class';
-import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { DomSanitizer } from '@angular/platform-browser';
-import { HaCommunityAppState } from '../../state/ha-community-app.state';
-import { HaCommunityPageDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
-import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
 import { ClStringHelper } from '@monorepo/core-lib';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+
+import { HaCommunityApp } from '../../../ha-core/ha-model/ha-entities/ha-community-app.class';
+import { HaCommunityPageDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
 import { HaCommunityAppService } from '../../../ha-core/ha-service/ha-community-app.service';
+import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
+import { HaCommunityAppState } from '../../state/ha-community-app.state';
 
 @Component({
   selector: 'ha-community-app',

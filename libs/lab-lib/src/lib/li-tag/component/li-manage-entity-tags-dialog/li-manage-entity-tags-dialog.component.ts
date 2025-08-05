@@ -1,11 +1,16 @@
 import { Component, inject } from '@angular/core';
-import { FlAddTagEvent, FlTagModule } from '@monorepo/front-core-lib/fl-tag';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButton } from '@angular/material/button';
+import { MatCheckbox } from '@angular/material/checkbox';
+import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
+import { MatDivider } from '@angular/material/divider';
+import { MatIcon } from '@angular/material/icon';
 import { FlConfirmDialogResult, FlDialogModule, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlPortalActionResult, FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FlAddTagEvent, FlTagModule } from '@monorepo/front-core-lib/fl-tag';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   LiEntityTagType,
   LiTag,
@@ -13,17 +18,13 @@ import {
   LiTagKeyModel,
   LiTagService,
 } from '@monorepo/lab-lib/li-core';
+import { TranslatePipe } from '@ngx-translate/core';
+
 import {
   LiTagCheckPropagationComponent,
   LiTagCheckPropagationInput,
 } from '../li-tag-check-propagation/li-tag-check-propagation.component';
 import { LiTagListComponent } from '../li-tag-list/li-tag-list.component';
-import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
-import { MatButton } from '@angular/material/button';
-import { MatCheckbox } from '@angular/material/checkbox';
-import { MatDivider } from '@angular/material/divider';
-import { MatIcon } from '@angular/material/icon';
-import { TranslatePipe } from '@ngx-translate/core';
 
 export interface LiManageEntityTagsDialogInput {
   entityType: LiEntityTagType;

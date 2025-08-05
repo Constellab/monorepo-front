@@ -1,9 +1,9 @@
+import { inject,Injectable } from '@angular/core';
 import { ClCachedObservable } from '@monorepo/core-lib';
 import { FlStatusEvent, flStatutEvent, flStatutEventMap } from '@monorepo/front-core-lib/fl-core';
-import { Injectable, inject } from '@angular/core';
 import { LiResource, LiResourceService } from '@monorepo/lab-lib/li-core';
-import { Observable, of } from 'rxjs';
 import { PrResource, PrWorkflowResourcesState } from '@monorepo/protocol';
+import { Observable, of } from 'rxjs';
 
 /**
  * State to resources of the workflow

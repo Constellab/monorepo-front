@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { LiUpdateResourceTypeComponent } from './li-update-resource-type.component';
 
 describe('LabUpdateFileTypeComponent', () => {

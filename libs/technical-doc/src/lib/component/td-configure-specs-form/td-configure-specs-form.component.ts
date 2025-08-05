@@ -1,11 +1,12 @@
 import { Component, computed, input, Signal } from '@angular/core';
-import { TdConfig, TdConfigI } from '../../model/td-config.class';
 import { FormBuilder, FormGroup, UntypedFormGroup } from '@angular/forms';
 import {
   FlDynamicEditableFormGroupConfig,
   FlDynamicFormGroupConfig,
   FlDynamicFormHelper,
 } from '@monorepo/front-core-lib/fl-dynamic-field';
+
+import { TdConfig, TdConfigI } from '../../model/td-config.class';
 import { TdParamSpecsValues } from '../../model/td-config-spec.class';
 
 export interface TdConfigureSpecsForm {

@@ -1,11 +1,12 @@
 import { Component, Input } from '@angular/core';
-import { CaGroup } from '../../../../model/entities/ca-group.entity';
-import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { MatRipple } from '@angular/material/core';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+
+import { CaGroup } from '../../../../model/entities/ca-group.entity';
 
 @Component({
   selector: 'ca-team-card',

@@ -1,6 +1,7 @@
 import { Component, computed, inject, input } from '@angular/core';
-import { LmlBrickVersion } from '../../model/lml-brick.class';
+
 import { LmlBrickService } from '../../lml-brick.service';
+import { LmlBrickVersion } from '../../model/lml-brick.class';
 
 /**
  * Simple component to show brick version detail

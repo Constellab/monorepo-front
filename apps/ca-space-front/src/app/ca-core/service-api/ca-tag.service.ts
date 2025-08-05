@@ -1,10 +1,11 @@
 import { inject, Injectable, OnDestroy } from '@angular/core';
+import { ClPageI, ClStringHelper } from '@monorepo/core-lib';
 import { FlTagSearchFilter, FlTagSearchResult, FlTagService } from '@monorepo/front-core-lib/fl-tag';
 import { Observable } from 'rxjs';
-import { ClPageI, ClStringHelper } from '@monorepo/core-lib';
-import { CaHierarchyObjectService } from './ca-hierarchy-object.service';
-import { CaAvailableTagDatasource } from '../model/entities/ca-tag.class';
 import { map } from 'rxjs/operators';
+
+import { CaAvailableTagDatasource } from '../model/entities/ca-tag.class';
+import { CaHierarchyObjectService } from './ca-hierarchy-object.service';
 
 /**
  *  Service to search tag available of
@@ -59,11 +60,7 @@ export class CaTagService extends FlTagService implements OnDestroy {
     }
   }
 
-  searchCommunityTag(
-    filters: Partial<FlTagSearchFilter>,
-    page: number,
-    pageSize: number
-  ): Observable<ClPageI<FlTagSearchResult>> {
+  searchCommunityTag(): Observable<ClPageI<FlTagSearchResult>> {
     // TODO: Implement community tag search for space if needed
     return null;
   }

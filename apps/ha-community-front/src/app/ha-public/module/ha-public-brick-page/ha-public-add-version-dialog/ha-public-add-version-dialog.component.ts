@@ -1,21 +1,22 @@
 import { Component, inject, OnInit } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
+import { MatButton } from '@angular/material/button';
+import { MatDialogActions, MatDialogContent } from '@angular/material/dialog';
+import { MatDivider } from '@angular/material/divider';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { FlDialogModule, FlFormDialogAbstractDirective } from '@monorepo/front-core-lib/fl-dialog';
-import { HaBrickService } from '../../../../ha-core/ha-service/ha-brick.service';
+import { FlInputFileModule } from '@monorepo/front-core-lib/fl-input-file';
+import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { TranslatePipe } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+
 import {
   HaAddVersionInput,
   HaNewVersionDTO,
   HaNewVersionFile,
 } from '../../../../ha-core/ha-model/ha-entities/ha-version.class';
-import { Observable } from 'rxjs';
-import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
-import { MatDialogActions, MatDialogContent } from '@angular/material/dialog';
-import { FlInputFileModule } from '@monorepo/front-core-lib/fl-input-file';
-import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
-import { MatDivider } from '@angular/material/divider';
-import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
-import { MatButton } from '@angular/material/button';
-import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
-import { TranslatePipe } from '@ngx-translate/core';
+import { HaBrickService } from '../../../../ha-core/ha-service/ha-brick.service';
 
 @Component({
   selector: 'ha-public-add-version-dialog',

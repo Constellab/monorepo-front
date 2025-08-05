@@ -1,7 +1,8 @@
-import { computed, inject, Injectable, OnDestroy, signal, Signal } from '@angular/core';
-import { LmsLabService } from './lms-lab.service';
+import { computed, inject, Injectable, OnDestroy, Signal,signal } from '@angular/core';
 import { LmlLabManagerState, LmlLabManagerStatus } from '@monorepo/lab-manager-lib';
 import { catchError, of, Subscription } from 'rxjs';
+
+import { LmsLabService } from './lms-lab.service';
 
 export interface LmsLabStatus {
   labManagerIsConfigured: boolean;

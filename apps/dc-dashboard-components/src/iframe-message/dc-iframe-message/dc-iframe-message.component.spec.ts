@@ -1,7 +1,8 @@
 import { TestBed } from '@angular/core/testing';
+import { RouterModule } from '@angular/router';
+
 import { DcIframeMessageComponent } from './dc-iframe-message.component';
 import { NxWelcomeComponent } from './nx-welcome.component';
-import { RouterModule } from '@angular/router';
 
 describe('AppComponent', () => {
   beforeEach(async () => {

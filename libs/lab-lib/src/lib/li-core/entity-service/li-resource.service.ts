@@ -1,24 +1,25 @@
+import { inject, Injectable } from '@angular/core';
 import { ClDateHelper, ClPageI } from '@monorepo/core-lib';
-import { DateTime } from 'luxon';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { FlDatasourceGetPageData } from '@monorepo/front-core-lib/fl-core';
 import { FlSearchConverter, FlSearchFunction } from '@monorepo/front-core-lib/fl-search';
-import { inject, Injectable } from '@angular/core';
+import { TdParamSpecs, TdParamSpecsValues } from '@monorepo/technical-doc';
+import { DateTime } from 'luxon';
+import { Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 import { LiFolder } from '../model/entities/li-folder.class';
 import { LiNavigableEntityImpact } from '../model/entities/li-navigable-entity.entity';
+import { LiSharedEntity, LiShareLink } from '../model/entities/li-share.entity';
 import { LiProcessType } from '../model/entities/li-type/li-process-type.entity';
 import { LiResource } from '../model/entities/resource/li-resource.entity';
-import { LiResourceSearch, LiResourceSearchFields } from '../model/search/li-resource-search.class';
 import {
   LiResourceView,
   LiResourceViewData,
   LiResourceViewSpec,
 } from '../model/entities/resource/li-resource-view.entity';
-import { LiSharedEntity, LiShareLink } from '../model/entities/li-share.entity';
 import { LiTransformerParams } from '../model/global/li-transformer.class';
-import { Observable, of } from 'rxjs';
-import { TdParamSpecs, TdParamSpecsValues } from '@monorepo/technical-doc';
-import { map } from 'rxjs/operators';
+import { LiResourceSearch, LiResourceSearchFields } from '../model/search/li-resource-search.class';
 
 @Injectable({
   providedIn: 'root',

@@ -1,6 +1,7 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { RvTechnicalInfo } from '../../model/rv-technical-info.class';
+import { Component, inject,OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+
+import { RvTechnicalInfo } from '../../model/rv-technical-info.class';
 
 /**
  * Dialog to show technical information about a resource or a view

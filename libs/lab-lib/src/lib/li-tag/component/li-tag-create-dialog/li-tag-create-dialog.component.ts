@@ -1,17 +1,17 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
-import { TranslatePipe } from '@ngx-translate/core';
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
-import { ClStringHelper } from '@monorepo/core-lib';
-import { LiTagKeyModel, LiTagService } from '@monorepo/lab-lib/li-core';
-import { Subscription } from 'rxjs';
+import { MatButton } from '@angular/material/button';
+import { MatDialogRef } from '@angular/material/dialog';
 import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
+import { ClStringHelper } from '@monorepo/core-lib';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
-import { MatButton } from '@angular/material/button';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
-import { MatDialogRef } from '@angular/material/dialog';
+import { LiTagKeyModel, LiTagService } from '@monorepo/lab-lib/li-core';
+import { TranslatePipe } from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'li-tag-create-dialog',

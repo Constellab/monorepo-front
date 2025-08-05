@@ -1,24 +1,32 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject,OnInit } from '@angular/core';
+import { MatButton } from '@angular/material/button';
+import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
+import { MatDivider } from '@angular/material/divider';
+import { MatIcon } from '@angular/material/icon';
 import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
 import { FlDialogModule, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
 import { FlPortalAction, FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import {
-  LiQuickConfigureProcessDialogComponent,
-  LiQuickConfigureProcessDialogInput,
-} from '@monorepo/lab-lib/li-process';
-import {
   LiResource,
+  LiSharedEntityDatasource,
   LiShareLink,
   LiShareLinkEntityType,
   LiShareLinkService,
   LiShareService,
-  LiSharedEntityDatasource,
 } from '@monorepo/lab-lib/li-core';
+import {
+  LiQuickConfigureProcessDialogComponent,
+  LiQuickConfigureProcessDialogInput,
+} from '@monorepo/lab-lib/li-process';
+import { TdParamSpecs } from '@monorepo/technical-doc';
+import { TranslatePipe } from '@ngx-translate/core';
+import { Observable, of, share } from 'rxjs';
+
 import { LiShareLinkActionsMenuComponent } from '../li-share-link-actions-menu/li-share-link-actions-menu.component';
 import {
   LiShareLinkFormDialogComponent,
@@ -26,18 +34,11 @@ import {
 } from '../li-share-link-form-dialog/li-share-link-form-dialog.component';
 import { LiShareLinkInfoComponent } from '../li-share-link-info/li-share-link-info.component';
 import { LiShareLinkLinksComponent } from '../li-share-link-links/li-share-link-links.component';
-import { LiSharedEntityTableComponent } from '../li-shared-entity-table/li-shared-entity-table.component';
-import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
-import { MatButton } from '@angular/material/button';
-import { MatDivider } from '@angular/material/divider';
-import { MatIcon } from '@angular/material/icon';
-import { Observable, of, share } from 'rxjs';
-import { TdParamSpecs } from '@monorepo/technical-doc';
-import { TranslatePipe } from '@ngx-translate/core';
 import {
   LiShareResourceWithSpaceDialogComponent,
   LiShareResourceWithSpaceDialogInput,
 } from '../li-share-resource-with-space-dialog/li-share-resource-with-space-dialog.component';
+import { LiSharedEntityTableComponent } from '../li-shared-entity-table/li-shared-entity-table.component';
 
 export interface LiSharedEntityInfoDialogInput {
   entityType: LiShareLinkEntityType;

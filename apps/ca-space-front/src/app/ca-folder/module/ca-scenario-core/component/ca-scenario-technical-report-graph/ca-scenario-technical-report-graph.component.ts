@@ -1,12 +1,13 @@
 import { Component, inject, Input } from '@angular/core';
-import { PrProtocolGraph } from '@monorepo/protocol';
-import { CoCommunityHelperService } from '@monorepo/community-lib';
 import { MatDivider } from '@angular/material/divider';
-import { PrProtocolModule } from '@monorepo/protocol';
-import { CaScenarioTechnicalReportLinkComponent } from '../ca-scenario-technical-report-link/ca-scenario-technical-report-link.component';
-import { CaScenarioTechnicalReportIntOutComponent } from '../ca-scenario-technical-report-int-out/ca-scenario-technical-report-int-out.component';
+import { CoCommunityHelperService } from '@monorepo/community-lib';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
+import { PrProtocolGraph } from '@monorepo/protocol';
+import { PrProtocolModule } from '@monorepo/protocol';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { CaScenarioTechnicalReportIntOutComponent } from '../ca-scenario-technical-report-int-out/ca-scenario-technical-report-int-out.component';
+import { CaScenarioTechnicalReportLinkComponent } from '../ca-scenario-technical-report-link/ca-scenario-technical-report-link.component';
 
 @Component({
   selector: 'ca-scenario-technical-report-graph',

@@ -1,6 +1,3 @@
-import { SpSheetChartSelection } from './sp-sheet-chart-selection.class';
-import { SpSheet } from '../sp-sheet.class';
-import { SpSheetChartSerieSelectionForm } from './sp-sheet-chart-selection-form.class';
 import {
   ChChart2dMultiSerie,
   ChChartConfig,
@@ -11,8 +8,12 @@ import {
   ChChartLabelFormatter,
   ChChartSerie,
 } from '@monorepo/chart';
-import { SpSheetSelection } from '../selection/sp-sheet-selection.class';
 import { ClNumberHelper } from '@monorepo/core-lib';
+
+import { SpSheetSelection } from '../selection/sp-sheet-selection.class';
+import { SpSheet } from '../sp-sheet.class';
+import { SpSheetChartSelection } from './sp-sheet-chart-selection.class';
+import { SpSheetChartSerieSelectionForm } from './sp-sheet-chart-selection-form.class';
 
 export class SpSheetChartSelectionHistogram extends SpSheetChartSelection {
   constructor(

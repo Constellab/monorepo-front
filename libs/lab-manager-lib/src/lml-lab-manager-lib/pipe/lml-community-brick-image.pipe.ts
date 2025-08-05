@@ -1,4 +1,5 @@
-import { Pipe, PipeTransform, inject } from '@angular/core';
+import { inject,Pipe, PipeTransform } from '@angular/core';
+
 import { LmlBrickService } from '../lml-brick.service';
 
 @Pipe({

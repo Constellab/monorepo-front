@@ -1,8 +1,33 @@
 import { ComponentRef, Injectable, ViewContainerRef } from '@angular/core';
 import { AbstractControl, FormControl } from '@angular/forms';
+
+import { FlDynamicFieldComponent } from '../component/fl-dynamic-field/fl-dynamic-field.component';
+import {
+  FlDynamicFieldBooleanComponent,
+} from '../component/fl-dynamic-field-boolean/fl-dynamic-field-boolean.component';
+import {
+  FlDynamicFieldInputComponent,
+} from '../component/fl-dynamic-field-input/fl-dynamic-field-input.component';
+import {
+  FlDynamicFieldListComponent,
+} from '../component/fl-dynamic-field-list/fl-dynamic-field-list.component';
+import {
+  FlDynamicFieldSelectComponent,
+} from '../component/fl-dynamic-field-select/fl-dynamic-field-select.component';
+import {
+  FlDynamicFieldSelectSearchComponent,
+} from '../component/fl-dynamic-field-select-search/fl-dynamic-field-select-search.component';
 import {
   FlDynamicFieldTextareaComponent,
 } from '../component/fl-dynamic-field-textarea/fl-dynamic-field-textarea.component';
+import {
+  FlDynamicFormArrayComponent,
+} from '../component/fl-dynamic-form-array/fl-dynamic-form-array.component';
+import {
+  FlDynamicFormGroupComponent,
+} from '../component/fl-dynamic-form-group/fl-dynamic-form-group.component';
+import { FlDynamicAbstractFormDirective } from './fl-dynamic-abstract-form.directive';
+import { FlDynamicFieldAbstractDirective } from './fl-dynamic-field-abstract.directive';
 import {
   FlDynamicFieldConfig,
   FlDynamicFieldConfigBase,
@@ -12,30 +37,6 @@ import {
   FlDynamicFieldConfigSelectSearch,
   FlDynamicFormAbstractControl,
 } from './fl-dynamic-field-config.class';
-import { FlDynamicFieldAbstractDirective } from './fl-dynamic-field-abstract.directive';
-import {
-  FlDynamicFieldInputComponent,
-} from '../component/fl-dynamic-field-input/fl-dynamic-field-input.component';
-import {
-  FlDynamicFieldSelectComponent,
-} from '../component/fl-dynamic-field-select/fl-dynamic-field-select.component';
-import {
-  FlDynamicFieldListComponent,
-} from '../component/fl-dynamic-field-list/fl-dynamic-field-list.component';
-import {
-  FlDynamicFieldBooleanComponent,
-} from '../component/fl-dynamic-field-boolean/fl-dynamic-field-boolean.component';
-import {
-  FlDynamicFieldSelectSearchComponent,
-} from '../component/fl-dynamic-field-select-search/fl-dynamic-field-select-search.component';
-import { FlDynamicAbstractFormDirective } from './fl-dynamic-abstract-form.directive';
-import { FlDynamicFieldComponent } from '../component/fl-dynamic-field/fl-dynamic-field.component';
-import {
-  FlDynamicFormGroupComponent,
-} from '../component/fl-dynamic-form-group/fl-dynamic-form-group.component';
-import {
-  FlDynamicFormArrayComponent,
-} from '../component/fl-dynamic-form-array/fl-dynamic-form-array.component';
 
 /**
  * Function to create a custom component for a field type

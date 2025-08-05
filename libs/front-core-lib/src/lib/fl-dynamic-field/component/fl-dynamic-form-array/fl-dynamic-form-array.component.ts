@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 import { UntypedFormArray } from '@angular/forms';
+import { ClHelpService } from '@monorepo/core-lib';
+import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+
+import { FlDynamicAbstractFormDirective } from '../../model/fl-dynamic-abstract-form.directive';
 import { FlDynamicFormArrayConfig } from '../../model/fl-dynamic-field-config.class';
 import { FlDynamicFormHelper } from '../../model/fl-dynamic-form-helper.class';
-import { FlDynamicAbstractFormDirective } from '../../model/fl-dynamic-abstract-form.directive';
-import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
-import { ClHelpService } from '@monorepo/core-lib';
 
 // TODO: check if it's possible to replace getters by computed signals
 @Component({

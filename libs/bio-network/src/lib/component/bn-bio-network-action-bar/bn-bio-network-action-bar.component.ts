@@ -1,12 +1,13 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
-import { BnBioNetworkState } from '../../state/bn-bio-network.state';
 import { filter } from 'rxjs/operators';
+
+import { BnBioNetworkMetaboliteLevel } from '../../model/bn-bio-network.class';
 import { BnBioNetworkGraph } from '../../model/bn-bio-network-graph.class';
+import { BnBioNetworkState } from '../../state/bn-bio-network.state';
 import {
   BnBioNetworkOptionsState,
   BnBioNetworkParticleColorScale,
 } from '../../state/bn-bio-network-options.state';
-import { BnBioNetworkMetaboliteLevel } from '../../model/bn-bio-network.class';
 import { BnBioNetworkSelectionState } from '../../state/bn-bio-network-selection.state';
 
 /**

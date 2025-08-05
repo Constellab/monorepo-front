@@ -1,9 +1,10 @@
 import { Component, Input } from '@angular/core';
-import { Observable } from 'rxjs';
 import { RvResourceView } from '@monorepo/resource-view';
-import { TeElementBlockDirective } from '@monorepo/text-editor';
-import { HaStoryViewConfig } from '../ha-story-content-view.block';
 import { RvResourceViewModule } from '@monorepo/resource-view';
+import { TeElementBlockDirective } from '@monorepo/text-editor';
+import { Observable } from 'rxjs';
+
+import { HaStoryViewConfig } from '../ha-story-content-view.block';
 
 @Component({
   selector: 'ha-story-content-view',

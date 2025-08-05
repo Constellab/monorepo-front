@@ -1,10 +1,11 @@
+import { inject, Injectable } from '@angular/core';
 import {
   TeRichTextBlockModificationWithUser,
   TeRichTextDTO,
   TeTextEditorHistoryService,
 } from '@monorepo/text-editor';
-import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+
 import { CaDocument } from '../model/entities/folder/ca-document.class';
 import { CaConstellabDocumentService } from '../service-api/ca-constellab-document.service';
 

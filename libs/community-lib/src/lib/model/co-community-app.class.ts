@@ -1,7 +1,8 @@
-import { DateTime } from 'luxon';
-import { CoUser } from './co-user.class';
-import { CoSpace } from './co-space.class';
 import { TeRichText } from '@monorepo/text-editor';
+import { DateTime } from 'luxon';
+
+import { CoSpace } from './co-space.class';
+import { CoUser } from './co-user.class';
 
 export interface CoCommunityApp {
   id: string;

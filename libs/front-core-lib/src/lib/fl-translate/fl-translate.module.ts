@@ -1,18 +1,19 @@
-import { inject, ModuleWithProviders, NgModule, provideAppInitializer, Provider } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { inject, ModuleWithProviders, NgModule, provideAppInitializer, Provider } from '@angular/core';
 import {
   MissingTranslationHandler,
   TranslateLoader,
   TranslateModule,
   TranslatePipe,
 } from '@ngx-translate/core';
+import { CookieService } from 'ngx-cookie-service';
+
+import { FlTranslationLoader } from './fl-translation-loader';
+import { FL_TRANSLATE_MODULE_CONFIG, FlTranslateModuleConfig } from './model/fl-translate-module-config';
+import { FlTranslatableTextPipe } from './pipe/fl-translatable-text.pipe';
 import { FlMissingTranslationLogService } from './service/fl-missing-translation-log.service';
 import { FlTranslateService } from './service/fl-translate.service';
-import { FL_TRANSLATE_MODULE_CONFIG, FlTranslateModuleConfig } from './model/fl-translate-module-config';
-import { CookieService } from 'ngx-cookie-service';
-import { FlTranslatableTextPipe } from './pipe/fl-translatable-text.pipe';
-import { HttpClient } from '@angular/common/http';
-import { FlTranslationLoader } from './fl-translation-loader';
 
 // init the translation
 export function initTranslateService(service: FlTranslateService): void {

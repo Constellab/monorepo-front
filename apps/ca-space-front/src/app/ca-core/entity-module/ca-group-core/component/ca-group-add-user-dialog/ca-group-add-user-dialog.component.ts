@@ -1,17 +1,18 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { CaUser } from '../../../../model/entities/ca-user.class';
-import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
-import { FlUserConfigSearchNameMode, FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
+import { MatError } from '@angular/material/form-field';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
-import { MatError } from '@angular/material/form-field';
-import { MatButton } from '@angular/material/button';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
-import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
+import { FlUserConfigSearchNameMode, FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { TranslatePipe } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+
+import { CaUser } from '../../../../model/entities/ca-user.class';
 
 export interface CaGroupAddUserDialogInput {
   // method to add the user to the group

@@ -1,9 +1,10 @@
 import { AfterViewInit, Component, inject } from '@angular/core';
-import { CaDiskType } from '../../../../model/entities/server/ca-server-cloud.class';
-import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib/fl-core';
-import { MatSelect } from '@angular/material/select';
 import { MatOption } from '@angular/material/core';
+import { MatSelect } from '@angular/material/select';
+import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib/fl-core';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
+
+import { CaDiskType } from '../../../../model/entities/server/ca-server-cloud.class';
 
 @Component({
   selector: 'ca-select-disk-type-options',

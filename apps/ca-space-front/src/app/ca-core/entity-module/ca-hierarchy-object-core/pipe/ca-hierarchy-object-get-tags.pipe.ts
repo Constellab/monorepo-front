@@ -1,11 +1,12 @@
 import { inject, Pipe, PipeTransform } from '@angular/core';
+import { FlTagDatasource } from '@monorepo/front-core-lib/fl-tag';
+import { map } from 'rxjs';
+
 import {
   CaHierarchyObject,
   CaHierarchyObjectTagDatasource,
 } from '../../../model/entities/folder/ca-hierarchy-object.class';
 import { CaHierarchyObjectService } from '../../../service-api/ca-hierarchy-object.service';
-import { FlTagDatasource } from '@monorepo/front-core-lib/fl-tag';
-import { map } from 'rxjs';
 
 /**
  * Pipe to load the first 4 tags of a hierarchy object

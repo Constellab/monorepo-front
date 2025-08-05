@@ -7,6 +7,7 @@ import {
   ChChartLabelFormatter,
   ChChartSerie,
 } from '@monorepo/chart';
+
 import { RvResourceViewBase } from './rv-resource-view.class';
 
 export interface RvResourceViewHistogram extends RvResourceViewBase {

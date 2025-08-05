@@ -1,17 +1,18 @@
-import { ChChart2AxisRendererWithColors } from './ch-chart-renderer.class';
+import { FlColorHelper } from '@monorepo/front-core-lib/fl-core';
+import { FlTagColorer, FlTagWithColor } from '@monorepo/front-core-lib/fl-tag';
 import { select } from 'd3';
-import { ChChartDataWithSerie } from '../model/data/ch-chart-serie.class';
-import { ChChartScale, ChChartScaleBand } from '../model/scale/ch-chart-scale.class';
-import { ChChartBoxPlotData } from '../model/data/ch-chart-box-plot-data.class';
-import { ChChartPortalHandler } from '../model/portal-handler/ch-chart-portal-handler.class';
+
 import {
   ChChartBoxPlotDataPortalComponent,
   ChChartBoxPlotDataPortalInput,
 } from '../component/ch-chart-data-portal/ch-chart-box-plot-data-portal/ch-chart-box-plot-data-portal.component';
+import { ChChartBoxPlotData } from '../model/data/ch-chart-box-plot-data.class';
 import { ChChartMultiSerie } from '../model/data/ch-chart-multi-serie.class';
+import { ChChartDataWithSerie } from '../model/data/ch-chart-serie.class';
+import { ChChartPortalHandler } from '../model/portal-handler/ch-chart-portal-handler.class';
+import { ChChartScale, ChChartScaleBand } from '../model/scale/ch-chart-scale.class';
 import { ChChartColorFunction } from '../model/scale/ch-chart-scale-color.class';
-import { FlColorHelper } from '@monorepo/front-core-lib/fl-core';
-import { FlTagColorer, FlTagWithColor } from '@monorepo/front-core-lib/fl-tag';
+import { ChChart2AxisRendererWithColors } from './ch-chart-renderer.class';
 
 export class ChChartRendererBoxPlot extends ChChart2AxisRendererWithColors<
   ChChartMultiSerie<ChChartBoxPlotData>,

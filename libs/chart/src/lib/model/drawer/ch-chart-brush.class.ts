@@ -1,7 +1,8 @@
+import { brush, brushX, brushY } from 'd3';
 import { BrushBehavior } from 'd3-brush';
 import { Selection } from 'd3-selection';
+
 import { ChChartContainer2Axis } from './ch-chart-container.class';
-import { brush, brushX, brushY } from 'd3';
 
 export abstract class ChChartBrush {
   protected brush: BrushBehavior<any>;

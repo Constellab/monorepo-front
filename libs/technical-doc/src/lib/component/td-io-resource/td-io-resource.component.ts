@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+
 import { TdTypeRefDTO } from '../../model/td-type.class';
 
 @Component({

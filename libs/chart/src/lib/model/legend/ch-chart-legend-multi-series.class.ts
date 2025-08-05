@@ -1,7 +1,8 @@
-import { ChChartSVGLegend } from './ch-chart-legend.class';
-import { Selection } from 'd3-selection';
-import { ChChartScaleColor } from '../scale/ch-chart-scale-color.class';
 import { ClStringHelper } from '@monorepo/core-lib';
+import { Selection } from 'd3-selection';
+
+import { ChChartScaleColor } from '../scale/ch-chart-scale-color.class';
+import { ChChartSVGLegend } from './ch-chart-legend.class';
 
 export interface ChLegend {
   key: any; // unique key that will be used by the color scale

@@ -1,5 +1,5 @@
-import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
 import { ThemePalette } from '@angular/material/core';
+import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
 
 export type FlMenuDynamic = FlMenuDynamicButton | FlMenuDynamicLink | FlMenuDynamicDownloadLink;
 

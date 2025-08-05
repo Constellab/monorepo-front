@@ -3,9 +3,9 @@ import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 import { FlSavedSearch, FlSearchConfig, FlSearchState } from '@monorepo/front-core-lib/fl-search';
 import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
 
+import { MaMailService } from '../../ma-mail.service';
 import { MaMailDatasource } from '../../models/ma-mail.entity';
 import { MaMailSearch, MaMailSearchFields } from '../../models/ma-mail-search.class';
-import { MaMailService } from '../../ma-mail.service';
 
 @Component({
   selector: 'ma-mail-search',

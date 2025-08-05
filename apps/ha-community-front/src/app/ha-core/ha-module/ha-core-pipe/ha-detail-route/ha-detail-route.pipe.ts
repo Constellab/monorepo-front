@@ -1,11 +1,12 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { HaListStoryDto, HaStory } from '../../../ha-model/ha-entities/ha-story.class';
-import { HaRouterService } from '../../../ha-service/ha-router.service';
 import { ClStringHelper } from '@monorepo/core-lib';
+
 import { HaAgent } from '../../../ha-model/ha-entities/ha-agent.class';
 import { HaBrick } from '../../../ha-model/ha-entities/ha-brick.class';
 import { HaCommunityApp } from '../../../ha-model/ha-entities/ha-community-app.class';
+import { HaListStoryDto, HaStory } from '../../../ha-model/ha-entities/ha-story.class';
 import { HaTagKey } from '../../../ha-model/ha-entities/ha-tag-key.class';
+import { HaRouterService } from '../../../ha-service/ha-router.service';
 
 @Pipe({ name: 'haDetailRoute' })
 export class HaDetailRoutePipe implements PipeTransform {

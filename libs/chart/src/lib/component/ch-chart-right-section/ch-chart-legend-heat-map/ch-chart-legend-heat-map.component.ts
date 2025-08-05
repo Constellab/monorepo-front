@@ -1,7 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ChChartRightSectionDirective } from '../ch-chart-right-section.directive';
-import { ChChartSVGLegend } from '../../../model/legend/ch-chart-legend.class';
 import { select } from 'd3';
+
+import { ChChartSVGLegend } from '../../../model/legend/ch-chart-legend.class';
+import { ChChartRightSectionDirective } from '../ch-chart-right-section.directive';
 
 /**
  * Component to render legend for heat map, it renders the legend in an svg

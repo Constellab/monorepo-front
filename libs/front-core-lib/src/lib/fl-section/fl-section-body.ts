@@ -1,6 +1,6 @@
-import { Directive, Input, TemplateRef, inject } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Directive, inject,Input, TemplateRef } from '@angular/core';
 import { FlDatasource, FlStatusEvent, FlViewContext } from '@monorepo/front-core-lib/fl-core';
+import { Observable } from 'rxjs';
 
 /**
  * Use to make typing work in the HTML

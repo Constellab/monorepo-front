@@ -1,22 +1,23 @@
 import { inject, Injectable } from '@angular/core';
+import { ClPage } from '@monorepo/core-lib';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
+import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
+import { TdParamSpec, TdParamSpecs } from '@monorepo/technical-doc';
+import { TeRichText } from '@monorepo/text-editor';
+import { Observable } from 'rxjs';
+
 import {
   HaTagKey,
   HaTagKeyDatasourceFilters,
   HaTagKeyDatasourcePaginated,
   HaTagKeyEditDTO,
 } from '../ha-model/ha-entities/ha-tag-key.class';
-import { Observable } from 'rxjs';
-import { ClPage } from '@monorepo/core-lib';
-import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
-import { TeRichText } from '@monorepo/text-editor';
 import {
   HaTagValue,
   HaTagValueDatasourceFilters,
   HaTagValueDatasourcePaginated,
   HaTagValueEditDTO,
 } from '../ha-model/ha-entities/ha-tag-value.class';
-import { TdParamSpec, TdParamSpecs } from '@monorepo/technical-doc';
 
 @Injectable({
   providedIn: 'root',

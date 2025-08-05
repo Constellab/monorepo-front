@@ -1,28 +1,29 @@
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { AsyncPipe, NgOptimizedImage } from '@angular/common';
 import { Component, computed, inject, Input, Signal } from '@angular/core';
-import { HaRouterService } from '../../ha-core/ha-service/ha-router.service';
-import { ClSupportedLanguage, ClTheme } from '@monorepo/core-lib';
-import { Observable } from 'rxjs';
-import { HaUser } from '../../ha-core/ha-model/ha-entities/ha-user';
-import { HaAuthenticatedUserService } from '../../ha-core/ha-service/ha-authenticated-user.service';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { HaAuthService } from '../../ha-core/ha-service/ha-auth.service';
-import { HaThemeState } from '../../ha-core/ha-state/ha-theme.state';
-import { HaInstantSearchDialogComponent } from '../../ha-core/ha-component/ha-instant-search-dialog/ha-instant-search-dialog.component';
-import { HaConstellabHelper } from '../../ha-core/ha-model/ha-config/ha-constellab.helper';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { MatAnchor, MatIconButton } from '@angular/material/button';
 import { MatFormField, MatPrefix, MatSuffix } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatInput } from '@angular/material/input';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
-import { AsyncPipe, NgOptimizedImage } from '@angular/common';
-import { MatAnchor, MatIconButton } from '@angular/material/button';
-import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+import { RouterLink, RouterOutlet } from '@angular/router';
+import { ClSupportedLanguage, ClTheme } from '@monorepo/core-lib';
 import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
-import { HaIsAdminDirective } from '../../ha-core/ha-module/ha-core-directive/ha-is-admin/ha-is-admin.directive';
-import { CdkScrollable } from '@angular/cdk/scrolling';
-import { TranslatePipe } from '@ngx-translate/core';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+import { TranslatePipe } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+
+import { HaInstantSearchDialogComponent } from '../../ha-core/ha-component/ha-instant-search-dialog/ha-instant-search-dialog.component';
+import { HaConstellabHelper } from '../../ha-core/ha-model/ha-config/ha-constellab.helper';
+import { HaUser } from '../../ha-core/ha-model/ha-entities/ha-user';
+import { HaIsAdminDirective } from '../../ha-core/ha-module/ha-core-directive/ha-is-admin/ha-is-admin.directive';
+import { HaAuthService } from '../../ha-core/ha-service/ha-auth.service';
+import { HaAuthenticatedUserService } from '../../ha-core/ha-service/ha-authenticated-user.service';
+import { HaRouterService } from '../../ha-core/ha-service/ha-router.service';
+import { HaThemeState } from '../../ha-core/ha-state/ha-theme.state';
 
 @Component({
   selector: 'ha-big-screen-main',

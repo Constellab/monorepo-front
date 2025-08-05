@@ -1,9 +1,9 @@
-import { LmlBrickService, LmlBrickVersion, LmlCommunityBrick } from '@monorepo/lab-manager-lib';
 import { inject, Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { ClPage } from '@monorepo/core-lib';
 import { CoBrickVersionPath, CoCommunityHelperService, CoSpace } from '@monorepo/community-lib';
+import { ClPage } from '@monorepo/core-lib';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
+import { LmlBrickService, LmlBrickVersion, LmlCommunityBrick } from '@monorepo/lab-manager-lib';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',

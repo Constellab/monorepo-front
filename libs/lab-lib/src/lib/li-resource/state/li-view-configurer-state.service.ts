@@ -1,14 +1,15 @@
+import { inject,Injectable } from '@angular/core';
 import { FlOverlayRef, FlPortalConfig, FlPortalService } from '@monorepo/front-core-lib/fl-portal';
-import { Injectable, inject } from '@angular/core';
+import { LiResourceViewSpecWithConfig } from '@monorepo/lab-lib/li-core';
+import { TdParamSpecsValues, TdTypeStyle } from '@monorepo/technical-doc';
+import { Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 import {
   LiConfigureResourceViewComponent,
   LiConfigureResourceViewInput,
   LiConfigureResourceViewOutput,
 } from '../component/li-configure-resource-view/li-configure-resource-view.component';
-import { LiResourceViewSpecWithConfig } from '@monorepo/lab-lib/li-core';
-import { Observable, of } from 'rxjs';
-import { TdParamSpecsValues, TdTypeStyle } from '@monorepo/technical-doc';
-import { map } from 'rxjs/operators';
 
 /**
  * State to open and manage view configuration portal

@@ -1,21 +1,22 @@
 import { Component, inject } from '@angular/core';
-import { FL_PORTAL_DATA, FlOverlayRef, FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { MatButton } from '@angular/material/button';
 import { FlFormHelper } from '@monorepo/front-core-lib/fl-core';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { FL_PORTAL_DATA, FlOverlayRef, FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
 import { FlResizeModule } from '@monorepo/front-core-lib/fl-resize';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import {
+  labConvertTransformFormToParams,
   LiResource,
   LiResourceService,
   LiRouterService,
-  LiTransformForm,
   LiTransformerParams,
   LiTransformerWithConfig,
-  labConvertTransformFormToParams,
+  LiTransformForm,
 } from '@monorepo/lab-lib/li-core';
-import { LiTransformResourceComponent } from '../li-transform-resource/li-transform-resource.component';
-import { MatButton } from '@angular/material/button';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { LiTransformResourceComponent } from '../li-transform-resource/li-transform-resource.component';
 
 export interface LiTransformResourcePortalInput {
   resourceTypingName: string;

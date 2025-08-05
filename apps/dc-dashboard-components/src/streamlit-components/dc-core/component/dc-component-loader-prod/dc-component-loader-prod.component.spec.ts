@@ -10,7 +10,7 @@ describe('DcComponentLoaderProdComponent', () => {
     await TestBed.configureTestingModule({
       imports: [DcComponentLoaderProdComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(DcComponentLoaderProdComponent);
     component = fixture.componentInstance;

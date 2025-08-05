@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { RvResourceViewDirective } from '../../model/rv-resource-view.directive';
-import { RvResourceViewNetwork } from '../../model/rv-resource-view.class';
 import { BnBioNetwork } from '@monorepo/bio-network';
+
+import { RvResourceViewNetwork } from '../../model/rv-resource-view.class';
+import { RvResourceViewDirective } from '../../model/rv-resource-view.directive';
 
 /**
  * Display the resource as a network pathway

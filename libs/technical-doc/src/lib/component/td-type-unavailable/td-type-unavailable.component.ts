@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { TdTypingName } from '../../model/td-typing-name.class';
+
 import { TdTypeObjectType } from '../../model/td-type.class';
+import { TdTypingName } from '../../model/td-typing-name.class';
 
 @Component({
   selector: 'td-type-unavailable',

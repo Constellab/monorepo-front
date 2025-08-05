@@ -1,5 +1,5 @@
-import { TdTypeRefDTO, TdTypeTypingEntity } from './td-type.class';
 import { TdParamSpecs } from './td-config-spec.class';
+import { TdTypeRefDTO, TdTypeTypingEntity } from './td-type.class';
 
 export interface TdIOSpecs {
   specs: Record<string, TdIOSpec>;

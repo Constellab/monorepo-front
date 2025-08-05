@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
-import { LabBiotaData } from '../../../model/lab-biota-data.class';
-import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
 import {
   MatCell,
   MatCellDef,
@@ -14,10 +13,12 @@ import {
   MatRowDef,
   MatTable,
 } from '@angular/material/table';
-import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
-import { MatIcon } from '@angular/material/icon';
+import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
+import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { LabBiotaData } from '../../../model/lab-biota-data.class';
 
 @Component({
   selector: 'lab-biota-database-table',

@@ -1,15 +1,14 @@
 import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-
+import { FlResizeObservable } from '@monorepo/front-core-lib/fl-core';
+// eslint-disable-next-line @nx/enforce-module-boundaries
+import { FlPlotlyData } from '@monorepo/front-core-lib/fl-plotly';
 // Plotly.newPlot()
 // we use the strict version of plotly even if it's not typed because the normal version
 // use eval (for webgl scatter) which requires unsafe-eval in the CSP
 // don't use the dist version because the webgl doesn't work in production mode
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 import Plotly from 'plotly.js-strict-dist';
-// eslint-disable-next-line @nx/enforce-module-boundaries
-import { FlPlotlyData } from '@monorepo/front-core-lib/fl-plotly';
 import { debounceTime } from 'rxjs/operators';
-import { FlResizeObservable } from '@monorepo/front-core-lib/fl-core';
 
 @Component({
   selector: 'fl-plotly-standalone',

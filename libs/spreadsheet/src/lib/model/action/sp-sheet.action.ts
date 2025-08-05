@@ -1,5 +1,5 @@
-import { SpSheet } from '../sp-sheet.class';
 import { SpCellsRange } from '../selection/sp-cells-range.class';
+import { SpSheet } from '../sp-sheet.class';
 
 export abstract class SpSheetAction {
   // if true the selection is not reset after action undo/redo

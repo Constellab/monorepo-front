@@ -30,31 +30,33 @@
     </fl-text-icon>
   }
 
-  <!-- Lab task -->
-  @if (labStatus.labStatus === 'STARTING') {
-    <div class="g-layout-row g-layout-start-center g-layout-gap-1em">
-      <fl-loader size="small"></fl-loader>
-      <div class="info">
-        {{ 'lml.lab_is_starting' | translate }}
-        @if (labStatus.glabStatus?.startProgress; as labStartingProgress) {
-          <div class="g-text-light g-text-small">
-            {{ labStartingProgress.percent }}% {{ labStartingProgress.message }}
-          </div>
-        }
-      </div>
-    </div>
-    <!--  Don't show success tasks  -->
-  } @else if (labStatus.currentTask && labStatus.currentTask.status.value !== 'SUCCESS') {
-    <div>
+  @if (showCurrentAction()) {
+    <!-- Lab task -->
+    @if (labStatus.labStatus === 'STARTING') {
       <div class="g-layout-row g-layout-start-center g-layout-gap-1em">
-        @if (labStatus.currentTask.status.value === 'RUNNING') {
-          <fl-loader size="small"></fl-loader>
-        } @else {
-          <fl-status-chip [status]="labStatus.currentTask.status" size="small"></fl-status-chip>
-        }
-        <div class="info">{{ labStatus.currentTask.name }} {{ labStatus.currentTask.info }}</div>
+        <fl-loader size="small"></fl-loader>
+        <div class="info">
+          {{ 'lml.lab_is_starting' | translate }}
+          @if (labStatus.glabStatus?.startProgress; as labStartingProgress) {
+            <div class="g-text-light g-text-small">
+              {{ labStartingProgress.percent }}% {{ labStartingProgress.message }}
+            </div>
+          }
+        </div>
       </div>
-    </div>
+      <!--  Don't show success tasks  -->
+    } @else if (labStatus.currentTask && labStatus.currentTask.status.value !== 'SUCCESS') {
+      <div>
+        <div class="g-layout-row g-layout-start-center g-layout-gap-1em">
+          @if (labStatus.currentTask.status.value === 'RUNNING') {
+            <fl-loader size="small"></fl-loader>
+          } @else {
+            <fl-status-chip [status]="labStatus.currentTask.status" size="small"></fl-status-chip>
+          }
+          <div class="info">{{ labStatus.currentTask.name }} {{ labStatus.currentTask.info }}</div>
+        </div>
+      </div>
+    }
   }
 }
 <!-- Lab Adminer runnings -->

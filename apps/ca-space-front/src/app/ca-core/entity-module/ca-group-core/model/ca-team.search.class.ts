@@ -1,3 +1,4 @@
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { FlFormInputsManagerConfig } from '@monorepo/front-core-lib/fl-form-inputs-manager';
 import {
   FlSearchConverter,
@@ -5,10 +6,9 @@ import {
   FlSearchFilterCriteriaConverter,
   FlSearchSortCriteriaConverter,
 } from '@monorepo/front-core-lib/fl-search';
-
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { CaUser } from '../../../model/entities/ca-user.class';
 import { Type } from 'class-transformer';
+
+import { CaUser } from '../../../model/entities/ca-user.class';
 
 export class CaTeamSearchFields {
   id: string;

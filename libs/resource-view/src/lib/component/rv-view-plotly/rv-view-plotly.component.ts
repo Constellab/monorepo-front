@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { RvResourceViewDirective } from '../../model/rv-resource-view.directive';
+
 import { RvResourceViewPlotly } from '../../model/rv-resource-view.class';
+import { RvResourceViewDirective } from '../../model/rv-resource-view.directive';
 
 @Component({
   selector: 'rv-view-plotly',

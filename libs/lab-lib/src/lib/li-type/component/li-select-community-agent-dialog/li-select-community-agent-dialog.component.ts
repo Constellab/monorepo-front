@@ -1,9 +1,10 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject,OnInit } from '@angular/core';
+import { MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { LiAgent } from '@monorepo/lab-lib/li-core';
-import { LiSelectCommunityAgentComponent } from '../li-select-community-agent/li-select-community-agent.component';
-import { MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { LiSelectCommunityAgentComponent } from '../li-select-community-agent/li-select-community-agent.component';
 
 /**
  * Dialog containing the community agent search to select one

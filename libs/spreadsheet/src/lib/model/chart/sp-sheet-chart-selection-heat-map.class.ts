@@ -1,9 +1,10 @@
+import { ChChart3dDatum, ChChartConfig, ChChartHeatMap, ChChartHeatMapDataContainer } from '@monorepo/chart';
+import { ClNumberHelper } from '@monorepo/core-lib';
+
+import { SpSheetMultiSelection } from '../selection/sp-sheet-multi-selection.class';
+import { SpSheet } from '../sp-sheet.class';
 import { SpSheetChartSelection } from './sp-sheet-chart-selection.class';
 import { SpSheetChartSerieSelectionForm } from './sp-sheet-chart-selection-form.class';
-import { SpSheet } from '../sp-sheet.class';
-import { ClNumberHelper } from '@monorepo/core-lib';
-import { SpSheetMultiSelection } from '../selection/sp-sheet-multi-selection.class';
-import { ChChart3dDatum, ChChartConfig, ChChartHeatMap, ChChartHeatMapDataContainer } from '@monorepo/chart';
 
 export class SpSheetChartSelectionHeatMap extends SpSheetChartSelection {
   constructor(

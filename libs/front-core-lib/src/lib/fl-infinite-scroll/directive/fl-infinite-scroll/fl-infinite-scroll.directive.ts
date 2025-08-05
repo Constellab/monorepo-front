@@ -1,17 +1,17 @@
+import { ScrollDispatcher } from '@angular/cdk/overlay';
 import {
   AfterViewInit,
   Directive,
+  DOCUMENT,
   ElementRef,
   EventEmitter,
+  inject,
   Input,
   OnDestroy,
   OnInit,
   Output,
   Renderer2,
-  inject,
 } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
-import { ScrollDispatcher } from '@angular/cdk/overlay';
 import { FlHtmlFindParentOptions, FlHtmlHelper } from '@monorepo/front-core-lib/fl-core';
 
 /**

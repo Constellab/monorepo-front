@@ -1,6 +1,6 @@
+import { inject,Injectable } from '@angular/core';
 import { BnBioNetworkService, BnUpdateMetabolite } from '@monorepo/bio-network';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
-import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 

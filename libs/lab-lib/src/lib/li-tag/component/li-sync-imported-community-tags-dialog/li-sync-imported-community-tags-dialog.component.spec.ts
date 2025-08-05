@@ -10,7 +10,7 @@ describe('LiSyncImportedCommunityTagsDialogComponent', () => {
     await TestBed.configureTestingModule({
       imports: [LiSyncImportedCommunityTagsDialogComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(LiSyncImportedCommunityTagsDialogComponent);
     component = fixture.componentInstance;

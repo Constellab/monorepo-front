@@ -1,16 +1,17 @@
-import { ActivatedRoute } from '@angular/router';
 import { AsyncPipe, NgOptimizedImage } from '@angular/common';
 import { Component, inject } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
 import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
-import { LabOpenRouteResourceViewModuleConfig } from '../model/lab-public-route-view.config';
 import { LiResourceView, LiShareLinkPublicAuth, LiShareService } from '@monorepo/lab-lib/li-core';
-import { combineLatest, map, Observable, switchMap } from 'rxjs';
 import { RvResourceViewModule, RvResourceViewModuleConfig, RvViewConfig } from '@monorepo/resource-view';
 import { TdTechnicalDocModule } from '@monorepo/technical-doc';
+import { combineLatest, map, Observable, switchMap } from 'rxjs';
+
 import { LabEnvironmentHelper } from '../../lab-core/lab-environment.helper';
+import { LabOpenRouteResourceViewModuleConfig } from '../model/lab-public-route-view.config';
 
 @Component({
   selector: 'lab-public-route-resource-page',

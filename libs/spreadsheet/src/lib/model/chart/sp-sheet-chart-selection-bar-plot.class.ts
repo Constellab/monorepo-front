@@ -1,6 +1,3 @@
-import { SpSheetChartSelection } from './sp-sheet-chart-selection.class';
-import { SpSheetChartSerieSelectionForm } from './sp-sheet-chart-selection-form.class';
-import { SpSheet } from '../sp-sheet.class';
 import {
   ChChart2dMultiSerie,
   ChChartBarPlot,
@@ -8,6 +5,10 @@ import {
   ChChartStackedBar,
   ChChartType,
 } from '@monorepo/chart';
+
+import { SpSheet } from '../sp-sheet.class';
+import { SpSheetChartSelection } from './sp-sheet-chart-selection.class';
+import { SpSheetChartSerieSelectionForm } from './sp-sheet-chart-selection-form.class';
 
 // Basic bar plot and stack plot
 export class SpSheetChartSelectionBarPlot extends SpSheetChartSelection {

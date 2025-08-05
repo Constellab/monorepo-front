@@ -1,15 +1,16 @@
+import { ChChartType } from '@monorepo/chart';
+import { FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
+import { FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
+import { Observable } from 'rxjs';
+
 import { SpSpreadsheetChartSelectionHelper } from '../../utils/sp-spreadsheet-chart-selection.helper';
+import { SpCellsRange } from '../selection/sp-cells-range.class';
+import { SpSheet } from '../sp-sheet.class';
 import {
   SpSheetChart2dSerieSelectionForm,
   SpSheetChartSelectionFormAdditional,
   SpSheetSelectionRange,
 } from './sp-sheet-chart-selection-form.class';
-import { SpCellsRange } from '../selection/sp-cells-range.class';
-import { SpSheet } from '../sp-sheet.class';
-import { Observable } from 'rxjs';
-import { FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
-import { FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
-import { ChChartType } from '@monorepo/chart';
 
 /**
  * Mode for the selection

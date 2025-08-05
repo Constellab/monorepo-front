@@ -10,6 +10,7 @@ import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { TranslatePipe } from '@ngx-translate/core';
+
 import { CaLab } from '../../../../model/entities/lab/ca-lab.class';
 import { CaDetailRoutePipe } from '../../../../module/ca-core-pipe/ca-detail-route/ca-detail-route.pipe';
 import { CaCityComponent } from '../../../ca-config-core/component/ca-city/ca-city.component';

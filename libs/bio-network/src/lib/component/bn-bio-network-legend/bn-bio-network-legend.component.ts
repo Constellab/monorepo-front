@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { bnBioNetworkCofactorColor } from '../../model/bn-bio-network-node-cofactor.class';
 
 /**

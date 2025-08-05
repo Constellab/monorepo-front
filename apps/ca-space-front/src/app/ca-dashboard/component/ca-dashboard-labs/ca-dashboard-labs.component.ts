@@ -1,15 +1,16 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { CaLabService } from '../../../ca-core/service-api/ca-lab.service';
-import { CaLab, CaLabDatasource } from '../../../ca-core/model/entities/lab/ca-lab.class';
-import { CaRouterService } from '../../../ca-core/service/ca-router.service';
-import { CaDashboardListLayoutComponent } from '../ca-dashboard-list-layout/ca-dashboard-list-layout.component';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import {
-  CaLabFormDialogComponent
-} from '../../../ca-core/entity-module/ca-lab-core/component/ca-lab-form-dialog/ca-lab-form-dialog.component';
+
 import {
   CaLabCardComponent
 } from '../../../ca-core/entity-module/ca-lab-core/component/ca-lab-card/ca-lab-card.component';
+import {
+  CaLabFormDialogComponent
+} from '../../../ca-core/entity-module/ca-lab-core/component/ca-lab-form-dialog/ca-lab-form-dialog.component';
+import { CaLab, CaLabDatasource } from '../../../ca-core/model/entities/lab/ca-lab.class';
+import { CaRouterService } from '../../../ca-core/service/ca-router.service';
+import { CaLabService } from '../../../ca-core/service-api/ca-lab.service';
+import { CaDashboardListLayoutComponent } from '../ca-dashboard-list-layout/ca-dashboard-list-layout.component';
 
 /**
  * Small list of labs in the dashboard

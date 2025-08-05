@@ -1,10 +1,11 @@
-import { Component, Input, ViewChild, inject } from '@angular/core';
-import { FlHorizontalNavBarItem } from '../../fl-horizontal-nav-bar.class';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { Component, inject,Input, ViewChild } from '@angular/core';
+import { MatMenuTrigger } from '@angular/material/menu';
+import { NavigationEnd, Router } from '@angular/router';
 import { Observable, startWith } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
-import { MatMenuTrigger } from '@angular/material/menu';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { NavigationEnd, Router } from '@angular/router';
+
+import { FlHorizontalNavBarItem } from '../../fl-horizontal-nav-bar.class';
 
 /**
  * Horizontal navigation bar that takes full width of the screen

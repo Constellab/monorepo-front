@@ -8,6 +8,7 @@ import {
   TeRichTextDTO,
 } from '@monorepo/text-editor';
 import { Observable } from 'rxjs';
+
 import { CaConstellabDocument, CaDocument } from '../model/entities/folder/ca-document.class';
 
 @Injectable({

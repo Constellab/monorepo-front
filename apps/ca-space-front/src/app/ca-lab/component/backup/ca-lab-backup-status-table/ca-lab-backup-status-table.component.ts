@@ -1,16 +1,7 @@
 import { Component, inject, Input } from '@angular/core';
-import {
-  CaLabBackupStatusDatasource,
-  CaLabBackupStatusDTO,
-} from '../../../../ca-core/model/entities/lab/ca-lab-backup.class';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
-import {
-  CaLabRestoreBackupToLabComponent,
-  CaLabRestoreBackupToLabDialogInput,
-} from '../ca-lab-restore-backup-to-lab/ca-lab-restore-backup-to-lab.component';
-import { CaLab } from '../../../../ca-core/model/entities/lab/ca-lab.class';
-import { CaRouterService } from '../../../../ca-core/service/ca-router.service';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import {
   MatCell,
   MatCellDef,
@@ -23,14 +14,24 @@ import {
   MatRowDef,
   MatTable,
 } from '@angular/material/table';
-import { CaCloudProviderRegionInlineComponent } from '../../../../ca-core/entity-module/ca-cloud-provider-core/component/ca-cloud-provider-region-inline/ca-cloud-provider-region-inline.component';
-import { FlStatusModule } from '@monorepo/front-core-lib/fl-status';
-import { MatIconButton } from '@angular/material/button';
-import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
-import { MatIcon } from '@angular/material/icon';
+import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
-import { TranslatePipe } from '@ngx-translate/core';
 import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlStatusModule } from '@monorepo/front-core-lib/fl-status';
+import { TranslatePipe } from '@ngx-translate/core';
+
+import { CaCloudProviderRegionInlineComponent } from '../../../../ca-core/entity-module/ca-cloud-provider-core/component/ca-cloud-provider-region-inline/ca-cloud-provider-region-inline.component';
+import { CaLab } from '../../../../ca-core/model/entities/lab/ca-lab.class';
+import {
+  CaLabBackupStatusDatasource,
+  CaLabBackupStatusDTO,
+} from '../../../../ca-core/model/entities/lab/ca-lab-backup.class';
+import { CaRouterService } from '../../../../ca-core/service/ca-router.service';
+import {
+  CaLabRestoreBackupToLabComponent,
+  CaLabRestoreBackupToLabDialogInput,
+} from '../ca-lab-restore-backup-to-lab/ca-lab-restore-backup-to-lab.component';
 
 @Component({
   selector: 'ca-lab-backup-status-table',

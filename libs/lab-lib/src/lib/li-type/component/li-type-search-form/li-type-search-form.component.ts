@@ -1,13 +1,13 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, inject,Input, OnInit } from '@angular/core';
+import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
+import { MatCheckbox } from '@angular/material/checkbox';
+import { MatOption } from '@angular/material/core';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { MatSelect } from '@angular/material/select';
 import { FlSearchState } from '@monorepo/front-core-lib/fl-search';
 import { LiBricksSelectOptionsComponent } from '@monorepo/lab-lib/li-brick';
 import { LiTypeSearchConfig } from '@monorepo/lab-lib/li-core';
-import { MatCheckbox } from '@angular/material/checkbox';
-import { MatFormField, MatLabel } from '@angular/material/form-field';
-import { MatInput } from '@angular/material/input';
-import { MatOption } from '@angular/material/core';
-import { MatSelect } from '@angular/material/select';
-import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({

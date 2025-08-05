@@ -1,19 +1,19 @@
 import { ApplicationRef, EnvironmentInjector } from '@angular/core';
+import { flRootInjector } from '@monorepo/front-core-lib/fl-core';
 import { LiNoteResourceService, LiRichTextAudioTranscriptionConfig } from '@monorepo/lab-lib/li-core';
-import { Observable } from 'rxjs';
+import { LiRichTextFileViewBlock, LiRichTextViewBlockAdditionalData } from '@monorepo/lab-lib/li-rich-text';
 import {
   TeBlockFigureUploadedResponse,
   TeBlockFileUploadResponse,
   TeCompleteConfig,
+  teComponentBlockFactory,
   TeFigureBlockConfig,
   TeFileBlockConfig,
+  teInlineToolFactory,
   TeTools,
   TeVariableInlineToolClass,
-  teComponentBlockFactory,
-  teInlineToolFactory,
 } from '@monorepo/text-editor';
-import { flRootInjector } from '@monorepo/front-core-lib/fl-core';
-import { LiRichTextFileViewBlock, LiRichTextViewBlockAdditionalData } from '@monorepo/lab-lib/li-rich-text';
+import { Observable } from 'rxjs';
 
 export class LiNoteResourceTextEditorImageConfig implements TeFigureBlockConfig {
   private noteResourceService: LiNoteResourceService;

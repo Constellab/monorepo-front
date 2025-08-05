@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { LiTransformResourcePortalComponent } from './li-transform-resource-portal.component';
 
 describe('LiTransformResourceDialogComponent', () => {

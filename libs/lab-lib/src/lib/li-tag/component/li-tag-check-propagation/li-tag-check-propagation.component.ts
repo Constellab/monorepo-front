@@ -9,6 +9,7 @@ import { LiNavigableEntityGroupsComponent } from '@monorepo/lab-lib/li-navigable
 import { TranslatePipe } from '@ngx-translate/core';
 import { Observable, share } from 'rxjs';
 import { map } from 'rxjs/operators';
+
 import { LiTagListComponent } from '../li-tag-list/li-tag-list.component';
 
 export interface LiTagCheckPropagationInput {

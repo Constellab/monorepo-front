@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { LiCodeEditorDynamicFieldComponent } from './li-code-editor-dynamic-field.component';
 
 describe('LabPythonCodeDynamicFieldComponent', () => {

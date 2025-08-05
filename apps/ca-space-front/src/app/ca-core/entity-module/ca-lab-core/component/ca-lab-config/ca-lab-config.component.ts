@@ -10,6 +10,7 @@ import {
   LmlBrickVersionDetailDialogInput,
 } from '@monorepo/lab-manager-lib';
 import { TranslatePipe } from '@ngx-translate/core';
+
 import { CaBrickVersionComplete } from '../../../../model/entities/ca-brick.class';
 import { CaLabConfig } from '../../../../model/entities/lab/ca-lab-config.class';
 

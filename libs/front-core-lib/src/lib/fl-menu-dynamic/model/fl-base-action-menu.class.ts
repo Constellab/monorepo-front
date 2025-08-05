@@ -1,7 +1,8 @@
+import { Injector } from '@angular/core';
 import { mergeMap, Observable, Subject } from 'rxjs';
+
 import { FlMenuDynamicService } from '../fl-menu-dynamic.service';
 import { FlMenuDynamic } from './fl-menu-dynamic.class';
-import { Injector } from '@angular/core';
 
 /**
  * Base class to manage the action menu for an object

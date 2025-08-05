@@ -1,7 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
-import { LmsLabManagerConfiguration } from '../model/lms-lab-manager.class';
 import {
   LmlAdminerInfo,
   LmlComposeRestartOptions,
@@ -15,6 +13,9 @@ import {
   LmlLabManagerStatus,
   LmlPullBiotaOptions,
 } from '@monorepo/lab-manager-lib';
+import { map, Observable } from 'rxjs';
+
+import { LmsLabManagerConfiguration } from '../model/lms-lab-manager.class';
 
 @Injectable({
   providedIn: 'root',

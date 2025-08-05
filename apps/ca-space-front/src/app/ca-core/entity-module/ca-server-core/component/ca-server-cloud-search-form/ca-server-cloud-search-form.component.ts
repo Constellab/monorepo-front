@@ -1,14 +1,15 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
-import { FlSearchState } from '@monorepo/front-core-lib/fl-search';
+import { MatCheckbox } from '@angular/material/checkbox';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatSelect } from '@angular/material/select';
-import { CaSelectCloudProviderOptionsComponent } from '../../../ca-cloud-provider-core/component/ca-select-cloud-provider-options/ca-select-cloud-provider-options.component';
-import { CaSelectServerStandardOptionsComponent } from '../ca-select-server-standard-options/ca-select-server-standard-options.component';
-import { CaSelectDiskTypeOptionsComponent } from '../ca-select-disk-type-options/ca-select-disk-type-options.component';
-import { MatCheckbox } from '@angular/material/checkbox';
+import { FlSearchState } from '@monorepo/front-core-lib/fl-search';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { CaSelectCloudProviderOptionsComponent } from '../../../ca-cloud-provider-core/component/ca-select-cloud-provider-options/ca-select-cloud-provider-options.component';
+import { CaSelectDiskTypeOptionsComponent } from '../ca-select-disk-type-options/ca-select-disk-type-options.component';
+import { CaSelectServerStandardOptionsComponent } from '../ca-select-server-standard-options/ca-select-server-standard-options.component';
 
 @Component({
   selector: 'ca-server-cloud-search-form',

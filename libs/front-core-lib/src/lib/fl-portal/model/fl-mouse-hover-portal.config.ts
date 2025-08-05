@@ -1,4 +1,5 @@
 import { ComponentType, ConnectedPosition } from '@angular/cdk/overlay';
+
 import { FlPortalDefaultPosition, FlRelativeOverlayConfig } from './fl-portal.class';
 
 /**

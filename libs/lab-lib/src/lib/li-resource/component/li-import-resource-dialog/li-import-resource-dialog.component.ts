@@ -1,12 +1,17 @@
+import { Component, inject,OnDestroy, OnInit } from '@angular/core';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { MatButton } from '@angular/material/button';
+import { MAT_DIALOG_DATA, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
+import { MatDivider } from '@angular/material/divider';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
 import { CoCommunityHelperService } from '@monorepo/community-lib';
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { FlFormHelper } from '@monorepo/front-core-lib/fl-core';
 import { FlDialogModule, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlDynamicFieldConfigService } from '@monorepo/front-core-lib/fl-dynamic-field';
-import { FlFormHelper } from '@monorepo/front-core-lib/fl-core';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { LiProcessDynamicFieldConfig } from '@monorepo/lab-lib/li-config';
 import {
   LiProcessType,
@@ -16,11 +21,11 @@ import {
   LiTypeEntity,
   LiTypeService,
 } from '@monorepo/lab-lib/li-core';
-import { MAT_DIALOG_DATA, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
-import { MatButton } from '@angular/material/button';
-import { MatDivider } from '@angular/material/divider';
-import { MatIcon } from '@angular/material/icon';
-import { MatTooltip } from '@angular/material/tooltip';
+import {
+  LiSelectTypeDialogComponent,
+  LiSelectTypeDialogInput,
+  LiTypeShowDetailButtonComponent,
+} from '@monorepo/lab-lib/li-type';
 import {
   TdConfig,
   TdConfigureSpecsForm,
@@ -31,11 +36,6 @@ import {
   TdTypingName,
 } from '@monorepo/technical-doc';
 import { TranslatePipe } from '@ngx-translate/core';
-import {
-  LiSelectTypeDialogComponent,
-  LiSelectTypeDialogInput,
-  LiTypeShowDetailButtonComponent,
-} from '@monorepo/lab-lib/li-type';
 
 export interface LiImportResourceDialogInput {
   resourceId: string;

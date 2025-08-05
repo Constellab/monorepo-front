@@ -1,24 +1,25 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { UntypedFormGroup, ReactiveFormsModule } from '@angular/forms';
-import {
-  CaBucketContentType,
-  CaBucketType,
-} from '../../../../ca-core/model/entities/ca-object-storage.class';
-import { FlSearchState } from '@monorepo/front-core-lib/fl-search';
-import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
+import { Component, inject,OnInit } from '@angular/core';
+import { ReactiveFormsModule,UntypedFormGroup } from '@angular/forms';
+import { MatOption } from '@angular/material/core';
+import { MatError,MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatSelect, MatSelectTrigger } from '@angular/material/select';
-import { MatOption } from '@angular/material/core';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
-import { CaSelectSpaceComponent } from '../../../../ca-core/entity-module/ca-space-core/component/ca-select-space/ca-select-space.component';
+import { FlSearchState } from '@monorepo/front-core-lib/fl-search';
+import { FlSearchModule } from '@monorepo/front-core-lib/fl-search';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+import { TranslatePipe } from '@ngx-translate/core';
+
 import { CaCloudProviderRegionInlineComponent } from '../../../../ca-core/entity-module/ca-cloud-provider-core/component/ca-cloud-provider-region-inline/ca-cloud-provider-region-inline.component';
 import { CaSelectCloudProviderRegionOptionsComponent } from '../../../../ca-core/entity-module/ca-cloud-provider-core/component/ca-select-cloud-provider-region-options/ca-select-cloud-provider-region-options.component';
 import { CaSelectLabComponent } from '../../../../ca-core/entity-module/ca-lab-core/component/ca-select-lab/ca-select-lab.component';
 import { CaSelectBucketCredentialsOptionsComponent } from '../../../../ca-core/entity-module/ca-object-storage-core/component/ca-select-bucket-credentials-options/ca-select-bucket-credentials-options.component';
-import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import { FlSearchModule } from '@monorepo/front-core-lib/fl-search';
-import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
-import { TranslatePipe } from '@ngx-translate/core';
+import { CaSelectSpaceComponent } from '../../../../ca-core/entity-module/ca-space-core/component/ca-select-space/ca-select-space.component';
+import {
+  CaBucketContentType,
+  CaBucketType,
+} from '../../../../ca-core/model/entities/ca-object-storage.class';
 
 @Component({
   selector: 'ca-bucket-search-form',

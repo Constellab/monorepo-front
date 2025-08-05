@@ -1,15 +1,16 @@
 import { inject, Injectable } from '@angular/core';
-import { FlOverlayRef, FlPortalConfig, FlPortalService } from '@monorepo/front-core-lib/fl-portal';
-import { FlPortalAction, FlPortalActionResult } from '../model/fl-portal-actions.class';
-import { FlPortalActionsComponent } from '../component/fl-portal-actions/fl-portal-actions.component';
-import { FlPortalActionsState } from './fl-portal-actions.state';
-import { Observable } from 'rxjs';
 import { FlWindowsHelper } from '@monorepo/front-core-lib/fl-core';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
 } from '@monorepo/front-core-lib/fl-dialog';
+import { FlOverlayRef, FlPortalConfig, FlPortalService } from '@monorepo/front-core-lib/fl-portal';
+import { Observable } from 'rxjs';
+
+import { FlPortalActionsComponent } from '../component/fl-portal-actions/fl-portal-actions.component';
+import { FlPortalAction, FlPortalActionResult } from '../model/fl-portal-actions.class';
+import { FlPortalActionsState } from './fl-portal-actions.state';
 
 /**
  * Singleton to manager the portal actions

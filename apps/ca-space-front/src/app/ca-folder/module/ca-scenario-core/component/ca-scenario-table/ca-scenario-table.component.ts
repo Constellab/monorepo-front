@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FlDatasource, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
-import { CaScenario } from '../../../../../ca-core/model/entities/folder/ca-scenario.class';
+import { MatIcon } from '@angular/material/icon';
 import {
   MatCell,
   MatCellDef,
@@ -13,16 +12,18 @@ import {
   MatRowDef,
   MatTable,
 } from '@angular/material/table';
-import { RouterLink } from '@angular/router';
-import { CaNotificationMarkDirective } from '../../../../../ca-core/entity-module/ca-notification-core/directive/ca-notification-mark/ca-notification-mark.directive';
-import { MatIcon } from '@angular/material/icon';
-import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { MatTooltip } from '@angular/material/tooltip';
-import { CaSyncObjectInfoComponent } from '../../../ca-folder-hierarchy-core/component/ca-sync-object-info/ca-sync-object-info.component';
-import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+import { RouterLink } from '@angular/router';
+import { FlDatasource, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import { FlStatusModule } from '@monorepo/front-core-lib/fl-status';
-import { CaDetailRoutePipe } from '../../../../../ca-core/module/ca-core-pipe/ca-detail-route/ca-detail-route.pipe';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { CaNotificationMarkDirective } from '../../../../../ca-core/entity-module/ca-notification-core/directive/ca-notification-mark/ca-notification-mark.directive';
+import { CaScenario } from '../../../../../ca-core/model/entities/folder/ca-scenario.class';
+import { CaDetailRoutePipe } from '../../../../../ca-core/module/ca-core-pipe/ca-detail-route/ca-detail-route.pipe';
+import { CaSyncObjectInfoComponent } from '../../../ca-folder-hierarchy-core/component/ca-sync-object-info/ca-sync-object-info.component';
 
 @Component({
   selector: 'ca-scenario-table',

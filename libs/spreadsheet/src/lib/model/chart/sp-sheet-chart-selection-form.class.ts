@@ -1,6 +1,7 @@
+import { ChChartHistogramMode, ChChartType } from '@monorepo/chart';
+
 import { SpSheetSingleSelection } from '../selection/sp-sheet-single-selection.class';
 import { SpCellCoordRange } from '../sp-cell-coord.class';
-import { ChChartHistogramMode, ChChartType } from '@monorepo/chart';
 
 export type SpSpreadsheetChartSelectionInput =
   | SpSpreadsheetChartSelectionInputCreate

@@ -1,11 +1,12 @@
 import { Injector } from '@angular/core';
+import { FlEntityArrayObs } from '@monorepo/front-core-lib/fl-core';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
 import { Observable } from 'rxjs';
-import { FlEntityArrayObs } from '../../../../../../../libs/front-core-lib/src/lib/fl-core';
-import { FlDialogService } from '../../../../../../../libs/front-core-lib/src/lib/fl-dialog';
+
 import { CaRootFolderUserRoleObj } from '../../../ca-core/model/entities/folder/ca-folder-user.class';
-import { CaNoteService } from '../../../ca-core/service-api/ca-note.service';
 import { CaRouterService } from '../../../ca-core/service/ca-router.service';
+import { CaNoteService } from '../../../ca-core/service-api/ca-note.service';
 import {
   CaHierarchyObjectActionTags,
   CaHierarchyObjectBaseActionMenu,

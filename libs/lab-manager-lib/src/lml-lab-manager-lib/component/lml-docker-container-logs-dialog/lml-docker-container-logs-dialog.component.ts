@@ -1,7 +1,8 @@
 import { Component, inject } from '@angular/core';
-import { Observable } from 'rxjs';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
+import { Observable } from 'rxjs';
+
 import { LmlDockerLogs } from '../../model/lml-lab-manager.class';
 
 export interface LmlDockerContainerLogsInput {

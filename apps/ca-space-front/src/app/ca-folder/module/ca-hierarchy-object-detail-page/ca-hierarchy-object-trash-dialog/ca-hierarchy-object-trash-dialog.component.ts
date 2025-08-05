@@ -1,45 +1,46 @@
 import { Component, inject, Injector, OnInit } from '@angular/core';
-import {
-  CaHierarchyObject,
-  CaHierarchyObjectDatasource,
-} from '../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
-import {
-  CaHierarchyObjectSearch,
-  CaHierarchyObjectSearchFields,
-} from '../../../../ca-core/entity-module/ca-hierarchy-object-core/ca-hierarchy-object-search.class';
+import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
+import { MatIconButton } from '@angular/material/button';
+import { MatCheckbox } from '@angular/material/checkbox';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { ClHelpService } from '@monorepo/core-lib';
 import {
   FlDatasourceGetPageFunction,
   FlEntityPaginatedDatasource,
   FlTableColumnStatic,
 } from '@monorepo/front-core-lib/fl-core';
-import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogModule,
   FlDialogService,
 } from '@monorepo/front-core-lib/fl-dialog';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import {
-  CaHierarchyObjectSearchFormComponent,
-  CaHierarchyObjectSearchFormContext,
-} from '../ca-hierarchy-object-search-form/ca-hierarchy-object-search-form.component';
-import { CaHierarchyObjectTableComponent } from '../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-table/ca-hierarchy-object-table.component';
 import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
-import { MatIcon } from '@angular/material/icon';
 import { FlSearchConfig, FlSearchState } from '@monorepo/front-core-lib/fl-search';
-import { ClHelpService } from '@monorepo/core-lib';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+import { TranslatePipe } from '@ngx-translate/core';
+
+import {
+  CaHierarchyObjectSearch,
+  CaHierarchyObjectSearchFields,
+} from '../../../../ca-core/entity-module/ca-hierarchy-object-core/ca-hierarchy-object-search.class';
+import { CaHierarchyObjectTableComponent } from '../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-table/ca-hierarchy-object-table.component';
+import {
+  CaHierarchyObject,
+  CaHierarchyObjectDatasource,
+} from '../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
+import { CaHierarchyObjectService } from '../../../../ca-core/service-api/ca-hierarchy-object.service';
 import {
   CaHierarchyObjectActionBase,
   CaHierarchyObjectBaseActionMenu,
 } from '../../ca-folder-detail-page/ca-hierarchy-object-base-action-menu';
-import { MatIconButton } from '@angular/material/button';
-import { MatTooltip } from '@angular/material/tooltip';
-import { TranslatePipe } from '@ngx-translate/core';
-import { CaHierarchyObjectService } from '../../../../ca-core/service-api/ca-hierarchy-object.service';
-import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
-import { MatCheckbox } from '@angular/material/checkbox';
+import {
+  CaHierarchyObjectSearchFormComponent,
+  CaHierarchyObjectSearchFormContext,
+} from '../ca-hierarchy-object-search-form/ca-hierarchy-object-search-form.component';
 
 export type CaHierarchyObjectTrashDialogInput =
   | {

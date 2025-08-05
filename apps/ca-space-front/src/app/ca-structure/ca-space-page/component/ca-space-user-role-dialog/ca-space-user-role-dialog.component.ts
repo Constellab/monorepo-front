@@ -1,19 +1,20 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { CaSpaceService } from '../../../../ca-core/service-api/ca-space.service';
-import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
-import { FormControl, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { CaSpaceRole } from '../../../../ca-core/model/entities/space/ca-space-user.class';
-import { MAT_DIALOG_DATA, MatDialogRef, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
-import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { CdkScrollable } from '@angular/cdk/scrolling';
-import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
-import { MatSelect } from '@angular/material/select';
-import { MatOption } from '@angular/material/core';
+import { Component, inject,OnInit } from '@angular/core';
+import { FormControl, FormsModule,ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
-import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { MatOption } from '@angular/material/core';
+import { MAT_DIALOG_DATA, MatDialogActions,MatDialogContent, MatDialogRef } from '@angular/material/dialog';
+import { MatError,MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatSelect } from '@angular/material/select';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { TranslatePipe } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+
+import { CaSpaceRole } from '../../../../ca-core/model/entities/space/ca-space-user.class';
+import { CaSpaceService } from '../../../../ca-core/service-api/ca-space.service';
 
 export interface CaSpaceUserRoleDialogInput {
   currentRole: CaSpaceRole;

@@ -1,23 +1,24 @@
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { ClBrick } from '@monorepo/core-lib';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
 } from '@monorepo/front-core-lib/fl-dialog';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
-import {
-  LmlBrickVersionDetailDialogComponent,
-  LmlBrickVersionDetailDialogInput,
-} from '../lml-brick-version-detail-dialog/lml-brick-version-detail-dialog.component';
-import { LmlConfigureBrickComponent } from '../lml-configure-brick/lml-configure-brick.component';
+
+import { LmlBrickService } from '../../lml-brick.service';
+import { LmlBrickVersion } from '../../model/lml-brick.class';
 import {
   LmlBrickVersionDTODatasource,
   LmlLabManagerBrickVersionDTO,
   LmlLabManagerConfig,
 } from '../../model/lml-lab-manager.class';
-import { LmlBrickService } from '../../lml-brick.service';
-import { LmlBrickVersion } from '../../model/lml-brick.class';
-import { ClBrick } from '@monorepo/core-lib';
+import {
+  LmlBrickVersionDetailDialogComponent,
+  LmlBrickVersionDetailDialogInput,
+} from '../lml-brick-version-detail-dialog/lml-brick-version-detail-dialog.component';
+import { LmlConfigureBrickComponent } from '../lml-configure-brick/lml-configure-brick.component';
 
 /**
  * Form to update the lab config

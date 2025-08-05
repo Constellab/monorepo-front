@@ -1,28 +1,28 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { FlDebouncer, FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
-import { HaTagKey, HaTagKeyEditDTO } from '../../../ha-core/ha-model/ha-entities/ha-tag-key.class';
-import { FlDialogModule, FlFormDialogAbstractDirective } from '@monorepo/front-core-lib/fl-dialog';
-import { HaTagService } from '../../../ha-core/ha-service/ha-tag.service';
-import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
 import { FormBuilder, FormControl, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
-import { Observable, Subscription } from 'rxjs';
-import { TranslatePipe } from '@ngx-translate/core';
-import { MatError, MatInput } from '@angular/material/input';
-import { MatFormField, MatLabel } from '@angular/material/form-field';
-import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
-import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
-import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
-import { MatOption, MatSelect } from '@angular/material/select';
-import { NgForOf } from '@angular/common';
-import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
-import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
-import { HaSpace } from '../../../ha-core/ha-model/ha-entities/ha-space.class';
-import { HaSpaceService } from '../../../ha-core/ha-service/ha-space.service';
-import { HaCoServiceConfig } from '../../../ha-core/ha-model/ha-config/ha-co-service.config';
 import { MatButton } from '@angular/material/button';
-import { ClStringHelper } from '@monorepo/core-lib';
-import { debounceTime } from 'rxjs/operators';
+import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatError, MatInput } from '@angular/material/input';
+import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
+import { MatOption, MatSelect } from '@angular/material/select';
 import { CoTagKeyType } from '@monorepo/community-lib';
+import { ClStringHelper } from '@monorepo/core-lib';
+import { FlDebouncer, FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
+import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
+import { FlDialogModule, FlFormDialogAbstractDirective } from '@monorepo/front-core-lib/fl-dialog';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+import { TranslatePipe } from '@ngx-translate/core';
+import { Observable, Subscription } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
+
+import { HaCoServiceConfig } from '../../../ha-core/ha-model/ha-config/ha-co-service.config';
+import { HaSpace } from '../../../ha-core/ha-model/ha-entities/ha-space.class';
+import { HaTagKey, HaTagKeyEditDTO } from '../../../ha-core/ha-model/ha-entities/ha-tag-key.class';
+import { HaSpaceService } from '../../../ha-core/ha-service/ha-space.service';
+import { HaTagService } from '../../../ha-core/ha-service/ha-tag.service';
 
 export type HaTagKeyEditDialogInput = FlFormDialogInput<HaTagKeyEditDTO>;
 
@@ -41,7 +41,6 @@ export type HaTagKeyEditDialogInput = FlFormDialogInput<HaTagKeyEditDTO>;
     TranslatePipe,
     MatSelect,
     MatOption,
-    NgForOf,
     MatRadioButton,
     MatRadioGroup,
     FlSectionModule,

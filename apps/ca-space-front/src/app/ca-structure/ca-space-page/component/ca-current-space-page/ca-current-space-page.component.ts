@@ -1,14 +1,15 @@
+import { AsyncPipe } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
-import { CaRouterService } from '../../../../ca-core/service/ca-router.service';
-import { Observable } from 'rxjs';
-import { CaSpace } from '../../../../ca-core/model/entities/space/ca-space.class';
-import { CaCurrentSpaceService } from '../../../../ca-core/service-api/ca-current-space.service';
+import { RouterOutlet } from '@angular/router';
 import {
   FlHorizontalNavBarItem,
   FlHorizontalNavBarModule,
 } from '@monorepo/front-core-lib/fl-horizontal-nav-bar';
-import { RouterOutlet } from '@angular/router';
-import { AsyncPipe } from '@angular/common';
+import { Observable } from 'rxjs';
+
+import { CaSpace } from '../../../../ca-core/model/entities/space/ca-space.class';
+import { CaRouterService } from '../../../../ca-core/service/ca-router.service';
+import { CaCurrentSpaceService } from '../../../../ca-core/service-api/ca-current-space.service';
 
 @Component({
   selector: 'ca-current-space-page',

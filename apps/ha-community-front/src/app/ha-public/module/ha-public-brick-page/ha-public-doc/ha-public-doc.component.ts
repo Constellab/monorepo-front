@@ -1,13 +1,15 @@
+import { NgClass } from '@angular/common';
 import { Component, computed, effect, inject, OnDestroy, OnInit, Signal } from '@angular/core';
-import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
-import { HaDocumentation } from '../../../../ha-core/ha-model/ha-entities/ha-documentation.class';
-import { HaDocumentationService } from '../../../../ha-core/ha-service/ha-documentation.service';
-import { FlConfirmDialogInput, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { FlOverlayRef, FlPortalService } from '@monorepo/front-core-lib/fl-portal';
-
-import { Observable, Subscription } from 'rxjs';
-import { HaDocTextEditorConfig } from '../ha-doc-text-editor-config.class';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
+import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
+import { FlConfirmDialogInput, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { FlOverlayRef, FlPortalService } from '@monorepo/front-core-lib/fl-portal';
+import { FlFileHelper } from '@monorepo/front-core-lib/fl-translate';
 import {
   TeBlock,
   TeBlockFigureData,
@@ -16,29 +18,27 @@ import {
   TeTextEditorHistoryPortalData,
   TeTextEditorModule,
 } from '@monorepo/text-editor';
-import { HaFile } from '../../../../ha-core/entity-module/ha-file-core/model/ha-file';
-import { HaHttpRedirectionService } from '../../../../ha-core/ha-service/ha-http-redirection.service';
-import { HaRouterService } from '../../../../ha-core/ha-service/ha-router.service';
-import { HaBrickPageState } from '../../../state/ha-brick-page.state';
-import { HaBrick } from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
-import { HaCommunityPageDirective } from '../../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
-import { HaJsonLdState } from '../../../../ha-core/ha-state/ha-json-ld.state';
-import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
-import { MatIconButton } from '@angular/material/button';
-import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
-import { MatIcon } from '@angular/material/icon';
-import { NgClass } from '@angular/common';
-import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
-import { Ha404Component } from '../../ha404/ha404.component';
-import { HaTextEditorRightSidePanelComponent } from '../../../../ha-core/entity-module/ha-util-component-core/component/ha-text-editor-right-side-panel/ha-text-editor-right-side-panel.component';
 import { TranslatePipe } from '@ngx-translate/core';
-import { FlFileHelper } from '@monorepo/front-core-lib/fl-translate';
-import { HaIsAdminDirective } from '../../../../ha-core/ha-module/ha-core-directive/ha-is-admin/ha-is-admin.directive';
+import { Observable, Subscription } from 'rxjs';
+
 import {
   HaAdminSendToDifyDialogComponent,
   HaAdminSendToDifyDialogInput,
 } from '../../../../ha-admin/module/ha-admin-send-brick-docs-to-dify-dialog/ha-admin-send-to-dify-dialog.component';
+import { HaFile } from '../../../../ha-core/entity-module/ha-file-core/model/ha-file';
+import { HaTextEditorRightSidePanelComponent } from '../../../../ha-core/entity-module/ha-util-component-core/component/ha-text-editor-right-side-panel/ha-text-editor-right-side-panel.component';
+import { HaBrick } from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
+import { HaDocumentation } from '../../../../ha-core/ha-model/ha-entities/ha-documentation.class';
 import { HaEntityType } from '../../../../ha-core/ha-model/ha-entities/ha-entity-type';
+import { HaCommunityPageDirective } from '../../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
+import { HaIsAdminDirective } from '../../../../ha-core/ha-module/ha-core-directive/ha-is-admin/ha-is-admin.directive';
+import { HaDocumentationService } from '../../../../ha-core/ha-service/ha-documentation.service';
+import { HaHttpRedirectionService } from '../../../../ha-core/ha-service/ha-http-redirection.service';
+import { HaRouterService } from '../../../../ha-core/ha-service/ha-router.service';
+import { HaJsonLdState } from '../../../../ha-core/ha-state/ha-json-ld.state';
+import { HaBrickPageState } from '../../../state/ha-brick-page.state';
+import { Ha404Component } from '../../ha404/ha404.component';
+import { HaDocTextEditorConfig } from '../ha-doc-text-editor-config.class';
 
 @Component({
   selector: 'ha-public-doc',

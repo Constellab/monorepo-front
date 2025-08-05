@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { LiSyncObjectButtonComponent } from './li-sync-object-button.component';
 
 describe('LiSyncObjectButtonComponent', () => {

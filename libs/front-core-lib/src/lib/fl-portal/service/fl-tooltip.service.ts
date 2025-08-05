@@ -1,13 +1,14 @@
-import { ElementRef, Injectable, OnDestroy, inject } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
-import { FlPortalService } from './fl-portal.service';
-import { FlOverlayConfig, FlPortalConnectedPosition } from '../model/fl-portal.class';
-import { FlOverlayRef } from '../model/fl-overlay-ref.class';
-import { FlPortalConfig } from '../model/fl-portal-config.class';
-import { FlTooltipComponent } from '../component/fl-tooltip/fl-tooltip.component';
+import { ElementRef, inject,Injectable, OnDestroy } from '@angular/core';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import { FlTranslateParam } from '@monorepo/front-core-lib/fl-translate';
+import { BehaviorSubject, Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
+
+import { FlTooltipComponent } from '../component/fl-tooltip/fl-tooltip.component';
+import { FlOverlayRef } from '../model/fl-overlay-ref.class';
+import { FlOverlayConfig, FlPortalConnectedPosition } from '../model/fl-portal.class';
+import { FlPortalConfig } from '../model/fl-portal-config.class';
+import { FlPortalService } from './fl-portal.service';
 
 /**
  * Service to create tooltip in typescript

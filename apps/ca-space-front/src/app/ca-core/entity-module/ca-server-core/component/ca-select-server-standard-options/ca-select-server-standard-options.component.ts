@@ -1,13 +1,14 @@
-import { AfterViewInit, Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib/fl-core';
-import { CaServerService } from '../../../../service-api/ca-server.service';
-import { MatSelect } from '@angular/material/select';
-import { CaServerStandardDatasource } from '../../../../model/entities/server/ca-server-standard.class';
-import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
-import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
-import { MatOption } from '@angular/material/core';
 import { AsyncPipe } from '@angular/common';
+import { AfterViewInit, Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { MatOption } from '@angular/material/core';
+import { MatSelect } from '@angular/material/select';
+import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib/fl-core';
+import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
+import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
+
+import { CaServerStandardDatasource } from '../../../../model/entities/server/ca-server-standard.class';
+import { CaServerService } from '../../../../service-api/ca-server.service';
 
 @Component({
   selector: 'ca-select-server-standard-options',

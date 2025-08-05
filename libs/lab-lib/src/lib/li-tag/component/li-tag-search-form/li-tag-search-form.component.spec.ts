@@ -10,7 +10,7 @@ describe('LiTagSearchFormComponent', () => {
     await TestBed.configureTestingModule({
       imports: [LiTagSearchFormComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(LiTagSearchFormComponent);
     component = fixture.componentInstance;

@@ -1,17 +1,18 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
-import { FL_PORTAL_DATA, FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
+import { MatDivider } from '@angular/material/divider';
+import { CoTagCommunityIconComponent } from '@monorepo/community-lib';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
 import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
+import { FL_PORTAL_DATA, FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { FlTagModule } from '@monorepo/front-core-lib/fl-tag';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { LiTagKeyModel, LiTagService, LiTagValueModel } from '@monorepo/lab-lib/li-core';
-import { LiTagOriginsComponent } from '../li-tag-origins/li-tag-origins.component';
-import { MatDivider } from '@angular/material/divider';
 import { TranslatePipe } from '@ngx-translate/core';
-import { CoTagCommunityIconComponent } from '@monorepo/community-lib';
-import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
+
+import { LiTagOriginsComponent } from '../li-tag-origins/li-tag-origins.component';
 
 export interface LiTagDetailPortalInput {
   tagKey: string;

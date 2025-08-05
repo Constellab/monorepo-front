@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { CaActivity, CaActivityDatasource } from '../../../../model/entities/ca-activity.class';
-import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
+import { MatSortHeader } from '@angular/material/sort';
 import {
   MatCell,
   MatCellDef,
@@ -13,10 +12,12 @@ import {
   MatRowDef,
   MatTable,
 } from '@angular/material/table';
-import { MatSortHeader } from '@angular/material/sort';
+import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import { FlSearchModule } from '@monorepo/front-core-lib/fl-search';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { CaActivity, CaActivityDatasource } from '../../../../model/entities/ca-activity.class';
 
 @Component({
   selector: 'ca-activity-table',

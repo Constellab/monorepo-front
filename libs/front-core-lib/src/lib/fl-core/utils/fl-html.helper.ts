@@ -1,5 +1,6 @@
-import { flRootInjector } from './fl-root-injector';
 import { ScrollDispatcher } from '@angular/cdk/overlay';
+
+import { flRootInjector } from './fl-root-injector';
 
 export interface FlHtmlFindParentOptions {
   className?: string;

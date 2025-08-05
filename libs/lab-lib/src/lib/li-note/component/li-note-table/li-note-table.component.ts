@@ -1,13 +1,7 @@
-import { ClHelpService } from '@monorepo/core-lib';
-import { Component, EventEmitter, Injector, Input, Output, inject } from '@angular/core';
-import { FlArrayObs, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
-import { FlColorModule } from '@monorepo/front-core-lib/fl-color';
-import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
-import { FlSearchModule } from '@monorepo/front-core-lib/fl-search';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import { LiDetailRoutePipe, LiNote, LiTagService } from '@monorepo/lab-lib/li-core';
-import { LiNoteActionEvent, LiNoteActionMenu } from '../../model/li-note-action-menu.class';
+import { Component, EventEmitter, inject,Injector, Input, Output } from '@angular/core';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatSortHeader } from '@angular/material/sort';
 import {
   MatCell,
   MatCellDef,
@@ -20,13 +14,20 @@ import {
   MatRowDef,
   MatTable,
 } from '@angular/material/table';
-import { MatIcon } from '@angular/material/icon';
-import { MatIconButton } from '@angular/material/button';
-import { MatSortHeader } from '@angular/material/sort';
 import { MatTooltip } from '@angular/material/tooltip';
 import { RouterLink } from '@angular/router';
-import { TranslatePipe } from '@ngx-translate/core';
+import { ClHelpService } from '@monorepo/core-lib';
+import { FlColorModule } from '@monorepo/front-core-lib/fl-color';
+import { FlArrayObs, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
+import { FlSearchModule } from '@monorepo/front-core-lib/fl-search';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+import { LiDetailRoutePipe, LiNote, LiTagService } from '@monorepo/lab-lib/li-core';
 import { LiGetEntityTagsPipe, LiTagListComponent } from '@monorepo/lab-lib/li-tag';
+import { TranslatePipe } from '@ngx-translate/core';
+
+import { LiNoteActionEvent, LiNoteActionMenu } from '../../model/li-note-action-menu.class';
 
 @Component({
   selector: 'li-note-table',

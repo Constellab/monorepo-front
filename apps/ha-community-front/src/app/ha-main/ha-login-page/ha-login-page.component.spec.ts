@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { HaLoginPageComponent } from './ha-login-page.component';
 
 describe('DaAdminLoginComponent', () => {

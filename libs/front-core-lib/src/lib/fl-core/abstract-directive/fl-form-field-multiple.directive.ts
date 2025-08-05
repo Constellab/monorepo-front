@@ -1,6 +1,7 @@
 import { Directive, Input } from '@angular/core';
-import { FlFormFieldDirective } from './fl-form-field.directive';
 import { ClHelpService } from '@monorepo/core-lib';
+
+import { FlFormFieldDirective } from './fl-form-field.directive';
 
 /**
  * Class to be extended by component that supports NgModel

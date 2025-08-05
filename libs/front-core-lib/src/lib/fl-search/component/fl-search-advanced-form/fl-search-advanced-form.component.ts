@@ -1,7 +1,8 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { FlFormInputsManagerConfig } from '@monorepo/front-core-lib/fl-form-inputs-manager';
-import { FlSearchState } from '../../model/fl-search.state';
+import { Component, inject,OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { FlFormInputsManagerConfig } from '@monorepo/front-core-lib/fl-form-inputs-manager';
+
+import { FlSearchState } from '../../model/fl-search.state';
 
 /**
  * Component to place under the {@link FlSearchComponent} and this contains the advanced search form

@@ -1,21 +1,21 @@
 import { Component, inject, Injector, input, output } from '@angular/core';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { CaNote } from '../../../../../ca-core/model/entities/folder/ca-note.class';
-
 import { toObservable } from '@angular/core/rxjs-interop';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlTagModule } from '@monorepo/front-core-lib/fl-tag';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { TranslatePipe } from '@ngx-translate/core';
 import { Observable, switchMap } from 'rxjs';
-import { FlSectionModule } from '../../../../../../../../../libs/front-core-lib/src/lib/fl-section';
+
 import { CaHierarchyObjectIconComponent } from '../../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-icon/ca-hierarchy-object-icon.component';
 import { CaRootFolderUserRoleObj } from '../../../../../ca-core/model/entities/folder/ca-folder-user.class';
 import { CaHierarchyObjectTagDatasource } from '../../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
+import { CaNote } from '../../../../../ca-core/model/entities/folder/ca-note.class';
 import { CaNoteService } from '../../../../../ca-core/service-api/ca-note.service';
 import { CaSyncObjectInfoComponent } from '../../../ca-folder-hierarchy-core/component/ca-sync-object-info/ca-sync-object-info.component';
 import { CaValidatedObjectInfoComponent } from '../../../ca-folder-hierarchy-core/component/ca-validated-object-info/ca-validated-object-info.component';

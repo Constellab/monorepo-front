@@ -1,3 +1,4 @@
+import { isPlatformBrowser } from '@angular/common';
 import {
   AfterViewInit,
   Component,
@@ -11,10 +12,10 @@ import {
   Signal,
   ViewChild,
 } from '@angular/core';
-import { GitHubButtonProps } from 'github-buttons';
-import { HaThemeState } from '../../ha-state/ha-theme.state';
 import { ClSubscriptionHandler, ClTheme } from '@monorepo/core-lib';
-import { isPlatformBrowser } from '@angular/common';
+import { GitHubButtonProps } from 'github-buttons';
+
+import { HaThemeState } from '../../ha-state/ha-theme.state';
 
 @Component({
   selector: 'ha-github-star-button',

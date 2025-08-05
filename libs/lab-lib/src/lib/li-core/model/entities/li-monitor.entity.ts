@@ -1,5 +1,6 @@
 import { ClLuxonDateTimeTransform } from '@monorepo/core-lib';
 import { Expose, Type } from 'class-transformer';
+
 import { LiBaseEntity } from '../global/li-entity.entity';
 
 export class LiMonitorData {

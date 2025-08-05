@@ -1,12 +1,13 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
-import { FlArrayObs } from '../../../../../../../../../libs/front-core-lib/src/lib/fl-core';
-import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/fl-dialog';
+import { FlArrayObs } from '@monorepo/front-core-lib/fl-core';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import {
   FlTranslatableText,
   FlTranslateModule,
-} from '../../../../../../../../../libs/front-core-lib/src/lib/fl-translate';
+} from '@monorepo/front-core-lib/fl-translate';
+
 import { CaNote } from '../../../../../ca-core/model/entities/folder/ca-note.class';
 import { CaNoteTableComponent } from '../ca-note-table/ca-note-table.component';
 

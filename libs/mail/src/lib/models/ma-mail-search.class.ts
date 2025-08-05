@@ -1,4 +1,4 @@
-import { Type } from 'class-transformer';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { FlFormInputsManagerConfig } from '@monorepo/front-core-lib/fl-form-inputs-manager';
 import {
   FlSearchConverter,
@@ -6,8 +6,8 @@ import {
   FlSearchFilterCriteriaConverter,
   FlSearchSortCriteriaConverter,
 } from '@monorepo/front-core-lib/fl-search';
+import { Type } from 'class-transformer';
 
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { MaMailStatus } from './ma-mail.entity';
 
 export class MaMailSearchFields {

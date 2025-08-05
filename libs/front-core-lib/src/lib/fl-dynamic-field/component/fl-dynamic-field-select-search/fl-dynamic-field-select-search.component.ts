@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FlDynamicFieldAbstractDirective } from '../../model/fl-dynamic-field-abstract.directive';
 import { FlBasicDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
+
+import { FlDynamicFieldAbstractDirective } from '../../model/fl-dynamic-field-abstract.directive';
 
 /**
  * Dynamic field to show a search with autocomplete

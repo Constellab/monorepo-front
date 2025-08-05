@@ -1,23 +1,23 @@
-import { Component, inject, input, OnInit } from '@angular/core';
-import { CoUser } from '@monorepo/community-lib';
-
-import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
-import { HaAbstractComment, HaCommentEntity } from '../../model/ha-abstract-comment.class';
-import { TeCompleteConfig, TeRichText, TeTextEditorModule } from '@monorepo/text-editor';
-import { HaRouterService } from '../../../../ha-service/ha-router.service';
-import { HaCommentService } from '../../../../ha-service/ha-comment.service';
-import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
-import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
-import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import { MatAnchor, MatButton } from '@angular/material/button';
-import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
-import { HaCommentComponent } from '../ha-comment/ha-comment.component';
-import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { AsyncPipe } from '@angular/common';
-import { TranslatePipe } from '@ngx-translate/core';
+import { Component, inject, input, OnInit } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatAnchor, MatButton } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
+import { CoUser } from '@monorepo/community-lib';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
+import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
+import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+import { TeCompleteConfig, TeRichText, TeTextEditorModule } from '@monorepo/text-editor';
+import { TranslatePipe } from '@ngx-translate/core';
+
 import { HaEntityType } from '../../../../ha-model/ha-entities/ha-entity-type';
+import { HaCommentService } from '../../../../ha-service/ha-comment.service';
+import { HaRouterService } from '../../../../ha-service/ha-router.service';
+import { HaAbstractComment, HaCommentEntity } from '../../model/ha-abstract-comment.class';
+import { HaCommentComponent } from '../ha-comment/ha-comment.component';
 
 export interface HaCommentsEntity {
   id: string;

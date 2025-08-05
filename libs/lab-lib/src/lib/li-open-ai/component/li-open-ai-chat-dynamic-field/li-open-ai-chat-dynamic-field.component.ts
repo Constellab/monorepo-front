@@ -1,11 +1,12 @@
 import { Component, Input } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { MatError } from '@angular/material/form-field';
 import { FlDynamicFieldAbstractDirective } from '@monorepo/front-core-lib/fl-dynamic-field';
 import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { TranslatePipe } from '@ngx-translate/core';
+
 import { LiOpenAiChat } from '../../model/li-open-ai.class';
 import { LiOpenAiChatComponent } from '../li-open-ai-chat/li-open-ai-chat.component';
-import { MatError } from '@angular/material/form-field';
-import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * Component for dynamic field to have a chat with OpenAI

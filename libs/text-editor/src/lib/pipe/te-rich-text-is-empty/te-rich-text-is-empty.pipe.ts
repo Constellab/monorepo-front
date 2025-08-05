@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+
 import { TeRichText } from '../../model/lib';
 
 @Pipe({

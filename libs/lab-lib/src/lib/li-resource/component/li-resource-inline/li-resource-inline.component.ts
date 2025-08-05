@@ -1,9 +1,9 @@
 import { Component, input } from '@angular/core';
-import { LiResource } from '@monorepo/lab-lib/li-core';
+import { MatIcon } from '@angular/material/icon';
 import { FlColorModule } from '@monorepo/front-core-lib/fl-color';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import { MatIcon } from '@angular/material/icon';
+import { LiResource } from '@monorepo/lab-lib/li-core';
 
 @Component({
   selector: 'li-resource-inline',

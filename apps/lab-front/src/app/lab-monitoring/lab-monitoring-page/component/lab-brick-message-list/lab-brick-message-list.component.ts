@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
+import { MatDivider } from '@angular/material/divider';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { FlStatusModule } from '@monorepo/front-core-lib/fl-status';
 import { LiBrickMessage } from '@monorepo/lab-lib/li-core';
-import { MatDivider } from '@angular/material/divider';
 import { TranslatePipe } from '@ngx-translate/core';
 
 /**

@@ -1,21 +1,22 @@
+import { AsyncPipe } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
-import { combineLatest, map, Observable } from 'rxjs';
-import { CaRouterService } from '../../../../../ca-core/service/ca-router.service';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { RouterLink } from '@angular/router';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
-import {
-  CaHierarchyObjectContext,
-  CaHierarchyObjectDetailState,
-} from '../../state/ca-hierarchy-object-detail.state';
+import { TranslatePipe } from '@ngx-translate/core';
+import { combineLatest, map, Observable } from 'rxjs';
+
 import {
   CaHierarchyObjectSimple,
   CaHierarchyObjectType,
 } from '../../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
-import { MatIconButton } from '@angular/material/button';
-import { MatTooltip } from '@angular/material/tooltip';
-import { MatIcon } from '@angular/material/icon';
-import { RouterLink } from '@angular/router';
-import { AsyncPipe } from '@angular/common';
-import { TranslatePipe } from '@ngx-translate/core';
+import { CaRouterService } from '../../../../../ca-core/service/ca-router.service';
+import {
+  CaHierarchyObjectContext,
+  CaHierarchyObjectDetailState,
+} from '../../state/ca-hierarchy-object-detail.state';
 
 interface CaBreadcrumbLink {
   id: string;

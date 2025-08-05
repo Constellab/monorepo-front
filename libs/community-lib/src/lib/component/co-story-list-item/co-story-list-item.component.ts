@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+
 import { CoListStoryDto, CoStoryTopic } from '../../model/co-story.class';
 
 @Component({

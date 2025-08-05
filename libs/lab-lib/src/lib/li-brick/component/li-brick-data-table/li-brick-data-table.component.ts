@@ -1,11 +1,7 @@
-import { Component, Input, inject } from '@angular/core';
-import {
-  FlConfirmDialogInput,
-  FlConfirmDialogResult,
-  FlDialogService,
-} from '@monorepo/front-core-lib/fl-dialog';
-import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
-import { LiBrickData, LiBrickDataArrayObs, LiBrickDataService } from '@monorepo/lab-lib/li-core';
+import { Component, inject,Input } from '@angular/core';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import {
   MatCell,
   MatCellDef,
@@ -18,9 +14,13 @@ import {
   MatRowDef,
   MatTable,
 } from '@angular/material/table';
-import { MatIcon } from '@angular/material/icon';
-import { MatIconButton } from '@angular/material/button';
-import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
+import {
+  FlConfirmDialogInput,
+  FlConfirmDialogResult,
+  FlDialogService,
+} from '@monorepo/front-core-lib/fl-dialog';
+import { LiBrickData, LiBrickDataArrayObs, LiBrickDataService } from '@monorepo/lab-lib/li-core';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({

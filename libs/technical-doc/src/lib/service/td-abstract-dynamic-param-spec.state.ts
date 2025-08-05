@@ -1,10 +1,11 @@
-import { TdParamSpec, TdParamSpecs } from '../model/td-config-spec.class';
-import { Observable } from 'rxjs';
-import { FlArrayObs, FlEntityArrayObs } from '@monorepo/front-core-lib/fl-core';
-import { TdEditableParamSpec } from '../component/td-editable-param-specs-table/td-editable-param-specs-table.component';
 import { Injectable, OnDestroy } from '@angular/core';
-import { TdConfigI } from '../model/td-config.class';
+import { FlArrayObs, FlEntityArrayObs } from '@monorepo/front-core-lib/fl-core';
+import { Observable } from 'rxjs';
+
 import { TdEditParamSpecDict } from '../component/td-edit-param-spec-dialog/td-edit-param-spec-dialog.component';
+import { TdEditableParamSpec } from '../component/td-editable-param-specs-table/td-editable-param-specs-table.component';
+import { TdConfigI } from '../model/td-config.class';
+import { TdParamSpec, TdParamSpecs } from '../model/td-config-spec.class';
 
 @Injectable()
 export abstract class TdAbstractDynamicParamSpecState implements OnDestroy {

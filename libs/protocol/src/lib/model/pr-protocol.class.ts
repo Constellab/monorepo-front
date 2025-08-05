@@ -1,7 +1,8 @@
 import { FlCoord } from '@monorepo/front-core-lib/fl-core';
+import { TdConfigI, TdSimpleTypeEntity, TdTypeStyle } from '@monorepo/technical-doc';
+
 import { PrOI } from './pr-io.class';
 import { PrProcessStatus } from './pr-process.class';
-import { TdConfigI, TdSimpleTypeEntity, TdTypeStyle } from '@monorepo/technical-doc';
 
 export interface PrProtocolLayout {
   process_layouts: Record<string, FlCoord>;

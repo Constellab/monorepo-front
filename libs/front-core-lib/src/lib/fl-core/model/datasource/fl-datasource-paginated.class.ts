@@ -1,8 +1,9 @@
+import { ClPageI } from '@monorepo/core-lib';
 import { Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { ClPageI } from '@monorepo/core-lib';
-import { FlArrayObs } from './fl-array-obs.class';
+
 import { FlSortDirection } from '../fl-sort.class';
+import { FlArrayObs } from './fl-array-obs.class';
 
 export interface FlDatasourceSortCriteria {
   key: string;

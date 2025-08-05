@@ -1,11 +1,12 @@
 import { Component, Input } from '@angular/core';
-import { CaScenario } from '../../../../../ca-core/model/entities/folder/ca-scenario.class';
-import { TeBasicConfig, TeTextEditorModule } from '@monorepo/text-editor';
-import { CaValidatedObjectInfoComponent } from '../../../ca-folder-hierarchy-core/component/ca-validated-object-info/ca-validated-object-info.component';
-import { CaSyncObjectInfoComponent } from '../../../ca-folder-hierarchy-core/component/ca-sync-object-info/ca-sync-object-info.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CaHierarchyObjectTagDatasource } from '../../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
 import { FlTagModule } from '@monorepo/front-core-lib/fl-tag';
+import { TeBasicConfig, TeTextEditorModule } from '@monorepo/text-editor';
+
+import { CaHierarchyObjectTagDatasource } from '../../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
+import { CaScenario } from '../../../../../ca-core/model/entities/folder/ca-scenario.class';
+import { CaSyncObjectInfoComponent } from '../../../ca-folder-hierarchy-core/component/ca-sync-object-info/ca-sync-object-info.component';
+import { CaValidatedObjectInfoComponent } from '../../../ca-folder-hierarchy-core/component/ca-validated-object-info/ca-validated-object-info.component';
 
 @Component({
   selector: 'ca-scenario-info',

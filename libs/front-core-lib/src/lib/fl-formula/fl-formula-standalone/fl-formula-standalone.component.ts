@@ -1,8 +1,7 @@
 import { Component, effect, inject, input, OnDestroy, ViewEncapsulation } from '@angular/core';
-
-import { Subscription } from 'rxjs';
-import katex from 'katex';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import katex from 'katex';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'fl-formula-standalone',

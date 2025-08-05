@@ -1,4 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
+import { Component, EventEmitter, inject,Input, OnInit, Output } from '@angular/core';
+import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
@@ -7,11 +10,8 @@ import {
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import { LiFolderObject } from '@monorepo/lab-lib/li-core';
-import { MatButton } from '@angular/material/button';
-import { MatIcon } from '@angular/material/icon';
-import { MatTooltip } from '@angular/material/tooltip';
-import { Observable } from 'rxjs';
 import { TranslatePipe } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
 
 /**
  * Component containing the button to sync a lab folder object with space

@@ -1,8 +1,9 @@
 import { Component, inject } from '@angular/core';
-import { FlPortalActionDetail } from '../../model/fl-portal-actions.class';
 import { Observable } from 'rxjs';
-import { FlPortalActionsState } from '../../service/fl-portal-actions.state';
+
+import { FlPortalActionDetail } from '../../model/fl-portal-actions.class';
 import { FlPortalActionsService } from '../../service/fl-portal-actions.service';
+import { FlPortalActionsState } from '../../service/fl-portal-actions.state';
 
 /**
  * Portal that pop at the bottom right of the screen that takes

@@ -1,12 +1,4 @@
 import { Component, inject, input, OnDestroy, output, ViewChild } from '@angular/core';
-import {
-  FlAddTagEvent,
-  FlAddTagInputComponent,
-  FlTag,
-  FlTagDatasource,
-  FlTagModule,
-} from '@monorepo/front-core-lib/fl-tag';
-import { FlFormFieldDirective } from '@monorepo/front-core-lib/fl-core';
 import { NgControl } from '@angular/forms';
 import {
   MatExpansionPanel,
@@ -14,10 +6,18 @@ import {
   MatExpansionPanelHeader,
   MatExpansionPanelTitle,
 } from '@angular/material/expansion';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
-import { TranslatePipe } from '@ngx-translate/core';
 import { MatIcon } from '@angular/material/icon';
+import { FlFormFieldDirective } from '@monorepo/front-core-lib/fl-core';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import {
+  FlAddTagEvent,
+  FlAddTagInputComponent,
+  FlTag,
+  FlTagDatasource,
+  FlTagModule,
+} from '@monorepo/front-core-lib/fl-tag';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'li-table-columns-tag-filter',

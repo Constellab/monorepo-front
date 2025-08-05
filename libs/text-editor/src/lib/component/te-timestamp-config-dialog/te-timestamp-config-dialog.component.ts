@@ -1,8 +1,9 @@
 import { Component, inject } from '@angular/core';
-import { DateTime } from 'luxon';
-import { TeTimestampFormat } from '../../block/te-timestamp-block.class';
 import { FormBuilder } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { DateTime } from 'luxon';
+
+import { TeTimestampFormat } from '../../block/te-timestamp-block.class';
 
 export interface TeTimestampConfigDialogInput {
   timestamp: DateTime;

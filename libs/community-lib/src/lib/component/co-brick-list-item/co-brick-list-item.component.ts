@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+
 import { CoBrick } from '../../model/co-brick.class';
 
 @Component({

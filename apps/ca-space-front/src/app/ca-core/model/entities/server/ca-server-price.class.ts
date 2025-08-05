@@ -1,7 +1,8 @@
-import { CaBaseEntity } from '../ca-base-entity.class';
 import { ClLuxonDateTimeTransform, ClLuxonDateTransform } from '@monorepo/core-lib';
-import { DateTime } from 'luxon';
 import { FlEntityArrayObs } from '@monorepo/front-core-lib/fl-core';
+import { DateTime } from 'luxon';
+
+import { CaBaseEntity } from '../ca-base-entity.class';
 
 export class CaServerPrice extends CaBaseEntity {
   price: number;

@@ -1,10 +1,11 @@
-import { ToolboxConfig } from '@editorjs/editorjs/types/tools/tool-settings';
-import { FlCodeEditorLanguage } from '@monorepo/front-core-lib/fl-code-editor';
-import { TeComponentBlock } from './te-component-block.class';
-import { TeCodeComponent } from '../component/te-code/te-code.component';
 import { Type } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { ToolboxConfig } from '@editorjs/editorjs/types/tools/tool-settings';
+import { FlCodeEditorLanguage } from '@monorepo/front-core-lib/fl-code-editor';
+
+import { TeCodeComponent } from '../component/te-code/te-code.component';
 import { TeHelper } from '../model/te.helper';
+import { TeComponentBlock } from './te-component-block.class';
 
 export interface TeCodeBlockData {
   code: string;

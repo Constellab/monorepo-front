@@ -1,7 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
-import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import { LiSharedEntity, LiSharedEntityDatasource } from '@monorepo/lab-lib/li-core';
 import {
   MatCell,
   MatCellDef,
@@ -14,6 +11,9 @@ import {
   MatRowDef,
   MatTable,
 } from '@angular/material/table';
+import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+import { LiSharedEntity, LiSharedEntityDatasource } from '@monorepo/lab-lib/li-core';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({

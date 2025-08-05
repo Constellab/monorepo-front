@@ -1,5 +1,6 @@
-import { Transform } from 'class-transformer';
 import { ClTransformFnParams } from '@monorepo/core-lib';
+import { Transform } from 'class-transformer';
+
 import { FlStatus, FlStatusDict } from './fl-status.class';
 
 /**

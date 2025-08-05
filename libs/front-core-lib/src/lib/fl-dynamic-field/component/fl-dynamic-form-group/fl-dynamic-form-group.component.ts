@@ -1,11 +1,12 @@
 import { Component, input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+
+import { FlDynamicAbstractFormDirective } from '../../model/fl-dynamic-abstract-form.directive';
 import {
   FlDynamicEditableFormGroupConfig,
   FlDynamicFormAbstractControl,
   FlDynamicFormGroupConfig,
 } from '../../model/fl-dynamic-field-config.class';
-import { FlDynamicAbstractFormDirective } from '../../model/fl-dynamic-abstract-form.directive';
 
 /**
  * Component to create dynamic form group

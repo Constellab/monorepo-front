@@ -1,19 +1,20 @@
+import { AsyncPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { CaLab, CaLabStatus } from '../../../../ca-core/model/entities/lab/ca-lab.class';
+import { MatIcon } from '@angular/material/icon';
 import {
   FlHorizontalNavBarItem,
   FlHorizontalNavBarModule,
 } from '@monorepo/front-core-lib/fl-horizontal-nav-bar';
 import { FlStatus, FlStatusModule } from '@monorepo/front-core-lib/fl-status';
-import { CaLabDetailPageState } from '../../../state/ca-lab-detail-page.state';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { combineLatest, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+
+import { CaLab, CaLabStatus } from '../../../../ca-core/model/entities/lab/ca-lab.class';
 import { CaRouterService } from '../../../../ca-core/service/ca-router.service';
 import { CaAuthenticatedUserService } from '../../../../ca-core/service-api/ca-authenticated-user.service';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { MatIcon } from '@angular/material/icon';
-import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
-import { AsyncPipe } from '@angular/common';
+import { CaLabDetailPageState } from '../../../state/ca-lab-detail-page.state';
 
 /**
  * Header info about the lab in the detail page
@@ -30,7 +31,7 @@ export class CaLabHeaderComponent {
 
   lab$: Observable<CaLab> = this.state.getLab$();
   labStatus$: Observable<FlStatus<CaLabStatus>> = this.state
-    .getStatus$()
+    .getSimpleStatus$()
     .pipe(map((status) => status.labStatus));
 
   navBarItems$: Observable<FlHorizontalNavBarItem[]> = combineLatest([

@@ -1,17 +1,8 @@
 import { Component, inject, Input } from '@angular/core';
-import { CaBucketFull } from '../../../../ca-core/model/entities/ca-object-storage.class';
-import { FlArrayObs, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
-import {
-  FlConfirmDialogInput,
-  FlConfirmDialogResult,
-  FlDialogService,
-} from '@monorepo/front-core-lib/fl-dialog';
-
-import { CaObjectStorageService } from '../../../../ca-core/service-api/ca-object-storage.service';
-import {
-  CaBucketFormDialogComponent,
-  CaBucketFormDialogInput,
-} from '../ca-bucket-form-dialog/ca-bucket-form-dialog.component';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
+import { MatSortHeader } from '@angular/material/sort';
 import {
   MatCell,
   MatCellDef,
@@ -24,17 +15,26 @@ import {
   MatRowDef,
   MatTable,
 } from '@angular/material/table';
-import { MatSortHeader } from '@angular/material/sort';
+import { FlArrayObs, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
+import {
+  FlConfirmDialogInput,
+  FlConfirmDialogResult,
+  FlDialogService,
+} from '@monorepo/front-core-lib/fl-dialog';
 import { FlSearchModule } from '@monorepo/front-core-lib/fl-search';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { MatIcon } from '@angular/material/icon';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+import { TranslatePipe } from '@ngx-translate/core';
+
 import { CaCloudProviderRegionInlineComponent } from '../../../../ca-core/entity-module/ca-cloud-provider-core/component/ca-cloud-provider-region-inline/ca-cloud-provider-region-inline.component';
 import { CaLabInlineComponent } from '../../../../ca-core/entity-module/ca-lab-core/component/ca-lab-inline/ca-lab-inline.component';
-import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import { MatIconButton } from '@angular/material/button';
-import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
-import { TranslatePipe } from '@ngx-translate/core';
+import { CaBucketFull } from '../../../../ca-core/model/entities/ca-object-storage.class';
+import { CaObjectStorageService } from '../../../../ca-core/service-api/ca-object-storage.service';
+import {
+  CaBucketFormDialogComponent,
+  CaBucketFormDialogInput,
+} from '../ca-bucket-form-dialog/ca-bucket-form-dialog.component';
 
 @Component({
   selector: 'ca-bucket-table',

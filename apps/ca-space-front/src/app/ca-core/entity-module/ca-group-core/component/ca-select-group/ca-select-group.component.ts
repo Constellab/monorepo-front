@@ -1,20 +1,21 @@
 import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
+import { NgControl } from '@angular/forms';
+import { MatIcon } from '@angular/material/icon';
+import { ClHelpService } from '@monorepo/core-lib';
 import {
   FlEntityPaginatedDatasource,
   FlFormFieldDirective,
   FlInputSearchFilter,
 } from '@monorepo/front-core-lib/fl-core';
-import { CaGroup, CaGroupDatasource } from '../../../../model/entities/ca-group.entity';
-import { Observable } from 'rxjs';
-import { NgControl } from '@angular/forms';
-import { CaGroupService } from '../../../../service-api/ca-group.service';
-import { ClHelpService } from '@monorepo/core-lib';
 import { FlInputSearchModule } from '@monorepo/front-core-lib/fl-input-search';
-import { MatIcon } from '@angular/material/icon';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import { CaGroupInlineComponent } from '../ca-group-inline/ca-group-inline.component';
 import { TranslatePipe } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+
+import { CaGroup, CaGroupDatasource } from '../../../../model/entities/ca-group.entity';
+import { CaGroupService } from '../../../../service-api/ca-group.service';
+import { CaGroupInlineComponent } from '../ca-group-inline/ca-group-inline.component';
 
 @Component({
   selector: 'ca-select-group',

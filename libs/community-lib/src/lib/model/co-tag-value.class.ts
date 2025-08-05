@@ -1,6 +1,7 @@
 import { FlTagValue } from '@monorepo/front-core-lib/fl-tag';
-import { CoTagKey } from './co-tag-key.class';
 import { TdParamSpecsValues } from '@monorepo/technical-doc';
+
+import { CoTagKey } from './co-tag-key.class';
 
 export interface CoTagValue {
   id: string;

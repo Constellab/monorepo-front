@@ -1,14 +1,15 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
-import { FlSearchModule, FlSearchState } from '@monorepo/front-core-lib/fl-search';
-import { ClUserStatus } from '@monorepo/core-lib';
-import { CaUserLicense } from '../../../../model/entities/ca-user.class';
+import { MatOption } from '@angular/material/core';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatSelect } from '@angular/material/select';
+import { ClUserStatus } from '@monorepo/core-lib';
 import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
-import { MatOption } from '@angular/material/core';
+import { FlSearchModule, FlSearchState } from '@monorepo/front-core-lib/fl-search';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { CaUserLicense } from '../../../../model/entities/ca-user.class';
 
 @Component({
   selector: 'ca-user-search-form',

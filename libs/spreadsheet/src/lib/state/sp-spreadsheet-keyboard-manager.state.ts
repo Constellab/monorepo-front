@@ -1,14 +1,13 @@
-import { Injectable, NgZone, OnDestroy, Renderer2, inject } from '@angular/core';
-import { SpSpreadsheetSelectionState } from './sp-spreadsheet-selection.state';
-import { SpSpreadsheetClipboardState } from './sp-spreadsheet-clipboard.state';
-import { SpSpreadsheetActions } from './sp-spreadsheet-actions.state';
-import { SpSpreadsheetActionStore } from './sp-spreadsheet-action.store';
-import { SpSpreadsheetScrollState } from './sp-spreadsheet-scroll.state';
+import { inject,Injectable, NgZone, OnDestroy, Renderer2 } from '@angular/core';
+import { FlDeviceHelper, FlKeyboardHelper, FlKeyboardKey } from '@monorepo/front-core-lib/fl-core';
+
 import { SpSheetSingleSelection } from '../model/selection/sp-sheet-single-selection.class';
 import { SpSpreadsheetState } from './sp-spreadsheet.state';
-import { FlDeviceHelper } from '@monorepo/front-core-lib/fl-core';
-import { FlKeyboardHelper } from '@monorepo/front-core-lib/fl-core';
-import { FlKeyboardKey } from '@monorepo/front-core-lib/fl-core';
+import { SpSpreadsheetActionStore } from './sp-spreadsheet-action.store';
+import { SpSpreadsheetActions } from './sp-spreadsheet-actions.state';
+import { SpSpreadsheetClipboardState } from './sp-spreadsheet-clipboard.state';
+import { SpSpreadsheetScrollState } from './sp-spreadsheet-scroll.state';
+import { SpSpreadsheetSelectionState } from './sp-spreadsheet-selection.state';
 
 /**
  * Unique state shared across the spreadsheet to handle spreadsheet keyboard events
@@ -112,7 +111,7 @@ export class SpSpreadsheetKeyboardManagerState implements OnDestroy {
 
     if (selection != null) {
       // construct an array of null values the same size as the selection
-      const cellsValues: void[][] = selection.getCells().map((rows) => rows.map(() => null));
+      const cellsValues: void[][] = selection.getCells().map((rows) => rows.map((): void => null));
       this.actionState.updateCellsValues(cellsValues, selection);
     }
   }

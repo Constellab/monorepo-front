@@ -1,21 +1,22 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FlSearchModule, FlSearchState } from '@monorepo/front-core-lib/fl-search';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
-import { MatFormField, MatLabel } from '@angular/material/form-field';
-import { TranslatePipe } from '@ngx-translate/core';
-import { MatInput } from '@angular/material/input';
+import { MatCheckbox } from '@angular/material/checkbox';
 import {
   MatExpansionPanel,
   MatExpansionPanelHeader,
   MatExpansionPanelTitle
 } from '@angular/material/expansion';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { MatCheckbox } from '@angular/material/checkbox';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatIcon } from '@angular/material/icon';
+import { MatInput } from '@angular/material/input';
 import { MatSelect } from '@angular/material/select';
+import { FlSearchModule, FlSearchState } from '@monorepo/front-core-lib/fl-search';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { TranslatePipe } from '@ngx-translate/core';
+
 import {
   LiTagValueFormatOptionsComponent
 } from '../li-tag-value-format-options/li-tag-value-format-options.component';
-import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'li-tag-search-form',

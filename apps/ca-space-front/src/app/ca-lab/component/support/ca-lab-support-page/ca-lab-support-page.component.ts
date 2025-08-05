@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
+
 import { CaIsSpaceAdminDirective } from '../../../../ca-core/module/ca-core-directive/ca-is-space-admlin/ca-is-space-admin.directive';
-import { CaLabSupportComponent } from '../ca-lab-support/ca-lab-support.component';
 import { CaLabServerComponent } from '../ca-lab-server/ca-lab-server.component';
+import { CaLabSupportComponent } from '../ca-lab-support/ca-lab-support.component';
 
 @Component({
   selector: 'ca-lab-support-page',

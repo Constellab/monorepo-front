@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostBinding, input, Input, Output } from '@angular/core';
+import { Component, EventEmitter, HostBinding, Input, input, Output } from '@angular/core';
 import { TdTypeStyle } from '@monorepo/technical-doc';
 
 @Component({

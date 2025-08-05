@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { MatIcon } from '@angular/material/icon';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { LiFolderObject } from '@monorepo/lab-lib/li-core';
-import { MatIcon } from '@angular/material/icon';
 import { TranslatePipe } from '@ngx-translate/core';
 
 /**

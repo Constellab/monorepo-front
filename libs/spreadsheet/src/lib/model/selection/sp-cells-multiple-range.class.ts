@@ -1,6 +1,6 @@
-import { SpCellsRange } from './sp-cells-range.class';
 import { SpSpreadsheetHelper } from '../../utils/sp-spreadsheet.helper';
 import { SpCellCoordRange } from '../sp-cell-coord.class';
+import { SpCellsRange } from './sp-cells-range.class';
 
 export class SpCellsMultipleRange {
   ranges: SpCellsRange[];

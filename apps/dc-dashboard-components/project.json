@@ -116,7 +116,8 @@
           "buildTarget": "dc-dashboard-components:build-streamlit-components:development-iframe"
         }
       },
-      "defaultConfiguration": "development"
+      "defaultConfiguration": "development",
+      "continuous": true
     },
     "build-iframe-message": {
       "executor": "@angular-devkit/build-angular:application",
@@ -167,7 +168,8 @@
           "buildTarget": "dc-dashboard-components:build-iframe-message:development"
         }
       },
-      "defaultConfiguration": "development"
+      "defaultConfiguration": "development",
+      "continuous": true
     }
   }
 }

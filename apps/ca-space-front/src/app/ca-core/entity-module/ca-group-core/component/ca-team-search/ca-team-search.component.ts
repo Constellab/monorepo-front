@@ -1,30 +1,30 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import {
   FlSavedSearch,
   FlSearchConfig,
   FlSearchModule,
   FlSearchState,
 } from '@monorepo/front-core-lib/fl-search';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
+import { TranslatePipe } from '@ngx-translate/core';
 
+import { CaGroup, CaGroupDatasource } from '../../../../model/entities/ca-group.entity';
+import { CaGroupService } from '../../../../service-api/ca-group.service';
+import { CaTeamSearch, CaTeamSearchFields } from '../../model/ca-team.search.class';
 import {
   CaTeamFormDialogComponent,
   CaTeamFormDialogInput,
 } from '../ca-team-form-dialog/ca-team-form-dialog.component';
-import { CaGroup, CaGroupDatasource } from '../../../../model/entities/ca-group.entity';
-import { CaGroupService } from '../../../../service-api/ca-group.service';
-import { CaTeamSearch, CaTeamSearchFields } from '../../model/ca-team.search.class';
-import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { MatIcon } from '@angular/material/icon';
-import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
-import { MatIconButton } from '@angular/material/button';
-import { MatTooltip } from '@angular/material/tooltip';
 import { CaTeamSearchFormComponent } from '../ca-team-search-form/ca-team-search-form.component';
 import { CaTeamTableComponent } from '../ca-team-table/ca-team-table.component';
-import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'ca-team-search',

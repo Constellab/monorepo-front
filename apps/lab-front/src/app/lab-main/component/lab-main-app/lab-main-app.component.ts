@@ -1,9 +1,15 @@
+import { NgClass } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
+import { MatAnchor, MatButton } from '@angular/material/button';
+import { MatDivider } from '@angular/material/divider';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { Title } from '@angular/platform-browser';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { ClBrick } from '@monorepo/core-lib';
 import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
 import { FlExpansionMenuModule } from '@monorepo/front-core-lib/fl-expansion-menu';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
-import { getMainMenuLinks, labBiotaMenuLink, LabMainMenuLink } from '../../lab-main-menu-link.class';
-import { LabMainMenuSettingsComponent } from '../lab-main-menu-settings/lab-main-menu-settings.component';
 import {
   LiAuthenticatedUserService,
   LiBrickEntity,
@@ -12,17 +18,12 @@ import {
   LiSystemInfo,
   LiSystemService,
 } from '@monorepo/lab-lib/li-core';
-import { MatAnchor, MatButton } from '@angular/material/button';
-import { MatDivider } from '@angular/material/divider';
-import { MatIcon } from '@angular/material/icon';
-import { MatTooltip } from '@angular/material/tooltip';
-import { NgClass } from '@angular/common';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { Title } from '@angular/platform-browser';
 import { TranslatePipe } from '@ngx-translate/core';
-import { LabEnvironmentHelper } from '../../../lab-core/lab-environment.helper';
+
 import { LabEnvStore } from '../../../lab-core/lab-env.store';
-import { ClBrick } from '@monorepo/core-lib';
+import { LabEnvironmentHelper } from '../../../lab-core/lab-environment.helper';
+import { getMainMenuLinks, labBiotaMenuLink, LabMainMenuLink } from '../../lab-main-menu-link.class';
+import { LabMainMenuSettingsComponent } from '../lab-main-menu-settings/lab-main-menu-settings.component';
 
 @Component({
   selector: 'lab-main-app',

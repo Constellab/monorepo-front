@@ -1,18 +1,19 @@
+import { AsyncPipe } from '@angular/common';
 import { Component, inject, Input, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { CaFolderService } from '../../../../../ca-core/service-api/ca-folder.service';
-import { CaFolderDescriptionTextEditorConfig } from './ca-folder-description-text-editor.config';
-import { TeRichText, TeTextEditorModule } from '@monorepo/text-editor';
-import { CaGetFolderDescriptionDTO } from '../../../../../ca-core/model/entities/folder/ca-folder.class';
-import { CaHierarchyObjectDetailState } from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
-import { CaHierarchyObjectSimple } from '../../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
-import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
-import { CaHierarchyObjectIconComponent } from '../../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-icon/ca-hierarchy-object-icon.component';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
-import { AsyncPipe } from '@angular/common';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+import { TeRichText, TeTextEditorModule } from '@monorepo/text-editor';
 import { TranslatePipe } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+
+import { CaHierarchyObjectIconComponent } from '../../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-icon/ca-hierarchy-object-icon.component';
+import { CaGetFolderDescriptionDTO } from '../../../../../ca-core/model/entities/folder/ca-folder.class';
+import { CaHierarchyObjectSimple } from '../../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
+import { CaFolderService } from '../../../../../ca-core/service-api/ca-folder.service';
+import { CaHierarchyObjectDetailState } from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
+import { CaFolderDescriptionTextEditorConfig } from './ca-folder-description-text-editor.config';
 
 @Component({
   selector: 'ca-folder-description',

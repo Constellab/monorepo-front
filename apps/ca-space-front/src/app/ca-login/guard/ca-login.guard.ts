@@ -1,8 +1,9 @@
 import { inject, Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Router, UrlTree } from '@angular/router';
-import { CaAuthService } from '../service/ca-auth.service';
 import { Observable } from 'rxjs';
+
 import { CaRouterService } from '../../ca-core/service/ca-router.service';
+import { CaAuthService } from '../service/ca-auth.service';
 
 /**
  * Login page guard to redirect to app pages if a token exists

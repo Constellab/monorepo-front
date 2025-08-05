@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { LiResourceViewDetailComponent } from './li-resource-view-detail.component';
 
 describe('LabViewConfigDetailComponent', () => {

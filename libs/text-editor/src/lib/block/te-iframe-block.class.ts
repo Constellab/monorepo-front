@@ -1,9 +1,10 @@
-import { TeComponentBlock } from './te-component-block.class';
-import { ToolboxConfig } from '@editorjs/editorjs/types/tools/tool-settings';
 import { Type } from '@angular/core';
-import { TeHelper } from '../model/te.helper';
+import { ToolboxConfig } from '@editorjs/editorjs/types/tools/tool-settings';
 import { ClStringHelper } from '@monorepo/core-lib';
+
 import { TeIframeComponent } from '../component/te-iframe/te-iframe.component';
+import { TeHelper } from '../model/te.helper';
+import { TeComponentBlock } from './te-component-block.class';
 
 export interface TeIframeBlockData {
   url: string;

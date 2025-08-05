@@ -1,8 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FlSearchModule } from '@monorepo/front-core-lib/fl-search';
-import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
-import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import { LiDetailRoutePipe, LiNoteTemplate, LiNoteTemplateDatasource } from '@monorepo/lab-lib/li-core';
+import { MatSort, MatSortHeader } from '@angular/material/sort';
 import {
   MatCell,
   MatCellDef,
@@ -15,8 +12,11 @@ import {
   MatRowDef,
   MatTable,
 } from '@angular/material/table';
-import { MatSort, MatSortHeader } from '@angular/material/sort';
 import { RouterLink } from '@angular/router';
+import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
+import { FlSearchModule } from '@monorepo/front-core-lib/fl-search';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+import { LiDetailRoutePipe, LiNoteTemplate, LiNoteTemplateDatasource } from '@monorepo/lab-lib/li-core';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({

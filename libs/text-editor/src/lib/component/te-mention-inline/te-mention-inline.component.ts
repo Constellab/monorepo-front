@@ -1,4 +1,5 @@
 import { Component, HostBinding } from '@angular/core';
+
 import { TeElementInlineDirective } from '../../model/te-element.directive';
 import { FlMentionUser } from '../../plugin/te-mention.class';
 

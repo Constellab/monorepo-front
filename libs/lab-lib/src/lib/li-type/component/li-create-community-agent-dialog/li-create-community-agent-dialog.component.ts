@@ -1,11 +1,11 @@
-import { CoAgentType, CoCommunityLibModule, CoCreateAgentFormData, CoSpace } from '@monorepo/community-lib';
-import { Component, OnInit, inject } from '@angular/core';
-import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
+import { Component, inject,OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { LiCreateCommunityAgentVersionResDto, LiProtocolService } from '@monorepo/lab-lib/li-core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Observable } from 'rxjs';
+import { CoAgentType, CoCommunityLibModule, CoCreateAgentFormData, CoSpace } from '@monorepo/community-lib';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
+import { LiCreateCommunityAgentVersionResDto, LiProtocolService } from '@monorepo/lab-lib/li-core';
 import { TranslatePipe } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
 
 export enum LiCreateCommunityAgentDialogMode {
   CREATE = 'CREATE',

@@ -1,33 +1,34 @@
-import { Component, Input, Signal, ViewContainerRef, inject } from '@angular/core';
-import { FlColorModule } from '@monorepo/front-core-lib/fl-color';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
-import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
-import { FlOverlayRef, FlPortalConfig, FlPortalService } from '@monorepo/front-core-lib/fl-portal';
-import { LiDetailRoutePipe, LiResource, LiResourceService, LiRouterService } from '@monorepo/lab-lib/li-core';
-import { LiFlagButtonComponent } from '@monorepo/lab-lib/li-entity';
-import {
-  LiImportResourceDialogComponent,
-  LiImportResourceDialogInput,
-} from '../li-import-resource-dialog/li-import-resource-dialog.component';
-import { LiResourceActionsMenuComponent } from '../li-resource-actions-menu/li-resource-actions-menu.component';
-import { LiResourceAvailableViewsPortalComponent } from '../li-resource-available-views-portal/li-resource-available-views-portal.component';
-import { LiResourceDetailState } from '../../state/li-resource-detail.state';
-import {
-  LiResourceInfoDialogComponent,
-  LiResourceInfoDialogInput,
-} from '../li-resource-info-dialog/li-resource-info-dialog.component';
+import { Component, inject,Input, Signal, ViewContainerRef } from '@angular/core';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatDialogClose } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenuItem } from '@angular/material/menu';
 import { MatTooltip } from '@angular/material/tooltip';
 import { RouterLink } from '@angular/router';
-import { TranslatePipe } from '@ngx-translate/core';
+import { FlColorModule } from '@monorepo/front-core-lib/fl-color';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
+import { FlOverlayRef, FlPortalConfig, FlPortalService } from '@monorepo/front-core-lib/fl-portal';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { LiDetailRoutePipe, LiResource, LiResourceService, LiRouterService } from '@monorepo/lab-lib/li-core';
+import { LiFlagButtonComponent } from '@monorepo/lab-lib/li-entity';
 import {
   LiTransformResourcePortalComponent,
   LiTransformResourcePortalInput,
 } from '@monorepo/lab-lib/li-transformer';
+import { TranslatePipe } from '@ngx-translate/core';
+
+import { LiResourceDetailState } from '../../state/li-resource-detail.state';
+import {
+  LiImportResourceDialogComponent,
+  LiImportResourceDialogInput,
+} from '../li-import-resource-dialog/li-import-resource-dialog.component';
+import { LiResourceActionsMenuComponent } from '../li-resource-actions-menu/li-resource-actions-menu.component';
+import { LiResourceAvailableViewsPortalComponent } from '../li-resource-available-views-portal/li-resource-available-views-portal.component';
+import {
+  LiResourceInfoDialogComponent,
+  LiResourceInfoDialogInput,
+} from '../li-resource-info-dialog/li-resource-info-dialog.component';
 
 @Component({
   selector: 'li-resource-detail-header',

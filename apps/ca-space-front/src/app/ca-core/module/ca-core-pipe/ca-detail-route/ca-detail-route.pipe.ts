@@ -1,14 +1,15 @@
 import { Pipe, PipeTransform } from '@angular/core';
+
 import { CaEntity } from '../../../model/entities/ca-entity.entity';
+import { CaGroup, CaGroupType } from '../../../model/entities/ca-group.entity';
+import { CaUser } from '../../../model/entities/ca-user.class';
+import { CaDocument } from '../../../model/entities/folder/ca-document.class';
 import { CaFolder } from '../../../model/entities/folder/ca-folder.class';
+import { CaHierarchyObject } from '../../../model/entities/folder/ca-hierarchy-object.class';
+import { CaNote } from '../../../model/entities/folder/ca-note.class';
+import { CaScenario } from '../../../model/entities/folder/ca-scenario.class';
 import { CaLab } from '../../../model/entities/lab/ca-lab.class';
 import { CaRouterService } from '../../../service/ca-router.service';
-import { CaGroup, CaGroupType } from '../../../model/entities/ca-group.entity';
-import { CaScenario } from '../../../model/entities/folder/ca-scenario.class';
-import { CaNote } from '../../../model/entities/folder/ca-note.class';
-import { CaDocument } from '../../../model/entities/folder/ca-document.class';
-import { CaUser } from '../../../model/entities/ca-user.class';
-import { CaHierarchyObject } from '../../../model/entities/folder/ca-hierarchy-object.class';
 
 type CaObjectType = 'folder' | 'scenario' | 'note' | 'lab' | 'group' | 'document' | 'user';
 

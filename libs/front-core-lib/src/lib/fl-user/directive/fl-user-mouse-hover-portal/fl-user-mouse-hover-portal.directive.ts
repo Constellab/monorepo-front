@@ -1,10 +1,11 @@
 import { Directive, Input } from '@angular/core';
-import { FlUserInfoPortalComponent } from '../../component/fl-user-info-portal/fl-user-info-portal.component';
-import { FlUser } from '../../model/fl-user.class';
 import {
   FlMouseHoverPortalAbstractDirective,
   FlMouseHoverPortalConfig,
 } from '@monorepo/front-core-lib/fl-portal';
+
+import { FlUserInfoPortalComponent } from '../../component/fl-user-info-portal/fl-user-info-portal.component';
+import { FlUser } from '../../model/fl-user.class';
 
 @Directive({
   selector: '[flUserMouseHoverPortal]',

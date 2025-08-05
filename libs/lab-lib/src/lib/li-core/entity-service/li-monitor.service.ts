@@ -1,9 +1,10 @@
+import { inject,Injectable } from '@angular/core';
 import { ClDateHelper } from '@monorepo/core-lib';
-import { DateTime } from 'luxon';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
-import { Injectable, inject } from '@angular/core';
-import { LiCurrentMonitorDTO, LiMonitorGraphicsBetweenDates } from '../model/entities/li-monitor.entity';
+import { DateTime } from 'luxon';
 import { Observable } from 'rxjs';
+
+import { LiCurrentMonitorDTO, LiMonitorGraphicsBetweenDates } from '../model/entities/li-monitor.entity';
 
 @Injectable({
   providedIn: 'root',

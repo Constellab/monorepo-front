@@ -1,7 +1,9 @@
 import { inject, Injectable } from '@angular/core';
+import { ClPageI } from '@monorepo/core-lib';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 import { Observable } from 'rxjs';
+
 import {
   CaCloudProvider,
   CaCloudProviderDatasource,
@@ -10,7 +12,6 @@ import {
   CaCloudProviderRegionDatasource,
   CaCloudProviderRegionType,
 } from '../model/entities/ca-cloud-provider.class';
-import { ClPageI } from '@monorepo/core-lib';
 
 @Injectable({ providedIn: 'root' })
 export class CaCloudProviderService {

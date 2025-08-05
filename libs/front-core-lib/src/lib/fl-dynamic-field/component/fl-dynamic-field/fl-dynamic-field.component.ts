@@ -10,10 +10,11 @@ import {
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
-import { FlDynamicFieldConfig } from '../../model/fl-dynamic-field-config.class';
 import { UntypedFormControl } from '@angular/forms';
+
 import { FlDynamicAbstractFormDirective } from '../../model/fl-dynamic-abstract-form.directive';
 import { FlDynamicFieldAbstractDirective } from '../../model/fl-dynamic-field-abstract.directive';
+import { FlDynamicFieldConfig } from '../../model/fl-dynamic-field-config.class';
 import { FlDynamicFieldConfigService } from '../../model/fl-dynamic-field-config.service';
 
 /**

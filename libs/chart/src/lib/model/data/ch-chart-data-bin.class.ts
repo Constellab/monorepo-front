@@ -1,7 +1,7 @@
 // data holder for the histogram
-import { ChChart2dDatum } from './ch-chart-data.class';
 import { ChChartDomain } from '../ch-chart-domain.class';
 import { ChChartLabelFormatter } from '../ch-chart-label-formatter.class';
+import { ChChart2dDatum } from './ch-chart-data.class';
 
 export enum ChChartHistogramMode {
   FREQUENCY = 'FREQUENCY',

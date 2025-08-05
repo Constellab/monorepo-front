@@ -1,5 +1,14 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject,OnInit } from '@angular/core';
+import { MatButton } from '@angular/material/button';
+import {
+  MAT_DIALOG_DATA,
+  MatDialogActions,
+  MatDialogClose,
+  MatDialogContent,
+  MatDialogRef,
+} from '@angular/material/dialog';
+import { MatIcon } from '@angular/material/icon';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
@@ -9,18 +18,10 @@ import {
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 import { LiNavigableEntityGrouped, LiNote, LiScenario } from '@monorepo/lab-lib/li-core';
-import { LiNavigableEntityGroupsComponent } from '../li-navigable-entity-groups/li-navigable-entity-groups.component';
-import { LiNavigableImpactConfig } from '../../li-navigable-entity.service';
-import {
-  MAT_DIALOG_DATA,
-  MatDialogActions,
-  MatDialogClose,
-  MatDialogContent,
-  MatDialogRef,
-} from '@angular/material/dialog';
-import { MatButton } from '@angular/material/button';
-import { MatIcon } from '@angular/material/icon';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { LiNavigableImpactConfig } from '../../li-navigable-entity.service';
+import { LiNavigableEntityGroupsComponent } from '../li-navigable-entity-groups/li-navigable-entity-groups.component';
 
 export interface LiNavigableImpactDialogInput {
   impactedEntities: LiNavigableEntityGrouped[];

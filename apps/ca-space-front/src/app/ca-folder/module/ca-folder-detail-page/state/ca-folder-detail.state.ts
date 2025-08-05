@@ -1,24 +1,24 @@
 import { inject, Injectable, OnDestroy } from '@angular/core';
-import { BehaviorSubject, distinctUntilChanged, filter, Observable, switchMap } from 'rxjs';
-import { CaFolder } from '../../../../ca-core/model/entities/folder/ca-folder.class';
-import { CaFolderService } from '../../../../ca-core/service-api/ca-folder.service';
-import { CaUser } from '../../../../ca-core/model/entities/ca-user.class';
-import { map } from 'rxjs/operators';
-import { FlArrayObs, FlEntityArrayObs } from '@monorepo/front-core-lib/fl-core';
-
 import { ClSubscriptionHandler } from '@monorepo/core-lib';
-import { CaHierarchyObjectDetailState } from '../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
+import { FlArrayObs, FlEntityArrayObs } from '@monorepo/front-core-lib/fl-core';
+import { BehaviorSubject, distinctUntilChanged, filter, Observable, switchMap } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import { CaFolderActionService } from '../../../../ca-core/entity-module/ca-folder-core/ca-folder-action.service';
+import { CaHierarchyObjectSearchFields } from '../../../../ca-core/entity-module/ca-hierarchy-object-core/ca-hierarchy-object-search.class';
+import { CaUser } from '../../../../ca-core/model/entities/ca-user.class';
+import { CaFolder } from '../../../../ca-core/model/entities/folder/ca-folder.class';
 import {
   CaHierarchyObject,
   CaHierarchyObjectDatasource,
 } from '../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
-import { CaHierarchyObjectSearchFields } from '../../../../ca-core/entity-module/ca-hierarchy-object-core/ca-hierarchy-object-search.class';
-import { CaFolderActionService } from '../../../../ca-core/entity-module/ca-folder-core/ca-folder-action.service';
-import { CaHierarchyObjectSearchState } from '../../ca-folder-hierarchy-core/state/ca-hierarchy-object-search.state';
+import { CaFolderService } from '../../../../ca-core/service-api/ca-folder.service';
+import { CaHierarchyObjectDetailState } from '../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
 import {
   CaHierarchyObjectEvent,
   CaHierarchyObjectEventState,
 } from '../../ca-folder-hierarchy-core/state/ca-hierarchy-object-event.state';
+import { CaHierarchyObjectSearchState } from '../../ca-folder-hierarchy-core/state/ca-hierarchy-object-search.state';
 
 @Injectable()
 export class CaFolderDetailState implements OnDestroy {

@@ -3,10 +3,10 @@ import {
   ChangeDetectorRef,
   Component,
   EventEmitter,
+  inject,
   Input,
   OnInit,
   Output,
-  inject,
 } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { FlFormFieldDirective } from '@monorepo/front-core-lib/fl-core';

@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { CaLabFreeCardInfoComponent } from './ca-lab-free-card-info.component';
 
 describe('CaUserFreeInfoComponent', () => {

@@ -1,20 +1,20 @@
 import { Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Subject, Subscription } from 'rxjs';
-import { HaIconService } from '../../../ha-core/ha-service/ha-icon.service';
+import { CoIcon } from '@monorepo/community-lib';
+import { CoCommunityLibModule } from '@monorepo/community-lib';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
 } from '@monorepo/front-core-lib/fl-dialog';
 import { FlPortalConfig, FlPortalService } from '@monorepo/front-core-lib/fl-portal';
+import { Observable, Subject, Subscription } from 'rxjs';
 
-import { HaIconInfoPortalComponent } from '../ha-icon-info-portal/ha-icon-info-portal.component';
+import { HaIconService } from '../../../ha-core/ha-service/ha-icon.service';
 import {
   HaCreateIconDtoInput,
   HaIconCreateDialogComponent,
 } from '../ha-icon-create-dialog/ha-icon-create-dialog.component';
-import { CoIcon } from '@monorepo/community-lib';
-import { CoCommunityLibModule } from '@monorepo/community-lib';
+import { HaIconInfoPortalComponent } from '../ha-icon-info-portal/ha-icon-info-portal.component';
 
 @Component({
   selector: 'ha-icon-list',

@@ -1,18 +1,19 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
-import { CaFolderService } from '../../../../../ca-core/service-api/ca-folder.service';
-import { firstValueFrom, Observable, of } from 'rxjs';
+import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { TranslatePipe } from '@ngx-translate/core';
+import { firstValueFrom, Observable, of } from 'rxjs';
+
+import { CaBucketLocationInlineComponent } from '../../../../../ca-core/entity-module/ca-object-storage-core/component/ca-bucket-location-inline/ca-bucket-location-inline.component';
+import { CaFolderStorageDTO } from '../../../../../ca-core/model/entities/folder/ca-folder.class';
+import { CaFolderService } from '../../../../../ca-core/service-api/ca-folder.service';
 import {
   CaFolderConfigureStorageComponent,
   CaFolderConfigureStorageInput,
 } from '../ca-folder-configure-storage/ca-folder-configure-storage.component';
-import { CaFolderStorageDTO } from '../../../../../ca-core/model/entities/folder/ca-folder.class';
-import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { MatIcon } from '@angular/material/icon';
-import { CaBucketLocationInlineComponent } from '../../../../../ca-core/entity-module/ca-object-storage-core/component/ca-bucket-location-inline/ca-bucket-location-inline.component';
-import { MatButton } from '@angular/material/button';
-import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * Component to show the storage settings of the folder (bucket) with possibility to configure it.

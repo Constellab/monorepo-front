@@ -1,6 +1,7 @@
+import { NgClass,NgOptimizedImage } from '@angular/common';
 import { Component, Input } from '@angular/core';
+
 import { CaCloudProvider } from '../../../../model/entities/ca-cloud-provider.class';
-import { NgOptimizedImage, NgClass } from '@angular/common';
 
 @Component({
   selector: 'ca-cloud-provider-inline',

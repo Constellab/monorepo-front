@@ -1,8 +1,10 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject,OnInit } from '@angular/core';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButton } from '@angular/material/button';
+import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   LiFolder,
   LiResource,
@@ -11,8 +13,6 @@ import {
   LiScenarioService,
 } from '@monorepo/lab-lib/li-core';
 import { LiFolderSelectComponent } from '@monorepo/lab-lib/li-folder';
-import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
-import { MatButton } from '@angular/material/button';
 import { TranslatePipe } from '@ngx-translate/core';
 
 export interface LiResourceUpdateFolderDialogInput {

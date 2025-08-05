@@ -1,39 +1,40 @@
 import { Component, inject, Injector, OnInit } from '@angular/core';
-import {
-  CaHierarchyObjectTableComponent,
-  CaHierarchyObjectTableEvent,
-} from '../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-table/ca-hierarchy-object-table.component';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { ClHelpService } from '@monorepo/core-lib';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
-import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FlEntityPaginatedDatasource, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import {
   FlSavedSearch,
   FlSearchConfig,
   FlSearchModule,
   FlSearchState,
 } from '@monorepo/front-core-lib/fl-search';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { MatIcon } from '@angular/material/icon';
-import { TranslatePipe } from '@ngx-translate/core';
-import {
-  CaHierarchyObject,
-  CaHierarchyObjectDatasource,
-} from '../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
 import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
-import { FlEntityPaginatedDatasource, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
+import { TranslatePipe } from '@ngx-translate/core';
+
+import { CaHierarchyObjectRouterService } from '../../../../ca-core/entity-module/ca-hierarchy-object-core/ca-hierarchy-object-router.service';
 import {
   CaHierarchyObjectAdminSearchFields,
   CaHierarchyObjectSearch,
 } from '../../../../ca-core/entity-module/ca-hierarchy-object-core/ca-hierarchy-object-search.class';
 import { CaHierarchyObjectAdminSearchFormComponent } from '../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-admin-search-form/ca-hierarchy-object-admin-search-form.component';
+import {
+  CaHierarchyObjectTableComponent,
+  CaHierarchyObjectTableEvent,
+} from '../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-table/ca-hierarchy-object-table.component';
+import {
+  CaHierarchyObject,
+  CaHierarchyObjectDatasource,
+} from '../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
 import { CaHierarchyObjectService } from '../../../../ca-core/service-api/ca-hierarchy-object.service';
-import { CaHierarchyObjectRouterService } from '../../../../ca-core/entity-module/ca-hierarchy-object-core/ca-hierarchy-object-router.service';
 import {
   CaHierarchyObjectBaseActionMenu,
   CaHierarchyObjectMoveToTrashAction,
   CaHierarchyObjectRestoreFromTrashAction,
 } from '../../../../ca-folder/module/ca-folder-detail-page/ca-hierarchy-object-base-action-menu';
-import { MatIconButton } from '@angular/material/button';
-import { ClHelpService } from '@monorepo/core-lib';
 
 @Component({
   selector: 'ca-current-space-hierarchy-object-page',

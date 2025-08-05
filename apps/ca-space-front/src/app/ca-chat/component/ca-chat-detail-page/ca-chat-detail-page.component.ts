@@ -1,21 +1,22 @@
+import { AsyncPipe } from '@angular/common';
 import { Component, inject, Signal } from '@angular/core';
-import { mergeMap } from 'rxjs/operators';
-import { Observable } from 'rxjs';
-import { CaUser } from '../../../ca-core/model/entities/ca-user.class';
-import { CaFolderService } from '../../../ca-core/service-api/ca-folder.service';
-import { CaChatState } from '../ca-chat.state';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { CaHierarchyObjectSimple } from '../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
+import { Observable } from 'rxjs';
+import { mergeMap } from 'rxjs/operators';
+
+import {
+  CaChatFolderComponent,
+} from '../../../ca-core/entity-module/ca-chat-core/component/ca-chat-folder/ca-chat-folder.component';
 import {
   CaHierarchyObjectIconComponent,
 } from '../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-icon/ca-hierarchy-object-icon.component';
 import {
   CaUserListInlineComponent,
 } from '../../../ca-core/entity-module/ca-user-core/component/ca-user-list-inline/ca-user-list-inline.component';
-import {
-  CaChatFolderComponent,
-} from '../../../ca-core/entity-module/ca-chat-core/component/ca-chat-folder/ca-chat-folder.component';
-import { AsyncPipe } from '@angular/common';
+import { CaUser } from '../../../ca-core/model/entities/ca-user.class';
+import { CaHierarchyObjectSimple } from '../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
+import { CaFolderService } from '../../../ca-core/service-api/ca-folder.service';
+import { CaChatState } from '../ca-chat.state';
 
 /**
  * Page of a folder chat

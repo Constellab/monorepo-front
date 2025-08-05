@@ -1,13 +1,14 @@
-import { Type } from 'class-transformer';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { FlFormInputsManagerConfig } from '@monorepo/front-core-lib/fl-form-inputs-manager';
 import {
   FlSearchConverter,
   FlSearchDateInterval,
   FlSearchFilterCriteriaConverter, FlSearchSortCriteriaConverter,
 } from '@monorepo/front-core-lib/fl-search';
+import { Type } from 'class-transformer';
+
 import { LiTagValueFormat } from '../entities/li-tag.entity';
-import { FlFormInputsManagerConfig } from '@monorepo/front-core-lib/fl-form-inputs-manager';
 import { LiSearchConverter } from '../global/li-search-converter.class';
-import { FormBuilder, FormGroup } from '@angular/forms';
 
 export class LiTagSearchFields {
   key: string;

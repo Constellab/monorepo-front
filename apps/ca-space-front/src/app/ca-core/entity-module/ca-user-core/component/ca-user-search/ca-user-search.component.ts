@@ -1,28 +1,28 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FlConfirmDialogInput, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { FlEntityPaginatedDatasource, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
-import { FlFileHelper } from '@monorepo/front-core-lib/fl-translate';
+import { FlConfirmDialogInput, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import {
   FlSavedSearch,
   FlSearchConfig,
   FlSearchModule,
   FlSearchState,
 } from '@monorepo/front-core-lib/fl-search';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
+import { FlFileHelper } from '@monorepo/front-core-lib/fl-translate';
+import { TranslatePipe } from '@ngx-translate/core';
 
 import { CaUser, CaUserDatasourcePaginated } from '../../../../model/entities/ca-user.class';
+import { CaIsAdminDirective } from '../../../../module/ca-core-directive/ca-is-admin/ca-is-admin.directive';
 import { CaUsersService } from '../../../../service-api/ca-users.service';
 import { CaUserSearch, CaUserSearchFields } from '../../model/ca-user-search.class';
-import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { MatIcon } from '@angular/material/icon';
-import { MatIconButton } from '@angular/material/button';
-import { MatTooltip } from '@angular/material/tooltip';
-import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
-import { CaIsAdminDirective } from '../../../../module/ca-core-directive/ca-is-admin/ca-is-admin.directive';
 import { CaUserSearchFormComponent } from '../ca-user-search-form/ca-user-search-form.component';
 import { CaUserTableComponent } from '../ca-user-table/ca-user-table.component';
-import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'ca-user-search',

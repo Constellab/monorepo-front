@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+
 import { BnBioNetworkLinkHelper } from '../utils/bn-bio-network-link.helper';
 
 /**

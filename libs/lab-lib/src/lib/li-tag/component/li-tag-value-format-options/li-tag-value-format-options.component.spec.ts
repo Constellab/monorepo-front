@@ -10,7 +10,7 @@ describe('LiTagValueFormatOptionsComponent', () => {
     await TestBed.configureTestingModule({
       imports: [LiTagValueFormatOptionsComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(LiTagValueFormatOptionsComponent);
     component = fixture.componentInstance;

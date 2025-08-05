@@ -1,8 +1,9 @@
 import { inject, Injectable } from '@angular/core';
-import { FlApiService } from '@monorepo/front-core-lib/fl-api';
-import { CaCoServiceConfig } from '../model/config/ca-co-service-config.service';
-import { Observable } from 'rxjs';
 import { ClPage } from '@monorepo/core-lib';
+import { FlApiService } from '@monorepo/front-core-lib/fl-api';
+import { Observable } from 'rxjs';
+
+import { CaCoServiceConfig } from '../model/config/ca-co-service-config.service';
 import { CaCommunityBrick } from '../model/entities/ca-community-brick.class';
 
 @Injectable({ providedIn: 'root' })

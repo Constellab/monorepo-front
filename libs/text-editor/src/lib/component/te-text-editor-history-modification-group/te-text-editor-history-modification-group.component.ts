@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FlUser } from '@monorepo/front-core-lib/fl-user';
-import { TeTextEditorHistoryModificationGroup } from '../../model/te-modifications-group.class';
+
 import { TeRichTextBlockModificationWithUser } from '../../model/lib';
+import { TeTextEditorHistoryModificationGroup } from '../../model/te-modifications-group.class';
 
 export interface TeTextEditorHistoryClickEventData {
   group: TeTextEditorHistoryModificationGroup;

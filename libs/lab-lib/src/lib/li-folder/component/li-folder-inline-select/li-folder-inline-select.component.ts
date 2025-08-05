@@ -1,20 +1,21 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, EventEmitter, Input, Output, inject, input } from '@angular/core';
+import { Component, EventEmitter, inject, Input, input,Output } from '@angular/core';
+import { NgControl } from '@angular/forms';
+import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
 import { FlFormFieldDirective } from '@monorepo/front-core-lib/fl-core';
-import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlPortalService } from '@monorepo/front-core-lib/fl-portal';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlTranslatableText, FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 import { LiFolder, LiFolderService } from '@monorepo/lab-lib/li-core';
+
 import { LiFolderInlineComponent } from '../li-folder-inline/li-folder-inline.component';
 import {
   LiFolderSelectPortalComponent,
   LiFolderSelectPortalInput,
   LiFolderSelectPortalResult,
 } from '../li-folder-select-portal/li-folder-select-portal.component';
-import { MatButton } from '@angular/material/button';
-import { MatIcon } from '@angular/material/icon';
-import { NgControl } from '@angular/forms';
 
 /**
  * Component to show a folder inline with possibility to select another folder

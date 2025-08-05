@@ -1,7 +1,5 @@
-import { Expose } from 'class-transformer';
 import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
 import { FlSearchObjectToUrl } from '@monorepo/front-core-lib/fl-search';
-import { LiBaseEntity } from '../../global/li-entity.entity';
 import {
   TdTypeObjectStatus,
   TdTypeObjectSubType,
@@ -10,6 +8,9 @@ import {
   TdTypeStyle,
   TdTypeTypingEntity,
 } from '@monorepo/technical-doc';
+import { Expose } from 'class-transformer';
+
+import { LiBaseEntity } from '../../global/li-entity.entity';
 
 export interface LiFileTypeAdditionalInfo {
   default_extensions: string[];

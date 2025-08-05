@@ -1,9 +1,10 @@
 import { CoAgent, CoUser } from '@monorepo/community-lib';
-import { DateTime } from 'luxon';
 import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
-import { LiEntity } from '../global/li-entity.entity';
 import { TdTypeStyle } from '@monorepo/technical-doc';
 import { TeRichText, TeRichTextTransform } from '@monorepo/text-editor';
+import { DateTime } from 'luxon';
+
+import { LiEntity } from '../global/li-entity.entity';
 
 export class LiAgent extends LiEntity {
   title: string;

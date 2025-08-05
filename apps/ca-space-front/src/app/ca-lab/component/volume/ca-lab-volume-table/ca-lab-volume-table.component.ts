@@ -1,14 +1,7 @@
 import { Component, inject, Input } from '@angular/core';
-import {
-  CaLabVolume,
-  CaLabVolumeDatasource,
-} from '../../../../ca-core/model/entities/lab/ca-lab-volume.class';
-import {
-  FlConfirmDialogInput,
-  FlConfirmDialogResult,
-  FlDialogService,
-} from '@monorepo/front-core-lib/fl-dialog';
-import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import {
   MatCell,
   MatCellDef,
@@ -21,11 +14,19 @@ import {
   MatRowDef,
   MatTable,
 } from '@angular/material/table';
-import { MatIconButton } from '@angular/material/button';
-import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
-import { MatIcon } from '@angular/material/icon';
-import { TranslatePipe } from '@ngx-translate/core';
 import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
+import {
+  FlConfirmDialogInput,
+  FlConfirmDialogResult,
+  FlDialogService,
+} from '@monorepo/front-core-lib/fl-dialog';
+import { TranslatePipe } from '@ngx-translate/core';
+
+import {
+  CaLabVolume,
+  CaLabVolumeDatasource,
+} from '../../../../ca-core/model/entities/lab/ca-lab-volume.class';
+import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
 
 @Component({
   selector: 'ca-lab-volume-table',

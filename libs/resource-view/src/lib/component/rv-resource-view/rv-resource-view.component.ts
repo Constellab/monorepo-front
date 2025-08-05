@@ -8,14 +8,14 @@ import {
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
-import { RvResourceViewBase } from '../../model/rv-resource-view.class';
-
-import { RvViewConfig } from '../../model/rv-view-config.class';
-import { RvResourceViewDirective } from '../../model/rv-resource-view.directive';
-import { RvResourceViewTypeInfo } from '../../model/rv-type-info.class';
-import { RV_MODULE_CONFIG, RvResourceViewModuleConfig } from '../../model/rv-resource-view-module.config';
-import { FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
 import { ClHelpService } from '@monorepo/core-lib';
+import { FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
+
+import { RvResourceViewBase } from '../../model/rv-resource-view.class';
+import { RvResourceViewDirective } from '../../model/rv-resource-view.directive';
+import { RV_MODULE_CONFIG, RvResourceViewModuleConfig } from '../../model/rv-resource-view-module.config';
+import { RvResourceViewTypeInfo } from '../../model/rv-type-info.class';
+import { RvViewConfig } from '../../model/rv-view-config.class';
 
 @Component({
   selector: 'rv-resource-view',

@@ -1,11 +1,12 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { CaAuthenticatedUserService } from '../../../ca-core/service-api/ca-authenticated-user.service';
-import { FlConfirmDialogResult, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { ThemePalette } from '@angular/material/core';
-import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
-import { MatButton } from '@angular/material/button';
 import { NgClass } from '@angular/common';
+import { Component, inject, OnInit } from '@angular/core';
+import { MatButton } from '@angular/material/button';
+import { ThemePalette } from '@angular/material/core';
+import { FlConfirmDialogResult, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { CaAuthenticatedUserService } from '../../../ca-core/service-api/ca-authenticated-user.service';
 
 /**
  * Component to activate or deactivate two factor authentication

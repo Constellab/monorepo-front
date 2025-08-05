@@ -1,4 +1,4 @@
-<fl-card class="g-full-height">
+<fl-card class="card">
   <fl-card-header>
     <!--  Center header  -->
     <fl-search-header>
@@ -7,7 +7,17 @@
         <h2>{{ 'space_users' | translate }}</h2>
       </fl-text-icon>
 
-      <fl-search-header-actions>
+      <fl-search-header-actions class="g-layout-row g-layout-start-center">
+        <button
+          mat-stroked-button
+          type="button"
+          *caIsSpaceAdmin
+          class="g-button-small"
+          (click)="openInvitationDialog()">
+          <mat-icon>email</mat-icon>
+          {{ 'space_invitation_list' | translate }}
+        </button>
+
         <button
           mat-icon-button
           type="button"

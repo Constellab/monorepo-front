@@ -10,6 +10,7 @@ import { LiProgressBarService } from '@monorepo/lab-lib/li-core';
 import { TranslatePipe } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+
 import {
   LiProcessRunInfoData,
   LiProgressBarInfoComponent,

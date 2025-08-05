@@ -1,30 +1,31 @@
+import { NgClass } from '@angular/common';
 import { Component, inject, input } from '@angular/core';
-import {
-  CaHierarchyObjectToken,
-  CaHierarchyObjectTokenDatasource,
-} from '../../../../model/entities/folder/ca-hierarchy-object-token.class';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatTableModule } from '@angular/material/table';
+import { MatTooltip } from '@angular/material/tooltip';
 import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
-import { CaHierarchyObjectTokenService } from '../../../../service-api/ca-hierarchy-object-token.service';
+import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
 } from '@monorepo/front-core-lib/fl-dialog';
+import { FlClipboardService, FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+import { TranslatePipe } from '@ngx-translate/core';
+
+import {
+  CaHierarchyObjectToken,
+  CaHierarchyObjectTokenDatasource,
+} from '../../../../model/entities/folder/ca-hierarchy-object-token.class';
+import { CaHierarchyObjectTokenService } from '../../../../service-api/ca-hierarchy-object-token.service';
 import {
   CaHierarchyObjectTokenFormDialogComponent,
   CaHierarchyObjectTokenFormDialogInput,
 } from '../ca-hierarchy-object-token-form-dialog/ca-hierarchy-object-token-form-dialog.component';
-import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import { MatTableModule } from '@angular/material/table';
-import { MatIcon } from '@angular/material/icon';
-import { TranslatePipe } from '@ngx-translate/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatMenuModule } from '@angular/material/menu';
-import { NgClass } from '@angular/common';
-import { MatTooltip } from '@angular/material/tooltip';
-import { FlClipboardService, FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 
 @Component({
   selector: 'ca-hierarchy-object-token-table',

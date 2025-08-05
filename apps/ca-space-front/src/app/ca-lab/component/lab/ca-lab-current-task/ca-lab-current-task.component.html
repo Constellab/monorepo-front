@@ -1,24 +1,38 @@
-@if (currentTask$ | async; as currentTask) {
-  <div class="g-layout-row g-layout-start-center info-section">
-    <fl-loader size="small" class="task-loader"></fl-loader>
-    <div>
+@if (busyStatus$ | async; as busyStatus) {
+  @if (busyStatus.isBusy) {
+    <div class="g-layout-row g-layout-start-center info-section">
+      <fl-loader size="small" class="task-loader"></fl-loader>
       <div>
-        @if (showConfigRouteLink) {
-          <a
-            [routerLink]="configRoute"
-            class="g-text-link"
-            [matTooltip]="'lab_open_config_tab' | translate"
-            >{{ currentTask.text }}</a
-          >
-        } @else {
-          {{ currentTask.text }}
+        <div>
+          @if (showConfigRouteLink) {
+            <a
+              [routerLink]="configRoute"
+              class="g-text-link"
+              [matTooltip]="'lab_open_config_tab' | translate">
+              {{ busyStatus.mainText }}
+              @if (busyStatus.subText) {
+                <span>- {{ busyStatus.subText }}</span>
+              }
+              @if (busyStatus.datetime) {
+                - <fl-from-now [date]="busyStatus.datetime"></fl-from-now>
+              }
+            </a>
+          } @else {
+            {{ busyStatus.mainText }}
+            @if (busyStatus.subText) {
+              <span>- {{ busyStatus.subText }}</span>
+            }
+            @if (busyStatus.datetime) {
+              - <fl-from-now [date]="busyStatus.datetime"></fl-from-now>
+            }
+          }
+        </div>
+        @if (busyStatus.progress) {
+          <div class="g-text-light g-text-small">
+            {{ busyStatus.progress.percent }}% {{ busyStatus.progress.message }}
+          </div>
         }
       </div>
-      @if (currentTask.progress) {
-        <div class="g-text-light g-text-small">
-          {{ currentTask.progress.percent }}% {{ currentTask.progress.message }}
-        </div>
-      }
     </div>
-  </div>
+  }
 }

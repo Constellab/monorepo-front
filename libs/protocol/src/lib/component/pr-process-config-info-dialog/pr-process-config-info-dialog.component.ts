@@ -1,6 +1,6 @@
+import { ArrayDataSource } from '@angular/cdk/collections';
 import { Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ArrayDataSource } from '@angular/cdk/collections';
 import { TdConfigI } from '@monorepo/technical-doc';
 
 interface PrConfigLine {

@@ -1,5 +1,6 @@
-import { LiProcessType } from '../entities/li-type/li-process-type.entity';
 import { TdParamSpecsValues } from '@monorepo/technical-doc';
+
+import { LiProcessType } from '../entities/li-type/li-process-type.entity';
 
 export interface LiTransformForm {
   transformer: LiProcessType;

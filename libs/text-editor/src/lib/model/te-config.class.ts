@@ -4,11 +4,7 @@ import { BlockToolData } from '@editorjs/editorjs/types/tools/block-tool-data';
 import InlineCode from '@editorjs/inline-code';
 import { flRootInjector } from '@monorepo/front-core-lib/fl-core';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
-import {
-  TeAudioTranscriptionBlockTune,
-  TeAudioTranscriptionConfig,
-} from '../block-tune/te-audio-transcription-block-tune.class';
-import { TeDragBlockTune } from '../block-tune/te-drag-block-tune.class';
+
 import { TeCodeBlock } from '../block/te-code-block.class';
 import { TeComponentInitData } from '../block/te-component-block.class';
 import { TeFigureBlock, TeFigureBlockConfig } from '../block/te-figure-block.class';
@@ -26,6 +22,11 @@ import { TeParagraphBlock } from '../block/te-paragraph-block.class';
 import TeTable from '../block/te-table-block.class';
 import { TeTimestampBlock } from '../block/te-timestamp-block.class';
 import { TeVideoBlock } from '../block/te-video-block.class';
+import {
+  TeAudioTranscriptionBlockTune,
+  TeAudioTranscriptionConfig,
+} from '../block-tune/te-audio-transcription-block-tune.class';
+import { TeDragBlockTune } from '../block-tune/te-drag-block-tune.class';
 import { TeBoldInlineTool } from '../inline-tool/te-bold-inline-tool.class';
 import { TeCleanStyleInlineTool } from '../inline-tool/te-clean-style-inline-tool.class';
 import { TeFakeInlineTool } from '../inline-tool/te-fake-inline-tool.class';
@@ -35,9 +36,9 @@ import { TeStrikethroughInlineTool } from '../inline-tool/te-strikethrough-inlin
 import { TeUnderlineInlineTool } from '../inline-tool/te-underline-inline-tool.class';
 import { TeVariableInlineToolClass } from '../inline-tool/te-variable-inline-tool.class';
 import { TeMentionConfig, TeMentionInlineTool } from '../plugin/te-mention.class';
+import { TeHelper } from './te.helper';
 import { teComponentBlockFactory } from './te-block-factory.class';
 import { teBlockTuneFactory } from './te-block-tune-factory.class';
-import { TeHelper } from './te.helper';
 
 export type TeTools = { [toolName: string]: ToolConstructable | ToolSettings };
 

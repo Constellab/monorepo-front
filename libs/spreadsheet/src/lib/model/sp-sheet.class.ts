@@ -1,6 +1,8 @@
-import { FlBasicCell, SpCell } from './sp-cell.class';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { debounceTime, map } from 'rxjs/operators';
+
+import { SpSpreadsheetHelper } from '../utils/sp-spreadsheet.helper';
+import { FlBasicCell, SpCell } from './sp-cell.class';
 import { SpCellCoord } from './sp-cell-coord.class';
 import {
   SpSheetColumnSortDirection,
@@ -10,7 +12,6 @@ import {
   SpSheetHeaders,
   SpSheetRow,
 } from './sp-sheet-headers.class';
-import { SpSpreadsheetHelper } from '../utils/sp-spreadsheet.helper';
 
 /**
  * Class to manage one sheet of a spreadsheet

@@ -1,15 +1,16 @@
 import { inject, Injectable } from '@angular/core';
+import { ClPageI } from '@monorepo/core-lib';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
-import { CaUser } from '../model/entities/ca-user.class';
 import { Observable } from 'rxjs';
+
+import { CaUser } from '../model/entities/ca-user.class';
 import {
   CaSpaceInvit,
   CaSpaceInvitCreateDTO,
   CaSpaceInvitDatasource,
   CaSpaceInvitReadDTO,
 } from '../model/entities/space/ca-space-invit.class';
-import { ClPageI } from '@monorepo/core-lib';
 
 @Injectable({
   providedIn: 'root',

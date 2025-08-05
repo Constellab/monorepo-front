@@ -1,17 +1,7 @@
-import {
-  ActivityObjectType,
-  ActivityType,
-  LiActivity,
-  LiActivityDatasource,
-  LiDetailRoutePipe,
-  LiEntityType,
-} from '@monorepo/lab-lib/li-core';
 import { Component, Input } from '@angular/core';
-import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
-import { FlSearchModule } from '@monorepo/front-core-lib/fl-search';
-import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
-import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { MatAnchor } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatSortHeader } from '@angular/material/sort';
 import {
   MatCell,
   MatCellDef,
@@ -24,9 +14,19 @@ import {
   MatRowDef,
   MatTable,
 } from '@angular/material/table';
-import { MatIcon } from '@angular/material/icon';
-import { MatSortHeader } from '@angular/material/sort';
 import { RouterLink } from '@angular/router';
+import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
+import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
+import { FlSearchModule } from '@monorepo/front-core-lib/fl-search';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+import {
+  ActivityObjectType,
+  ActivityType,
+  LiActivity,
+  LiActivityDatasource,
+  LiDetailRoutePipe,
+  LiEntityType,
+} from '@monorepo/lab-lib/li-core';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({

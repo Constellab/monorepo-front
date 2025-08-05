@@ -1,8 +1,9 @@
-import { computed, inject, Injectable, signal, Signal, WritableSignal } from '@angular/core';
-import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
+import { computed, inject, Injectable, Signal, signal, WritableSignal } from '@angular/core';
 import { ClTheme } from '@monorepo/core-lib';
-import { HaAuthenticatedUserService } from '../ha-service/ha-authenticated-user.service';
+import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
 import { Subject } from 'rxjs';
+
+import { HaAuthenticatedUserService } from '../ha-service/ha-authenticated-user.service';
 
 @Injectable()
 export class HaThemeState {

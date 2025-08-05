@@ -1,10 +1,11 @@
 import { inject, Injectable } from '@angular/core';
 import { Router, UrlTree } from '@angular/router';
-import { Observable, of } from 'rxjs';
-import { CaAuthenticatedUserService } from '../../ca-core/service-api/ca-authenticated-user.service';
-import { catchError, map } from 'rxjs/operators';
 import { FlServerError } from '@monorepo/front-core-lib/fl-api';
+import { Observable, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
+
 import { CaRouterService } from '../../ca-core/service/ca-router.service';
+import { CaAuthenticatedUserService } from '../../ca-core/service-api/ca-authenticated-user.service';
 
 /**
  * Guard TO ONLY BE PLACED for the /app route

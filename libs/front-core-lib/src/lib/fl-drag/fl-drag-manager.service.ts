@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+
 import { FlDragData } from './fl-drag.class';
 
 @Injectable({

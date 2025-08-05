@@ -1,6 +1,7 @@
 import { Component, input, output } from '@angular/core';
-import { HaBrick } from '../../../ha-core/ha-model/ha-entities/ha-brick.class';
-import { FlDatasource, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatSortHeader } from '@angular/material/sort';
 import {
   MatCell,
   MatCellDef,
@@ -13,14 +14,14 @@ import {
   MatRowDef,
   MatTable,
 } from '@angular/material/table';
-import { FlSearchModule } from '@monorepo/front-core-lib/fl-search';
-import { MatSortHeader } from '@angular/material/sort';
-import { TranslatePipe } from '@ngx-translate/core';
-import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
-import { MatIcon } from '@angular/material/icon';
-import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { CoCommunityLibModule } from '@monorepo/community-lib';
+import { FlDatasource, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
+import { FlSearchModule } from '@monorepo/front-core-lib/fl-search';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+import { TranslatePipe } from '@ngx-translate/core';
+
+import { HaBrick } from '../../../ha-core/ha-model/ha-entities/ha-brick.class';
 
 export interface HaAdminPanelBricksTableAction {
   type: string;

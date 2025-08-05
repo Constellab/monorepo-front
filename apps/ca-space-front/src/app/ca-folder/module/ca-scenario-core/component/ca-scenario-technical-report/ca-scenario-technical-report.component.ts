@@ -26,6 +26,7 @@ import {
 import { TranslatePipe } from '@ngx-translate/core';
 import { filter, Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
+
 import {
   CaLabConfigDialogComponent,
   CaLabConfigDialogInput,

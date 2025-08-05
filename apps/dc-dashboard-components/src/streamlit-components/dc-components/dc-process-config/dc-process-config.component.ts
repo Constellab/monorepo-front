@@ -13,6 +13,7 @@ import {
   TdParamSpecsValues,
   TdTechnicalDocModule,
 } from '@monorepo/technical-doc';
+
 import { DcComponentData, DcDynamicComponent } from '../../../core/model/dc-dynamic-component.class';
 import { DcCoreMainDirective } from '../../dc-core/directive/dc-core-main-prod/dc-core-main.directive';
 

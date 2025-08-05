@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { LiTagEntityDetailComponent } from './li-tag-entity-detail.component';
 
 describe('LabTagDetailComponent', () => {

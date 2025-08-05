@@ -1,7 +1,8 @@
 import { Component, inject, Input } from '@angular/core';
+import { ClStringHelper } from '@monorepo/core-lib';
+
 import { CoSpace } from '../../model/co-space.class';
 import { CoConfig } from '../../service/co-service-config.config';
-import { ClStringHelper } from '@monorepo/core-lib';
 
 @Component({
   selector: 'co-visibility-badge',

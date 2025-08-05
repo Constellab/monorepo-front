@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { FlAddTagInputComponent } from './fl-add-tag-input.component';
 
 describe('FlTagInputTwoComponent', () => {

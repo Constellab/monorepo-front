@@ -1,16 +1,17 @@
-import { Component, inject } from '@angular/core';
-import { CaFolder } from '../../../../../ca-core/model/entities/folder/ca-folder.class';
-import { CaFolderDetailState } from '../../state/ca-folder-detail.state';
-import { Observable } from 'rxjs';
-import { CaFolderService } from '../../../../../ca-core/service-api/ca-folder.service';
-import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
-import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { AsyncPipe } from '@angular/common';
+import { Component, inject } from '@angular/core';
+import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
+import { FlTagModule } from '@monorepo/front-core-lib/fl-tag';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+import { Observable } from 'rxjs';
+
 import { CaHierarchyObjectIconComponent } from '../../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-icon/ca-hierarchy-object-icon.component';
 import { CaNotificationMarkDirective } from '../../../../../ca-core/entity-module/ca-notification-core/directive/ca-notification-mark/ca-notification-mark.directive';
-import { FlTagModule } from '@monorepo/front-core-lib/fl-tag';
+import { CaFolder } from '../../../../../ca-core/model/entities/folder/ca-folder.class';
+import { CaFolderService } from '../../../../../ca-core/service-api/ca-folder.service';
 import { CaHierarchyObjectDetailState } from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
 import { CaHierarchyObjectEventState } from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-event.state';
+import { CaFolderDetailState } from '../../state/ca-folder-detail.state';
 
 /**
  * Show detailed information for a folder , used in FolderDetailPage

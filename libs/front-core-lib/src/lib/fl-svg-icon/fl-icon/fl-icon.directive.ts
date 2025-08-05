@@ -1,8 +1,9 @@
-import { Directive, ElementRef, Input, PLATFORM_ID, inject } from '@angular/core';
-import { MatIcon, MatIconRegistry } from '@angular/material/icon';
-import { FL_ICON_MODULE, FlIcon, FlIconConfig, FlMatIcon, FlSvgIcon } from '../fl-icon-config.class';
-import { DomSanitizer } from '@angular/platform-browser';
 import { isPlatformServer } from '@angular/common';
+import { Directive, ElementRef, inject,Input, PLATFORM_ID } from '@angular/core';
+import { MatIcon, MatIconRegistry } from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
+
+import { FL_ICON_MODULE, FlIcon, FlIconConfig, FlMatIcon, FlSvgIcon } from '../fl-icon-config.class';
 
 /**
  * directive to be placed on a mat-icon. It set the icon and support both

@@ -1,11 +1,11 @@
-import { ClHelpService } from '@monorepo/core-lib';
 import { Component, inject, Input, OnDestroy } from '@angular/core';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { ClHelpService } from '@monorepo/core-lib';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { FlOverlayRef, FlPortalConfig, FlPortalService } from '@monorepo/front-core-lib/fl-portal';
 import { LiResourceView, LiViewConfigService } from '@monorepo/lab-lib/li-core';
-import { MatIcon } from '@angular/material/icon';
-import { MatIconButton } from '@angular/material/button';
-import { MatTooltip } from '@angular/material/tooltip';
 import { TranslatePipe } from '@ngx-translate/core';
 
 /**

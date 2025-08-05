@@ -1,7 +1,8 @@
 import { Component, EventEmitter, inject, Output } from '@angular/core';
-import { FlAuthLoginResponse, FlAuthService } from '../../service/fl-auth.service';
 import { FlCaptchaService } from '@monorepo/front-core-lib/fl-captcha';
 import { Observable, switchMap } from 'rxjs';
+
+import { FlAuthLoginResponse, FlAuthService } from '../../service/fl-auth.service';
 import { FlLoginFormComponent } from '../fl-login-form/fl-login-form.component';
 
 /**

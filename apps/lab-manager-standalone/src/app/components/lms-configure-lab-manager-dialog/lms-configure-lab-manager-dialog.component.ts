@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
+
 import { LmsConfigureLabManagerComponent } from '../lms-configure-lab-manager/lms-configure-lab-manager.component';
 
 @Component({

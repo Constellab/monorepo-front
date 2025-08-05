@@ -1,9 +1,10 @@
 import { Component, inject, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+
 import {
   BnBioNetworkSimulationProgressEvent,
   BnBioNetworkSimulationState,
 } from '../../state/bn-bio-network-simulation.state';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'bn-bio-network-engine-progress',

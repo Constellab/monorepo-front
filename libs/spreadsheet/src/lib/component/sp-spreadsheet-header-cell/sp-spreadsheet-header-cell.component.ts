@@ -3,26 +3,27 @@ import {
   Component,
   ElementRef,
   HostBinding,
+  inject,
   Input,
   OnDestroy,
   OnInit,
   Renderer2,
-  inject,
 } from '@angular/core';
-import { SpSpreadsheetSelectionState } from '../../state/sp-spreadsheet-selection.state';
+import { FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
+import { FlPortalConnectedPosition } from '@monorepo/front-core-lib/fl-portal';
+import { FlPortalService } from '@monorepo/front-core-lib/fl-portal';
 import { Observable, Subscription } from 'rxjs';
+
 import { SpSheetSingleSelection } from '../../model/selection/sp-sheet-single-selection.class';
 import {
   FlHeaderCellType,
   headerIndexAttributeName,
   headerTypeAttributeName,
 } from '../../model/sp-cell.class';
-import { SpSpreadsheetState } from '../../state/sp-spreadsheet.state';
-import { SpSpreadsheetHeaderInfoComponent } from '../sp-spreadsheet-header-info/sp-spreadsheet-header-info.component';
 import { SpSheetHeader, SpSheetHeaderInfo } from '../../model/sp-sheet-headers.class';
-import { FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
-import { FlPortalConnectedPosition } from '@monorepo/front-core-lib/fl-portal';
-import { FlPortalService } from '@monorepo/front-core-lib/fl-portal';
+import { SpSpreadsheetState } from '../../state/sp-spreadsheet.state';
+import { SpSpreadsheetSelectionState } from '../../state/sp-spreadsheet-selection.state';
+import { SpSpreadsheetHeaderInfoComponent } from '../sp-spreadsheet-header-info/sp-spreadsheet-header-info.component';
 
 @Component({
   selector: 'sp-spreadsheet-header-cell',

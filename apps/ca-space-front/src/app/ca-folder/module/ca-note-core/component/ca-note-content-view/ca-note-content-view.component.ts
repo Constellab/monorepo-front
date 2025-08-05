@@ -1,10 +1,11 @@
 import { Component, inject } from '@angular/core';
-import { Observable } from 'rxjs';
 import { RvResourceView } from '@monorepo/resource-view';
-import { TeElementBlockDirective } from '@monorepo/text-editor';
-import { CaNoteService } from '../../../../../ca-core/service-api/ca-note.service';
-import { map } from 'rxjs/operators';
 import { RvResourceViewModule } from '@monorepo/resource-view';
+import { TeElementBlockDirective } from '@monorepo/text-editor';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import { CaNoteService } from '../../../../../ca-core/service-api/ca-note.service';
 
 @Component({
   selector: 'ca-note-content-view',

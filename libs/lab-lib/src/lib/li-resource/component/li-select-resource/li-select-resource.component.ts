@@ -1,30 +1,31 @@
+import { AsyncPipe } from '@angular/common';
 import { Component, inject, input, OnInit, output } from '@angular/core';
+import { NgControl } from '@angular/forms';
+import { MatIcon } from '@angular/material/icon';
 import {
   FlDatasourceGetPageData,
   FlEntityPaginatedDatasource,
   FlFormFieldDirective,
   FlInputSearchFilter,
 } from '@monorepo/front-core-lib/fl-core';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlInputSearchAdvancedButton, FlInputSearchModule } from '@monorepo/front-core-lib/fl-input-search';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FlTranslatableText, FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import {
   LiResource,
   LiResourceDatasource,
   LiResourceSearchFields,
   LiResourceService,
 } from '@monorepo/lab-lib/li-core';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { FlTranslatableText, FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 import { Observable } from 'rxjs';
-import { FlInputSearchAdvancedButton, FlInputSearchModule } from '@monorepo/front-core-lib/fl-input-search';
-import { NgControl } from '@angular/forms';
+
+import { LiResourceInlineComponent } from '../li-resource-inline/li-resource-inline.component';
 import {
   LiSelectResourceDialogComponent,
   LiSelectResourceDialogInput,
 } from '../li-select-resource-dialog/li-select-resource-dialog.component';
-import { AsyncPipe } from '@angular/common';
-import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
-import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import { MatIcon } from '@angular/material/icon';
-import { LiResourceInlineComponent } from '../li-resource-inline/li-resource-inline.component';
 
 @Component({
   selector: 'li-select-resource',

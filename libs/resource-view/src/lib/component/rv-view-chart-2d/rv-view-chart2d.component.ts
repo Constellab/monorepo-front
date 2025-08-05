@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ChChartConfig } from '@monorepo/chart';
-import { RvResourceViewDirective } from '../../model/rv-resource-view.directive';
+
 import { rvBasicPlotToChart } from '../../model/rv-basic-plot-2d.class';
 import { rvBoxPlotToChart } from '../../model/rv-box-plot.class';
 import { rvHeatMapToChart } from '../../model/rv-heat-map.class';
 import { rvHistogramToChart } from '../../model/rv-histogram.class';
-import { rvVennDiagramToChart } from '../../model/rv-venn-diagram.class';
 import { RvViewChartType } from '../../model/rv-resource-view.class';
+import { RvResourceViewDirective } from '../../model/rv-resource-view.directive';
+import { rvVennDiagramToChart } from '../../model/rv-venn-diagram.class';
 import { rvVulcanoPlotToChart } from '../../model/rv-vulcano-plot.class';
 
 /**

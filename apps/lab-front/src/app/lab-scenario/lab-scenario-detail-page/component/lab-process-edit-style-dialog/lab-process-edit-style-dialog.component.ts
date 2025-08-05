@@ -1,14 +1,14 @@
-import { CoCommunityLibModule } from '@monorepo/community-lib';
-import { Component, OnInit, inject } from '@angular/core';
-import { FlDialogModule, FlFormDialogAbstractDirective } from '@monorepo/front-core-lib/fl-dialog';
-import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
+import { Component, inject,OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
-import { LiProcess, LiProtocolService } from '@monorepo/lab-lib/li-core';
-import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
 import { MatButton } from '@angular/material/button';
-import { Observable } from 'rxjs';
+import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
+import { CoCommunityLibModule } from '@monorepo/community-lib';
+import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
+import { FlDialogModule, FlFormDialogAbstractDirective } from '@monorepo/front-core-lib/fl-dialog';
+import { LiProcess, LiProtocolService } from '@monorepo/lab-lib/li-core';
 import { TdTypeStyle } from '@monorepo/technical-doc';
 import { TranslatePipe } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
 
 export type LabProcessEditStyleDialogInputData = FlFormDialogInput<LiProcess>;
 
@@ -54,7 +54,7 @@ export class LabProcessEditStyleDialogComponent
     });
   }
 
-  create(formValue: LabProcessEditStyleFormData): Observable<LiProcess> {
+  create(): Observable<LiProcess> {
     return undefined;
   }
 

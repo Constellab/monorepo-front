@@ -1,3 +1,4 @@
+import { isPlatformBrowser, isPlatformServer } from '@angular/common';
 import {
   computed,
   inject,
@@ -10,28 +11,28 @@ import {
   TransferState,
   WritableSignal,
 } from '@angular/core';
-import { FlStatusEvent } from '@monorepo/front-core-lib/fl-core';
-import { HaBrick } from '../../ha-core/ha-model/ha-entities/ha-brick.class';
-import { isPlatformBrowser, isPlatformServer } from '@angular/common';
-import { HaBrickService } from '../../ha-core/ha-service/ha-brick.service';
-import { HaBrickVersion } from '../../ha-core/ha-model/ha-entities/ha-brick-version.class';
-import { HaBrickVersionService } from '../../ha-core/ha-service/ha-brick-version.service';
-import { HaReferenceDTO } from '../../ha-core/ha-model/ha-entities/ha-version.class';
-import { HaDocumentation } from '../../ha-core/ha-model/ha-entities/ha-documentation.class';
-import { ClStringHelper } from '@monorepo/core-lib';
-import { HaDocumentationService } from '../../ha-core/ha-service/ha-documentation.service';
 import { UrlSegment } from '@angular/router';
-import { HaRouterService } from '../../ha-core/ha-service/ha-router.service';
-import { HaHttpRedirectionService } from '../../ha-core/ha-service/ha-http-redirection.service';
-import { HaFile } from '../../ha-core/entity-module/ha-file-core/model/ha-file';
+import { ClStringHelper } from '@monorepo/core-lib';
+import { FlStatusEvent } from '@monorepo/front-core-lib/fl-core';
 import { TdTypeEntity } from '@monorepo/technical-doc';
 import { plainToInstance } from 'class-transformer';
+
+import { HaFile } from '../../ha-core/entity-module/ha-file-core/model/ha-file';
+import { HaBrick } from '../../ha-core/ha-model/ha-entities/ha-brick.class';
+import { HaBrickVersion } from '../../ha-core/ha-model/ha-entities/ha-brick-version.class';
+import { HaDocumentation } from '../../ha-core/ha-model/ha-entities/ha-documentation.class';
 import {
   HaRunStatAggregate,
   HaRunStatAggregateObjectType,
 } from '../../ha-core/ha-model/ha-entities/ha-run-stat-aggregate.class';
-import { HaRunStatAggregateService } from '../../ha-core/ha-service/ha-run-stat-aggregate.service';
+import { HaReferenceDTO } from '../../ha-core/ha-model/ha-entities/ha-version.class';
 import { HaAuthenticatedUserService } from '../../ha-core/ha-service/ha-authenticated-user.service';
+import { HaBrickService } from '../../ha-core/ha-service/ha-brick.service';
+import { HaBrickVersionService } from '../../ha-core/ha-service/ha-brick-version.service';
+import { HaDocumentationService } from '../../ha-core/ha-service/ha-documentation.service';
+import { HaHttpRedirectionService } from '../../ha-core/ha-service/ha-http-redirection.service';
+import { HaRouterService } from '../../ha-core/ha-service/ha-router.service';
+import { HaRunStatAggregateService } from '../../ha-core/ha-service/ha-run-stat-aggregate.service';
 
 @Injectable()
 export class HaBrickPageState {

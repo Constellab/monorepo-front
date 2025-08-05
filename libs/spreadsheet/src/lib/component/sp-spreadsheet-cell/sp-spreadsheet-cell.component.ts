@@ -5,35 +5,36 @@ import {
   DoCheck,
   ElementRef,
   HostBinding,
+  inject,
   Input,
   OnDestroy,
   OnInit,
   Renderer2,
   ViewChild,
-  inject,
 } from '@angular/core';
-import {
-  columnIdAttributeName,
-  SpCell,
-  SpCellEditChange,
-  rowIdAttributeName,
-} from '../../model/sp-cell.class';
-import { SpSpreadsheetSelectionState } from '../../state/sp-spreadsheet-selection.state';
-import {
-  SpCellWithCoord,
-  SpSheetSingleSelection,
-} from '../../model/selection/sp-sheet-single-selection.class';
 import { ClSubscriptionHandler } from '@monorepo/core-lib';
-import { SpSpreadsheetActions } from '../../state/sp-spreadsheet-actions.state';
-import { SpCellsRange } from '../../model/selection/sp-cells-range.class';
-import { SpSpreadsheetState } from '../../state/sp-spreadsheet.state';
-import { SpCellCoord } from '../../model/sp-cell-coord.class';
-import { SpSpreadsheetCellInfoComponent } from '../sp-spreadsheet-cell-info/sp-spreadsheet-cell-info.component';
 import { FlKeyboardHelper } from '@monorepo/front-core-lib/fl-core';
 import { FlKeyboardKey } from '@monorepo/front-core-lib/fl-core';
 import { FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
 import { FlPortalConnectedPosition } from '@monorepo/front-core-lib/fl-portal';
 import { FlPortalService } from '@monorepo/front-core-lib/fl-portal';
+
+import { SpCellsRange } from '../../model/selection/sp-cells-range.class';
+import {
+  SpCellWithCoord,
+  SpSheetSingleSelection,
+} from '../../model/selection/sp-sheet-single-selection.class';
+import {
+  columnIdAttributeName,
+  rowIdAttributeName,
+  SpCell,
+  SpCellEditChange,
+} from '../../model/sp-cell.class';
+import { SpCellCoord } from '../../model/sp-cell-coord.class';
+import { SpSpreadsheetState } from '../../state/sp-spreadsheet.state';
+import { SpSpreadsheetActions } from '../../state/sp-spreadsheet-actions.state';
+import { SpSpreadsheetSelectionState } from '../../state/sp-spreadsheet-selection.state';
+import { SpSpreadsheetCellInfoComponent } from '../sp-spreadsheet-cell-info/sp-spreadsheet-cell-info.component';
 
 @Component({
   selector: 'sp-spreadsheet-cell',

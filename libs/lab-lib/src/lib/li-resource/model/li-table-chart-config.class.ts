@@ -1,11 +1,7 @@
+import { ViewContainerRef } from '@angular/core';
 import { ChChartType } from '@monorepo/chart';
 import { FlOverlayRef, FlPortalConfig, FlPortalService } from '@monorepo/front-core-lib/fl-portal';
 import { LiResourceTableService, LiResourceView, LiTableChartType } from '@monorepo/lab-lib/li-core';
-import {
-  LiResourceViewPortalComponent,
-  LiResourceViewPortalInput,
-} from '../component/li-resource-view-portal/li-resource-view-portal.component';
-import { Observable } from 'rxjs';
 import {
   SpSheet,
   SpSheetChart2dSerieSelectionForm,
@@ -16,8 +12,13 @@ import {
   SpSpreadsheetGenerateChartOptions,
 } from '@monorepo/spreadsheet';
 import { TdParamSpecsValues } from '@monorepo/technical-doc';
-import { ViewContainerRef } from '@angular/core';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+
+import {
+  LiResourceViewPortalComponent,
+  LiResourceViewPortalInput,
+} from '../component/li-resource-view-portal/li-resource-view-portal.component';
 
 /**
  * Main config class to generate chart from the sheet by calling the resource service

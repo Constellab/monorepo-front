@@ -1,10 +1,9 @@
+import { Component, inject,Input, NgZone, OnDestroy, OnInit } from '@angular/core';
+import { MatIcon } from '@angular/material/icon';
 import { ClStringHelper } from '@monorepo/core-lib';
-import { Component, Input, NgZone, OnDestroy, OnInit, inject } from '@angular/core';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { LiScenarioTemplate, LiScenarioTemplateService } from '@monorepo/lab-lib/li-core';
-import { MatIcon } from '@angular/material/icon';
-import { Observable, of } from 'rxjs';
 import {
   PrProtocolGraph,
   PrProtocolModule,
@@ -16,6 +15,7 @@ import {
   PrWorkflowResourcesState,
 } from '@monorepo/protocol';
 import { TranslatePipe } from '@ngx-translate/core';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'lab-scenario-template-workflow',

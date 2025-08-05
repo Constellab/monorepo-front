@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { LiUpdateViewConfigDialogComponent } from './li-update-view-config-dialog.component';
 
 describe('LabUpdateViewConfigNameDialogComponent', () => {

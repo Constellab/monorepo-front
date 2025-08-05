@@ -4,6 +4,7 @@ import { FlFileHelper } from '@monorepo/front-core-lib/fl-translate';
 import { TdTypeStyle } from '@monorepo/technical-doc';
 import { TeRichText, TeRichTextTransform } from '@monorepo/text-editor';
 import { Type } from 'class-transformer';
+
 import { CaBaseEntity } from '../ca-base-entity.class';
 import { CaRootFolderUserRoleObj } from './ca-folder-user.class';
 

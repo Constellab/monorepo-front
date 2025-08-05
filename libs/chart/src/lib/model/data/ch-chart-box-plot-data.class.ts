@@ -1,6 +1,7 @@
 import { ascending, quantile } from 'd3';
-import { ChChartSerie } from './ch-chart-serie.class';
+
 import { ChChartData } from './ch-chart-data.class';
+import { ChChartSerie } from './ch-chart-serie.class';
 
 export interface ChChartBoxPlotData extends ChChartData {
   q1: number;

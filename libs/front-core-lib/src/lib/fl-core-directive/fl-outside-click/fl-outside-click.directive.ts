@@ -2,11 +2,11 @@ import {
   Directive,
   ElementRef,
   EventEmitter,
+  inject,
   OnDestroy,
   OnInit,
   Output,
   Renderer2,
-  inject,
 } from '@angular/core';
 
 /**

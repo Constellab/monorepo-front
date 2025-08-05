@@ -1,8 +1,8 @@
 import { AfterViewInit, Component, inject } from '@angular/core';
-import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib/fl-core';
-import { LiResourceOrigin } from '@monorepo/lab-lib/li-core';
 import { MatOption } from '@angular/material/core';
 import { MatSelect } from '@angular/material/select';
+import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib/fl-core';
+import { LiResourceOrigin } from '@monorepo/lab-lib/li-core';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({

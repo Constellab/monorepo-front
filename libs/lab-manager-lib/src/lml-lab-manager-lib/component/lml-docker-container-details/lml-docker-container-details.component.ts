@@ -1,7 +1,8 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { LmlDockerContainerSize, LmlDockerPsFull } from '../../model/lml-lab-manager.class';
+
 import { LmlLabManagerService } from '../../lml-lab-manager.service';
+import { LmlDockerContainerSize, LmlDockerPsFull } from '../../model/lml-lab-manager.class';
 
 /**
  * Component to show the details of a container

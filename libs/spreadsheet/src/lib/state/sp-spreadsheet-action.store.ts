@@ -1,8 +1,9 @@
-import { Injectable, inject } from '@angular/core';
+import { inject,Injectable } from '@angular/core';
+
 import { SpSheetAction } from '../model/action/sp-sheet.action';
+import { SpSheet } from '../model/sp-sheet.class';
 import { SpSpreadsheetState } from './sp-spreadsheet.state';
 import { SpSpreadsheetSelectionState } from './sp-spreadsheet-selection.state';
-import { SpSheet } from '../model/sp-sheet.class';
 
 /**
  * Shared instance for a spreadsheet that store the actions

@@ -1,6 +1,7 @@
-import { HaEntity } from './ha-entity.class';
 import { TeRichText, TeRichTextTransform } from '@monorepo/text-editor';
+
 import { HaFile } from '../../entity-module/ha-file-core/model/ha-file';
+import { HaEntity } from './ha-entity.class';
 
 export class HaDocumentation extends HaEntity {
   title: string;

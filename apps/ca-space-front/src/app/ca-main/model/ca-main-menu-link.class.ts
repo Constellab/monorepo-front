@@ -1,5 +1,6 @@
-import { CaRouterService } from '../../ca-core/service/ca-router.service';
 import { ClUserCategory } from '@monorepo/core-lib';
+
+import { CaRouterService } from '../../ca-core/service/ca-router.service';
 
 /**
  * Describe one main menu link button

@@ -1,18 +1,19 @@
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { Component, inject,OnDestroy, OnInit } from '@angular/core';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
 import { FlArrayObs, FlEntityArrayObs, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import { FlConfirmDialogResult, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlPortalActionResult, FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { LabNoteDetailPageState } from '../../lab-note-detail-page-state.service';
 import { LiNoteService, LiScenario } from '@monorepo/lab-lib/li-core';
 import { LiScenarioTableComponent, LiSelectScenarioDialogComponent } from '@monorepo/lab-lib/li-scenario';
-import { MatIcon } from '@angular/material/icon';
-import { MatIconButton } from '@angular/material/button';
-import { MatTooltip } from '@angular/material/tooltip';
-import { Subscription } from 'rxjs';
 import { TranslatePipe } from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
+
+import { LabNoteDetailPageState } from '../../lab-note-detail-page-state.service';
 
 /**
  * Component to list the linked scenario of a note with

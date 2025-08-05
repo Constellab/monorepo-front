@@ -1,12 +1,12 @@
-import { Type } from 'class-transformer';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { FlFormInputsManagerConfig } from '@monorepo/front-core-lib/fl-form-inputs-manager';
 import {
   FlSearchConverter,
   FlSearchDateInterval,
   FlSearchFilterCriteriaConverter,
   FlSearchSortCriteriaConverter,
 } from '@monorepo/front-core-lib/fl-search';
-import { FlFormInputsManagerConfig } from '@monorepo/front-core-lib/fl-form-inputs-manager';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Type } from 'class-transformer';
 
 export class HaAdminPanelStorySearchFields {
   title: string;

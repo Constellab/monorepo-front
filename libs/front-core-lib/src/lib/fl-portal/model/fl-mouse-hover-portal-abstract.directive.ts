@@ -1,7 +1,8 @@
 import { Directive, ElementRef, Input, OnDestroy, Renderer2 } from '@angular/core';
 import { FlMouseHoverAbstractDirective } from '@monorepo/front-core-lib/fl-core';
-import { FlMouseHoverPortalConfig } from './fl-mouse-hover-portal.config';
+
 import { FlPortalService } from '../service/fl-portal.service';
+import { FlMouseHoverPortalConfig } from './fl-mouse-hover-portal.config';
 import { FlOverlayRef } from './fl-overlay-ref.class';
 import { FlRelativeOverlayConfig } from './fl-portal.class';
 import { FlPortalConfig } from './fl-portal-config.class';

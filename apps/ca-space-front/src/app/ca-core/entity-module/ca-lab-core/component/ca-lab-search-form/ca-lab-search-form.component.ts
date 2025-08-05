@@ -1,21 +1,22 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { FormControl, ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
+import { MatOption } from '@angular/material/core';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatIcon } from '@angular/material/icon';
+import { MatInput } from '@angular/material/input';
+import { MatSelect } from '@angular/material/select';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
+import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
 import { FlSearchModule, FlSearchState } from '@monorepo/front-core-lib/fl-search';
 import { FlUserConfigSearchNameMode, FlUserModule } from '@monorepo/front-core-lib/fl-user';
+import { TranslatePipe } from '@ngx-translate/core';
+
 import { caLabServerTaskStatusDict, caLabStatusDict } from '../../../../model/entities/lab/ca-lab.class';
-import { MatFormField, MatLabel } from '@angular/material/form-field';
-import { MatInput } from '@angular/material/input';
-import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
-import { CaSelectSpaceComponent } from '../../../ca-space-core/component/ca-select-space/ca-select-space.component';
-import { MatSelect } from '@angular/material/select';
-import { MatOption } from '@angular/material/core';
+import { CaSelectCloudProviderOptionsComponent } from '../../../ca-cloud-provider-core/component/ca-select-cloud-provider-options/ca-select-cloud-provider-options.component';
 import { CaSelectOptionsCityComponent } from '../../../ca-config-core/component/ca-select-city-options/ca-select-options-city.component';
 import { CaSelectServerCloudOptionsComponent } from '../../../ca-server-core/component/ca-select-server-cloud-options/ca-select-server-cloud-options.component';
 import { CaSelectServerStandardOptionsComponent } from '../../../ca-server-core/component/ca-select-server-standard-options/ca-select-server-standard-options.component';
-import { MatIcon } from '@angular/material/icon';
-import { CaSelectCloudProviderOptionsComponent } from '../../../ca-cloud-provider-core/component/ca-select-cloud-provider-options/ca-select-cloud-provider-options.component';
-import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
-import { TranslatePipe } from '@ngx-translate/core';
+import { CaSelectSpaceComponent } from '../../../ca-space-core/component/ca-select-space/ca-select-space.component';
 
 export type CaLabSearchMode = 'all' | 'current-space';
 

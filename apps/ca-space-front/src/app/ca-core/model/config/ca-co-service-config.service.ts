@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { CoConfig, CoTagValue, CoTagValueEditDTO } from '@monorepo/community-lib';
-import { CaEnvironmentHelper } from '../../utils/ca-environment.helper';
-import { TdEditParamSpecDict, TdParamSpec, TdParamSpecs } from '@monorepo/technical-doc';
+import { CoConfig, CoTagValue } from '@monorepo/community-lib';
+import { TdParamSpecs } from '@monorepo/technical-doc';
 import { Observable } from 'rxjs';
+
+import { CaEnvironmentHelper } from '../../utils/ca-environment.helper';
 
 @Injectable({
   providedIn: 'root',
@@ -20,27 +21,27 @@ export class CaCoServiceConfig extends CoConfig {
     return CaEnvironmentHelper.getCommunityFrontUrl();
   }
 
-  addAdditionalInfoSpec(tagKey: string, specName: string, spec: TdParamSpec): Observable<TdParamSpecs> {
+  addAdditionalInfoSpec(): Observable<TdParamSpecs> {
     return undefined;
   }
 
-  createTagValue(tagValueEdit: CoTagValueEditDTO): Observable<CoTagValue> {
+  createTagValue(): Observable<CoTagValue> {
     return undefined;
   }
 
-  deleteAdditionalInfoSpec(tagKey: string, specName: string): Observable<TdParamSpecs> {
+  deleteAdditionalInfoSpec(): Observable<TdParamSpecs> {
     return undefined;
   }
 
-  editAdditionalInfoSpec(tagKey: string, specName: string, spec: TdParamSpec): Observable<TdParamSpecs> {
+  editAdditionalInfoSpec(): Observable<TdParamSpecs> {
     return undefined;
   }
 
-  renameAndEditAdditionalInfoSpec(tagKey: string, oldName: string, newName: string, spec: TdParamSpec): Observable<TdParamSpecs> {
+  renameAndEditAdditionalInfoSpec(): Observable<TdParamSpecs> {
     return undefined;
   }
 
-  updateTagValue(tagValueEdit: CoTagValueEditDTO): Observable<CoTagValue> {
+  updateTagValue(): Observable<CoTagValue> {
     return undefined;
   }
 }

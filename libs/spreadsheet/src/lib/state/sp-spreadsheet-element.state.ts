@@ -1,15 +1,16 @@
-import { Injectable, inject } from '@angular/core';
-import { SpCellCoord } from '../model/sp-cell-coord.class';
+import { inject,Injectable } from '@angular/core';
+import { FlHtmlHelper } from '@monorepo/front-core-lib/fl-core';
+
 import {
   columnIdAttributeName,
-  SpCell,
   FlHeaderCellType,
   headerIndexAttributeName,
   headerTypeAttributeName,
   rowIdAttributeName,
+  SpCell,
 } from '../model/sp-cell.class';
+import { SpCellCoord } from '../model/sp-cell-coord.class';
 import { SpSpreadsheetState } from './sp-spreadsheet.state';
-import { FlHtmlHelper } from '@monorepo/front-core-lib/fl-core';
 
 export type SpSheetMouseEventCell = CellEvent | HeaderCellEvent;
 

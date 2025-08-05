@@ -1,24 +1,25 @@
 import { Component, inject } from '@angular/core';
-import { CaSpaceInvitService } from '../../../../ca-core/service-api/ca-space-invit.service';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatButton } from '@angular/material/button';
+import { MatOption } from '@angular/material/core';
+import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
+import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatIcon } from '@angular/material/icon';
+import { MatInput } from '@angular/material/input';
+import { MatSelect } from '@angular/material/select';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
+import { TranslatePipe } from '@ngx-translate/core';
+
+import { CaSpaceType } from '../../../../ca-core/model/entities/space/ca-space.class';
 import {
   CaSpaceInvit,
   CaSpaceInvitCreateDTO,
 } from '../../../../ca-core/model/entities/space/ca-space-invit.class';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CaSpaceType } from '../../../../ca-core/model/entities/space/ca-space.class';
 import { CaSpaceRole } from '../../../../ca-core/model/entities/space/ca-space-user.class';
-import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
-import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
-import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
-import { MatInput } from '@angular/material/input';
-import { MatSelect } from '@angular/material/select';
-import { MatOption } from '@angular/material/core';
-import { MatButton } from '@angular/material/button';
-import { MatIcon } from '@angular/material/icon';
-import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
-import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
-import { TranslatePipe } from '@ngx-translate/core';
+import { CaSpaceInvitService } from '../../../../ca-core/service-api/ca-space-invit.service';
 
 export interface CaSpaceInvitFormDialogInput {
   spaceId: string;

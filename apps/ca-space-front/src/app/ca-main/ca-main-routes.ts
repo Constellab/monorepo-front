@@ -1,5 +1,8 @@
 import { Route } from '@angular/router';
 
+import { caAdminRoutes } from '../ca-admin/ca-admin-routes';
+import { caChatRoutes } from '../ca-chat/ca-chat-routes';
+import { CaAdminGuard } from '../ca-core/guard/ca-admin-guard.service';
 import {
   caConstAdminRoute,
   caConstBaseRoute,
@@ -11,16 +14,13 @@ import {
   caConstStructureRoute,
   caConstUserPageRoute,
 } from '../ca-core/utils/ca-base-route';
-import { CaLoadUserGuard } from './guard/ca-load-user.guard';
-import { CaAdminGuard } from '../ca-core/guard/ca-admin-guard.service';
-import { caStructureRoutes } from '../ca-structure/ca-structure-routes';
-import { caHierarchyObjectRoutes } from '../ca-folder/module/ca-hierarchy-object-detail-page/ca-hierarchy-object-detail-page-routes';
 import { caDashboardRoutes } from '../ca-dashboard/ca-dashboard-routes';
+import { caHierarchyObjectRoutes } from '../ca-folder/module/ca-hierarchy-object-detail-page/ca-hierarchy-object-detail-page-routes';
 import { caLabRoutes } from '../ca-lab/ca-lab-routes';
-import { caAdminRoutes } from '../ca-admin/ca-admin-routes';
-import { caChatRoutes } from '../ca-chat/ca-chat-routes';
-import { caUserRoutes } from '../ca-user-detail-page/ca-user-detail-page-routes';
 import { CA_PUBLIC_ROUTES } from '../ca-public-route/ca-public-routes';
+import { caStructureRoutes } from '../ca-structure/ca-structure-routes';
+import { caUserRoutes } from '../ca-user-detail-page/ca-user-detail-page-routes';
+import { CaLoadUserGuard } from './guard/ca-load-user.guard';
 
 export const caMainRoutes: Route[] = [
   {

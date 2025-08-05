@@ -1,10 +1,8 @@
+import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { Component, ContentChild, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
-import { FlMouseButton, FlTableColumnStatic, FlViewContext } from '@monorepo/front-core-lib/fl-core';
-import {
-  CaHierarchyObject,
-  CaHierarchyObjectDatasource,
-} from '../../../../model/entities/folder/ca-hierarchy-object.class';
-import { ClHelpService } from '@monorepo/core-lib';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatSortHeader } from '@angular/material/sort';
 import {
   MatCell,
   MatCellDef,
@@ -17,24 +15,27 @@ import {
   MatRowDef,
   MatTable,
 } from '@angular/material/table';
-import { MatSortHeader } from '@angular/material/sort';
-import { FlSearchModule } from '@monorepo/front-core-lib/fl-search';
-import { RouterLink } from '@angular/router';
-import { CaHierarchyObjectInlineComponent } from '../ca-hierarchy-object-inline/ca-hierarchy-object-inline.component';
-import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
-import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import { MatIcon } from '@angular/material/icon';
-import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { MatTooltip } from '@angular/material/tooltip';
-import { MatIconButton } from '@angular/material/button';
-import { CaNotificationMarkDirective } from '../../../ca-notification-core/directive/ca-notification-mark/ca-notification-mark.directive';
-import { NgClass, NgTemplateOutlet } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import { ClHelpService } from '@monorepo/core-lib';
+import { FlMouseButton, FlTableColumnStatic, FlViewContext } from '@monorepo/front-core-lib/fl-core';
 import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
-import { CaDetailRoutePipe } from '../../../../module/ca-core-pipe/ca-detail-route/ca-detail-route.pipe';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
-import { TranslatePipe } from '@ngx-translate/core';
+import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
+import { FlSearchModule } from '@monorepo/front-core-lib/fl-search';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlTagModule } from '@monorepo/front-core-lib/fl-tag';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+import { TranslatePipe } from '@ngx-translate/core';
+
+import {
+  CaHierarchyObject,
+  CaHierarchyObjectDatasource,
+} from '../../../../model/entities/folder/ca-hierarchy-object.class';
+import { CaDetailRoutePipe } from '../../../../module/ca-core-pipe/ca-detail-route/ca-detail-route.pipe';
+import { CaNotificationMarkDirective } from '../../../ca-notification-core/directive/ca-notification-mark/ca-notification-mark.directive';
 import { CaHierarchyObjectAncestorPortalDirective } from '../ca-hierarchy-object-ancestor-portal/ca-hierarchy-object-ancestor-portal.directive';
+import { CaHierarchyObjectInlineComponent } from '../ca-hierarchy-object-inline/ca-hierarchy-object-inline.component';
 
 export interface CaHierarchyObjectTableEvent {
   action: 'click' | 'dblClick' | 'rightClick' | 'middleClick' | 'openChat' | 'openDescription';

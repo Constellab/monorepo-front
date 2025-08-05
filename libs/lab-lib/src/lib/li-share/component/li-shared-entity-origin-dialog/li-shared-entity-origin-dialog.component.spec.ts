@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { LiSharedEntityOriginDialogComponent } from './li-shared-entity-origin-dialog.component';
 
 describe('LabResourceShareOriginDialogComponent', () => {

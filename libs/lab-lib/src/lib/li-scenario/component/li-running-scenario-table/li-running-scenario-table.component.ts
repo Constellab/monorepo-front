@@ -1,10 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FlColorModule } from '@monorepo/front-core-lib/fl-color';
-import { FlDatasource } from '@monorepo/front-core-lib/fl-core';
-import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { LiDetailRoutePipe, LiRunningScenarioInfo } from '@monorepo/lab-lib/li-core';
-import { LiRunningProcessComponent } from '@monorepo/lab-lib/li-process';
+import { MatIcon } from '@angular/material/icon';
 import {
   MatCell,
   MatCellDef,
@@ -17,8 +12,13 @@ import {
   MatRowDef,
   MatTable,
 } from '@angular/material/table';
-import { MatIcon } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
+import { FlColorModule } from '@monorepo/front-core-lib/fl-color';
+import { FlDatasource } from '@monorepo/front-core-lib/fl-core';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { LiDetailRoutePipe, LiRunningScenarioInfo } from '@monorepo/lab-lib/li-core';
+import { LiRunningProcessComponent } from '@monorepo/lab-lib/li-process';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({

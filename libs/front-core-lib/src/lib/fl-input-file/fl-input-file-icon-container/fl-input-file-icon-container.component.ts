@@ -1,5 +1,6 @@
 import { Component, ContentChild, ElementRef, Input } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
+
 import { FlInputFileDirective } from '../fl-input-file.directive';
 
 /**

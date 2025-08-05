@@ -1,4 +1,6 @@
+import { isPlatformBrowser, isPlatformServer } from '@angular/common';
 import {
+  DOCUMENT,
   inject,
   Injectable,
   InjectionToken,
@@ -7,11 +9,11 @@ import {
   RendererFactory2,
   REQUEST,
 } from '@angular/core';
-import { DOCUMENT, isPlatformBrowser, isPlatformServer } from '@angular/common';
 import { clDefaultTheme, ClTheme, clThemeIsSupported } from '@monorepo/core-lib';
-import { FlThemeDetail, flThemeDetailDark, flThemeDetailLight } from './model/fl-theme-detail.class';
-import { FlCookieService } from '@monorepo/front-core-lib/fl-dialog';
 import { flRootInjector } from '@monorepo/front-core-lib/fl-core';
+import { FlCookieService } from '@monorepo/front-core-lib/fl-dialog';
+
+import { FlThemeDetail, flThemeDetailDark, flThemeDetailLight } from './model/fl-theme-detail.class';
 
 export interface FlThemeServiceConfig {
   // if not provided, default to ''
@@ -115,7 +117,7 @@ export class FlThemeService {
 
     if (link) {
       let path: string = '';
-      if(this.themeServiceConfig?.cssThemeFileLocation){
+      if (this.themeServiceConfig?.cssThemeFileLocation) {
         path = this.themeServiceConfig.cssThemeFileLocation + '/';
       }
       this.renderer.setAttribute(link, 'href', `${path}${theme}.css`);

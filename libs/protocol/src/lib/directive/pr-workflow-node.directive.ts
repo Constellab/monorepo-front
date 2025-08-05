@@ -1,5 +1,5 @@
 import { Directive, ElementRef, Input, OnDestroy, Renderer2 } from '@angular/core';
-import { PrWorkflowManagerState } from '../state/pr-workflow-manager-state';
+import { ClSubscriptionHandler } from '@monorepo/core-lib';
 import { FlCoord } from '@monorepo/front-core-lib/fl-core';
 import { FlHtmlHelper } from '@monorepo/front-core-lib/fl-core';
 import { FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
@@ -7,16 +7,16 @@ import { FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
 import { FlPortalConnectedPosition } from '@monorepo/front-core-lib/fl-portal';
 import { FlPortalService } from '@monorepo/front-core-lib/fl-portal';
 
-import { PrWorkflowNode } from '../model/node/pr-workflow-node.class';
-import { ClSubscriptionHandler } from '@monorepo/core-lib';
-import { PrWorkflowPort } from '../model/workflow/pr-workflow-port.class';
 import {
   PrWorkflowPortActionPortalComponent,
   PrWorkflowPortActionPortalInput,
 } from '../component/pr-workflow-port-action-portal/pr-workflow-port-action-portal.component';
-import { PrWorkflowNodeProtocol } from '../model/node/pr-workflow-node-protocol.class';
+import { PrWorkflowNode } from '../model/node/pr-workflow-node.class';
 import { PrWorkflowNodeInterface } from '../model/node/pr-workflow-node-interface.class';
 import { PrWorkflowNodeOuterface } from '../model/node/pr-workflow-node-outerface.class';
+import { PrWorkflowNodeProtocol } from '../model/node/pr-workflow-node-protocol.class';
+import { PrWorkflowPort } from '../model/workflow/pr-workflow-port.class';
+import { PrWorkflowManagerState } from '../state/pr-workflow-manager-state';
 
 @Directive()
 export abstract class PrWorkflowNodeDirective implements OnDestroy {

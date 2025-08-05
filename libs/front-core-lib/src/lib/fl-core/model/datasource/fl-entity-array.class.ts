@@ -1,7 +1,8 @@
-import { FlArrayObs } from './fl-array-obs.class';
-import { Observable } from 'rxjs';
 import { ClHelpService } from '@monorepo/core-lib';
+import { Observable } from 'rxjs';
+
 import { FlEntity } from '../fl-entity.class';
+import { FlArrayObs } from './fl-array-obs.class';
 
 export class FlEntityArrayObs<T extends FlEntity> extends FlArrayObs<T> {
   /**

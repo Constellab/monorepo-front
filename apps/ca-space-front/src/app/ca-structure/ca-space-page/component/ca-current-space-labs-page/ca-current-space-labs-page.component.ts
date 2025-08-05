@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { CaLabSearchComponent } from '../../../../ca-core/entity-module/ca-lab-core/component/ca-lab-search/ca-lab-search.component';
 
 @Component({

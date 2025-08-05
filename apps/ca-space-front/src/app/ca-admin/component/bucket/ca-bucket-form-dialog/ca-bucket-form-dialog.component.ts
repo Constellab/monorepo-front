@@ -14,6 +14,7 @@ import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { TranslatePipe } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
+
 import { CaCloudProviderRegionInlineComponent } from '../../../../ca-core/entity-module/ca-cloud-provider-core/component/ca-cloud-provider-region-inline/ca-cloud-provider-region-inline.component';
 import {
   CaSelectCloudProviderRegionOptionsComponent,

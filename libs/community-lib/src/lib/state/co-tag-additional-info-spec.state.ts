@@ -1,3 +1,5 @@
+import { inject, Injectable, OnDestroy, ViewContainerRef } from '@angular/core';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import {
   TdAbstractDynamicParamSpecState,
   TdConfigureParamSpecsTableDialogComponent,
@@ -6,12 +8,11 @@ import {
   TdParamSpec,
   TdParamSpecs,
 } from '@monorepo/technical-doc';
-import { inject, Injectable, OnDestroy, ViewContainerRef } from '@angular/core';
 import { Observable, of, Subject } from 'rxjs';
-import { CoConfig } from '../service/co-service-config.config';
-import { coAdditionalInfoInfosDict, CoTagKey } from '../model/co-tag-key.class';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { map } from 'rxjs/operators';
+
+import { coAdditionalInfoInfosDict, CoTagKey } from '../model/co-tag-key.class';
+import { CoConfig } from '../service/co-service-config.config';
 
 @Injectable()
 export class CoTagAdditionalInfoSpecState extends TdAbstractDynamicParamSpecState implements OnDestroy {

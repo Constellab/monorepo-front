@@ -1,18 +1,7 @@
+import { inject,Injectable, ViewContainerRef } from '@angular/core';
 import { FlPortalService } from '@monorepo/front-core-lib/fl-portal';
-import { Injectable, ViewContainerRef, inject } from '@angular/core';
-import { Observable } from 'rxjs';
-import {
-  RvConfigValues,
-  RvResourceViewModuleConfig,
-  RvResourceViewTable,
-  RvResourceViewText,
-  RvResourceViewTypeInfo,
-  RvSpreadsheetViewConfig,
-  RvTextViewConfig,
-  RvViewConfig,
-  rvDefaultViewTypeInfos,
-} from '@monorepo/resource-view';
-import { SpSheetChartConfig, SpSpreadsheetPageLoader } from '@monorepo/spreadsheet';
+import { LiResourceTableService } from '@monorepo/lab-lib/li-core';
+import { LiResourceService } from '@monorepo/lab-lib/li-core';
 import {
   LiResourceRichTextViewComponent,
   LiResourceSpreadsheetPageLoader,
@@ -28,8 +17,19 @@ import {
   LiTableChartConfigVennDiagram,
   LiTableChartConfigVulcanoPlot,
 } from '@monorepo/lab-lib/li-resource';
-import { LiResourceTableService } from '@monorepo/lab-lib/li-core';
-import { LiResourceService } from '@monorepo/lab-lib/li-core';
+import {
+  RvConfigValues,
+  rvDefaultViewTypeInfos,
+  RvResourceViewModuleConfig,
+  RvResourceViewTable,
+  RvResourceViewText,
+  RvResourceViewTypeInfo,
+  RvSpreadsheetViewConfig,
+  RvTextViewConfig,
+  RvViewConfig,
+} from '@monorepo/resource-view';
+import { SpSheetChartConfig, SpSpreadsheetPageLoader } from '@monorepo/spreadsheet';
+import { Observable } from 'rxjs';
 
 // Record of view type, icon
 

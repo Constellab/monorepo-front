@@ -1,22 +1,23 @@
 import { Component, inject } from '@angular/core';
+import { MatIconButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
-import { CaServerStandard } from '../../../../model/entities/server/ca-server-standard.class';
-import { CaServerService } from '../../../../service-api/ca-server.service';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { FlEntityArrayObs } from '@monorepo/front-core-lib/fl-core';
+import { FlDialogModule, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { TranslatePipe } from '@ngx-translate/core';
+
 import {
   CaServerPrice,
   CaServerPriceDatasource,
 } from '../../../../model/entities/server/ca-server-price.class';
-import { FlDialogModule, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { FlEntityArrayObs } from '@monorepo/front-core-lib/fl-core';
+import { CaServerStandard } from '../../../../model/entities/server/ca-server-standard.class';
+import { CaServerService } from '../../../../service-api/ca-server.service';
 import {
   CaServerPriceFormDialogComponent,
   CaServerPriceFormDialogInput,
 } from '../ca-server-price-form-dialog/ca-server-price-form-dialog.component';
-import { MatIconButton } from '@angular/material/button';
-import { MatTooltip } from '@angular/material/tooltip';
-import { MatIcon } from '@angular/material/icon';
 import { CaServerPriceTableComponent } from '../ca-server-price-table/ca-server-price-table.component';
-import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'ca-server-prices-dialog',

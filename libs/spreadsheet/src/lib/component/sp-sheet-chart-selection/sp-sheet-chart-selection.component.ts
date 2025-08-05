@@ -2,12 +2,25 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  inject,
   OnDestroy,
   OnInit,
-  inject,
 } from '@angular/core';
 import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { SpSpreadsheetState } from '../../state/sp-spreadsheet.state';
+import { ChChartHistogramMode, ChChartType } from '@monorepo/chart';
+import { ClHelpService, ClSubscriptionHandler } from '@monorepo/core-lib';
+import { FlGlobalValidators } from '@monorepo/front-core-lib/fl-core';
+import { FL_PORTAL_DATA } from '@monorepo/front-core-lib/fl-portal';
+import { FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
+import { FlPortalConfig } from '@monorepo/front-core-lib/fl-portal';
+import { FlPortalService } from '@monorepo/front-core-lib/fl-portal';
+import { merge } from 'rxjs';
+import { debounceTime, skip } from 'rxjs/operators';
+
+import {
+  SpSheetChartConfig,
+  SpSpreadsheetChartSerieSelectionInput,
+} from '../../model/chart/sp-sheet-chart-config.class';
 import {
   SpSheetChart2dSerieSelectionForm,
   SpSheetChartSelectionForm,
@@ -18,22 +31,9 @@ import {
   SpSpreadsheetChartSelectionInputCreate,
   SpSpreadsheetChartSelectionInputUpdate,
 } from '../../model/chart/sp-sheet-chart-selection-form.class';
-import { SpSheetChartSerieSelectionComponent } from '../sp-sheet-chart-serie-selection/sp-sheet-chart-serie-selection.component';
-import { ClHelpService, ClSubscriptionHandler } from '@monorepo/core-lib';
-import { debounceTime, skip } from 'rxjs/operators';
-import { merge } from 'rxjs';
+import { SpSpreadsheetState } from '../../state/sp-spreadsheet.state';
 import { SpSpreadsheetChartSelectionHelper } from '../../utils/sp-spreadsheet-chart-selection.helper';
-import {
-  SpSheetChartConfig,
-  SpSpreadsheetChartSerieSelectionInput,
-} from '../../model/chart/sp-sheet-chart-config.class';
-import { FL_PORTAL_DATA } from '@monorepo/front-core-lib/fl-portal';
-import { FlGlobalValidators } from '@monorepo/front-core-lib/fl-core';
-import { FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
-import { FlPortalConfig } from '@monorepo/front-core-lib/fl-portal';
-import { FlPortalService } from '@monorepo/front-core-lib/fl-portal';
-
-import { ChChartHistogramMode, ChChartType } from '@monorepo/chart';
+import { SpSheetChartSerieSelectionComponent } from '../sp-sheet-chart-serie-selection/sp-sheet-chart-serie-selection.component';
 
 /**
  * Modal component to select value from the spreadsheet to draw a chart

@@ -1,8 +1,9 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { LmlDockerInspect } from '../../model/lml-lab-manager.class';
-import { LmlLabManagerState } from '../../lml-lab-manager.state';
 import { FlStatusEvent } from '@monorepo/front-core-lib/fl-core';
+import { Observable } from 'rxjs';
+
+import { LmlLabManagerState } from '../../lml-lab-manager.state';
+import { LmlDockerInspect } from '../../model/lml-lab-manager.class';
 
 @Component({
   selector: 'lml-docker-containers',

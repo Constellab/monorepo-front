@@ -1,9 +1,10 @@
-import { ToolboxConfig } from '@editorjs/editorjs/types/tools/tool-settings';
 import { Type } from '@angular/core';
-import { TeComponentBlock } from './te-component-block.class';
+import { MenuConfig } from '@editorjs/editorjs/types/tools';
+import { ToolboxConfig } from '@editorjs/editorjs/types/tools/tool-settings';
+
 import { TeFormulaComponent } from '../component/te-formula/te-formula.component';
 import { TeHelper } from '../model/te.helper';
-import { MenuConfig } from '@editorjs/editorjs/types/tools';
+import { TeComponentBlock } from './te-component-block.class';
 
 /**
  * Object representing the value stored to create a formula

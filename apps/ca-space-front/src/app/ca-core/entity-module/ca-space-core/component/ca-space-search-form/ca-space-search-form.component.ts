@@ -1,14 +1,15 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
-import { FlSearchModule, FlSearchState } from '@monorepo/front-core-lib/fl-search';
-import { CaSpaceType } from '../../../../model/entities/space/ca-space.class';
+import { MatOption } from '@angular/material/core';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatSelect } from '@angular/material/select';
-import { MatOption } from '@angular/material/core';
 import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
+import { FlSearchModule, FlSearchState } from '@monorepo/front-core-lib/fl-search';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { CaSpaceType } from '../../../../model/entities/space/ca-space.class';
 
 @Component({
   selector: 'ca-space-search-form',

@@ -1,6 +1,6 @@
+import { ClHelpService } from '@monorepo/core-lib';
 import { FlArrayObs } from '@monorepo/front-core-lib/fl-core';
 import { FlTag, FlTagValue } from '@monorepo/front-core-lib/fl-tag';
-import { ClHelpService } from '@monorepo/core-lib';
 
 /**
  * List all the available values for a tag key

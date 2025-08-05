@@ -1,11 +1,12 @@
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { FlFormInputsManagerConfig } from '@monorepo/front-core-lib/fl-form-inputs-manager';
 import {
   FlSearchFilterCriteriaConverter,
   FlSearchSortCriteriaConverter,
 } from '@monorepo/front-core-lib/fl-search';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { LiSearchConverter } from '../global/li-search-converter.class';
 import { TdTypeObjectSubType, TdTypeObjectType } from '@monorepo/technical-doc';
+
+import { LiSearchConverter } from '../global/li-search-converter.class';
 
 /**
  * config for the lab type search component

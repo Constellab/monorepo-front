@@ -1,26 +1,27 @@
 import { Component, inject } from '@angular/core';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { FlFileHelper } from '@monorepo/front-core-lib/fl-translate';
+import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
+import { FlInputFileModule } from '@monorepo/front-core-lib/fl-input-file';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { FlFileHelper } from '@monorepo/front-core-lib/fl-translate';
+import { TranslatePipe } from '@ngx-translate/core';
+
+import {
+  CaServerStandardFormDialogComponent,
+  CaServerStandardFormDialogInput,
+} from '../../../ca-core/entity-module/ca-server-core/component/ca-server-standard-form-dialog/ca-server-standard-form-dialog.component';
+import { CaServerStandardTableComponent } from '../../../ca-core/entity-module/ca-server-core/component/ca-server-standard-table/ca-server-standard-table.component';
 import {
   CaServerStandard,
   CaServerStandardDatasource,
 } from '../../../ca-core/model/entities/server/ca-server-standard.class';
 import { CaServerService } from '../../../ca-core/service-api/ca-server.service';
-import {
-  CaServerStandardFormDialogComponent,
-  CaServerStandardFormDialogInput,
-} from '../../../ca-core/entity-module/ca-server-core/component/ca-server-standard-form-dialog/ca-server-standard-form-dialog.component';
 import { CaSettingsService } from '../../../ca-core/service-api/ca-settings.service';
-import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { MatIcon } from '@angular/material/icon';
-import { MatIconButton } from '@angular/material/button';
-import { MatTooltip } from '@angular/material/tooltip';
-import { FlInputFileModule } from '@monorepo/front-core-lib/fl-input-file';
-import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
-import { CaServerStandardTableComponent } from '../../../ca-core/entity-module/ca-server-core/component/ca-server-standard-table/ca-server-standard-table.component';
-import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'ca-admin-server-standard-list',

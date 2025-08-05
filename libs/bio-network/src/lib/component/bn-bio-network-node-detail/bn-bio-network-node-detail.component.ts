@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
-import { BnBioNetworkNode } from '../../model/bn-bio-network-node.class';
-import { BnBioNetworkDrawerState } from '../../state/bn-bio-network-drawer.state';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+
+import { BnBioNetworkNode } from '../../model/bn-bio-network-node.class';
+import { BnBioNetworkDrawerState } from '../../state/bn-bio-network-drawer.state';
 
 @Component({
   selector: 'bn-bio-network-node-detail',

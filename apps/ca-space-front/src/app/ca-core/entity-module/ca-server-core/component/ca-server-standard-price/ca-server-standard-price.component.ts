@@ -1,8 +1,9 @@
 import { Component, inject, input } from '@angular/core';
-import { CaServerService } from '../../../../service-api/ca-server.service';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
-import { switchMap } from 'rxjs';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { switchMap } from 'rxjs';
+
+import { CaServerService } from '../../../../service-api/ca-server.service';
 
 @Component({
   selector: 'ca-server-standard-price',

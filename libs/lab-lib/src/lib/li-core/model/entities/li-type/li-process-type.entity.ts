@@ -1,5 +1,3 @@
-import { Expose } from 'class-transformer';
-import { LiTypeEntity } from './li-type.entity';
 import {
   TdIOSpec,
   TdIOSpecs,
@@ -7,6 +5,9 @@ import {
   TdProcessAdditionalInfoDTO,
   TdProcessType,
 } from '@monorepo/technical-doc';
+import { Expose } from 'class-transformer';
+
+import { LiTypeEntity } from './li-type.entity';
 
 export class LiProcessType extends LiTypeEntity {
   @Expose({ name: 'input_specs' })

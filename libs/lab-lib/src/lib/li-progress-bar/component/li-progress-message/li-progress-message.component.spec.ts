@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { LiProgressMessageComponent } from './li-progress-message.component';
 
 describe('LiProgressMessageComponent', () => {

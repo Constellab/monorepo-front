@@ -1,8 +1,9 @@
 import { Component, computed, input } from '@angular/core';
-import { HaFile, HaFileType } from '../../../ha-file-core/model/ha-file';
+import { MatDivider } from '@angular/material/divider';
 import { TeBlockHeaderLevel, TeRichText } from '@monorepo/text-editor';
 import { TeTextEditorModule } from '@monorepo/text-editor';
-import { MatDivider } from '@angular/material/divider';
+
+import { HaFile, HaFileType } from '../../../ha-file-core/model/ha-file';
 
 @Component({
   selector: 'ha-text-editor-right-side-panel',

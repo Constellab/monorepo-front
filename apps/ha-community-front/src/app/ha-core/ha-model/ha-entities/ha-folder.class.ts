@@ -1,7 +1,8 @@
+import { Type } from 'class-transformer';
+
+import { HaDocumentation } from './ha-documentation.class';
 import { HaEntity } from './ha-entity.class';
 import { HaVersion } from './ha-version.class';
-import { HaDocumentation } from './ha-documentation.class';
-import { Type } from 'class-transformer';
 
 export class HaFolder extends HaEntity {
   title: string;

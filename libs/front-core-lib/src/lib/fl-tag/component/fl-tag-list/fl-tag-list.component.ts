@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { FlMouseButton } from '@monorepo/front-core-lib/fl-core';
+
 import { FlTag, FlTagDatasource, FlTagSelectedEvent } from '../../fl-tag.class';
 import { FlTagColorer } from '../../fl-tag-colorer.class';
-import { FlMouseButton } from '@monorepo/front-core-lib/fl-core';
 
 @Component({
   selector: 'fl-tag-list',

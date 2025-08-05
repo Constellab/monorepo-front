@@ -1,22 +1,23 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { TranslatePipe } from '@ngx-translate/core';
+
 import {
   CaBucketCredentials,
   CaBucketCredentialsDatasource,
 } from '../../../../model/entities/ca-object-storage.class';
 import { CaObjectStorageService } from '../../../../service-api/ca-object-storage.service';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import {
   CaBucketCredentialsFormDialogComponent,
   CaBucketCredentialsFormDialogInput,
 } from '../ca-bucket-credentials-form-dialog/ca-bucket-credentials-form-dialog.component';
-import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { MatIcon } from '@angular/material/icon';
-import { MatIconButton } from '@angular/material/button';
-import { MatTooltip } from '@angular/material/tooltip';
-import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
 import { CaBucketCredentialsTableComponent } from '../ca-bucket-credentials-table/ca-bucket-credentials-table.component';
-import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * List bucket credentials with CRUD actions

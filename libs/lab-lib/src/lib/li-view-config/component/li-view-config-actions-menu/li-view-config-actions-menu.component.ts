@@ -1,15 +1,20 @@
+import { Component, EventEmitter, inject,Input, OnInit, Output } from '@angular/core';
+import { MatButton, MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
+import { MatTooltip } from '@angular/material/tooltip';
+import { RouterLink } from '@angular/router';
 import { ClHelpService } from '@monorepo/core-lib';
-import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
-import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import {
   FlPrettyJsonDialogComponent,
   FlPrettyJsonDialogInput,
 } from '@monorepo/front-core-lib/fl-json-editor';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
-import { LiManageEntityTagsDialogComponent, LiManageEntityTagsDialogInput } from '@monorepo/lab-lib/li-tag';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import {
+  excludedViewInNote,
   LiNote,
   LiNoteService,
   LiResourceService,
@@ -18,16 +23,12 @@ import {
   LiTagDatasource,
   LiTagService,
   LiViewConfig,
-  excludedViewInNote,
 } from '@monorepo/lab-lib/li-core';
 import { LiSelectNoteDialogComponent } from '@monorepo/lab-lib/li-note';
-import { LiUpdateViewConfigDialogComponent } from '../li-update-view-config-dialog/li-update-view-config-dialog.component';
-import { MatButton, MatIconButton } from '@angular/material/button';
-import { MatIcon } from '@angular/material/icon';
-import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
-import { MatTooltip } from '@angular/material/tooltip';
-import { RouterLink } from '@angular/router';
+import { LiManageEntityTagsDialogComponent, LiManageEntityTagsDialogInput } from '@monorepo/lab-lib/li-tag';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { LiUpdateViewConfigDialogComponent } from '../li-update-view-config-dialog/li-update-view-config-dialog.component';
 
 /**
  * Actions menu button for view configs, it has a ng-content for custom buttons

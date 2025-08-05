@@ -1,9 +1,8 @@
-import { Injectable } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { FlApiErrorService, FlServerError } from '@monorepo/front-core-lib/fl-api';
-
+import { Injectable } from '@angular/core';
 import { ClApiError } from '@monorepo/core-lib';
+import { FlApiErrorService, FlServerError } from '@monorepo/front-core-lib/fl-api';
+import { Observable, throwError } from 'rxjs';
 
 /**
  * Manage the errors of the application

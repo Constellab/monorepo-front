@@ -1,14 +1,15 @@
-import { LiEntity } from '../../model/global/li-entity.entity';
+import { Pipe, PipeTransform } from '@angular/core';
+
 import { LiEntityType } from '../../model/entities/li-navigable-entity.entity';
 import { LiNote } from '../../model/entities/li-note.entity';
 import { LiNoteTemplate } from '../../model/entities/li-note-template.entity';
-import { LiResource } from '../../model/entities/resource/li-resource.entity';
-import { LiRouterService } from '../../service/li-router.service';
 import { LiScenario } from '../../model/entities/li-scenario.entity';
-import { LiScenarioTemplate } from '../../model/entities/process/li-scenario-template.entity';
-import { LiViewConfig } from '../../model/entities/resource/li-view-config.entity';
-import { Pipe, PipeTransform } from '@angular/core';
 import { LiTagKeyModel } from '../../model/entities/li-tag.entity';
+import { LiScenarioTemplate } from '../../model/entities/process/li-scenario-template.entity';
+import { LiResource } from '../../model/entities/resource/li-resource.entity';
+import { LiViewConfig } from '../../model/entities/resource/li-view-config.entity';
+import { LiEntity } from '../../model/global/li-entity.entity';
+import { LiRouterService } from '../../service/li-router.service';
 
 /**
  * Pipe to get the detail route of an object

@@ -1,12 +1,13 @@
 import { inject, Injectable } from '@angular/core';
 import { FlInputSearchFilter } from '@monorepo/front-core-lib/fl-core';
 import { FlUserConfig, FlUserConfigSearchNameMode } from '@monorepo/front-core-lib/fl-user';
-import { CaUsersService } from '../../service-api/ca-users.service';
-import { CaRouterService } from '../../service/ca-router.service';
-import { CaUser, CaUserDatasourcePaginated } from '../entities/ca-user.class';
 import { Observable } from 'rxjs';
+
+import { CaRouterService } from '../../service/ca-router.service';
 import { CaAuthenticatedUserService } from '../../service-api/ca-authenticated-user.service';
 import { CaSpaceService } from '../../service-api/ca-space.service';
+import { CaUsersService } from '../../service-api/ca-users.service';
+import { CaUser, CaUserDatasourcePaginated } from '../entities/ca-user.class';
 
 @Injectable({
   providedIn: 'root',

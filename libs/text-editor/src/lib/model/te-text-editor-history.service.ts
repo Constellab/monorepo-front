@@ -1,4 +1,5 @@
 import { Observable } from 'rxjs';
+
 import { TeRichTextBlockModificationWithUser, TeRichTextDTO } from './lib';
 
 export interface TeTextEditorHistoryService {

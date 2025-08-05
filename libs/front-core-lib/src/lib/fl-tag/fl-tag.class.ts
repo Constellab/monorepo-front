@@ -1,7 +1,7 @@
-import { Observable } from 'rxjs';
-import { DateTime } from 'luxon';
 import { ClPageI } from '@monorepo/core-lib';
 import { FlArrayObs } from '@monorepo/front-core-lib/fl-core';
+import { DateTime } from 'luxon';
+import { Observable } from 'rxjs';
 
 export type FlTagValue = string | boolean | number | DateTime;
 

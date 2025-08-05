@@ -1,12 +1,11 @@
-import { inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { ClApiError } from '@monorepo/core-lib';
 import { FlApiErrorService, FlServerError } from '@monorepo/front-core-lib/fl-api';
 import { flAuthExpiredCookie } from '@monorepo/front-core-lib/fl-core';
 import { FlCookieService } from '@monorepo/front-core-lib/fl-dialog';
-
-import { isPlatformBrowser } from '@angular/common';
-import { ClApiError } from '@monorepo/core-lib';
+import { Observable, throwError } from 'rxjs';
 
 /**
  * Manage the errors of the application
@@ -15,7 +14,7 @@ import { ClApiError } from '@monorepo/core-lib';
 @Injectable()
 export class HaApiErrorService extends FlApiErrorService {
   private cookieService = inject(FlCookieService);
-  private platformId = inject<Object>(PLATFORM_ID);
+  private platformId = inject<object>(PLATFORM_ID);
 
   /**
    * Handle the error message for the not specific errors

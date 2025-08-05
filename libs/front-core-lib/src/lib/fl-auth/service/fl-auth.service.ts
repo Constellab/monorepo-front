@@ -1,7 +1,7 @@
-import { Observable } from 'rxjs';
 import { ClCredentials, ClCredentials2Fa } from '@monorepo/core-lib';
-import { FlCookieService } from '@monorepo/front-core-lib/fl-dialog';
 import { flAuthExpiredCookie } from '@monorepo/front-core-lib/fl-core';
+import { FlCookieService } from '@monorepo/front-core-lib/fl-dialog';
+import { Observable } from 'rxjs';
 
 export interface FlAuthLoginResponse {
   status: 'LOGGED_IN' | '2FA_REQUIRED';

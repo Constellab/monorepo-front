@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+
 import { TdResourceType, TdResourceView } from '../../model/td-resource-type.class';
 
 @Component({

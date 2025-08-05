@@ -1,27 +1,27 @@
+import { AsyncPipe } from '@angular/common';
 import { Component, inject, Input, OnInit } from '@angular/core';
-import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
-import {
-  CaLabBackupHistory,
-  CaLabBackupHistoryDatasource,
-} from '../../../../ca-core/model/entities/lab/ca-lab-backup.class';
+import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
+import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
 } from '@monorepo/front-core-lib/fl-dialog';
-import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
-
-import { CaLabDetailPageState } from '../../../state/ca-lab-detail-page.state';
-import { Observable } from 'rxjs';
-import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { MatIcon } from '@angular/material/icon';
-import { MatButton } from '@angular/material/button';
-import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
-import { CaLabBackupHistoryTableComponent } from '../../../../ca-core/entity-module/ca-lab-core/component/ca-lab-backup-history-table/ca-lab-backup-history-table.component';
-import { AsyncPipe } from '@angular/common';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { TranslatePipe } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+
+import { CaLabBackupHistoryTableComponent } from '../../../../ca-core/entity-module/ca-lab-core/component/ca-lab-backup-history-table/ca-lab-backup-history-table.component';
+import {
+  CaLabBackupHistory,
+  CaLabBackupHistoryDatasource,
+} from '../../../../ca-core/model/entities/lab/ca-lab-backup.class';
+import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
+import { CaLabDetailPageState } from '../../../state/ca-lab-detail-page.state';
 
 @Component({
   selector: 'ca-lab-backup-history',

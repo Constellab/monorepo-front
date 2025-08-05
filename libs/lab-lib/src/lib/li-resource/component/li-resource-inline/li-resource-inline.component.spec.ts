@@ -10,7 +10,7 @@ describe('LiResourceInlineComponent', () => {
     await TestBed.configureTestingModule({
       imports: [LiResourceInlineComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(LiResourceInlineComponent);
     component = fixture.componentInstance;

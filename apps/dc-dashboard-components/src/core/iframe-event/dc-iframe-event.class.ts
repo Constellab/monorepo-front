@@ -1,4 +1,5 @@
 import { ClTheme } from '@monorepo/core-lib';
+
 import { DcComponentData } from '../model/dc-dynamic-component.class';
 
 /**

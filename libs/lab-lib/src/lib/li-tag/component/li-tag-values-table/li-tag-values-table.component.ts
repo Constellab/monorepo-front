@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
-import { LiTagDetailState } from '../../state/li-tag-detail.state';
-import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
-import { LiTagValueModel } from '@monorepo/lab-lib/li-core';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import {
   MatCell,
   MatCellDef,
@@ -11,14 +11,15 @@ import {
   MatHeaderRow, MatHeaderRowDef, MatRow, MatRowDef,
   MatTable,
 } from '@angular/material/table';
-import { TranslatePipe } from '@ngx-translate/core';
-import { MatIcon } from '@angular/material/icon';
-import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { CoDeprecatedTagComponent } from '@monorepo/community-lib';
+import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
-import { CoDeprecatedTagComponent } from '@monorepo/community-lib';
-import { MatIconButton } from '@angular/material/button';
-import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { LiTagValueModel } from '@monorepo/lab-lib/li-core';
+import { TranslatePipe } from '@ngx-translate/core';
+
+import { LiTagDetailState } from '../../state/li-tag-detail.state';
 
 @Component({
   selector: 'li-tag-values-table',

@@ -2,17 +2,17 @@ import {
   Directive,
   ElementRef,
   EventEmitter,
+  inject,
   Input,
   NgZone,
   OnDestroy,
   OnInit,
   Output,
   Renderer2,
-  inject,
 } from '@angular/core';
 import { ClHelpService } from '@monorepo/core-lib';
-import { Observable, of, Subscription } from 'rxjs';
 import { FlCoord } from '@monorepo/front-core-lib/fl-core';
+import { Observable, of, Subscription } from 'rxjs';
 
 export type FlResizeMode = 'width' | 'height' | 'both' | 'bothKeepRatio';
 

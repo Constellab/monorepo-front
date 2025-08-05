@@ -1,3 +1,7 @@
+import { ClHelpService } from '@monorepo/core-lib';
+import { FlColorHelper } from '@monorepo/front-core-lib/fl-core';
+import { FlThemeDetail } from '@monorepo/front-core-lib/fl-theme';
+
 import {
   BnBioNetwork,
   BnBioNetworkClusterInfo,
@@ -6,16 +10,13 @@ import {
   BnBioNetworkMetabolite,
   BnBioNetworkReaction,
 } from '../model/bn-bio-network.class';
-import { BnBioNetworkHelper } from './bn-bio-network.helper';
-import { BnBioNetworkNodeMetabolite } from '../model/bn-bio-network-node-metabolite.class';
 import { BnBioNetworkGraph } from '../model/bn-bio-network-graph.class';
-import { BnBioNetworkNodeReaction } from '../model/bn-bio-network-node-reaction.class';
+import { BnBioNetworkNode } from '../model/bn-bio-network-node.class';
 import { BnBioNetworkNodeCofactor } from '../model/bn-bio-network-node-cofactor.class';
 import { BnBioNetworkLink } from '../model/bn-bio-network-node-link.class';
-import { ClHelpService } from '@monorepo/core-lib';
-import { BnBioNetworkNode } from '../model/bn-bio-network-node.class';
-import { FlColorHelper } from '@monorepo/front-core-lib/fl-core';
-import { FlThemeDetail } from '@monorepo/front-core-lib/fl-theme';
+import { BnBioNetworkNodeMetabolite } from '../model/bn-bio-network-node-metabolite.class';
+import { BnBioNetworkNodeReaction } from '../model/bn-bio-network-node-reaction.class';
+import { BnBioNetworkHelper } from './bn-bio-network.helper';
 
 export class BnBioNetworkFactory {
   private reactions: BnBioNetworkNodeReaction[] = [];

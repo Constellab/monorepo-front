@@ -1,12 +1,13 @@
-import { SpSheet } from '../sp-sheet.class';
+import { ChChart2dDatum, ChChartConfig, ChChartSerie } from '@monorepo/chart';
+import { ClHelpService, ClNumberHelper } from '@monorepo/core-lib';
+
 import { SpSheetMultiSelection } from '../selection/sp-sheet-multi-selection.class';
 import { SpSheetSelection } from '../selection/sp-sheet-selection.class';
-import { ClHelpService, ClNumberHelper } from '@monorepo/core-lib';
+import { SpSheet } from '../sp-sheet.class';
 import {
   SpSheetChart2dSerieSelectionForm,
   SpSheetSelectionRange,
 } from './sp-sheet-chart-selection-form.class';
-import { ChChart2dDatum, ChChartConfig, ChChartSerie } from '@monorepo/chart';
 
 /**
  * Object to store the chart selection and contain a method to export the selection to series

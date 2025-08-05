@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { Component, EventEmitter, inject,Input, OnInit, Output } from '@angular/core';
+import { NgControl } from '@angular/forms';
 import { FlFormFieldDirective, FlInputSearchFilter } from '@monorepo/front-core-lib/fl-core';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlInputSearchAdvancedButton, FlInputSearchModule } from '@monorepo/front-core-lib/fl-input-search';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import {
@@ -8,13 +9,13 @@ import {
   LiScenarioTemplateDatasource,
   LiScenarioTemplateService,
 } from '@monorepo/lab-lib/li-core';
+import { Observable } from 'rxjs';
+
 import { LiScenarioTemplateInlineComponent } from '../li-scenario-template-inline/li-scenario-template-inline.component';
 import {
   LiSelectScenarioTemplateDialogComponent,
   LiSelectScenarioTemplateDialogInput,
 } from '../li-select-scenario-template-dialog/li-select-scenario-template-dialog.component';
-import { NgControl } from '@angular/forms';
-import { Observable } from 'rxjs';
 
 /**
  * Input/Select component to search for a Protocol template and select one.

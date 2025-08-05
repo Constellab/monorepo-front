@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { FlApiService } from './fl-api.service';
-import { FlHttpOption } from '../model/fl-http-option.class';
 import { ClCachedObservable, ClDeserializationRef } from '@monorepo/core-lib';
 import { FlCleanableService, FlCleanerService } from '@monorepo/front-core-lib/fl-core';
+
+import { FlHttpOption } from '../model/fl-http-option.class';
+import { FlApiService } from './fl-api.service';
 
 /**
  * Global service that extends {@link FlApiService}

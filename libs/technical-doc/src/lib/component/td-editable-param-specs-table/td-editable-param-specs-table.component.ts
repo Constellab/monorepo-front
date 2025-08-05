@@ -1,8 +1,9 @@
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, inject, Input, OnInit, output } from '@angular/core';
+import { ClHelpService, ClStringHelper } from '@monorepo/core-lib';
 import { FlArrayObs, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
-import { animate, state, style, transition, trigger } from '@angular/animations';
-import { ClHelpService, ClStringHelper } from '@monorepo/core-lib';
+
 import { TdParamSpecBase } from '../../model/td-config-spec.class';
 import { TdAbstractDynamicParamSpecState } from '../../service/td-abstract-dynamic-param-spec.state';
 

@@ -1,20 +1,21 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FlDialogModule, FlFormDialogAbstractDirective } from '@monorepo/front-core-lib/fl-dialog';
-import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
-import { HaCreateAgentDto } from '../../../ha-core/ha-model/ha-entities/ha-agent.class';
 import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { CoCreateAgentFormData } from '@monorepo/community-lib';
+import { CoCommunityLibModule } from '@monorepo/community-lib';
+import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
+import { FlDialogModule, FlFormDialogAbstractDirective } from '@monorepo/front-core-lib/fl-dialog';
+import { FlInputFileModule } from '@monorepo/front-core-lib/fl-input-file';
+import { TranslatePipe } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { HaAgentService } from '../../../ha-core/ha-service/ha-agent.service';
-import { HaSpace } from '../../../ha-core/ha-model/ha-entities/ha-space.class';
-import { HaSpaceService } from '../../../ha-core/ha-service/ha-space.service';
+
+import { HaCreateAgentDto } from '../../../ha-core/ha-model/ha-entities/ha-agent.class';
 import {
   HaAgentVersion,
   HaAgentVersionFileInput,
 } from '../../../ha-core/ha-model/ha-entities/ha-agent-version.class';
-import { CoCreateAgentFormData } from '@monorepo/community-lib';
-import { CoCommunityLibModule } from '@monorepo/community-lib';
-import { FlInputFileModule } from '@monorepo/front-core-lib/fl-input-file';
-import { TranslatePipe } from '@ngx-translate/core';
+import { HaSpace } from '../../../ha-core/ha-model/ha-entities/ha-space.class';
+import { HaAgentService } from '../../../ha-core/ha-service/ha-agent.service';
+import { HaSpaceService } from '../../../ha-core/ha-service/ha-space.service';
 
 export type HaCreateAgentInput = FlFormDialogInput<HaCreateAgentDto>;
 

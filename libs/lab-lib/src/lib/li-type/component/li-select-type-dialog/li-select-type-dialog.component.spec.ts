@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { LiSelectTypeDialogComponent } from './li-select-type-dialog.component';
 
 describe('LabSelectProcessTypeDialogComponent', () => {

@@ -1,7 +1,7 @@
 import { Component, input, signal } from '@angular/core';
-import { LiLogLine } from '@monorepo/lab-lib/li-core';
-import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
 import { MatButton } from '@angular/material/button';
+import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
+import { LiLogLine } from '@monorepo/lab-lib/li-core';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({

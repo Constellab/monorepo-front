@@ -1,5 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
-import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { Component, EventEmitter, inject,Input, OnInit, Output } from '@angular/core';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import { FlInputFileModule } from '@monorepo/front-core-lib/fl-input-file';
 import { FlPortalAction, FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
 import {
@@ -8,7 +10,7 @@ import {
   FlSearchModule,
   FlSearchState,
 } from '@monorepo/front-core-lib/fl-search';
-import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
 import {
@@ -19,11 +21,10 @@ import {
   LiScenarioTemplateSearchFields,
   LiScenarioTemplateService,
 } from '@monorepo/lab-lib/li-core';
+import { TranslatePipe } from '@ngx-translate/core';
+
 import { LiScenarioTemplateSearchFormComponent } from '../li-scenario-template-search-form/li-scenario-template-search-form.component';
 import { LiScenarioTemplateTableComponent } from '../li-scenario-template-table/li-scenario-template-table.component';
-import { MatIcon } from '@angular/material/icon';
-import { MatTooltip } from '@angular/material/tooltip';
-import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'li-scenario-template-search',

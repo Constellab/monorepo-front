@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { LiActivitySearchComponent } from './li-activity-search.component';
 
 describe('LiActivitySearchComponent', () => {

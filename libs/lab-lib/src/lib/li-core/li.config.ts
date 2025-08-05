@@ -1,4 +1,5 @@
 import { TeConfig } from '@monorepo/text-editor';
+
 import { LiResourceViewRichText } from './model/entities/resource/li-resource-view.entity';
 
 /**

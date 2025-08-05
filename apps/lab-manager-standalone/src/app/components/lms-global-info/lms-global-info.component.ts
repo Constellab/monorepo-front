@@ -1,12 +1,13 @@
 import { Component, inject } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { LmsLabState } from '../../service/lms-lab.state';
 import { LmlLabManagerState } from '@monorepo/lab-manager-lib';
+
+import { LmsLabState } from '../../service/lms-lab.state';
 
 @Component({
   selector: 'lms-global-info',

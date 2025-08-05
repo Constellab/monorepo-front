@@ -1,17 +1,18 @@
 import { AsyncPipe, NgClass } from '@angular/common';
 import { Component, inject, Injector, OnInit } from '@angular/core';
-import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
-import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
-import { FlStatusModule } from '@monorepo/front-core-lib/fl-status';
-import { LabScenarioDetailPageState } from '../../state/lab-scenario-detail-page.state';
-import { LiScenario, LiScenarioService } from '@monorepo/lab-lib/li-core';
-import { LiScenarioIconsComponent } from '@monorepo/lab-lib/li-scenario';
-import { LiSyncObjectButtonComponent } from '@monorepo/lab-lib/li-entity';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
+import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
+import { FlStatusModule } from '@monorepo/front-core-lib/fl-status';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { LiScenario, LiScenarioService } from '@monorepo/lab-lib/li-core';
+import { LiSyncObjectButtonComponent } from '@monorepo/lab-lib/li-entity';
+import { LiScenarioIconsComponent } from '@monorepo/lab-lib/li-scenario';
 import { Observable } from 'rxjs';
+
 import { LabScenarioDetailActionMenu } from '../../model/lab-scenario-detail-action-menu';
+import { LabScenarioDetailPageState } from '../../state/lab-scenario-detail-page.state';
 
 /**
  * Header for the scenario detail page

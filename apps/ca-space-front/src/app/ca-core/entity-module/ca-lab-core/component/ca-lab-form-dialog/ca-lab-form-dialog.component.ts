@@ -1,36 +1,36 @@
+import { AsyncPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { CaLab, CaLabType } from '../../../../model/entities/lab/ca-lab.class';
+import { FormBuilder, FormsModule, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
+import { MatButton } from '@angular/material/button';
+import { MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
+import { MatDivider } from '@angular/material/divider';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatIcon } from '@angular/material/icon';
+import { MatInput } from '@angular/material/input';
+import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
+import { CoCommunityHelperService } from '@monorepo/community-lib';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogModule,
   FlDialogService,
 } from '@monorepo/front-core-lib/fl-dialog';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { FlRadioButtonBigModule } from '@monorepo/front-core-lib/fl-radio-button-big';
 import { FlTranslateParam, FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
-
-import { CaLabService } from '../../../../service-api/ca-lab.service';
-import { FormBuilder, FormsModule, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
+import { TranslatePipe } from '@ngx-translate/core';
 import { combineLatest, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { CaCurrentSpaceService } from '../../../../service-api/ca-current-space.service';
+
+import { CaLab, CaLabType } from '../../../../model/entities/lab/ca-lab.class';
 import { CaLabFreeGetDto } from '../../../../model/entities/lab/ca-lab-free.class';
+import { CaCurrentSpaceService } from '../../../../service-api/ca-current-space.service';
+import { CaLabService } from '../../../../service-api/ca-lab.service';
+import { CaEnvironmentHelper } from '../../../../utils/ca-environment.helper';
 import {
   CaLabDesktopFormDialogComponent,
   CaLabDesktopFormDialogInput,
 } from '../ca-lab-desktop-form-dialog/ca-lab-desktop-form-dialog.component';
-import { CoCommunityHelperService } from '@monorepo/community-lib';
-import { CaEnvironmentHelper } from '../../../../utils/ca-environment.helper';
-import { MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
-import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
-import { FlRadioButtonBigModule } from '@monorepo/front-core-lib/fl-radio-button-big';
-import { MatIcon } from '@angular/material/icon';
-import { MatDivider } from '@angular/material/divider';
-import { MatFormField, MatLabel } from '@angular/material/form-field';
-import { MatInput } from '@angular/material/input';
-import { MatButton } from '@angular/material/button';
-import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
-import { AsyncPipe } from '@angular/common';
-import { TranslatePipe } from '@ngx-translate/core';
 
 interface CaFreeLabInfo {
   freeLabAvailable: boolean;

@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { RvResourceViewDirective } from '../../model/rv-resource-view.directive';
+
 import { RvResourceViewAudio } from '../../model/rv-resource-view.class';
+import { RvResourceViewDirective } from '../../model/rv-resource-view.directive';
 
 @Component({
   selector: 'rv-view-audio',

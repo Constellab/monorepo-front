@@ -1,9 +1,10 @@
+import { ClVersion } from '@monorepo/core-lib';
 import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
+import { Type } from 'class-transformer';
+
+import { HaBrickMajorVersion } from './ha-brick-major-version.class';
 import { HaEntity } from './ha-entity.class';
 import { HaRepoType, HaVersionType } from './ha-version.class';
-import { HaBrickMajorVersion } from './ha-brick-major-version.class';
-import { Type } from 'class-transformer';
-import { ClVersion } from '@monorepo/core-lib';
 
 export class HaBrickVersion extends HaEntity {
   minor: number;

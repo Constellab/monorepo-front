@@ -3,33 +3,14 @@ import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
+  inject,
   Input,
   OnInit,
   Output,
-  inject,
 } from '@angular/core';
-import { ClHelpService } from '@monorepo/core-lib';
-import {
-  FlArrayObs,
-  FlArrayObsStatus,
-  FlEntityArrayObs,
-  FlTableColumnStatic,
-} from '@monorepo/front-core-lib/fl-core';
-import { FlColorModule } from '@monorepo/front-core-lib/fl-color';
-import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
-import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
-import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
-import { FlSearchModule } from '@monorepo/front-core-lib/fl-search';
-import { FlTag, FlTagSelectedEvent } from '@monorepo/front-core-lib/fl-tag';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import { LiDetailRoutePipe, LiResource, LiResourceService } from '@monorepo/lab-lib/li-core';
-import { LiFlagButtonComponent } from '@monorepo/lab-lib/li-entity';
-import { LiResourceActionsMenuComponent } from '../li-resource-actions-menu/li-resource-actions-menu.component';
-import { LiResourceDetailDialogComponent } from '../li-resource-detail-dialog/li-resource-detail-dialog.component';
 import { MatAnchor, MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatSortHeader } from '@angular/material/sort';
 import {
   MatCell,
   MatCellDef,
@@ -42,14 +23,34 @@ import {
   MatRowDef,
   MatTable,
 } from '@angular/material/table';
-import { MatIcon } from '@angular/material/icon';
-import { MatSortHeader } from '@angular/material/sort';
 import { MatTooltip } from '@angular/material/tooltip';
-import { Observable } from 'rxjs';
 import { RouterLink } from '@angular/router';
+import { ClHelpService } from '@monorepo/core-lib';
+import { FlColorModule } from '@monorepo/front-core-lib/fl-color';
+import {
+  FlArrayObs,
+  FlArrayObsStatus,
+  FlEntityArrayObs,
+  FlTableColumnStatic,
+} from '@monorepo/front-core-lib/fl-core';
+import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { FlSearchModule } from '@monorepo/front-core-lib/fl-search';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FlTag, FlTagSelectedEvent } from '@monorepo/front-core-lib/fl-tag';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+import { LiDetailRoutePipe, LiResource, LiResourceService } from '@monorepo/lab-lib/li-core';
+import { LiFlagButtonComponent } from '@monorepo/lab-lib/li-entity';
+import { LiGetEntityTagsPipe, LiTagListComponent } from '@monorepo/lab-lib/li-tag';
 import { TdTechnicalDocModule } from '@monorepo/technical-doc';
 import { TranslatePipe } from '@ngx-translate/core';
-import { LiGetEntityTagsPipe, LiTagListComponent } from '@monorepo/lab-lib/li-tag';
+import { Observable } from 'rxjs';
+
+import { LiResourceActionsMenuComponent } from '../li-resource-actions-menu/li-resource-actions-menu.component';
+import { LiResourceDetailDialogComponent } from '../li-resource-detail-dialog/li-resource-detail-dialog.component';
 
 /**
  * Table to show resource with possibility actions on resource and a select mode

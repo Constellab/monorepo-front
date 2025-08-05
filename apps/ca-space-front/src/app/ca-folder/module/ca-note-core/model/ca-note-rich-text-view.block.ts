@@ -1,9 +1,10 @@
-import { CaNoteContentViewComponent } from '../component/ca-note-content-view/ca-note-content-view.component';
+import { ApplicationRef, EnvironmentInjector, Type } from '@angular/core';
+import { BlockToolConstructorOptions } from '@editorjs/editorjs/types/tools/block-tool';
+import { BlockToolData } from '@editorjs/editorjs/types/tools/block-tool-data';
 import { RvConfigValues } from '@monorepo/resource-view';
 import { TeComponentBlock } from '@monorepo/text-editor';
-import { BlockToolConstructorOptions } from '@editorjs/editorjs/types/tools/block-tool';
-import { ApplicationRef, EnvironmentInjector, Type } from '@angular/core';
-import { BlockToolData } from '@editorjs/editorjs/types/tools/block-tool-data';
+
+import { CaNoteContentViewComponent } from '../component/ca-note-content-view/ca-note-content-view.component';
 
 export interface CaNoteRichTextViewBlockAdditionalData {
   type: 'resourceView' | 'fileView';

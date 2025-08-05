@@ -6,8 +6,8 @@ import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { LiCurrentMonitorDTO, LiMonitorService } from '@monorepo/lab-lib/li-core';
 import { LiMonitorDiskComponent } from '@monorepo/lab-lib/li-monitor';
-import { Observable } from 'rxjs';
 import { TranslatePipe } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
 
 /**
  * Show the current monitoring information.

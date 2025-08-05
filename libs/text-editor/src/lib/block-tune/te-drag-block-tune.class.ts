@@ -1,7 +1,8 @@
 import { BlockTune } from '@editorjs/editorjs';
-import { TeHelper } from '../model/te.helper';
-import { ClHelpService } from '@monorepo/core-lib';
 import { MenuConfig } from '@editorjs/editorjs/types/tools';
+import { ClHelpService } from '@monorepo/core-lib';
+
+import { TeHelper } from '../model/te.helper';
 import { TeBlockTuneConstructorConfig } from '../model/te-block-tune-factory.class';
 
 /**

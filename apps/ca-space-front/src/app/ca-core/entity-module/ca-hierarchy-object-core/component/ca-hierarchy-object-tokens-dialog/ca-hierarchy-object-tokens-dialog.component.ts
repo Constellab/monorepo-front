@@ -1,22 +1,23 @@
 import { Component, inject, OnInit } from '@angular/core';
+import { MatIconButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { CaHierarchyObjectTokenService } from '../../../../service-api/ca-hierarchy-object-token.service';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 import { FlDialogModule, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
+import { TranslatePipe } from '@ngx-translate/core';
+
 import {
   CaHierarchyObjectToken,
   CaHierarchyObjectTokenDatasource,
 } from '../../../../model/entities/folder/ca-hierarchy-object-token.class';
-import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
+import { CaHierarchyObjectTokenService } from '../../../../service-api/ca-hierarchy-object-token.service';
 import {
   CaHierarchyObjectTokenFormDialogComponent,
   CaHierarchyObjectTokenFormDialogInput,
 } from '../ca-hierarchy-object-token-form-dialog/ca-hierarchy-object-token-form-dialog.component';
-import { TranslatePipe } from '@ngx-translate/core';
-import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
 import { CaHierarchyObjectTokenTableComponent } from '../ca-hierarchy-object-token-table/ca-hierarchy-object-token-table.component';
-import { MatIconButton } from '@angular/material/button';
-import { MatTooltip } from '@angular/material/tooltip';
-import { MatIcon } from '@angular/material/icon';
 
 export interface CaHierarchyObjectTokenDialogInput {
   hierarchyObjectId: string;

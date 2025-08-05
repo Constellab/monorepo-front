@@ -3,19 +3,28 @@ import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
+  inject,
   Input,
   OnInit,
   Output,
-  inject,
 } from '@angular/core';
+import { MatIconButton } from '@angular/material/button';
+import {
+  MatExpansionPanel,
+  MatExpansionPanelContent,
+  MatExpansionPanelHeader,
+  MatExpansionPanelTitle,
+} from '@angular/material/expansion';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
 import { ClHelpService } from '@monorepo/core-lib';
+import { FlEntityPaginatedDatasource, FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
 } from '@monorepo/front-core-lib/fl-dialog';
-import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
-import { FlEntityPaginatedDatasource, FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
 import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
 import { FlTag, FlTagModule } from '@monorepo/front-core-lib/fl-tag';
 import {
@@ -25,17 +34,9 @@ import {
   LiTagValueModel,
   LiTagValueModelDatasource,
 } from '@monorepo/lab-lib/li-core';
-import { LiTagFormDialogComponent } from '../li-tag-form-dialog/li-tag-form-dialog.component';
-import {
-  MatExpansionPanel,
-  MatExpansionPanelContent,
-  MatExpansionPanelHeader,
-  MatExpansionPanelTitle,
-} from '@angular/material/expansion';
-import { MatIcon } from '@angular/material/icon';
-import { MatIconButton } from '@angular/material/button';
-import { MatTooltip } from '@angular/material/tooltip';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { LiTagFormDialogComponent } from '../li-tag-form-dialog/li-tag-form-dialog.component';
 
 /**
  * Component to show the LabTagEntity information

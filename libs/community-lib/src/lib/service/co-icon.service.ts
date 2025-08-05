@@ -1,10 +1,11 @@
 import { inject, Injectable } from '@angular/core';
+import { ClPage } from '@monorepo/core-lib';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 import { Observable } from 'rxjs';
-import { ClPage } from '@monorepo/core-lib';
-import { CoConfig } from './co-service-config.config';
+
 import { CoIcon, CoIconDatasourceFilters, CoIconDatasourcePaginated } from '../model/co-icon.class';
+import { CoConfig } from './co-service-config.config';
 
 @Injectable({
   providedIn: 'root',

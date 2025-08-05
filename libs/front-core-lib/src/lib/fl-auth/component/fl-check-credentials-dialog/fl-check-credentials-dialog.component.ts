@@ -1,8 +1,9 @@
 import { Component, inject } from '@angular/core';
-import { Observable } from 'rxjs';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { FlLoginFormComponent } from '../fl-login-form/fl-login-form.component';
 import { ClCredentials } from '@monorepo/core-lib';
+import { Observable } from 'rxjs';
+
+import { FlLoginFormComponent } from '../fl-login-form/fl-login-form.component';
 
 export interface FlCheckCredentialsDialogInput {
   onSubmit(credentials: ClCredentials): Observable<any>;

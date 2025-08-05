@@ -1,5 +1,5 @@
-import { HaUser } from './ha-user';
 import { HaSpace } from './ha-space.class';
+import { HaUser } from './ha-user';
 
 export enum HaSpaceUserRole {
   ADMIN = 'ADMIN',

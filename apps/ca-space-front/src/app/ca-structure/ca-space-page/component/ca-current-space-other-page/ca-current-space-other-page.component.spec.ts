@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { CaCurrentSpaceOtherPageComponent } from './ca-current-space-other-page.component';
 
 describe('CaCurrentSpaceOtherPageComponent', () => {

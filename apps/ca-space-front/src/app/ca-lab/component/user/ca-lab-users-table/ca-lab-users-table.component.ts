@@ -1,17 +1,7 @@
 import { Component, inject, Input } from '@angular/core';
-import {
-  FlConfirmDialogInput,
-  FlConfirmDialogResult,
-  FlDialogService,
-} from '@monorepo/front-core-lib/fl-dialog';
-import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
-
-import { CaLabUser, CaLabUserDatasource } from '../../../../ca-core/model/entities/lab/ca-lab-user.class';
-import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
-import {
-  CaLabUserFormDialogComponent,
-  LabUserFormDialogInput,
-} from '../ca-lab-user-form-dialog/ca-lab-user-form-dialog.component';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import {
   MatCell,
   MatCellDef,
@@ -24,12 +14,22 @@ import {
   MatRowDef,
   MatTable,
 } from '@angular/material/table';
-import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import { MatIconButton } from '@angular/material/button';
-import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
-import { MatIcon } from '@angular/material/icon';
-import { TranslatePipe } from '@ngx-translate/core';
+import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
+import {
+  FlConfirmDialogInput,
+  FlConfirmDialogResult,
+  FlDialogService,
+} from '@monorepo/front-core-lib/fl-dialog';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+import { TranslatePipe } from '@ngx-translate/core';
+
+import { CaLabUser, CaLabUserDatasource } from '../../../../ca-core/model/entities/lab/ca-lab-user.class';
+import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
+import {
+  CaLabUserFormDialogComponent,
+  LabUserFormDialogInput,
+} from '../ca-lab-user-form-dialog/ca-lab-user-form-dialog.component';
 
 @Component({
   selector: 'ca-lab-users-table',

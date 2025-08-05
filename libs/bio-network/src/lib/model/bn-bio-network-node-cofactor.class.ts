@@ -1,7 +1,8 @@
+import { ClHelpService } from '@monorepo/core-lib';
+
 import { BnBioNetworkMetabolite, BnBioNetworkMetaboliteLevel } from './bn-bio-network.class';
 import { BnBioNetworkNode } from './bn-bio-network-node.class';
 import { BnBioNetworkNodeReaction } from './bn-bio-network-node-reaction.class';
-import { ClHelpService } from '@monorepo/core-lib';
 
 export const bnBioNetworkCofactorColor = '#ffaa33';
 

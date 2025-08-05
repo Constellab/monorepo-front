@@ -1,7 +1,8 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { FlAbstractLoaderDirective } from '../fl-abstract-loader.directive';
-import { Observable, Subscription } from 'rxjs';
 import { ClNumberHelper } from '@monorepo/core-lib';
+import { Observable, Subscription } from 'rxjs';
+
+import { FlAbstractLoaderDirective } from '../fl-abstract-loader.directive';
 
 /**
  * Determine loader component that show the progress as percent in a progress spinner

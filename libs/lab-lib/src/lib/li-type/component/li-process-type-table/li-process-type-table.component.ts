@@ -1,10 +1,7 @@
-import { ClHelpService } from '@monorepo/core-lib';
+import { NgClass } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
-import { FlSearchModule } from '@monorepo/front-core-lib/fl-search';
-import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
-import { LiTypeEntity, LiTypeEntityDatasource } from '@monorepo/lab-lib/li-core';
-import { LiTypeShowDetailButtonComponent } from '../li-type-show-detail-button/li-type-show-detail-button.component';
+import { MatIcon } from '@angular/material/icon';
+import { MatSortHeader } from '@angular/material/sort';
 import {
   MatCell,
   MatCellDef,
@@ -17,12 +14,16 @@ import {
   MatRowDef,
   MatTable,
 } from '@angular/material/table';
-import { MatIcon } from '@angular/material/icon';
-import { MatSortHeader } from '@angular/material/sort';
 import { MatTooltip } from '@angular/material/tooltip';
-import { NgClass } from '@angular/common';
+import { ClHelpService } from '@monorepo/core-lib';
+import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
+import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
+import { FlSearchModule } from '@monorepo/front-core-lib/fl-search';
+import { LiTypeEntity, LiTypeEntityDatasource } from '@monorepo/lab-lib/li-core';
 import { TdTechnicalDocModule } from '@monorepo/technical-doc';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { LiTypeShowDetailButtonComponent } from '../li-type-show-detail-button/li-type-show-detail-button.component';
 
 @Component({
   selector: 'li-process-type-table',

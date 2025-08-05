@@ -1,5 +1,9 @@
+import { inject, Injectable } from '@angular/core';
+import { CoTagValueEditDTO } from '@monorepo/community-lib';
 import { ClPage, ClPageI } from '@monorepo/core-lib';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
+import { FlDatasourceGetPageData, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
+import { FlSearchConverter } from '@monorepo/front-core-lib/fl-search';
 import {
   FlTag,
   FlTagSearchFilter,
@@ -7,7 +11,10 @@ import {
   FlTagService,
   FlTagValue,
 } from '@monorepo/front-core-lib/fl-tag';
-import { inject, Injectable } from '@angular/core';
+import { TdParamSpec, TdParamSpecs } from '@monorepo/technical-doc';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 import {
   LiCreateTagResponse,
   LiEntityTagType,
@@ -22,13 +29,7 @@ import {
   LiTagValueModelDatasource,
   TagPropagationImpactDTO,
 } from '../model/entities/li-tag.entity';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { LiTagSearch, LiTagSearchFields } from '../model/search/li-tag-search.class';
-import { FlDatasourceGetPageData, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
-import { FlSearchConverter } from '@monorepo/front-core-lib/fl-search';
-import { CoTagValueEditDTO } from '@monorepo/community-lib';
-import { TdParamSpec, TdParamSpecs } from '@monorepo/technical-doc';
 
 @Injectable({
   providedIn: 'root',

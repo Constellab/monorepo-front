@@ -1,6 +1,7 @@
 import { Type } from 'class-transformer';
-import { CaSpace } from './ca-space.class';
+
 import { CaBucketLocationDTO } from '../ca-object-storage.class';
+import { CaSpace } from './ca-space.class';
 
 export class CaSpaceSettingsDto {
   @Type(() => CaSpace)

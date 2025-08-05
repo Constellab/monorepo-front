@@ -1,5 +1,5 @@
-import { FlHighlight } from '@monorepo/front-core-lib/fl-markdown';
 import { Pipe, PipeTransform } from '@angular/core';
+import { FlHighlight } from '@monorepo/front-core-lib/fl-markdown';
 
 @Pipe({ name: 'labOpenAiMessageContent' })
 export class LiOpenAiMessageContentPipe implements PipeTransform {

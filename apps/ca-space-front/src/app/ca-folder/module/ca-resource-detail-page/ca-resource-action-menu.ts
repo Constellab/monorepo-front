@@ -1,6 +1,7 @@
 import { Injector } from '@angular/core';
 import { FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
 import { Observable } from 'rxjs';
+
 import { CaResourceBasicInfo } from '../../../ca-core/model/entities/folder/ca-resource.class';
 import { CaRouterService } from '../../../ca-core/service/ca-router.service';
 import {

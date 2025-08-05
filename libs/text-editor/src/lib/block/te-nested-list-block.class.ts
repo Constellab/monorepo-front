@@ -1,8 +1,9 @@
-import List from '@editorjs/list';
 import { BlockTool, BlockToolConstructorOptions } from '@editorjs/editorjs/types/tools/block-tool';
-import { TeHelper } from '../model/te.helper';
+import List from '@editorjs/list';
 import { FlKeyboardKey } from '@monorepo/front-core-lib/fl-core';
+
 import { TeBlockListData } from '../model/lib';
+import { TeHelper } from '../model/te.helper';
 
 export class TeNestedListBlock extends List implements BlockTool {
   constructor(private options: BlockToolConstructorOptions) {

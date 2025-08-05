@@ -1,9 +1,10 @@
 import { ApplicationRef, ComponentRef, createComponent, EnvironmentInjector, Type } from '@angular/core';
-import { BlockTool, BlockToolConstructorOptions } from '@editorjs/editorjs/types/tools/block-tool';
-import { ToolboxConfig } from '@editorjs/editorjs/types/tools/tool-settings';
-import { BlockToolData } from '@editorjs/editorjs/types/tools/block-tool-data';
-import { TeElementBlockDirective } from '../model/te-element.directive';
 import { PasteConfig } from '@editorjs/editorjs/types/configs/paste-config';
+import { BlockTool, BlockToolConstructorOptions } from '@editorjs/editorjs/types/tools/block-tool';
+import { BlockToolData } from '@editorjs/editorjs/types/tools/block-tool-data';
+import { ToolboxConfig } from '@editorjs/editorjs/types/tools/tool-settings';
+
+import { TeElementBlockDirective } from '../model/te-element.directive';
 
 /**
  * Specific data that can be passed when creating the block to pass config to the component,

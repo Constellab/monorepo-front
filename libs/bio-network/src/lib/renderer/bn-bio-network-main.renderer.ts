@@ -1,21 +1,22 @@
 import { inject, Injectable, OnDestroy } from '@angular/core';
-import { ForceGraphInstance, GraphData } from 'force-graph';
-import { BnBioNetworkGraph } from '../model/bn-bio-network-graph.class';
-import { BnBioNetworkSelectionState } from '../state/bn-bio-network-selection.state';
-import { BnBioNetworkOptionsState } from '../state/bn-bio-network-options.state';
-import { BnBioNetworkState } from '../state/bn-bio-network.state';
-import { BnBioNetworkSimulationState } from '../state/bn-bio-network-simulation.state';
 import { ClSubscriptionHandler } from '@monorepo/core-lib';
-import { BnBioNetworkZoomRenderer } from './bn-bio-network-zoom.renderer';
-import { BnBioNetworkGridRenderer } from './bn-bio-network-grid.renderer';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { filter } from 'rxjs/operators';
-import { BnBioNetworkNodesRenderer } from './bn-bio-network-nodes.renderer';
-import { BnBioNetworkLinksRenderer } from './bn-bio-network-links.renderer';
-import { BnBioNetworkGridState } from '../state/bn-bio-network-grid.state';
-import { BnBioNetworkEngineState } from '../state/bn-bio-network-engine.state';
 import { FlCoord } from '@monorepo/front-core-lib/fl-core';
 import { FlThemeDetail, FlThemeService } from '@monorepo/front-core-lib/fl-theme';
+import { ForceGraphInstance, GraphData } from 'force-graph';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { filter } from 'rxjs/operators';
+
+import { BnBioNetworkGraph } from '../model/bn-bio-network-graph.class';
+import { BnBioNetworkState } from '../state/bn-bio-network.state';
+import { BnBioNetworkEngineState } from '../state/bn-bio-network-engine.state';
+import { BnBioNetworkGridState } from '../state/bn-bio-network-grid.state';
+import { BnBioNetworkOptionsState } from '../state/bn-bio-network-options.state';
+import { BnBioNetworkSelectionState } from '../state/bn-bio-network-selection.state';
+import { BnBioNetworkSimulationState } from '../state/bn-bio-network-simulation.state';
+import { BnBioNetworkGridRenderer } from './bn-bio-network-grid.renderer';
+import { BnBioNetworkLinksRenderer } from './bn-bio-network-links.renderer';
+import { BnBioNetworkNodesRenderer } from './bn-bio-network-nodes.renderer';
+import { BnBioNetworkZoomRenderer } from './bn-bio-network-zoom.renderer';
 
 export interface BnBioNetworkGraphRenderer {
   graph: ForceGraphInstance;

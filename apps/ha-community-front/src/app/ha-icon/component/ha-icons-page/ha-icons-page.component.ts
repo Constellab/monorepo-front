@@ -1,19 +1,20 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { CoIcon } from '@monorepo/community-lib';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { TranslatePipe } from '@ngx-translate/core';
 import { Subject } from 'rxjs';
+
+import { HaCommunityPageDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
+import { HaIsGencoveryMemberDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-is-gencovery-member/ha-is-gencovery-member.directive';
+import { HaSidenavButtonDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-sidenav-button/ha-sidenav-button.directive';
+import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
 import {
   HaCreateIconDtoInput,
   HaIconCreateDialogComponent,
 } from '../ha-icon-create-dialog/ha-icon-create-dialog.component';
-import { CoIcon } from '@monorepo/community-lib';
-import { HaCommunityPageDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
-import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
-import { HaIsGencoveryMemberDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-is-gencovery-member/ha-is-gencovery-member.directive';
-import { MatButton } from '@angular/material/button';
-import { MatIcon } from '@angular/material/icon';
 import { HaIconListComponent } from '../ha-icon-list/ha-icon-list.component';
-import { TranslatePipe } from '@ngx-translate/core';
-import { HaSidenavButtonDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-sidenav-button/ha-sidenav-button.directive';
 
 @Component({
   selector: 'ha-icons-page',

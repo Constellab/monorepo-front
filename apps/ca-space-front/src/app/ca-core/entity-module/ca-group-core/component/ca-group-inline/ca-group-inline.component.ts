@@ -1,9 +1,10 @@
 import { Component, Input } from '@angular/core';
-import { CaGroup } from '../../../../model/entities/ca-group.entity';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+
+import { CaGroup } from '../../../../model/entities/ca-group.entity';
 
 /**
  * Component to show the type of group along with label

@@ -1,7 +1,7 @@
 import { LiResourceTableService } from '@monorepo/lab-lib/li-core';
-import { Observable } from 'rxjs';
 import { RvResourceViewTable, RvViewConfig } from '@monorepo/resource-view';
 import { SpSpreadsheetPage, SpSpreadsheetPageLoader } from '@monorepo/spreadsheet';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 /**

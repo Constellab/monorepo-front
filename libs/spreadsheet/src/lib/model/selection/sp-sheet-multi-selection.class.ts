@@ -1,11 +1,11 @@
-import { SpSheetSingleSelection, SpSheetSingleSelectionFull } from './sp-sheet-single-selection.class';
-import { SpCell } from '../sp-cell.class';
-import { SpSheet } from '../sp-sheet.class';
-import { SpSheetSelection } from './sp-sheet-selection.class';
-import { SpCellsMultipleRange } from './sp-cells-multiple-range.class';
 import { SpSpreadsheetHelper } from '../../utils/sp-spreadsheet.helper';
 import { SpSheetSelectionRange } from '../chart/sp-sheet-chart-selection-form.class';
+import { SpCell } from '../sp-cell.class';
 import { SpCellCoordRange } from '../sp-cell-coord.class';
+import { SpSheet } from '../sp-sheet.class';
+import { SpCellsMultipleRange } from './sp-cells-multiple-range.class';
+import { SpSheetSelection } from './sp-sheet-selection.class';
+import { SpSheetSingleSelection, SpSheetSingleSelectionFull } from './sp-sheet-single-selection.class';
 
 /**
  * Object to manager multiple selections

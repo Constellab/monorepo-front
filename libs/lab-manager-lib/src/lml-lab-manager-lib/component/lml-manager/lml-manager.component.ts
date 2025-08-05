@@ -1,8 +1,9 @@
 import { Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { FlStatusEvent } from '@monorepo/front-core-lib/fl-core';
-import { LmlLabManagerState } from '../../lml-lab-manager.state';
 import { ClSubscriptionHandler } from '@monorepo/core-lib';
+import { FlStatusEvent } from '@monorepo/front-core-lib/fl-core';
+import { Observable } from 'rxjs';
+
+import { LmlLabManagerState } from '../../lml-lab-manager.state';
 
 /**
  * Component only accessible by the admin
@@ -16,6 +17,9 @@ import { ClSubscriptionHandler } from '@monorepo/core-lib';
 })
 export class LmlManagerComponent implements OnInit, OnDestroy {
   @Input() autoRefreshStatusFrequency: number;
+
+  // if true a loader with text is displayed when the lab manager is busy
+  @Input() showCurrentAction: boolean = true;
 
   private managerState = inject(LmlLabManagerState);
   labManagerStatus$: Observable<FlStatusEvent>;

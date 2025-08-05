@@ -1,25 +1,25 @@
+import { AsyncPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { CaLab } from '../../../../ca-core/model/entities/lab/ca-lab.class';
-import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
+import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
 } from '@monorepo/front-core-lib/fl-dialog';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
-
-import { CaLabDetailPageState } from '../../../state/ca-lab-detail-page.state';
+import { TranslatePipe } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+
+import { CaLab } from '../../../../ca-core/model/entities/lab/ca-lab.class';
+import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
+import { CaLabDetailPageState } from '../../../state/ca-lab-detail-page.state';
 import {
   CaLabStopDialogComponent,
   CaStopLabDialogInput,
 } from '../ca-lab-stop-dialog/ca-lab-stop-dialog.component';
-import { MatButton } from '@angular/material/button';
-import { MatIcon } from '@angular/material/icon';
-import { MatTooltip } from '@angular/material/tooltip';
-import { AsyncPipe } from '@angular/common';
-import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * Toggle button to start or stop the lab
@@ -37,11 +37,11 @@ export class CaLabStartStopComponent {
   private dialogService = inject(FlDialogService);
 
   serverIsRunning$: Observable<boolean> = this.state
-    .getStatus$()
+    .getSimpleStatus$()
     .pipe(map((status) => status.serverIsRunning()));
 
   disabledStart$: Observable<boolean> = this.state
-    .getStatus$()
+    .getSimpleStatus$()
     .pipe(map((status) => status.serverIsBusy() || status.labStatus.value === 'NO_SERVER'));
 
   startLab(): void {

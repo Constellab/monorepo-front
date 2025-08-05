@@ -1,12 +1,13 @@
+import { inject,Injectable } from '@angular/core';
 import { ClPageI } from '@monorepo/core-lib';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { FlDatasourceGetPageData } from '@monorepo/front-core-lib/fl-core';
 import { FlSearchConverter, FlSearchFunction } from '@monorepo/front-core-lib/fl-search';
-import { Injectable, inject } from '@angular/core';
+import { Observable } from 'rxjs';
+
 import { LiResourceView } from '../model/entities/resource/li-resource-view.entity';
 import { LiViewConfig, LiViewType } from '../model/entities/resource/li-view-config.entity';
 import { LiViewConfigSearch, LiViewConfigSearchFields } from '../model/search/li-view-config-search.class';
-import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class LiViewConfigService {

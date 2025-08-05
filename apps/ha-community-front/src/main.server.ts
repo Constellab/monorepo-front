@@ -1,12 +1,13 @@
 import { ApplicationConfig, ApplicationRef, mergeApplicationConfig, TransferState } from '@angular/core';
-import { provideServerRendering } from '@angular/platform-server';
-import { haAppConfig } from './app/ha-app.config';
 import { bootstrapApplication } from '@angular/platform-browser';
-import { HaAppComponent } from './app/ha-app.component';
+import { provideServerRendering } from '@angular/ssr';
 import { FL_TRANSLATE_MODULE_CONFIG } from '@monorepo/front-core-lib/fl-translate';
 import { FlTranslateModuleConfig } from '@monorepo/front-core-lib/fl-translate';
-import { TranslateServerLoader } from './app/ha-translation-server-loader';
 import { TranslateLoader } from '@ngx-translate/core';
+
+import { HaAppComponent } from './app/ha-app.component';
+import { haAppConfig } from './app/ha-app.config';
+import { TranslateServerLoader } from './app/ha-translation-server-loader';
 
 function translationServerLoader(
   transferState: TransferState,

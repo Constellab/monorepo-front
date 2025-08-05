@@ -1,20 +1,21 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
-import { FlSearchModule, FlSearchState } from '@monorepo/front-core-lib/fl-search';
+import { MatCheckbox } from '@angular/material/checkbox';
+import { MatOption } from '@angular/material/core';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
-import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
-import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import { MatCheckbox } from '@angular/material/checkbox';
-import { TranslatePipe } from '@ngx-translate/core';
-import { CaHierarchyObjectIconComponent } from '../ca-hierarchy-object-icon/ca-hierarchy-object-icon.component';
-import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
-import { MatOption } from '@angular/material/core';
 import { MatSelect, MatSelectTrigger } from '@angular/material/select';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
+import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
+import { FlSearchModule, FlSearchState } from '@monorepo/front-core-lib/fl-search';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+import { TranslatePipe } from '@ngx-translate/core';
+
 import {
   CaHierarchyObjectInfo,
   caHierarchyObjectTypeInfos,
 } from '../../../../model/entities/folder/ca-hierarchy-object.class';
+import { CaHierarchyObjectIconComponent } from '../ca-hierarchy-object-icon/ca-hierarchy-object-icon.component';
 
 @Component({
   selector: 'ca-hierarchy-object-admin-search-form',

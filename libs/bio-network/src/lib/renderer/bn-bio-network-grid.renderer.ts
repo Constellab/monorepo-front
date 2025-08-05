@@ -1,5 +1,6 @@
-import { BnBioNetworkGridState } from '../state/bn-bio-network-grid.state';
 import { Observable } from 'rxjs';
+
+import { BnBioNetworkGridState } from '../state/bn-bio-network-grid.state';
 import { BnBioNetworkOptions } from '../state/bn-bio-network-options.state';
 import { BnBioNetworkGraphRenderer } from './bn-bio-network-main.renderer';
 

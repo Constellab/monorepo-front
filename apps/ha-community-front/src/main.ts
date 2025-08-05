@@ -1,24 +1,24 @@
+import { HttpClient } from '@angular/common/http';
 import {
   ApplicationConfig,
   enableProdMode,
   mergeApplicationConfig,
   provideAppInitializer,
 } from '@angular/core';
-import { environment } from './environments/ha-environment';
+import { bootstrapApplication } from '@angular/platform-browser';
+import { flLoadEnvironmentFromAssets } from '@monorepo/front-core-lib/fl-core';
 import {
   FL_TRANSLATE_MODULE_CONFIG,
   FlTranslateModuleConfig,
   FlTranslationLoader,
 } from '@monorepo/front-core-lib/fl-translate';
-import { flLoadEnvironmentFromAssets } from '@monorepo/front-core-lib/fl-core';
-
-import { haEnvironmentPath, HaEnvironmentSettings } from './environments/ha-environment.class';
-import { HaAppComponent } from './app/ha-app.component';
-import { bootstrapApplication } from '@angular/platform-browser';
-import { haAppConfig } from './app/ha-app.config';
-import { HttpClient } from '@angular/common/http';
-import { TranslateLoader } from '@ngx-translate/core';
 import { TeFixInit } from '@monorepo/text-editor';
+import { TranslateLoader } from '@ngx-translate/core';
+
+import { HaAppComponent } from './app/ha-app.component';
+import { haAppConfig } from './app/ha-app.config';
+import { environment } from './environments/ha-environment';
+import { haEnvironmentPath, HaEnvironmentSettings } from './environments/ha-environment.class';
 
 function translationLoaderFactory(http: HttpClient, config: FlTranslateModuleConfig): FlTranslationLoader {
   return new FlTranslationLoader(http, config.filenames, config.folder, config.fileSuffix);

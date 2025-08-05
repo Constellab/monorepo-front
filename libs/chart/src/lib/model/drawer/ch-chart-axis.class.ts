@@ -1,9 +1,10 @@
-import { ChChartScale, ChChartScaleBand } from '../scale/ch-chart-scale.class';
 import { axisBottom, axisLeft, axisRight, axisTop, Numeric } from 'd3';
-import { Selection } from 'd3-selection';
 import { Axis, AxisScale } from 'd3-axis';
-import { ChD3SelectionSimple } from '../ch-d3.class';
+import { Selection } from 'd3-selection';
+
 import { ChChartLabelFormatFunction, ChChartLabelFormatter } from '../ch-chart-label-formatter.class';
+import { ChD3SelectionSimple } from '../ch-d3.class';
+import { ChChartScale, ChChartScaleBand } from '../scale/ch-chart-scale.class';
 
 /**
  * The type define the position of the axis

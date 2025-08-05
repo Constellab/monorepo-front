@@ -1,19 +1,20 @@
+import { AsyncPipe, DecimalPipe } from '@angular/common';
 import { Component, inject, Input, OnInit } from '@angular/core';
-import { CaLabSelectVolumeForm } from '../ca-lab-select-storage/ca-lab-select-storage.component';
-import { CaLabSelectServerForm } from '../ca-lab-select-server/ca-lab-select-server.component';
-import { LmlLabManagerConfig } from '@monorepo/lab-manager-lib';
 import { FormGroup } from '@angular/forms';
-import { combineLatest, Observable, of, share, switchMap } from 'rxjs';
-import { CaServerService } from '../../../../service-api/ca-server.service';
-import { map } from 'rxjs/operators';
-import { CaStoragePrice } from '../../../../model/entities/server/ca-storage-price.class';
-import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
-import { CaCloudProviderRegionInlineComponent } from '../../../ca-cloud-provider-core/component/ca-cloud-provider-region-inline/ca-cloud-provider-region-inline.component';
+import { MatDivider } from '@angular/material/divider';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
-import { AsyncPipe, DecimalPipe } from '@angular/common';
+import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
+import { LmlLabManagerConfig } from '@monorepo/lab-manager-lib';
 import { TranslatePipe } from '@ngx-translate/core';
-import { MatDivider } from '@angular/material/divider';
+import { combineLatest, Observable, of, share, switchMap } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import { CaStoragePrice } from '../../../../model/entities/server/ca-storage-price.class';
+import { CaServerService } from '../../../../service-api/ca-server.service';
+import { CaCloudProviderRegionInlineComponent } from '../../../ca-cloud-provider-core/component/ca-cloud-provider-region-inline/ca-cloud-provider-region-inline.component';
+import { CaLabSelectServerForm } from '../ca-lab-select-server/ca-lab-select-server.component';
+import { CaLabSelectVolumeForm } from '../ca-lab-select-storage/ca-lab-select-storage.component';
 
 interface CaLabServerPriceEstimation {
   hourPerMonth: number;

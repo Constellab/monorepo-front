@@ -1,12 +1,13 @@
-import { PrWorkflowNode } from './pr-workflow-node.class';
-import { PrProcess, PrProcessStatus } from '../pr-process.class';
-import { map, Observable } from 'rxjs';
 import { FlStatus } from '@monorepo/front-core-lib/fl-status';
 import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
-import { PrWorkflowResourcesState } from '../../state/pr-workflow-resources.state';
-import { PrWorkflowPortType } from '../workflow/pr-workflow-port.class';
+import { map, Observable } from 'rxjs';
+
 import { PrWorkflowNodeIcon } from '../../component/pr-workflow-node-content/pr-workflow-node-content.component';
 import { PrWorkflowActionState } from '../../state/pr-workflow-action-state';
+import { PrWorkflowResourcesState } from '../../state/pr-workflow-resources.state';
+import { PrProcess, PrProcessStatus } from '../pr-process.class';
+import { PrWorkflowPortType } from '../workflow/pr-workflow-port.class';
+import { PrWorkflowNode } from './pr-workflow-node.class';
 
 export class PrWorkflowNodeProcess extends PrWorkflowNode<PrProcess> {
   constructor(

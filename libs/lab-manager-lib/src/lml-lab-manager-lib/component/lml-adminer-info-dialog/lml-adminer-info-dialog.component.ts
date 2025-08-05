@@ -1,7 +1,8 @@
 import { Component, inject } from '@angular/core';
-import { LmlAdminerInfo } from '../../model/lml-lab-manager.class';
-import { LmlLabManagerService } from '../../lml-lab-manager.service';
 import { Observable } from 'rxjs';
+
+import { LmlLabManagerService } from '../../lml-lab-manager.service';
+import { LmlAdminerInfo } from '../../model/lml-lab-manager.class';
 
 @Component({
   selector: 'lml-adminer-info-dialog',

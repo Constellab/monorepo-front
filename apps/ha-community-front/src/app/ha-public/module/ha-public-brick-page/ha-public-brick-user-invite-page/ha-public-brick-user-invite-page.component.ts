@@ -1,10 +1,11 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { HaBrickService } from '../../../../ha-core/ha-service/ha-brick.service';
-import { HaBrickCoAuthorInvite } from '../../../../ha-core/entity-module/ha-co-author-core/model/ha-co-author-invite.class';
 import { MatButton } from '@angular/material/button';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { HaBrickCoAuthorInvite } from '../../../../ha-core/entity-module/ha-co-author-core/model/ha-co-author-invite.class';
+import { HaBrickService } from '../../../../ha-core/ha-service/ha-brick.service';
 
 @Component({
   selector: 'ha-ha-public-brick-user-invite-page',

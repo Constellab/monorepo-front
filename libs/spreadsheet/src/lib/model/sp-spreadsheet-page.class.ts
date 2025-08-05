@@ -1,4 +1,5 @@
 import { Observable } from 'rxjs';
+
 import { SpSheetHeaderInfoInput } from './sp-sheet-headers.class';
 
 export interface SpSpreadsheetPage {

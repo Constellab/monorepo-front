@@ -1,12 +1,13 @@
-import { Observable } from 'rxjs';
-import { ToolboxConfig } from '@editorjs/editorjs/types/tools/tool-settings';
 import { Type } from '@angular/core';
-import { TeComponentBlock } from './te-component-block.class';
-import { TeHelper } from '../model/te.helper';
-import { TeFileComponent } from '../component/te-file/te-file.component';
 import { PasteEvent } from '@editorjs/editorjs';
 import { PasteConfig } from '@editorjs/editorjs/types/configs/paste-config';
+import { ToolboxConfig } from '@editorjs/editorjs/types/tools/tool-settings';
+import { Observable } from 'rxjs';
+
+import { TeFileComponent } from '../component/te-file/te-file.component';
 import { TeBlockFileUploadResponse } from '../model/lib';
+import { TeHelper } from '../model/te.helper';
+import { TeComponentBlock } from './te-component-block.class';
 
 /**
  * Config for the text editor to manage file (upload and retrieve)

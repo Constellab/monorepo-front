@@ -1,9 +1,10 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { mergeMap, Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import { CaGroupService } from '../../../../ca-core/service-api/ca-group.service';
-import { CaGroup } from '../../../../ca-core/model/entities/ca-group.entity';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+import { mergeMap, Observable } from 'rxjs';
+
+import { CaGroup } from '../../../../ca-core/model/entities/ca-group.entity';
+import { CaGroupService } from '../../../../ca-core/service-api/ca-group.service';
 import { CaTeamDetailComponent } from '../ca-team-detail/ca-team-detail.component';
 
 /**

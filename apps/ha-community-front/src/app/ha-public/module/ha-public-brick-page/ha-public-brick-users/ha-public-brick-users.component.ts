@@ -1,22 +1,23 @@
+import { AsyncPipe } from '@angular/common';
 import { Component, inject, Input, OnInit } from '@angular/core';
-import { HaBrick } from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
-import { HaBrickService } from '../../../../ha-core/ha-service/ha-brick.service';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { RouterLink } from '@angular/router';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+import { TranslatePipe } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+
 import {
   HaCoAuthorDialogComponent,
   HaCoAuthorsDialogInput,
 } from '../../../../ha-core/entity-module/ha-co-author-core/component/ha-co-author-dialog/ha-co-author-dialog.component';
+import { HaBrick } from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
 import { HaUser } from '../../../../ha-core/ha-model/ha-entities/ha-user';
-import { Observable } from 'rxjs';
 import { HaAuthenticatedUserService } from '../../../../ha-core/ha-service/ha-authenticated-user.service';
+import { HaBrickService } from '../../../../ha-core/ha-service/ha-brick.service';
 import { HaRouterService } from '../../../../ha-core/ha-service/ha-router.service';
-import { MatIconButton } from '@angular/material/button';
-import { MatTooltip } from '@angular/material/tooltip';
-import { MatIcon } from '@angular/material/icon';
-import { RouterLink } from '@angular/router';
-import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import { TranslatePipe } from '@ngx-translate/core';
-import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'ha-public-brick-users',

@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { LiObjectSyncInfoComponent } from './li-object-sync-info.component';
 
 describe('LiObjectSyncInfoComponent', () => {

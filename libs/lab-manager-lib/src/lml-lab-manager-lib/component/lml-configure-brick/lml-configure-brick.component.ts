@@ -1,12 +1,13 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { LmlCommunityBrick, LmlCommunityBrickDatasource } from '../../model/lml-brick.class';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { CoBrick, CoSpace } from '@monorepo/community-lib';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
-import { LmlBrickService } from '../../lml-brick.service';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { CoBrick, CoSpace } from '@monorepo/community-lib';
+import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 import { Observable } from 'rxjs';
+
+import { LmlBrickService } from '../../lml-brick.service';
+import { LmlCommunityBrick, LmlCommunityBrickDatasource } from '../../model/lml-brick.class';
 import { LmlLabManagerBrickVersionDTO } from '../../model/lml-lab-manager.class';
 
 interface LmlCommunityBrickFilers {

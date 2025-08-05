@@ -1,6 +1,7 @@
 import { Observable } from 'rxjs';
-import { FlApiService } from './fl-api.service';
+
 import { FlGetById } from '../model/fl-service.class';
+import { FlApiService } from './fl-api.service';
 
 /**
  * Abstract CRUD service for basic api calls

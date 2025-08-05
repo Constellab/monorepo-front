@@ -1,14 +1,15 @@
-import { Component, ElementRef, OnDestroy, OnInit, Renderer2, inject } from '@angular/core';
-import { Observable } from 'rxjs';
-import { PrWorkflowNodeProtocol } from '../../model/node/pr-workflow-node-protocol.class';
+import { Component, ElementRef, inject,OnDestroy, OnInit, Renderer2 } from '@angular/core';
+import { ClHelpService } from '@monorepo/core-lib';
 import { FlPortalService } from '@monorepo/front-core-lib/fl-portal';
 import { FlStatus } from '@monorepo/front-core-lib/fl-status';
 import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
-import { ClHelpService } from '@monorepo/core-lib';
-import { PrWorkflowNodeIcon } from '../pr-workflow-node-content/pr-workflow-node-content.component';
+import { Observable } from 'rxjs';
+
 import { PrWorkflowNodeDirective } from '../../directive/pr-workflow-node.directive';
 import { PrWorkflowNodeProcess } from '../../model/node/pr-workflow-node-process.class';
+import { PrWorkflowNodeProtocol } from '../../model/node/pr-workflow-node-protocol.class';
 import { PrWorkflowManagerState } from '../../state/pr-workflow-manager-state';
+import { PrWorkflowNodeIcon } from '../pr-workflow-node-content/pr-workflow-node-content.component';
 
 /**
  * Component to show standard node process in the workflow

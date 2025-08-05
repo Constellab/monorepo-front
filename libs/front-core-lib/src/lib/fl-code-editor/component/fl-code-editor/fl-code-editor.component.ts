@@ -10,8 +10,9 @@ import {
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
-import { FlCodeEditorLanguage } from '../../fl-code-editor.class';
 import { FormControl } from '@angular/forms';
+
+import { FlCodeEditorLanguage } from '../../fl-code-editor.class';
 
 /**
  * This component is used to lazy load the code editor component.

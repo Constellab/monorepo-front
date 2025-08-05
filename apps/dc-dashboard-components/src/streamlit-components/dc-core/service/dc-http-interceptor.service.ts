@@ -1,7 +1,8 @@
-import { inject, Injectable } from '@angular/core';
 import { HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { inject, Injectable } from '@angular/core';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+import { Observable } from 'rxjs';
+
 import { DcAuthenticationInfo } from '../../../core/model/dc-dynamic-component.class';
 
 /**

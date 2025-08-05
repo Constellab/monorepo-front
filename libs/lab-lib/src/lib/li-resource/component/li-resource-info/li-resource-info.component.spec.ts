@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { LiResourceInfoComponent } from './li-resource-info.component';
 
 describe('LiResourceInfoComponent', () => {

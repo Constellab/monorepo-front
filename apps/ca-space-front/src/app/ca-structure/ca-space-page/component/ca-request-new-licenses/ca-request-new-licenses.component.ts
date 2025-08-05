@@ -1,16 +1,17 @@
 import { Component, inject } from '@angular/core';
-import { CaSpaceService } from '../../../../ca-core/service-api/ca-space.service';
-import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatButton } from '@angular/material/button';
 import { MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
-import { CaRequestNewLicensesDto } from '../../../../ca-core/model/entities/space/ca-space.dto';
-import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
-import { MatButton } from '@angular/material/button';
-import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { CaRequestNewLicensesDto } from '../../../../ca-core/model/entities/space/ca-space.dto';
+import { CaSpaceService } from '../../../../ca-core/service-api/ca-space.service';
 
 @Component({
   selector: 'ca-request-new-licenses',

@@ -2,13 +2,13 @@ import { ClHelpService } from '@monorepo/core-lib';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlMenuDynamicButton } from '@monorepo/front-core-lib/fl-menu-dynamic';
 import { FlSavedSearch } from '@monorepo/front-core-lib/fl-search';
-import { LabWorkflowEditConfig } from './lab-workflow-edit-config.class';
+import { flThemeDetailLight } from '@monorepo/front-core-lib/fl-theme';
 import { LiResource, LiResourceSearchFields, LiTypeEntity } from '@monorepo/lab-lib/li-core';
 import {
+  labResourceSearchName,
   LiResourceDetailDialogComponent,
   LiSelectResourceDialogComponent,
   LiSelectResourceDialogInput,
-  labResourceSearchName,
 } from '@monorepo/lab-lib/li-resource';
 import { LiSelectTypeDialogComponent, LiSelectTypeDialogInput } from '@monorepo/lab-lib/li-type';
 import {
@@ -19,7 +19,8 @@ import {
   PrWorkflowNodeMenuConfig,
   PrWorkflowPort,
 } from '@monorepo/protocol';
-import { flThemeDetailLight } from '@monorepo/front-core-lib/fl-theme';
+
+import { LabWorkflowEditConfig } from './lab-workflow-edit-config.class';
 
 export class LabWorkflowNodeMenuConfig extends PrWorkflowNodeMenuConfig {
   constructor(

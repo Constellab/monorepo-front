@@ -1,8 +1,6 @@
-import { ClPageI } from '@monorepo/core-lib';
-import { CaFolderService } from '../../service-api/ca-folder.service';
 import { ApplicationRef, EnvironmentInjector } from '@angular/core';
-import { Observable } from 'rxjs';
-import { CaUser } from '../entities/ca-user.class';
+import { ClPageI } from '@monorepo/core-lib';
+import { FlDatasourceGetPageData } from '@monorepo/front-core-lib/fl-core';
 import {
   TeAdditionalConfig,
   TeBlockFigureUploadedResponse,
@@ -17,8 +15,11 @@ import {
   TeTools,
   TeUnderlineInlineTool,
 } from '@monorepo/text-editor';
-import { FlDatasourceGetPageData } from '@monorepo/front-core-lib/fl-core';
+import { Observable } from 'rxjs';
+
 import { CaChatService } from '../../service-api/ca-chat.service';
+import { CaFolderService } from '../../service-api/ca-folder.service';
+import { CaUser } from '../entities/ca-user.class';
 
 class CaChatMessageTextEditorImageConfig implements TeFigureBlockConfig {
   constructor(

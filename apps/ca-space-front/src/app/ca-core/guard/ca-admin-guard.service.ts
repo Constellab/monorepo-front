@@ -1,8 +1,9 @@
 import { inject, Injectable } from '@angular/core';
 import { Router, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
-import { CaAuthenticatedUserService } from '../service-api/ca-authenticated-user.service';
+
 import { CaRouterService } from '../service/ca-router.service';
+import { CaAuthenticatedUserService } from '../service-api/ca-authenticated-user.service';
 
 /**
  * Guard to secure route to only give access to admin

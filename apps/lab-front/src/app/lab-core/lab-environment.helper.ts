@@ -1,6 +1,7 @@
 import { ClHelpService } from '@monorepo/core-lib';
-import { LabEnvironment } from '../../environments/lab-environment.class';
+
 import { environment } from '../../environments/lab-environment';
+import { LabEnvironment } from '../../environments/lab-environment.class';
 
 /**
  * Static class to access environment

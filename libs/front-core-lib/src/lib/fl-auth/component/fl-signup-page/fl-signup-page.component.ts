@@ -1,13 +1,14 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FlSignUpUser } from '../../model/fl-sign-up-user.class';
-import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
-import { FlUserAccountService } from '../../service/fl-user-account.service';
-import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
-import { FlSignupFormComponent } from '../fl-signup-form/fl-signup-form.component';
-import { FlCaptchaService } from '@monorepo/front-core-lib/fl-captcha';
-import { Observable, switchMap } from 'rxjs';
 import { ClStringHelper } from '@monorepo/core-lib';
+import { FlCaptchaService } from '@monorepo/front-core-lib/fl-captcha';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
+import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
+import { Observable, switchMap } from 'rxjs';
+
+import { FlSignUpUser } from '../../model/fl-sign-up-user.class';
+import { FlUserAccountService } from '../../service/fl-user-account.service';
+import { FlSignupFormComponent } from '../fl-signup-form/fl-signup-form.component';
 
 @Component({
   selector: 'fl-signup-page',

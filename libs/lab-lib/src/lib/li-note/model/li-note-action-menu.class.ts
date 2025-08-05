@@ -1,12 +1,12 @@
+import { Injector } from '@angular/core';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
 } from '@monorepo/front-core-lib/fl-dialog';
 import { FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
-import { Injector } from '@angular/core';
-import { LiEntityActionMenu } from '@monorepo/lab-lib/li-entity';
 import { LiNote, LiNoteService, LiTagDatasource } from '@monorepo/lab-lib/li-core';
+import { LiEntityActionMenu } from '@monorepo/lab-lib/li-entity';
 import { Observable } from 'rxjs';
 
 export type LiNoteActionEvent = {

@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { LiProgressBarInfoComponent } from './li-progress-bar-info.component';
 
 describe('LiProgressBarInfoComponent', () => {

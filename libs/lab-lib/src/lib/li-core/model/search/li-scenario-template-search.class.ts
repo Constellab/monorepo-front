@@ -1,3 +1,4 @@
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { FlFormInputsManagerConfig } from '@monorepo/front-core-lib/fl-form-inputs-manager';
 import {
   FlSearchConverter,
@@ -6,9 +7,9 @@ import {
   FlSearchSortCriteriaConverter,
 } from '@monorepo/front-core-lib/fl-search';
 import { FlTag } from '@monorepo/front-core-lib/fl-tag';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { LiUser } from '../entities/li-user.entity';
 import { Type } from 'class-transformer';
+
+import { LiUser } from '../entities/li-user.entity';
 
 export class LiScenarioTemplateSearchFields {
   name: string;

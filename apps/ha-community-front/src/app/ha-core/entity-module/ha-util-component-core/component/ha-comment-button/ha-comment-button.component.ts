@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { c } from '@codemirror/legacy-modes/mode/clike';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
+import { c } from '@codemirror/legacy-modes/mode/clike';
 
 @Component({
   selector: 'ha-comment-button',

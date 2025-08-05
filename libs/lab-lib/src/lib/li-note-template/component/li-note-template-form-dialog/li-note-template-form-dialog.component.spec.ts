@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { LiNoteTemplateFormDialogComponent } from './li-note-template-form-dialog.component';
 
 describe('LiNoteTemplateFormDialogComponent', () => {

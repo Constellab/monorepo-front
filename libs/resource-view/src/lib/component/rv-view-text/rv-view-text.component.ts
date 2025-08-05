@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, inject } from '@angular/core';
-import { RvResourceViewDirective } from '../../model/rv-resource-view.directive';
-import { RvResourceViewText } from '../../model/rv-resource-view.class';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject,Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+
+import { RvResourceViewText } from '../../model/rv-resource-view.class';
+import { RvResourceViewDirective } from '../../model/rv-resource-view.directive';
 
 /**
  * Component to view a resource as plain text

@@ -1,6 +1,4 @@
 import { ClLuxonDateTimeTransform } from '@monorepo/core-lib';
-import { DateTime } from 'luxon';
-import { Expose, Type } from 'class-transformer';
 import { FlArrayObs } from '@monorepo/front-core-lib/fl-core';
 import {
   FlStatus,
@@ -8,6 +6,9 @@ import {
   FlStatusHelper,
   FlStatusTransform,
 } from '@monorepo/front-core-lib/fl-status';
+import { Expose, Type } from 'class-transformer';
+import { DateTime } from 'luxon';
+
 import { LiEntity } from '../global/li-entity.entity';
 
 export type LiProgressBarMessageType = 'SUCCESS' | 'INFO' | 'ERROR' | 'WARNING' | 'PROGRESS' | 'DEBUG';

@@ -1,9 +1,10 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { CaLabService } from '../../../../service-api/ca-lab.service';
-import { Observable } from 'rxjs';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { FlJsonEditorModule } from '@monorepo/front-core-lib/fl-json-editor';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+import { Observable } from 'rxjs';
+
+import { CaLabService } from '../../../../service-api/ca-lab.service';
 
 /**
  * Dialog to check the lab status

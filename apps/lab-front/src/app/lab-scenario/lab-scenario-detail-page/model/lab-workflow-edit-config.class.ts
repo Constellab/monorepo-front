@@ -1,3 +1,4 @@
+import { inject, Injectable, OnDestroy } from '@angular/core';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
@@ -10,16 +11,12 @@ import {
 } from '@monorepo/front-core-lib/fl-portal-actions';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { FlTranslatableText, FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
-import { inject, Injectable, OnDestroy } from '@angular/core';
-import { LabScenarioDetailPageState } from '../state/lab-scenario-detail-page.state';
-import { LabWorkflowFactory } from './lab-workflow.factory';
+import { LiProcess, LiProtocolService, LiProtocolUpdateDTO } from '@monorepo/lab-lib/li-core';
 import {
   LiNavigableCallActionResult,
   LiNavigableEntityService,
   LiNavigableImpactConfig,
 } from '@monorepo/lab-lib/li-navigable-entity';
-import { LiProcess, LiProtocolService, LiProtocolUpdateDTO } from '@monorepo/lab-lib/li-core';
-import { Observable, of, Subscription, switchMap, tap } from 'rxjs';
 import {
   PrAddNodeWithConnection,
   PrNodeRelativeCoord,
@@ -37,7 +34,11 @@ import {
   PrWorkflowNodeProtocol,
 } from '@monorepo/protocol';
 import { TdIOSpec, TdParamSpecsValues } from '@monorepo/technical-doc';
+import { Observable, of, Subscription, switchMap, tap } from 'rxjs';
 import { map } from 'rxjs/operators';
+
+import { LabScenarioDetailPageState } from '../state/lab-scenario-detail-page.state';
+import { LabWorkflowFactory } from './lab-workflow.factory';
 
 export enum LabWorkflowAction {
   ADD_PROCESS = 'workflow-add-process',

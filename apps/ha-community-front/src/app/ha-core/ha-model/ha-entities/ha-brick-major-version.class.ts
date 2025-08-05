@@ -1,6 +1,7 @@
-import { HaEntity } from './ha-entity.class';
-import { HaBrick } from './ha-brick.class';
 import { Type } from 'class-transformer';
+
+import { HaBrick } from './ha-brick.class';
+import { HaEntity } from './ha-entity.class';
 
 export enum HaVersionState {
   STABLE = 'STABLE',

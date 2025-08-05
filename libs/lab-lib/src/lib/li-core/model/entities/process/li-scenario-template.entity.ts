@@ -1,7 +1,8 @@
 import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
-import { LiBaseEntityWithUser } from '../li-user.entity';
 import { PrProtocolGraph } from '@monorepo/protocol';
 import { TeRichText, TeRichTextTransform } from '@monorepo/text-editor';
+
+import { LiBaseEntityWithUser } from '../li-user.entity';
 
 export class LiScenarioTemplate extends LiBaseEntityWithUser {
   name: string;

@@ -1,11 +1,12 @@
 import { inject, Injectable } from '@angular/core';
-import { FlApiService } from '@monorepo/front-core-lib/fl-api';
-import { Observable } from 'rxjs';
-import { CaChatFolder } from '../model/entities/folder/ca-hierarchy-object.class';
-import { CaFolder } from '../model/entities/folder/ca-folder.class';
-import { CaChatMessage } from '../model/entities/ca-chat-message';
 import { ClPage } from '@monorepo/core-lib';
+import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { TeBlockFigureUploadedResponse, TeRichText } from '@monorepo/text-editor';
+import { Observable } from 'rxjs';
+
+import { CaChatMessage } from '../model/entities/ca-chat-message';
+import { CaFolder } from '../model/entities/folder/ca-folder.class';
+import { CaChatFolder } from '../model/entities/folder/ca-hierarchy-object.class';
 
 @Injectable({
   providedIn: 'root',

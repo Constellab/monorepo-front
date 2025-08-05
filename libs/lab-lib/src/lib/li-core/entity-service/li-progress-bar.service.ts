@@ -1,8 +1,9 @@
-import { DateTime } from 'luxon';
+import { inject,Injectable } from '@angular/core';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
-import { Injectable, inject } from '@angular/core';
-import { LiProgressBarMessages } from '../model/entities/li-progress-bar.entity';
+import { DateTime } from 'luxon';
 import { Observable } from 'rxjs';
+
+import { LiProgressBarMessages } from '../model/entities/li-progress-bar.entity';
 
 @Injectable({
   providedIn: 'root',

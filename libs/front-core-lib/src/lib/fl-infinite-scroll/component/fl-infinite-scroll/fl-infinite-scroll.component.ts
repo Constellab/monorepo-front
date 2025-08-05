@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FlInfiniteScrollMode } from '../../directive/fl-infinite-scroll/fl-infinite-scroll.directive';
 import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
+
+import { FlInfiniteScrollMode } from '../../directive/fl-infinite-scroll/fl-infinite-scroll.directive';
 
 /**
  * Infinite scroll container that works with {@link FlDatasourcePaginated}

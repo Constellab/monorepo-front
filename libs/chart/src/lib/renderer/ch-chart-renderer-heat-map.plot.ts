@@ -1,13 +1,13 @@
-import { ChChart2AxisRenderer } from './ch-chart-renderer.class';
-import { ChChartScaleBand } from '../model/scale/ch-chart-scale.class';
-import { ChChart3dDatum } from '../model/data/ch-chart-data.class';
-import { ChChartPortalHandler } from '../model/portal-handler/ch-chart-portal-handler.class';
 import {
   ChChartHeatMapDataPortalComponent,
   ChChartHeatMapDataPortalInput,
 } from '../component/ch-chart-data-portal/ch-chart-heat-map-data-portal/ch-chart-heat-map-data-portal.component';
-import { ChChartScaleColor } from '../model/scale/ch-chart-scale-color.class';
 import { ChChartHeatMapDataContainer } from '../model/chart/ch-chart-heat-map.class';
+import { ChChart3dDatum } from '../model/data/ch-chart-data.class';
+import { ChChartPortalHandler } from '../model/portal-handler/ch-chart-portal-handler.class';
+import { ChChartScaleBand } from '../model/scale/ch-chart-scale.class';
+import { ChChartScaleColor } from '../model/scale/ch-chart-scale-color.class';
+import { ChChart2AxisRenderer } from './ch-chart-renderer.class';
 
 export class ChChartRendererHeatMap extends ChChart2AxisRenderer<ChChartHeatMapDataContainer> {
   private portalHandler: ChChartPortalHandler = new ChChartPortalHandler();

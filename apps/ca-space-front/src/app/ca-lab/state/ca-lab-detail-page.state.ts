@@ -1,18 +1,21 @@
 import { inject, Injectable, OnDestroy } from '@angular/core';
-import { CaLabService } from '../../ca-core/service-api/ca-lab.service';
-import { BehaviorSubject, combineLatest, filter, Observable, startWith } from 'rxjs';
+import { ClSubscriptionHandler } from '@monorepo/core-lib';
+import { FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
+import { FlStatus } from '@monorepo/front-core-lib/fl-status';
+import { LmlLabManagerStatus } from '@monorepo/lab-manager-lib';
+import { BehaviorSubject, filter, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 import {
   CaLab,
+  CaLabBusyStatusDTO,
   CaLabFindOneDto,
-  CaLabStatusDTO,
-  caLabStatusTemp,
+  CaLabSimpleStatusDTO,
+  CaLabStatus,
 } from '../../ca-core/model/entities/lab/ca-lab.class';
-import { map } from 'rxjs/operators';
-import { CaAuthenticatedUserService } from '../../ca-core/service-api/ca-authenticated-user.service';
 import { CaLabUserRole } from '../../ca-core/model/entities/lab/ca-lab-user.class';
-import { FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
-import { LmlLabManagerStatus } from '@monorepo/lab-manager-lib';
-import { ClSubscriptionHandler } from '@monorepo/core-lib';
+import { CaAuthenticatedUserService } from '../../ca-core/service-api/ca-authenticated-user.service';
+import { CaLabService } from '../../ca-core/service-api/ca-lab.service';
 
 /**
  * State for the lab detail page.
@@ -24,18 +27,22 @@ export class CaLabDetailPageState implements OnDestroy {
   private labService = inject(CaLabService);
   private authenticatedUserService = inject(CaAuthenticatedUserService);
   private portalService = inject(FlPortalActionsService);
+
   private lab$: BehaviorSubject<CaLab>;
   private userRole$: BehaviorSubject<CaLabUserRole>;
-  private status$: BehaviorSubject<CaLabStatusDTO>;
+  private status$: BehaviorSubject<CaLabSimpleStatusDTO>;
+  private busyStatus$: BehaviorSubject<CaLabBusyStatusDTO>;
 
   private id: string;
 
   private timeout: any;
-  private statusRefreshFrequency = 15000;
+  private statusRefreshFrequency = 10000;
+  private consecutiveNotBusyCount = 1;
+  // Limit for consecutive not busy counts before stopping refresh
+  // usefull to avoid temporary not busy status
+  private readonly consecutiveNotBusyLimit = 2;
 
   private subscriptions = new ClSubscriptionHandler();
-
-  private labManagerStatus$: Observable<LmlLabManagerStatus>;
 
   public init(id: string, labManagerStatus$: Observable<LmlLabManagerStatus>): void {
     this.id = id;
@@ -47,22 +54,20 @@ export class CaLabDetailPageState implements OnDestroy {
     });
 
     this.status$ = new BehaviorSubject(null);
-    this.refreshStatus();
+    this.busyStatus$ = new BehaviorSubject(null);
+    this.refreshStatus(true);
 
     this.subscriptions.add(
-      this.portalService
-        .getResult$(CaLabDetailPageState.actionType)
-        .subscribe((result) => this.refreshStatus(result.result))
+      this.portalService.getResult$(CaLabDetailPageState.actionType).subscribe(() => this.refreshStatus(true))
     );
 
-    this.labManagerStatus$ = labManagerStatus$;
-    this.subscriptions.add(this.getStatus$().subscribe((status) => this.onNewStatus(status)));
-    this.subscriptions.add(this.labManagerStatus$.subscribe((status) => this.onNewLabManagerStatus(status)));
+    this.subscriptions.add(labManagerStatus$.subscribe((status) => this.onNewLabManagerStatus(status)));
   }
 
   private getLabSuccess(lab: CaLabFindOneDto): void {
     this.lab$.next(lab.lab);
     this.userRole$.next(lab.userRole);
+    this.setSimpleStatus(lab.lab.currentStatus.status);
   }
 
   private getLabError(error: any): void {
@@ -70,23 +75,54 @@ export class CaLabDetailPageState implements OnDestroy {
     this.userRole$.error(error);
   }
 
-  public refreshStatus(object?: CaLabStatusDTO): void {
+  /**
+   * Refreshes the lab status.
+   * @param ignoreNotBusyCount When true, ignores the not busy count
+   * and stops refreshing immediately if not busy.
+   */
+  private refreshStatus(ignoreNotBusyCount: boolean = false): void {
+    if (ignoreNotBusyCount) {
+      // Set count to limit so that if not busy, refresh stops immediately
+      this.consecutiveNotBusyCount = this.consecutiveNotBusyLimit;
+    }
     // clear the timeout if exist to avoid duplicates
     this.clearTimeout();
 
-    if (object && object instanceof CaLabStatusDTO) {
-      this.status$.next(object);
+    // otherwise, request the status
+    this.labService.getBusyStatus(this.id).subscribe({
+      next: (status) => this.onNewBusyStatus(status),
+      error: (error) => this.status$.error(error),
+    });
+  }
+
+  /**
+   * Methode called when a new status is received to trigger the next status refresh if needed
+   * @param status
+   * @private
+   */
+  private onNewBusyStatus(status: CaLabBusyStatusDTO): void {
+    this.busyStatus$.next(status);
+    this.setSimpleStatus(status.labStatus);
+    // clear the timeout if exist to avoid duplicates
+    this.clearTimeout();
+
+    if (status.isBusy) {
+      // Reset counter when busy
+      this.consecutiveNotBusyCount = 0;
+      this.timeout = setTimeout(() => this.refreshStatus(), this.statusRefreshFrequency);
     } else {
-      // otherwise, request the status
-      this.labService.getStatus(this.id).subscribe({
-        next: (status) => this.status$.next(status),
-        error: (error) => this.status$.error(error),
-      });
+      // Increment counter when not busy
+      this.consecutiveNotBusyCount++;
+
+      if (this.consecutiveNotBusyCount < this.consecutiveNotBusyLimit) {
+        this.timeout = setTimeout(() => this.refreshStatus(), this.statusRefreshFrequency);
+      }
     }
   }
 
-  public getFullStatus$(): Observable<[CaLabStatusDTO, LmlLabManagerStatus]> {
-    return combineLatest([this.getStatus$(), this.labManagerStatus$.pipe(startWith(null))]);
+  private setSimpleStatus(labStatus: FlStatus<CaLabStatus>): void {
+    const simpleStatus = new CaLabSimpleStatusDTO(labStatus);
+    this.status$.next(simpleStatus);
   }
 
   public getLab$(): Observable<CaLab> {
@@ -97,16 +133,12 @@ export class CaLabDetailPageState implements OnDestroy {
     return this.userRole$.asObservable().pipe(filter((userRole) => userRole != null));
   }
 
-  public getStatus$(): Observable<CaLabStatusDTO> {
+  public getSimpleStatus$(): Observable<CaLabSimpleStatusDTO> {
     return this.status$.asObservable().pipe(filter((status) => status != null));
   }
 
-  ngOnDestroy(): void {
-    this.lab$?.complete();
-    this.userRole$?.complete();
-    this.status$?.complete();
-    this.subscriptions?.unsubscribe();
-    this.clearTimeout();
+  public getBusyStatus$(): Observable<CaLabBusyStatusDTO> {
+    return this.busyStatus$.asObservable().pipe(filter((busyStatus) => busyStatus != null));
   }
 
   /**
@@ -144,12 +176,12 @@ export class CaLabDetailPageState implements OnDestroy {
   }
 
   public labIsRunning$(): Observable<boolean> {
-    return this.getStatus$().pipe(map((status) => status.labIsRunning));
+    return this.getSimpleStatus$().pipe(map((status) => status.labIsRunning()));
   }
 
   public updateLab(lab: CaLab): void {
     this.lab$.next(lab);
-    this.refreshStatus();
+    this.refreshStatus(true);
   }
 
   public getLabId(): string {
@@ -179,35 +211,26 @@ export class CaLabDetailPageState implements OnDestroy {
   }
 
   /**
-   * Methode called when a new status is received to trigger the next status refresh if needed
-   * @param status
-   * @private
-   */
-  private onNewStatus(status: CaLabStatusDTO): void {
-    // clear the timeout if exist to avoid duplicates
-    this.clearTimeout();
-
-    // if the lab is busy, refresh the status every 10 seconds
-    if (caLabStatusTemp.includes(status.labStatus.value) || status.serverTaskStatus.value === 'RUNNING') {
-      this.timeout = setTimeout(() => this.refreshStatus(), this.statusRefreshFrequency);
-    }
-  }
-
-  /**
    * Methode called when a new lab manager status is received to trigger the next status refresh if
    * the lab running status is different from the lab manager status
    * @param labManagerStatus
    * @private
    */
   private onNewLabManagerStatus(labManagerStatus: LmlLabManagerStatus): void {
-    const labManagerLabIsRunning = labManagerStatus?.labStatus === 'RUNNING';
-
-    const currentStatus = this.status$.getValue();
-    if (!currentStatus) return;
+    const busyStatus = this.busyStatus$.getValue();
 
     // if the lab running status is different from the lab manager status, refresh the status immediately
-    if (currentStatus.labIsRunning !== labManagerLabIsRunning) {
-      this.refreshStatus();
+    if (labManagerStatus.actionInProgress !== busyStatus.isBusy) {
+      this.refreshStatus(true);
     }
+  }
+
+  ngOnDestroy(): void {
+    this.lab$?.complete();
+    this.userRole$?.complete();
+    this.status$?.complete();
+    this.busyStatus$?.complete();
+    this.subscriptions?.unsubscribe();
+    this.clearTimeout();
   }
 }

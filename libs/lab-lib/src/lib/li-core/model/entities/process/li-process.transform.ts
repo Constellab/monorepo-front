@@ -1,8 +1,9 @@
 import { ClCoreJsonConvert, ClTransformFnParams } from '@monorepo/core-lib';
+import { Transform } from 'class-transformer';
+
 import { LiProcess } from './li-process.entity';
 import { LiProtocol } from './li-protocol.entity';
 import { LiTask } from './li-task.entity';
-import { Transform } from 'class-transformer';
 
 /**
  * Method to instantiate the correct process object when getting it from DB

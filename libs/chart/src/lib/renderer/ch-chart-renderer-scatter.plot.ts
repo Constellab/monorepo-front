@@ -1,12 +1,13 @@
-import { ChChart2dDatum } from '../model/data/ch-chart-data.class';
-import { ChChart2AxisRendererWithColors } from './ch-chart-renderer.class';
-import { ChChartDataWithSerie } from '../model/data/ch-chart-serie.class';
-import { ChChart2dMultiSerie } from '../model/data/ch-chart-multi-serie.class';
-import { ChChartColorFunction } from '../model/scale/ch-chart-scale-color.class';
-import { ChChartDataWithSeriePortalInput } from '../component/ch-chart-data-portal/ch-chart-data-with-serie-portal/ch-chart-data-with-serie-portal.component';
-import { ChChartPortalHandler } from '../model/portal-handler/ch-chart-portal-handler.class';
 import { FlColorHelper } from '@monorepo/front-core-lib/fl-core';
 import { FlTagColorer, FlTagWithColor } from '@monorepo/front-core-lib/fl-tag';
+
+import { ChChartDataWithSeriePortalInput } from '../component/ch-chart-data-portal/ch-chart-data-with-serie-portal/ch-chart-data-with-serie-portal.component';
+import { ChChart2dDatum } from '../model/data/ch-chart-data.class';
+import { ChChart2dMultiSerie } from '../model/data/ch-chart-multi-serie.class';
+import { ChChartDataWithSerie } from '../model/data/ch-chart-serie.class';
+import { ChChartPortalHandler } from '../model/portal-handler/ch-chart-portal-handler.class';
+import { ChChartColorFunction } from '../model/scale/ch-chart-scale-color.class';
+import { ChChart2AxisRendererWithColors } from './ch-chart-renderer.class';
 
 export class ChChartRendererScatterPlot extends ChChart2AxisRendererWithColors<
   ChChart2dMultiSerie<ChChart2dDatum>,

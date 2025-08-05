@@ -1,9 +1,10 @@
-import { ChangeDetectionStrategy, Component, Input, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject,Input } from '@angular/core';
+
+import { TdTypingName } from '../../model/td-typing-name.class';
 import {
   TdTechnicalDocServiceConfig,
   TdTechnicalDocUrl,
 } from '../../service/td-technical-doc-service-config.config';
-import { TdTypingName } from '../../model/td-typing-name.class';
 
 @Component({
   selector: 'td-tech-doc-link',

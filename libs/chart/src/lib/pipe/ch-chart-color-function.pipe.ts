@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+
 import { ChChartColorFunction } from '../model/scale/ch-chart-scale-color.class';
 
 /**

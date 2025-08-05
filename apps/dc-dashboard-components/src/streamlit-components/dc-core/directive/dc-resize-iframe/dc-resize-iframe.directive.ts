@@ -1,6 +1,6 @@
 import { Directive, ElementRef, HostBinding, inject, OnDestroy, OnInit } from '@angular/core';
-import { Streamlit } from 'streamlit-component-lib';
 import { debounceTime, Subject } from 'rxjs';
+import { Streamlit } from 'streamlit-component-lib';
 
 /**
  * Directive to resize streamlit iframe to its content

@@ -11,11 +11,12 @@ import {
 } from '@angular/core';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { ClCoerceBooleanDecorator, ClHelpService, ClOnChange } from '@monorepo/core-lib';
-import { Observable, Subscription } from 'rxjs';
-import { FlObjectFlatNode, FlObjectNode } from '../model/fl-pretty-json.class';
-import { FlPrettyJsonBuilder } from '../model/fl-pretty-json-builder.class';
 import { FlHtmlHelper, FlKeyboardHelper, FlKeyboardKey } from '@monorepo/front-core-lib/fl-core';
 import { FlFlatTreeControl } from '@monorepo/front-core-lib/fl-core';
+import { Observable, Subscription } from 'rxjs';
+
+import { FlObjectFlatNode, FlObjectNode } from '../model/fl-pretty-json.class';
+import { FlPrettyJsonBuilder } from '../model/fl-pretty-json-builder.class';
 
 @Component({
   selector: 'fl-pretty-json',

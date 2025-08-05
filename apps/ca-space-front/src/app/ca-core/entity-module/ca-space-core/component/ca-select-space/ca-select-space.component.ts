@@ -1,19 +1,20 @@
 import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import { NgControl } from '@angular/forms';
+import { MatIcon } from '@angular/material/icon';
 import {
   FlEntityPaginatedDatasource,
   FlFormFieldDirective,
   FlInputSearchFilter,
 } from '@monorepo/front-core-lib/fl-core';
-import { CaSpace, CaSpaceDatasource } from '../../../../model/entities/space/ca-space.class';
-import { Observable } from 'rxjs';
-import { NgControl } from '@angular/forms';
-import { CaSpaceService } from '../../../../service-api/ca-space.service';
-import { CaCurrentSpaceService } from '../../../../service-api/ca-current-space.service';
 import { FlInputSearchModule } from '@monorepo/front-core-lib/fl-input-search';
-import { CaSpacePhotoComponent } from '../ca-space-photo/ca-space-photo.component';
-import { MatIcon } from '@angular/material/icon';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { Observable } from 'rxjs';
+
+import { CaSpace, CaSpaceDatasource } from '../../../../model/entities/space/ca-space.class';
+import { CaCurrentSpaceService } from '../../../../service-api/ca-current-space.service';
+import { CaSpaceService } from '../../../../service-api/ca-space.service';
 import { CaSpaceInlineComponent } from '../ca-space-inline/ca-space-inline.component';
+import { CaSpacePhotoComponent } from '../ca-space-photo/ca-space-photo.component';
 
 @Component({
   selector: 'ca-select-space',

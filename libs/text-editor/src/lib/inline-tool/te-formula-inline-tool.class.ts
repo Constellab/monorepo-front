@@ -1,9 +1,10 @@
 import { SanitizerConfig } from '@editorjs/editorjs';
-import { TeHelper } from '../model/te.helper';
 import { flRootInjector } from '@monorepo/front-core-lib/fl-core';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
-import { TeComponentInlineTool } from './te-component-inline-tool.class';
+
 import { TeFormulaInlineToolData } from '../component/te-formula-inline/te-formula-inline.component';
+import { TeHelper } from '../model/te.helper';
+import { TeComponentInlineTool } from './te-component-inline-tool.class';
 
 export class TeFormulaInlineToolClass extends TeComponentInlineTool<TeFormulaInlineToolData> {
   public static TAG = 'te-formula-inline';

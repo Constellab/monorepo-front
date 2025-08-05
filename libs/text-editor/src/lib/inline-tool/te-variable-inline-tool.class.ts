@@ -1,8 +1,9 @@
 import { SanitizerConfig } from '@editorjs/editorjs';
-import { TeVariableFormInfo, teVariableTagName } from '../model/te-variable.class';
-import { TeHelper } from '../model/te.helper';
 import { flRootInjector } from '@monorepo/front-core-lib/fl-core';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+
+import { TeHelper } from '../model/te.helper';
+import { TeVariableFormInfo, teVariableTagName } from '../model/te-variable.class';
 import { TeComponentInlineTool } from './te-component-inline-tool.class';
 
 export class TeVariableInlineToolClass extends TeComponentInlineTool<TeVariableFormInfo> {

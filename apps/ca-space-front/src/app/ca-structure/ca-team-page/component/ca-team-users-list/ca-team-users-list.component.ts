@@ -1,20 +1,21 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
+import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { TranslatePipe } from '@ngx-translate/core';
+
 import {
   CaGroupAddUserDialogComponent,
   CaGroupAddUserDialogInput,
 } from '../../../../ca-core/entity-module/ca-group-core/component/ca-group-add-user-dialog/ca-group-add-user-dialog.component';
-import { CaGroupService } from '../../../../ca-core/service-api/ca-group.service';
-import { CaUserGroup, CaUserGroupDatasource } from '../../../../ca-core/model/entities/ca-group.entity';
-import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { MatIcon } from '@angular/material/icon';
-import { MatButton } from '@angular/material/button';
-import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
 import {
   CaUserGroupTableComponent,
 } from '../../../../ca-core/entity-module/ca-group-core/component/ca-user-group-table/ca-user-group-table.component';
-import { TranslatePipe } from '@ngx-translate/core';
+import { CaUserGroup, CaUserGroupDatasource } from '../../../../ca-core/model/entities/ca-group.entity';
+import { CaGroupService } from '../../../../ca-core/service-api/ca-group.service';
 
 /**
  * Component to list the users of a team

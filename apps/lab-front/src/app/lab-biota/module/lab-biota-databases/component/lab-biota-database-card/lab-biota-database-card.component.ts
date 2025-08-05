@@ -1,8 +1,9 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
-import { LabBiotaDatabaseService } from '../../../../service/lab-biota-database.service';
-import { LabBiotaDatabase } from '../../../../model/lab-biota-database.class';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { LabBiotaDatabase } from '../../../../model/lab-biota-database.class';
+import { LabBiotaDatabaseService } from '../../../../service/lab-biota-database.service';
 
 /**
  * Card to display a database and load the database entries count

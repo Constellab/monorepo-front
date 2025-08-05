@@ -1,4 +1,10 @@
 import {
+  HTTP_INTERCEPTORS,
+  provideHttpClient,
+  withFetch,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
+import {
   APP_ID,
   ApplicationConfig,
   importProvidersFrom,
@@ -7,49 +13,16 @@ import {
   provideAppInitializer,
   TransferState,
 } from '@angular/core';
-import { haAppRoutes } from './ha-app-routes';
-import { FL_CAPTCHA_MODULE_CONFIG, FlCaptchaModuleConfig } from '@monorepo/front-core-lib/fl-captcha';
-import { FlApiModule } from '@monorepo/front-core-lib/fl-api';
-import { FlAuthModule } from '@monorepo/front-core-lib/fl-auth';
-import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
-import { FlHttpInterceptorService, FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
-import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
-import {
-  flLuxonDateFormat,
-  flMatFormFieldConfig,
-  flSetRootInjector,
-  flTooltipConfig,
-} from '@monorepo/front-core-lib/fl-core';
-import { FlPortalActionsModule } from '@monorepo/front-core-lib/fl-portal-actions';
-import { FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
-import { FlSnackBarModule } from '@monorepo/front-core-lib/fl-snack-bar';
-import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
-import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-
-import { HaUserConfig } from './ha-core/ha-model/ha-config/ha-user-config.config';
-import { HaApiServiceConfig } from './ha-core/ha-model/ha-config/ha-api-module.config';
-import { HaApiErrorService } from './ha-core/ha-model/ha-config/ha-api-error.service';
-import { TdTechnicalDocModule } from '@monorepo/technical-doc';
-import { HaTdServiceConfig } from './ha-core/ha-model/ha-config/ha-td-service.config';
-import { HaAuthService } from './ha-core/ha-service/ha-auth.service';
-import { ClSupportedLanguage } from '@monorepo/core-lib';
-import { haSvgIcons } from './ha-core/utils/ha-svg-icon-config';
-import { RV_MODULE_CONFIG, RvResourceViewModuleBasicConfig } from '@monorepo/resource-view';
-import { CoCommunityLibModule } from '@monorepo/community-lib';
-import { HaCoServiceConfig } from './ha-core/ha-model/ha-config/ha-co-service.config';
-import {
-  HTTP_INTERCEPTORS,
-  provideHttpClient,
-  withFetch,
-  withInterceptorsFromDi,
-} from '@angular/common/http';
-import { HaHttpInterceptorSsrService } from './ha-core/ha-service/ha-http-interceptor-ssr.service';
-import { HaAuthenticatedUserService } from './ha-core/ha-service/ha-authenticated-user.service';
+import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { MAT_TOOLTIP_DEFAULT_OPTIONS } from '@angular/material/tooltip';
-import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
+import { LuxonDateAdapter } from '@angular/material-luxon-adapter';
+import {
+  BrowserModule,
+  provideClientHydration,
+  withHttpTransferCacheOptions,
+} from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { HaEnvironmentHelper } from './ha-core/ha-model/ha-config/ha-environment.helper';
 import {
   PreloadAllModules,
   provideRouter,
@@ -57,12 +30,39 @@ import {
   withPreloading,
   withRouterConfig,
 } from '@angular/router';
-import { LuxonDateAdapter } from '@angular/material-luxon-adapter';
+import { CoCommunityLibModule } from '@monorepo/community-lib';
+import { ClSupportedLanguage } from '@monorepo/core-lib';
+import { FlApiModule } from '@monorepo/front-core-lib/fl-api';
+import { FlAuthModule } from '@monorepo/front-core-lib/fl-auth';
+import { FL_CAPTCHA_MODULE_CONFIG, FlCaptchaModuleConfig } from '@monorepo/front-core-lib/fl-captcha';
 import {
-  BrowserModule,
-  provideClientHydration,
-  withHttpTransferCacheOptions,
-} from '@angular/platform-browser';
+  flLuxonDateFormat,
+  flMatFormFieldConfig,
+  flSetRootInjector,
+  flTooltipConfig,
+} from '@monorepo/front-core-lib/fl-core';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
+import { FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
+import { FlPortalActionsModule } from '@monorepo/front-core-lib/fl-portal-actions';
+import { FlSnackBarModule } from '@monorepo/front-core-lib/fl-snack-bar';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
+import { FlHttpInterceptorService, FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+import { RV_MODULE_CONFIG, RvResourceViewModuleBasicConfig } from '@monorepo/resource-view';
+import { TdTechnicalDocModule } from '@monorepo/technical-doc';
+
+import { haAppRoutes } from './ha-app-routes';
+import { HaApiErrorService } from './ha-core/ha-model/ha-config/ha-api-error.service';
+import { HaApiServiceConfig } from './ha-core/ha-model/ha-config/ha-api-module.config';
+import { HaCoServiceConfig } from './ha-core/ha-model/ha-config/ha-co-service.config';
+import { HaEnvironmentHelper } from './ha-core/ha-model/ha-config/ha-environment.helper';
+import { HaTdServiceConfig } from './ha-core/ha-model/ha-config/ha-td-service.config';
+import { HaUserConfig } from './ha-core/ha-model/ha-config/ha-user-config.config';
+import { HaAuthService } from './ha-core/ha-service/ha-auth.service';
+import { HaAuthenticatedUserService } from './ha-core/ha-service/ha-authenticated-user.service';
+import { HaHttpInterceptorSsrService } from './ha-core/ha-service/ha-http-interceptor-ssr.service';
+import { haSvgIcons } from './ha-core/utils/ha-svg-icon-config';
 
 function loadUserOnInit(authenticatedUserService: HaAuthenticatedUserService): () => void {
   return (): void => authenticatedUserService.init();

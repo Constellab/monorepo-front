@@ -1,13 +1,25 @@
 import { Component, inject, OnInit } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
+import { MatButton } from '@angular/material/button';
+import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent } from '@angular/material/dialog';
+import { MatIcon } from '@angular/material/icon';
+import { MatRadioButton, MatRadioChange, MatRadioGroup } from '@angular/material/radio';
+import { ClDateHelper, ClHelpService } from '@monorepo/core-lib';
+import { FlFormDialogInput, FlFormHelper } from '@monorepo/front-core-lib/fl-core';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
+import { FlDialogModule, FlFormDialogAbstractDirective } from '@monorepo/front-core-lib/fl-dialog';
 import {
   FlDynamicFieldConfig,
   FlDynamicFieldModule,
   FlDynamicFormGroupConfig,
   FlDynamicFormHelper,
 } from '@monorepo/front-core-lib/fl-dynamic-field';
-import { FlDialogModule, FlFormDialogAbstractDirective } from '@monorepo/front-core-lib/fl-dialog';
-import { FlFormDialogInput, FlFormHelper } from '@monorepo/front-core-lib/fl-core';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { FlRadioButtonBigModule } from '@monorepo/front-core-lib/fl-radio-button-big';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+import { TranslatePipe } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
 
 import {
   CaLabGreenOption,
@@ -16,19 +28,7 @@ import {
   CaLabGreenOptionStopAfterTimeValue,
   CaLabGreenOptionType,
 } from '../../../../ca-core/model/entities/lab/ca-lab-green-option.class';
-import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent } from '@angular/material/dialog';
-import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
 import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
-import { MatRadioButton, MatRadioChange, MatRadioGroup } from '@angular/material/radio';
-import { ClDateHelper, ClHelpService } from '@monorepo/core-lib';
-import { FlRadioButtonBigModule } from '@monorepo/front-core-lib/fl-radio-button-big';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { MatIcon } from '@angular/material/icon';
-import { MatButton } from '@angular/material/button';
-import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
-import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
-import { TranslatePipe } from '@ngx-translate/core';
 
 export interface CaLabGreenOptionFormDialogInput extends FlFormDialogInput<CaLabGreenOptionFormDto> {
   labId?: string; // create mode

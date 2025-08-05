@@ -1,3 +1,4 @@
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { FlFormInputsManagerConfig } from '@monorepo/front-core-lib/fl-form-inputs-manager';
 import {
   FlSearchConverter,
@@ -5,18 +6,17 @@ import {
   FlSearchFilterCriteriaConverter,
   FlSearchSortCriteriaConverter,
 } from '@monorepo/front-core-lib/fl-search';
-
 import { Type } from 'class-transformer';
-import { FormBuilder, FormGroup } from '@angular/forms';
+
+import { CaCloudProviderRegion } from '../../../model/entities/ca-cloud-provider.class';
 import {
   CaBucketContentType,
   CaBucketCredentials,
   CaBucketType,
 } from '../../../model/entities/ca-object-storage.class';
-import { CaSpace } from '../../../model/entities/space/ca-space.class';
 import { CaUser } from '../../../model/entities/ca-user.class';
-import { CaCloudProviderRegion } from '../../../model/entities/ca-cloud-provider.class';
 import { CaLab } from '../../../model/entities/lab/ca-lab.class';
+import { CaSpace } from '../../../model/entities/space/ca-space.class';
 
 export class CaBucketSearchFields {
   name: string;

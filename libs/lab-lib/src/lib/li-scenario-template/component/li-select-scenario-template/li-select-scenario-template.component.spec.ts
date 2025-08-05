@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { LiSelectScenarioTemplateComponent } from './li-select-scenario-template.component';
 
 describe('LiSelectScenarioTemplateComponent', () => {

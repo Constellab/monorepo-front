@@ -1,41 +1,41 @@
-import { inject, Injector, ModuleWithProviders, NgModule, Type } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PrWorkflowManagerState } from './state/pr-workflow-manager-state';
-import { PrWorkflowComponent } from './component/pr-workflow/pr-workflow.component';
+import { inject, Injector, ModuleWithProviders, NgModule, Type } from '@angular/core';
+import { createCustomElement } from '@angular/elements';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSortHeader } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
-import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlJsonEditorModule } from '@monorepo/front-core-lib/fl-json-editor';
 import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { FlMenuDynamicModule } from '@monorepo/front-core-lib/fl-menu-dynamic';
 import { FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlTranslateModule, FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-
-import { PrWorkflowNodeProcessComponent } from './component/pr-workflow-node-process/pr-workflow-node-process.component';
 import { TdTechnicalDocModule } from '@monorepo/technical-doc';
-import { MatIconModule } from '@angular/material/icon';
-import { createCustomElement } from '@angular/elements';
-import { PrWorkflowActionState } from './state/pr-workflow-action-state';
-import { PrWorkflowLayersBreadcrumbComponent } from './component/pr-workflow-layers-breadcrumb/pr-workflow-layers-breadcrumb.component';
-import { prProtocolI18n } from './pr-protocol.i18n';
-import { PrWorkflowPortActionPortalComponent } from './component/pr-workflow-port-action-portal/pr-workflow-port-action-portal.component';
-import { MatSidenavModule } from '@angular/material/sidenav';
+
+import { PrIofaceInfoPortalComponent } from './component/pr-ioface-info-portal/pr-ioface-info-portal.component';
 import { PrProcessConfigInfoDialogComponent } from './component/pr-process-config-info-dialog/pr-process-config-info-dialog.component';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatTableModule } from '@angular/material/table';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatButtonModule } from '@angular/material/button';
-import { PrWorkflowEmptyResourcesState, PrWorkflowResourcesState } from './state/pr-workflow-resources.state';
-import { PrWorkflowNodeContentComponent } from './component/pr-workflow-node-content/pr-workflow-node-content.component';
-import { PrWorkflowNodeContentBottomComponent } from './component/pr-workflow-node-content-bottom/pr-workflow-node-content-bottom.component';
-import { PrWorkflowNodeResourceComponent } from './component/pr-workflow-node-resource/pr-workflow-node-resource.component';
 import { PrProcessInfoComponent } from './component/pr-process-info/pr-process-info.component';
 import { PrProcessInfoDialogComponent } from './component/pr-process-info-dialog/pr-process-info-dialog.component';
-import { PrIofaceInfoPortalComponent } from './component/pr-ioface-info-portal/pr-ioface-info-portal.component';
-import { MatSortHeader } from '@angular/material/sort';
+import { PrWorkflowComponent } from './component/pr-workflow/pr-workflow.component';
+import { PrWorkflowLayersBreadcrumbComponent } from './component/pr-workflow-layers-breadcrumb/pr-workflow-layers-breadcrumb.component';
+import { PrWorkflowNodeContentComponent } from './component/pr-workflow-node-content/pr-workflow-node-content.component';
+import { PrWorkflowNodeContentBottomComponent } from './component/pr-workflow-node-content-bottom/pr-workflow-node-content-bottom.component';
+import { PrWorkflowNodeProcessComponent } from './component/pr-workflow-node-process/pr-workflow-node-process.component';
+import { PrWorkflowNodeResourceComponent } from './component/pr-workflow-node-resource/pr-workflow-node-resource.component';
+import { PrWorkflowPortActionPortalComponent } from './component/pr-workflow-port-action-portal/pr-workflow-port-action-portal.component';
+import { prProtocolI18n } from './pr-protocol.i18n';
+import { PrWorkflowActionState } from './state/pr-workflow-action-state';
+import { PrWorkflowManagerState } from './state/pr-workflow-manager-state';
+import { PrWorkflowEmptyResourcesState, PrWorkflowResourcesState } from './state/pr-workflow-resources.state';
 
 @NgModule({
   imports: [

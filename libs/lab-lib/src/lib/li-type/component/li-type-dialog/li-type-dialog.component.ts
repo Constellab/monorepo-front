@@ -1,19 +1,20 @@
-import { AsyncPipe } from '@angular/common';
 import { CdkScrollable } from '@angular/cdk/scrolling';
-import { CoCommunityHelperService } from '@monorepo/community-lib';
+import { AsyncPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
+import { MatAnchor } from '@angular/material/button';
+import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
+import { MatIcon } from '@angular/material/icon';
+import { RouterLink } from '@angular/router';
+import { CoCommunityHelperService } from '@monorepo/community-lib';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { LiRouterService, LiTypeEntity, LiTypeService } from '@monorepo/lab-lib/li-core';
-import { LiTypeDetailComponent } from '../li-type-detail/li-type-detail.component';
-import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
-import { MatAnchor } from '@angular/material/button';
-import { MatIcon } from '@angular/material/icon';
-import { Observable, share } from 'rxjs';
-import { RouterLink } from '@angular/router';
 import { TdTechnicalDocModule, TdTypingName } from '@monorepo/technical-doc';
 import { TranslatePipe } from '@ngx-translate/core';
+import { Observable, share } from 'rxjs';
 import { map } from 'rxjs/operators';
+
+import { LiTypeDetailComponent } from '../li-type-detail/li-type-detail.component';
 
 export interface LiTypeDialogInput {
   typingName: string;

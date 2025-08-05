@@ -1,9 +1,10 @@
-import { BehaviorSubject, Observable } from 'rxjs';
+import { inject,Injectable } from '@angular/core';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { FlCleanableService, FlCleanerService } from '@monorepo/front-core-lib/fl-core';
 import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
-import { Injectable, inject } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
+
 import { LiUser } from '../model/entities/li-user.entity';
 
 /**

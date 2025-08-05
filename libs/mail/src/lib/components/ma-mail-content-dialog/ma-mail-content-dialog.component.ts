@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+
 import { MaMailEntity } from '../../models/ma-mail.entity';
 
 @Component({

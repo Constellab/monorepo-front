@@ -1,18 +1,19 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { FL_PORTAL_DATA } from '@monorepo/front-core-lib/fl-portal';
+import { Component, inject,OnInit } from '@angular/core';
 import { FlColorHelper } from '@monorepo/front-core-lib/fl-core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { TeTextEditorHistoryService } from '../../model/te-text-editor-history.service';
+import { FL_PORTAL_DATA } from '@monorepo/front-core-lib/fl-portal';
+import { DateTime, Duration } from 'luxon';
+
+import { TeRichTextBlockModificationWithUser } from '../../model/lib';
 import { TeConfig } from '../../model/te-config.class';
+import { TeTextEditorHistoryModificationGroup } from '../../model/te-modifications-group.class';
+import { TeTextEditorHistoryService } from '../../model/te-text-editor-history.service';
 import { TeTextEditorHistoryUser } from '../../model/te-text-editor-history-user.class';
 import { TeTextEditorHistoryClickEventData } from '../te-text-editor-history-modification-group/te-text-editor-history-modification-group.component';
 import {
   TeTextEditorHistoryModificationVisualizerDialogComponent,
   TeTextEditorHistoryModificationVisualizerDialogData,
 } from '../te-text-editor-history-modification-visualizer-dialog/te-text-editor-history-modification-visualizer-dialog.component';
-import { DateTime, Duration } from 'luxon';
-import { TeTextEditorHistoryModificationGroup } from '../../model/te-modifications-group.class';
-import { TeRichTextBlockModificationWithUser } from '../../model/lib';
 
 export interface TeTextEditorHistoryPortalData {
   entityId: string;

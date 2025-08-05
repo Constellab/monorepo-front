@@ -1,7 +1,8 @@
 import { Component, inject, OnInit } from '@angular/core';
+
 import { CaLabDetailPageState } from '../../../state/ca-lab-detail-page.state';
-import { CaLabBackupsStatusesComponent } from '../ca-lab-backups-statuses/ca-lab-backups-statuses.component';
 import { CaLabBackupHistoryComponent } from '../ca-lab-backup-history/ca-lab-backup-history.component';
+import { CaLabBackupsStatusesComponent } from '../ca-lab-backups-statuses/ca-lab-backups-statuses.component';
 
 @Component({
   selector: 'ca-lab-backup-detail-page',

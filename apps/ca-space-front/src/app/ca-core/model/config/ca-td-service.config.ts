@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
-import { TdTechnicalDocServiceConfig, TdTechnicalDocUrl, TdTypingName } from '@monorepo/technical-doc';
 import { CoCommunityHelperService } from '@monorepo/community-lib';
+import { TdTechnicalDocServiceConfig, TdTechnicalDocUrl, TdTypingName } from '@monorepo/technical-doc';
 
 /**
  * Class to configure the TdService

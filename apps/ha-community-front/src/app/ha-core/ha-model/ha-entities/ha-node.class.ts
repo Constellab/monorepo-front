@@ -1,5 +1,6 @@
 import { FlDatasourceTree, FlEntity } from '@monorepo/front-core-lib/fl-core';
 import { Type } from 'class-transformer';
+
 import { HaBaseEntity, HaEntity } from './ha-entity.class';
 
 export class HaNoteObjectsTreeDatasource extends FlDatasourceTree<HaNode> {

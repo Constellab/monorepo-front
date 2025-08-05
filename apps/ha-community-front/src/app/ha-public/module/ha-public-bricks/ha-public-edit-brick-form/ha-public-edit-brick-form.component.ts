@@ -1,26 +1,27 @@
 import { Component, inject, OnInit } from '@angular/core';
-import {
-  HaBrickCreationDTO,
-  HaBrickVisibility,
-} from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
-import { HaBrickService } from '../../../../ha-core/ha-service/ha-brick.service';
-import { Router } from '@angular/router';
-import { FlGlobalValidators } from '@monorepo/front-core-lib/fl-core';
-import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
-import { HaAddVersionInput, HaRepoType } from '../../../../ha-core/ha-model/ha-entities/ha-version.class';
-import { HaSpaceService } from '../../../../ha-core/ha-service/ha-space.service';
-import { HaSpace } from '../../../../ha-core/ha-model/ha-entities/ha-space.class';
-import { FlInputFileModule } from '@monorepo/front-core-lib/fl-input-file';
-import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
+import { MatButton } from '@angular/material/button';
 import { MatDivider } from '@angular/material/divider';
 import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
-import { MatButton } from '@angular/material/button';
-import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
-import { TranslatePipe } from '@ngx-translate/core';
+import { Router } from '@angular/router';
+import { FlGlobalValidators } from '@monorepo/front-core-lib/fl-core';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
+import { FlInputFileModule } from '@monorepo/front-core-lib/fl-input-file';
+import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
+import { TranslatePipe } from '@ngx-translate/core';
+
+import {
+  HaBrickCreationDTO,
+  HaBrickVisibility,
+} from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
+import { HaSpace } from '../../../../ha-core/ha-model/ha-entities/ha-space.class';
+import { HaAddVersionInput, HaRepoType } from '../../../../ha-core/ha-model/ha-entities/ha-version.class';
+import { HaBrickService } from '../../../../ha-core/ha-service/ha-brick.service';
+import { HaSpaceService } from '../../../../ha-core/ha-service/ha-space.service';
 
 @Component({
   selector: 'ha-public-edit-brick-form',

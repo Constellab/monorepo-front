@@ -1,6 +1,6 @@
-import { ClApiError } from '@monorepo/core-lib';
 import { Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ClApiError } from '@monorepo/core-lib';
 import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 
 /**

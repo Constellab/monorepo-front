@@ -3,19 +3,20 @@ import {
   ElementRef,
   EventEmitter,
   HostListener,
+  inject,
   Input,
   OnDestroy,
   OnInit,
   Output,
   Renderer2,
-  inject,
 } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
-import { Subscription } from 'rxjs';
 import { ClHelpService } from '@monorepo/core-lib';
-import { FlSnackBarService } from '../fl-snack-bar/fl-snack-bar.service';
 import { FlFormFieldDirective, FlFormFieldMultipleDirective } from '@monorepo/front-core-lib/fl-core';
 import { FlFileHelper } from '@monorepo/front-core-lib/fl-translate';
+import { Subscription } from 'rxjs';
+
+import { FlSnackBarService } from '../fl-snack-bar/fl-snack-bar.service';
 
 /**
  * Directive of an input that supports form controls to manage input file.

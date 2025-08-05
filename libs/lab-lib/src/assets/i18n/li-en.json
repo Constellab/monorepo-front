@@ -179,6 +179,7 @@
     "import_to": "Import to",
     "select_importer_help": "You can select an importer to import the resource. The importer will create a new resource from the file or folder. By default only the importer that support the file extension are displayed (see 'Ignore file extension' checkbox). You can check the documentation of the importer to see information about it.",
     "resource_imported": "Resource imported",
+    "resource_importer_no_config": "This importer has no configuration",
     "notes_that_use_the_resource": "Notes that use the resource",
     "download_resource": "Download",
     "update_resource_name": "Update name",
@@ -494,6 +495,7 @@
     "description_modified": "Description modified",
     "label_modified": "Label modified",
     "spec": "Spec",
-    "delete_tag_value_content": "Are you sure you want to delete the tag value ? This will also delete all the objects that use this tag value."
+    "delete_tag_value_content": "Are you sure you want to delete the tag value ? This will also delete all the objects that use this tag value.",
+    "system": "System"
   }
 }

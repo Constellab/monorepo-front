@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
+import { MatIcon } from '@angular/material/icon';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { LiNavigableEntity } from '@monorepo/lab-lib/li-core';
-import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'li-navigable-entity-inline',

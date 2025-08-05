@@ -1,9 +1,9 @@
-import { SpSheet } from '../sp-sheet.class';
-import { SpCell } from '../sp-cell.class';
-import { SpSheetSelection } from './sp-sheet-selection.class';
-import { SpCellsRange, SpCellsRangeType } from './sp-cells-range.class';
-import { SpCellCoord, SpCellCoordRange } from '../sp-cell-coord.class';
 import { SpSheetSelectionRange } from '../chart/sp-sheet-chart-selection-form.class';
+import { SpCell } from '../sp-cell.class';
+import { SpCellCoord, SpCellCoordRange } from '../sp-cell-coord.class';
+import { SpSheet } from '../sp-sheet.class';
+import { SpCellsRange, SpCellsRangeType } from './sp-cells-range.class';
+import { SpSheetSelection } from './sp-sheet-selection.class';
 
 export interface SpCellWithCoord {
   coord: SpCellCoord;

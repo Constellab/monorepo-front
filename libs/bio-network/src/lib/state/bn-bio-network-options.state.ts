@@ -1,5 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+
 import { BnBioNetworkClusterSelection, BnBioNetworkMetaboliteLevel } from '../model/bn-bio-network.class';
 
 /**

@@ -1,14 +1,8 @@
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
-import { CaServerCloud } from '../../../../model/entities/server/ca-server-cloud.class';
-import { CaServerCloudFormDialogComponent } from '../ca-server-cloud-form-dialog/ca-server-cloud-form-dialog.component';
-import { FlArrayObs, FlFormDialogInput, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
-import {
-  FlConfirmDialogInput,
-  FlConfirmDialogResult,
-  FlDialogService,
-} from '@monorepo/front-core-lib/fl-dialog';
-
-import { CaServerService } from '../../../../service-api/ca-server.service';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
+import { MatSortHeader } from '@angular/material/sort';
 import {
   MatCell,
   MatCellDef,
@@ -21,13 +15,19 @@ import {
   MatRowDef,
   MatTable,
 } from '@angular/material/table';
-import { MatSortHeader } from '@angular/material/sort';
+import { FlArrayObs, FlFormDialogInput, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
+import {
+  FlConfirmDialogInput,
+  FlConfirmDialogResult,
+  FlDialogService,
+} from '@monorepo/front-core-lib/fl-dialog';
 import { FlSearchModule } from '@monorepo/front-core-lib/fl-search';
-import { CaCloudProviderInlineComponent } from '../../../ca-cloud-provider-core/component/ca-cloud-provider-inline/ca-cloud-provider-inline.component';
-import { MatIconButton } from '@angular/material/button';
-import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
-import { MatIcon } from '@angular/material/icon';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { CaServerCloud } from '../../../../model/entities/server/ca-server-cloud.class';
+import { CaServerService } from '../../../../service-api/ca-server.service';
+import { CaCloudProviderInlineComponent } from '../../../ca-cloud-provider-core/component/ca-cloud-provider-inline/ca-cloud-provider-inline.component';
+import { CaServerCloudFormDialogComponent } from '../ca-server-cloud-form-dialog/ca-server-cloud-form-dialog.component';
 
 @Component({
   selector: 'ca-server-cloud-table',

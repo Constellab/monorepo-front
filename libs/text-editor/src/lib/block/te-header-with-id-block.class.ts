@@ -1,14 +1,15 @@
+import { BlockTool, BlockToolConstructorOptions, BlockToolData, ToolboxConfig } from '@editorjs/editorjs';
+import { MenuConfig } from '@editorjs/editorjs/types/tools';
+import Header from '@editorjs/header';
+import { ClStringHelper } from '@monorepo/core-lib';
+import { flRootInjector } from '@monorepo/front-core-lib/fl-core';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlClipboardService } from '@monorepo/front-core-lib/fl-snack-bar';
+import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+
+import { TeEditBlockMetadataDialogComponent } from '../component/te-edit-block-metadata-dialog/te-edit-block-metadata-dialog.component';
 import { TeHelper } from '../model/te.helper';
 import { TeBlockWithMetadata, TeMetadataBlockConfig } from '../model/te-metadata-block-config.class';
-import Header from '@editorjs/header';
-import { BlockTool, BlockToolConstructorOptions, BlockToolData, ToolboxConfig } from '@editorjs/editorjs';
-import { flRootInjector } from '@monorepo/front-core-lib/fl-core';
-import { ClStringHelper } from '@monorepo/core-lib';
-import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
-import { MenuConfig } from '@editorjs/editorjs/types/tools';
-import { FlClipboardService } from '@monorepo/front-core-lib/fl-snack-bar';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { TeEditBlockMetadataDialogComponent } from '../component/te-edit-block-metadata-dialog/te-edit-block-metadata-dialog.component';
 
 export interface TeHeaderWithIdBlockData {
   text: string;

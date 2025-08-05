@@ -1,4 +1,5 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject,OnInit } from '@angular/core';
+
 import { FL_PORTAL_DATA } from '../../model/fl-portal.class';
 
 /**

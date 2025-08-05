@@ -1,7 +1,8 @@
-import { Injectable, inject } from '@angular/core';
+import { inject,Injectable } from '@angular/core';
 import { Router, UrlTree } from '@angular/router';
-import { HaAuthService } from '../ha-service/ha-auth.service';
 import { Observable } from 'rxjs';
+
+import { HaAuthService } from '../ha-service/ha-auth.service';
 import { HaAuthenticatedUserService } from '../ha-service/ha-authenticated-user.service';
 import { HaRouterService } from '../ha-service/ha-router.service';
 

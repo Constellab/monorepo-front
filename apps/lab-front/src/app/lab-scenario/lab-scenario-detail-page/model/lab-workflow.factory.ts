@@ -1,6 +1,5 @@
-import { Injectable, NgZone, inject } from '@angular/core';
+import { inject,Injectable, NgZone } from '@angular/core';
 import { LiProcess, LiProcessLayout, LiProtocol } from '@monorepo/lab-lib/li-core';
-import { Observable } from 'rxjs';
 import {
   PrAddNodeWithConnection,
   PrProtocolLink,
@@ -15,6 +14,7 @@ import {
   PrWorkflowNodeViewer,
   PrWorkflowResourcesState,
 } from '@monorepo/protocol';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class LabWorkflowFactory {

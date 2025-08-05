@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { FlStatus } from '../../model/fl-status.class';
-import { Observable, of } from 'rxjs';
 import { TooltipPosition } from '@angular/material/tooltip';
+import { Observable, of } from 'rxjs';
+
+import { FlStatus } from '../../model/fl-status.class';
 
 export type FlStatusChipMode = 'iconText' | 'iconOnly' | 'textOnly';
 

@@ -1,8 +1,9 @@
 import { Component, inject } from '@angular/core';
-import { Numeric } from 'd3';
-import { ChChartDataWithSerie } from '../../../model/data/ch-chart-serie.class';
-import { ChChartDataBin, ChChartHistogramMode } from '../../../model/data/ch-chart-data-bin.class';
 import { FL_PORTAL_DATA } from '@monorepo/front-core-lib/fl-portal';
+import { Numeric } from 'd3';
+
+import { ChChartDataBin, ChChartHistogramMode } from '../../../model/data/ch-chart-data-bin.class';
+import { ChChartDataWithSerie } from '../../../model/data/ch-chart-serie.class';
 
 export interface ChChartBinDataPortalInput {
   data: ChChartDataWithSerie<ChChartDataBin>;

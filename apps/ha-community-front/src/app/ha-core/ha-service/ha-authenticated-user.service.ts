@@ -1,16 +1,16 @@
+import { isPlatformBrowser, isPlatformServer } from '@angular/common';
 import { inject, Injectable, Injector, PLATFORM_ID, REQUEST } from '@angular/core';
+import { ClSupportedLanguage, ClTheme } from '@monorepo/core-lib';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { flAuthExpiredCookie, FlCleanableService, FlCleanerService } from '@monorepo/front-core-lib/fl-core';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
-
 import { BehaviorSubject, Observable } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
+
+import { HaBrick } from '../ha-model/ha-entities/ha-brick.class';
 import { HaUser, HaUserCategory } from '../ha-model/ha-entities/ha-user';
 import { HaAuthService } from './ha-auth.service';
-import { map, tap } from 'rxjs/operators';
-import { ClSupportedLanguage, ClTheme } from '@monorepo/core-lib';
-import { HaBrick } from '../ha-model/ha-entities/ha-brick.class';
-import { isPlatformBrowser, isPlatformServer } from '@angular/common';
-import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 
 @Injectable({
   providedIn: 'root',

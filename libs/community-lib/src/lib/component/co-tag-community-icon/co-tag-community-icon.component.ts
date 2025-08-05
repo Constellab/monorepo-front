@@ -1,8 +1,9 @@
 import { Component, computed, input } from '@angular/core';
-import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { TranslatePipe } from '@ngx-translate/core';
+
 import { CoCommunityHelperService } from '../../helper/co-community-helper.service';
 
 export interface CoTagCommunityTagInput {

@@ -1,8 +1,9 @@
 import { Component, HostListener, Input, ViewChild } from '@angular/core';
-import { TeElementBlockDirective } from '../../model/te-element.directive';
 import { FormControl } from '@angular/forms';
 import { FlCodeEditorComponent } from '@monorepo/front-core-lib/fl-code-editor';
 import { FlCodeEditorLanguage } from '@monorepo/front-core-lib/fl-code-editor';
+
+import { TeElementBlockDirective } from '../../model/te-element.directive';
 
 @Component({
   selector: 'te-code',

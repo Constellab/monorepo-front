@@ -1,9 +1,10 @@
 import { Directive, EventEmitter, HostListener, inject, Input, Output } from '@angular/core';
 import { ClHelpService } from '@monorepo/core-lib';
+import { FlPortalConnectedPosition, FlPortalService } from '@monorepo/front-core-lib/fl-portal';
+
 import {
   FlColorSelectorPortalComponent,
 } from '../component/fl-color-selector-portal/fl-color-selector-portal.component';
-import { FlPortalConnectedPosition, FlPortalService } from '@monorepo/front-core-lib/fl-portal';
 
 /**
  * directive to place on any element to open the select color portal on click

@@ -1,17 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CaLab, CaLabWithSpace } from '../../../../ca-core/model/entities/lab/ca-lab.class';
-import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
-import { CaRouterService } from '../../../../ca-core/service/ca-router.service';
-import { CaLabCloudCreateDTO } from '../../../../ca-core/model/entities/lab/ca-lab.form';
-import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
-import { CaLabSelectServerComponent } from '../../../../ca-core/entity-module/ca-lab-core/component/ca-lab-select-server/ca-lab-select-server.component';
-import { LmlLabManagerConfig } from '@monorepo/lab-manager-lib';
-import { CaLabSelectStorageComponent } from '../../../../ca-core/entity-module/ca-lab-core/component/ca-lab-select-storage/ca-lab-select-storage.component';
-import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { MatButton } from '@angular/material/button';
+import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
-import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { MatInput } from '@angular/material/input';
 import {
   MatStep,
   MatStepLabel,
@@ -19,14 +11,23 @@ import {
   MatStepperNext,
   MatStepperPrevious,
 } from '@angular/material/stepper';
-import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
-import { MatInput } from '@angular/material/input';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
-import { MatButton } from '@angular/material/button';
-import { CaLabCreateSummaryComponent } from '../../../../ca-core/entity-module/ca-lab-core/component/ca-lab-create-summary/ca-lab-create-summary.component';
-import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { LmlLabManagerConfig } from '@monorepo/lab-manager-lib';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { CaLabCreateSummaryComponent } from '../../../../ca-core/entity-module/ca-lab-core/component/ca-lab-create-summary/ca-lab-create-summary.component';
+import { CaLabSelectServerComponent } from '../../../../ca-core/entity-module/ca-lab-core/component/ca-lab-select-server/ca-lab-select-server.component';
+import { CaLabSelectStorageComponent } from '../../../../ca-core/entity-module/ca-lab-core/component/ca-lab-select-storage/ca-lab-select-storage.component';
+import { CaLab, CaLabWithSpace } from '../../../../ca-core/model/entities/lab/ca-lab.class';
+import { CaLabCloudCreateDTO } from '../../../../ca-core/model/entities/lab/ca-lab.form';
+import { CaRouterService } from '../../../../ca-core/service/ca-router.service';
+import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
 
 @Component({
   selector: 'ca-lab-create-page',

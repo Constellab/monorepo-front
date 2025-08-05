@@ -1,35 +1,36 @@
+import { AsyncPipe } from '@angular/common';
 import { Component, inject, Injector, OnInit } from '@angular/core';
-import { CaHierarchyObjectBreadcrumbComponent } from '../../ca-folder-hierarchy-core/component/ca-hierarchy-object-breadcrumb/ca-hierarchy-object-breadcrumb.component';
-import { CaHierarchyObjectTableComponent } from '../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-table/ca-hierarchy-object-table.component';
-import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
-import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
-import {
-  CaHierarchyObject,
-  CaHierarchyObjectDatasource,
-} from '../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
-import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
-import { TranslatePipe } from '@ngx-translate/core';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
-import { CaFolderWithHierarchy } from '../../../../ca-core/model/entities/folder/ca-folder.class';
-import { CaHierarchyObjectDetailState } from '../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
+import { ClHelpService } from '@monorepo/core-lib';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
+import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { TranslatePipe } from '@ngx-translate/core';
+
 import { CaFolderActionService } from '../../../../ca-core/entity-module/ca-folder-core/ca-folder-action.service';
 import {
   CaFolderActionEvent,
   CaFolderActionsMenu,
 } from '../../../../ca-core/entity-module/ca-folder-core/model/ca-folder-actions-menu.class';
-import { ClHelpService } from '@monorepo/core-lib';
-import { CaHierarchyObjectSearchState } from '../../ca-folder-hierarchy-core/state/ca-hierarchy-object-search.state';
 import { CaHierarchyObjectSearchFields } from '../../../../ca-core/entity-module/ca-hierarchy-object-core/ca-hierarchy-object-search.class';
+import { CaHierarchyObjectTableComponent } from '../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-table/ca-hierarchy-object-table.component';
+import { CaFolderWithHierarchy } from '../../../../ca-core/model/entities/folder/ca-folder.class';
+import {
+  CaHierarchyObject,
+  CaHierarchyObjectDatasource,
+} from '../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
+import { CaHierarchyObjectBreadcrumbComponent } from '../../ca-folder-hierarchy-core/component/ca-hierarchy-object-breadcrumb/ca-hierarchy-object-breadcrumb.component';
+import { CaHierarchyObjectDetailState } from '../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
+import { CaHierarchyObjectSearchState } from '../../ca-folder-hierarchy-core/state/ca-hierarchy-object-search.state';
 import { CaHierarchyObjectSearchFormComponent } from '../ca-hierarchy-object-search-form/ca-hierarchy-object-search-form.component';
-import { AsyncPipe } from '@angular/common';
 import {
   CaHierarchyObjectTrashDialogComponent,
   CaHierarchyObjectTrashDialogInput,
 } from '../ca-hierarchy-object-trash-dialog/ca-hierarchy-object-trash-dialog.component';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 
 @Component({
   selector: 'ca-root-folder-page',

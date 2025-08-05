@@ -1,3 +1,4 @@
+import { inject,Injectable } from '@angular/core';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
@@ -9,14 +10,14 @@ import {
   FlPortalActionsService,
 } from '@monorepo/front-core-lib/fl-portal-actions';
 import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
-import { Injectable, inject } from '@angular/core';
 import { LiNavigableEntityImpact } from '@monorepo/lab-lib/li-core';
+import { Observable, switchMap } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 import {
   LiNavigableImpactDialogComponent,
   LiNavigableImpactDialogInput,
 } from './component/li-navigable-impact-dialog/li-navigable-impact-dialog.component';
-import { Observable, switchMap } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 export interface LiNavigableImpactConfig {
   title: FlTranslatableText;

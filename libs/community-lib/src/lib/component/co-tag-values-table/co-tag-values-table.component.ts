@@ -1,6 +1,7 @@
 import { Component, input, OnInit, output } from '@angular/core';
-import { FlDatasourcePaginated, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
-import { CoTagValue } from '../../model/co-tag-value.class';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import {
   MatCell,
   MatCellDef,
@@ -13,15 +14,15 @@ import {
   MatRowDef,
   MatTable,
 } from '@angular/material/table';
-import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
-import { MatIcon } from '@angular/material/icon';
-import { TranslatePipe } from '@ngx-translate/core';
+import { FlDatasourcePaginated, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
-import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
-import { CoDeprecatedTagComponent } from '../co-deprecated-tag/co-deprecated-tag.component';
-import { MatIconButton } from '@angular/material/button';
-import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
+import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { TranslatePipe } from '@ngx-translate/core';
+
+import { CoTagValue } from '../../model/co-tag-value.class';
+import { CoDeprecatedTagComponent } from '../co-deprecated-tag/co-deprecated-tag.component';
 import {
   CoTagCommunityIconComponent,
   CoTagCommunityTagInput,

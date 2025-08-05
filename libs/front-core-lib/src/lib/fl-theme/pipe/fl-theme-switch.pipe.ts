@@ -1,6 +1,7 @@
-import { Pipe, PipeTransform, inject } from '@angular/core';
-import { FlThemeSwitch } from '../model/fl-theme-switch.class';
+import { inject,Pipe, PipeTransform } from '@angular/core';
+
 import { FlThemeService } from '../fl-theme.service';
+import { FlThemeSwitch } from '../model/fl-theme-switch.class';
 
 /**
  * Pipe to switch between two values depending on the theme

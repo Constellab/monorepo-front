@@ -1,21 +1,22 @@
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
-import { CaGroup } from '../../../../model/entities/ca-group.entity';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
+import { MatTooltip } from '@angular/material/tooltip';
+import { ClHelpService } from '@monorepo/core-lib';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
 } from '@monorepo/front-core-lib/fl-dialog';
+import { TranslatePipe } from '@ngx-translate/core';
+
+import { CaGroup } from '../../../../model/entities/ca-group.entity';
+import { CaGroupService } from '../../../../service-api/ca-group.service';
 import {
   CaTeamFormDialogComponent,
   CaTeamFormDialogInput,
 } from '../ca-team-form-dialog/ca-team-form-dialog.component';
-import { CaGroupService } from '../../../../service-api/ca-group.service';
-import { ClHelpService } from '@monorepo/core-lib';
-import { MatIconButton } from '@angular/material/button';
-import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
-import { MatIcon } from '@angular/material/icon';
-import { MatTooltip } from '@angular/material/tooltip';
-import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * Action menu button to edit or delete a team

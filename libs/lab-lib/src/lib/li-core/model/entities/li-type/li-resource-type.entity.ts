@@ -1,5 +1,6 @@
-import { LiTypeEntity } from './li-type.entity';
 import { TdResourceMethodList, TdResourceType } from '@monorepo/technical-doc';
+
+import { LiTypeEntity } from './li-type.entity';
 
 export class LiResourceType extends LiTypeEntity {
   variables: Record<string, any>;

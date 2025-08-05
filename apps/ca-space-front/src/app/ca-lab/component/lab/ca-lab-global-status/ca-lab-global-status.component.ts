@@ -1,23 +1,23 @@
+import { AsyncPipe } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
-import { CaLabDetailPageState } from '../../../state/ca-lab-detail-page.state';
-import { Observable } from 'rxjs';
-import { CaLabStatusDTO } from '../../../../ca-core/model/entities/lab/ca-lab.class';
-import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
 import { ClDateHelper } from '@monorepo/core-lib';
-import { map } from 'rxjs/operators';
-import { LmlLabManagerStatus } from '@monorepo/lab-manager-lib';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { MatIcon } from '@angular/material/icon';
-import { MatButton } from '@angular/material/button';
-import { CaLabCurrentTaskComponent } from '../ca-lab-current-task/ca-lab-current-task.component';
-import { CaLabServerStatusComponent } from '../../server/ca-lab-server-status/ca-lab-server-status.component';
-import {
-  CaLabLoginButtonComponent,
-} from '../../../../ca-core/entity-module/ca-lab-core/component/ca-lab-login-button/ca-lab-login-button.component';
-import { CaLabStartStopComponent } from '../ca-lab-start-stop/ca-lab-start-stop.component';
-import { AsyncPipe } from '@angular/common';
+import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+import { LmlLabManagerState, LmlLabManagerStatus } from '@monorepo/lab-manager-lib';
 import { TranslatePipe } from '@ngx-translate/core';
+import { combineLatest, Observable, startWith } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import { CaLabLoginButtonComponent } from '../../../../ca-core/entity-module/ca-lab-core/component/ca-lab-login-button/ca-lab-login-button.component';
+import { CaLabStatusDTO } from '../../../../ca-core/model/entities/lab/ca-lab.class';
+import { CaLabDetailConfigPageState } from '../../../state/ca-lab-detail-config-page.state';
+import { CaLabDetailPageState } from '../../../state/ca-lab-detail-page.state';
+import { CaLabServerStatusComponent } from '../../server/ca-lab-server-status/ca-lab-server-status.component';
+import { CaLabCurrentTaskComponent } from '../ca-lab-current-task/ca-lab-current-task.component';
+import { CaLabStartStopComponent } from '../ca-lab-start-stop/ca-lab-start-stop.component';
 
 /**
  * Component to show global information about the lab status
@@ -41,9 +41,12 @@ import { TranslatePipe } from '@ngx-translate/core';
 })
 export class CaLabGlobalStatusComponent implements OnInit {
   private state = inject(CaLabDetailPageState);
+  private configState = inject(CaLabDetailConfigPageState);
+  private labManagerState = inject(LmlLabManagerState);
+
   private translateService = inject(FlTranslateService);
 
-  status$: Observable<CaLabStatusDTO> = this.state.getStatus$();
+  status$: Observable<CaLabStatusDTO> = this.configState.getStatus$();
 
   isCloud$: Observable<boolean> = this.state.isCloud$();
 
@@ -52,9 +55,10 @@ export class CaLabGlobalStatusComponent implements OnInit {
   labId: string = this.state.getLabId();
 
   ngOnInit(): void {
-    this.errors$ = this.state
-      .getFullStatus$()
-      .pipe(map(([status, managerStatus]) => this.getErrorStatusMessages(status, managerStatus)));
+    this.errors$ = combineLatest([
+      this.configState.getStatus$(),
+      this.labManagerState.getStatus$().pipe(startWith(null)),
+    ]).pipe(map(([status, managerStatus]) => this.getErrorStatusMessages(status, managerStatus)));
   }
 
   forceStatusRefresh(): void {

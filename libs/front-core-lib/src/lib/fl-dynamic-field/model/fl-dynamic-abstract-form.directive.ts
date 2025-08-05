@@ -1,6 +1,7 @@
-import { FlDynamicFormAbstractControl } from './fl-dynamic-field-config.class';
-import { AbstractControl } from '@angular/forms';
 import { InputSignal, Signal } from '@angular/core';
+import { AbstractControl } from '@angular/forms';
+
+import { FlDynamicFormAbstractControl } from './fl-dynamic-field-config.class';
 
 /**
  * Generic type for the Dynamic control components

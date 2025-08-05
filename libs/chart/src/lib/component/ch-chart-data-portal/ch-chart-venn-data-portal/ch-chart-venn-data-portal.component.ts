@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
-import { ChChartVennDataSection } from '../../../model/data/ch-chart-venn-data.class';
 import { FL_PORTAL_DATA } from '@monorepo/front-core-lib/fl-portal';
+
+import { ChChartVennDataSection } from '../../../model/data/ch-chart-venn-data.class';
 
 /**
  * Simple portal to display the venn data on a section

@@ -1,12 +1,13 @@
 import { Component, inject, input, OnInit } from '@angular/core';
 import { MatButton } from '@angular/material/button';
-import { HaIsAuthenticatedDirective } from '../../../../ha-module/ha-core-directive/ha-is-authenticated/ha-is-authenticated.directive';
 import { MatIcon } from '@angular/material/icon';
-import { HaLikeService } from '../../../../ha-service/ha-like.service';
-import { HaEntityType } from '../../../../ha-model/ha-entities/ha-entity-type';
-import { HaAuthService } from '../../../../ha-service/ha-auth.service';
-import { HaRouterService } from '../../../../ha-service/ha-router.service';
 import { Router } from '@angular/router';
+
+import { HaEntityType } from '../../../../ha-model/ha-entities/ha-entity-type';
+import { HaIsAuthenticatedDirective } from '../../../../ha-module/ha-core-directive/ha-is-authenticated/ha-is-authenticated.directive';
+import { HaAuthService } from '../../../../ha-service/ha-auth.service';
+import { HaLikeService } from '../../../../ha-service/ha-like.service';
+import { HaRouterService } from '../../../../ha-service/ha-router.service';
 
 @Component({
   selector: 'ha-like-button',

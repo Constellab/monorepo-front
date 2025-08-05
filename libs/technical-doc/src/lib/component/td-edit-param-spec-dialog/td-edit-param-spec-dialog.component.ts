@@ -1,14 +1,7 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import {
-  TdParamSpec,
-  TdParamSpecSimple,
-  TdParamSpecString,
-  TdParamSpecType,
-} from '../../model/td-config-spec.class';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { UntypedFormGroup } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { TdParamSpecConfig } from '../../model/td-param-spec-config.class';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { ClStringHelper } from '@monorepo/core-lib';
 import {
   FlDynamicFieldConfigSelect,
   FlDynamicFieldSelectKeyNameOption,
@@ -16,10 +9,17 @@ import {
   FlDynamicFormHelper,
 } from '@monorepo/front-core-lib/fl-dynamic-field';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+import { Observable } from 'rxjs';
 
-import { TdAbstractDynamicParamSpecState } from '../../service/td-abstract-dynamic-param-spec.state';
-import { ClStringHelper } from '@monorepo/core-lib';
 import { TdConfigI } from '../../model/td-config.class';
+import {
+  TdParamSpec,
+  TdParamSpecSimple,
+  TdParamSpecString,
+  TdParamSpecType,
+} from '../../model/td-config-spec.class';
+import { TdParamSpecConfig } from '../../model/td-param-spec-config.class';
+import { TdAbstractDynamicParamSpecState } from '../../service/td-abstract-dynamic-param-spec.state';
 
 /**
  * Object that describe the specs to configure a param spec

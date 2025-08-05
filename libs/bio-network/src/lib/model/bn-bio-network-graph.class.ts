@@ -1,9 +1,9 @@
-import { BnBioNetworkNodeMetabolite } from './bn-bio-network-node-metabolite.class';
-import { BnBioNetworkNodeReaction } from './bn-bio-network-node-reaction.class';
+import { BnBioNetworkMetaboliteLevel, BnBioNetworkObject } from './bn-bio-network.class';
+import { BnBioNetworkNode } from './bn-bio-network-node.class';
 import { BnBioNetworkNodeCofactor } from './bn-bio-network-node-cofactor.class';
 import { BnBioNetworkLink } from './bn-bio-network-node-link.class';
-import { BnBioNetworkNode } from './bn-bio-network-node.class';
-import { BnBioNetworkMetaboliteLevel, BnBioNetworkObject } from './bn-bio-network.class';
+import { BnBioNetworkNodeMetabolite } from './bn-bio-network-node-metabolite.class';
+import { BnBioNetworkNodeReaction } from './bn-bio-network-node-reaction.class';
 
 /**
  * Data used to construct to d3 network

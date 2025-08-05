@@ -25,6 +25,7 @@ export * from './lib/model/rv-box-plot.class';
 export * from './lib/model/rv-heat-map.class';
 export * from './lib/model/rv-histogram.class';
 export * from './lib/model/rv-resource-view-module.config';
+export * from './lib/model/rv-resource-view-module-basic.config';
 export * from './lib/model/rv-resource-view.class';
 export * from './lib/model/rv-resource-view.directive';
 export * from './lib/model/rv-table.class';

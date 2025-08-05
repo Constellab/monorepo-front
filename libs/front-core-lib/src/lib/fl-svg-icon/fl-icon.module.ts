@@ -1,8 +1,9 @@
-import { ModuleWithProviders, NgModule, inject, provideAppInitializer } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { inject, ModuleWithProviders, NgModule, provideAppInitializer } from '@angular/core';
+
 import { FlIconDirective } from './fl-icon/fl-icon.directive';
-import { FlIconRegistryService } from './fl-icon-registry.service';
 import { FL_ICON_MODULE, FlIconConfig } from './fl-icon-config.class';
+import { FlIconRegistryService } from './fl-icon-registry.service';
 
 function initIcons(iconRegistryService: FlIconRegistryService): () => void {
   return (): void => iconRegistryService.initIcons();

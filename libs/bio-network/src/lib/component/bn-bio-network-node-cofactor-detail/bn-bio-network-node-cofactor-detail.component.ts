@@ -1,6 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
+
 import { BnBioNetworkNodeCofactor } from '../../model/bn-bio-network-node-cofactor.class';
 import { BnBioNetworkDrawerState } from '../../state/bn-bio-network-drawer.state';
 

@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+
 import { CaUserSearchComponent } from '../../../ca-core/entity-module/ca-user-core/component/ca-user-search/ca-user-search.component';
 
 @Component({

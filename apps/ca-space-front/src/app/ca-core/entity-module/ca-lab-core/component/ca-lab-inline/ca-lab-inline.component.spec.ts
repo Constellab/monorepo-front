@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { CaLabInlineComponent } from './ca-lab-inline.component';
 
 describe('CaLabInlineComponent', () => {

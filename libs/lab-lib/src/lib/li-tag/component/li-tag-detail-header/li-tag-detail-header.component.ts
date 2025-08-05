@@ -1,6 +1,7 @@
 import { Component, inject, input } from '@angular/core';
-import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+
 import { LiTagDetailState } from '../../state/li-tag-detail.state';
 
 @Component({

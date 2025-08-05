@@ -1,5 +1,6 @@
 import { ClClassReference, ClConstructorFunction, ClCoreJsonConvert } from '@monorepo/core-lib';
 import { Expose, Type } from 'class-transformer';
+
 import { LiBaseEntity } from './li-entity.entity';
 
 /**

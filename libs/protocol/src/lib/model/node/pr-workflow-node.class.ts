@@ -1,11 +1,12 @@
-import { PrWorkflowPort, PrWorkflowPortType } from '../workflow/pr-workflow-port.class';
-import { DrawflowConnectionDetail, DrawflowNode } from 'drawflow';
-import { BehaviorSubject, combineLatest, map, Observable, of, Subscription } from 'rxjs';
+import { ClSubscriptionHandler } from '@monorepo/core-lib';
 import { FlCoord } from '@monorepo/front-core-lib/fl-core';
 import { FlTranslatableText, FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import { TdIOSpec, TdIOSpecs } from '@monorepo/technical-doc';
+import { DrawflowConnectionDetail, DrawflowNode } from 'drawflow';
+import { BehaviorSubject, combineLatest, map, Observable, of, Subscription } from 'rxjs';
+
 import { PrPort } from '../pr-io.class';
-import { ClSubscriptionHandler } from '@monorepo/core-lib';
+import { PrWorkflowPort, PrWorkflowPortType } from '../workflow/pr-workflow-port.class';
 
 /**
  * Single node in the workflow

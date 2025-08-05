@@ -1,3 +1,4 @@
+import { inject, Injectable } from '@angular/core';
 import {
   LmlAdminerInfo,
   LmlComposeRestartOptions,
@@ -14,20 +15,22 @@ import {
   LmlPullBiotaOptions,
 } from '@monorepo/lab-manager-lib';
 import { Observable } from 'rxjs';
-import { CaLabService } from '../../ca-core/service-api/ca-lab.service';
-import { inject, Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
-import { CaLabDetailServerState } from './ca-lab-detail-server.state';
+
+import { CaLabService } from '../../ca-core/service-api/ca-lab.service';
+import { CaLabDetailConfigPageState } from './ca-lab-detail-config-page.state';
 import { CaLabDetailPageState } from './ca-lab-detail-page.state';
+import { CaLabDetailServerState } from './ca-lab-detail-server.state';
 
 @Injectable()
 export class CaLabManagerService extends LmlLabManagerService {
   private labService = inject(CaLabService);
   private labState = inject(CaLabDetailPageState);
+  private labConfigState = inject(CaLabDetailConfigPageState);
   private labServerState = inject(CaLabDetailServerState);
 
   labManagerIsRunning$(): Observable<boolean> {
-    return this.labState.getStatus$().pipe(map((status) => status.labManagerIsRunning));
+    return this.labConfigState.getStatus$().pipe(map((status) => status.labManagerIsRunning));
   }
 
   configureLabManager(): Observable<void> {

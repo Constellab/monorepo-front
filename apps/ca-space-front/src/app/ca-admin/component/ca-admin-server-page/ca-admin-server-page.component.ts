@@ -1,9 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
-import { CaAdminStoragePriceComponent } from '../ca-admin-storage-price/ca-admin-storage-price.component';
-import { CaAdminServerStandardListComponent } from '../ca-admin-server-standard-list/ca-admin-server-standard-list.component';
+
 import { CaServerCloudSearchComponent } from '../../../ca-core/entity-module/ca-server-core/component/ca-server-cloud-search/ca-server-cloud-search.component';
+import { CaAdminServerStandardListComponent } from '../ca-admin-server-standard-list/ca-admin-server-standard-list.component';
+import { CaAdminStoragePriceComponent } from '../ca-admin-storage-price/ca-admin-storage-price.component';
 
 @Component({
   selector: 'ca-admin-server-page',

@@ -1,13 +1,14 @@
 import { ApplicationRef, EnvironmentInjector, Type } from '@angular/core';
 import { BlockToolConstructorOptions } from '@editorjs/editorjs/types/tools/block-tool';
 import { BlockToolData } from '@editorjs/editorjs/types/tools/block-tool-data';
+import { ToolboxConfig } from '@editorjs/editorjs/types/tools/tool-settings';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { LiRichTextObjectType, LiViewConfig } from '@monorepo/lab-lib/li-core';
-import { LiRichTextViewComponent } from './component/li-rich-text-view/li-rich-text-view.component';
+import { LiSelectViewConfigDialogComponent } from '@monorepo/lab-lib/li-view-config';
 import { TdParamSpecsValues } from '@monorepo/technical-doc';
 import { TeComponentBlock, TeHelper } from '@monorepo/text-editor';
-import { ToolboxConfig } from '@editorjs/editorjs/types/tools/tool-settings';
-import { LiSelectViewConfigDialogComponent } from '@monorepo/lab-lib/li-view-config';
+
+import { LiRichTextViewComponent } from './component/li-rich-text-view/li-rich-text-view.component';
 
 export interface LiRichTextViewBlockAdditionalData {
   type: 'note' | 'note-resource' | 'note-file-view' | 'note-template-view-file';

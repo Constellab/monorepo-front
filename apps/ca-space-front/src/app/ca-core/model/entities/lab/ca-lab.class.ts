@@ -1,6 +1,4 @@
-import { CaBaseEntity } from '../ca-base-entity.class';
-import { CaStatusHistory } from '../ca-status-history.class';
-import { CaServerCloud } from '../server/ca-server-cloud.class';
+import { ClLuxonDateTimeTransform } from '@monorepo/core-lib';
 import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 import {
   FlStatus,
@@ -8,13 +6,15 @@ import {
   FlStatusHelper,
   FlStatusTransform,
 } from '@monorepo/front-core-lib/fl-status';
-
 import { Type } from 'class-transformer';
+import { DateTime } from 'luxon';
+
+import { CaBaseEntity } from '../ca-base-entity.class';
+import { CaCloudProvider, CaCloudProviderRegion } from '../ca-cloud-provider.class';
+import { CaStatusHistory } from '../ca-status-history.class';
+import { CaServerCloud } from '../server/ca-server-cloud.class';
 import { CaSpace } from '../space/ca-space.class';
 import { CaLabUserRole } from './ca-lab-user.class';
-import { CaCloudProvider, CaCloudProviderRegion } from '../ca-cloud-provider.class';
-import { DateTime } from 'luxon';
-import { ClLuxonDateTimeTransform } from '@monorepo/core-lib';
 import { CaLabVolumeType } from './ca-lab-volume.class';
 
 export type CaLabBillingMode = 'HOURLY' | 'MONTHLY';
@@ -126,7 +126,7 @@ export class CaLab extends CaBaseEntity {
   type: CaLabType;
 
   @Type(() => CaLabStatusHistory)
-  currentStatus: CaLabStatusHistory = null;
+  currentStatus: CaLabStatusHistory;
 
   // front url of the lab
   frontUrl: string;
@@ -172,6 +172,29 @@ export class CaLabFindOneDto {
   userRole: CaLabUserRole;
 }
 
+export class CaLabSimpleStatusDTO {
+  @FlStatusTransform(caLabStatusDict)
+  labStatus: FlStatus<CaLabStatus>;
+
+  constructor(labStatus: FlStatus<CaLabStatus>) {
+    this.labStatus = labStatus;
+  }
+
+  serverIsRunning(): boolean {
+    const runningStatus: CaLabStatus[] = ['LAB_RUNNING', 'SERVER_RUNNING', 'SERVER_CONFIGURED'];
+    return runningStatus.includes(this.labStatus.value);
+  }
+
+  labIsRunning(): boolean {
+    return this.labStatus.value === 'LAB_RUNNING';
+  }
+
+  serverIsBusy(): boolean {
+    const busyStatus: CaLabStatus[] = ['SERVER_STARTING', 'SERVER_STOPPING'];
+    return busyStatus.includes(this.labStatus.value);
+  }
+}
+
 export class CaLabStatusDTO {
   @FlStatusTransform(caLabStatusDict)
   labStatus: FlStatus<CaLabStatus>;
@@ -199,6 +222,27 @@ export class CaLabStatusDTO {
     const busyStatus: CaLabStatus[] = ['SERVER_STARTING', 'SERVER_STOPPING'];
     return busyStatus.includes(this.labStatus.value);
   }
+}
+
+export class CaLabBusyStatusDTO {
+  id: string;
+
+  isBusy: boolean;
+
+  @FlStatusTransform(caLabStatusDict)
+  labStatus: FlStatus<CaLabStatus>;
+
+  mainText?: string;
+
+  subText?: string;
+
+  progress?: {
+    percent: number;
+    message: string;
+  };
+
+  @ClLuxonDateTimeTransform()
+  datetime?: DateTime;
 }
 
 export class CaLabServerInfoDTO {

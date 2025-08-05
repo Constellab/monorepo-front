@@ -1,10 +1,9 @@
+import { inject, Injectable, Signal, signal,WritableSignal } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { FlFormHelper } from '@monorepo/front-core-lib/fl-core';
 import { FlPortalActionResult } from '@monorepo/front-core-lib/fl-portal-actions';
-import { FormGroup } from '@angular/forms';
-import { Injectable, Signal, WritableSignal, inject, signal } from '@angular/core';
-import { LabWorkflowEditConfig } from '../model/lab-workflow-edit-config.class';
 import { LiProcess } from '@monorepo/lab-lib/li-core';
-import { Observable, of } from 'rxjs';
+import { prConfigValueAreEqual } from '@monorepo/protocol';
 import {
   TdConfig,
   TdConfigI,
@@ -12,7 +11,9 @@ import {
   TdConfigureSpecsFormComponent,
   TdParamSpecsValues,
 } from '@monorepo/technical-doc';
-import { prConfigValueAreEqual } from '@monorepo/protocol';
+import { Observable, of } from 'rxjs';
+
+import { LabWorkflowEditConfig } from '../model/lab-workflow-edit-config.class';
 
 /**
  * State for the process dashboard configuration.

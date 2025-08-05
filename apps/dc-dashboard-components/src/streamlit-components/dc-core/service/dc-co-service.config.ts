@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Injectable } from '@angular/core';
 import { CoConfig, CoTagValue, CoTagValueEditDTO } from '@monorepo/community-lib';
-import { DcEnvironmentHelper } from '../dc-environment.helper';
-import { TdEditParamSpecDict, TdParamSpec, TdParamSpecs } from '@monorepo/technical-doc';
+import { TdParamSpec, TdParamSpecs } from '@monorepo/technical-doc';
 import { Observable } from 'rxjs';
+
+import { DcEnvironmentHelper } from '../dc-environment.helper';
 
 @Injectable({
   providedIn: 'root',
@@ -37,7 +38,12 @@ export class DcCoServiceConfig extends CoConfig {
     return undefined;
   }
 
-  renameAndEditAdditionalInfoSpec(tagKey: string, oldName: string, newName: string, spec: TdParamSpec): Observable<TdParamSpecs> {
+  renameAndEditAdditionalInfoSpec(
+    tagKey: string,
+    oldName: string,
+    newName: string,
+    spec: TdParamSpec
+  ): Observable<TdParamSpecs> {
     return undefined;
   }
 

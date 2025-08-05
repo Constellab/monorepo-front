@@ -1,9 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FlArrayObs, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
-import { FlSearchModule } from '@monorepo/front-core-lib/fl-search';
-import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import { LiDetailRoutePipe, LiScenarioTemplate } from '@monorepo/lab-lib/li-core';
 import { MatAnchor } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatSortHeader } from '@angular/material/sort';
 import {
   MatCell,
   MatCellDef,
@@ -16,11 +14,13 @@ import {
   MatRowDef,
   MatTable,
 } from '@angular/material/table';
-import { MatIcon } from '@angular/material/icon';
-import { MatSortHeader } from '@angular/material/sort';
 import { RouterLink } from '@angular/router';
-import { TranslatePipe } from '@ngx-translate/core';
+import { FlArrayObs, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
+import { FlSearchModule } from '@monorepo/front-core-lib/fl-search';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+import { LiDetailRoutePipe, LiScenarioTemplate } from '@monorepo/lab-lib/li-core';
 import { LiGetEntityTagsPipe, LiTagListComponent } from '@monorepo/lab-lib/li-tag';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'li-scenario-template-table',

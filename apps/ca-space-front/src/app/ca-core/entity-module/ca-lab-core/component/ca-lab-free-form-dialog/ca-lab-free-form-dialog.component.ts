@@ -1,18 +1,19 @@
 import { Component, inject } from '@angular/core';
-import { DateTime } from 'luxon';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatButton } from '@angular/material/button';
+import { MatDatepicker, MatDatepickerInput, MatDatepickerToggle } from '@angular/material/datepicker';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
-import { CaLabService } from '../../../../service-api/ca-lab.service';
-import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
-import { CaLabFreeGetDto, CaLabFreeUpdateDto } from '../../../../model/entities/lab/ca-lab-free.class';
-import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { MatError, MatFormField, MatLabel, MatSuffix } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
-import { MatDatepicker, MatDatepickerInput, MatDatepickerToggle } from '@angular/material/datepicker';
-import { MatButton } from '@angular/material/button';
-import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { TranslatePipe } from '@ngx-translate/core';
+import { DateTime } from 'luxon';
+
+import { CaLabFreeGetDto, CaLabFreeUpdateDto } from '../../../../model/entities/lab/ca-lab-free.class';
+import { CaLabService } from '../../../../service-api/ca-lab.service';
 
 export interface CaLabFreeFormDialogInput {
   freeLabId: string;

@@ -1,8 +1,5 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
-import { FlSearchModule, FlSearchState } from '@monorepo/front-core-lib/fl-search';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+import { Component, inject,OnInit } from '@angular/core';
+import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import {
   MatExpansionPanel,
   MatExpansionPanelHeader,
@@ -11,9 +8,12 @@ import {
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatInput } from '@angular/material/input';
-import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
-import { TranslatePipe } from '@ngx-translate/core';
+import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
+import { FlSearchModule, FlSearchState } from '@monorepo/front-core-lib/fl-search';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { LiTagFiltersComponent } from '@monorepo/lab-lib/li-tag';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'li-scenario-template-search-form',

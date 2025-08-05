@@ -1,11 +1,12 @@
 import { Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
-import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
-import { LabProcessDashboardConfigState } from '../../state/lab-process-dashboard-config-state.service';
-import { LiProcess } from '@monorepo/lab-lib/li-core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
+import { LiProcess } from '@monorepo/lab-lib/li-core';
 import { TdAbstractDynamicParamSpecState, TdTechnicalDocModule } from '@monorepo/technical-doc';
 import { TranslatePipe } from '@ngx-translate/core';
+
 import { LabDynamicParamSpecState } from '../../state/lab-dynamic-param-spec.state';
+import { LabProcessDashboardConfigState } from '../../state/lab-process-dashboard-config-state.service';
 
 @Component({
   selector: 'lab-configure-task',

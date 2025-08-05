@@ -1,7 +1,8 @@
-import { inject, Injectable } from '@angular/core';
 import { Clipboard } from '@angular/cdk/clipboard';
-import { FlSnackBarService } from './fl-snack-bar.service';
+import { inject, Injectable } from '@angular/core';
 import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
+
+import { FlSnackBarService } from './fl-snack-bar.service';
 
 /**
  * Service to manage clipboard

@@ -1,6 +1,6 @@
+import { IconBold } from '@codexteam/icons';
 import { InlineTool, SanitizerConfig } from '@editorjs/editorjs';
 import { MenuConfig } from '@editorjs/editorjs/types/tools';
-import { IconBold } from '@codexteam/icons';
 
 /**
  * Bold Tool

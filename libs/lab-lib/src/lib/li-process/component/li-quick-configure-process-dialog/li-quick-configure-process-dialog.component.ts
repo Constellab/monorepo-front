@@ -1,15 +1,14 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject,OnInit } from '@angular/core';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { MatButton } from '@angular/material/button';
+import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
+import { FlFormHelper } from '@monorepo/front-core-lib/fl-core';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlDynamicFieldConfigService } from '@monorepo/front-core-lib/fl-dynamic-field';
-import { FlFormHelper } from '@monorepo/front-core-lib/fl-core';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { FlTranslatableText, FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { LiProcessDynamicFieldConfig } from '@monorepo/lab-lib/li-config';
-import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
-import { MatButton } from '@angular/material/button';
-import { Observable } from 'rxjs';
 import {
   TdConfig,
   TdConfigureSpecsForm,
@@ -18,6 +17,7 @@ import {
   TdTechnicalDocModule,
 } from '@monorepo/technical-doc';
 import { TranslatePipe } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
 
 export interface LiQuickConfigureProcessDialogInput {
   title: FlTranslatableText;

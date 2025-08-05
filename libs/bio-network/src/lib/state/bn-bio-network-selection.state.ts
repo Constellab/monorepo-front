@@ -1,11 +1,12 @@
 import { inject, Injectable, OnDestroy } from '@angular/core';
-import { BnBioNetworkNode } from '../model/bn-bio-network-node.class';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { BnBioNetworkSelectionEvent } from '../model/bn-bio-network-selection.class';
-import { BnBioNetworkDrawerState } from './bn-bio-network-drawer.state';
+
 import { BnBioNetworkGraph } from '../model/bn-bio-network-graph.class';
+import { BnBioNetworkNode } from '../model/bn-bio-network-node.class';
 import { BnBioNetworkLink } from '../model/bn-bio-network-node-link.class';
 import { BnBioNetworkNodeReaction } from '../model/bn-bio-network-node-reaction.class';
+import { BnBioNetworkSelectionEvent } from '../model/bn-bio-network-selection.class';
+import { BnBioNetworkDrawerState } from './bn-bio-network-drawer.state';
 
 /**
  * Class to manage the selection in the {@link BnBioNetworkComponent}

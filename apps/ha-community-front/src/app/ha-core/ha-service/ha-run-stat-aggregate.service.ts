@@ -1,10 +1,11 @@
 import { inject, Injectable } from '@angular/core';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
+import { Observable } from 'rxjs';
+
 import {
   HaRunStatAggregate,
   HaRunStatAggregateObjectType,
 } from '../ha-model/ha-entities/ha-run-stat-aggregate.class';
-import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',

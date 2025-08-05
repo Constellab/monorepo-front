@@ -1,24 +1,25 @@
 import { inject, Injectable } from '@angular/core';
+import { ClPage } from '@monorepo/core-lib';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
+import { RvResourceView } from '@monorepo/resource-view';
+import { TeBlockFigureUploadedResponse, TeRichText } from '@monorepo/text-editor';
+import { Observable } from 'rxjs';
+
+import { HaAgentEditStyleFormData } from '../../ha-agent/components/ha-agent-edit-style-dialog/ha-agent-edit-style-dialog.component';
+import { HaProfileDatasourceFilters } from '../../ha-profile/component/ha-profile/ha-profile.component';
+import { HaAgentCoAuthorInvite } from '../entity-module/ha-co-author-core/model/ha-co-author-invite.class';
+import { HaCoAuthorService } from '../entity-module/ha-co-author-core/model/ha-co-author-service';
+import { HaFile } from '../entity-module/ha-file-core/model/ha-file';
 import {
   HaAgent,
   HaAgentDatasourceFilters,
   HaAgentDatasourcePaginated,
   HaCreateAgentDto,
 } from '../ha-model/ha-entities/ha-agent.class';
-import { Observable } from 'rxjs';
 import { HaAgentVersion, HaAgentVersionFileInput } from '../ha-model/ha-entities/ha-agent-version.class';
-import { ClPage } from '@monorepo/core-lib';
 import { HaBrickVersion } from '../ha-model/ha-entities/ha-brick-version.class';
-import { TeBlockFigureUploadedResponse, TeRichText } from '@monorepo/text-editor';
-import { HaCoAuthorService } from '../entity-module/ha-co-author-core/model/ha-co-author-service';
 import { HaUser } from '../ha-model/ha-entities/ha-user';
-import { HaAgentCoAuthorInvite } from '../entity-module/ha-co-author-core/model/ha-co-author-invite.class';
-import { HaFile } from '../entity-module/ha-file-core/model/ha-file';
-import { RvResourceView } from '@monorepo/resource-view';
-import { HaProfileDatasourceFilters } from '../../ha-profile/component/ha-profile/ha-profile.component';
-import { HaAgentEditStyleFormData } from '../../ha-agent/components/ha-agent-edit-style-dialog/ha-agent-edit-style-dialog.component';
 
 @Injectable({
   providedIn: 'root',

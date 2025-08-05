@@ -1,14 +1,8 @@
 import { Component, inject, OnInit } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { CaHierarchyObjectTagDatasource } from '../../../../model/entities/folder/ca-hierarchy-object.class';
-import { CaHierarchyObjectService } from '../../../../service-api/ca-hierarchy-object.service';
-import {
-  FlAddTagEvent,
-  FlTag,
-  FlTagDatasource,
-  FlTagModule,
-  FlTagService,
-} from '@monorepo/front-core-lib/fl-tag';
+import { MatDivider } from '@angular/material/divider';
+import { MatIconModule } from '@angular/material/icon';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
@@ -17,14 +11,21 @@ import {
 } from '@monorepo/front-core-lib/fl-dialog';
 import { FlPortalActionResult, FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { MatDivider } from '@angular/material/divider';
-import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { CaTagService } from '../../../../service-api/ca-tag.service';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import {
+  FlAddTagEvent,
+  FlTag,
+  FlTagDatasource,
+  FlTagModule,
+  FlTagService,
+} from '@monorepo/front-core-lib/fl-tag';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
+
 import { CaAvailableTagDatasource } from '../../../../model/entities/ca-tag.class';
+import { CaHierarchyObjectTagDatasource } from '../../../../model/entities/folder/ca-hierarchy-object.class';
+import { CaHierarchyObjectService } from '../../../../service-api/ca-hierarchy-object.service';
+import { CaTagService } from '../../../../service-api/ca-tag.service';
 
 export interface CaHierarchyObjectTagsDialogInput {
   hierarchyObjectId: string;

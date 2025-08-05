@@ -1,7 +1,8 @@
-import { HaTagKey } from './ha-tag-key.class';
-import { Type } from 'class-transformer';
-import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
 import { CoTagValue, CoTagValueEditDTO } from '@monorepo/community-lib';
+import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
+import { Type } from 'class-transformer';
+
+import { HaTagKey } from './ha-tag-key.class';
 
 export class HaTagValue implements CoTagValue{
   id: string;

@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, Input, OnDestroy, OnInit, inject } from '@angular/core';
+import { Component, inject,Input, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatDivider } from '@angular/material/divider';
@@ -19,8 +19,9 @@ import {
   LiProgressMessageDatasource,
 } from '@monorepo/lab-lib/li-core';
 import { TranslatePipe } from '@ngx-translate/core';
-import { Observable, Subscription, mergeMap } from 'rxjs';
+import { mergeMap,Observable, Subscription } from 'rxjs';
 import { filter, first, map } from 'rxjs/operators';
+
 import { LiProgressMessageComponent } from '../li-progress-message/li-progress-message.component';
 
 export interface LiProcessRunInfoData {

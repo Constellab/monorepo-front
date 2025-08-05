@@ -1,4 +1,5 @@
 import { Component, computed, input, Signal } from '@angular/core';
+
 import { TdParamSpecParamSet, TdParamSpecs } from '../../model/td-config-spec.class';
 
 @Component({

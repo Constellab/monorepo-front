@@ -1,19 +1,20 @@
-import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
+import { Component, EventEmitter, inject,Input, Output } from '@angular/core';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
+import { RouterLink } from '@angular/router';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
 } from '@monorepo/front-core-lib/fl-dialog';
 import { LiDetailRoutePipe, LiShareLink, LiShareLinkService } from '@monorepo/lab-lib/li-core';
+import { TranslatePipe } from '@ngx-translate/core';
+
 import {
   LiShareLinkFormDialogComponent,
   LiShareLinkFormDialogInput,
 } from '../li-share-link-form-dialog/li-share-link-form-dialog.component';
-import { MatIcon } from '@angular/material/icon';
-import { MatIconButton } from '@angular/material/button';
-import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
-import { RouterLink } from '@angular/router';
-import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * Action menu for a share link. To update, delete, copy the link or open entity

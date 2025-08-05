@@ -1,26 +1,27 @@
 import { ChangeDetectorRef, Component, computed, inject, OnInit, Signal } from '@angular/core';
-import { HaAgentVersion } from '../../../ha-core/ha-model/ha-entities/ha-agent-version.class';
-import { HaAgentService } from '../../../ha-core/ha-service/ha-agent.service';
+import { MatButton, MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CoCommunityLibModule } from '@monorepo/community-lib';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { TranslatePipe } from '@ngx-translate/core';
+
+import { HaRunStatAggregatePanelComponent } from '../../../ha-core/ha-component/ha-run-stat-aggregate-panel/ha-run-stat-aggregate-panel.component';
+import { HaTdServiceConfig } from '../../../ha-core/ha-model/ha-config/ha-td-service.config';
+import { HaAgentVersion } from '../../../ha-core/ha-model/ha-entities/ha-agent-version.class';
+import { HaRunStatAggregate } from '../../../ha-core/ha-model/ha-entities/ha-run-stat-aggregate.class';
+import { HaCommunityPageDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
+import { HaAgentService } from '../../../ha-core/ha-service/ha-agent.service';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
+import { Ha404Component } from '../../../ha-public/module/ha404/ha404.component';
 import { HaAgentPageState } from '../../state/ha-agent-page.state';
 import {
   HaAgentEditStyleDialogComponent,
   HaAgentEditStyleDialogInputData,
 } from '../ha-agent-edit-style-dialog/ha-agent-edit-style-dialog.component';
-import { HaCommunityPageDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
-import { HaTdServiceConfig } from '../../../ha-core/ha-model/ha-config/ha-td-service.config';
-import { HaRunStatAggregate } from '../../../ha-core/ha-model/ha-entities/ha-run-stat-aggregate.class';
-import { CoCommunityLibModule } from '@monorepo/community-lib';
-import { MatButton, MatIconButton } from '@angular/material/button';
-import { MatTooltip } from '@angular/material/tooltip';
-import { MatIcon } from '@angular/material/icon';
-import { HaRunStatAggregatePanelComponent } from '../../../ha-core/ha-component/ha-run-stat-aggregate-panel/ha-run-stat-aggregate-panel.component';
 import { HaAgentVersionDetailComponent } from '../ha-agent-version-detail/ha-agent-version-detail.component';
-import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
-import { Ha404Component } from '../../../ha-public/module/ha404/ha404.component';
-import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'ha-agent-version-page',

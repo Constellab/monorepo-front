@@ -1,10 +1,11 @@
-import { BnBioNetworkNode } from './bn-bio-network-node.class';
+import { ClHelpService } from '@monorepo/core-lib';
+
 import {
   BnBioNetworkClusterInfo,
   BnBioNetworkMetabolite,
   BnBioNetworkMetaboliteLevel,
 } from './bn-bio-network.class';
-import { ClHelpService } from '@monorepo/core-lib';
+import { BnBioNetworkNode } from './bn-bio-network-node.class';
 
 export class BnBioNetworkNodeMetabolite extends BnBioNetworkNode {
   public type: 'metabolite';

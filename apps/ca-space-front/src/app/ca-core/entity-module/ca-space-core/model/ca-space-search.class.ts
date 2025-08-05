@@ -1,4 +1,4 @@
-import { CaSpaceType } from '../../../model/entities/space/ca-space.class';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { FlFormInputsManagerConfig } from '@monorepo/front-core-lib/fl-form-inputs-manager';
 import {
   FlSearchConverter,
@@ -6,10 +6,10 @@ import {
   FlSearchFilterCriteriaConverter,
   FlSearchSortCriteriaConverter,
 } from '@monorepo/front-core-lib/fl-search';
-
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { CaUser } from '../../../model/entities/ca-user.class';
 import { Type } from 'class-transformer';
+
+import { CaUser } from '../../../model/entities/ca-user.class';
+import { CaSpaceType } from '../../../model/entities/space/ca-space.class';
 
 export class CaSpaceSearchFields {
   name: string;

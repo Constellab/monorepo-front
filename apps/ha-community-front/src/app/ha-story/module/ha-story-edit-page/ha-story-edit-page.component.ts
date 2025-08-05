@@ -1,49 +1,49 @@
+import { AsyncPipe, NgClass } from '@angular/common';
 import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
-import { HaStoryService } from '../../../ha-core/ha-service/ha-story.service';
-import { HaStory } from '../../../ha-core/ha-model/ha-entities/ha-story.class';
-import { ActivatedRoute, Router } from '@angular/router';
-import { FlConfirmDialogInput, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { FlOverlayRef, FlPortalService } from '@monorepo/front-core-lib/fl-portal';
-import { FlImageModule, FlUploadImageDialogConfig } from '@monorepo/front-core-lib/fl-image';
-
-import { HaStoryTextEditorConfig } from './ha-story-text-editor.config';
-import { mergeMap, Observable, of, startWith } from 'rxjs';
-import { HaTopic, HaTopicDto } from '../../../ha-core/ha-model/ha-entities/ha-topic.class';
-import { HaTopicService } from '../../../ha-core/ha-service/ha-topic.service';
-import { map } from 'rxjs/operators';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { HaAuthenticatedUserService } from '../../../ha-core/ha-service/ha-authenticated-user.service';
-import { HaUser } from '../../../ha-core/ha-model/ha-entities/ha-user';
 import {
   MatAutocomplete,
   MatAutocompleteSelectedEvent,
   MatAutocompleteTrigger,
 } from '@angular/material/autocomplete';
+import { MatButton, MatIconButton } from '@angular/material/button';
+import { MatChipGrid, MatChipInput, MatChipRemove, MatChipRow } from '@angular/material/chips';
+import { MatOption } from '@angular/material/core';
+import { MatError, MatFormField, MatLabel, MatSuffix } from '@angular/material/form-field';
+import { MatIcon } from '@angular/material/icon';
+import { MatInput } from '@angular/material/input';
+import { MatTooltip } from '@angular/material/tooltip';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ClStringHelper } from '@monorepo/core-lib';
+import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
+import { FlConfirmDialogInput, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
+import { FlImageModule, FlUploadImageDialogConfig } from '@monorepo/front-core-lib/fl-image';
+import { FlOverlayRef, FlPortalService } from '@monorepo/front-core-lib/fl-portal';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import {
   TeRichText,
   TeTextEditorHistoryPortalComponent,
   TeTextEditorHistoryPortalData,
   TeTextEditorModule,
 } from '@monorepo/text-editor';
+import { TranslatePipe } from '@ngx-translate/core';
+import { mergeMap, Observable, of, startWith } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 import {
   HaCoAuthorDialogComponent,
   HaCoAuthorsDialogInput,
 } from '../../../ha-core/entity-module/ha-co-author-core/component/ha-co-author-dialog/ha-co-author-dialog.component';
-import { MatIcon } from '@angular/material/icon';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
-import { MatError, MatFormField, MatLabel, MatSuffix } from '@angular/material/form-field';
-import { MatOption } from '@angular/material/core';
-import { MatChipGrid, MatChipInput, MatChipRemove, MatChipRow } from '@angular/material/chips';
-import { MatInput } from '@angular/material/input';
-import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
-import { MatTooltip } from '@angular/material/tooltip';
+import { HaStory } from '../../../ha-core/ha-model/ha-entities/ha-story.class';
+import { HaTopic, HaTopicDto } from '../../../ha-core/ha-model/ha-entities/ha-topic.class';
+import { HaUser } from '../../../ha-core/ha-model/ha-entities/ha-user';
 import { HaIsAuthenticatedDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-is-authenticated/ha-is-authenticated.directive';
-import { MatButton, MatIconButton } from '@angular/material/button';
-import { AsyncPipe, NgClass } from '@angular/common';
+import { HaAuthenticatedUserService } from '../../../ha-core/ha-service/ha-authenticated-user.service';
+import { HaStoryService } from '../../../ha-core/ha-service/ha-story.service';
+import { HaTopicService } from '../../../ha-core/ha-service/ha-topic.service';
 import { Ha404Component } from '../../../ha-public/module/ha404/ha404.component';
-import { TranslatePipe } from '@ngx-translate/core';
+import { HaStoryTextEditorConfig } from './ha-story-text-editor.config';
 
 // TODO @vfoex, composant a refactor, trop gros complexe (Refactor avec le auto save composant ?)
 @Component({

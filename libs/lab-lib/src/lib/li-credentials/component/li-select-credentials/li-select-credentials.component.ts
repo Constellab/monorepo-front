@@ -1,5 +1,7 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
+import { Component, EventEmitter, inject,Input, OnInit, Output } from '@angular/core';
+import { NgControl } from '@angular/forms';
+import { MatIcon } from '@angular/material/icon';
 import {
   FlDatasourceGetPageData,
   FlEntityPaginatedDatasource,
@@ -10,12 +12,11 @@ import { FlInputSearchModule } from '@monorepo/front-core-lib/fl-input-search';
 import { FlTranslatableText, FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { LiCredentials, LiCredentialsDatasource, LiCredentialsType } from '@monorepo/lab-lib/li-core';
-import { LiCredentialsInlineComponent } from '../li-credentials-inline/li-credentials-inline.component';
-import { LiCredentialsSearchFields } from '../../service/li-credentials-search.class';
-import { LiCredentialsService } from '../../service/li-credentials.service';
-import { MatIcon } from '@angular/material/icon';
-import { NgControl } from '@angular/forms';
 import { Observable } from 'rxjs';
+
+import { LiCredentialsService } from '../../service/li-credentials.service';
+import { LiCredentialsSearchFields } from '../../service/li-credentials-search.class';
+import { LiCredentialsInlineComponent } from '../li-credentials-inline/li-credentials-inline.component';
 
 @Component({
   selector: 'li-select-credentials',

@@ -1,3 +1,5 @@
+import { CdkDrag, CdkDragDrop, CdkDragHandle, CdkDropList } from '@angular/cdk/drag-drop';
+import { isPlatformBrowser, isPlatformServer, NgClass } from '@angular/common';
 import {
   Component,
   inject,
@@ -8,13 +10,11 @@ import {
   StateKey,
   TransferState,
 } from '@angular/core';
-import {
-  HaNode,
-  HaNodeDTO,
-  HaNodeType,
-  HaNoteObjectsTreeDatasource,
-} from '../../../../ha-core/ha-model/ha-entities/ha-node.class';
-
+import { toObservable } from '@angular/core/rxjs-interop';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
 import {
   MatTree,
   MatTreeNode,
@@ -22,36 +22,34 @@ import {
   MatTreeNodePadding,
   MatTreeNodeToggle,
 } from '@angular/material/tree';
-import { HaFolderService } from '../../../../ha-core/ha-service/ha-folder.service';
-import { HaBrickService } from '../../../../ha-core/ha-service/ha-brick.service';
 import { ActivatedRoute, NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { FlFormDialogInput, FlTree } from '@monorepo/front-core-lib/fl-core';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
 } from '@monorepo/front-core-lib/fl-dialog';
-import { FlFormDialogInput, FlTree } from '@monorepo/front-core-lib/fl-core';
 import { FlMenuDynamic, FlMenuDynamicService } from '@monorepo/front-core-lib/fl-menu-dynamic';
 import { FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
 import { FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
-
-import { HaDocumentationService } from '../../../../ha-core/ha-service/ha-documentation.service';
-import { HaFolder } from '../../../../ha-core/ha-model/ha-entities/ha-folder.class';
-import { HaPublicSidenavCreateFormDialogComponent } from '../ha-public-sidenav-create-form-dialog/ha-public-sidenav-create-form-dialog.component';
-import { HaDocumentation } from '../../../../ha-core/ha-model/ha-entities/ha-documentation.class';
-import { CdkDrag, CdkDragDrop, CdkDragHandle, CdkDropList } from '@angular/cdk/drag-drop';
-import { filter, Observable } from 'rxjs';
-import { HaBrick } from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
-
-import { isPlatformBrowser, isPlatformServer, NgClass } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
-import { HaBrickPageState } from '../../../state/ha-brick-page.state';
-import { toObservable } from '@angular/core/rxjs-interop';
-import { MatIconButton } from '@angular/material/button';
-import { MatIcon } from '@angular/material/icon';
-import { TranslatePipe } from '@ngx-translate/core';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
-import { MatTooltip } from '@angular/material/tooltip';
+import { TranslatePipe } from '@ngx-translate/core';
+import { filter, Observable } from 'rxjs';
+
+import { HaBrick } from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
+import { HaDocumentation } from '../../../../ha-core/ha-model/ha-entities/ha-documentation.class';
+import { HaFolder } from '../../../../ha-core/ha-model/ha-entities/ha-folder.class';
+import {
+  HaNode,
+  HaNodeDTO,
+  HaNodeType,
+  HaNoteObjectsTreeDatasource,
+} from '../../../../ha-core/ha-model/ha-entities/ha-node.class';
+import { HaBrickService } from '../../../../ha-core/ha-service/ha-brick.service';
+import { HaDocumentationService } from '../../../../ha-core/ha-service/ha-documentation.service';
+import { HaFolderService } from '../../../../ha-core/ha-service/ha-folder.service';
+import { HaBrickPageState } from '../../../state/ha-brick-page.state';
+import { HaPublicSidenavCreateFormDialogComponent } from '../ha-public-sidenav-create-form-dialog/ha-public-sidenav-create-form-dialog.component';
 
 @Component({
   selector: 'ha-public-sidenav',
@@ -280,7 +278,7 @@ export class HaPublicSidenavComponent implements OnInit {
 
   private onCloseConfirmDialog(res: FlConfirmDialogResult): void {
     if (res.choice) {
-      this.brickService.getBrickDocs(this.brick()?.id, this.pathVersion()).subscribe((data) => {});
+      this.brickService.getBrickDocs(this.brick()?.id, this.pathVersion()).subscribe(() => {});
     }
   }
 

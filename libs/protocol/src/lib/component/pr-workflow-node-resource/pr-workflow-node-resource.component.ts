@@ -1,16 +1,17 @@
-import { Component, ElementRef, OnInit, Renderer2, inject } from '@angular/core';
-import { PrWorkflowNodeDirective } from '../../directive/pr-workflow-node.directive';
-import { Observable } from 'rxjs';
+import { Component, ElementRef, inject,OnInit, Renderer2 } from '@angular/core';
+import { ClHelpService } from '@monorepo/core-lib';
 import { FlPortalService } from '@monorepo/front-core-lib/fl-portal';
 import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
-import { PrWorkflowNodeIcon } from '../pr-workflow-node-content/pr-workflow-node-content.component';
-import { PrWorkflowManagerState } from '../../state/pr-workflow-manager-state';
-import { PrWorkflowActionState } from '../../state/pr-workflow-action-state';
+import { Observable } from 'rxjs';
+
+import { PrWorkflowNodeDirective } from '../../directive/pr-workflow-node.directive';
 import {
   PrWorkflowNodeResource,
   PrWorkNodeIoExternalButton,
 } from '../../model/node/pr-workflow-node-resource.class';
-import { ClHelpService } from '@monorepo/core-lib';
+import { PrWorkflowActionState } from '../../state/pr-workflow-action-state';
+import { PrWorkflowManagerState } from '../../state/pr-workflow-manager-state';
+import { PrWorkflowNodeIcon } from '../pr-workflow-node-content/pr-workflow-node-content.component';
 
 @Component({
   selector: 'pr-workflow-node-resource',

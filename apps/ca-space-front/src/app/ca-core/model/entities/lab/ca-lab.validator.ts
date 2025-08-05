@@ -1,4 +1,5 @@
 import { AbstractControl, UntypedFormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
+
 import { CaLabAdminForm } from './ca-lab.form';
 
 /**
@@ -31,7 +32,8 @@ export class CaLabValidator {
           return { pattern: true };
         }
       } else {
-        // check that the domain is valid including possibility of subdomain and port, only 1 ':' is allowed followed by a port number
+        // check that the domain is valid including possibility of subdomain and port,
+        // only 1 ':' is allowed followed by a port number
         if (!value.match(/^(?:[a-z0-9-]+\.)*[a-z0-9-]+(?::\d+)?$/)) {
           return { pattern: true };
         }

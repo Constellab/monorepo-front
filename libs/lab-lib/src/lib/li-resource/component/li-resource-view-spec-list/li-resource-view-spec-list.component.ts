@@ -1,5 +1,6 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, inject,Input, Output } from '@angular/core';
+import { MatIcon } from '@angular/material/icon';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import {
@@ -7,11 +8,11 @@ import {
   LiResourceViewSpec,
   LiResourceViewSpecWithConfig,
 } from '@monorepo/lab-lib/li-core';
-import { LiResourceViewSpecCardComponent } from '../li-resource-view-spec-card/li-resource-view-spec-card.component';
-import { LiViewConfigurerState } from '../../state/li-view-configurer-state.service';
-import { MatIcon } from '@angular/material/icon';
-import { Observable } from 'rxjs';
 import { TranslatePipe } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+
+import { LiViewConfigurerState } from '../../state/li-view-configurer-state.service';
+import { LiResourceViewSpecCardComponent } from '../li-resource-view-spec-card/li-resource-view-spec-card.component';
 
 @Component({
   selector: 'li-resource-view-spec-list',

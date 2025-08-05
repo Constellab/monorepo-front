@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { FlUser } from '../../model/fl-user.class';
 import { DateTime } from 'luxon';
+
+import { FlUser } from '../../model/fl-user.class';
 
 @Component({
   selector: 'fl-creation-info',

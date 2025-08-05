@@ -1,9 +1,10 @@
 import { Component, inject } from '@angular/core';
-import { FL_PORTAL_DATA, FlOverlayRef, FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FL_PORTAL_DATA, FlOverlayRef, FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
 import { LiFolder } from '@monorepo/lab-lib/li-core';
-import { LiFolderSelectComponent } from '../li-folder-select/li-folder-select.component';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { LiFolderSelectComponent } from '../li-folder-select/li-folder-select.component';
 
 export interface LiFolderSelectPortalInput {
   folder?: LiFolder;

@@ -1,15 +1,16 @@
-import { inject, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FlDatePipe } from './pipe/fl-date/fl-date.pipe';
-import { FlFromNowPipe } from './pipe/fl-from-now/fl-from-now.pipe';
-import { FlDateRangeComponent } from './component/fl-date-range/fl-date-range.component';
-import { FlTranslateModule } from '../fl-translate/fl-translate.module';
-import { FlFromNowComponent } from './component/fl-from-now/fl-from-now.component';
-import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
-import { flDateI18n } from './i18n/fl-date.i18n';
-import { FlDurationPipe } from './pipe/fl-duration/fl-duration.pipe';
-import { FlLastSyncInfoComponent } from './component/fl-last-sync-info/fl-last-sync-info.component';
+import { inject, NgModule } from '@angular/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+
+import { FlTranslateModule } from '../fl-translate/fl-translate.module';
+import { FlDateRangeComponent } from './component/fl-date-range/fl-date-range.component';
+import { FlFromNowComponent } from './component/fl-from-now/fl-from-now.component';
+import { FlLastSyncInfoComponent } from './component/fl-last-sync-info/fl-last-sync-info.component';
+import { flDateI18n } from './i18n/fl-date.i18n';
+import { FlDatePipe } from './pipe/fl-date/fl-date.pipe';
+import { FlDurationPipe } from './pipe/fl-duration/fl-duration.pipe';
+import { FlFromNowPipe } from './pipe/fl-from-now/fl-from-now.pipe';
 
 /**
  * Module regrouping component and pipe for dates

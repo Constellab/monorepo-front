@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
+import { Component, Input } from '@angular/core';
+import { MatTooltip } from '@angular/material/tooltip';
 import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
 import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
 import { FlStatusModule } from '@monorepo/front-core-lib/fl-status';
 import { LiProgressMessage } from '@monorepo/lab-lib/li-core';
-import { MatTooltip } from '@angular/material/tooltip';
 
 @Component({
   selector: 'li-progress-message',

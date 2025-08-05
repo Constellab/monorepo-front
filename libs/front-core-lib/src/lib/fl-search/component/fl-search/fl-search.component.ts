@@ -1,8 +1,9 @@
-import { Component, OnInit, ViewChild, inject } from '@angular/core';
-import { FlSearchState } from '../../model/fl-search.state';
-import { MatDrawer } from '@angular/material/sidenav';
 import { Breakpoints } from '@angular/cdk/layout';
+import { Component, inject,OnInit, ViewChild } from '@angular/core';
+import { MatDrawer } from '@angular/material/sidenav';
 import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
+
+import { FlSearchState } from '../../model/fl-search.state';
 
 /**
  * Search component with a header, a drawer search on the right and result in table on bottom

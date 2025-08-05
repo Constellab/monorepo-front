@@ -1,8 +1,28 @@
+import { AsyncPipe, DecimalPipe } from '@angular/common';
 import { Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
+import { MatIconButton } from '@angular/material/button';
+import { MatOption } from '@angular/material/core';
+import { MatDatepicker, MatDatepickerInput, MatDatepickerToggle } from '@angular/material/datepicker';
+import { MatFormField, MatLabel, MatSuffix } from '@angular/material/form-field';
+import { MatIcon } from '@angular/material/icon';
+import { MatInput } from '@angular/material/input';
+import { MatSelect } from '@angular/material/select';
+import { MatTooltip } from '@angular/material/tooltip';
+import { ClDateHelper } from '@monorepo/core-lib';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
+import { FlArrayObs, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
+import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { TranslatePipe } from '@ngx-translate/core';
 import { DateTime } from 'luxon';
 import { combineLatest, debounceTime, Observable, share, startWith, Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import { CaUserListInlineComponent } from '../../../../ca-core/entity-module/ca-user-core/component/ca-user-list-inline/ca-user-list-inline.component';
+import { CaUserDatasourcePaginated } from '../../../../ca-core/model/entities/ca-user.class';
 import {
   CaLabRunningStatus,
   CaLabRunningStatusArrayObs,
@@ -11,31 +31,12 @@ import {
   CaLabStatusRunResponse,
   CaLabStorageResponse,
 } from '../../../../ca-core/model/entities/lab/ca-lab-stats.dto';
-import { FlArrayObs, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { map } from 'rxjs/operators';
-import { ClDateHelper } from '@monorepo/core-lib';
+import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
+import { CaLabRunningStatusTableComponent } from '../ca-lab-running-status-table/ca-lab-running-status-table.component';
 import {
   CaLabStoragePriceDialogComponent,
   CaLabStoragePriceDialogInput,
 } from '../ca-lab-storage-price-dialog/ca-lab-storage-price-dialog.component';
-import { CaUserDatasourcePaginated } from '../../../../ca-core/model/entities/ca-user.class';
-import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { MatIcon } from '@angular/material/icon';
-import { MatFormField, MatLabel, MatSuffix } from '@angular/material/form-field';
-import { MatSelect } from '@angular/material/select';
-import { MatOption } from '@angular/material/core';
-import { MatInput } from '@angular/material/input';
-import { MatDatepicker, MatDatepickerInput, MatDatepickerToggle } from '@angular/material/datepicker';
-import { CaUserListInlineComponent } from '../../../../ca-core/entity-module/ca-user-core/component/ca-user-list-inline/ca-user-list-inline.component';
-import { MatIconButton } from '@angular/material/button';
-import { MatTooltip } from '@angular/material/tooltip';
-import { CaLabRunningStatusTableComponent } from '../ca-lab-running-status-table/ca-lab-running-status-table.component';
-import { AsyncPipe, DecimalPipe } from '@angular/common';
-import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
-import { TranslatePipe } from '@ngx-translate/core';
-import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
 
 @Component({
   selector: 'ca-lab-usage',

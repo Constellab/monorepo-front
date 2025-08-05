@@ -1,7 +1,8 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FlPlotlyComponent } from './fl-plotly/fl-plotly.component';
+import { NgModule } from '@angular/core';
+
 import { FlLoaderModule } from '../fl-loader/fl-loader.module';
+import { FlPlotlyComponent } from './fl-plotly/fl-plotly.component';
 
 @NgModule({
   declarations: [FlPlotlyComponent],

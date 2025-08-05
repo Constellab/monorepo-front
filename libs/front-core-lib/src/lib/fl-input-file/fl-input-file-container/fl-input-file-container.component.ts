@@ -4,19 +4,20 @@ import {
   computed,
   ContentChild,
   inject,
-  input,
   Input,
+  input,
   OnDestroy,
   OnInit,
   signal,
 } from '@angular/core';
-import { ThemePalette } from '@angular/material/core';
-import { FlInputFileDirective } from '../fl-input-file.directive';
 import { NgControl } from '@angular/forms';
-import { Subscription } from 'rxjs';
-import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
-import { FlDropEvent } from '../../fl-drag/fl-drag.class';
+import { ThemePalette } from '@angular/material/core';
 import { ClHelpService } from '@monorepo/core-lib';
+import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+import { Subscription } from 'rxjs';
+
+import { FlDropEvent } from '../../fl-drag/fl-drag.class';
+import { FlInputFileDirective } from '../fl-input-file.directive';
 
 /**
  * Component to style the input file

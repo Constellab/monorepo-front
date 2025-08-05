@@ -1,13 +1,13 @@
-import { LiResourceRichTextViewComponent } from '@monorepo/lab-lib/li-resource';
 import {
   LiResourceTableService,
   LiResourceView,
   LiShareLinkPublicAuth,
   LiShareService,
 } from '@monorepo/lab-lib/li-core';
-import { Observable } from 'rxjs';
+import { LiResourceRichTextViewComponent } from '@monorepo/lab-lib/li-resource';
 import {
   RvConfigValues,
+  rvDefaultViewTypeInfos,
   RvResourceViewModuleConfig,
   RvResourceViewTable,
   RvResourceViewText,
@@ -15,9 +15,9 @@ import {
   RvSpreadsheetViewConfig,
   RvTextViewConfig,
   RvViewConfig,
-  rvDefaultViewTypeInfos,
 } from '@monorepo/resource-view';
 import { SpSheetChartConfig, SpSpreadsheetPage, SpSpreadsheetPageLoader } from '@monorepo/spreadsheet';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 /**

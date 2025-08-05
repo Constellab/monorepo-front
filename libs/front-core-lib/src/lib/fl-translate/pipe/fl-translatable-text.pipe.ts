@@ -1,7 +1,8 @@
-import { Pipe, PipeTransform, inject } from '@angular/core';
-import { FlTranslateService } from '../service/fl-translate.service';
-import { FlTranslatableText } from '../model/fl-translate-param';
+import { inject,Pipe, PipeTransform } from '@angular/core';
 import { mergeMap, Observable } from 'rxjs';
+
+import { FlTranslatableText } from '../model/fl-translate-param';
+import { FlTranslateService } from '../service/fl-translate.service';
 
 /**
  * Pipe to translate or not a {@link FlTranslatableText}

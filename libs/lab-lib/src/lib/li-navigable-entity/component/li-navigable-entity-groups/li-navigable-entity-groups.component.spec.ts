@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { LiNavigableEntityGroupsComponent } from './li-navigable-entity-groups.component';
 
 describe('LiNavigableEntityGroupsComponent', () => {

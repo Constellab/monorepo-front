@@ -1,11 +1,8 @@
-import { Injectable, OnDestroy, inject } from '@angular/core';
-import { SpSpreadsheet } from '../model/sp-spreadsheet.class';
-import { SpSheet } from '../model/sp-sheet.class';
+import { inject,Injectable, OnDestroy } from '@angular/core';
+import { ChChartPortalService, ChChartType } from '@monorepo/chart';
 import { Observable } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
-import { SpSpreadsheetFactory } from '../utils/sp-spreadsheet.factory';
-import { SpCell } from '../model/sp-cell.class';
-import { SpSheetHeader, SpSheetRow } from '../model/sp-sheet-headers.class';
+
 import { SpSheetChartConfig } from '../model/chart/sp-sheet-chart-config.class';
 import {
   SpSheetLocalChartConfigBarPlot,
@@ -17,7 +14,11 @@ import {
   SpSheetLocalChartConfigStackedBarPlot,
   SpSheetLocalChartConfigVulcanoPlot,
 } from '../model/chart/sp-sheet-chart-local-config.class';
-import { ChChartPortalService, ChChartType } from '@monorepo/chart';
+import { SpCell } from '../model/sp-cell.class';
+import { SpSheet } from '../model/sp-sheet.class';
+import { SpSheetHeader, SpSheetRow } from '../model/sp-sheet-headers.class';
+import { SpSpreadsheet } from '../model/sp-spreadsheet.class';
+import { SpSpreadsheetFactory } from '../utils/sp-spreadsheet.factory';
 
 /**
  * Unique state shared across the spreadsheet to store the current spreadsheet

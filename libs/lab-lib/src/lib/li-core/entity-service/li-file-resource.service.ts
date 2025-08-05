@@ -1,11 +1,12 @@
+import { HttpEvent } from '@angular/common/http';
+import { inject,Injectable } from '@angular/core';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { FlFileHelper } from '@monorepo/front-core-lib/fl-translate';
-import { HttpEvent } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
+import { Observable, tap } from 'rxjs';
+
+import { LiTypeEntity } from '../model/entities/li-type/li-type.entity';
 import { LiResource } from '../model/entities/resource/li-resource.entity';
 import { LiResourceView } from '../model/entities/resource/li-resource-view.entity';
-import { LiTypeEntity } from '../model/entities/li-type/li-type.entity';
-import { Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',

@@ -1,8 +1,9 @@
+import { inject,Injectable } from '@angular/core';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
-import { Injectable, inject } from '@angular/core';
-import { LiResourceView } from '../model/entities/resource/li-resource-view.entity';
-import { Observable } from 'rxjs';
 import { TdParamSpecsValues } from '@monorepo/technical-doc';
+import { Observable } from 'rxjs';
+
+import { LiResourceView } from '../model/entities/resource/li-resource-view.entity';
 
 /**
  * Service to call methods on note resource

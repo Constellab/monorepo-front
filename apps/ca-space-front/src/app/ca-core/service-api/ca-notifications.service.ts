@@ -1,8 +1,9 @@
 import { inject, Injectable } from '@angular/core';
+import { ClPage } from '@monorepo/core-lib';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { Observable } from 'rxjs';
+
 import { CaNotification, CaNotificationCountBySpace } from '../model/entities/ca-notification.class';
-import { ClPage } from '@monorepo/core-lib';
 
 @Injectable({
   providedIn: 'root',

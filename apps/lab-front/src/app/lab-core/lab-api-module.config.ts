@@ -1,7 +1,8 @@
 import { inject, Injectable } from '@angular/core';
 import { LiApiServiceConfig } from '@monorepo/lab-lib/li-core';
-import { LabEnvironmentHelper } from './lab-environment.helper';
+
 import { LabEnvStore } from './lab-env.store';
+import { LabEnvironmentHelper } from './lab-environment.helper';
 
 /**
  * Class to configure the FlApiService

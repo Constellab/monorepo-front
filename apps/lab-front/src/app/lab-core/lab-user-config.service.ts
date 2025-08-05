@@ -1,9 +1,10 @@
+import { inject, Injectable } from '@angular/core';
 import { FlDatasourcePaginated, FlInputSearchFilter } from '@monorepo/front-core-lib/fl-core';
 import { FlUserConfig } from '@monorepo/front-core-lib/fl-user';
-import { inject, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { LabEnvironmentHelper } from './lab-environment.helper';
 import { LiAuthenticatedUserService, LiUser, LiUserService } from '@monorepo/lab-lib/li-core';
+import { Observable } from 'rxjs';
+
+import { LabEnvironmentHelper } from './lab-environment.helper';
 
 @Injectable({
   providedIn: 'root',

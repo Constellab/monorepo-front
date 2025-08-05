@@ -1,26 +1,7 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
-import {
-  FlCheckCredentialsDialogComponent,
-  FlCheckCredentialsDialogInput,
-} from '@monorepo/front-core-lib/fl-auth';
-import {
-  FlConfirmDialogInput,
-  FlConfirmDialogResult,
-  FlDialogService,
-} from '@monorepo/front-core-lib/fl-dialog';
-import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
-
-import {
-  CaBucketCredentials,
-  CaBucketCredentialsDatasource,
-  CaBucketCredentialsFull,
-} from '../../../../model/entities/ca-object-storage.class';
-import {
-  CaBucketCredentialsFormDialogComponent,
-  CaBucketCredentialsFormDialogInput,
-} from '../ca-bucket-credentials-form-dialog/ca-bucket-credentials-form-dialog.component';
-import { CaObjectStorageService } from '../../../../service-api/ca-object-storage.service';
-import { ClCredentials } from '@monorepo/core-lib';
+import { Component, inject, Input } from '@angular/core';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import {
   MatCell,
   MatCellDef,
@@ -33,13 +14,32 @@ import {
   MatRowDef,
   MatTable,
 } from '@angular/material/table';
+import { ClCredentials } from '@monorepo/core-lib';
+import {
+  FlCheckCredentialsDialogComponent,
+  FlCheckCredentialsDialogInput,
+} from '@monorepo/front-core-lib/fl-auth';
+import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
+import {
+  FlConfirmDialogInput,
+  FlConfirmDialogResult,
+  FlDialogService,
+} from '@monorepo/front-core-lib/fl-dialog';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+import { TranslatePipe } from '@ngx-translate/core';
+
+import {
+  CaBucketCredentials,
+  CaBucketCredentialsDatasource,
+  CaBucketCredentialsFull,
+} from '../../../../model/entities/ca-object-storage.class';
+import { CaObjectStorageService } from '../../../../service-api/ca-object-storage.service';
 import { CaCloudProviderInlineComponent } from '../../../ca-cloud-provider-core/component/ca-cloud-provider-inline/ca-cloud-provider-inline.component';
 import { CaSpaceInlineComponent } from '../../../ca-space-core/component/ca-space-inline/ca-space-inline.component';
-import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import { MatIconButton } from '@angular/material/button';
-import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
-import { MatIcon } from '@angular/material/icon';
-import { TranslatePipe } from '@ngx-translate/core';
+import {
+  CaBucketCredentialsFormDialogComponent,
+  CaBucketCredentialsFormDialogInput,
+} from '../ca-bucket-credentials-form-dialog/ca-bucket-credentials-form-dialog.component';
 
 @Component({
   selector: 'ca-bucket-credentials-table',

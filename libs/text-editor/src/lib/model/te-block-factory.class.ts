@@ -1,11 +1,12 @@
 import { ApplicationRef, EnvironmentInjector, Type } from '@angular/core';
-import { TeElementBlockDirective } from './te-element.directive';
-import { TeComponentBlock } from '../block/te-component-block.class';
 import {
   BlockTool,
   BlockToolConstructable,
   BlockToolConstructorOptions,
 } from '@editorjs/editorjs/types/tools/block-tool';
+
+import { TeComponentBlock } from '../block/te-component-block.class';
+import { TeElementBlockDirective } from './te-element.directive';
 
 /**
  * Factory function to create a block tool constructor for editor js configuration

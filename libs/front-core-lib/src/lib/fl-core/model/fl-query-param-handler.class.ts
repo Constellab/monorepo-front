@@ -1,7 +1,7 @@
+import { inject,Injectable } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
-import { Injectable, inject } from '@angular/core';
 
 /**
  * Simple class to simplify QueryParam management

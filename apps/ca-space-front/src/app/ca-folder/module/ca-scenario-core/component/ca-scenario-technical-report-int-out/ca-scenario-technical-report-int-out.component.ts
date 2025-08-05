@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { PrProtocolIntOut } from '@monorepo/protocol';
 import { MatIcon } from '@angular/material/icon';
+import { PrProtocolIntOut } from '@monorepo/protocol';
 
 @Component({
   selector: 'ca-scenario-technical-report-int-out',

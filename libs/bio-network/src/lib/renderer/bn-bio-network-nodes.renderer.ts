@@ -1,25 +1,26 @@
-import { BnBioNetworkNode } from '../model/bn-bio-network-node.class';
-import { BnBioNetworkNodeMetabolite } from '../model/bn-bio-network-node-metabolite.class';
-import { BnBioNetworkMetaboliteRenderer } from './bn-bio-network-metabolite.renderer';
-import { BnBioNetworkNodeReaction } from '../model/bn-bio-network-node-reaction.class';
-import { BnBioNetworkReactionRenderer } from './bn-bio-network-reaction.renderer';
-import { BnBioNetworkSelectionState } from '../state/bn-bio-network-selection.state';
-import { BnBioNetworkGridState } from '../state/bn-bio-network-grid.state';
-import { BnBioNetworkNodeCofactor } from '../model/bn-bio-network-node-cofactor.class';
-import { BnBioNetworkCofactorRenderer } from './bn-bio-network-cofactor.renderer';
-import { BnBioNetworkOptions } from '../state/bn-bio-network-options.state';
+import { FlThemeDetail } from '@monorepo/front-core-lib/fl-theme';
 import { Observable } from 'rxjs';
-import {
-  BnBioNetworkObjectColorFunction,
-  BnBioNetworkObjectRenderer,
-} from './bn-bio-network-object.renderer';
-import { BnBioNetworkGraphRenderer } from './bn-bio-network-main.renderer';
+
 import { BnBioNetworkMetaboliteLevel } from '../model/bn-bio-network.class';
+import { BnBioNetworkNode } from '../model/bn-bio-network-node.class';
+import { BnBioNetworkNodeCofactor } from '../model/bn-bio-network-node-cofactor.class';
+import { BnBioNetworkNodeMetabolite } from '../model/bn-bio-network-node-metabolite.class';
+import { BnBioNetworkNodeReaction } from '../model/bn-bio-network-node-reaction.class';
 import {
   BnBioNetworkSelectionEvent,
   BnBioNetworkSelectionMode,
 } from '../model/bn-bio-network-selection.class';
-import { FlThemeDetail } from '@monorepo/front-core-lib/fl-theme';
+import { BnBioNetworkGridState } from '../state/bn-bio-network-grid.state';
+import { BnBioNetworkOptions } from '../state/bn-bio-network-options.state';
+import { BnBioNetworkSelectionState } from '../state/bn-bio-network-selection.state';
+import { BnBioNetworkCofactorRenderer } from './bn-bio-network-cofactor.renderer';
+import { BnBioNetworkGraphRenderer } from './bn-bio-network-main.renderer';
+import { BnBioNetworkMetaboliteRenderer } from './bn-bio-network-metabolite.renderer';
+import {
+  BnBioNetworkObjectColorFunction,
+  BnBioNetworkObjectRenderer,
+} from './bn-bio-network-object.renderer';
+import { BnBioNetworkReactionRenderer } from './bn-bio-network-reaction.renderer';
 
 /**
  * Class to render nodes of the network (metabolites, reactions and cofactors)

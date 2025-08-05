@@ -1,7 +1,7 @@
 import { ClLuxonDateTimeTransform } from '@monorepo/core-lib';
-import { DateTime } from 'luxon';
-import { Expose } from 'class-transformer';
 import { FlEntity } from '@monorepo/front-core-lib/fl-core';
+import { Expose } from 'class-transformer';
+import { DateTime } from 'luxon';
 
 /**
  * Base entity for the lab entities

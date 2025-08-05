@@ -1,8 +1,9 @@
 import { FlMenuDynamicButton } from '@monorepo/front-core-lib/fl-menu-dynamic';
-import { PrWorkflowPort } from './pr-workflow-port.class';
-import { PrWorkflowMode } from './pr-workflow.class';
+
 import { PrWorkflowNode } from '../node/pr-workflow-node.class';
+import { PrWorkflowMode } from './pr-workflow.class';
 import { PrWorkflowLayer } from './pr-workflow-layer.class';
+import { PrWorkflowPort } from './pr-workflow-port.class';
 
 /**
  * Class to override to configure the action menu for a node in the workflow

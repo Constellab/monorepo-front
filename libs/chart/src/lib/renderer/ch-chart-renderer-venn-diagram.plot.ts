@@ -1,9 +1,9 @@
-import { ChChartNoAxisRenderer } from './ch-chart-renderer.class';
-import { ChChartVennData, ChChartVennDataSection } from '../model/data/ch-chart-venn-data.class';
-import { ChChartScaleColor } from '../model/scale/ch-chart-scale-color.class';
-import { ChD3SelectionSimple } from '../model/ch-d3.class';
-import { ChChartPortalHandler } from '../model/portal-handler/ch-chart-portal-handler.class';
 import { ChChartVennDataPortalComponent } from '../component/ch-chart-data-portal/ch-chart-venn-data-portal/ch-chart-venn-data-portal.component';
+import { ChD3SelectionSimple } from '../model/ch-d3.class';
+import { ChChartVennData, ChChartVennDataSection } from '../model/data/ch-chart-venn-data.class';
+import { ChChartPortalHandler } from '../model/portal-handler/ch-chart-portal-handler.class';
+import { ChChartScaleColor } from '../model/scale/ch-chart-scale-color.class';
+import { ChChartNoAxisRenderer } from './ch-chart-renderer.class';
 
 interface ChEllipsePosition {
   x: number;

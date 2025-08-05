@@ -1,11 +1,12 @@
 import { Component, computed, inject, input } from '@angular/core';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { ClHelpService } from '@monorepo/core-lib';
+
 import {
   CaHierarchyObject,
   CaHierarchyObjectType,
 } from '../../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
-import { MatIcon } from '@angular/material/icon';
-import { MatIconButton } from '@angular/material/button';
-import { ClHelpService } from '@monorepo/core-lib';
 import { CaHierarchyObjectActionsMenuState } from '../../state/ca-hierarchy-object-actions-menu.state';
 
 @Component({

@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+
 import { TeRichTextBlockModificationWithUser } from '../../model/lib';
 
 @Component({

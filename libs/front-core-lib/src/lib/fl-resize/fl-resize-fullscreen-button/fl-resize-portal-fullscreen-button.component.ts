@@ -1,7 +1,8 @@
-import { Component, ElementRef, OnInit, Renderer2, inject } from '@angular/core';
-import { FlResizeDirective } from '../fl-resize/fl-resize.directive';
-import { FlPortalHeaderComponent } from '@monorepo/front-core-lib/fl-portal';
+import { Component, ElementRef, inject,OnInit, Renderer2 } from '@angular/core';
 import { flCdkOverlayPanelClass, FlHtmlHelper } from '@monorepo/front-core-lib/fl-core';
+import { FlPortalHeaderComponent } from '@monorepo/front-core-lib/fl-portal';
+
+import { FlResizeDirective } from '../fl-resize/fl-resize.directive';
 
 /**
  * Button that work with the directive {@link FlResizeDirective} to enable full screen of a resizable portal

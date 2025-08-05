@@ -1,13 +1,13 @@
 import { Component, inject, OnInit } from '@angular/core';
-
-import { filter, map, switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { filter, map, switchMap } from 'rxjs/operators';
+
+import { BnBioNetworkNode } from '../../model/bn-bio-network-node.class';
 import { BnBioNetworkNodeMetabolite } from '../../model/bn-bio-network-node-metabolite.class';
 import { BnBioNetworkNodeReaction } from '../../model/bn-bio-network-node-reaction.class';
-import { BnBioNetworkDrawerState } from '../../state/bn-bio-network-drawer.state';
 import { BnBioNetworkState } from '../../state/bn-bio-network.state';
+import { BnBioNetworkDrawerState } from '../../state/bn-bio-network-drawer.state';
 import { BnBioNetworkSelectionState } from '../../state/bn-bio-network-selection.state';
-import { BnBioNetworkNode } from '../../model/bn-bio-network-node.class';
 
 /**
  * Detail information about one metabolite node

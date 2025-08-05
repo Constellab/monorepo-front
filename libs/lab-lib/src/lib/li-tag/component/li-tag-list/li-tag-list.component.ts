@@ -1,20 +1,21 @@
 import { AsyncPipe, NgClass } from '@angular/common';
+import { Component, EventEmitter, inject,Input, OnInit, Output } from '@angular/core';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
 import { ClHelpService } from '@monorepo/core-lib';
-import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlPortalService } from '@monorepo/front-core-lib/fl-portal';
 import { FlTagModule } from '@monorepo/front-core-lib/fl-tag';
 import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 import { LiEntityTagType, LiTag, LiTagDatasource } from '@monorepo/lab-lib/li-core';
+
 import { LiManageEntityTagsDialogInput } from '../li-manage-entity-tags-dialog/li-manage-entity-tags-dialog.component';
 import {
   LiTagDetailPortalComponent,
   LiTagDetailPortalInput,
 } from '../li-tag-detail-portal/li-tag-detail-portal.component';
-import { MatIcon } from '@angular/material/icon';
-import { MatIconButton } from '@angular/material/button';
-import { MatTooltip } from '@angular/material/tooltip';
 
 @Component({
   selector: 'li-tag-list',

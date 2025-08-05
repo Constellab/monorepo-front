@@ -1,4 +1,5 @@
 import { inject, Pipe, PipeTransform } from '@angular/core';
+
 import { CaSpace } from '../../../model/entities/space/ca-space.class';
 import { CaSpaceService } from '../../../service-api/ca-space.service';
 

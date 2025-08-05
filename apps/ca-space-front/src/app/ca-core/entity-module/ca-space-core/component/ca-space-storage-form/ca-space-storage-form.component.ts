@@ -8,13 +8,14 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
-import { CaSpaceUpdateStorageLocationDTO } from '../../../../model/entities/space/ca-space.dto';
 import { MatError, MatFormField, MatHint, MatLabel } from '@angular/material/form-field';
 import { MatSelect, MatSelectTrigger } from '@angular/material/select';
-import { CaBucketLocationInlineComponent } from '../../../ca-object-storage-core/component/ca-bucket-location-inline/ca-bucket-location-inline.component';
-import { CaBucketLocationSelectOptionsComponent } from '../../../ca-object-storage-core/component/ca-bucket-location-select-options/ca-bucket-location-select-options.component';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { CaSpaceUpdateStorageLocationDTO } from '../../../../model/entities/space/ca-space.dto';
+import { CaBucketLocationInlineComponent } from '../../../ca-object-storage-core/component/ca-bucket-location-inline/ca-bucket-location-inline.component';
+import { CaBucketLocationSelectOptionsComponent } from '../../../ca-object-storage-core/component/ca-bucket-location-select-options/ca-bucket-location-select-options.component';
 
 @Component({
   selector: 'ca-space-storage-form',

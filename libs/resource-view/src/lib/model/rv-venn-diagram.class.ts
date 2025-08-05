@@ -1,4 +1,5 @@
 import { ChChartConfig, ChChartVennData, ChChartVennDiagram } from '@monorepo/chart';
+
 import { RvResourceViewBase } from './rv-resource-view.class';
 
 export interface RvResourceVennDiagram extends RvResourceViewBase {

@@ -1,32 +1,33 @@
+import { AsyncPipe } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
+import { FormBuilder, FormsModule, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
+import { MatButton } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
 import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
-import {
-  HaCommunityApp,
-  HaCommunityAppEdit,
-} from '../../../ha-core/ha-model/ha-entities/ha-community-app.class';
+import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import {
   FlConfirmDialogInput,
   FlDialogModule,
   FlFormDialogAbstractDirective,
 } from '@monorepo/front-core-lib/fl-dialog';
-import { HaCommunityAppService } from '../../../ha-core/ha-service/ha-community-app.service';
-import { HaSpaceService } from '../../../ha-core/ha-service/ha-space.service';
-import { Observable } from 'rxjs';
-import { HaSpace } from '../../../ha-core/ha-model/ha-entities/ha-space.class';
-import { FormBuilder, FormsModule, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
-import { TranslatePipe } from '@ngx-translate/core';
-import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
-import { MatInput } from '@angular/material/input';
-import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatButton } from '@angular/material/button';
+import { FlImageModule, FlUploadImageDialogConfig } from '@monorepo/front-core-lib/fl-image';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { TeTextEditorModule } from '@monorepo/text-editor';
-import { FlImageModule, FlUploadImageDialogConfig } from '@monorepo/front-core-lib/fl-image';
+import { TranslatePipe } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+
+import {
+  HaCommunityApp,
+  HaCommunityAppEdit,
+} from '../../../ha-core/ha-model/ha-entities/ha-community-app.class';
+import { HaSpace } from '../../../ha-core/ha-model/ha-entities/ha-space.class';
 import { HaAppPicturePipe } from '../../../ha-core/ha-module/ha-core-pipe/ha-app-picture/ha-app-picture.pipe';
-import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
-import { AsyncPipe } from '@angular/common';
+import { HaCommunityAppService } from '../../../ha-core/ha-service/ha-community-app.service';
+import { HaSpaceService } from '../../../ha-core/ha-service/ha-space.service';
 
 export type HaCreateCommunityAppInput = FlFormDialogInput<HaCommunityAppEdit>;
 

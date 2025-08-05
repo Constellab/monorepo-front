@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { LiManageEntityTagsDialogComponent } from './li-manage-entity-tags-dialog.component';
 
 describe('LabAddTagToEntityDialogComponent', () => {

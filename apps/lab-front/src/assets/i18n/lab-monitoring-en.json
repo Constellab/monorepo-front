@@ -56,6 +56,7 @@
     "app_status": "App status",
     "app_status_RUNNING": "RUNNING",
     "app_status_STOPPED": "STOPPED",
+    "app_status_STARTING": "STARTING",
     "app_nb_of_connection": "Number of browser connections",
     "app_no_running_app": "No running app",
     "app_view_app": "View app",

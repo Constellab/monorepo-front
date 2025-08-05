@@ -1,16 +1,7 @@
-import { Component, Input, inject } from '@angular/core';
-import {
-  FlConfirmDialogInput,
-  FlConfirmDialogResult,
-  FlDialogService,
-} from '@monorepo/front-core-lib/fl-dialog';
-import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
-import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
-import { LiVenvArrayObs, LiVenvBasicInfo, LiVenvService } from '@monorepo/lab-lib/li-core';
-import {
-  LiVenvDetailDialogComponent,
-  LiVenvDetailDialogInput,
-} from '../li-venv-detail-dialog/li-venv-detail-dialog.component';
+import { Component, inject,Input } from '@angular/core';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import {
   MatCell,
   MatCellDef,
@@ -23,10 +14,20 @@ import {
   MatRowDef,
   MatTable,
 } from '@angular/material/table';
-import { MatIcon } from '@angular/material/icon';
-import { MatIconButton } from '@angular/material/button';
-import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
+import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
+import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
+import {
+  FlConfirmDialogInput,
+  FlConfirmDialogResult,
+  FlDialogService,
+} from '@monorepo/front-core-lib/fl-dialog';
+import { LiVenvArrayObs, LiVenvBasicInfo, LiVenvService } from '@monorepo/lab-lib/li-core';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import {
+  LiVenvDetailDialogComponent,
+  LiVenvDetailDialogInput,
+} from '../li-venv-detail-dialog/li-venv-detail-dialog.component';
 
 @Component({
   selector: 'li-venv-table',

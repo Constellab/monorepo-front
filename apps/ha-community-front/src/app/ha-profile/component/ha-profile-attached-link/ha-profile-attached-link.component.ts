@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { TranslatePipe } from '@ngx-translate/core';
 
 export enum HaProfileAttachedLinkType {

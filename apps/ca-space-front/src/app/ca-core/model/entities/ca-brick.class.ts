@@ -1,5 +1,6 @@
-import { CaEntity } from './ca-entity.entity';
 import { Type } from 'class-transformer';
+
+import { CaEntity } from './ca-entity.entity';
 
 /**
  * A brick is a functionality to configure a Lab.

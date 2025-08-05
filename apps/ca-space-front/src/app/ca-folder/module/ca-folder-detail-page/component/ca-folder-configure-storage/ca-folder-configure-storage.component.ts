@@ -1,19 +1,20 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FlDialogModule, FlFormDialogAbstractDirective } from '@monorepo/front-core-lib/fl-dialog';
-import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
-import { CaFolderService } from '../../../../../ca-core/service-api/ca-folder.service';
-import { Observable } from 'rxjs';
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { MatButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent } from '@angular/material/dialog';
-import { CaFolderStorageDTO } from '../../../../../ca-core/model/entities/folder/ca-folder.class';
 import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatSelect, MatSelectTrigger } from '@angular/material/select';
+import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
+import { FlDialogModule, FlFormDialogAbstractDirective } from '@monorepo/front-core-lib/fl-dialog';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { TranslatePipe } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+
 import { CaBucketLocationInlineComponent } from '../../../../../ca-core/entity-module/ca-object-storage-core/component/ca-bucket-location-inline/ca-bucket-location-inline.component';
 import { CaBucketLocationSelectOptionsComponent } from '../../../../../ca-core/entity-module/ca-object-storage-core/component/ca-bucket-location-select-options/ca-bucket-location-select-options.component';
-import { MatButton } from '@angular/material/button';
-import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
-import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
-import { TranslatePipe } from '@ngx-translate/core';
+import { CaFolderStorageDTO } from '../../../../../ca-core/model/entities/folder/ca-folder.class';
+import { CaFolderService } from '../../../../../ca-core/service-api/ca-folder.service';
 
 export interface CaFolderConfigureStorageInput extends FlFormDialogInput<CaFolderStorageDTO> {
   folderId: string;

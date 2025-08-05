@@ -1,11 +1,12 @@
 import { inject, Injectable } from '@angular/core';
+import { ClPage } from '@monorepo/core-lib';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { FlDatasourceGetPageData } from '@monorepo/front-core-lib/fl-core';
 import { FlSearchConverter } from '@monorepo/front-core-lib/fl-search';
 import { Observable } from 'rxjs';
-import { ClPage } from '@monorepo/core-lib';
-import { MaMailSearch, MaMailSearchFields } from './models/ma-mail-search.class';
+
 import { MaMailEntity } from './models/ma-mail.entity';
+import { MaMailSearch, MaMailSearchFields } from './models/ma-mail-search.class';
 
 @Injectable({ providedIn: 'root' })
 export class MaMailService {

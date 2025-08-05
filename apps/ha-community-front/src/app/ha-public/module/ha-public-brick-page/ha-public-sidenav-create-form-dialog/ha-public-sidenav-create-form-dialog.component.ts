@@ -1,22 +1,23 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FlDialogModule, FlFormDialogAbstractDirective } from '@monorepo/front-core-lib/fl-dialog';
-import { HaFolder } from '../../../../ha-core/ha-model/ha-entities/ha-folder.class';
-import { HaFolderService } from '../../../../ha-core/ha-service/ha-folder.service';
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { HaDocumentationService } from '../../../../ha-core/ha-service/ha-documentation.service';
-import { HaNodeDTO, HaNodeType } from '../../../../ha-core/ha-model/ha-entities/ha-node.class';
-import { HaDocumentation } from '../../../../ha-core/ha-model/ha-entities/ha-documentation.class';
+import { MatButton } from '@angular/material/button';
 import { MatDialogActions, MatDialogContent } from '@angular/material/dialog';
-import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
 import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
+import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
 import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
+import { FlDialogModule, FlFormDialogAbstractDirective } from '@monorepo/front-core-lib/fl-dialog';
 import { FlInputFileModule } from '@monorepo/front-core-lib/fl-input-file';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
-import { MatButton } from '@angular/material/button';
-import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { TranslatePipe } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+
+import { HaDocumentation } from '../../../../ha-core/ha-model/ha-entities/ha-documentation.class';
+import { HaFolder } from '../../../../ha-core/ha-model/ha-entities/ha-folder.class';
+import { HaNodeDTO, HaNodeType } from '../../../../ha-core/ha-model/ha-entities/ha-node.class';
+import { HaDocumentationService } from '../../../../ha-core/ha-service/ha-documentation.service';
+import { HaFolderService } from '../../../../ha-core/ha-service/ha-folder.service';
 
 @Component({
   selector: 'ha-public-sidenav-create-form-dialog',

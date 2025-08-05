@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
-import { CoIcon } from '../../model/co-icon.class';
 import { MatDialogRef } from '@angular/material/dialog';
+
+import { CoIcon } from '../../model/co-icon.class';
 
 @Component({
   selector: 'co-community-icon-select-dialog',

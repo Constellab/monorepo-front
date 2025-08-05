@@ -1,14 +1,15 @@
-import { Component, Input, inject } from '@angular/core';
+import { Component, inject,Input } from '@angular/core';
 import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
-import { LiResourceDetailState } from '../../state/li-resource-detail.state';
 import { LiResourceView, LiViewConfig, LiViewConfigService } from '@monorepo/lab-lib/li-core';
-import { RvResourceViewModule, RvViewConfig } from '@monorepo/resource-view';
-import { TdTechnicalDocModule } from '@monorepo/technical-doc';
 import {
   LiViewConfigActionsMenuComponent,
   LiViewConfigFavoriteComponent,
 } from '@monorepo/lab-lib/li-view-config';
+import { RvResourceViewModule, RvViewConfig } from '@monorepo/resource-view';
+import { TdTechnicalDocModule } from '@monorepo/technical-doc';
+
+import { LiResourceDetailState } from '../../state/li-resource-detail.state';
 
 @Component({
   selector: 'li-resource-view-detail',

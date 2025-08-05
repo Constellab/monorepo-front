@@ -2,10 +2,10 @@ import {
   Directive,
   effect,
   EmbeddedViewRef,
+  inject,
   input,
   TemplateRef,
   ViewContainerRef,
-  inject,
 } from '@angular/core';
 
 /**

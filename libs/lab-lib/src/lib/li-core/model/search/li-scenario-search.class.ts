@@ -8,6 +8,7 @@ import {
 } from '@monorepo/front-core-lib/fl-search';
 import { FlTag } from '@monorepo/front-core-lib/fl-tag';
 import { Type } from 'class-transformer';
+
 import { LiFolder } from '../entities/li-folder.class';
 import { LiScenarioCreationType, LiScenarioStatus } from '../entities/li-scenario.entity';
 import { LiTypeEntity } from '../entities/li-type/li-type.entity';

@@ -1,3 +1,4 @@
+import { inject,Injectable } from '@angular/core';
 import { ClHelpService, ClPageI } from '@monorepo/core-lib';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import {
@@ -5,22 +6,22 @@ import {
   FlEntityPaginatedDatasource,
   FlInputSearchFilter,
 } from '@monorepo/front-core-lib/fl-core';
-import { FlFileHelper } from '@monorepo/front-core-lib/fl-translate';
 import { FlSearchConverter } from '@monorepo/front-core-lib/fl-search';
-import { Injectable, inject } from '@angular/core';
+import { FlFileHelper } from '@monorepo/front-core-lib/fl-translate';
+import { TdParamSpecs, TdParamSpecsValues } from '@monorepo/technical-doc';
+import { TeRichText } from '@monorepo/text-editor';
+import { Observable, of, switchMap } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 import { LiNavigableEntityImpact } from '../model/entities/li-navigable-entity.entity';
-import { LiResource } from '../model/entities/resource/li-resource.entity';
 import {
   LiRunningScenarioInfo,
   LiScenario,
   LiScenarioDatasource,
   LiScenarioSimpleForm,
 } from '../model/entities/li-scenario.entity';
+import { LiResource } from '../model/entities/resource/li-resource.entity';
 import { LiScenarioSearch, LiScenarioSearchFields } from '../model/search/li-scenario-search.class';
-import { Observable, of, switchMap } from 'rxjs';
-import { TdParamSpecs, TdParamSpecsValues } from '@monorepo/technical-doc';
-import { TeRichText } from '@monorepo/text-editor';
-import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',

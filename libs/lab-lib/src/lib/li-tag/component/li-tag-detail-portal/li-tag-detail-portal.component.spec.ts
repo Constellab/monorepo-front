@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { LiTagDetailPortalComponent } from './li-tag-detail-portal.component';
 
 describe('LiTagDetailPortalComponent', () => {

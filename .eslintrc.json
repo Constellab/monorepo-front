@@ -1,10 +1,17 @@
 {
   "root": true,
-  "ignorePatterns": ["**/*"],
-  "plugins": ["@nx"],
+  "plugins": [
+    "@nx",
+    "simple-import-sort"
+  ],
   "overrides": [
     {
-      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "files": [
+        "*.ts",
+        "*.tsx",
+        "*.js",
+        "*.jsx"
+      ],
       "rules": {
         "@nx/enforce-module-boundaries": [
           "error",
@@ -14,7 +21,9 @@
             "depConstraints": [
               {
                 "sourceTag": "*",
-                "onlyDependOnLibsWithTags": ["*"]
+                "onlyDependOnLibsWithTags": [
+                  "*"
+                ]
               }
             ]
           }
@@ -22,7 +31,10 @@
       }
     },
     {
-      "files": ["*.ts", "*.tsx"],
+      "files": [
+        "*.ts",
+        "*.tsx"
+      ],
       "extends": [
         "plugin:@nx/typescript",
         "plugin:@nx/angular",
@@ -46,7 +58,9 @@
               "parameters": "first",
               "body": 1
             },
-            "ignoredNodes": ["PropertyDefinition"]
+            "ignoredNodes": [
+              "PropertyDefinition"
+            ]
           }
         ],
         "max-len": [
@@ -69,23 +83,38 @@
         ],
         "@angular-eslint/no-empty-lifecycle-method": "off",
         "@angular-eslint/no-input-rename": "off",
-        "no-extra-semi": "off"
+        "no-extra-semi": "off",
+        "simple-import-sort/imports": "error"
       }
     },
     {
-      "files": ["*.js", "*.jsx"],
-      "extends": ["plugin:@nx/javascript"],
+      "files": [
+        "*.js",
+        "*.jsx"
+      ],
+      "extends": [
+        "plugin:@nx/javascript"
+      ],
       "rules": {
         "no-extra-semi": "off"
       }
     },
     {
-      "files": ["*.html"],
-      "extends": ["plugin:@nx/angular-template"],
+      "files": [
+        "*.html"
+      ],
+      "extends": [
+        "plugin:@nx/angular-template"
+      ],
       "rules": {}
     },
     {
-      "files": ["*.spec.ts", "*.spec.tsx", "*.spec.js", "*.spec.jsx"],
+      "files": [
+        "*.spec.ts",
+        "*.spec.tsx",
+        "*.spec.js",
+        "*.spec.jsx"
+      ],
       "env": {
         "jest": true
       },

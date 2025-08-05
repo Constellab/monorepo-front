@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { LiViewConfigFavoriteComponent } from './li-view-config-favorite.component';
 
 describe('LiViewConfigFavoriteComponent', () => {

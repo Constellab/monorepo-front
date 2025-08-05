@@ -1,4 +1,3 @@
-import { DateTime } from 'luxon';
 import {
   ClLuxonDateTimeTransform,
   ClSupportedLanguage,
@@ -6,9 +5,11 @@ import {
   ClUserCategory,
   ClUserStatus,
 } from '@monorepo/core-lib';
-import { CaEntity } from './ca-entity.entity';
 import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
 import { FlUser } from '@monorepo/front-core-lib/fl-user';
+import { DateTime } from 'luxon';
+
+import { CaEntity } from './ca-entity.entity';
 
 export enum CaUserLicense {
   FREE = 'FREE',

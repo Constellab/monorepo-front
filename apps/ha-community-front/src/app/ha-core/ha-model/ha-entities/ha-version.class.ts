@@ -1,5 +1,6 @@
-import { HaEntity } from './ha-entity.class';
 import { ClVersion } from '@monorepo/core-lib';
+
+import { HaEntity } from './ha-entity.class';
 
 export enum HaRepoType {
   PIP = 'PIP',

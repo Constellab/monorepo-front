@@ -1,24 +1,25 @@
+import { AsyncPipe } from '@angular/common';
 import { Component, inject, Input, OnInit } from '@angular/core';
-import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { TranslatePipe } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import { CaLabUser, CaLabUserDatasource } from '../../../../ca-core/model/entities/lab/ca-lab-user.class';
+import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
+import { CaLabDetailPageState } from '../../../state/ca-lab-detail-page.state';
 import {
   CaLabUserFormDialogComponent,
   LabUserFormDialogInput,
 } from '../ca-lab-user-form-dialog/ca-lab-user-form-dialog.component';
-import { CaLabUser, CaLabUserDatasource } from '../../../../ca-core/model/entities/lab/ca-lab-user.class';
-import { CaLabDetailPageState } from '../../../state/ca-lab-detail-page.state';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { MatIcon } from '@angular/material/icon';
-import { MatIconButton } from '@angular/material/button';
-import { MatTooltip } from '@angular/material/tooltip';
-import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { CaLabUsersTableComponent } from '../ca-lab-users-table/ca-lab-users-table.component';
-import { AsyncPipe } from '@angular/common';
-import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'ca-lab-users-list',

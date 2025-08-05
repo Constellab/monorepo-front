@@ -1,19 +1,19 @@
 import { Component, inject } from '@angular/core';
-import { DateTime } from 'luxon';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatButton } from '@angular/material/button';
+import { MatDatepicker, MatDatepickerInput, MatDatepickerToggle } from '@angular/material/datepicker';
+import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
+import { MatError, MatFormField, MatHint, MatLabel, MatSuffix } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { LiFolderInlineSelectComponent } from '@monorepo/lab-lib/li-folder';
 import { LiResource, LiResourceService, LiShareLink } from '@monorepo/lab-lib/li-core';
-import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
-import { MatButton } from '@angular/material/button';
-import { MatDatepicker, MatDatepickerInput, MatDatepickerToggle } from '@angular/material/datepicker';
-import { MatError, MatFormField, MatHint, MatLabel, MatSuffix } from '@angular/material/form-field';
-import { MatInput } from '@angular/material/input';
+import { LiFolderInlineSelectComponent } from '@monorepo/lab-lib/li-folder';
 import { TranslatePipe } from '@ngx-translate/core';
+import { DateTime } from 'luxon';
 
 export interface LiShareResourceWithSpaceDialogInput {
   resource: LiResource;

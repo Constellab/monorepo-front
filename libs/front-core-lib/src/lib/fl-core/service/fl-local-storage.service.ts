@@ -1,6 +1,7 @@
-import { Injectable, inject } from '@angular/core';
-import { FlPlatformService } from './fl-plateform.service';
+import { inject,Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+
+import { FlPlatformService } from './fl-plateform.service';
 
 /**
  * Service to manage access the browser local storage

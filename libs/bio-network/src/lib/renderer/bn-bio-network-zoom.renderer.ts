@@ -1,10 +1,11 @@
 import { inject, Injectable } from '@angular/core';
-import { BnBioNetworkMainRenderer } from './bn-bio-network-main.renderer';
-import { BnBioNetworkSelectionState } from '../state/bn-bio-network-selection.state';
-import { BnBioNetworkSelectionEvent } from '../model/bn-bio-network-selection.class';
-import { BnBioNetworkNode } from '../model/bn-bio-network-node.class';
-import { combineLatest } from 'rxjs';
 import { ForceGraphInstance } from 'force-graph';
+import { combineLatest } from 'rxjs';
+
+import { BnBioNetworkNode } from '../model/bn-bio-network-node.class';
+import { BnBioNetworkSelectionEvent } from '../model/bn-bio-network-selection.class';
+import { BnBioNetworkSelectionState } from '../state/bn-bio-network-selection.state';
+import { BnBioNetworkMainRenderer } from './bn-bio-network-main.renderer';
 
 @Injectable()
 export class BnBioNetworkZoomRenderer {

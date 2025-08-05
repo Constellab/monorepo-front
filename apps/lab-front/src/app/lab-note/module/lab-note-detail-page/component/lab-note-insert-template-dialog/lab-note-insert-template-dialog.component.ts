@@ -1,18 +1,18 @@
 import { Component, inject } from '@angular/core';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButton } from '@angular/material/button';
+import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
+import { MatError } from '@angular/material/form-field';
+import { MatIcon } from '@angular/material/icon';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LiNoteService, LiNoteTemplate } from '@monorepo/lab-lib/li-core';
-import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
-import { MatButton } from '@angular/material/button';
-import { MatError } from '@angular/material/form-field';
-import { MatIcon } from '@angular/material/icon';
+import { LiSelectNoteTemplateComponent } from '@monorepo/lab-lib/li-note-template';
 import { TeRichText, TeRichTextDTO } from '@monorepo/text-editor';
 import { TranslatePipe } from '@ngx-translate/core';
-import { LiSelectNoteTemplateComponent } from '@monorepo/lab-lib/li-note-template';
 
 export interface LabNoteInsertTemplateDialogData {
   noteId: string;

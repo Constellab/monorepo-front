@@ -1,13 +1,14 @@
 import { Expose, Type } from 'class-transformer';
+import { TypeHelpOptions } from 'class-transformer/types/interfaces/type-help-options.interface';
+
 import { LiFolder } from './li-folder.class';
 import { LiNote } from './li-note.entity';
 import { LiNoteTemplate } from './li-note-template.entity';
-import { LiResource } from './resource/li-resource.entity';
 import { LiScenario } from './li-scenario.entity';
-import { LiScenarioTemplate } from './process/li-scenario-template.entity';
-import { LiViewConfig } from './resource/li-view-config.entity';
-import { TypeHelpOptions } from 'class-transformer/types/interfaces/type-help-options.interface';
 import { LiTagKeyModel } from './li-tag.entity';
+import { LiScenarioTemplate } from './process/li-scenario-template.entity';
+import { LiResource } from './resource/li-resource.entity';
+import { LiViewConfig } from './resource/li-view-config.entity';
 
 export type LiEntityType =
   | 'SCENARIO'

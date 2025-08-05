@@ -1,14 +1,15 @@
-import { CaBaseEntity } from '../ca-base-entity.class';
-import { DateTime } from 'luxon';
 import { ClLuxonDateTransform } from '@monorepo/core-lib';
 import { FlEntity } from '@monorepo/front-core-lib/fl-core';
-import { Type } from 'class-transformer';
-import { CaUser } from '../ca-user.class';
-import { CaBucketLocationDTO } from '../ca-object-storage.class';
-import { CaHierarchyObject } from './ca-hierarchy-object.class';
-import { TeRichText, TeRichTextTransform } from '@monorepo/text-editor';
 import { TdTypeStyle } from '@monorepo/technical-doc';
+import { TeRichText, TeRichTextTransform } from '@monorepo/text-editor';
+import { Type } from 'class-transformer';
+import { DateTime } from 'luxon';
+
+import { CaBaseEntity } from '../ca-base-entity.class';
+import { CaBucketLocationDTO } from '../ca-object-storage.class';
+import { CaUser } from '../ca-user.class';
 import { CaRootFolderUserRoleObj } from './ca-folder-user.class';
+import { CaHierarchyObject } from './ca-hierarchy-object.class';
 
 export interface CaFolderInfo {
   id: string;

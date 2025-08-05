@@ -1,13 +1,14 @@
 import { Component, EventEmitter, inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { TeRichText, TeTextEditorModule } from '@monorepo/text-editor';
-import { CaChatMessageTextEditorConfig } from '../../../../model/config/ca-chat-message-text-editor.config';
-import { CaFolderService } from '../../../../service-api/ca-folder.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconButton } from '@angular/material/button';
-import { MatTooltip } from '@angular/material/tooltip';
 import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { TeRichText, TeTextEditorModule } from '@monorepo/text-editor';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { CaChatMessageTextEditorConfig } from '../../../../model/config/ca-chat-message-text-editor.config';
 import { CaChatService } from '../../../../service-api/ca-chat.service';
+import { CaFolderService } from '../../../../service-api/ca-folder.service';
 
 /**
  * Component to write a message in a chat

@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { LiSharedEntityTableComponent } from './li-shared-entity-table.component';
 
 describe('LiSharedEntityTableComponent', () => {

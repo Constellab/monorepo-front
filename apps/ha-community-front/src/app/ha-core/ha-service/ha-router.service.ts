@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
+import { ClBrick, ClStringHelper } from '@monorepo/core-lib';
+
 import { HaEnvironmentHelper } from '../ha-model/ha-config/ha-environment.helper';
 import { HaAgentVersion } from '../ha-model/ha-entities/ha-agent-version.class';
-import { ClBrick, ClStringHelper } from '@monorepo/core-lib';
 
 @Injectable({
   providedIn: 'root',

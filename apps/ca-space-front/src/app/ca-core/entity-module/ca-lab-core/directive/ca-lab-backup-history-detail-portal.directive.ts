@@ -3,6 +3,7 @@ import {
   FlMouseHoverPortalAbstractDirective,
   FlMouseHoverPortalConfig,
 } from '@monorepo/front-core-lib/fl-portal';
+
 import { CnLabBackupHistoryDetail } from '../../../model/entities/lab/ca-lab-backup.class';
 import {
   CaLabBackupHistoryDetailPortalComponent,

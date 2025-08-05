@@ -36,6 +36,12 @@
                 {{ 'monitoring.app_status_' + process.status | translate }}
               </fl-key-value>
 
+              @if (process.statusText) {
+                <div class="g-text-small g-text-light">
+                  {{ process.statusText }}
+                </div>
+              }
+
               <fl-key-value>
                 <fl-key>{{ 'monitoring.app_nb_of_connection' | translate }}</fl-key>
                 {{ process.nbOfConnections }}

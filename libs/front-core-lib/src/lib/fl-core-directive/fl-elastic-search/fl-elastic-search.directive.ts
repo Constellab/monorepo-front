@@ -1,6 +1,6 @@
 import { Directive, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { Subject } from 'rxjs';
 import { clRxjsElasticSearch } from '@monorepo/core-lib';
+import { Subject } from 'rxjs';
 
 /**
  * Directive to handle elastic search

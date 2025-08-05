@@ -1,6 +1,7 @@
 import { Component, input } from '@angular/core';
-import { CoTagKey } from '../../model/co-tag-key.class';
+
 import { CoCommunityLibModule } from '../../co-community-lib.module';
+import { CoTagKey } from '../../model/co-tag-key.class';
 import { CoDeprecatedTagComponent } from '../co-deprecated-tag/co-deprecated-tag.component';
 
 @Component({

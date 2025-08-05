@@ -1,11 +1,12 @@
+import { AsyncPipe } from '@angular/common';
 import { Component, inject, Input, OnInit } from '@angular/core';
-import { CaUser } from '../../../../model/entities/ca-user.class';
-import { CaAuthenticatedUserService } from '../../../../service-api/ca-authenticated-user.service';
-import { CaRouterService } from '../../../../service/ca-router.service';
-import { Observable } from 'rxjs';
 import { RouterLink } from '@angular/router';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import { AsyncPipe } from '@angular/common';
+import { Observable } from 'rxjs';
+
+import { CaUser } from '../../../../model/entities/ca-user.class';
+import { CaRouterService } from '../../../../service/ca-router.service';
+import { CaAuthenticatedUserService } from '../../../../service-api/ca-authenticated-user.service';
 
 /**
  * Component to display the current user photo, name and job

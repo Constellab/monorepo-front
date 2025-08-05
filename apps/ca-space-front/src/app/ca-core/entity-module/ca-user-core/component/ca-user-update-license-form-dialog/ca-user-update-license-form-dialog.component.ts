@@ -1,16 +1,17 @@
 import { Component, inject } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatButton } from '@angular/material/button';
+import { MatOption } from '@angular/material/core';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
-import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
-import { CaUserAccountsService } from '../../../../service-api/ca-user-accounts.service';
-import { CaUser, CaUserLicense } from '../../../../model/entities/ca-user.class';
-import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatSelect } from '@angular/material/select';
-import { MatOption } from '@angular/material/core';
-import { MatButton } from '@angular/material/button';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { CaUser, CaUserLicense } from '../../../../model/entities/ca-user.class';
+import { CaUserAccountsService } from '../../../../service-api/ca-user-accounts.service';
 
 export interface CaUserUpdateLicenseDialogInput {
   userId: string;

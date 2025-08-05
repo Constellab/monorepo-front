@@ -1,10 +1,11 @@
-import Paragraph from '@editorjs/paragraph';
 import { BlockTool, BlockToolConstructorOptions } from '@editorjs/editorjs/types/tools/block-tool';
 import { BlockToolData } from '@editorjs/editorjs/types/tools/block-tool-data';
-import { TeHelper } from '../model/te.helper';
 import { ToolboxConfig } from '@editorjs/editorjs/types/tools/tool-settings';
+import Paragraph from '@editorjs/paragraph';
 import { FlKeyboardKey } from '@monorepo/front-core-lib/fl-core';
+
 import { TeBlockListType } from '../model/lib';
+import { TeHelper } from '../model/te.helper';
 
 /**
  * Standard paragraph with custom actions

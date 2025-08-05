@@ -1,9 +1,10 @@
-import { Injectable, inject } from '@angular/core';
-import InstantSearch from 'instantsearch.js/es/lib/InstantSearch';
-import history from 'instantsearch.js/es/lib/routers/history';
+import { inject,Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { liteClient as algoliasearch } from 'algoliasearch/lite';
 import { IndexWidget, Widget } from 'instantsearch.js';
+import InstantSearch from 'instantsearch.js/es/lib/InstantSearch';
+import history from 'instantsearch.js/es/lib/routers/history';
+
 import { environment } from '../../../environments/ha-environment';
 
 @Injectable({

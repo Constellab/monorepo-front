@@ -1,5 +1,5 @@
-import { InlineTool, SanitizerConfig } from '@editorjs/editorjs';
 import { IconUnderline } from '@codexteam/icons';
+import { InlineTool, SanitizerConfig } from '@editorjs/editorjs';
 
 export class TeUnderlineInlineTool implements InlineTool {
   /**

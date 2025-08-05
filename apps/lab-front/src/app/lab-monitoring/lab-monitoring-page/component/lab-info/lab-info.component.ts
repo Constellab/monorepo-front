@@ -1,5 +1,7 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject,OnInit } from '@angular/core';
+import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import {
   FlConfirmDialogInput,
@@ -10,14 +12,13 @@ import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { LabSynchroDialogComponent } from '../lab-synchro-dialog/lab-synchro-dialog.component';
+import { LiSystemInfo, LiSystemService, LiSystemStatus, LiTypeService } from '@monorepo/lab-lib/li-core';
 import { LiMonitorDiskComponent } from '@monorepo/lab-lib/li-monitor';
 import { LiSystemConfigDialogComponent } from '@monorepo/lab-lib/li-system';
-import { LiSystemInfo, LiSystemService, LiSystemStatus, LiTypeService } from '@monorepo/lab-lib/li-core';
-import { MatButton } from '@angular/material/button';
-import { MatIcon } from '@angular/material/icon';
-import { Observable } from 'rxjs';
 import { TranslatePipe } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+
+import { LabSynchroDialogComponent } from '../lab-synchro-dialog/lab-synchro-dialog.component';
 
 @Component({
   selector: 'lab-info',

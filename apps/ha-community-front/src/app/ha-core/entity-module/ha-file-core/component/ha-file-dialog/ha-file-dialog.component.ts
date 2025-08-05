@@ -1,22 +1,22 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FlDialogModule, FlFormDialogAbstractDirective } from '@monorepo/front-core-lib/fl-dialog';
-import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
-import { FlPortalAction, FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
-
-import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
-import { Observable } from 'rxjs';
 import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { ClHelpService } from '@monorepo/core-lib';
-import { HaFileServiceInterface } from '../../model/ha-file-service.interface';
-import { HaFile } from '../../model/ha-file';
-import { HaBaseEntityWithFiles } from '../../model/ha-base-entity-with-files';
-import { FlInputFileModule } from '@monorepo/front-core-lib/fl-input-file';
-import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
-import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
 import { MatIconButton } from '@angular/material/button';
-import { MatTooltip } from '@angular/material/tooltip';
+import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { ClHelpService } from '@monorepo/core-lib';
+import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
+import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
+import { FlDialogModule, FlFormDialogAbstractDirective } from '@monorepo/front-core-lib/fl-dialog';
+import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
+import { FlInputFileModule } from '@monorepo/front-core-lib/fl-input-file';
+import { FlPortalAction, FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
 import { TranslatePipe } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+
+import { HaBaseEntityWithFiles } from '../../model/ha-base-entity-with-files';
+import { HaFile } from '../../model/ha-file';
+import { HaFileServiceInterface } from '../../model/ha-file-service.interface';
 
 export type HaFileDialogInput = FlFormDialogInput<HaFileDialogObjectInput>;
 

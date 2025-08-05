@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { LabMonitoringCurrentInfoComponent } from '../lab-monitoring-current-info/lab-monitoring-current-info.component';
 import { LabMonitoringDetailComponent } from '../lab-monitoring-detail/lab-monitoring-detail.component';
 

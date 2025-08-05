@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { LiResourceViewSpecCardComponent } from './li-resource-view-spec-card.component';
 
 describe('LiResourceViewSpecCardComponent', () => {

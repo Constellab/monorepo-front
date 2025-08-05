@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { LiTagSearchComponent } from '@monorepo/lab-lib/li-tag';
 import { LiTagKeyModel } from '@monorepo/lab-lib/li-core';
+import { LiTagSearchComponent } from '@monorepo/lab-lib/li-tag';
 
 @Component({
   selector: 'lab-tag-search-page',

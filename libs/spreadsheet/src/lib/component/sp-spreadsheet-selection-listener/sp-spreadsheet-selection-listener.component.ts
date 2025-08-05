@@ -1,10 +1,11 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, inject } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { SpSpreadsheetSelectionState } from '../../state/sp-spreadsheet-selection.state';
-import { SpSheetSingleSelection } from '../../model/selection/sp-sheet-single-selection.class';
-import { filter } from 'rxjs/operators';
-import { SpSpreadsheetSelectionListenerManagerService } from '../../state/sp-spreadsheet-selection-listener-manager.service';
+import { Component, EventEmitter, inject,Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
+import { Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
+
+import { SpSheetSingleSelection } from '../../model/selection/sp-sheet-single-selection.class';
+import { SpSpreadsheetSelectionState } from '../../state/sp-spreadsheet-selection.state';
+import { SpSpreadsheetSelectionListenerManagerService } from '../../state/sp-spreadsheet-selection-listener-manager.service';
 
 /**
  * Component to listen to selection on spreadsheet

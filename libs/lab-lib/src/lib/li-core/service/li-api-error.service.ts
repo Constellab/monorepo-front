@@ -1,9 +1,9 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { FlApiErrorService, FlServerError } from '@monorepo/front-core-lib/fl-api';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-
-import { HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
+
 import { LiErrorDetailComponent } from '../component/li-error-detail/li-error-detail.component';
 import { LiApiError } from '../model/global/li-api-error.class';
 

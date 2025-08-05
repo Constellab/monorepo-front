@@ -1,16 +1,16 @@
-import { ChChartConfig, ChChartRightSectionConfig } from '../ch-chart-config.class';
-import { ChChartContainer, ChChartContainerNoAxis } from '../drawer/ch-chart-container.class';
-import { ChChartSVGLegend } from '../legend/ch-chart-legend.class';
-import { ChChartBrush } from '../drawer/ch-chart-brush.class';
-import { ChChartScaleColor, ChChartScaleColorMulti } from '../scale/ch-chart-scale-color.class';
-import { ChChartVennData } from '../data/ch-chart-venn-data.class';
-import { ChChartLegendMultiSeries, ChLegend } from '../legend/ch-chart-legend-multi-series.class';
-import { ChChartRendererVennDiagram } from '../../renderer/ch-chart-renderer-venn-diagram.plot';
 import {
   ChChartLegendMultiSeriesComponent,
   ChChartLegendMultiSeriesInput,
 } from '../../component/ch-chart-right-section/ch-chart-legend-multi-series/ch-chart-legend-multi-series.component';
+import { ChChartRendererVennDiagram } from '../../renderer/ch-chart-renderer-venn-diagram.plot';
+import { ChChartConfig, ChChartRightSectionConfig } from '../ch-chart-config.class';
 import { ChChartSerieSimple } from '../data/ch-chart-serie.class';
+import { ChChartVennData } from '../data/ch-chart-venn-data.class';
+import { ChChartBrush } from '../drawer/ch-chart-brush.class';
+import { ChChartContainer, ChChartContainerNoAxis } from '../drawer/ch-chart-container.class';
+import { ChChartSVGLegend } from '../legend/ch-chart-legend.class';
+import { ChChartLegendMultiSeries, ChLegend } from '../legend/ch-chart-legend-multi-series.class';
+import { ChChartScaleColor, ChChartScaleColorMulti } from '../scale/ch-chart-scale-color.class';
 
 export class ChChartVennDiagram extends ChChartConfig {
   private readonly colorScale: ChChartScaleColor;

@@ -1,10 +1,11 @@
 import { Component, inject } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { first } from 'rxjs/operators';
 import { FormBuilder, Validators } from '@angular/forms';
-import { FlUserAccountService } from '../../service/fl-user-account.service';
-import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FlGlobalValidators } from '@monorepo/front-core-lib/fl-core';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
+import { first } from 'rxjs/operators';
+
+import { FlUserAccountService } from '../../service/fl-user-account.service';
 
 @Component({
   selector: 'fl-reset-password-page',

@@ -1,16 +1,17 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { UntypedFormGroup, ReactiveFormsModule } from '@angular/forms';
-import { CaSpaceRole } from '../../../../model/entities/space/ca-space-user.class';
-import { FlSearchState } from '@monorepo/front-core-lib/fl-search';
+import { Component, inject,OnInit } from '@angular/core';
+import { ReactiveFormsModule,UntypedFormGroup } from '@angular/forms';
+import { MatOption } from '@angular/material/core';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatSelect } from '@angular/material/select';
-import { MatOption } from '@angular/material/core';
-import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
-import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import { FlSearchModule } from '@monorepo/front-core-lib/fl-search';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
+import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
+import { FlSearchState } from '@monorepo/front-core-lib/fl-search';
+import { FlSearchModule } from '@monorepo/front-core-lib/fl-search';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { CaSpaceRole } from '../../../../model/entities/space/ca-space-user.class';
 
 @Component({
   selector: 'ca-space-user-search-form',

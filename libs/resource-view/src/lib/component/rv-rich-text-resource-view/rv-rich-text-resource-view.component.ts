@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Observable } from 'rxjs';
+
 import { RvResourceViewBase } from '../../model/rv-resource-view.class';
 import { RvViewConfig } from '../../model/rv-view-config.class';
-import { Observable } from 'rxjs';
 
 /**
  * Component to show a resource view inside a rich text editor.

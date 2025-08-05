@@ -34,9 +34,7 @@
             "output": "assets/fl-font"
           }
         ],
-        "externalDependencies": [
-          "assets/fl-font/*"
-        ],
+        "externalDependencies": ["assets/fl-font/*"],
         "styles": [
           "apps/lab-manager-standalone/src/lms-styles.scss",
           {
@@ -98,7 +96,8 @@
           "buildTarget": "lab-manager-standalone:build:development"
         }
       },
-      "defaultConfiguration": "development"
+      "defaultConfiguration": "development",
+      "continuous": true
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",

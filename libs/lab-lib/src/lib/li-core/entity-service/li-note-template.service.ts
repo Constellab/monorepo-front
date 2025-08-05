@@ -1,3 +1,4 @@
+import { inject,Injectable } from '@angular/core';
 import { ClHelpService, ClPageI } from '@monorepo/core-lib';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import {
@@ -6,7 +7,9 @@ import {
   FlInputSearchFilter,
 } from '@monorepo/front-core-lib/fl-core';
 import { FlSearchConverter } from '@monorepo/front-core-lib/fl-search';
-import { Injectable, inject } from '@angular/core';
+import { TeRichText, TeRichTextDTO } from '@monorepo/text-editor';
+import { Observable } from 'rxjs';
+
 import {
   LiNoteTemplate,
   LiNoteTemplateDatasource,
@@ -16,8 +19,6 @@ import {
   LiNoteTemplateSearch,
   LiNoteTemplateSearchFields,
 } from '../model/search/li-note-template-search.class';
-import { Observable } from 'rxjs';
-import { TeRichText, TeRichTextDTO } from '@monorepo/text-editor';
 
 @Injectable({ providedIn: 'root' })
 export class LiNoteTemplateService {

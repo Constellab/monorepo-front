@@ -3,8 +3,9 @@ import { inject, Injectable } from '@angular/core';
 import { LiAuthenticatedUserService } from '@monorepo/lab-lib/li-core';
 import { Observable, of } from 'rxjs';
 import { catchError, map, mergeMap, tap } from 'rxjs/operators';
-import { LabEnvironmentHelper } from './lab-environment.helper';
+
 import { LabEnvStore } from './lab-env.store';
+import { LabEnvironmentHelper } from './lab-environment.helper';
 
 /**
  * Service to manage the DEV environment

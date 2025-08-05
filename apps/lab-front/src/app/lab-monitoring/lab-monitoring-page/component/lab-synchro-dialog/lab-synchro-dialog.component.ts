@@ -1,11 +1,11 @@
 import { Component, inject } from '@angular/core';
-import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
-import { FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { LiSystemService } from '@monorepo/lab-lib/li-core';
 import { MatButton } from '@angular/material/button';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
+import { FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
+import { LiSystemService } from '@monorepo/lab-lib/li-core';
 import { TranslatePipe } from '@ngx-translate/core';
 
 /**

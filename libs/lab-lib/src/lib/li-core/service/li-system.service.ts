@@ -1,8 +1,9 @@
-import { FlApiWithCacheService, FlServerError } from '@monorepo/front-core-lib/fl-api';
 import { inject, Injectable } from '@angular/core';
-import { LiPipPackage, LiSystemConfig, LiSystemInfo, LiSystemStatus } from '../model/global/li-system.class';
+import { FlApiWithCacheService, FlServerError } from '@monorepo/front-core-lib/fl-api';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+
+import { LiPipPackage, LiSystemConfig, LiSystemInfo, LiSystemStatus } from '../model/global/li-system.class';
 
 @Injectable({
   providedIn: 'root',

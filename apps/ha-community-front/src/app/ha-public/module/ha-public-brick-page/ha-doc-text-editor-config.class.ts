@@ -1,4 +1,5 @@
-import { HaDocumentationService } from '../../../ha-core/ha-service/ha-documentation.service';
+import { ApplicationRef, EnvironmentInjector } from '@angular/core';
+import { ClStringHelper } from '@monorepo/core-lib';
 import {
   TeBlockFigureUploadedResponse,
   TeCompleteConfig,
@@ -7,11 +8,11 @@ import {
   TeFileBlockConfig,
   TeTools,
 } from '@monorepo/text-editor';
-import { ApplicationRef, EnvironmentInjector } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ClStringHelper } from '@monorepo/core-lib';
-import { HaDocContentViewBlock } from './ha-doc-view/ha-doc-content-view.class';
+
 import { HaFile } from '../../../ha-core/entity-module/ha-file-core/model/ha-file';
+import { HaDocumentationService } from '../../../ha-core/ha-service/ha-documentation.service';
+import { HaDocContentViewBlock } from './ha-doc-view/ha-doc-content-view.class';
 
 export class HaDocTextEditorImageConfig implements TeFigureBlockConfig {
   constructor(

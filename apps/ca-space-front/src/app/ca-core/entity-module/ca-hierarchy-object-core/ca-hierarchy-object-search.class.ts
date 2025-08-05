@@ -1,5 +1,4 @@
-import { Type } from 'class-transformer';
-import { CaUser } from '../../model/entities/ca-user.class';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { FlFormInputsManagerConfig } from '@monorepo/front-core-lib/fl-form-inputs-manager';
 import {
   FlSearchConverter,
@@ -8,10 +7,11 @@ import {
   FlSearchFilterCriteriaConverter,
   FlSearchSortCriteriaConverter,
 } from '@monorepo/front-core-lib/fl-search';
-
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { CaHierarchyObjectType } from '../../model/entities/folder/ca-hierarchy-object.class';
 import { FlTag } from '@monorepo/front-core-lib/fl-tag';
+import { Type } from 'class-transformer';
+
+import { CaUser } from '../../model/entities/ca-user.class';
+import { CaHierarchyObjectType } from '../../model/entities/folder/ca-hierarchy-object.class';
 
 export class CaHierarchyObjectSearchFields {
   name: string;

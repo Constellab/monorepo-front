@@ -1,9 +1,10 @@
 import { AfterViewInit, Component, inject, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
-import { FL_PORTAL_DATA, FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
-import { FlMenuDynamic } from '../../model/fl-menu-dynamic.class';
-import { FlMenuDynamicComponent } from '../fl-menu-dynamic/fl-menu-dynamic.component';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { FlEventWrapper } from '@monorepo/front-core-lib/fl-core';
+import { FL_PORTAL_DATA, FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
+
+import { FlMenuDynamic } from '../../model/fl-menu-dynamic.class';
+import { FlMenuDynamicComponent } from '../fl-menu-dynamic/fl-menu-dynamic.component';
 
 /**
  * this is a simple portal to wrap the menu-dynamic

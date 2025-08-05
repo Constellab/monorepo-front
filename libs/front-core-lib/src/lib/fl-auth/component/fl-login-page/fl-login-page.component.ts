@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
+import { Component, EventEmitter, inject,Input, OnInit, Output } from '@angular/core';
 import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
 
 @Component({

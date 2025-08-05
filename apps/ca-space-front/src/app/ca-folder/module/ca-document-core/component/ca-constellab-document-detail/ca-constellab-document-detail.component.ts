@@ -13,6 +13,7 @@ import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { TeRichText, TeTextEditorModule } from '@monorepo/text-editor';
 import { TranslatePipe } from '@ngx-translate/core';
 import { Observable, tap } from 'rxjs';
+
 import {
   CaConstellabDocument,
   CaDocument,

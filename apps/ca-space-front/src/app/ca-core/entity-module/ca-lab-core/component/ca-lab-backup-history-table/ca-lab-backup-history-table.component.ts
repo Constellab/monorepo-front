@@ -1,11 +1,5 @@
 import { Component, Input } from '@angular/core';
 import {
-  CaLabBackupHistory,
-  CaLabBackupHistoryDatasource,
-} from '../../../../model/entities/lab/ca-lab-backup.class';
-import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
-import { ClDateHelper } from '@monorepo/core-lib';
-import {
   MatCell,
   MatCellDef,
   MatColumnDef,
@@ -17,12 +11,19 @@ import {
   MatRowDef,
   MatTable,
 } from '@angular/material/table';
+import { ClDateHelper } from '@monorepo/core-lib';
+import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
+import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
+import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
 import { FlStatusModule } from '@monorepo/front-core-lib/fl-status';
+import { TranslatePipe } from '@ngx-translate/core';
+
+import {
+  CaLabBackupHistory,
+  CaLabBackupHistoryDatasource,
+} from '../../../../model/entities/lab/ca-lab-backup.class';
 import { CaCloudProviderRegionInlineComponent } from '../../../ca-cloud-provider-core/component/ca-cloud-provider-region-inline/ca-cloud-provider-region-inline.component';
 import { CaLabBackupHistoryDetailComponent } from '../ca-lab-backup-history-detail/ca-lab-backup-history-detail.component';
-import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
-import { TranslatePipe } from '@ngx-translate/core';
-import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
 
 @Component({
   selector: 'ca-lab-backup-history-table',

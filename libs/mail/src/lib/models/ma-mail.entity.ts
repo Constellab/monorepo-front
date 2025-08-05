@@ -1,3 +1,4 @@
+import { ClLuxonDateTimeTransform } from '@monorepo/core-lib';
 import { FlDatasourcePaginated, FlEntity } from '@monorepo/front-core-lib/fl-core';
 import {
   FlStatus,
@@ -5,8 +6,6 @@ import {
   FlStatusHelper,
   FlStatusTransform,
 } from '@monorepo/front-core-lib/fl-status';
-
-import { ClLuxonDateTimeTransform } from '@monorepo/core-lib';
 import { DateTime } from 'luxon';
 
 export type MaMailStatus = 'PENDING' | 'SENT' | 'ERROR';

@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { LiShareResourceWithSpaceDialogComponent } from './li-share-resource-with-space-dialog.component';
 
 describe('LabShareResourceWithSpaceComponent', () => {

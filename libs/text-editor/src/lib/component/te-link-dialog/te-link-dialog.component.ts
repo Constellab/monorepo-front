@@ -1,7 +1,7 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject,OnInit } from '@angular/core';
 import { AbstractControl, FormControl, ValidatorFn, Validators } from '@angular/forms';
-import { ClYoutubeHelper } from '@monorepo/core-lib';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { ClYoutubeHelper } from '@monorepo/core-lib';
 
 export interface TeLinkDialogInput {
   title: string;

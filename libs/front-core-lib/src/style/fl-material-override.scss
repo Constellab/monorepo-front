@@ -488,7 +488,7 @@ body {
     // primary color for selected radio button
     &.mat-mdc-radio-checked {
       // use the MatPalette color of the radio button
-      border-color: var(--mdc-radio-selected-icon-color);
+      border-color: var(--mat-radio-selected-icon-color);
     }
   }
 
@@ -548,15 +548,15 @@ body {
 
   /************************************* MAT SNACKBAR ***********************************/
   .g-snackbar-primary {
-    --mdc-snackbar-container-color: var(--primary-color);
+    --mat-snack-bar-container-color: var(--primary-color);
   }
 
   .g-snackbar-warn {
-    --mdc-snackbar-container-color: var(--warn-color);
+    --mat-snack-bar-container-color: var(--warn-color);
   }
 
   .g-snackbar-card {
-    --mdc-snackbar-container-color: var(--card-background);
+    --mat-snack-bar-container-color: var(--card-background);
   }
 
   /************************************* MAT SLIDER ***********************************/

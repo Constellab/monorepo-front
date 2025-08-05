@@ -1,14 +1,15 @@
-import { AfterViewInit, Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
-import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib/fl-core';
-import { CaCloudProviderService } from '../../../../service-api/ca-cloud-provider.service';
-import { CaCloudProviderRegionDatasource } from '../../../../model/entities/ca-cloud-provider.class';
-import { MatSelect } from '@angular/material/select';
-import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
-import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
-import { MatOption } from '@angular/material/core';
-import { CaCloudProviderRegionInlineComponent } from '../ca-cloud-provider-region-inline/ca-cloud-provider-region-inline.component';
 import { AsyncPipe } from '@angular/common';
+import { AfterViewInit, Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
+import { MatOption } from '@angular/material/core';
+import { MatSelect } from '@angular/material/select';
+import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib/fl-core';
+import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
+import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
+
+import { CaCloudProviderRegionDatasource } from '../../../../model/entities/ca-cloud-provider.class';
+import { CaCloudProviderService } from '../../../../service-api/ca-cloud-provider.service';
+import { CaCloudProviderRegionInlineComponent } from '../ca-cloud-provider-region-inline/ca-cloud-provider-region-inline.component';
 
 export type CaSelectCloudProviderRegionOptionsMode = 'all' | 'S3' | 'SERVER' | 'AZURE' | 'GCP';
 

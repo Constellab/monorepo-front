@@ -1,14 +1,15 @@
-import { Type } from 'class-transformer';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { FlFormInputsManagerConfig } from '@monorepo/front-core-lib/fl-form-inputs-manager';
 import {
   FlSearchConverter,
   FlSearchDateInterval,
   FlSearchFilterCriteriaConverter,
   FlSearchSortCriteriaConverter,
 } from '@monorepo/front-core-lib/fl-search';
-import { HaSpace } from '../../ha-core/ha-model/ha-entities/ha-space.class';
-import { FlFormInputsManagerConfig } from '@monorepo/front-core-lib/fl-form-inputs-manager';
+import { Type } from 'class-transformer';
+
 import { HaBrickVisibility } from '../../ha-core/ha-model/ha-entities/ha-brick.class';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { HaSpace } from '../../ha-core/ha-model/ha-entities/ha-space.class';
 
 export class HaAdminPanelBrickSearchFields {
   name: string;

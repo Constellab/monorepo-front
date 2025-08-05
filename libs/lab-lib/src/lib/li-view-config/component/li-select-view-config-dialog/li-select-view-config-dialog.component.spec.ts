@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { LiSelectViewConfigDialogComponent } from './li-select-view-config-dialog.component';
 
 describe('LiSelectViewConfigDialogComponent', () => {

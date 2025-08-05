@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { LiResourceInfoDialogComponent } from './li-resource-info-dialog.component';
 
 describe('LiResourceInfoDialogComponent', () => {

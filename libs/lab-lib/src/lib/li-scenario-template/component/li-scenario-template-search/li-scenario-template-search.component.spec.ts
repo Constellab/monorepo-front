@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { LiScenarioTemplateSearchComponent } from './li-scenario-template-search.component';
 
 describe('LiScenarioTemplateSearchComponent', () => {

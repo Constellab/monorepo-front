@@ -1,22 +1,23 @@
 import {
   Component,
+  inject,
   Input,
   OnDestroy,
   OnInit,
   OutputRefSubscription,
   ViewChild,
   ViewContainerRef,
-  inject,
 } from '@angular/core';
 import { FlDynamicFieldConfigService } from '@monorepo/front-core-lib/fl-dynamic-field';
-import { LabConfigureProtocolComponent } from '../lab-configure-protocol/lab-configure-protocol.component';
-import { LabConfigureTaskComponent } from '../lab-configure-task/lab-configure-task.component';
-import { LabProcessDashboardConfigState } from '../../state/lab-process-dashboard-config-state.service';
 import { LiProcessDashboardDynamicFieldConfig } from '@monorepo/lab-lib/li-config';
 import { LiProcess } from '@monorepo/lab-lib/li-core';
-import { Observable, Subscription } from 'rxjs';
 import { TdAbstractDynamicParamSpecState } from '@monorepo/technical-doc';
+import { Observable, Subscription } from 'rxjs';
+
 import { LabDynamicParamSpecState } from '../../state/lab-dynamic-param-spec.state';
+import { LabProcessDashboardConfigState } from '../../state/lab-process-dashboard-config-state.service';
+import { LabConfigureProtocolComponent } from '../lab-configure-protocol/lab-configure-protocol.component';
+import { LabConfigureTaskComponent } from '../lab-configure-task/lab-configure-task.component';
 
 /**
  * Component inside LabConfigureProtocol to configure a process.

@@ -1,9 +1,10 @@
+import { FormGroup } from '@angular/forms';
 import { ClClassReference, ClPageI } from '@monorepo/core-lib';
-import { FlSavedSearch } from './fl-saved-search.class';
+import { FlDatasourceSortCriteria } from '@monorepo/front-core-lib/fl-core';
 import { FlFormInputsManagerConfig } from '@monorepo/front-core-lib/fl-form-inputs-manager';
 import { Observable } from 'rxjs';
-import { FormGroup } from '@angular/forms';
-import { FlDatasourceSortCriteria } from '@monorepo/front-core-lib/fl-core';
+
+import { FlSavedSearch } from './fl-saved-search.class';
 
 /**
  * Configuration object for the {@link FlSearchComponent}

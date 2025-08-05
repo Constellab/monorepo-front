@@ -1,22 +1,23 @@
 import { Component, inject, Signal } from '@angular/core';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { Router, RouterLink } from '@angular/router';
+import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
+import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
+import { FlConfirmDialogInput, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlInputFileModule } from '@monorepo/front-core-lib/fl-input-file';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
+import { TranslatePipe } from '@ngx-translate/core';
+
+import { HaAgent } from '../../../ha-core/ha-model/ha-entities/ha-agent.class';
 import {
   HaAgentVersion,
   HaAgentVersionFileInput,
 } from '../../../ha-core/ha-model/ha-entities/ha-agent-version.class';
 import { HaAgentService } from '../../../ha-core/ha-service/ha-agent.service';
-import { FlConfirmDialogInput, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
-import { Router, RouterLink } from '@angular/router';
 import { HaAgentPageState } from '../../state/ha-agent-page.state';
-import { HaAgent } from '../../../ha-core/ha-model/ha-entities/ha-agent.class';
-import { MatIconButton } from '@angular/material/button';
-import { MatTooltip } from '@angular/material/tooltip';
-import { MatIcon } from '@angular/material/icon';
-import { FlInputFileModule } from '@monorepo/front-core-lib/fl-input-file';
-import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
-import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
-import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'ha-agent-versions-panel',

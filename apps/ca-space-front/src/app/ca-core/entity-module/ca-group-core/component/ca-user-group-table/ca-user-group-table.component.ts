@@ -1,13 +1,6 @@
 import { Component, inject, Input } from '@angular/core';
-import {
-  FlConfirmDialogInput,
-  FlConfirmDialogResult,
-  FlDialogService,
-} from '@monorepo/front-core-lib/fl-dialog';
-import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
-
-import { CaUserGroup, CaUserGroupDatasource } from '../../../../model/entities/ca-group.entity';
-import { CaGroupService } from '../../../../service-api/ca-group.service';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
 import {
   MatCell,
   MatCellDef,
@@ -20,11 +13,18 @@ import {
   MatRowDef,
   MatTable,
 } from '@angular/material/table';
-import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
-import { MatIcon } from '@angular/material/icon';
+import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
+import {
+  FlConfirmDialogInput,
+  FlConfirmDialogResult,
+  FlDialogService,
+} from '@monorepo/front-core-lib/fl-dialog';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { CaUserGroup, CaUserGroupDatasource } from '../../../../model/entities/ca-group.entity';
+import { CaGroupService } from '../../../../service-api/ca-group.service';
 
 @Component({
   selector: 'ca-user-group-table',

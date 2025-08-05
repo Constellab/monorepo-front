@@ -1,19 +1,19 @@
-import { ChChartConfig, ChChartRightSectionConfig } from '../ch-chart-config.class';
-import { ChChartContainer, ChChartContainer2Axis } from '../drawer/ch-chart-container.class';
-import { ChChartSVGLegend } from '../legend/ch-chart-legend.class';
-import { ChChart2dBrushX, ChChartBrush } from '../drawer/ch-chart-brush.class';
-import { ChChartScaleColor, ChChartScaleColorMulti } from '../scale/ch-chart-scale-color.class';
-import { ChChartLegendMultiSeries } from '../legend/ch-chart-legend-multi-series.class';
-import { ChChart2dMultiSerie } from '../data/ch-chart-multi-serie.class';
-import { ChChart2AxisRenderer } from '../../renderer/ch-chart-renderer.class';
-import { ChChartAxis, ChChartAxisBand } from '../drawer/ch-chart-axis.class';
-import { ChChartRendererStackedBarPlot } from '../../renderer/ch-chart-renderer-stacked-bar.plot';
-import { ChChartRendererBarPlot } from '../../renderer/ch-chart-renderer-bar.plot';
-import { ChChartScaleBand, ChChartScaleLinear, ChChartScaleNumber } from '../scale/ch-chart-scale.class';
 import {
   ChChartLegendMultiSeriesComponent,
   ChChartLegendMultiSeriesInput,
 } from '../../component/ch-chart-right-section/ch-chart-legend-multi-series/ch-chart-legend-multi-series.component';
+import { ChChart2AxisRenderer } from '../../renderer/ch-chart-renderer.class';
+import { ChChartRendererBarPlot } from '../../renderer/ch-chart-renderer-bar.plot';
+import { ChChartRendererStackedBarPlot } from '../../renderer/ch-chart-renderer-stacked-bar.plot';
+import { ChChartConfig, ChChartRightSectionConfig } from '../ch-chart-config.class';
+import { ChChart2dMultiSerie } from '../data/ch-chart-multi-serie.class';
+import { ChChartAxis, ChChartAxisBand } from '../drawer/ch-chart-axis.class';
+import { ChChart2dBrushX, ChChartBrush } from '../drawer/ch-chart-brush.class';
+import { ChChartContainer, ChChartContainer2Axis } from '../drawer/ch-chart-container.class';
+import { ChChartSVGLegend } from '../legend/ch-chart-legend.class';
+import { ChChartLegendMultiSeries } from '../legend/ch-chart-legend-multi-series.class';
+import { ChChartScaleBand, ChChartScaleLinear, ChChartScaleNumber } from '../scale/ch-chart-scale.class';
+import { ChChartScaleColor, ChChartScaleColorMulti } from '../scale/ch-chart-scale-color.class';
 
 abstract class ChChartBar extends ChChartConfig {
   protected readonly seriesColorScale: ChChartScaleColor;

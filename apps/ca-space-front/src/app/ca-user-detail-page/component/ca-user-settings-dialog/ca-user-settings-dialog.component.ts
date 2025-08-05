@@ -1,16 +1,17 @@
 import { Component, inject } from '@angular/core';
-import { CaAuthService } from '../../../ca-login/service/ca-auth.service';
-import { Router } from '@angular/router';
-import { CaEnvironmentHelper } from '../../../ca-core/utils/ca-environment.helper';
-import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
-import { MatDialogContent } from '@angular/material/dialog';
-import { CaUserTwoFaToggleComponent } from '../ca-user-two-fa-toggle/ca-user-two-fa-toggle.component';
-import { CaThemeSelectionComponent } from '../ca-theme-selection/ca-theme-selection.component';
-import { CaLanguageSelectionComponent } from '../ca-language-selection/ca-language-selection.component';
 import { MatButton } from '@angular/material/button';
+import { MatDialogContent } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
+import { Router } from '@angular/router';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { CaEnvironmentHelper } from '../../../ca-core/utils/ca-environment.helper';
+import { CaAuthService } from '../../../ca-login/service/ca-auth.service';
+import { CaLanguageSelectionComponent } from '../ca-language-selection/ca-language-selection.component';
+import { CaThemeSelectionComponent } from '../ca-theme-selection/ca-theme-selection.component';
+import { CaUserTwoFaToggleComponent } from '../ca-user-two-fa-toggle/ca-user-two-fa-toggle.component';
 
 /**
  * Settings page

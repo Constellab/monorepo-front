@@ -1,16 +1,17 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
-import { FlSearchModule, FlSearchState } from '@monorepo/front-core-lib/fl-search';
-import { CaActivityEntityType, CaActivityType } from '../../../../model/entities/ca-activity.class';
-import { MatFormField, MatLabel } from '@angular/material/form-field';
-import { MatSelect } from '@angular/material/select';
-import { MatOption } from '@angular/material/core';
-import { MatInput } from '@angular/material/input';
-import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
-import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { MatCheckbox } from '@angular/material/checkbox';
+import { MatOption } from '@angular/material/core';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { MatSelect } from '@angular/material/select';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
+import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
+import { FlSearchModule, FlSearchState } from '@monorepo/front-core-lib/fl-search';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { CaActivityEntityType, CaActivityType } from '../../../../model/entities/ca-activity.class';
 
 @Component({
   selector: 'ca-activity-search-form',

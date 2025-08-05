@@ -1,25 +1,26 @@
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { AsyncPipe, NgClass } from '@angular/common';
 import { Component, inject, Input, OnInit, Signal } from '@angular/core';
-import { HaRouterService } from '../../ha-core/ha-service/ha-router.service';
-import { ClSupportedLanguage, ClTheme } from '@monorepo/core-lib';
-import { Observable } from 'rxjs';
-import { HaUser } from '../../ha-core/ha-model/ha-entities/ha-user';
-import { HaAuthenticatedUserService } from '../../ha-core/ha-service/ha-authenticated-user.service';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { HaAuthService } from '../../ha-core/ha-service/ha-auth.service';
-import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
-import { HaThemeState } from '../../ha-core/ha-state/ha-theme.state';
-import { HaInstantSearchDialogComponent } from '../../ha-core/ha-component/ha-instant-search-dialog/ha-instant-search-dialog.component';
+import { MatIconButton } from '@angular/material/button';
 import { MatFormField, MatPrefix } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatInput } from '@angular/material/input';
-import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
-import { MatIconButton } from '@angular/material/button';
+import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
+import { ClSupportedLanguage, ClTheme } from '@monorepo/core-lib';
 import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
-import { CdkScrollable } from '@angular/cdk/scrolling';
-import { AsyncPipe, NgClass } from '@angular/common';
-import { HaIsAdminDirective } from '../../ha-core/ha-module/ha-core-directive/ha-is-admin/ha-is-admin.directive';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { TranslatePipe } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+
+import { HaInstantSearchDialogComponent } from '../../ha-core/ha-component/ha-instant-search-dialog/ha-instant-search-dialog.component';
+import { HaUser } from '../../ha-core/ha-model/ha-entities/ha-user';
+import { HaIsAdminDirective } from '../../ha-core/ha-module/ha-core-directive/ha-is-admin/ha-is-admin.directive';
+import { HaAuthService } from '../../ha-core/ha-service/ha-auth.service';
+import { HaAuthenticatedUserService } from '../../ha-core/ha-service/ha-authenticated-user.service';
+import { HaRouterService } from '../../ha-core/ha-service/ha-router.service';
+import { HaThemeState } from '../../ha-core/ha-state/ha-theme.state';
 
 export enum HaSmallScreenPossibleRoute {
   STORY = 'story',

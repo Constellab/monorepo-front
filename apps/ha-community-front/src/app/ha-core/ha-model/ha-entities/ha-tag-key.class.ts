@@ -1,11 +1,12 @@
-import { DateTime } from 'luxon';
-import { HaUser } from './ha-user';
+import { CoTagKey, CoTagKeyType } from '@monorepo/community-lib';
+import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
+import { TdParamSpecs } from '@monorepo/technical-doc';
 import { TeRichText, TeRichTextTransform } from '@monorepo/text-editor';
 import { Type } from 'class-transformer';
+import { DateTime } from 'luxon';
+
 import { HaSpace } from './ha-space.class';
-import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
-import { CoTagKey, CoTagKeyType } from '@monorepo/community-lib';
-import { TdParamSpecs } from '@monorepo/technical-doc';
+import { HaUser } from './ha-user';
 
 export class HaTagKey implements CoTagKey {
   id: string;

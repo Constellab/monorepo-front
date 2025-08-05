@@ -1,22 +1,22 @@
 import { Component, inject } from '@angular/core';
-import { FlDialogModule, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-
-import { CaFolderService } from '../../../../../ca-core/service-api/ca-folder.service';
+import { MatButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
+import { MatIcon } from '@angular/material/icon';
+import { FlDialogModule, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import { MatButton } from '@angular/material/button';
-import { MatIcon } from '@angular/material/icon';
 import { TranslatePipe } from '@ngx-translate/core';
+
 import {
   CaFolderShareDialogComponent,
   CaFolderShareDialogInput,
 } from '../../../../../ca-core/entity-module/ca-folder-core/component/ca-folder-share-dialog/ca-folder-share-dialog.component';
+import { CaFolderUserTableComponent } from '../../../../../ca-core/entity-module/ca-folder-core/component/ca-folder-user-table/ca-folder-user-table.component';
 import {
   CaFolderUser,
   CaFolderUserArrayObs,
 } from '../../../../../ca-core/model/entities/folder/ca-folder-user.class';
-import { CaFolderUserTableComponent } from '../../../../../ca-core/entity-module/ca-folder-core/component/ca-folder-user-table/ca-folder-user-table.component';
+import { CaFolderService } from '../../../../../ca-core/service-api/ca-folder.service';
 
 export interface CaFolderUsersDialogInput {
   folderId: string;

@@ -1,22 +1,23 @@
 import { Component, inject } from '@angular/core';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { TranslatePipe } from '@ngx-translate/core';
+
+import {
+  CaCloudProviderFormDialogComponent,
+  CaCloudProviderFormDialogInput,
+} from '../../../ca-core/entity-module/ca-cloud-provider-core/component/ca-cloud-provider-form-dialog/ca-cloud-provider-form-dialog.component';
+import { CaCloudProviderTableComponent } from '../../../ca-core/entity-module/ca-cloud-provider-core/component/ca-cloud-provider-table/ca-cloud-provider-table.component';
 import {
   CaCloudProvider,
   CaCloudProviderDatasource,
 } from '../../../ca-core/model/entities/ca-cloud-provider.class';
 import { CaCloudProviderService } from '../../../ca-core/service-api/ca-cloud-provider.service';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import {
-  CaCloudProviderFormDialogComponent,
-  CaCloudProviderFormDialogInput,
-} from '../../../ca-core/entity-module/ca-cloud-provider-core/component/ca-cloud-provider-form-dialog/ca-cloud-provider-form-dialog.component';
-import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { MatIcon } from '@angular/material/icon';
-import { MatIconButton } from '@angular/material/button';
-import { MatTooltip } from '@angular/material/tooltip';
-import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
-import { CaCloudProviderTableComponent } from '../../../ca-core/entity-module/ca-cloud-provider-core/component/ca-cloud-provider-table/ca-cloud-provider-table.component';
-import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'ca-admin-cloud-providers-list',

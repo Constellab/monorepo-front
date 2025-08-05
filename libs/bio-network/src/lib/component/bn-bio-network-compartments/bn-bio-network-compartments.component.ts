@@ -1,9 +1,10 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
-import { BnBioNetworkState } from '../../state/bn-bio-network.state';
 import { Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { BnBioNetworkSelectionState } from '../../state/bn-bio-network-selection.state';
+
 import { BnBioNetworkCompartment } from '../../model/bn-bio-network.class';
+import { BnBioNetworkState } from '../../state/bn-bio-network.state';
+import { BnBioNetworkSelectionState } from '../../state/bn-bio-network-selection.state';
 
 /**
  * Component inside the {@link BnBioNetworkComponent} to show the list of compartments and

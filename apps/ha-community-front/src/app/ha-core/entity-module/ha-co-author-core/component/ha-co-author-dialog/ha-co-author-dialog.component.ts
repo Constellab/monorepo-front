@@ -1,22 +1,23 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FlConfirmDialogInput, FlDialogModule, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatIconButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
-import { HaCoAuthorService } from '../../model/ha-co-author-service';
-import { HaCoAuthorInvite } from '../../model/ha-co-author-invite.class';
+import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatIcon } from '@angular/material/icon';
+import { MatInput } from '@angular/material/input';
+import { MatTooltip } from '@angular/material/tooltip';
+import { RouterLink } from '@angular/router';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
+import { FlConfirmDialogInput, FlDialogModule, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+import { TranslatePipe } from '@ngx-translate/core';
+
 import { HaUser } from '../../../../ha-model/ha-entities/ha-user';
 import { HaRouterService } from '../../../../ha-service/ha-router.service';
-import { RouterLink } from '@angular/router';
-import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import { MatIconButton } from '@angular/material/button';
-import { MatTooltip } from '@angular/material/tooltip';
-import { MatIcon } from '@angular/material/icon';
-import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
-import { MatInput } from '@angular/material/input';
-import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
-import { TranslatePipe } from '@ngx-translate/core';
-import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
+import { HaCoAuthorInvite } from '../../model/ha-co-author-invite.class';
+import { HaCoAuthorService } from '../../model/ha-co-author-service';
 
 export interface HaCoAuthorsDialogInput {
   id: string;

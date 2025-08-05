@@ -1,11 +1,12 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { CaStatsService } from '../../../ca-core/service-api/ca-stats.service';
-import { CaStats } from '../../../ca-core/model/entities/ca-stats.class';
+import { MatIcon } from '@angular/material/icon';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { MatIcon } from '@angular/material/icon';
-import { CaDashboardActivityCardComponent } from '../ca-dashboard-activity-card/ca-dashboard-activity-card.component';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { CaStats } from '../../../ca-core/model/entities/ca-stats.class';
+import { CaStatsService } from '../../../ca-core/service-api/ca-stats.service';
+import { CaDashboardActivityCardComponent } from '../ca-dashboard-activity-card/ca-dashboard-activity-card.component';
 
 @Component({
   selector: 'ca-dashboard-my-activity',

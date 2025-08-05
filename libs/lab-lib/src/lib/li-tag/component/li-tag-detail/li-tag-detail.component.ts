@@ -1,20 +1,10 @@
 import { Component, computed, inject, input, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { LiTagDetailState } from '../../state/li-tag-detail.state';
-import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
-import { TranslatePipe } from '@ngx-translate/core';
-import { TeCompleteConfig, TeTextEditorModule } from '@monorepo/text-editor';
 import { FormsModule } from '@angular/forms';
-import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
-import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
-import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
-import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
-import { MatIcon } from '@angular/material/icon';
 import { MatButton, MatIconButton } from '@angular/material/button';
-import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
-import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+import { MatIcon } from '@angular/material/icon';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
+import { MatTooltip } from '@angular/material/tooltip';
+import { Router } from '@angular/router';
 import {
   CoDeprecatedTagComponent,
   CoTagAdditionalInfoSpecState,
@@ -24,16 +14,27 @@ import {
   CoTagValueEditDialogInput,
   CoTagValuesTableComponent,
 } from '@monorepo/community-lib';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
+import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
 import { FlConfirmDialogResult, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
+import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
+import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
+import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+import { LiRouterService, LiTagService } from '@monorepo/lab-lib/li-core';
+import { TdAbstractDynamicParamSpecState, TdParamSpecs } from '@monorepo/technical-doc';
+import { TeCompleteConfig, TeTextEditorModule } from '@monorepo/text-editor';
+import { TranslatePipe } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+
+import { LiTagDetailState } from '../../state/li-tag-detail.state';
 import {
   LiShareTagToCommunityDialogComponent,
   LiShareTagToCommunityDialogInput,
 } from '../li-share-tag-to-community-dialog/li-share-tag-to-community-dialog.component';
-import { MatTooltip } from '@angular/material/tooltip';
-import { TdAbstractDynamicParamSpecState, TdParamSpecs } from '@monorepo/technical-doc';
-import { LiRouterService, LiTagService } from '@monorepo/lab-lib/li-core';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'li-tag-detail',

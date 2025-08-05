@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { BnBioNetworkNode } from '../../model/bn-bio-network-node.class';
 import { FlExternalLinkService } from '@monorepo/front-core-lib/fl-core';
+
+import { BnBioNetworkNode } from '../../model/bn-bio-network-node.class';
 
 interface Link {
   link: string;

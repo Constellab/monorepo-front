@@ -1,31 +1,31 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FlConfirmDialogInput, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { MatButton, MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
+import { FlConfirmDialogInput, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import {
   FlSavedSearch,
   FlSearchConfig,
   FlSearchModule,
   FlSearchState,
 } from '@monorepo/front-core-lib/fl-search';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
+import { TranslatePipe } from '@ngx-translate/core';
 
+import { CaSpaceDatasource } from '../../../../model/entities/space/ca-space.class';
+import { CaSpaceSettingsDto } from '../../../../model/entities/space/ca-space.dto';
 import { CaSpaceService } from '../../../../service-api/ca-space.service';
 import { CaSpaceSearch, CaSpaceSearchFields } from '../../model/ca-space-search.class';
-import { CaSpaceDatasource } from '../../../../model/entities/space/ca-space.class';
 import {
   CaSpaceFormDialogComponent,
   CaSpaceFormDialogInput,
 } from '../ca-space-form-dialog/ca-space-form-dialog.component';
-import { CaSpaceSettingsDto } from '../../../../model/entities/space/ca-space.dto';
-import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { MatIcon } from '@angular/material/icon';
-import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
-import { MatButton, MatIconButton } from '@angular/material/button';
-import { MatTooltip } from '@angular/material/tooltip';
 import { CaSpaceSearchFormComponent } from '../ca-space-search-form/ca-space-search-form.component';
 import { CaSpaceTableComponent } from '../ca-space-table/ca-space-table.component';
-import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'ca-space-search',

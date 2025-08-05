@@ -1,10 +1,11 @@
+import { inject,Injectable } from '@angular/core';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
-import { Injectable, inject } from '@angular/core';
-import { LiResourceService } from './li-resource.service';
-import { LiResourceView } from '../model/entities/resource/li-resource-view.entity';
-import { Observable } from 'rxjs';
 import { RvResourceViewTable } from '@monorepo/resource-view';
 import { TdParamSpecsValues } from '@monorepo/technical-doc';
+import { Observable } from 'rxjs';
+
+import { LiResourceView } from '../model/entities/resource/li-resource-view.entity';
+import { LiResourceService } from './li-resource.service';
 
 export type LiTableChartType =
   | 'line-plot-2d'

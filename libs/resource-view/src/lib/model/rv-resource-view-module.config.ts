@@ -1,10 +1,11 @@
-import { rvDefaultViewTypeInfos, RvResourceViewTypeInfo } from './rv-type-info.class';
-import { Injectable, InjectionToken, ViewContainerRef } from '@angular/core';
+import { InjectionToken, ViewContainerRef } from '@angular/core';
 import { SpSheetChartConfig, SpSpreadsheetPageLoader } from '@monorepo/spreadsheet';
-import { RvConfigValues, RvViewConfig } from './rv-view-config.class';
-import { RvResourceViewTable } from './rv-table.class';
 import { Observable } from 'rxjs';
+
 import { RvResourceViewText } from './rv-resource-view.class';
+import { RvResourceViewTable } from './rv-table.class';
+import { RvResourceViewTypeInfo } from './rv-type-info.class';
+import { RvConfigValues, RvViewConfig } from './rv-view-config.class';
 
 export abstract class RvSpreadsheetViewConfig {
   abstract getChartConfig(
@@ -78,27 +79,6 @@ export class RvTextViewBasicConfig extends RvTextViewConfig {
 
   callPagination(): Observable<RvResourceViewText> {
     return null;
-  }
-}
-
-/**
- * Default configuration for the ResourceViewModule (basic)
- */
-@Injectable({
-  providedIn: 'root',
-})
-export class RvResourceViewModuleBasicConfig extends RvResourceViewModuleConfig {
-  // list the views that are available
-  getAvailableViews(): Record<string, RvResourceViewTypeInfo> {
-    return rvDefaultViewTypeInfos;
-  }
-
-  getSpreadsheetViewConfig(): RvSpreadsheetViewConfig {
-    return new RvSpreadsheetViewBasicConfig();
-  }
-
-  getTextViewConfig(): RvTextViewConfig {
-    return new RvTextViewBasicConfig();
   }
 }
 

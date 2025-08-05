@@ -1,15 +1,16 @@
-import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { Component, EventEmitter, inject,Input, OnInit, Output } from '@angular/core';
+import { NgControl } from '@angular/forms';
 import { FlFormFieldDirective, FlInputSearchFilter } from '@monorepo/front-core-lib/fl-core';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlInputSearchAdvancedButton, FlInputSearchModule } from '@monorepo/front-core-lib/fl-input-search';
+import { LiTypeEntity, LiTypeEntityDatasource, LiTypeService } from '@monorepo/lab-lib/li-core';
+import { TdTechnicalDocModule, TdTypeObjectType } from '@monorepo/technical-doc';
+import { Observable } from 'rxjs';
+
 import {
   LiSelectTypeDialogComponent,
   LiSelectTypeDialogInput,
 } from '../li-select-type-dialog/li-select-type-dialog.component';
-import { LiTypeEntity, LiTypeEntityDatasource, LiTypeService } from '@monorepo/lab-lib/li-core';
-import { NgControl } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { TdTechnicalDocModule, TdTypeObjectType } from '@monorepo/technical-doc';
 
 /**
  * Select component for LabType

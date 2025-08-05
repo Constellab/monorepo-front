@@ -1,4 +1,5 @@
 import { inject, Pipe, PipeTransform } from '@angular/core';
+
 import { HaCommunityAppService } from '../../../ha-service/ha-community-app.service';
 
 @Pipe({ name: 'haAppPicture' })

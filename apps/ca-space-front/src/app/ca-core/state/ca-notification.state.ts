@@ -1,17 +1,18 @@
 import { inject, Injectable, OnDestroy } from '@angular/core';
-import { CaNotificationsService } from '../service-api/ca-notifications.service';
+import { ClCachedObservable } from '@monorepo/core-lib';
+import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
+import { BehaviorSubject, debounceTime, mergeMap, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 import {
   CaNotification,
   CaNotificationCountBySpace,
   CaNotificationDatasourcePaginated,
   CaNotificationType,
 } from '../model/entities/ca-notification.class';
-import { BehaviorSubject, debounceTime, mergeMap, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { CaCurrentSpaceService } from '../service-api/ca-current-space.service';
 import { CaSpace } from '../model/entities/space/ca-space.class';
-import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
-import { ClCachedObservable } from '@monorepo/core-lib';
+import { CaCurrentSpaceService } from '../service-api/ca-current-space.service';
+import { CaNotificationsService } from '../service-api/ca-notifications.service';
 
 export interface CaNotificationStateFind {
   id?: string;

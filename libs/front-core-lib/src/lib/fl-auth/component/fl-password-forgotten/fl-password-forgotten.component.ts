@@ -1,8 +1,9 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject,OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { FlUserAccountService } from '../../service/fl-user-account.service';
-import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { MatDialogRef } from '@angular/material/dialog';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
+
+import { FlUserAccountService } from '../../service/fl-user-account.service';
 
 /**
  * Dialog with a simple form where the user enter his email to receive the

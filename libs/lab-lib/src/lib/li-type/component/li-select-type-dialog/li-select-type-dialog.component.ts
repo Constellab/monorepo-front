@@ -1,12 +1,13 @@
-import { AsyncPipe } from '@angular/common';
 import { CdkScrollable } from '@angular/cdk/scrolling';
-import { Component, OnInit, inject } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
+import { Component, inject,OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlTranslatableText, FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 import { LiTypeEntity, LiTypeSearchConfig } from '@monorepo/lab-lib/li-core';
-import { LiTypeSearchComponent } from '../li-type-search/li-type-search.component';
-import { MAT_DIALOG_DATA, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { LiTypeSearchComponent } from '../li-type-search/li-type-search.component';
 
 export interface LiSelectTypeDialogInput {
   searchConfig: LiTypeSearchConfig;

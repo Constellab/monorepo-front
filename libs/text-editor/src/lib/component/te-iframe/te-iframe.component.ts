@@ -1,12 +1,13 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { ClStringHelper } from '@monorepo/core-lib';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlResizeEvent } from '@monorepo/front-core-lib/fl-resize';
-import { TeElementBlockDirective } from '../../model/te-element.directive';
-import { TeIframeBlockData } from '../../block/te-iframe-block.class';
-import { TeLinkDialogComponent, TeLinkDialogInput } from '../te-link-dialog/te-link-dialog.component';
-import { ClStringHelper } from '@monorepo/core-lib';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Observable, of } from 'rxjs';
+
+import { TeIframeBlockData } from '../../block/te-iframe-block.class';
+import { TeElementBlockDirective } from '../../model/te-element.directive';
+import { TeLinkDialogComponent, TeLinkDialogInput } from '../te-link-dialog/te-link-dialog.component';
 
 @Component({
   selector: 'te-iframe',

@@ -1,24 +1,25 @@
 import { Component, inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
-import { CaLabBackupStatusDTO } from '../../../../ca-core/model/entities/lab/ca-lab-backup.class';
-import { CaLab } from '../../../../ca-core/model/entities/lab/ca-lab.class';
-import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatButton } from '@angular/material/button';
+import { MatCheckbox } from '@angular/material/checkbox';
+import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
+import { MatError } from '@angular/material/form-field';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogModule,
   FlDialogService,
 } from '@monorepo/front-core-lib/fl-dialog';
-import { CaLabManagerRestoreBackupConfigDTO } from '../../../../ca-core/model/entities/lab/ca-lab-manager.class';
 import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
-import { CaSelectLabComponent } from '../../../../ca-core/entity-module/ca-lab-core/component/ca-select-lab/ca-select-lab.component';
-import { MatError } from '@angular/material/form-field';
-import { MatCheckbox } from '@angular/material/checkbox';
-import { MatButton } from '@angular/material/button';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
-import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { CaSelectLabComponent } from '../../../../ca-core/entity-module/ca-lab-core/component/ca-select-lab/ca-select-lab.component';
+import { CaLab } from '../../../../ca-core/model/entities/lab/ca-lab.class';
+import { CaLabBackupStatusDTO } from '../../../../ca-core/model/entities/lab/ca-lab-backup.class';
+import { CaLabManagerRestoreBackupConfigDTO } from '../../../../ca-core/model/entities/lab/ca-lab-manager.class';
+import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
 
 export interface CaLabRestoreBackupToLabDialogInput {
   labId: string;

@@ -1,17 +1,18 @@
-import { ClHelpService } from '@monorepo/core-lib';
-import { Component, ElementRef, EventEmitter, Input, Output, ViewChild, inject } from '@angular/core';
-import { FlFormFieldDirective } from '@monorepo/front-core-lib/fl-core';
+import { Component, ElementRef, EventEmitter, inject,Input, Output, ViewChild } from '@angular/core';
 import { FormControl, NgControl, ReactiveFormsModule } from '@angular/forms';
+import { MatIconButton } from '@angular/material/button';
+import { MatFormField, MatHint, MatLabel, MatSuffix } from '@angular/material/form-field';
+import { MatIcon } from '@angular/material/icon';
+import { MatInput } from '@angular/material/input';
+import { ClHelpService } from '@monorepo/core-lib';
+import { FlFormFieldDirective } from '@monorepo/front-core-lib/fl-core';
 import { LiAuthenticatedUserService } from '@monorepo/lab-lib/li-core';
+
 import { LiOpenAiChat, LiOpenAiChatMessage } from '../../model/li-open-ai.class';
 import {
   LiOpenAiChatMessageAction,
   LiOpenAiChatMessageComponent,
 } from '../li-open-ai-chat-message/li-open-ai-chat-message.component';
-import { MatFormField, MatHint, MatLabel, MatSuffix } from '@angular/material/form-field';
-import { MatIcon } from '@angular/material/icon';
-import { MatIconButton } from '@angular/material/button';
-import { MatInput } from '@angular/material/input';
 
 /**
  * Form component to show an open AI chat with possibility to add or remove messages

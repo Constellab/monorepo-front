@@ -5,6 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTree, MatTreeModule } from '@angular/material/tree';
 import { FlDatasourceTree, FlTree } from '@monorepo/front-core-lib/fl-core';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+
 import { DcComponentData, DcDynamicComponent } from '../../../core/model/dc-dynamic-component.class';
 
 interface DcTreeItem {

@@ -1,21 +1,21 @@
-import { inject, ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FlPortalActionsComponent } from './component/fl-portal-actions/fl-portal-actions.component';
-import { FlPortalActionLineComponent } from './component/fl-portal-action-line/fl-portal-action-line.component';
-import { FlPortalModule } from '../fl-portal/fl-portal.module';
-
+import { inject, ModuleWithProviders, NgModule } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { RouterModule } from '@angular/router';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
+import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+
 import { FlLoaderModule } from '../fl-loader/fl-loader.module';
+import { FlPortalModule } from '../fl-portal/fl-portal.module';
+import { FlTranslateModule } from '../fl-translate/fl-translate.module';
+import { FlPortalActionLineComponent } from './component/fl-portal-action-line/fl-portal-action-line.component';
+import { FlPortalActionsComponent } from './component/fl-portal-actions/fl-portal-actions.component';
+import { flPortalActionI18n } from './i18n/fl-portal-action.i18n';
 import { FlPortalActionsService } from './service/fl-portal-actions.service';
 import { FlPortalActionsState } from './service/fl-portal-actions.state';
-import { MatDividerModule } from '@angular/material/divider';
-import { FlTranslateModule } from '../fl-translate/fl-translate.module';
-import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
-import { flPortalActionI18n } from './i18n/fl-portal-action.i18n';
-import { RouterModule } from '@angular/router';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatButtonModule } from '@angular/material/button';
-import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 
 @NgModule({
   declarations: [FlPortalActionsComponent, FlPortalActionLineComponent],

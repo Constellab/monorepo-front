@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
-import { CaRouterService } from '../../../ca-core/service/ca-router.service';
+import { MatIcon } from '@angular/material/icon';
+import { RouterOutlet } from '@angular/router';
 import {
   FlHorizontalNavBarItem,
   FlHorizontalNavBarModule,
 } from '@monorepo/front-core-lib/fl-horizontal-nav-bar';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { MatIcon } from '@angular/material/icon';
-import { RouterOutlet } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { CaRouterService } from '../../../ca-core/service/ca-router.service';
 
 /**
  * Global page for admin

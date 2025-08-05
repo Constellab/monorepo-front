@@ -1,12 +1,13 @@
-import { Expose, Type } from 'class-transformer';
+import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 import { FlFileHelper } from '@monorepo/front-core-lib/fl-translate';
-import { LiBaseEntityWithUser } from '../li-user.entity';
+import { PrResource } from '@monorepo/protocol';
+import { TdTypeObjectStatus, TdTypeRefDTO, TdTypeStyle } from '@monorepo/technical-doc';
+import { Expose, Type } from 'class-transformer';
+
 import { LiEntity } from '../../global/li-entity.entity';
 import { LiFlaggedEntity } from '../../global/li-flagged-entity.class';
 import { LiFolder } from '../li-folder.class';
-import { PrResource } from '@monorepo/protocol';
-import { TdTypeObjectStatus, TdTypeRefDTO, TdTypeStyle } from '@monorepo/technical-doc';
-import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
+import { LiBaseEntityWithUser } from '../li-user.entity';
 
 /**
  * Represent a file or a folder link to the resource

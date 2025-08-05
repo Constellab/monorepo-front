@@ -1,8 +1,9 @@
+import { inject,Injectable } from '@angular/core';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
-import { Injectable, inject } from '@angular/core';
+import { Observable } from 'rxjs';
+
 import { LiQueueJob } from '../model/entities/li-queue.entity';
 import { LiScenario } from '../model/entities/li-scenario.entity';
-import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class LiQueueService {

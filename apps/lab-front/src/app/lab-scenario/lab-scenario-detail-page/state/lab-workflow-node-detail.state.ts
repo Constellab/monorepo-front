@@ -1,16 +1,7 @@
-import { BehaviorSubject, Observable, filter, switchMap } from 'rxjs';
+import { inject,Injectable, ViewContainerRef } from '@angular/core';
 import { ClSubscriptionHandler } from '@monorepo/core-lib';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlPortalConnectedPosition, FlPortalService } from '@monorepo/front-core-lib/fl-portal';
-import { Injectable, ViewContainerRef, inject } from '@angular/core';
-import { LabProcessDashboardComponent } from '../component/lab-process-dashboard/lab-process-dashboard.component';
-import { LabResourceNextObjectsPortalComponent } from '../component/lab-resource-next-objects-portal/lab-resource-next-objects-portal.component';
-import { LabScenarioDetailPageState } from './lab-scenario-detail-page.state';
-import {
-  LabWorkflowAction,
-  LabWorkflowEditConfig,
-  LabWorkflowEventNodeAdditionalInfo,
-} from '../model/lab-workflow-edit-config.class';
 import { LiProcess, LiProtocolService, LiResource, LiRouterService } from '@monorepo/lab-lib/li-core';
 import {
   LiResourceDetailDialogComponent,
@@ -26,6 +17,16 @@ import {
   PrWorkflowNodeProcess,
 } from '@monorepo/protocol';
 import { TdIOSpec, TdParamSpecVisibility, TdTypingName } from '@monorepo/technical-doc';
+import { BehaviorSubject, filter, Observable, switchMap } from 'rxjs';
+
+import { LabProcessDashboardComponent } from '../component/lab-process-dashboard/lab-process-dashboard.component';
+import { LabResourceNextObjectsPortalComponent } from '../component/lab-resource-next-objects-portal/lab-resource-next-objects-portal.component';
+import {
+  LabWorkflowAction,
+  LabWorkflowEditConfig,
+  LabWorkflowEventNodeAdditionalInfo,
+} from '../model/lab-workflow-edit-config.class';
+import { LabScenarioDetailPageState } from './lab-scenario-detail-page.state';
 
 /**
  * State to manage the selected node to show it in the drawer

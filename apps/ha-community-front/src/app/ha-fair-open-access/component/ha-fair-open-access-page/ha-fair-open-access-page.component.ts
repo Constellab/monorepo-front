@@ -1,9 +1,10 @@
 import { Component, inject, OnInit, Signal } from '@angular/core';
-import { HaThemeState } from '../../../ha-core/ha-state/ha-theme.state';
-import { HaMetadataService } from '../../../ha-core/ha-service/ha-metadata.service';
-import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { HaMetadataService } from '../../../ha-core/ha-service/ha-metadata.service';
+import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
+import { HaThemeState } from '../../../ha-core/ha-state/ha-theme.state';
 
 @Component({
   selector: 'ha-fair-open-access-page',

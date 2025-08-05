@@ -1,12 +1,13 @@
 import { Component, inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
-import { LiNotesUsingResourceComponent } from '../li-notes-using-resource/li-notes-using-resource.component';
 import { LiResource } from '@monorepo/lab-lib/li-core';
+import { TdTechnicalDocModule } from '@monorepo/technical-doc';
+
+import { LiNotesUsingResourceComponent } from '../li-notes-using-resource/li-notes-using-resource.component';
 import { LiResourceInfoComponent } from '../li-resource-info/li-resource-info.component';
 import { LiResourceViewHistoricComponent } from '../li-resource-view-historic/li-resource-view-historic.component';
 import { LiScenariosUsingResourceComponent } from '../li-scenarios-using-resource/li-scenarios-using-resource.component';
-import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
-import { TdTechnicalDocModule } from '@monorepo/technical-doc';
 
 export interface LiResourceInfoDialogInput {
   resource: LiResource;

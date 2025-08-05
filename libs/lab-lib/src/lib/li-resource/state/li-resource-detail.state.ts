@@ -1,12 +1,5 @@
 import { ComponentType } from '@angular/cdk/overlay';
 import {
-  FlEntityPaginatedDatasource,
-  FlQueryParamHandler,
-  FlStatusEvent,
-} from '@monorepo/front-core-lib/fl-core';
-import { FlOverlayRef, FlPortalConfig, FlPortalService } from '@monorepo/front-core-lib/fl-portal';
-import { FlPortalActionResult, FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
-import {
   computed,
   inject,
   Injectable,
@@ -17,6 +10,13 @@ import {
   WritableSignal,
 } from '@angular/core';
 import {
+  FlEntityPaginatedDatasource,
+  FlQueryParamHandler,
+  FlStatusEvent,
+} from '@monorepo/front-core-lib/fl-core';
+import { FlOverlayRef, FlPortalConfig, FlPortalService } from '@monorepo/front-core-lib/fl-portal';
+import { FlPortalActionResult, FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
+import {
   LiResource,
   LiResourceService,
   LiResourceView,
@@ -26,14 +26,15 @@ import {
   LiViewConfigDatasource,
   LiViewConfigService,
 } from '@monorepo/lab-lib/li-core';
+import { TdParamSpecsValues } from '@monorepo/technical-doc';
+import { Observable, Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
+
 import {
   LiResourceViewPortalComponent,
   LiResourceViewPortalInput,
 } from '../component/li-resource-view-portal/li-resource-view-portal.component';
 import { LiViewConfigurerState } from './li-view-configurer-state.service';
-import { Observable, Subscription } from 'rxjs';
-import { TdParamSpecsValues } from '@monorepo/technical-doc';
-import { filter } from 'rxjs/operators';
 
 @Injectable()
 export class LiResourceDetailState implements OnDestroy {

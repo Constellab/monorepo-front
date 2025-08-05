@@ -1,8 +1,10 @@
 import { Component, inject } from '@angular/core';
+import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
+import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
-import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { LiCredentials, LiCredentialsDatasource } from '@monorepo/lab-lib/li-core';
 import {
@@ -10,8 +12,6 @@ import {
   LiCredentialsFormDialogInput, LiCredentialsService,
   LiCredentialsTableComponent,
 } from '@monorepo/lab-lib/li-credentials';
-import { MatButton } from '@angular/material/button';
-import { MatIcon } from '@angular/material/icon';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({

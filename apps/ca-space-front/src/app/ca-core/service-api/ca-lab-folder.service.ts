@@ -1,6 +1,7 @@
 import { inject, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
+import { Observable } from 'rxjs';
+
 import { CaLabFolder } from '../model/entities/lab/ca-lab-folder.class';
 
 @Injectable({

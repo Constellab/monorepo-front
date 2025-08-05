@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { LiTypeDetailComponent } from './li-type-detail.component';
 
 describe('LiProcessTypeCardComponent', () => {

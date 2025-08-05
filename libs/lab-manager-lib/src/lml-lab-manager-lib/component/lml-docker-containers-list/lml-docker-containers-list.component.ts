@@ -1,13 +1,14 @@
 import { Component, inject, Input } from '@angular/core';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { ClHelpService } from '@monorepo/core-lib';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+
+import { LmlLabManagerService } from '../../lml-lab-manager.service';
 import { LmlLabManagerState } from '../../lml-lab-manager.state';
+import { LmlDockerInspect } from '../../model/lml-lab-manager.class';
 import {
   LmlDockerContainerLogsDialogComponent,
   LmlDockerContainerLogsInput,
 } from '../lml-docker-container-logs-dialog/lml-docker-container-logs-dialog.component';
-import { LmlDockerInspect } from '../../model/lml-lab-manager.class';
-import { LmlLabManagerService } from '../../lml-lab-manager.service';
 
 /**
  * Component to list the docker container with name, status and information

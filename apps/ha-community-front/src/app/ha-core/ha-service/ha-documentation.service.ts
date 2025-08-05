@@ -1,8 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
-import { Observable } from 'rxjs';
-import { HaDocumentation } from '../ha-model/ha-entities/ha-documentation.class';
-import { HaNodeDTO } from '../ha-model/ha-entities/ha-node.class';
+import { RvResourceView } from '@monorepo/resource-view';
 import {
   TeBlockFigureUploadedResponse,
   TeRichText,
@@ -10,9 +8,12 @@ import {
   TeRichTextDTO,
   TeTextEditorHistoryService,
 } from '@monorepo/text-editor';
-import { RvResourceView } from '@monorepo/resource-view';
+import { Observable } from 'rxjs';
+
 import { HaFile } from '../entity-module/ha-file-core/model/ha-file';
 import { HaFileServiceInterface } from '../entity-module/ha-file-core/model/ha-file-service.interface';
+import { HaDocumentation } from '../ha-model/ha-entities/ha-documentation.class';
+import { HaNodeDTO } from '../ha-model/ha-entities/ha-node.class';
 
 /**
  * Service to manage documentation entity

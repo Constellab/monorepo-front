@@ -1,10 +1,11 @@
 import { ClDateHelper, ClLuxonDateTransform } from '@monorepo/core-lib';
-import { DateTime } from 'luxon';
-import { Expose, Type } from 'class-transformer';
 import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
+import { Expose, Type } from 'class-transformer';
+import { DateTime } from 'luxon';
+
 import { LiBaseEntity } from '../global/li-entity.entity';
-import { LiBaseEntityWithUser, LiUser } from './li-user.entity';
 import { LiEntityType } from './li-navigable-entity.entity';
+import { LiBaseEntityWithUser, LiUser } from './li-user.entity';
 
 export type LiShareLinkEntityType = 'RESOURCE' | 'SCENARIO';
 

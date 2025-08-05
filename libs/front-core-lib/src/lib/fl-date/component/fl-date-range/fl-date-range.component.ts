@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { DateTime } from 'luxon';
 import { ClOnChange } from '@monorepo/core-lib';
+import { DateTime } from 'luxon';
+
 import { ClDateFormatKey } from '../../pipe/fl-date/fl-date.pipe';
 
 /**

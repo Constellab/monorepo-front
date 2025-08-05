@@ -1,7 +1,8 @@
-import { TeKeyListener } from './te-key-listener.class';
-import { TeHelper } from '../model/te.helper';
 import { FlHtmlHelper } from '@monorepo/front-core-lib/fl-core';
 import { FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
+
+import { TeHelper } from '../model/te.helper';
+import { TeKeyListener } from './te-key-listener.class';
 
 /**
  * Class to simplify the creation of a plugin that opens a portal

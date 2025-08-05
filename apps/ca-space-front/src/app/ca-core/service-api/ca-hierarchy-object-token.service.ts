@@ -1,12 +1,13 @@
 import { inject, Injectable } from '@angular/core';
+import { ClPageI } from '@monorepo/core-lib';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
+import { Observable } from 'rxjs';
+
+import { CaHierarchyObject } from '../model/entities/folder/ca-hierarchy-object.class';
 import {
   CaHierarchyObjectToken,
   CaHierarchyObjectTokenSaveDTO,
 } from '../model/entities/folder/ca-hierarchy-object-token.class';
-import { Observable } from 'rxjs';
-import { ClPageI } from '@monorepo/core-lib';
-import { CaHierarchyObject } from '../model/entities/folder/ca-hierarchy-object.class';
 
 @Injectable({
   providedIn: 'root',

@@ -1,8 +1,8 @@
 import { CoBrick, CoSpace, CoUser } from '@monorepo/community-lib';
-import { FlDatasourcePaginated, FlEntity } from '@monorepo/front-core-lib/fl-core';
-import { DateTime } from 'luxon';
-import { Type } from 'class-transformer';
 import { ClLuxonDateTimeTransform } from '@monorepo/core-lib';
+import { FlDatasourcePaginated, FlEntity } from '@monorepo/front-core-lib/fl-core';
+import { Type } from 'class-transformer';
+import { DateTime } from 'luxon';
 
 export class CaCommunityBrick implements CoBrick, FlEntity {
   comments: number;

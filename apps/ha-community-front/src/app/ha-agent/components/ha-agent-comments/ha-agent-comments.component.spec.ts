@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { HaAgentCommentsComponent } from './ha-agent-comments.component';
 
 describe('HaAgentCommentsComponent', () => {

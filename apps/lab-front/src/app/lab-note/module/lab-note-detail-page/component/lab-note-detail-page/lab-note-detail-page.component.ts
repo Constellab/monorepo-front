@@ -1,31 +1,32 @@
-import { ActivatedRoute } from '@angular/router';
 import { Component, inject, Injector, OnDestroy, OnInit } from '@angular/core';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { ActivatedRoute } from '@angular/router';
 import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
-import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { LabNoteDetailPageState } from '../../lab-note-detail-page-state.service';
-import { LabNoteLinkedScenariosComponent } from '../lab-note-linked-scenarios/lab-note-linked-scenarios.component';
-import { LabNoteTextEditorConfig } from '../../lab-note-text-editor-config.class';
 import { LiFolder, LiNote, LiNoteService, LiTagDatasource, LiTagService } from '@monorepo/lab-lib/li-core';
-import { LiFolderInlineSelectComponent } from '@monorepo/lab-lib/li-folder';
 import {
   LiObjectSyncInfoComponent,
   LiObjectValidationInfoComponent,
   LiSyncObjectButtonComponent,
 } from '@monorepo/lab-lib/li-entity';
+import { LiFolderInlineSelectComponent } from '@monorepo/lab-lib/li-folder';
 import { LiTagListComponent } from '@monorepo/lab-lib/li-tag';
-import { MatIcon } from '@angular/material/icon';
-import { MatIconButton } from '@angular/material/button';
-import { MatTooltip } from '@angular/material/tooltip';
-import { Observable, Subscription } from 'rxjs';
 import { TeRichText, TeRichTextDTO, TeTextEditorModule } from '@monorepo/text-editor';
 import { TranslatePipe } from '@ngx-translate/core';
+import { Observable, Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
+
+import { LabNoteDetailPageState } from '../../lab-note-detail-page-state.service';
+import { LabNoteTextEditorConfig } from '../../lab-note-text-editor-config.class';
 import { LabNoteDetailActionMenu } from '../../li-note-detail-action-menu.class';
+import { LabNoteLinkedScenariosComponent } from '../lab-note-linked-scenarios/lab-note-linked-scenarios.component';
 
 @Component({
   selector: 'lab-note-detail-page',

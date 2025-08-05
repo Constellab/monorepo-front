@@ -1,13 +1,13 @@
 import { ApplicationRef, Component, EnvironmentInjector } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { FlDynamicFieldAbstractDirective } from '@monorepo/front-core-lib/fl-dynamic-field';
 import { LiRichTextAudioTranscriptionConfig } from '@monorepo/lab-lib/li-core';
-import { ReactiveFormsModule } from '@angular/forms';
 import {
   TeCompleteConfig,
+  teInlineToolFactory,
   TeTextEditorModule,
   TeTools,
   TeVariableInlineToolClass,
-  teInlineToolFactory,
 } from '@monorepo/text-editor';
 
 /**

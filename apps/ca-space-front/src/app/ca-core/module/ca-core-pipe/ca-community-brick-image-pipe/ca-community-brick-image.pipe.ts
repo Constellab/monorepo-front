@@ -1,4 +1,5 @@
-import { Pipe, PipeTransform, inject } from '@angular/core';
+import { inject,Pipe, PipeTransform } from '@angular/core';
+
 import { CaCommunityBrickService } from '../../../service-api/ca-community-brick.service';
 
 @Pipe({ name: 'caCommunityBrickImage' })

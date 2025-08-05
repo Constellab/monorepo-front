@@ -3,9 +3,7 @@
     <div class="g-page-title g-layout-row g-layout-start-center g-layout-gap-1em">
       <div class="g-layout-row g-layout-start-end">
         @if (currentSpace$ | async; as currentSpace) {
-          <h1>
-            {{ 'welcome_message' | translate: { name: currentSpace.name } }}
-          </h1>
+          <h1>{{ 'welcome_message' | translate: { name: currentSpace.name } }}</h1>
         }
       </div>
       <div class="g-flex-auto">

@@ -1,3 +1,4 @@
+import { isPlatformBrowser } from '@angular/common';
 import {
   Directive,
   inject,
@@ -7,7 +8,6 @@ import {
   TemplateRef,
   ViewContainerRef,
 } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
 import { FlAbstractIfDirective } from '@monorepo/front-core-lib/fl-core';
 import { Observable } from 'rxjs';
 

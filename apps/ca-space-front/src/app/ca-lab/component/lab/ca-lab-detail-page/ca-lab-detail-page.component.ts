@@ -1,12 +1,14 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { CaLab } from '../../../../ca-core/model/entities/lab/ca-lab.class';
 import { ActivatedRoute, RouterOutlet } from '@angular/router';
-import { CaLabDetailPageState } from '../../../state/ca-lab-detail-page.state';
-import { Observable, Subscription } from 'rxjs';
-import { CaLabDetailServerState } from '../../../state/ca-lab-detail-server.state';
-import { LmlLabManagerService, LmlLabManagerState } from '@monorepo/lab-manager-lib';
-import { CaLabManagerService } from '../../../state/ca-lab-manager.service';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+import { LmlLabManagerService, LmlLabManagerState } from '@monorepo/lab-manager-lib';
+import { Observable, Subscription } from 'rxjs';
+
+import { CaLab } from '../../../../ca-core/model/entities/lab/ca-lab.class';
+import { CaLabDetailConfigPageState } from '../../../state/ca-lab-detail-config-page.state';
+import { CaLabDetailPageState } from '../../../state/ca-lab-detail-page.state';
+import { CaLabDetailServerState } from '../../../state/ca-lab-detail-server.state';
+import { CaLabManagerService } from '../../../state/ca-lab-manager.service';
 import { CaLabHeaderComponent } from '../ca-lab-header/ca-lab-header.component';
 
 @Component({
@@ -18,6 +20,7 @@ import { CaLabHeaderComponent } from '../ca-lab-header/ca-lab-header.component';
     CaLabDetailServerState,
     { provide: LmlLabManagerService, useClass: CaLabManagerService },
     LmlLabManagerState,
+    CaLabDetailConfigPageState,
   ],
   imports: [FlSectionModule, CaLabHeaderComponent, RouterOutlet],
 })

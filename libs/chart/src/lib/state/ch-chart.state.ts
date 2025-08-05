@@ -1,9 +1,10 @@
 import { inject, Injectable } from '@angular/core';
-import { ChChartSvg } from '../model/drawer/ch-chart-svg.class';
-import { ChChartContainer, ChChartContainer2Axis } from '../model/drawer/ch-chart-container.class';
+import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
+
 import { ChChartConfig } from '../model/ch-chart-config.class';
 import { ChChartBrush } from '../model/drawer/ch-chart-brush.class';
-import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
+import { ChChartContainer, ChChartContainer2Axis } from '../model/drawer/ch-chart-container.class';
+import { ChChartSvg } from '../model/drawer/ch-chart-svg.class';
 
 @Injectable()
 export class ChChartState {

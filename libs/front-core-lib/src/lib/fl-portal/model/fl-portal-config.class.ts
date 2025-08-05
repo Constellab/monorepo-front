@@ -1,5 +1,6 @@
 import { PositionStrategy } from '@angular/cdk/overlay';
 import { ElementRef } from '@angular/core';
+
 import { FlOverlayConfig, FlRelativeOverlayConfig } from './fl-portal.class';
 
 /**

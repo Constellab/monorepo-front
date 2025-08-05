@@ -1,10 +1,11 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { ForceManyBody, Simulation } from 'd3-force';
-import { BnBioNetworkNode } from '../model/bn-bio-network-node.class';
 import { ForceCenter, forceCenter, ForceLink, forceLink, forceManyBody, forceSimulation } from 'd3';
-import { BnBioNetworkGraph } from '../model/bn-bio-network-graph.class';
-import { BnBioNetworkEngineConfig } from './bn-bio-network-engine.state';
+import { ForceManyBody, Simulation } from 'd3-force';
 import { Observable, Subject } from 'rxjs';
+
+import { BnBioNetworkGraph } from '../model/bn-bio-network-graph.class';
+import { BnBioNetworkNode } from '../model/bn-bio-network-node.class';
+import { BnBioNetworkEngineConfig } from './bn-bio-network-engine.state';
 
 export interface BnBioNetworkSimulationProgressEvent {
   status: 'started' | 'ended' | 'progress';

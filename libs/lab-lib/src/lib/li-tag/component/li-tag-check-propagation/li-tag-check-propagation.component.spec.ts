@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { LiTagCheckPropagationComponent } from './li-tag-check-propagation.component';
 
 describe('LabAddTagCheckPropagationComponent', () => {

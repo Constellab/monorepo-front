@@ -2,18 +2,18 @@ import { Route } from '@angular/router';
 
 import { HaLoginGuard } from '../ha-core/ha-guard/ha-login.guard';
 import {
-  HaPublicBrickPageComponent
-} from './module/ha-public-brick-page/ha-public-brick-page/ha-public-brick-page.component';
-import {
   HaPublicBrickDescriptionComponent
 } from './module/ha-public-brick-page/ha-public-brick-description/ha-public-brick-description.component';
 import {
-  HaPublicVersionsComponent
-} from './module/ha-public-brick-page/ha-public-versions/ha-public-versions.component';
+  HaPublicBrickPageComponent
+} from './module/ha-public-brick-page/ha-public-brick-page/ha-public-brick-page.component';
+import { HaPublicDocComponent } from './module/ha-public-brick-page/ha-public-doc/ha-public-doc.component';
 import {
   HaPublicTechDocComponent
 } from './module/ha-public-brick-page/ha-public-tech-doc/ha-public-tech-doc.component';
-import { HaPublicDocComponent } from './module/ha-public-brick-page/ha-public-doc/ha-public-doc.component';
+import {
+  HaPublicVersionsComponent
+} from './module/ha-public-brick-page/ha-public-versions/ha-public-versions.component';
 
 export const haPublicRoutes: Route[] = [
   {
@@ -35,6 +35,7 @@ export const haPublicRoutes: Route[] = [
     path: 'invite/:token',
     loadComponent: () =>
       import(
+        // eslint-disable-next-line max-len
         './module/ha-public-brick-page/ha-public-brick-user-invite-page/ha-public-brick-user-invite-page.component'
       ).then((m) => m.HaPublicBrickUserInvitePageComponent),
     canActivate: [HaLoginGuard],
@@ -49,22 +50,22 @@ export const haPublicRoutes: Route[] = [
       },
       {
         path: 'version',
-        component: HaPublicVersionsComponent
+        component: HaPublicVersionsComponent,
       },
       {
         path: 'doc',
         children: [
           {
             path: 'technical-folder/:type/:uniqueName',
-            component: HaPublicTechDocComponent
+            component: HaPublicTechDocComponent,
           },
           {
             path: '**',
-            component: HaPublicDocComponent
-          }
-        ]
-      }
-    ]
+            component: HaPublicDocComponent,
+          },
+        ],
+      },
+    ],
   },
   // TODO FIX
   // {

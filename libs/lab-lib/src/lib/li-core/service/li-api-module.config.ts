@@ -1,5 +1,5 @@
-import { FlApiServiceConfig } from '@monorepo/front-core-lib/fl-api';
 import { ClCoreJsonConvert, ClDeserializationRef, ClPage } from '@monorepo/core-lib';
+import { FlApiServiceConfig } from '@monorepo/front-core-lib/fl-api';
 
 /**
  * Format of the paginated result

@@ -1,5 +1,6 @@
-import { CaBaseEntity } from '../ca-base-entity.class';
 import { ClHelpService } from '@monorepo/core-lib';
+
+import { CaBaseEntity } from '../ca-base-entity.class';
 
 export enum CaLabGreenOptionType {
   // Stop rules

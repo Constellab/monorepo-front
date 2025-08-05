@@ -1,34 +1,35 @@
+import { AsyncPipe } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
-import { HaLeftPanelDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-left-panel/ha-left-panel.directive';
-import { MatIcon } from '@angular/material/icon';
-import { HaSidenavButtonDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-sidenav-button/ha-sidenav-button.directive';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButton, MatIconButton } from '@angular/material/button';
-import { HaIsAuthenticatedDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-is-authenticated/ha-is-authenticated.directive';
-import { TranslatePipe } from '@ngx-translate/core';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { HaTagService } from '../../../ha-core/ha-service/ha-tag.service';
-import {
-  HaTagKeyEditDialogComponent,
-  HaTagKeyEditDialogInput,
-} from '../ha-tag-key-edit-dialog/ha-tag-key-edit-dialog.component';
+import { MatDivider } from '@angular/material/divider';
+import { MatFormField, MatSuffix } from '@angular/material/form-field';
+import { MatIcon } from '@angular/material/icon';
+import { MatInput } from '@angular/material/input';
+import { MatTooltip } from '@angular/material/tooltip';
 import { Router, RouterLink } from '@angular/router';
+import { CoCommunityTagListItemComponent } from '@monorepo/community-lib';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
+import { TranslatePipe } from '@ngx-translate/core';
+
 import {
   HaTagKey,
   HaTagKeyDatasourceFilters,
   HaTagKeyDatasourcePaginated,
 } from '../../../ha-core/ha-model/ha-entities/ha-tag-key.class';
-import { MatDivider } from '@angular/material/divider';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
-import { MatFormField, MatSuffix } from '@angular/material/form-field';
-import { MatInput } from '@angular/material/input';
-import { MatTooltip } from '@angular/material/tooltip';
-import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
-import { AsyncPipe } from '@angular/common';
-import { HaDetailRoutePipe } from '../../../ha-core/ha-module/ha-core-pipe/ha-detail-route/ha-detail-route.pipe';
-import { CoCommunityTagListItemComponent } from '@monorepo/community-lib';
 import { HaCommunityPageDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
+import { HaIsAuthenticatedDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-is-authenticated/ha-is-authenticated.directive';
+import { HaLeftPanelDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-left-panel/ha-left-panel.directive';
+import { HaSidenavButtonDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-sidenav-button/ha-sidenav-button.directive';
+import { HaDetailRoutePipe } from '../../../ha-core/ha-module/ha-core-pipe/ha-detail-route/ha-detail-route.pipe';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
+import { HaTagService } from '../../../ha-core/ha-service/ha-tag.service';
+import {
+  HaTagKeyEditDialogComponent,
+  HaTagKeyEditDialogInput,
+} from '../ha-tag-key-edit-dialog/ha-tag-key-edit-dialog.component';
 
 @Component({
   selector: 'ha-tag-list-page',

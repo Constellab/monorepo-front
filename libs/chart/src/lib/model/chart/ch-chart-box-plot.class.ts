@@ -1,21 +1,22 @@
-import { ChChartConfig, ChChartRightSectionConfig } from '../ch-chart-config.class';
-import { ChChartContainer, ChChartContainer2Axis } from '../drawer/ch-chart-container.class';
-import { ChChartSVGLegend } from '../legend/ch-chart-legend.class';
-import { ChChart2dBrushX, ChChartBrush } from '../drawer/ch-chart-brush.class';
-import { ChChartScaleColorMulti } from '../scale/ch-chart-scale-color.class';
-import { ChChartMultiSerie } from '../data/ch-chart-multi-serie.class';
-import { ChChartBoxPlotData } from '../data/ch-chart-box-plot-data.class';
-import { ChChartLegendMultiSeries } from '../legend/ch-chart-legend-multi-series.class';
-import { ChChartScaleBand, ChChartScaleLinear, ChChartScaleNumber } from '../scale/ch-chart-scale.class';
-import { ChChartAxis, ChChartAxisBand } from '../drawer/ch-chart-axis.class';
-import { ChChartDomain } from '../ch-chart-domain.class';
-import { ChChartRendererBoxPlot } from '../../renderer/ch-chart-renderer-box.plot';
+import { FlColorHelper } from '@monorepo/front-core-lib/fl-core';
+import { FlTagColorer } from '@monorepo/front-core-lib/fl-tag';
+
 import {
   ChChartLegendSeriesWithTagsComponent,
   ChChartLegendSerieWithTagsInput,
 } from '../../component/ch-chart-right-section/ch-chart-legend-series-with-tags/ch-chart-legend-series-with-tags.component';
-import { FlColorHelper } from '@monorepo/front-core-lib/fl-core';
-import { FlTagColorer } from '@monorepo/front-core-lib/fl-tag';
+import { ChChartRendererBoxPlot } from '../../renderer/ch-chart-renderer-box.plot';
+import { ChChartConfig, ChChartRightSectionConfig } from '../ch-chart-config.class';
+import { ChChartDomain } from '../ch-chart-domain.class';
+import { ChChartBoxPlotData } from '../data/ch-chart-box-plot-data.class';
+import { ChChartMultiSerie } from '../data/ch-chart-multi-serie.class';
+import { ChChartAxis, ChChartAxisBand } from '../drawer/ch-chart-axis.class';
+import { ChChart2dBrushX, ChChartBrush } from '../drawer/ch-chart-brush.class';
+import { ChChartContainer, ChChartContainer2Axis } from '../drawer/ch-chart-container.class';
+import { ChChartSVGLegend } from '../legend/ch-chart-legend.class';
+import { ChChartLegendMultiSeries } from '../legend/ch-chart-legend-multi-series.class';
+import { ChChartScaleBand, ChChartScaleLinear, ChChartScaleNumber } from '../scale/ch-chart-scale.class';
+import { ChChartScaleColorMulti } from '../scale/ch-chart-scale-color.class';
 
 // Config box plot
 export class ChChartBoxPlot extends ChChartConfig {

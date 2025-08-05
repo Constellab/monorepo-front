@@ -1,13 +1,14 @@
-import { ErrorHandler, inject, ModuleWithProviders, NgModule, Provider, Type } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ErrorHandler, inject, ModuleWithProviders, NgModule, Provider, Type } from '@angular/core';
+import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+
+import { FlTranslateModule } from '../fl-translate/fl-translate.module';
+import { flApiI18n } from './i18n/fl-api.i18n';
 import { FlApiService } from './service/fl-api.service';
+import { FlApiErrorService } from './service/fl-api-error.service';
+import { FlApiServiceConfig } from './service/fl-api-service.config';
 import { FlApiWithCacheService } from './service/fl-api-with-cache.service';
 import { FL_ERROR_HANDLER_API, FlErrorHandlerApiService } from './service/fl-error-handler-api.service';
-import { FlApiServiceConfig } from './service/fl-api-service.config';
-import { FlApiErrorService } from './service/fl-api-error.service';
-import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
-import { flApiI18n } from './i18n/fl-api.i18n';
-import { FlTranslateModule } from '../fl-translate/fl-translate.module';
 
 /**
  * Module to configure and get the Api Service

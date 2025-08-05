@@ -1,20 +1,20 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject,OnInit } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
+import { MatButton } from '@angular/material/button';
+import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent } from '@angular/material/dialog';
+import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
 import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { FlDialogModule, FlFormDialogAbstractDirective } from '@monorepo/front-core-lib/fl-dialog';
-import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
 import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
-import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import { LiEntity, LiNote, LiNoteForm, LiNoteService, LiNoteTemplate } from '@monorepo/lab-lib/li-core';
 import { LiFolderSelectComponent } from '@monorepo/lab-lib/li-folder';
-import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent } from '@angular/material/dialog';
-import { MatButton } from '@angular/material/button';
-import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
-import { MatInput } from '@angular/material/input';
-import { Observable } from 'rxjs';
-import { TranslatePipe } from '@ngx-translate/core';
 import { LiSelectNoteTemplateComponent } from '@monorepo/lab-lib/li-note-template';
+import { TranslatePipe } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
 
 export interface LiNoteFormDialogInput extends FlFormDialogInput<LiNoteForm> {
   noteId?: string;

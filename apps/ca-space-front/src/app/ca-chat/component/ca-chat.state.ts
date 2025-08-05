@@ -1,12 +1,13 @@
-import { inject, Injectable, signal, Signal, WritableSignal } from '@angular/core';
+import { inject, Injectable, Signal, signal, WritableSignal } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FlRouterHelper } from '@monorepo/front-core-lib/fl-core';
+import { first, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 import {
   CaChatFolder,
   CaHierarchyObjectsTreeDatasource,
 } from '../../ca-core/model/entities/folder/ca-hierarchy-object.class';
-import { ActivatedRoute, Router } from '@angular/router';
-import { FlRouterHelper } from '@monorepo/front-core-lib/fl-core';
-import { map } from 'rxjs/operators';
-import { first, Observable } from 'rxjs';
 import { CaRouterService } from '../../ca-core/service/ca-router.service';
 import { CaChatService } from '../../ca-core/service-api/ca-chat.service';
 

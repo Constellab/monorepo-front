@@ -1,15 +1,15 @@
-import { inject, Injectable } from '@angular/core';
+import { PlatformLocation } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { ClApiError } from '@monorepo/core-lib';
 import { FlApiErrorService, FlServerError } from '@monorepo/front-core-lib/fl-api';
 import { flAuthExpiredCookie, FlCleanerService, FlLoginSavedRoute } from '@monorepo/front-core-lib/fl-core';
 import { FlCookieService } from '@monorepo/front-core-lib/fl-dialog';
+import { Observable, throwError } from 'rxjs';
 
 import { caConstLoginRoute } from '../utils/ca-base-route';
-import { PlatformLocation } from '@angular/common';
 import { CaEnvironmentHelper } from '../utils/ca-environment.helper';
-import { ClApiError } from '@monorepo/core-lib';
 
 /**
  * Manage the errors of the application

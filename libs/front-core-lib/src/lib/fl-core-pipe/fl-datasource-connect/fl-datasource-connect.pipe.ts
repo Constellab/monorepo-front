@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { FlDatasource } from '@monorepo/front-core-lib/fl-core';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { FlDatasource } from '@monorepo/front-core-lib/fl-core';
 
 /**
  * Call connect method of FlDatasource

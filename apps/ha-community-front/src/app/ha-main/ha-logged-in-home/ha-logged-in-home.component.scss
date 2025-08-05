@@ -120,16 +120,16 @@ h4 {
   justify-content: center;
   align-items: center;
   padding: 0 1em;
-  background-color: var(--mdc-filled-button-container-color);
+  background-color: var(--mat-button-filled-container-color);
   border-radius: 18px;
   gap: 1em;
   height: 36px;
   margin-top: 4px;
-  font-family: var(--mdc-filled-button-label-text-font);
-  font-size: var(--mdc-filled-button-label-text-size);
-  letter-spacing: var(--mdc-filled-button-label-text-tracking);
-  text-transform: var(--mdc-filled-button-label-text-transform);
-  font-weight: var(--mdc-filled-button-label-text-weight);
+  font-family: var(--mat-button-filled-label-text-font);
+  font-size: var(--mat-button-filled-label-text-size);
+  letter-spacing: var(--mat-button-filled-label-text-tracking);
+  text-transform: var(--mat-button-filled-label-text-transform);
+  font-weight: var(--mat-button-filled-label-text-weight);
 
   img {
     height: 18px;

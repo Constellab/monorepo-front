@@ -4,7 +4,7 @@
     <h2>{{ 'biota.biota' | translate }}</h2>
   </fl-text-icon>
 
-  <lab-biota-database-search-form (search)="onSearch($event)"></lab-biota-database-search-form>
+  <lab-biota-database-search-form (searched)="onSearch($event)"></lab-biota-database-search-form>
 
   <fl-async-section
     [arrayObs]="biotaDatasource"

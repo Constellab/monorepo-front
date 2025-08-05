@@ -1,7 +1,8 @@
 import { Component, inject } from '@angular/core';
-import { Observable } from 'rxjs';
-import { LmlDockerErrorLogs } from '../../model/lml-lab-manager.class';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
+
+import { LmlDockerErrorLogs } from '../../model/lml-lab-manager.class';
 
 @Component({
   selector: 'lml-docker-container-error-dialog',

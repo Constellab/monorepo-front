@@ -1,7 +1,8 @@
+import { inject,Injectable } from '@angular/core';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
-import { Injectable, inject } from '@angular/core';
-import { LiLogCompleteInfo, LiLogsStatus } from '../model/entities/li-log.entity';
 import { Observable } from 'rxjs';
+
+import { LiLogCompleteInfo, LiLogsStatus } from '../model/entities/li-log.entity';
 
 @Injectable({
   providedIn: 'root',

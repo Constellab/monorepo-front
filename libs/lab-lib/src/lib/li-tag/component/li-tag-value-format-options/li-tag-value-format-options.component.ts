@@ -1,9 +1,9 @@
 import { AfterViewInit, Component, inject } from '@angular/core';
-import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib/fl-core';
 import { MatOption } from '@angular/material/core';
-import { TranslatePipe } from '@ngx-translate/core';
 import { MatSelect } from '@angular/material/select';
+import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib/fl-core';
 import { LiTagValueFormat } from '@monorepo/lab-lib/li-core';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'li-tag-value-format-options',

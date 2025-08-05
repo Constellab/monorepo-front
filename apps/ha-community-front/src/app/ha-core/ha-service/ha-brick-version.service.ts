@@ -1,9 +1,10 @@
 import { inject, Injectable } from '@angular/core';
+import { ClPageI } from '@monorepo/core-lib';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
-import { HaBrickVersion, HaBrickVersionDataSource } from '../ha-model/ha-entities/ha-brick-version.class';
 import { Observable } from 'rxjs';
-import { ClPageI } from '@monorepo/core-lib';
+
+import { HaBrickVersion, HaBrickVersionDataSource } from '../ha-model/ha-entities/ha-brick-version.class';
 import { HaReferenceDTO } from '../ha-model/ha-entities/ha-version.class';
 
 @Injectable({

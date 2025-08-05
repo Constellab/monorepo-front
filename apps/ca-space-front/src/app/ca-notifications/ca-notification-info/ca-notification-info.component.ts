@@ -8,6 +8,7 @@ import { FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+
 import { CaNotification } from '../../ca-core/model/entities/ca-notification.class';
 
 @Component({

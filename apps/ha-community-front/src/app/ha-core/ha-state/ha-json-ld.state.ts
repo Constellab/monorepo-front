@@ -1,8 +1,8 @@
-import { inject, Injectable } from '@angular/core';
-import { DateTime } from 'luxon';
-import { HaRouterService } from '../ha-service/ha-router.service';
+import { DOCUMENT,inject, Injectable } from '@angular/core';
 import { CoUser } from '@monorepo/community-lib';
-import { DOCUMENT } from '@angular/common';
+import { DateTime } from 'luxon';
+
+import { HaRouterService } from '../ha-service/ha-router.service';
 
 @Injectable()
 export class HaJsonLdState {
@@ -25,14 +25,14 @@ export class HaJsonLdState {
       "datePublished": "${datePublished}",
       "author": [
         ${author
-          .map(
-            (a) => `{
+    .map(
+      (a) => `{
             "@type": "Person",
             "name": "${a.alias}",
             "url": "${HaRouterService.getFullRoute(HaRouterService.getUserProfileRoute(a.id))}"
           }`
-          )
-          .join(', ')}
+    )
+    .join(', ')}
       ]
     }`;
     this.setJsonLdContent(jsonLdContent);
@@ -47,11 +47,11 @@ export class HaJsonLdState {
         "@type": "Person",
         "name": "${user.alias}",
         "identifier": "${user.userCode}" ${
-          photo
-            ? `,
+  photo
+    ? `,
         "image": "${photo}"`
-            : ''
-        }
+    : ''
+}
       }
     }`;
     this.setJsonLdContent(jsonLdContent);

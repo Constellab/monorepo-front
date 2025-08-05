@@ -1,6 +1,6 @@
-import { SpSheetAction } from './sp-sheet.action';
-import { SpSheet } from '../sp-sheet.class';
 import { SpCellsRange } from '../selection/sp-cells-range.class';
+import { SpSheet } from '../sp-sheet.class';
+import { SpSheetAction } from './sp-sheet.action';
 
 /**
  * Action to create a new Column

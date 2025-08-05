@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { LiSelectNoteDialogComponent } from './li-select-note-dialog.component';
 
 describe('LiSelectNoteDialogComponent', () => {

@@ -1,8 +1,9 @@
 import { inject, Injectable } from '@angular/core';
-import { CaNewUser, CaUser, CaUserUpdateLicenseDTO } from '../model/entities/ca-user.class';
-import { Observable } from 'rxjs';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { FlUserAccountService } from '@monorepo/front-core-lib/fl-auth';
+import { Observable } from 'rxjs';
+
+import { CaNewUser, CaUser, CaUserUpdateLicenseDTO } from '../model/entities/ca-user.class';
 
 /**
  * Service to manage users' accounts

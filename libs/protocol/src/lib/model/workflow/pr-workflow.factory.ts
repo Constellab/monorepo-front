@@ -1,21 +1,21 @@
-import { Observable, of } from 'rxjs';
-import { tdTypeStyleDefault, TdTypingName } from '@monorepo/technical-doc';
-import { ClStringHelper } from '@monorepo/core-lib';
 import { NgZone } from '@angular/core';
+import { ClStringHelper } from '@monorepo/core-lib';
 import { FlCoord } from '@monorepo/front-core-lib/fl-core';
-import { PrProtocol, PrProtocolGraph, PrProtocolLayout } from '../pr-protocol.class';
-import { PrWorkflowResourcesState } from '../../state/pr-workflow-resources.state';
-import { PrWorkflow } from './pr-workflow.class';
-import { PrWorkflowLayer } from './pr-workflow-layer.class';
+import { tdTypeStyleDefault, TdTypingName } from '@monorepo/technical-doc';
+import { Observable, of } from 'rxjs';
 
-import { PrWorkflowNodeProcess } from '../node/pr-workflow-node-process.class';
+import { PrWorkflowActionState } from '../../state/pr-workflow-action-state';
+import { PrWorkflowResourcesState } from '../../state/pr-workflow-resources.state';
+import { PrWorkflowNode } from '../node/pr-workflow-node.class';
 import { PrWorkflowNodeInput } from '../node/pr-workflow-node-input.class';
 import { PrWorkflowNodeOutput } from '../node/pr-workflow-node-output.class';
-import { PrWorkflowNodeViewer } from '../node/pr-workflow-node-viewer.class';
+import { PrWorkflowNodeProcess } from '../node/pr-workflow-node-process.class';
 import { PrWorkflowNodeProtocol } from '../node/pr-workflow-node-protocol.class';
+import { PrWorkflowNodeViewer } from '../node/pr-workflow-node-viewer.class';
 import { PrProcess, prProcessStatusDict } from '../pr-process.class';
-import { PrWorkflowNode } from '../node/pr-workflow-node.class';
-import { PrWorkflowActionState } from '../../state/pr-workflow-action-state';
+import { PrProtocol, PrProtocolGraph, PrProtocolLayout } from '../pr-protocol.class';
+import { PrWorkflow } from './pr-workflow.class';
+import { PrWorkflowLayer } from './pr-workflow-layer.class';
 
 export class PrWorkflowFactory {
   /**

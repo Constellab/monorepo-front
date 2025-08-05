@@ -1,9 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { LabBiotaData } from '../../../../model/lab-biota-data.class';
+import { Component, Input } from '@angular/core';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
-import { FlJsonEditorModule } from '@monorepo/front-core-lib/fl-json-editor';
 import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
+import { FlJsonEditorModule } from '@monorepo/front-core-lib/fl-json-editor';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { LabBiotaData } from '../../../../model/lab-biota-data.class';
 
 /**
  * Simple card for biota data

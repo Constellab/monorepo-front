@@ -1,7 +1,8 @@
 import { Component, Input } from '@angular/core';
-import { ChChartRightSectionDirective } from '../ch-chart-right-section.directive';
+
 import { ChChartSerieSimple } from '../../../model/data/ch-chart-serie.class';
 import { ChChartScaleColor } from '../../../model/scale/ch-chart-scale-color.class';
+import { ChChartRightSectionDirective } from '../ch-chart-right-section.directive';
 
 export interface ChChartLegendMultiSeriesInput {
   series: ChChartSerieSimple[];

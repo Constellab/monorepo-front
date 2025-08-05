@@ -1,22 +1,22 @@
-import {
-  CaFolder,
-  CaFolderInfo,
-  CaFolderWithHierarchy,
-} from '../../../model/entities/folder/ca-folder.class';
+import { Injector } from '@angular/core';
 import { FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
-
 import { Observable } from 'rxjs';
-import { CaConstellabDocument } from '../../../model/entities/folder/ca-document.class';
-import { CaRouterService } from '../../../service/ca-router.service';
-import { CaFolderActionService } from '../ca-folder-action.service';
+
 import {
   CaHierarchyObjectActionTags,
   CaHierarchyObjectBaseActionMenu,
   CaHierarchyObjectMoveToFolderAction,
   CaHierarchyObjectMoveToTrashAction,
 } from '../../../../ca-folder/module/ca-folder-detail-page/ca-hierarchy-object-base-action-menu';
-import { Injector } from '@angular/core';
 import { CaFolderRightPanelState } from '../../../../ca-folder/module/ca-folder-detail-page/state/ca-folder-right-panel.state';
+import { CaConstellabDocument } from '../../../model/entities/folder/ca-document.class';
+import {
+  CaFolder,
+  CaFolderInfo,
+  CaFolderWithHierarchy,
+} from '../../../model/entities/folder/ca-folder.class';
+import { CaRouterService } from '../../../service/ca-router.service';
+import { CaFolderActionService } from '../ca-folder-action.service';
 
 export type CaFolderActionEvent =
   | {

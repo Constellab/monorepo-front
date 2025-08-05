@@ -1,12 +1,18 @@
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { enableProdMode, importProvidersFrom, inject, Injector, provideAppInitializer } from '@angular/core';
-import { environment } from './environments/lab-environment';
-import { labEnvironmentPath, LabEnvironmentSettings } from './environments/lab-environment.class';
-import { FL_CAPTCHA_MODULE_CONFIG, FlCaptchaModuleConfig } from '@monorepo/front-core-lib/fl-captcha';
-import { FlHttpInterceptorService, FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
+import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
+import { MAT_TOOLTIP_DEFAULT_OPTIONS } from '@angular/material/tooltip';
+import { LuxonDateAdapter } from '@angular/material-luxon-adapter';
+import { bootstrapApplication, BrowserModule } from '@angular/platform-browser';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { PreloadAllModules, provideRouter, withInMemoryScrolling, withPreloading } from '@angular/router';
+import { BnBioNetworkModule } from '@monorepo/bio-network';
+import { CoCommunityLibModule } from '@monorepo/community-lib';
+import { ClHelpService, ClSupportedLanguage } from '@monorepo/core-lib';
 import { FlApiModule } from '@monorepo/front-core-lib/fl-api';
 import { FlAuthModule } from '@monorepo/front-core-lib/fl-auth';
-import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
-import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FL_CAPTCHA_MODULE_CONFIG, FlCaptchaModuleConfig } from '@monorepo/front-core-lib/fl-captcha';
 import {
   flLoadEnvironmentFromAssets,
   FlLocalStorageService,
@@ -15,35 +21,15 @@ import {
   flSetRootInjector,
   flTooltipConfig,
 } from '@monorepo/front-core-lib/fl-core';
-import { FlPortalActionsModule } from '@monorepo/front-core-lib/fl-portal-actions';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
+import { FlPortalActionsModule } from '@monorepo/front-core-lib/fl-portal-actions';
 import { FlSnackBarModule } from '@monorepo/front-core-lib/fl-snack-bar';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlTagModule } from '@monorepo/front-core-lib/fl-tag';
 import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
+import { FlHttpInterceptorService, FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-
-import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-import { ClHelpService, ClSupportedLanguage } from '@monorepo/core-lib';
-import { RV_MODULE_CONFIG } from '@monorepo/resource-view';
-import { bootstrapApplication, BrowserModule } from '@angular/platform-browser';
-import { provideAnimations } from '@angular/platform-browser/animations';
-import { LabAppComponent } from './app/lab-app.component';
-import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
-import { MAT_TOOLTIP_DEFAULT_OPTIONS } from '@angular/material/tooltip';
-import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
-
-import { BnBioNetworkModule } from '@monorepo/bio-network';
-import { TdTechnicalDocModule } from '@monorepo/technical-doc';
-import { PrProtocolModule } from '@monorepo/protocol';
-import { LabWorkflowResourcesState } from './app/lab-scenario/lab-scenario-detail-page/state/lab-workflow-resources.state';
-import { CoCommunityLibModule } from '@monorepo/community-lib';
-import { PreloadAllModules, provideRouter, withInMemoryScrolling, withPreloading } from '@angular/router';
-import { labMainRoutes } from './app/lab-main/lab-main-routes';
-import { LuxonDateAdapter } from '@angular/material-luxon-adapter';
-import { TeFixInit } from '@monorepo/text-editor';
-import { LabEnvironmentHelper } from './app/lab-core/lab-environment.helper';
-import { LabEnvStore, LabEnvStoreLocalStorage, LabEnvStoreUrl } from './app/lab-core/lab-env.store';
-import { LabApiServiceConfig } from './app/lab-core/lab-api-module.config';
 import {
   LiAuthService,
   LiBioNetworkService,
@@ -52,11 +38,24 @@ import {
   LiTagService,
   LiTdServiceConfig,
 } from '@monorepo/lab-lib/li-core';
+import { PrProtocolModule } from '@monorepo/protocol';
+import { RV_MODULE_CONFIG } from '@monorepo/resource-view';
+import { TdTechnicalDocModule } from '@monorepo/technical-doc';
+import { TeFixInit } from '@monorepo/text-editor';
+
+import { LabAppComponent } from './app/lab-app.component';
 import { LabApiErrorService } from './app/lab-core/lab-api-error.service';
+import { LabApiServiceConfig } from './app/lab-core/lab-api-module.config';
 import { LabCoServiceConfig } from './app/lab-core/lab-co-service-config.service';
-import { LabUserConfig } from './app/lab-core/lab-user-config.service';
-import { LabResourceViewModuleConfig } from './app/lab-core/lab-resource-view.config';
+import { LabEnvStore, LabEnvStoreLocalStorage, LabEnvStoreUrl } from './app/lab-core/lab-env.store';
+import { LabEnvironmentHelper } from './app/lab-core/lab-environment.helper';
 import { LabLibConfig } from './app/lab-core/lab-lib.config';
+import { LabResourceViewModuleConfig } from './app/lab-core/lab-resource-view.config';
+import { LabUserConfig } from './app/lab-core/lab-user-config.service';
+import { labMainRoutes } from './app/lab-main/lab-main-routes';
+import { LabWorkflowResourcesState } from './app/lab-scenario/lab-scenario-detail-page/state/lab-workflow-resources.state';
+import { environment } from './environments/lab-environment';
+import { labEnvironmentPath, LabEnvironmentSettings } from './environments/lab-environment.class';
 
 function loadThemeOnInit(themeService: FlThemeService): void {
   themeService.init();

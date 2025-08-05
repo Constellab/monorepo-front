@@ -1,8 +1,9 @@
-import { Expose } from 'class-transformer';
 import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
+import { TdParamSpecsValues, TdTypeStyle } from '@monorepo/technical-doc';
+import { Expose } from 'class-transformer';
+
 import { LiBaseEntityWithUser } from '../li-user.entity';
 import { LiResourceViewType } from './li-resource-view.entity';
-import { TdParamSpecsValues, TdTypeStyle } from '@monorepo/technical-doc';
 
 /**
  * Represent a view config that the user viewed

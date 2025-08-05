@@ -1,7 +1,8 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { TeMetadataBlockConfig, TeMetadataPermission } from '../../model/te-metadata-block-config.class';
 import { FormBuilder, UntypedFormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+
+import { TeMetadataBlockConfig, TeMetadataPermission } from '../../model/te-metadata-block-config.class';
 
 @Component({
   selector: 'te-edit-block-metadata-dialog',

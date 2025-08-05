@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { LlErrorDetailComponent } from '../../../../../../../../../../../../../tools/ll-error-detail.component';
 
 describe('ErrorDetailComponent', () => {

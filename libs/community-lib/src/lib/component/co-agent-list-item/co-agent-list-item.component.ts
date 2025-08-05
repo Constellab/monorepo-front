@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+
 import { CoAgent } from '../../model/co-agent.class';
 
 @Component({

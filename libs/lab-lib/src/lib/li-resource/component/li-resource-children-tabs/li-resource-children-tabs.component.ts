@@ -1,20 +1,21 @@
+import { NgClass } from '@angular/common';
 import {
   Component,
   DoCheck,
   ElementRef,
+  inject,
   Signal,
+  signal,
   ViewChild,
   WritableSignal,
-  inject,
-  signal,
 } from '@angular/core';
-import { LiResource } from '@monorepo/lab-lib/li-core';
-import { LiResourceDetailState } from '../../state/li-resource-detail.state';
-import { MatIcon } from '@angular/material/icon';
 import { MatIconButton } from '@angular/material/button';
 import { MatRipple } from '@angular/material/core';
+import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
-import { NgClass } from '@angular/common';
+import { LiResource } from '@monorepo/lab-lib/li-core';
+
+import { LiResourceDetailState } from '../../state/li-resource-detail.state';
 
 /**
  * Component in the resource detail to show the list of children resources (if ResourceSet)

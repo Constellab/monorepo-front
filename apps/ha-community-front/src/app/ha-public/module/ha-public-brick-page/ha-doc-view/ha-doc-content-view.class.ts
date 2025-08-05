@@ -1,11 +1,12 @@
-import { TeComponentBlock, TeHelper } from '@monorepo/text-editor';
 import { Type } from '@angular/core';
 import { BlockToolData } from '@editorjs/editorjs/types/tools/block-tool-data';
 import { ToolboxConfig } from '@editorjs/editorjs/types/tools/tool-settings';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { ClStringHelper } from '@monorepo/core-lib';
-import { HaDocContentViewComponent } from './ha-doc-content-view/ha-doc-content-view.component';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { TeComponentBlock, TeHelper } from '@monorepo/text-editor';
+
 import { HaDocumentationService } from '../../../../ha-core/ha-service/ha-documentation.service';
+import { HaDocContentViewComponent } from './ha-doc-content-view/ha-doc-content-view.component';
 import {
   HaDocResourceViewInputDialogComponent,
   HaDocResourceViewInputDialogOutputData,

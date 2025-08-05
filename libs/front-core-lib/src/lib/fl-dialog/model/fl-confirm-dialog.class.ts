@@ -1,5 +1,5 @@
-import { Observable } from 'rxjs';
 import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
+import { Observable } from 'rxjs';
 
 /**
  * Input data for the {@link FlConfirmDialogComponent}

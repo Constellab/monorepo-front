@@ -1,18 +1,19 @@
 import { Component, inject } from '@angular/core';
-import { CaFolderUser, CaRootFolderUserRole } from '../../../../model/entities/folder/ca-folder-user.class';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CaFolderService } from '../../../../service-api/ca-folder.service';
+import { MatButton } from '@angular/material/button';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
-import { MatButton } from '@angular/material/button';
-import { CaUser } from '../../../../model/entities/ca-user.class';
-import { TranslatePipe } from '@ngx-translate/core';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+import { TranslatePipe } from '@ngx-translate/core';
+
+import { CaUser } from '../../../../model/entities/ca-user.class';
+import { CaFolderUser, CaRootFolderUserRole } from '../../../../model/entities/folder/ca-folder-user.class';
+import { CaFolderService } from '../../../../service-api/ca-folder.service';
 
 export interface CaFolderUserUpdateRoleDialogInput {
   folderId: string;

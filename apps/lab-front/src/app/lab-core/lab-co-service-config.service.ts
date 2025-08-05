@@ -1,9 +1,10 @@
 import { inject, Injectable } from '@angular/core';
 import { CoConfig, CoTagValue, CoTagValueEditDTO } from '@monorepo/community-lib';
-import { LabEnvironmentHelper } from './lab-environment.helper';
-import { Observable } from 'rxjs';
 import { LiTagService } from '@monorepo/lab-lib/li-core';
 import { TdParamSpec, TdParamSpecs } from '@monorepo/technical-doc';
+import { Observable } from 'rxjs';
+
+import { LabEnvironmentHelper } from './lab-environment.helper';
 
 @Injectable({
   providedIn: 'root',

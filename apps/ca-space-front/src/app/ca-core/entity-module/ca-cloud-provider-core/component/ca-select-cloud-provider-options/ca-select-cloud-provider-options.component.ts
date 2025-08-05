@@ -1,17 +1,18 @@
+import { AsyncPipe } from '@angular/common';
 import { AfterViewInit, Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { MatOption } from '@angular/material/core';
+import { MatSelect } from '@angular/material/select';
 import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib/fl-core';
-import { CaCloudProviderService } from '../../../../service-api/ca-cloud-provider.service';
+import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
+import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
+import { Observable } from 'rxjs';
+
 import {
   CaCloudProvider,
   CaCloudProviderDatasource,
 } from '../../../../model/entities/ca-cloud-provider.class';
-import { Observable } from 'rxjs';
-import { MatSelect } from '@angular/material/select';
-import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
-import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
-import { MatOption } from '@angular/material/core';
+import { CaCloudProviderService } from '../../../../service-api/ca-cloud-provider.service';
 import { CaCloudProviderInlineComponent } from '../ca-cloud-provider-inline/ca-cloud-provider-inline.component';
-import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'ca-select-cloud-provider-options',

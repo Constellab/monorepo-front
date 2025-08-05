@@ -1,3 +1,5 @@
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { ClUserCategory, ClUserStatus } from '@monorepo/core-lib';
 import { FlFormInputsManagerConfig } from '@monorepo/front-core-lib/fl-form-inputs-manager';
 import {
   FlSearchConverter,
@@ -5,10 +7,8 @@ import {
   FlSearchFilterCriteriaConverter,
   FlSearchSortCriteriaConverter,
 } from '@monorepo/front-core-lib/fl-search';
-
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { Type } from 'class-transformer';
-import { ClUserCategory, ClUserStatus } from '@monorepo/core-lib';
+
 import { CaUserLicense } from '../../../model/entities/ca-user.class';
 
 export class CaUserSearchFields {

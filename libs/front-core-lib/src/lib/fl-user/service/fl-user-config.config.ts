@@ -1,6 +1,7 @@
-import { FlUser } from '../model/fl-user.class';
-import { Observable } from 'rxjs';
 import { FlDatasourcePaginated, FlInputSearchFilter } from '@monorepo/front-core-lib/fl-core';
+import { Observable } from 'rxjs';
+
+import { FlUser } from '../model/fl-user.class';
 
 /**
  * AllForAdmin --> show all user only for G admin user otherwise space

@@ -1,16 +1,17 @@
-import { ChChart2AxisRenderer } from './ch-chart-renderer.class';
-import { ChChart2dMultiSerie } from '../model/data/ch-chart-multi-serie.class';
-import { ChChart2dDatum } from '../model/data/ch-chart-data.class';
 import { select, Series, SeriesPoint, Stack, stack } from 'd3';
-import { ChChartDataWithSerie } from '../model/data/ch-chart-serie.class';
-import { ChChartScaleColor } from '../model/scale/ch-chart-scale-color.class';
-import { ChChartScaleBand } from '../model/scale/ch-chart-scale.class';
-import { ChChartPortalHandler } from '../model/portal-handler/ch-chart-portal-handler.class';
-import { ChD3SelectionSimple } from '../model/ch-d3.class';
+
 import {
   ChChartStackedBarDataPortalComponent,
   ChChartStackedBarDataPortalInput,
 } from '../component/ch-chart-data-portal/ch-chart-stacked-bar-data-portal/ch-chart-stacked-bar-data-portal.component';
+import { ChD3SelectionSimple } from '../model/ch-d3.class';
+import { ChChart2dDatum } from '../model/data/ch-chart-data.class';
+import { ChChart2dMultiSerie } from '../model/data/ch-chart-multi-serie.class';
+import { ChChartDataWithSerie } from '../model/data/ch-chart-serie.class';
+import { ChChartPortalHandler } from '../model/portal-handler/ch-chart-portal-handler.class';
+import { ChChartScaleBand } from '../model/scale/ch-chart-scale.class';
+import { ChChartScaleColor } from '../model/scale/ch-chart-scale-color.class';
+import { ChChart2AxisRenderer } from './ch-chart-renderer.class';
 
 /**
  * Renderer for stack stack bar plot or histogram

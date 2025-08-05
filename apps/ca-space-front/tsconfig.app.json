@@ -4,7 +4,8 @@
     "outDir": "../../dist/out-tsc",
     "types": ["resize-observer-browser"],
     "target": "ES2022",
-    "useDefineForClassFields": false
+    "useDefineForClassFields": false,
+    "moduleResolution": "bundler"
   },
   "files": ["src/ca-main.ts", "src/polyfills.ts"],
   "include": [

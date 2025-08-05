@@ -4,6 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
 import { FlArrayObs } from '@monorepo/front-core-lib/fl-core';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlTranslatableText, FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
+
 import { CaScenario } from '../../../../../ca-core/model/entities/folder/ca-scenario.class';
 import { CaScenarioTableComponent } from '../ca-scenario-table/ca-scenario-table.component';
 

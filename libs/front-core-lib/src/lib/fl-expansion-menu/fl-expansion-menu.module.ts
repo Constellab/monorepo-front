@@ -1,10 +1,11 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FlExpansionMenuComponent } from './fl-expansion-menu/fl-expansion-menu.component';
+import { NgModule } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+
+import { FlExpansionMenuComponent } from './fl-expansion-menu/fl-expansion-menu.component';
 import { FlExpansionMenuButtonDirective } from './fl-expansion-menu-button/fl-expansion-menu-button.directive';
 import { FlExpansionMenuButtonToggleDirective } from './fl-expansion-menu-button-toggle/fl-expansion-menu-button-toggle.directive';
-import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [

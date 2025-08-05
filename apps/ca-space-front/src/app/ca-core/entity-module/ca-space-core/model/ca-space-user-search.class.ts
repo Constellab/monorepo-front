@@ -1,13 +1,13 @@
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { FlFormInputsManagerConfig } from '@monorepo/front-core-lib/fl-form-inputs-manager';
 import { FlSearchConverter } from '@monorepo/front-core-lib/fl-search';
 import { FlSearchDateInterval } from '@monorepo/front-core-lib/fl-search';
 import { FlSearchFilterCriteriaConverter } from '@monorepo/front-core-lib/fl-search';
 import { FlSearchSortCriteriaConverter } from '@monorepo/front-core-lib/fl-search';
+import { Type } from 'class-transformer';
 
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { CaUser } from '../../../model/entities/ca-user.class';
 import { CaSpaceRole } from '../../../model/entities/space/ca-space-user.class';
-import { Type } from 'class-transformer';
 
 export class CaSpaceUserSearchFields {
   firstname: string;

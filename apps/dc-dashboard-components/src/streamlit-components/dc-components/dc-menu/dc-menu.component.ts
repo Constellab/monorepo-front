@@ -1,13 +1,14 @@
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
 import {
   FlMenuDynamic,
   FlMenuDynamicModule,
   FlMenuDynamicService,
 } from '@monorepo/front-core-lib/fl-menu-dynamic';
-import { MatIconButton } from '@angular/material/button';
-import { MatIcon } from '@angular/material/icon';
-import { DcComponentData, DcDynamicComponent } from '../../../core/model/dc-dynamic-component.class';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+
+import { DcComponentData, DcDynamicComponent } from '../../../core/model/dc-dynamic-component.class';
 
 interface DcMenuButtonItem {
   key: string;

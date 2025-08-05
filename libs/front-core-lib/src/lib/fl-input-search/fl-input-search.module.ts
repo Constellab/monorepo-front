@@ -1,16 +1,17 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatInputModule } from '@angular/material/input';
+import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatButtonModule } from '@angular/material/button';
 import { MatOptionModule } from '@angular/material/core';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
+
+import { FlLoaderModule } from '../fl-loader/fl-loader.module';
 import { FlInputSearchComponent } from './component/fl-input-search/fl-input-search.component';
 import { FlInputSearchOptionDirective } from './directive/fl-input-search-option.directive';
-import { ReactiveFormsModule } from '@angular/forms';
-import { FlLoaderModule } from '../fl-loader/fl-loader.module';
 import { FlInputSearchPrefixDirective } from './directive/fl-input-search-prefix.directive';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [FlInputSearchComponent, FlInputSearchOptionDirective, FlInputSearchPrefixDirective],

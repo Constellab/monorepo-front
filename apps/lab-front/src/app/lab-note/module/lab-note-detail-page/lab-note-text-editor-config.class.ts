@@ -1,9 +1,5 @@
 import { ApplicationRef, EnvironmentInjector } from '@angular/core';
 import {
-  LabNoteInsertTemplateBlockTune,
-  LabNoteInsertTemplateBlockTuneConfig,
-} from './model/lab-note-insert-template-block-tune.class';
-import {
   LiRichTextAudioTranscriptionConfig,
   LiRichTextFileConfig,
   LiRichTextImageConfig,
@@ -15,13 +11,18 @@ import {
   LiRichTextViewBlockAdditionalData,
 } from '@monorepo/lab-lib/li-rich-text';
 import {
-  TeCompleteConfig,
-  TeTools,
-  TeVariableInlineToolClass,
   teBlockTuneFactory,
+  TeCompleteConfig,
   teComponentBlockFactory,
   teInlineToolFactory,
+  TeTools,
+  TeVariableInlineToolClass,
 } from '@monorepo/text-editor';
+
+import {
+  LabNoteInsertTemplateBlockTune,
+  LabNoteInsertTemplateBlockTuneConfig,
+} from './model/lab-note-insert-template-block-tune.class';
 
 /**
  * Config for the text editor in the note to support view in the editor

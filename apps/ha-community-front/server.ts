@@ -1,17 +1,19 @@
-import { APP_BASE_HREF } from '@angular/common';
-import express from 'express';
-import { fileURLToPath } from 'node:url';
 import { dirname, join, resolve } from 'node:path';
-import bootstrap from './src/main.server';
-import { environment } from './src/environments/ha-environment';
-import { EnumChangefreq, SitemapItem, SitemapStream, streamToPromise } from 'sitemap';
+import { fileURLToPath } from 'node:url';
+
+import { APP_BASE_HREF } from '@angular/common';
+import { REQUEST } from '@angular/core';
+import { CommonEngine } from '@angular/ssr/node';
 import axios from 'axios';
+import compression from 'compression';
 import cookieParser from 'cookie-parser';
+import express from 'express';
+import { EnumChangefreq, SitemapItem, SitemapStream, streamToPromise } from 'sitemap';
+
 import { HaMetadataNamesConfig } from './src/app/ha-core/ha-model/ha-config/ha-metadata-names.config';
 import { HaRouterService } from './src/app/ha-core/ha-service/ha-router.service';
-import { CommonEngine } from '@angular/ssr/node';
-import { REQUEST } from '@angular/core';
-import compression from 'compression';
+import { environment } from './src/environments/ha-environment';
+import bootstrap from './src/main.server';
 
 environment.settings = {
   apiUrl: process?.env['API_URL'] || 'http://localhost:3333',
@@ -53,32 +55,40 @@ export function app(): express.Express {
       res.setHeader('X-Xss-Protection', '1; mode=block');
       // TODO: CHECK IF THERE IS A BETTER WAY
       const defaultSrc = "default-src 'self' *.constellab.community";
-      //'unsafe-hashes' 'sha256-MhtPZXr7+LpJUY5qtMutB+qWfQtMaPccfe7QXtCcEYc=' is for the inline script in the index.html
+      //'unsafe-hashes' 'sha256-MhtPZXr7+LpJUY5qtMutB+qWfQtMaPccfe7QXtCcEYc='
+      // is for the inline script in the index.html
       // script-src : https://www.google.com, https://www.gstatic.com
       // eslint-disable-next-line max-len
       const scriptSrc =
-        "script-src 'self' 'unsafe-hashes' 'sha256-MhtPZXr7+LpJUY5qtMutB+qWfQtMaPccfe7QXtCcEYc=' 'sha256-fPMfCibMhhkJZAz+L32w5D6q/jMoM8B+cblEqezMH44=' *.constellab.community https://www.google.com https://www.gstatic.com *.googletagmanager.com *.udify.app data:";
+        "script-src 'self' 'unsafe-hashes' 'sha256-MhtPZXr7+LpJUY5qtMutB+qWfQtMaPccfe7QXtCcEYc=' " +
+        "'sha256-fPMfCibMhhkJZAz+L32w5D6q/jMoM8B+cblEqezMH44=' *.constellab.community " +
+        'https://www.google.com https://www.gstatic.com *.googletagmanager.com *.udify.app data:';
 
       // frame-src https://www.google.com/' is for the recaptcha
       // eslint-disable-next-line max-len
       const frameSrc =
-        "frame-src 'self' *.gencovery.com *.constellab.community *.gencovery.io *.constellab.app youtube.com www.youtube.com https://www.google.com https://udify.app";
+        "frame-src 'self' *.gencovery.com *.constellab.community *.gencovery.io *.constellab.app " +
+        'youtube.com www.youtube.com https://www.google.com https://udify.app';
       const workerSrc = "worker-src  *.gencovery.com *.constellab.community data: 'self' blob:";
       const styleSrc =
-        "style-src 'self' 'unsafe-inline' *.gencovery.com *.constellab.community https://fonts.googleapis.com";
+        "style-src 'self' 'unsafe-inline' *.gencovery.com *.constellab.community " +
+        'https://fonts.googleapis.com';
       const fontSrc = "font-src 'self' data: http: https: fonts.googleapis.com fonts.gstatic.com";
       const imgSrc =
         "img-src 'self' blob: data: http: https: *.gencovery.com *.constellab.community http://www.w3.org";
       // https://cdn.jsdelivr.net/npm/@emoji-mart/data is used to allow the emoji-mart data
       // eslint-disable-next-line max-len
       const connectSrc =
-        "connect-src 'self' *.gencovery.com *.constellab.community https://fonts.googleapis.com https://fonts.gstatic.com *.google-analytics.com *.googletagmanager.com *.algolianet.com *.algolia.net https://cdn.jsdelivr.net/npm/@emoji-mart/data https://api.github.com";
+        "connect-src 'self' *.gencovery.com *.constellab.community https://fonts.googleapis.com " +
+        'https://fonts.gstatic.com *.google-analytics.com *.googletagmanager.com *.algolianet.com ' +
+        '*.algolia.net https://cdn.jsdelivr.net/npm/@emoji-mart/data https://api.github.com';
       // eslint-disable-next-line max-len
       const mediaSrc = "media-src 'self' https://storage.sbg.cloud.ovh.net";
 
       res.setHeader(
         'Content-Security-Policy',
-        `${defaultSrc}; ${scriptSrc}; ${frameSrc}; ${workerSrc}; ${styleSrc}; ${imgSrc}; ${fontSrc}; ${connectSrc}; ${mediaSrc}`
+        `${defaultSrc}; ${scriptSrc}; ${frameSrc}; ${workerSrc}; ${styleSrc}; ${imgSrc}; ` +
+          `${fontSrc}; ${connectSrc}; ${mediaSrc}`
       );
 
       res.setHeader('Referrer-Policy', 'no-referrer-when-downgrade');
@@ -87,8 +97,8 @@ export function app(): express.Express {
 
       res.setHeader(
         'Feature-Policy',
-        // eslint-disable-next-line max-len
-        "accelerometer 'none'; autoplay 'none'; camera 'none'; encrypted-media 'none'; geolocation 'none'; gyroscope 'none'; magnetometer 'none'; microphone 'self'; midi 'none'; payment 'none'"
+        "accelerometer 'none'; autoplay 'none'; camera 'none'; encrypted-media 'none'; geolocation" +
+          " 'none'; gyroscope 'none'; magnetometer 'none'; microphone 'self'; midi 'none'; payment 'none'"
       );
     }
 

@@ -2,11 +2,11 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  inject,
   Input,
   OnInit,
   Renderer2,
   ViewChild,
-  inject,
 } from '@angular/core';
 
 /**

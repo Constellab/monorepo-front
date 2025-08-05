@@ -1,8 +1,7 @@
+import { inject, Injectable, OnDestroy, ViewContainerRef } from '@angular/core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlPortalActionResult } from '@monorepo/front-core-lib/fl-portal-actions';
-import { inject, Injectable, OnDestroy, ViewContainerRef } from '@angular/core';
 import { LiProcess, LiProtocolService, LiProtocolUpdateDTO } from '@monorepo/lab-lib/li-core';
-import { Observable } from 'rxjs';
 import {
   TdAbstractDynamicParamSpecState,
   TdConfig,
@@ -12,7 +11,9 @@ import {
   TdParamSpec,
   TdParamSpecs,
 } from '@monorepo/technical-doc';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+
 import { LabWorkflowEditConfig } from '../model/lab-workflow-edit-config.class';
 
 @Injectable()

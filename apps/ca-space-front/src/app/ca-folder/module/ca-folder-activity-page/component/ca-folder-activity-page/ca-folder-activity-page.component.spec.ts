@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { CaFolderActivityPageComponent } from './ca-folder-activity-page.component';
 
 describe('CaFolderActivityPageComponent', () => {

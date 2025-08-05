@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { BnBioNetworkSelectionEvent } from '../../model/bn-bio-network-selection.class';
 import { map } from 'rxjs/operators';
-import { BnBioNetworkState } from '../../state/bn-bio-network.state';
+
 import { BnBioNetworkGraph } from '../../model/bn-bio-network-graph.class';
-import { BnBioNetworkSelectionState } from '../../state/bn-bio-network-selection.state';
 import { BnBioNetworkNode } from '../../model/bn-bio-network-node.class';
+import { BnBioNetworkSelectionEvent } from '../../model/bn-bio-network-selection.class';
+import { BnBioNetworkState } from '../../state/bn-bio-network.state';
+import { BnBioNetworkSelectionState } from '../../state/bn-bio-network-selection.state';
 
 interface SelectionInfo {
   metabolites?: number;

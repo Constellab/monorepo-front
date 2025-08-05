@@ -1,3 +1,4 @@
+import { NgClass } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -10,22 +11,21 @@ import {
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
-import { CaUser, CaUserDatasourcePaginated } from '../../../../model/entities/ca-user.class';
+import { FormsModule, NgControl, ReactiveFormsModule } from '@angular/forms';
+import { MatCheckbox } from '@angular/material/checkbox';
+import { MatTooltip } from '@angular/material/tooltip';
 import { FlFormFieldDirective } from '@monorepo/front-core-lib/fl-core';
+import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
 import {
   FlOverlayRef,
   FlPortalConnectedPosition,
   FlPortalModule,
   FlPortalService,
 } from '@monorepo/front-core-lib/fl-portal';
-
-import { FormsModule, NgControl, ReactiveFormsModule } from '@angular/forms';
-import { NgClass } from '@angular/common';
-import { MatTooltip } from '@angular/material/tooltip';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import { MatCheckbox } from '@angular/material/checkbox';
-import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
+import { Observable, Subscription } from 'rxjs';
+
+import { CaUser, CaUserDatasourcePaginated } from '../../../../model/entities/ca-user.class';
 
 interface UserList {
   previewUsers: CaUserSelection[];

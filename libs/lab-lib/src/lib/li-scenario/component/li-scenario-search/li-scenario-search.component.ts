@@ -1,7 +1,9 @@
-import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { Component, EventEmitter, inject,Input, OnInit, Output } from '@angular/core';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
 import { FlFormDialogInput, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
-import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
 import {
   FlSavedSearch,
@@ -10,12 +12,9 @@ import {
   FlSearchState,
 } from '@monorepo/front-core-lib/fl-search';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
-import {
-  LiQuickConfigureProcessDialogComponent,
-  LiQuickConfigureProcessDialogInput,
-} from '@monorepo/lab-lib/li-process';
 import {
   LiRouterService,
   LiScenario,
@@ -24,14 +23,16 @@ import {
   LiScenarioSearchFields,
   LiScenarioService,
 } from '@monorepo/lab-lib/li-core';
+import {
+  LiQuickConfigureProcessDialogComponent,
+  LiQuickConfigureProcessDialogInput,
+} from '@monorepo/lab-lib/li-process';
+import { TdParamSpecsValues } from '@monorepo/technical-doc';
+import { TranslatePipe } from '@ngx-translate/core';
+
 import { LiScenarioFormDialogComponent } from '../li-scenario-form-dialog/li-scenario-form-dialog.component';
 import { LiScenarioSearchFormComponent } from '../li-scenario-search-form/li-scenario-search-form.component';
 import { LiScenarioTableComponent } from '../li-scenario-table/li-scenario-table.component';
-import { MatIcon } from '@angular/material/icon';
-import { MatIconButton } from '@angular/material/button';
-import { MatTooltip } from '@angular/material/tooltip';
-import { TdParamSpecsValues } from '@monorepo/technical-doc';
-import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'li-scenario-search',

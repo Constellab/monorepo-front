@@ -1,14 +1,15 @@
-import { Injectable, PLATFORM_ID, inject } from '@angular/core';
 import { ComponentType } from '@angular/cdk/overlay';
+import { isPlatformServer } from '@angular/common';
+import { inject,Injectable, PLATFORM_ID } from '@angular/core';
+import { MatSnackBar, MatSnackBarConfig, MatSnackBarRef } from '@angular/material/snack-bar';
+import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
+
+import { FlSnackBarInfoComponent } from './component/fl-snack-bar-info/fl-snack-bar-info.component';
 import {
   FlSnackBarAdditionalConfig,
   flSnackBarAdditionalConfigDefault,
   FlSnackBarInfoInput,
 } from './model/fl-snack-bar.class';
-import { FlSnackBarInfoComponent } from './component/fl-snack-bar-info/fl-snack-bar-info.component';
-import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
-import { MatSnackBar, MatSnackBarConfig, MatSnackBarRef } from '@angular/material/snack-bar';
-import { isPlatformServer } from '@angular/common';
 
 /**
  * Snack bar service to create snack bar

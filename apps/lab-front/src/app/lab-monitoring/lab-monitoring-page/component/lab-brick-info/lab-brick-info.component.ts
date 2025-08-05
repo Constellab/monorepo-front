@@ -1,12 +1,13 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, inject } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject,Input } from '@angular/core';
+import { MatButton } from '@angular/material/button';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { LiBrickEntity, LiBrickService, LiTypeService } from '@monorepo/lab-lib/li-core';
+import { TranslatePipe } from '@ngx-translate/core';
+
 import { LabBrickCallMigrationDialogComponent } from '../lab-brick-call-migration-dialog/lab-brick-call-migration-dialog.component';
 import { LabBrickMessageListComponent } from '../lab-brick-message-list/lab-brick-message-list.component';
-import { LiBrickEntity, LiBrickService, LiTypeService } from '@monorepo/lab-lib/li-core';
-import { MatButton } from '@angular/material/button';
-import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * Show information and messages about a brick

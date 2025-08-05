@@ -1,4 +1,3 @@
-import { RvResourceViewBase } from './rv-resource-view.class';
 import {
   SpSheet,
   SpSheetColumnSortDirection,
@@ -6,6 +5,8 @@ import {
   SpSpreadsheet,
   SpSpreadsheetFactory,
 } from '@monorepo/spreadsheet';
+
+import { RvResourceViewBase } from './rv-resource-view.class';
 
 export interface RvResourceViewTable extends RvResourceViewBase {
   type: 'table-view' | 'dataset-view' | 'tabular-view';

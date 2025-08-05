@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { LiScenarioTemplateTableComponent } from './li-scenario-template-table.component';
 
 describe('LiScenarioTemplateTableComponent', () => {

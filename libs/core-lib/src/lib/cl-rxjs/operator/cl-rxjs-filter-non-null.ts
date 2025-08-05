@@ -1,5 +1,5 @@
-import { filter } from 'rxjs/operators';
 import { MonoTypeOperatorFunction } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 /**
  * Simple RXJS operator to filter non null properties. Null and undefined properties are ignored

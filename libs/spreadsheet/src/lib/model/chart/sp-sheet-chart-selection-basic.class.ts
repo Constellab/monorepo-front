@@ -1,6 +1,3 @@
-import { SpSheetChartSelection } from './sp-sheet-chart-selection.class';
-import { SpSheet } from '../sp-sheet.class';
-import { SpSheetChart2dSerieSelectionForm } from './sp-sheet-chart-selection-form.class';
 import {
   ChChart2dMultiSerie,
   ChChartConfig,
@@ -8,6 +5,10 @@ import {
   ChChartScatterPlot2d,
   ChChartType,
 } from '@monorepo/chart';
+
+import { SpSheet } from '../sp-sheet.class';
+import { SpSheetChartSelection } from './sp-sheet-chart-selection.class';
+import { SpSheetChart2dSerieSelectionForm } from './sp-sheet-chart-selection-form.class';
 
 export class SpSheetChartSelectionBasic extends SpSheetChartSelection {
   constructor(

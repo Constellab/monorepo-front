@@ -1,12 +1,14 @@
 import { Component, inject } from '@angular/core';
+import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
+import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import {
   FlDynamicFieldFormDialogComponent,
   FlDynamicFieldFormDialogInput,
 } from '@monorepo/front-core-lib/fl-dynamic-field';
 import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
-import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import {
@@ -16,8 +18,6 @@ import {
   LiShareLinkService,
 } from '@monorepo/lab-lib/li-core';
 import { LiShareLinkTableComponent } from '@monorepo/lab-lib/li-share';
-import { MatButton } from '@angular/material/button';
-import { MatIcon } from '@angular/material/icon';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({

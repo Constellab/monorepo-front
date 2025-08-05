@@ -1,12 +1,13 @@
-import { CaFolderService } from '../../../../../ca-core/service-api/ca-folder.service';
-import { Observable } from 'rxjs';
+import { ApplicationRef, EnvironmentInjector } from '@angular/core';
 import {
   TeBlockFigureUploadedResponse,
   TeCompleteConfig,
   TeFigureBlockConfig,
   TeTools,
 } from '@monorepo/text-editor';
-import { ApplicationRef, EnvironmentInjector } from '@angular/core';
+import { Observable } from 'rxjs';
+
+import { CaFolderService } from '../../../../../ca-core/service-api/ca-folder.service';
 
 export class CaFolderDescriptionTextEditorImageConfig implements TeFigureBlockConfig {
   constructor(

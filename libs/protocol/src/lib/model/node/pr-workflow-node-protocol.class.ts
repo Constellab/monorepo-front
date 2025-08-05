@@ -1,9 +1,10 @@
-import { PrWorkflowNodeProcess } from './pr-workflow-node-process.class';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { PrProcess } from '../pr-process.class';
-import { PrWorkflowResourcesState } from '../../state/pr-workflow-resources.state';
+
 import { PrWorkflowActionState } from '../../state/pr-workflow-action-state';
+import { PrWorkflowResourcesState } from '../../state/pr-workflow-resources.state';
+import { PrProcess } from '../pr-process.class';
 import { PrWorkflowLayer } from '../workflow/pr-workflow-layer.class';
+import { PrWorkflowNodeProcess } from './pr-workflow-node-process.class';
 
 export class PrWorkflowNodeProtocol extends PrWorkflowNodeProcess {
   private readonly isLoading$: BehaviorSubject<boolean> = new BehaviorSubject(false);

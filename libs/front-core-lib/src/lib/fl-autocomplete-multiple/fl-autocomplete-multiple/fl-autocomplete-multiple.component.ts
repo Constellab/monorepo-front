@@ -1,11 +1,11 @@
-import { Component, ElementRef, EventEmitter, inject, Input, Output, ViewChild } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { NgControl } from '@angular/forms';
 import { TAB } from '@angular/cdk/keycodes';
+import { Component, ElementRef, EventEmitter, inject, Input, Output, ViewChild } from '@angular/core';
+import { NgControl } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { MatInput } from '@angular/material/input';
 import { FlFormFieldDirective } from '@monorepo/front-core-lib/fl-core';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'fl-autocomplete-multiple',

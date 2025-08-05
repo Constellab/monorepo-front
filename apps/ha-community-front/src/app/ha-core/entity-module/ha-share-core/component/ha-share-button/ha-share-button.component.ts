@@ -1,10 +1,11 @@
-import { Component, input, OnInit, inject } from '@angular/core';
-import { HaShareButtonElement } from '../../model/ha-share.class';
-import { HaMetadataService } from '../../../../ha-service/ha-metadata.service';
+import { Component, inject,input, OnInit } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
-import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
 import { MatIcon } from '@angular/material/icon';
+import { MatMenu, MatMenuItem,MatMenuTrigger } from '@angular/material/menu';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { HaMetadataService } from '../../../../ha-service/ha-metadata.service';
+import { HaShareButtonElement } from '../../model/ha-share.class';
 
 @Component({
   selector: 'ha-share-button',

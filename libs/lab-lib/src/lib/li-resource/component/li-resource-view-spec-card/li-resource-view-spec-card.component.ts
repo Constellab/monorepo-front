@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { DateTime } from 'luxon';
+import { MatRipple } from '@angular/material/core';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { LiResourceViewType, LiUser } from '@monorepo/lab-lib/li-core';
-import { MatRipple } from '@angular/material/core';
 import { TdTechnicalDocModule, TdTypeStyle } from '@monorepo/technical-doc';
+import { DateTime } from 'luxon';
 
 @Component({
   selector: 'li-resource-view-spec-card',

@@ -1,14 +1,15 @@
 import { Component, computed, inject, OnInit, Signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TdTechnicalDocModule, TdTypeEntity } from '@monorepo/technical-doc';
-import { HaBrickPageState } from '../../../state/ha-brick-page.state';
-import { HaBrick } from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
-import { HaRouterService } from '../../../../ha-core/ha-service/ha-router.service';
-import { HaCommunityPageDirective } from '../../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
-import { HaRunStatAggregate } from '../../../../ha-core/ha-model/ha-entities/ha-run-stat-aggregate.class';
-import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
-import { HaRunStatAggregatePanelComponent } from '../../../../ha-core/ha-component/ha-run-stat-aggregate-panel/ha-run-stat-aggregate-panel.component';
 import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { TdTechnicalDocModule, TdTypeEntity } from '@monorepo/technical-doc';
+
+import { HaRunStatAggregatePanelComponent } from '../../../../ha-core/ha-component/ha-run-stat-aggregate-panel/ha-run-stat-aggregate-panel.component';
+import { HaBrick } from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
+import { HaRunStatAggregate } from '../../../../ha-core/ha-model/ha-entities/ha-run-stat-aggregate.class';
+import { HaCommunityPageDirective } from '../../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
+import { HaRouterService } from '../../../../ha-core/ha-service/ha-router.service';
+import { HaBrickPageState } from '../../../state/ha-brick-page.state';
 import { Ha404Component } from '../../ha404/ha404.component';
 
 @Component({

@@ -1,6 +1,7 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
-import { FlUserConfig } from '../../service/fl-user-config.config';
+import { Component, inject,Input, OnInit } from '@angular/core';
+
 import { FlUser } from '../../model/fl-user.class';
+import { FlUserConfig } from '../../service/fl-user-config.config';
 
 export type FlUserProfilePictureSize = 'small' | 'medium' | 'big' | number;
 

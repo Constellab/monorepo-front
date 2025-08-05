@@ -1,24 +1,25 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { CoConfig } from '../../service/co-service-config.config';
-import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
-import { CoTagValue, CoTagValueEditDTO } from '../../model/co-tag-value.class';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FlDialogModule, FlFormDialogAbstractDirective } from '@monorepo/front-core-lib/fl-dialog';
-import { CoTagKeyType } from '../../model/co-tag-key.class';
 import { FormBuilder, FormGroup, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { TranslatePipe } from '@ngx-translate/core';
-import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
-import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { MatButton } from '@angular/material/button';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
+import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
+import { FlDialogModule, FlFormDialogAbstractDirective } from '@monorepo/front-core-lib/fl-dialog';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import {
   TdConfig,
   TdConfigureSpecsForm,
   TdConfigureSpecsFormComponent,
   TdTechnicalDocModule,
 } from '@monorepo/technical-doc';
+import { TranslatePipe } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+
+import { CoTagKeyType } from '../../model/co-tag-key.class';
+import { CoTagValue, CoTagValueEditDTO } from '../../model/co-tag-value.class';
+import { CoConfig } from '../../service/co-service-config.config';
 
 export type CoTagValueEditDialogInput = FlFormDialogInput<Partial<CoTagValueEditDTO>>;
 

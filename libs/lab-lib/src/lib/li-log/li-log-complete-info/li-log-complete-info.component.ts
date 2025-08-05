@@ -2,8 +2,9 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
 import { LiLogCompleteInfo } from '@monorepo/lab-lib/li-core';
-import { LiLogLinesComponent } from '../li-log-lines/li-log-lines.component';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { LiLogLinesComponent } from '../li-log-lines/li-log-lines.component';
 
 @Component({
   selector: 'li-log-complete-info',

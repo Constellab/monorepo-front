@@ -1,19 +1,20 @@
 import { Component, inject, ViewContainerRef } from '@angular/core';
-import { TdAbstractDynamicParamSpecState } from '../../service/td-abstract-dynamic-param-spec.state';
-import { TdParamSpecs } from '../../model/td-config-spec.class';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
 } from '@monorepo/front-core-lib/fl-dialog';
-import { TdEditableParamSpec } from '../td-editable-param-specs-table/td-editable-param-specs-table.component';
+import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
+
+import { TdConfigI } from '../../model/td-config.class';
+import { TdParamSpecs } from '../../model/td-config-spec.class';
+import { TdAbstractDynamicParamSpecState } from '../../service/td-abstract-dynamic-param-spec.state';
 import {
   TdEditParamSpecDialogComponent,
   TdEditParamSpecDialogInput,
 } from '../td-edit-param-spec-dialog/td-edit-param-spec-dialog.component';
-import { TdConfigI } from '../../model/td-config.class';
-import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
+import { TdEditableParamSpec } from '../td-editable-param-specs-table/td-editable-param-specs-table.component';
 
 export interface TdConfigureParamSpecsTableDialogInput {
   configSpecName: string;

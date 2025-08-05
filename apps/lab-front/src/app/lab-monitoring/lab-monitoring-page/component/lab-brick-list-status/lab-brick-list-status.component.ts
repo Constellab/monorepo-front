@@ -1,9 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
-import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
-import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
-import { FlStatusModule } from '@monorepo/front-core-lib/fl-status';
-import { LabBrickInfoComponent } from '../lab-brick-info/lab-brick-info.component';
-import { LiBrickEntity, LiBrickService } from '@monorepo/lab-lib/li-core';
+import { ChangeDetectionStrategy, Component, inject,OnInit } from '@angular/core';
 import {
   MatAccordion,
   MatExpansionPanel,
@@ -11,8 +6,14 @@ import {
   MatExpansionPanelHeader,
   MatExpansionPanelTitle,
 } from '@angular/material/expansion';
-import { Observable } from 'rxjs';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+import { FlStatusModule } from '@monorepo/front-core-lib/fl-status';
+import { LiBrickEntity, LiBrickService } from '@monorepo/lab-lib/li-core';
 import { TranslatePipe } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+
+import { LabBrickInfoComponent } from '../lab-brick-info/lab-brick-info.component';
 
 @Component({
   selector: 'lab-brick-list-status',

@@ -179,6 +179,7 @@
     "import_to": "Importer vers",
     "select_importer_help": "Vous pouvez sélectionner un importeur pour importer la ressource. L'importeur va créer une nouvelle ressource à partir du fichier ou du dossier. Par défaut, seuls les importeurs qui supportent l'extension du fichier sont affichés (voir la case à cocher 'Ignorer l'extension du fichier'). Vous pouvez consulter la documentation de l'importeur pour voir des informations à son sujet.",
     "resource_imported": "Ressource importée",
+    "resource_importer_no_config": "Cet importateur n'a pas de configuration",
     "notes_that_use_the_resource": "Les notes qui utilisent la ressource",
     "download_resource": "Télécharger",
     "update_resource_name": "Modifier le nom",
@@ -494,6 +495,7 @@
     "description_modified": "Description modifiée",
     "label_modified": "Label modifié",
     "spec": "Spécification",
-    "delete_tag_value_content": "Êtes-vous sûr de vouloir supprimer cette valeur de tag ? La valeur sera supprimée de tous les objets qui l'utilisent."
+    "delete_tag_value_content": "Êtes-vous sûr de vouloir supprimer cette valeur de tag ? La valeur sera supprimée de tous les objets qui l'utilisent.",
+    "system": "Système"
   }
 }

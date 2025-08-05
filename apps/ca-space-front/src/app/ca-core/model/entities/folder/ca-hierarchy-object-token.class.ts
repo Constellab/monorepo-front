@@ -1,7 +1,8 @@
-import { CaBaseEntity } from '../ca-base-entity.class';
-import { DateTime } from 'luxon';
 import { ClLuxonDateTransform } from '@monorepo/core-lib';
 import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
+import { DateTime } from 'luxon';
+
+import { CaBaseEntity } from '../ca-base-entity.class';
 
 export class CaHierarchyObjectToken extends CaBaseEntity {
   @ClLuxonDateTransform()

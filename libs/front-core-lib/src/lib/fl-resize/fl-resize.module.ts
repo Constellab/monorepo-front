@@ -1,13 +1,14 @@
-import { NgModule, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FlResizePortalFullscreenButtonComponent } from './fl-resize-fullscreen-button/fl-resize-portal-fullscreen-button.component';
-import { FlResizeDirective } from './fl-resize/fl-resize.directive';
-import { MatIconModule } from '@angular/material/icon';
-import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
-import { flResizeI18n } from './fl-resize.i18n';
-import { FlTranslateModule } from '../fl-translate/fl-translate.module';
-import { MatTooltipModule } from '@angular/material/tooltip';
+import { inject,NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+
+import { FlTranslateModule } from '../fl-translate/fl-translate.module';
+import { flResizeI18n } from './fl-resize.i18n';
+import { FlResizeDirective } from './fl-resize/fl-resize.directive';
+import { FlResizePortalFullscreenButtonComponent } from './fl-resize-fullscreen-button/fl-resize-portal-fullscreen-button.component';
 
 @NgModule({
   declarations: [FlResizePortalFullscreenButtonComponent, FlResizeDirective],

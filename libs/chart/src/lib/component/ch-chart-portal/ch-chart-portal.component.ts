@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
-import { ChChartPortalConfig } from '../../model/ch-chart.class';
 import { FL_PORTAL_DATA } from '@monorepo/front-core-lib/fl-portal';
+
+import { ChChartPortalConfig } from '../../model/ch-chart.class';
 
 @Component({
   selector: 'ch-chart-portal',

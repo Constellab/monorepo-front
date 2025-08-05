@@ -1,18 +1,17 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
-import { FL_PORTAL_DATA, FlOverlayRef, FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
-import { FlDynamicFieldConfigService } from '@monorepo/front-core-lib/fl-dynamic-field';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject,OnInit } from '@angular/core';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { MatButton } from '@angular/material/button';
 import { FlFormHelper } from '@monorepo/front-core-lib/fl-core';
+import { FlDynamicFieldConfigService } from '@monorepo/front-core-lib/fl-dynamic-field';
+import { FL_PORTAL_DATA, FlOverlayRef, FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
 import { FlResizeModule } from '@monorepo/front-core-lib/fl-resize';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { LiProcessDynamicFieldConfig } from '@monorepo/lab-lib/li-config';
 import {
   LiResourceService,
   LiResourceViewSpec,
   LiResourceViewSpecWithConfig,
 } from '@monorepo/lab-lib/li-core';
-import { MatButton } from '@angular/material/button';
-import { Observable } from 'rxjs';
 import {
   TdConfig,
   TdConfigureSpecsForm,
@@ -22,6 +21,7 @@ import {
   TdTypeStyle,
 } from '@monorepo/technical-doc';
 import { TranslatePipe } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
 
 export interface LiConfigureResourceViewInput {
   resourceTypingName: string;

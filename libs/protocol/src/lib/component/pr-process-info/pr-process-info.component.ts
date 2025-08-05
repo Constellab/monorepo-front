@@ -1,8 +1,9 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
-import { PrProtocol } from '../../model/pr-protocol.class';
 import { CoCommunityHelperService } from '@monorepo/community-lib';
-import { TdTypingName } from '@monorepo/technical-doc';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { TdTypingName } from '@monorepo/technical-doc';
+
+import { PrProtocol } from '../../model/pr-protocol.class';
 import { PrProcessConfigInfoDialogComponent } from '../pr-process-config-info-dialog/pr-process-config-info-dialog.component';
 
 /**

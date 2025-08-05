@@ -4,6 +4,7 @@ import {
   FlLocalStorageService,
 } from '@monorepo/front-core-lib/fl-core';
 import { LiAppEnvironment, LiRouterService } from '@monorepo/lab-lib/li-core';
+
 import { LabEnvironmentHelper } from './lab-environment.helper';
 
 export abstract class LabEnvStore {

@@ -1,12 +1,13 @@
-import { Component, inject, Input } from '@angular/core';
-import { CaLabService } from '../../../../service-api/ca-lab.service';
-import { ClHelpService } from '@monorepo/core-lib';
-import { MatTooltip } from '@angular/material/tooltip';
-import { MatButton } from '@angular/material/button';
 import { NgClass } from '@angular/common';
+import { Component, inject, Input } from '@angular/core';
+import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { ClHelpService } from '@monorepo/core-lib';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { CaLabService } from '../../../../service-api/ca-lab.service';
 
 @Component({
   selector: 'ca-lab-login-button',

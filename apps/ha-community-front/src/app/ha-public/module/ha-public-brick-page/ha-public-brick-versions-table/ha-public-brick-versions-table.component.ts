@@ -1,8 +1,5 @@
 import { Component, inject, Input } from '@angular/core';
-import { FlDatasource, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { HaBrickVersion } from '../../../../ha-core/ha-model/ha-entities/ha-brick-version.class';
-import { HaPublicBrickVersionDetailDialogComponent } from '../ha-public-brick-version-detail-dialog/ha-public-brick-version-detail-dialog.component';
+import { MatIcon } from '@angular/material/icon';
 import {
   MatCell,
   MatCellDef,
@@ -15,9 +12,13 @@ import {
   MatRowDef,
   MatTable,
 } from '@angular/material/table';
+import { FlDatasource, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import { MatIcon } from '@angular/material/icon';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { HaBrickVersion } from '../../../../ha-core/ha-model/ha-entities/ha-brick-version.class';
+import { HaPublicBrickVersionDetailDialogComponent } from '../ha-public-brick-version-detail-dialog/ha-public-brick-version-detail-dialog.component';
 
 @Component({
   selector: 'ha-public-brick-versions-table',

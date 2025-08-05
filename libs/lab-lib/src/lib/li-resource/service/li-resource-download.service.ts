@@ -1,19 +1,19 @@
+import { inject, Injectable } from '@angular/core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlPortalActionResult, FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
-import { inject, Injectable } from '@angular/core';
 import {
   LiFileResourceService,
   LiProcessType,
   LiResource,
   LiResourceService,
 } from '@monorepo/lab-lib/li-core';
-import { Observable, of } from 'rxjs';
-import { TdParamSpecsValues } from '@monorepo/technical-doc';
-import { mergeMap } from 'rxjs/operators';
 import {
   LiQuickConfigureProcessDialogComponent,
   LiQuickConfigureProcessDialogInput,
 } from '@monorepo/lab-lib/li-process';
+import { TdParamSpecsValues } from '@monorepo/technical-doc';
+import { Observable, of } from 'rxjs';
+import { mergeMap } from 'rxjs/operators';
 
 /**
  * Service to download any downloadable resource

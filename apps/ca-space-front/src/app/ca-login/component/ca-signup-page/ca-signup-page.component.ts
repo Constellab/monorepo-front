@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { CaRouterService } from '../../../ca-core/service/ca-router.service';
-import { FlAuthModule } from '@monorepo/front-core-lib/fl-auth';
 import { RouterLink } from '@angular/router';
+import { FlAuthModule } from '@monorepo/front-core-lib/fl-auth';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { CaRouterService } from '../../../ca-core/service/ca-router.service';
 
 @Component({
   selector: 'ca-signup-page',

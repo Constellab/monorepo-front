@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { LiTypeShowDetailButtonComponent } from './li-type-show-detail-button.component';
 
 describe('LabProcessTypeShowDetailButtonComponent', () => {

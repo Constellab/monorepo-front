@@ -1,17 +1,18 @@
+import { AsyncPipe } from '@angular/common';
 import { Component, inject, Signal } from '@angular/core';
-import { CaChatState } from '../ca-chat.state';
-import { CaRouterService } from '../../../ca-core/service/ca-router.service';
+import { RouterOutlet } from '@angular/router';
+import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { TranslatePipe } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+
+import { CaHierarchyObjectTreeComponent } from '../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-tree/ca-hierarchy-object-tree.component';
 import {
   CaChatFolder,
   CaHierarchyObjectsTreeDatasource,
 } from '../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
-import { Observable } from 'rxjs';
-import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
-import { CaHierarchyObjectTreeComponent } from '../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-tree/ca-hierarchy-object-tree.component';
-import { RouterOutlet } from '@angular/router';
-import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
-import { TranslatePipe } from '@ngx-translate/core';
-import { AsyncPipe } from '@angular/common';
+import { CaRouterService } from '../../../ca-core/service/ca-router.service';
+import { CaChatState } from '../ca-chat.state';
 
 @Component({
   selector: 'ca-chat-page',

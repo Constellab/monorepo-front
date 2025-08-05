@@ -1,13 +1,14 @@
-import { Expose, Type } from 'class-transformer';
+import { CoTagKey, CoTagKeyType, CoTagValue, CoTagValueEditDTO } from '@monorepo/community-lib';
 import { FlDatasourcePaginated, FlEntity } from '@monorepo/front-core-lib/fl-core';
 import { FlTag, FlTagDatasource, FlTagValue } from '@monorepo/front-core-lib/fl-tag';
+import { TdParamSpecs } from '@monorepo/technical-doc';
+import { TeRichText, TeRichTextTransform } from '@monorepo/text-editor';
+import { Expose, Type } from 'class-transformer';
+import { TypeHelpOptions } from 'class-transformer/types/interfaces/type-help-options.interface';
+
 import { LiBaseEntity } from '../global/li-entity.entity';
 import { LiEntityType, LiNavigableEntityGrouped } from './li-navigable-entity.entity';
 import { LiUser } from './li-user.entity';
-import { TypeHelpOptions } from 'class-transformer/types/interfaces/type-help-options.interface';
-import { TeRichText, TeRichTextTransform } from '@monorepo/text-editor';
-import { CoTagKey, CoTagKeyType, CoTagValue, CoTagValueEditDTO } from '@monorepo/community-lib';
-import { TdParamSpecs } from '@monorepo/technical-doc';
 
 export type LiEntityTagType = 'SCENARIO' | 'NOTE' | 'RESOURCE' | 'VIEW' | 'SCENARIO_TEMPLATE';
 export type LiTagValueFormat = 'STRING' | 'INTEGER' | 'FLOAT' | 'BOOLEAN' | 'DATETIME';
@@ -74,7 +75,8 @@ export type LiTagOriginType =
   | 'TASK_PROPAGATED'
   | 'SCENARIO_PROPAGATED'
   | 'RESOURCE_PROPAGATED'
-  | 'VIEW_PROPAGATED';
+  | 'VIEW_PROPAGATED'
+  | 'SYSTEM';
 
 export class LiTagOrigin {
   @Expose({ name: 'origin_type' })
@@ -91,10 +93,18 @@ export class LiTagOrigin {
     return this.originType === 'USER';
   }
 
+  get isSystemOrigin(): boolean {
+    return this.originType === 'SYSTEM';
+  }
+
+  get showOriginId(): boolean {
+    return !this.isSystemOrigin;
+  }
+
   get originTypeText(): string {
     switch (this.originType) {
       case 'USER':
-        return 'user';
+        return 'li.user';
       case 'S3':
         return 'tag_origin_s3';
       case 'TASK':
@@ -106,6 +116,8 @@ export class LiTagOrigin {
         return 'resource';
       case 'VIEW_PROPAGATED':
         return 'li.view';
+      case 'SYSTEM':
+        return 'li.system';
     }
   }
 

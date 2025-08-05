@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { LiViewConfigTableComponent } from './li-view-config-table.component';
 
 describe('LiViewConfigTableComponent', () => {

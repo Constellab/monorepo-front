@@ -1,8 +1,9 @@
-import { BnBioNetworkNodeMetabolite } from '../model/bn-bio-network-node-metabolite.class';
+import { FlThemeDetail } from '@monorepo/front-core-lib/fl-theme';
+
 import { bnBioNetworkCompartmentBiomassId } from '../model/bn-bio-network-compartment.class';
+import { BnBioNetworkNodeMetabolite } from '../model/bn-bio-network-node-metabolite.class';
 import { BnBioNetworkCanvasHelper } from '../utils/bn-bio-network-canvas.helper';
 import { BnBioNetworkObjectColorFunction } from './bn-bio-network-object.renderer';
-import { FlThemeDetail } from '@monorepo/front-core-lib/fl-theme';
 
 /**
  * Draw metabolite node using canvas

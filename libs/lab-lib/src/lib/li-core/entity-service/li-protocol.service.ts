@@ -1,24 +1,9 @@
-import { ClPage } from '@monorepo/core-lib';
+import { inject, Injectable } from '@angular/core';
 import { CoCreateAgentFormData } from '@monorepo/community-lib';
+import { ClPage } from '@monorepo/core-lib';
 import { FlApiWithCacheService } from '@monorepo/front-core-lib/fl-api';
 import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 import { FlFileHelper } from '@monorepo/front-core-lib/fl-translate';
-import { inject, Injectable } from '@angular/core';
-import {
-  LiAgent,
-  LiAgentDatasourcePaginated,
-  LiCreateCommunityAgentVersionResDto,
-} from '../model/entities/li-agent.entity';
-import { LiCommunitySpace } from '../model/entities/li-community-space.entity';
-import {
-  LiCreateScenarioTemplateDTO,
-  LiScenarioTemplate,
-} from '../model/entities/process/li-scenario-template.entity';
-import { LiNavigableEntityImpact } from '../model/entities/li-navigable-entity.entity';
-import { LiProcess } from '../model/entities/process/li-process.entity';
-import { LiProcessLayout, LiProtocol } from '../model/entities/process/li-protocol.entity';
-import { LiProtocolUpdateDTO } from '../model/entities/process/li-workflow-action.class';
-import { Observable, tap } from 'rxjs';
 import {
   TdEditParamSpecDict,
   TdIOSpec,
@@ -27,6 +12,22 @@ import {
   TdParamSpecVisibility,
   TdTypeStyle,
 } from '@monorepo/technical-doc';
+import { Observable, tap } from 'rxjs';
+
+import {
+  LiAgent,
+  LiAgentDatasourcePaginated,
+  LiCreateCommunityAgentVersionResDto,
+} from '../model/entities/li-agent.entity';
+import { LiCommunitySpace } from '../model/entities/li-community-space.entity';
+import { LiNavigableEntityImpact } from '../model/entities/li-navigable-entity.entity';
+import { LiProcess } from '../model/entities/process/li-process.entity';
+import { LiProcessLayout, LiProtocol } from '../model/entities/process/li-protocol.entity';
+import {
+  LiCreateScenarioTemplateDTO,
+  LiScenarioTemplate,
+} from '../model/entities/process/li-scenario-template.entity';
+import { LiProtocolUpdateDTO } from '../model/entities/process/li-workflow-action.class';
 
 @Injectable({
   providedIn: 'root',

@@ -1,4 +1,5 @@
 import { Directive, HostListener, inject } from '@angular/core';
+
 import { FlExpansionMenuComponent } from '../fl-expansion-menu/fl-expansion-menu.component';
 
 /**

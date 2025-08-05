@@ -1,30 +1,31 @@
+import { AsyncPipe } from '@angular/common';
 import { Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatError } from '@angular/material/form-field';
+import { MatIcon } from '@angular/material/icon';
+import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
+import { ClSubscriptionHandler } from '@monorepo/core-lib';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
+import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { FlRadioButtonBigModule } from '@monorepo/front-core-lib/fl-radio-button-big';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { TranslatePipe } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+
 import {
   CaCloudProviderRegion,
   CaCloudProviderRegionDatasource,
 } from '../../../../model/entities/ca-cloud-provider.class';
-import { CaCloudProviderService } from '../../../../service-api/ca-cloud-provider.service';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { CaServerCloud } from '../../../../model/entities/server/ca-server-cloud.class';
-import { CaServerService } from '../../../../service-api/ca-server.service';
-import { ClSubscriptionHandler } from '@monorepo/core-lib';
-import { CaServerStandard } from '../../../../model/entities/server/ca-server-standard.class';
 import { CaLabValidator } from '../../../../model/entities/lab/ca-lab.validator';
-import { CaServerDecisionTreeComponent } from '../../../ca-server-core/component/ca-server-decision-tree/ca-server-decision-tree.component';
-import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
-import { FlRadioButtonBigModule } from '@monorepo/front-core-lib/fl-radio-button-big';
-import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
-import { CaServerStandardPriceComponent } from '../../../ca-server-core/component/ca-server-standard-price/ca-server-standard-price.component';
+import { CaServerCloud } from '../../../../model/entities/server/ca-server-cloud.class';
+import { CaServerStandard } from '../../../../model/entities/server/ca-server-standard.class';
+import { CaCloudProviderService } from '../../../../service-api/ca-cloud-provider.service';
+import { CaServerService } from '../../../../service-api/ca-server.service';
 import { CaCloudProviderInlineComponent } from '../../../ca-cloud-provider-core/component/ca-cloud-provider-inline/ca-cloud-provider-inline.component';
-import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { CaCloudProviderRegionMultilinesComponent } from '../../../ca-cloud-provider-core/component/ca-cloud-provider-region-multilines/ca-cloud-provider-region-multilines.component';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { MatIcon } from '@angular/material/icon';
-import { MatError } from '@angular/material/form-field';
-import { AsyncPipe } from '@angular/common';
-import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
-import { TranslatePipe } from '@ngx-translate/core';
+import { CaServerDecisionTreeComponent } from '../../../ca-server-core/component/ca-server-decision-tree/ca-server-decision-tree.component';
+import { CaServerStandardPriceComponent } from '../../../ca-server-core/component/ca-server-standard-price/ca-server-standard-price.component';
 
 export interface CaLabSelectServerForm {
   standardServer: FormControl<CaServerStandard>;

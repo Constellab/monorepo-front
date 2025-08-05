@@ -1,13 +1,14 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, inject,Input, OnInit } from '@angular/core';
+import { MatIcon } from '@angular/material/icon';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { FlEntityPaginatedDatasource, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { LiResourceDetailState } from '../../state/li-resource-detail.state';
 import { LiViewConfig, LiViewConfigDatasource, LiViewConfigService } from '@monorepo/lab-lib/li-core';
-import { MatIcon } from '@angular/material/icon';
-import { TranslatePipe } from '@ngx-translate/core';
 import { LiViewConfigTableComponent } from '@monorepo/lab-lib/li-view-config';
+import { TranslatePipe } from '@ngx-translate/core';
+
+import { LiResourceDetailState } from '../../state/li-resource-detail.state';
 
 /**
  * Show historic of views for a resource

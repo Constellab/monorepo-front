@@ -1,12 +1,13 @@
-import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { catchError, map, mergeMap, tap } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { inject, Injectable } from '@angular/core';
 import { ClCoreJsonConvert, ClDeserializationRef } from '@monorepo/core-lib';
-import { FlHttpGetUrlOption, FlHttpOption, FlHttpOptionSerialization } from '../model/fl-http-option.class';
-import { FlApiServiceConfig } from './fl-api-service.config';
-import { FlApiErrorService } from './fl-api-error.service';
 import { FlFileHelper } from '@monorepo/front-core-lib/fl-translate';
+import { Observable } from 'rxjs';
+import { catchError, map, mergeMap, tap } from 'rxjs/operators';
+
+import { FlHttpGetUrlOption, FlHttpOption, FlHttpOptionSerialization } from '../model/fl-http-option.class';
+import { FlApiErrorService } from './fl-api-error.service';
+import { FlApiServiceConfig } from './fl-api-service.config';
 
 /**
  * Global service to call make Http request. This service formats input and output

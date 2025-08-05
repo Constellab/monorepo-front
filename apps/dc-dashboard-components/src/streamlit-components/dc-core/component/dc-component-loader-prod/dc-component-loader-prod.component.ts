@@ -1,16 +1,17 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, inject, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
-import { DcMainToIframeEventEmitter } from '../../../../core/iframe-event/dc-iframe-event-emitter.class';
-import {
-  DcIframeToMainEventListener,
-  DcMainToIframeEventResponse,
-} from '../../../../core/iframe-event/dc-iframe-event-listener.class';
+
 import {
   dcGetIframeMessageHost,
   DcIframeEventAction,
   DcIframeEventInitData,
 } from '../../../../core/iframe-event/dc-iframe-event.class';
+import { DcMainToIframeEventEmitter } from '../../../../core/iframe-event/dc-iframe-event-emitter.class';
+import {
+  DcIframeToMainEventListener,
+  DcMainToIframeEventResponse,
+} from '../../../../core/iframe-event/dc-iframe-event-listener.class';
 import { DcComponentLoaderService } from '../../service/dc-component-loader.service';
 
 /**

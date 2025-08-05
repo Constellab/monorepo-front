@@ -8,9 +8,9 @@ import {
   FlDynamicGroupAdditionalConfig,
 } from '@monorepo/front-core-lib/fl-dynamic-field';
 import {
+  tdCodeParamSpecTypeList,
   TdDynamicEditableFormGroupComponent,
   TdParamSpecType,
-  tdCodeParamSpecTypeList,
 } from '@monorepo/technical-doc';
 
 /**

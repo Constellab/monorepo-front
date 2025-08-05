@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { LiProgressBarInfoDialogComponent } from './li-progress-bar-info-dialog.component';
 
 describe('LiProgressBarInfoDialogComponent', () => {

@@ -1,3 +1,6 @@
+import { inject, Injectable } from '@angular/core';
+import { NavigationExtras, Router } from '@angular/router';
+
 import {
   caConstAdminRoute,
   caConstBaseRoute,
@@ -8,8 +11,6 @@ import {
   caConstStructureRoute,
   caConstUserPageRoute,
 } from '../utils/ca-base-route';
-import { inject, Injectable } from '@angular/core';
-import { NavigationExtras, Router } from '@angular/router';
 import { CaEnvironmentHelper } from '../utils/ca-environment.helper';
 
 /* eslint-disable @typescript-eslint/member-ordering */

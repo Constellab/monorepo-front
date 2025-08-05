@@ -1,9 +1,10 @@
-import { HaEntity } from './ha-entity.class';
-import { Type } from 'class-transformer';
-import { HaSpace } from './ha-space.class';
-import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
 import { CoCommunityApp } from '@monorepo/community-lib';
+import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
 import { TeRichText, TeRichTextTransform } from '@monorepo/text-editor';
+import { Type } from 'class-transformer';
+
+import { HaEntity } from './ha-entity.class';
+import { HaSpace } from './ha-space.class';
 
 export class HaCommunityApp extends HaEntity implements CoCommunityApp {
   title: string;

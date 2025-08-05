@@ -1,6 +1,7 @@
 import { FlStatus, FlStatusDict, FlStatusHelper } from '@monorepo/front-core-lib/fl-status';
-import { PrOI } from './pr-io.class';
 import { TdConfigI, TdSimpleTypeEntity, TdTypeObjectStatus, TdTypeStyle } from '@monorepo/technical-doc';
+
+import { PrOI } from './pr-io.class';
 
 export type PrProcessStatus =
   | 'DRAFT'

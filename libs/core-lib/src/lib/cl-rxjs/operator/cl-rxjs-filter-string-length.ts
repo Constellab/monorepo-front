@@ -1,6 +1,7 @@
-import { filter, map } from 'rxjs/operators';
-import { clRxjsFilterNonNull } from './cl-rxjs-filter-non-null';
 import { Observable } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
+
+import { clRxjsFilterNonNull } from './cl-rxjs-filter-non-null';
 
 /**
  * Simple RXJS operator to filter string and only emit string

@@ -1,8 +1,9 @@
 import { Component, inject } from '@angular/core';
-import { PrInterface } from '../../model/pr-interface.class';
-import { FL_PORTAL_DATA } from '@monorepo/front-core-lib/fl-portal';
 import { FlArrayObs } from '@monorepo/front-core-lib/fl-core';
+import { FL_PORTAL_DATA } from '@monorepo/front-core-lib/fl-portal';
+
 import { PrWorkflowNode } from '../../model/node/pr-workflow-node.class';
+import { PrInterface } from '../../model/pr-interface.class';
 import { PrWorkflowPort } from '../../model/workflow/pr-workflow-port.class';
 
 export interface PrIoFaceConnectedNode {

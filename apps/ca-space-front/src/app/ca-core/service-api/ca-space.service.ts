@@ -1,4 +1,5 @@
 import { inject, Injectable } from '@angular/core';
+import { ClHelpService, ClPage } from '@monorepo/core-lib';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import {
   FlDatasourceGetPageData,
@@ -6,20 +7,19 @@ import {
   FlInputSearchFilter,
 } from '@monorepo/front-core-lib/fl-core';
 import { FlSearchConverter } from '@monorepo/front-core-lib/fl-search';
-
-import { CaSpace, CaSpaceInfoDto } from '../model/entities/space/ca-space.class';
 import { Observable } from 'rxjs';
-import { ClHelpService, ClPage } from '@monorepo/core-lib';
-import { CaUser, CaUserDatasourcePaginated } from '../model/entities/ca-user.class';
+
 import {
   CaSpaceSearch,
   CaSpaceSearchFields,
 } from '../entity-module/ca-space-core/model/ca-space-search.class';
-import { CaSpaceRole, CaSpaceUser } from '../model/entities/space/ca-space-user.class';
 import {
   CaSpaceUserSearch,
   CaSpaceUserSearchFields,
 } from '../entity-module/ca-space-core/model/ca-space-user-search.class';
+import { CaUser, CaUserDatasourcePaginated } from '../model/entities/ca-user.class';
+import { CaFolderStorageUsageDTO } from '../model/entities/folder/ca-document.class';
+import { CaSpace, CaSpaceInfoDto } from '../model/entities/space/ca-space.class';
 import {
   CaCreateSpaceDTO,
   CaRequestNewLicensesDto,
@@ -27,7 +27,7 @@ import {
   CaSpaceStorage,
   CaSpaceUpdateStorageLocationDTO,
 } from '../model/entities/space/ca-space.dto';
-import { CaFolderStorageUsageDTO } from '../model/entities/folder/ca-document.class';
+import { CaSpaceRole, CaSpaceUser } from '../model/entities/space/ca-space-user.class';
 
 @Injectable({
   providedIn: 'root',

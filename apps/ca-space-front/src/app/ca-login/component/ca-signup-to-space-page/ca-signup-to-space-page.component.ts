@@ -1,22 +1,22 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FlCaptchaService } from '@monorepo/front-core-lib/fl-captcha';
-import { FlAuthModule, FlSignupFormComponent, FlSignUpUser } from '@monorepo/front-core-lib/fl-auth';
-import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
-
-import { CaSpaceInvitService } from '../../../ca-core/service-api/ca-space-invit.service';
+import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
+import { MatButton } from '@angular/material/button';
 import { ActivatedRoute } from '@angular/router';
-import { CaRouterService } from '../../../ca-core/service/ca-router.service';
-import { CaSpaceInvitReadDTO } from '../../../ca-core/model/entities/space/ca-space-invit.class';
+import { FlAuthModule, FlSignupFormComponent, FlSignUpUser } from '@monorepo/front-core-lib/fl-auth';
+import { FlCaptchaService } from '@monorepo/front-core-lib/fl-captcha';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
+import { TranslatePipe } from '@ngx-translate/core';
 import { Observable, switchMap, tap } from 'rxjs';
+
+import { CaSpacePhotoPipe } from '../../../ca-core/entity-module/ca-space-core/pipe/ca-space-photo.pipe';
+import { CaSpaceInvitReadDTO } from '../../../ca-core/model/entities/space/ca-space-invit.class';
+import { CaRouterService } from '../../../ca-core/service/ca-router.service';
+import { CaSpaceInvitService } from '../../../ca-core/service-api/ca-space-invit.service';
 import { CaUserAccountsService } from '../../../ca-core/service-api/ca-user-accounts.service';
 import { CaAuthService } from '../../service/ca-auth.service';
-import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
-import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
-import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
-import { MatButton } from '@angular/material/button';
-import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
-import { TranslatePipe } from '@ngx-translate/core';
-import { CaSpacePhotoPipe } from '../../../ca-core/entity-module/ca-space-core/pipe/ca-space-photo.pipe';
 
 /**
  * Page on which the user can join an space. He can create an account or use an existing one.

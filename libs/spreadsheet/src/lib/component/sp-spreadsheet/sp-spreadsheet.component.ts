@@ -8,26 +8,27 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { SpSpreadsheet } from '../../model/sp-spreadsheet.class';
-import { SpSpreadsheetSelectionState } from '../../state/sp-spreadsheet-selection.state';
-import { SpSpreadsheetState } from '../../state/sp-spreadsheet.state';
-import { SpSpreadsheetContextMenu } from '../../state/sp-spreadsheet-context-menu.state';
-import { SpSpreadsheetKeyboardManagerState } from '../../state/sp-spreadsheet-keyboard-manager.state';
-import { SpSpreadsheetMouseManagerState } from '../../state/sp-spreadsheet-mouse-manager.state';
-import { SpSpreadsheetClipboardState } from '../../state/sp-spreadsheet-clipboard.state';
-import { SpSpreadsheetActions } from '../../state/sp-spreadsheet-actions.state';
-import { SpSpreadsheetActionStore } from '../../state/sp-spreadsheet-action.store';
-import { SpSpreadsheetChartState } from '../../state/sp-spreadsheet-chart.state';
-import { SpSpreadsheetScrollState } from '../../state/sp-spreadsheet-scroll.state';
+import { ChChartPortalService } from '@monorepo/chart';
+import { FlPortalService } from '@monorepo/front-core-lib/fl-portal';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { SpSheetHeader, SpSheetRow } from '../../model/sp-sheet-headers.class';
+
 import { SpSheetChartConfig } from '../../model/chart/sp-sheet-chart-config.class';
-import { SpSpreadsheetElementState } from '../../state/sp-spreadsheet-element.state';
+import { SpSheetHeader, SpSheetRow } from '../../model/sp-sheet-headers.class';
+import { SpSpreadsheet } from '../../model/sp-spreadsheet.class';
 import { SpSpreadsheetPageLoader } from '../../model/sp-spreadsheet-page.class';
+import { SpSpreadsheetState } from '../../state/sp-spreadsheet.state';
+import { SpSpreadsheetActionStore } from '../../state/sp-spreadsheet-action.store';
+import { SpSpreadsheetActions } from '../../state/sp-spreadsheet-actions.state';
+import { SpSpreadsheetChartState } from '../../state/sp-spreadsheet-chart.state';
+import { SpSpreadsheetClipboardState } from '../../state/sp-spreadsheet-clipboard.state';
+import { SpSpreadsheetContextMenu } from '../../state/sp-spreadsheet-context-menu.state';
+import { SpSpreadsheetElementState } from '../../state/sp-spreadsheet-element.state';
+import { SpSpreadsheetKeyboardManagerState } from '../../state/sp-spreadsheet-keyboard-manager.state';
+import { SpSpreadsheetMouseManagerState } from '../../state/sp-spreadsheet-mouse-manager.state';
 import { SpSpreadsheetPaginationState } from '../../state/sp-spreadsheet-pagination.state';
-import { FlPortalService } from '@monorepo/front-core-lib/fl-portal';
-import { ChChartPortalService } from '@monorepo/chart';
+import { SpSpreadsheetScrollState } from '../../state/sp-spreadsheet-scroll.state';
+import { SpSpreadsheetSelectionState } from '../../state/sp-spreadsheet-selection.state';
 
 @Component({
   selector: 'sp-spreadsheet',

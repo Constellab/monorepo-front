@@ -1,9 +1,10 @@
-import { Component, EventEmitter, OnInit, Output, inject } from '@angular/core';
+import { Component, EventEmitter, inject,OnInit, Output } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { FlQueryParamHandler } from '@monorepo/front-core-lib/fl-core';
+import { switchMap } from 'rxjs/operators';
+
 import { FlAuthLogin2FaResponse, FlAuthService } from '../../service/fl-auth.service';
 import { FlCompleteLoginQueryParam } from '../fl-complete-login/fl-complete-login.component';
-import { switchMap } from 'rxjs/operators';
-import { FlQueryParamHandler } from '@monorepo/front-core-lib/fl-core';
 
 @Component({
   selector: 'fl-login-two-f-a',

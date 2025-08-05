@@ -1,3 +1,4 @@
+import { TAB } from '@angular/cdk/keycodes';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -10,10 +11,13 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import { MatAutocompleteSelectedEvent, MatAutocompleteTrigger } from '@angular/material/autocomplete';
-import { TAB } from '@angular/cdk/keycodes';
 import { UntypedFormControl } from '@angular/forms';
+import { MatAutocompleteSelectedEvent, MatAutocompleteTrigger } from '@angular/material/autocomplete';
 import { ClHelpService } from '@monorepo/core-lib';
+import { FlDatasourcePaginated, FlDatasourceSortCriteria } from '@monorepo/front-core-lib/fl-core';
+import { BehaviorSubject, combineLatest, startWith, Subscription } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
+
 import {
   FlTagKeySearchResult,
   FlTagSearchFilter,
@@ -21,9 +25,6 @@ import {
   FlTagService,
   FlTagValueSearchResult,
 } from '../../fl-tag.class';
-import { BehaviorSubject, combineLatest, startWith, Subscription } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
-import { FlDatasourcePaginated, FlDatasourceSortCriteria } from '@monorepo/front-core-lib/fl-core';
 
 export interface FlAddTagEvent<T = any> {
   key: FlTagKeySearchResult<T>;

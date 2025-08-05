@@ -1,15 +1,16 @@
 import { Duration } from 'luxon';
-import { TeRichTextModifications } from './te-rich-text-modifications.class';
+
+import { TeBlockType } from './te-block.class';
 import {
   TeRichTextBlockModification,
   TeRichTextModificationType,
 } from './te-rich-text-block-modification.class';
-import { TeBlockType } from './te-block.class';
 import {
   TeRichTextBlockModificationsDTO,
   TeRichTextBlockModificationWithUser,
   TeRichTextGetUserFunction,
 } from './te-rich-text-block-modification.dto';
+import { TeRichTextModifications } from './te-rich-text-modifications.class';
 import { TeUser } from './te-user.class';
 
 describe('TeRichTextModifications', () => {

@@ -1,10 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { LiTagService, LiTagsNotSynchronized } from '@monorepo/lab-lib/li-core';
-import { Observable } from 'rxjs';
-import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
-import { TranslatePipe } from '@ngx-translate/core';
-import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { MatButton } from '@angular/material/button';
+import { MatDialogRef } from '@angular/material/dialog';
 import {
   MatAccordion,
   MatExpansionPanel,
@@ -12,7 +8,11 @@ import {
   MatExpansionPanelHeader,
   MatExpansionPanelTitle,
 } from '@angular/material/expansion';
-import { MatDialogRef } from '@angular/material/dialog';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+import { LiTagService, LiTagsNotSynchronized } from '@monorepo/lab-lib/li-core';
+import { TranslatePipe } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'li-sync-imported-community-tags-dialog',

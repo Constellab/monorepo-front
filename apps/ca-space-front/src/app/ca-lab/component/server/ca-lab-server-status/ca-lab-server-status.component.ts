@@ -1,12 +1,14 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { CaLabDetailPageState } from '../../../state/ca-lab-detail-page.state';
-import { Observable } from 'rxjs';
-import { CaLabStatusDTO } from '../../../../ca-core/model/entities/lab/ca-lab.class';
-import { map } from 'rxjs/operators';
-import { CaLabDetailServerState } from '../../../state/ca-lab-detail-server.state';
-import { MatButton } from '@angular/material/button';
 import { AsyncPipe } from '@angular/common';
+import { Component, inject } from '@angular/core';
+import { MatButton } from '@angular/material/button';
 import { TranslatePipe } from '@ngx-translate/core';
+import { combineLatest, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import { CaLabBusyStatusDTO, CaLabStatusDTO } from '../../../../ca-core/model/entities/lab/ca-lab.class';
+import { CaLabDetailConfigPageState } from '../../../state/ca-lab-detail-config-page.state';
+import { CaLabDetailPageState } from '../../../state/ca-lab-detail-page.state';
+import { CaLabDetailServerState } from '../../../state/ca-lab-detail-server.state';
 
 type CaServerStatus =
   | 'SERVER_NOT_CREATED'
@@ -21,19 +23,17 @@ type CaServerStatus =
   styleUrls: ['./ca-lab-server-status.component.scss'],
   imports: [MatButton, AsyncPipe, TranslatePipe],
 })
-export class CaLabServerStatusComponent implements OnInit {
-  private state = inject(CaLabDetailPageState);
+export class CaLabServerStatusComponent {
   private serverState = inject(CaLabDetailServerState);
 
-  status$: Observable<CaServerStatus>;
+  status$: Observable<CaServerStatus> = combineLatest([
+    inject(CaLabDetailPageState).getBusyStatus$(),
+    inject(CaLabDetailConfigPageState).getStatus$(),
+  ]).pipe(map(([busyStatus, status]) => this.convertStatusMessage(busyStatus, status)));
 
-  labId: string = this.state.getLabId();
-
-  ngOnInit(): void {
-    this.status$ = this.state.getStatus$().pipe(map((status) => this.convertStatusMessage(status)));
-  }
-
-  private convertStatusMessage(status: CaLabStatusDTO): CaServerStatus {
+  private convertStatusMessage(busyStatus: CaLabBusyStatusDTO, status: CaLabStatusDTO): CaServerStatus {
+    // If the lab is busy, we don't want to show any status message
+    if (busyStatus.isBusy) return null;
     if (!status.hasServerInstanceId || !status.hasServerVolumeId) {
       return 'SERVER_NOT_CREATED';
     } else if (!status.dnsConfigured) {
@@ -43,7 +43,7 @@ export class CaLabServerStatusComponent implements OnInit {
     } else if (!status.labIsRunning) {
       return 'LAB_NOT_AVAILABLE';
     } else {
-      return 'LAB_RUNNING';
+      return null;
     }
   }
 

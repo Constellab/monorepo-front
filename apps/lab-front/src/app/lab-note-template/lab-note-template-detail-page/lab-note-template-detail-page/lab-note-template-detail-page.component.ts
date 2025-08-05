@@ -1,5 +1,9 @@
+import { Component, inject,OnInit } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { ActivatedRoute } from '@angular/router';
-import { Component, OnInit, inject } from '@angular/core';
 import { FlArticleModule } from '@monorepo/front-core-lib/fl-article';
 import {
   FlConfirmDialogInput,
@@ -7,19 +11,16 @@ import {
   FlDialogService,
 } from '@monorepo/front-core-lib/fl-dialog';
 import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
-import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { LabNoteTemplateTextEditorConfig } from '../lab-note-template-text-editor-config.class';
 import { LiNoteTemplate, LiNoteTemplateService, LiRouterService } from '@monorepo/lab-lib/li-core';
-import { MatIcon } from '@angular/material/icon';
-import { MatIconButton } from '@angular/material/button';
-import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
-import { Observable } from 'rxjs';
 import { TeConfig, TeRichText, TeRichTextDTO, TeTextEditorModule } from '@monorepo/text-editor';
 import { TranslatePipe } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+
+import { LabNoteTemplateTextEditorConfig } from '../lab-note-template-text-editor-config.class';
 
 @Component({
   selector: 'lab-note-template-detail-page',

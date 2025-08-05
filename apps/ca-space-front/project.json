@@ -4,6 +4,7 @@
   "projectType": "application",
   "sourceRoot": "apps/ca-space-front/src",
   "prefix": "ca",
+  "tags": ["front"],
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:application",
@@ -32,9 +33,7 @@
             "output": "assets/fl-font"
           }
         ],
-        "externalDependencies": [
-          "assets/fl-font/*"
-        ],
+        "externalDependencies": ["assets/fl-font/*"],
         "styles": [
           "apps/ca-space-front/src/ca-styles.scss",
           {
@@ -118,7 +117,8 @@
           "buildTarget": "ca-space-front:build:development"
         }
       },
-      "defaultConfiguration": "development"
+      "defaultConfiguration": "development",
+      "continuous": true
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
@@ -139,6 +139,5 @@
         "jestConfig": "apps/ca-space-front/jest.config.ts"
       }
     }
-  },
-  "tags": ["front"]
+  }
 }

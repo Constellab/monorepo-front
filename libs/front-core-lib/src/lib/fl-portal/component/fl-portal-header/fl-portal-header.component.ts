@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, inject } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject,Input, OnInit } from '@angular/core';
 import { flCdkOverlayPanelClass } from '@monorepo/front-core-lib/fl-core';
 
 /**

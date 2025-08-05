@@ -1,9 +1,10 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
-import { ClTheme } from '@monorepo/core-lib';
-import { CaAuthenticatedUserService } from '../../../ca-core/service-api/ca-authenticated-user.service';
 import { MatButton } from '@angular/material/button';
+import { ClTheme } from '@monorepo/core-lib';
+import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { CaAuthenticatedUserService } from '../../../ca-core/service-api/ca-authenticated-user.service';
 
 /**
  * Component to select theme

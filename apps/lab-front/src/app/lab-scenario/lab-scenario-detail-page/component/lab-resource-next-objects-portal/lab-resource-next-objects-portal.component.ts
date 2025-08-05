@@ -1,8 +1,9 @@
 import { Component, inject } from '@angular/core';
-import { FL_PORTAL_DATA, FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
+import { MatIcon } from '@angular/material/icon';
 import { FlEntityPaginatedDatasource, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
-import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
+import { FL_PORTAL_DATA, FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import {
   LiNote,
@@ -14,7 +15,6 @@ import {
 } from '@monorepo/lab-lib/li-core';
 import { LiNoteTableComponent } from '@monorepo/lab-lib/li-note';
 import { LiScenarioTableComponent } from '@monorepo/lab-lib/li-scenario';
-import { MatIcon } from '@angular/material/icon';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({

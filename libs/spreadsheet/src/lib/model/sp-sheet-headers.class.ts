@@ -1,11 +1,12 @@
-import { SpCell } from './sp-cell.class';
 import { ClHelpService, ClStringHelper } from '@monorepo/core-lib';
-import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
 import { FlColorHelper } from '@monorepo/front-core-lib/fl-core';
 import { FlTagColorer } from '@monorepo/front-core-lib/fl-tag';
 import { FlTagHelper } from '@monorepo/front-core-lib/fl-tag';
 import { FlTagWithColor } from '@monorepo/front-core-lib/fl-tag';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import { SpCell } from './sp-cell.class';
 
 export type SpSheetColumnSortDirection = 'Ascending' | 'Descending';
 

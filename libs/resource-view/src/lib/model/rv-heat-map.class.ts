@@ -1,5 +1,6 @@
-import { ClHelpService, ClNumberHelper } from '@monorepo/core-lib';
 import { ChChart3dDatum, ChChartConfig, ChChartHeatMap, ChChartHeatMapDataContainer } from '@monorepo/chart';
+import { ClHelpService, ClNumberHelper } from '@monorepo/core-lib';
+
 import { RvResourceViewBase } from './rv-resource-view.class';
 
 export interface RvResourceViewHeatMap extends RvResourceViewBase {

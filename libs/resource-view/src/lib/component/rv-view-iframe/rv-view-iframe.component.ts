@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+
 import { RvResourceViewIframe } from '../../model/rv-resource-view.class';
 import { RvResourceViewDirective } from '../../model/rv-resource-view.directive';
 

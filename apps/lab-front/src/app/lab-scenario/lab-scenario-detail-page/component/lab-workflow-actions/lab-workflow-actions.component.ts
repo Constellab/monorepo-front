@@ -1,27 +1,28 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, OnInit, inject } from '@angular/core';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
-import { LabScenarioDetailPageState } from '../../state/lab-scenario-detail-page.state';
-import { LabWorkflowEditConfig } from '../../model/lab-workflow-edit-config.class';
-import { LiAgent, LiResource, LiScenario, LiScenarioTemplate, LiTypeEntity } from '@monorepo/lab-lib/li-core';
-import {
-  LiSelectCommunityAgentDialogComponent,
-  LiSelectTypeDialogComponent,
-  LiSelectTypeDialogInput,
-} from '@monorepo/lab-lib/li-type';
-import { LiSelectResourceDialogComponent } from '@monorepo/lab-lib/li-resource';
+import { Component, inject,OnInit } from '@angular/core';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatDivider } from '@angular/material/divider';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { MatTooltip } from '@angular/material/tooltip';
-import { Observable } from 'rxjs';
-import { TranslatePipe } from '@ngx-translate/core';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { LiAgent, LiResource, LiScenario, LiScenarioTemplate, LiTypeEntity } from '@monorepo/lab-lib/li-core';
+import { LiSelectResourceDialogComponent } from '@monorepo/lab-lib/li-resource';
 import {
   LiSelectScenarioTemplateDialogComponent,
   LiSelectScenarioTemplateDialogInput,
 } from '@monorepo/lab-lib/li-scenario-template';
+import {
+  LiSelectCommunityAgentDialogComponent,
+  LiSelectTypeDialogComponent,
+  LiSelectTypeDialogInput,
+} from '@monorepo/lab-lib/li-type';
+import { TranslatePipe } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+
+import { LabWorkflowEditConfig } from '../../model/lab-workflow-edit-config.class';
+import { LabScenarioDetailPageState } from '../../state/lab-scenario-detail-page.state';
 
 /**
  * Actions button for the workflow

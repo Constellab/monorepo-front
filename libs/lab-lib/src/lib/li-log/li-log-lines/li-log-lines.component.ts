@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { MatTooltip } from '@angular/material/tooltip';
 import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
 import { LiLogLine } from '@monorepo/lab-lib/li-core';
-import { MatTooltip } from '@angular/material/tooltip';
+
 import { LiLogLineContentComponent } from '../li-log-line-content/li-log-line-content.component';
 
 @Component({

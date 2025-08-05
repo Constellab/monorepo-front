@@ -34,7 +34,7 @@
       [showServerErrorText]="true"
       emptyText="lml.lab_manager_not_running">
       <ng-container *flSectionBody>
-        <lml-manager-status></lml-manager-status>
+        <lml-manager-status [showCurrentAction]="showCurrentAction"></lml-manager-status>
       </ng-container>
     </fl-async-section>
 

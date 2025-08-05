@@ -8,6 +8,7 @@ import {
   TeTools,
 } from '@monorepo/text-editor';
 import { Observable } from 'rxjs';
+
 import { CaConstellabDocumentService } from '../../../ca-core/service-api/ca-constellab-document.service';
 
 class CaDocumentTextEditorImageConfig implements TeFigureBlockConfig {

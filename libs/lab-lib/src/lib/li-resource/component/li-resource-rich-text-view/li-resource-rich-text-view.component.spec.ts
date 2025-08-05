@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { LiResourceRichTextViewComponent } from './li-resource-rich-text-view.component';
 
 describe('LiResourceRichTextViewComponent', () => {

@@ -1,7 +1,7 @@
-import { Directive, Input, OnDestroy, OnInit, inject } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { MatDrawer, MatDrawerMode } from '@angular/material/sidenav';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
+import { Directive, inject,Input, OnDestroy, OnInit } from '@angular/core';
+import { MatDrawer, MatDrawerMode } from '@angular/material/sidenav';
+import { Subscription } from 'rxjs';
 
 /**
  * Directive that work on mat-drawer and mat-sidenav to change the mode base on screen size.

@@ -1,4 +1,15 @@
-import { environment } from './environments/lms-environment';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { importProvidersFrom, inject, Injector, provideAppInitializer } from '@angular/core';
+import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
+import { MAT_TOOLTIP_DEFAULT_OPTIONS } from '@angular/material/tooltip';
+import { LuxonDateAdapter } from '@angular/material-luxon-adapter';
+import { bootstrapApplication, BrowserModule } from '@angular/platform-browser';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { PreloadAllModules, provideRouter, withInMemoryScrolling, withPreloading } from '@angular/router';
+import { CoCommunityLibModule } from '@monorepo/community-lib';
+import { ClSupportedLanguage } from '@monorepo/core-lib';
+import { FlApiModule } from '@monorepo/front-core-lib/fl-api';
 import {
   flLoadEnvironmentFromAssets,
   flLuxonDateFormat,
@@ -6,35 +17,25 @@ import {
   flSetRootInjector,
   flTooltipConfig,
 } from '@monorepo/front-core-lib/fl-core';
-import { lmsEnvironmentPath, LmsEnvironmentSettings } from './environments/lms-environment.class';
-import { importProvidersFrom, inject, Injector, provideAppInitializer } from '@angular/core';
-import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
-import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
-import { MAT_TOOLTIP_DEFAULT_OPTIONS } from '@angular/material/tooltip';
-import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
-import { LmlBrickService, LmlLabManagerLibModule } from '@monorepo/lab-manager-lib';
-import { LmsLabManagerBrickService } from './app/service/lms-lab-manager-brick.service';
-import { bootstrapApplication, BrowserModule } from '@angular/platform-browser';
-import { provideAnimations } from '@angular/platform-browser/animations';
-import { PreloadAllModules, provideRouter, withInMemoryScrolling, withPreloading } from '@angular/router';
-import { lmsAppRoutes } from './app/lms-app.routes';
-import { FlApiModule } from '@monorepo/front-core-lib/fl-api';
-import { LmsApiServiceConfig } from './app/config/lms-api-module.config';
-import { LmsApiErrorService } from './app/service/lms-api-error.service';
-import { ClSupportedLanguage } from '@monorepo/core-lib';
-import { FlIconModule, flIconsDefault } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
-import { FlSnackBarModule } from '@monorepo/front-core-lib/fl-snack-bar';
 import { FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
 import { FlPortalActionsModule } from '@monorepo/front-core-lib/fl-portal-actions';
-import { CoCommunityLibModule } from '@monorepo/community-lib';
-import { LmsCoServiceConfig } from './app/config/lms-co-service.config';
+import { FlSnackBarModule } from '@monorepo/front-core-lib/fl-snack-bar';
+import { FlIconModule, flIconsDefault } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
+import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+import { LmlBrickService, LmlLabManagerLibModule } from '@monorepo/lab-manager-lib';
+
+import { LmsApiServiceConfig } from './app/config/lms-api-module.config';
+import { LmsCoServiceConfig } from './app/config/lms-co-service.config';
 import { LmsUserConfig } from './app/config/lms-user.config';
 import { LmsAppComponent } from './app/lms-app.component';
-import { LuxonDateAdapter } from '@angular/material-luxon-adapter';
+import { lmsAppRoutes } from './app/lms-app.routes';
+import { LmsApiErrorService } from './app/service/lms-api-error.service';
+import { LmsLabManagerBrickService } from './app/service/lms-lab-manager-brick.service';
+import { environment } from './environments/lms-environment';
+import { lmsEnvironmentPath, LmsEnvironmentSettings } from './environments/lms-environment.class';
 
 function loadThemeOnInit(themeService: FlThemeService): () => void {
   return (): void => themeService.init();

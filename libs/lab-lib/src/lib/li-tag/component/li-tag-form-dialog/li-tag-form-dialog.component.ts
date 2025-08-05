@@ -1,17 +1,17 @@
 import { Component, inject, OnInit } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
+import { MatButton } from '@angular/material/button';
+import { MatDialogActions, MatDialogContent } from '@angular/material/dialog';
+import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
 import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { FlDialogModule, FlFormDialogAbstractDirective } from '@monorepo/front-core-lib/fl-dialog';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { FlTag, FlTagHelper } from '@monorepo/front-core-lib/fl-tag';
-import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import { LiCreateTagResponse, LiTagService } from '@monorepo/lab-lib/li-core';
-import { MatButton } from '@angular/material/button';
-import { MatDialogActions, MatDialogContent } from '@angular/material/dialog';
-import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
-import { MatInput } from '@angular/material/input';
-import { Observable } from 'rxjs';
 import { TranslatePipe } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
 
 /**
  * Dialog to create of update a tag

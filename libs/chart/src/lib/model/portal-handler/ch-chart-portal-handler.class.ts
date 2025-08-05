@@ -1,16 +1,17 @@
 import { ComponentType, ConnectedPosition } from '@angular/cdk/overlay';
 import { NgZone } from '@angular/core';
-import {
-  ChChartDataWithSeriePortalComponent,
-  ChChartDataWithSeriePortalInput,
-} from '../../component/ch-chart-data-portal/ch-chart-data-with-serie-portal/ch-chart-data-with-serie-portal.component';
+import { flRootInjector } from '@monorepo/front-core-lib/fl-core';
 import {
   FlOverlayRef,
   FlPortalConfig,
   FlPortalService,
   FlRelativeOverlayConfig,
 } from '@monorepo/front-core-lib/fl-portal';
-import { flRootInjector } from '@monorepo/front-core-lib/fl-core';
+
+import {
+  ChChartDataWithSeriePortalComponent,
+  ChChartDataWithSeriePortalInput,
+} from '../../component/ch-chart-data-portal/ch-chart-data-with-serie-portal/ch-chart-data-with-serie-portal.component';
 
 /**
  * Used to opening and closing portal

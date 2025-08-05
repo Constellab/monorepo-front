@@ -1,3 +1,4 @@
+import { isPlatformBrowser } from '@angular/common';
 import {
   Component,
   inject,
@@ -8,38 +9,37 @@ import {
   StateKey,
   TransferState,
 } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { HaStoryService } from '../../../ha-core/ha-service/ha-story.service';
-import { HaStory } from '../../../ha-core/ha-model/ha-entities/ha-story.class';
-import { HaStoryTextEditorConfig } from '../ha-story-edit-page/ha-story-text-editor.config';
-
-import { isPlatformBrowser } from '@angular/common';
-import { ClCoreJsonConvert, ClStringHelper } from '@monorepo/core-lib';
-import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
-import { HaFile } from '../../../ha-core/entity-module/ha-file-core/model/ha-file';
-import { TeRichText, TeTextEditorModule } from '@monorepo/text-editor';
-import { HaAuthenticatedUserService } from '../../../ha-core/ha-service/ha-authenticated-user.service';
-import { HaUser } from '../../../ha-core/ha-model/ha-entities/ha-user';
-import { first, Subscription } from 'rxjs';
-import { HaHttpRedirectionService } from '../../../ha-core/ha-service/ha-http-redirection.service';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { HaCommunityPageDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
-import { HaJsonLdState } from '../../../ha-core/ha-state/ha-json-ld.state';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { MatAnchor } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
-import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ClCoreJsonConvert, ClStringHelper } from '@monorepo/core-lib';
 import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
 import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
-import { HaShareButtonComponent } from '../../../ha-core/entity-module/ha-share-core/component/ha-share-button/ha-share-button.component';
-import { HaLikeButtonComponent } from '../../../ha-core/entity-module/ha-util-component-core/component/ha-like-button/ha-like-button.component';
-import { HaCommentButtonComponent } from '../../../ha-core/entity-module/ha-util-component-core/component/ha-comment-button/ha-comment-button.component';
-import { MatAnchor } from '@angular/material/button';
-import { Ha404Component } from '../../../ha-public/module/ha404/ha404.component';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
-import { HaTextEditorRightSidePanelComponent } from '../../../ha-core/entity-module/ha-util-component-core/component/ha-text-editor-right-side-panel/ha-text-editor-right-side-panel.component';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+import { TeRichText, TeTextEditorModule } from '@monorepo/text-editor';
 import { TranslatePipe } from '@ngx-translate/core';
+import { first, Subscription } from 'rxjs';
+
 import { HaCommentsSectionComponent } from '../../../ha-core/entity-module/ha-comments-core/component/ha-comments-section/ha-comments-section.component';
+import { HaFile } from '../../../ha-core/entity-module/ha-file-core/model/ha-file';
+import { HaShareButtonComponent } from '../../../ha-core/entity-module/ha-share-core/component/ha-share-button/ha-share-button.component';
+import { HaCommentButtonComponent } from '../../../ha-core/entity-module/ha-util-component-core/component/ha-comment-button/ha-comment-button.component';
+import { HaLikeButtonComponent } from '../../../ha-core/entity-module/ha-util-component-core/component/ha-like-button/ha-like-button.component';
+import { HaTextEditorRightSidePanelComponent } from '../../../ha-core/entity-module/ha-util-component-core/component/ha-text-editor-right-side-panel/ha-text-editor-right-side-panel.component';
 import { HaEntityType } from '../../../ha-core/ha-model/ha-entities/ha-entity-type';
+import { HaStory } from '../../../ha-core/ha-model/ha-entities/ha-story.class';
+import { HaUser } from '../../../ha-core/ha-model/ha-entities/ha-user';
+import { HaCommunityPageDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
+import { HaAuthenticatedUserService } from '../../../ha-core/ha-service/ha-authenticated-user.service';
+import { HaHttpRedirectionService } from '../../../ha-core/ha-service/ha-http-redirection.service';
+import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
+import { HaStoryService } from '../../../ha-core/ha-service/ha-story.service';
+import { HaJsonLdState } from '../../../ha-core/ha-state/ha-json-ld.state';
+import { Ha404Component } from '../../../ha-public/module/ha404/ha404.component';
+import { HaStoryTextEditorConfig } from '../ha-story-edit-page/ha-story-text-editor.config';
 
 @Component({
   selector: 'ha-story-page',

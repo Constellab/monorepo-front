@@ -1,6 +1,7 @@
-import { CaBaseEntity } from './ca-base-entity.class';
 import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 import { Type } from 'class-transformer';
+
+import { CaBaseEntity } from './ca-base-entity.class';
 import { CaCity } from './ca-city.entity';
 
 export type CaCloudProviderName = 'OVH' | 'AZURE' | 'OUTSCALE' | 'GCP';

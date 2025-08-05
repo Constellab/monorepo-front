@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { LiViewConfigSearchFormComponent } from './li-view-config-search-form.component';
 
 describe('LiViewConfigSearchFormComponent', () => {

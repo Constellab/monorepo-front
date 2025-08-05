@@ -1,20 +1,8 @@
 import { Component, inject, Input } from '@angular/core';
-import { CaLab, CaLabWithSpace } from '../../../../model/entities/lab/ca-lab.class';
-import {
-  CaLabAdminFormDialogComponent,
-  CaLabAdminFormDialogInput,
-} from '../ca-lab-admin-form-dialog/ca-lab-admin-form-dialog.component';
-import { FlArrayObs, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
-import {
-  FlConfirmDialogInput,
-  FlConfirmDialogResult,
-  FlDialogService,
-} from '@monorepo/front-core-lib/fl-dialog';
-
-import { CaLabStatusDialogComponent } from '../ca-lab-status-dialog/ca-lab-status-dialog.component';
-import { CaLabService } from '../../../../service-api/ca-lab.service';
-import { CaRouterService } from '../../../../service/ca-router.service';
-import { ClHelpService } from '@monorepo/core-lib';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
+import { MatSortHeader } from '@angular/material/sort';
 import {
   MatCell,
   MatCellDef,
@@ -27,20 +15,32 @@ import {
   MatRowDef,
   MatTable,
 } from '@angular/material/table';
-import { MatSortHeader } from '@angular/material/sort';
+import { RouterLink } from '@angular/router';
+import { ClHelpService } from '@monorepo/core-lib';
+import { FlArrayObs, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
+import {
+  FlConfirmDialogInput,
+  FlConfirmDialogResult,
+  FlDialogService,
+} from '@monorepo/front-core-lib/fl-dialog';
 import { FlSearchModule } from '@monorepo/front-core-lib/fl-search';
-import { CaLabInlineComponent } from '../ca-lab-inline/ca-lab-inline.component';
-import { CaSpaceInlineComponent } from '../../../ca-space-core/component/ca-space-inline/ca-space-inline.component';
 import { FlStatusModule } from '@monorepo/front-core-lib/fl-status';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import { CaServerCloudInlineComponent } from '../../../ca-server-core/component/ca-server-cloud-inline/ca-server-cloud-inline.component';
-import { MatIconButton } from '@angular/material/button';
-import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
-import { MatIcon } from '@angular/material/icon';
-import { CaExternalSpaceLinkDirective } from '../../../ca-space-core/pipe/ca-external-space-link.directive';
-import { RouterLink } from '@angular/router';
-import { CaDetailRoutePipe } from '../../../../module/ca-core-pipe/ca-detail-route/ca-detail-route.pipe';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { CaLab, CaLabWithSpace } from '../../../../model/entities/lab/ca-lab.class';
+import { CaDetailRoutePipe } from '../../../../module/ca-core-pipe/ca-detail-route/ca-detail-route.pipe';
+import { CaRouterService } from '../../../../service/ca-router.service';
+import { CaLabService } from '../../../../service-api/ca-lab.service';
+import { CaServerCloudInlineComponent } from '../../../ca-server-core/component/ca-server-cloud-inline/ca-server-cloud-inline.component';
+import { CaSpaceInlineComponent } from '../../../ca-space-core/component/ca-space-inline/ca-space-inline.component';
+import { CaExternalSpaceLinkDirective } from '../../../ca-space-core/pipe/ca-external-space-link.directive';
+import {
+  CaLabAdminFormDialogComponent,
+  CaLabAdminFormDialogInput,
+} from '../ca-lab-admin-form-dialog/ca-lab-admin-form-dialog.component';
+import { CaLabInlineComponent } from '../ca-lab-inline/ca-lab-inline.component';
+import { CaLabStatusDialogComponent } from '../ca-lab-status-dialog/ca-lab-status-dialog.component';
 
 @Component({
   selector: 'ca-lab-table',

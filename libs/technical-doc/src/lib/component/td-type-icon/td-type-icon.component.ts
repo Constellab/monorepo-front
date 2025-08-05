@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
+
 import { TdTypeStyleIconColor, TdTypeStyleIconType } from '../../model/td-type.class';
 import { TdTechnicalDocServiceConfig } from '../../service/td-technical-doc-service-config.config';
 

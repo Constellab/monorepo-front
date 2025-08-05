@@ -8,25 +8,26 @@ import {
   EventEmitter,
   HostBinding,
   inject,
-  input,
   Input,
+  input,
   OnDestroy,
   OnInit,
   Output,
   ViewChild,
 } from '@angular/core';
-import { TeConfig } from '../../model/te-config.class';
-import { Subject, Subscription } from 'rxjs';
 import { EditorConfig } from '@editorjs/editorjs/types/configs/editor-config';
+import { ClHelpService } from '@monorepo/core-lib';
 import { FlHtmlHelper, FlKeyboardHelper, FlKeyboardKey } from '@monorepo/front-core-lib/fl-core';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
-import { teGetI18nConfig } from '../../te-text-editor.i18n';
-import { TeMention } from '../../plugin/te-mention.class';
-import { ClHelpService } from '@monorepo/core-lib';
-import { TeEmoji } from '../../plugin/te-emoji.class';
-import { TeEvent } from '../../model/te-event.class';
+import { Subject, Subscription } from 'rxjs';
+
 import { TeHTMLEditorJSON, TeRichText, TeRichTextAggregate, TeRichTextModifications } from '../../model/lib';
+import { TeConfig } from '../../model/te-config.class';
+import { TeEvent } from '../../model/te-event.class';
 import { TeTextEditorUndoRedo } from '../../model/te-text-editor-undo-redo.class';
+import { TeEmoji } from '../../plugin/te-emoji.class';
+import { TeMention } from '../../plugin/te-mention.class';
+import { teGetI18nConfig } from '../../te-text-editor.i18n';
 
 TeRichTextModifications.setFrontTimeDifference();
 

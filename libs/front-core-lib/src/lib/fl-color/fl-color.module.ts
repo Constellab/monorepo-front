@@ -1,17 +1,18 @@
-import { inject, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FlColorSelectorComponent } from './component/fl-color-selector/fl-color-selector.component';
-import { MatIconModule } from '@angular/material/icon';
-import { FlColorSelectorPortalComponent } from './component/fl-color-selector-portal/fl-color-selector-portal.component';
-import { FlPortalModule } from '../fl-portal/fl-portal.module';
+import { inject, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { FlColorSelectorDirective } from './directive/fl-color-selector.directive';
-import { FlStringToRgbPipe } from './pipe/fl-string-to-rgb/fl-string-to-rgb.pipe';
-import { FlColorPickerComponent } from './component/fl-color-picker/fl-color-picker.component';
-import { FlTranslateModule } from '../fl-translate/fl-translate.module';
-import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
-import { flColorI18n } from './i18n/fl-color.i18n';
+import { MatIconModule } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
+import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+
+import { FlPortalModule } from '../fl-portal/fl-portal.module';
+import { FlTranslateModule } from '../fl-translate/fl-translate.module';
+import { FlColorPickerComponent } from './component/fl-color-picker/fl-color-picker.component';
+import { FlColorSelectorComponent } from './component/fl-color-selector/fl-color-selector.component';
+import { FlColorSelectorPortalComponent } from './component/fl-color-selector-portal/fl-color-selector-portal.component';
+import { FlColorSelectorDirective } from './directive/fl-color-selector.directive';
+import { flColorI18n } from './i18n/fl-color.i18n';
+import { FlStringToRgbPipe } from './pipe/fl-string-to-rgb/fl-string-to-rgb.pipe';
 
 @NgModule({
   declarations: [

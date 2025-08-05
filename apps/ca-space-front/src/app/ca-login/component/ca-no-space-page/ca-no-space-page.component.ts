@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { CaRouterService } from '../../../ca-core/service/ca-router.service';
-import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { MatIconAnchor } from '@angular/material/button';
-import { RouterLink } from '@angular/router';
 import { MatIcon } from '@angular/material/icon';
+import { RouterLink } from '@angular/router';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { CaRouterService } from '../../../ca-core/service/ca-router.service';
 
 /**
  * Page used when a user is not part of an space

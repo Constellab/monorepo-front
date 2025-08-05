@@ -1,11 +1,19 @@
+import { AsyncPipe, NgOptimizedImage } from '@angular/common';
 import { Component, inject, input, Signal } from '@angular/core';
+import { MatAnchor, MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatTab, MatTabGroup } from '@angular/material/tabs';
+import { RouterLink } from '@angular/router';
+import { CoCommunityAppListItemComponent, CoCommunityLibModule } from '@monorepo/community-lib';
+import { ClStringHelper } from '@monorepo/core-lib';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
+import { TranslatePipe } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+
+import { HaEmailSignUpComponent } from '../../ha-core/ha-component/ha-email-sign-up/ha-email-sign-up.component';
+import { HaGithubStarButtonComponent } from '../../ha-core/ha-component/ha-github-star-button/ha-github-star-button.component';
 import { HaConstellabHelper } from '../../ha-core/ha-model/ha-config/ha-constellab.helper';
-import { HaRouterService } from '../../ha-core/ha-service/ha-router.service';
 import { HaEnvironmentHelper } from '../../ha-core/ha-model/ha-config/ha-environment.helper';
-import {
-  HaStoryFilters,
-  HaStoryListDatasourcePaginated,
-} from '../../ha-core/ha-model/ha-entities/ha-story.class';
 import {
   HaAgentDatasourceFilters,
   HaAgentDatasourcePaginated,
@@ -14,28 +22,21 @@ import {
   HaBrickDatasourceFilters,
   HaBrickDatasourcePaginated,
 } from '../../ha-core/ha-model/ha-entities/ha-brick.class';
-import { ClStringHelper } from '@monorepo/core-lib';
-import { HaStoryService } from '../../ha-core/ha-service/ha-story.service';
-import { HaThemeState } from '../../ha-core/ha-state/ha-theme.state';
-import { HaUserService } from '../../ha-core/ha-service/ha-user.service';
-import { Observable } from 'rxjs';
-import { HaEmailSignUpComponent } from '../../ha-core/ha-component/ha-email-sign-up/ha-email-sign-up.component';
-import { MatTab, MatTabGroup } from '@angular/material/tabs';
-import { MatAnchor, MatButton } from '@angular/material/button';
-import { RouterLink } from '@angular/router';
-import { AsyncPipe, NgOptimizedImage } from '@angular/common';
-import { CoCommunityAppListItemComponent, CoCommunityLibModule } from '@monorepo/community-lib';
-import { MatIcon } from '@angular/material/icon';
-import { HaGithubStarButtonComponent } from '../../ha-core/ha-component/ha-github-star-button/ha-github-star-button.component';
-import { TranslatePipe } from '@ngx-translate/core';
-import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
-import { HaDetailRoutePipe } from '../../ha-core/ha-module/ha-core-pipe/ha-detail-route/ha-detail-route.pipe';
-import { HaBrickImagePipe } from '../../ha-core/ha-module/ha-core-pipe/ha-brick-image/ha-brick-image.pipe';
 import {
   HaCommunityAppDatasourceFilters,
   HaCommunityAppDatasourcePaginated,
 } from '../../ha-core/ha-model/ha-entities/ha-community-app.class';
+import {
+  HaStoryFilters,
+  HaStoryListDatasourcePaginated,
+} from '../../ha-core/ha-model/ha-entities/ha-story.class';
 import { HaAppPicturePipe } from '../../ha-core/ha-module/ha-core-pipe/ha-app-picture/ha-app-picture.pipe';
+import { HaBrickImagePipe } from '../../ha-core/ha-module/ha-core-pipe/ha-brick-image/ha-brick-image.pipe';
+import { HaDetailRoutePipe } from '../../ha-core/ha-module/ha-core-pipe/ha-detail-route/ha-detail-route.pipe';
+import { HaRouterService } from '../../ha-core/ha-service/ha-router.service';
+import { HaStoryService } from '../../ha-core/ha-service/ha-story.service';
+import { HaUserService } from '../../ha-core/ha-service/ha-user.service';
+import { HaThemeState } from '../../ha-core/ha-state/ha-theme.state';
 
 @Component({
   selector: 'ha-not-logged-in-home',

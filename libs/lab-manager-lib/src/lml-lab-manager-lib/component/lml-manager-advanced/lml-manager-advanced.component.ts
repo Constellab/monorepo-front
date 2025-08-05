@@ -1,7 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { Observable } from 'rxjs';
-import { LmlLabManagerStatus } from '../../model/lml-lab-manager.class';
+
 import { LmlLabManagerState } from '../../lml-lab-manager.state';
+import { LmlLabManagerStatus } from '../../model/lml-lab-manager.class';
 
 /**
  * Advanced configuration for the lab manager

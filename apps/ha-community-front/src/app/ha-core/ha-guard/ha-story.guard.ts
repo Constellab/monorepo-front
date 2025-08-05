@@ -1,12 +1,13 @@
+import { PlatformLocation } from '@angular/common';
 import { inject, Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Router, UrlTree } from '@angular/router';
-import { HaAuthenticatedUserService } from '../ha-service/ha-authenticated-user.service';
-import { HaStoryService } from '../ha-service/ha-story.service';
-import { mergeMap, Observable } from 'rxjs';
-import { HaAuthService } from '../ha-service/ha-auth.service';
 import { FlLoginSavedRoute } from '@monorepo/front-core-lib/fl-core';
+import { mergeMap, Observable } from 'rxjs';
+
+import { HaAuthService } from '../ha-service/ha-auth.service';
+import { HaAuthenticatedUserService } from '../ha-service/ha-authenticated-user.service';
 import { HaRouterService } from '../ha-service/ha-router.service';
-import { PlatformLocation } from '@angular/common';
+import { HaStoryService } from '../ha-service/ha-story.service';
 
 @Injectable({
   providedIn: 'root',

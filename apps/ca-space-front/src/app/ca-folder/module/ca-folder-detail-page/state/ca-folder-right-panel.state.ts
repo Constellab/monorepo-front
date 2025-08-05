@@ -1,8 +1,9 @@
 import { inject, Injectable, OnDestroy, ViewContainerRef } from '@angular/core';
+import { ClHelpService } from '@monorepo/core-lib';
 import { FlOverlayRef, FlPortalService } from '@monorepo/front-core-lib/fl-portal';
 import { Subscription } from 'rxjs';
+
 import { CaFolderDetailRightPanelComponent } from '../component/ca-folder-detail-right-panel/ca-folder-detail-right-panel.component';
-import { ClHelpService } from '@monorepo/core-lib';
 
 export type CaFolderDetailRightPanel = {
   type: 'description' | 'note' | 'chat' | 'settings' | 'constellab-document';

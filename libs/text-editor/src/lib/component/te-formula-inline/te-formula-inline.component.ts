@@ -1,7 +1,8 @@
 import { Component, HostBinding, HostListener, inject, OnInit } from '@angular/core';
-import { TeElementInlineDirective } from '../../model/te-element.directive';
-import { FlFormulaDialogComponent, TeFormulaDialogInput } from '@monorepo/front-core-lib/fl-formula';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlFormulaDialogComponent, TeFormulaDialogInput } from '@monorepo/front-core-lib/fl-formula';
+
+import { TeElementInlineDirective } from '../../model/te-element.directive';
 
 export interface TeFormulaInlineToolData {
   formula: string;

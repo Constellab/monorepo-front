@@ -1,5 +1,6 @@
-import { LiTypeService } from './li-type.service';
 import { TestBed } from '@angular/core/testing';
+
+import { LiTypeService } from './li-type.service';
 
 describe('LiTypeService', () => {
   let service: LiTypeService;

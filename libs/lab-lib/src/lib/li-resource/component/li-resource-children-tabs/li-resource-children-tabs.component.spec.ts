@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { LiResourceChildrenTabsComponent } from './li-resource-children-tabs.component';
 
 describe('LiResourceChildrenTabsComponent', () => {

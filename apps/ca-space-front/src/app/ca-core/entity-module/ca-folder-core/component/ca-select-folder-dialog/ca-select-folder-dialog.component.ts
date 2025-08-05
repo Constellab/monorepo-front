@@ -1,28 +1,29 @@
+import { AsyncPipe } from '@angular/common';
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { FlEntityPaginatedDatasource, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
-import { FlTranslatableText, FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
+import { MatButton, MatIconButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
-import { CaFolderService } from '../../../../service-api/ca-folder.service';
-import { CaAuthenticatedUserService } from '../../../../service-api/ca-authenticated-user.service';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
 import { ClHelpService } from '@monorepo/core-lib';
+import { FlEntityPaginatedDatasource, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
+import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
+import { FlTranslatableText, FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
+import { TranslatePipe } from '@ngx-translate/core';
+
 import {
   CaHierarchyObject,
   CaHierarchyObjectDatasource,
   CaHierarchyObjectType,
 } from '../../../../model/entities/folder/ca-hierarchy-object.class';
+import { CaAuthenticatedUserService } from '../../../../service-api/ca-authenticated-user.service';
+import { CaFolderService } from '../../../../service-api/ca-folder.service';
+import { CaHierarchyObjectService } from '../../../../service-api/ca-hierarchy-object.service';
 import { CaHierarchyObjectSearchFields } from '../../../ca-hierarchy-object-core/ca-hierarchy-object-search.class';
 import {
   CaHierarchyObjectTableComponent,
   CaHierarchyObjectTableEvent,
 } from '../../../ca-hierarchy-object-core/component/ca-hierarchy-object-table/ca-hierarchy-object-table.component';
-import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
-import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
-import { MatButton, MatIconButton } from '@angular/material/button';
-import { MatTooltip } from '@angular/material/tooltip';
-import { MatIcon } from '@angular/material/icon';
-import { AsyncPipe } from '@angular/common';
-import { TranslatePipe } from '@ngx-translate/core';
-import { CaHierarchyObjectService } from '../../../../service-api/ca-hierarchy-object.service';
 
 export interface CaSelectFolderDialogInput {
   /**

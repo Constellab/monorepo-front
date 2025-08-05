@@ -1,16 +1,17 @@
-import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { Component, EventEmitter, inject,Input, OnInit, Output } from '@angular/core';
+import { NgControl } from '@angular/forms';
 import { FlFormFieldDirective, FlInputSearchFilter } from '@monorepo/front-core-lib/fl-core';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlInputSearchAdvancedButton, FlInputSearchModule } from '@monorepo/front-core-lib/fl-input-search';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { LiNoteTemplate, LiNoteTemplateDatasource, LiNoteTemplateService } from '@monorepo/lab-lib/li-core';
+import { Observable } from 'rxjs';
+
 import { LiNoteTemplateInlineComponent } from '../li-note-template-inline/li-note-template-inline.component';
 import {
   LiSelectNoteTemplateDialogComponent,
   LiSelectNoteTemplateDialogInput,
 } from '../li-select-note-template-dialog/li-select-note-template-dialog.component';
-import { NgControl } from '@angular/forms';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'li-select-note-template',

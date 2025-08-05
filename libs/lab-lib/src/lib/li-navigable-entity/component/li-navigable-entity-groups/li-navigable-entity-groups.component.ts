@@ -1,7 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
-import { LiNavigableEntitiesTableComponent } from '../li-navigable-entities-table/li-navigable-entities-table.component';
-import { LiNavigableEntityGrouped } from '@monorepo/lab-lib/li-core';
 import {
   MatAccordion,
   MatExpansionPanel,
@@ -10,7 +7,11 @@ import {
   MatExpansionPanelTitle,
 } from '@angular/material/expansion';
 import { MatIcon } from '@angular/material/icon';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { LiNavigableEntityGrouped } from '@monorepo/lab-lib/li-core';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { LiNavigableEntitiesTableComponent } from '../li-navigable-entities-table/li-navigable-entities-table.component';
 
 @Component({
   selector: 'li-navigable-entity-groups',

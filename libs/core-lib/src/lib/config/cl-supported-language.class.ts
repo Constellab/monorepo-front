@@ -6,13 +6,6 @@ export enum ClSupportedLanguage {
   fr = 'fr',
 }
 
-export const clDefaultLang: ClSupportedLanguage = ClSupportedLanguage.en;
-
-/**
- * Name of the cookie that contains the lang
- */
-export const clLangCookie: string = 'lang';
-
 /**
  * Return true if the string lang is a supported lang
  */

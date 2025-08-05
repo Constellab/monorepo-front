@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { LiShareLinkInfoComponent } from './li-share-link-info.component';
 
 describe('ShareLinkValidityComponent', () => {

@@ -1,20 +1,21 @@
+import { AsyncPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
-import { TranslatePipe } from '@ngx-translate/core';
-import { HaDifyService } from '../../../ha-core/ha-service/ha-dify.service';
-import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { FormsModule } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
-import { MatOption, MatSelect } from '@angular/material/select';
-import { FormsModule } from '@angular/forms';
-import { HaDifyKnowledgeBase } from '../../../ha-core/ha-model/ha-entities/ha-dify.class';
-import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
-import { HaEntityType } from '../../../ha-core/ha-model/ha-entities/ha-entity-type';
 import { MatInput } from '@angular/material/input';
+import { MatOption, MatSelect } from '@angular/material/select';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
+import { TranslatePipe } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { AsyncPipe } from '@angular/common';
 import { map } from 'rxjs/operators';
+
+import { HaDifyKnowledgeBase } from '../../../ha-core/ha-model/ha-entities/ha-dify.class';
+import { HaEntityType } from '../../../ha-core/ha-model/ha-entities/ha-entity-type';
+import { HaDifyService } from '../../../ha-core/ha-service/ha-dify.service';
 
 export interface HaAdminSendToDifyDialogInput {
   entityType: HaEntityType;

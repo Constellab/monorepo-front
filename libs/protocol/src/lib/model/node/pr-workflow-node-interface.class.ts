@@ -1,14 +1,15 @@
-import { PrInterface } from '../pr-interface.class';
-import { PrWorkflowPort } from '../workflow/pr-workflow-port.class';
-import { map, Observable, of, switchMap } from 'rxjs';
 import { FlStatusEvent } from '@monorepo/front-core-lib/fl-core';
 import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
-import { PrWorkflowResourcesState } from '../../state/pr-workflow-resources.state';
-import { PrWorkflowNodeProcess } from './pr-workflow-node-process.class';
-import { PrResource } from '../pr-resource.class';
-import { PrProcess } from '../pr-process.class';
-import { PrWorkflowNodeResource, PrWorkNodeIoExternalButton } from './pr-workflow-node-resource.class';
+import { map, Observable, of, switchMap } from 'rxjs';
+
 import { PrWorkflowActionState } from '../../state/pr-workflow-action-state';
+import { PrWorkflowResourcesState } from '../../state/pr-workflow-resources.state';
+import { PrInterface } from '../pr-interface.class';
+import { PrProcess } from '../pr-process.class';
+import { PrResource } from '../pr-resource.class';
+import { PrWorkflowPort } from '../workflow/pr-workflow-port.class';
+import { PrWorkflowNodeProcess } from './pr-workflow-node-process.class';
+import { PrWorkflowNodeResource, PrWorkNodeIoExternalButton } from './pr-workflow-node-resource.class';
 
 /**
  * Node for the interfaces

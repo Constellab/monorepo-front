@@ -1,12 +1,13 @@
 import { ChangeDetectorRef, Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { BnBioNetworkService, BnUpdateMetabolite } from '../../service/bn-bio-network.service';
-import { BnBioNetworkNode } from '../../model/bn-bio-network-node.class';
-import { BnBioNetworkMetaboliteLevel } from '../../model/bn-bio-network.class';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { BnBioNetworkDrawerState } from '../../state/bn-bio-network-drawer.state';
+
+import { BnBioNetworkMetaboliteLevel } from '../../model/bn-bio-network.class';
+import { BnBioNetworkNode } from '../../model/bn-bio-network-node.class';
 import { BnBioNetworkNodeMetabolite } from '../../model/bn-bio-network-node-metabolite.class';
-import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
+import { BnBioNetworkService, BnUpdateMetabolite } from '../../service/bn-bio-network.service';
+import { BnBioNetworkDrawerState } from '../../state/bn-bio-network-drawer.state';
 
 /**
  * Component to show the position of the node with possibility to save them to biota

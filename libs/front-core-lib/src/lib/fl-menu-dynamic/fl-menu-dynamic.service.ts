@@ -1,10 +1,11 @@
-import { ElementRef, Injectable, inject } from '@angular/core';
+import { ElementRef, inject,Injectable } from '@angular/core';
 import { FlPortalService } from '@monorepo/front-core-lib/fl-portal';
-import { FlOverlayConfig, FlPortalConnectedPosition } from '../fl-portal/model/fl-portal.class';
-import { FlMenuDynamic } from './model/fl-menu-dynamic.class';
 import { FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
 import { FlPortalConfig } from '@monorepo/front-core-lib/fl-portal';
+
+import { FlOverlayConfig, FlPortalConnectedPosition } from '../fl-portal/model/fl-portal.class';
 import { FlMenuDynamicPortalComponent } from './component/fl-menu-dynamic-portal/fl-menu-dynamic-portal.component';
+import { FlMenuDynamic } from './model/fl-menu-dynamic.class';
 
 @Injectable({
   providedIn: 'root',

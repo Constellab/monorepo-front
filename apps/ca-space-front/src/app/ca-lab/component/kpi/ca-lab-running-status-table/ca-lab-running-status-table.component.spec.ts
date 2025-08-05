@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { CaLabRunningStatusTableComponent } from './ca-lab-running-status-table.component';
 
 describe('CaLabRunningStatusTableComponent', () => {

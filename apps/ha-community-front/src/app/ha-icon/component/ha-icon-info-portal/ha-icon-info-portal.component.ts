@@ -1,14 +1,14 @@
 import { Component, inject } from '@angular/core';
-import { FL_PORTAL_DATA, FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
-import { FlClipboardService, FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
-
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
 import { CoIcon } from '@monorepo/community-lib';
 import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
-import { MatIconButton } from '@angular/material/button';
-import { MatTooltip } from '@angular/material/tooltip';
-import { MatIcon } from '@angular/material/icon';
-import { HaIsGencoveryMemberDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-is-gencovery-member/ha-is-gencovery-member.directive';
+import { FL_PORTAL_DATA, FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
+import { FlClipboardService, FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { HaIsGencoveryMemberDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-is-gencovery-member/ha-is-gencovery-member.directive';
 
 @Component({
   selector: 'ha-icon-info-portal',

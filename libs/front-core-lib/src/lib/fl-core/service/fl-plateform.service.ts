@@ -1,6 +1,6 @@
 import { Platform } from '@angular/cdk/platform';
-import { Injectable, PLATFORM_ID, inject } from '@angular/core';
 import { isPlatformBrowser, isPlatformServer } from '@angular/common';
+import { inject,Injectable, PLATFORM_ID } from '@angular/core';
 
 /**
  * Service to get information about the current device such as

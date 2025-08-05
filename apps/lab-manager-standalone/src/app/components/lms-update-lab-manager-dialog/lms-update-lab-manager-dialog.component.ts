@@ -1,11 +1,12 @@
+import { AsyncPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
 import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
-import { LmsLabService } from '../../service/lms-lab.service';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { LmlNewVersionAvailable } from '@monorepo/lab-manager-lib';
-import { AsyncPipe } from '@angular/common';
+
+import { LmsLabService } from '../../service/lms-lab.service';
 
 @Component({
   selector: 'lms-update-lab-manager-dialog',

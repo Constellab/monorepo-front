@@ -1,12 +1,13 @@
 import { AsyncPipe, NgClass } from '@angular/common';
-import { BehaviorSubject, Observable, combineLatest, switchMap } from 'rxjs';
-import { Component, Input, OnInit, inject } from '@angular/core';
-import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
-import { LabConfigureProcessComponent } from '../lab-configure-process/lab-configure-process.component';
-import { LabScenarioDetailPageState } from '../../state/lab-scenario-detail-page.state';
-import { LiProcess } from '@monorepo/lab-lib/li-core';
+import { Component, inject,Input, OnInit } from '@angular/core';
 import { MatRipple } from '@angular/material/core';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+import { LiProcess } from '@monorepo/lab-lib/li-core';
+import { BehaviorSubject, combineLatest, Observable, switchMap } from 'rxjs';
 import { filter } from 'rxjs/operators';
+
+import { LabScenarioDetailPageState } from '../../state/lab-scenario-detail-page.state';
+import { LabConfigureProcessComponent } from '../lab-configure-process/lab-configure-process.component';
 
 /**
  * Component to configure a protocol, can contains nested protocol

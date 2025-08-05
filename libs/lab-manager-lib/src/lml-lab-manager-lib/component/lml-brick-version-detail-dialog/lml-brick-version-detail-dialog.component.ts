@@ -1,8 +1,9 @@
 import { Component, inject } from '@angular/core';
-import { Observable } from 'rxjs';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { LmlBrickVersion } from '../../model/lml-brick.class';
+import { Observable } from 'rxjs';
+
 import { LmlBrickService } from '../../lml-brick.service';
+import { LmlBrickVersion } from '../../model/lml-brick.class';
 
 export interface LmlBrickVersionDetailDialogInput {
   brickName: string;

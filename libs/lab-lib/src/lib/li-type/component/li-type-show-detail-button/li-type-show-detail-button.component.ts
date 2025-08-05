@@ -1,10 +1,11 @@
-import { Component, Input, inject } from '@angular/core';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { LiTypeDialogComponent, LiTypeDialogInput } from '../li-type-dialog/li-type-dialog.component';
-import { MatIcon } from '@angular/material/icon';
+import { Component, inject,Input } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { LiTypeDialogComponent, LiTypeDialogInput } from '../li-type-dialog/li-type-dialog.component';
 
 /**
  * Icon button to load and show process type detail in a portal on clic

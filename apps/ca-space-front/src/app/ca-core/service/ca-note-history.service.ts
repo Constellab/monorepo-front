@@ -5,6 +5,7 @@ import {
   TeTextEditorHistoryService,
 } from '@monorepo/text-editor';
 import { Observable } from 'rxjs';
+
 import { CaNoteService } from '../service-api/ca-note.service';
 
 @Injectable({

@@ -1,17 +1,18 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { TdTypeStyle } from '@monorepo/technical-doc';
-import { FlDialogModule, FlFormDialogAbstractDirective } from '@monorepo/front-core-lib/fl-dialog';
-import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
-import { HaAgentVersion } from '../../../ha-core/ha-model/ha-entities/ha-agent-version.class';
-import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { HaAgentService } from '../../../ha-core/ha-service/ha-agent.service';
-import { HaAgent } from '../../../ha-core/ha-model/ha-entities/ha-agent.class';
-import { CoCommunityLibModule } from '@monorepo/community-lib';
-import { MatCheckbox } from '@angular/material/checkbox';
 import { MatButton } from '@angular/material/button';
+import { MatCheckbox } from '@angular/material/checkbox';
+import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
+import { CoCommunityLibModule } from '@monorepo/community-lib';
+import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
+import { FlDialogModule, FlFormDialogAbstractDirective } from '@monorepo/front-core-lib/fl-dialog';
+import { TdTypeStyle } from '@monorepo/technical-doc';
 import { TranslatePipe } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+
+import { HaAgent } from '../../../ha-core/ha-model/ha-entities/ha-agent.class';
+import { HaAgentVersion } from '../../../ha-core/ha-model/ha-entities/ha-agent-version.class';
+import { HaAgentService } from '../../../ha-core/ha-service/ha-agent.service';
 
 export type HaAgentEditStyleDialogInputData = FlFormDialogInput<HaAgentEditStyleDialogData>;
 
@@ -72,7 +73,7 @@ export class HaAgentEditStyleDialogComponent
     });
   }
 
-  create(formValue: HaAgentEditStyleFormData): Observable<HaAgent | HaAgentVersion> {
+  create(): Observable<HaAgent | HaAgentVersion> {
     return undefined;
   }
 

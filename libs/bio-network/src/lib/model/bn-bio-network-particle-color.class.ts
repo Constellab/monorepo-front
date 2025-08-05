@@ -1,9 +1,10 @@
-import { BnBioNetworkParticleColorScale } from '../state/bn-bio-network-options.state';
 import { ClNumberHelper } from '@monorepo/core-lib';
-import { quantile, scaleLinear } from 'd3';
-import { BnBioNetworkLink } from './bn-bio-network-node-link.class';
-import { ScaleLinear } from 'd3-scale';
 import { FlColorHelper } from '@monorepo/front-core-lib/fl-core';
+import { quantile, scaleLinear } from 'd3';
+import { ScaleLinear } from 'd3-scale';
+
+import { BnBioNetworkParticleColorScale } from '../state/bn-bio-network-options.state';
+import { BnBioNetworkLink } from './bn-bio-network-node-link.class';
 
 export type BnBioNetworkLinkColorFunction = (node: BnBioNetworkLink) => string;
 

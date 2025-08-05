@@ -1,11 +1,10 @@
+import { Injector } from '@angular/core';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
 } from '@monorepo/front-core-lib/fl-dialog';
 import { FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
-import { Injector } from '@angular/core';
-import { LiEntityActionMenu } from '@monorepo/lab-lib/li-entity';
 import {
   LiNote,
   LiRouterService,
@@ -13,9 +12,10 @@ import {
   LiScenarioService,
   LiTagDatasource,
 } from '@monorepo/lab-lib/li-core';
+import { LiEntityActionMenu } from '@monorepo/lab-lib/li-entity';
 import { LiNoteFormDialogComponent, LiNoteFormDialogInput } from '@monorepo/lab-lib/li-note';
-import { Observable } from 'rxjs';
 import { LiSharedEntityInfoDialogComponent, LiSharedEntityInfoDialogInput } from '@monorepo/lab-lib/li-share';
+import { Observable } from 'rxjs';
 
 export type LiScenarioActionEvent = {
   action: 'archive' | 'unarchive';

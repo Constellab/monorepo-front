@@ -1,38 +1,39 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { MatButton } from '@angular/material/button';
-import { HaBrickVersionService } from '../../../ha-core/ha-service/ha-brick-version.service';
-import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { MatIcon } from '@angular/material/icon';
-import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
-import { TranslatePipe } from '@ngx-translate/core';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
+import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import {
   FlSavedSearch,
   FlSearchConfig,
   FlSearchModule,
   FlSearchState,
 } from '@monorepo/front-core-lib/fl-search';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
+import { FlFileHelper } from '@monorepo/front-core-lib/fl-translate';
+import { TranslatePipe } from '@ngx-translate/core';
+
+import { HaBrick, HaBrickDatasourcePaginated } from '../../../ha-core/ha-model/ha-entities/ha-brick.class';
+import { HaEntityType } from '../../../ha-core/ha-model/ha-entities/ha-entity-type';
+import { HaBrickService } from '../../../ha-core/ha-service/ha-brick.service';
+import { HaBrickVersionService } from '../../../ha-core/ha-service/ha-brick-version.service';
+import {
+  HaAdminPanelBrickSearch,
+  HaAdminPanelBrickSearchFields,
+} from '../../model/ha-admin-panel-brick-search.class';
 import { HaAdminPanelBricksSearchFormComponent } from '../ha-admin-panel-bricks-search-form/ha-admin-panel-bricks-search-form.component';
 import {
   HaAdminPanelBricksTableActionEvent,
   HaAdminPanelBricksTableComponent,
 } from '../ha-admin-panel-bricks-table/ha-admin-panel-bricks-table.component';
 import {
-  HaAdminPanelBrickSearch,
-  HaAdminPanelBrickSearchFields,
-} from '../../model/ha-admin-panel-brick-search.class';
-import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
-import { HaBrick, HaBrickDatasourcePaginated } from '../../../ha-core/ha-model/ha-entities/ha-brick.class';
-import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
-import { HaBrickService } from '../../../ha-core/ha-service/ha-brick.service';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import {
   HaAdminSendToDifyDialogComponent,
   HaAdminSendToDifyDialogInput,
 } from '../ha-admin-send-brick-docs-to-dify-dialog/ha-admin-send-to-dify-dialog.component';
-import { HaEntityType } from '../../../ha-core/ha-model/ha-entities/ha-entity-type';
-import { FlFileHelper } from '@monorepo/front-core-lib/fl-translate';
 
 @Component({
   selector: 'ha-admin-panel-bricks',

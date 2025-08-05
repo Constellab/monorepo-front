@@ -1,5 +1,5 @@
-import { InjectionToken } from '@angular/core';
 import { ComponentType } from '@angular/cdk/overlay';
+import { InjectionToken } from '@angular/core';
 
 /**
  * Accessible cookie containing the Authorization expiration date

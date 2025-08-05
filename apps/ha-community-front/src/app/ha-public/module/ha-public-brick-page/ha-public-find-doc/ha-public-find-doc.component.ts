@@ -1,18 +1,19 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { HaDocumentationSearchDTO } from '../../../../ha-core/ha-model/ha-entities/ha-documentation.class';
-import { mergeMap, Observable, of, startWith } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { HaBrickService } from '../../../../ha-core/ha-service/ha-brick.service';
-import { HaRouterService } from '../../../../ha-core/ha-service/ha-router.service';
-import { clRxjsElasticSearch } from '@monorepo/core-lib';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { AsyncPipe } from '@angular/common';
+import { Component, inject,OnInit } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { MatAutocomplete,MatAutocompleteTrigger } from '@angular/material/autocomplete';
+import { MatOptgroup, MatOption } from '@angular/material/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
-import { MatAutocompleteTrigger, MatAutocomplete } from '@angular/material/autocomplete';
-import { MatOptgroup, MatOption } from '@angular/material/core';
+import { clRxjsElasticSearch } from '@monorepo/core-lib';
 import { TranslatePipe } from '@ngx-translate/core';
-import { AsyncPipe } from '@angular/common';
+import { mergeMap, Observable, of, startWith } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import { HaDocumentationSearchDTO } from '../../../../ha-core/ha-model/ha-entities/ha-documentation.class';
+import { HaBrickService } from '../../../../ha-core/ha-service/ha-brick.service';
+import { HaRouterService } from '../../../../ha-core/ha-service/ha-router.service';
 
 @Component({
   selector: 'ha-public-find-doc-dialog',
@@ -59,11 +60,11 @@ export class HaPublicFindDocComponent implements OnInit {
   private _filter(nameOrLink: string, isTechnical: boolean): HaDocumentationSearchDTO[] {
     return isTechnical
       ? this.technicalDocumentations.filter((documentation) =>
-          documentation.name.toLowerCase().includes(nameOrLink.toLowerCase())
-        )
+        documentation.name.toLowerCase().includes(nameOrLink.toLowerCase())
+      )
       : this.documentations.filter((documentation) =>
-          documentation.name.toLowerCase().includes(nameOrLink.toLowerCase())
-        );
+        documentation.name.toLowerCase().includes(nameOrLink.toLowerCase())
+      );
   }
 
   ngOnInit(): void {

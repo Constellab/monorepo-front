@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
-import { FlMenuDynamic, FlMenuDynamicButton } from '../../model/fl-menu-dynamic.class';
 import { MatMenu, MatMenuTrigger, MenuPositionX, MenuPositionY } from '@angular/material/menu';
-import { Observable, of } from 'rxjs';
 import { FlThemeHelper } from '@monorepo/front-core-lib/fl-theme';
+import { Observable, of } from 'rxjs';
+
+import { FlMenuDynamic, FlMenuDynamicButton } from '../../model/fl-menu-dynamic.class';
 
 @Component({
   selector: 'fl-menu-dynamic',

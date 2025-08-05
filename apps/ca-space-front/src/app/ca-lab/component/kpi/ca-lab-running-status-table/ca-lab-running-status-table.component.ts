@@ -1,6 +1,5 @@
+import { DecimalPipe } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { CaLabRunningStatus } from '../../../../ca-core/model/entities/lab/ca-lab-stats.dto';
-import { FlDatasource, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import {
   MatCell,
   MatCellDef,
@@ -13,11 +12,13 @@ import {
   MatRowDef,
   MatTable,
 } from '@angular/material/table';
+import { FlDatasource, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
+import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
 import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import { DecimalPipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
-import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
+
+import { CaLabRunningStatus } from '../../../../ca-core/model/entities/lab/ca-lab-stats.dto';
 
 @Component({
   selector: 'ca-lab-running-status-table',

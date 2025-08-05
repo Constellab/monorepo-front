@@ -1,16 +1,17 @@
-import { Component, ElementRef, OnDestroy, OnInit, inject } from '@angular/core';
+import { Component, ElementRef, inject,OnDestroy, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FlConfirmDialogInput } from '@monorepo/front-core-lib/fl-dialog';
 import { FlConfirmDialogResult } from '@monorepo/front-core-lib/fl-dialog';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { TeConfig } from '../../model/te-config.class';
-import { TeTextEditorHistoryService } from '../../model/te-text-editor-history.service';
-import { TeTextEditorHistoryClickEventData } from '../te-text-editor-history-modification-group/te-text-editor-history-modification-group.component';
-import { TeTextEditorHistoryUser } from '../../model/te-text-editor-history-user.class';
+
+import { TeRichText } from '../../model/lib';
 import { TeHelper } from '../../model/te.helper';
+import { TeConfig } from '../../model/te-config.class';
 import { TeEvent } from '../../model/te-event.class';
 import { TeTextEditorHistoryModificationGroup } from '../../model/te-modifications-group.class';
-import { TeRichText } from '../../model/lib';
+import { TeTextEditorHistoryService } from '../../model/te-text-editor-history.service';
+import { TeTextEditorHistoryUser } from '../../model/te-text-editor-history-user.class';
+import { TeTextEditorHistoryClickEventData } from '../te-text-editor-history-modification-group/te-text-editor-history-modification-group.component';
 
 export interface TeTextEditorHistoryModificationVisualizerDialogData {
   textEditorConfig: TeConfig;

@@ -1,3 +1,4 @@
+import { inject,Pipe, PipeTransform } from '@angular/core';
 import { FlEntity } from '@monorepo/front-core-lib/fl-core';
 import {
   LiEntityTagType,
@@ -9,7 +10,6 @@ import {
   LiTagService,
   LiViewConfig,
 } from '@monorepo/lab-lib/li-core';
-import { Pipe, PipeTransform, inject } from '@angular/core';
 
 @Pipe({ name: 'labGetEntityTags' })
 export class LiGetEntityTagsPipe implements PipeTransform {

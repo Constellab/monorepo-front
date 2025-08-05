@@ -1,6 +1,7 @@
-import { FlBaseActionMenu, FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlBaseActionMenu, FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
 import { LiEntityTagType, LiTagDatasource } from '@monorepo/lab-lib/li-core';
+
 import { LiManageEntityTagsDialogComponent, LiManageEntityTagsDialogInput } from '../li-tag';
 
 export class LiEntityActionMenu extends FlBaseActionMenu {

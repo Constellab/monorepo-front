@@ -1,7 +1,8 @@
 import { ClSupportedLanguage, ClTheme } from '@monorepo/core-lib';
-import { Expose, Type } from 'class-transformer';
 import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
 import { FlUser } from '@monorepo/front-core-lib/fl-user';
+import { Expose, Type } from 'class-transformer';
+
 import { LiBaseEntity } from '../global/li-entity.entity';
 
 export class LiUser implements FlUser {

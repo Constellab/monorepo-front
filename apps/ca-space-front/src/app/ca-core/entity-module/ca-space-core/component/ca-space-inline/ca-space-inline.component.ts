@@ -1,10 +1,11 @@
+import { AsyncPipe } from '@angular/common';
 import { Component, inject, Input, OnInit } from '@angular/core';
-import { CaSpace } from '../../../../model/entities/space/ca-space.class';
+import { MatBadge } from '@angular/material/badge';
 import { Observable, of } from 'rxjs';
+
+import { CaSpace } from '../../../../model/entities/space/ca-space.class';
 import { CaNotificationState } from '../../../../state/ca-notification.state';
 import { CaSpacePhotoComponent } from '../ca-space-photo/ca-space-photo.component';
-import { MatBadge } from '@angular/material/badge';
-import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'ca-space-inline',

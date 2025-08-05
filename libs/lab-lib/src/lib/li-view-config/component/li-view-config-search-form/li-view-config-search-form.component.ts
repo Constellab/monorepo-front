@@ -1,11 +1,5 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
-import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
-import { FlSearchModule, FlSearchState } from '@monorepo/front-core-lib/fl-search';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { Component, inject,Input, OnInit } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { LiFolderSelectComponent } from '@monorepo/lab-lib/li-folder';
-import { LiSelectViewTypeOptionsComponent } from '../li-select-view-type-options/li-select-view-type-options.component';
-import { LiTagFiltersComponent } from '@monorepo/lab-lib/li-tag';
 import { MatCheckbox } from '@angular/material/checkbox';
 import {
   MatExpansionPanel,
@@ -16,8 +10,15 @@ import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatInput } from '@angular/material/input';
 import { MatSelect, MatSelectTrigger } from '@angular/material/select';
+import { FlSearchModule, FlSearchState } from '@monorepo/front-core-lib/fl-search';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { LiFolderSelectComponent } from '@monorepo/lab-lib/li-folder';
+import { LiTagFiltersComponent } from '@monorepo/lab-lib/li-tag';
 import { TdTechnicalDocModule } from '@monorepo/technical-doc';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { LiSelectViewTypeOptionsComponent } from '../li-select-view-type-options/li-select-view-type-options.component';
 
 @Component({
   selector: 'li-view-config-search-form',

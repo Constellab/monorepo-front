@@ -1,6 +1,7 @@
-import { Directive, inject } from '@angular/core';
-import { DcComponentData } from '../../../../core/model/dc-dynamic-component.class';
 import { HTTP_INTERCEPTORS, HttpInterceptor } from '@angular/common/http';
+import { Directive, inject } from '@angular/core';
+
+import { DcComponentData } from '../../../../core/model/dc-dynamic-component.class';
 import { DcHttpInterceptorService } from '../../service/dc-http-interceptor.service';
 
 /**

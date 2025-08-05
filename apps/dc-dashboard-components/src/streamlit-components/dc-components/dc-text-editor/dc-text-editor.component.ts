@@ -1,10 +1,10 @@
 import { Component, EventEmitter, HostBinding, inject, Input, OnInit, Output, signal } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 import { TeRichText, TeRichTextDTO, TeTextEditorModule } from '@monorepo/text-editor';
-
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 import { Streamlit } from 'streamlit-component-lib';
+
 import { DcComponentData, DcDynamicComponent } from '../../../core/model/dc-dynamic-component.class';
 import { DcCoreMainDirective } from '../../dc-core/directive/dc-core-main-prod/dc-core-main.directive';
 import { DcTextEditorConfig } from './dc-text-editor.config';

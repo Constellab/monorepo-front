@@ -9,6 +9,7 @@ import {
 import { TeRichText, TeRichTextTransform } from '@monorepo/text-editor';
 import { Expose, Type } from 'class-transformer';
 import { DateTime } from 'luxon';
+
 import { LiEntity } from '../global/li-entity.entity';
 import { LiFolder, LiFolderObject } from './li-folder.class';
 import { LiBaseEntityWithUser, LiUser } from './li-user.entity';

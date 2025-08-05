@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { CaBucketLocationInlineComponent } from './ca-bucket-location-inline.component';
 
 describe('CaBucketLocationInlineComponent', () => {

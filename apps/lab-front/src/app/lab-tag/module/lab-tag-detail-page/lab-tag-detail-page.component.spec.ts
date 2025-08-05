@@ -10,7 +10,7 @@ describe('LabTagDetailPageComponent', () => {
     await TestBed.configureTestingModule({
       imports: [LabTagDetailPageComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(LabTagDetailPageComponent);
     component = fixture.componentInstance;

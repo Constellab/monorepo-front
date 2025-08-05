@@ -10,7 +10,7 @@ describe('CoTagValuesTableComponent', () => {
     await TestBed.configureTestingModule({
       imports: [CoTagValuesTableComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(CoTagValuesTableComponent);
     component = fixture.componentInstance;

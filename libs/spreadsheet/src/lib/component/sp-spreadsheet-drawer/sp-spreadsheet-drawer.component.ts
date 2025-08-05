@@ -1,11 +1,12 @@
-import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject,OnInit } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
-import { SpSpreadsheetState } from '../../state/sp-spreadsheet.state';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { SpSheet } from '../../model/sp-sheet.class';
 import { flCdkOverlayContainerClass } from '@monorepo/front-core-lib/fl-core';
 import { FlTagColorer } from '@monorepo/front-core-lib/fl-tag';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import { SpSheet } from '../../model/sp-sheet.class';
+import { SpSpreadsheetState } from '../../state/sp-spreadsheet.state';
 
 @Component({
   selector: 'sp-spreadsheet-drawer',

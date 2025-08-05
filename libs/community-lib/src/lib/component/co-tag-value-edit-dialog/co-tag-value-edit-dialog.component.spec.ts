@@ -10,7 +10,7 @@ describe('CoTagValueEditDialogComponent', () => {
     await TestBed.configureTestingModule({
       imports: [CoTagValueEditDialogComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(CoTagValueEditDialogComponent);
     component = fixture.componentInstance;

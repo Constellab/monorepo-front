@@ -1,6 +1,6 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { LiApiError } from '@monorepo/lab-lib/li-core';
+import { Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { LiApiError } from '@monorepo/lab-lib/li-core';
 import { TranslatePipe } from '@ngx-translate/core';
 
 /**
@@ -13,11 +13,5 @@ import { TranslatePipe } from '@ngx-translate/core';
   imports: [TranslatePipe],
 })
 export class LabErrorDetailComponent {
-  error: LiApiError;
-
-  constructor() {
-    const error = inject<LiApiError>(MAT_DIALOG_DATA);
-
-    this.error = error;
-  }
+  error: LiApiError = inject<LiApiError>(MAT_DIALOG_DATA);
 }

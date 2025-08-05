@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ClHelpService } from '@monorepo/core-lib';
+
 import { FlTag } from '../../fl-tag.class';
 import { FlTagColorer } from '../../fl-tag-colorer.class';
-import { ClHelpService } from '@monorepo/core-lib';
 
 /**
  * Simple component for tags

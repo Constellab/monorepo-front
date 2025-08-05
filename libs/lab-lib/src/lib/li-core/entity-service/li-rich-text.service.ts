@@ -1,7 +1,6 @@
+import { inject,Injectable } from '@angular/core';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
-import { Injectable, inject } from '@angular/core';
-import { LiResourceView } from '../model/entities/resource/li-resource-view.entity';
-import { Observable } from 'rxjs';
+import { flRootInjector } from '@monorepo/front-core-lib/fl-core';
 import {
   TeAudioTranscriptionConfig,
   TeBlockFigureUploadedResponse,
@@ -11,8 +10,10 @@ import {
   TeRichText,
   TeRichTextDTO,
 } from '@monorepo/text-editor';
-import { flRootInjector } from '@monorepo/front-core-lib/fl-core';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+
+import { LiResourceView } from '../model/entities/resource/li-resource-view.entity';
 
 export enum LiRichTextObjectType {
   NOTE = 'note',

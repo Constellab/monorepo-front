@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { map, Observable } from 'rxjs';
 import { LiTagDetailComponent } from '@monorepo/lab-lib/li-tag';
+import { map, Observable } from 'rxjs';
 
 @Component({
   selector: 'lab-tag-detail-page',

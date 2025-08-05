@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+
 import { TdTypingName } from '../model/td-typing-name.class';
 
 /**

@@ -1,4 +1,5 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject,OnInit } from '@angular/core';
+
 import { FlSavedSearch } from '../../model/fl-saved-search.class';
 import { FlSearchState } from '../../model/fl-search.state';
 

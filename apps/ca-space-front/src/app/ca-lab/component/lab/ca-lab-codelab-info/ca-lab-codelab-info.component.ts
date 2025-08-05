@@ -1,21 +1,22 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { CaLabCodelabDTO } from '../../../../ca-core/model/entities/lab/ca-lab.class';
-import { CoCommunityHelperService } from '@monorepo/community-lib';
-import { FlClipboardService } from '@monorepo/front-core-lib/fl-snack-bar';
+import { MatButton } from '@angular/material/button';
 import {
   MAT_DIALOG_DATA,
   MatDialogActions,
   MatDialogClose,
   MatDialogContent,
 } from '@angular/material/dialog';
-import { Observable } from 'rxjs';
-import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
-import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
-import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
-import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
-import { MatButton } from '@angular/material/button';
-import { TranslatePipe } from '@ngx-translate/core';
+import { CoCommunityHelperService } from '@monorepo/community-lib';
 import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
+import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+import { FlClipboardService } from '@monorepo/front-core-lib/fl-snack-bar';
+import { TranslatePipe } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+
+import { CaLabCodelabDTO } from '../../../../ca-core/model/entities/lab/ca-lab.class';
+import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
 
 /**
  * Dialog to show information about the codelab of a lab

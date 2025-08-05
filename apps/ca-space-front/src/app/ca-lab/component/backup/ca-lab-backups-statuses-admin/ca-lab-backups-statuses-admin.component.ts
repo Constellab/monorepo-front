@@ -1,17 +1,18 @@
 import { Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
-import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
+import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+import { TranslatePipe } from '@ngx-translate/core';
+
 import {
   CaLabBackupStatusDatasource,
   CaLabBackupStatusDTO,
 } from '../../../../ca-core/model/entities/lab/ca-lab-backup.class';
-import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
-import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
-import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
 import {
   CaLabBackupStatusTableComponent,
 } from '../ca-lab-backup-status-table/ca-lab-backup-status-table.component';
-import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * Dialog to show information about the lab backup statuses

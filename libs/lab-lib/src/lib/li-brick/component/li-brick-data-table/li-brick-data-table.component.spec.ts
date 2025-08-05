@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { LiBrickDataTableComponent } from './li-brick-data-table.component';
 
 describe('LiBrickDataTableComponent', () => {

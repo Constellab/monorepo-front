@@ -1,8 +1,9 @@
-import { TeComponentBlock } from './te-component-block.class';
-import { TeVideoComponent } from '../component/te-video/te-video.component';
 import { Type } from '@angular/core';
 import { ToolboxConfig } from '@editorjs/editorjs/types/tools/tool-settings';
+
+import { TeVideoComponent } from '../component/te-video/te-video.component';
 import { TeHelper } from '../model/te.helper';
+import { TeComponentBlock } from './te-component-block.class';
 
 export class TeVideoBlockData {
   url: string;

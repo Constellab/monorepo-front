@@ -2,6 +2,7 @@ import { RvResourceView, RvResourceViewBase, RvResourceViewType } from '@monorep
 import { TdParamSpecs, TdParamSpecsValues, TdTypeStyle } from '@monorepo/technical-doc';
 import { TeRichTextDTO } from '@monorepo/text-editor';
 import { Expose, Type } from 'class-transformer';
+
 import { LiRichTextObjectType } from '../../../entity-service/li-rich-text.service';
 import { LiResourceViewFolder } from './li-resource-view-folder.class';
 import { LiViewConfig } from './li-view-config.entity';

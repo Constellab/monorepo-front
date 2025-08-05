@@ -1,11 +1,12 @@
-import { ChChart2dDatum } from '../model/data/ch-chart-data.class';
 import { line } from 'd3';
-import { ChChart2AxisRenderer } from './ch-chart-renderer.class';
-import { ChChartScale } from '../model/scale/ch-chart-scale.class';
 import { ValueFn } from 'd3-selection';
-import { ChChartSerie } from '../model/data/ch-chart-serie.class';
+
+import { ChChart2dDatum } from '../model/data/ch-chart-data.class';
 import { ChChart2dMultiSerie } from '../model/data/ch-chart-multi-serie.class';
+import { ChChartSerie } from '../model/data/ch-chart-serie.class';
+import { ChChartScale } from '../model/scale/ch-chart-scale.class';
 import { ChChartScaleColor } from '../model/scale/ch-chart-scale-color.class';
+import { ChChart2AxisRenderer } from './ch-chart-renderer.class';
 
 /**
  * Class to manage line chart with multiple series

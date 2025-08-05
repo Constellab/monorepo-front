@@ -1,8 +1,8 @@
-import { inject, Injectable, PLATFORM_ID, REQUEST } from '@angular/core';
-import { HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { isPlatformServer } from '@angular/common';
+import { HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { inject, Injectable, PLATFORM_ID, REQUEST } from '@angular/core';
 import { Request } from 'express';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class HaHttpInterceptorSsrService implements HttpInterceptor {
@@ -30,8 +30,8 @@ export class HaHttpInterceptorSsrService implements HttpInterceptor {
         headers: req.headers
           ? req.headers.append('authorization', this.request.cookies['Authorization'])
           : new HttpHeaders({
-              authorization: this.request.cookies['Authorization'],
-            }),
+            authorization: this.request.cookies['Authorization'],
+          }),
       });
     }
     return next.handle(req);

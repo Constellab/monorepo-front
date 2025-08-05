@@ -1,5 +1,5 @@
-import { ChChart2AxisRenderer } from './ch-chart-renderer.class';
 import { chD3DefaultTransitionDuration } from '../model/ch-d3.class';
+import { ChChart2AxisRenderer } from './ch-chart-renderer.class';
 
 export interface ChChartLine {
   orientation: 'vertical' | 'horizontal';

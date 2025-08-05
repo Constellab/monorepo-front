@@ -1,5 +1,6 @@
 import { ClStringHelper } from '@monorepo/core-lib';
 import { of } from 'rxjs';
+
 import { FlDatasourceGetPageData, FlDatasourcePaginated } from './fl-datasource-paginated.class';
 
 export interface FlInputSearchFilter {

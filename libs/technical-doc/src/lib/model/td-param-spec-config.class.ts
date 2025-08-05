@@ -1,3 +1,4 @@
+import { signal } from '@angular/core';
 import {
   FlDynamicFieldConfig,
   FlDynamicFieldConfigBase,
@@ -10,7 +11,6 @@ import {
 } from '@monorepo/front-core-lib/fl-dynamic-field';
 
 import { tdCodeParamSpecTypeList, TdParamSpec, TdParamSpecSimple } from './td-config-spec.class';
-import { signal } from '@angular/core';
 
 export class TdParamSpecConfig {
   public static convertParamSpecToAbstractConfig(

@@ -1,3 +1,4 @@
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { FlFormInputsManagerConfig } from '@monorepo/front-core-lib/fl-form-inputs-manager';
 import {
   FlSearchConverter,
@@ -6,11 +7,11 @@ import {
   FlSearchSortCriteriaConverter,
 } from '@monorepo/front-core-lib/fl-search';
 import { FlTag } from '@monorepo/front-core-lib/fl-tag';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { LiFolder } from '../entities/li-folder.class';
-import { LiSearchConverter } from '../global/li-search-converter.class';
-import { LiUser } from '../entities/li-user.entity';
 import { Type } from 'class-transformer';
+
+import { LiFolder } from '../entities/li-folder.class';
+import { LiUser } from '../entities/li-user.entity';
+import { LiSearchConverter } from '../global/li-search-converter.class';
 
 export class LiNoteSearchFields {
   title: string;

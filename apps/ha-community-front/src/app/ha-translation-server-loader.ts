@@ -1,10 +1,10 @@
-import { Observable } from 'rxjs';
-import { TranslateLoader } from '@ngx-translate/core';
-
 import { makeStateKey, StateKey, TransferState } from '@angular/core';
-import { dirname, resolve } from 'path';
+import { TranslateLoader } from '@ngx-translate/core';
 import { readFileSync } from 'fs';
+import { dirname, resolve } from 'path';
+import { Observable } from 'rxjs';
 import { fileURLToPath } from 'url';
+
 import { environment } from '../environments/ha-environment';
 
 export class TranslateServerLoader implements TranslateLoader {
@@ -26,13 +26,13 @@ export class TranslateServerLoader implements TranslateLoader {
             JSON.parse(
               environment.production
                 ? readFileSync(
-                    resolve(__dirname, `../browser/assets/i18n/${file}${lang}${this.suffix}`),
-                    'utf8'
-                  )
+                  resolve(__dirname, `../browser/assets/i18n/${file}${lang}${this.suffix}`),
+                  'utf8'
+                )
                 : readFileSync(
-                    resolve(__dirname, `../../../apps/ha-community-front/src/assets/i18n/${file}${lang}${this.suffix}`),
-                    'utf8'
-                  )
+                  resolve(__dirname, `../../../apps/ha-community-front/src/assets/i18n/${file}${lang}${this.suffix}`),
+                  'utf8'
+                )
             )
           );
           // eslint-disable-next-line max-len

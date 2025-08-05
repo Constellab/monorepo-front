@@ -1,13 +1,14 @@
 import { ComponentType } from '@angular/cdk/overlay';
 import { inject, Injectable, TemplateRef, Type } from '@angular/core';
-import { merge, Observable } from 'rxjs';
-import { NavigationStart, Router } from '@angular/router';
-import { filter, first, map } from 'rxjs/operators';
-import { FlConfirmDialogInput } from './model/fl-confirm-dialog.class';
-import { FlConfirmDialogComponent } from './component/fl-confirm-dialog/fl-confirm-dialog.component';
-import { ClHelpService } from '@monorepo/core-lib';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
+import { NavigationStart, Router } from '@angular/router';
+import { ClHelpService } from '@monorepo/core-lib';
 import { FlPlatformService } from '@monorepo/front-core-lib/fl-core';
+import { merge, Observable } from 'rxjs';
+import { filter, first, map } from 'rxjs/operators';
+
+import { FlConfirmDialogComponent } from './component/fl-confirm-dialog/fl-confirm-dialog.component';
+import { FlConfirmDialogInput } from './model/fl-confirm-dialog.class';
 
 /**
  * Service to open responsive dialog. The max-height and width of the dialog

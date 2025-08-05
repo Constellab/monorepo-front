@@ -1,5 +1,5 @@
+import { Component, inject,OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Component, OnInit, inject } from '@angular/core';
 import { LiResourceDetailComponent } from '@monorepo/lab-lib/li-resource';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';

@@ -1,7 +1,8 @@
-import { Observable } from 'rxjs';
-import { ClPage } from '@monorepo/core-lib';
-import { LmlBrickVersion, LmlCommunityBrick } from './model/lml-brick.class';
 import { CoBrickVersionPath, CoSpace } from '@monorepo/community-lib';
+import { ClPage } from '@monorepo/core-lib';
+import { Observable } from 'rxjs';
+
+import { LmlBrickVersion, LmlCommunityBrick } from './model/lml-brick.class';
 
 export abstract class LmlBrickService {
   public abstract getAllWithFilters(

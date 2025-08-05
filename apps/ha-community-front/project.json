@@ -4,6 +4,7 @@
   "projectType": "application",
   "sourceRoot": "apps/ha-community-front/src",
   "prefix": "ha",
+  "tags": ["front"],
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:application",
@@ -42,9 +43,7 @@
             "output": "assets/fl-font"
           }
         ],
-        "externalDependencies": [
-          "assets/fl-font/*"
-        ],
+        "externalDependencies": ["assets/fl-font/*"],
         "styles": [
           "apps/ha-community-front/src/ha-styles.scss",
           {
@@ -121,7 +120,8 @@
           "buildTarget": "ha-community-front:build:development"
         }
       },
-      "defaultConfiguration": "development"
+      "defaultConfiguration": "development",
+      "continuous": true
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
@@ -180,7 +180,8 @@
           "serverTarget": "ha-community-front:server:production"
         }
       },
-      "defaultConfiguration": "development"
+      "defaultConfiguration": "development",
+      "continuous": true
     },
     "prerender": {
       "executor": "@angular-devkit/build-angular:prerender",
@@ -199,6 +200,5 @@
       },
       "defaultConfiguration": "production"
     }
-  },
-  "tags": ["front"]
+  }
 }

@@ -1,51 +1,52 @@
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { AsyncPipe } from '@angular/common';
 import { afterNextRender, Component, inject, Injector, OnDestroy, OnInit } from '@angular/core';
-import { mergeMap, Observable } from 'rxjs';
+import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatTab, MatTabGroup, MatTabLabel } from '@angular/material/tabs';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { HaUserService } from '../../../ha-core/ha-service/ha-user.service';
-import { map } from 'rxjs/operators';
-import { HaSpace } from '../../../ha-core/ha-model/ha-entities/ha-space.class';
-import { HaSpaceService } from '../../../ha-core/ha-service/ha-space.service';
-import { HaAgentDatasourcePaginated } from '../../../ha-core/ha-model/ha-entities/ha-agent.class';
-import { HaAgentService } from '../../../ha-core/ha-service/ha-agent.service';
-import { HaBrickService } from '../../../ha-core/ha-service/ha-brick.service';
-import { HaBrickDatasourcePaginated } from '../../../ha-core/ha-model/ha-entities/ha-brick.class';
-import { HaStoryService } from '../../../ha-core/ha-service/ha-story.service';
-import { HaStoryListDatasourcePaginated } from '../../../ha-core/ha-model/ha-entities/ha-story.class';
-import { ClStringHelper, ClSubscriptionHandler } from '@monorepo/core-lib';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { FlUserConfig, FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import {
-  HaProfileEditDialogComponent,
-  HaProfileEditDialogData,
-} from '../ha-profile-edit-dialog/ha-profile-edit-dialog.component';
 import { CoCommunityAppListItemComponent, CoCommunityLibModule, CoUser } from '@monorepo/community-lib';
-import { HaCommunityPageDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
-import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
-import { HaJsonLdState } from '../../../ha-core/ha-state/ha-json-ld.state';
+import { ClStringHelper, ClSubscriptionHandler } from '@monorepo/core-lib';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
+import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { FlUserConfig, FlUserModule } from '@monorepo/front-core-lib/fl-user';
+import { TranslatePipe } from '@ngx-translate/core';
+import { mergeMap, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import { HaRunStatAggregatePanelComponent } from '../../../ha-core/ha-component/ha-run-stat-aggregate-panel/ha-run-stat-aggregate-panel.component';
 import { HaConstellabHelper } from '../../../ha-core/ha-model/ha-config/ha-constellab.helper';
+import { HaAgentDatasourcePaginated } from '../../../ha-core/ha-model/ha-entities/ha-agent.class';
+import { HaBrickDatasourcePaginated } from '../../../ha-core/ha-model/ha-entities/ha-brick.class';
+import { HaCommunityAppDatasourcePaginated } from '../../../ha-core/ha-model/ha-entities/ha-community-app.class';
 import {
   HaRunStatAggregate,
   HaRunStatAggregateObjectType,
 } from '../../../ha-core/ha-model/ha-entities/ha-run-stat-aggregate.class';
-import { HaRunStatAggregateService } from '../../../ha-core/ha-service/ha-run-stat-aggregate.service';
-import { HaAuthenticatedUserService } from '../../../ha-core/ha-service/ha-authenticated-user.service';
-import { MatButton } from '@angular/material/button';
-import { HaProfileAttachedLinkComponent } from '../ha-profile-attached-link/ha-profile-attached-link.component';
-import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { MatIcon } from '@angular/material/icon';
-import { HaRunStatAggregatePanelComponent } from '../../../ha-core/ha-component/ha-run-stat-aggregate-panel/ha-run-stat-aggregate-panel.component';
-import { MatTab, MatTabGroup, MatTabLabel } from '@angular/material/tabs';
-import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
-import { CdkScrollable } from '@angular/cdk/scrolling';
-import { AsyncPipe } from '@angular/common';
-import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
-import { TranslatePipe } from '@ngx-translate/core';
-import { HaDetailRoutePipe } from '../../../ha-core/ha-module/ha-core-pipe/ha-detail-route/ha-detail-route.pipe';
-import { HaBrickImagePipe } from '../../../ha-core/ha-module/ha-core-pipe/ha-brick-image/ha-brick-image.pipe';
-import { HaCommunityAppDatasourcePaginated } from '../../../ha-core/ha-model/ha-entities/ha-community-app.class';
-import { HaCommunityAppService } from '../../../ha-core/ha-service/ha-community-app.service';
+import { HaSpace } from '../../../ha-core/ha-model/ha-entities/ha-space.class';
+import { HaStoryListDatasourcePaginated } from '../../../ha-core/ha-model/ha-entities/ha-story.class';
+import { HaCommunityPageDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
 import { HaAppPicturePipe } from '../../../ha-core/ha-module/ha-core-pipe/ha-app-picture/ha-app-picture.pipe';
+import { HaBrickImagePipe } from '../../../ha-core/ha-module/ha-core-pipe/ha-brick-image/ha-brick-image.pipe';
+import { HaDetailRoutePipe } from '../../../ha-core/ha-module/ha-core-pipe/ha-detail-route/ha-detail-route.pipe';
+import { HaAgentService } from '../../../ha-core/ha-service/ha-agent.service';
+import { HaAuthenticatedUserService } from '../../../ha-core/ha-service/ha-authenticated-user.service';
+import { HaBrickService } from '../../../ha-core/ha-service/ha-brick.service';
+import { HaCommunityAppService } from '../../../ha-core/ha-service/ha-community-app.service';
+import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
+import { HaRunStatAggregateService } from '../../../ha-core/ha-service/ha-run-stat-aggregate.service';
+import { HaSpaceService } from '../../../ha-core/ha-service/ha-space.service';
+import { HaStoryService } from '../../../ha-core/ha-service/ha-story.service';
+import { HaUserService } from '../../../ha-core/ha-service/ha-user.service';
+import { HaJsonLdState } from '../../../ha-core/ha-state/ha-json-ld.state';
+import { HaProfileAttachedLinkComponent } from '../ha-profile-attached-link/ha-profile-attached-link.component';
+import {
+  HaProfileEditDialogComponent,
+  HaProfileEditDialogData,
+} from '../ha-profile-edit-dialog/ha-profile-edit-dialog.component';
 
 export interface HaProfileDatasourceFilters {
   userId: string;

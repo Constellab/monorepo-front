@@ -1,6 +1,7 @@
 import { Directive, inject, OnDestroy, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
 import { FlAbstractIfDirective } from '@monorepo/front-core-lib/fl-core';
 import { Observable } from 'rxjs';
+
 import { HaSpaceService } from '../../../ha-service/ha-space.service';
 
 @Directive({ selector: '[haIsGencoveryMember]' })

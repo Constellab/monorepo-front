@@ -1,7 +1,8 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { FlSnackBarInfoInput, FlSnackBarMode } from '../../model/fl-snack-bar.class';
-import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
+import { Component, inject,OnInit } from '@angular/core';
 import { MAT_SNACK_BAR_DATA, MatSnackBarRef } from '@angular/material/snack-bar';
+import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
+
+import { FlSnackBarInfoInput, FlSnackBarMode } from '../../model/fl-snack-bar.class';
 
 /**
  * Simple snack bar to display an error or success message

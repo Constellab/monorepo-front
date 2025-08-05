@@ -1,5 +1,5 @@
-import { LmsEnvironment } from '../../environments/lms-environment.class';
 import { environment } from '../../environments/lms-environment';
+import { LmsEnvironment } from '../../environments/lms-environment.class';
 
 export class LmsEnvironmentHelper {
   public static getEnv(): LmsEnvironment {

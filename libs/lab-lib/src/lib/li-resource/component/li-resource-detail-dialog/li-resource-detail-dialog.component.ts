@@ -1,7 +1,8 @@
 import { CdkScrollable } from '@angular/cdk/scrolling';
-import { Component, OnInit, inject } from '@angular/core';
-import { LiResourceDetailComponent } from '../li-resource-detail/li-resource-detail.component';
+import { Component, inject,OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
+
+import { LiResourceDetailComponent } from '../li-resource-detail/li-resource-detail.component';
 
 @Component({
   selector: 'li-resource-detail-dialog',

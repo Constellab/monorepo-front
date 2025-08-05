@@ -1,10 +1,11 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { FlConfirmDialogInput, FlConfirmDialogResult } from '../../model/fl-confirm-dialog.class';
-import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormControl, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FlGlobalValidators } from '@monorepo/front-core-lib/fl-core';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
+import { Observable } from 'rxjs';
+
+import { FlConfirmDialogInput, FlConfirmDialogResult } from '../../model/fl-confirm-dialog.class';
 
 @Component({
   selector: 'fl-confirm-dialog',

@@ -3,8 +3,9 @@ import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angu
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatRadioModule } from '@angular/material/radio';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlTranslateModule, FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
-import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/fl-dialog/fl-dialog.module';
+
 import { CaDocumentUploadOverrideMode } from '../../../../model/entities/folder/ca-document.class';
 
 export interface CaFolderUploadFileErrorDialogInput {

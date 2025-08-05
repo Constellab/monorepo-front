@@ -1,16 +1,17 @@
-import { ClHelpService } from '@monorepo/core-lib';
+import { NgClass } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FlMarkdownModule } from '@monorepo/front-core-lib/fl-markdown';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { LiOpenAiChatMessage, LiOpenAiChatMessageRole } from '../../model/li-open-ai.class';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatFormField } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatInput } from '@angular/material/input';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
-import { NgClass } from '@angular/common';
+import { ClHelpService } from '@monorepo/core-lib';
+import { FlMarkdownModule } from '@monorepo/front-core-lib/fl-markdown';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { LiOpenAiChatMessage, LiOpenAiChatMessageRole } from '../../model/li-open-ai.class';
 
 export type LiOpenAiChatMessageAction = 'delete' | 'delete-all';
 

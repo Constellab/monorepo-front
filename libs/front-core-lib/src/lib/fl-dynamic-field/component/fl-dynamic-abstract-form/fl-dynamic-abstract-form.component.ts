@@ -8,9 +8,10 @@ import {
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
-import { FlDynamicFormAbstractControl } from '../../model/fl-dynamic-field-config.class';
 import { AbstractControl } from '@angular/forms';
+
 import { FlDynamicAbstractFormDirective } from '../../model/fl-dynamic-abstract-form.directive';
+import { FlDynamicFormAbstractControl } from '../../model/fl-dynamic-field-config.class';
 import { FlDynamicFieldConfigService } from '../../model/fl-dynamic-field-config.service';
 
 /**

@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { LiSelectViewTypeOptionsComponent } from './li-select-view-type-options.component';
 
 describe('LiSelectViewTypeOptionsComponent', () => {

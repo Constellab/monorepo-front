@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { LiNavigableImpactDialogComponent } from './li-navigable-impact-dialog.component';
 
 describe('LiNavigableImpactDialogComponent', () => {

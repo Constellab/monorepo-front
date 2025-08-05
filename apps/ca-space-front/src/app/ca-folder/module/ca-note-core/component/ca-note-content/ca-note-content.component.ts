@@ -4,6 +4,7 @@ import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { TeRichText, TeTextEditorModule } from '@monorepo/text-editor';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+
 import { CaNoteService } from '../../../../../ca-core/service-api/ca-note.service';
 import { CaNoteTextEditorConfig } from '../../model/ca-note-text-editor-config.class';
 

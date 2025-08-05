@@ -1,14 +1,15 @@
+import { Component, inject,OnInit } from '@angular/core';
+import { MatTab, MatTabContent, MatTabGroup } from '@angular/material/tabs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Component, OnInit, inject } from '@angular/core';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+import { LiScenarioTemplate, LiScenarioTemplateService } from '@monorepo/lab-lib/li-core';
+import { TranslatePipe } from '@ngx-translate/core';
+import { Observable, switchMap } from 'rxjs';
+import { first } from 'rxjs/operators';
+
 import { LabScenarioTemplateDetailComponent } from '../lab-scenario-template-detail/lab-scenario-template-detail.component';
 import { LabScenarioTemplateDetailHeaderComponent } from '../lab-scenario-template-detail-header/lab-scenario-template-detail-header.component';
 import { LabScenarioTemplateWorkflowComponent } from '../lab-scenario-template-workflow/lab-scenario-template-workflow.component';
-import { LiScenarioTemplate, LiScenarioTemplateService } from '@monorepo/lab-lib/li-core';
-import { MatTab, MatTabContent, MatTabGroup } from '@angular/material/tabs';
-import { Observable, switchMap } from 'rxjs';
-import { TranslatePipe } from '@ngx-translate/core';
-import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'lab-scenario-template-detail-page',
