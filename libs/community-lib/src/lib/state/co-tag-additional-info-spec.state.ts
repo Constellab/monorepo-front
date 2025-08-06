@@ -2,9 +2,9 @@ import { inject, Injectable, OnDestroy, ViewContainerRef } from '@angular/core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import {
   TdAbstractDynamicParamSpecState,
+  TdCompleteEditParamSpecDict,
   TdConfigureParamSpecsTableDialogComponent,
   TdConfigureParamSpecsTableDialogInput,
-  TdEditParamSpecDict,
   TdParamSpec,
   TdParamSpecs,
 } from '@monorepo/technical-doc';
@@ -71,7 +71,7 @@ export class CoTagAdditionalInfoSpecState extends TdAbstractDynamicParamSpecStat
       .pipe(map((result: TdParamSpecs) => this.onPortalActionResult(result)));
   }
 
-  getParamSpecsInfos(): Observable<TdEditParamSpecDict> {
+  getParamSpecsInfos(): Observable<TdCompleteEditParamSpecDict> {
     return of(coAdditionalInfoInfosDict);
   }
 

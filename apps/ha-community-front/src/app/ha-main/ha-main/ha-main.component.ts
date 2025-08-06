@@ -11,11 +11,11 @@ import {
   Signal,
 } from '@angular/core';
 import { ClHelpService, ClSupportedLanguage, ClTheme } from '@monorepo/core-lib';
+import { HaEnvironmentHelper } from '../../ha-core/ha-model/ha-config/ha-environment.helper';
 import { FlCookieService, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 
 import { environment } from '../../../environments/ha-environment';
 import { HaInstantSearchDialogComponent } from '../../ha-core/ha-component/ha-instant-search-dialog/ha-instant-search-dialog.component';
-import { HaEnvironmentHelper } from '../../ha-core/ha-model/ha-config/ha-environment.helper';
 import { HaAuthenticatedUserService } from '../../ha-core/ha-service/ha-authenticated-user.service';
 import { HaJsonLdState } from '../../ha-core/ha-state/ha-json-ld.state';
 import { HaThemeState } from '../../ha-core/ha-state/ha-theme.state';
@@ -65,10 +65,6 @@ export class HaMainComponent implements OnInit, AfterContentInit, OnDestroy {
     this.breakpointObserver.observe('(max-width: 965px)').subscribe(() => {
       this.updateIsSmallScreen();
     });
-
-    if (environment.settings && environment.settings.difyChatbotToken && isPlatformBrowser(this.platformId)) {
-      this.addChatbotScript();
-    }
   }
 
   private updateIsSmallScreen(): void {
@@ -109,48 +105,6 @@ export class HaMainComponent implements OnInit, AfterContentInit, OnDestroy {
     };
     windowObj['gtag']('js', new Date());
     windowObj['gtag']('config', HaEnvironmentHelper.getGoogleAnalyticsId());
-  }
-
-  private addChatbotScript(): void {
-    const chatBotToken = environment.settings.difyChatbotToken;
-    if (!chatBotToken) return;
-
-    // init window.difyChatbotConfig and load dify-chatbot.js
-    (window as any).difyChatbotConfig = { token: chatBotToken };
-
-    const script2 = document.createElement('script');
-    script2.src = 'assets/dify-chatbot.js';
-    script2.id = chatBotToken;
-    script2.defer = true;
-
-    // reload chatbot on load if window.DifyChatbot is not defined yet
-    script2.onload = () => {
-      (window as any).initDifyChatbot();
-      setTimeout(() => {
-        if ((window as any).DifyChatbot) {
-          (window as any).initDifyChatbot();
-        }
-      }, 500);
-    };
-
-    script2.onerror = () => {
-      console.error('Failed to load Dify chatbot script');
-    };
-
-    document.body.appendChild(script2);
-
-    // add custom dify chatbot styles
-    const style = document.createElement('style');
-    style.innerHTML = `
-      #dify-chatbot-bubble-button {
-        background-color: var(--primary-color) !important;
-      }
-      #dify-chatbot-bubble-window {
-        width: 40rem !important;
-        border-radius: 20px;
-      }
-    `;
-    document.body.appendChild(style);
   }
 
   ngOnDestroy(): void {

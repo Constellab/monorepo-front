@@ -206,7 +206,6 @@ export class LabWorkflowNodeDetailState {
   }
 
   private onProcessUpdateSuccess(process: LiProcess): void {
-    console.log('OnProcessSuccess', process.config.specs.code);
     this.scenarioState.refreshProcess(process);
   }
 

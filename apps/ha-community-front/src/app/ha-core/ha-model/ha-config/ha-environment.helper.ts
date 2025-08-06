@@ -51,4 +51,8 @@ export class HaEnvironmentHelper {
   public static getDiscordLink(): string {
     return HaEnvironmentHelper.getEnv().settings.discordLink;
   }
+
+  public static getDifyChatbotToken(): string | null {
+    return HaEnvironmentHelper.getEnv().settings.difyChatbotToken;
+  }
 }

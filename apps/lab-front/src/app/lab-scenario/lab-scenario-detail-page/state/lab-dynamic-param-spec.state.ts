@@ -4,10 +4,10 @@ import { FlPortalActionResult } from '@monorepo/front-core-lib/fl-portal-actions
 import { LiProcess, LiProtocolService, LiProtocolUpdateDTO } from '@monorepo/lab-lib/li-core';
 import {
   TdAbstractDynamicParamSpecState,
+  TdCompleteEditParamSpecDict,
   TdConfig,
   TdConfigureParamSpecsTableDialogComponent,
   TdConfigureParamSpecsTableDialogInput,
-  TdEditParamSpecDict,
   TdParamSpec,
   TdParamSpecs,
 } from '@monorepo/technical-doc';
@@ -41,8 +41,7 @@ export class LabDynamicParamSpecState extends TdAbstractDynamicParamSpecState im
   openEditConfigDialog(configName: string): void {
     if (this.process.config.specs[configName]?.type != 'dynamic') return;
 
-    const paramsSpecs: TdParamSpecs = (this.process.config.specs[configName].additional_info.specs =
-      this.process.config.values);
+    const paramsSpecs: TdParamSpecs = this.process.config.specs[configName].additional_info.specs;
 
     const input: TdConfigureParamSpecsTableDialogInput = {
       paramSpecs: paramsSpecs,
@@ -53,10 +52,13 @@ export class LabDynamicParamSpecState extends TdAbstractDynamicParamSpecState im
       },
     };
 
-    this.dialogService.openMediumDialog(TdConfigureParamSpecsTableDialogComponent, {
-      data: input,
-      viewContainerRef: this.viewContainerRef,
-    });
+    this.dialogService
+      .openMediumDialog(TdConfigureParamSpecsTableDialogComponent, {
+        data: input,
+        viewContainerRef: this.viewContainerRef,
+      })
+      .afterClosed()
+      .subscribe(() => {});
   }
 
   addParamSpec(configSpecName: string, paramName: string, paramSpec: TdParamSpec): Observable<TdConfig> {
@@ -67,11 +69,7 @@ export class LabDynamicParamSpecState extends TdAbstractDynamicParamSpecState im
       paramName,
       paramSpec
     );
-    return this.editConfig.addParamSpecUpdateAction(this.process, obs).pipe(
-      map((result: FlPortalActionResult<LiProtocolUpdateDTO> | null) => {
-        return this.onPortalActionResult(result, configSpecName);
-      })
-    );
+    return this.onPortalActionResult(obs, configSpecName);
   }
 
   deleteParamSpec(configSpecName: string, paramName: string): Observable<TdConfig> {
@@ -81,11 +79,7 @@ export class LabDynamicParamSpecState extends TdAbstractDynamicParamSpecState im
       configSpecName,
       paramName
     );
-    return this.editConfig.deleteParamSpecUpdateAction(this.process, obs).pipe(
-      map((result: FlPortalActionResult<LiProtocolUpdateDTO> | null) => {
-        return this.onPortalActionResult(result, configSpecName);
-      })
-    );
+    return this.onPortalActionResult(obs, configSpecName);
   }
 
   editParamSpec(configSpecName: string, paramName: string, paramSpec: TdParamSpec): Observable<TdConfig> {
@@ -96,11 +90,7 @@ export class LabDynamicParamSpecState extends TdAbstractDynamicParamSpecState im
       paramName,
       paramSpec
     );
-    return this.editConfig.updateParamSpecUpdateAction(this.process, obs).pipe(
-      map((result: FlPortalActionResult<LiProtocolUpdateDTO> | null) => {
-        return this.onPortalActionResult(result, configSpecName);
-      })
-    );
+    return this.onPortalActionResult(obs, configSpecName);
   }
 
   renameAndEditParamSpec(
@@ -117,17 +107,10 @@ export class LabDynamicParamSpecState extends TdAbstractDynamicParamSpecState im
       newName,
       paramSpec
     );
-    return this.editConfig
-      .updateParamSpecUpdateAction(this.process, obs)
-      .pipe(
-        map(
-          (result: FlPortalActionResult<LiProtocolUpdateDTO>): TdConfig =>
-            this.onPortalActionResult(result, configSpecName)
-        )
-      );
+    return this.onPortalActionResult(obs, configSpecName);
   }
 
-  getParamSpecsInfos(): Observable<TdEditParamSpecDict> {
+  getParamSpecsInfos(): Observable<TdCompleteEditParamSpecDict> {
     return this.labProtocolService.getParamSpecsInfos(
       this.process.parentProtocolId,
       this.process.instanceName
@@ -135,15 +118,17 @@ export class LabDynamicParamSpecState extends TdAbstractDynamicParamSpecState im
   }
 
   private onPortalActionResult(
-    result: FlPortalActionResult<LiProtocolUpdateDTO>,
+    obs: Observable<LiProtocolUpdateDTO>,
     configSpecName: string
-  ): TdConfig {
-    if (result && result.status == 'success') {
-      const config = result.result.process.config as TdConfig;
-      this.updateProcessConfig(configSpecName, config);
-      return config;
-    }
-    return null;
+  ): Observable<TdConfig> {
+    return obs.pipe(
+      map((result: LiProtocolUpdateDTO): TdConfig => {
+        const config = result.process.config as TdConfig;
+        this.updateProcessConfig(configSpecName, config);
+        this.editConfig.updateProcessDynamicConfig(result);
+        return config;
+      })
+    );
   }
 
   private updateProcessConfig(configSpecName: string, config: TdConfig): void {

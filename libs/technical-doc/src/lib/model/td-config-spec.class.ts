@@ -79,6 +79,11 @@ export interface TdParamSpecBase {
    * Custom properties depending on the type of the param
    */
   additional_info: any;
+
+  /**
+   * Key of the param spec, used to identify the param in the config (optional)
+   */
+  key?: string;
 }
 
 /**

@@ -10,6 +10,7 @@ export * from './component/li-select-community-agent/li-select-community-agent.c
 export * from './component/li-select-type-dialog/li-select-type-dialog.component';
 export * from './component/li-select-type/li-select-type.component';
 export * from './component/li-share-agent-community-dialog/li-share-agent-community-dialog.component';
+// eslint-disable-next-line max-len
 export * from './component/li-share-agent-new-version-community-dialog/li-share-agent-new-version-community-dialog.component';
 export * from './component/li-type-detail/li-type-detail.component';
 export * from './component/li-type-dialog/li-type-dialog.component';

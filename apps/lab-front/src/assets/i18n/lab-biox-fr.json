@@ -157,6 +157,10 @@
     "view_agent_in_community": "Voir l'agent dans Community",
     "community_agent_tooltip": "Cette tâche est un agent de Community",
     "tags": "Tags",
-    "agent_params_spec_description": "Vous pouvez ajouter, modifier ou supprimer des paramètres pour configurer votre agent, les valeurs de ces paramètres seront accessibles dans le code de votre agent en utilisant le dictionnaire 'params'."
+    "agent_params_spec_description": "Vous pouvez ajouter, modifier ou supprimer des paramètres pour configurer votre agent, les valeurs de ces paramètres seront accessibles dans le code de votre agent en utilisant le dictionnaire 'params'.",
+    "share_agent_warning.no_config": "L'agent n'a pas de configuration, vous devriez ajouter des paramètres pour le partager.",
+    "share_agent_warning.parameter_without_description": "L'agent a des paramètres sans description, vous devriez ajouter une description pour chaque paramètre avant de le partager.",
+    "share_agent_warning.input_port_with_type_resource": "L'agent a des ports d'entrée avec le type de Ressource, vous devriez choisir le type de ressource approprié pour chaque ports d'entrée avant de le partager.",
+    "share_agent_warning.output_port_with_type_resource": "L'agent a des ports de sortie avec le type de Ressource, vous devriez choisir le type de ressource approprié pour chaque ports de sortie avant de le partager."
   }
 }

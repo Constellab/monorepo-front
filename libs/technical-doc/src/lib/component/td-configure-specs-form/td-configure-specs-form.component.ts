@@ -2,8 +2,10 @@ import { Component, computed, input, Signal } from '@angular/core';
 import { FormBuilder, FormGroup, UntypedFormGroup } from '@angular/forms';
 import {
   FlDynamicEditableFormGroupConfig,
+  FlDynamicFormAbstractControl,
   FlDynamicFormGroupConfig,
   FlDynamicFormHelper,
+  FlFormGroupConfig,
 } from '@monorepo/front-core-lib/fl-dynamic-field';
 
 import { TdConfig, TdConfigI } from '../../model/td-config.class';
@@ -31,9 +33,22 @@ export class TdConfigureSpecsFormComponent {
   publicFormGp: Signal<UntypedFormGroup> = computed(() => this.formGp().get('public') as FormGroup);
   protectedFormGp: Signal<UntypedFormGroup> = computed(() => this.formGp().get('protected') as FormGroup);
 
-  publicConfig: Signal<FlDynamicFormGroupConfig | FlDynamicEditableFormGroupConfig> = computed(() =>
-    this.configData().getDynamicFormFieldsConfig('public')
-  );
+  publicConfig: Signal<FlDynamicFormGroupConfig | FlDynamicEditableFormGroupConfig> = computed(() => {
+    const publicConfig = this.configData().getDynamicFormFieldsConfig('public');
+    if (this.configData().specs.params?.additional_info?.edition_mode) {
+      const subConfigs: Record<string, FlDynamicFormAbstractControl> = (
+        publicConfig.subConfigs.params as FlFormGroupConfig
+      ).subConfigs;
+      for (const key of Object.keys(subConfigs)) {
+        const subConfig = subConfigs[key];
+        if (!subConfig.hint?.startsWith(`Key : '${key}'`)) {
+          subConfig.hint = `Key : '${key}'` + (subConfig.hint ? ' - ' + subConfig.hint : '');
+        }
+      }
+      (publicConfig.subConfigs.params as FlFormGroupConfig).subConfigs = subConfigs;
+    }
+    return publicConfig;
+  });
 
   protectedConfig: Signal<FlDynamicFormGroupConfig> = computed(() =>
     this.configData().getDynamicFormFieldsConfig('protected')

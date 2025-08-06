@@ -92,6 +92,7 @@ export interface FlDynamicFieldConfigInput extends FlDynamicFieldConfigMaterialI
 export interface FlDynamicFieldSelectKeyNameOption {
   key: string;
   humanName: string;
+  group?: string; // optional group name for the option
 }
 
 export type FlDynamicFieldSelectOptions = any[] | FlDynamicFieldSelectKeyNameOption[];

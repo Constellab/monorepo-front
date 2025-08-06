@@ -1,4 +1,4 @@
-import { TdEditParamSpecDetail, TdEditParamSpecDict, TdParamSpecs } from '@monorepo/technical-doc';
+import { TdCompleteEditParamSpecDict, TdEditParamSpecDetail, TdParamSpecs } from '@monorepo/technical-doc';
 import { TeRichText } from '@monorepo/text-editor';
 import { DateTime } from 'luxon';
 
@@ -148,11 +148,24 @@ export function coAdditionalInfoInfoDict(type: string, defaultValue: any = null)
       unit: null,
       optional: true,
     },
+    human_name: {
+      additional_info: {},
+      default_value: null,
+      type: 'str',
+      short_description: null,
+      visibility: 'public',
+      human_name: 'Human Name',
+      unit: null,
+      optional: true,
+    },
   };
 }
-export const coAdditionalInfoInfosDict: TdEditParamSpecDict = {
-  str: coAdditionalInfoInfoDict('str', null),
-  int: coAdditionalInfoInfoDict('int', 0),
-  float: coAdditionalInfoInfoDict('float', 0.0),
-  bool: coAdditionalInfoInfoDict('bool', false),
+
+export const coAdditionalInfoInfosDict: TdCompleteEditParamSpecDict = {
+  simple: {
+    str: coAdditionalInfoInfoDict('str', null),
+    int: coAdditionalInfoInfoDict('int', 0),
+    float: coAdditionalInfoInfoDict('float', 0.0),
+    bool: coAdditionalInfoInfoDict('bool', false),
+  },
 };

@@ -37,7 +37,6 @@ export class FlDynamicFormHelper {
 
   public static generateFormGroup(config: FlDynamicFormGroupConfig, value: any = {}): UntypedFormGroup {
     const formGroup: UntypedFormGroup = new UntypedFormGroup({});
-
     for (const key in config.subConfigs) {
       const val = value ? value[key] : null;
       formGroup.addControl(key, FlDynamicFormHelper.generateForm(config.subConfigs[key], val));

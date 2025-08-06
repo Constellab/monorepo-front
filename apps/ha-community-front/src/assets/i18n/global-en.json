@@ -119,6 +119,7 @@
   "categories": "Categories",
   "last_modified": "Last modified",
   "published": "Published",
+  "publish": "Publish",
   "webinaires": "Webinaires",
   "forum": "Forum",
   "create_brick": "Create brick",
@@ -232,11 +233,12 @@
   "last_modification": "Last modification",
   "cannot_publish_agent_version_without_code": "You cannot publish an agent version without code",
   "publish_agent_version": "Publish agent version",
+  "confirm_publish_agent_version": "Confirm publish agent version",
   "publish_agent_version_confirmation": "Are you sure you want to publish this agent version ? Once published, the code and other details of this version will not be editable anymore.",
   "agent_version_published": "Agent version published",
   "latest_version_infos": "Latest version infos",
   "detail_of_the_version": "Detail of the version",
-  "warn_agent_version_not_published": "Warning, this agent version is not published",
+  "warn_agent_version_not_published": "Warning: This agent version is not published",
   "task_type": "Task type",
   "task_visibility": "Task visibility",
   "task_status": "Task status",
@@ -504,5 +506,8 @@
   "edit_tag_description": "Edit tag description",
   "save_tag_description": "Save tag description",
   "add": "Add",
-  "download_markdown": "Download markdown"
+  "download_markdown": "Download markdown",
+  "agent_version_type": "Agent version type",
+  "agent_version_publish_no_version_info_warning": "You are about to publish an agent version without any version information.",
+  "agent_no_description_warning": "Your agent has no global description. It is recommended to add one to help users understand your agent."
 }

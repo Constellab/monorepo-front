@@ -4,8 +4,13 @@ import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CoCommunityLibModule } from '@monorepo/community-lib';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import {
+  FlDialogService,
+  FlWarningDialogComponent,
+  FlWarningDialogData,
+} from '@monorepo/front-core-lib/fl-dialog';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
 import { TranslatePipe } from '@ngx-translate/core';
 
 import { HaRunStatAggregatePanelComponent } from '../../../ha-core/ha-component/ha-run-stat-aggregate-panel/ha-run-stat-aggregate-panel.component';
@@ -93,7 +98,30 @@ export class HaAgentVersionPageComponent extends HaCommunityPageDirective implem
   }
 
   publishAgentVersion(agentVersionId: string): void {
-    this.agentPageState.publishAgentVersion(agentVersionId);
+    const warnings: FlTranslatableText[] = [];
+    if (this.agentVersion().versionInfos?.isEmpty()) {
+      warnings.push('agent_version_publish_no_version_info_warning');
+    }
+    if (this.agentVersion().agent?.description?.isEmpty()) {
+      warnings.push('agent_no_description_warning');
+    }
+
+    if (warnings.length == 0) {
+      this.agentPageState.publishAgentVersion(agentVersionId);
+      return;
+    }
+    const data: FlWarningDialogData = {
+      title: 'publish_agent_version',
+      warnings: warnings,
+      confirmText: 'publish',
+    };
+
+    this.dialogService
+      .openSmallDialog(FlWarningDialogComponent, { data: data })
+      .afterClosed()
+      .subscribe((result) => {
+        if (result) this.agentPageState.publishAgentVersion(agentVersionId);
+      });
   }
 
   deleteAgentVersion(): void {
