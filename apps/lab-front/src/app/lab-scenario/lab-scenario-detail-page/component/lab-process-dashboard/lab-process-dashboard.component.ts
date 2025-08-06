@@ -1,19 +1,17 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, HostListener, inject, OnDestroy, OnInit, signal, WritableSignal } from '@angular/core';
-import {
-  FlWarningDialogComponent,
-  FlWarningDialogData,
-} from '@monorepo/front-core-lib/fl-dialog';
 import { MatIconButton } from '@angular/material/button';
 import { MatDialogContent } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { MatTooltip } from '@angular/material/tooltip';
 import { CoCommunityHelperService, CoCommunityLibModule } from '@monorepo/community-lib';
+import { FlWarningDialogComponent, FlWarningDialogData } from '@monorepo/front-core-lib/fl-dialog';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
 import { FlStatusModule } from '@monorepo/front-core-lib/fl-status';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FlTranslatableText, FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import {
   LiCreateCommunityAgentVersionResDto,
   LiProcess,
@@ -42,7 +40,6 @@ import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { LabCoServiceConfig } from '../../../../lab-core/lab-co-service-config.service';
-import { FlTranslatableText, FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import { LabWorkflowEditConfig } from '../../model/lab-workflow-edit-config.class';
 import { LabProcessDashboardConfigState } from '../../state/lab-process-dashboard-config-state.service';
 import { LabScenarioDetailPageState } from '../../state/lab-scenario-detail-page.state';
@@ -309,13 +306,18 @@ export class LabProcessDashboardComponent implements OnInit, OnDestroy {
   }
 
   private checkAgentWarnings(process: LiProcess): FlTranslatableText[] {
+    // Check if warnings are
     const warnings: string[] = [];
+
     if (Object.keys(process.config.specs?.params?.additional_info?.specs)?.length == 0) {
+      // Warning on no additional info params specs defined
       warnings.push('biox.share_agent_warning.no_config');
     }
+
     for (const param of Object.keys(process.config.specs.params.additional_info.specs)) {
       const spec = process.config.specs.params.additional_info.specs[param];
       if (spec.short_description == null || spec.short_description === '') {
+        // Warning on param spec without description set
         warnings.push('biox.share_agent_warning.parameter_without_description');
         break;
       }
@@ -323,30 +325,28 @@ export class LabProcessDashboardComponent implements OnInit, OnDestroy {
 
     for (const input_key of Object.keys(process.inputs.ports)) {
       const input = process.inputs.ports[input_key];
-      let hasInputOfTypeResource = false;
       for (const resource_type of input.specs.resource_types) {
         if (resource_type.typing_name === TdTypingName.resource.resource) {
-          hasInputOfTypeResource = true;
+          // Warning if an input port of the resource type Resource is found
+          warnings.push('biox.share_agent_warning.input_port_with_type_resource');
           break;
         }
       }
-      if (hasInputOfTypeResource) {
-        warnings.push('biox.share_agent_warning.input_port_with_type_resource');
+      if (warnings.includes('biox.share_agent_warning.input_port_with_type_resource')) {
         break;
       }
     }
 
     for (const output_key of Object.keys(process.outputs.ports)) {
       const output = process.outputs.ports[output_key];
-      let hasOutputOfTypeResource = false;
       for (const resource_type of output.specs.resource_types) {
         if (resource_type.typing_name === TdTypingName.resource.resource) {
-          hasOutputOfTypeResource = true;
+          // Warning if an output port of the resource type Resource is found
+          warnings.push('biox.share_agent_warning.output_port_with_type_resource');
           break;
         }
       }
-      if (hasOutputOfTypeResource) {
-        warnings.push('biox.share_agent_warning.output_port_with_type_resource');
+      if (warnings.includes('biox.share_agent_warning.output_port_with_type_resource')) {
         break;
       }
     }

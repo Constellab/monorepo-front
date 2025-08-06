@@ -17,7 +17,6 @@ import {
   LiNavigableEntityService,
   LiNavigableImpactConfig,
 } from '@monorepo/lab-lib/li-navigable-entity';
-import { Observable, of, Subscription, switchMap, tap } from 'rxjs';
 import {
   PrAddNodeWithConnection,
   PrNodeRelativeCoord,
