@@ -12,7 +12,7 @@ export interface HaCoAuthorService {
 
   deleteCoAuthorInvite(inviteId: string): Observable<void>;
 
-  inviteCoAuthor(id: string, coAuthorMail: string): Observable<boolean>;
+  inviteCoAuthor(id: string, emailOrId: string): Observable<boolean>;
 
   isCoAuthorInviteValid(token: string): Observable<HaCoAuthorInvite>;
 

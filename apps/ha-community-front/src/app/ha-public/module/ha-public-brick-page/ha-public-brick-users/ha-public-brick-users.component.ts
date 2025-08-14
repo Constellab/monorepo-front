@@ -50,6 +50,7 @@ export class HaPublicBrickUsersComponent implements OnInit {
       id: this.brick.id,
       service: this.brickService,
       inviteText: 'invite_brick_coauthor_information',
+      authorId: this.brick.createdBy.id,
     };
 
     this.dialogService

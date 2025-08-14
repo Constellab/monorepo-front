@@ -216,6 +216,7 @@
   "invite_story_coauthor_information": "L'utilisateur sera invité à devenir co-auteur de la story, il pourra alors la modifier et la publier et sera visible comme co-auteur de la story",
   "invite_brick_coauthor_information": "L'utilisateur sera invité à devenir co-auteur de la brique, il pourra alors la modifier et la publier et sera visible comme co-auteur de la brique",
   "invite_agent_coauthor_information": "L'utilisateur sera invité à devenir co-auteur de l'agent, il pourra alors la modifier et la publier et sera visible comme co-auteur de l'agent",
+  "invite_community_app_coauthor_information": "L'utilisateur sera invité à devenir co-auteur de l'application, il pourra alors la modifier et la publier et sera visible comme co-auteur de l'application",
   "create_agent": "Créer un agent",
   "add_agent": "Ajouter un agent",
   "create_agent_success": "Agent créé avec succès",
@@ -512,6 +513,8 @@
   "agent_version_type": "Type de version de l'agent",
   "agent_version_publish_no_version_info_warning": "Vous n'avez pas renseigné d'informations sur la version de l'agent. Si vous publiez cette version, elle sera publiée sans informations.",
   "agent_no_description_warning": "Votre agent n'a pas de description générale. Il est recommandé d'en ajouter une pour aider les utilisateurs à comprendre son fonctionnement.",
+  "user_alias_or_email": "Alias ou email de l'utilisateur",
+  "invite": "Inviter {{user}}",
   "the_app": "L'application",
   "open_app": "Ouvrir l'app"
 }

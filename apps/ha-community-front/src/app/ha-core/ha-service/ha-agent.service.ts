@@ -276,12 +276,8 @@ export class HaAgentService implements HaCoAuthorService {
     });
   }
 
-  inviteCoAuthor(id: string, coAuthorMail: string): Observable<boolean> {
-    return this.apiService.post(
-      `${this.route}/co-authors/${id}/invite`,
-      { coAuthorMail: coAuthorMail },
-      Boolean
-    );
+  inviteCoAuthor(id: string, emailOrId: string): Observable<boolean> {
+    return this.apiService.post(`${this.route}/co-authors/${id}/invite`, { emailOrId: emailOrId }, Boolean);
   }
 
   isCoAuthorInviteValid(token: string): Observable<HaAgentCoAuthorInvite> {

@@ -29,7 +29,14 @@
     @if (coAuthorPendingInvites?.length > 0) {
       @for (pendingInvite of coAuthorPendingInvites; track pendingInvite) {
         <div class="co-author-div">
-          <p>{{ pendingInvite.email }}</p>
+          @if (pendingInvite.user) {
+            <fl-user-inline
+              [user]="pendingInvite.user"
+              [portalOnHover]="false"
+              profilePictureSize="small"></fl-user-inline>
+          } @else {
+            <p>{{ pendingInvite.email }}</p>
+          }
           <button
             mat-icon-button
             [matTooltip]="'cancel_invitation' | translate"
@@ -49,31 +56,48 @@
 
     <p>{{ inviteText | translate }}</p>
 
-    <div class="add-coauthor-input-div">
-      <mat-form-field class="email-form-field">
-        <mat-label>Email</mat-label>
-        <input matInput type="email" [formControl]="formGp.controls.coAuthorMail" />
-        @if (
-          formGp.controls.coAuthorMail.hasError('email') && !formGp.controls.coAuthorMail.hasError('required')
-        ) {
-          <mat-error>{{ 'invalidEmail' | translate }}</mat-error>
-        }
-        @if (formGp.controls.coAuthorMail.hasError('required')) {
-          <mat-error>{{ 'email' | flErrorRequired }}</mat-error>
-        }
+    @if (!isLoading) {
+      <mat-form-field class="g-form-input">
+        <mat-label>{{ 'user_alias_or_email' | translate }}</mat-label>
+        <input
+          matInput
+          [placeholder]="'user_alias_or_email' | translate"
+          #input
+          [matAutocomplete]="auto"
+          [formControl]="inputCtrl"
+          tabindex="0" />
       </mat-form-field>
+    } @else {
+      <div class="g-centered">
+        <fl-loader></fl-loader>
+      </div>
+    }
 
-      <button
-        mat-icon-button
-        [matTooltip]="'send_invitation' | translate"
-        class="invite-button"
-        (click)="checkAndSendInvite()"
-        [disabled]="isLoading">
-        <mat-icon>send</mat-icon>
-        @if (isLoading) {
-          <fl-button-loader></fl-button-loader>
+    <mat-autocomplete
+      #auto="matAutocomplete"
+      (optionSelected)="optionSelected($event)"
+      [autoActiveFirstOption]="true">
+      @if (isInputValueEmail && filteredOptions.isEmpty()) {
+        <mat-option
+          [value]="inputCtrl.value"
+          class="g-mat-option-no-wrap"
+          [matTooltip]="'invite' | translate: { user: inputCtrl.value }">
+          <span>{{ inputCtrl.value }}</span>
+        </mat-option>
+      }
+      @for (item of filteredOptions | flDatasourceConnect | async; track item) {
+        @if (!checkIfCoAuthor(item) && item.id !== authorId) {
+          <mat-option
+            [value]="item.id"
+            class="g-mat-option-no-wrap"
+            [matTooltip]="'invite' | translate: { user: item.alias }">
+            <fl-user-inline
+              [profilePictureSize]="'small'"
+              [user]="item"
+              [portalOnHover]="false"></fl-user-inline>
+          </mat-option>
         }
-      </button>
-    </div>
+      }
+    </mat-autocomplete>
   </div>
 </mat-dialog-content>

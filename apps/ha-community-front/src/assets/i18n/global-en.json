@@ -214,6 +214,7 @@
   "invite_story_coauthor_information": "The user will be invited to become a co-author of the story, and will then be able to edit and publish it, and will be visible as a co-author of the story",
   "invite_brick_coauthor_information": "The user will be invited to become a co-author of the brick, and will then be able to edit it.",
   "invite_agent_coauthor_information": "The user will be invited to become a co-author of the agent, and will then be able to edit it.",
+  "invite_community_app_coauthor_information": "The user will be invited to become a co-author of the agent, and will then be able to edit it.",
   "create_agent": "Create agent",
   "add_agent": "Add an agent",
   "create_agent_success": "Agent created successfully",
@@ -510,6 +511,8 @@
   "agent_version_type": "Agent version type",
   "agent_version_publish_no_version_info_warning": "You are about to publish an agent version without any version information.",
   "agent_no_description_warning": "Your agent has no global description. It is recommended to add one to help users understand your agent.",
+  "user_alias_or_email": "User alias or email",
+  "invite": "Invite {{user}}",
   "the_app": "The application",
   "open_app": "Open the app"
 }
