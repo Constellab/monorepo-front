@@ -16,7 +16,6 @@ import {
 } from '../../../model/entities/ca-object-storage.class';
 import { CaUser } from '../../../model/entities/ca-user.class';
 import { CaLab } from '../../../model/entities/lab/ca-lab.class';
-import { CaSpace } from '../../../model/entities/space/ca-space.class';
 
 export class CaBucketSearchFields {
   name: string;
@@ -24,9 +23,6 @@ export class CaBucketSearchFields {
   contentType: CaBucketContentType;
 
   bucketType: CaBucketType;
-
-  @Type(() => CaSpace)
-  space: CaSpace;
 
   @Type(() => CaCloudProviderRegion)
   region: CaCloudProviderRegion;
@@ -75,7 +71,6 @@ export class CaBucketSearch {
     name: { key: 'name', operator: 'CONTAINS' },
     contentType: { key: 'contentType', operator: 'IN' },
     bucketType: { key: 'bucketType', operator: 'IN' },
-    space: { key: 'space.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId },
     region: { key: 'region.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId },
     lab: { key: 'lab.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId },
     credentials: { key: 'credentials.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId },
@@ -99,7 +94,6 @@ export class CaBucketSearch {
       name: [null],
       contentType: [null],
       bucketType: [null],
-      space: [null],
       region: [null],
       lab: [null],
       credentials: [null],
