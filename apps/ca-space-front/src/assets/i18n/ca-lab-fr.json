@@ -165,8 +165,6 @@
   "lab_status_server_lab_manager_not_available": "Le serveur est créé mais le lab manager n'est pas disponible. Veuillez cliquer sur le bouton \"Configurer le serveur\" pour configurer et démarrer le lab manager.",
   "lab_status_server_lab_not_available": "Le lab manager est démarré mais le data lab n'est pas disponible. Veuillez utiliser la section \"lab manager\" pour configurer le data lab et le démarrer.",
   "lab_status_lab_running": "Le data lab est démarré et disponible. Si votre utilisateur a été ajouté au data lab, vous pouvez vous connecter.",
-  "lab_server_current_task": "Tâche en cours",
-  "lab_server_last_task": "Dernière tâche",
   "lab_server_last_task_error": "Une erreur est survenue lors de la dernière tâche sur le serveur",
   "lab_server_task_status": "Status de la tâche server",
   "lab_server_task_status_NONE": "Aucun",
