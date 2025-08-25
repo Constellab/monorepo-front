@@ -10,15 +10,21 @@
   </a>
 </div>
 @if (formGp && formConfig) {
-  <form [formGroup]="formGp" (ngSubmit)="submit()" class="form g-layout-col">
+  <form
+    [formGroup]="formGp"
+    (ngSubmit)="submit()"
+    class="form g-layout-col"
+    [ngClass]="inputData.component_data.is_dialog ? 'form-min-height' : ''">
     <td-configure-specs-form
       class="g-form-field-compact g-flex-auto"
       [formGp]="formGp"
       [configData]="configData"></td-configure-specs-form>
 
-    <button mat-flat-button type="submit" class="g-centered-forced primary save-button">
-      {{ 'dc.save' | translate }}
-    </button>
+    @if (inputData.component_data.is_dialog) {
+      <button mat-flat-button type="submit" class="g-centered-forced primary save-button">
+        {{ 'dc.save' | translate }}
+      </button>
+    }
   </form>
 } @else {
   {{ 'dc.config_not_provided' | translate }}

@@ -1,8 +1,9 @@
-import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import { NgClass } from '@angular/common';
+import { Component, EventEmitter, inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { FlFormHelper } from '@monorepo/front-core-lib/fl-core';
+import { FlDebouncer, FlFormHelper } from '@monorepo/front-core-lib/fl-core';
 import { FlDynamicFieldModule, FlDynamicFormGroupConfig } from '@monorepo/front-core-lib/fl-dynamic-field';
 import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 import {
@@ -13,16 +14,24 @@ import {
   TdParamSpecsValues,
   TdTechnicalDocModule,
 } from '@monorepo/technical-doc';
+import { Subscription } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 import { DcComponentData, DcDynamicComponent } from '../../../core/model/dc-dynamic-component.class';
 import { DcCoreMainDirective } from '../../dc-core/directive/dc-core-main-prod/dc-core-main.directive';
 
 export interface DcProcessConfigConfig {
+  is_dialog: boolean;
   process_description: string;
   specs: TdParamSpecs;
   values: TdParamSpecsValues;
   doc_url: string;
   url: string;
+}
+
+export interface DcProcessConfigOutput {
+  config: TdParamSpecsValues;
+  is_valid: boolean;
 }
 
 @Component({
@@ -34,16 +43,17 @@ export interface DcProcessConfigConfig {
     FlTranslateModule,
     TdTechnicalDocModule,
     MatIconModule,
+    NgClass,
   ],
   templateUrl: './dc-process-config.component.html',
   styleUrl: './dc-process-config.component.scss',
   hostDirectives: [DcCoreMainDirective],
 })
 export class DcProcessConfigComponent
-implements OnInit, DcDynamicComponent<DcProcessConfigConfig, TdParamSpecsValues>
+implements OnInit, DcDynamicComponent<DcProcessConfigConfig, TdParamSpecsValues>, OnDestroy
 {
   @Input() inputData: DcComponentData<DcProcessConfigConfig>;
-  @Output() outputEvent = new EventEmitter<TdParamSpecsValues>();
+  @Output() outputEvent = new EventEmitter<DcProcessConfigOutput>();
 
   processDescription: string;
   formGp: FormGroup<TdConfigureSpecsForm>;
@@ -51,6 +61,8 @@ implements OnInit, DcDynamicComponent<DcProcessConfigConfig, TdParamSpecsValues>
   configData: TdConfig;
 
   docUrl: string;
+
+  formSubscription: Subscription;
 
   private mainDirective = inject(DcCoreMainDirective);
 
@@ -65,17 +77,29 @@ implements OnInit, DcDynamicComponent<DcProcessConfigConfig, TdParamSpecsValues>
     this.formGp = TdConfigureSpecsFormComponent.buildFormGroup({ specs: data.specs, values: data.values });
     this.processDescription = data.process_description;
     this.docUrl = data.doc_url;
+    if (!data.is_dialog) {
+      this.formSubscription = this.formGp.valueChanges
+        .pipe(debounceTime(FlDebouncer.AUTO_SAVE_DEBOUNCE_TIME))
+        .subscribe(() => {
+          this.emitValue(this.formGp, this.formGp.valid);
+        });
+    }
   }
 
   submit(): void {
     if (this.formGp.valid) {
-      this.emitValue(this.formGp);
+      this.emitValue(this.formGp, true);
     } else {
       FlFormHelper.markAllAsTouched(this.formGp);
     }
   }
 
-  private emitValue(formGp: FormGroup<TdConfigureSpecsForm>): void {
-    this.outputEvent.emit(TdConfigureSpecsFormComponent.buildValues(formGp));
+  ngOnDestroy(): void {
+    if (this.formSubscription) this.formSubscription.unsubscribe();
+  }
+
+  private emitValue(formGp: FormGroup<TdConfigureSpecsForm>, valid: boolean): void {
+    console.log('EMIT VALUE');
+    this.outputEvent.emit({ config: TdConfigureSpecsFormComponent.buildValues(formGp), is_valid: valid });
   }
 }
