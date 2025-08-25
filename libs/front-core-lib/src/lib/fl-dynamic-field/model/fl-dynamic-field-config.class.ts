@@ -1,5 +1,3 @@
-import { Signal } from '@angular/core';
-
 /**
  * Generic config for a FormGroup, FormArray or FormControl
  */
@@ -100,7 +98,7 @@ export type FlDynamicFieldSelectOptions = any[] | FlDynamicFieldSelectKeyNameOpt
 export interface FlDynamicFieldConfigSelect extends FlDynamicFieldConfigMaterialInput {
   type: 'select';
 
-  selectOptions: Signal<FlDynamicFieldSelectOptions>;
+  selectOptions: FlDynamicFieldSelectOptions;
 }
 
 export interface FlDynamicFieldConfigSelectSearch extends FlDynamicFieldConfigBase {

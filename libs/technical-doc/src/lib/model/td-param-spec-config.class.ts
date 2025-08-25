@@ -1,4 +1,3 @@
-import { signal } from '@angular/core';
 import {
   FlDynamicFieldConfig,
   FlDynamicFieldConfigBase,
@@ -25,7 +24,7 @@ export class TdParamSpecConfig {
       } else {
         const config: FlDynamicFieldConfigSelect = TdParamSpecConfig.convertToBaseFieldConfig(spec) as any;
         config.type = 'select';
-        config.selectOptions = signal(spec.additional_info.allowed_values);
+        config.selectOptions = spec.additional_info.allowed_values;
         config.suffix = spec.unit;
         return config;
       }

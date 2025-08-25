@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ClStringHelper } from '@monorepo/core-lib';
@@ -218,7 +218,7 @@ export class TdEditParamSpecDialogComponent implements OnInit {
   private getTypeDynamicFieldConfigSelect(): FlDynamicFieldConfigSelect {
     return {
       type: 'select',
-      selectOptions: signal(this.possibleTypes),
+      selectOptions: this.possibleTypes,
       controlType: 'formControl',
       placeholder: this.translateService.translate('td.type'),
       required: true,
