@@ -99,7 +99,6 @@ implements OnInit, DcDynamicComponent<DcProcessConfigConfig, TdParamSpecsValues>
   }
 
   private emitValue(formGp: FormGroup<TdConfigureSpecsForm>, valid: boolean): void {
-    console.log('EMIT VALUE');
     this.outputEvent.emit({ config: TdConfigureSpecsFormComponent.buildValues(formGp), is_valid: valid });
   }
 }

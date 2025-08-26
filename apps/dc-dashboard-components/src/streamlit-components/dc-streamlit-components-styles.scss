@@ -10,9 +10,9 @@
 @use '../../../../libs/front-core-lib/src/style/fl-dialog';
 @use '../../../../libs/front-core-lib/src/style/fl-icon';
 
-// make the dialog above the streamlit sidebar
+// make the dialog above the streamlit sidebar and streamlit dialog
 .cdk-overlay-container {
-  z-index: 999999;
+  z-index: 9999999999999;
 }
 
 // fix streamlit override on svg icon
@@ -21,6 +21,6 @@
 }
 
 // fix streamlit override on mat button
-.mat-mdc-button-base{
+.mat-mdc-button-base {
   line-height: initial;
 }
