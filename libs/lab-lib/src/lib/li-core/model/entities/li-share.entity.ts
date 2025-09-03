@@ -1,4 +1,4 @@
-import { ClDateHelper, ClLuxonDateTransform } from '@monorepo/core-lib';
+import { ClDateHelper, ClLuxonDateTimeTransform } from '@monorepo/core-lib';
 import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
 import { Expose, Type } from 'class-transformer';
 import { DateTime } from 'luxon';
@@ -22,7 +22,7 @@ export class LiShareLink extends LiBaseEntityWithUser {
   entityName: string;
 
   @Expose({ name: 'valid_until' })
-  @ClLuxonDateTransform()
+  @ClLuxonDateTimeTransform()
   validUntil: DateTime;
 
   status: 'SUCCESS' | 'ERROR';

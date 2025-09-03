@@ -5,7 +5,7 @@
     <span
       [matTooltip]="shareLink().validUntil | flDate: 'DATE_TIME_WITH_SECONDS'"
       [ngClass]="{ 'g-warn-text': !shareLink().isValid() }">
-      {{ shareLink().validUntil | flDate }}
+      {{ shareLink().validUntil | flDate: 'DATE_TIME' }}
     </span>
     @if (!shareLink().isValid()) {
       <span class="g-warn-text"> ({{ 'li.shared_link_expired' | translate }})</span>
