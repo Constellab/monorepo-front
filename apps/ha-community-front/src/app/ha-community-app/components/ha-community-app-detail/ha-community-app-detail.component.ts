@@ -77,8 +77,8 @@ export class HaCommunityAppDetailComponent extends HaCommunityPageDirective impl
   coAuthors = this.communityAppState.getCoAuthors();
   canEdit = this.communityAppState.canEditApp;
   isAuthor: Signal<boolean> = computed(() => {
-    const currentUserId = this.communityAppState.getCurrentUser()().id;
-    return currentUserId === this.communityApp().createdBy.id;
+    const currentUserId = this.communityAppState.getCurrentUser()()?.id;
+    return currentUserId === this.communityApp().createdBy?.id;
   });
 
   currentUser$: Observable<HaUser>;

@@ -1,14 +1,9 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { MatIcon } from '@angular/material/icon';
-import { MatTooltip } from '@angular/material/tooltip';
-import { ActivatedRoute, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, RouterOutlet } from '@angular/router';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import { TranslatePipe } from '@ngx-translate/core';
 
-import { HaCommentButtonComponent } from '../../../ha-core/entity-module/ha-util-component-core/component/ha-comment-button/ha-comment-button.component';
-import { HaLikeButtonComponent } from '../../../ha-core/entity-module/ha-util-component-core/component/ha-like-button/ha-like-button.component';
 import { HaEntityType } from '../../../ha-core/ha-model/ha-entities/ha-entity-type';
 import { HaUser } from '../../../ha-core/ha-model/ha-entities/ha-user';
 import { HaAuthenticatedUserService } from '../../../ha-core/ha-service/ha-authenticated-user.service';
@@ -17,20 +12,7 @@ import { HaCommunityAppState } from '../../state/ha-community-app.state';
 
 @Component({
   selector: 'ha-community-app-page',
-  imports: [
-    FlUserModule,
-    HaCommentButtonComponent,
-    HaLikeButtonComponent,
-    FlTextIconModule,
-    MatIcon,
-    Ha404Component,
-    FlLoaderModule,
-    TranslatePipe,
-    RouterOutlet,
-    RouterLink,
-    MatTooltip,
-    RouterLinkActive,
-  ],
+  imports: [FlUserModule, FlTextIconModule, Ha404Component, FlLoaderModule, RouterOutlet],
   templateUrl: './ha-community-app-page.component.html',
   styleUrl: './ha-community-app-page.component.scss',
   providers: [HaCommunityAppState],
