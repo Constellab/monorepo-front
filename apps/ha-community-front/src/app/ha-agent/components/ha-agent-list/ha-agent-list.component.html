@@ -1,68 +1,40 @@
-<div class="left-panel" *haIsAuthenticated>
-  <mat-icon class="button-close-left-panel" haSidenavButton></mat-icon>
-
-  <button mat-stroked-button type="button" class="bt first-bt" (click)="openCreateAgentDialog()">
-    <mat-icon>add_circle</mat-icon>
-    {{ 'create_agent' | translate }}
-  </button>
-
-  <mat-divider class="left-panel-separator"></mat-divider>
-
-  <button
-    mat-stroked-button
-    type="button"
-    class="bt my-agents-bt"
-    (click)="selectSpace('my-agents')"
-    [class]="isSelected('my-agents') ? 'bt-primary' : ''">
-    {{ 'my_agents' | translate }}
-  </button>
-
-  <p class="left-side-div-title">{{ 'visibility' | translate }} :</p>
-
-  <div class="left-panel-buttons-div">
-    <mat-chip-option
-      [value]="isSelected('public')"
-      (click)="selectSpace('public')"
-      class="space-list-option accent">
-      <fl-text-icon [iconPosition]="'start'">
-        <mat-icon>public</mat-icon>
-        {{ 'public' | translate }}
-      </fl-text-icon>
-    </mat-chip-option>
-    @if (user) {
-      <ha-selectable-space-list [user]="user" (spaceSelectedEvent)="onSpace($event)">
-      </ha-selectable-space-list>
-    }
+<ha-header>
+  <div class="header-content-div">
+    <div></div>
+    <div>
+      <h1>{{ 'agents' | translate }}</h1>
+      <p class="header-subtitle g-large-text">{{ 'discover_create_and_share_bricks' | translate }}</p>
+    </div>
   </div>
+</ha-header>
+
+<div class="page">
+
+
+  <fl-infinite-scroll [datasource]="agentsPaginated" infiniteMode="auto" class="section">
+    <ha-list-of-items>
+      @for (agent of agentsPaginated | flDatasourceConnect | async; track agent.id) {
+        <a class="agent-result-card-div" [routerLink]="agent | haDetailRoute">
+          <co-agent-list-item [agent]="agent"></co-agent-list-item>
+        </a>
+      }
+    </ha-list-of-items>
+  </fl-infinite-scroll>
+
+
+  <div class="section section-with-background">
+    <div class="section-title">
+      <ha-home-section-shine>Agents intelligents prêts à l’emploi</ha-home-section-shine>
+      <h2>Vous avez développé un agent ?</h2>
+    </div>
+    <p class="g-large-text section-description">
+      Proposez-le pour accélérer les projets de toute la communauté.
+    </p>
+    <div class="section-buttons-div">
+      <ha-button theme="dark">Soumettre un agent</ha-button>
+    </div>
+  </div>
+
 </div>
 
-<div class="main-panel">
-  <fl-infinite-scroll [datasource]="agentsPaginated" infiniteMode="auto" class="list-section">
-    <div class="section-title">
-      <h1 class="title">{{ 'agents' | translate }}</h1>
-    </div>
-    <div class="search-bar-title">
-      <form type="submit" (ngSubmit)="search($event)">
-        <mat-form-field class="section-search-bar">
-          <input
-            matInput
-            [formControl]="titleFormControl"
-            placeholder="{{ 'search_by_title' | translate }}" />
-          <button
-            mat-icon-button
-            matSuffix
-            (click)="search($event)"
-            [matTooltip]="'search' | translate"
-            aria-label="Search by title button">
-            <mat-icon>search</mat-icon>
-          </button>
-        </mat-form-field>
-      </form>
-    </div>
-    @for (agent of agentsPaginated | flDatasourceConnect | async; track agent.id) {
-      <a class="agent-result-card-div" [routerLink]="agent | haDetailRoute">
-        <co-agent-list-item [agent]="agent"></co-agent-list-item>
-      </a>
-    }
-  </fl-infinite-scroll>
-</div>
+<ha-footer></ha-footer>

@@ -1,0 +1,61 @@
+@use '@angular/material' as mat;
+@use 'ha-theme-colors' as theme;
+
+
+@mixin define_theme() {
+
+  html {
+
+    @include mat.theme(
+        (
+          color: (
+            primary: theme.$primary-palette,
+            theme-type: light,
+          ),
+          typography: (
+            plain-family: Plus Jakarta Sans,
+            brand-family: Plus Jakarta Sans,
+          ),
+          density: 0,
+        )
+    );
+
+    --primary-color: #25B49C;
+    --primary-color-contrast: #E9F7F5;
+    --accent-color: #C5BBEE;
+    --accent-color-contrast: #F9F8FD;
+    --warn-color: #FF93D0;
+    --warn-color-contrast: #FFF4FA;
+    --success-color: #25B49C;
+    --warning-color: #A60A0C;
+
+    --color-foreground: #072527;
+    --color-foreground-light: #4F6769;
+
+    --main-background: #FFFFFF;
+
+    --card-radius: 24px;
+
+    body {
+      background-color: var(--main-background);
+      color: var(--color-foreground);
+      font-style: normal;
+
+      .g-primary-text {
+        color: var(--primary-color);
+      }
+
+      .g-accent-text {
+        color: var(--accent-color);
+      }
+
+      .g-warn-text {
+        color: var(--warn-color);
+      }
+
+      .g-text-extra-light {
+        font-weight: 200;
+      }
+    }
+  }
+}

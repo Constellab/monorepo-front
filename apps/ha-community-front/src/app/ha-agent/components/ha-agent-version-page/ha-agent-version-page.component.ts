@@ -20,7 +20,7 @@ import { HaRunStatAggregate } from '../../../ha-core/ha-model/ha-entities/ha-run
 import { HaCommunityPageDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
 import { HaAgentService } from '../../../ha-core/ha-service/ha-agent.service';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
-import { Ha404Component } from '../../../ha-public/module/ha404/ha404.component';
+import { Ha404Component } from '../../../ha404/ha404.component';
 import { HaAgentPageState } from '../../state/ha-agent-page.state';
 import {
   HaAgentEditStyleDialogComponent,

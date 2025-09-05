@@ -1,19 +1,33 @@
-<div class="community-list-item">
-  <div class="community-list-item-left-side">
-    <co-community-list-item-main-content
-      [title]="title"
-      [space]="space"
-      [showVisibility]="showVisibility"
-      [description]="description"
-      [user]="user"
-      [date]="date"
-      [likes]="likes"
-      [comments]="comments"
-      [executions]="executions">
-      <ng-content select="[leftSide]"></ng-content>
-    </co-community-list-item-main-content>
+<div class="list-item-container">
+  <div class="list-item-div">
+    <div class="image-div">
+      <co-item-type-icon [type]="type()" size="big"></co-item-type-icon>
+    </div>
+    <div class="content-div">
+      <div class="info-div" [ngClass]="showVisibilityAndStats() ? '' : 'info-div-no-visibility'">
+        <co-type-badge [type]="type()"></co-type-badge>
+        @if (showVisibilityAndStats()) {
+          <co-visibility-badge [space]="space()"></co-visibility-badge>
+        }
+      </div>
+      <div class="text-div">
+        <div class="title-div">
+          {{ title() }}
+        </div>
+        <div class="short-description-div">
+          {{ shortDescription() }}
+        </div>
+      </div>
+      <div class="stats-discover-div">
+        <div class="stats-div">
+
+        </div>
+        <div class="discover-div">
+          {{ 'coCommunityLib.discover' | translate }}
+          <mat-icon>chevron_right</mat-icon>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="community-list-item-right-side">
-    <ng-content select="[rightSide]"></ng-content>
-  </div>
+
 </div>

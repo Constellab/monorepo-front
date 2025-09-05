@@ -1,0 +1,122 @@
+@use '@angular/material' as mat;
+
+@use './ha-base-theme.scss' as base;
+
+@include base.define_theme();
+
+
+html {
+  --card-background: #FAFAFA;
+
+  --content-max-width: 1200px;
+
+  @include mat.theme-overrides(
+      (
+        surface: #FFFFFF,
+        outline: rgba(79, 103, 105, 0.15),
+      )
+  );
+
+  @include mat.expansion-overrides((
+    container-background-color: transparent,
+    container-elevation-shadow: none,
+    header-hover-state-layer-color: none,
+    header-collapsed-state-height: 72px,
+    header-expanded-state-height: 72px,
+  ));
+
+  @include mat.button-overrides((
+    text-hover-state-layer-opacity: 0,
+  ));
+
+  font-size: 14px;
+  line-height: 110%;
+  letter-spacing: -0.28px;
+
+  .g-big-title{
+    font-size: 64px;
+    letter-spacing: -3.2px;
+  }
+
+  h1 {
+    font-size: 54px;
+    line-height: 100%;
+    letter-spacing: -2.7px;
+
+    @media only screen and (max-width: 992px) {
+      font-size: 38px !important;
+      letter-spacing: -1.9px !important;
+    }
+  }
+
+  .g-medium-title{
+    font-size: 48px;
+    line-height: 110%;
+    letter-spacing: -2.4px;
+  }
+
+  h2{
+    font-size: 38px;
+    line-height: 100%;
+    letter-spacing: -1.9px;
+
+    @media only screen and (max-width: 992px) {
+      font-size: 32px !important;
+      letter-spacing: -1.6px !important;
+      line-height: 110% !important;
+    }
+  }
+
+
+
+  h3{
+    font-size: 32px;
+    line-height: 110%;
+    letter-spacing: -1.6px;
+  }
+
+  .g-small-title{
+    font-size: 24px;
+    font-weight: 600;
+    line-height: normal;
+    letter-spacing: -0.48px;
+  }
+
+  p{
+    color: #4F6769;
+  }
+
+  .g-weight-600 {
+    font-weight: 600;
+  }
+
+  .g-large-text{
+    font-size: 18px;
+    line-height: 150%;
+    letter-spacing: -0.36px;
+
+    @media only screen and (max-width: 992px) {
+      font-size: 16px !important;
+      letter-spacing: -0.32px !important;
+    }
+  }
+
+  .g-text-medium{
+    font-size: 16px;
+    line-height: 150%;
+    letter-spacing: -0.32px;
+  }
+
+  .g-text-regular {
+    font-size: 14px;
+    line-height: 150%;
+    letter-spacing: -0.28px;
+  }
+
+  .g-text-small {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 110%;
+    letter-spacing: -0.36px;
+  }
+}

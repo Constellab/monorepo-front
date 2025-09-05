@@ -7,7 +7,7 @@ import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { HaEntityType } from '../../../ha-core/ha-model/ha-entities/ha-entity-type';
 import { HaUser } from '../../../ha-core/ha-model/ha-entities/ha-user';
 import { HaAuthenticatedUserService } from '../../../ha-core/ha-service/ha-authenticated-user.service';
-import { Ha404Component } from '../../../ha-public/module/ha404/ha404.component';
+import { Ha404Component } from '../../../ha404/ha404.component';
 import { HaCommunityAppState } from '../../state/ha-community-app.state';
 
 @Component({

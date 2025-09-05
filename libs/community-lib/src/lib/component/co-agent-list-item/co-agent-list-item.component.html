@@ -1,15 +1,3 @@
-<co-community-list-item
-  [title]="agent.title"
-  [description]="description"
-  [user]="agent.createdBy"
-  [date]="agent.lastModifiedAt"
-  [likes]="agent.likes"
-  [comments]="agent.comments"
-  [space]="agent.space"
-  [showVisibility]="true">
-  @if (agent.latestStyle) {
-    <div rightSide class="agent-right-side">
-      <td-type-icon-badge [style]="agent.latestStyle" [iconSize]="60"></td-type-icon-badge>
-    </div>
-  }
+<co-community-list-item type="agent" [title]="agent.title" [shortDescription]="agent.description.getFirstParagraphsText()" [space]="agent.space">
+
 </co-community-list-item>

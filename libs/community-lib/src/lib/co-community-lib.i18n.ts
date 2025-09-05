@@ -50,6 +50,14 @@ const coCommunityLibI18nFr: FlLangTranslation = {
     tag_additional_info_spec_description:
       'Configurez les spécifications des informations supplémentaires du tag',
     imported_from_community: 'Importé depuis Community',
+
+
+    bricks: 'Briques',
+    apps: 'Apps',
+    agents: 'Agents',
+    stories: 'Stories',
+    discover: 'Découvrir',
+
   },
 };
 
@@ -99,6 +107,14 @@ const coCommunityLibI18nEn: FlLangTranslation = {
     active: 'Active',
     tag_additional_info_spec_description: 'Configure the tag additional info specs',
     imported_from_community: 'Imported from Community',
+
+
+    bricks: 'Bricks',
+    apps: 'Apps',
+    agents: 'Agents',
+    stories: 'Stories',
+    discover: 'Discover',
+
   },
 };
 export const coCommunityLibI18n: FlTranslateObject = {

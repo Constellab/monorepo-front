@@ -1,0 +1,34 @@
+:host {
+  height: fit-content;
+  width: inherit;
+  background-color: inherit;
+  cursor: inherit;
+}
+
+.community-list-item {
+  background-color: inherit;
+  height: fit-content;
+  width: inherit;
+  display: flex;
+  padding: 16px;
+  border-radius: 18px;
+}
+
+.community-list-item:hover {
+}
+
+.community-list-item-left-side {
+  display: flex;
+  flex-direction: column;
+  flex: auto;
+}
+
+.community-list-item-right-side {
+  width: fit-content;
+}
+
+@media (max-width: 600px) {
+  :host {
+    min-height: 100px;
+  }
+}

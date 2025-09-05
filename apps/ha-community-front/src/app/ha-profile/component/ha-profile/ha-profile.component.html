@@ -62,9 +62,6 @@
             <div>
               <p>{{ 'common_spaces' | translate }} :</p>
               @for (space of commonSpace; track space.id) {
-                <div class="common-space-div">
-                  <co-visibility-badge [space]="space"></co-visibility-badge>
-                </div>
               }
             </div>
           }

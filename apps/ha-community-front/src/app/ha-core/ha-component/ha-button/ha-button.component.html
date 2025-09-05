@@ -1,0 +1,15 @@
+<div [class]="'button-div ' + borderClass()">
+  @if (href()) {
+    <a matButton [href]="href()" [target]="target()" [class]="'button ' + buttonClass()">
+      <ng-content></ng-content>
+    </a>
+  } @else if(routerLink()) {
+    <a matButton [routerLink]="routerLink()" [class]="'button ' + buttonClass()">
+      <ng-content></ng-content>
+    </a>
+  } @else {
+    <button matButton [type]="type()" [disabled]="disabled()" (click)="emitClick()" [class]="'button ' + buttonClass()">
+      <ng-content></ng-content>
+    </button>
+  }
+</div>

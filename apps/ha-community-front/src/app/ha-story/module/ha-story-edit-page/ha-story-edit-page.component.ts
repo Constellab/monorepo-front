@@ -42,7 +42,7 @@ import { HaIsAuthenticatedDirective } from '../../../ha-core/ha-module/ha-core-d
 import { HaAuthenticatedUserService } from '../../../ha-core/ha-service/ha-authenticated-user.service';
 import { HaStoryService } from '../../../ha-core/ha-service/ha-story.service';
 import { HaTopicService } from '../../../ha-core/ha-service/ha-topic.service';
-import { Ha404Component } from '../../../ha-public/module/ha404/ha404.component';
+import { Ha404Component } from '../../../ha404/ha404.component';
 import { HaStoryTextEditorConfig } from './ha-story-text-editor.config';
 
 // TODO @vfoex, composant a refactor, trop gros complexe (Refactor avec le auto save composant ?)

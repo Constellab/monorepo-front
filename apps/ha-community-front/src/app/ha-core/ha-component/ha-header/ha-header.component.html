@@ -1,0 +1,45 @@
+<header class="header" [ngClass]="isHomePage() ? 'main-header' : ''">
+  <nav class="nav-bar">
+    <a class="nav-bar-icon-div" [routerLink]="homeRoute">
+      <img ngSrc="assets/fl-logo/community_logo_with_text.png" fill/>
+    </a>
+
+    <div class="nav-bar-links-div">
+      <a [routerLink]="storyListRoute">{{ 'stories' | translate }}</a>
+      <a [routerLink]="appsListRoute">{{ 'apps' | translate }}</a>
+      <a [routerLink]="agentListRoute">{{ 'agents' | translate }}</a>
+      <a [routerLink]="brickListRoute">{{ 'bricks' | translate }}</a>
+      <a [routerLink]="storyListRoute">{{ 'documentation' | translate }}</a>
+      <a [routerLink]="constellabRoute">Constellab</a>
+    </div>
+
+    <!--    <mat-form-field class="section-search-bar">-->
+    <!--      <input-->
+    <!--        matInput-->
+    <!--        placeholder="{{ 'search_by_title' | translate }}" />-->
+    <!--      <button mat-icon-button matSuffix [matTooltip]="'search' | translate"-->
+    <!--              aria-label="Search by title button">-->
+    <!--        <mat-icon>search</mat-icon>-->
+    <!--      </button>-->
+    <!--    </mat-form-field>-->
+
+    <div class="nav-bar-action-div">
+      <div class="nav-bar-login-signup-div">
+        <ha-button>
+          {{ 'login' | translate }}
+        </ha-button>
+
+        <ha-button theme="dark">
+          S'inscrire
+        </ha-button>
+      </div>
+
+      <div class="menu-button">
+        <ha-button >Menu</ha-button>
+      </div>
+    </div>
+  </nav>
+  <div class="header-content-div">
+    <ng-content></ng-content>
+  </div>
+</header>

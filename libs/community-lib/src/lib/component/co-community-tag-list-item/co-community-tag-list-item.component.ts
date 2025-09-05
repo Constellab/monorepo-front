@@ -2,11 +2,10 @@ import { Component, input } from '@angular/core';
 
 import { CoCommunityLibModule } from '../../co-community-lib.module';
 import { CoTagKey } from '../../model/co-tag-key.class';
-import { CoDeprecatedTagComponent } from '../co-deprecated-tag/co-deprecated-tag.component';
 
 @Component({
   selector: 'co-community-tag-list-item',
-  imports: [CoCommunityLibModule, CoDeprecatedTagComponent],
+  imports: [CoCommunityLibModule],
   templateUrl: './co-community-tag-list-item.component.html',
   styleUrl: './co-community-tag-list-item.component.scss',
 })

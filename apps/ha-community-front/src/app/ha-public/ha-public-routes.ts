@@ -2,32 +2,32 @@ import { Route } from '@angular/router';
 
 import { HaLoginGuard } from '../ha-core/ha-guard/ha-login.guard';
 import {
-  HaPublicBrickDescriptionComponent
-} from './module/ha-public-brick-page/ha-public-brick-description/ha-public-brick-description.component';
+  HaBrickDescriptionComponent
+} from '../ha-brick/ha-brick-page/ha-brick-description/ha-brick-description.component';
 import {
-  HaPublicBrickPageComponent
-} from './module/ha-public-brick-page/ha-public-brick-page/ha-public-brick-page.component';
-import { HaPublicDocComponent } from './module/ha-public-brick-page/ha-public-doc/ha-public-doc.component';
+  HaBrickPageComponent
+} from '../ha-brick/ha-brick-page/ha-brick-page/ha-brick-page.component';
+import { HaPublicDocComponent } from '../ha-brick/ha-brick-page/ha-public-doc/ha-public-doc.component';
 import {
   HaPublicTechDocComponent
-} from './module/ha-public-brick-page/ha-public-tech-doc/ha-public-tech-doc.component';
+} from '../ha-brick/ha-brick-page/ha-public-tech-doc/ha-public-tech-doc.component';
 import {
   HaPublicVersionsComponent
-} from './module/ha-public-brick-page/ha-public-versions/ha-public-versions.component';
+} from '../ha-brick/ha-brick-page/ha-public-versions/ha-public-versions.component';
 
 export const haPublicRoutes: Route[] = [
   {
     path: '',
     loadComponent: () =>
       import(
-        './module/ha-public-bricks/ha-public-list-bricks-page/ha-public-list-bricks-page.component'
-      ).then((m) => m.HaPublicListBricksPageComponent),
+        '../ha-brick/ha-bricks/ha-list-bricks-page/ha-list-bricks-page.component'
+      ).then((m) => m.HaListBricksPageComponent),
   },
   {
     path: 'edit',
     loadComponent: () =>
-      import('./module/ha-public-bricks/ha-public-edit-brick-page/ha-public-edit-brick-page.component').then(
-        (m) => m.HaPublicEditBrickPageComponent
+      import('../ha-brick/ha-bricks/ha-edit-brick-page/ha-edit-brick-page.component').then(
+        (m) => m.HaEditBrickPageComponent
       ),
     canActivate: [HaLoginGuard],
   },
@@ -36,17 +36,17 @@ export const haPublicRoutes: Route[] = [
     loadComponent: () =>
       import(
         // eslint-disable-next-line max-len
-        './module/ha-public-brick-page/ha-public-brick-user-invite-page/ha-public-brick-user-invite-page.component'
-      ).then((m) => m.HaPublicBrickUserInvitePageComponent),
+        '../ha-brick/ha-brick-page/ha-brick-user-invite-page/ha-brick-user-invite-page.component'
+      ).then((m) => m.HaBrickUserInvitePageComponent),
     canActivate: [HaLoginGuard],
   },
   {
     path: ':brickName/:version',
-    component: HaPublicBrickPageComponent,
+    component: HaBrickPageComponent,
     children: [
       {
         path: '',
-        component: HaPublicBrickDescriptionComponent,
+        component: HaBrickDescriptionComponent,
       },
       {
         path: 'version',
@@ -69,7 +69,7 @@ export const haPublicRoutes: Route[] = [
   },
   // TODO FIX
   // {
-  // component: HaPublicBrickPageComponent,
+  // component: HaBrickPageComponent,
   // matcher: (url: UrlSegment[]) => {
   //   if (url.length === 1) {
   //     url.push(new UrlSegment('latest', {}));
@@ -104,7 +104,7 @@ export const haPublicRoutes: Route[] = [
   //     },
   //     {
   //       path: '',
-  //       component: HaPublicBrickDescriptionComponent,
+  //       component: HaBrickDescriptionComponent,
   //     },
   //   ],
   // },
@@ -123,6 +123,6 @@ export const haPublicRoutes: Route[] = [
   // },
   {
     path: '**',
-    loadComponent: () => import('./module/ha404/ha404.component').then((m) => m.Ha404Component),
+    loadComponent: () => import('../ha404/ha404.component').then((m) => m.Ha404Component),
   },
 ];

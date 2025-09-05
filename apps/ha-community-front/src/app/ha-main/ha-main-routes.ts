@@ -4,9 +4,9 @@ import { haAdminRoutes } from '../ha-admin/ha-admin-routes';
 import { haAgentRoutes } from '../ha-agent/ha-agent-routes';
 import { haCommunityAppRoutes } from '../ha-community-app/ha-community-app-routes';
 import { haProfileRoutes } from '../ha-profile/ha-profile-routes';
-import { haPublicRoutes } from '../ha-public/ha-public-routes';
 import { haStoryRoutes } from '../ha-story/ha-story-routes';
 import { haTagRoutes } from '../ha-tag/ha-tag-routes';
+import { haBrickRoutes } from '../ha-brick/ha-brick-routes';
 
 export const haMainRoutes: Routes = [
   {
@@ -17,7 +17,7 @@ export const haMainRoutes: Routes = [
   {
     path: 'bricks',
     loadComponent: () => import('./ha-main/ha-main.component').then((m) => m.HaMainComponent),
-    children: haPublicRoutes,
+    children: haBrickRoutes,
   },
   {
     path: 'stories',
@@ -61,16 +61,6 @@ export const haMainRoutes: Routes = [
     loadComponent: () => import('./ha-main/ha-main.component').then((m) => m.HaMainComponent),
     children: haTagRoutes,
   },
-  // {
-  //   path: 'fair-open-access',
-  //   component: HaMainComponent,
-  //   children: [
-  //     {
-  //       path: '',
-  //       component: HaFairOpenAccessPageComponent,
-  //     },
-  //   ],
-  // },
   {
     path: 'login',
     loadComponent: () =>
@@ -82,12 +72,11 @@ export const haMainRoutes: Routes = [
     children: [
       {
         path: '',
-        loadComponent: () => import('./ha-home/ha-home.component').then((m) => m.HaHomeComponent),
+        loadComponent: () => import('../ha-home/ha-home/ha-home.component').then((m) => m.HaHomeComponent),
       },
       {
         path: '404',
-        loadComponent: () =>
-          import('../ha-public/module/ha404/ha404.component').then((m) => m.Ha404Component),
+        loadComponent: () => import('../ha404/ha404.component').then((m) => m.Ha404Component),
       },
       {
         path: '**',

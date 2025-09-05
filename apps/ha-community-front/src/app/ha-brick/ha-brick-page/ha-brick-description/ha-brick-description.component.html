@@ -1,0 +1,89 @@
+@if (brick()) {
+  <div class="main-div">
+    <div>
+      <div class="title-div">
+        <div class="icon-title">
+          <div class="brick-icon">
+            <img [ngSrc]="brick().imageLink | haBrickImage" [alt]="brick().name + 'logo'" fill priority />
+          </div>
+          <h1 class="g-text-dense-height">{{ brick().name }}</h1>
+        </div>
+        <div class="brick-like-edit-button-div">
+          <div class="brick-like-edit-button">
+            <ha-like-button
+              [entityType]="entityType" [entityId]="brick().id"></ha-like-button>
+          </div>
+          <div class="brick-like-edit-button">
+            @if (userHasEditRight()) {
+              <button
+                mat-stroked-button
+                type="button"
+                (click)="createEditBrickDialog()"
+                class="edit-brick-button">
+                {{ 'edit' | translate }}
+              </button>
+            }
+          </div>
+        </div>
+      </div>
+      @if (brickRunStatAggregate()) {
+        <ha-run-stat-aggregate-panel
+          [runStatAggregate]="brickRunStatAggregate()"></ha-run-stat-aggregate-panel>
+      }
+      <div class="description-div">
+        <h5>{{ 'description' | translate }} :</h5>
+        <p>{{ brick().description }}</p>
+      </div>
+      @if (brick() && latestBrickVersion()) {
+        <div class="version-div">
+          <fl-key-value>
+            <fl-key>{{ 'version' | translate }}</fl-key>
+            {{ latestBrickVersion().version?.toString() }}
+          </fl-key-value>
+        </div>
+      }
+    </div>
+    <div class="tech-div">
+      <h5>{{ 'technical_information' | translate }}</h5>
+      @if (latestBrickVersion()) {
+        <div class="tech-info-div">
+          {{ 'type_of_repository' | translate }} :
+          <p class="g-scrollable-element tech-info">{{ latestBrickVersion().repoType }}</p>
+        </div>
+      }
+      @if (brick().gitRepo) {
+        <div class="tech-info-div">
+          <div class="tech-info-div-title">
+            {{ 'repo_git' | translate }} :
+            <ha-github-star-button [repoUrl]="brick().gitRepo"></ha-github-star-button>
+          </div>
+          <div class="git-div">
+            <p class="g-scrollable-element tech-info">{{ brick().gitRepo }}</p>
+          </div>
+        </div>
+      }
+      @if (brick().pipRepo) {
+        <div class="tech-info-div">
+          {{ 'repo_pip' | translate }} :
+          <p class="g-scrollable-element tech-info">{{ brick().pipRepo }}</p>
+        </div>
+      }
+      @if (directReferences() && directReferences().length > 0) {
+        <div class="tech-info-div">
+          {{ 'references' | translate }} :
+          @for (r of directReferences(); track r) {
+            <div class="g-scrollable-element tech-info">
+              <a [routerLink]="'/bricks/' + r.name">{{ r.name }}</a> v{{ r.version }}
+            </div>
+          }
+        </div>
+      }
+    </div>
+  </div>
+}
+
+@if (brick() && latestBrickVersion()) {
+  <div class="right-panel g-scrollable-element">
+    <ha-brick-users [brick]="brick()"></ha-brick-users>
+  </div>
+}

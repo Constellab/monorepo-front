@@ -1,4 +1,53 @@
 {
+  "home.header.title": "Apprendre. Partager.Construire la recherche de demain.",
+  "home.header.subtitle": "Une communauté active autour de la donnée scientifique et de l’open science.",
+  "home.section1.hint": "Les ressources de la communauté",
+  "home.section1.title": "Une boîte à outils collaborative pour accélérer vos projets",
+  "home.section1.subtitle": "Explorez des articles, des apps prêtes à l'emploi, des agents intelligents et des briques techniques pour enrichir vos projets.",
+  "home.section1.stories_description": "Des retours concrets pour apprendre des autres et gagner du temps.",
+  "home.section1.apps_description": "Des applications prêtes à l'emploi pour accélérer votre travail.",
+  "home.section1.agents_description": "Des agents intelligents pour automatiser les tâches récurrentes.",
+  "home.section1.bricks_description": "Des briques réutilisables pour étendre ou enrichir vos workflows.",
+  "home.section2.hint": "Votre savoir a de la valeur, partagez-le !",
+  "home.section2.title": "Comment contribuer sur Constellab Community ?",
+  "home.section2.subtitle": "Créez un compte en quelques secondes pour publier vos apps, agents, briques ou retours d’expérience. Toute contribution renforce la plateforme et profite à l’ensemble de la communauté.",
+  "home.section3.hint": "Des usages réels pour débloquer vos projets",
+  "home.section3.title": "Des cas concrets pour progresser plus vite",
+  "home.section3.subtitle": "Découvrez comment d’autres chercheurs, développeurs ou utilisateurs exploitent Constellab dans leurs projets. Tutoriels, études de cas, bonnes pratiques, tout ce qu’il faut pour s’inspirer et progresser.",
+  "home.section4.hint": "Exploitez tout le potentiel",
+  "home.section4.title": "Une documentation claire, pour tous les profils dédiée à notre plateforme",
+  "home.section4.subtitle": "Accédez à la documentation produit, aux guides techniques pour comprendre, utiliser et étendre la plateforme.",
+  "home.section4.consult_technical_documentation": "Consulter la documentation technique",
+  "home.section4.consult_product_documentation": "Consulter la documentation produit",
+  "home.section5.hint": "L’intelligence collective au service de la recherche",
+  "home.section5.title": "Partagez, collaborez, innovez",
+  "home.section5.subtitle": "En rejoignant Constellab Community, vous accédez à un écosystème d’apps, d’agents IA, de cas d’usage et de briques open source pour booster vos projets scientifiques.",
+  "home.section6.hint": "Questions fréquentes sur la communauté",
+  "home.section6.title": "Vous avez des questions ?",
+  "home.section6.no_answer_founded": "Vous n’avez pas trouvé de réponse ?",
+  "home.section6.our_team_is_here_to_help": "Notre équipe se tient à votre disposition",
+  "home.section6.contact_an_expert": "Échanger avec un expert",
+  "home.section6.faq_question_1": "Qui peut rejoindre la communauté Constellab ?",
+  "home.section6.faq_answer_1": "Toute personne intéressée par la donnée scientifique, l’open science ou le développement de solutions peut s’inscrire gratuitement.",
+  "home.section6.faq_question_2": "Quels types de contenus puis-je publier ?",
+  "home.section6.faq_answer_2": "Vous pouvez partager des articles, des tutoriels, des apps, des agents IA, des briques techniques et des études de cas.",
+  "home.section6.faq_question_3": "Comment garantir la qualité des contributions ?",
+  "home.section6.faq_answer_3": "Les contributions sont modérées par notre équipe pour assurer leur pertinence et leur qualité.",
+  "home.section6.faq_question_4": "Est-ce que mes ressources sont modérées ?",
+  "home.section6.faq_answer_4": "Oui, toutes les ressources publiées sont modérées pour garantir qu'elles respectent nos directives communautaires.",
+  "home.section6.faq_question_5": "Puis-je collaborer avec d’autres membres ?",
+  "home.section6.faq_answer_5": "Absolument, la collaboration est au cœur de notre communauté. Vous pouvez échanger, co-créer et apprendre des autres membres.",
+
+
+  "join_the_community": "Rejoindre la communauté",
+  "discover_all_stories": "Découvrir toutes les stories",
+  "discover_all_apps": "Découvrir toutes les apps",
+  "discover_all_agents": "Découvrir tous les agents",
+  "discover_all_bricks": "Découvrir toutes les bricks",
+
+
+
+
   "create": "Créer",
   "documentation": "Documentation",
   "documentations": "Documentations",
@@ -516,5 +565,6 @@
   "user_alias_or_email": "Alias ou email de l'utilisateur",
   "invite": "Inviter {{user}}",
   "the_app": "L'application",
-  "open_app": "Ouvrir l'app"
+  "open_app": "Ouvrir l'app",
+  "discover_create_and_share_bricks": "Découvrez des briques open-source pour accélérer vos développements sur Constellab : connecteurs, scripts, standards ou visualisations. Contribuez ou réutilisez-les librement."
 }

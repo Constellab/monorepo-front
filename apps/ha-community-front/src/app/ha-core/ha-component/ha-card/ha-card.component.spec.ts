@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HaCardComponentComponent } from './ha-card.component';
+import { HaCardComponent } from './ha-card.component';
 
 describe('HaCardComponentComponent', () => {
-  let component: HaCardComponentComponent;
-  let fixture: ComponentFixture<HaCardComponentComponent>;
+  let component: HaCardComponent;
+  let fixture: ComponentFixture<HaCardComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [HaCardComponentComponent],
+      declarations: [HaCardComponent],
     });
-    fixture = TestBed.createComponent(HaCardComponentComponent);
+    fixture = TestBed.createComponent(HaCardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

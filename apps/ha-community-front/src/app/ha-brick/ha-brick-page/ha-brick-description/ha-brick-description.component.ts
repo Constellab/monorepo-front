@@ -1,0 +1,112 @@
+import { NgOptimizedImage } from '@angular/common';
+import { Component, computed, inject, Signal } from '@angular/core';
+import { MatButton } from '@angular/material/button';
+import { Router, RouterLink } from '@angular/router';
+import { CoCommunityLibModule } from '@monorepo/community-lib';
+import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
+import { TranslatePipe } from '@ngx-translate/core';
+
+import { HaLikeButtonComponent } from '../../../ha-core/entity-module/ha-util-component-core/component/ha-like-button/ha-like-button.component';
+import { HaGithubStarButtonComponent } from '../../../ha-core/ha-component/ha-github-star-button/ha-github-star-button.component';
+import { HaRunStatAggregatePanelComponent } from '../../../ha-core/ha-component/ha-run-stat-aggregate-panel/ha-run-stat-aggregate-panel.component';
+import { HaBrick, HaEditBrickDTO } from '../../../ha-core/ha-model/ha-entities/ha-brick.class';
+import { HaBrickVersion } from '../../../ha-core/ha-model/ha-entities/ha-brick-version.class';
+import { HaEntityType } from '../../../ha-core/ha-model/ha-entities/ha-entity-type';
+import { HaRunStatAggregate } from '../../../ha-core/ha-model/ha-entities/ha-run-stat-aggregate.class';
+import { HaReferenceDTO } from '../../../ha-core/ha-model/ha-entities/ha-version.class';
+import { HaCommunityPageDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
+import { HaBrickImagePipe } from '../../../ha-core/ha-module/ha-core-pipe/ha-brick-image/ha-brick-image.pipe';
+import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
+import { HaBrickPageState } from '../../state/ha-brick-page.state';
+import { HaBrickUsersComponent } from '../ha-brick-users/ha-brick-users.component';
+import { HaPublicEditBrickDialogComponent } from '../ha-public-edit-brick-dialog/ha-public-edit-brick-dialog.component';
+
+@Component({
+  selector: 'ha-brick-description-page',
+  templateUrl: './ha-brick-description.component.html',
+  styleUrls: ['./ha-brick-description.component.scss'],
+  imports: [
+    NgOptimizedImage,
+    CoCommunityLibModule,
+    MatButton,
+    HaRunStatAggregatePanelComponent,
+    FlKeyValueModule,
+    HaGithubStarButtonComponent,
+    RouterLink,
+    HaBrickUsersComponent,
+    TranslatePipe,
+    HaBrickImagePipe,
+    HaLikeButtonComponent,
+  ],
+})
+export class HaBrickDescriptionComponent extends HaCommunityPageDirective {
+  private router: Router = inject(Router);
+  private dialogService: FlDialogService = inject(FlDialogService);
+  private brickPageState: HaBrickPageState = inject(HaBrickPageState);
+
+  brick: Signal<HaBrick> = computed(() => {
+    const brick = this.brickPageState.brick();
+    if (brick) {
+      this.onBrick(brick);
+    }
+    return brick;
+  });
+  latestBrickVersion: Signal<HaBrickVersion> = this.brickPageState.latestBrickVersion;
+  userHasEditRight: Signal<boolean> = this.brickPageState.getUserHasEditRight();
+  directReferences: Signal<HaReferenceDTO[]> = this.brickPageState.getDirectReferences();
+  brickRunStatAggregate: Signal<HaRunStatAggregate> = this.brickPageState.brickRunStatAggregate;
+
+  entityType = HaEntityType.BRICK;
+
+  createEditBrickDialog(): void {
+    const node: HaEditBrickDTO = new HaEditBrickDTO();
+    node.id = this.brick().id;
+    node.description = this.brick().description;
+    node.gitRepo = this.brick().gitRepo;
+    node.pipRepo = this.brick().pipRepo;
+    node.visibility = this.brick().visibility;
+    node.credentialUsername = this.brick().credentialUsername;
+    node.credentialPassword = this.brick().credentialPassword;
+    node.space = this.brick().space;
+    node.imageLink = this.brick().imageLink;
+
+    const input: FlFormDialogInput<HaEditBrickDTO> = {
+      mode: 'update',
+      object: node,
+    };
+
+    this.openSmallDialog(input);
+  }
+
+  private onBrick(brick: HaBrick): void {
+    this.metadataService.setPageTitle('ha.brick.title', true, {
+      title: brick.name,
+    });
+    this.metadataService.addMetaTag('description', 'ha.brick.description', true, { description: brick.name });
+    super.setMetaTags(
+      {
+        text: 'ha.brick.title',
+        translateParam: { param: { title: brick.name } },
+      },
+      {
+        text: 'ha.brick.description',
+        translateParam: { param: { title: brick.name } },
+      },
+      brick.imageLink,
+      HaRouterService.getFullRoute(this.router.url)
+    );
+  }
+
+  private openSmallDialog(input: any): void {
+    this.dialogService
+      .openMediumDialog(HaPublicEditBrickDialogComponent, { data: input })
+      .afterClosed()
+      .subscribe((brick) => {
+        if (brick) {
+          this.brickPageState.setBrick(brick);
+        }
+      });
+  }
+}

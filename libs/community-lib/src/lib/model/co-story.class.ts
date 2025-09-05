@@ -14,7 +14,6 @@ export class CoListStoryDto {
   title: string;
   firstParagraph: string;
   mainPicture?: string;
-  topics?: CoStoryTopic[];
   createdAt: DateTime;
   createdBy: CoUser;
   category: CoStoryCategory;
@@ -22,10 +21,4 @@ export class CoListStoryDto {
   lastModifiedAt: DateTime;
   likes: number;
   comments: number;
-}
-
-export interface CoStoryTopic {
-  id: string;
-  name: string;
-  popularity: number;
 }

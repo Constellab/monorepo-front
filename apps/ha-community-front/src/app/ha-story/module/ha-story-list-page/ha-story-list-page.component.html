@@ -1,71 +1,40 @@
-<div class="left-panel" haLeftPanel>
-  <mat-icon class="button-close-left-panel" haSidenavButton></mat-icon>
-  <button
-    mat-stroked-button
-    type="button"
-    class="bt first-bt"
-    *haIsAuthenticated
-    (click)="openCreateStoryDialog()">
-    <mat-icon>add_circle</mat-icon>
-    {{ 'create_story' | translate }}
-  </button>
+<ha-header>
+  <div class="header-content-div">
+    <div></div>
+    <div>
+      <h1>{{ 'stories' | translate}}</h1>
+      <p class="header-subtitle g-large-text">{{ 'discover_create_and_share_bricks' | translate}}</p>
+    </div>
+  </div>
+</ha-header>
 
-  <mat-divider class="left-panel-separator" *haIsAuthenticated></mat-divider>
+<div class="page">
 
-  <button
-    mat-stroked-button
-    type="button"
-    class="bt my-stories-bt"
-    *haIsAuthenticated
-    (click)="selectMyStories()"
-    [class]="myStoriesBool ? 'bt-primary' : ''">
-    {{ 'my_stories' | translate }}
-  </button>
+  <fl-infinite-scroll [datasource]="stories" infiniteMode="auto" class="section">
+    <ha-list-of-items>
+      @for (story of stories | flDatasourceConnect | async; track story) {
+        <a [routerLink]="story | haDetailRoute">
+          <co-story-list-item
+            [story]="story"
+            [imageLink]="getStoryImageLink(story.id, story?.mainPicture)"></co-story-list-item>
+        </a>
+      }
+    </ha-list-of-items>
+  </fl-infinite-scroll>
 
+  <div class="section section-with-background">
+    <div class="section-title">
+      <ha-home-section-shine>Stories & retours d’expérience</ha-home-section-shine>
+      <h2>Vous avez une ressource à partager ?</h2>
+    </div>
+    <p class="g-large-text section-description">
+      Proposez-la pour accélérer les projets de toute la communauté.
+    </p>
+    <div class="section-buttons-div">
+      <ha-button theme="dark">Soumettre une story</ha-button>
+    </div>
+  </div>
 
-  @if (popularTopics$ | async; as topics) {
-    @if (topics?.length > 0) {
-      <p class="left-side-div-title" flHide.lt-sm>{{ 'popular_topics' | translate }} :</p>
-      <mat-chip-listbox selectable multiple>
-        @for (topic of topics; track topic) {
-          <mat-chip-option [value]="isSelected(topic)" (click)="selectTopic(topic)" class="g-cursor-hover">
-            {{ topic.name }}
-          </mat-chip-option>
-        }
-      </mat-chip-listbox>
-    }
-  }
 </div>
 
-<div class="main-panel">
-  @if (stories) {
-    <fl-infinite-scroll [datasource]="stories" infiniteMode="auto" class="list-section">
-      <div class="section-title">
-        <h1 class="title">{{ 'stories' | translate }}</h1>
-      </div>
-      <div class="search-bar-title">
-        <form (submit)="search()">
-          <mat-form-field class="section-search-bar">
-            <input
-              matInput
-              [formControl]="titleFormControl"
-              placeholder="{{ 'search_by_title' | translate }}" />
-            <button mat-icon-button matSuffix (click)="search()" [matTooltip]="'search' | translate"
-                    aria-label="Search by title button">
-              <mat-icon>search</mat-icon>
-            </button>
-          </mat-form-field>
-        </form>
-      </div>
-      <div class="stories-list">
-        @for (story of stories | flDatasourceConnect | async; track story) {
-          <a [routerLink]="story.publishedAt == null ? 'edit/' + story.id : (story | haDetailRoute)">
-            <co-story-list-item
-              [story]="story"
-              [imageLink]="getStoryImageLink(story.id, story?.mainPicture)"></co-story-list-item>
-          </a>
-        }
-      </div>
-    </fl-infinite-scroll>
-  }
-</div>
+<ha-footer></ha-footer>

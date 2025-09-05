@@ -76,10 +76,12 @@ export const flIconsDefault: FlIcon[] = [
   { name: 'heart', filename: 'heart.svg' },
   { name: 'heart-fill', filename: 'heart-fill.svg' },
   { name: 'constellab_document', matIconName: 'description' },
-  { name: 'brick', filename: 'brick.svg' },
-  { name: 'agent', filename: 'agent.svg' },
-  { name: 'community-icon', filename: 'community_logo.svg' },
+  { name: 'brick', filename: 'brick_logo.svg' },
+  { name: 'agent', filename: 'agent_logo.svg' },
+  { name: 'app', filename: 'app_logo.svg' },
+  { name: 'story', filename: 'story_logo.svg' },
   { name: 'tag', matIconName: 'local_offer' },
+  { name: 'shine', filename: 'shine.svg' },
 ];
 
 export function getFileIconFromExtension(extension: string): string {

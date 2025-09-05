@@ -10,25 +10,23 @@ import {
   PLATFORM_ID,
   Signal,
 } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 import { ClHelpService, ClSupportedLanguage, ClTheme } from '@monorepo/core-lib';
-import { HaEnvironmentHelper } from '../../ha-core/ha-model/ha-config/ha-environment.helper';
 import { FlCookieService, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 
-import { environment } from '../../../environments/ha-environment';
 import { HaInstantSearchDialogComponent } from '../../ha-core/ha-component/ha-instant-search-dialog/ha-instant-search-dialog.component';
+import { HaEnvironmentHelper } from '../../ha-core/ha-model/ha-config/ha-environment.helper';
 import { HaAuthenticatedUserService } from '../../ha-core/ha-service/ha-authenticated-user.service';
 import { HaJsonLdState } from '../../ha-core/ha-state/ha-json-ld.state';
 import { HaThemeState } from '../../ha-core/ha-state/ha-theme.state';
-import { HaBigScreenMainComponent } from '../ha-big-screen-main/ha-big-screen-main.component';
 import { HaCookieConsentComponent } from '../ha-cookie-consent/ha-cookie-consent.component';
-import { HaSmallScreenMainComponent } from '../ha-small-screen-main/ha-small-screen-main.component';
 
 @Component({
   selector: 'ha-main',
   templateUrl: './ha-main.component.html',
   styleUrls: ['./ha-main.component.scss'],
   providers: [HaThemeState, HaJsonLdState],
-  imports: [HaBigScreenMainComponent, HaSmallScreenMainComponent],
+  imports: [RouterOutlet],
 })
 export class HaMainComponent implements OnInit, AfterContentInit, OnDestroy {
   currentLanguage: ClSupportedLanguage;

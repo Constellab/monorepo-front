@@ -1,15 +1,7 @@
-<co-community-list-item
-  [title]="brick.name"
-  [space]="brick.space"
-  [showVisibility]="true"
-  [description]="brick.description"
-  [user]="brick.createdBy"
-  [date]="brick.createdAt"
-  [likes]="brick.likes">
-  <!--  [comments]="brick.comments">-->
-  <div rightSide class="brick-right-side">
-    <div class="brick-logo">
-      <img [ngSrc]="brickImage" [alt]="brick.name + ' logo'" fill priority />
-    </div>
-  </div>
+<co-community-list-item type="brick"
+                        [title]="brick.name"
+                        [shortDescription]="brick.description"
+                        [image]="brickImage"
+                        [space]="brick.space"
+>
 </co-community-list-item>

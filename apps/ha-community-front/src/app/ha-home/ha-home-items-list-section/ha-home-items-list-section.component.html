@@ -1,0 +1,58 @@
+<div class="item-type-select-div">
+  <div class="item-type-select-inner-div">
+    @for (itemType of itemTypes; track itemType; let idx = $index) {
+      <div class="item-type-div" (click)="changeCurrentType(itemType)"
+           [ngClass]="itemType === currentType ? 'active-item-type-div' : ''"
+      >
+        {{(itemType) | translate}}
+      </div>
+      @if (idx < itemTypes.length - 1) {
+        <div class="item-type-select-line"></div>
+      }
+    }
+  </div>
+</div>
+
+
+<div class="items-list-div">
+  <div class="items-container-div">
+    @if (currentType === 'stories' && stories$) {
+      @for (story of stories$ | flDatasourceConnect | async; track story?.id) {
+        <a [routerLink]="story | haDetailRoute">
+          <co-story-list-item
+            class="home-card"
+            [story]="story"
+            [imageLink]="getStoryImageLink(story.id, story?.mainPicture)"></co-story-list-item>
+        </a>
+      }
+    } @else if (currentType === 'apps' && apps$) {
+      @for (app of apps$ | flDatasourceConnect | async; track app?.id) {
+        <a [routerLink]="app | haDetailRoute">
+          <co-community-app-list-item
+            class="home-card"
+            [communityApp]="app"
+            [appPicture]="app.picture | haAppPicture"></co-community-app-list-item>
+        </a>
+      }
+    } @else if (currentType === 'agents' && agents$) {
+      @for (agent of agents$ | flDatasourceConnect | async; track agent?.id) {
+        <a [routerLink]="agent | haDetailRoute">
+          <co-agent-list-item class="home-card" [agent]="agent"></co-agent-list-item>
+        </a>
+      }
+    } @else if (currentType === 'bricks' && bricks$) {
+      @for (brick of bricks$ | flDatasourceConnect | async; track brick?.id) {
+        <a [routerLink]="brick | haDetailRoute">
+          <co-brick-list-item
+            class="home-card"
+            [brick]="brick"
+            [brickImage]="brick.imageLink | haBrickImage"></co-brick-list-item>
+        </a>
+      }
+    }
+  </div>
+</div>
+
+<div class="discover-all-button-div">
+  <ha-button theme="dark">{{ (('discover_all_' + currentType) | translate) }}</ha-button>
+</div>

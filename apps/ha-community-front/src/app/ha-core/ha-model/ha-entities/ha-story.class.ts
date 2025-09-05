@@ -80,7 +80,6 @@ export class HaListStoryDto implements CoListStoryDto {
   title: string;
   firstParagraph: string;
   mainPicture?: string;
-  topics?: HaTopic[];
   createdAt: DateTime;
   createdBy: HaUser;
   category: CoStoryCategory;
@@ -89,10 +88,6 @@ export class HaListStoryDto implements CoListStoryDto {
   likes: number;
   comments: number;
   titlePath?: string;
-
-  getTopics(): HaTopic[] {
-    return this.topics.sort((a, b) => a.popularity - b.popularity);
-  }
 }
 
 export class HaStoryFilters {

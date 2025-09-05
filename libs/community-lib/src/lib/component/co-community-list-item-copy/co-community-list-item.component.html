@@ -1,0 +1,19 @@
+<div class="community-list-item">
+  <div class="community-list-item-left-side">
+    <co-community-list-item-main-content
+      [title]="title"
+      [space]="space"
+      [showVisibility]="showVisibility"
+      [description]="description"
+      [user]="user"
+      [date]="date"
+      [likes]="likes"
+      [comments]="comments"
+      [executions]="executions">
+      <ng-content select="[leftSide]"></ng-content>
+    </co-community-list-item-main-content>
+  </div>
+  <div class="community-list-item-right-side">
+    <ng-content select="[rightSide]"></ng-content>
+  </div>
+</div>

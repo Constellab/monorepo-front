@@ -19,7 +19,7 @@ import { HaUser } from '../../../ha-core/ha-model/ha-entities/ha-user';
 import { HaSidenavButtonDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-sidenav-button/ha-sidenav-button.directive';
 import { HaAgentService } from '../../../ha-core/ha-service/ha-agent.service';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
-import { Ha404Component } from '../../../ha-public/module/ha404/ha404.component';
+import { Ha404Component } from '../../../ha404/ha404.component';
 import { HaAgentPageState } from '../../state/ha-agent-page.state';
 import { HaAgentVersionsPanelComponent } from '../ha-agent-versions-panel/ha-agent-versions-panel.component';
 

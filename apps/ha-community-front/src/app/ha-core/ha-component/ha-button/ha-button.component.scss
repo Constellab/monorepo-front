@@ -1,0 +1,74 @@
+.button-div {
+  width: fit-content;
+  display: flex;
+  padding: 2px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 858px;
+  transition: 0.3s;
+}
+
+.border-light {
+  background: linear-gradient(180deg, rgba(3, 16, 17, 0.00) 0%, rgba(3, 16, 17, 0.08) 100%), #FFF;
+}
+
+.border-dark {
+  background: linear-gradient(180deg, rgba(3, 16, 17, 0.00) 0%, rgba(3, 16, 17, 0.14) 100%), linear-gradient(0deg, #105156 0%, #105156 100%);
+}
+
+.button {
+  display: flex !important;
+  height: 41.216px !important;
+  padding: 6px 20px 8px 20px !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 6.869px !important;
+  border-radius: 85866672px !important;
+  text-transform: none !important;
+  font-size: 14px !important;
+  font-style: normal !important;
+  font-weight: 600 !important;
+  line-height: 20.608px !important;
+  letter-spacing: -0.28px !important;
+}
+
+.button-light{
+  background: white !important;
+  color: #072527 !important;
+}
+
+.button-dark {
+  background: var(--Style, #072527) !important;
+  color: white !important;
+}
+
+.border-light:hover {
+  box-shadow: 0 6px 6px 0 rgba(0, 0, 0, 0.08) inset;
+}
+
+.border-dark:hover {
+  box-shadow: 0 6.379px 9.568px 0 rgba(0, 0, 0, 0.30) inset;
+}
+
+.border-light:hover > .button-light {
+  background: linear-gradient(180deg, transparent 0%, #FFF 100%) !important;
+}
+
+.border-dark:hover > .button-dark {
+  background: linear-gradient(180deg, transparent 0%, #0F4E52 100%) !important;
+}
+
+@media only screen and (max-width: 600px) {
+  :host{
+    width: 100%;
+  }
+
+  .button-div{
+    width: -webkit-fill-available;
+  }
+
+  .button{
+    width: -webkit-fill-available;
+  }
+}

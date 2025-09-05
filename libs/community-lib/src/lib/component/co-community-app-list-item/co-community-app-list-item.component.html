@@ -1,16 +1,6 @@
-<co-community-list-item
-  [title]="communityApp().title"
-  [description]="communityApp().description?.getFirstParagraphsText()"
-  [user]="communityApp().createdBy"
-  [date]="communityApp().lastModifiedAt"
-  [likes]="communityApp().likes"
-  [comments]="communityApp().comments"
-  [space]="communityApp().space"
-  [executions]="communityApp().executions"
-  [showVisibility]="true">
-  <div rightSide class="app-list-item-right-side">
-    <div class="app-logo">
-      <img [ngSrc]="appPicture()" [alt]="communityApp().title + 'logo'" fill priority />
-    </div>
-  </div>
+<co-community-list-item type="app"
+                        [title]="communityApp().title"
+                        [shortDescription]="communityApp().description?.getFirstParagraphsText()"
+                        [space]="communityApp().space">
+
 </co-community-list-item>

@@ -21,7 +21,7 @@ export const haStoryRoutes: Route[] = [
   },
   {
     path: '404',
-    loadComponent: () => import('../ha-public/module/ha404/ha404.component').then((m) => m.Ha404Component),
+    loadComponent: () => import('../ha404/ha404.component').then((m) => m.Ha404Component),
   },
   {
     path: 'invite/:token',

@@ -1,24 +1,22 @@
-import { Component, inject, Input } from '@angular/core';
-import { ClStringHelper } from '@monorepo/core-lib';
+import { Component, input } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
+import { TranslatePipe } from '@ngx-translate/core';
 
 import { CoSpace } from '../../model/co-space.class';
-import { CoConfig } from '../../service/co-service-config.config';
 
 @Component({
   selector: 'co-visibility-badge',
   templateUrl: './co-visibility-badge.component.html',
   styleUrls: ['./co-visibility-badge.component.scss'],
-  standalone: false,
+  imports: [TranslatePipe, MatIconModule],
 })
 export class CoVisibilityBadgeComponent {
-  private coServiceConfig = inject(CoConfig);
+  space = input<CoSpace>(null);
 
-  @Input() space: CoSpace = null;
-
-  get spacePhoto(): string {
-    if (this.space && this.space.photo && !ClStringHelper.isHttpLink(this.space.photo)) {
-      this.space.photo = this.coServiceConfig.getSpacePhotoUrl(this.space.photo);
-    }
-    return this.space.photo;
-  }
+  // get spacePhoto(): string {
+  //   if (this.space && this.space.photo && !ClStringHelper.isHttpLink(this.space.photo)) {
+  //     this.space.photo = this.coServiceConfig.getSpacePhotoUrl(this.space.photo);
+  //   }
+  //   return this.space.photo;
+  // }
 }

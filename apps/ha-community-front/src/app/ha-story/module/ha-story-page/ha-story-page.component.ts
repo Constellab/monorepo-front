@@ -38,7 +38,7 @@ import { HaHttpRedirectionService } from '../../../ha-core/ha-service/ha-http-re
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
 import { HaStoryService } from '../../../ha-core/ha-service/ha-story.service';
 import { HaJsonLdState } from '../../../ha-core/ha-state/ha-json-ld.state';
-import { Ha404Component } from '../../../ha-public/module/ha404/ha404.component';
+import { Ha404Component } from '../../../ha404/ha404.component';
 import { HaStoryTextEditorConfig } from '../ha-story-edit-page/ha-story-text-editor.config';
 
 @Component({

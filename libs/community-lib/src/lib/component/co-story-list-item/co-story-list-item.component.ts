@@ -1,6 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
-import { CoListStoryDto, CoStoryTopic } from '../../model/co-story.class';
+import { CoListStoryDto } from '../../model/co-story.class';
 
 @Component({
   selector: 'co-story-list-item',
@@ -8,12 +8,7 @@ import { CoListStoryDto, CoStoryTopic } from '../../model/co-story.class';
   styleUrls: ['./co-story-list-item.component.scss'],
   standalone: false,
 })
-export class CoStoryListItemComponent implements OnInit {
+export class CoStoryListItemComponent {
   @Input({ required: true }) story: CoListStoryDto;
   @Input() imageLink?: string;
-  topics: CoStoryTopic[];
-
-  ngOnInit(): void {
-    this.topics = this.story.topics.sort((a, b) => a.popularity - b.popularity);
-  }
 }

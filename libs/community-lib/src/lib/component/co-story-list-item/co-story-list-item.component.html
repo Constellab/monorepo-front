@@ -1,26 +1,4 @@
-<co-community-list-item
-  [title]="story.title"
-  [description]="story.firstParagraph"
-  [user]="story.createdBy"
-  [date]="
-    !story.publishedAt || story.publishedAt < story.lastModifiedAt ? story.lastModifiedAt : story.publishedAt
-  "
-  [likes]="story.likes"
-  [comments]="story.comments">
-  <div leftSide>
-    @if (!story.publishedAt) {
-      <span class="g-warn-text">{{ 'coCommunityLib.no_published' | translate }}</span>
-    }
-    @if (topics.length > 0) {
-      <mat-chip-listbox>
-        @for (topic of topics; track topic) {
-          <mat-chip-option>
-            {{ topic.name }}
-          </mat-chip-option>
-        }
-      </mat-chip-listbox>
-    }
-  </div>
+<co-community-list-item type="story" [title]="story.title" [shortDescription]="story.firstParagraph"
+                        [image]="imageLink" [showVisibilityAndStats]="false">
 
-  <div rightSide [style.background-image]="'url(\'' + imageLink + '\')'" class="story-image"></div>
 </co-community-list-item>

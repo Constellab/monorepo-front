@@ -1,0 +1,187 @@
+<ha-header [isHomePage]="true">
+  <div class="hero-section">
+    <h1 class="hero-title g-big-title">
+      {{ 'home.header.title' | translate }}
+    </h1>
+    <p class="g-large-text hero-subtitle">
+      {{ 'home.header.subtitle' | translate }}
+    </p>
+    <ha-button theme="dark">
+      {{ 'join_the_community' | translate }}
+    </ha-button>
+  </div>
+</ha-header>
+
+<div class="page">
+  <div class="section">
+    <div class="section-title">
+      <ha-home-section-shine>{{ 'home.section1.hint' | translate }}</ha-home-section-shine>
+      <h2 class="g-medium-title">{{ 'home.section1.title' | translate }}</h2>
+    </div>
+    <p class="g-large-text section-description">
+      {{ 'home.section1.subtitle' | translate }}
+    </p>
+
+    <div class="features-grid">
+      <ha-feature-card
+        [title]="'stories' | translate"
+        [description]="'home.section1.stories_description' | translate"
+        iconName="story">
+      </ha-feature-card>
+
+      <ha-feature-card
+        [title]="'apps' | translate"
+        [description]="'home.section1.apps_description' | translate"
+        iconName="app">
+      </ha-feature-card>
+
+      <ha-feature-card
+        [title]="'agents' | translate"
+        [description]="'home.section1.agents_description' | translate"
+        iconName="agent">
+      </ha-feature-card>
+
+      <ha-feature-card
+        [title]="'bricks' | translate"
+        [description]="'home.section1.bricks_description' | translate"
+        iconName="brick">
+      </ha-feature-card>
+    </div>
+  </div>
+
+  <div class="section contribute-to-community-section">
+    <div class="contribute-to-community-section-info-div">
+      <div class="section-title">
+        <ha-home-section-shine>{{ 'home.section2.hint' | translate }}</ha-home-section-shine>
+        <h2 class="g-medium-title">{{ 'home.section2.title' | translate }}</h2>
+      </div>
+      <p class="g-large-text section-description">
+        {{ 'home.section2.subtitle' | translate }}
+      </p>
+      <div class="contribute-to-community-section-buttons-big-screen">
+        <ng-template [ngTemplateOutlet]="joinButtonsDiv"></ng-template>
+      </div>
+    </div>
+    <div class="contribute-to-community-section-video-div">
+      <div class="home-video-div"></div>
+    </div>
+    <div class="contribute-to-community-section-buttons-small-screen">
+      <ng-template [ngTemplateOutlet]="joinButtonsDiv"></ng-template>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">
+      <ha-home-section-shine>{{ 'home.section3.hint' | translate }}</ha-home-section-shine>
+      <h2 class="g-medium-title">{{ 'home.section3.title' | translate }}</h2>
+    </div>
+    <p class="g-large-text section-description">
+      {{ 'home.section3.subtitle' | translate }}
+    </p>
+    <div class="home-items-div">
+      <ha-home-items-list-section></ha-home-items-list-section>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">
+      <ha-home-section-shine>{{ 'home.section4.hint' | translate }}</ha-home-section-shine>
+      <h2 class="g-medium-title">{{ 'home.section4.title' | translate }}</h2>
+    </div>
+    <p class="g-large-text section-description">
+      {{ 'home.section4.subtitle' | translate }}
+    </p>
+
+    <div class="doc-cards-div">
+      <div class="doc-illustration-button-div">
+        <div class="doc-illustration">
+
+        </div>
+        <ha-button>{{ 'home.section4.consult_technical_documentation' | translate }}</ha-button>
+      </div>
+
+      <div class="doc-illustration-button-div">
+        <div class="doc-illustration">
+
+        </div>
+        <ha-button>{{ 'home.section4.consult_technical_documentation' | translate }}</ha-button>
+      </div>
+    </div>
+  </div>
+
+  <div class="section section-with-background">
+    <div class="section-title">
+      <ha-home-section-shine>{{ 'home.section5.hint' | translate }}</ha-home-section-shine>
+      <h2 class="g-medium-title">{{ 'home.section5.title' | translate }}</h2>
+    </div>
+
+    <p class="g-large-text section-description">
+      {{ 'home.section5.subtitle' | translate }}
+    </p>
+
+    <ng-template [ngTemplateOutlet]="joinButtonsDiv"></ng-template>
+  </div>
+
+
+  <div class="section faq-section">
+    <div class="faq-left-part">
+      <div class="section-title">
+        <ha-home-section-shine>{{ 'home.section6.hint' | translate }}</ha-home-section-shine>
+        <h2 class="g-medium-title">{{ 'home.section6.title' | translate }}</h2>
+      </div>
+      <div class="ask-an-expert-div">
+        <div class="ask-an-expert-div-description">
+          <span class="g-text-medium g-weight-600">{{ 'home.section6.no_answer_founded' | translate }}</span>
+          <p>{{ 'home.section6.our_team_is_here_to_help' | translate }}</p>
+        </div>
+        <ha-button [theme]="'dark'">{{ 'home.section6.contact_an_expert' | translate }}</ha-button>
+      </div>
+    </div>
+    <mat-accordion  class="accordion">
+      <mat-expansion-panel class="expansion-panel">
+        <mat-expansion-panel-header>
+          <mat-panel-title><span class="g-text-medium g-weight-600">{{ 'home.section6.faq_question_1' | translate }}</span></mat-panel-title>
+        </mat-expansion-panel-header>
+        <p>{{ 'home.section6.faq_answer_1' | translate }}</p>
+      </mat-expansion-panel>
+      <mat-expansion-panel class="expansion-panel">
+        <mat-expansion-panel-header>
+          <mat-panel-title><span class="g-text-medium g-weight-600">{{ 'home.section6.faq_question_2' | translate }}</span></mat-panel-title>
+        </mat-expansion-panel-header>
+        <p>{{ 'home.section6.faq_answer_2' | translate }}</p>
+      </mat-expansion-panel>
+      <mat-expansion-panel class="expansion-panel">
+        <mat-expansion-panel-header>
+          <mat-panel-title><span class="g-text-medium g-weight-600">{{ 'home.section6.faq_question_3' | translate }}</span></mat-panel-title>
+        </mat-expansion-panel-header>
+        <p>{{ 'home.section6.faq_answer_3' | translate }}</p>
+      </mat-expansion-panel>
+      <mat-expansion-panel class="expansion-panel">
+        <mat-expansion-panel-header>
+          <mat-panel-title><span class="g-text-medium g-weight-600">{{ 'home.section6.faq_question_4' | translate }}</span></mat-panel-title>
+        </mat-expansion-panel-header>
+        <p>{{ 'home.section6.faq_answer_4' | translate }}</p>
+      </mat-expansion-panel>
+      <mat-expansion-panel class="expansion-panel">
+        <mat-expansion-panel-header>
+          <mat-panel-title><span class="g-text-medium g-weight-600">{{ 'home.section6.faq_question_5' | translate }}</span></mat-panel-title>
+        </mat-expansion-panel-header>
+        <p>{{ 'home.section6.faq_answer_5' | translate }}</p>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+
+
+</div>
+
+
+<ha-footer [isHomePage]="true"></ha-footer>
+
+
+
+<ng-template #joinButtonsDiv>
+  <div class="section-buttons-div">
+    <ha-button theme="dark">{{ 'join_the_community' | translate}}</ha-button>
+    <ha-button>{{ 'login' | translate}}</ha-button>
+  </div>
+</ng-template>

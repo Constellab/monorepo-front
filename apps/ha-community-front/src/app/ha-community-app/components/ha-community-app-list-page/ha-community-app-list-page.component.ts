@@ -1,15 +1,8 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatButton, MatIconButton } from '@angular/material/button';
-import { MatChipOption } from '@angular/material/chips';
-import { MatDivider } from '@angular/material/divider';
-import { MatFormField } from '@angular/material/form-field';
-import { MatIcon } from '@angular/material/icon';
-import { MatInput } from '@angular/material/input';
-import { MatTooltip } from '@angular/material/tooltip';
 import { RouterLink } from '@angular/router';
-import { CoCommunityAppListItemComponent } from '@monorepo/community-lib';
+import { CoCommunityAppListItemComponent, CoCommunityLibModule } from '@monorepo/community-lib';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
@@ -22,27 +15,27 @@ import {
   HaCommunityAppDatasourcePaginated,
 } from '../../../ha-core/ha-model/ha-entities/ha-community-app.class';
 import { HaUser } from '../../../ha-core/ha-model/ha-entities/ha-user';
-import { HaCommunityPageDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
-import { HaIsAuthenticatedDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-is-authenticated/ha-is-authenticated.directive';
-import { HaSidenavButtonDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-sidenav-button/ha-sidenav-button.directive';
+import {
+  HaCommunityPageDirective
+} from '../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
 import { HaAppPicturePipe } from '../../../ha-core/ha-module/ha-core-pipe/ha-app-picture/ha-app-picture.pipe';
 import { HaDetailRoutePipe } from '../../../ha-core/ha-module/ha-core-pipe/ha-detail-route/ha-detail-route.pipe';
 import { HaAuthenticatedUserService } from '../../../ha-core/ha-service/ha-authenticated-user.service';
 import { HaCommunityAppService } from '../../../ha-core/ha-service/ha-community-app.service';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
-import { HaSelectableSpaceListComponent } from '../../../ha-space/module/ha-selectable-space-list/ha-selectable-space-list.component';
 import {
   HaCommunityAppCreateDialogComponent,
   HaCreateCommunityAppInput,
 } from '../ha-community-app-create-dialog/ha-community-app-create-dialog.component';
+import { HaButtonComponent } from '../../../ha-core/ha-component/ha-button/ha-button.component';
+import { HaFooterComponent } from '../../../ha-core/ha-component/ha-footer/ha-footer/ha-footer.component';
+import { HaHeaderComponent } from '../../../ha-core/ha-component/ha-header/ha-header.component';
+import { HaHomeSectionShineComponent } from '../../../ha-home/ha-home-section-shine/ha-home-section-shine.component';
+import { HaListOfItemsComponent } from '../../../ha-core/ha-component/ha-list-of-items/ha-list-of-items.component';
 
 @Component({
   selector: 'ha-community-app-list-page',
   imports: [
-    HaIsAuthenticatedDirective,
-    HaSidenavButtonDirective,
-    MatIcon,
-    MatButton,
     TranslatePipe,
     FlInfiniteScrollModule,
     FlCorePipeModule,
@@ -52,15 +45,14 @@ import {
     CoCommunityAppListItemComponent,
     HaAppPicturePipe,
     FormsModule,
-    MatFormField,
-    MatInput,
-    MatIconButton,
     ReactiveFormsModule,
-    MatTooltip,
-    MatDivider,
     FlTextIconModule,
-    HaSelectableSpaceListComponent,
-    MatChipOption,
+    CoCommunityLibModule,
+    HaButtonComponent,
+    HaFooterComponent,
+    HaHeaderComponent,
+    HaHomeSectionShineComponent,
+    HaListOfItemsComponent,
   ],
   templateUrl: './ha-community-app-list-page.component.html',
   styleUrl: './ha-community-app-list-page.component.scss',

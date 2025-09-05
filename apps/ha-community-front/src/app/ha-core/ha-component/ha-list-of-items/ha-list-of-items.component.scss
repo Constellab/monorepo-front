@@ -1,0 +1,20 @@
+:host {
+  width: 100%;
+}
+
+.list-items-container{
+  width: 100%;
+  container: list-items / inline-size;
+}
+
+.list-items-div{
+  display: grid;
+  grid-template-columns: calc(50% - 16px) calc(50% - 16px);
+  grid-gap: 32px;
+  width: 100%;
+
+  @container list-items (max-width: 998px) {
+    grid-template-columns: 100%;
+
+  }
+}

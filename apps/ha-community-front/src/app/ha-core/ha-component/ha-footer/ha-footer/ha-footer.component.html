@@ -1,0 +1,137 @@
+@if (isHomePage()) {
+  <footer class="footer main-footer">
+    <div class="footer-div main-footer-div">
+      <div class="footer-main">
+        <!-- Left section: Logo and description -->
+        <div class="footer-brand">
+          <div class="footer-brand-content">
+            <div class="footer-logo">
+              <img ngSrc="assets/fl-logo/community_logo_with_text_light.png" alt="Community Logo" fill>
+            </div>
+            <div class="g-weight-600 g-large-text">
+              Un espace ouvert pour partager, apprendre et contribuer à la science des données.
+            </div>
+          </div>
+          <div class="footer-credit">
+            <span>Un site web fièrement réalisé par</span>
+            <div class="norry-logo">
+              <img ngSrc="assets/fl-logo/norry_logo.png" alt="Norry Logo" fill>
+            </div>
+          </div>
+        </div>
+
+        <div class="socials">
+          <ha-footer-socials></ha-footer-socials>
+        </div>
+
+        <!-- Navigation links -->
+        <div class="footer-nav-section">
+          <div class="footer-nav-column g-small-text">
+            <ng-template [ngTemplateOutlet]="navCommunityLinks"></ng-template>
+          </div>
+          <div class="footer-nav-column g-small-text">
+            <ng-template [ngTemplateOutlet]="navResource1Links"></ng-template>
+          </div>
+          <div class="footer-nav-column g-small-text">
+            <ng-template [ngTemplateOutlet]="navResource2Links"></ng-template>
+          </div>
+          <mat-expansion-panel class="expansion-panel">
+            <mat-expansion-panel-header>
+              <mat-panel-title><span class="g-text-medium g-weight-600">Navigation</span>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <ng-template [ngTemplateOutlet]="navCommunityLinks"></ng-template>
+          </mat-expansion-panel>
+          <mat-expansion-panel class="expansion-panel">
+            <mat-expansion-panel-header>
+              <mat-panel-title><span class="g-text-medium g-weight-600">Ressources</span>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div>
+              <ng-template [ngTemplateOutlet]="navResource1Links"></ng-template>
+              <ng-template [ngTemplateOutlet]="navResource2Links"></ng-template>
+            </div>
+          </mat-expansion-panel>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="socials">
+          <ha-footer-socials></ha-footer-socials>
+        </div>
+        <div class="copyright">
+          <span>©2025 Gencovery. Tous droits réservés</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+} @else {
+  <footer class="footer">
+    <div class="footer-div">
+      <div class="footer-bottom">
+        <div class="footer-logo">
+          <img ngSrc="assets/fl-logo/community_logo_with_text_light.png" alt="Community Logo" fill>
+        </div>
+        <div class="copyright g-small-text">
+          ©2025 Gencovery. Tous droits réservés
+        </div>
+        <ha-footer-socials></ha-footer-socials>
+      </div>
+    </div>
+  </footer>
+}
+
+
+<ng-template #navCommunityLinks>
+  <div class="footer-link">
+    <a href="#">Accueil</a>
+  </div>
+  <div class="footer-link">
+    <a href="#">Stories</a>
+  </div>
+  <div class="footer-link">
+    <a href="#">Apps</a>
+  </div>
+  <div class="footer-link">
+    <a href="#">Agents</a>
+  </div>
+  <div class="footer-link">
+    <a href="#">Bricks</a>
+  </div>
+  <div class="footer-link">
+    <a href="#">Documentation</a>
+  </div>
+</ng-template>
+
+<ng-template #navResource1Links>
+  <div class="footer-link">
+    <a href="#">Comment contribuer ?</a>
+  </div>
+  <div class="footer-link">
+    <a href="#">Rejoindre GitHub</a>
+  </div>
+  <div class="footer-link">
+    <a href="#">Rejoindre Discord</a>
+  </div>
+  <div class="footer-link">
+    <a href="#">Gencovery</a>
+  </div>
+  <div class="footer-link">
+    <a href="#">Constellab</a>
+  </div>
+  <div class="footer-link">
+    <a href="#">Contact</a>
+  </div>
+</ng-template>
+
+<ng-template #navResource2Links>
+  <div class="footer-link">
+    <a href="#">Politique de confidentialité</a>
+  </div>
+  <div class="footer-link">
+    <a href="#">Politique de cookies</a>
+  </div>
+  <div class="footer-link">
+    <a href="#">Mentions légales</a>
+  </div>
+</ng-template>

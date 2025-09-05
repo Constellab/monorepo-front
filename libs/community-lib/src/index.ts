@@ -23,6 +23,8 @@ export * from './lib/component/co-deprecated-tag/co-deprecated-tag.component';
 export * from './lib/component/co-tag-values-table/co-tag-values-table.component';
 export * from './lib/component/co-tag-value-edit-dialog/co-tag-value-edit-dialog.component';
 export * from './lib/component/co-tag-community-icon/co-tag-community-icon.component';
+export * from './lib/component/co-type-badge/co-type-badge.component';
+export * from './lib/component/co-item-type-icon/co-item-type-icon.component';
 
 // Helpers
 export * from './lib/helper/co-community-helper.service';

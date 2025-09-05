@@ -1,28 +1,33 @@
-import { Component, Input } from '@angular/core';
-import { ClDateInput } from '@monorepo/core-lib';
+import { NgClass } from '@angular/common';
+import { Component, input } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { TranslatePipe } from '@ngx-translate/core';
 
 import { CoSpace } from '../../model/co-space.class';
-import { CoUser } from '../../model/co-user.class';
-
-export enum CoCommunityListItemColor {
-  MAIN = 'main',
-  CARD = 'card',
-}
+import { CoItemTypeIconComponent } from '../co-item-type-icon/co-item-type-icon.component';
+import { CoTypeBadgeComponent } from '../co-type-badge/co-type-badge.component';
+import { CoVisibilityBadgeComponent } from '../co-visibility-badge/co-visibility-badge.component';
 
 @Component({
   selector: 'co-community-list-item',
   templateUrl: './co-community-list-item.component.html',
   styleUrls: ['./co-community-list-item.component.scss'],
-  standalone: false,
+  imports: [
+    MatIconModule,
+    FlIconModule,
+    TranslatePipe,
+    CoVisibilityBadgeComponent,
+    CoTypeBadgeComponent,
+    CoItemTypeIconComponent,
+    NgClass,
+  ],
 })
 export class CoCommunityListItemComponent {
-  @Input({ required: true }) title: string;
-  @Input() space?: CoSpace = null;
-  @Input() showVisibility = false;
-  @Input() description: string;
-  @Input() user: CoUser;
-  @Input() date: ClDateInput;
-  @Input() likes: number = null;
-  @Input() comments: number = null;
-  @Input() executions: number = null;
+  image = input<string>(null);
+  type = input.required<'app' | 'brick' | 'agent' | 'story'>();
+  title = input<string>(null);
+  shortDescription = input<string>(null);
+  space = input<CoSpace>(null);
+  showVisibilityAndStats = input<boolean>(true);
 }

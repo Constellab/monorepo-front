@@ -1,0 +1,57 @@
+.type-icon-div{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.co-type-icon-primary {
+  background-color: var(--primary-color-contrast);
+  .type-icon {
+    fill: var(--primary-color);
+  }
+}
+
+.co-type-icon-accent {
+  background-color: var(--accent-color-contrast);
+  .type-icon {
+    fill: var(--accent-color);
+  }
+}
+
+.co-type-icon-warn {
+  background-color: var(--warn-color-contrast);
+  .type-icon {
+    fill: var(--warn-color);
+  }
+}
+
+
+.co-type-icon-big{
+  padding: 20.195px;
+
+  .type-icon{
+    width: 45.5px;
+    height: 45.5px;
+    font-size: 45.5px;
+  }
+}
+
+.co-type-icon-medium{
+
+  .type-icon {
+    width: 30.25px;
+    height: 30.25px;
+    font-size: 30.25px;
+  }
+}
+
+.co-type-icon-small{
+  padding: 1.5px;
+
+  .type-icon {
+    width: 14.5px;
+    height: 14.5px;
+    font-size: 14.5px;
+  }
+}

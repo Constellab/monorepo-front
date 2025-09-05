@@ -1,5 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
+@use '@angular/material' as mat;
+
 // Import the style for the library
 @use '../../../libs/front-core-lib/src/style/fl-global';
 @use '../../../libs/front-core-lib/src/style/fl-media-query';
@@ -11,332 +13,98 @@
 @use '../../../libs/front-core-lib/src/style/fl-icon';
 @use '../../../libs/front-core-lib/src/style/fl-drag';
 
-.g-form-input {
-  width: 100%;
-  margin-bottom: 20px;
+@use './theme/ha-theme';
+
+* {
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
-.g-page {
-  padding: 2em 2em 0 2em;
-  min-height: 100vh;
-  width: 100%;
-  box-sizing: border-box;
+.header-content-div {
   display: flex;
   flex-direction: column;
-}
-
-.g-search-field-full {
-  width: 100%;
-  margin-left: 0.5em;
-  margin-right: 0.5em;
-}
-
-.g-admin-panel-section-title{
-  font-size: 20px;
-  font-weight: 600;
-  margin: 0;
-}
-
-body {
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-  font-size: 16px;
-  --margin-side: 100px;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5 {
-  font-weight: normal;
-  margin: 0;
-}
-
-h1 {
-  font-size: 38px;
-  line-height: 46px;
-}
-
-h2 {
-  font-size: 32px;
-}
-
-h3 {
-  font-size: 28.4px;
-}
-
-h4 {
-  font-size: 25px;
-}
-
-h5 {
-  font-size: 21.3px;
-  line-height: 20px;
-}
-
-.small-text {
-  font-size: 12px !important;
-}
-
-.very-small-text {
-  font-size: 9px;
-}
-
-.g-cursor-hover:hover {
-  cursor: pointer;
-}
-
-.community-list-item-left-side {
-  display: flex;
-  flex-direction: column;
-  flex: auto;
-}
-
-.community-list-item-right-side {
-  width: fit-content;
-}
-
-@media (max-width: 599px) {
-  .g-page {
-    padding: 1em 1em 0 1em;
-  }
-}
-
-.left-panel {
-  width: 295px;
-  min-width: 295px;
-  position: fixed;
-  left: var(--margin-side);
-  transition: 0.2s;
-  padding-top: 30px;
-  height: 100vh;
-
-  .left-panel-separator {
-    width: 100%;
-    margin-top: 1rem;
-  }
-}
-
-.main-panel {
-  margin: 0 auto;
-  max-width: calc(60rem + 32px);
-  transition: 0.2s;
-}
-
-.right-panel {
-  width: 295px;
-  max-width: 295px;
-  position: fixed;
-  top: 94px;
-  right: var(--margin-side);
-}
-
-.button-close-left-panel {
-  display: none !important;
-  position: fixed;
-  left: 12px;
-  top: 16px;
-  z-index: 3;
-  cursor: pointer;
-}
-
-.center-before {
-  transform: translateX(50%);
-}
-
-.center-after {
-  transform: translateX(-50%);
-}
-
-.border-none {
-  border: none !important;
-}
-
-.first-bt {
-  margin-top: 77px;
-}
-
-.list-section {
-  margin-bottom: 1.5em;
-
-  .section-title {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .search-bar-title {
-    width: 100%;
-  }
-
-  .title {
-    margin-top: 16px;
-    margin-bottom: 12px;
-    font-size: 67.3px;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 80px;
-    letter-spacing: normal;
-    text-align: left;
-    height: 80px;
-  }
-
-  .section-search-bar {
-    width: 100%;
-    margin-bottom: 1em;
-  }
-
-  .section-title-icon {
-    width: 52px;
-    height: 52px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    vertical-align: middle;
-  }
-  .section-title-icon img {
-    width: 100%;
-    height: 100%;
-  }
-}
-
-.nav-bar {
-  padding-left: 1em;
-  padding-right: 1em;
+  gap: 40px;
   align-items: center;
-  width: auto;
-  height: var(--navbar-height);
+  justify-content: center;
+  text-align: center;
+
+  .header-subtitle {
+    max-width: 700px;
+    margin-top: 32px;
+  }
+}
+
+.page{
   display: flex;
-  margin: auto;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
-@media (max-width: 1675px) {
-  body {
-    --margin-side: 50px;
-  }
-}
+.section {
+  width: calc(100% - 240px);
+  display: flex;
+  max-width: 1200px;
+  padding: 80px 120px;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  text-align: center;
 
-@media (max-width: 1600px) {
-  body {
-    --margin-side: 40px;
-  }
-}
-
-@media (max-width: 1575px) {
-  body {
-    --margin-side: 30px;
-  }
-}
-
-@media (max-width: 1550px) {
-  body {
-    --margin-side: 20px;
+  @media only screen and (max-width: 992px) {
+    width: calc(100% - 48px);
+    padding: 32px 24px;
   }
 }
 
-@media (max-width: 1525px) {
-  body {
-    --margin-side: 10px;
+.section-with-background {
+  max-width: calc(100% - 240px) !important;
+  background: url('/assets/images/section_background.png') no-repeat bottom;
+  background-size: cover;
+  height: auto;
+  aspect-ratio: 1 / 0.38715;
+  justify-content: center;
+
+  @media only screen and (max-width: 998px) {
+    max-width: calc(100% - 48px) !important;
+    aspect-ratio: 1 / 1.5;
+    max-height: 100vh;
+    background: url('/assets/images/mobile_section_background.png') no-repeat center;
+  }
+
+  @media only screen and (max-width: 420px) {
+    max-height: none;
+    aspect-ratio: 1 / 2;
   }
 }
 
-@media (max-width: 1505px) {
-  body {
-    --margin-side: 5px;
+.section-title {
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  align-items: center;
+}
+
+.section-description {
+  max-width: 700px;
+}
+
+.section-buttons-div{
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  @media only screen and (max-width: 998px) {
+    justify-content: center;
+  }
+
+  @media only screen and (max-width: 600px) {
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
   }
 }
 
-@media (max-width: 1495px) {
-  .right-panel {
-    max-width: calc(100vw - 295px - 8px - 2 * var(--margin-side) - 60rem - 40px);
-  }
-
-  .main-panel {
-    margin: 0 auto 0 calc(var(--margin-side) + 295px + 8px);
-  }
-}
-
-@media (min-width: 1024px) {
-  .nav-bar {
-    max-width: 1024px;
-  }
-}
-
-@media (min-width: 1160px) {
-  .left-panel {
-    left: var(--margin-side);
-  }
-}
-
-@media (min-width: 1280px) {
-  .nav-bar {
-    max-width: 1280px;
-  }
-}
-
-@media (min-width: 1536px) {
-  .nav-bar {
-    max-width: 1536px;
-  }
-}
-
-@media (max-width: 1330px) {
-  .right-panel {
-    display: none;
-  }
-}
-
-@media (max-width: 1160px) {
-  body {
-    --margin-side: auto;
-  }
-
-  .button-close-left-panel {
-    display: block !important;
-  }
-
-  .main-panel {
-    margin: 0 auto;
-    padding: 0 12px;
-  }
-
-  .left-panel {
-    top: 0;
-    left: -100%;
-    background-color: var(--main-background);
-    z-index: 200;
-    padding: 2rem 8px 0 8px;
-    box-shadow: 10px 0px 5px -4px rgba(0, 0, 0, 0.2);
-    height: calc(100vh - 2rem);
-  }
-}
-
-@media (max-width: 965px) {
-  .left-panel {
-    height: calc(100vh - var(--small-navbar-height) - 2rem);
-  }
-}
-
-@media (max-width: 700px) {
-  h2 {
-    font-size: 27.5px;
-  }
-
-  h4 {
-    font-size: 22.4px;
-  }
-
-  .list-section .title {
-    font-size: 50.5px;
-    line-height: 55px;
-  }
-
-  .main-panel {
-    margin: 0;
-    padding: 0 6px;
-  }
+.expansion-panel {
+  border-top: 1px solid rgba(7, 37, 39, 0.04);
 }

@@ -1,65 +1,39 @@
-<div class="left-panel" *haIsAuthenticated>
-  <mat-icon class="button-close-left-panel" haSidenavButton></mat-icon>
-
-  <button mat-stroked-button type="button" class="bt first-bt" (click)="openCreateCommunityAppDialog()">
-    <mat-icon>add_circle</mat-icon>
-    {{ 'add_an_app' | translate }}
-  </button>
-
-  <mat-divider class="left-panel-separator"></mat-divider>
-
-  <button
-    mat-stroked-button
-    type="button"
-    class="bt my-apps-bt"
-    (click)="selectSpace('my-apps')"
-    [class]="isSelected('my-apps') ? 'bt-primary' : ''">
-    {{ 'my_apps' | translate }}
-  </button>
-
-  <p class="left-side-div-title">{{ 'visibility' | translate }} :</p>
-
-  <div class="left-panel-buttons-div">
-    <mat-chip-option
-      [value]="isSelected('public')"
-      (click)="selectSpace('public')"
-      class="space-list-option accent">
-      <fl-text-icon [iconPosition]="'start'">
-        {{ 'public' | translate }}
-        <mat-icon>public</mat-icon>
-      </fl-text-icon>
-    </mat-chip-option>
-    @if (user) {
-      <ha-selectable-space-list [user]="user" (spaceSelectedEvent)="selectSpace($event)">
-      </ha-selectable-space-list>
-    }
+<ha-header>
+  <div class="header-content-div">
+    <div></div>
+    <div>
+      <h1>{{ 'apps' | translate}}</h1>
+      <p class="header-subtitle g-large-text">{{ 'discover_create_and_share_bricks' | translate}}</p>
+    </div>
   </div>
+</ha-header>
+
+<div class="page">
+
+  <fl-infinite-scroll [datasource]="communityAppsPaginated" infiniteMode="auto" class="section">
+    <ha-list-of-items>
+      @for (communityApp of communityAppsPaginated | flDatasourceConnect | async; track communityApp.id) {
+        <a class="apps-result-card-div" [routerLink]="communityApp | haDetailRoute">
+          <co-community-app-list-item [communityApp]="communityApp"
+                                      [appPicture]="communityApp.picture | haAppPicture"></co-community-app-list-item>
+        </a>
+      }
+    </ha-list-of-items>
+  </fl-infinite-scroll>
+
+  <div class="section section-with-background">
+    <div class="section-title">
+      <ha-home-section-shine>Les applications partagées par la communauté</ha-home-section-shine>
+      <h2>Vous avez développé une app  ?</h2>
+    </div>
+    <p class="g-large-text section-description">
+      Proposez-la pour accélérer les projets de toute la communauté.
+    </p>
+    <div class="section-buttons-div">
+      <ha-button theme="dark">Soumettre une application</ha-button>
+    </div>
+  </div>
+
 </div>
 
-<div class="main-panel">
-  <fl-infinite-scroll [datasource]="communityAppsPaginated" infiniteMode="auto" class="list-section">
-    <div class="section-title">
-      <h1 class="title">{{ 'apps' | translate }}</h1>
-    </div>
-    <div class="search-bar-title">
-      <form type="submit" (ngSubmit)="search($event)">
-        <mat-form-field class="section-search-bar">
-          <input
-            matInput
-            [formControl]="titleFormControl"
-            placeholder="{{ 'search_by_title' | translate }}" />
-          <button mat-icon-button matSuffix (click)="search($event)" [matTooltip]="'search' | translate"
-                  aria-label="Search by title button">
-            <mat-icon>search</mat-icon>
-          </button>
-        </mat-form-field>
-      </form>
-    </div>
-    @for (communityApp of communityAppsPaginated | flDatasourceConnect | async; track communityApp.id) {
-      <a class="apps-result-card-div" [routerLink]="communityApp | haDetailRoute">
-        <co-community-app-list-item [communityApp]="communityApp"
-                                    [appPicture]="communityApp.picture | haAppPicture"></co-community-app-list-item>
-      </a>
-    }
-  </fl-infinite-scroll>
-</div>
+<ha-footer></ha-footer>
