@@ -191,16 +191,15 @@ Sitemap: ${environment.settings.communityFrontUrl}/sitemap.xml`);
   // Example Express Rest API endpoints
   // server.get('/api/**', (req, res) => { });
   // Serve static files from /browser
-  server.get(
-    '**',
+  server.use(
     express.static(browserDistFolder, {
       maxAge: '1y',
-      index: 'index.html',
+      index: false, // Important: ne pas servir index.html automatiquement
     })
   );
 
   // All regular routes use the Angular engine
-  server.get('*', async (req, res, next) => {
+  server.get('/{*splat}', async (req, res, next) => {
     const { protocol, originalUrl, baseUrl, headers } = req;
     commonEngine
       .render({
