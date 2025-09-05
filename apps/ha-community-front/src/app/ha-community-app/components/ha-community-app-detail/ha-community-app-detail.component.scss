@@ -1,5 +1,3 @@
-
-
 .app-description-div {
   margin-top: 2rem;
 }
@@ -39,6 +37,26 @@
   align-items: center;
 }
 
+.run-app-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1rem 0;
+}
+
+.stats-div {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  margin-top: 1rem;
+  align-items: start;
+}
+
+.execution-count {
+  margin-top: 0.35em;
+  font-size: 13px;
+}
 
 @media (max-width: 896px) {
   .main-detail-div {

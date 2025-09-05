@@ -3,17 +3,22 @@ import { Component, inject, OnInit } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { RouterLink } from '@angular/router';
 import { CoCommunityLibModule } from '@monorepo/community-lib';
 import { ClStringHelper } from '@monorepo/core-lib';
 import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { TeRichText, TeTextEditorModule } from '@monorepo/text-editor';
 import { TranslatePipe } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
 import { HaCommentsSectionComponent } from '../../../ha-core/entity-module/ha-comments-core/component/ha-comments-section/ha-comments-section.component';
+import { HaCommentButtonComponent } from '../../../ha-core/entity-module/ha-util-component-core/component/ha-comment-button/ha-comment-button.component';
+import { HaLikeButtonComponent } from '../../../ha-core/entity-module/ha-util-component-core/component/ha-like-button/ha-like-button.component';
 import { HaCommunityApp } from '../../../ha-core/ha-model/ha-entities/ha-community-app.class';
 import { HaEntityType } from '../../../ha-core/ha-model/ha-entities/ha-entity-type';
 import { HaUser } from '../../../ha-core/ha-model/ha-entities/ha-user';
@@ -46,6 +51,11 @@ import {
     MatIcon,
     CoCommunityLibModule,
     AsyncPipe,
+    FlTextIconModule,
+    HaCommentButtonComponent,
+    HaLikeButtonComponent,
+    MatTooltip,
+    RouterLink,
   ],
   templateUrl: './ha-community-app-detail.component.html',
   styleUrl: './ha-community-app-detail.component.scss',
@@ -62,6 +72,7 @@ export class HaCommunityAppDetailComponent extends HaCommunityPageDirective impl
   commentType: HaEntityType = HaEntityType.APP;
   textEditorConfig: HaCommunityAppTextEditorConfig;
   appDescriptionFormControl = new FormControl<TeRichText>(null);
+  entityType = HaEntityType.APP;
 
   ngOnInit(): void {
     this.textEditorConfig = new HaCommunityAppTextEditorConfig(

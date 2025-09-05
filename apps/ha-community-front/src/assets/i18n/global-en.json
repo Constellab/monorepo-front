@@ -509,5 +509,7 @@
   "download_markdown": "Download markdown",
   "agent_version_type": "Agent version type",
   "agent_version_publish_no_version_info_warning": "You are about to publish an agent version without any version information.",
-  "agent_no_description_warning": "Your agent has no global description. It is recommended to add one to help users understand your agent."
+  "agent_no_description_warning": "Your agent has no global description. It is recommended to add one to help users understand your agent.",
+  "the_app": "The application",
+  "open_app": "Open the app"
 }

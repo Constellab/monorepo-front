@@ -22,7 +22,26 @@
           <fl-from-now [date]="communityApp().createdAt" class="g-text-dense-height"></fl-from-now>
         </div>
         <co-visibility-badge [space]="communityApp().space"></co-visibility-badge>
+        <div class="stats-div">
+          <fl-text-icon
+            iconPosition="start"
+            [gap]="'8px'"
+            [matTooltip]="'app_execution_count' | translate"
+            class="execution-count hide-small-screen">
+            <mat-icon>play_circle</mat-icon>
+            <span>{{ communityApp().executions }}</span>
+          </fl-text-icon>
+          <ha-like-button [entityId]="communityApp().id" [entityType]="entityType"></ha-like-button>
+
+          <a [routerLink]="'.'" [fragment]="'comments'" class="hide-small-screen">
+            <ha-comment-button [commentsCount]="communityApp().comments"></ha-comment-button>
+          </a>
+        </div>
       </div>
+    </div>
+    <div class="run-app-div">
+      <h4>{{ 'the_app' | translate }}</h4>
+      <a mat-stroked-button [href]="communityApp().appUrl" target="_blank">{{ 'open_app' | translate }}</a>
     </div>
     <div class="app-description-div">
       <div class="app-description-div-header">
@@ -51,7 +70,7 @@
       <ha-comments-section
         [commentType]="commentType"
         [entity]="communityApp()"
-        [user]="(currentUser$ | async)"></ha-comments-section>
+        [user]="currentUser$ | async"></ha-comments-section>
     </div>
   </div>
 }

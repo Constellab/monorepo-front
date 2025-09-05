@@ -511,5 +511,7 @@
   "download_markdown": "Télécharger en Markdown",
   "agent_version_type": "Type de version de l'agent",
   "agent_version_publish_no_version_info_warning": "Vous n'avez pas renseigné d'informations sur la version de l'agent. Si vous publiez cette version, elle sera publiée sans informations.",
-  "agent_no_description_warning": "Votre agent n'a pas de description générale. Il est recommandé d'en ajouter une pour aider les utilisateurs à comprendre son fonctionnement."
+  "agent_no_description_warning": "Votre agent n'a pas de description générale. Il est recommandé d'en ajouter une pour aider les utilisateurs à comprendre son fonctionnement.",
+  "the_app": "L'application",
+  "open_app": "Ouvrir l'app"
 }
