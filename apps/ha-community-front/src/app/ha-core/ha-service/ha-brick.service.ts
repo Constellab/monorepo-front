@@ -240,10 +240,10 @@ export class HaBrickService implements HaCoAuthorService {
     });
   }
 
-  inviteCoAuthor(brickId: string, coAuthorMail: string): Observable<boolean> {
+  inviteCoAuthor(brickId: string, emailOrId: string): Observable<boolean> {
     return this.apiService.post(
       `${this.route}/${brickId}/invite-co-author`,
-      { coAuthorMail: coAuthorMail },
+      { emailOrId: emailOrId },
       Boolean
     );
   }

@@ -1,7 +1,7 @@
 import { AsyncPipe, NgOptimizedImage } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, computed, inject, OnInit, Signal } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatButton } from '@angular/material/button';
+import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { RouterLink } from '@angular/router';
@@ -16,6 +16,10 @@ import { TeRichText, TeTextEditorModule } from '@monorepo/text-editor';
 import { TranslatePipe } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
+import {
+  HaCoAuthorDialogComponent,
+  HaCoAuthorsDialogInput,
+} from '../../../ha-core/entity-module/ha-co-author-core/component/ha-co-author-dialog/ha-co-author-dialog.component';
 import { HaCommentsSectionComponent } from '../../../ha-core/entity-module/ha-comments-core/component/ha-comments-section/ha-comments-section.component';
 import { HaCommentButtonComponent } from '../../../ha-core/entity-module/ha-util-component-core/component/ha-comment-button/ha-comment-button.component';
 import { HaLikeButtonComponent } from '../../../ha-core/entity-module/ha-util-component-core/component/ha-like-button/ha-like-button.component';
@@ -51,6 +55,9 @@ import {
     MatIcon,
     CoCommunityLibModule,
     AsyncPipe,
+    MatIconButton,
+    MatTooltip,
+    RouterLink,
     FlTextIconModule,
     HaCommentButtonComponent,
     HaLikeButtonComponent,
@@ -67,12 +74,20 @@ export class HaCommunityAppDetailComponent extends HaCommunityPageDirective impl
   private dialogService = inject(FlDialogService);
 
   communityApp = this.communityAppState.app;
+  coAuthors = this.communityAppState.getCoAuthors();
+  canEdit = this.communityAppState.canEditApp;
+  isAuthor: Signal<boolean> = computed(() => {
+    const currentUserId = this.communityAppState.getCurrentUser()().id;
+    return currentUserId === this.communityApp().createdBy.id;
+  });
 
   currentUser$: Observable<HaUser>;
   commentType: HaEntityType = HaEntityType.APP;
   textEditorConfig: HaCommunityAppTextEditorConfig;
   appDescriptionFormControl = new FormControl<TeRichText>(null);
   entityType = HaEntityType.APP;
+
+  profileRoute = HaRouterService.getProfileRoute();
 
   ngOnInit(): void {
     this.textEditorConfig = new HaCommunityAppTextEditorConfig(
@@ -110,6 +125,24 @@ export class HaCommunityAppDetailComponent extends HaCommunityPageDirective impl
       .subscribe((app) => {
         this.communityAppState.set(app);
         this.appDescriptionFormControl.disable();
+      });
+  }
+
+  openCoAuthorsDialog(): void {
+    const input: HaCoAuthorsDialogInput = {
+      id: this.communityApp().id,
+      service: this.communityAppService,
+      inviteText: 'invite_community_app_coauthor_information',
+      authorId: this.communityApp().createdBy.id,
+    };
+
+    this.dialogService
+      .openSmallDialog(HaCoAuthorDialogComponent, { data: input })
+      .afterClosed()
+      .subscribe(() => {
+        if (this.communityApp()) {
+          this.communityAppState.initCoAuthors(this.communityApp().id);
+        }
       });
   }
 

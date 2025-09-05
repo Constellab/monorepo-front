@@ -254,10 +254,10 @@ implements HaCoAuthorService, HaFileServiceInterface<HaStory>, TeTextEditorHisto
     return this.apiService.put(`${this.route}/invite/${token}/accept`, {});
   }
 
-  inviteCoAuthor(storyId: string, coAuthorMail: string): Observable<boolean> {
+  inviteCoAuthor(storyId: string, emailOrId: string): Observable<boolean> {
     return this.apiService.post(
       `${this.route}/${storyId}/invite-co-author`,
-      { coAuthorMail: coAuthorMail },
+      { emailOrId: emailOrId },
       Boolean
     );
   }

@@ -6,6 +6,11 @@ import { TeBlockFigureUploadedResponse, TeRichText } from '@monorepo/text-editor
 import { Observable } from 'rxjs';
 
 import { HaProfileDatasourceFilters } from '../../ha-profile/component/ha-profile/ha-profile.component';
+import {
+  HaCoAuthorInvite,
+  HaCommunityAppCoAuthorInvite,
+} from '../entity-module/ha-co-author-core/model/ha-co-author-invite.class';
+import { HaCoAuthorService } from '../entity-module/ha-co-author-core/model/ha-co-author-service';
 import { HaFile } from '../entity-module/ha-file-core/model/ha-file';
 import {
   HaCommunityApp,
@@ -13,11 +18,12 @@ import {
   HaCommunityAppDatasourcePaginated,
   HaCommunityAppEdit,
 } from '../ha-model/ha-entities/ha-community-app.class';
+import { HaUser } from '../ha-model/ha-entities/ha-user';
 
 @Injectable({
   providedIn: 'root',
 })
-export class HaCommunityAppService {
+export class HaCommunityAppService implements HaCoAuthorService {
   private apiService = inject(FlApiService);
 
   private readonly route: string = 'app';
@@ -140,5 +146,36 @@ export class HaCommunityAppService {
       { description: description },
       HaCommunityApp
     );
+  }
+
+  getCoAuthors(id: string): Observable<HaUser[]> {
+    return this.apiService.get(`${this.route}/co-authors/${id}`, HaUser);
+  }
+  getCoAuthorsPendingInvites(id: string): Observable<HaCoAuthorInvite[]> {
+    return this.apiService.get(
+      `${this.route}/co-authors/${id}/pending-invites`,
+      HaCommunityAppCoAuthorInvite,
+      {
+        resultIsPaginated: false,
+      }
+    );
+  }
+  removeCoAuthor(id: string, coAuthorId: string): Observable<HaCommunityApp> {
+    return this.apiService.put(`${this.route}/co-authors/${id}/remove/${coAuthorId}`, {}, HaCommunityApp);
+  }
+  deleteCoAuthorInvite(inviteId: string): Observable<void> {
+    return this.apiService.delete(`${this.route}/co-authors/invite/${inviteId}`);
+  }
+  inviteCoAuthor(id: string, emailOrId: string): Observable<boolean> {
+    return this.apiService.post(`${this.route}/co-authors/${id}/invite`, { emailOrId: emailOrId }, Boolean);
+  }
+  isCoAuthorInviteValid(token: string): Observable<HaCommunityAppCoAuthorInvite> {
+    return this.apiService.get(
+      `${this.route}/co-authors/invite/${token}/is-valid`,
+      HaCommunityAppCoAuthorInvite
+    );
+  }
+  acceptInvite(token: string): Observable<HaCommunityApp> {
+    return this.apiService.put(`${this.route}/co-authors/invite/${token}/accept`, {}, HaCommunityApp);
   }
 }

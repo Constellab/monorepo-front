@@ -2,6 +2,7 @@ import { Type } from 'class-transformer';
 
 import { HaAgent } from '../../../ha-model/ha-entities/ha-agent.class';
 import { HaBrick } from '../../../ha-model/ha-entities/ha-brick.class';
+import { HaCommunityApp } from '../../../ha-model/ha-entities/ha-community-app.class';
 import { HaBaseEntity } from '../../../ha-model/ha-entities/ha-entity.class';
 import { HaInviteStatus } from '../../../ha-model/ha-entities/ha-invite';
 import { HaStory } from '../../../ha-model/ha-entities/ha-story.class';
@@ -16,6 +17,9 @@ export class HaCoAuthorInvite extends HaBaseEntity {
   createdBy: HaUser;
 
   token: string;
+
+  @Type(() => HaUser)
+  user?: HaUser;
 }
 
 export class HaStoryCoAuthorInvite extends HaCoAuthorInvite {
@@ -31,4 +35,9 @@ export class HaBrickCoAuthorInvite extends HaCoAuthorInvite {
 export class HaAgentCoAuthorInvite extends HaCoAuthorInvite {
   @Type(() => HaAgent)
   agent: HaAgent;
+}
+
+export class HaCommunityAppCoAuthorInvite extends HaCoAuthorInvite {
+  @Type(() => HaCommunityApp)
+  communityApp: HaCommunityApp;
 }

@@ -312,6 +312,7 @@ export class HaStoryEditPageComponent implements OnInit {
       id: this.story.id,
       service: this.storyService,
       inviteText: 'invite_story_coauthor_information',
+      authorId: this.story.createdBy.id,
     };
 
     this.dialogService.openSmallDialog(HaCoAuthorDialogComponent, { data: input }).afterClosed().subscribe();

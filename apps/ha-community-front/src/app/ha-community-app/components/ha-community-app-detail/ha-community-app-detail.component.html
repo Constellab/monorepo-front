@@ -1,7 +1,7 @@
 @if (communityApp()) {
   <div class="main-panel">
     <div class="main-detail-div">
-      @if (communityApp().createdBy.id === (currentUser$ | async)?.id) {
+      @if (canEdit()) {
         <button mat-stroked-button (click)="openEditAppDialog()" class="edit-button primary">
           <mat-icon class="g-icon-small">edit</mat-icon>
           {{ 'edit' | translate }}
@@ -15,11 +15,37 @@
           priority />
       </div>
       <div>
-        <h2>{{ communityApp().title }}</h2>
-        <div class="main-detail-info g-text-small">
-          <span>{{ 'created_by' | translate }} :</span>
-          <fl-user-inline [user]="communityApp().createdBy" [portalOnHover]="false"></fl-user-inline>
-          <fl-from-now [date]="communityApp().createdAt" class="g-text-dense-height"></fl-from-now>
+        <div class="g-layout-row g-layout-start-center g-gap-05em">
+          <h2>{{ communityApp().title }}</h2>
+          <co-visibility-badge [space]="communityApp().space"></co-visibility-badge>
+        </div>
+        <div class="app-user-div">
+          <div class="app-user-title">
+            <span>{{ 'created_by' | translate }} :</span>
+            @if (isAuthor()) {
+              <button
+                mat-icon-button
+                (click)="openCoAuthorsDialog()"
+                [matTooltip]="'open_coauthor_panel' | translate">
+                <mat-icon>group_add</mat-icon>
+              </button>
+            }
+          </div>
+          @if (communityApp() && communityApp().createdBy) {
+            <div class="app-user-line">
+              <a [routerLink]="profileRoute + communityApp().createdBy.id">
+                <fl-user-inline [user]="communityApp().createdBy" [portalOnHover]="false"></fl-user-inline>
+              </a>
+              <mat-icon>workspace_premium</mat-icon>
+            </div>
+          }
+          @for (coAuthor of coAuthors(); track coAuthor.id) {
+            <div class="app-user-line">
+              <a [routerLink]="profileRoute + coAuthor.id">
+                <fl-user-inline [user]="coAuthor" [portalOnHover]="false"></fl-user-inline>
+              </a>
+            </div>
+          }
         </div>
         <co-visibility-badge [space]="communityApp().space"></co-visibility-badge>
         <div class="stats-div">
@@ -46,7 +72,7 @@
     <div class="app-description-div">
       <div class="app-description-div-header">
         <h4>{{ 'description' | translate }}</h4>
-        @if (communityApp().createdBy.id === (currentUser$ | async)?.id) {
+        @if (canEdit()) {
           @if (appDescriptionFormControl.disabled) {
             <button mat-stroked-button class="g-button-small" (click)="editDescription()">
               <mat-icon>edit</mat-icon>

@@ -71,6 +71,7 @@ export class HaAgentPageComponent implements OnInit {
       id: this.agent().id,
       service: this.agentService,
       inviteText: 'invite_agent_coauthor_information',
+      authorId: this.agent().createdBy.id,
     };
 
     this.dialogService

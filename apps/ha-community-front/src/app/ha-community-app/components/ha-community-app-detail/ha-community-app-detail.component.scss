@@ -37,6 +37,24 @@
   align-items: center;
 }
 
+.app-user-div {
+  .app-user-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .app-user-line {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 0.5em;
+    gap: 0.25em;
+  }
+}
+
 .run-app-div {
   display: flex;
   flex-direction: row;
