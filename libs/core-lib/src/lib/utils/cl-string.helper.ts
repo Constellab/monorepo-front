@@ -174,7 +174,8 @@ export class ClStringHelper {
 
   /**
    * Return all the indexes of the search str in str
-   * From: https://stackoverflow.com/questions/3410464/how-to-find-indices-of-all-occurrences-of-one-string-in-another-in-javascript
+   * From: https://stackoverflow.com/questions/3410464/how-to-find-
+   *                indices-of-all-occurrences-of-one-string-in-another-in-javascript
    * @param searchStr sub string to search in str
    * @param str
    * @param caseSensitive
@@ -229,6 +230,15 @@ export class ClStringHelper {
   public static toKebabCase(str: string): string {
     if (str == null) return null;
     return str.trim().replace(/\s+/g, '-').toLowerCase();
+  }
+
+  /**
+   * Convert test-hello --> Test Hello
+   * @param str
+   */
+  public static fromKebabCaseToSentence(str: string): string {
+    if (str == null) return null;
+    return this.capitalize(str.replace(/-/g, ' '));
   }
 
   /**
@@ -302,7 +312,7 @@ export class ClStringHelper {
    */
   public static isEmail(str: string): boolean {
     if (str == null) return false;
-    const regex = new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/);
+    const regex = new RegExp(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/);
     return regex.test(str);
   }
 }

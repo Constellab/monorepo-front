@@ -25,6 +25,7 @@ export * from './lib/component/co-tag-value-edit-dialog/co-tag-value-edit-dialog
 export * from './lib/component/co-tag-community-icon/co-tag-community-icon.component';
 export * from './lib/component/co-type-badge/co-type-badge.component';
 export * from './lib/component/co-item-type-icon/co-item-type-icon.component';
+export * from './lib/component/co-stats-list/co-stats-list.component';
 
 // Helpers
 export * from './lib/helper/co-community-helper.service';

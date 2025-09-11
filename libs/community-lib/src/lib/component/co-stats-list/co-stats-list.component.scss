@@ -1,0 +1,51 @@
+.stats-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 36px;
+}
+
+.stat {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  transition: 0.2s;
+
+  .stat-icon {
+    width: 30px;
+    height: 30px;
+    font-size: 30px;
+  }
+
+  span {
+    color: #4f6769;
+    font-size: 15px;
+    line-height: 150%;
+    letter-spacing: -0.3px;
+  }
+}
+
+.stats-list-dense {
+  gap: 12px;
+}
+
+.stats-list-dense .stat {
+  gap: 6px;
+
+  .stat-icon {
+    width: 16px;
+    height: 16px;
+    font-size: 16px;
+  }
+
+  span {
+    font-size: 10px;
+    letter-spacing: -0.3px;
+  }
+}
+
+.stroke-icon {
+  fill: transparent;
+  stroke: black;
+  stroke-width: 2px;
+}

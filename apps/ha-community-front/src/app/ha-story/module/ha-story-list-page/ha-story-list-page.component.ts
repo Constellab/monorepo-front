@@ -7,21 +7,18 @@ import { ClStringHelper } from '@monorepo/core-lib';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
-import { TranslatePipe } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
+import { HaListOfItemsComponent } from '../../../ha-core/ha-component/ha-list-of-items/ha-list-of-items.component';
+import { HaPageComponent } from '../../../ha-core/ha-component/ha-page/ha-page.component';
 import {
   HaStory,
   HaStoryFilters,
   HaStoryListDatasourcePaginated,
 } from '../../../ha-core/ha-model/ha-entities/ha-story.class';
 import { HaTopicDto } from '../../../ha-core/ha-model/ha-entities/ha-topic.class';
-import {
-  HaCommunityPageDirective
-} from '../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
-import {
-  HaDetailRoutePipe
-} from '../../../ha-core/ha-module/ha-core-pipe/ha-detail-route/ha-detail-route.pipe';
+import { HaCommunityPageDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
+import { HaDetailRoutePipe } from '../../../ha-core/ha-module/ha-core-pipe/ha-detail-route/ha-detail-route.pipe';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
 import { HaStoryService } from '../../../ha-core/ha-service/ha-story.service';
 import { HaTopicService } from '../../../ha-core/ha-service/ha-topic.service';
@@ -29,15 +26,6 @@ import {
   HaCreateStoryDtoInput,
   HaStoryCreateDialogComponent,
 } from '../ha-story-create-dialog/ha-story-create-dialog.component';
-import { HaButtonComponent } from '../../../ha-core/ha-component/ha-button/ha-button.component';
-import { HaFooterComponent } from '../../../ha-core/ha-component/ha-footer/ha-footer/ha-footer.component';
-import { HaHeaderComponent } from '../../../ha-core/ha-component/ha-header/ha-header.component';
-import {
-  HaHomeSectionShineComponent
-} from '../../../ha-home/ha-home-section-shine/ha-home-section-shine.component';
-import {
-  HaListOfItemsComponent
-} from '../../../ha-core/ha-component/ha-list-of-items/ha-list-of-items.component';
 
 @Component({
   selector: 'ha-story-list-page',
@@ -51,13 +39,9 @@ import {
     CoCommunityLibModule,
     AsyncPipe,
     FlCorePipeModule,
-    TranslatePipe,
     HaDetailRoutePipe,
-    HaButtonComponent,
-    HaFooterComponent,
-    HaHeaderComponent,
-    HaHomeSectionShineComponent,
     HaListOfItemsComponent,
+    HaPageComponent,
   ],
 })
 export class HaStoryListPageComponent extends HaCommunityPageDirective implements OnInit {

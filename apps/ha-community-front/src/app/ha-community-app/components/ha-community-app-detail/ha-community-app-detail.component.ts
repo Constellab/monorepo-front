@@ -1,11 +1,11 @@
-import { AsyncPipe, NgOptimizedImage } from '@angular/common';
+import { NgOptimizedImage } from '@angular/common';
 import { Component, computed, inject, OnInit, Signal } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { RouterLink } from '@angular/router';
-import { CoCommunityLibModule } from '@monorepo/community-lib';
+import { CoCommunityLibModule, CoVisibilityBadgeComponent } from '@monorepo/community-lib';
 import { ClStringHelper } from '@monorepo/core-lib';
 import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
@@ -20,7 +20,6 @@ import {
   HaCoAuthorDialogComponent,
   HaCoAuthorsDialogInput,
 } from '../../../ha-core/entity-module/ha-co-author-core/component/ha-co-author-dialog/ha-co-author-dialog.component';
-import { HaCommentsSectionComponent } from '../../../ha-core/entity-module/ha-comments-core/component/ha-comments-section/ha-comments-section.component';
 import { HaCommentButtonComponent } from '../../../ha-core/entity-module/ha-util-component-core/component/ha-comment-button/ha-comment-button.component';
 import { HaLikeButtonComponent } from '../../../ha-core/entity-module/ha-util-component-core/component/ha-like-button/ha-like-button.component';
 import { HaCommunityApp } from '../../../ha-core/ha-model/ha-entities/ha-community-app.class';
@@ -42,7 +41,6 @@ import {
   selector: 'ha-community-app-detail',
   imports: [
     FlSectionModule,
-    HaCommentsSectionComponent,
     TranslatePipe,
     TeTextEditorModule,
     FormsModule,
@@ -54,7 +52,6 @@ import {
     MatButton,
     MatIcon,
     CoCommunityLibModule,
-    AsyncPipe,
     MatIconButton,
     MatTooltip,
     RouterLink,
@@ -63,6 +60,7 @@ import {
     HaLikeButtonComponent,
     MatTooltip,
     RouterLink,
+    CoVisibilityBadgeComponent,
   ],
   templateUrl: './ha-community-app-detail.component.html',
   styleUrl: './ha-community-app-detail.component.scss',

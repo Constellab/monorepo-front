@@ -2,7 +2,6 @@ import { AsyncPipe } from '@angular/common';
 import { Component, inject, input, OnInit } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAnchor, MatButton } from '@angular/material/button';
-import { RouterLink } from '@angular/router';
 import { CoUser } from '@monorepo/community-lib';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
@@ -13,9 +12,8 @@ import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { TeCompleteConfig, TeRichText, TeTextEditorModule } from '@monorepo/text-editor';
 import { TranslatePipe } from '@ngx-translate/core';
 
-import { HaEntityType } from '../../../../ha-model/ha-entities/ha-entity-type';
-import { HaCommentService } from '../../../../ha-service/ha-comment.service';
 import { HaRouterService } from '../../../../ha-service/ha-router.service';
+import { HaEntityCommentState } from '../../../../ha-state/ha-entity-comment.state';
 import { HaAbstractComment, HaCommentEntity } from '../../model/ha-abstract-comment.class';
 import { HaCommentComponent } from '../ha-comment/ha-comment.component';
 
@@ -38,7 +36,6 @@ export interface HaCommentsEntity {
     AsyncPipe,
     TranslatePipe,
     FormsModule,
-    RouterLink,
     MatAnchor,
     ReactiveFormsModule,
   ],
@@ -47,34 +44,40 @@ export interface HaCommentsEntity {
 })
 export class HaCommentsSectionComponent implements OnInit {
   user = input<CoUser>();
-  entity = input.required<HaCommentsEntity>();
-  commentType = input.required<HaEntityType>();
 
-  private commentService = inject(HaCommentService);
+  isWritingComment = false;
 
   textEditorConfig: TeCompleteConfig = new TeCompleteConfig({ hideToolbar: true, dense: true });
   datasource: FlDatasourcePaginated<HaAbstractComment<HaCommentEntity>>;
   isLoading = false;
   formControlCommentInputData: FormControl<TeRichText> = new FormControl();
   loginRoute: string = HaRouterService.getLoginRoute();
-  commentsNumber: number;
+  private entityCommentState: HaEntityCommentState = inject(HaEntityCommentState);
+  commentsCount = this.entityCommentState.getCommentsCount();
 
   ngOnInit(): void {
     this.formControlCommentInputData.patchValue(new TeRichText());
-    this.datasource = this.commentService.getComments(this.commentType(), this.entity().id);
-    this.commentsNumber = this.entity().comments;
+    this.datasource = this.entityCommentState.getComments();
+  }
+
+  showCommentTextEditor(): void {
+    this.isWritingComment = true;
+  }
+
+  hideCommentTextEditor(): void {
+    this.isWritingComment = false;
   }
 
   sendComment(): void {
     if (this.formControlCommentInputData.value && !this.formControlCommentInputData.value.isEmpty()) {
       this.isLoading = true;
-      this.commentService
-        .sendComment(this.commentType(), this.formControlCommentInputData.value, this.entity().id)
+      this.entityCommentState
+        .sendComment(this.formControlCommentInputData.value)
         .subscribe((comment: HaAbstractComment<HaCommentEntity>) => {
           this.formControlCommentInputData.patchValue(new TeRichText());
           this.datasource.unshiftItem(comment);
-          this.commentsNumber++;
           this.isLoading = false;
+          this.isWritingComment = false;
         });
     }
   }

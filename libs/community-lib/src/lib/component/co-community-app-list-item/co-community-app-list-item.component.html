@@ -1,6 +1,9 @@
-<co-community-list-item type="app"
-                        [title]="communityApp().title"
-                        [shortDescription]="communityApp().description?.getFirstParagraphsText()"
-                        [space]="communityApp().space">
-
+<co-community-list-item
+  type="app"
+  [title]="communityApp().title"
+  [shortDescription]="communityApp().description?.getFirstParagraphsText()"
+  [space]="communityApp().space"
+  [likes]="communityApp().likes ?? 0"
+  [comments]="communityApp().comments ?? 0"
+  [executions]="communityApp().executions ?? 0">
 </co-community-list-item>

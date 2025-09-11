@@ -67,8 +67,7 @@
             }
           </div>
         }
-        <div class="tag-visibility-div">
-        </div>
+        <div class="tag-visibility-div"></div>
       </div>
     </div>
     <div class="tag-page-section">
@@ -138,10 +137,10 @@
 
     <div #comments>
       @if (currentUser && tagKey) {
-        <ha-comments-section
-          [commentType]="commentType"
-          [entity]="tagKey"
-          [user]="currentUser"></ha-comments-section>
+        <!--        <ha-comments-section-->
+        <!--&lt;!&ndash;          [commentType]="commentType"&ndash;&gt;-->
+        <!--&lt;!&ndash;          [entity]="tagKey"&ndash;&gt;-->
+        <!--          [user]="currentUser"></ha-comments-section>-->
       }
     </div>
   }

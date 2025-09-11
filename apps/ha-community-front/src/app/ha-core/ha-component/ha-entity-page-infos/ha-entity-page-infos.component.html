@@ -1,0 +1,54 @@
+<div class="entity-page-infos-list">
+  <ng-content></ng-content>
+
+  @if (contributors()?.length > 0) {
+    <div class="entity-page-info-div">
+      <span class="g-text-medium g-weight-600">{{ 'contributors' | translate }}</span>
+      <div class="entity-page-info-div-content">
+        @for (contributor of contributors(); track contributor.id) {
+          <fl-user-inline [user]="contributor" [portalOnHover]="false"></fl-user-inline>
+        }
+      </div>
+    </div>
+
+    <div class="entity-page-separator"></div>
+  }
+
+  @if (date()) {
+    <div class="entity-page-info-div">
+      <span class="g-text-medium g-weight-600">{{ 'publication_date' | translate }}</span>
+      <p>{{ date() | flDate: 'DATE' }}</p>
+    </div>
+
+    <div class="entity-page-separator"></div>
+  }
+
+  @if (space() !== undefined) {
+    <div class="entity-page-info-div">
+      <span class="g-text-medium g-weight-600">{{ 'confidentiality' | translate }}</span>
+      <co-visibility-badge [space]="space()" size="medium"></co-visibility-badge>
+    </div>
+
+    <div class="entity-page-separator"></div>
+  }
+
+  @if (likesCount() !== undefined || commentsCount() !== undefined || executions() !== undefined) {
+    <div class="entity-page-info-div">
+      <span class="g-text-medium g-weight-600">{{ 'reactions' | translate }}</span>
+      <co-stats-list
+        [likes]="likesCount()"
+        [comments]="commentsCount()"
+        [executions]="executions()"
+        [isClickable]="true"
+        [isLiked]="isLiked()"
+        (likeClicked)="onLikeClicked()"
+        (commentClicked)="onCommentClicked()"></co-stats-list>
+    </div>
+
+    <div class="entity-page-separator"></div>
+  }
+
+  <div class="entity-page-info-div">
+    <span class="g-text-medium g-weight-600">{{ 'share' | translate }}</span>
+  </div>
+</div>

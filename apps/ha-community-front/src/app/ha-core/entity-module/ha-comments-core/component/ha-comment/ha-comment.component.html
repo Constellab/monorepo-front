@@ -1,14 +1,21 @@
-<div class="comment-info-div">
-  <a [routerLink]="profileRoute + comment.createdBy.id">
-    <fl-user-inline [user]="comment.createdBy" [portalOnHover]="false"></fl-user-inline>
-  </a>
-  <span> - </span>
-  <fl-from-now [date]="comment.createdAt" class="comment-info-date"></fl-from-now>
+<div class="comment-div">
+  <div class="comment-profile-picture-div">
+    <a [routerLink]="profileRoute + comment().createdBy.id">
+      <fl-user-profile-picture [user]="comment().createdBy"></fl-user-profile-picture>
+    </a>
+  </div>
+  <div class="comment-main-div">
+    <div class="comment-header-div">
+      <a [routerLink]="profileRoute + comment().createdBy.id">
+        <span class="comment-username">{{ comment().createdBy.alias }}</span>
+      </a>
+      <fl-from-now [date]="comment().createdAt" class="comment-date"></fl-from-now>
+    </div>
+    <te-text-editor
+      [config]="textEditorConfig"
+      [(ngModel)]="comment().content"
+      [disabled]="true"
+      class="comment-content community-text-editor">
+    </te-text-editor>
+  </div>
 </div>
-
-<te-text-editor
-  [config]="textEditorConfig"
-  [(ngModel)]="comment.content"
-  [disabled]="true"
-  class="comment-content">
-</te-text-editor>

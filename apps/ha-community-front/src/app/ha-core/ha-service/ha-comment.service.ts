@@ -33,8 +33,12 @@ export class HaCommentService {
   ): FlDatasourcePaginated<HaAbstractComment<HaCommentEntity>> {
     return new FlEntityPaginatedDatasource(
       (page, size) => this.getAllComments(commentType, page, size, entityId),
-      10
+      5
     );
+  }
+
+  public getCommentsCount(commentType: HaEntityType, entityId: string): Observable<number> {
+    return this.apiService.get(this.route + '/' + commentType + '/' + entityId + '/count');
   }
 
   private getAllComments(

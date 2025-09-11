@@ -1,10 +1,18 @@
+import { NgTemplateOutlet } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
+import { MatButton } from '@angular/material/button';
+import {
+  MatAccordion,
+  MatExpansionPanel,
+  MatExpansionPanelHeader,
+  MatExpansionPanelTitle,
+} from '@angular/material/expansion';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { TranslatePipe } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
-import { HaButtonComponent } from '../../ha-core/ha-component/ha-button/ha-button.component';
 import { HaFooterComponent } from '../../ha-core/ha-component/ha-footer/ha-footer/ha-footer.component';
-import { HaHeaderComponent } from '../../ha-core/ha-component/ha-header/ha-header.component';
+import { HaHeaderComponent } from '../../ha-core/ha-component/ha-header/ha-header/ha-header.component';
 import {
   HaAgentDatasourceFilters,
   HaAgentDatasourcePaginated,
@@ -29,12 +37,9 @@ import { HaBrickService } from '../../ha-core/ha-service/ha-brick.service';
 import { HaCommunityAppService } from '../../ha-core/ha-service/ha-community-app.service';
 import { HaRouterService } from '../../ha-core/ha-service/ha-router.service';
 import { HaStoryService } from '../../ha-core/ha-service/ha-story.service';
-import { HaHomeSectionShineComponent } from '../ha-home-section-shine/ha-home-section-shine.component';
 import { HaFeatureCardComponent } from '../../ha-main/ha-feature-card/ha-feature-card.component';
 import { HaHomeItemsListSectionComponent } from '../ha-home-items-list-section/ha-home-items-list-section.component';
-import { NgTemplateOutlet } from '@angular/common';
-import { MatAccordion, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle } from '@angular/material/expansion';
-import { TranslatePipe } from '@ngx-translate/core';
+import { HaHomeSectionShineComponent } from '../ha-home-section-shine/ha-home-section-shine.component';
 
 @Component({
   selector: 'ha-home',
@@ -42,7 +47,6 @@ import { TranslatePipe } from '@ngx-translate/core';
   styleUrls: ['./ha-home.component.scss'],
   imports: [
     FlLoaderModule,
-    HaButtonComponent,
     HaFooterComponent,
     HaHeaderComponent,
     HaHomeSectionShineComponent,
@@ -54,6 +58,7 @@ import { TranslatePipe } from '@ngx-translate/core';
     MatExpansionPanelHeader,
     MatExpansionPanelTitle,
     TranslatePipe,
+    MatButton,
   ],
 })
 export class HaHomeComponent extends HaCommunityPageDirective implements OnInit {

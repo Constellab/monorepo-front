@@ -1,0 +1,21 @@
+<div class="stats-list" [ngClass]="dense() ? 'stats-list-dense' : ''">
+  @if (executions() !== undefined) {
+    <div class="stat">
+      <mat-icon class="stat-icon" flIcon="download"></mat-icon>
+      <span>{{ executions() }}</span>
+    </div>
+  }
+
+  <div class="stat" (click)="onLikeClicked()" [ngClass]="isClickable() ? 'g-clickable' : ''">
+    <mat-icon
+      class="stat-icon"
+      flIcon="like"
+      [ngClass]="isLiked() || !isClickable() ? '' : 'stroke-icon'"></mat-icon>
+    <span>{{ likes() }}</span>
+  </div>
+
+  <div class="stat" (click)="onCommentClicked()" [ngClass]="isClickable() ? 'g-clickable' : ''">
+    <mat-icon class="stat-icon" flIcon="comment"></mat-icon>
+    <span>{{ comments() }}</span>
+  </div>
+</div>

@@ -17,6 +17,7 @@ import { FlCookieService, FlDialogService } from '@monorepo/front-core-lib/fl-di
 import { HaInstantSearchDialogComponent } from '../../ha-core/ha-component/ha-instant-search-dialog/ha-instant-search-dialog.component';
 import { HaEnvironmentHelper } from '../../ha-core/ha-model/ha-config/ha-environment.helper';
 import { HaAuthenticatedUserService } from '../../ha-core/ha-service/ha-authenticated-user.service';
+import { HaCurrentPageState } from '../../ha-core/ha-state/ha-current-page.state';
 import { HaJsonLdState } from '../../ha-core/ha-state/ha-json-ld.state';
 import { HaThemeState } from '../../ha-core/ha-state/ha-theme.state';
 import { HaCookieConsentComponent } from '../ha-cookie-consent/ha-cookie-consent.component';
@@ -25,7 +26,7 @@ import { HaCookieConsentComponent } from '../ha-cookie-consent/ha-cookie-consent
   selector: 'ha-main',
   templateUrl: './ha-main.component.html',
   styleUrls: ['./ha-main.component.scss'],
-  providers: [HaThemeState, HaJsonLdState],
+  providers: [HaThemeState, HaJsonLdState, HaCurrentPageState],
   imports: [RouterOutlet],
 })
 export class HaMainComponent implements OnInit, AfterContentInit, OnDestroy {
@@ -38,6 +39,7 @@ export class HaMainComponent implements OnInit, AfterContentInit, OnDestroy {
   private breakpointObserver: BreakpointObserver = inject(BreakpointObserver);
   private themeState: HaThemeState = inject(HaThemeState);
   private dialogService: FlDialogService = inject(FlDialogService);
+  private currentPageState: HaCurrentPageState = inject(HaCurrentPageState);
   private platformId: any = inject(PLATFORM_ID);
 
   currentTheme: Signal<ClTheme> = this.themeState?.getCurrentTheme();
@@ -56,6 +58,8 @@ export class HaMainComponent implements OnInit, AfterContentInit, OnDestroy {
 
   ngOnInit(): void {
     this.themeState.init();
+    this.currentPageState.init();
+
     this.authUserService.getUser().subscribe((user) => {
       this.currentLanguage = user != null ? user.lang : ClSupportedLanguage.en;
     });

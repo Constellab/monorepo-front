@@ -1,12 +1,14 @@
+import { AsyncPipe } from '@angular/common';
 import { Component, inject, makeStateKey, OnInit, StateKey } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 import { CoCommunityLibModule } from '@monorepo/community-lib';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { TranslatePipe } from '@ngx-translate/core';
 
-import { HaHeaderComponent } from '../../../ha-core/ha-component/ha-header/ha-header.component';
+import { HaListOfItemsComponent } from '../../../ha-core/ha-component/ha-list-of-items/ha-list-of-items.component';
+import { HaPageComponent } from '../../../ha-core/ha-component/ha-page/ha-page.component';
 import {
   HaBrick,
   HaBrickDatasourceFilters,
@@ -14,18 +16,10 @@ import {
 } from '../../../ha-core/ha-model/ha-entities/ha-brick.class';
 import { HaUser } from '../../../ha-core/ha-model/ha-entities/ha-user';
 import { HaCommunityPageDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
+import { HaBrickImagePipe } from '../../../ha-core/ha-module/ha-core-pipe/ha-brick-image/ha-brick-image.pipe';
 import { HaAuthenticatedUserService } from '../../../ha-core/ha-service/ha-authenticated-user.service';
 import { HaBrickService } from '../../../ha-core/ha-service/ha-brick.service';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
-import { HaHomeSectionShineComponent } from '../../../ha-home/ha-home-section-shine/ha-home-section-shine.component';
-import { HaButtonComponent } from '../../../ha-core/ha-component/ha-button/ha-button.component';
-import { HaFooterComponent } from '../../../ha-core/ha-component/ha-footer/ha-footer/ha-footer.component';
-import { AsyncPipe } from '@angular/common';
-import { RouterLink } from '@angular/router';
-import { HaBrickImagePipe } from '../../../ha-core/ha-module/ha-core-pipe/ha-brick-image/ha-brick-image.pipe';
-import {
-  HaListOfItemsComponent
-} from '../../../ha-core/ha-component/ha-list-of-items/ha-list-of-items.component';
 
 @Component({
   selector: 'ha-list-bricks-page',
@@ -37,16 +31,12 @@ import {
     ReactiveFormsModule,
     FormsModule,
     CoCommunityLibModule,
-    TranslatePipe,
     FlCorePipeModule,
-    HaHeaderComponent,
-    HaHomeSectionShineComponent,
-    HaButtonComponent,
-    HaFooterComponent,
     AsyncPipe,
     RouterLink,
     HaBrickImagePipe,
     HaListOfItemsComponent,
+    HaPageComponent,
   ],
 })
 export class HaListBricksPageComponent extends HaCommunityPageDirective implements OnInit {

@@ -1,86 +1,67 @@
-@if (story && story.createdBy != null && !notFound) {
-  <div class="story-pannel">
-    <div class="story-content">
-      <h1>
-        {{ story.title }}
-      </h1>
-      <div class="author-div">
-        <div>
+<ha-page [pageTitle]="story()?.title ?? tempTitle" [isLoading]="isLoading()" [notFound]="notFound()">
+  @if (story()) {
+    <div class="entity-page-section">
+      <div class="entity-page-infos">
+        <ha-entity-page-infos
+          [entityId]="story().id"
+          [entityType]="entityType"
+          [isAuthor]="isAuthor()"
+          [contributors]="contributors()"
+          [date]="story().createdAt">
+          @if (canEdit()) {
+            <div class="entity-page-infos">
+              <button type="button" mat-flat-button (click)="openStoryEditDialog()" class="g-full">
+                <mat-icon>edit</mat-icon>
+                {{ 'edit_story' | translate }}
+              </button>
+            </div>
+          }
 
-          <div class="small-text user-date-info">
-            <a [routerLink]="profileRoute + story.createdBy.id">
-              <fl-user-inline [user]="story.createdBy" [portalOnHover]="false"></fl-user-inline>
-            </a>
-
-            <span class="g-text-small date-info">
-              <fl-from-now
-                [date]="
-                  story.publishedAt < story.lastModifiedAt ? story.lastModifiedAt : story.publishedAt
-                "></fl-from-now>
-            </span>
-          </div>
-
-          @if (storyCoAuthors?.length > 0) {
-            <fl-key-value class="g-text-small co-author-key-val user-date-info">
-              <fl-key>{{ 'coauthors' | translate }}</fl-key>
-              <span class="co-author-span">
-                @for (coAuthor of storyCoAuthors; track coAuthor.id) {
-                  <a [routerLink]="profileRoute + coAuthor.id">
-                    <fl-user-inline [user]="coAuthor" [portalOnHover]="false"></fl-user-inline>
+          @if (titles() && titles().length > 0) {
+            <div class="entity-page-info-div">
+              <span class="g-text-medium g-weight-600">{{ 'table_of_contents' | translate }}</span>
+              <div class="entity-page-info-div-content table-of-contents">
+                @for (title of titles(); track title.text) {
+                  <a
+                    [routerLink]="'.'"
+                    [fragment]="title.text.toLowerCase().replaceAll(' ', '-')"
+                    [ngClass]="title.level === 2 ? 'g-weight-600' : ''">
+                    {{ title.text }}
                   </a>
                 }
-              </span>
-            </fl-key-value>
-          }
-        </div>
-        <div class="story-like-comment-infos-div">
-          <ha-share-button [shareToMedium]="true" [isEditor]="hasRightToEdit"></ha-share-button>
+              </div>
+            </div>
 
-          <div class="story-like-comment">
-            <ha-like-button
-              [entityType]="commentType" [entityId]="story.id"></ha-like-button>
-            <ha-comment-button
-              (clicked)="scrollToComments(comments)"
-              [commentsCount]="story.comments"></ha-comment-button>
-          </div>
-          @if (hasRightToEdit) {
-            <a
-              mat-flat-button
-              [routerLink]="storiesListRoute + 'edit/' + story.id"
-              class="edit-button primary">
-              <mat-icon>edit</mat-icon>
-              {{ 'edit' | translate }}
-            </a>
+            <div class="entity-page-separator"></div>
           }
-        </div>
+
+          @if (storyFiles() && storyFiles().length > 0) {
+            <div class="entity-page-info-div">
+              <span class="g-text-medium g-weight-600">{{ 'attached_files' | translate }}</span>
+              <div class="entity-page-info-div-content table-of-contents">
+                @for (file of storyFiles(); track file.name) {
+                  <a type="button" [href]="storyFileDocPrefix() + file.name" download>
+                    <fl-file-text-icon [filename]="file.name"></fl-file-text-icon>
+                  </a>
+                }
+              </div>
+            </div>
+
+            <div class="entity-page-separator"></div>
+          }
+        </ha-entity-page-infos>
       </div>
-      <article>
-        <te-text-editor
-          [formControl]="formControl"
-          [config]="textEditorConfig"
-          class="g-scrollable-element border-none"></te-text-editor>
-      </article>
-      <div #comments>
-        <ha-comments-section [commentType]="commentType" [entity]="story"
-                             [user]="currentUser"></ha-comments-section>
+      <div class="entity-page-content">
+        <article>
+          <te-text-editor
+            [formControl]="formControl"
+            [config]="textEditorConfig"
+            class="community-text-editor"></te-text-editor>
+        </article>
+      </div>
+      <div class="entity-page-comment" id="comments">
+        <ha-comments-section [user]="currentUser()"></ha-comments-section>
       </div>
     </div>
-  </div>
-} @else if (notFound) {
-  <div class="main-panel">
-    <ha-ha404></ha-ha404>
-  </div>
-} @else {
-  <div class="main-panel">
-    <div class="g-text-centered">
-      <fl-loader></fl-loader>
-    </div>
-  </div>
-}
-
-@if (((story && content) || (storyFiles && storyFiles.length > 0 && urlToDownloadFilePrefix)) && !notFound) {
-  <ha-text-editor-right-side-panel
-    [content]="content"
-    [files]="storyFiles"
-    [urlToDownloadFilePrefix]="urlToDownloadFilePrefix"></ha-text-editor-right-side-panel>
-}
+  }
+</ha-page>

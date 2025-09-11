@@ -1,0 +1,28 @@
+<ha-page-header [title]="headerTitle()" [description]="headerDescription()"></ha-page-header>
+
+<div class="page">
+  @if (isLoading()) {
+    <div class="section">
+      <div class="g-text-centered">
+        <fl-loader></fl-loader>
+      </div>
+    </div>
+  } @else {
+    <ng-content></ng-content>
+  }
+
+  <div class="section section-with-background">
+    <div class="section-title">
+      <ha-home-section-shine>{{ createSectionHint() | translate }}</ha-home-section-shine>
+      <h2>{{ createSectionTitle() | translate }}</h2>
+    </div>
+    <p class="g-large-text section-description">
+      {{ createSectionSubtitle() | translate }}
+    </p>
+    <div class="section-buttons-div">
+      <button type="button" mat-flat-button>{{ createSectionSubmit() | translate }}</button>
+    </div>
+  </div>
+</div>
+
+<ha-footer></ha-footer>

@@ -8,8 +8,9 @@ import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { TranslatePipe } from '@ngx-translate/core';
 
+import { HaListOfItemsComponent } from '../../../ha-core/ha-component/ha-list-of-items/ha-list-of-items.component';
+import { HaPageComponent } from '../../../ha-core/ha-component/ha-page/ha-page.component';
 import {
   HaAgentDatasourceFilters,
   HaAgentDatasourcePaginated,
@@ -25,11 +26,6 @@ import {
   HaAgentCreateDialogComponent,
   HaCreateAgentInput,
 } from '../ha-agent-create-dialog/ha-agent-create-dialog.component';
-import { HaButtonComponent } from '../../../ha-core/ha-component/ha-button/ha-button.component';
-import { HaFooterComponent } from '../../../ha-core/ha-component/ha-footer/ha-footer/ha-footer.component';
-import { HaHeaderComponent } from '../../../ha-core/ha-component/ha-header/ha-header.component';
-import { HaHomeSectionShineComponent } from '../../../ha-home/ha-home-section-shine/ha-home-section-shine.component';
-import { HaListOfItemsComponent } from '../../../ha-core/ha-component/ha-list-of-items/ha-list-of-items.component';
 
 @Component({
   selector: 'ha-agent-list',
@@ -44,13 +40,9 @@ import { HaListOfItemsComponent } from '../../../ha-core/ha-component/ha-list-of
     CoCommunityLibModule,
     AsyncPipe,
     FlCorePipeModule,
-    TranslatePipe,
     HaDetailRoutePipe,
-    HaButtonComponent,
-    HaFooterComponent,
-    HaHeaderComponent,
-    HaHomeSectionShineComponent,
     HaListOfItemsComponent,
+    HaPageComponent,
   ],
 })
 export class HaAgentListComponent extends HaCommunityPageDirective implements OnInit {

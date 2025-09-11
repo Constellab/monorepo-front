@@ -35,7 +35,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #072527;
+    background: var(--color-foreground);
     color: white;
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-weight: 600;
@@ -55,7 +55,6 @@
   }
 }
 
-
 .features-grid {
   margin-top: 48px;
   display: flex;
@@ -71,18 +70,18 @@
   //}
 }
 
-.home-items-div{
+.home-items-div {
   width: 100%;
 }
 
-.contribute-to-community-section{
+.contribute-to-community-section {
   flex-direction: row;
   text-align: start;
   align-items: start;
   justify-content: start;
 }
 
-.contribute-to-community-section-info-div{
+.contribute-to-community-section-info-div {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -90,12 +89,12 @@
   gap: 32px;
   align-self: stretch;
 
-  .section-title{
+  .section-title {
     align-items: start;
   }
 }
 
-.contribute-to-community-section-video-div{
+.contribute-to-community-section-video-div {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -104,23 +103,22 @@
   padding: 78.216px 46px;
   border-radius: 24px;
 
-  .home-video-div{
+  .home-video-div {
     width: 476px;
     height: 300px;
     border-radius: 10px;
     border: 6px solid rgba(7, 37, 39, 0.04);
-    background: #FFF;
+    background: #fff;
   }
-
 }
 
-.doc-cards-div{
+.doc-cards-div {
   display: flex;
   align-items: center;
   justify-content: space-around;
   gap: 24px;
 
-  .doc-illustration-button-div{
+  .doc-illustration-button-div {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -128,31 +126,31 @@
     align-self: stretch;
     padding: 48px;
     box-shadow: 0 4px 91px 0 rgba(0, 0, 0, 0.06);
-    background: url("/assets/images/home_section_doc_card_background.png") no-repeat center;
+    background: url('/assets/images/home_section_doc_card_background.png') no-repeat center;
     background-size: cover;
     overflow: hidden;
     border-radius: 20px;
     width: fit-content;
 
-    .doc-illustration{
+    .doc-illustration {
       width: 390px;
       height: auto;
       aspect-ratio: 1 / 1;
       border-radius: 10px;
       border: 8px solid rgba(7, 37, 39, 0.04);
-      background: #FFF;
+      background: #fff;
     }
   }
 }
 
-.faq-section{
+.faq-section {
   text-align: left;
   flex-direction: row;
   justify-content: space-between;
   gap: 100px;
   align-items: flex-start;
 
-  .faq-left-part{
+  .faq-left-part {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -162,18 +160,18 @@
     padding-bottom: 12px;
     max-width: 420px;
 
-    .section-title{
+    .section-title {
       align-items: flex-start;
     }
 
-    .ask-an-expert-div{
+    .ask-an-expert-div {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
       gap: 24px;
       align-self: stretch;
 
-      .ask-an-expert-div-description{
+      .ask-an-expert-div-description {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
@@ -183,11 +181,11 @@
     }
   }
 
-  .accordion{
+  .accordion {
     border-bottom: 1px solid rgba(7, 37, 39, 0.04);
   }
 
-  .accordion:first-child{
+  .accordion:first-child {
     border-top: none;
   }
 }
@@ -197,7 +195,7 @@
   width: 100%;
 }
 
-.contribute-to-community-section-buttons-big-screen{
+.contribute-to-community-section-buttons-big-screen {
   width: 100%;
 }
 
@@ -209,63 +207,61 @@
     gap: 24px;
   }
 
-  .contribute-to-community-section{
+  .contribute-to-community-section {
     align-items: center;
   }
 
-  .contribute-to-community-section-video-div{
+  .contribute-to-community-section-video-div {
     padding: 12px;
     border-radius: 24px;
   }
-
 }
 
 @media only screen and (max-width: 992px) {
-  .contribute-to-community-section{
+  .contribute-to-community-section {
     flex-direction: column;
     text-align: center;
     align-items: center;
     justify-content: center;
   }
 
-  .contribute-to-community-section-info-div{
+  .contribute-to-community-section-info-div {
     align-items: center;
 
-    .section-title{
+    .section-title {
       align-items: center;
     }
   }
 
-  .contribute-to-community-section-buttons-small-screen{
+  .contribute-to-community-section-buttons-small-screen {
     display: inline-block;
   }
 
-  .contribute-to-community-section-buttons-big-screen{
+  .contribute-to-community-section-buttons-big-screen {
     display: none;
   }
 
-  .doc-cards-div{
-
-    .doc-illustration-button-div{
+  .doc-cards-div {
+    .doc-illustration-button-div {
       align-items: center;
       gap: 24px;
       padding: 12px;
       border-radius: 20px;
 
-      .doc-illustration{
+      .doc-illustration {
         max-width: 80vw;
       }
     }
   }
 
-  .faq-section{
+  .faq-section {
     flex-direction: column;
     gap: 40px;
   }
 }
 
 @media only screen and (max-width: 660px) {
-  .contribute-to-community-section-video-div .home-video-div{
+  .contribute-to-community-section-video-div .home-video-div {
     width: 80vw;
     height: auto;
     aspect-ratio: 1 / 0.625;

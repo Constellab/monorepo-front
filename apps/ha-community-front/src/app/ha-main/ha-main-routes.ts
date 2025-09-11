@@ -2,11 +2,11 @@ import { Routes } from '@angular/router';
 
 import { haAdminRoutes } from '../ha-admin/ha-admin-routes';
 import { haAgentRoutes } from '../ha-agent/ha-agent-routes';
+import { haBrickRoutes } from '../ha-brick/ha-brick-routes';
 import { haCommunityAppRoutes } from '../ha-community-app/ha-community-app-routes';
 import { haProfileRoutes } from '../ha-profile/ha-profile-routes';
 import { haStoryRoutes } from '../ha-story/ha-story-routes';
 import { haTagRoutes } from '../ha-tag/ha-tag-routes';
-import { haBrickRoutes } from '../ha-brick/ha-brick-routes';
 
 export const haMainRoutes: Routes = [
   {

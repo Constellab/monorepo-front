@@ -1,38 +1,13 @@
-<ha-header>
-  <div class="header-content-div">
-    <div></div>
-    <div>
-      <h1>{{ 'bricks' | translate}}</h1>
-      <p class="header-subtitle g-large-text">{{ 'discover_create_and_share_bricks' | translate}}</p>
-    </div>
-  </div>
-</ha-header>
-
-<div class="page">
-
+<ha-page>
   <fl-infinite-scroll [datasource]="bricks" infiniteMode="auto" class="section">
     <ha-list-of-items>
       @for (brick of bricks | flDatasourceConnect | async; track brick.id) {
         <a [routerLink]="getBrickRoute(brick)">
-          <co-brick-list-item [brick]="brick" [brickImage]="brick.imageLink | haBrickImage"></co-brick-list-item>
+          <co-brick-list-item
+            [brick]="brick"
+            [brickImage]="brick.imageLink | haBrickImage"></co-brick-list-item>
         </a>
       }
     </ha-list-of-items>
   </fl-infinite-scroll>
-
-  <div class="section section-with-background">
-    <div class="section-title">
-      <ha-home-section-shine>Bricks techniques à réutiliser ou personnaliser</ha-home-section-shine>
-      <h2>Vous avez développé une brique réutilisable ?</h2>
-    </div>
-    <p class="g-large-text section-description">
-      Proposez-la pour accélérer les projets de toute la communauté.
-    </p>
-    <div class="section-buttons-div">
-      <ha-button theme="dark">Soumettre une brique</ha-button>
-    </div>
-  </div>
-
-</div>
-
-<ha-footer></ha-footer>
+</ha-page>

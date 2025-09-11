@@ -38,8 +38,33 @@
   "home.section6.faq_question_5": "Can I collaborate with other members?",
   "home.section6.faq_answer_5": "Absolutely, collaboration is at the heart of our community. You can exchange ideas, co-create, and learn from other members.",
 
+  "story_list.header.title": "Stories & feedback",
+  "story_list.header.description": "An active community focused on scientific data and open science.",
+  "story_list.create_section.hint": "Stories & feedback",
+  "story_list.create_section.title": "Do you have a resource to share?",
+  "story_list.create_section.subtitle": "Share it to accelerate projects for the entire community.",
+  "story_list.create_section.submit": "Submit a story",
 
+  "app_list.header.title": "Applications shared by the community",
+  "app_list.header.description": "Visualization, analysis, transformation... explore apps created by Gencovery or by users to get the most out of your data, without coding.",
+  "app_list.create_section.hint": "Applications shared by the community",
+  "app_list.create_section.title": "Have you developed an app?",
+  "app_list.create_section.subtitle": "Share it to accelerate projects for the entire community.",
+  "app_list.create_section.submit": "Submit an app",
 
+  "agent_list.header.title": "Ready-to-use smart agents",
+  "agent_list.header.description": "Automate your tasks, guides, and analyses with configurable agents created by Gencovery or the community. A simple way to save time without technical complexity.",
+  "agent_list.create_section.hint": "Ready-to-use smart agents",
+  "agent_list.create_section.title": "Have you developed an agent?",
+  "agent_list.create_section.subtitle": "Share it to accelerate projects for the entire community.",
+  "agent_list.create_section.submit": "Submit an agent",
+
+  "brick_list.header.title": "Technical bricks to reuse or customize",
+  "brick_list.header.description": "Discover open-source bricks to accelerate your development on Constellab: connectors, scripts, standards, and visualizations. Contribute or reuse them freely.",
+  "brick_list.create_section.hint": "Technical bricks to reuse or customize",
+  "brick_list.create_section.title": "Have you developed a brick?",
+  "brick_list.create_section.subtitle": "Share it to accelerate projects for the entire community.",
+  "brick_list.create_section.submit": "Submit a brick",
 
   "join_the_community": "Join the community",
   "discover_all_stories": "Discover all stories",
@@ -47,11 +72,14 @@
   "discover_all_agents": "Discover all agents",
   "discover_all_bricks": "Discover all bricks",
 
-
-
-
-
-
+  "contributors": "Contributor(s)",
+  "publication_date": "Publication date",
+  "confidentiality": "Confidentiality",
+  "reactions": "Reactions",
+  "share": "Share",
+  "about": "About",
+  "cancel": "Cancel",
+  "edit_about": "Edit about",
 
   "create": "Create",
   "documentation": "Documentation",

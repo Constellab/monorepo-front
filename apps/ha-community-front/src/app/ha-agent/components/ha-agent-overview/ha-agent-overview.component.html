@@ -32,10 +32,10 @@
       </span>
     </div>
     <div class="agent-buttons">
-
       <ha-like-button
         class="agent-like-bt"
-        [entityId]="agent().id" [entityType]="commentType"></ha-like-button>
+        [entityId]="agent().id"
+        [entityType]="commentType"></ha-like-button>
 
       <ha-comment-button
         [commentsCount]="agent().comments"
@@ -93,7 +93,7 @@
     <ha-agent-version-detail [isOverview]="true"></ha-agent-version-detail>
   }
   <div #comments>
-    <ha-comments-section [commentType]="commentType" [entity]="agent()"
-                         [user]="currentUser()"></ha-comments-section>
+    <!--    <ha-comments-section [commentType]="commentType" [entity]="agent()"-->
+    <!--                         [user]="currentUser()"></ha-comments-section>-->
   </div>
 }

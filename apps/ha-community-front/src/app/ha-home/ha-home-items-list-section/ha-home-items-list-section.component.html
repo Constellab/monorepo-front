@@ -1,10 +1,11 @@
 <div class="item-type-select-div">
   <div class="item-type-select-inner-div">
     @for (itemType of itemTypes; track itemType; let idx = $index) {
-      <div class="item-type-div" (click)="changeCurrentType(itemType)"
-           [ngClass]="itemType === currentType ? 'active-item-type-div' : ''"
-      >
-        {{(itemType) | translate}}
+      <div
+        class="item-type-div"
+        (click)="changeCurrentType(itemType)"
+        [ngClass]="itemType === currentType ? 'active-item-type-div' : ''">
+        {{ itemType | translate }}
       </div>
       @if (idx < itemTypes.length - 1) {
         <div class="item-type-select-line"></div>
@@ -12,7 +13,6 @@
     }
   </div>
 </div>
-
 
 <div class="items-list-div">
   <div class="items-container-div">
@@ -54,5 +54,5 @@
 </div>
 
 <div class="discover-all-button-div">
-  <ha-button theme="dark">{{ (('discover_all_' + currentType) | translate) }}</ha-button>
+  <button type="button" mat-flat-button>{{ 'discover_all_' + currentType | translate }}</button>
 </div>

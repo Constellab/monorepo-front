@@ -1,13 +1,58 @@
-@if (notFound()) {
-  <div class="main-panel">
-    <ha-ha404></ha-ha404>
-  </div>
-} @else if (isLoading()) {
-  <div class="main-panel">
-    <div class="g-text-centered">
-      <fl-loader></fl-loader>
+<ha-page
+  [pageTitle]="communityApp()?.title ?? tempTitle"
+  [showPageDescription]="false"
+  [isLoading]="isLoading()"
+  [notFound]="notFound()">
+  @if (communityApp()) {
+    <div class="entity-page-section">
+      <div class="entity-page-infos">
+        <ha-entity-page-infos
+          [entityId]="communityApp().id"
+          [entityType]="entityType"
+          [contributors]="contributors()"
+          [date]="communityApp().createdAt"
+          [space]="communityApp().space"
+          [executions]="communityApp().executions ?? 0">
+        </ha-entity-page-infos>
+      </div>
+      <div class="entity-page-content">
+        <div class="app-page-content">
+          <div class="app-page-title-div app-page-launch-div">
+            <h2>{{ 'the_app' | translate }}</h2>
+            <button type="button" mat-flat-button>{{ 'open_app' | translate }}</button>
+          </div>
+
+          <div class="app-page-about-div">
+            <div class="app-page-title-div g-layout-row g-layout-between-center">
+              <h2>{{ 'about' | translate }}</h2>
+              @if (canEdit()) {
+                @if (!appDescriptionFormControl.disabled) {
+                  <button mat-flat-button (click)="saveAbout()">
+                    @if (onAboutEditionLoading) {
+                      <fl-loader></fl-loader>
+                    } @else {
+                      {{ 'save' | translate }}
+                    }
+                  </button>
+                } @else {
+                  <button mat-flat-button (click)="editAbout()">{{ 'edit_about' | translate }}</button>
+                }
+              }
+            </div>
+            <article>
+              <te-text-editor
+                class="community-text-editor"
+                [config]="textEditorConfig"
+                [formControl]="appDescriptionFormControl"></te-text-editor>
+            </article>
+          </div>
+
+          <div class="entity-page-separator"></div>
+        </div>
+      </div>
+      <div class="entity-page-comment" id="comments">
+        <ha-comments-section [user]="currentUser"></ha-comments-section>
+      </div>
     </div>
-  </div>
-} @else if (communityApp()) {
-  <router-outlet></router-outlet>
-}
+  }
+</ha-page>

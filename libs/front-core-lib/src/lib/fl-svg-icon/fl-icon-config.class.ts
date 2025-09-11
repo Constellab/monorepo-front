@@ -82,6 +82,9 @@ export const flIconsDefault: FlIcon[] = [
   { name: 'story', filename: 'story_logo.svg' },
   { name: 'tag', matIconName: 'local_offer' },
   { name: 'shine', filename: 'shine.svg' },
+  { name: 'download', filename: 'download.svg' },
+  { name: 'like', filename: 'like.svg' },
+  { name: 'comment', filename: 'comment.svg' },
 ];
 
 export function getFileIconFromExtension(extension: string): string {

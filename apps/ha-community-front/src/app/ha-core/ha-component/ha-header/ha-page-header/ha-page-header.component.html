@@ -1,0 +1,20 @@
+<ha-header>
+  <div class="header-content-div">
+    <div class="header-path-tree g-text-small">
+      @for (treePath of completeTreePaths(); track treePath.name; let i = $index) {
+        <a [routerLink]="treePath.route" class="header-path-link">{{
+          treePath.name | flTranslatableText | async
+        }}</a>
+        @if (i < completeTreePaths().length - 1) {
+          <span class="header-path-separator"></span>
+        }
+      }
+    </div>
+    <div class="list-page-header-detail">
+      <h1>{{ title() | flTranslatableText | async }}</h1>
+      @if (description()) {
+        <p class="header-subtitle g-large-text">{{ description() | translate }}</p>
+      }
+    </div>
+  </div>
+</ha-header>

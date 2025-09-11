@@ -28,7 +28,6 @@ import { TeCompleteConfig, TeRichText, TeTextEditorModule } from '@monorepo/text
 import { TranslatePipe } from '@ngx-translate/core';
 import { first } from 'rxjs';
 
-import { HaCommentsSectionComponent } from '../../../ha-core/entity-module/ha-comments-core/component/ha-comments-section/ha-comments-section.component';
 import { HaCommentButtonComponent } from '../../../ha-core/entity-module/ha-util-component-core/component/ha-comment-button/ha-comment-button.component';
 import { HaLikeButtonComponent } from '../../../ha-core/entity-module/ha-util-component-core/component/ha-like-button/ha-like-button.component';
 import { HaEntityType } from '../../../ha-core/ha-model/ha-entities/ha-entity-type';
@@ -70,7 +69,6 @@ import {
     CoTagValuesTableComponent,
     TdTechnicalDocModule,
     FlIconModule,
-    HaCommentsSectionComponent,
     HaCommentButtonComponent,
     HaLikeButtonComponent,
   ],

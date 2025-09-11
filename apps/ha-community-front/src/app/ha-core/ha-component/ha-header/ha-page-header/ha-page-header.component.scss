@@ -1,0 +1,19 @@
+.list-page-header-detail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.header-path-tree {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.header-path-separator {
+  margin: 0 12px;
+  background-color: var(--color-foreground);
+  width: 1px;
+  height: 12px;
+  opacity: 0.1;
+}

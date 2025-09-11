@@ -1,9 +1,16 @@
-<div class="visibility-badge">
-@if (!space()) {
-  <mat-icon class="visibility-icon">public</mat-icon>
-  <span>{{ 'public' | translate }}</span>
-} @else {
-  <mat-icon class="visibility-icon">groups</mat-icon>
-  <span>{{ space().name.trim() }}</span>
-}
+<div class="visibility-badge" [style.font-size]="textSize()">
+  <mat-icon [style.width]="iconSize()" [style.height]="iconSize()" [style.font-size]="iconSize()">
+    @if (space()) {
+      groups
+    } @else {
+      public
+    }
+  </mat-icon>
+  <span>
+    @if (space()) {
+      {{ space().name.trim() }}
+    } @else {
+      {{ 'public' | translate }}
+    }
+  </span>
 </div>

@@ -20,7 +20,13 @@
       </div>
       <div class="stats-discover-div">
         <div class="stats-div">
-
+          @if (showVisibilityAndStats()) {
+            <co-stats-list
+              [likes]="likes()"
+              [comments]="comments()"
+              [executions]="executions()"
+              [dense]="true"></co-stats-list>
+          }
         </div>
         <div class="discover-div">
           {{ 'coCommunityLib.discover' | translate }}
@@ -29,5 +35,4 @@
       </div>
     </div>
   </div>
-
 </div>

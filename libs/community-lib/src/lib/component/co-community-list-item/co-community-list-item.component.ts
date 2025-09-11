@@ -6,6 +6,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 
 import { CoSpace } from '../../model/co-space.class';
 import { CoItemTypeIconComponent } from '../co-item-type-icon/co-item-type-icon.component';
+import { CoStatsListComponent } from '../co-stats-list/co-stats-list.component';
 import { CoTypeBadgeComponent } from '../co-type-badge/co-type-badge.component';
 import { CoVisibilityBadgeComponent } from '../co-visibility-badge/co-visibility-badge.component';
 
@@ -21,6 +22,7 @@ import { CoVisibilityBadgeComponent } from '../co-visibility-badge/co-visibility
     CoTypeBadgeComponent,
     CoItemTypeIconComponent,
     NgClass,
+    CoStatsListComponent,
   ],
 })
 export class CoCommunityListItemComponent {
@@ -30,4 +32,7 @@ export class CoCommunityListItemComponent {
   shortDescription = input<string>(null);
   space = input<CoSpace>(null);
   showVisibilityAndStats = input<boolean>(true);
+  likes = input<number>(0);
+  comments = input<number>(0);
+  executions = input<number>(undefined);
 }

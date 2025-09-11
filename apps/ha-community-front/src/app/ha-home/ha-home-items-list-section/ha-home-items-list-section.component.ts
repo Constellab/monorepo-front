@@ -1,5 +1,6 @@
 import { AsyncPipe, NgClass } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
+import { MatButton } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
 import { CoCommunityAppListItemComponent, CoCommunityLibModule } from '@monorepo/community-lib';
 import { ClStringHelper } from '@monorepo/core-lib';
@@ -29,7 +30,6 @@ import { HaAgentService } from '../../ha-core/ha-service/ha-agent.service';
 import { HaBrickService } from '../../ha-core/ha-service/ha-brick.service';
 import { HaCommunityAppService } from '../../ha-core/ha-service/ha-community-app.service';
 import { HaStoryService } from '../../ha-core/ha-service/ha-story.service';
-import { HaButtonComponent } from '../../ha-core/ha-component/ha-button/ha-button.component';
 
 export type HaHomeItemsListSectionType = 'stories' | 'apps' | 'agents' | 'bricks';
 
@@ -48,7 +48,7 @@ export type HaHomeItemsListSectionType = 'stories' | 'apps' | 'agents' | 'bricks
     CoCommunityAppListItemComponent,
     HaAppPicturePipe,
     HaBrickImagePipe,
-    HaButtonComponent,
+    MatButton,
   ],
 })
 export class HaHomeItemsListSectionComponent implements OnInit {

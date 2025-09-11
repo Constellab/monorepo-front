@@ -7,17 +7,16 @@ import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { TranslatePipe } from '@ngx-translate/core';
 
+import { HaListOfItemsComponent } from '../../../ha-core/ha-component/ha-list-of-items/ha-list-of-items.component';
+import { HaPageComponent } from '../../../ha-core/ha-component/ha-page/ha-page.component';
 import {
   HaCommunityApp,
   HaCommunityAppDatasourceFilters,
   HaCommunityAppDatasourcePaginated,
 } from '../../../ha-core/ha-model/ha-entities/ha-community-app.class';
 import { HaUser } from '../../../ha-core/ha-model/ha-entities/ha-user';
-import {
-  HaCommunityPageDirective
-} from '../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
+import { HaCommunityPageDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
 import { HaAppPicturePipe } from '../../../ha-core/ha-module/ha-core-pipe/ha-app-picture/ha-app-picture.pipe';
 import { HaDetailRoutePipe } from '../../../ha-core/ha-module/ha-core-pipe/ha-detail-route/ha-detail-route.pipe';
 import { HaAuthenticatedUserService } from '../../../ha-core/ha-service/ha-authenticated-user.service';
@@ -27,16 +26,10 @@ import {
   HaCommunityAppCreateDialogComponent,
   HaCreateCommunityAppInput,
 } from '../ha-community-app-create-dialog/ha-community-app-create-dialog.component';
-import { HaButtonComponent } from '../../../ha-core/ha-component/ha-button/ha-button.component';
-import { HaFooterComponent } from '../../../ha-core/ha-component/ha-footer/ha-footer/ha-footer.component';
-import { HaHeaderComponent } from '../../../ha-core/ha-component/ha-header/ha-header.component';
-import { HaHomeSectionShineComponent } from '../../../ha-home/ha-home-section-shine/ha-home-section-shine.component';
-import { HaListOfItemsComponent } from '../../../ha-core/ha-component/ha-list-of-items/ha-list-of-items.component';
 
 @Component({
   selector: 'ha-community-app-list-page',
   imports: [
-    TranslatePipe,
     FlInfiniteScrollModule,
     FlCorePipeModule,
     AsyncPipe,
@@ -48,11 +41,8 @@ import { HaListOfItemsComponent } from '../../../ha-core/ha-component/ha-list-of
     ReactiveFormsModule,
     FlTextIconModule,
     CoCommunityLibModule,
-    HaButtonComponent,
-    HaFooterComponent,
-    HaHeaderComponent,
-    HaHomeSectionShineComponent,
     HaListOfItemsComponent,
+    HaPageComponent,
   ],
   templateUrl: './ha-community-app-list-page.component.html',
   styleUrl: './ha-community-app-list-page.component.scss',
