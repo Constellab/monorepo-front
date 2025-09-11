@@ -1,0 +1,88 @@
+<header class="header" [ngClass]="isHomePage() ? 'main-header' : ''">
+  <nav class="nav-bar">
+    <a class="nav-bar-icon-div" [routerLink]="homeRoute">
+      <img ngSrc="assets/fl-logo/community_logo_with_text.png" fill />
+    </a>
+
+    <div class="nav-bar-links-div">
+      <a [routerLink]="storyListRoute">{{ 'stories' | translate }}</a>
+      <a [routerLink]="appsListRoute">{{ 'apps' | translate }}</a>
+      <a [routerLink]="agentListRoute">{{ 'agents' | translate }}</a>
+      <a [routerLink]="brickListRoute">{{ 'bricks' | translate }}</a>
+      <span [matMenuTriggerFor]="documentationMenu">{{ 'documentation' | translate }}</span>
+      <a [routerLink]="constellabRoute">Constellab</a>
+    </div>
+
+    <!--    <mat-form-field class="section-search-bar">-->
+    <!--      <input-->
+    <!--        matInput-->
+    <!--        placeholder="{{ 'search_by_title' | translate }}" />-->
+    <!--      <button mat-icon-button matSuffix [matTooltip]="'search' | translate"-->
+    <!--              aria-label="Search by title button">-->
+    <!--        <mat-icon>search</mat-icon>-->
+    <!--      </button>-->
+    <!--    </mat-form-field>-->
+
+    <div class="nav-bar-action-div">
+      <div class="nav-bar-login-signup-div">
+        @if (currentUser()) {
+          <button mat-raised-button class="logged-in-user-button" [matMenuTriggerFor]="loggedInMenu">
+            <div class="logged-in-user-button-content g-weight-600">
+              <fl-user-profile-picture [user]="currentUser()" [size]="2.125"></fl-user-profile-picture>
+              {{ currentUser()?.alias }}
+            </div>
+          </button>
+        } @else {
+          <a [routerLink]="loginRoute" mat-raised-button>
+            {{ 'login' | translate }}
+          </a>
+
+          <a mat-flat-button [href]="signupUrl">
+            {{ 'sign_up' | translate }}
+          </a>
+        }
+      </div>
+
+      <div class="menu-button">
+        <button type="button" mat-raised-button>Menu</button>
+      </div>
+    </div>
+  </nav>
+  <div class="header-content-div">
+    <ng-content></ng-content>
+  </div>
+</header>
+
+<mat-menu #documentationMenu="matMenu">
+  <a mat-menu-item [routerLink]="productDocRoute">
+    <mat-icon>menu_book</mat-icon>
+    <span>{{ 'product_doc' | translate }}</span>
+  </a>
+  <a mat-menu-item [routerLink]="techDocRoute">
+    <mat-icon>integration_instructions</mat-icon>
+    <span>{{ 'tech_doc' | translate }}</span>
+  </a>
+  <a mat-menu-item [routerLink]="iconsPageRoute">
+    <mat-icon>face</mat-icon>
+    <span>{{ 'icons' | translate }}</span>
+  </a>
+  <a mat-menu-item [routerLink]="tagsListRoute">
+    <mat-icon flIcon="tag"></mat-icon>
+    <span>{{ 'tags' | translate }}</span>
+  </a>
+</mat-menu>
+
+<mat-menu #loggedInMenu>
+  <button mat-menu-item [routerLink]="profileRoute + currentUser()?.id">
+    <mat-icon>person</mat-icon>
+    {{ 'profile' | translate }}
+  </button>
+  <button mat-menu-item [routerLink]="adminRoute" *haIsAdmin>
+    <mat-icon>admin_panel_settings</mat-icon>
+    {{ 'admin_dashboard' | translate }}
+  </button>
+  <button mat-menu-item (click)="logout()">
+    <mat-icon>logout</mat-icon>
+    {{ 'logout' | translate }}
+  </button>
+</mat-menu>
