@@ -1,7 +1,11 @@
 <ha-page>
   <fl-infinite-scroll [datasource]="stories" infiniteMode="auto" class="section">
+    <co-list-filters [user]="user()"
+                     [hideSpaceFilter]="true"
+                     (titleFilterChanged)="onTitleFilterChanged($event)"
+                     (sortsCriteriaChanged)="onSortsCriteriaChanged($event)" />
     <ha-list-of-items>
-      @for (story of stories | flDatasourceConnect | async; track story) {
+      @for (story of stories | flDatasourceConnect | async; track story.id) {
         <a [routerLink]="story | haDetailRoute">
           <co-story-list-item
             [story]="story"

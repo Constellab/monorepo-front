@@ -62,10 +62,10 @@
 }
 
 .header-content-div {
-  margin-top: 60px;
-  margin-bottom: 80px;
   height: inherit;
-  max-width: 900px;
+  width: 100%;
+  max-width: 1320px;
+  margin: 60px auto 80px auto;
 }
 
 .logged-in-user-button {

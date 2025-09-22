@@ -1,30 +1,21 @@
-<div class="div-sidenav">
-
-  @if (brick()) {
-    <div class="brick-name-div">
-      <h4 class="brick-name" [ngClass]="userHasEditRight() ? 'smaller-brick-name' : ''">
-        {{ brick().name }}
-      </h4>
-
-      @if (userHasEditRight()) {
-        <button mat-icon-button type="button" class="bt" (click)="onClickMenu($event, true)" [matTooltip]="'create_element' | translate">
-          <mat-icon>add_circle</mat-icon>
-        </button>
-      }
-    </div>
+<div class="g-layout-row g-layout-between-center">
+  <span class="g-text-medium g-weight-600">{{ 'menu' | translate }}</span>
+  @if (userHasEditRight()) {
+    <button mat-icon-button (click)="onClickMenu($event, true)" [matTooltip]="'edit_menu' | translate">
+      <mat-icon>edit</mat-icon>
+    </button>
   }
+</div>
 
-  <div class="sidenav g-scrollable-element">
-
+<div class="entity-page-info-div-content">
+  <div>
     <a
       [routerLink]="'.'"
       [relativeTo]="activatedRoute"
       [routerLinkActive]="'active'"
-      class="g-text-small tree-node g-layout-row g-layout-start-center tree-node-div"
-      [ngClass]="{ 'selected-tree-node': currentCompletePath === '' }">
+      class="g-text-small tree-node g-layout-row g-layout-start-center tree-node-div">
       {{ 'introduction' | translate }}
     </a>
-
 
     <mat-tree
       #tree
@@ -34,7 +25,6 @@
       [dataSource]="dataSource$"
       [childrenAccessor]="dataSource$.childrenAccessor"
       [trackBy]="dataSource$.trackById">
-
       <!-- This is the tree node template for leaf nodes -->
       <mat-tree-node
         cdkDrag
@@ -43,19 +33,23 @@
         *matTreeNodeDef="let node"
         [isExpanded]="node.object.isExpanded"
         matTreeNodePadding
-        [matTreeNodePaddingIndent]="10" class="g-drag-hide-placeholder"
-        [ngClass]="{ 'selected-tree-node': isSelected(node) }"
+        [matTreeNodePaddingIndent]="10"
+        class="g-drag-hide-placeholder"
         (mouseenter)="hoverId = node.id"
         (mouseleave)="hoverId = null">
         @if (node.object.children) {
-          <div class="g-text-small tree-node g-layout-row g-layout-start-center" matTreeNodeToggle
-               (click)="node.object.isExpanded ? collapseNode(node) : expandNode(node)">
+          <div
+            class="g-text-small tree-node g-layout-row g-layout-start-center"
+            matTreeNodeToggle
+            (click)="node.object.isExpanded ? collapseNode(node) : expandNode(node)">
             <div class="tree-node-div">
               {{ node.object.name }}
 
               <div class="line-icons">
                 @if (userHasEditRight() && hoverId === node.object.id) {
-                  <mat-icon (click)="onClickMenu($event, true, node.children?.length > 0, node.id)" class="g-icon-small icon-pointer">
+                  <mat-icon
+                    (click)="onClickMenu($event, true, node.children?.length > 0, node.id)"
+                    class="g-icon-small icon-pointer">
                     more_vert
                   </mat-icon>
                   <mat-icon cdkDragHandle class="drag-drop-bt g-icon-small"> drag_handle</mat-icon>
@@ -80,7 +74,9 @@
               {{ node.object.name }}
               <div class="line-icons">
                 @if (userHasEditRight() && hoverId === node.object.id) {
-                  <mat-icon (click)="onClickMenu($event, false, false, node.id)" class="g-icon-small icon-pointer">
+                  <mat-icon
+                    (click)="onClickMenu($event, false, false, node.id)"
+                    class="g-icon-small icon-pointer">
                     more_vert
                   </mat-icon>
                   <mat-icon cdkDragHandle class="drag-drop-bt g-icon-small"> drag_handle</mat-icon>
@@ -97,18 +93,18 @@
       [dataSource]="techDataSource$"
       [childrenAccessor]="techDataSource$.childrenAccessor"
       [trackBy]="techDataSource$.trackById">
-
       <!-- This is the tree node template for leaf nodes -->
       <mat-tree-node
         *matTreeNodeDef="let node"
         [isExpanded]="node.object.isExpanded"
         matTreeNodePadding
-        [matTreeNodePaddingIndent]="10" class="g-drag-hide-placeholder"
-        [ngClass]="{ 'selected-tree-node': isSelectedTech(node) }">
+        [matTreeNodePaddingIndent]="10"
+        class="g-drag-hide-placeholder">
         @if (node.object.children) {
-          <div class="g-text-small tree-node g-layout-row g-layout-start-center"
-               matTreeNodeToggle
-               (click)="node.object.isExpanded ? collapseNode(node) : expandNode(node)">
+          <div
+            class="g-text-small tree-node g-layout-row g-layout-start-center"
+            matTreeNodeToggle
+            (click)="node.object.isExpanded ? collapseNode(node) : expandNode(node)">
             <div class="tree-node-div">
               {{ node.object.name }}
             </div>
@@ -138,8 +134,7 @@
       [routerLink]="'version'"
       [relativeTo]="activatedRoute"
       [routerLinkActive]="'active'"
-      class="g-text-small tree-node g-layout-row g-layout-start-center tree-node-div"
-      [ngClass]="{ 'selected-tree-node': currentCompletePath === '/version' }">
+      class="g-text-small tree-node g-layout-row g-layout-start-center tree-node-div">
       {{ 'version' | translate }}
     </a>
   </div>

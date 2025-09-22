@@ -1,178 +1,132 @@
 @if (agentVersion()) {
-  <div class="spacer"></div>
 
-  <h4 class="detail-version-title">
-    @if (agentVersion()?.agent && isOverview) {
-      {{ ('latest_version_infos' | translate) + ' (V' + agentVersion()?.agent.latestPublishVersion + ')' }}
-    } @else {
-      {{ 'detail_of_the_version' | translate }}
+  <div class="agent-page-title g-layout-row g-layout-between-center">
+    <h3>
+      @if (agentVersion()?.agent && isOverview()) {
+        {{ ('latest_version_info' | translate) + ' (V' + agentVersion()?.agent.latestPublishVersion + ')' }}
+      } @else {
+        {{ 'detail_of_the_version' | translate }}
+      }
+    </h3>
+    @if (canEdit()) {
+      @if (versionInfosFormControl().disabled) {
+        <button mat-flat-button (click)="editAbout()">{{ 'edit_version_info' | translate }}</button>
+      } @else {
+        <button mat-flat-button (click)="saveAbout()">
+          @if (onAgentVersionInfosLoading) {
+            <fl-loader></fl-loader>
+          } @else {
+            {{ 'save' | translate }}
+          }
+        </button>
+      }
     }
-  </h4>
-
-  <div class="version-type-info">
-    <fl-key-value>
-      <fl-key class="key">{{ 'agent_version_type' | translate }}</fl-key>
-      <span>{{ agentVersion().type }}</span>
-    </fl-key-value>
   </div>
 
-  @if (brickDependencies() && brickDependencies().length > 0) {
-    <div>
-      <div class="key">{{ 'necessary_bricks' | translate }} :</div>
-      <div class="brick-dependencies-div">
-        @for (brickDep of brickDependencies(); track brickDep) {
-          <mat-chip> {{ brickDep?.brickMajorVersion?.brick?.name }} {{ brickDep?.version }} </mat-chip>
+  @if (!versionInfosFormControl()?.value.isEmpty() || canEdit()) {
+    <te-text-editor
+      class="community-text-editor"
+      [config]="textEditorConfig"
+      [formControl]="versionInfosFormControl()"
+      [placeholder]="'agent_version_infos_place_holder' | translate">
+    </te-text-editor>
+  }
+
+  @if ((agentVersion()?.inputSpecs?.specs | flIsNotEmpty) || (agentVersion()?.outputSpecs?.specs | flIsNotEmpty)) {
+    <div class="agent-version-card io-card">
+      <div class="io-div">
+        <h3 class="g-small-title">{{ 'input' | translate }}(s)</h3>
+        @for (spec of agentVersion()?.inputSpecs?.specs | flObjectKeys; track spec) {
+          <td-doc-io [ioSpec]="agentVersion()?.inputSpecs?.specs[spec]"></td-doc-io>
+        }
+      </div>
+
+      <div class="io-div">
+        <h3 class="g-small-title">{{ 'output' | translate }}(s)</h3>
+        @for (spec of agentVersion()?.outputSpecs?.specs | flObjectKeys; track spec) {
+          <td-doc-io [ioSpec]="agentVersion()?.outputSpecs?.specs[spec]"></td-doc-io>
         }
       </div>
     </div>
-  }
-
-  @if (agentVersion() && (agentVersion().versionInfos || canEdit())) {
-    <div class="agent-version-detail-card info-version-card">
-      <div class="card-header">
-        <h5>
-          {{ 'info_about_this_version' | translate }}
-        </h5>
-        @if (canEdit()) {
-          <button
-            mat-stroked-button
-            class="g-button-small primary"
-            (click)="onVersionInfosEditorButtonClick()">
-            <mat-icon>{{ versionInfosDisabled ? 'edit' : 'save' }}</mat-icon>
-            {{ versionInfosDisabled ? ('edit' | translate) : ('save' | translate) }}
-          </button>
-        }
-      </div>
-      <article>
-        @defer (when agentVersion() && !isAgentVersionLoading() && versionInfosFormControl) {
-          @if (canEdit() || !isVersionInfosEmpty()) {
-            <te-text-editor
-              class="version-infos-editor"
-              [ngClass]="canEdit() ? 'editor-border' : ''"
-              [config]="textEditorConfig"
-              (textChange)="onVersionInfosChange($event)"
-              [formControl]="versionInfosFormControl"
-              [disabled]="!canEdit()"
-              [placeholder]="'agent_version_infos_place_holder' | translate">
-            </te-text-editor>
-          }
-        }
-      </article>
-    </div>
-  }
-
-  @if (
-    (agentVersion()?.inputSpecs?.specs | flIsNotEmpty) || (agentVersion()?.outputSpecs?.specs | flIsNotEmpty)
-  ) {
-    <fl-card class="agent-version-detail-card">
-      <fl-card-header>
-        <div class="io-card-div">
-          <h5 class="io-card-div-column">
-            {{ 'input' | translate }}
-          </h5>
-          <h5 class="io-card-div-column">
-            {{ 'output' | translate }}
-          </h5>
-        </div>
-      </fl-card-header>
-      <fl-card-body>
-        <div class="io-card-div">
-          <div class="io-card-div-column">
-            @for (spec of agentVersion()?.inputSpecs?.specs | flObjectKeys; track spec; let i = $index) {
-              <div
-                [class]="
-                  i < (agentVersion()?.inputSpecs?.specs | flObjectKeys).length - 1 ? 'spacing-6-v2' : ''
-                ">
-                <td-doc-io [ioSpec]="agentVersion()?.inputSpecs?.specs[spec]"></td-doc-io>
-              </div>
-            }
-          </div>
-          <div class="io-card-div-column">
-            @for (spec of agentVersion()?.outputSpecs?.specs | flObjectKeys; track spec; let i = $index) {
-              <div
-                [class]="
-                  i < (agentVersion()?.outputSpecs?.specs | flObjectKeys).length - 1 ? 'spacing-6-v2' : ''
-                ">
-                <td-doc-io [ioSpec]="agentVersion()?.outputSpecs?.specs[spec]"></td-doc-io>
-              </div>
-            }
-          </div>
-        </div>
-      </fl-card-body>
-    </fl-card>
   }
 
   @if (agentVersion()?.configSpecs | flIsNotEmpty) {
-    <fl-card class="agent-version-detail-card">
-      <fl-card-header>
-        <h5>
-          {{ 'configuration' | translate }}
-        </h5>
-      </fl-card-header>
-      <fl-card-body>
-        <td-config [configSpecs]="agentVersion()?.configSpecs"></td-config>
-      </fl-card-body>
-    </fl-card>
+    <div class="agent-version-card">
+      <h3 class="g-small-title">{{ 'configuration' | translate }}</h3>
+      <td-config [configSpecs]="agentVersion()?.configSpecs"></td-config>
+    </div>
   }
+
 
   @if (isEditable() || agentVersion().params) {
-    <fl-card class="agent-version-detail-card">
-      <fl-card-header>
-        <div class="card-header">
-          <h5>
-            {{ 'parameters' | translate }}
-          </h5>
-        </div>
-      </fl-card-header>
-      <fl-card-body>
-        <td-config [configSpecs]="agentVersion().params['specs']" />
-      </fl-card-body>
-    </fl-card>
+    <div class="agent-version-card">
+      <h3 class="g-small-title">{{ 'parameters' | translate }}</h3>
+      <td-config [configSpecs]="agentVersion().params['specs']" />
+    </div>
   }
 
-  <!--TODO: Corriger le bug du changement de theme-->
   @if (
     ((isEditable() && canEdit()) || agentVersion()?.environment | flIsNotEmpty) &&
     agentVersion().type !== 'PYTHON'
-  ) {
-    <fl-card class="agent-version-detail-card">
-      <fl-card-header>
-        <div class="card-header">
-          <h5>
-            {{ 'environment_file' | translate }}
-          </h5>
-          <div>
-            <button mat-stroked-button (click)="onCopy('environment_file')" class="g-button-small primary">
-              <mat-icon>content_copy</mat-icon>
-              {{ 'copy_environment' | translate }}
-            </button>
-          </div>
-        </div>
-      </fl-card-header>
-      <fl-card-body>
-        <fl-code-editor
-          [language]="languageEnvironment()"
-          [formCtrl]="environmentFormControl"></fl-code-editor>
-      </fl-card-body>
-    </fl-card>
+    ) {
+    <div class="agent-version-card">
+      <h3 class="g-small-title">{{ 'environment_file' | translate }}</h3>
+      <fl-code-editor
+        [language]="languageEnvironment()"
+        [formCtrl]="environmentFormControl()"></fl-code-editor>
+    </div>
   }
 
-  <fl-card class="agent-version-detail-card">
-    <fl-card-header>
-      <div class="card-header">
-        <h5>
-          {{ 'code' | translate }}
-        </h5>
-        <div>
-          <button mat-stroked-button (click)="onCopy('code')" class="g-button-small primary">
-            <mat-icon>content_copy</mat-icon>
-            {{ 'copy_code' | translate }}
-          </button>
-        </div>
-      </div>
-    </fl-card-header>
-    <fl-card-body>
-      <fl-code-editor [language]="languageCode()" [formCtrl]="codeFormControl"></fl-code-editor>
-    </fl-card-body>
-  </fl-card>
+  <div class="agent-version-card">
+    <h3 class="g-small-title">{{ 'code' | translate }}</h3>
+    <fl-code-editor [language]="languageCode()" [formCtrl]="codeFormControl()"></fl-code-editor>
+  </div>
+
+
+
+  <!--  &lt;!&ndash;TODO: Corriger le bug du changement de theme&ndash;&gt;-->
+<!--      @if (-->
+<!--        ((isEditable() && canEdit()) || agentVersion()?.environment | flIsNotEmpty) &&-->
+<!--        agentVersion().type !== 'PYTHON'-->
+<!--      ) {-->
+    <!--    <fl-card class="agent-version-detail-card">-->
+    <!--      <fl-card-header>-->
+    <!--        <div class="card-header">-->
+    <!--          <h5>-->
+    <!--            {{ 'environment_file' | translate }}-->
+    <!--          </h5>-->
+    <!--          <div>-->
+    <!--            <button mat-stroked-button (click)="onCopy('environment_file')" class="g-button-small primary">-->
+    <!--              <mat-icon>content_copy</mat-icon>-->
+    <!--              {{ 'copy_environment' | translate }}-->
+    <!--            </button>-->
+    <!--          </div>-->
+    <!--        </div>-->
+    <!--      </fl-card-header>-->
+    <!--      <fl-card-body>-->
+    <!--        <fl-code-editor-->
+    <!--          [language]="languageEnvironment()"-->
+    <!--          [formCtrl]="environmentFormControl"></fl-code-editor>-->
+    <!--      </fl-card-body>-->
+    <!--    </fl-card>-->
+    <!--  }-->
+
+    <!--  <fl-card class="agent-version-detail-card">-->
+    <!--    <fl-card-header>-->
+    <!--      <div class="card-header">-->
+    <!--        <h5>-->
+    <!--          {{ 'code' | translate }}-->
+    <!--        </h5>-->
+    <!--        <div>-->
+    <!--          <button mat-stroked-button (click)="onCopy('code')" class="g-button-small primary">-->
+    <!--            <mat-icon>content_copy</mat-icon>-->
+    <!--            {{ 'copy_code' | translate }}-->
+    <!--          </button>-->
+    <!--        </div>-->
+    <!--      </div>-->
+    <!--    </fl-card-header>-->
+    <!--    <fl-card-body>-->
+    <!--      <fl-code-editor [language]="languageCode()" [formCtrl]="codeFormControl"></fl-code-editor>-->
+    <!--    </fl-card-body>-->
+    <!--  </fl-card>-->
 }

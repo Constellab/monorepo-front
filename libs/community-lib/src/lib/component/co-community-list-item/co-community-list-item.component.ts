@@ -33,6 +33,6 @@ export class CoCommunityListItemComponent {
   space = input<CoSpace>(null);
   showVisibilityAndStats = input<boolean>(true);
   likes = input<number>(0);
-  comments = input<number>(0);
+  comments = input<number>(undefined);
   executions = input<number>(undefined);
 }

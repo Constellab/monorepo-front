@@ -1,4 +1,4 @@
-import { Component, inject,Input, OnInit } from '@angular/core';
+import { Component, inject, input, Input, OnInit } from '@angular/core';
 
 import { FlUser } from '../../model/fl-user.class';
 import { FlUserConfig } from '../../service/fl-user-config.config';
@@ -22,6 +22,8 @@ export class FlUserProfilePictureComponent implements OnInit {
    * Default size, if number is provided it will be used as rem
    */
   @Input() size: FlUserProfilePictureSize = 'medium';
+
+  sizeInPx = input<boolean>(false);
 
   circleSize: string;
 
@@ -47,8 +49,8 @@ export class FlUserProfilePictureComponent implements OnInit {
         this.fontSize = '23px';
         break;
       default:
-        this.circleSize = this.size + 'rem';
-        this.fontSize = this.size / 4 + 'rem';
+        this.circleSize = this.size + (this.sizeInPx() ? 'px' : 'rem');
+        this.fontSize = this.size / 4 + (this.sizeInPx() ? 'px' : 'rem');
     }
   }
 

@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { CoConfig, CoTagValue, CoTagValueEditDTO } from '@monorepo/community-lib';
+import { CoConfig, CoSpace, CoTagValue, CoTagValueEditDTO } from '@monorepo/community-lib';
 import { LiTagService } from '@monorepo/lab-lib/li-core';
 import { TdParamSpec, TdParamSpecs } from '@monorepo/technical-doc';
 import { Observable } from 'rxjs';
@@ -63,5 +63,9 @@ export class LabCoServiceConfig extends CoConfig {
     spec: TdParamSpec
   ): Observable<TdParamSpecs> {
     return this.tagService.renameAndUpdateTagAdditionalInfoSpec(tagKey, oldName, newName, spec);
+  }
+
+  getSpacesOfCurrentUser():Observable<CoSpace[]>{
+    throw new Error(`Error: getSpacesOfCurrentUser() not implemented in LabCoServiceConfig`);
   }
 }

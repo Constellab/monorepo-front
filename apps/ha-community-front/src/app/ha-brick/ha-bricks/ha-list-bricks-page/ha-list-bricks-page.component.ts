@@ -2,7 +2,7 @@ import { AsyncPipe } from '@angular/common';
 import { Component, inject, makeStateKey, OnInit, StateKey } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { CoCommunityLibModule } from '@monorepo/community-lib';
+import { CoCommunityLibModule, CoListFiltersComponent } from '@monorepo/community-lib';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
@@ -37,6 +37,7 @@ import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
     HaBrickImagePipe,
     HaListOfItemsComponent,
     HaPageComponent,
+    CoListFiltersComponent,
   ],
 })
 export class HaListBricksPageComponent extends HaCommunityPageDirective implements OnInit {
@@ -88,16 +89,9 @@ export class HaListBricksPageComponent extends HaCommunityPageDirective implemen
     return this.spaceIdFilter.find((id) => id == spaceId) != null;
   }
 
-  selectSpace(spaceId: string): void {
-    if (this.isSelected(spaceId)) {
-      this.spaceIdFilter = this.spaceIdFilter.filter((id) => id != spaceId);
-    } else {
-      this.spaceIdFilter.push(spaceId);
-    }
+  onSpacesChanged(spaces: string[]): void{
+    this.spaceIdFilter = spaces;
     this.updateBricks();
   }
 
-  onSpace(spaceId: string): void {
-    this.selectSpace(spaceId);
-  }
 }

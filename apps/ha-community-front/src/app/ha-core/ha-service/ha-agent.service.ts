@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { ClPage } from '@monorepo/core-lib';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
-import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
+import { FlDatasourceSortCriteria, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 import { RvResourceView } from '@monorepo/resource-view';
 import { TeBlockFigureUploadedResponse, TeRichText } from '@monorepo/text-editor';
 import { Observable } from 'rxjs';
@@ -35,6 +35,7 @@ export class HaAgentService implements HaCoAuthorService {
    * Call http post to get all agents with filters
    * @param spacesFilter
    * @param titleFilter
+   * @param sortsCriteria
    * @param page
    * @param size
    * @return a list of agents
@@ -42,12 +43,13 @@ export class HaAgentService implements HaCoAuthorService {
   getAllWithFilters(
     spacesFilter: string[],
     titleFilter: string,
+    sortsCriteria: FlDatasourceSortCriteria[],
     page: number,
     size: number
   ): Observable<ClPage<HaAgent>> {
     return this.apiService.post(
       `${this.route}/filters`,
-      { spacesFilter: spacesFilter, titleFilter: titleFilter },
+      { spacesFilter: spacesFilter, titleFilter: titleFilter, sorts: sortsCriteria },
       HaAgent,
       { page: page, pageSize: size, resultIsPaginated: true }
     );
@@ -59,6 +61,7 @@ export class HaAgentService implements HaCoAuthorService {
         this.getAllWithFilters(
           requestData.filtersCriteria.spacesFilter,
           requestData.filtersCriteria.titleFilter,
+          requestData.sortsCriteria ?? [],
           page,
           size
         ),

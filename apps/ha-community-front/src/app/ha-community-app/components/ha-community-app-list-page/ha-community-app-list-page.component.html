@@ -1,5 +1,9 @@
 <ha-page>
   <fl-infinite-scroll [datasource]="communityAppsPaginated" infiniteMode="auto" class="section">
+    <co-list-filters [user]="user" [sortsCriteriaKeys]="sortsCriteriaKeys"
+                     (sortsCriteriaChanged)="onSortsCriteriaChanged($event)"
+                     (titleFilterChanged)="onTitleFilterChanged($event)"
+                     (spacesFilterChanged)="onSpacesFilterChanged($event)"></co-list-filters>
     <ha-list-of-items>
       @for (communityApp of communityAppsPaginated | flDatasourceConnect | async; track communityApp.id) {
         <a class="apps-result-card-div" [routerLink]="communityApp | haDetailRoute">

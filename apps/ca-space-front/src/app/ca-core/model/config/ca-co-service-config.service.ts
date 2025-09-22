@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CoConfig, CoTagValue, CoTagValueEditDTO } from '@monorepo/community-lib';
+import { CoConfig, CoSpace, CoTagValue, CoTagValueEditDTO } from '@monorepo/community-lib';
 import { TdParamSpec, TdParamSpecs } from '@monorepo/technical-doc';
 import { Observable } from 'rxjs';
 
@@ -55,5 +55,9 @@ export class CaCoServiceConfig extends CoConfig {
   updateTagValue(tagValueEdit: CoTagValueEditDTO): Observable<CoTagValue> {
     throw new Error(`Error: updateTagValue not implemented in
     CaCoServiceConfig for tagValueEdit: ${JSON.stringify(tagValueEdit)}`);
+  }
+
+  getSpacesOfCurrentUser():Observable<CoSpace[]>{
+    throw new Error(`Error: getSpacesOfCurrentUser() not implemented in CaCoServiceConfig`);
   }
 }

@@ -32,7 +32,7 @@ export class HaPageHeaderComponent {
       route: `/${urls[0].path}`,
     });
     if (urls.length < 3) return pathTree;
-    const entityType = this.currentPageState.currentEntityType();
+    const entityType = this.currentPageState.getCurrentEntityType()();
     let entityRoute: string;
     switch (entityType) {
       case HaEntityType.STORY:

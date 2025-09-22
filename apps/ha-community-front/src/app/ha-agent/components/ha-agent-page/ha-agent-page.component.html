@@ -1,53 +1,59 @@
-<div class="agent-page-div">
-  @if (!isLoading() && !notFound() && agent()) {
-    <div class="left-panel">
-      <mat-icon class="button-close-left-panel" haSidenavButton></mat-icon>
-      <ha-agent-versions-panel class="version-list-panel"></ha-agent-versions-panel>
+<ha-page
+  [pageTitle]="agent()?.title ?? tempTitle"
+  [showPageDescription]="false"
+  [isLoading]="isLoading()"
+  [notFound]="notFound()">
+  @if (agent()) {
+    <div class="entity-page-section">
+      <div class="entity-page-infos">
+        <ha-entity-page-infos
+          [entityId]="agent().id"
+          [entityType]="entityType"
+          [contributors]="contributors()"
+          [date]="agent().createdAt"
+          [space]="agent().space"
+          [isAuthor]="isAuthor()">
+
+          <div class="entity-page-info-div">
+            <span class="g-text-medium g-weight-600">{{ 'versions_list' | translate }}</span>
+            <div class="entity-page-info-div-content additional-info-div">
+              <a [routerLink]="'.'">
+                <span>Overview</span>
+              </a>
+              @for (version of versions(); track version.id) {
+                <a
+                  [routerLink]="['version', version.version]"
+                >
+                  <span>{{'version' | translate}} {{ version.version }}</span>
+                  @if (version.versionState === 'DRAFT') {
+                    <span class="not-published-message g-text-small">{{'not_published' | translate}}</span>
+                  }
+                </a>
+              }
+            </div>
+          </div>
+
+          <div class="entity-page-separator"></div>
+
+          <div class="entity-page-info-div">
+            <span class="g-text-medium g-weight-600">{{ 'necessary_bricks' | translate }}</span>
+            <div class="entity-page-info-div-content additional-info-div">
+              @for (brickVersion of brickDependencies(); track brickVersion.id) {
+                <p>{{brickVersion.brickMajorVersion.brick.name}} {{brickVersion.version}}</p>
+              }
+            </div>
+          </div>
+
+          <div class="entity-page-separator"></div>
+
+        </ha-entity-page-infos>
+      </div>
+      <div class="entity-page-content">
+        <router-outlet></router-outlet>
+      </div>
+      <div class="entity-page-comment" id="comments">
+        <ha-comments-section [user]="currentUser()"></ha-comments-section>
+      </div>
     </div>
   }
-
-  <div class="main-panel main-agent-panel">
-    @if (agent() && !isLoading() && !notFound()) {
-      <router-outlet></router-outlet>
-    } @else if (notFound() && !isLoading()) {
-      <ha-ha404></ha-ha404>
-    } @else {
-      <div class="g-flex">
-        <fl-loader></fl-loader>
-      </div>
-    }
-  </div>
-
-  @if (agent() && !isLoading() && !notFound()) {
-    <div class="right-panel">
-      <div class="agent-user-div">
-        <h5 class="agent-user-title">
-          <span>{{ 'authors' | translate }}</span>
-          @if (isAuthor()) {
-            <button
-              mat-icon-button
-              (click)="openLtCoAuthorsDialog()"
-              [matTooltip]="'open_coauthor_panel' | translate">
-              <mat-icon>group_add</mat-icon>
-            </button>
-          }
-        </h5>
-        @if (agent() && agent().createdBy) {
-          <div class="agent-user-line">
-            <a [routerLink]="profileRoute + agent().createdBy.id">
-              <fl-user-inline [user]="agent().createdBy" [portalOnHover]="false"></fl-user-inline>
-            </a>
-            <mat-icon>workspace_premium</mat-icon>
-          </div>
-        }
-        @for (ltCoAuthor of agentCoAuthors(); track ltCoAuthor.id) {
-          <div class="agent-user-line">
-            <a [routerLink]="profileRoute + ltCoAuthor.id">
-              <fl-user-inline [user]="ltCoAuthor" [portalOnHover]="false"></fl-user-inline>
-            </a>
-          </div>
-        }
-      </div>
-    </div>
-  }
-</div>
+</ha-page>

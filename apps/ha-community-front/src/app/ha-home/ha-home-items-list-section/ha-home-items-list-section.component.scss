@@ -30,32 +30,6 @@
   background: rgba(60, 60, 67, 0.18);
 }
 
-.item-type-div{
-  display: flex;
-  padding: 5px;
-  justify-content: center;
-  align-items: center;
-  font-size: 17.5px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 150%; /* 26.25px */
-  letter-spacing: -0.35px;
-  background: transparent;
-  flex: auto;
-  border-radius: 7.5px;
-  transition: 0.2s;
-}
-
-.item-type-div:hover{
-  cursor: pointer;
-}
-
-.active-item-type-div{
-  box-shadow: 0 3.75px 10px 0 rgba(0, 0, 0, 0.12), 0 3.75px 1.25px 0 rgba(0, 0, 0, 0.04);
-  background: #FFF;
-}
-
-
 .items-list-div{
   margin-top: 48px;
   padding: 32px;

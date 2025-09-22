@@ -1,152 +1,156 @@
-@if (story && !notFound) {
-  <form [formGroup]="formGp">
-    <div class="main-panel g-max-article-width">
-      <div class="title-image-div">
-        <h2
-          id="storyTitle"
-          class="title-input"
-          flElementEditable
-          (flElementValueChange)="onTitleChange($event)">
-          {{ story.title }}
-        </h2>
-        <fl-update-image-container
-          class="story-image-preview"
-          [uploadConfig]="imageConfig"
-          [deleteConfig]="deleteImageConfig"
-          [showDelete]="!isMainImageInContent()">
-          <div
-            class="story-image"
-            [style.background-image]="
+<ha-page
+  [pageTitle]="'edit_story_page_title' | translate: {storyTitle: story?.title ?? ''} "
+  [isLoading]="isLoading"
+  [notFound]="notFound"
+  [showPageDescription]="false"
+>
+  @if (story) {
+    <div class="section">
+      <form [formGroup]="formGp">
+          <div class="title-image-div">
+            <h2
+              id="storyTitle"
+              flElementEditable
+              (flElementValueChange)="onTitleChange($event)">
+              {{ story.title }}
+            </h2>
+            <fl-update-image-container
+              class="story-image-preview"
+              [uploadConfig]="imageConfig"
+              [deleteConfig]="deleteImageConfig"
+              [showDelete]="!isMainImageInContent()">
+              <div
+                class="story-image"
+                [style.background-image]="
               story.mainPicture ? 'url(\'' + getStoryImageLink(story.mainPicture) + '\')' : null
             ">
-            @if (!story.mainPicture) {
-              <mat-icon class="image-placeholder"> add_a_photo </mat-icon>
+                @if (!story.mainPicture) {
+                  <mat-icon class="image-placeholder"> add_a_photo </mat-icon>
+                }
+              </div>
+            </fl-update-image-container>
+          </div>
+
+<!--          <mat-form-field class="form-field">-->
+<!--            <mat-label>{{ 'topics' | translate }}</mat-label>-->
+<!--            <mat-chip-grid #topicChipList>-->
+<!--              @for (topic of story.topics; track topic) {-->
+<!--                <mat-chip-row (removed)="removeTopic(topic)">-->
+<!--                  {{ topic.name }}-->
+<!--                  <button matChipRemove>-->
+<!--                    <mat-icon>cancel</mat-icon>-->
+<!--                  </button>-->
+<!--                </mat-chip-row>-->
+<!--              }-->
+
+<!--              <input-->
+<!--                matInput-->
+<!--                flInputMaxLength="30"-->
+<!--                [formControl]="topicControl"-->
+<!--                [matAutocomplete]="auto"-->
+<!--                [matChipInputFor]="topicChipList"-->
+<!--                #topicInput />-->
+<!--            </mat-chip-grid>-->
+<!--            <mat-autocomplete-->
+<!--              autoActiveFirstOption-->
+<!--              #auto="matAutocomplete"-->
+<!--              [displayWith]="displayFn"-->
+<!--              (optionSelected)="onSelectTopic($event)">-->
+<!--              @for (topic of filteredTopics | async; track topic) {-->
+<!--                <mat-option [value]="topic">-->
+<!--                  {{ topic.name }}-->
+<!--                </mat-option>-->
+<!--              }-->
+<!--            </mat-autocomplete>-->
+<!--            @if (canSaveTopic && story.topics.length < 5 && checkTopicControl()) {-->
+<!--              <mat-icon-->
+<!--                matSuffix-->
+<!--                (click)="saveTopic()"-->
+<!--                [matTooltip]="'create_new_story_topic' | translate"-->
+<!--                class="input-icon">-->
+<!--                save-->
+<!--              </mat-icon>-->
+<!--            }-->
+<!--          </mat-form-field>-->
+
+          <div class="buttons-div">
+            @if (story.status === 'DRAFT') {
+              <div>
+                <button
+                  mat-flat-button
+                  type="button"
+                  *haIsAuthenticated
+                  (click)="publish()"
+                  [matTooltip]="'publish_the_story' | translate">
+                  {{ 'publish_story' | translate }}
+                  <mat-icon>publish</mat-icon>
+                </button>
+              </div>
             }
-          </div>
-        </fl-update-image-container>
-      </div>
 
-      <mat-form-field class="form-field">
-        <mat-label>{{ 'topics' | translate }}</mat-label>
-        <mat-chip-grid #topicChipList>
-          @for (topic of story.topics; track topic) {
-            <mat-chip-row (removed)="removeTopic(topic)">
-              {{ topic.name }}
-              <button matChipRemove>
-                <mat-icon>cancel</mat-icon>
+            <div class="save-content-div">
+              @if (story.status !== 'DRAFT' && (contentModified || !syncWithBack)) {
+                <button
+                  mat-flat-button
+                  *haIsAuthenticated
+                  (click)="save()"
+                  [matTooltip]="'publish_story_with_modifications' | translate"
+                  [disabled]="!syncWithBack">
+                  {{ 'publish_story_modifications' | translate }}
+                </button>
+              }
+              <div class="g-layout-row g-layout-between-center save-info">
+                <te-text-editor-save
+                  [formCtrl]="contentEditionFormControl"
+                  [saveFunc]="saveContentEdition"
+                  [debounceTime]="2500"></te-text-editor-save>
+              </div>
+            </div>
+
+            <div class="right-bts-div">
+              @if (isAuthor) {
+                <button
+                  mat-icon-button
+                  type="button"
+                  class="co-author-bt"
+                  (click)="openCoAuthorDialog()"
+                  [matTooltip]="'open_coauthor_panel' | translate">
+                  <mat-icon>group_add</mat-icon>
+                </button>
+              }
+
+              <button
+                mat-icon-button
+                type="button"
+                (click)="openHistoryPanel()"
+                class="add-file-button-author"
+                [matTooltip]="'teTextEditor.open_modifications_history_panel' | translate">
+                <mat-icon>history</mat-icon>
               </button>
-            </mat-chip-row>
-          }
 
-          <input
-            matInput
-            flInputMaxLength="30"
-            [formControl]="topicControl"
-            [matAutocomplete]="auto"
-            [matChipInputFor]="topicChipList"
-            #topicInput />
-        </mat-chip-grid>
-        <mat-autocomplete
-          autoActiveFirstOption
-          #auto="matAutocomplete"
-          [displayWith]="displayFn"
-          (optionSelected)="onSelectTopic($event)">
-          @for (topic of filteredTopics | async; track topic) {
-            <mat-option [value]="topic">
-              {{ topic.name }}
-            </mat-option>
-          }
-        </mat-autocomplete>
-        @if (canSaveTopic && story.topics.length < 5 && checkTopicControl()) {
-          <mat-icon
-            matSuffix
-            (click)="saveTopic()"
-            [matTooltip]="'create_new_story_topic' | translate"
-            class="input-icon">
-            save
-          </mat-icon>
-        }
-      </mat-form-field>
-      <div class="buttons-div">
-        @if (story.status === 'DRAFT') {
-          <div>
-            <button
-              mat-flat-button
-              type="button"
-              class="publish-story-bt primary"
-              *haIsAuthenticated
-              (click)="publish()"
-              [matTooltip]="'publish_the_story' | translate">
-              {{ 'publish_story' | translate }}
-              <mat-icon>publish</mat-icon>
-            </button>
+              <button
+                mat-icon-button
+                [matTooltip]="'delete_story' | translate"
+                type="button"
+                (click)="openDeleteStoryConfirmDialog()"
+                class="add-file-button-author warn">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
           </div>
-        }
-
-        <div class="save-content-div">
-          @if (story.status !== 'DRAFT' && (contentModified || !syncWithBack)) {
-            <button
-              mat-flat-button
-              class="save-story-bt primary"
-              *haIsAuthenticated
-              (click)="save()"
-              [matTooltip]="'publish_story_with_modifications' | translate"
-              [disabled]="!syncWithBack">
-              {{ 'publish_story_modifications' | translate }}
-            </button>
+          @if (contentHasError) {
+            <span class="error-text">{{ contentError | translate }}</span>
           }
-          <div class="g-layout-row g-layout-between-center save-info">
-            <te-text-editor-save
-              [formCtrl]="contentEditionFormControl"
-              [saveFunc]="saveContentEdition"
-              [debounceTime]="2500"></te-text-editor-save>
+          <div class="story-content-form" [ngClass]="contentEditorIsFocused ? ['focus'] : []">
+            <te-text-editor
+              class="border-none editor"
+              [config]="textEditorConfig"
+              [formControl]="contentEditionFormControl"></te-text-editor>
           </div>
-        </div>
-
-        <div class="right-bts-div">
-          @if (isAuthor) {
-            <button
-              mat-icon-button
-              type="button"
-              class="co-author-bt"
-              (click)="openCoAuthorDialog()"
-              [matTooltip]="'open_coauthor_panel' | translate">
-              <mat-icon>group_add</mat-icon>
-            </button>
-          }
-
-          <button
-            mat-icon-button
-            type="button"
-            (click)="openHistoryPanel()"
-            class="add-file-button-author"
-            [matTooltip]="'teTextEditor.open_modifications_history_panel' | translate">
-            <mat-icon>history</mat-icon>
-          </button>
-
-          <button
-            mat-icon-button
-            [matTooltip]="'delete_story' | translate"
-            type="button"
-            (click)="openDeleteStoryConfirmDialog()"
-            class="add-file-button-author warn">
-            <mat-icon>delete</mat-icon>
-          </button>
-        </div>
-      </div>
-      @if (contentHasError) {
-        <mat-error>{{ contentError | translate }}</mat-error>
-      }
-      <div class="story-content-form" [ngClass]="contentEditorIsFocused ? ['focus'] : []">
-        <te-text-editor
-          class="border-none editor"
-          [config]="textEditorConfig"
-          [formControl]="contentEditionFormControl"></te-text-editor>
-      </div>
+      </form>
     </div>
-  </form>
-} @else if (notFound) {
-  <div class="main-panel">
-    <ha-ha404></ha-ha404>
-  </div>
-}
+
+  }
+</ha-page>
+
+

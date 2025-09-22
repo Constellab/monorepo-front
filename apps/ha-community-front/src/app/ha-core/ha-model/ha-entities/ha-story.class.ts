@@ -92,12 +92,6 @@ export class HaListStoryDto implements CoListStoryDto {
 
 export class HaStoryFilters {
   title: string;
-  topics: string[];
-
-  constructor(title_: string) {
-    this.topics = [];
-    this.title = title_ ?? '';
-  }
 }
 
 export type HaStoryDatasourcePaginated<F = void> = FlDatasourcePaginated<HaStory, F>;

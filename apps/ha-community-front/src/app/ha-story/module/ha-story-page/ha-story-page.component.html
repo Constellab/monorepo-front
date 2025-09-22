@@ -1,4 +1,4 @@
-<ha-page [pageTitle]="story()?.title ?? tempTitle" [isLoading]="isLoading()" [notFound]="notFound()">
+<ha-page [pageTitle]="story()?.title ?? tempTitle" [isLoading]="isLoading()" [notFound]="notFound()" >
   @if (story()) {
     <div class="entity-page-section">
       <div class="entity-page-infos">
@@ -10,11 +10,13 @@
           [date]="story().createdAt">
           @if (canEdit()) {
             <div class="entity-page-infos">
-              <button type="button" mat-flat-button (click)="openStoryEditDialog()" class="g-full">
+              <a type="button" mat-flat-button [routerLink]="storyEditRoute()" class="g-full">
                 <mat-icon>edit</mat-icon>
                 {{ 'edit_story' | translate }}
-              </button>
+              </a>
             </div>
+
+            <div class="entity-page-separator"></div>
           }
 
           @if (titles() && titles().length > 0) {

@@ -1,12 +1,5 @@
-.back-link {
-  margin-bottom: 40px;
-}
-
-.brick-content-div {
-  margin-top: 19px;
-}
-
-.back-link {
-  display: block;
-  width: fit-content;
+.brick-page-content{
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
 }

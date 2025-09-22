@@ -59,7 +59,7 @@ export class HaHomeComponent extends HaCommunityPageDirective implements OnInit 
     );
 
     this.stories$ = this.storyService.getAllPaginatedFiltered(4);
-    this.stories$.getFirstPage({ title: '', topics: [] });
+    this.stories$.getFirstPage({ title: '' });
 
     this.agents$ = this.agentService.getAllWithFiltersPaginated(4);
     this.agents$.getFirstPage({ spacesFilter: [], titleFilter: '' });

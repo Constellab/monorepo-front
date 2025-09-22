@@ -14,8 +14,10 @@
     <span>{{ likes() }}</span>
   </div>
 
-  <div class="stat" (click)="onCommentClicked()" [ngClass]="isClickable() ? 'g-clickable' : ''">
-    <mat-icon class="stat-icon" flIcon="comment"></mat-icon>
-    <span>{{ comments() }}</span>
-  </div>
+  @if (comments() !== undefined) {
+    <div class="stat" (click)="onCommentClicked()" [ngClass]="isClickable() ? 'g-clickable' : ''">
+      <mat-icon class="stat-icon" flIcon="comment"></mat-icon>
+      <span>{{ comments() }}</span>
+    </div>
+  }
 </div>

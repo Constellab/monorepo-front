@@ -1,51 +1,16 @@
-.main-header-info {
+.agent-version-page-content{
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 48px;
 }
 
-.publish-lt-div {
+.agent-version-page-title{
+  padding: 24px 0;
+}
+
+.agent-version-info{
   display: flex;
   flex-direction: row;
   gap: 8px;
-}
-
-.agent-version-title {
-  display: flex;
-  flex-direction: row;
   align-items: center;
-
-  h3 {
-    flex: auto;
-  }
-
-  div {
-    margin-left: auto;
-  }
-}
-
-.agent-infos-div {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.agent-infos {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 8px;
-}
-
-@media (max-width: 700px) {
-  .agent-version-title {
-    flex-direction: column;
-    align-items: start;
-    gap: 0.5em;
-
-    div {
-      margin-left: 0;
-    }
-  }
 }

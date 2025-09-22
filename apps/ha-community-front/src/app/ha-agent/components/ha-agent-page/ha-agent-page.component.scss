@@ -1,32 +1,18 @@
-.back-link {
-  display: block;
-  width: fit-content;
-  margin-bottom: 1.5em;
-}
+.additional-info-div{
+  color: var(--color-foreground-light);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 16px;
 
-.agent-page-div {
-  min-height: calc(100vh - var(--navbar-height) - 19px);
-  margin-top: 19px;
-}
-
-.main-agent-panel {
-  height: 100%;
-}
-
-.agent-user-div {
-  .agent-user-title {
+  a{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
+    justify-content: space-between;
   }
 
-  .agent-user-line {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin-bottom: 0.5em;
-    gap: 0.25em;
+  .not-published-message{
+    color: var(--warn-color);
   }
 }

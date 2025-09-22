@@ -1,17 +1,9 @@
-import { AsyncPipe, NgClass } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import {
-  MatAutocomplete,
-  MatAutocompleteSelectedEvent,
-  MatAutocompleteTrigger,
-} from '@angular/material/autocomplete';
+import { MatAutocompleteSelectedEvent, } from '@angular/material/autocomplete';
 import { MatButton, MatIconButton } from '@angular/material/button';
-import { MatChipGrid, MatChipInput, MatChipRemove, MatChipRow } from '@angular/material/chips';
-import { MatOption } from '@angular/material/core';
-import { MatError, MatFormField, MatLabel, MatSuffix } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
-import { MatInput } from '@angular/material/input';
 import { MatTooltip } from '@angular/material/tooltip';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ClStringHelper } from '@monorepo/core-lib';
@@ -35,14 +27,16 @@ import {
   HaCoAuthorDialogComponent,
   HaCoAuthorsDialogInput,
 } from '../../../ha-core/entity-module/ha-co-author-core/component/ha-co-author-dialog/ha-co-author-dialog.component';
+import { HaPageComponent } from '../../../ha-core/ha-component/ha-page/ha-page.component';
 import { HaStory } from '../../../ha-core/ha-model/ha-entities/ha-story.class';
 import { HaTopic, HaTopicDto } from '../../../ha-core/ha-model/ha-entities/ha-topic.class';
 import { HaUser } from '../../../ha-core/ha-model/ha-entities/ha-user';
-import { HaIsAuthenticatedDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-is-authenticated/ha-is-authenticated.directive';
+import {
+  HaIsAuthenticatedDirective
+} from '../../../ha-core/ha-module/ha-core-directive/ha-is-authenticated/ha-is-authenticated.directive';
 import { HaAuthenticatedUserService } from '../../../ha-core/ha-service/ha-authenticated-user.service';
 import { HaStoryService } from '../../../ha-core/ha-service/ha-story.service';
 import { HaTopicService } from '../../../ha-core/ha-service/ha-topic.service';
-import { Ha404Component } from '../../../ha404/ha404.component';
 import { HaStoryTextEditorConfig } from './ha-story-text-editor.config';
 
 // TODO @vfoex, composant a refactor, trop gros complexe (Refactor avec le auto save composant ?)
@@ -56,28 +50,15 @@ import { HaStoryTextEditorConfig } from './ha-story-text-editor.config';
     ReactiveFormsModule,
     FlFormModule,
     FlImageModule,
-    MatFormField,
-    MatOption,
-    MatLabel,
-    MatChipGrid,
-    MatChipRow,
-    MatChipRemove,
-    MatInput,
     FlCoreDirectiveModule,
-    MatAutocompleteTrigger,
-    MatChipInput,
-    MatAutocomplete,
-    MatSuffix,
     MatTooltip,
     HaIsAuthenticatedDirective,
     MatButton,
     TeTextEditorModule,
     MatIconButton,
-    MatError,
     NgClass,
-    Ha404Component,
-    AsyncPipe,
     TranslatePipe,
+    HaPageComponent,
   ],
 })
 export class HaStoryEditPageComponent implements OnInit {
@@ -107,6 +88,7 @@ export class HaStoryEditPageComponent implements OnInit {
   syncWithBack: boolean = false;
   contentModified: boolean = false;
   notFound: boolean = false;
+  isLoading: boolean = false;
   imageConfig: FlUploadImageDialogConfig;
   deleteImageConfig: FlConfirmDialogInput;
   contentEditionFormControl: FormControl<TeRichText> = new FormControl({ value: null });
@@ -398,8 +380,10 @@ export class HaStoryEditPageComponent implements OnInit {
   }
 
   private getStory(id: string): void {
+    this.isLoading = true;
     this.storyService.getById(id).subscribe({
       next: (story) => {
+        this.isLoading = false;
         if (story == null) {
           this.notFound = true;
           return;
@@ -418,6 +402,7 @@ export class HaStoryEditPageComponent implements OnInit {
         });
       },
       error: () => {
+        this.isLoading = false;
         this.notFound = true;
       },
     });

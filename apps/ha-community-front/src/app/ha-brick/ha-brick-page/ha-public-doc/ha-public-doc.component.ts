@@ -36,8 +36,8 @@ import { HaDocumentationService } from '../../../ha-core/ha-service/ha-documenta
 import { HaHttpRedirectionService } from '../../../ha-core/ha-service/ha-http-redirection.service';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
 import { HaJsonLdState } from '../../../ha-core/ha-state/ha-json-ld.state';
-import { HaBrickPageState } from '../../state/ha-brick-page.state';
 import { Ha404Component } from '../../../ha404/ha404.component';
+import { HaBrickPageState } from '../../state/ha-brick-page.state';
 import { HaDocTextEditorConfig } from '../ha-doc-text-editor-config.class';
 
 @Component({

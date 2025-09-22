@@ -44,8 +44,8 @@ export class HaMetadataService {
 
   getMetaTag(name: string, isProperty: boolean = false): string {
     return isProperty
-      ? this.metaService.getTag(`property="${name}"`).content
-      : this.metaService.getTag(`name="${name}"`).content;
+      ? this.metaService.getTag(`property="${name}"`)?.content
+      : this.metaService.getTag(`name="${name}"`)?.content;
   }
 
   getFacebookShareUrl(): string {

@@ -1,22 +1,62 @@
-@if (isLoading()) {
-  <div class="main-panel g-centered-forced">
-    <fl-loader></fl-loader>
-  </div>
-} @else {
-  @if (!brickNotFound() && brick()) {
-    <div class="left-panel">
-      <mat-icon class="button-close-left-panel" haSidenavButton></mat-icon>
-      <ha-public-sidenav></ha-public-sidenav>
-    </div>
+<ha-page
+  [pageTitle]="brick()?.name ?? tempTitle()"
+  [showPageDescription]="false"
+  [isLoading]="isLoading()"
+  [notFound]="brickNotFound()">
 
-    <div class="main-panel">
-      <div class="brick-content-div">
+  @if (brick()) {
+    <div class="entity-page-section">
+      <div class="entity-page-infos">
+        <ha-entity-page-infos
+          [entityId]="brick().id"
+          [entityType]="entityType"
+          [contributors]="contributors()"
+          [date]="brick().createdAt"
+          [space]="brick().space"
+          [isAuthor]="isAuthor()">
+
+          @if (userHasEditRight()) {
+            <div class="entity-page-info-div">
+              <button type="button" mat-flat-button (click)="createEditBrickDialog()" class="g-full">
+                <mat-icon>edit</mat-icon>
+                {{ 'edit_brick' | translate }}
+              </button>
+            </div>
+
+            <div class="entity-page-separator"></div>
+          }
+
+          @if (isDocPage() && docHeaders() && docHeaders().length > 0) {
+            <div class="entity-page-info-div">
+              <span class="g-text-medium g-weight-600">{{ 'table_of_contents' | translate }}</span>
+              <div class="entity-page-info-div-content table-of-contents">
+                @for (title of docHeaders(); track title.text) {
+                  <a
+                    [routerLink]="'.'"
+                    [relativeTo]="lastActivatedRoute()"
+                    [fragment]="title.text.toLowerCase().replaceAll(' ', '-')"
+                    [ngClass]="title.level === 2 ? 'g-weight-600' : ''">
+                    {{ title.text }}
+                  </a>
+                }
+              </div>
+            </div>
+
+            <div class="entity-page-separator"></div>
+          }
+
+          <div class="entity-page-info-div">
+            <ha-public-sidenav></ha-public-sidenav>
+          </div>
+
+          <div class="entity-page-separator"></div>
+        </ha-entity-page-infos>
+      </div>
+      <div class="entity-page-content">
         <router-outlet></router-outlet>
       </div>
-    </div>
-  } @else {
-    <div class="main-panel">
-      <ha-ha404></ha-ha404>
+      <div class="entity-page-comment"></div>
     </div>
   }
-}
+</ha-page>
+

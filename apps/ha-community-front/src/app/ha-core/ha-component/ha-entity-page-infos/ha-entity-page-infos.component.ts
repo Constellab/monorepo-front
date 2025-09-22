@@ -1,14 +1,26 @@
 import { ViewportScroller } from '@angular/common';
-import { Component, inject, input, OnInit } from '@angular/core';
+import { Component, computed, inject, input, OnInit } from '@angular/core';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
 import { CoStatsListComponent, CoVisibilityBadgeComponent } from '@monorepo/community-lib';
 import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { TranslatePipe } from '@ngx-translate/core';
 import { DateTime } from 'luxon';
 
+import {
+  HaCoAuthorDialogComponent,
+  HaCoAuthorsDialogInput,
+} from '../../entity-module/ha-co-author-core/component/ha-co-author-dialog/ha-co-author-dialog.component';
+import { HaShareButtonElement } from '../../entity-module/ha-share-core/model/ha-share.class';
 import { HaEntityType } from '../../ha-model/ha-entities/ha-entity-type';
 import { HaSpace } from '../../ha-model/ha-entities/ha-space.class';
 import { HaUser } from '../../ha-model/ha-entities/ha-user';
+import { HaMetadataService } from '../../ha-service/ha-metadata.service';
+import { HaCurrentPageState } from '../../ha-state/ha-current-page.state';
 import { HaEntityCommentState } from '../../ha-state/ha-entity-comment.state';
 import { HaEntityLikeState } from '../../ha-state/ha-entity-like.state';
 
@@ -16,13 +28,26 @@ import { HaEntityLikeState } from '../../ha-state/ha-entity-like.state';
   selector: 'ha-entity-page-infos',
   templateUrl: './ha-entity-page-infos.component.html',
   styleUrl: './ha-entity-page-infos.component.scss',
-  imports: [FlUserModule, FlDateModule, CoVisibilityBadgeComponent, TranslatePipe, CoStatsListComponent],
+  imports: [
+    FlUserModule,
+    FlDateModule,
+    CoVisibilityBadgeComponent,
+    TranslatePipe,
+    CoStatsListComponent,
+    MatIconButton,
+    MatTooltip,
+    MatIcon,
+    FlIconModule,
+  ],
   providers: [HaEntityLikeState],
 })
 export class HaEntityPageInfosComponent implements OnInit {
-  private entityLikeState = inject(HaEntityLikeState);
   private entityCommentState = inject(HaEntityCommentState);
-  private scroller: ViewportScroller = inject(ViewportScroller);
+  private entityLikeState = inject(HaEntityLikeState);
+  private scroller = inject(ViewportScroller);
+  private metaService = inject(HaMetadataService);
+  private dialogService = inject(FlDialogService);
+  private currentPageState = inject(HaCurrentPageState);
 
   entityId = input.required<string>();
   entityType = input.required<HaEntityType>();
@@ -34,10 +59,33 @@ export class HaEntityPageInfosComponent implements OnInit {
 
   isLiked = this.entityLikeState.getIsLiked();
   likesCount = this.entityLikeState.getLikesCount();
-  commentsCount = this.entityCommentState.getCommentsCount();
+  commentsCount = computed(() => {
+    if (this.entityType() === HaEntityType.BRICK) return undefined;
+    return this.entityCommentState.getCommentsCount()();
+  });
+
+  shareButtons: HaShareButtonElement[];
 
   ngOnInit(): void {
     this.entityLikeState.init(this.entityId(), this.entityType());
+
+    this.shareButtons = [
+      {
+        icon: 'facebook',
+        label: 'Facebook',
+        onClick: this.shareOnFacebook,
+      },
+      {
+        icon: 'x',
+        label: 'X',
+        onClick: this.shareOnX,
+      },
+      {
+        icon: 'linkedin',
+        label: 'LinkedIn',
+        onClick: this.shareOnLinkedIn,
+      },
+    ];
   }
 
   onLikeClicked(): void {
@@ -46,5 +94,50 @@ export class HaEntityPageInfosComponent implements OnInit {
 
   onCommentClicked(): void {
     this.scroller.scrollToAnchor('comments');
+  }
+
+  openCoAuthorDialog(): void{
+    let inviteText: string = '';
+    switch (this.entityType()) {
+      case HaEntityType.STORY:
+        inviteText = 'invite_story_coauthor_information';
+        break;
+      case HaEntityType.BRICK:
+        inviteText = 'invite_brick_coauthor_information';
+        break;
+      case HaEntityType.APP:
+        inviteText = 'invite_app_coauthor_information';
+        break;
+      case HaEntityType.AGENT:
+        inviteText = 'invite_agent_coauthor_information';
+        break;
+      default:
+        throw new Error('Unsupported entity type for co-author dialog');
+    }
+
+
+    const input: HaCoAuthorsDialogInput = {
+      id: this.entityId(),
+      service: this.currentPageState.entityService(),
+      inviteText: inviteText,
+      authorId: this.contributors()[0].id,
+    };
+
+    this.dialogService.openSmallDialog(HaCoAuthorDialogComponent, { data: input }).afterClosed().subscribe();
+  }
+
+  shareOnFacebook(): void {
+    const facebookUrl = this.metaService.getFacebookShareUrl();
+    window.open(facebookUrl, '_blank');
+  }
+
+  shareOnX(): void {
+    const twitterUrl = this.metaService.getTwitterShareUrl();
+    window.open(twitterUrl, '_blank');
+  }
+
+  shareOnLinkedIn(): void {
+    const linkedInUrl = this.metaService.getLinkedInShareUrl();
+    window.open(linkedInUrl, '_blank');
   }
 }

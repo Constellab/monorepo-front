@@ -1,0 +1,84 @@
+<div class="list-filters-div">
+  <div class="sorts-div">
+    @if (sortsCriteriaKeys() && sortsCriteriaKeys().length > 0) {
+      <div class="filter-sort-div" (flOutsideClick)="sortsIsOpen = false">
+        <div class="filter-sort-div-header" (click)="sortsIsOpen = !sortsIsOpen">
+          <span>{{ 'coCommunityLib.sort_by' | translate }}</span>
+          <mat-icon>keyboard_arrow_down</mat-icon>
+        </div>
+        @if (sortsIsOpen) {
+          <div class="filter-sort-div-portal">
+            @for (sortCriteriaKey of sortsCriteriaKeys(); track sortCriteriaKey) {
+              <div class="sort-div-portal-option" (click)="selectSortCriteria(sortCriteriaKey)">
+                <span>{{ 'coCommunityLib.sort_' + sortCriteriaKey | translate }}</span>
+                @if (currentSortCriteria && currentSortCriteria.key === sortCriteriaKey) {
+                  <mat-icon class="g-icon-small">
+                    @if (currentSortCriteria.direction === 'DESC') {
+                      arrow_upward
+                    } @else {
+                      arrow_downward
+                    }
+                  </mat-icon>
+                } @else {
+                  <div class="hidden-icon-div"></div>
+                }
+              </div>
+            }
+          </div>
+        }
+      </div>
+    }
+  </div>
+  <div class="filters-div">
+
+    <div class="filter-sort-div" (flOutsideClick)="titleFilterIsOpen = false">
+      <div class="filter-sort-div-header" (click)="titleFilterIsOpen = !titleFilterIsOpen">
+        <span>{{ 'coCommunityLib.filter_by_title' | translate }}</span>
+        <mat-icon>keyboard_arrow_down</mat-icon>
+      </div>
+      @if (titleFilterIsOpen) {
+        <div class="filter-sort-div-portal">
+          <mat-form-field class="filter-title-field">
+            <input
+              matInput
+              [formControl]="titleFormControl"
+              placeholder="{{ 'coCommunityLib.title' | translate }}" />
+            <button
+              mat-icon-button
+              matSuffix
+              (click)="searchByTitle()"
+              [matTooltip]="'coCommunityLib.search' | translate"
+              aria-label="Search by title button">
+              <mat-icon>search</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+      }
+    </div>
+
+    @if (user() && !hideSpaceFilter()) {
+      <div class="filter-sort-div" (flOutsideClick)="spacesFilterIsOpen = false">
+        <div class="filter-sort-div-header" (click)="spacesFilterIsOpen = !spacesFilterIsOpen">
+          <span>{{ 'coCommunityLib.filter_by_space' | translate }}</span>
+          <mat-icon>keyboard_arrow_down</mat-icon>
+        </div>
+        @if (spacesFilterIsOpen) {
+          <div class="filter-sort-div-portal">
+            @for (space of userSpace$ | async; track space.id) {
+              <div class="filter-div-portal-option" (click)="selectSpace(space)">
+                <mat-icon>
+                  @if (spacesSelectionModel.isSelected(space)) {
+                    <mat-icon>check_box</mat-icon>
+                  } @else {
+                    <mat-icon>check_box_outline_blank</mat-icon>
+                  }
+                </mat-icon>
+                <co-visibility-badge [space]="space" size="medium"></co-visibility-badge>
+              </div>
+            }
+          </div>
+        }
+      </div>
+    }
+  </div>
+</div>

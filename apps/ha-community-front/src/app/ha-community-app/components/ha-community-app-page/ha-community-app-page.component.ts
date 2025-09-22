@@ -1,8 +1,10 @@
 import { Component, computed, inject, OnInit } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute } from '@angular/router';
 import { ClStringHelper } from '@monorepo/core-lib';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
@@ -12,6 +14,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { HaCommentsSectionComponent } from '../../../ha-core/entity-module/ha-comments-core/component/ha-comments-section/ha-comments-section.component';
 import { HaEntityPageInfosComponent } from '../../../ha-core/ha-component/ha-entity-page-infos/ha-entity-page-infos.component';
 import { HaPageComponent } from '../../../ha-core/ha-component/ha-page/ha-page.component';
+import { HaCommunityApp } from '../../../ha-core/ha-model/ha-entities/ha-community-app.class';
 import { HaEntityType } from '../../../ha-core/ha-model/ha-entities/ha-entity-type';
 import { HaUser } from '../../../ha-core/ha-model/ha-entities/ha-user';
 import { HaCommunityPageDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
@@ -20,6 +23,10 @@ import { HaCommunityAppService } from '../../../ha-core/ha-service/ha-community-
 import { HaEntityCommentState } from '../../../ha-core/ha-state/ha-entity-comment.state';
 import { HaCommunityAppState } from '../../state/ha-community-app.state';
 import { HaCommunityAppTextEditorConfig } from '../../utils/ha-community-app-text-editor.config';
+import {
+  HaCommunityAppCreateDialogComponent,
+  HaCreateCommunityAppInput
+} from '../ha-community-app-create-dialog/ha-community-app-create-dialog.component';
 
 @Component({
   selector: 'ha-community-app-page',
@@ -34,6 +41,7 @@ import { HaCommunityAppTextEditorConfig } from '../../utils/ha-community-app-tex
     TeTextEditorModule,
     ReactiveFormsModule,
     MatButton,
+    MatIconModule,
   ],
   templateUrl: './ha-community-app-page.component.html',
   styleUrl: './ha-community-app-page.component.scss',
@@ -45,6 +53,7 @@ export class HaCommunityAppPageComponent extends HaCommunityPageDirective implem
   private communityAppState: HaCommunityAppState = inject(HaCommunityAppState);
   private communityAppService: HaCommunityAppService = inject(HaCommunityAppService);
   private entityCommentState: HaEntityCommentState = inject(HaEntityCommentState);
+  private dialogService: FlDialogService = inject(FlDialogService);
 
   textEditorConfig: HaCommunityAppTextEditorConfig;
   appDescriptionFormControl = new FormControl<TeRichText>(null);
@@ -72,6 +81,10 @@ export class HaCommunityAppPageComponent extends HaCommunityPageDirective implem
     return [this.communityAppState.app().createdBy, ...coAuthors];
   });
   canEdit = this.communityAppState.canEditApp;
+  isAuthor = computed(() => {
+    if (!this.currentUser || !this.communityAppState.app()) return false;
+    return this.currentUser.id === this.communityAppState.app().createdBy.id;
+  });
 
   onAboutEditionLoading: boolean = false;
 
@@ -99,6 +112,26 @@ export class HaCommunityAppPageComponent extends HaCommunityPageDirective implem
         this.communityAppState.set(updatedApp);
         this.onAboutEditionLoading = false;
         this.appDescriptionFormControl.disable();
+      });
+  }
+
+  openEditCommunityAppDialog(): void {
+    const data: HaCreateCommunityAppInput = {
+      mode: 'update',
+      object: {
+        id: this.communityApp().id,
+        title: this.communityApp().title,
+        appUrl: this.communityApp().appUrl,
+        picture: this.communityApp().picture,
+        spaceId: this.communityApp().space?.id,
+      }
+    };
+    this.dialogService.openMediumDialog(HaCommunityAppCreateDialogComponent, { data: data })
+      .afterClosed()
+      .subscribe((communityApp: HaCommunityApp) => {
+        if (communityApp) {
+          this.communityAppState.set(communityApp);
+        }
       });
   }
 }

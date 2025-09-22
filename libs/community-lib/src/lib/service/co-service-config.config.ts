@@ -1,6 +1,7 @@
 import { TdParamSpec, TdParamSpecs } from '@monorepo/technical-doc';
 import { Observable } from 'rxjs';
 
+import { CoSpace } from '../model/co-space.class';
 import { CoTagValue, CoTagValueEditDTO } from '../model/co-tag-value.class';
 
 export abstract class CoConfig {
@@ -34,4 +35,6 @@ export abstract class CoConfig {
     newName: string,
     spec: TdParamSpec
   ): Observable<TdParamSpecs>;
+
+  public abstract getSpacesOfCurrentUser(): Observable<CoSpace[]>;
 }

@@ -15,6 +15,7 @@ import { UrlSegment } from '@angular/router';
 import { ClStringHelper } from '@monorepo/core-lib';
 import { FlStatusEvent } from '@monorepo/front-core-lib/fl-core';
 import { TdTypeEntity } from '@monorepo/technical-doc';
+import { TeBlockHeaderData, TeBlockHeaderLevel } from '@monorepo/text-editor';
 import { plainToInstance } from 'class-transformer';
 
 import { HaFile } from '../../ha-core/entity-module/ha-file-core/model/ha-file';
@@ -26,7 +27,6 @@ import {
   HaRunStatAggregateObjectType,
 } from '../../ha-core/ha-model/ha-entities/ha-run-stat-aggregate.class';
 import { HaReferenceDTO } from '../../ha-core/ha-model/ha-entities/ha-version.class';
-import { HaAuthenticatedUserService } from '../../ha-core/ha-service/ha-authenticated-user.service';
 import { HaBrickService } from '../../ha-core/ha-service/ha-brick.service';
 import { HaBrickVersionService } from '../../ha-core/ha-service/ha-brick-version.service';
 import { HaDocumentationService } from '../../ha-core/ha-service/ha-documentation.service';
@@ -43,7 +43,6 @@ export class HaBrickPageState {
   private documentationService = inject(HaDocumentationService);
   private httpRedirectionService = inject(HaHttpRedirectionService);
   private runStatAggregateService = inject(HaRunStatAggregateService);
-  private authenticatedUserService = inject(HaAuthenticatedUserService);
 
   private BRICK_KEY: StateKey<object> = makeStateKey<HaBrick>('brick');
   private LATEST_BRICK_VERSION_KEY: StateKey<object> = makeStateKey<HaBrick>('latest-brick-version');
@@ -63,6 +62,7 @@ export class HaBrickPageState {
     signal<FlStatusEvent<HaRunStatAggregate>>(null);
   private runStatAggregateStatusEvent: WritableSignal<FlStatusEvent<HaRunStatAggregate>> =
     signal<FlStatusEvent<HaRunStatAggregate>>(null);
+  private tempTitle: WritableSignal<string> = signal<string>('');
 
   public brickAndPathVersion: Signal<[HaBrick, string]> = computed(() => {
     return [this.brick(), this.pathVersion()];
@@ -172,9 +172,16 @@ export class HaBrickPageState {
     return null;
   });
 
+  public docHeaders: Signal<TeBlockHeaderData[]> = computed(() => {
+    if (!this.doc()?.content) return [];
+    return this.doc().content?.getHeadersData([TeBlockHeaderLevel.HEADER_1, TeBlockHeaderLevel.HEADER_2]);
+  });
+
+
   public init(brickName: string, version: string): void {
     this.pathVersion.set(version);
-    this.initBrick(brickName, version);
+    this.tempTitle.set(ClStringHelper.fromKebabCaseToSentence(brickName));
+    this.initBrick(brickName);
   }
 
   public setBrick(brick: HaBrick): void {
@@ -205,6 +212,10 @@ export class HaBrickPageState {
 
   public getDocFiles(): Signal<HaFile[]> {
     return this.docFiles;
+  }
+
+  public getTempTitle(): Signal<string> {
+    return this.tempTitle;
   }
 
   public setLatestBrickVersion(brickVersion: HaBrickVersion): void {
@@ -295,6 +306,7 @@ export class HaBrickPageState {
     this.docStatusEvent.set({ status: 'success', object: doc });
     this.initDocFileUrlPrefix(doc.id);
     this.initDocFiles(doc.id);
+
   }
 
   private initUserHasEditRight(brick: HaBrick): void {
@@ -303,7 +315,7 @@ export class HaBrickPageState {
     });
   }
 
-  private initBrick(name: string, version: string): void {
+  private initBrick(name: string): void {
     this.brickStatusEvent.set({ status: 'loading' });
 
     if (isPlatformBrowser(this.platformId) && this.transferState.hasKey(this.BRICK_KEY)) {

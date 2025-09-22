@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Injectable } from '@angular/core';
-import { CoConfig, CoTagValue, CoTagValueEditDTO } from '@monorepo/community-lib';
+import { CoConfig, CoSpace, CoTagValue, CoTagValueEditDTO } from '@monorepo/community-lib';
 import { TdParamSpec, TdParamSpecs } from '@monorepo/technical-doc';
 import { Observable } from 'rxjs';
 
@@ -49,5 +49,9 @@ export class DcCoServiceConfig extends CoConfig {
 
   updateTagValue(tagValueEdit: CoTagValueEditDTO): Observable<CoTagValue> {
     return undefined;
+  }
+
+  getSpacesOfCurrentUser():Observable<CoSpace[]>{
+    throw new Error(`Error: getSpacesOfCurrentUser() not implemented in DcCoServiceConfig`);
   }
 }

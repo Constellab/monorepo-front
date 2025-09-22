@@ -1,5 +1,207 @@
-h2 {
-  margin-bottom: 0.5em;
+//.buttons-div {
+//  display: flex;
+//  flex-direction: row;
+//  margin-bottom: 1em;
+//  justify-content: space-between;
+//}
+//
+//.inputs-div {
+//  width: 65%;
+//  padding-right: 5%;
+//}
+//
+//.form-field {
+//  width: 100%;
+//}
+//
+//.content-form-field {
+//  width: 100%;
+//}
+//
+//.story-content-form {
+//  border: 1px solid var(--hover-color);
+//  margin: 0 auto 1.5em 0;
+//  padding: 0 0.75em;
+//  transition: 0.2s;
+//  border-radius: 0.5em;
+//}
+//
+//.story-content-form .editor {
+//  min-height: 60vh;
+//}
+//
+//.save-content-div {
+//  display: flex;
+//  flex-direction: row;
+//  align-items: center;
+//
+//  .save-info {
+//    margin-left: 1em;
+//  }
+//}
+//
+//.story-content-form:hover {
+//  border: 1px solid var(--color-foreground);
+//}
+//
+//.title-image-div {
+//  display: flex;
+//  flex-direction: row;
+//  justify-content: space-between;
+//}
+//
+//.title-input {
+//  flex: auto;
+//  max-width: calc(100% - 112px - 0.5em);
+//}
+//
+//.story-image-preview {
+//  width: 115px;
+//  height: 115px;
+//  margin-bottom: 1.5em;
+//}
+//
+//.story-image {
+//  width: 115px;
+//  height: 115px;
+//  background-size: cover;
+//  background-position: center;
+//}
+//
+//.story-image-input {
+//  width: 100%;
+//  height: 100%;
+//  color: var(--light-color);
+//  display: flex;
+//  justify-content: center;
+//  align-items: center;
+//  background: var(--hover-color);
+//  opacity: 0.5;
+//}
+//
+//.delete-image {
+//  cursor: pointer;
+//  color: var(--warn-color);
+//}
+//
+//.story-image-input:hover {
+//  cursor: pointer;
+//}
+//
+//.story-image-input-logo {
+//  width: 75px;
+//  height: 75px;
+//}
+//
+//.content-editor {
+//  border: none;
+//  min-height: 40em;
+//}
+//
+//.focus {
+//  transition: 0s !important;
+//  border: 1px solid var(--primary-color) !important;
+//}
+//
+//.publish-story-bt {
+//  width: 100%;
+//  height: 56px;
+//  padding: 8px;
+//  margin-top: -0.25em;
+//}
+//
+//.input-icon {
+//  cursor: pointer;
+//}
+//
+//.co-author-bt {
+//  margin: 0.25em 0 auto auto;
+//}
+//
+//.add-file-button-author {
+//  margin: 0.25em 0 auto 0.5em;
+//}
+//
+//.add-file-button-co-author {
+//  margin: 0.25em 0 auto auto;
+//}
+//
+//.top-right-top-row {
+//  display: flex;
+//  flex-direction: row;
+//}
+//
+//.delete-story-bt-div {
+//  display: flex;
+//  flex-direction: row-reverse;
+//  margin-top: 1em;
+//}
+//
+//.right-bts-div {
+//  margin-left: auto;
+//}
+//
+//.image-placeholder {
+//  width: calc(100% - 4px);
+//  height: calc(100% - 4px);
+//  margin-top: 2px;
+//  outline: 2px solid var(--light-color);
+//  margin-left: 2px;
+//  display: flex;
+//  flex-direction: row;
+//  align-items: center;
+//  justify-content: center;
+//  font-size: 3rem;
+//}
+//
+//@media (max-width: 700px) {
+//  .buttons-div {
+//    flex-direction: column-reverse;
+//    gap: 1em;
+//  }
+//}
+
+
+form{
+  width: 100%;
+  text-align: start;
+}
+
+.title-image-div{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+
+  h2{
+    flex: auto;
+  }
+
+  .story-image-preview {
+    width: 115px;
+    height: 115px;
+    margin-bottom: 1.5em;
+  }
+
+  .story-image {
+    width: 115px;
+    height: 115px;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .image-placeholder {
+    width: calc(100% - 4px);
+    height: calc(100% - 4px);
+    margin-top: 2px;
+    outline: 2px solid var(--light-color);
+    margin-left: 2px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+  }
 }
 
 .buttons-div {
@@ -7,31 +209,6 @@ h2 {
   flex-direction: row;
   margin-bottom: 1em;
   justify-content: space-between;
-}
-
-.inputs-div {
-  width: 65%;
-  padding-right: 5%;
-}
-
-.form-field {
-  width: 100%;
-}
-
-.content-form-field {
-  width: 100%;
-}
-
-.story-content-form {
-  border: 1px solid var(--hover-color);
-  margin: 0 auto 1.5em 0;
-  padding: 0 0.75em;
-  transition: 0.2s;
-  border-radius: 0.5em;
-}
-
-.story-content-form .editor {
-  min-height: 60vh;
 }
 
 .save-content-div {
@@ -44,123 +221,13 @@ h2 {
   }
 }
 
-.story-content-form:hover {
-  border: 1px solid var(--color-foreground);
-}
-
-.title-image-div {
+.right-bts-div{
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  gap: 8px;
 }
-
-.title-input {
-  flex: auto;
-  max-width: calc(100% - 112px - 0.5em);
-}
-
-.story-image-preview {
-  width: 115px;
-  height: 115px;
-  margin-bottom: 1.5em;
-}
-
-.story-image {
-  width: 115px;
-  height: 115px;
-  background-size: cover;
-  background-position: center;
-}
-
-.story-image-input {
-  width: 100%;
-  height: 100%;
-  color: var(--light-color);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: var(--hover-color);
-  opacity: 0.5;
-}
-
-.delete-image {
-  cursor: pointer;
+.error-text{
   color: var(--warn-color);
-}
-
-.story-image-input:hover {
-  cursor: pointer;
-}
-
-.story-image-input-logo {
-  width: 75px;
-  height: 75px;
-}
-
-.content-editor {
-  border: none;
-  min-height: 40em;
-}
-
-.focus {
-  transition: 0s !important;
-  border: 1px solid var(--primary-color) !important;
-}
-
-.publish-story-bt {
-  width: 100%;
-  height: 56px;
-  padding: 8px;
-  margin-top: -0.25em;
-}
-
-.input-icon {
-  cursor: pointer;
-}
-
-.co-author-bt {
-  margin: 0.25em 0 auto auto;
-}
-
-.add-file-button-author {
-  margin: 0.25em 0 auto 0.5em;
-}
-
-.add-file-button-co-author {
-  margin: 0.25em 0 auto auto;
-}
-
-.top-right-top-row {
-  display: flex;
-  flex-direction: row;
-}
-
-.delete-story-bt-div {
-  display: flex;
-  flex-direction: row-reverse;
-  margin-top: 1em;
-}
-
-.right-bts-div {
-  margin-left: auto;
-}
-
-.image-placeholder {
-  width: calc(100% - 4px);
-  height: calc(100% - 4px);
-  margin-top: 2px;
-  outline: 2px solid var(--light-color);
-  margin-left: 2px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  font-size: 3rem;
-}
-
-@media (max-width: 700px) {
-  .buttons-div {
-    flex-direction: column-reverse;
-    gap: 1em;
-  }
+  margin-top: -0.5em;
+  margin-bottom: 1em;
 }

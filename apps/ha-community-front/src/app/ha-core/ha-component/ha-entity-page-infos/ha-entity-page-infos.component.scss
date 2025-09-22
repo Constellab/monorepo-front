@@ -4,15 +4,9 @@
   gap: 40px;
 }
 
-.entity-page-info-div {
+.entity-page-info-div-title{
   display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-.entity-page-info-div-content {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  color: var(--color-foreground-light);
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 }

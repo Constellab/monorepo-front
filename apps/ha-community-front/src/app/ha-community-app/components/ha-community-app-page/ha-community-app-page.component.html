@@ -12,7 +12,22 @@
           [contributors]="contributors()"
           [date]="communityApp().createdAt"
           [space]="communityApp().space"
-          [executions]="communityApp().executions ?? 0">
+          [executions]="communityApp().executions ?? 0"
+          [isAuthor]="isAuthor()">
+          @if (canEdit()) {
+            <div class="entity-page-info-div">
+              <button type="button" mat-flat-button (click)="openEditCommunityAppDialog()" class="g-full">
+                <mat-icon>edit</mat-icon>
+                {{ 'edit_app' | translate }}
+              </button>
+            </div>
+          }
+<!--          <div class="entity-page-info-div g-layout-row g-layout-between-center">-->
+<!--            <span class="g-text-medium g-weight-600">{{ 'documentation' | translate }}</span>-->
+<!--            <button mat-flat-button class="g-button-small">Open doc</button>-->
+<!--          </div>-->
+
+<!--          <div class="entity-page-separator"></div>-->
         </ha-entity-page-infos>
       </div>
       <div class="entity-page-content">
@@ -47,10 +62,10 @@
             </article>
           </div>
 
-          <div class="entity-page-separator"></div>
         </div>
       </div>
       <div class="entity-page-comment" id="comments">
+        <div class="entity-page-separator"></div>
         <ha-comments-section [user]="currentUser"></ha-comments-section>
       </div>
     </div>

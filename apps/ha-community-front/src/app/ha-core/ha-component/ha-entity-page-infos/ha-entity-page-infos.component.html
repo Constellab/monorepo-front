@@ -3,7 +3,19 @@
 
   @if (contributors()?.length > 0) {
     <div class="entity-page-info-div">
-      <span class="g-text-medium g-weight-600">{{ 'contributors' | translate }}</span>
+      <div class="entity-page-info-div-title">
+        <span class="g-text-medium g-weight-600">{{ 'contributors' | translate }}</span>
+        @if (isAuthor()) {
+          <button
+            mat-icon-button
+            type="button"
+            class="co-author-bt"
+            (click)="openCoAuthorDialog()"
+            [matTooltip]="'open_coauthor_panel' | translate">
+            <mat-icon>group_add</mat-icon>
+          </button>
+        }
+      </div>
       <div class="entity-page-info-div-content">
         @for (contributor of contributors(); track contributor.id) {
           <fl-user-inline [user]="contributor" [portalOnHover]="false"></fl-user-inline>
@@ -50,5 +62,12 @@
 
   <div class="entity-page-info-div">
     <span class="g-text-medium g-weight-600">{{ 'share' | translate }}</span>
+    <div class="share-buttons-div">
+      @for (shareButton of shareButtons; track shareButton.label) {
+        <button mat-icon-button [matTooltip]="('share_on' | translate) + ' ' + shareButton.label" (click)="shareButton.onClick()">
+          <mat-icon [svgIcon]="shareButton.icon"></mat-icon>
+        </button>
+      }
+    </div>
   </div>
 </div>

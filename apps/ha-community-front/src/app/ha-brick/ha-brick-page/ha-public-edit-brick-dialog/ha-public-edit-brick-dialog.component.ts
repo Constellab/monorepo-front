@@ -25,7 +25,7 @@ import { HaBrickService } from '../../../ha-core/ha-service/ha-brick.service';
 import { HaSpaceService } from '../../../ha-core/ha-service/ha-space.service';
 
 @Component({
-  selector: 'ha-ha-public-edit-brick-dialog',
+  selector: 'ha-public-edit-brick-dialog',
   templateUrl: './ha-public-edit-brick-dialog.component.html',
   styleUrls: ['./ha-public-edit-brick-dialog.component.scss'],
   imports: [

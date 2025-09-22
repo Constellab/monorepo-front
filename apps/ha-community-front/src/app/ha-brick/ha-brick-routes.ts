@@ -2,8 +2,8 @@ import { Route } from '@angular/router';
 
 import { HaLoginGuard } from '../ha-core/ha-guard/ha-login.guard';
 import {
-  HaBrickDescriptionComponent
-} from './ha-brick-page/ha-brick-description/ha-brick-description.component';
+  HaBrickDescriptionPageComponent
+} from './ha-brick-page/ha-brick-description-page/ha-brick-description-page.component';
 import {
   HaBrickPageComponent
 } from './ha-brick-page/ha-brick-page/ha-brick-page.component';
@@ -42,7 +42,7 @@ export const haBrickRoutes: Route[] = [
     children: [
       {
         path: '',
-        component: HaBrickDescriptionComponent,
+        component: HaBrickDescriptionPageComponent,
       },
       {
         path: 'version',

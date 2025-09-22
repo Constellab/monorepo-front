@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { ClPage } from '@monorepo/core-lib';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
-import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
+import { FlDatasourceSortCriteria, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 import { TeBlockFigureUploadedResponse, TeRichText } from '@monorepo/text-editor';
 import { Observable } from 'rxjs';
 
@@ -31,12 +31,13 @@ export class HaCommunityAppService implements HaCoAuthorService {
   private getAll(
     spacesFilter: string[],
     titleFilter: string,
+    sortsCriteria: FlDatasourceSortCriteria[] = [],
     page: number,
     size: number
   ): Observable<ClPage<HaCommunityApp>> {
     return this.apiService.post(
       `${this.route}/filters`,
-      { spacesFilter: spacesFilter, titleFilter: titleFilter },
+      { spacesFilter: spacesFilter, titleFilter: titleFilter, sortsCriteria: sortsCriteria },
       HaCommunityApp,
       {
         page: page,
@@ -54,6 +55,7 @@ export class HaCommunityAppService implements HaCoAuthorService {
         this.getAll(
           requestData.filtersCriteria.spacesFilter,
           requestData.filtersCriteria.titleFilter,
+          requestData.sortsCriteria,
           page,
           size
         ),

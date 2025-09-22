@@ -7,7 +7,9 @@
 html {
   --card-background: #fafafa;
 
-  --border-color: rgba(7, 37, 39, 0.06);
+  --border-color: rgba(7, 37, 39, 0.04);
+
+  --box-shadow-color: rgba(7, 37, 39, 0.3);
 
   --content-max-width: 1200px;
 
@@ -110,6 +112,10 @@ html {
       position: relative;
       z-index: 1;
     }
+  }
+
+  .mat-mdc-button-disabled {
+    color: grey !important;
   }
 
   font-size: 14px;

@@ -19,9 +19,9 @@ import { HaStoryService } from '../../../ha-core/ha-service/ha-story.service';
 export type HaCreateStoryDtoInput = FlFormDialogInput<HaCreateStoryDto>;
 
 @Component({
-  selector: 'ha-story-create-dialog',
-  templateUrl: './ha-story-create-dialog.component.html',
-  styleUrls: ['./ha-story-create-dialog.component.scss'],
+  selector: 'ha-story-edit-dialog',
+  templateUrl: './ha-story-edit-dialog.component.html',
+  styleUrls: ['./ha-story-edit-dialog.component.scss'],
   imports: [
     FlDialogModule,
     MatDialogContent,
@@ -38,7 +38,7 @@ export type HaCreateStoryDtoInput = FlFormDialogInput<HaCreateStoryDto>;
     TranslatePipe,
   ],
 })
-export class HaStoryCreateDialogComponent
+export class HaStoryEditDialogComponent
   extends FlFormDialogAbstractDirective<HaCreateStoryDto, HaStory>
   implements OnInit
 {

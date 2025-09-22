@@ -1,99 +1,32 @@
 @if (agent()) {
-  <div class="g-flex g-layout-row g-layout-start-center g-layout-gap-05em">
-    @if (agent().latestStyle) {
-      <co-update-type-icon-container
-        [style]="agent().latestStyle"
-        [iconSize]="40"
-        [disabled]="!canEditAgent()"
-        (onClickEvent)="openAgentEditStyleDialog()">
-      </co-update-type-icon-container>
-    }
-    <h1
-      flElementEditable
-      (flElementValueChange)="onTitleChange($event)"
-      [flElementDisabled]="!canEditAgent()"
-      class="g-flex-auto">
-      {{ agent().title }}
-    </h1>
-  </div>
-  <div class="agent-utils-div">
-    <div class="small-text user-date-info">
-      <a [routerLink]="profileRoute + agent().createdBy?.id">
-        <fl-user-inline [user]="agent().createdBy" [portalOnHover]="false"></fl-user-inline>
-      </a>
-      <span class="g-text-small date-info">
-        @if (agent().latestPublishVersion > 0) {
-          <fl-from-now [date]="agent().createdAt"></fl-from-now>
-        } @else {
-          <span class="g-warn-text">
-            {{ 'not_published' | translate }}
-          </span>
-        }
-      </span>
-    </div>
-    <div class="agent-buttons">
-      <ha-like-button
-        class="agent-like-bt"
-        [entityId]="agent().id"
-        [entityType]="commentType"></ha-like-button>
-
-      <ha-comment-button
-        [commentsCount]="agent().comments"
-        (clicked)="scrollToComments(comments)"></ha-comment-button>
-
-      @if (isAuthor()) {
-        <button
-          mat-icon-button
-          class="warn"
-          (click)="deleteAgent()"
-          [matTooltip]="'delete_agent' | translate">
-          <mat-icon>delete</mat-icon>
-        </button>
-      }
-    </div>
-  </div>
-
-  @if (agentRunStatAggregate()) {
-    <ha-run-stat-aggregate-panel [runStatAggregate]="agentRunStatAggregate()"></ha-run-stat-aggregate-panel>
-  }
-
-  @if (isLoading()) {
-    <div class="g-flex">
-      <fl-loader class="g-centered"></fl-loader>
-    </div>
-  } @else {
+  <div class="agent-page-content">
     <div>
-      <div class="card-header">
-        <div class="agent-description-title">
-          {{ 'agent_description' | translate }}
-        </div>
-        @if (canEditAgent()) {
-          <button
-            mat-stroked-button
-            class="g-button-small primary"
-            (click)="onDescriptionEditorButtonClick()">
-            <mat-icon>{{ descriptionEditorDisabled ? 'edit' : 'save' }}</mat-icon>
-            {{ descriptionEditorDisabled ? ('edit' | translate) : ('save' | translate) }}
-          </button>
+      <div class="agent-page-title g-layout-row g-layout-between-center">
+        <h2>{{ 'description_of_the_agent' | translate }}</h2>
+        @if (canEdit() && agentDescriptionFormControl()) {
+          @if (agentDescriptionFormControl().disabled) {
+            <button mat-flat-button (click)="editDescription()">{{ 'edit_description' | translate }}</button>
+          } @else {
+            <button mat-flat-button (click)="saveDescription()">
+              @if (onAgentDescriptionLoading) {
+                <fl-loader></fl-loader>
+              } @else {
+                {{ 'save' | translate }}
+              }
+            </button>
+          }
         }
       </div>
-      @if (canEditAgent() || !agentDescriptionEmpty()) {
-        <article>
-          <te-text-editor
-            class="description-editor"
-            [ngClass]="canEditAgent() ? 'editor-border' : ''"
-            [config]="textEditorConfig()"
-            (textChange)="onDescriptionChange($event)"
-            [formControl]="descriptionFormControl()"
-            [placeholder]="'agent_description_place_holder' | translate"></te-text-editor>
-        </article>
-      }
+      <article>
+        <te-text-editor
+          class="community-text-editor"
+          [config]="textEditorConfig()"
+          [formControl]="agentDescriptionFormControl()"></te-text-editor>
+      </article>
     </div>
 
+    <div class="entity-page-separator"></div>
+
     <ha-agent-version-detail [isOverview]="true"></ha-agent-version-detail>
-  }
-  <div #comments>
-    <!--    <ha-comments-section [commentType]="commentType" [entity]="agent()"-->
-    <!--                         [user]="currentUser()"></ha-comments-section>-->
   </div>
 }

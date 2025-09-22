@@ -83,11 +83,19 @@ implements HaCoAuthorService, HaFileServiceInterface<HaStory>, TeTextEditorHisto
     page: number,
     size: number
   ): Observable<ClPage<HaListStoryDto>> {
-    return this.apiService.post(this.route + '/filter', data.filtersCriteria, HaStory, {
-      page: page,
-      pageSize: size,
-      resultIsPaginated: true,
-    });
+    return this.apiService.post(
+      this.route + '/filter',
+      {
+        filters: data.filtersCriteria,
+        sorts: data.sortsCriteria ?? [],
+      },
+      HaStory,
+      {
+        page: page,
+        pageSize: size,
+        resultIsPaginated: true,
+      }
+    );
   }
 
   private getUserStories(userId: string, page: number, size: number): Observable<ClPage<HaListStoryDto>> {
@@ -187,11 +195,16 @@ implements HaCoAuthorService, HaFileServiceInterface<HaStory>, TeTextEditorHisto
     size: number,
     data: FlDatasourceGetPageData<HaStoryFilters>
   ): Observable<ClPage<HaListStoryDto>> {
-    return this.apiService.post(this.route + '/my-filtered', data.filtersCriteria, HaStory, {
-      page: page,
-      pageSize: size,
-      resultIsPaginated: true,
-    });
+    return this.apiService.post(
+      this.route + '/my-filtered',
+      { filters: data.filtersCriteria, sorts: data.sortsCriteria },
+      HaStory,
+      {
+        page: page,
+        pageSize: size,
+        resultIsPaginated: true,
+      }
+    );
   }
 
   /***

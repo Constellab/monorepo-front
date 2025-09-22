@@ -2,7 +2,7 @@
   @if (!inputFile) {
     <h5 class="input-div">{{ 'import_new_brick_text1' | translate }}</h5>
   }
-  <fl-input-file-container [placeholder]="'import_new_version_file' | translate" class="bt-input-div primary">
+  <fl-input-file-container [placeholder]="'import_new_version_file' | translate" class="bt-input-div">
     <input
       flInputFile
       type="file"
@@ -110,7 +110,7 @@
         {{ 'repo_error' | translate }}
       </p>
     }
-    <button mat-flat-button type="submit" class="g-centered-forced primary">
+    <button mat-flat-button type="submit" class="g-centered-forced">
       {{ 'save' | translate }}
       @if (isLoading) {
         <fl-button-loader></fl-button-loader>

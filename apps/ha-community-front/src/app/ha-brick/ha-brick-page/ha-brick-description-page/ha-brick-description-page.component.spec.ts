@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HaBrickDescriptionComponent } from './ha-brick-description.component';
+import { HaBrickDescriptionPageComponent } from './ha-brick-description-page.component';
 
 describe('HaPublicBrickDescriptionPageComponent', () => {
-  let component: HaBrickDescriptionComponent;
-  let fixture: ComponentFixture<HaBrickDescriptionComponent>;
+  let component: HaBrickDescriptionPageComponent;
+  let fixture: ComponentFixture<HaBrickDescriptionPageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [HaBrickDescriptionComponent],
+      declarations: [HaBrickDescriptionPageComponent],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HaBrickDescriptionComponent);
+    fixture = TestBed.createComponent(HaBrickDescriptionPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -80,6 +80,14 @@
   "about": "About",
   "cancel": "Cancel",
   "edit_about": "Edit about",
+  "menu": "Menu",
+
+  "description_of_the_agent": "Description of the agent",
+  "edit_version_info": "Edit version info",
+  "edit_story": "Edit story",
+  "edit_story_page_title": "Edit story - {{storyTitle}}",
+  "edit_brick": "Edit brick",
+  "share_on": "Share on",
 
   "create": "Create",
   "documentation": "Documentation",
@@ -319,7 +327,7 @@
   "confirm_publish_agent_version": "Confirm publish agent version",
   "publish_agent_version_confirmation": "Are you sure you want to publish this agent version ? Once published, the code and other details of this version will not be editable anymore.",
   "agent_version_published": "Agent version published",
-  "latest_version_infos": "Latest version infos",
+  "latest_version_info": "Latest version infos",
   "detail_of_the_version": "Detail of the version",
   "warn_agent_version_not_published": "Warning: This agent version is not published",
   "task_type": "Task type",

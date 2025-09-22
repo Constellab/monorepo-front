@@ -57,7 +57,11 @@ const coCommunityLibI18nFr: FlLangTranslation = {
     agents: 'Agents',
     stories: 'Stories',
     discover: 'Découvrir',
-
+    filter_by_space: 'Filtrer par space',
+    filter_by_title: 'Filtrer par titre',
+    sort_by: 'Trier par',
+    sort_title: 'Titre',
+    sort_createdAt: 'Création',
   },
 };
 
@@ -114,7 +118,11 @@ const coCommunityLibI18nEn: FlLangTranslation = {
     agents: 'Agents',
     stories: 'Stories',
     discover: 'Discover',
-
+    filter_by_space: 'Filter by space',
+    filter_by_title: 'Filter by title',
+    sort_by: 'Sort by',
+    sort_title: 'Title',
+    sort_createdAt: 'Creation',
   },
 };
 export const coCommunityLibI18n: FlTranslateObject = {

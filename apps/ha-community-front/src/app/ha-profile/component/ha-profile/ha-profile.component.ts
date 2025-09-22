@@ -1,11 +1,6 @@
-import { CdkScrollable } from '@angular/cdk/scrolling';
-import { AsyncPipe } from '@angular/common';
 import { afterNextRender, Component, inject, Injector, OnDestroy, OnInit } from '@angular/core';
-import { MatButton } from '@angular/material/button';
-import { MatIcon } from '@angular/material/icon';
-import { MatTab, MatTabGroup, MatTabLabel } from '@angular/material/tabs';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { CoCommunityAppListItemComponent, CoCommunityLibModule, CoUser } from '@monorepo/community-lib';
+import { CoCommunityAppListItemComponent, CoCommunityLibModule, CoUser, CoVisibilityBadgeComponent } from '@monorepo/community-lib';
 import { ClStringHelper, ClSubscriptionHandler } from '@monorepo/core-lib';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
@@ -13,11 +8,8 @@ import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scr
 import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlUserConfig, FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import { TranslatePipe } from '@ngx-translate/core';
 import { mergeMap, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-
-import { HaRunStatAggregatePanelComponent } from '../../../ha-core/ha-component/ha-run-stat-aggregate-panel/ha-run-stat-aggregate-panel.component';
 import { HaConstellabHelper } from '../../../ha-core/ha-model/ha-config/ha-constellab.helper';
 import { HaAgentDatasourcePaginated } from '../../../ha-core/ha-model/ha-entities/ha-agent.class';
 import { HaBrickDatasourcePaginated } from '../../../ha-core/ha-model/ha-entities/ha-brick.class';
@@ -28,10 +20,9 @@ import {
 } from '../../../ha-core/ha-model/ha-entities/ha-run-stat-aggregate.class';
 import { HaSpace } from '../../../ha-core/ha-model/ha-entities/ha-space.class';
 import { HaStoryListDatasourcePaginated } from '../../../ha-core/ha-model/ha-entities/ha-story.class';
-import { HaCommunityPageDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
-import { HaAppPicturePipe } from '../../../ha-core/ha-module/ha-core-pipe/ha-app-picture/ha-app-picture.pipe';
-import { HaBrickImagePipe } from '../../../ha-core/ha-module/ha-core-pipe/ha-brick-image/ha-brick-image.pipe';
-import { HaDetailRoutePipe } from '../../../ha-core/ha-module/ha-core-pipe/ha-detail-route/ha-detail-route.pipe';
+import {
+  HaCommunityPageDirective
+} from '../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
 import { HaAgentService } from '../../../ha-core/ha-service/ha-agent.service';
 import { HaAuthenticatedUserService } from '../../../ha-core/ha-service/ha-authenticated-user.service';
 import { HaBrickService } from '../../../ha-core/ha-service/ha-brick.service';
@@ -42,15 +33,27 @@ import { HaSpaceService } from '../../../ha-core/ha-service/ha-space.service';
 import { HaStoryService } from '../../../ha-core/ha-service/ha-story.service';
 import { HaUserService } from '../../../ha-core/ha-service/ha-user.service';
 import { HaJsonLdState } from '../../../ha-core/ha-state/ha-json-ld.state';
-import { HaProfileAttachedLinkComponent } from '../ha-profile-attached-link/ha-profile-attached-link.component';
 import {
   HaProfileEditDialogComponent,
   HaProfileEditDialogData,
 } from '../ha-profile-edit-dialog/ha-profile-edit-dialog.component';
+import { HaHeaderComponent } from '../../../ha-core/ha-component/ha-header/ha-header/ha-header.component';
+import { AsyncPipe, NgClass } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
+import {
+  HaHomeItemsListSectionType,
+} from '../../../ha-home/ha-home-items-list-section/ha-home-items-list-section.component';
+import { HaDetailRoutePipe } from '../../../ha-core/ha-module/ha-core-pipe/ha-detail-route/ha-detail-route.pipe';
+import { HaListOfItemsComponent } from '../../../ha-core/ha-component/ha-list-of-items/ha-list-of-items.component';
+import { HaAppPicturePipe } from '../../../ha-core/ha-module/ha-core-pipe/ha-app-picture/ha-app-picture.pipe';
+import { HaBrickImagePipe } from '../../../ha-core/ha-module/ha-core-pipe/ha-brick-image/ha-brick-image.pipe';
+import { HaFooterComponent } from '../../../ha-core/ha-component/ha-footer/ha-footer/ha-footer.component';
 
 export interface HaProfileDatasourceFilters {
   userId: string;
 }
+
+export type HaProfileSectionType = 'stories' | 'apps' | 'agents' | 'bricks';
 
 @Component({
   selector: 'ha-profile',
@@ -58,26 +61,23 @@ export interface HaProfileDatasourceFilters {
   styleUrl: './ha-profile.component.scss',
   imports: [
     FlUserModule,
-    MatButton,
-    HaProfileAttachedLinkComponent,
     FlKeyValueModule,
     FlTextIconModule,
-    MatIcon,
     CoCommunityLibModule,
-    HaRunStatAggregatePanelComponent,
-    MatTabGroup,
-    MatTab,
-    MatTabLabel,
     FlInfiniteScrollModule,
-    CdkScrollable,
-    RouterLink,
-    AsyncPipe,
     FlCorePipeModule,
+    HaHeaderComponent,
+    AsyncPipe,
     TranslatePipe,
+    CoVisibilityBadgeComponent,
+    NgClass,
     HaDetailRoutePipe,
-    HaBrickImagePipe,
+    HaListOfItemsComponent,
+    RouterLink,
     CoCommunityAppListItemComponent,
     HaAppPicturePipe,
+    HaBrickImagePipe,
+    HaFooterComponent,
   ],
 })
 export class HaProfileComponent extends HaCommunityPageDirective implements OnInit, OnDestroy {
@@ -110,6 +110,9 @@ export class HaProfileComponent extends HaCommunityPageDirective implements OnIn
 
   userRunStatAggregate$: Observable<HaRunStatAggregate>;
 
+  itemTypes: HaProfileSectionType[] = ['stories', 'apps', 'agents', 'bricks'];
+  currentType = 'stories' as HaProfileSectionType;
+
   ngOnInit(): void {
     this.init();
   }
@@ -136,6 +139,10 @@ export class HaProfileComponent extends HaCommunityPageDirective implements OnIn
     return ClStringHelper.isHttpLink(imageLinkOrId)
       ? imageLinkOrId
       : this.storyService.getImageUrl(storyId, imageLinkOrId);
+  }
+
+  changeCurrentType(type: HaHomeItemsListSectionType): void {
+    this.currentType = type;
   }
 
   private init(): void {

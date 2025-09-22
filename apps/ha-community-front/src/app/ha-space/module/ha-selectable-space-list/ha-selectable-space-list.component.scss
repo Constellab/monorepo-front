@@ -8,23 +8,3 @@
   cursor: pointer;
   width: fit-content !important;
 }
-
-.space-badge-photo {
-  width: 23px;
-  border-radius: 50%;
-}
-
-.visibility-badge-div {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 6px;
-  height: 1.75em;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-
-  img {
-    background-color: var(--hover-color);
-  }
-}

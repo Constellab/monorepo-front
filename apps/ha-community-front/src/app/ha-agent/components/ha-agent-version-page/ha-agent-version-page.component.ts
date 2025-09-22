@@ -12,15 +12,11 @@ import {
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
 import { TranslatePipe } from '@ngx-translate/core';
-
-import { HaRunStatAggregatePanelComponent } from '../../../ha-core/ha-component/ha-run-stat-aggregate-panel/ha-run-stat-aggregate-panel.component';
 import { HaTdServiceConfig } from '../../../ha-core/ha-model/ha-config/ha-td-service.config';
 import { HaAgentVersion } from '../../../ha-core/ha-model/ha-entities/ha-agent-version.class';
-import { HaRunStatAggregate } from '../../../ha-core/ha-model/ha-entities/ha-run-stat-aggregate.class';
 import { HaCommunityPageDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
 import { HaAgentService } from '../../../ha-core/ha-service/ha-agent.service';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
-import { Ha404Component } from '../../../ha404/ha404.component';
 import { HaAgentPageState } from '../../state/ha-agent-page.state';
 import {
   HaAgentEditStyleDialogComponent,
@@ -38,10 +34,8 @@ import { HaAgentVersionDetailComponent } from '../ha-agent-version-detail/ha-age
     MatIconButton,
     MatTooltip,
     MatIcon,
-    HaRunStatAggregatePanelComponent,
     HaAgentVersionDetailComponent,
     FlLoaderModule,
-    Ha404Component,
     TranslatePipe,
   ],
 })
@@ -82,9 +76,6 @@ export class HaAgentVersionPageComponent extends HaCommunityPageDirective implem
     return agentVersion_;
   });
   canEdit: Signal<boolean> = this.agentPageState.canEditAgent;
-  isAgentVersionError: Signal<boolean> = this.agentPageState.isAgentVersionError;
-  isAgentVersionLoading: Signal<boolean> = this.agentPageState.isAgentVersionLoading;
-  agentVersionRunStatAggregate: Signal<HaRunStatAggregate> = this.agentPageState.runStatAggregate;
 
   currentVersion: any = null;
 

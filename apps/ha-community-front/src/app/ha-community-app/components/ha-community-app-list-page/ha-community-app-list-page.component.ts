@@ -1,17 +1,20 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { CoCommunityAppListItemComponent, CoCommunityLibModule } from '@monorepo/community-lib';
+import {
+  CoCommunityAppListItemComponent,
+  CoCommunityLibModule,
+  CoListFiltersComponent,
+} from '@monorepo/community-lib';
+import { FlDatasourceSortCriteria } from '@monorepo/front-core-lib/fl-core';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 
 import { HaListOfItemsComponent } from '../../../ha-core/ha-component/ha-list-of-items/ha-list-of-items.component';
 import { HaPageComponent } from '../../../ha-core/ha-component/ha-page/ha-page.component';
 import {
-  HaCommunityApp,
   HaCommunityAppDatasourceFilters,
   HaCommunityAppDatasourcePaginated,
 } from '../../../ha-core/ha-model/ha-entities/ha-community-app.class';
@@ -22,10 +25,6 @@ import { HaDetailRoutePipe } from '../../../ha-core/ha-module/ha-core-pipe/ha-de
 import { HaAuthenticatedUserService } from '../../../ha-core/ha-service/ha-authenticated-user.service';
 import { HaCommunityAppService } from '../../../ha-core/ha-service/ha-community-app.service';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
-import {
-  HaCommunityAppCreateDialogComponent,
-  HaCreateCommunityAppInput,
-} from '../ha-community-app-create-dialog/ha-community-app-create-dialog.component';
 
 @Component({
   selector: 'ha-community-app-list-page',
@@ -43,19 +42,22 @@ import {
     CoCommunityLibModule,
     HaListOfItemsComponent,
     HaPageComponent,
+    CoListFiltersComponent,
   ],
   templateUrl: './ha-community-app-list-page.component.html',
   styleUrl: './ha-community-app-list-page.component.scss',
 })
 export class HaCommunityAppListPageComponent extends HaCommunityPageDirective implements OnInit {
   private communityAppService: HaCommunityAppService = inject(HaCommunityAppService);
-  private dialogService: FlDialogService = inject(FlDialogService);
   private authenticatedUserService = inject(HaAuthenticatedUserService);
 
   spacesFilter: string[] = [];
+  titleFilter: string = '';
+  sortsCriteriaKeys: string[] = ['createdAt', 'title'];
+  sortsCriteria: FlDatasourceSortCriteria[] = [];
   communityAppsPaginated: HaCommunityAppDatasourcePaginated<HaCommunityAppDatasourceFilters>;
-  titleFormControl: FormControl<string> = new FormControl('');
   user: HaUser;
+  filters: HaCommunityAppDatasourceFilters = { titleFilter: null, spacesFilter: null };
 
   ngOnInit(): void {
     this.authenticatedUserService.getUser().subscribe((user) => {
@@ -71,43 +73,25 @@ export class HaCommunityAppListPageComponent extends HaCommunityPageDirective im
     this.updateCommunityApps();
   }
 
-  openCreateCommunityAppDialog(): void {
-    const input: HaCreateCommunityAppInput = {
-      mode: 'create',
-    };
-
-    this.dialogService
-      .openMediumDialog(HaCommunityAppCreateDialogComponent, { data: input })
-      .afterClosed()
-      .subscribe((communityApp: HaCommunityApp) => {
-        if (communityApp) {
-          this.updateCommunityApps();
-        }
-      });
-  }
-
-  search(event: any): void {
-    event.preventDefault();
+  onTitleFilterChanged(title: string): void {
+    this.titleFilter = title;
     this.updateCommunityApps();
   }
 
-  isSelected(spaceId: string): boolean {
-    return this.spacesFilter.find((id) => id == spaceId) != null;
+  onSpacesFilterChanged(spaces: string[]): void {
+    this.spacesFilter = spaces;
+    this.updateCommunityApps();
   }
 
-  selectSpace(spaceId: string): void {
-    if (this.isSelected(spaceId)) {
-      this.spacesFilter = this.spacesFilter.filter((id) => id != spaceId);
-    } else {
-      this.spacesFilter.push(spaceId);
-    }
+  onSortsCriteriaChanged(sortsCriteria: FlDatasourceSortCriteria[]): void{
+    this.sortsCriteria = sortsCriteria;
     this.updateCommunityApps();
   }
 
   private updateCommunityApps(): void {
     this.communityAppsPaginated.getFirstPage({
       spacesFilter: this.spacesFilter,
-      titleFilter: this.titleFormControl.value,
-    });
+      titleFilter: this.titleFilter,
+    }, this.sortsCriteria);
   }
 }

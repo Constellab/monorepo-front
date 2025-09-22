@@ -20,6 +20,7 @@ import { HaEntityPageInfosComponent } from '../../../ha-core/ha-component/ha-ent
 import { HaPageComponent } from '../../../ha-core/ha-component/ha-page/ha-page.component';
 import { HaEntityType } from '../../../ha-core/ha-model/ha-entities/ha-entity-type';
 import { HaCommunityPageDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
+import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
 import { HaStoryService } from '../../../ha-core/ha-service/ha-story.service';
 import { HaEntityCommentState } from '../../../ha-core/ha-state/ha-entity-comment.state';
 import { HaStoryState } from '../../ha-story-core/state/ha-story.state';
@@ -82,9 +83,11 @@ export class HaStoryPageComponent extends HaCommunityPageDirective implements On
   });
   contributors = computed(() => {
     const coAuthors = this.storyState.coAuthors();
-    if (!this.story() || !coAuthors) return [];
+    if (!this.story()?.createdBy) return [];
+    if (!coAuthors) return [this.story().createdBy];
     return [this.story().createdBy, ...coAuthors];
   });
+  storyEditRoute = computed(() => HaRouterService.getStoryEditRoute(this.story()?.id));
 
   ngOnInit(): void {
     this.activatedRoute.params.pipe(first()).subscribe((params) => {
@@ -94,6 +97,4 @@ export class HaStoryPageComponent extends HaCommunityPageDirective implements On
       this.entityCommentState.init(this.entityType, params.id);
     });
   }
-
-  openStoryEditDialog(): void {}
 }

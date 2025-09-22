@@ -1,17 +1,19 @@
 import { inject, Injectable } from '@angular/core';
-import { CoConfig } from '@monorepo/community-lib';
+import { CoConfig, CoSpace } from '@monorepo/community-lib';
 import { TdParamSpec, TdParamSpecs } from '@monorepo/technical-doc';
 import { Observable } from 'rxjs';
 
 import { HaTagService } from '../../ha-service/ha-tag.service';
 import { HaTagValue, HaTagValueEditDTO } from '../ha-entities/ha-tag-value.class';
 import { HaEnvironmentHelper } from './ha-environment.helper';
+import { HaSpaceService } from '../../ha-service/ha-space.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HaCoServiceConfig extends CoConfig {
   private tagService = inject(HaTagService);
+  private spaceService = inject(HaSpaceService);
 
   getSpacePhotoUrl(filename: string): string {
     return HaEnvironmentHelper.getConstellabApiUrl() + '/spaces/photo/' + filename;
@@ -52,5 +54,9 @@ export class HaCoServiceConfig extends CoConfig {
     spec: TdParamSpec
   ): Observable<TdParamSpecs> {
     return this.tagService.renameAndEditAdditionalInfoSpec(tagKey, oldName, newName, spec);
+  }
+
+  getSpacesOfCurrentUser(): Observable<CoSpace[]> {
+    return this.spaceService.getSpacesOfCurrentUser();
   }
 }

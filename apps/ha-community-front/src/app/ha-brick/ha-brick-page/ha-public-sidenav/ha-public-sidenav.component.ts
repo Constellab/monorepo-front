@@ -1,5 +1,5 @@
 import { CdkDrag, CdkDragDrop, CdkDragHandle, CdkDropList } from '@angular/cdk/drag-drop';
-import { isPlatformBrowser, isPlatformServer, NgClass } from '@angular/common';
+import { isPlatformBrowser, isPlatformServer } from '@angular/common';
 import {
   Component,
   inject,
@@ -60,7 +60,6 @@ import { HaPublicSidenavCreateFormDialogComponent } from '../ha-public-sidenav-c
     ReactiveFormsModule,
     RouterLink,
     RouterLinkActive,
-    NgClass,
     MatTree,
     MatTreeNodeDef,
     MatTreeNode,
@@ -468,20 +467,12 @@ export class HaPublicSidenavComponent implements OnInit {
   }
 
   isSelected(node: FlTree<HaNode>): boolean {
+    console.log('isSelected', this.currentCompletePath, node.object.completePath);
     if (this.currentCompletePath.includes(node.object.id)) return true;
+
     if (node.children && node.children.length > 0) {
       for (const child of node.children) {
         if (this.isSelected(child)) return true;
-      }
-    }
-    return false;
-  }
-
-  isSelectedTech(node: FlTree<HaNode>): boolean {
-    if (this.currentCompletePath.split('/').includes(node.object.path)) return true;
-    if (node.children && node.children.length > 0) {
-      for (const child of node.children) {
-        if (this.isSelectedTech(child)) return true;
       }
     }
     return false;

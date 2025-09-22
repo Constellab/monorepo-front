@@ -1,9 +1,11 @@
-<fl-dialog-header>
-  @if (dialogInput.mode === 'create') {
-    {{ 'add_an_app' | translate }}
-  } @else {
-    {{ 'edit_app' | translate }}
-  }
+<fl-dialog-header >
+  <div class="g-small-title g-full g-layout-start-center">
+    @if (dialogInput.mode === 'create') {
+      {{ 'add_an_app' | translate }}
+    } @else {
+      {{ 'edit_app' | translate }}
+    }
+  </div>
 </fl-dialog-header>
 
 <mat-dialog-content class="g-scrollable-element">

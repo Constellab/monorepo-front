@@ -4,7 +4,7 @@
       <div class="doc-div">
         <div class="doc-div-content g-max-article-width">
           <div class="doc-title-div">
-            <h1
+            <h2
               flElementEditable
               (flElementValueChange)="onTitleChange($event)"
               [flElementValue]="titleCurrentValue()"
@@ -12,7 +12,7 @@
               [minLength]="2"
               [flElementDisabled]="!userHasEditRight()">
               {{ documentation().title }}
-            </h1>
+            </h2>
 
             <div class="save-info-and-bt-div">
               @if (!formCtrl.disabled) {

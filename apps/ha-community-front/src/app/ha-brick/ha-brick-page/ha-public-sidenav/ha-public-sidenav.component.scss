@@ -6,8 +6,8 @@ mat-tree-node {
   border-radius: 10px;
 }
 
-.selected-tree-node {
-  color: var(--primary-color);
+*{
+  color: var(--light-color);
 }
 
 .tree .tree-node:not(:last-child) {
@@ -42,13 +42,6 @@ mat-tree-node {
   align-items: center;
   width: 100%;
   justify-content: space-between;
-}
-
-.div-sidenav {
-  display: flex;
-  flex-direction: column;
-  height: calc(100vh - var(--navbar-height) - 60px);
-  padding-top: 30px;
 }
 
 .sidenav {
@@ -125,7 +118,6 @@ mat-tree-node {
   margin-left: auto;
   display: flex;
   flex-direction: row-reverse;
-  color: var(--light-color);
 }
 
 .router {

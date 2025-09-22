@@ -11,7 +11,7 @@ import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 })
 export class CoStatsListComponent {
   likes = input<number>(0);
-  comments = input<number>(0);
+  comments = input<number>(undefined);
   executions = input<number>(undefined);
   dense = input<boolean>(false);
   isClickable = input<boolean>(false);
