@@ -1,5 +1,6 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
+import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import { LiShareLinkPublicAuth } from '@monorepo/lab-lib/li-core';
 import { Observable } from 'rxjs';
@@ -7,6 +8,7 @@ import { Observable } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class LabHttpInterceptorService implements HttpInterceptor {
   private translateService = inject(FlTranslateService);
+  private apiService = inject(FlApiService);
 
   /**
    * The authentication info for public link access
@@ -25,7 +27,7 @@ export class LabHttpInterceptorService implements HttpInterceptor {
 
     let headers = req.headers.append('lang', this.translateService.getUserLanguage());
 
-    if (this.linkPublicAuth) {
+    if (this.linkPublicAuth && this.apiService.isApiUrl(req.url)) {
       headers = headers.append('gws_user_access_token', this.linkPublicAuth.userAccessToken ?? '');
       headers = headers.append('Authorization', `ShareToken ${this.linkPublicAuth.token}`);
     }

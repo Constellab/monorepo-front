@@ -1,6 +1,7 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { CoCommunityHelperService } from '@monorepo/community-lib';
+import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { Observable } from 'rxjs';
 
 import { CaCurrentSpaceService } from '../service-api/ca-current-space.service';
@@ -13,6 +14,7 @@ import { CaEnvironmentHelper } from '../utils/ca-environment.helper';
 export class CaSpaceInterceptor implements HttpInterceptor {
   private currentSpaceService = inject(CaCurrentSpaceService);
   private coCommunityHelper = inject(CoCommunityHelperService);
+  private apiService = inject(FlApiService);
 
   private readonly spaceHeader = 'local-space';
   private readonly hierarchyObjectTokenHeaderKey = 'cn-hierarchy-object-token';
@@ -31,7 +33,7 @@ export class CaSpaceInterceptor implements HttpInterceptor {
     }
 
     // If hierarchy object token is set, add it to the request headers
-    if (this.hierarchyObjectTokenHeader) {
+    if (this.hierarchyObjectTokenHeader && this.apiService.isApiUrl(req.url)) {
       req = req.clone({
         headers: req.headers.set(this.hierarchyObjectTokenHeaderKey, this.hierarchyObjectTokenHeader),
       });

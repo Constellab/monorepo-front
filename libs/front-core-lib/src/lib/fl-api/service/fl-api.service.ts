@@ -395,4 +395,8 @@ export class FlApiService {
     }
     return params.toString();
   }
+
+  public isApiUrl(url: string): boolean {
+    return url.startsWith(this.configService.getApiUrl());
+  }
 }
