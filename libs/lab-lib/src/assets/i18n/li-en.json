@@ -219,6 +219,8 @@
     "resource_include_children": "Include children resources (resources inside ResourceSet)",
     "resource_include_not_flagged": "Include not flagged resources",
     "resource_include_archived": "Include archived resources",
+    "app_include_not_flagged": "Include not flagged apps",
+    "app_include_archived": "Include archived apps",
     "resource_see_children": "See children resources",
     "resource_archived": "Resource archived",
     "open_resource": "Open resource",
@@ -496,6 +498,7 @@
     "label_modified": "Label modified",
     "spec": "Spec",
     "delete_tag_value_content": "Are you sure you want to delete the tag value ? This will also delete all the objects that use this tag value.",
-    "warnings": "Warnings"
+    "warnings": "Warnings",
+    "apps": "Apps"
   }
 }

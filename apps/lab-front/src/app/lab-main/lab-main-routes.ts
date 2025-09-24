@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import {
+  liConstAppRoute,
   liConstBaseRoute,
   liConstBiotaRoute,
   liConstDocRoute,
@@ -9,10 +10,12 @@ import {
   liConstOpenRoute,
   liConstResourceRoute,
   liConstScenarioRoute,
-  liConstScenarioTemplateRoute, liConstTagRoute,
+  liConstScenarioTemplateRoute,
+  liConstTagRoute,
   liConstViewRoute,
 } from '@monorepo/lab-lib/li-core';
 
+import { labAppRoutes } from '../lab-app/lab-app-routes';
 import { labBiotaRoutes } from '../lab-biota/lab-biota-routes';
 import { labDocumentationRoutes } from '../lab-documentation/lab-documentation-routes';
 import { LabLoginRoutes } from '../lab-login/lab-login-routes';
@@ -79,6 +82,11 @@ export const labMainRoutes: Routes = [
       {
         path: liConstResourceRoute,
         children: labResourceRoutes,
+      },
+      ////////////////////////  APP  /////////////////////////
+      {
+        path: liConstAppRoute,
+        children: labAppRoutes,
       },
       ////////////////////////  NOTE  /////////////////////////
       {

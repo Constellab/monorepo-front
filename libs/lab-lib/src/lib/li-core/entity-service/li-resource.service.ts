@@ -92,6 +92,23 @@ export class LiResourceService {
     });
   }
 
+  public appSearch(
+    page: number,
+    pageSize: number,
+    data: FlDatasourceGetPageData<LiResourceSearchFields>
+  ): Observable<ClPageI<LiResource>> {
+    const searchInput = FlSearchConverter.convertDatasourceGetPageDataToSearchParams(
+      data,
+      LiResourceSearch.filterConverter,
+      LiResourceSearch.sortConverter
+    );
+    return this.apiService.post(`${this.route}/search-app`, searchInput, LiResource, {
+      page: page,
+      pageSize: pageSize,
+      resultIsPaginated: true,
+    });
+  }
+
   public updateFlagged(id: string, flagged: boolean): Observable<LiResource> {
     return this.apiService.put(`${this.route}/${id}/flagged`, { flagged: flagged }, LiResource);
   }

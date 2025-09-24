@@ -219,6 +219,8 @@
     "resource_include_children": "Inclure les ressources filles (ressources dans les ResourceSet)",
     "resource_include_not_flagged": "Inclure les ressources non marquées",
     "resource_include_archived": "Inclure les ressources archivées",
+    "app_include_not_flagged": "Inclure les applications non marquées",
+    "app_include_archived": "Inclure les applications archivées",
     "resource_see_children": "Voir les ressources filles",
     "resource_archived": "Ressource archivée",
     "open_resource": "Ouvrir la ressource",
@@ -496,6 +498,7 @@
     "label_modified": "Label modifié",
     "spec": "Spécification",
     "delete_tag_value_content": "Êtes-vous sûr de vouloir supprimer cette valeur de tag ? La valeur sera supprimée de tous les objets qui l'utilisent.",
-    "warnings": "Avertissements"
+    "warnings": "Avertissements",
+    "apps": "Apps"
   }
 }

@@ -3,6 +3,7 @@
  * Exports all TypeScript files from li-resource
  */
 
+export * from './component/li-app-search/li-app-search.component';
 export * from './component/li-configure-resource-view/li-configure-resource-view.component';
 export * from './component/li-fs-node-types-selection-dialog/li-fs-node-types-selection-dialog.component';
 export * from './component/li-import-resource-dialog/li-import-resource-dialog.component';
@@ -31,13 +32,13 @@ export * from './component/li-resource-view-portal/li-resource-view-portal.compo
 export * from './component/li-resource-view-spec-card/li-resource-view-spec-card.component';
 export * from './component/li-resource-view-spec-list/li-resource-view-spec-list.component';
 export * from './component/li-scenarios-using-resource/li-scenarios-using-resource.component';
-export * from './component/li-select-resource/li-select-resource.component';
 export * from './component/li-select-resource-dialog/li-select-resource-dialog.component';
+export * from './component/li-select-resource/li-select-resource.component';
 export * from './component/li-update-resource-name-dialog/li-update-resource-name-dialog.component';
 export * from './component/li-update-resource-type/li-update-resource-type.component';
 export * from './model/li-note-resource-text-editor.config';
 export * from './model/li-resource-spreadsheet-page-loader.class';
 export * from './model/li-table-chart-config.class';
+export * from './service/li-resource-download.service';
 export * from './state/li-resource-detail.state';
 export * from './state/li-view-configurer-state.service';
-export * from './service/li-resource-download.service';

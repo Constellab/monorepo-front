@@ -1,10 +1,12 @@
 import {
+  liConstAppFullRoute,
   liConstBiotaFullRoute,
   liConstNoteFullRoute,
   liConstNoteTemplateFullRoute,
   liConstResourceFullRoute,
   liConstScenarioFullRoute,
-  liConstScenarioTemplateRoute, liConstTagFullRoute,
+  liConstScenarioTemplateRoute,
+  liConstTagFullRoute,
   liConstViewFullRoute,
 } from '@monorepo/lab-lib/li-core';
 
@@ -52,11 +54,17 @@ export function getMainMenuLinks(): LabMainMenuLink[] {
       route: liConstNoteTemplateFullRoute,
     },
     {
+      label: 'biox.apps',
+      icon: 'dashboard',
+      route: liConstAppFullRoute,
+      divider: true,
+    },
+    {
       label: 'biox.tags',
       icon: 'tag',
       route: liConstTagFullRoute,
-      divider: true
-    }
+      divider: true,
+    },
   ];
 }
 

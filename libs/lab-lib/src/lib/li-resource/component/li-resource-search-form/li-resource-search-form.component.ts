@@ -1,10 +1,10 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, input, OnInit } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { MatCheckbox } from '@angular/material/checkbox';
 import {
   MatExpansionPanel,
   MatExpansionPanelHeader,
-  MatExpansionPanelTitle
+  MatExpansionPanelTitle,
 } from '@angular/material/expansion';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
@@ -21,9 +21,7 @@ import { LiTableColumnsTagFilterComponent, LiTagFiltersComponent } from '@monore
 import { LiSelectTypeComponent } from '@monorepo/lab-lib/li-type';
 import { TranslatePipe } from '@ngx-translate/core';
 
-import {
-  LiResourceOriginOptionsComponent
-} from '../li-resource-origin-options/li-resource-origin-options.component';
+import { LiResourceOriginOptionsComponent } from '../li-resource-origin-options/li-resource-origin-options.component';
 
 /**
  * Work within the li-resource-search and this manage the advanced search form
@@ -58,6 +56,8 @@ import {
   ],
 })
 export class LiResourceSearchFormComponent implements OnInit {
+  mode = input<'resource' | 'app'>('resource');
+
   private searchState = inject<FlSearchState<any>>(FlSearchState);
 
   formGp: UntypedFormGroup;
