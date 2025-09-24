@@ -28,7 +28,7 @@ import { FlSnackBarModule } from '@monorepo/front-core-lib/fl-snack-bar';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlTagModule } from '@monorepo/front-core-lib/fl-tag';
 import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
-import { FlHttpInterceptorService, FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
+import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import {
   LiAuthService,
@@ -49,6 +49,7 @@ import { LabApiServiceConfig } from './app/lab-core/lab-api-module.config';
 import { LabCoServiceConfig } from './app/lab-core/lab-co-service-config.service';
 import { LabEnvStore, LabEnvStoreLocalStorage, LabEnvStoreUrl } from './app/lab-core/lab-env.store';
 import { LabEnvironmentHelper } from './app/lab-core/lab-environment.helper';
+import { LabHttpInterceptorService } from './app/lab-core/lab-http-interceptor';
 import { LabLibConfig } from './app/lab-core/lab-lib.config';
 import { LabResourceViewModuleConfig } from './app/lab-core/lab-resource-view.config';
 import { LabUserConfig } from './app/lab-core/lab-user-config.service';
@@ -127,7 +128,7 @@ function bootstrapApp(): void {
       ),
       {
         provide: HTTP_INTERCEPTORS,
-        useClass: FlHttpInterceptorService,
+        useExisting: LabHttpInterceptorService,
         multi: true,
       },
       provideAppInitializer(() => loadThemeOnInit(inject(FlThemeService))),

@@ -19,4 +19,20 @@ export class RvViewIframeComponent extends RvResourceViewDirective<RvResourceVie
   ngOnInit(): void {
     this.iframeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.view.data.src);
   }
+
+  /**
+   * Send headers to the iframe content (only works if you control the iframe content)
+   */
+  sendHeadersToIframe(): void {
+    const iframe = document.querySelector('iframe');
+    if (iframe && iframe.contentWindow) {
+      iframe.contentWindow.postMessage(
+        {
+          type: 'SET_HEADERS',
+          headers: { Hello: 'World' },
+        },
+        '*' // In production, replace '*' with the specific target origin
+      );
+    }
+  }
 }

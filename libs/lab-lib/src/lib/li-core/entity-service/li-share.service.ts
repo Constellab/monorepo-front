@@ -1,5 +1,4 @@
-import { HttpHeaders } from '@angular/common/http';
-import { inject,Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { ClPageI } from '@monorepo/core-lib';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
@@ -10,7 +9,6 @@ import {
   LiSharedEntity,
   LiSharedEntityDatasource,
   LiShareLinkEntityType,
-  LiShareLinkPublicAuth,
 } from '../model/entities/li-share.entity';
 import { LiResourceView } from '../model/entities/resource/li-resource-view.entity';
 import { LiResourceService } from './li-resource.service';
@@ -47,30 +45,22 @@ export class LiShareService {
   }
 
   /////////////////////////////////// RESOURCE ///////////////////////////////////
-  public callDefaultViewOnResource(auth: LiShareLinkPublicAuth): Observable<LiResourceView> {
-    return this.callViewOnResource(auth, LiResourceService.defaultViewName, {}, true);
+  public callDefaultViewOnResource(): Observable<LiResourceView> {
+    return this.callViewOnResource(LiResourceService.defaultViewName, {}, true);
   }
 
   public callViewOnResource(
-    auth: LiShareLinkPublicAuth,
     viewMethodName: string,
     configValues: TdParamSpecsValues,
     saveViewConfig: boolean = false
   ): Observable<LiResourceView> {
-    let headers: HttpHeaders = undefined;
-    if (auth.userAccessToken) {
-      headers = new HttpHeaders({
-        gws_user_access_token: auth.userAccessToken,
-      });
-    }
     return this.apiService.post(
-      `${this.route}/resource/${auth.token}/views/${viewMethodName}`,
+      `${this.route}/resource/views/${viewMethodName}`,
       {
         values: configValues,
         save_view_config: saveViewConfig,
       },
-      LiResourceView,
-      { headers: headers }
+      LiResourceView
     );
   }
 }

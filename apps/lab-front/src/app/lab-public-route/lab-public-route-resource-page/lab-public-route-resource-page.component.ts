@@ -1,16 +1,17 @@
 import { AsyncPipe, NgOptimizedImage } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
 import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 import { LiResourceView, LiShareLinkPublicAuth, LiShareService } from '@monorepo/lab-lib/li-core';
-import { RvResourceViewModule, RvResourceViewModuleConfig, RvViewConfig } from '@monorepo/resource-view';
+import { RvResourceViewModule, RvViewConfig } from '@monorepo/resource-view';
 import { TdTechnicalDocModule } from '@monorepo/technical-doc';
-import { combineLatest, map, Observable, switchMap } from 'rxjs';
+import { combineLatest, map, Observable } from 'rxjs';
 
 import { LabEnvironmentHelper } from '../../lab-core/lab-environment.helper';
+import { LabHttpInterceptorService } from '../../lab-core/lab-http-interceptor';
 import { LabOpenRouteResourceViewModuleConfig } from '../model/lab-public-route-view.config';
 
 @Component({
@@ -27,11 +28,12 @@ import { LabOpenRouteResourceViewModuleConfig } from '../model/lab-public-route-
   templateUrl: './lab-public-route-resource-page.component.html',
   styleUrl: './lab-public-route-resource-page.component.scss',
 })
-export class LabPublicRouteResourcePageComponent {
+export class LabPublicRouteResourcePageComponent implements OnInit, OnDestroy {
   private activatedRoute = inject(ActivatedRoute);
 
   private labShareService = inject(LiShareService);
   private themeService = inject(FlThemeService);
+  private labPublicInterceptor = inject(LabHttpInterceptorService);
 
   /**
    * Retrieve the authentication info from the URL
@@ -49,13 +51,15 @@ export class LabPublicRouteResourcePageComponent {
     })
   );
 
-  viewModuleConfig$: Observable<RvResourceViewModuleConfig> = this.authInfo$.pipe(
-    map((auth) => new LabOpenRouteResourceViewModuleConfig(this.labShareService, auth))
-  );
+  ngOnInit(): void {
+    this.authInfo$.subscribe((auth) => {
+      this.labPublicInterceptor.setLinkPublicAuth(auth);
+    });
+  }
 
-  resourceView$: Observable<LiResourceView> = this.authInfo$.pipe(
-    switchMap((auth) => this.labShareService.callDefaultViewOnResource(auth))
-  );
+  viewModuleConfig = new LabOpenRouteResourceViewModuleConfig(this.labShareService);
+
+  resourceView$: Observable<LiResourceView> = this.labShareService.callDefaultViewOnResource();
 
   hideHeader$: Observable<boolean> = this.activatedRoute.queryParams.pipe(
     map((queryParams) => queryParams['hide_header'] === 'true')
@@ -71,5 +75,9 @@ export class LabPublicRouteResourcePageComponent {
       methodName: view.viewConfig.viewName,
       configValues: view.viewConfig.configValues,
     };
+  }
+
+  ngOnDestroy(): void {
+    this.labPublicInterceptor.clearLinkPublicAuth();
   }
 }

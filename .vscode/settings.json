@@ -13,5 +13,6 @@
     }
   },
   "nxConsole.generateAiAgentRules": true,
-  "prettier.configPath": ".prettierrc"
+  "prettier.configPath": ".prettierrc",
+  "typescript.experimental.useTsgo": false
 }
