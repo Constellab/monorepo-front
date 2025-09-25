@@ -16,6 +16,7 @@ export class HaEnvironmentHelper {
       algoliaIndexName: environment.settings.algoliaIndexName || 'Community Preprod',
       algoliaSiteVerificationKey: environment.settings.algoliaSiteVerificationKey || null,
       difyChatbotToken: environment.settings.difyChatbotToken || null,
+      homeVideoLink: environment.settings.homeVideoLink || null,
     };
     return environment;
   }
@@ -54,5 +55,9 @@ export class HaEnvironmentHelper {
 
   public static getDifyChatbotToken(): string | null {
     return HaEnvironmentHelper.getEnv().settings.difyChatbotToken;
+  }
+
+  public static getHomeVideoLink(): string | null {
+    return HaEnvironmentHelper.getEnv().settings.homeVideoLink || null;
   }
 }

@@ -24,7 +24,8 @@ export const environment: HaEnvironment = {
     algoliaSearchKey: '',
     algoliaIndexName: '',
     algoliaSiteVerificationKey: '',
-    difyChatbotToken: ''
+    difyChatbotToken: '',
+    homeVideoLink: '',
   },
 };
 

@@ -27,11 +27,10 @@ import {
   HaCommunityAppDatasourceFilters,
   HaCommunityAppDatasourcePaginated,
 } from '../../ha-core/ha-model/ha-entities/ha-community-app.class';
+import { HaStoryFilters, HaStoryListDatasourcePaginated, } from '../../ha-core/ha-model/ha-entities/ha-story.class';
 import {
-  HaStoryFilters,
-  HaStoryListDatasourcePaginated,
-} from '../../ha-core/ha-model/ha-entities/ha-story.class';
-import { HaCommunityPageDirective } from '../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
+  HaCommunityPageDirective
+} from '../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
 import { HaAgentService } from '../../ha-core/ha-service/ha-agent.service';
 import { HaAuthenticatedUserService } from '../../ha-core/ha-service/ha-authenticated-user.service';
 import { HaBrickService } from '../../ha-core/ha-service/ha-brick.service';
@@ -41,6 +40,8 @@ import { HaStoryService } from '../../ha-core/ha-service/ha-story.service';
 import { HaFeatureCardComponent } from '../../ha-main/ha-feature-card/ha-feature-card.component';
 import { HaHomeItemsListSectionComponent } from '../ha-home-items-list-section/ha-home-items-list-section.component';
 import { HaHomeSectionShineComponent } from '../ha-home-section-shine/ha-home-section-shine.component';
+import { HaEnvironmentHelper } from '../../ha-core/ha-model/ha-config/ha-environment.helper';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'ha-home',
@@ -61,6 +62,7 @@ import { HaHomeSectionShineComponent } from '../ha-home-section-shine/ha-home-se
     TranslatePipe,
     MatButton,
     RouterLink,
+    MatIcon,
   ],
 })
 export class HaHomeComponent extends HaCommunityPageDirective implements OnInit {
@@ -69,6 +71,7 @@ export class HaHomeComponent extends HaCommunityPageDirective implements OnInit 
   private agentService: HaAgentService = inject(HaAgentService);
   private brickService: HaBrickService = inject(HaBrickService);
   private communityAppService: HaCommunityAppService = inject(HaCommunityAppService);
+
   apps$: HaCommunityAppDatasourcePaginated<HaCommunityAppDatasourceFilters>;
   stories$: HaStoryListDatasourcePaginated<HaStoryFilters>;
   agents$: HaAgentDatasourcePaginated<HaAgentDatasourceFilters>;
@@ -81,6 +84,8 @@ export class HaHomeComponent extends HaCommunityPageDirective implements OnInit 
 
   productDocRoute = HaRouterService.getProductDocRoute();
   technicalDocRoute = HaRouterService.getTechDocRoute();
+
+  homeVideoLink = HaEnvironmentHelper.getHomeVideoLink();
 
   ngOnInit(): void {
     super.setMetaTags(
@@ -101,5 +106,12 @@ export class HaHomeComponent extends HaCommunityPageDirective implements OnInit 
 
     this.apps$ = this.communityAppService.getAllPaginated(4);
     this.apps$.getFirstPage({ titleFilter: '', spacesFilter: [] });
+  }
+
+  onVideoClick(event: MouseEvent): void {
+    const srcElement: HTMLVideoElement = event.srcElement as HTMLVideoElement;
+    if (srcElement && srcElement.paused) {
+      srcElement.play();
+    }
   }
 }

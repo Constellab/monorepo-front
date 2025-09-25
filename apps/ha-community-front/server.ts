@@ -28,6 +28,7 @@ environment.settings = {
   algoliaIndexName: process?.env['ALGOLIA_INDEX_NAME'] || 'Community Preprod',
   algoliaSiteVerificationKey: process?.env['ALGOLIA_SITE_VERIFICATION_KEY'] || null,
   difyChatbotToken: process?.env['DIFY_CHATBOT_TOKEN'] || null,
+  homeVideoLink: process?.env['HOME_VIDEO_LINK'] || null,
 };
 
 // The Express app is exported so that it can be used by serverless Functions.

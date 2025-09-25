@@ -72,6 +72,7 @@ if (environment.production) {
     algoliaIndexName: 'Community Preprod',
     algoliaSiteVerificationKey: null,
     difyChatbotToken: '22bhCqCeaaGiVEhr',
+    homeVideoLink: null,
   };
 
   bootstrapApp();
