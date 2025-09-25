@@ -1,7 +1,11 @@
 import { inject, Injectable } from '@angular/core';
 import { ClPage, ClVersion } from '@monorepo/core-lib';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
-import { FlDatasourceGetPageData, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
+import {
+  FlDatasourceGetPageData,
+  FlDatasourceSortCriteria,
+  FlEntityPaginatedDatasource,
+} from '@monorepo/front-core-lib/fl-core';
 import { FlSearchConverter } from '@monorepo/front-core-lib/fl-search';
 import { TdTypeEntity } from '@monorepo/technical-doc';
 import { Observable } from 'rxjs';
@@ -71,12 +75,13 @@ export class HaBrickService implements HaCoAuthorService {
   public getAllWithFilters(
     spacesFilter: string[],
     titleFilter: string,
+    sortsCriteria: FlDatasourceSortCriteria[],
     page: number,
     size: number
   ): Observable<ClPage<HaBrick>> {
     return this.apiService.post(
       `${this.route}/filters`,
-      { spacesFilter: spacesFilter, titleFilter: titleFilter },
+      { spacesFilter: spacesFilter, titleFilter: titleFilter, sorts: sortsCriteria },
       HaBrick,
       {
         page: page,
@@ -92,6 +97,7 @@ export class HaBrickService implements HaCoAuthorService {
         this.getAllWithFilters(
           requestData.filtersCriteria.spacesFilter,
           requestData.filtersCriteria.titleFilter,
+          requestData.sortsCriteria ?? [],
           page,
           size
         ),

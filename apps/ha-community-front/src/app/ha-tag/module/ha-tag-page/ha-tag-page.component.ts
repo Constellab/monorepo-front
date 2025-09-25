@@ -1,25 +1,23 @@
-import { NgClass } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
-import { MatTooltip } from '@angular/material/tooltip';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import {
   CoCommunityLibModule,
-  CoDeprecatedTagComponent,
   CoTagAdditionalInfoSpecState,
   CoTagKeyType,
   CoTagValue,
   CoTagValueEditDialogComponent,
-  CoTagValueEditDialogInput,
-  CoTagValuesTableComponent,
+  CoTagValueEditDialogInput, CoTagValuesTableComponent,
 } from '@monorepo/community-lib';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
 import { FlConfirmDialogInput, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
 import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { FlClipboardService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
@@ -28,53 +26,59 @@ import { TeCompleteConfig, TeRichText, TeTextEditorModule } from '@monorepo/text
 import { TranslatePipe } from '@ngx-translate/core';
 import { first } from 'rxjs';
 
-import { HaCommentButtonComponent } from '../../../ha-core/entity-module/ha-util-component-core/component/ha-comment-button/ha-comment-button.component';
-import { HaLikeButtonComponent } from '../../../ha-core/entity-module/ha-util-component-core/component/ha-like-button/ha-like-button.component';
+import {
+  HaEntityPageInfosComponent
+} from '../../../ha-core/ha-component/ha-entity-page-infos/ha-entity-page-infos.component';
+import { HaPageComponent } from '../../../ha-core/ha-component/ha-page/ha-page.component';
 import { HaEntityType } from '../../../ha-core/ha-model/ha-entities/ha-entity-type';
 import { HaTagKey } from '../../../ha-core/ha-model/ha-entities/ha-tag-key.class';
 import {
   HaTagValueDatasourceFilters,
   HaTagValueDatasourcePaginated,
 } from '../../../ha-core/ha-model/ha-entities/ha-tag-value.class';
-import { HaUser } from '../../../ha-core/ha-model/ha-entities/ha-user';
-import { HaCommunityPageDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
+import {
+  HaCommunityPageDirective
+} from '../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
 import { HaAuthenticatedUserService } from '../../../ha-core/ha-service/ha-authenticated-user.service';
 import { HaHttpRedirectionService } from '../../../ha-core/ha-service/ha-http-redirection.service';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
 import { HaTagService } from '../../../ha-core/ha-service/ha-tag.service';
+import { HaEntityCommentState } from '../../../ha-core/ha-state/ha-entity-comment.state';
 import {
   HaTagKeyEditDialogComponent,
   HaTagKeyEditDialogInput,
 } from '../ha-tag-key-edit-dialog/ha-tag-key-edit-dialog.component';
+import { MatTooltip } from '@angular/material/tooltip';
 
 @Component({
   selector: 'ha-tag-page',
   imports: [
     TeTextEditorModule,
-    NgClass,
     ReactiveFormsModule,
-    TranslatePipe,
-    MatButton,
-    MatIcon,
-    MatIconButton,
-    MatTooltip,
     FlCorePipeModule,
     FlInfiniteScrollModule,
     FlDateModule,
     FlUserModule,
-    RouterLink,
     FlKeyValueModule,
     CoCommunityLibModule,
-    CoDeprecatedTagComponent,
-    CoTagValuesTableComponent,
     TdTechnicalDocModule,
     FlIconModule,
-    HaCommentButtonComponent,
-    HaLikeButtonComponent,
+    HaPageComponent,
+    HaEntityPageInfosComponent,
+    TranslatePipe,
+    MatButton,
+    MatIconButton,
+    MatIcon,
+    FlLoaderModule,
+    MatTooltip,
+    CoTagValuesTableComponent,
   ],
   templateUrl: './ha-tag-page.component.html',
   styleUrl: './ha-tag-page.component.scss',
-  providers: [{ provide: TdAbstractDynamicParamSpecState, useClass: CoTagAdditionalInfoSpecState }],
+  providers: [
+    { provide: TdAbstractDynamicParamSpecState, useClass: CoTagAdditionalInfoSpecState },
+    HaEntityCommentState,
+  ],
 })
 export class HaTagPageComponent extends HaCommunityPageDirective implements OnInit {
   private tagService = inject(HaTagService);
@@ -92,21 +96,19 @@ export class HaTagPageComponent extends HaCommunityPageDirective implements OnIn
 
   canEditTag = false;
   descriptionFormControl = new FormControl<TeRichText>(new TeRichText());
-  currentUser: HaUser;
   oldTagDescription: TeRichText;
   isBooleanType = false;
-
   profileRoute = HaRouterService.getProfileRoute();
-
   tagValues: HaTagValueDatasourcePaginated<HaTagValueDatasourceFilters>;
-
-  commentType: HaEntityType = HaEntityType.TAG;
+  entityType: HaEntityType = HaEntityType.TAG;
+  isLoading: boolean;
+  notFound: boolean;
+  tempTitle: string;
+  onDescriptionEditionLoading: boolean;
+  user = toSignal(this.authenticatedUserService.getUser());
 
   ngOnInit(): void {
-    this.authenticatedUserService.getUser().subscribe((user) => {
-      this.currentUser = user;
-      this.checkRouteParams();
-    });
+    this.checkRouteParams();
   }
 
   onDescriptionEditorButtonClick(): void {
@@ -170,6 +172,23 @@ export class HaTagPageComponent extends HaCommunityPageDirective implements OnIn
           this.descriptionFormControl.setValue(tag.description);
           this.descriptionFormControl.disable();
         }
+      });
+  }
+
+  editAbout(): void {
+    this.descriptionFormControl.enable();
+  }
+
+  saveAbout(): void {
+    this.onDescriptionEditionLoading = true;
+    this.tagService
+      .saveTagKeyDescription(this.tagKey.id, this.descriptionFormControl.value)
+      .subscribe((tagKey: HaTagKey) => {
+        if (tagKey != null) {
+          this.setTagKey(tagKey, false);
+        }
+        this.onDescriptionEditionLoading = false;
+        this.descriptionFormControl.disable();
       });
   }
 
@@ -265,6 +284,7 @@ export class HaTagPageComponent extends HaCommunityPageDirective implements OnIn
       if (!params.id) {
         return;
       }
+      this.tempTitle = params.technicalName;
       this.getTagKey(params.id, params.technicalName);
     });
 
@@ -278,13 +298,22 @@ export class HaTagPageComponent extends HaCommunityPageDirective implements OnIn
   }
 
   private getTagKey(id: string, technicalName: string): void {
-    this.tagService.getTagKeyById(id).subscribe((tagKey) => {
-      if (!technicalName) {
-        this.httpRedirectionService.redirectTo(
-          HaRouterService.getTagPageRoute(tagKey.id, tagKey.technicalName)
-        );
-      }
-      this.setTagKey(tagKey);
+    this.isLoading = true;
+    this.tagService.getTagKeyById(id).subscribe({
+      next: (tagKey: HaTagKey) => {
+        this.isLoading = false;
+        if (!technicalName) {
+          this.httpRedirectionService.redirectTo(
+            HaRouterService.getTagPageRoute(tagKey.id, tagKey.technicalName)
+          );
+        }
+        this.notFound = false;
+        this.setTagKey(tagKey);
+      },
+      error: () => {
+        this.isLoading = false;
+        this.notFound = true;
+      },
     });
   }
 
@@ -302,10 +331,10 @@ export class HaTagPageComponent extends HaCommunityPageDirective implements OnIn
       this.updateTagValues();
     }
 
-    if (this.currentUser) {
+    if (this.user()) {
       if (
-        this.tagKey.createdBy.id == this.currentUser.id ||
-        this.tagKey.tagCoAuthors?.some((coAuthor) => coAuthor.id == this.currentUser.id)
+        this.tagKey.createdBy.id == this.user().id ||
+        this.tagKey.tagCoAuthors?.some((coAuthor) => coAuthor.id == this.user().id)
       ) {
         this.canEditTag = true;
       }

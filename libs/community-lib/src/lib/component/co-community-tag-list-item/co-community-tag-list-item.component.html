@@ -1,15 +1,6 @@
-<!--<co-community-list-item>-->
-<!--&lt;!&ndash;  [title]="tagKey().label"&ndash;&gt;-->
-<!--&lt;!&ndash;  [description]="tagKey().description?.getFirstParagraphsText()"&ndash;&gt;-->
-<!--&lt;!&ndash;  [user]="tagKey().createdBy"&ndash;&gt;-->
-<!--&lt;!&ndash;  [date]="tagKey().publishedAt"&ndash;&gt;-->
-<!--&lt;!&ndash;  [space]="tagKey().space"&ndash;&gt;-->
-<!--&lt;!&ndash;  [likes]="tagKey().likes"&ndash;&gt;-->
-<!--&lt;!&ndash;  [comments]="tagKey().comments"&ndash;&gt;-->
-<!--&lt;!&ndash;  [showVisibility]="true">&ndash;&gt;-->
-<!--&lt;!&ndash;  <div leftSide>&ndash;&gt;-->
-<!--&lt;!&ndash;    @if (tagKey().deprecated) {&ndash;&gt;-->
-<!--&lt;!&ndash;      <co-deprecated-tag></co-deprecated-tag>&ndash;&gt;-->
-<!--&lt;!&ndash;    }&ndash;&gt;-->
-<!--&lt;!&ndash;  </div>&ndash;&gt;-->
-<!--</co-community-list-item>-->
+<co-community-list-item type="tag"
+                        [title]="tagKey().label"
+                        [shortDescription]="tagKey().description?.getFirstParagraphsText()"
+                        [space]="tagKey().space"
+                        [likes]="tagKey().likes">
+</co-community-list-item>

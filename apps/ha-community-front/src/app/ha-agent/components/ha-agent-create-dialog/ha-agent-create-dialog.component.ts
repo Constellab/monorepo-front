@@ -33,7 +33,8 @@ export class HaAgentCreateDialogComponent
   private spaceService = inject(HaSpaceService);
 
   spaces$: Observable<HaSpace[]>;
-  inputFile: any;
+
+  currentSelectedFileName: string = '';
 
   constructor() {
     super();
@@ -71,7 +72,7 @@ export class HaAgentCreateDialogComponent
   }
 
   onFileSelected(event: any): void {
-    this.inputFile = null;
+    console.log(event)
     this.formGp.controls.versionFile.patchValue(null);
     if (event == null) {
       return;
@@ -88,8 +89,10 @@ export class HaAgentCreateDialogComponent
         const srcResult: HaAgentVersionFileInput = JSON.parse(e.target.result);
         if (!HaAgentVersionFileInput.isValid(srcResult)) {
           this.snackBarService.openErrorMessage({ text: 'file_wrong_format', translateText: true });
+          this.currentSelectedFileName = '';
           return;
         }
+        this.currentSelectedFileName = event.name;
         this.formGp.controls.versionFile.patchValue(srcResult);
       };
 

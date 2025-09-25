@@ -23,6 +23,10 @@ import { HaMetadataService } from '../../ha-service/ha-metadata.service';
 import { HaCurrentPageState } from '../../ha-state/ha-current-page.state';
 import { HaEntityCommentState } from '../../ha-state/ha-entity-comment.state';
 import { HaEntityLikeState } from '../../ha-state/ha-entity-like.state';
+import { HaAuthenticatedUserService } from '../../ha-service/ha-authenticated-user.service';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { HaRouterService } from '../../ha-service/ha-router.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ha-entity-page-infos',
@@ -48,6 +52,8 @@ export class HaEntityPageInfosComponent implements OnInit {
   private metaService = inject(HaMetadataService);
   private dialogService = inject(FlDialogService);
   private currentPageState = inject(HaCurrentPageState);
+  private authenticatedUserService = inject(HaAuthenticatedUserService);
+  private router = inject(Router);
 
   entityId = input.required<string>();
   entityType = input.required<HaEntityType>();
@@ -60,11 +66,14 @@ export class HaEntityPageInfosComponent implements OnInit {
   isLiked = this.entityLikeState.getIsLiked();
   likesCount = this.entityLikeState.getLikesCount();
   commentsCount = computed(() => {
-    if (this.entityType() === HaEntityType.BRICK) return undefined;
+    const entityType = this.entityType();
+    if (entityType === HaEntityType.BRICK || entityType === HaEntityType.TAG) return undefined;
     return this.entityCommentState.getCommentsCount()();
   });
+  user = toSignal(this.authenticatedUserService.getUser());
 
   shareButtons: HaShareButtonElement[];
+  loginRoute = HaRouterService.getLoginRoute();
 
   ngOnInit(): void {
     this.entityLikeState.init(this.entityId(), this.entityType());
@@ -89,6 +98,10 @@ export class HaEntityPageInfosComponent implements OnInit {
   }
 
   onLikeClicked(): void {
+    if (!this.user()) {
+      this.router.navigateByUrl(this.loginRoute);
+      return;
+    }
     this.entityLikeState.toggleLike();
   }
 
@@ -96,7 +109,7 @@ export class HaEntityPageInfosComponent implements OnInit {
     this.scroller.scrollToAnchor('comments');
   }
 
-  openCoAuthorDialog(): void{
+  openCoAuthorDialog(): void {
     let inviteText: string = '';
     switch (this.entityType()) {
       case HaEntityType.STORY:
@@ -114,7 +127,6 @@ export class HaEntityPageInfosComponent implements OnInit {
       default:
         throw new Error('Unsupported entity type for co-author dialog');
     }
-
 
     const input: HaCoAuthorsDialogInput = {
       id: this.entityId(),

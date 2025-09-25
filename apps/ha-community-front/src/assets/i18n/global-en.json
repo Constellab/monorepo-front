@@ -66,6 +66,21 @@
   "brick_list.create_section.subtitle": "Share it to accelerate projects for the entire community.",
   "brick_list.create_section.submit": "Submit a brick",
 
+  "icon_list.header.title": "Icons to customize your processes, resources and agents",
+  "icon_list.header.description": "Discover icons to customize your processes, resources and agents. Contribute or reuse them freely.",
+  "icon_list.create_section.hint": "Icons to customize your processes, resources and agents",
+  "icon_list.create_section.title": "Do you want to upload an icon?",
+  "icon_list.create_section.subtitle": "Share it to enrich the icon library of the community.",
+  "icon_list.create_section.submit": "Submit an icon",
+
+  "tag_list.header.title": "Tags and metadata",
+  "tag_list.header.description": "Discover the Constellab Community tags and metadata database.",
+  "tag_list.create_section.hint": "Tags and metadata",
+  "tag_list.create_section.title": "Do you want to create a new tag?",
+  "tag_list.create_section.subtitle": "Create it to enrich the tag library of the community.",
+  "tag_list.create_section.submit": "Submit a tag",
+
+
   "join_the_community": "Join the community",
   "discover_all_stories": "Discover all stories",
   "discover_all_apps": "Discover all apps",
@@ -87,7 +102,16 @@
   "edit_story": "Edit story",
   "edit_story_page_title": "Edit story - {{storyTitle}}",
   "edit_brick": "Edit brick",
+
   "share_on": "Share on",
+  "contact": "Contact",
+  "how_to_contribute": "How to contribute ?",
+  "confidentiality_policy": "Confidentiality policy",
+  "legal_information": "Legal information",
+  "search_global": "Search stories, agents, users...",
+  "upload_app_picture": "Upload app picture",
+  "no_agent_version_published_yet": "No agent version published yet",
+  "no_interests_specified": "No interests specified",
 
   "create": "Create",
   "documentation": "Documentation",

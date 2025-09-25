@@ -5,4 +5,5 @@ export enum HaEntityType {
   APP = 'app',
   TAG = 'tag',
   DOC = 'doc',
+  ICON = 'icon',
 }

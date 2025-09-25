@@ -1,16 +1,20 @@
 <div>
   @if (!inputFile) {
-    <h5 class="input-div">{{ 'import_new_brick_text1' | translate }}</h5>
+    <div class="input-div">{{ 'import_new_brick_text1' | translate }}</div>
   }
-  <fl-input-file-container [placeholder]="'import_new_version_file' | translate" class="bt-input-div">
-    <input
-      flInputFile
-      type="file"
-      [strictMode]="true"
-      [autoClearHtmlInput]="true"
-      accept="application/json"
-      (fileChange)="onFileSelected($any($event))" />
-  </fl-input-file-container>
+  <div class="g-layout-row g-layout-start-center g-gap-05em">
+    <fl-input-file-container [placeholder]="'import_new_version_file' | translate" class="bt-input-div">
+      <input
+        flInputFile
+        type="file"
+        [strictMode]="true"
+        [autoClearHtmlInput]="true"
+        accept="application/json"
+        (fileChange)="onFileSelected($any($event))" />
+    </fl-input-file-container>
+    <span>{{fileName}}</span>
+  </div>
+
 </div>
 
 @if (inputFile && !(errorInput | flIsNotEmpty)) {

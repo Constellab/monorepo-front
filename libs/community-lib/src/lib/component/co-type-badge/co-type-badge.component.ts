@@ -12,7 +12,7 @@ import { CoItemTypeIconComponent } from '../co-item-type-icon/co-item-type-icon.
   imports: [TranslatePipe, MatIconModule, FlIconModule, CoItemTypeIconComponent],
 })
 export class CoTypeBadgeComponent {
-  type = input.required<'app' | 'brick' | 'agent' | 'story'>();
+  type = input.required<'app' | 'brick' | 'agent' | 'story' | 'tag'>();
 
   typeStr = computed(() => {
     switch (this.type()) {
@@ -24,6 +24,8 @@ export class CoTypeBadgeComponent {
         return 'coCommunityLib.agents';
       case 'story':
         return 'coCommunityLib.stories';
+      case 'tag':
+        return 'coCommunityLib.tags';
     }
   });
 }

@@ -12,6 +12,7 @@
   grid-template-columns: calc(50% - 16px) calc(50% - 16px);
   grid-gap: 32px;
   width: 100%;
+  margin-bottom: 40px;
 
   @container list-items (max-width: 998px) {
     grid-template-columns: 100%;

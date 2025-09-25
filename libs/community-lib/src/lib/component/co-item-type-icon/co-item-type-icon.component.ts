@@ -10,7 +10,7 @@ import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
   imports: [FlIconModule, MatIconModule, NgClass],
 })
 export class CoItemTypeIconComponent {
-  type = input.required<'app' | 'brick' | 'agent' | 'story'>();
+  type = input.required<'app' | 'brick' | 'agent' | 'story' | 'tag'>();
 
   size = input<'small' | 'medium' | 'big'>('medium');
 
@@ -24,6 +24,8 @@ export class CoItemTypeIconComponent {
         return 'primary';
       case 'story':
         return 'warn';
+      case 'tag':
+        return 'accent';
       default:
         return 'primary';
     }

@@ -88,6 +88,14 @@ export class HaCommunityAppListPageComponent extends HaCommunityPageDirective im
     this.updateCommunityApps();
   }
 
+  onMyEntitiesChanged(myEntities: boolean): void{
+    if (myEntities && !this.spacesFilter.includes('my-apps'))
+      this.spacesFilter.push('my-apps');
+    else if (!myEntities && this.spacesFilter.includes('my-apps'))
+      this.spacesFilter = this.spacesFilter.filter((id) => id != 'my-apps');
+    this.updateCommunityApps();
+  }
+
   private updateCommunityApps(): void {
     this.communityAppsPaginated.getFirstPage({
       spacesFilter: this.spacesFilter,

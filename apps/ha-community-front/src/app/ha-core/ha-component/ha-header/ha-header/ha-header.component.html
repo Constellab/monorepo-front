@@ -13,15 +13,16 @@
       <a [routerLink]="constellabRoute">Constellab</a>
     </div>
 
-    <!--    <mat-form-field class="section-search-bar">-->
-    <!--      <input-->
-    <!--        matInput-->
-    <!--        placeholder="{{ 'search_by_title' | translate }}" />-->
-    <!--      <button mat-icon-button matSuffix [matTooltip]="'search' | translate"-->
-    <!--              aria-label="Search by title button">-->
-    <!--        <mat-icon>search</mat-icon>-->
-    <!--      </button>-->
-    <!--    </mat-form-field>-->
+    <mat-form-field class="g-form-input g-form-field-compact search-bar header-search-bar "
+                    (click)="openInstantSearchDialog()">
+      <input
+        matInput
+        placeholder="{{ 'search_global' | translate }}" />
+      <button mat-icon-button matSuffix [matTooltip]="'search' | translate"
+              aria-label="Search stories, agents, users...">
+        <mat-icon class="search-icon">search</mat-icon>
+      </button>
+    </mat-form-field>
 
     <div class="nav-bar-action-div">
       <div class="nav-bar-login-signup-div">
@@ -44,7 +45,7 @@
       </div>
 
       <div class="menu-button">
-        <button type="button" mat-raised-button>Menu</button>
+        <button type="button" mat-raised-button [matMenuTriggerFor]="smallScreenMenu">Menu</button>
       </div>
     </div>
   </nav>
@@ -73,16 +74,34 @@
 </mat-menu>
 
 <mat-menu #loggedInMenu>
-  <button mat-menu-item [routerLink]="profileRoute + currentUser()?.id">
+  <a mat-menu-item [routerLink]="profileRoute + currentUser()?.id">
     <mat-icon>person</mat-icon>
     {{ 'profile' | translate }}
-  </button>
-  <button mat-menu-item [routerLink]="adminRoute" *haIsAdmin>
+  </a>
+  <a mat-menu-item [routerLink]="adminRoute" *haIsAdmin>
     <mat-icon>admin_panel_settings</mat-icon>
     {{ 'admin_dashboard' | translate }}
-  </button>
+  </a>
   <button mat-menu-item (click)="logout()">
     <mat-icon>logout</mat-icon>
+    {{ 'logout' | translate }}
+  </button>
+</mat-menu>
+
+<mat-menu #smallScreenMenu>
+  <a mat-menu-item [routerLink]="profileRoute + currentUser()?.id">
+    {{ 'profile' | translate }}
+  </a>
+  <a mat-menu-item [routerLink]="adminRoute" *haIsAdmin>
+    {{ 'admin_dashboard' | translate }}
+  </a>
+  <a mat-menu-item [routerLink]="storyListRoute">{{ 'stories' | translate }}</a>
+  <a mat-menu-item [routerLink]="appsListRoute">{{ 'apps' | translate }}</a>
+  <a mat-menu-item [routerLink]="agentListRoute">{{ 'agents' | translate }}</a>
+  <a mat-menu-item [routerLink]="brickListRoute">{{ 'bricks' | translate }}</a>
+  <span mat-menu-item [matMenuTriggerFor]="documentationMenu">{{ 'documentation' | translate }}</span>
+  <a mat-menu-item [routerLink]="constellabRoute">Constellab</a>
+  <button mat-menu-item (click)="logout()">
     {{ 'logout' | translate }}
   </button>
 </mat-menu>

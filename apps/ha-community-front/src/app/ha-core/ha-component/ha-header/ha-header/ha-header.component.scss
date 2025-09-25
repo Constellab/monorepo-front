@@ -25,6 +25,7 @@
   align-content: center;
   justify-content: space-between;
   container: nav-bar / inline-size;
+  gap: 32px;
 }
 
 .menu-button {
@@ -39,7 +40,6 @@
 
 .nav-bar-links-div {
   display: flex;
-  padding-left: 32px;
   align-items: center;
   gap: 24px;
 
@@ -61,6 +61,10 @@
   }
 }
 
+.search-icon{
+  margin-top: 5px;
+}
+
 .header-content-div {
   height: inherit;
   width: 100%;
@@ -77,6 +81,11 @@
   flex-direction: row;
   gap: 8px;
   align-items: center;
+}
+
+.search-bar{
+  width: auto;
+  flex: auto;
 }
 
 @media only screen and (max-width: 992px) {

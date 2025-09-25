@@ -8,10 +8,9 @@ import {
   OnDestroy,
   OnInit,
   PLATFORM_ID,
-  Signal,
 } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { ClHelpService, ClSupportedLanguage, ClTheme } from '@monorepo/core-lib';
+import { ClHelpService, ClSupportedLanguage } from '@monorepo/core-lib';
 import { FlCookieService, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 
 import { HaInstantSearchDialogComponent } from '../../ha-core/ha-component/ha-instant-search-dialog/ha-instant-search-dialog.component';
@@ -42,8 +41,6 @@ export class HaMainComponent implements OnInit, AfterContentInit, OnDestroy {
   private currentPageState: HaCurrentPageState = inject(HaCurrentPageState);
   private platformId: any = inject(PLATFORM_ID);
 
-  currentTheme: Signal<ClTheme> = this.themeState?.getCurrentTheme();
-
   @HostListener('window:keydown', ['$event'])
   onCtrlK(event: KeyboardEvent): void {
     if ((event.ctrlKey || event.metaKey) && event.key === 'k') {
@@ -51,7 +48,6 @@ export class HaMainComponent implements OnInit, AfterContentInit, OnDestroy {
       if (!this.dialogService.isDialogComponentOpened(HaInstantSearchDialogComponent))
         this.dialogService.openMediumDialog(HaInstantSearchDialogComponent, {
           position: { top: '5%' },
-          data: { theme: this.currentTheme() },
         });
     }
   }

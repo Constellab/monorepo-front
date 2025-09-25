@@ -26,6 +26,12 @@ import { HaBrickService } from '../ha-service/ha-brick.service';
 import { HaCommunityAppService } from '../ha-service/ha-community-app.service';
 import { HaRouterService } from '../ha-service/ha-router.service';
 import { HaStoryService } from '../ha-service/ha-story.service';
+import { HaTagService } from '../ha-service/ha-tag.service';
+import {
+  HaTagKeyEditDialogComponent,
+  HaTagKeyEditDialogInput,
+} from '../../ha-tag/module/ha-tag-key-edit-dialog/ha-tag-key-edit-dialog.component';
+import { HaTagKey } from '../ha-model/ha-entities/ha-tag-key.class';
 
 @Injectable()
 export class HaCurrentPageState implements OnDestroy {
@@ -36,6 +42,7 @@ export class HaCurrentPageState implements OnDestroy {
   private brickService = inject(HaBrickService);
   private agentService = inject(HaAgentService);
   private appService = inject(HaCommunityAppService);
+  private tagService = inject(HaTagService);
 
   private currentPageSubscription: Subscription;
 
@@ -48,7 +55,7 @@ export class HaCurrentPageState implements OnDestroy {
   public lastActivatedRoute: WritableSignal<ActivatedRoute> = signal<ActivatedRoute>(null);
 
   public entityService: Signal<
-    HaStoryService | HaBrickService | HaAgentService | HaCommunityAppService | null
+    HaStoryService | HaBrickService | HaAgentService | HaCommunityAppService | HaTagService | null
   > = computed(() => {
     switch (this.currentEntityType()) {
       case HaEntityType.STORY:
@@ -59,6 +66,8 @@ export class HaCurrentPageState implements OnDestroy {
         return this.agentService;
       case HaEntityType.APP:
         return this.appService;
+      case HaEntityType.TAG:
+        return this.tagService;
       default:
         return null;
     }
@@ -96,9 +105,27 @@ export class HaCurrentPageState implements OnDestroy {
       case HaEntityType.AGENT:
         this.openAgentCreateDialog();
         break;
+      case HaEntityType.TAG:
+        this.openTagCreateDialog();
+        break;
       default:
         break;
     }
+  }
+
+  private openTagCreateDialog(): void {
+    const input: HaTagKeyEditDialogInput = {
+      mode: 'create',
+    };
+
+    this.dialogService
+      .openMediumDialog(HaTagKeyEditDialogComponent, { data: input })
+      .afterClosed()
+      .subscribe((tag: HaTagKey) => {
+        if (tag) {
+          this.router.navigateByUrl(HaRouterService.getTagPageRoute(tag.id, tag.technicalName));
+        }
+      });
   }
 
   private openAgentCreateDialog(): void {
@@ -194,6 +221,12 @@ export class HaCurrentPageState implements OnDestroy {
         break;
       case 'agents':
         this.currentEntityType.set(HaEntityType.AGENT);
+        break;
+      case 'icons':
+        this.currentEntityType.set(HaEntityType.ICON);
+        break;
+      case 'tags':
+        this.currentEntityType.set(HaEntityType.TAG);
         break;
       default:
         return null;

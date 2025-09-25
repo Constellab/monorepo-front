@@ -10,11 +10,11 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
+import { MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
 import { MatFormField, MatInput, MatPrefix, MatSuffix } from '@angular/material/input';
 import { Router, RouterLink } from '@angular/router';
-import { ClHelpService, ClStringHelper, ClTheme } from '@monorepo/core-lib';
+import { ClHelpService, ClStringHelper } from '@monorepo/core-lib';
 import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 import { BaseHit } from 'instantsearch.js';
 import { connectHits, connectSearchBox } from 'instantsearch.js/es/connectors';
@@ -22,12 +22,8 @@ import { configure, poweredBy } from 'instantsearch.js/es/widgets';
 
 import { HaInstantSearchService } from '../../ha-service/ha-instant-search.service';
 
-export class HaInstanceSearchDialogData {
-  theme: ClTheme;
-}
-
 @Component({
-  selector: 'ha-ha-instant-search-dialog',
+  selector: 'ha-instant-search-dialog',
   imports: [
     MatInput,
     MatFormField,
@@ -68,8 +64,6 @@ export class HaInstantSearchDialogComponent implements AfterContentInit, OnDestr
   query: string;
 
   constructor() {
-    const dialogInput = inject<HaInstanceSearchDialogData>(MAT_DIALOG_DATA);
-
     // Init Algolia InstantSearch
     this.instantSearchService.addWidgets([
       configure({
@@ -87,7 +81,7 @@ export class HaInstantSearchDialogComponent implements AfterContentInit, OnDestr
       })({}),
     ]);
 
-    this.theme = dialogInput?.theme == 'dark-theme' ? 'dark' : 'light';
+    this.theme = 'light';
   }
 
   ngAfterContentInit(): void {

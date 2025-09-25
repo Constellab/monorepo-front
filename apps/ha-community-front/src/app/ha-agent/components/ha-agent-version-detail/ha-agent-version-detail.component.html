@@ -14,7 +14,7 @@
       } @else {
         <button mat-flat-button (click)="saveAbout()">
           @if (onAgentVersionInfosLoading) {
-            <fl-loader></fl-loader>
+            <fl-loader size="small"></fl-loader>
           } @else {
             {{ 'save' | translate }}
           }
@@ -58,7 +58,7 @@
   }
 
 
-  @if (isEditable() || agentVersion().params) {
+  @if (isEditable() || agentVersion().params | flIsNotEmpty) {
     <div class="agent-version-card">
       <h3 class="g-small-title">{{ 'parameters' | translate }}</h3>
       <td-config [configSpecs]="agentVersion().params['specs']" />
@@ -70,7 +70,13 @@
     agentVersion().type !== 'PYTHON'
     ) {
     <div class="agent-version-card">
-      <h3 class="g-small-title">{{ 'environment_file' | translate }}</h3>
+      <div class="title-copy-div">
+        <h3 class="g-small-title">{{ 'environment_file' | translate }}</h3>
+        <button mat-flat-button (click)="onCopy('environment_file')" class="g-button-small">
+          <mat-icon>content_copy</mat-icon>
+          {{ 'copy_environment' | translate }}
+        </button>
+      </div>
       <fl-code-editor
         [language]="languageEnvironment()"
         [formCtrl]="environmentFormControl()"></fl-code-editor>
@@ -78,7 +84,14 @@
   }
 
   <div class="agent-version-card">
-    <h3 class="g-small-title">{{ 'code' | translate }}</h3>
+    <div class="title-copy-div">
+      <h3 class="g-small-title">{{ 'code' | translate }}</h3>
+      <button mat-flat-button (click)="onCopy('code')" class="g-button-small">
+        <mat-icon>content_copy</mat-icon>
+        {{ 'copy_code' | translate }}
+      </button>
+    </div>
+
     <fl-code-editor [language]="languageCode()" [formCtrl]="codeFormControl()"></fl-code-editor>
   </div>
 

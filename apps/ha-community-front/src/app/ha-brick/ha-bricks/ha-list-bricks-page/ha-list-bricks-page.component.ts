@@ -20,6 +20,7 @@ import { HaBrickImagePipe } from '../../../ha-core/ha-module/ha-core-pipe/ha-bri
 import { HaAuthenticatedUserService } from '../../../ha-core/ha-service/ha-authenticated-user.service';
 import { HaBrickService } from '../../../ha-core/ha-service/ha-brick.service';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
+import { FlDatasourceSortCriteria } from '@monorepo/front-core-lib/fl-core';
 
 @Component({
   selector: 'ha-list-bricks-page',
@@ -47,8 +48,9 @@ export class HaListBricksPageComponent extends HaCommunityPageDirective implemen
   bricks: HaBrickDatasourcePaginated<HaBrickDatasourceFilters>;
   BRICKS_KEY: StateKey<object>;
   spaceIdFilter: string[] = [];
-  titleFormControl: FormControl<string> = new FormControl('');
+  titleFilter: string = '';
   user: HaUser;
+  sortsCriteria: FlDatasourceSortCriteria[] = [];
 
   ngOnInit(): void {
     this.authenticatedUserService.getUser().subscribe((user) => {
@@ -81,16 +83,34 @@ export class HaListBricksPageComponent extends HaCommunityPageDirective implemen
   updateBricks(): void {
     this.bricks.getFirstPage({
       spacesFilter: this.spaceIdFilter,
-      titleFilter: this.titleFormControl.value,
-    });
+      titleFilter: this.titleFilter,
+    }, this.sortsCriteria);
   }
 
   isSelected(spaceId: string): boolean {
     return this.spaceIdFilter.find((id) => id == spaceId) != null;
   }
 
-  onSpacesChanged(spaces: string[]): void{
+  onTitleFilterChanged(title: string): void{
+    this.titleFilter = title;
+    this.updateBricks();
+  }
+
+  onSpacesFilterChanged(spaces: string[]): void{
     this.spaceIdFilter = spaces;
+    this.updateBricks();
+  }
+
+  onSortsCriteriaChanged(sortsCriteria: FlDatasourceSortCriteria[]): void{
+    this.sortsCriteria = sortsCriteria;
+    this.updateBricks();
+  }
+
+  onMyEntitiesChanged(myEntities: boolean): void{
+    if (myEntities && !this.spaceIdFilter.includes('my-bricks'))
+      this.spaceIdFilter.push('my-bricks');
+    else if (!myEntities && this.spaceIdFilter.includes('my-bricks'))
+      this.spaceIdFilter = this.spaceIdFilter.filter((id) => id != 'my-bricks');
     this.updateBricks();
   }
 

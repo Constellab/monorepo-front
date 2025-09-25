@@ -6,9 +6,12 @@
     <p class="g-large-text hero-subtitle">
       {{ 'home.header.subtitle' | translate }}
     </p>
-    <button type="button" mat-flat-button>
-      {{ 'join_the_community' | translate }}
-    </button>
+
+    @if (!user()) {
+      <a type="button" mat-flat-button [href]="signUpRoute">
+        {{ 'join_the_community' | translate }}
+      </a>
+    }
   </div>
 </ha-header>
 
@@ -49,7 +52,7 @@
     </div>
   </div>
 
-  <div class="section contribute-to-community-section">
+  <div class="section contribute-to-community-section" id="how-to-contribute">
     <div class="contribute-to-community-section-info-div">
       <div class="section-title">
         <ha-home-section-shine>{{ 'home.section2.hint' | translate }}</ha-home-section-shine>
@@ -95,16 +98,16 @@
     <div class="doc-cards-div">
       <div class="doc-illustration-button-div">
         <div class="doc-illustration"></div>
-        <button type="button" mat-raised-button>
-          {{ 'home.section4.consult_technical_documentation' | translate }}
-        </button>
+        <a type="button" mat-raised-button [routerLink]="productDocRoute">
+          {{ 'home.section4.consult_product_documentation' | translate }}
+        </a>
       </div>
 
       <div class="doc-illustration-button-div">
         <div class="doc-illustration"></div>
-        <button type="button" mat-raised-button>
+        <a type="button" mat-raised-button [routerLink]="technicalDocRoute">
           {{ 'home.section4.consult_technical_documentation' | translate }}
-        </button>
+        </a>
       </div>
     </div>
   </div>
@@ -133,7 +136,7 @@
           <span class="g-text-medium g-weight-600">{{ 'home.section6.no_answer_founded' | translate }}</span>
           <p>{{ 'home.section6.our_team_is_here_to_help' | translate }}</p>
         </div>
-        <button type="button" mat-flat-button>{{ 'home.section6.contact_an_expert' | translate }}</button>
+        <a type="button" mat-flat-button href="mailto:contact@gencovery.com">{{ 'home.section6.contact_an_expert' | translate }}</a>
       </div>
     </div>
     <mat-accordion class="accordion">
@@ -194,8 +197,10 @@
 <ha-footer [isHomePage]="true"></ha-footer>
 
 <ng-template #joinButtonsDiv>
-  <div class="section-buttons-div">
-    <button type="button" mat-flat-button>{{ 'join_the_community' | translate }}</button>
-    <button type="button" mat-raised-button>{{ 'login' | translate }}</button>
-  </div>
+  @if (!user()) {
+    <div class="section-buttons-div">
+      <a type="button" mat-flat-button [href]="signUpRoute">{{ 'join_the_community' | translate }}</a>
+      <a type="button" mat-raised-button [routerLink]="loginRoute">{{ 'login' | translate }}</a>
+    </div>
+  }
 </ng-template>

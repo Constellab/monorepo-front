@@ -1,10 +1,13 @@
 import { NgClass, NgOptimizedImage } from '@angular/common';
 import { Component, inject, input } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { MatButton } from '@angular/material/button';
+import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
+import { MatFormField, MatInput, MatSuffix } from '@angular/material/input';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
+import { MatTooltip } from '@angular/material/tooltip';
 import { RouterLink } from '@angular/router';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -14,6 +17,7 @@ import { HaIsAdminDirective } from '../../../ha-module/ha-core-directive/ha-is-a
 import { HaAuthService } from '../../../ha-service/ha-auth.service';
 import { HaAuthenticatedUserService } from '../../../ha-service/ha-authenticated-user.service';
 import { HaRouterService } from '../../../ha-service/ha-router.service';
+import { HaInstantSearchDialogComponent } from '../../ha-instant-search-dialog/ha-instant-search-dialog.component';
 
 @Component({
   selector: 'ha-header',
@@ -32,11 +36,18 @@ import { HaRouterService } from '../../../ha-service/ha-router.service';
     MatIcon,
     MatMenuTrigger,
     FlIconModule,
+    MatFormField,
+    MatInput,
+    MatIconButton,
+    MatSuffix,
+    MatFormField,
+    MatTooltip,
   ],
 })
 export class HaHeaderComponent {
   private authenticatedUserService = inject(HaAuthenticatedUserService);
   private authService = inject(HaAuthService);
+  private dialogService = inject(FlDialogService);
 
   isHomePage = input<boolean>(false);
 
@@ -70,7 +81,15 @@ export class HaHeaderComponent {
 
   currentUser = toSignal(this.authenticatedUserService.getUser());
 
+  openInstantSearchDialog(): void {
+    this.dialogService.openMediumDialog(HaInstantSearchDialogComponent, {
+      position: { top: '5%' },
+    });
+  }
+
   logout(): void {
-    this.authService.logout().subscribe();
+    this.authService.logout().subscribe(() => {
+      window.location.reload();
+    });
   }
 }

@@ -84,54 +84,54 @@
 
 <ng-template #navCommunityLinks>
   <div class="footer-link">
-    <a href="#">Accueil</a>
+    <a [routerLink]="'.'">{{ 'home' | translate}}</a>
   </div>
   <div class="footer-link">
-    <a href="#">Stories</a>
+    <a [routerLink]="storiesListRoute">{{ 'stories' | translate }}</a>
   </div>
   <div class="footer-link">
-    <a href="#">Apps</a>
+    <a [routerLink]="appsListRoute">{{ 'apps' | translate }}</a>
   </div>
   <div class="footer-link">
-    <a href="#">Agents</a>
+    <a [routerLink]="agentsListRoute">{{ 'agents' | translate}}</a>
   </div>
   <div class="footer-link">
-    <a href="#">Bricks</a>
+    <a [routerLink]="bricksListRoute">{{ 'bricks' | translate}}</a>
   </div>
   <div class="footer-link">
-    <a href="#">Documentation</a>
+    <a [routerLink]="tagsListRoute">{{ 'tags' | translate}}</a>
   </div>
 </ng-template>
 
 <ng-template #navResource1Links>
   <div class="footer-link">
-    <a href="#">Comment contribuer ?</a>
+    <a routerLink="." fragment="how-to-contribute">{{ 'how_to_contribute' | translate }}</a>
   </div>
   <div class="footer-link">
-    <a href="#">Rejoindre GitHub</a>
+    <a href="https://github.com/Constellab" target="_blank">GitHub</a>
   </div>
   <div class="footer-link">
-    <a href="#">Rejoindre Discord</a>
+    <a href="https://discord.com/invite/EASQ28m2dD" target="_blank">Discord</a>
   </div>
   <div class="footer-link">
-    <a href="#">Gencovery</a>
+    <a href="https://www.gencovery.com" target="_blank">Gencovery</a>
   </div>
   <div class="footer-link">
-    <a href="#">Constellab</a>
+    <a [href]="constellabUrl" target="_blank">Constellab</a>
   </div>
   <div class="footer-link">
-    <a href="#">Contact</a>
+    <a href="mailto:contact@gencovery.com">{{ 'contact' | translate }}</a>
   </div>
 </ng-template>
 
 <ng-template #navResource2Links>
   <div class="footer-link">
-    <a href="#">Politique de confidentialité</a>
+    <a href="https://www.gencovery.com/en-us/politique-de-confidentialite" target="_blank">{{ 'confidentiality_policy' | translate }}</a>
   </div>
+<!--  <div class="footer-link">-->
+<!--    <a href="#">Politique de cookies</a>-->
+<!--  </div>-->
   <div class="footer-link">
-    <a href="#">Politique de cookies</a>
-  </div>
-  <div class="footer-link">
-    <a href="#">Mentions légales</a>
+    <a href="https://www.gencovery.com/en-us/mentions-legales" target="_blank">{{ 'legal_information' | translate}}</a>
   </div>
 </ng-template>

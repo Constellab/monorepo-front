@@ -5,14 +5,18 @@
 <co-agent-create-dialog-form [formGp]="formGp" [spaces$]="spaces$" (submitEvent)="onSubmitEvent($event)">
   <div>
     <div class="agent-version-file-div">{{ 'agent_version_file' | translate }}</div>
-    <fl-input-file-container class="primary" [placeholder]="'import_agent_version_file' | translate">
-      <input
-        flInputFile
-        type="file"
-        [strictMode]="true"
-        [autoClearHtmlInput]="true"
-        accept="application/json"
-        (fileChange)="onFileSelected($any($event))" />
-    </fl-input-file-container>
+    <div class="g-layout-row g-gap-05em g-layout-start-center">
+      <fl-input-file-container class="primary" [placeholder]="'import_agent_version_file' | translate">
+        <input
+          flInputFile
+          type="file"
+          [strictMode]="true"
+          [autoClearHtmlInput]="true"
+          accept="application/json"
+          (fileChange)="onFileSelected($any($event))" />
+      </fl-input-file-container>
+      <span>{{currentSelectedFileName}}</span>
+    </div>
+
   </div>
 </co-agent-create-dialog-form>

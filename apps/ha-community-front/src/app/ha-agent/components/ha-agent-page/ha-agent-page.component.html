@@ -14,8 +14,29 @@
           [space]="agent().space"
           [isAuthor]="isAuthor()">
 
+          <input
+            flInputFile
+            flHide
+            type="file"
+            #file
+            [strictMode]="true"
+            [autoClearHtmlInput]="true"
+            accept="application/json"
+            (fileChange)="onFileSelected($any($event))" />
           <div class="entity-page-info-div">
-            <span class="g-text-medium g-weight-600">{{ 'versions_list' | translate }}</span>
+            <div class="g-layout-row g-layout-between-center">
+              <span class="g-text-medium g-weight-600">{{ 'versions_list' | translate }}</span>
+
+              @if (canEdit() && versions()) {
+                <button
+                  mat-icon-button
+                  (click)="file.click()"
+                  [matTooltip]="'select_file_to_create_agent_version' | translate">
+                  <mat-icon>add</mat-icon>
+                </button>
+
+              }
+            </div>
             <div class="entity-page-info-div-content additional-info-div">
               <a [routerLink]="'.'">
                 <span>Overview</span>

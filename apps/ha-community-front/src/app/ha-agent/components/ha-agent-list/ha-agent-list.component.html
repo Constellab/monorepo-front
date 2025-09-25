@@ -3,7 +3,9 @@
     <co-list-filters [user]="user"
                      (sortsCriteriaChanged)="onSortsCriteriaChanged($event)"
                      (titleFilterChanged)="onTitleFilterChanged($event)"
-                     (spacesFilterChanged)="onSpacesFilterChanged($event)"></co-list-filters>
+                     (spacesFilterChanged)="onSpacesFilterChanged($event)"
+                     (myEntitiesChanged)="onMyEntitiesChanged($event)"
+    ></co-list-filters>
     <ha-list-of-items>
       @for (agent of agentsPaginated | flDatasourceConnect | async; track agent.id) {
         <a class="agent-result-card-div" [routerLink]="agent | haDetailRoute">

@@ -88,5 +88,11 @@ export class HaAgentListComponent extends HaCommunityPageDirective implements On
     }, this.sortsCriteria);
   }
 
-  protected readonly ClStringHelper = ClStringHelper;
+  onMyEntitiesChanged(myEntities: boolean): void{
+    if (myEntities && !this.spacesFilter.includes('my-agents'))
+      this.spacesFilter.push('my-agents');
+    else if (!myEntities && this.spacesFilter.includes('my-agents'))
+      this.spacesFilter = this.spacesFilter.filter((id) => id != 'my-agents');
+    this.updateAgents();
+  }
 }

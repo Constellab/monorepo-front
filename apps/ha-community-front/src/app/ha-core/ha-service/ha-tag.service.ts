@@ -1,11 +1,13 @@
 import { inject, Injectable } from '@angular/core';
 import { ClPage } from '@monorepo/core-lib';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
-import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
+import { FlDatasourceSortCriteria, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 import { TdParamSpec, TdParamSpecs } from '@monorepo/technical-doc';
 import { TeRichText } from '@monorepo/text-editor';
 import { Observable } from 'rxjs';
 
+import { HaCoAuthorInvite } from '../entity-module/ha-co-author-core/model/ha-co-author-invite.class';
+import { HaCoAuthorService } from '../entity-module/ha-co-author-core/model/ha-co-author-service';
 import {
   HaTagKey,
   HaTagKeyDatasourceFilters,
@@ -18,11 +20,13 @@ import {
   HaTagValueDatasourcePaginated,
   HaTagValueEditDTO,
 } from '../ha-model/ha-entities/ha-tag-value.class';
+import { HaUser } from '../ha-model/ha-entities/ha-user';
 
 @Injectable({
   providedIn: 'root',
 })
-export class HaTagService {
+export class HaTagService implements HaCoAuthorService {
+
   private apiService = inject(FlApiService);
 
   private readonly route: string = 'tag';
@@ -30,12 +34,13 @@ export class HaTagService {
   getAllWithFilters(
     spacesFilter: string[],
     labelFilter: string,
+    sortsCriteria: FlDatasourceSortCriteria[],
     page: number,
     size: number
   ): Observable<ClPage<HaTagKey>> {
     return this.apiService.post(
       `${this.route}/filters`,
-      { spacesFilter: spacesFilter, titleFilter: labelFilter },
+      { spacesFilter: spacesFilter, labelFilter: labelFilter, sorts: sortsCriteria },
       HaTagKey,
       { page: page, pageSize: size, resultIsPaginated: true }
     );
@@ -47,6 +52,7 @@ export class HaTagService {
         this.getAllWithFilters(
           requestData.filtersCriteria.spacesFilter,
           requestData.filtersCriteria.labelFilter,
+          requestData.sortsCriteria ?? [],
           page,
           size
         ),
@@ -136,5 +142,27 @@ export class HaTagService {
       pageSize,
       { initFirstPage: false }
     );
+  }
+
+  getCoAuthors(id: string): Observable<HaUser[]> {
+    throw new Error('Method not implemented.');
+  }
+  getCoAuthorsPendingInvites(id: string): Observable<HaCoAuthorInvite[]> {
+    throw new Error('Method not implemented.');
+  }
+  removeCoAuthor(id: string, coAuthorId: string): Observable<any> {
+    throw new Error('Method not implemented.');
+  }
+  deleteCoAuthorInvite(inviteId: string): Observable<void> {
+    throw new Error('Method not implemented.');
+  }
+  inviteCoAuthor(id: string, emailOrId: string): Observable<boolean> {
+    throw new Error('Method not implemented.');
+  }
+  isCoAuthorInviteValid(token: string): Observable<HaCoAuthorInvite> {
+    throw new Error('Method not implemented.');
+  }
+  acceptInvite(token: string): Observable<any> {
+    throw new Error('Method not implemented.');
   }
 }

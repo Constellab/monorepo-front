@@ -1,5 +1,6 @@
 import { NgTemplateOutlet } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { MatButton } from '@angular/material/button';
 import {
   MatAccordion,
@@ -7,12 +8,13 @@ import {
   MatExpansionPanelHeader,
   MatExpansionPanelTitle,
 } from '@angular/material/expansion';
+import { RouterLink } from '@angular/router';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { TranslatePipe } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
 
 import { HaFooterComponent } from '../../ha-core/ha-component/ha-footer/ha-footer/ha-footer.component';
 import { HaHeaderComponent } from '../../ha-core/ha-component/ha-header/ha-header/ha-header.component';
+import { HaConstellabHelper } from '../../ha-core/ha-model/ha-config/ha-constellab.helper';
 import {
   HaAgentDatasourceFilters,
   HaAgentDatasourcePaginated,
@@ -29,7 +31,6 @@ import {
   HaStoryFilters,
   HaStoryListDatasourcePaginated,
 } from '../../ha-core/ha-model/ha-entities/ha-story.class';
-import { HaUser } from '../../ha-core/ha-model/ha-entities/ha-user';
 import { HaCommunityPageDirective } from '../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
 import { HaAgentService } from '../../ha-core/ha-service/ha-agent.service';
 import { HaAuthenticatedUserService } from '../../ha-core/ha-service/ha-authenticated-user.service';
@@ -59,19 +60,27 @@ import { HaHomeSectionShineComponent } from '../ha-home-section-shine/ha-home-se
     MatExpansionPanelTitle,
     TranslatePipe,
     MatButton,
+    RouterLink,
   ],
 })
 export class HaHomeComponent extends HaCommunityPageDirective implements OnInit {
-  apps$: HaCommunityAppDatasourcePaginated<HaCommunityAppDatasourceFilters>;
-  stories$: HaStoryListDatasourcePaginated<HaStoryFilters>;
-  agents$: HaAgentDatasourcePaginated<HaAgentDatasourceFilters>;
-  bricks$: HaBrickDatasourcePaginated<HaBrickDatasourceFilters>;
   private authenticatedUserService: HaAuthenticatedUserService = inject(HaAuthenticatedUserService);
-  user$: Observable<HaUser> = this.authenticatedUserService.getUser();
   private storyService: HaStoryService = inject(HaStoryService);
   private agentService: HaAgentService = inject(HaAgentService);
   private brickService: HaBrickService = inject(HaBrickService);
   private communityAppService: HaCommunityAppService = inject(HaCommunityAppService);
+  apps$: HaCommunityAppDatasourcePaginated<HaCommunityAppDatasourceFilters>;
+  stories$: HaStoryListDatasourcePaginated<HaStoryFilters>;
+  agents$: HaAgentDatasourcePaginated<HaAgentDatasourceFilters>;
+  bricks$: HaBrickDatasourcePaginated<HaBrickDatasourceFilters>;
+
+  user = toSignal(this.authenticatedUserService.getUser());
+
+  signUpRoute = HaConstellabHelper.getConstellabSignupUrl();
+  loginRoute = HaRouterService.getLoginRoute();
+
+  productDocRoute = HaRouterService.getProductDocRoute();
+  technicalDocRoute = HaRouterService.getTechDocRoute();
 
   ngOnInit(): void {
     super.setMetaTags(

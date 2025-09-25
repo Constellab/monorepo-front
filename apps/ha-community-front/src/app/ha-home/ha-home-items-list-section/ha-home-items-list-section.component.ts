@@ -30,6 +30,7 @@ import { HaAgentService } from '../../ha-core/ha-service/ha-agent.service';
 import { HaBrickService } from '../../ha-core/ha-service/ha-brick.service';
 import { HaCommunityAppService } from '../../ha-core/ha-service/ha-community-app.service';
 import { HaStoryService } from '../../ha-core/ha-service/ha-story.service';
+import { HaRouterService } from '../../ha-core/ha-service/ha-router.service';
 
 export type HaHomeItemsListSectionType = 'stories' | 'apps' | 'agents' | 'bricks';
 
@@ -59,6 +60,7 @@ export class HaHomeItemsListSectionComponent implements OnInit {
 
   itemTypes: HaHomeItemsListSectionType[] = ['stories', 'apps', 'agents', 'bricks'];
   currentType = 'stories' as HaHomeItemsListSectionType;
+  currentTypeListRoute: string = HaRouterService.getStoriesListRoute();
 
   apps$: HaCommunityAppDatasourcePaginated<HaCommunityAppDatasourceFilters>;
   stories$: HaStoryListDatasourcePaginated<HaStoryFilters>;
@@ -81,6 +83,20 @@ export class HaHomeItemsListSectionComponent implements OnInit {
 
   changeCurrentType(type: HaHomeItemsListSectionType): void {
     this.currentType = type;
+    switch (type) {
+      case 'stories':
+        this.currentTypeListRoute = HaRouterService.getStoriesListRoute();
+        break;
+      case 'apps':
+        this.currentTypeListRoute = HaRouterService.getCommunityAppListRoute();
+        break;
+      case 'agents':
+        this.currentTypeListRoute = HaRouterService.getAgentsListRoute();
+        break;
+      case 'bricks':
+        this.currentTypeListRoute = HaRouterService.getBrickListRoute();
+        break;
+    }
   }
 
   getStoryImageLink(storyId: string, imageLinkOrId?: string): string {

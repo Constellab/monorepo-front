@@ -6,6 +6,7 @@
           <span>{{ 'coCommunityLib.sort_by' | translate }}</span>
           <mat-icon>keyboard_arrow_down</mat-icon>
         </div>
+
         @if (sortsIsOpen) {
           <div class="filter-sort-div-portal">
             @for (sortCriteriaKey of sortsCriteriaKeys(); track sortCriteriaKey) {
@@ -30,6 +31,14 @@
     }
   </div>
   <div class="filters-div">
+
+    @if (!hideMyEntitiesFilter()) {
+      <mat-checkbox
+        [checked]="false"
+        (change)="onMyEntitiesChange($event.checked)">
+        <span class="my-entities-text">{{ 'coCommunityLib.my_entities' | translate }}</span>
+      </mat-checkbox>
+    }
 
     <div class="filter-sort-div" (flOutsideClick)="titleFilterIsOpen = false">
       <div class="filter-sort-div-header" (click)="titleFilterIsOpen = !titleFilterIsOpen">

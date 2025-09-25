@@ -44,7 +44,7 @@
 
     <!--  space  -->
     @if (spaces$ | async; as spaces) {
-      <mat-label class="input-repo">{{ 'visibility' | translate }}</mat-label>
+      <mat-label class="input-repo">{{ 'confidentiality' | translate }}</mat-label>
       <div>
         <mat-radio-group formControlName="spaceId">
           <mat-radio-button [value]="null" class="radio-bt" [checked]="formGp.value?.spaceId == null">

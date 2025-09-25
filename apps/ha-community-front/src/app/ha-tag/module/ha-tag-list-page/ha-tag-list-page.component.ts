@@ -1,55 +1,47 @@
-import { AsyncPipe } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatButton, MatIconButton } from '@angular/material/button';
-import { MatDivider } from '@angular/material/divider';
-import { MatFormField, MatSuffix } from '@angular/material/form-field';
-import { MatIcon } from '@angular/material/icon';
-import { MatInput } from '@angular/material/input';
-import { MatTooltip } from '@angular/material/tooltip';
 import { Router, RouterLink } from '@angular/router';
-import { CoCommunityTagListItemComponent } from '@monorepo/community-lib';
+import { CoCommunityTagListItemComponent, CoListFiltersComponent } from '@monorepo/community-lib';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
-import { TranslatePipe } from '@ngx-translate/core';
 
 import {
   HaTagKey,
   HaTagKeyDatasourceFilters,
   HaTagKeyDatasourcePaginated,
 } from '../../../ha-core/ha-model/ha-entities/ha-tag-key.class';
-import { HaCommunityPageDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
-import { HaIsAuthenticatedDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-is-authenticated/ha-is-authenticated.directive';
-import { HaLeftPanelDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-left-panel/ha-left-panel.directive';
-import { HaSidenavButtonDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-sidenav-button/ha-sidenav-button.directive';
-import { HaDetailRoutePipe } from '../../../ha-core/ha-module/ha-core-pipe/ha-detail-route/ha-detail-route.pipe';
+import {
+  HaCommunityPageDirective
+} from '../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
 import { HaTagService } from '../../../ha-core/ha-service/ha-tag.service';
 import {
   HaTagKeyEditDialogComponent,
   HaTagKeyEditDialogInput,
 } from '../ha-tag-key-edit-dialog/ha-tag-key-edit-dialog.component';
+import { HaPageComponent } from '../../../ha-core/ha-component/ha-page/ha-page.component';
+import { HaAuthenticatedUserService } from '../../../ha-core/ha-service/ha-authenticated-user.service';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { FlDatasourceSortCriteria } from '@monorepo/front-core-lib/fl-core';
+import {
+  HaListOfItemsComponent
+} from '../../../ha-core/ha-component/ha-list-of-items/ha-list-of-items.component';
+import { AsyncPipe } from '@angular/common';
+import {
+  HaDetailRoutePipe
+} from '../../../ha-core/ha-module/ha-core-pipe/ha-detail-route/ha-detail-route.pipe';
 
 @Component({
   selector: 'ha-tag-list-page',
   imports: [
-    HaLeftPanelDirective,
-    MatIcon,
-    HaSidenavButtonDirective,
-    MatButton,
-    HaIsAuthenticatedDirective,
-    TranslatePipe,
-    MatDivider,
     FlInfiniteScrollModule,
     FormsModule,
-    MatFormField,
-    MatIconButton,
-    MatInput,
-    MatSuffix,
     ReactiveFormsModule,
-    MatTooltip,
     FlCorePipeModule,
+    HaPageComponent,
+    CoListFiltersComponent,
+    HaListOfItemsComponent,
     AsyncPipe,
     RouterLink,
     HaDetailRoutePipe,
@@ -60,13 +52,14 @@ import {
   standalone: true,
 })
 export class HaTagListPageComponent extends HaCommunityPageDirective implements OnInit {
-  private dialogService = inject(FlDialogService);
+  private authenticatedUserService = inject(HaAuthenticatedUserService);
   private tagService = inject(HaTagService);
-  private router: Router = inject(Router);
 
   tagsPaginated: HaTagKeyDatasourcePaginated<HaTagKeyDatasourceFilters>;
   spaceIdsFilter: string[] = [];
-  labelFilterFormControl: FormControl<string> = new FormControl('');
+  labelFilter: string = '';
+  sortsCriteria: FlDatasourceSortCriteria[] = [];
+  user = toSignal(this.authenticatedUserService.getUser());
 
   ngOnInit(): void {
     this.tagsPaginated = this.tagService.getAllWithFiltersPaginated();
@@ -84,41 +77,35 @@ export class HaTagListPageComponent extends HaCommunityPageDirective implements 
     );
   }
 
-  openCreateTagDialog(): void {
-    const input: HaTagKeyEditDialogInput = {
-      mode: 'create',
-    };
-
-    this.dialogService
-      .openMediumDialog(HaTagKeyEditDialogComponent, { data: input })
-      .afterClosed()
-      .subscribe((tag: HaTagKey) => {
-        if (tag) {
-          this.router.navigate(['tags/', tag.id]);
-        }
-      });
-  }
-
-  isSpaceFilterSelected(selectedSpaceFilter: string): boolean {
-    return this.spaceIdsFilter.find((id) => id == selectedSpaceFilter) != null;
-  }
-
-  selectSpaceFilter(selectedSpaceFilter: string): void {
-    if (this.isSpaceFilterSelected(selectedSpaceFilter))
-      this.spaceIdsFilter = this.spaceIdsFilter.filter((id) => id != selectedSpaceFilter);
-    else this.spaceIdsFilter.push(selectedSpaceFilter);
-    this.updateTags();
-  }
-
-  search(event: any): void {
-    event.preventDefault();
-    this.updateTags();
-  }
-
   updateTags(): void {
-    this.tagsPaginated.getFirstPage({
-      spacesFilter: this.spaceIdsFilter,
-      labelFilter: this.labelFilterFormControl.value,
-    });
+    this.tagsPaginated.getFirstPage(
+      {
+        spacesFilter: this.spaceIdsFilter,
+        labelFilter: this.labelFilter,
+      },
+      this.sortsCriteria
+    );
+  }
+
+  onTitleFilterChanged(title: string): void {
+    this.labelFilter = title;
+    this.updateTags();
+  }
+
+  onSpacesFilterChanged(spaces: string[]): void {
+    this.spaceIdsFilter = spaces;
+    this.updateTags();
+  }
+
+  onSortsCriteriaChanged(sortsCriteria: FlDatasourceSortCriteria[]): void {
+    this.sortsCriteria = sortsCriteria;
+    this.updateTags();
+  }
+
+  onMyEntitiesChanged(myEntities: boolean): void {
+    if (myEntities && !this.spaceIdsFilter.includes('my-tag-keys')) this.spaceIdsFilter.push('my-tag-keys');
+    else if (!myEntities && this.spaceIdsFilter.includes('my-tag-keys'))
+      this.spaceIdsFilter = this.spaceIdsFilter.filter((id) => id != 'my-tag-keys');
+    this.updateTags();
   }
 }

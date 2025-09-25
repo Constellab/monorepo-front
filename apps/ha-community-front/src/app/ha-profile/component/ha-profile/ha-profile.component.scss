@@ -62,3 +62,21 @@
   gap: 12.5px;
   background: rgba(60, 60, 67, 0.18);
 }
+
+
+@media only screen and (max-width: 600px) {
+
+  .profile-header-section{
+    flex-direction: column;
+    gap: 24px;
+    align-items: center;
+    justify-content: center;
+  }
+  .picture-alias-div{
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+}

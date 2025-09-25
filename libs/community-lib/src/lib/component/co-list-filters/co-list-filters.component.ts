@@ -3,6 +3,7 @@ import { AsyncPipe } from '@angular/common';
 import { Component, inject, input, OnDestroy, OnInit, output } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatIconButton } from '@angular/material/button';
+import { MatCheckbox } from '@angular/material/checkbox';
 import { MatFormField } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInput, MatSuffix } from '@angular/material/input';
@@ -34,15 +35,18 @@ import { CoVisibilityBadgeComponent } from '../co-visibility-badge/co-visibility
     MatSuffix,
     ReactiveFormsModule,
     MatTooltipModule,
+    MatCheckbox,
   ],
 })
 export class CoListFiltersComponent implements OnInit, OnDestroy {
   user = input<CoUser>(null);
   sortsCriteriaKeys = input<string[]>(['createdAt', 'title']);
+  hideMyEntitiesFilter = input(false);
   hideSpaceFilter = input(false);
   hideTitleFilter = input(false);
   titleFilterChanged = output<string>();
   spacesFilterChanged = output<string[]>();
+  myEntitiesChanged = output<boolean>();
   sortsCriteriaChanged = output<FlDatasourceSortCriteria[]>();
   titleFormControl: FormControl<string> = new FormControl('');
   titleSubscription: Subscription;
@@ -60,7 +64,7 @@ export class CoListFiltersComponent implements OnInit, OnDestroy {
     });
 
     if (this.sortsCriteriaKeys() && this.sortsCriteriaKeys().length > 0) {
-      this.currentSortCriteria = {key: this.sortsCriteriaKeys()[0], direction: 'DESC'};
+      this.currentSortCriteria = { key: this.sortsCriteriaKeys()[0], direction: 'DESC' };
     }
   }
 
@@ -78,15 +82,21 @@ export class CoListFiltersComponent implements OnInit, OnDestroy {
     this.titleFilterChanged.emit(this.titleFormControl.value);
   }
 
-  selectSortCriteria(sortCriteriaKey: string): void{
-    if (this.currentSortCriteria &&
+  selectSortCriteria(sortCriteriaKey: string): void {
+    if (
+      this.currentSortCriteria &&
       this.currentSortCriteria?.key == sortCriteriaKey &&
-      this.currentSortCriteria?.direction == 'DESC') {
-      this.currentSortCriteria = {key: sortCriteriaKey, direction: 'ASC'};
+      this.currentSortCriteria?.direction == 'DESC'
+    ) {
+      this.currentSortCriteria = { key: sortCriteriaKey, direction: 'ASC' };
     } else {
-      this.currentSortCriteria = {key: sortCriteriaKey, direction: 'DESC'};
+      this.currentSortCriteria = { key: sortCriteriaKey, direction: 'DESC' };
     }
     this.sortsCriteriaChanged.emit([this.currentSortCriteria]);
+  }
+
+  onMyEntitiesChange(checked: boolean): void {
+    this.myEntitiesChanged.emit(checked);
   }
 
   ngOnDestroy(): void {

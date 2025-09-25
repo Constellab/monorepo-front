@@ -1,6 +1,11 @@
 <ha-page>
   <fl-infinite-scroll [datasource]="bricks" infiniteMode="auto" class="section">
-    <co-list-filters [user]="user" (spacesFilterChanged)="onSpacesChanged($event)"></co-list-filters>
+    <co-list-filters [user]="user"
+                     (sortsCriteriaChanged)="onSortsCriteriaChanged($event)"
+                     (titleFilterChanged)="onTitleFilterChanged($event)"
+                     (spacesFilterChanged)="onSpacesFilterChanged($event)"
+                     (myEntitiesChanged)="onMyEntitiesChanged($event)"
+    ></co-list-filters>
     <ha-list-of-items>
       @for (brick of bricks | flDatasourceConnect | async; track brick.id) {
         <a [routerLink]="getBrickRoute(brick)">

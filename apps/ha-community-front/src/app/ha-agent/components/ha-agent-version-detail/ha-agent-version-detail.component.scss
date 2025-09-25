@@ -23,7 +23,13 @@ h2{
   width: 344px;
 }
 
-
+.title-copy-div{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
 
 @media only screen and (max-width: 992px) {
 

@@ -27,7 +27,7 @@ import { CoVisibilityBadgeComponent } from '../co-visibility-badge/co-visibility
 })
 export class CoCommunityListItemComponent {
   image = input<string>(null);
-  type = input.required<'app' | 'brick' | 'agent' | 'story'>();
+  type = input.required<'app' | 'brick' | 'agent' | 'story' | 'tag'>();
   title = input<string>(null);
   shortDescription = input<string>(null);
   space = input<CoSpace>(null);

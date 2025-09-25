@@ -26,7 +26,10 @@
     </div>
 
     <div class="entity-page-separator"></div>
-
-    <ha-agent-version-detail [isOverview]="true"></ha-agent-version-detail>
+    @if (agent().latestPublishVersion) {
+      <ha-agent-version-detail [isOverview]="true"></ha-agent-version-detail>
+    } @else {
+      <p class="not-published-message">{{ 'no_agent_version_published_yet' | translate }}</p>
+    }
   </div>
 }

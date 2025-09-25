@@ -1,7 +1,7 @@
 <div class="g-layout-row g-layout-between-center">
   <span class="g-text-medium g-weight-600">{{ 'menu' | translate }}</span>
   @if (userHasEditRight()) {
-    <button mat-icon-button (click)="onClickMenu($event, true)" [matTooltip]="'edit_menu' | translate">
+    <button mat-icon-button (click)="onClickMenu($event, true)" [matTooltip]="'create_element' | translate">
       <mat-icon>edit</mat-icon>
     </button>
   }

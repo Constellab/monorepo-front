@@ -1,6 +1,6 @@
 import { Component, computed, inject, OnInit, Signal } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { ClStringHelper } from '@monorepo/core-lib';
 import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
@@ -23,6 +23,15 @@ import { HaUser } from '../../../ha-core/ha-model/ha-entities/ha-user';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
 import { HaEntityCommentState } from '../../../ha-core/ha-state/ha-entity-comment.state';
 import { HaAgentPageState } from '../../state/ha-agent-page.state';
+import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
+import { FlInputFileModule } from '@monorepo/front-core-lib/fl-input-file';
+import { MatIconButton } from '@angular/material/button';
+import { HaAgentVersionFileInput } from '../../../ha-core/ha-model/ha-entities/ha-agent-version.class';
+import { FlConfirmDialogInput, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
+import { HaAgentService } from '../../../ha-core/ha-service/ha-agent.service';
 
 @Component({
   selector: 'ha-agent-page',
@@ -42,12 +51,21 @@ import { HaAgentPageState } from '../../state/ha-agent-page.state';
     FlDateModule,
     TranslatePipe,
     RouterLink,
+    FlCoreDirectiveModule,
+    FlInputFileModule,
+    MatIcon,
+    MatIconButton,
+    MatTooltip,
   ],
 })
 export class HaAgentPageComponent implements OnInit {
   private activeRoute = inject(ActivatedRoute);
   private agentPageState = inject(HaAgentPageState);
   private entityCommentState: HaEntityCommentState = inject(HaEntityCommentState);
+  private snackBarService = inject(FlSnackBarService);
+  private agentService = inject(HaAgentService);
+  private dialogService = inject(FlDialogService);
+  private router = inject(Router);
 
   profileRoute = HaRouterService.getProfileRoute();
 
@@ -67,9 +85,12 @@ export class HaAgentPageComponent implements OnInit {
     if (!this.currentUser() || !this.agent()) return false;
     return this.currentUser().id === this.agent().createdBy.id;
   });
+  canEdit = this.agentPageState.canEditAgent;
+
 
   tempTitle: string;
   entityType = HaEntityType.AGENT;
+  inputFile: any;
 
   ngOnInit(): void {
     this.activeRoute.params.pipe(first()).subscribe((params) => {
@@ -81,5 +102,58 @@ export class HaAgentPageComponent implements OnInit {
       this.tempTitle = ClStringHelper.fromKebabCaseToSentence(params.title);
       this.entityCommentState.init(this.entityType, params.id);
     });
+  }
+
+  onFileSelected(event: any): void {
+    this.inputFile = null;
+    if (event == null) {
+      return;
+    }
+    if (!event.name.endsWith('.json')) {
+      this.snackBarService.openErrorMessage({ text: 'file_wrong_type', translateText: true });
+      return;
+    }
+
+    if (typeof FileReader !== 'undefined') {
+      const reader = new FileReader();
+      let isReplace = false;
+      reader.onload = (e: any) => {
+        const srcResult: HaAgentVersionFileInput = JSON.parse(e.target.result);
+        if (!HaAgentVersionFileInput.isValid(srcResult)) {
+          this.snackBarService.openErrorMessage({ text: 'file_wrong_format', translateText: true });
+          return;
+        }
+        let inputData: FlConfirmDialogInput;
+        if (this.versions() && this.versions()[0].versionState == 'PUBLISHED') {
+          inputData = {
+            title: 'create_new_agent_version',
+            content: 'create_new_agent_version_content',
+            successMessage: 'agent_version_created',
+            observable: this.agentService.createNewDraftVersion(this.agent().id, srcResult),
+          };
+        } else {
+          isReplace = true;
+          inputData = {
+            title: 'replace_not_published_agent_version',
+            content: 'replace_not_published_agent_version_content',
+            successMessage: 'agent_version_replaced',
+            observable: this.agentService.replaceDraftVersion(this.agent().id, srcResult),
+          };
+        }
+        this.dialogService
+          .openConfirmDialog(inputData)
+          .afterClosed()
+          .subscribe((result) => {
+            if (result.result) {
+              if (!isReplace) {
+                this.agentPageState.addAgentVersionToList(result.result);
+              }
+              this.router.navigate([HaRouterService.getAgentVersionRoute(result.result)]);
+            }
+          });
+      };
+
+      reader.readAsText(event);
+    }
   }
 }

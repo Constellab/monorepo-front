@@ -61,6 +61,7 @@ export class HaEditBrickFormComponent implements OnInit {
   repoError: boolean;
   errorInput: Record<string, boolean> = {};
   spaces: HaSpace[];
+  fileName: string = '';
 
   ngOnInit(): void {
     this.spaceService.getSpacesOfCurrentUser().subscribe((spaces) => {
@@ -132,6 +133,7 @@ export class HaEditBrickFormComponent implements OnInit {
       this.errorFile = true;
       this.errorFileText = 'file_wrong_type';
       this.snackBarService.openErrorMessage({ text: this.errorFileText, translateText: true });
+      this.fileName = '';
       return;
     }
     if (typeof FileReader !== 'undefined' && !this.errorFile) {
@@ -144,6 +146,7 @@ export class HaEditBrickFormComponent implements OnInit {
           this.errorFile = true;
           this.errorFileText = 'file_wrong_format';
           this.snackBarService.openErrorMessage({ text: this.errorFileText, translateText: true });
+          this.fileName = '';
           return;
         } else {
           this.brickService.checkIfBrickExistByName(srcResult.name).subscribe((res) => {
@@ -184,12 +187,15 @@ export class HaEditBrickFormComponent implements OnInit {
                 this.errorFile = true;
                 this.errorFileText = 'file_wrong_format';
                 this.snackBarService.openErrorMessage({ text: this.errorFileText, translateText: true });
+                this.fileName = ''
                 return;
               }
+              this.fileName = e.name;
             } else {
               this.errorFile = true;
               this.errorFileText = 'brick_already_exists';
               this.snackBarService.openErrorMessage({ text: this.errorFileText, translateText: true });
+              this.fileName = '';
               return;
             }
           });

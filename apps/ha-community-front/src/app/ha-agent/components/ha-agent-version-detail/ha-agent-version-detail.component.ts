@@ -14,6 +14,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { HaAgentVersion } from '../../../ha-core/ha-model/ha-entities/ha-agent-version.class';
 import { HaAgentService } from '../../../ha-core/ha-service/ha-agent.service';
 import { HaAgentPageState } from '../../state/ha-agent-page.state';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'ha-agent-version-detail',
@@ -30,6 +31,7 @@ import { HaAgentPageState } from '../../state/ha-agent-page.state';
     TranslatePipe,
     FlKeyValueModule,
     FlLoaderModule,
+    MatIcon,
   ],
 })
 export class HaAgentVersionDetailComponent {
@@ -106,11 +108,16 @@ export class HaAgentVersionDetailComponent {
 
     this.onAgentVersionInfosLoading = true;
     this.agentService
-      .saveAgentDescription(this.agentVersion().id, this.versionInfosFormControl().value)
-      .subscribe((updatedAgent) => {
-        this.agentPageState.setAgent(updatedAgent);
-        this.onAgentVersionInfosLoading = false;
-        this.versionInfosFormControl().disable();
+      .saveAgentVersionInfos(this.agentVersion().id, this.versionInfosFormControl().value)
+      .subscribe({
+        next: (updatedAgentVersion) => {
+          this.agentPageState.setAgentVersion(updatedAgentVersion);
+          this.onAgentVersionInfosLoading = false;
+          this.versionInfosFormControl().disable();
+        },
+        error: () => {
+          this.onAgentVersionInfosLoading = false;
+        },
       });
   }
 
