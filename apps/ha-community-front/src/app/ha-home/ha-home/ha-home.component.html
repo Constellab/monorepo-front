@@ -68,10 +68,8 @@
     <div class="contribute-to-community-section-video-div">
       <div class="home-video-div">
         @if (homeVideoLink) {
-          <video width="100%" height="100%" autoplay muted (click)="onVideoClick($event)">
-            <source
-              [src]="homeVideoLink"
-              type="video/mp4" />
+          <video height="100%" autoplay muted (click)="onVideoClick($event)">
+            <source [src]="homeVideoLink" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
         }
@@ -149,7 +147,9 @@
           <span class="g-text-medium g-weight-600">{{ 'home.section6.no_answer_founded' | translate }}</span>
           <p>{{ 'home.section6.our_team_is_here_to_help' | translate }}</p>
         </div>
-        <a type="button" mat-flat-button href="mailto:contact@gencovery.com">{{ 'home.section6.contact_an_expert' | translate }}</a>
+        <a type="button" mat-flat-button href="mailto:contact@gencovery.com">{{
+          'home.section6.contact_an_expert' | translate
+        }}</a>
       </div>
     </div>
     <mat-accordion class="accordion">

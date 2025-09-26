@@ -8,6 +8,7 @@ import {
   MatExpansionPanelHeader,
   MatExpansionPanelTitle,
 } from '@angular/material/expansion';
+import { MatIcon } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -15,6 +16,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { HaFooterComponent } from '../../ha-core/ha-component/ha-footer/ha-footer/ha-footer.component';
 import { HaHeaderComponent } from '../../ha-core/ha-component/ha-header/ha-header/ha-header.component';
 import { HaConstellabHelper } from '../../ha-core/ha-model/ha-config/ha-constellab.helper';
+import { HaEnvironmentHelper } from '../../ha-core/ha-model/ha-config/ha-environment.helper';
 import {
   HaAgentDatasourceFilters,
   HaAgentDatasourcePaginated,
@@ -27,10 +29,11 @@ import {
   HaCommunityAppDatasourceFilters,
   HaCommunityAppDatasourcePaginated,
 } from '../../ha-core/ha-model/ha-entities/ha-community-app.class';
-import { HaStoryFilters, HaStoryListDatasourcePaginated, } from '../../ha-core/ha-model/ha-entities/ha-story.class';
 import {
-  HaCommunityPageDirective
-} from '../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
+  HaStoryFilters,
+  HaStoryListDatasourcePaginated,
+} from '../../ha-core/ha-model/ha-entities/ha-story.class';
+import { HaCommunityPageDirective } from '../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
 import { HaAgentService } from '../../ha-core/ha-service/ha-agent.service';
 import { HaAuthenticatedUserService } from '../../ha-core/ha-service/ha-authenticated-user.service';
 import { HaBrickService } from '../../ha-core/ha-service/ha-brick.service';
@@ -40,8 +43,6 @@ import { HaStoryService } from '../../ha-core/ha-service/ha-story.service';
 import { HaFeatureCardComponent } from '../../ha-main/ha-feature-card/ha-feature-card.component';
 import { HaHomeItemsListSectionComponent } from '../ha-home-items-list-section/ha-home-items-list-section.component';
 import { HaHomeSectionShineComponent } from '../ha-home-section-shine/ha-home-section-shine.component';
-import { HaEnvironmentHelper } from '../../ha-core/ha-model/ha-config/ha-environment.helper';
-import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'ha-home',

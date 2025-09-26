@@ -111,6 +111,11 @@
     border-radius: 10px;
     border: 6px solid var(--border-color);
     background: #fff;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
   }
 }
 
@@ -256,8 +261,6 @@
 
       .doc-illustration {
         max-width: 80vw;
-
-
       }
     }
   }
@@ -268,7 +271,7 @@
   }
 }
 
-.doc-icon{
+.doc-icon {
   padding: 32px;
   border-radius: 50%;
   background: var(--accent-color-contrast);

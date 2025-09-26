@@ -7,6 +7,7 @@ import {
   provideAppInitializer,
 } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
+import { FlDifyLoaderService } from '@monorepo/front-core-lib/fl-chatbot';
 import { flLoadEnvironmentFromAssets } from '@monorepo/front-core-lib/fl-core';
 import {
   FL_TRANSLATE_MODULE_CONFIG,
@@ -18,7 +19,6 @@ import { TranslateLoader } from '@ngx-translate/core';
 
 import { HaAppComponent } from './app/ha-app.component';
 import { haAppConfig } from './app/ha-app.config';
-import { FlDifyLoaderService } from '@monorepo/front-core-lib/fl-chatbot';
 import { HaEnvironmentHelper } from './app/ha-core/ha-model/ha-config/ha-environment.helper';
 import { environment } from './environments/ha-environment';
 import { haEnvironmentPath, HaEnvironmentSettings } from './environments/ha-environment.class';
@@ -72,6 +72,7 @@ if (environment.production) {
     algoliaIndexName: 'Community Preprod',
     algoliaSiteVerificationKey: null,
     difyChatbotToken: '22bhCqCeaaGiVEhr',
+    // eslint-disable-next-line max-len
     homeVideoLink: null,
   };
 
