@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject, input, OnInit } from '@angular/core';
+import { Component, ElementRef, inject, input, OnInit, ViewChildren } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAnchor, MatButton } from '@angular/material/button';
 import { CoUser } from '@monorepo/community-lib';
@@ -55,6 +55,8 @@ export class HaCommentsSectionComponent implements OnInit {
   private entityCommentState: HaEntityCommentState = inject(HaEntityCommentState);
   commentsCount = this.entityCommentState.getCommentsCount();
 
+  @ViewChildren('commentEditor') commentEditor: ElementRef;
+
   ngOnInit(): void {
     this.formControlCommentInputData.patchValue(new TeRichText());
     this.datasource = this.entityCommentState.getComments();
@@ -62,6 +64,7 @@ export class HaCommentsSectionComponent implements OnInit {
 
   showCommentTextEditor(): void {
     this.isWritingComment = true;
+    this.commentEditor?.nativeElement?.focus();
   }
 
   hideCommentTextEditor(): void {

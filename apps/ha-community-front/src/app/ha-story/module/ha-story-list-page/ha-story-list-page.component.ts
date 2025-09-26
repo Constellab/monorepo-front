@@ -82,6 +82,11 @@ export class HaStoryListPageComponent extends HaCommunityPageDirective implement
     this.updateStories();
   }
 
+  onMyEntitiesChanged(myEntities: boolean): void {
+    this.myStories = myEntities;
+    this.getStoriesFiltered();
+  }
+
   onTitleFilterChanged(title: string): void {
     this.titleFilter = title;
     this.updateStories();

@@ -13,16 +13,10 @@
       <a [routerLink]="constellabRoute">Constellab</a>
     </div>
 
-    <mat-form-field class="g-form-input g-form-field-compact search-bar header-search-bar "
-                    (click)="openInstantSearchDialog()">
-      <input
-        matInput
-        placeholder="{{ 'search_global' | translate }}" />
-      <button mat-icon-button matSuffix [matTooltip]="'search' | translate"
-              aria-label="Search stories, agents, users...">
-        <mat-icon class="search-icon">search</mat-icon>
-      </button>
-    </mat-form-field>
+    <div class="search-div" (click)="openInstantSearchDialog()">
+      {{ 'search' | translate }}
+      <mat-icon class="search-icon">search</mat-icon>
+    </div>
 
     <div class="nav-bar-action-div">
       <div class="nav-bar-login-signup-div">
@@ -89,6 +83,10 @@
 </mat-menu>
 
 <mat-menu #smallScreenMenu>
+  <button mat-menu-item (click)="openInstantSearchDialog()">
+    <mat-icon class="search-icon">search</mat-icon>
+    {{ 'search' | translate }}
+  </button>
   <a mat-menu-item [routerLink]="profileRoute + currentUser()?.id">
     {{ 'profile' | translate }}
   </a>

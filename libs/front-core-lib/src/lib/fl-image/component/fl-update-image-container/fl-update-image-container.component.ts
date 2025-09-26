@@ -5,6 +5,7 @@ import {
   HostBinding,
   inject,
   Input,
+  input,
   Output,
   ViewChild,
 } from '@angular/core';
@@ -45,6 +46,8 @@ export class FlUpdateImageContainerComponent {
   @HostBinding('class.disabled')
   @Input()
   disabled: boolean = false;
+
+  showEditIcon = input<boolean>(true);
 
   @Output() imageChanged: EventEmitter<any> = new EventEmitter<any>();
 

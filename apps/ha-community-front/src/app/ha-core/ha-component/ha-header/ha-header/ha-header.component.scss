@@ -61,8 +61,13 @@
   }
 }
 
-.search-icon{
-  margin-top: 5px;
+.search-div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  cursor: pointer;
 }
 
 .header-content-div {
@@ -83,7 +88,7 @@
   align-items: center;
 }
 
-.search-bar{
+.search-bar {
   width: auto;
   flex: auto;
 }
@@ -105,6 +110,10 @@
   }
 
   .nav-bar-links-div {
+    display: none;
+  }
+
+  .search-div {
     display: none;
   }
 

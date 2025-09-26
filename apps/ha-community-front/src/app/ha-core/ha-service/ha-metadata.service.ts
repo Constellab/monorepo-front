@@ -11,6 +11,7 @@ export class HaMetadataService {
   private translateService = inject(FlTranslateService);
 
   setPageTitle(title: string, hasTranslation: boolean = false, data?: any): void {
+    console.log('setPageTitle', title, hasTranslation);
     if (hasTranslation) {
       this.translateService.get(title, data).subscribe((titleTrad: string) => {
         this.titleService.setTitle(titleTrad);
@@ -74,6 +75,7 @@ export class HaMetadataService {
   }
 
   getLinkedInShareUrl(): string {
+    console.log('GET LINKEDIN SHARE URL');
     const url: string = this.getMetaTag('og:url', true);
     const title: string = this.getMetaTag('og:title', true);
     const description: string = this.getMetaTag('og:description', true);

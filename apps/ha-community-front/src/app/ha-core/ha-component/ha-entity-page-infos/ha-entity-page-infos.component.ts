@@ -1,8 +1,10 @@
 import { ViewportScroller } from '@angular/common';
 import { Component, computed, inject, input, OnInit } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
+import { Router } from '@angular/router';
 import { CoStatsListComponent, CoVisibilityBadgeComponent } from '@monorepo/community-lib';
 import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
@@ -19,14 +21,12 @@ import { HaShareButtonElement } from '../../entity-module/ha-share-core/model/ha
 import { HaEntityType } from '../../ha-model/ha-entities/ha-entity-type';
 import { HaSpace } from '../../ha-model/ha-entities/ha-space.class';
 import { HaUser } from '../../ha-model/ha-entities/ha-user';
+import { HaAuthenticatedUserService } from '../../ha-service/ha-authenticated-user.service';
 import { HaMetadataService } from '../../ha-service/ha-metadata.service';
+import { HaRouterService } from '../../ha-service/ha-router.service';
 import { HaCurrentPageState } from '../../ha-state/ha-current-page.state';
 import { HaEntityCommentState } from '../../ha-state/ha-entity-comment.state';
 import { HaEntityLikeState } from '../../ha-state/ha-entity-like.state';
-import { HaAuthenticatedUserService } from '../../ha-service/ha-authenticated-user.service';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { HaRouterService } from '../../ha-service/ha-router.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'ha-entity-page-infos',
@@ -82,17 +82,17 @@ export class HaEntityPageInfosComponent implements OnInit {
       {
         icon: 'facebook',
         label: 'Facebook',
-        onClick: this.shareOnFacebook,
+        onClick: () => this.shareOnFacebook(this.metaService),
       },
       {
         icon: 'x',
         label: 'X',
-        onClick: this.shareOnX,
+        onClick: () => this.shareOnX(this.metaService),
       },
       {
         icon: 'linkedin',
         label: 'LinkedIn',
-        onClick: this.shareOnLinkedIn,
+        onClick: () => this.shareOnLinkedIn(this.metaService),
       },
     ];
   }
@@ -138,18 +138,18 @@ export class HaEntityPageInfosComponent implements OnInit {
     this.dialogService.openSmallDialog(HaCoAuthorDialogComponent, { data: input }).afterClosed().subscribe();
   }
 
-  shareOnFacebook(): void {
-    const facebookUrl = this.metaService.getFacebookShareUrl();
+  shareOnFacebook(metadataService: HaMetadataService): void {
+    const facebookUrl = metadataService.getFacebookShareUrl();
     window.open(facebookUrl, '_blank');
   }
 
-  shareOnX(): void {
-    const twitterUrl = this.metaService.getTwitterShareUrl();
+  shareOnX(metadataService: HaMetadataService): void {
+    const twitterUrl = metadataService.getTwitterShareUrl();
     window.open(twitterUrl, '_blank');
   }
 
-  shareOnLinkedIn(): void {
-    const linkedInUrl = this.metaService.getLinkedInShareUrl();
+  shareOnLinkedIn(metadataService: HaMetadataService): void {
+    const linkedInUrl = metadataService.getLinkedInShareUrl();
     window.open(linkedInUrl, '_blank');
   }
 }

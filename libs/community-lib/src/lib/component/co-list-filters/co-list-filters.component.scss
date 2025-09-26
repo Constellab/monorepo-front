@@ -1,4 +1,4 @@
-.list-filters-div{
+.list-filters-div {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -7,20 +7,20 @@
   margin-bottom: 40px;
 }
 
-.filters-div{
+.filters-div {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 24px;
 }
 
-.filter-sort-div{
+.filter-sort-div {
   display: flex;
   flex-direction: column;
   position: relative;
 }
 
-.filter-sort-div-header{
+.filter-sort-div-header {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -30,7 +30,7 @@
   flex: fit-content;
 }
 
-.filter-sort-div-portal{
+.filter-sort-div-portal {
   position: absolute;
   top: 100%;
   left: 0;
@@ -38,9 +38,11 @@
   background-color: #fff;
   box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
   z-index: 55;
+  padding: 8px;
+  border-radius: 8px;
 }
 
-.filter-div-portal-option{
+.filter-div-portal-option {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -50,7 +52,7 @@
   width: max-content;
 }
 
-.sort-div-portal-option{
+.sort-div-portal-option {
   min-width: calc(100% - 16px);
   width: max-content;
   display: flex;
@@ -62,20 +64,20 @@
   cursor: pointer;
 }
 
-.filter-div-portal-option:hover{
+.filter-div-portal-option:hover {
   cursor: pointer;
   background-color: #f5f5f5;
 }
 
-.filter-title-field{
+.filter-title-field {
   padding: 12px 8px 0 8px;
 }
 
-.hidden-icon-div{
+.hidden-icon-div {
   width: 18px;
   height: 18px;
 }
 
-.my-entities-text{
+.my-entities-text {
   font-weight: 600;
 }

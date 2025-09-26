@@ -12,6 +12,9 @@ import { HaRouterService } from '../../../ha-service/ha-router.service';
 export class HaDetailRoutePipe implements PipeTransform {
   transform(value: any): string {
     if (value instanceof HaStory || value instanceof HaListStoryDto) {
+      if (value.publishedAt == null) {
+        return HaRouterService.getStoryEditRoute(value.id);
+      }
       return HaRouterService.getStoryRoute(value.id, value.titlePath);
     }
 
