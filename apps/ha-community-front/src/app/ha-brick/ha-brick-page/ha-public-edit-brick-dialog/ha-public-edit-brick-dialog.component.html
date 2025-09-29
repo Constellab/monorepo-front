@@ -4,13 +4,22 @@
 
 <mat-dialog-content>
   <form (ngSubmit)="submit()" id="edit-form" [formGroup]="formGp" class="g-layout-col">
-    <fl-update-image-container
-      class="brick-image-div"
-      [uploadConfig]="imageConfig"
-      [deleteConfig]="deleteImageConfig"
-      [showDelete]="!!formGp.value.imageLink">
-      <img [src]="formGp.value.imageLink | haBrickImage" alt="Brick Image" />
-    </fl-update-image-container>
+    <div class="picture-container" [matTooltip]="'brick_picture' | translate">
+      <fl-update-image-container
+        class="brick-image-div"
+        [uploadConfig]="imageConfig"
+        [deleteConfig]="deleteImageConfig"
+        [showDelete]="!!formGp.value.imageLink"
+        [showEditIcon]="!!formGp.value.imageLink">
+        <div class="picture-div">
+          @if (!formGp.value.imageLink) {
+            <mat-icon class="picture-placeholder"> add_a_photo </mat-icon>
+          } @else {
+            <img [src]="formGp.value.imageLink | haBrickImage" alt="Brick Image" class="picture" />
+          }
+        </div>
+      </fl-update-image-container>
+    </div>
 
     <!--  description  -->
     <mat-form-field class="g-form-input" appearance="outline">

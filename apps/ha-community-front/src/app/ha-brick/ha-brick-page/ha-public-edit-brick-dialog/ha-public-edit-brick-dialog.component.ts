@@ -3,8 +3,10 @@ import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '
 import { MatButton } from '@angular/material/button';
 import { MatDialogActions, MatDialogContent } from '@angular/material/dialog';
 import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatIcon } from '@angular/material/icon';
 import { MatInput } from '@angular/material/input';
 import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
+import { MatTooltip } from '@angular/material/tooltip';
 import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import {
@@ -46,6 +48,8 @@ import { HaSpaceService } from '../../../ha-core/ha-service/ha-space.service';
     FlCorePipeModule,
     TranslatePipe,
     HaBrickImagePipe,
+    MatIcon,
+    MatTooltip,
   ],
 })
 export class HaPublicEditBrickDialogComponent

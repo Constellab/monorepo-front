@@ -11,6 +11,4 @@ import { CoAgent } from '../../model/co-agent.class';
 export class CoAgentListItemComponent {
   @Input()
   agent: CoAgent;
-
-  description: string;
 }

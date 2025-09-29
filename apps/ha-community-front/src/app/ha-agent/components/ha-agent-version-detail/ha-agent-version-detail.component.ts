@@ -1,6 +1,7 @@
 import { Component, computed, inject, input, Signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { FlCodeEditorLanguage, FlCodeEditorModule } from '@monorepo/front-core-lib/fl-code-editor';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
@@ -14,7 +15,6 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { HaAgentVersion } from '../../../ha-core/ha-model/ha-entities/ha-agent-version.class';
 import { HaAgentService } from '../../../ha-core/ha-service/ha-agent.service';
 import { HaAgentPageState } from '../../state/ha-agent-page.state';
-import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'ha-agent-version-detail',

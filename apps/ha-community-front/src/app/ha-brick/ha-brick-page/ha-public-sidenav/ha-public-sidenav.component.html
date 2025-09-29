@@ -2,7 +2,7 @@
   <span class="g-text-medium g-weight-600">{{ 'menu' | translate }}</span>
   @if (userHasEditRight()) {
     <button mat-icon-button (click)="onClickMenu($event, true)" [matTooltip]="'create_element' | translate">
-      <mat-icon>edit</mat-icon>
+      <mat-icon>add</mat-icon>
     </button>
   }
 </div>

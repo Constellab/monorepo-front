@@ -1,7 +1,8 @@
 <header class="header" [ngClass]="isHomePage() ? 'main-header' : ''">
   <nav class="nav-bar">
     <a class="nav-bar-icon-div" [routerLink]="homeRoute">
-      <img ngSrc="assets/fl-logo/community_logo_with_text.png" fill />
+      <img ngSrc="assets/fl-logo/community_logo_with_text.png" fill class="logo-with-text" />
+      <img ngSrc="assets/fl-logo/community_logo.svg" fill class="logo" />
     </a>
 
     <div class="nav-bar-links-div">
@@ -10,12 +11,17 @@
       <a [routerLink]="agentListRoute">{{ 'agents' | translate }}</a>
       <a [routerLink]="brickListRoute">{{ 'bricks' | translate }}</a>
       <span [matMenuTriggerFor]="documentationMenu">{{ 'documentation' | translate }}</span>
-      <a [routerLink]="constellabRoute">Constellab</a>
+      <a [href]="constellabRoute" target="_blank">Constellab</a>
     </div>
 
     <div class="search-div" (click)="openInstantSearchDialog()">
       {{ 'search' | translate }}
       <mat-icon class="search-icon">search</mat-icon>
+    </div>
+
+    <div class="lang-div" [matMenuTriggerFor]="languageMenu">
+      {{ currentLanguage() === 'en' ? 'EN' : 'FR' }}
+      <mat-icon>arrow_drop_down</mat-icon>
     </div>
 
     <div class="nav-bar-action-div">
@@ -87,19 +93,28 @@
     <mat-icon class="search-icon">search</mat-icon>
     {{ 'search' | translate }}
   </button>
+  <mat-divider></mat-divider>
+  <a mat-menu-item [routerLink]="storyListRoute">{{ 'stories' | translate }}</a>
+  <a mat-menu-item [routerLink]="appsListRoute">{{ 'apps' | translate }}</a>
+  <a mat-menu-item [routerLink]="agentListRoute">{{ 'agents' | translate }}</a>
+  <a mat-menu-item [routerLink]="brickListRoute">{{ 'bricks' | translate }}</a>
+  <span mat-menu-item [matMenuTriggerFor]="documentationMenu">{{ 'documentation' | translate }}</span>
+  <a mat-menu-item [href]="constellabRoute" target="_blank">Constellab</a>
+  <mat-divider></mat-divider>
   <a mat-menu-item [routerLink]="profileRoute + currentUser()?.id">
     {{ 'profile' | translate }}
   </a>
   <a mat-menu-item [routerLink]="adminRoute" *haIsAdmin>
     {{ 'admin_dashboard' | translate }}
   </a>
-  <a mat-menu-item [routerLink]="storyListRoute">{{ 'stories' | translate }}</a>
-  <a mat-menu-item [routerLink]="appsListRoute">{{ 'apps' | translate }}</a>
-  <a mat-menu-item [routerLink]="agentListRoute">{{ 'agents' | translate }}</a>
-  <a mat-menu-item [routerLink]="brickListRoute">{{ 'bricks' | translate }}</a>
-  <span mat-menu-item [matMenuTriggerFor]="documentationMenu">{{ 'documentation' | translate }}</span>
-  <a mat-menu-item [routerLink]="constellabRoute">Constellab</a>
+  <mat-divider></mat-divider>
+  <button mat-menu-item [matMenuTriggerFor]="languageMenu">{{ 'language' | translate }}</button>
   <button mat-menu-item (click)="logout()">
     {{ 'logout' | translate }}
   </button>
+</mat-menu>
+
+<mat-menu #languageMenu="matMenu">
+  <button mat-menu-item (click)="setLanguage(ClSupportedLanguage.en)">{{ 'english' | translate }}</button>
+  <button mat-menu-item (click)="setLanguage(ClSupportedLanguage.fr)">{{ 'french' | translate }}</button>
 </mat-menu>

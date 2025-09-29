@@ -6,16 +6,16 @@
         <div class="footer-brand">
           <div class="footer-brand-content">
             <div class="footer-logo">
-              <img ngSrc="assets/fl-logo/community_logo_with_text_light.png" alt="Community Logo" fill>
+              <img ngSrc="assets/fl-logo/community_logo_with_text_light.png" alt="Community Logo" fill />
             </div>
             <div class="g-weight-600 g-large-text">
-              Un espace ouvert pour partager, apprendre et contribuer à la science des données.
+              {{ 'home.footer.text' | translate }}
             </div>
           </div>
           <div class="footer-credit">
-            <span>Un site web fièrement réalisé par</span>
+            <span>{{ 'home.footer.a_website_designed_by' | translate }}</span>
             <div class="norry-logo">
-              <img ngSrc="assets/fl-logo/norry_logo.png" alt="Norry Logo" fill>
+              <img ngSrc="assets/fl-logo/norry_logo.png" alt="Norry Logo" fill />
             </div>
           </div>
         </div>
@@ -37,15 +37,13 @@
           </div>
           <mat-expansion-panel class="expansion-panel">
             <mat-expansion-panel-header>
-              <mat-panel-title><span class="g-text-medium g-weight-600">Navigation</span>
-              </mat-panel-title>
+              <mat-panel-title><span class="g-text-medium g-weight-600">Navigation</span> </mat-panel-title>
             </mat-expansion-panel-header>
             <ng-template [ngTemplateOutlet]="navCommunityLinks"></ng-template>
           </mat-expansion-panel>
           <mat-expansion-panel class="expansion-panel">
             <mat-expansion-panel-header>
-              <mat-panel-title><span class="g-text-medium g-weight-600">Ressources</span>
-              </mat-panel-title>
+              <mat-panel-title><span class="g-text-medium g-weight-600">Ressources</span> </mat-panel-title>
             </mat-expansion-panel-header>
             <div>
               <ng-template [ngTemplateOutlet]="navResource1Links"></ng-template>
@@ -60,7 +58,7 @@
           <ha-footer-socials></ha-footer-socials>
         </div>
         <div class="copyright">
-          <span>©2025 Gencovery. Tous droits réservés</span>
+          <span>©2025 Gencovery. {{ 'home.footer.all_rights_reserved' | translate }}</span>
         </div>
       </div>
     </div>
@@ -70,10 +68,10 @@
     <div class="footer-div">
       <div class="footer-bottom">
         <div class="footer-logo">
-          <img ngSrc="assets/fl-logo/community_logo_with_text_light.png" alt="Community Logo" fill>
+          <img ngSrc="assets/fl-logo/community_logo_with_text_light.png" alt="Community Logo" fill />
         </div>
         <div class="copyright g-small-text">
-          ©2025 Gencovery. Tous droits réservés
+          ©2025 Gencovery. {{ 'home.footer.all_rights_reserved' | translate }}
         </div>
         <ha-footer-socials></ha-footer-socials>
       </div>
@@ -81,10 +79,9 @@
   </footer>
 }
 
-
 <ng-template #navCommunityLinks>
   <div class="footer-link">
-    <a [routerLink]="'.'">{{ 'home' | translate}}</a>
+    <a [routerLink]="'.'">{{ 'home' | translate }}</a>
   </div>
   <div class="footer-link">
     <a [routerLink]="storiesListRoute">{{ 'stories' | translate }}</a>
@@ -93,13 +90,13 @@
     <a [routerLink]="appsListRoute">{{ 'apps' | translate }}</a>
   </div>
   <div class="footer-link">
-    <a [routerLink]="agentsListRoute">{{ 'agents' | translate}}</a>
+    <a [routerLink]="agentsListRoute">{{ 'agents' | translate }}</a>
   </div>
   <div class="footer-link">
-    <a [routerLink]="bricksListRoute">{{ 'bricks' | translate}}</a>
+    <a [routerLink]="bricksListRoute">{{ 'bricks' | translate }}</a>
   </div>
   <div class="footer-link">
-    <a [routerLink]="tagsListRoute">{{ 'tags' | translate}}</a>
+    <a [routerLink]="tagsListRoute">{{ 'tags' | translate }}</a>
   </div>
 </ng-template>
 
@@ -126,12 +123,16 @@
 
 <ng-template #navResource2Links>
   <div class="footer-link">
-    <a href="https://www.gencovery.com/en-us/politique-de-confidentialite" target="_blank">{{ 'confidentiality_policy' | translate }}</a>
+    <a href="https://www.gencovery.com/en-us/politique-de-confidentialite" target="_blank">{{
+      'confidentiality_policy' | translate
+    }}</a>
   </div>
-<!--  <div class="footer-link">-->
-<!--    <a href="#">Politique de cookies</a>-->
-<!--  </div>-->
+  <!--  <div class="footer-link">-->
+  <!--    <a href="#">Politique de cookies</a>-->
+  <!--  </div>-->
   <div class="footer-link">
-    <a href="https://www.gencovery.com/en-us/mentions-legales" target="_blank">{{ 'legal_information' | translate}}</a>
+    <a href="https://www.gencovery.com/en-us/mentions-legales" target="_blank">{{
+      'legal_information' | translate
+    }}</a>
   </div>
 </ng-template>

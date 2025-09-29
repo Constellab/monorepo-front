@@ -37,6 +37,9 @@
   "home.section6.faq_answer_4": "Yes, all published resources are moderated to ensure they comply with our community guidelines.",
   "home.section6.faq_question_5": "Can I collaborate with other members?",
   "home.section6.faq_answer_5": "Absolutely, collaboration is at the heart of our community. You can exchange ideas, co-create, and learn from other members.",
+  "home.footer.text": "An open space to share, learn, and contribute to data science.",
+  "home.footer.a_website_designed_by": "A website designed by",
+  "home.footer.all_rights_reserved": "All rights reserved.",
 
   "story_list.header.title": "Stories & feedback",
   "story_list.header.description": "An active community focused on scientific data and open science.",
@@ -80,7 +83,6 @@
   "tag_list.create_section.subtitle": "Create it to enrich the tag library of the community.",
   "tag_list.create_section.submit": "Submit a tag",
 
-
   "join_the_community": "Join the community",
   "discover_all_stories": "Discover all stories",
   "discover_all_apps": "Discover all apps",
@@ -112,6 +114,12 @@
   "upload_app_picture": "Upload app picture",
   "no_agent_version_published_yet": "No agent version published yet",
   "no_interests_specified": "No interests specified",
+  "language": "Language",
+
+  "delete_app_picture": "Delete app picture",
+  "delete_app_picture_confirmation": "Are you sure you want to delete the picture of the app ?",
+  "app_picture_deleted": "App picture deleted",
+  "app_picture": "App picture",
 
   "create": "Create",
   "documentation": "Documentation",

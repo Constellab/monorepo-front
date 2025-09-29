@@ -4,7 +4,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CoStatsListComponent, CoVisibilityBadgeComponent } from '@monorepo/community-lib';
 import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
@@ -42,6 +42,7 @@ import { HaEntityLikeState } from '../../ha-state/ha-entity-like.state';
     MatTooltip,
     MatIcon,
     FlIconModule,
+    RouterLink,
   ],
   providers: [HaEntityLikeState],
 })
@@ -62,6 +63,7 @@ export class HaEntityPageInfosComponent implements OnInit {
   space = input<HaSpace>(undefined);
   executions = input<number>(undefined);
   isAuthor = input<boolean>(false);
+  showCoAuthorsButton = input<boolean>(true);
 
   isLiked = this.entityLikeState.getIsLiked();
   likesCount = this.entityLikeState.getLikesCount();

@@ -3,8 +3,10 @@ import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIcon } from '@angular/material/icon';
 import { MatInput } from '@angular/material/input';
 import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
+import { MatTooltip } from '@angular/material/tooltip';
 import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
 import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
@@ -50,6 +52,8 @@ export type HaCreateCommunityAppInput = FlFormDialogInput<HaCommunityAppEdit>;
     MatRadioButton,
     MatRadioGroup,
     AsyncPipe,
+    MatIcon,
+    MatTooltip,
   ],
   templateUrl: './ha-community-app-create-dialog.component.html',
   styleUrl: './ha-community-app-create-dialog.component.scss',

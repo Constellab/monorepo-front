@@ -1,157 +1,8 @@
-<!--<div class="main-panel">-->
-<!--  @if (tagKey) {-->
-<!--    <div class="main-info-div tag-page-section">-->
-<!--      <div class="titles-div">-->
-<!--        <h1>{{ tagKey.label }}</h1>-->
-<!--        <div class="tech-name-div">-->
-<!--          <span class="tag-technical-name">{{ tagKey.technicalName }}</span>-->
-<!--          <button mat-icon-button (click)="onCopyTechnicalName()" class="g-button-icon-small">-->
-<!--            <mat-icon>copy</mat-icon>-->
-<!--          </button>-->
-
-<!--          <div class="tag-like-comment">-->
-<!--            <ha-like-button [entityType]="commentType" [entityId]="tagKey.id"></ha-like-button>-->
-<!--            <ha-comment-button-->
-<!--              (clicked)="scrollToComments(comments)"-->
-<!--              [commentsCount]="tagKey.comments"></ha-comment-button>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        <div class="small-text user-date-info">-->
-<!--          <a [routerLink]="profileRoute + tagKey.createdBy?.id">-->
-<!--            <fl-user-inline [user]="tagKey.createdBy" [portalOnHover]="false"></fl-user-inline>-->
-<!--          </a>-->
-<!--          <span class="g-text-small date-info">-->
-<!--            @if (tagKey.publishedAt) {-->
-<!--              <fl-from-now [date]="tagKey.publishedAt"></fl-from-now>-->
-<!--            } @else {-->
-<!--              <span class="g-warn-text">-->
-<!--                {{ 'not_published' | translate }}-->
-<!--              </span>-->
-<!--            }-->
-<!--          </span>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--      <div>-->
-<!--        @if (canEditTag) {-->
-<!--          <div class="can-edit-bts-div">-->
-<!--            @if (!tagKey.publishedAt) {-->
-<!--              <button mat-stroked-button (click)="publishTagKey()" class="g-button-small">-->
-<!--                <mat-icon>share</mat-icon>-->
-<!--                {{ 'publish_tag' | translate }}-->
-<!--              </button>-->
-<!--            }-->
-<!--            @if (!tagKey.deprecated) {-->
-<!--              <button mat-stroked-button (click)="openEditTagKeyDialog()" class="g-button-small">-->
-<!--                <mat-icon>edit</mat-icon>-->
-<!--                {{ 'edit_tag' | translate }}-->
-<!--              </button>-->
-<!--              @if (!tagKey.publishedAt) {-->
-<!--                <button-->
-<!--                  mat-icon-button-->
-<!--                  (click)="onDeleteTag()"-->
-<!--                  class="warn"-->
-<!--                  [matTooltip]="'delete_tag' | translate">-->
-<!--                  <mat-icon>delete</mat-icon>-->
-<!--                </button>-->
-<!--              } @else {-->
-<!--                <button-->
-<!--                  mat-icon-button-->
-<!--                  (click)="onDeleteTag()"-->
-<!--                  class="warn"-->
-<!--                  [matTooltip]="'deprecate_tag' | translate">-->
-<!--                  <mat-icon flIcon="archive"></mat-icon>-->
-<!--                </button>-->
-<!--              }-->
-<!--            } @else {-->
-<!--              <co-deprecated-tag></co-deprecated-tag>-->
-<!--            }-->
-<!--          </div>-->
-<!--        }-->
-<!--        <div class="tag-visibility-div"></div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--    <div class="tag-page-section">-->
-<!--      <div>-->
-<!--        <div class="card-header tag-div-header">-->
-<!--          <div class="header-title-div">-->
-<!--            {{ 'tag_description' | translate }}-->
-<!--          </div>-->
-<!--          @if (canEditTag) {-->
-<!--            <button-->
-<!--              mat-stroked-button-->
-<!--              class="g-button-small primary"-->
-<!--              [matTooltip]="-->
-<!--                descriptionFormControl.disabled-->
-<!--                  ? ('edit_tag_description' | translate)-->
-<!--                  : ('save_tag_description' | translate)-->
-<!--              "-->
-<!--              (click)="onDescriptionEditorButtonClick()">-->
-<!--              <mat-icon>{{ descriptionFormControl.disabled ? 'edit' : 'save' }}</mat-icon>-->
-<!--              {{ descriptionFormControl.disabled ? ('edit' | translate) : ('save' | translate) }}-->
-<!--            </button>-->
-<!--          }-->
-<!--        </div>-->
-<!--        <article>-->
-<!--          <te-text-editor-->
-<!--            [ngClass]="canEditTag ? 'editor-border' : ''"-->
-<!--            [config]="textEditorConfig"-->
-<!--            [formControl]="descriptionFormControl"-->
-<!--            [placeholder]="'tag_description_place_holder' | translate"></te-text-editor>-->
-<!--        </article>-->
-<!--      </div>-->
-<!--    </div>-->
-
-<!--    <div class="tag-values-div tag-page-section">-->
-<!--      <div class="tag-div-header tag-value-div-header">-->
-<!--        <h4>{{ 'predefined_tag_values' | translate }}</h4>-->
-<!--        @if (canEditTag && !tagKey.deprecated) {-->
-<!--          <div class="g-layout-row g-layout-start-center g-gap-05em">-->
-<!--            <button class="g-button-small" mat-stroked-button (click)="openEditAdditionalInfoSpecDialog()">-->
-<!--              {{ 'coCommunityLib.edit_additional_info_specs' | translate }}-->
-<!--            </button>-->
-<!--            @if (!isBooleanType) {-->
-<!--              <button-->
-<!--                mat-icon-button-->
-<!--                (click)="openCreateTagValueDialog()"-->
-<!--                [matTooltip]="'add_tag_value' | translate">-->
-<!--                <mat-icon>add_circle</mat-icon>-->
-<!--              </button>-->
-<!--            }-->
-<!--          </div>-->
-<!--        }-->
-<!--      </div>-->
-
-<!--      @if (tagValues) {-->
-<!--        <co-tag-values-table-->
-<!--          [dataSource]="tagValues"-->
-<!--          [hideEditButton]="!canEditTag || tagKey.deprecated"-->
-<!--          [hideDeleteButton]="!canEditTag || isBooleanType"-->
-<!--          [deleteButtonToolTip]="-->
-<!--            !tagKey.publishedAt ? ('delete_tag_value' | translate) : ('deprecate_tag_value' | translate)-->
-<!--          "-->
-<!--          (editTagValue)="openEditTagValueDialog($event)"-->
-<!--          (deleteTagValue)="openConfirmDeleteTagValueDialog($event)">-->
-<!--        </co-tag-values-table>-->
-<!--      }-->
-<!--    </div>-->
-
-<!--    <div #comments>-->
-<!--      @if (currentUser && tagKey) {-->
-<!--        &lt;!&ndash;        <ha-comments-section&ndash;&gt;-->
-<!--        &lt;!&ndash;&lt;!&ndash;          [commentType]="commentType"&ndash;&gt;&ndash;&gt;-->
-<!--        &lt;!&ndash;&lt;!&ndash;          [entity]="tagKey"&ndash;&gt;&ndash;&gt;-->
-<!--        &lt;!&ndash;          [user]="currentUser"></ha-comments-section>&ndash;&gt;-->
-<!--      }-->
-<!--    </div>-->
-<!--  }-->
-<!--</div>-->
-
 <ha-page
   [pageTitle]="tagKey?.label ?? tempTitle"
   [showPageDescription]="false"
   [isLoading]="isLoading"
-  [notFound]="notFound"
->
+  [notFound]="notFound">
   @if (tagKey) {
     <div class="entity-page-section">
       <div class="entity-page-infos">
@@ -161,9 +12,8 @@
           [contributors]="[tagKey.createdBy]"
           [date]="tagKey.createdAt"
           [space]="tagKey.space"
-          [isAuthor]="tagKey.createdBy.id === user()?.id">
-
-
+          [isAuthor]="tagKey.createdBy.id === user()?.id"
+          [showCoAuthorsButton]="false">
           @if (canEditTag) {
             <div class="entity-page-info-div">
               <button type="button" mat-flat-button (click)="openEditTagKeyDialog()" class="g-full">
@@ -184,7 +34,6 @@
 
               <div class="entity-page-separator"></div>
             }
-
           }
 
           <div class="entity-page-info-div">
@@ -256,8 +105,8 @@
                 [hideEditButton]="!canEditTag || tagKey.deprecated"
                 [hideDeleteButton]="!canEditTag || isBooleanType"
                 [deleteButtonToolTip]="
-                      !tagKey.publishedAt ? ('delete_tag_value' | translate) : ('deprecate_tag_value' | translate)
-                    "
+                  !tagKey.publishedAt ? ('delete_tag_value' | translate) : ('deprecate_tag_value' | translate)
+                "
                 (editTagValue)="openEditTagValueDialog($event)"
                 (deleteTagValue)="openConfirmDeleteTagValueDialog($event)">
               </co-tag-values-table>

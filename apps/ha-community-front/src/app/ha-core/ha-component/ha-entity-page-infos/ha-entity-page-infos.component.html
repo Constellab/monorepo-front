@@ -5,7 +5,7 @@
     <div class="entity-page-info-div">
       <div class="entity-page-info-div-title">
         <span class="g-text-medium g-weight-600">{{ 'contributors' | translate }}</span>
-        @if (isAuthor()) {
+        @if (isAuthor() && showCoAuthorsButton()) {
           <button
             mat-icon-button
             type="button"
@@ -18,7 +18,9 @@
       </div>
       <div class="entity-page-info-div-content">
         @for (contributor of contributors(); track contributor.id) {
-          <fl-user-inline [user]="contributor" [portalOnHover]="false"></fl-user-inline>
+          <a [routerLink]="'/profile/' + contributor.id">
+            <fl-user-inline [user]="contributor" [portalOnHover]="false"></fl-user-inline>
+          </a>
         }
       </div>
     </div>
@@ -64,7 +66,10 @@
     <span class="g-text-medium g-weight-600">{{ 'share' | translate }}</span>
     <div class="share-buttons-div">
       @for (shareButton of shareButtons; track shareButton.label) {
-        <button mat-icon-button [matTooltip]="('share_on' | translate) + ' ' + shareButton.label" (click)="shareButton.onClick()">
+        <button
+          mat-icon-button
+          [matTooltip]="('share_on' | translate) + ' ' + shareButton.label"
+          (click)="shareButton.onClick()">
           <mat-icon [svgIcon]="shareButton.icon"></mat-icon>
         </button>
       }

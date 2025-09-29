@@ -21,12 +21,7 @@ export class HaThemeState {
   }
 
   init(): void {
-    this.setTheme(this.themeService.getCurrentTheme());
-    this.authUserService.getUser().subscribe((user) => {
-      if (user != null && user.theme != this.currentTheme()) {
-        this.setTheme(user.theme);
-      }
-    });
+    this.setTheme(ClTheme.LIGHT_THEME);
   }
 
   changeTheme(theme: ClTheme): void {

@@ -10,6 +10,6 @@ export class HaAppPicturePipe implements PipeTransform {
     if (picture) {
       return this.communityAppService.getAppPictureUrl(picture);
     }
-    return 'assets/fl-logo/logo.png';
+    return null;
   }
 }

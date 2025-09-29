@@ -32,4 +32,8 @@
       <p class="not-published-message">{{ 'no_agent_version_published_yet' | translate }}</p>
     }
   </div>
+} @else {
+  <div class="g-layout-row g-layout-center-center">
+    <fl-loader></fl-loader>
+  </div>
 }

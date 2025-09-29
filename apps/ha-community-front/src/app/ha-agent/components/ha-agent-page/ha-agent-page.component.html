@@ -13,7 +13,6 @@
           [date]="agent().createdAt"
           [space]="agent().space"
           [isAuthor]="isAuthor()">
-
           <input
             flInputFile
             flHide
@@ -34,7 +33,6 @@
                   [matTooltip]="'select_file_to_create_agent_version' | translate">
                   <mat-icon>add</mat-icon>
                 </button>
-
               }
             </div>
             <div class="entity-page-info-div-content additional-info-div">
@@ -42,12 +40,10 @@
                 <span>Overview</span>
               </a>
               @for (version of versions(); track version.id) {
-                <a
-                  [routerLink]="['version', version.version]"
-                >
-                  <span>{{'version' | translate}} {{ version.version }}</span>
+                <a [routerLink]="['version', version.version]">
+                  <span>{{ 'version' | translate }} {{ version.version }}</span>
                   @if (version.versionState === 'DRAFT') {
-                    <span class="not-published-message g-text-small">{{'not_published' | translate}}</span>
+                    <span class="not-published-message g-text-small">{{ 'not_published' | translate }}</span>
                   }
                 </a>
               }
@@ -60,13 +56,14 @@
             <span class="g-text-medium g-weight-600">{{ 'necessary_bricks' | translate }}</span>
             <div class="entity-page-info-div-content additional-info-div">
               @for (brickVersion of brickDependencies(); track brickVersion.id) {
-                <p>{{brickVersion.brickMajorVersion.brick.name}} {{brickVersion.version}}</p>
+                <a [routerLink]="brickVersion.brickMajorVersion.brick | haDetailRoute"
+                  >{{ brickVersion.brickMajorVersion.brick.name }} {{ brickVersion.version }}</a
+                >
               }
             </div>
           </div>
 
           <div class="entity-page-separator"></div>
-
         </ha-entity-page-infos>
       </div>
       <div class="entity-page-content">

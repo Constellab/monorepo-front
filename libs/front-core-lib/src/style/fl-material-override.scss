@@ -166,11 +166,11 @@ body {
   }
 
   .mdc-button.g-button-small {
-    font-size: 0.8rem;
+    font-size: 0.8rem !important;
     padding-left: 1em;
     padding-right: 1em;
     line-height: 2em;
-    height: 25px;
+    height: 25px !important;
 
     // remove margin of icon
     .material-icons,

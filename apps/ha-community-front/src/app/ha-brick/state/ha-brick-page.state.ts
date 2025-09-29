@@ -26,6 +26,7 @@ import {
   HaRunStatAggregate,
   HaRunStatAggregateObjectType,
 } from '../../ha-core/ha-model/ha-entities/ha-run-stat-aggregate.class';
+import { HaUser } from '../../ha-core/ha-model/ha-entities/ha-user';
 import { HaReferenceDTO } from '../../ha-core/ha-model/ha-entities/ha-version.class';
 import { HaBrickService } from '../../ha-core/ha-service/ha-brick.service';
 import { HaBrickVersionService } from '../../ha-core/ha-service/ha-brick-version.service';
@@ -63,6 +64,7 @@ export class HaBrickPageState {
   private runStatAggregateStatusEvent: WritableSignal<FlStatusEvent<HaRunStatAggregate>> =
     signal<FlStatusEvent<HaRunStatAggregate>>(null);
   private tempTitle: WritableSignal<string> = signal<string>('');
+  private brickCoAuthors: WritableSignal<HaUser[]> = signal<HaUser[]>(null);
 
   public brickAndPathVersion: Signal<[HaBrick, string]> = computed(() => {
     return [this.brick(), this.pathVersion()];
@@ -107,6 +109,10 @@ export class HaBrickPageState {
     }
     return null;
   });
+
+  public getCoAuthors(): Signal<HaUser[]> {
+    return this.brickCoAuthors;
+  }
 
   public isDocLoading: Signal<boolean> = computed(() => {
     return this.docStatusEvent() && this.docStatusEvent().status === 'loading';
@@ -177,7 +183,6 @@ export class HaBrickPageState {
     return this.doc().content?.getHeadersData([TeBlockHeaderLevel.HEADER_1, TeBlockHeaderLevel.HEADER_2]);
   });
 
-
   public init(brickName: string, version: string): void {
     this.pathVersion.set(version);
     this.tempTitle.set(ClStringHelper.fromKebabCaseToSentence(brickName));
@@ -192,6 +197,13 @@ export class HaBrickPageState {
     this.brickStatusEvent.set({ status: 'success', object: brick });
 
     this.initBrickRunStatAggregate(brick.id);
+    this.initCoAuthors(brick.id);
+  }
+
+  public initCoAuthors(brickId: string): void {
+    this.brickService.getCoAuthors(brickId).subscribe((coAuthors) => {
+      this.brickCoAuthors.set(coAuthors);
+    });
   }
 
   public getDirectReferences(): Signal<HaReferenceDTO[]> {
@@ -306,7 +318,6 @@ export class HaBrickPageState {
     this.docStatusEvent.set({ status: 'success', object: doc });
     this.initDocFileUrlPrefix(doc.id);
     this.initDocFiles(doc.id);
-
   }
 
   private initUserHasEditRight(brick: HaBrick): void {

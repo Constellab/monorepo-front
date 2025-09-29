@@ -1,4 +1,4 @@
-import { NgClass } from '@angular/common';
+import { NgClass, NgOptimizedImage } from '@angular/common';
 import { Component, input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
@@ -23,6 +23,7 @@ import { CoVisibilityBadgeComponent } from '../co-visibility-badge/co-visibility
     CoItemTypeIconComponent,
     NgClass,
     CoStatsListComponent,
+    NgOptimizedImage,
   ],
 })
 export class CoCommunityListItemComponent {

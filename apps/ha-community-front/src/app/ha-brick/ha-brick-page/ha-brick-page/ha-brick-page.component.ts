@@ -1,3 +1,4 @@
+import { NgClass } from '@angular/common';
 import { Component, computed, DOCUMENT, inject, OnDestroy, OnInit, Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { MatButton } from '@angular/material/button';
@@ -11,21 +12,18 @@ import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { TranslatePipe } from '@ngx-translate/core';
 import { filter, Subscription } from 'rxjs';
 
-import {
-  HaEntityPageInfosComponent
-} from '../../../ha-core/ha-component/ha-entity-page-infos/ha-entity-page-infos.component';
+import { HaEntityPageInfosComponent } from '../../../ha-core/ha-component/ha-entity-page-infos/ha-entity-page-infos.component';
 import { HaPageComponent } from '../../../ha-core/ha-component/ha-page/ha-page.component';
 import { HaBrick, HaEditBrickDTO } from '../../../ha-core/ha-model/ha-entities/ha-brick.class';
 import { HaEntityType } from '../../../ha-core/ha-model/ha-entities/ha-entity-type';
 import { HaUser } from '../../../ha-core/ha-model/ha-entities/ha-user';
 import { HaAuthenticatedUserService } from '../../../ha-core/ha-service/ha-authenticated-user.service';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
+import { HaCurrentPageState } from '../../../ha-core/ha-state/ha-current-page.state';
 import { HaEntityCommentState } from '../../../ha-core/ha-state/ha-entity-comment.state';
 import { HaBrickPageState } from '../../state/ha-brick-page.state';
 import { HaPublicEditBrickDialogComponent } from '../ha-public-edit-brick-dialog/ha-public-edit-brick-dialog.component';
 import { HaPublicSidenavComponent } from '../ha-public-sidenav/ha-public-sidenav.component';
-import { NgClass } from '@angular/common';
-import { HaCurrentPageState } from '../../../ha-core/ha-state/ha-current-page.state';
 
 @Component({
   selector: 'ha-brick-page',
@@ -61,9 +59,11 @@ export class HaBrickPageComponent implements OnInit, OnDestroy {
   brickNotFound: Signal<boolean> = this.brickPageState.isBrickError;
   isLoading: Signal<boolean> = this.brickPageState.isBrickLoading;
   tempTitle = this.brickPageState.getTempTitle();
+  brickCoAuthors = this.brickPageState.getCoAuthors();
   contributors: Signal<HaUser[]> = computed(() => {
-    if (!this.brick()) return [];
-    return [this.brick().createdBy];
+    const coAuthors = this.brickCoAuthors();
+    if (!this.brick() || !coAuthors) return [];
+    return [this.brick().createdBy, ...coAuthors];
   });
   isAuthor: Signal<boolean> = computed(() => {
     if (!this.currentUser() || !this.brick()) return false;

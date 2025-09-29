@@ -238,6 +238,7 @@ export class HaPublicSidenavComponent implements OnInit {
           type: 'button',
           text: { text: 'delete', translateText: true },
           icon: 'delete',
+          color: 'warn',
           onClick: () => this.openResourceDelete(id, isFolder),
           disabled: hasChild,
         },
@@ -254,6 +255,7 @@ export class HaPublicSidenavComponent implements OnInit {
         type: 'button',
         text: { text: 'delete', translateText: true },
         icon: 'delete',
+        color: 'warn',
         onClick: () => this.openResourceDelete(id, isFolder),
       },
     ];

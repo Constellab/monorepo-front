@@ -1,5 +1,4 @@
 @if (agentVersion()) {
-
   <div class="agent-page-title g-layout-row g-layout-between-center">
     <h3>
       @if (agentVersion()?.agent && isOverview()) {
@@ -32,7 +31,9 @@
     </te-text-editor>
   }
 
-  @if ((agentVersion()?.inputSpecs?.specs | flIsNotEmpty) || (agentVersion()?.outputSpecs?.specs | flIsNotEmpty)) {
+  @if (
+    (agentVersion()?.inputSpecs?.specs | flIsNotEmpty) || (agentVersion()?.outputSpecs?.specs | flIsNotEmpty)
+  ) {
     <div class="agent-version-card io-card">
       <div class="io-div">
         <h3 class="g-small-title">{{ 'input' | translate }}(s)</h3>
@@ -57,7 +58,6 @@
     </div>
   }
 
-
   @if (isEditable() || agentVersion().params | flIsNotEmpty) {
     <div class="agent-version-card">
       <h3 class="g-small-title">{{ 'parameters' | translate }}</h3>
@@ -68,7 +68,7 @@
   @if (
     ((isEditable() && canEdit()) || agentVersion()?.environment | flIsNotEmpty) &&
     agentVersion().type !== 'PYTHON'
-    ) {
+  ) {
     <div class="agent-version-card">
       <div class="title-copy-div">
         <h3 class="g-small-title">{{ 'environment_file' | translate }}</h3>
@@ -94,52 +94,4 @@
 
     <fl-code-editor [language]="languageCode()" [formCtrl]="codeFormControl()"></fl-code-editor>
   </div>
-
-
-
-  <!--  &lt;!&ndash;TODO: Corriger le bug du changement de theme&ndash;&gt;-->
-<!--      @if (-->
-<!--        ((isEditable() && canEdit()) || agentVersion()?.environment | flIsNotEmpty) &&-->
-<!--        agentVersion().type !== 'PYTHON'-->
-<!--      ) {-->
-    <!--    <fl-card class="agent-version-detail-card">-->
-    <!--      <fl-card-header>-->
-    <!--        <div class="card-header">-->
-    <!--          <h5>-->
-    <!--            {{ 'environment_file' | translate }}-->
-    <!--          </h5>-->
-    <!--          <div>-->
-    <!--            <button mat-stroked-button (click)="onCopy('environment_file')" class="g-button-small primary">-->
-    <!--              <mat-icon>content_copy</mat-icon>-->
-    <!--              {{ 'copy_environment' | translate }}-->
-    <!--            </button>-->
-    <!--          </div>-->
-    <!--        </div>-->
-    <!--      </fl-card-header>-->
-    <!--      <fl-card-body>-->
-    <!--        <fl-code-editor-->
-    <!--          [language]="languageEnvironment()"-->
-    <!--          [formCtrl]="environmentFormControl"></fl-code-editor>-->
-    <!--      </fl-card-body>-->
-    <!--    </fl-card>-->
-    <!--  }-->
-
-    <!--  <fl-card class="agent-version-detail-card">-->
-    <!--    <fl-card-header>-->
-    <!--      <div class="card-header">-->
-    <!--        <h5>-->
-    <!--          {{ 'code' | translate }}-->
-    <!--        </h5>-->
-    <!--        <div>-->
-    <!--          <button mat-stroked-button (click)="onCopy('code')" class="g-button-small primary">-->
-    <!--            <mat-icon>content_copy</mat-icon>-->
-    <!--            {{ 'copy_code' | translate }}-->
-    <!--          </button>-->
-    <!--        </div>-->
-    <!--      </div>-->
-    <!--    </fl-card-header>-->
-    <!--    <fl-card-body>-->
-    <!--      <fl-code-editor [language]="languageCode()" [formCtrl]="codeFormControl"></fl-code-editor>-->
-    <!--    </fl-card-body>-->
-    <!--  </fl-card>-->
 }

@@ -12,5 +12,5 @@ import { CoCommunityListItemComponent } from '../co-community-list-item/co-commu
 })
 export class CoCommunityAppListItemComponent {
   communityApp = input.required<CoCommunityApp>();
-  appPicture = input.required<string>();
+  appPicture = input<string>();
 }

@@ -1,37 +1,34 @@
 import { Component, computed, inject, OnInit, Signal } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
 import { ActivatedRoute, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { ClStringHelper } from '@monorepo/core-lib';
+import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
 import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
+import { FlConfirmDialogInput, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlInputFileModule } from '@monorepo/front-core-lib/fl-input-file';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { TeTextEditorModule } from '@monorepo/text-editor';
 import { TranslatePipe } from '@ngx-translate/core';
 import { first } from 'rxjs';
 
-import {
-  HaCommentsSectionComponent
-} from '../../../ha-core/entity-module/ha-comments-core/component/ha-comments-section/ha-comments-section.component';
-import {
-  HaEntityPageInfosComponent
-} from '../../../ha-core/ha-component/ha-entity-page-infos/ha-entity-page-infos.component';
+import { HaCommentsSectionComponent } from '../../../ha-core/entity-module/ha-comments-core/component/ha-comments-section/ha-comments-section.component';
+import { HaEntityPageInfosComponent } from '../../../ha-core/ha-component/ha-entity-page-infos/ha-entity-page-infos.component';
 import { HaPageComponent } from '../../../ha-core/ha-component/ha-page/ha-page.component';
 import { HaAgent } from '../../../ha-core/ha-model/ha-entities/ha-agent.class';
+import { HaAgentVersionFileInput } from '../../../ha-core/ha-model/ha-entities/ha-agent-version.class';
 import { HaEntityType } from '../../../ha-core/ha-model/ha-entities/ha-entity-type';
 import { HaUser } from '../../../ha-core/ha-model/ha-entities/ha-user';
+import { HaDetailRoutePipe } from '../../../ha-core/ha-module/ha-core-pipe/ha-detail-route/ha-detail-route.pipe';
+import { HaAgentService } from '../../../ha-core/ha-service/ha-agent.service';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
 import { HaEntityCommentState } from '../../../ha-core/ha-state/ha-entity-comment.state';
 import { HaAgentPageState } from '../../state/ha-agent-page.state';
-import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
-import { FlInputFileModule } from '@monorepo/front-core-lib/fl-input-file';
-import { MatIconButton } from '@angular/material/button';
-import { HaAgentVersionFileInput } from '../../../ha-core/ha-model/ha-entities/ha-agent-version.class';
-import { FlConfirmDialogInput, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { MatIcon } from '@angular/material/icon';
-import { MatTooltip } from '@angular/material/tooltip';
-import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
-import { HaAgentService } from '../../../ha-core/ha-service/ha-agent.service';
 
 @Component({
   selector: 'ha-agent-page',
@@ -56,6 +53,7 @@ import { HaAgentService } from '../../../ha-core/ha-service/ha-agent.service';
     MatIcon,
     MatIconButton,
     MatTooltip,
+    HaDetailRoutePipe,
   ],
 })
 export class HaAgentPageComponent implements OnInit {
@@ -86,7 +84,6 @@ export class HaAgentPageComponent implements OnInit {
     return this.currentUser().id === this.agent().createdBy.id;
   });
   canEdit = this.agentPageState.canEditAgent;
-
 
   tempTitle: string;
   entityType = HaEntityType.AGENT;

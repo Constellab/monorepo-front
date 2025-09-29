@@ -1,7 +1,11 @@
 <div class="list-item-container">
   <div class="list-item-div">
     <div class="image-div">
-      <co-item-type-icon [type]="type()" size="big"></co-item-type-icon>
+      @if (image()) {
+        <img [ngSrc]="image()" fill="" alt="" />
+      } @else {
+        <co-item-type-icon [type]="type()" size="big"></co-item-type-icon>
+      }
     </div>
     <div class="content-div">
       <div class="info-div" [ngClass]="showVisibilityAndStats() ? '' : 'info-div-no-visibility'">

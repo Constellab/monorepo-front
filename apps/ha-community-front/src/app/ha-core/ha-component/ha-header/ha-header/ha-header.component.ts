@@ -1,12 +1,12 @@
 import { NgClass, NgOptimizedImage } from '@angular/common';
-import { Component, inject, input } from '@angular/core';
+import { Component, effect, inject, input, signal, WritableSignal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { MatButton, MatIconButton } from '@angular/material/button';
+import { MatButton } from '@angular/material/button';
+import { MatDivider } from '@angular/material/divider';
 import { MatIcon } from '@angular/material/icon';
-import { MatFormField, MatInput, MatSuffix } from '@angular/material/input';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
-import { MatTooltip } from '@angular/material/tooltip';
 import { RouterLink } from '@angular/router';
+import { ClSupportedLanguage } from '@monorepo/core-lib';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
@@ -36,12 +36,7 @@ import { HaInstantSearchDialogComponent } from '../../ha-instant-search-dialog/h
     MatIcon,
     MatMenuTrigger,
     FlIconModule,
-    MatFormField,
-    MatInput,
-    MatIconButton,
-    MatSuffix,
-    MatFormField,
-    MatTooltip,
+    MatDivider,
   ],
 })
 export class HaHeaderComponent {
@@ -81,6 +76,20 @@ export class HaHeaderComponent {
 
   currentUser = toSignal(this.authenticatedUserService.getUser());
 
+  currentLanguage: WritableSignal<ClSupportedLanguage> = signal(ClSupportedLanguage.en);
+
+  constructor() {
+    effect(() => {
+      const user = this.currentUser();
+      this.currentLanguage.set(user != null ? user.lang : ClSupportedLanguage.en);
+    });
+  }
+
+  setLanguage(lang: ClSupportedLanguage): void {
+    if (lang == this.currentLanguage()) return;
+    this.currentLanguage.set(this.authenticatedUserService.changeLang(lang));
+  }
+
   openInstantSearchDialog(): void {
     this.dialogService.openMediumDialog(HaInstantSearchDialogComponent, {
       position: { top: '5%' },
@@ -92,4 +101,6 @@ export class HaHeaderComponent {
       window.location.reload();
     });
   }
+
+  protected readonly ClSupportedLanguage = ClSupportedLanguage;
 }
