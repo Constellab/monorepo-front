@@ -2,9 +2,9 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# Commands
+## Commands
 
-## Build & Serve
+### Build & Serve
 
 - `nx serve <app>` - Serve application (development mode with hot reload)
 - `nx build <app>` - Build application for development
@@ -12,32 +12,32 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `npm run <app>:serve` - Pre-configured serve command for specific apps
 - `npm run <app>:build-prod` - Pre-configured production build for specific apps
 
-## Testing
+### Testing
 
 - `npx nx test <project>` - Run all tests for a project
 - `npx nx test <project> --testNamePattern="<test name>"` - Run a specific test
 - `nx affected:test` - Run tests for affected projects only
 
-## Linting & Formatting
+### Linting & Formatting
 
 - `nx lint` - Run workspace linting and all project lints
 - `nx workspace-lint` - Run NX workspace linting
 - `nx format:write` - Format all files
 - `nx format:check` - Check formatting
 
-## Dependency Management
+### Dependency Management
 
 - `nx dep-graph` - View dependency graph
 - `nx affected:apps` - Show affected applications
 - `nx affected:libs` - Show affected libraries
 
-# Architecture
+## Architecture
 
-## Project Structure
+### Project Structure
 
 This is an NX monorepo with Angular applications and TypeScript libraries for the Gencovery platform.
 
-### Applications (apps/)
+#### Applications (apps/)
 
 - **ca-space-front** - Space (Constellab) Angular application (prefix: `ca`)
 - **lab-front** - Lab Angular application, one per lab (prefix: `lab`)
@@ -45,7 +45,7 @@ This is an NX monorepo with Angular applications and TypeScript libraries for th
 - **lab-manager-standalone** - Standalone lab manager application
 - **dc-dashboard-components** - Dashboard components for Streamlit integration
 
-### Libraries (libs/)
+#### Libraries (libs/)
 
 - **core-lib** - TypeScript library for shared services, helpers, classes (prefix: `cl`)
 - **front-core-lib** - Angular library with reusable components, directives, pipes (prefix: `fl`)
@@ -61,22 +61,22 @@ This is an NX monorepo with Angular applications and TypeScript libraries for th
 - **mail** - Email functionality
 - **technical-doc** - Technical documentation components
 
-## Module System
+### Module System
 
 - Uses barrel exports with granular imports from `@monorepo/` namespace
 - front-core-lib uses submodule imports: `@monorepo/front-core-lib/fl-<module>`
 - lab-lib uses submodule imports: `@monorepo/lab-lib/li-<module>`
 
-## Component Architecture
+### Component Architecture
 
 - **Prefixes**: Each library has a consistent prefix (ca, fl, li, lml, etc.)
 - **Naming**: Components follow prefix-name pattern (e.g., `fl-button`, `ca-header`)
 - **Theming**: Light/dark theme support with dynamic theme switching
 - **State Management**: Uses Angular services and RxJS for state management
 
-# Code Style
+## Code Style
 
-## Import Style
+### Import Style
 
 - Use ES modules (import/export) syntax, not CommonJS (require)
 - Destructure imports when possible (e.g., `import { foo } from 'bar'`)
@@ -90,7 +90,7 @@ This is an NX monorepo with Angular applications and TypeScript libraries for th
 - 110 character line length limit
 - Unused variables are errors
 
-# Workflow
+## Workflow
 
 - Be sure to typecheck when you’re done making a series of code changes
 - Prefer running single tests, and not the whole test suite, for performance
