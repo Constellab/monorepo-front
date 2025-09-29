@@ -40,23 +40,8 @@
     {{ 'lml.update_lab_manager' | translate }}
   </button>
 
-  <button mat-stroked-button type="button" class="g-button-small primary" (click)="upContainers()">
-    {{ 'lml.up_containers' | translate }}
-  </button>
-  <button mat-stroked-button type="button" class="g-button-small primary" (click)="restartContainers()">
-    {{ 'lml.restart_containers' | translate }}
-  </button>
-  <button mat-stroked-button type="button" class="g-button-small primary" (click)="pullContainers()">
-    {{ 'lml.pull_containers' | translate }}
-  </button>
   <button mat-stroked-button type="button" class="g-button-small primary" (click)="pullBiotaDb()">
     {{ 'lml.pull_biota' | translate }}
-  </button>
-  <button mat-stroked-button type="button" class="g-button-small warn" (click)="stopContainers()">
-    {{ 'lml.stop_containers' | translate }}
-  </button>
-  <button mat-stroked-button type="button" class="g-button-small warn" (click)="deleteContainers()">
-    {{ 'lml.delete_containers' | translate }}
   </button>
   <button mat-stroked-button type="button" class="g-button-small warn" (click)="stopCurrentTask()">
     {{ 'lml.stop_current_task' | translate }}
@@ -76,5 +61,30 @@
 
 <mat-divider class="divider"></mat-divider>
 
-<!--  List of containers  -->
-<lml-docker-containers></lml-docker-containers>
+<!--  List of composes  -->
+<div class="composes-section">
+  <div class="g-layout-row g-layout-between-center">
+    <h3>{{ 'lml.composes' | translate }}</h3>
+    <button mat-icon-button (click)="refreshComposes()" [matTooltip]="'lml.lab_manager_refresh' | translate">
+      <mat-icon>refresh</mat-icon>
+    </button>
+  </div>
+
+  <fl-async-section [object]="composes$" [isFlStatusEvent]="true" emptyText="lml.no_composes">
+    <ng-container *flSectionBodyStatusObsEvent="composes$ as composesData">
+      <div class="composes-list">
+        @for (compose of composesData.composes; track compose.brickName + '-' + compose.uniqueName) {
+          <div class="compose-item g-layout-row g-layout-between-center">
+            <div>
+              <div>{{ compose.brickName }} - {{ compose.uniqueName }}</div>
+              <div class="g-text-small">{{ compose.description }}</div>
+            </div>
+            <button mat-stroked-button class="g-button-small primary" (click)="openComposeDetail(compose)">
+              {{ 'lml.details' | translate }}
+            </button>
+          </div>
+        }
+      </div>
+    </ng-container>
+  </fl-async-section>
+</div>

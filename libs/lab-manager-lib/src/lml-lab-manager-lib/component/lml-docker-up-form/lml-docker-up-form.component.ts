@@ -18,7 +18,6 @@ export interface LmlDockerUpFormInput {
 export class LmlDockerUpFormComponent {
   formGp = new FormBuilder().group({
     updateContainers: [true],
-    pruneSystem: [true],
     destroyContainers: [false],
   });
 
@@ -42,6 +41,6 @@ export class LmlDockerUpFormComponent {
   }
 
   get submitLabel(): string {
-    return this.input.mode === 'start' ? 'lml.up_containers' : 'lml.restart_containers';
+    return this.input.mode === 'start' ? 'lml.up_services' : 'lml.restart_services';
   }
 }

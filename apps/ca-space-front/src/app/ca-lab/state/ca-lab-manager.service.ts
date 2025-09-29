@@ -1,6 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import {
   LmlAdminerInfo,
+  LmlComposeList,
   LmlComposeRestartOptions,
   LmlComposeUpOptions,
   LmlDockerContainerSize,
@@ -33,36 +34,24 @@ export class CaLabManagerService extends LmlLabManagerService {
     return this.labConfigState.getStatus$().pipe(map((status) => status.labManagerIsRunning));
   }
 
+  ////////////////////////////////////// LAB //////////////////////////////////////
+
   configureLabManager(): Observable<void> {
     return this.labService.configureLabManager(this.labState.getLabId());
-  }
-
-  deleteContainer(containerName: string): Observable<boolean> {
-    return this.labService.deleteContainer(this.labState.getLabId(), containerName);
-  }
-
-  deleteContainers(): Observable<void> {
-    return this.labService.deleteContainers(this.labState.getLabId());
-  }
-
-  downloadLogs(containerName: string): Observable<Blob> {
-    return this.labService.downloadLogs(this.labState.getLabId(), containerName);
-  }
-
-  getContainerDetails(containerName: string): Observable<LmlDockerPsFull> {
-    return this.labService.getContainerDetails(this.labState.getLabId(), containerName);
-  }
-
-  getContainerSize(containerName: string): Observable<LmlDockerContainerSize> {
-    return this.labService.getContainerSize(this.labState.getLabId(), containerName);
   }
 
   getLabManagerConfig(): Observable<LmlLabManagerConfig> {
     return this.labService.getLabManagerConfig(this.labState.getLabId());
   }
 
-  getLogs(containerName: string): Observable<LmlDockerLogs> {
-    return this.labService.getLogs(this.labState.getLabId(), containerName);
+  getLabManagerRecommendedVersion(): Observable<string> {
+    return this.labService
+      .getLabManagerRecommendedVersion()
+      .pipe(map((version) => version.labManagerRecommendedVersion));
+  }
+
+  getLabStartingError(): Observable<LmlDockerErrorLogs> {
+    return this.labService.getLabStartingError(this.labState.getLabId());
   }
 
   getStatus(): Observable<LmlLabManagerStatus> {
@@ -73,40 +62,8 @@ export class CaLabManagerService extends LmlLabManagerService {
     return this.labService.initAll(this.labState.getLabId());
   }
 
-  listContainers(): Observable<LmlDockerInspect[]> {
-    return this.labService.listContainers(this.labState.getLabId());
-  }
-
   pullBiotaDb(options: LmlPullBiotaOptions): Observable<void> {
     return this.labService.pullBiotaDb(this.labState.getLabId(), options);
-  }
-
-  pullContainers(): Observable<void> {
-    return this.labService.pullContainers(this.labState.getLabId());
-  }
-
-  restartContainers(options: LmlComposeRestartOptions): Observable<void> {
-    return this.labService.restartContainers(this.labState.getLabId(), options);
-  }
-
-  startAdminer(): Observable<boolean> {
-    return this.labService.startAdminer(this.labState.getLabId());
-  }
-
-  startComposeContainer(serviceName: string): Observable<boolean> {
-    return this.labService.startComposeContainer(this.labState.getLabId(), serviceName);
-  }
-
-  stopAdminer(): Observable<boolean> {
-    return this.labService.stopAdminer(this.labState.getLabId());
-  }
-
-  stopContainer(containerName: string): Observable<boolean> {
-    return this.labService.stopContainer(this.labState.getLabId(), containerName);
-  }
-
-  stopContainers(): Observable<void> {
-    return this.labService.stopContainers(this.labState.getLabId());
   }
 
   stopCurrentTask(): Observable<void> {
@@ -117,33 +74,101 @@ export class CaLabManagerService extends LmlLabManagerService {
     return this.labService.systemPrune(this.labState.getLabId());
   }
 
-  upContainers(options: LmlComposeUpOptions): Observable<void> {
-    return this.labService.upContainers(this.labState.getLabId(), options);
-  }
-
   updateConfig(config: LmlLabManagerConfig): Observable<void> {
     return this.labService.updateConfig(this.labState.getLabId(), config);
   }
 
-  getLabManagerRecommendedVersion(): Observable<string> {
-    return this.labService
-      .getLabManagerRecommendedVersion()
-      .pipe(map((version) => version.labManagerRecommendedVersion));
+  updateLabManager(version: LmlNewVersionAvailable): void {
+    this.labServerState.updateLabManager(version.currentVersion, version.recommendedVersion);
   }
 
-  getAdminerInfo(): Observable<LmlAdminerInfo> {
-    return this.labService.getAdminerInfo(this.labState.getLabId());
+  ////////////////////////////////////// COMPOSE //////////////////////////////////////
+
+  listComposes(): Observable<LmlComposeList> {
+    return this.labService.listAllComposes(this.labState.getLabId());
+  }
+
+  deleteServices(brickName: string, uniqueName: string): Observable<void> {
+    return this.labService.deleteServices(this.labState.getLabId(), brickName, uniqueName);
+  }
+
+  listServices(brickName: string, uniqueName: string): Observable<LmlDockerInspect[]> {
+    return this.labService.listServices(this.labState.getLabId(), brickName, uniqueName);
+  }
+
+  pullServices(brickName: string, uniqueName: string): Observable<void> {
+    return this.labService.pullServices(this.labState.getLabId(), brickName, uniqueName);
+  }
+
+  restartServices(
+    brickName: string,
+    uniqueName: string,
+    options: LmlComposeRestartOptions
+  ): Observable<void> {
+    return this.labService.restartServices(this.labState.getLabId(), brickName, uniqueName, options);
+  }
+
+  startComposeService(brickName: string, uniqueName: string, serviceName: string): Observable<void> {
+    return this.labService.startComposeService(this.labState.getLabId(), brickName, uniqueName, serviceName);
+  }
+
+  stopServices(brickName: string, uniqueName: string): Observable<void> {
+    return this.labService.stopServices(this.labState.getLabId(), brickName, uniqueName);
+  }
+
+  upServices(brickName: string, uniqueName: string, options: LmlComposeUpOptions): Observable<void> {
+    return this.labService.upServices(this.labState.getLabId(), brickName, uniqueName, options);
+  }
+
+  getComposeContent(brickName: string, uniqueName: string): Observable<{ content: string }> {
+    return this.labService.getComposeContent(this.labState.getLabId(), brickName, uniqueName);
+  }
+
+  unregisterSubCompose(brickName: string, uniqueName: string): Observable<void> {
+    return this.labService.unregisterSubCompose(this.labState.getLabId(), brickName, uniqueName);
+  }
+
+  ////////////////////////////////////// CONTAINER //////////////////////////////////////
+
+  deleteContainer(containerName: string): Observable<boolean> {
+    return this.labService.deleteContainer(this.labState.getLabId(), containerName);
+  }
+
+  downloadLogs(containerName: string): Observable<Blob> {
+    return this.labService.downloadLogs(this.labState.getLabId(), containerName);
+  }
+
+  getContainerDetails(containerName: string): Observable<LmlDockerPsFull> {
+    return this.labService.getContainerDetails(this.labState.getLabId(), containerName);
   }
 
   getContainerErrorLogs(containerName: string): Observable<LmlDockerLogs> {
     return this.labService.getErrorLogs(this.labState.getLabId(), containerName);
   }
 
-  getLabStartingError(): Observable<LmlDockerErrorLogs> {
-    return this.labService.getLabStartingError(this.labState.getLabId());
+  getContainerSize(containerName: string): Observable<LmlDockerContainerSize> {
+    return this.labService.getContainerSize(this.labState.getLabId(), containerName);
   }
 
-  updateLabManager(version: LmlNewVersionAvailable): void {
-    this.labServerState.updateLabManager(version.currentVersion, version.recommendedVersion);
+  getLogs(containerName: string): Observable<LmlDockerLogs> {
+    return this.labService.getLogs(this.labState.getLabId(), containerName);
+  }
+
+  stopContainer(containerName: string): Observable<boolean> {
+    return this.labService.stopContainer(this.labState.getLabId(), containerName);
+  }
+
+  ////////////////////////////////////// ADMINER //////////////////////////////////////
+
+  getAdminerInfo(): Observable<LmlAdminerInfo> {
+    return this.labService.getAdminerInfo(this.labState.getLabId());
+  }
+
+  startAdminer(): Observable<boolean> {
+    return this.labService.startAdminer(this.labState.getLabId());
+  }
+
+  stopAdminer(): Observable<boolean> {
+    return this.labService.stopAdminer(this.labState.getLabId());
   }
 }

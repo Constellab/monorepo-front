@@ -59,7 +59,6 @@ export interface LmlDockerContainerSize {
 
 export interface LmlComposeUpOptions {
   updateContainers?: boolean;
-  pruneSystem?: boolean;
 }
 
 export interface LmlComposeRestartOptions extends LmlComposeUpOptions {
@@ -174,4 +173,16 @@ export interface LmlDockerErrorLogs {
 export interface LmlNewVersionAvailable {
   recommendedVersion: string;
   currentVersion?: string;
+}
+
+export interface LmlComposeInfo {
+  brickName: string;
+  uniqueName: string;
+  isSubCompose: boolean;
+  composeFilePath?: string;
+  description?: string;
+}
+
+export interface LmlComposeList {
+  composes: LmlComposeInfo[];
 }

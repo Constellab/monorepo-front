@@ -32,20 +32,22 @@
                   <span>{{ 'lml.show_errors' | translate }}</span>
                 </button>
 
-                <button mat-menu-item type="button" (click)="startComposeContainer(container.names)">
-                  <mat-icon>play_arrow</mat-icon>
-                  <span>{{ 'lml.container_start' | translate }}</span>
-                </button>
+                @if (!readonly) {
+                  <button mat-menu-item type="button" (click)="startComposeContainer(container.names)">
+                    <mat-icon>play_arrow</mat-icon>
+                    <span>{{ 'lml.service_start' | translate }}</span>
+                  </button>
 
-                <button mat-menu-item type="button" (click)="stopContainer(container.names)" class="warn">
-                  <mat-icon>stop</mat-icon>
-                  <span>{{ 'lml.container_stop' | translate }}</span>
-                </button>
+                  <button mat-menu-item type="button" (click)="stopContainer(container.names)" class="warn">
+                    <mat-icon>stop</mat-icon>
+                    <span>{{ 'lml.container_stop' | translate }}</span>
+                  </button>
 
-                <button mat-menu-item type="button" (click)="deleteContainer(container.names)" class="warn">
-                  <mat-icon>delete</mat-icon>
-                  <span>{{ 'lml.container_delete' | translate }}</span>
-                </button>
+                  <button mat-menu-item type="button" (click)="deleteContainer(container.names)" class="warn">
+                    <mat-icon>delete</mat-icon>
+                    <span>{{ 'lml.container_delete' | translate }}</span>
+                  </button>
+                }
               </mat-menu>
             </div>
           </div>

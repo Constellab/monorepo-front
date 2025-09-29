@@ -10,6 +10,6 @@
     </fl-section-actions>
   </fl-section-header>
   <ng-container *flSectionBodyStatusObsEvent="containers$ as containers">
-    <lml-docker-containers-list [containers]="containers"></lml-docker-containers-list>
+    <lml-docker-containers-list [containers]="containers" [readonly]="readonly"></lml-docker-containers-list>
   </ng-container>
 </fl-async-section>

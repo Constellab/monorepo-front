@@ -65,26 +65,19 @@
         {{ 'lms.go_to_lab' | translate }}
       </a>
 
-      @if (labIsRunning()) {
-        <button mat-stroked-button type="button" (click)="stopLab()" class="warn">
-          <mat-icon>stop</mat-icon>
-          {{ 'lms.stop_lab' | translate }}
-        </button>
-      } @else {
-        <button
-          mat-stroked-button
-          type="button"
-          (click)="startLab()"
-          class="primary"
-          [disabled]="
-            !labStatus().labManagerIsConfigured ||
-            !labStatus().brickAreConfigured ||
-            labStatus().labManagerStatus?.actionInProgress
-          ">
-          <mat-icon>play_arrow</mat-icon>
-          {{ 'lms.start_lab' | translate }}
-        </button>
-      }
+      <button
+        mat-stroked-button
+        type="button"
+        (click)="startLab()"
+        class="primary"
+        [disabled]="
+          !labStatus().labManagerIsConfigured ||
+          !labStatus().brickAreConfigured ||
+          labStatus().labManagerStatus?.actionInProgress
+        ">
+        <mat-icon>play_arrow</mat-icon>
+        {{ 'lms.start_lab' | translate }}
+      </button>
     </div>
     <!--  Start stop button  -->
   </fl-card-body>

@@ -2,6 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import {
   LmlAdminerInfo,
+  LmlComposeList,
   LmlComposeRestartOptions,
   LmlComposeUpOptions,
   LmlDockerContainerSize,
@@ -23,7 +24,10 @@ import { LmsLabManagerConfiguration } from '../model/lms-lab-manager.class';
 export class LmsLabService {
   private apiService = inject(FlApiService);
 
-  private readonly route = 'lab';
+  private readonly labRoute = 'lab';
+  private readonly composeRoute = 'docker-compose';
+  private readonly containerRoute = 'docker-containers';
+  private readonly adminerRoute = 'adminer';
 
   public labIsRunning(): Observable<boolean> {
     return this.apiService
@@ -35,98 +39,38 @@ export class LmsLabService {
     return this.apiService.get('health-check');
   }
 
+  ////////////////////////////////////// LAB //////////////////////////////////////
+
   public configureLabManager(configuration: LmsLabManagerConfiguration): Observable<void> {
-    return this.apiService.post(`${this.route}/configure-lab-manager`, configuration);
-  }
-
-  public deleteContainer(containerName: string): Observable<boolean> {
-    return this.apiService.put(`${this.route}/containers/${containerName}`, null);
-  }
-
-  public deleteContainers(): Observable<void> {
-    return this.apiService.post(`${this.route}/delete-containers`, null);
-  }
-
-  public downloadLogs(containerName: string): Observable<Blob> {
-    return this.apiService.get(`${this.route}/containers/${containerName}/logs/export`, null, {
-      responseType: 'blob',
-    });
-  }
-
-  getContainerDetails(containerName: string): Observable<LmlDockerPsFull> {
-    return this.apiService.get(`${this.route}/containers/${containerName}`, LmlDockerPsFull);
-  }
-
-  getContainerSize(containerName: string): Observable<LmlDockerContainerSize> {
-    return this.apiService.get(`${this.route}/containers/${containerName}/size`);
+    return this.apiService.post(`${this.labRoute}/configure-lab-manager`, configuration);
   }
 
   getLabManagerConfig(): Observable<LmlLabManagerConfig> {
-    return this.apiService.get(`${this.route}/bricks-config`, LmlLabManagerConfig);
-  }
-
-  getLogs(containerName: string): Observable<LmlDockerLogs> {
-    return this.apiService.get(`${this.route}/containers/${containerName}/logs`);
+    return this.apiService.get(`${this.labRoute}/bricks-config`, LmlLabManagerConfig);
   }
 
   getStatus(): Observable<LmlLabManagerStatus> {
-    return this.apiService.get(`${this.route}/status`, LmlLabManagerStatus);
+    return this.apiService.get(`${this.labRoute}/status`, LmlLabManagerStatus);
   }
 
   initLab(): Observable<void> {
-    return this.apiService.post(`${this.route}/init`, null);
-  }
-
-  listContainers(): Observable<LmlDockerInspect[]> {
-    return this.apiService.get(`${this.route}/containers`, LmlDockerInspect);
+    return this.apiService.post(`${this.labRoute}/init`, null);
   }
 
   pullBiotaDb(options: LmlPullBiotaOptions): Observable<void> {
-    return this.apiService.post(`${this.route}/pull-biota-db`, options);
-  }
-
-  pullContainers(): Observable<void> {
-    return this.apiService.post(`${this.route}/pull-containers`, null);
-  }
-
-  restartContainers(options: LmlComposeRestartOptions): Observable<void> {
-    return this.apiService.post(`${this.route}/restart-containers`, options);
-  }
-
-  startAdminer(): Observable<boolean> {
-    return this.apiService.put(`${this.route}/adminer/start`, null);
-  }
-
-  startComposeContainer(serviceName: string): Observable<boolean> {
-    return this.apiService.put(`${this.route}/containers/${serviceName}/start`, null);
-  }
-
-  stopAdminer(): Observable<boolean> {
-    return this.apiService.put(`${this.route}/adminer/stop`, null);
-  }
-
-  stopContainer(containerName: string): Observable<boolean> {
-    return this.apiService.put(`${this.route}/containers/${containerName}/stop`, null);
-  }
-
-  stopContainers(): Observable<void> {
-    return this.apiService.post(`${this.route}/stop-containers`, null);
+    return this.apiService.post(`${this.labRoute}/pull-biota-db`, options);
   }
 
   stopCurrentTask(): Observable<void> {
-    return this.apiService.put(`${this.route}/stop-current-task`, null);
+    return this.apiService.put(`${this.labRoute}/stop-current-task`, null);
   }
 
   systemPrune(): Observable<void> {
-    return this.apiService.delete(`${this.route}/system-prune`);
-  }
-
-  upContainers(options: LmlComposeUpOptions): Observable<void> {
-    return this.apiService.post(`${this.route}/up-containers`, options);
+    return this.apiService.delete(`${this.labRoute}/system-prune`);
   }
 
   updateConfig(config: LmlLabManagerConfig): Observable<void> {
-    return this.apiService.put(`${this.route}/bricks-config`, config);
+    return this.apiService.put(`${this.labRoute}/bricks-config`, config);
   }
 
   getLabManagerRecommendedVersion(): Observable<string> {
@@ -135,21 +79,108 @@ export class LmsLabService {
       .pipe(map((version: { labManagerRecommendedVersion: string }) => version.labManagerRecommendedVersion));
   }
 
-  getAdminerInfo(): Observable<LmlAdminerInfo> {
-    return this.apiService.get(`${this.route}/adminer/info`);
-  }
-
   getLabStartingErrors(): Observable<LmlDockerErrorLogs> {
-    return this.apiService.get(`${this.route}/starting/error`);
-  }
-
-  getContainerErrorLogs(containerName: string): Observable<LmlDockerLogs> {
-    return this.apiService.get(`${this.route}/containers/${containerName}/logs/error`);
+    return this.apiService.get(`${this.labRoute}/starting/error`);
   }
 
   getUpdateLabManagerCommand(): Observable<string> {
     return this.apiService
-      .get(`${this.route}/desktop/update-lab-manager-command`)
+      .get(`${this.labRoute}/desktop/update-lab-manager-command`)
       .pipe(map((response: { command: string }) => response.command));
+  }
+
+  ////////////////////////////////////// COMPOSE  //////////////////////////////////////
+
+  listComposes(): Observable<LmlComposeList> {
+    return this.apiService.get(`${this.composeRoute}/list`);
+  }
+
+  listServices(brickName: string, uniqueName: string): Observable<LmlDockerInspect[]> {
+    return this.apiService.get(`${this.composeRoute}/${brickName}/${uniqueName}/services`, LmlDockerInspect);
+  }
+
+  deleteServices(brickName: string, uniqueName: string): Observable<void> {
+    return this.apiService.post(`${this.composeRoute}/${brickName}/${uniqueName}/delete-services`, null);
+  }
+
+  pullServices(brickName: string, uniqueName: string): Observable<void> {
+    return this.apiService.post(`${this.composeRoute}/${brickName}/${uniqueName}/pull-services`, null);
+  }
+
+  restartServices(
+    brickName: string,
+    uniqueName: string,
+    options: LmlComposeRestartOptions
+  ): Observable<void> {
+    return this.apiService.post(`${this.composeRoute}/${brickName}/${uniqueName}/restart-services`, options);
+  }
+
+  startService(brickName: string, uniqueName: string, serviceName: string): Observable<void> {
+    return this.apiService.put(
+      `${this.composeRoute}/${brickName}/${uniqueName}/services/${serviceName}/start`,
+      null
+    );
+  }
+
+  stopServices(brickName: string, uniqueName: string): Observable<void> {
+    return this.apiService.post(`${this.composeRoute}/${brickName}/${uniqueName}/stop-services`, null);
+  }
+
+  startServices(brickName: string, uniqueName: string, options: LmlComposeUpOptions): Observable<void> {
+    return this.apiService.post(`${this.composeRoute}/${brickName}/${uniqueName}/up-services`, options);
+  }
+
+  getComposeContent(brickName: string, uniqueName: string): Observable<{ content: string }> {
+    return this.apiService.get(`${this.composeRoute}/${brickName}/${uniqueName}/content`);
+  }
+
+  unregisterSubCompose(brickName: string, uniqueName: string): Observable<void> {
+    return this.apiService.delete(`${this.composeRoute}/sub-compose/${brickName}/${uniqueName}/unregister`);
+  }
+
+  ////////////////////////////////////// CONTAINER //////////////////////////////////////
+
+  public deleteContainer(containerName: string): Observable<boolean> {
+    return this.apiService.put(`${this.containerRoute}/${containerName}`, null);
+  }
+
+  public downloadLogs(containerName: string): Observable<Blob> {
+    return this.apiService.get(`${this.containerRoute}/${containerName}/logs/export`, null, {
+      responseType: 'blob',
+    });
+  }
+
+  getContainerDetails(containerName: string): Observable<LmlDockerPsFull> {
+    return this.apiService.get(`${this.containerRoute}/${containerName}`, LmlDockerPsFull);
+  }
+
+  getContainerSize(containerName: string): Observable<LmlDockerContainerSize> {
+    return this.apiService.get(`${this.containerRoute}/${containerName}/size`);
+  }
+
+  getLogs(containerName: string): Observable<LmlDockerLogs> {
+    return this.apiService.get(`${this.containerRoute}/${containerName}/logs`);
+  }
+
+  stopContainer(containerName: string): Observable<boolean> {
+    return this.apiService.put(`${this.containerRoute}/${containerName}/stop`, null);
+  }
+
+  getContainerErrorLogs(containerName: string): Observable<LmlDockerLogs> {
+    return this.apiService.get(`${this.containerRoute}/${containerName}/logs/error`);
+  }
+
+  /////////////////////////////////// ADMINER ///////////////////////////////////
+
+  startAdminer(): Observable<boolean> {
+    return this.apiService.put(`${this.adminerRoute}/start`, null);
+  }
+
+  stopAdminer(): Observable<boolean> {
+    return this.apiService.put(`${this.adminerRoute}/stop`, null);
+  }
+
+  getAdminerInfo(): Observable<LmlAdminerInfo> {
+    return this.apiService.get(`${this.adminerRoute}/info`);
   }
 }

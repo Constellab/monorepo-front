@@ -2,6 +2,7 @@ import { Component, inject, Input } from '@angular/core';
 import { ClHelpService } from '@monorepo/core-lib';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 
+import { LmlComposeState } from '../../lml-compose.state';
 import { LmlLabManagerService } from '../../lml-lab-manager.service';
 import { LmlLabManagerState } from '../../lml-lab-manager.state';
 import { LmlDockerInspect } from '../../model/lml-lab-manager.class';
@@ -21,6 +22,9 @@ import {
 })
 export class LmlDockerContainersListComponent {
   @Input({ required: true }) containers: LmlDockerInspect[];
+  @Input() readonly: boolean = false;
+
+  private composeState = inject(LmlComposeState);
 
   private dialogService = inject(FlDialogService);
   private managerState = inject(LmlLabManagerState);
@@ -58,7 +62,7 @@ export class LmlDockerContainersListComponent {
   }
 
   startComposeContainer(serviceName: string): void {
-    this.managerState.startComposeContainer(serviceName);
+    this.composeState.startComposeService(serviceName);
   }
 
   stopContainer(containerName: string): void {

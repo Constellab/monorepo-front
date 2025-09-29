@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -33,6 +34,7 @@ import { LmlAdminerInfoDialogComponent } from './component/lml-adminer-info-dial
 import { LmlBrickVersionDetailComponent } from './component/lml-brick-version-detail/lml-brick-version-detail.component';
 import { LmlBrickVersionDetailDialogComponent } from './component/lml-brick-version-detail-dialog/lml-brick-version-detail-dialog.component';
 import { LmlBricksConfigFormComponent } from './component/lml-bricks-config-form/lml-bricks-config-form.component';
+import { LmlComposeDetailDialogComponent } from './component/lml-compose-detail-dialog/lml-compose-detail-dialog.component';
 import { LmlConfigureBrickComponent } from './component/lml-configure-brick/lml-configure-brick.component';
 import { LmlDockerContainerDetailsComponent } from './component/lml-docker-container-details/lml-docker-container-details.component';
 import { LmlDockerContainerErrorDialogComponent } from './component/lml-docker-container-error-dialog/lml-docker-container-error-dialog.component';
@@ -63,6 +65,7 @@ import { LmlCommunityBrickImagePipe } from './pipe/lml-community-brick-image.pip
     LmlBricksConfigFormComponent,
     LmlBrickVersionDetailComponent,
     LmlBrickVersionDetailDialogComponent,
+    LmlComposeDetailDialogComponent,
     LmlConfigureBrickComponent,
     LmlCommunityBrickImagePipe,
     LmlAdminerInfoDialogComponent,
@@ -78,6 +81,7 @@ import { LmlCommunityBrickImagePipe } from './pipe/lml-community-brick-image.pip
 
     MatCheckboxModule,
     MatButtonModule,
+    MatDialogModule,
     MatExpansionModule,
     MatIconModule,
     MatMenuModule,

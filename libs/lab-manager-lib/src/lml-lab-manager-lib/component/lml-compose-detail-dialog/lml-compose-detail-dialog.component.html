@@ -1,0 +1,65 @@
+<fl-dialog-header>
+  {{ 'lml.compose_details' | translate }}
+</fl-dialog-header>
+
+<mat-dialog-content>
+  <div class="compose-info">
+    <fl-key-value>
+      <fl-key>{{ 'lml.brick_name' | translate }}</fl-key>
+      {{ compose.brickName }}
+    </fl-key-value>
+
+    <fl-key-value>
+      <fl-key>{{ 'lml.unique_name' | translate }}</fl-key>
+      {{ compose.uniqueName }}
+    </fl-key-value>
+
+    @if (compose.description) {
+      <fl-key-value>
+        <fl-key>{{ 'lml.compose_description' | translate }}</fl-key>
+        {{ compose.description }}
+      </fl-key-value>
+    }
+
+    @if (compose.composeFilePath) {
+      <fl-key-value>
+        <fl-key>{{ 'lml.compose_file_path' | translate }}</fl-key>
+        {{ compose.composeFilePath }}
+      </fl-key-value>
+    }
+  </div>
+
+  <!-- Compose Action buttons -->
+  @if (compose.composeFilePath) {
+    <div class="action-buttons">
+      <h3>{{ 'lml.compose_actions' | translate }}</h3>
+
+      <button mat-stroked-button type="button" class="g-button-small primary" (click)="showComposeContent()">
+        {{ 'lml.show_compose_content' | translate }}
+      </button>
+      <button mat-stroked-button type="button" class="g-button-small primary" (click)="upServices()">
+        {{ 'lml.up_services' | translate }}
+      </button>
+      <button mat-stroked-button type="button" class="g-button-small primary" (click)="restartServices()">
+        {{ 'lml.restart_services' | translate }}
+      </button>
+      <button mat-stroked-button type="button" class="g-button-small primary" (click)="pullServices()">
+        {{ 'lml.pull_services' | translate }}
+      </button>
+      <button mat-stroked-button type="button" class="g-button-small warn" (click)="stopServices()">
+        {{ 'lml.stop_services' | translate }}
+      </button>
+      <button mat-stroked-button type="button" class="g-button-small warn" (click)="deleteServices()">
+        {{ 'lml.delete_services' | translate }}
+      </button>
+      @if (compose.isSubCompose) {
+        <button mat-stroked-button type="button" class="g-button-small warn" (click)="unregisterSubCompose()">
+          {{ 'lml.unregister_sub_compose' | translate }}
+        </button>
+      }
+    </div>
+  }
+
+  <!-- Services list -->
+  <lml-docker-containers [readonly]="!compose.composeFilePath"></lml-docker-containers>
+</mat-dialog-content>

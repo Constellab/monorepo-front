@@ -40,10 +40,6 @@ export class LmsGlobalInfoComponent {
     this.labManagerState.configureLabManager();
   }
 
-  stopLab(): void {
-    this.labManagerState.stopContainers();
-  }
-
   startLab(): void {
     this.labManagerState.initLab('lms.start_lab');
   }

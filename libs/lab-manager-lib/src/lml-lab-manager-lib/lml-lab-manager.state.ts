@@ -2,23 +2,14 @@ import { inject, Injectable, OnDestroy } from '@angular/core';
 import { ClSubscriptionHandler } from '@monorepo/core-lib';
 import { FlStatusEvent, flStatutEventResponse, flStatutEventSuccess } from '@monorepo/front-core-lib/fl-core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { FlPortalActionResult, FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
+import { FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
 import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
 import { BehaviorSubject, combineLatest, distinct, filter, first, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import {
-  LmlDockerUpFormComponent,
-  LmlDockerUpFormInput,
-} from './component/lml-docker-up-form/lml-docker-up-form.component';
 import { LmlPullBiotaFormDialogComponent } from './component/lml-pull-biota-form-dialog/lml-pull-biota-form-dialog.component';
 import { LmlLabManagerService } from './lml-lab-manager.service';
-import {
-  LmlComposeUpOptions,
-  LmlDockerInspect,
-  LmlLabManagerStatus,
-  LmlNewVersionAvailable,
-} from './model/lml-lab-manager.class';
+import { LmlLabManagerStatus, LmlNewVersionAvailable } from './model/lml-lab-manager.class';
 
 interface LmlAdditionalData {
   refreshDockerContainers?: boolean;
@@ -42,10 +33,6 @@ export class LmlLabManagerState implements OnDestroy {
   // current number of not running status in a row
   // set it to the max count to start auto-refresh, so it will not auto-refresh on the first status
   private autoNotRunningStatusCount = this.autoNotRunningStatusMaxCount;
-
-  private dockerContainers = new BehaviorSubject<FlStatusEvent<LmlDockerInspect[]>>({
-    status: 'waiting',
-  });
 
   private subscriptions = new ClSubscriptionHandler();
 
@@ -72,15 +59,12 @@ export class LmlLabManagerState implements OnDestroy {
 
       // refresh the values on new action result
       this.subscriptions.add(
-        this.actionService.getResult$(this.actionType).subscribe((result) => this.onActionResult(result))
+        this.actionService.getResult$(this.actionType).subscribe(() => this.onActionResult())
       );
     }
   }
 
-  private onActionResult(result: FlPortalActionResult): void {
-    if ((result?.additionalInformation as LmlAdditionalData)?.refreshDockerContainers) {
-      this.refreshDockerContainers();
-    }
+  private onActionResult(): void {
     this.refreshStatus(true);
   }
 
@@ -140,31 +124,6 @@ export class LmlLabManagerState implements OnDestroy {
     return this.getStatus$().pipe(map((status) => status.adminerIsRunning));
   }
 
-  public getDockersContainers$(): Observable<FlStatusEvent<LmlDockerInspect[]>> {
-    return this.dockerContainers.asObservable();
-  }
-
-  public loadDockerContainers(): void {
-    // if the container was never loaded, load it
-    const value = this.dockerContainers.value;
-    if (value.status === 'waiting') {
-      this.refreshDockerContainers();
-    }
-  }
-
-  public refreshDockerContainers(): void {
-    if (this.dockerContainers.value.status === 'loading') return;
-    this.dockerContainers.next({ status: 'loading' });
-    this.labManagerService.listContainers().subscribe({
-      next: (containers: LmlDockerInspect[]) =>
-        this.dockerContainers.next({
-          status: 'success',
-          object: containers,
-        }),
-      error: (error) => this.dockerContainers.next({ status: 'error', error }),
-    });
-  }
-
   //////////////////////////// Actions ////////////////////////////
   initLab(actionText: FlTranslatableText): void {
     this.actionService.addAction({
@@ -190,70 +149,6 @@ export class LmlLabManagerState implements OnDestroy {
           this.labManagerService.updateLabManager(newVersion);
         }
       });
-  }
-
-  upContainers(): void {
-    this.openLabUpForm({ mode: 'start' }).subscribe((formValue) => {
-      if (formValue) {
-        this.actionService.addAction({
-          action: this.labManagerService.upContainers(formValue),
-          text: { text: 'lml.up_containers', translateText: true },
-          type: this.actionType,
-          additionalInformation: {
-            refreshDockerContainers: true,
-          } as LmlAdditionalData,
-        });
-      }
-    });
-  }
-
-  restartContainers(): void {
-    this.openLabUpForm({ mode: 'restart' }).subscribe((formValue) => {
-      if (formValue) {
-        this.actionService.addAction({
-          action: this.labManagerService.restartContainers(formValue),
-          text: { text: 'lml.restart_containers', translateText: true },
-          type: this.actionType,
-          additionalInformation: {
-            refreshDockerContainers: true,
-          } as LmlAdditionalData,
-        });
-      }
-    });
-  }
-
-  private openLabUpForm(mode: LmlDockerUpFormInput): Observable<LmlComposeUpOptions> {
-    return this.dialogService.openSmallDialog(LmlDockerUpFormComponent, { data: mode }).afterClosed();
-  }
-
-  stopContainers(): void {
-    this.actionService.addAction({
-      action: this.labManagerService.stopContainers(),
-      text: { text: 'lml.stop_containers', translateText: true },
-      type: this.actionType,
-      additionalInformation: {
-        refreshDockerContainers: true,
-      } as LmlAdditionalData,
-    });
-  }
-
-  deleteContainers(): void {
-    this.actionService.addAction({
-      action: this.labManagerService.deleteContainers(),
-      text: { text: 'lml.delete_containers', translateText: true },
-      type: this.actionType,
-      additionalInformation: {
-        refreshDockerContainers: true,
-      } as LmlAdditionalData,
-    });
-  }
-
-  pullContainers(): void {
-    this.actionService.addAction({
-      action: this.labManagerService.pullContainers(),
-      text: { text: 'lml.pull_containers', translateText: true },
-      type: this.actionType,
-    });
   }
 
   pullBiotaDb(): void {
@@ -304,17 +199,6 @@ export class LmlLabManagerState implements OnDestroy {
   }
 
   //////////////////// SINGLE CONTAINER MANAGEMENT /////////////////////
-
-  startComposeContainer(serviceName: string): void {
-    this.actionService.addAction({
-      action: this.labManagerService.startComposeContainer(serviceName),
-      text: { text: 'lml.container_start', translateText: true },
-      type: this.actionType,
-      additionalInformation: {
-        refreshDockerContainers: true,
-      } as LmlAdditionalData,
-    });
-  }
 
   stopContainer(containerName: string): void {
     this.actionService.addAction({
@@ -369,7 +253,6 @@ export class LmlLabManagerState implements OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions?.unsubscribe();
-    this.dockerContainers.complete();
     this.status$.complete();
   }
 }

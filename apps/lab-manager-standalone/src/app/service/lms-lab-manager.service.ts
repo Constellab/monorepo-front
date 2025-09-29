@@ -3,6 +3,7 @@ import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlFileHelper } from '@monorepo/front-core-lib/fl-translate';
 import {
   LmlAdminerInfo,
+  LmlComposeList,
   LmlComposeRestartOptions,
   LmlComposeUpOptions,
   LmlDockerContainerSize,
@@ -32,18 +33,106 @@ export class LmsLabManagerService extends LmlLabManagerService {
     return this.labService.labManagerIsRunning();
   }
 
+  ////////////////////////////////////// LAB //////////////////////////////////////
+
   configureLabManager(): Observable<void> {
     return this.dialogService
       .openSmallDialog(LmsConfigureLabManagerDialogComponent, { viewContainerRef: this.viewContainer })
       .afterClosed();
   }
 
-  deleteContainer(containerName: string): Observable<boolean> {
-    return this.labService.deleteContainer(containerName);
+  getLabManagerConfig(): Observable<LmlLabManagerConfig> {
+    return this.labService.getLabManagerConfig();
   }
 
-  deleteContainers(): Observable<void> {
-    return this.labService.deleteContainers();
+  getLabManagerRecommendedVersion(): Observable<string> {
+    return this.labService.getLabManagerRecommendedVersion();
+  }
+
+  getLabStartingError(): Observable<LmlDockerErrorLogs> {
+    return this.labService.getLabStartingErrors();
+  }
+
+  getStatus(): Observable<LmlLabManagerStatus> {
+    return this.labService.getStatus();
+  }
+
+  initLab(): Observable<void> {
+    return this.labService.initLab();
+  }
+
+  pullBiotaDb(options: LmlPullBiotaOptions): Observable<void> {
+    return this.labService.pullBiotaDb(options);
+  }
+
+  stopCurrentTask(): Observable<void> {
+    return this.labService.stopCurrentTask();
+  }
+
+  systemPrune(): Observable<void> {
+    return this.labService.systemPrune();
+  }
+
+  updateConfig(config: LmlLabManagerConfig): Observable<void> {
+    return this.labService.updateConfig(config);
+  }
+
+  updateLabManager(version: LmlNewVersionAvailable): void {
+    this.dialogService.openMediumDialog(LmsUpdateLabManagerDialogComponent, {
+      data: version,
+    });
+  }
+
+  ////////////////////////////////////// COMPOSE //////////////////////////////////////
+
+  listComposes(): Observable<LmlComposeList> {
+    return this.labService.listComposes();
+  }
+
+  deleteServices(brickName: string, uniqueName: string): Observable<void> {
+    return this.labService.deleteServices(brickName, uniqueName);
+  }
+
+  listServices(brickName: string, uniqueName: string): Observable<LmlDockerInspect[]> {
+    return this.labService.listServices(brickName, uniqueName);
+  }
+
+  pullServices(brickName: string, uniqueName: string): Observable<void> {
+    return this.labService.pullServices(brickName, uniqueName);
+  }
+
+  restartServices(
+    brickName: string,
+    uniqueName: string,
+    options: LmlComposeRestartOptions
+  ): Observable<void> {
+    return this.labService.restartServices(brickName, uniqueName, options);
+  }
+
+  startComposeService(brickName: string, uniqueName: string, serviceName: string): Observable<void> {
+    return this.labService.startService(brickName, uniqueName, serviceName);
+  }
+
+  stopServices(brickName: string, uniqueName: string): Observable<void> {
+    return this.labService.stopServices(brickName, uniqueName);
+  }
+
+  upServices(brickName: string, uniqueName: string, options: LmlComposeUpOptions): Observable<void> {
+    return this.labService.startServices(brickName, uniqueName, options);
+  }
+
+  getComposeContent(brickName: string, uniqueName: string): Observable<{ content: string }> {
+    return this.labService.getComposeContent(brickName, uniqueName);
+  }
+
+  unregisterSubCompose(brickName: string, uniqueName: string): Observable<void> {
+    return this.labService.unregisterSubCompose(brickName, uniqueName);
+  }
+
+  ////////////////////////////////////// CONTAINER //////////////////////////////////////
+
+  deleteContainer(containerName: string): Observable<boolean> {
+    return this.labService.deleteContainer(containerName);
   }
 
   downloadLogs(containerName: string): Observable<Blob> {
@@ -56,97 +145,33 @@ export class LmsLabManagerService extends LmlLabManagerService {
     return this.labService.getContainerDetails(containerName);
   }
 
-  getContainerSize(containerName: string): Observable<LmlDockerContainerSize> {
-    return this.labService.getContainerSize(containerName);
+  getContainerErrorLogs(containerName: string): Observable<LmlDockerLogs> {
+    return this.labService.getContainerErrorLogs(containerName);
   }
 
-  getLabManagerConfig(): Observable<LmlLabManagerConfig> {
-    return this.labService.getLabManagerConfig();
+  getContainerSize(containerName: string): Observable<LmlDockerContainerSize> {
+    return this.labService.getContainerSize(containerName);
   }
 
   getLogs(containerName: string): Observable<LmlDockerLogs> {
     return this.labService.getLogs(containerName);
   }
 
-  getStatus(): Observable<LmlLabManagerStatus> {
-    return this.labService.getStatus();
+  stopContainer(containerName: string): Observable<boolean> {
+    return this.labService.stopContainer(containerName);
   }
 
-  initLab(): Observable<void> {
-    return this.labService.initLab();
-  }
+  ////////////////////////////////////// ADMINER //////////////////////////////////////
 
-  listContainers(): Observable<LmlDockerInspect[]> {
-    return this.labService.listContainers();
-  }
-
-  pullBiotaDb(options: LmlPullBiotaOptions): Observable<void> {
-    return this.labService.pullBiotaDb(options);
-  }
-
-  pullContainers(): Observable<void> {
-    return this.labService.pullContainers();
-  }
-
-  restartContainers(options: LmlComposeRestartOptions): Observable<void> {
-    return this.labService.restartContainers(options);
+  getAdminerInfo(): Observable<LmlAdminerInfo> {
+    return this.labService.getAdminerInfo();
   }
 
   startAdminer(): Observable<boolean> {
     return this.labService.startAdminer();
   }
 
-  startComposeContainer(serviceName: string): Observable<boolean> {
-    return this.labService.startComposeContainer(serviceName);
-  }
-
   stopAdminer(): Observable<boolean> {
     return this.labService.stopAdminer();
-  }
-
-  stopContainer(containerName: string): Observable<boolean> {
-    return this.labService.stopContainer(containerName);
-  }
-
-  stopContainers(): Observable<void> {
-    return this.labService.stopContainers();
-  }
-
-  stopCurrentTask(): Observable<void> {
-    return this.labService.stopCurrentTask();
-  }
-
-  systemPrune(): Observable<void> {
-    return this.labService.systemPrune();
-  }
-
-  upContainers(options: LmlComposeUpOptions): Observable<void> {
-    return this.labService.upContainers(options);
-  }
-
-  updateConfig(config: LmlLabManagerConfig): Observable<void> {
-    return this.labService.updateConfig(config);
-  }
-
-  getLabManagerRecommendedVersion(): Observable<string> {
-    return this.labService.getLabManagerRecommendedVersion();
-  }
-
-  getAdminerInfo(): Observable<LmlAdminerInfo> {
-    return this.labService.getAdminerInfo();
-  }
-
-  getLabStartingError(): Observable<LmlDockerErrorLogs> {
-    return this.labService.getLabStartingErrors();
-  }
-
-  getContainerErrorLogs(containerName: string): Observable<LmlDockerLogs> {
-    return this.labService.getContainerErrorLogs(containerName);
-  }
-
-  updateLabManager(version: LmlNewVersionAvailable): void {
-    this.dialogService.openMediumDialog(LmsUpdateLabManagerDialogComponent, {
-      data: version,
-    });
   }
 }

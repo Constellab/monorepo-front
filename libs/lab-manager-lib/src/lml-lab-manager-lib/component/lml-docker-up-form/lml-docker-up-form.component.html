@@ -11,13 +11,6 @@
       </mat-checkbox>
     </div>
 
-    <!--  Docker prune  -->
-    <div>
-      <mat-checkbox formControlName="pruneSystem">
-        {{ 'lml.lab_prune_system' | translate }}
-      </mat-checkbox>
-    </div>
-
     <!--  Docker destroy container  -->
     @if (isRestart) {
       <div>
