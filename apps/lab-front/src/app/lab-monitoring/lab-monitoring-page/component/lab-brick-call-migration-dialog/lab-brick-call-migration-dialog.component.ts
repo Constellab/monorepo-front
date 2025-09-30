@@ -1,12 +1,11 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject,OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatOption } from '@angular/material/core';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatSelect } from '@angular/material/select';
-import { ClVersion } from '@monorepo/core-lib';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
@@ -48,9 +47,13 @@ export class LabBrickCallMigrationDialogComponent implements OnInit {
 
   brickMigrations$: Observable<LiBrickMigration[]>;
 
-  formControl: FormControl<ClVersion>;
+  formControl: FormControl<LiBrickMigration>;
 
   isLoading: boolean = false;
+
+  compareBrickMigration = (m1: LiBrickMigration, m2: LiBrickMigration): boolean => {
+    return m1.version.isEqual(m2.version) && m1.dbUniqueName === m2.dbUniqueName;
+  };
 
   ngOnInit(): void {
     this.brickMigrations$ = this.brickService.getBrickMigrations(this.brickName);
@@ -63,13 +66,15 @@ export class LabBrickCallMigrationDialogComponent implements OnInit {
     }
   }
 
-  private callMigration(version: ClVersion): void {
+  private callMigration(migration: LiBrickMigration): void {
     this.isLoading = true;
 
-    this.brickService.callMigration(this.brickName, version.toString()).subscribe({
-      next: () => this.onSuccess(),
-      error: () => (this.isLoading = false),
-    });
+    this.brickService
+      .callMigration(this.brickName, migration.version.toString(), migration.dbUniqueName)
+      .subscribe({
+        next: () => this.onSuccess(),
+        error: () => (this.isLoading = false),
+      });
   }
 
   private onSuccess(): void {
