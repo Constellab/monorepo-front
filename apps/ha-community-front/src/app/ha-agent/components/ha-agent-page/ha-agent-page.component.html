@@ -13,20 +13,31 @@
           [date]="agent().createdAt"
           [space]="agent().space"
           [isAuthor]="isAuthor()">
-          <input
-            flInputFile
-            flHide
-            type="file"
-            #file
-            [strictMode]="true"
-            [autoClearHtmlInput]="true"
-            accept="application/json"
-            (fileChange)="onFileSelected($any($event))" />
           <div class="entity-page-info-div">
+            @if (canEdit()) {
+              <div class="entity-page-info-div">
+                <button type="button" mat-flat-button (click)="openEditAgentDialog()" class="g-full">
+                  <mat-icon>edit</mat-icon>
+                  {{ 'edit_agent' | translate }}
+                </button>
+              </div>
+
+              <div class="entity-page-separator"></div>
+            }
+
             <div class="g-layout-row g-layout-between-center">
               <span class="g-text-medium g-weight-600">{{ 'versions_list' | translate }}</span>
 
               @if (canEdit() && versions()) {
+                <input
+                  flInputFile
+                  flHide
+                  type="file"
+                  #file
+                  [strictMode]="true"
+                  [autoClearHtmlInput]="true"
+                  accept="application/json"
+                  (fileChange)="onFileSelected($any($event))" />
                 <button
                   mat-icon-button
                   (click)="file.click()"

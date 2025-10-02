@@ -7,6 +7,10 @@
   background-size: cover;
 }
 
+.header-full-height {
+  min-height: calc(100vh - var(--basic-footer-height) - 48px);
+}
+
 .main-header {
   background: url('/assets/images/header_background_main.png') no-repeat bottom;
   background-size: cover;

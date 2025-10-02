@@ -66,16 +66,6 @@
   align-self: stretch;
 }
 
-.info-div-no-visibility {
-  position: absolute;
-  top: 22px;
-  left: 34px;
-
-  @container item (width < 450px) {
-    top: 34px;
-  }
-}
-
 .text-div {
   display: flex;
   flex-direction: column;

@@ -17,6 +17,8 @@ export class HaCommunityApp extends HaEntity implements CoCommunityApp {
   @Type(() => HaSpace)
   space?: HaSpace;
   picture?: string;
+  video?: string;
+  figures?: string[];
 }
 
 export class HaCommunityAppEdit {

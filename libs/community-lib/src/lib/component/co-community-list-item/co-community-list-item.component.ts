@@ -1,4 +1,4 @@
-import { NgClass, NgOptimizedImage } from '@angular/common';
+import { NgOptimizedImage } from '@angular/common';
 import { Component, input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
@@ -21,7 +21,6 @@ import { CoVisibilityBadgeComponent } from '../co-visibility-badge/co-visibility
     CoVisibilityBadgeComponent,
     CoTypeBadgeComponent,
     CoItemTypeIconComponent,
-    NgClass,
     CoStatsListComponent,
     NgOptimizedImage,
   ],
@@ -32,7 +31,7 @@ export class CoCommunityListItemComponent {
   title = input<string>(null);
   shortDescription = input<string>(null);
   space = input<CoSpace>(null);
-  showVisibilityAndStats = input<boolean>(true);
+  showVisibility = input<boolean>(true);
   likes = input<number>(0);
   comments = input<number>(undefined);
   executions = input<number>(undefined);

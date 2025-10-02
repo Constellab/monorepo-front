@@ -8,9 +8,9 @@
       }
     </div>
     <div class="content-div">
-      <div class="info-div" [ngClass]="showVisibilityAndStats() ? '' : 'info-div-no-visibility'">
+      <div class="info-div">
         <co-type-badge [type]="type()"></co-type-badge>
-        @if (showVisibilityAndStats()) {
+        @if (showVisibility()) {
           <co-visibility-badge [space]="space()"></co-visibility-badge>
         }
       </div>
@@ -24,13 +24,11 @@
       </div>
       <div class="stats-discover-div">
         <div class="stats-div">
-          @if (showVisibilityAndStats()) {
-            <co-stats-list
-              [likes]="likes()"
-              [comments]="comments()"
-              [executions]="executions()"
-              [dense]="true"></co-stats-list>
-          }
+          <co-stats-list
+            [likes]="likes()"
+            [comments]="comments()"
+            [executions]="executions()"
+            [dense]="true"></co-stats-list>
         </div>
         <div class="discover-div">
           {{ 'coCommunityLib.discover' | translate }}

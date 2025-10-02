@@ -22,19 +22,38 @@
               </button>
             </div>
           }
-<!--          <div class="entity-page-info-div g-layout-row g-layout-between-center">-->
-<!--            <span class="g-text-medium g-weight-600">{{ 'documentation' | translate }}</span>-->
-<!--            <button mat-flat-button class="g-button-small">Open doc</button>-->
-<!--          </div>-->
+          <!--          <div class="entity-page-info-div g-layout-row g-layout-between-center">-->
+          <!--            <span class="g-text-medium g-weight-600">{{ 'documentation' | translate }}</span>-->
+          <!--            <button mat-flat-button class="g-button-small">Open doc</button>-->
+          <!--          </div>-->
 
-<!--          <div class="entity-page-separator"></div>-->
+          <!--          <div class="entity-page-separator"></div>-->
         </ha-entity-page-infos>
       </div>
       <div class="entity-page-content">
         <div class="app-page-content">
-          <div class="app-page-title-div app-page-launch-div">
-            <h2>{{ 'the_app' | translate }}</h2>
-            <a type="button" mat-flat-button [href]="communityApp().appUrl" target="_blank">{{ 'open_app' | translate }}</a>
+          <div>
+            <div class="app-page-title-div app-page-launch-div">
+              <h2>{{ 'the_app' | translate }}</h2>
+              <a type="button" mat-flat-button [href]="communityApp().appUrl" target="_blank">{{
+                'open_app' | translate
+              }}</a>
+            </div>
+            <div class="entity-page-separator"></div>
+          </div>
+
+          <div>
+            @if (canEdit()) {
+              <div class="app-page-title-div edit-figures-div g-layout-row-reverse">
+                <button mat-flat-button (click)="openEditAppCarouselDialog()">
+                  {{ 'edit_app_media' | translate }}
+                </button>
+              </div>
+            }
+            <div class="carousel">
+              <ha-community-app-carousel></ha-community-app-carousel>
+            </div>
+            <div class="entity-page-separator"></div>
           </div>
 
           <div class="app-page-about-div">
@@ -61,7 +80,6 @@
                 [formControl]="appDescriptionFormControl"></te-text-editor>
             </article>
           </div>
-
         </div>
       </div>
       <div class="entity-page-comment" id="comments">

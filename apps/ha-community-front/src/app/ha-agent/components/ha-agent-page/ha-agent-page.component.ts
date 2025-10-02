@@ -1,6 +1,6 @@
 import { Component, computed, inject, OnInit, Signal } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatIconButton } from '@angular/material/button';
+import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { ActivatedRoute, Router, RouterLink, RouterOutlet } from '@angular/router';
@@ -21,7 +21,10 @@ import { HaCommentsSectionComponent } from '../../../ha-core/entity-module/ha-co
 import { HaEntityPageInfosComponent } from '../../../ha-core/ha-component/ha-entity-page-infos/ha-entity-page-infos.component';
 import { HaPageComponent } from '../../../ha-core/ha-component/ha-page/ha-page.component';
 import { HaAgent } from '../../../ha-core/ha-model/ha-entities/ha-agent.class';
-import { HaAgentVersionFileInput } from '../../../ha-core/ha-model/ha-entities/ha-agent-version.class';
+import {
+  HaAgentVersion,
+  HaAgentVersionFileInput,
+} from '../../../ha-core/ha-model/ha-entities/ha-agent-version.class';
 import { HaEntityType } from '../../../ha-core/ha-model/ha-entities/ha-entity-type';
 import { HaUser } from '../../../ha-core/ha-model/ha-entities/ha-user';
 import { HaDetailRoutePipe } from '../../../ha-core/ha-module/ha-core-pipe/ha-detail-route/ha-detail-route.pipe';
@@ -29,6 +32,10 @@ import { HaAgentService } from '../../../ha-core/ha-service/ha-agent.service';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
 import { HaEntityCommentState } from '../../../ha-core/ha-state/ha-entity-comment.state';
 import { HaAgentPageState } from '../../state/ha-agent-page.state';
+import {
+  HaAgentEditStyleDialogComponent,
+  HaAgentEditStyleDialogInputData,
+} from '../ha-agent-edit-style-dialog/ha-agent-edit-style-dialog.component';
 
 @Component({
   selector: 'ha-agent-page',
@@ -54,6 +61,7 @@ import { HaAgentPageState } from '../../state/ha-agent-page.state';
     MatIconButton,
     MatTooltip,
     HaDetailRoutePipe,
+    MatButton,
   ],
 })
 export class HaAgentPageComponent implements OnInit {
@@ -84,6 +92,7 @@ export class HaAgentPageComponent implements OnInit {
     return this.currentUser().id === this.agent().createdBy.id;
   });
   canEdit = this.agentPageState.canEditAgent;
+  currentVersion = this.agentPageState.agentVersion;
 
   tempTitle: string;
   entityType = HaEntityType.AGENT;
@@ -99,6 +108,27 @@ export class HaAgentPageComponent implements OnInit {
       this.tempTitle = ClStringHelper.fromKebabCaseToSentence(params.title);
       this.entityCommentState.init(this.entityType, params.id);
     });
+  }
+
+  openEditAgentDialog(): void {
+    const dialogData: HaAgentEditStyleDialogInputData = {
+      mode: 'update',
+      object: {
+        style: this.currentVersion().style,
+        isVersion: true,
+        entityId: this.currentVersion().id,
+      },
+    };
+
+    this.dialogService
+      .openMediumDialog(HaAgentEditStyleDialogComponent, { data: dialogData })
+      .afterClosed()
+      .subscribe((result: HaAgentVersion) => {
+        if (result) {
+          this.agentPageState.setAgent(result.agent);
+          this.agentPageState.setAgentVersion(result);
+        }
+      });
   }
 
   onFileSelected(event: any): void {

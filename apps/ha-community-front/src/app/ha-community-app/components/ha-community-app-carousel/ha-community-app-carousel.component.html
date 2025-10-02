@@ -1,0 +1,36 @@
+<div class="carousel-container">
+  <div class="carousel-wrapper">
+    <div class="carousel-track" #carouselContainer>
+      @for (item of carouselItems(); track $index) {
+        <div class="carousel-item">
+          @if (item.type === 'video') {
+            <div class="video-item">
+              <img
+                [src]="item.thumbnail"
+                [alt]="'Video thumbnail'"
+                class="video-thumbnail"
+                flVideoFullscreen
+                [attr.data-video-url]="item.url"
+                [attr.data-video-title]="'YouTube Video'" />
+              <fl-video-play-button></fl-video-play-button>
+            </div>
+          } @else {
+            <div class="image-item">
+              <img [src]="item.url" [alt]="'Gallery image'" class="image" flImageFullscreen />
+            </div>
+          }
+        </div>
+      }
+    </div>
+  </div>
+
+  @if (carouselItems().length > 1) {
+    <button mat-icon-button (click)="leftButtonClick()" class="bt-left">
+      <mat-icon>chevron_left</mat-icon>
+    </button>
+
+    <button mat-icon-button (click)="rightButtonClick()" class="bt-right">
+      <mat-icon>chevron_right</mat-icon>
+    </button>
+  }
+</div>

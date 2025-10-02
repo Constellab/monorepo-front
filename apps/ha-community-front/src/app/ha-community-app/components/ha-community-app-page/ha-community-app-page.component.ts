@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnInit } from '@angular/core';
+import { Component, computed, inject, OnInit, ViewContainerRef } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -23,10 +23,12 @@ import { HaCommunityAppService } from '../../../ha-core/ha-service/ha-community-
 import { HaEntityCommentState } from '../../../ha-core/ha-state/ha-entity-comment.state';
 import { HaCommunityAppState } from '../../state/ha-community-app.state';
 import { HaCommunityAppTextEditorConfig } from '../../utils/ha-community-app-text-editor.config';
+import { HaCommunityAppCarouselComponent } from '../ha-community-app-carousel/ha-community-app-carousel.component';
 import {
   HaCommunityAppCreateDialogComponent,
-  HaCreateCommunityAppInput
+  HaCreateCommunityAppInput,
 } from '../ha-community-app-create-dialog/ha-community-app-create-dialog.component';
+import { HaCommunityAppMediaEditDialogComponent } from '../ha-community-app-media-edit-dialog/ha-community-app-media-edit-dialog.component';
 
 @Component({
   selector: 'ha-community-app-page',
@@ -42,6 +44,7 @@ import {
     ReactiveFormsModule,
     MatButton,
     MatIconModule,
+    HaCommunityAppCarouselComponent,
   ],
   templateUrl: './ha-community-app-page.component.html',
   styleUrl: './ha-community-app-page.component.scss',
@@ -54,6 +57,7 @@ export class HaCommunityAppPageComponent extends HaCommunityPageDirective implem
   private communityAppService: HaCommunityAppService = inject(HaCommunityAppService);
   private entityCommentState: HaEntityCommentState = inject(HaEntityCommentState);
   private dialogService: FlDialogService = inject(FlDialogService);
+  private viewContainerRef = inject(ViewContainerRef);
 
   textEditorConfig: HaCommunityAppTextEditorConfig;
   appDescriptionFormControl = new FormControl<TeRichText>(null);
@@ -124,14 +128,21 @@ export class HaCommunityAppPageComponent extends HaCommunityPageDirective implem
         appUrl: this.communityApp().appUrl,
         picture: this.communityApp().picture,
         spaceId: this.communityApp().space?.id,
-      }
+      },
     };
-    this.dialogService.openMediumDialog(HaCommunityAppCreateDialogComponent, { data: data })
+    this.dialogService
+      .openMediumDialog(HaCommunityAppCreateDialogComponent, { data: data })
       .afterClosed()
       .subscribe((communityApp: HaCommunityApp) => {
         if (communityApp) {
           this.communityAppState.set(communityApp);
         }
       });
+  }
+
+  openEditAppCarouselDialog(): void {
+    this.dialogService.openMediumDialog(HaCommunityAppMediaEditDialogComponent, {
+      viewContainerRef: this.viewContainerRef,
+    });
   }
 }

@@ -31,11 +31,8 @@
     }
   </div>
   <div class="filters-div">
-
-    @if (!hideMyEntitiesFilter()) {
-      <mat-checkbox
-        [checked]="false"
-        (change)="onMyEntitiesChange($event.checked)">
+    @if (!hideMyEntitiesFilter() && user()) {
+      <mat-checkbox [checked]="false" (change)="onMyEntitiesChange($event.checked)">
         <span class="my-entities-text">{{ 'coCommunityLib.my_entities' | translate }}</span>
       </mat-checkbox>
     }

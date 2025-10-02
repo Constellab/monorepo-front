@@ -1,0 +1,111 @@
+import { Component, computed, inject, Signal } from '@angular/core';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatIconButton } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIcon } from '@angular/material/icon';
+import { MatInput } from '@angular/material/input';
+import { FlConfirmDialogInput, FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
+import { FlImageModule, FlUploadImageDialogConfig } from '@monorepo/front-core-lib/fl-image';
+import { TranslatePipe } from '@ngx-translate/core';
+import { Observable, of } from 'rxjs';
+import { map, mergeMap } from 'rxjs/operators';
+
+import { HaCommunityApp } from '../../../ha-core/ha-model/ha-entities/ha-community-app.class';
+import { HaAppPicturePipe } from '../../../ha-core/ha-module/ha-core-pipe/ha-app-picture/ha-app-picture.pipe';
+import { HaCommunityAppService } from '../../../ha-core/ha-service/ha-community-app.service';
+import { HaCommunityAppState } from '../../state/ha-community-app.state';
+
+@Component({
+  selector: 'ha-community-app-media-edit-dialog',
+  templateUrl: './ha-community-app-media-edit-dialog.component.html',
+  styleUrls: ['./ha-community-app-media-edit-dialog.component.scss'],
+  imports: [
+    FlDialogModule,
+    TranslatePipe,
+    MatFormFieldModule,
+    FormsModule,
+    MatInput,
+    ReactiveFormsModule,
+    FlImageModule,
+    MatIcon,
+    HaAppPicturePipe,
+    MatIconButton,
+  ],
+})
+export class HaCommunityAppMediaEditDialogComponent {
+  private communityAppState = inject(HaCommunityAppState);
+  private communityAppService = inject(HaCommunityAppService);
+
+  app: Signal<HaCommunityApp> = this.communityAppState.app;
+
+  videoUrlFormControl = computed(() => {
+    const app = this.app();
+    if (!app) return new FormControl<string>(null);
+    return new FormControl<string>(app.video);
+  });
+
+  saveVideo(): void {
+    const app = this.app();
+    let video = this.videoUrlFormControl().value;
+    if (app.video === video) return;
+    if (video.length == 0) video = null;
+    this.communityAppService.updateAppMedia(app.id, video, app.figures).subscribe((communityApp) => {
+      this.communityAppState.set(communityApp);
+    });
+  }
+
+  getImageConfig(figure?: string): FlUploadImageDialogConfig {
+    return {
+      title: { text: 'upload_app_figure', translateText: true },
+      helpText: { text: 'image_square_help', translateText: true },
+      imagePreviewWidth: 204,
+      imagePreviewHeight: 115,
+      uploadImage: (file: File) => {
+        return this.communityAppService.uploadAppPicture(file).pipe(
+          mergeMap((res: any) => {
+            if (!res || !res.filename) return of(null);
+            const filename = res.filename;
+            return (figure ? this.deleteFigure(figure) : of(null)).pipe(
+              mergeMap(() => {
+                const app = this.app();
+                app.figures = app.figures || [];
+                app.figures.push(filename);
+                return this.communityAppService.updateAppMedia(app.id, app.video, app.figures);
+              })
+            );
+          }),
+          map((communityApp: HaCommunityApp) => {
+            this.communityAppState.set(communityApp);
+            return communityApp;
+          })
+        );
+      },
+      uploadImageSuccessMessage: {
+        text: 'app_figure_uploaded',
+        translateText: true,
+      },
+    };
+  }
+
+  getDeleteImageConfig(figure: string): FlConfirmDialogInput {
+    return {
+      title: 'delete_app_figure',
+      content: 'delete_app_figure_confirmation',
+      observable: this.deleteFigure(figure),
+      successMessage: 'app_figure_deleted',
+    };
+  }
+
+  private deleteFigure(figure: string): Observable<any> {
+    return this.communityAppService.deleteFile(figure).pipe(
+      mergeMap(() => {
+        const app = this.app();
+        app.figures = (app.figures || []).filter((f) => f !== figure);
+        return this.communityAppService.updateAppMedia(app.id, app.video, app.figures);
+      }),
+      map((communityApp: HaCommunityApp) => {
+        this.communityAppState.set(communityApp);
+      })
+    );
+  }
+}

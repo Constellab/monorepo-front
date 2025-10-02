@@ -13,6 +13,8 @@ html {
 
   --content-max-width: 1200px;
 
+  --basic-footer-height: 124px;
+
   @include mat.theme-overrides(
     (
       surface: #ffffff,

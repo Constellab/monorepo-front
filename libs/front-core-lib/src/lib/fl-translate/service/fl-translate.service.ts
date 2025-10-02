@@ -143,6 +143,7 @@ export class FlTranslateService {
   public getUserLanguage(): ClSupportedLanguage {
     // get the language from the cookie if it exists
     const cookieLang: string = this.getUserLanguageCookie();
+
     // if it exists, returns the lang from the cookie
     if (cookieLang && this.langIsSupported(cookieLang)) {
       return cookieLang as ClSupportedLanguage;

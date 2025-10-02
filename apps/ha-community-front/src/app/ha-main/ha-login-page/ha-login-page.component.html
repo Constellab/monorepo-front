@@ -1,13 +1,47 @@
-<fl-login-page
-  darkThemeLogo="assets/fl-logo/community-logo-text-white.svg"
-  lightThemeLogo="assets/fl-logo/community-logo-text-black.svg"
-  (loginSuccess)="onLoginSuccess()"
-  class="g-dashboard-background login">
-  <fl-login-footer>
-    <div class="footer">
-      <a class="g-primary-text g-text-small g-text-link" [href]="spaceSignupRoute">
-        {{ 'flAuth.signup_link' | translate }}
-      </a>
+<!--<fl-login-page-->
+<!--  darkThemeLogo="assets/fl-logo/community-logo-text-white.svg"-->
+<!--  lightThemeLogo="assets/fl-logo/community-logo-text-black.svg"-->
+<!--  (loginSuccess)="onLoginSuccess()"-->
+<!--  class="g-dashboard-background login">-->
+<!--  <fl-login-footer>-->
+<!--    <div class="footer">-->
+<!--      <a class="g-primary-text g-text-small g-text-link" [href]="spaceSignupRoute">-->
+<!--        {{ 'flAuth.signup_link' | translate }}-->
+<!--      </a>-->
+<!--    </div>-->
+<!--  </fl-login-footer>-->
+<!--</fl-login-page>-->
+
+<ha-header [fullHeight]="true">
+  <div class="section login-section">
+    <div class="section-title">
+      <ha-home-section-shine>{{ 'login_page.login_to_your_account' | translate }}</ha-home-section-shine>
+      <h2>{{ 'login_page.welcome_back' | translate }}</h2>
     </div>
-  </fl-login-footer>
-</fl-login-page>
+    <p class="g-large-text section-description">
+      {{ 'login_page.login_subtitle' | translate }}
+    </p>
+
+    <div class="login-card">
+      <fl-complete-login
+        [redirectionRoute]="redirectionRoute"
+        (loginSuccess)="onLoginSuccess()"
+        class="login">
+        <ng-content select="fl-login-footer"></ng-content>
+      </fl-complete-login>
+
+      <div class="no-account-yet-div">
+        <div class="no-account-yet-title-div">
+          <span></span>
+          <p>{{ 'login_page.no_account_yet' | translate }}</p>
+          <span></span>
+        </div>
+        <a mat-raised-button [href]="spaceSignupRoute" class="sign-up-button">
+          {{ 'sign_up' | translate }}
+        </a>
+      </div>
+    </div>
+  </div>
+</ha-header>
+
+<ha-footer></ha-footer>

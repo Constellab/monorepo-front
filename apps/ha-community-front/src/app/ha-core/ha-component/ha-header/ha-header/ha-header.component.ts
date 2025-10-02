@@ -9,6 +9,7 @@ import { RouterLink } from '@angular/router';
 import { ClSupportedLanguage } from '@monorepo/core-lib';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { TranslatePipe } from '@ngx-translate/core';
 
@@ -43,8 +44,11 @@ export class HaHeaderComponent {
   private authenticatedUserService = inject(HaAuthenticatedUserService);
   private authService = inject(HaAuthService);
   private dialogService = inject(FlDialogService);
+  private translateService = inject(FlTranslateService);
 
   isHomePage = input<boolean>(false);
+
+  fullHeight = input<boolean>(false);
 
   homeRoute: string = HaRouterService.getHomeRoute();
 
@@ -76,7 +80,7 @@ export class HaHeaderComponent {
 
   currentUser = toSignal(this.authenticatedUserService.getUser());
 
-  currentLanguage: WritableSignal<ClSupportedLanguage> = signal(ClSupportedLanguage.en);
+  currentLanguage: WritableSignal<ClSupportedLanguage> = signal(this.translateService.getUserLanguage());
 
   constructor() {
     effect(() => {

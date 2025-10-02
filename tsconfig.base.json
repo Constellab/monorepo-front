@@ -96,6 +96,7 @@
       "@monorepo/front-core-lib/fl-theme": ["libs/front-core-lib/src/lib/fl-theme/index.ts"],
       "@monorepo/front-core-lib/fl-translate": ["libs/front-core-lib/src/lib/fl-translate/index.ts"],
       "@monorepo/front-core-lib/fl-user": ["libs/front-core-lib/src/lib/fl-user/index.ts"],
+      "@monorepo/front-core-lib/fl-video": ["libs/front-core-lib/src/lib/fl-video/index.ts"],
       "@monorepo/lab-lib/li-activity": ["libs/lab-lib/src/lib/li-activity/index.ts"],
       "@monorepo/lab-lib/li-brick": ["libs/lab-lib/src/lib/li-brick/index.ts"],
       "@monorepo/lab-lib/li-config": ["libs/lab-lib/src/lib/li-config/index.ts"],

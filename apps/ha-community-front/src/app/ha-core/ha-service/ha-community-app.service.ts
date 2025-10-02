@@ -180,4 +180,12 @@ export class HaCommunityAppService implements HaCoAuthorService {
   acceptInvite(token: string): Observable<HaCommunityApp> {
     return this.apiService.put(`${this.route}/co-authors/invite/${token}/accept`, {}, HaCommunityApp);
   }
+
+  updateAppMedia(appId: string, videoUrl: string, figures: string[]): Observable<HaCommunityApp> {
+    return this.apiService.put(
+      `${this.route}/media/${appId}`,
+      { video: videoUrl, figures: figures },
+      HaCommunityApp
+    );
+  }
 }

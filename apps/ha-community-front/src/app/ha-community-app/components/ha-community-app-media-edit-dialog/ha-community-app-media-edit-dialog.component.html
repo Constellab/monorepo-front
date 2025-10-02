@@ -1,0 +1,46 @@
+<fl-dialog-header>
+  {{ 'edit_app_media' | translate }}
+</fl-dialog-header>
+
+<mat-dialog-content>
+  <div class="g-layout-row g-layout-align-start-center g-gap-1em">
+    <mat-form-field class="g-form-input">
+      <mat-label>{{ 'youtube_video_url' | translate }}</mat-label>
+      <input
+        matInput
+        [placeholder]="'youtube_video_url' | translate"
+        [formControl]="videoUrlFormControl()"
+        tabindex="0" />
+    </mat-form-field>
+    @if (videoUrlFormControl().value !== app().video) {
+      <button mat-icon-button (click)="saveVideo()">
+        <mat-icon>save</mat-icon>
+      </button>
+    }
+  </div>
+
+  <div>
+    <div class="g-large-text">{{ 'figures' | translate }}</div>
+    <div class="media-figures-div">
+      @for (figure of this.app().figures; track figure) {
+        <fl-update-image-container
+          [uploadConfig]="getImageConfig(figure)"
+          [deleteConfig]="getDeleteImageConfig(figure)">
+          <div class="figure-div">
+            <img [src]="figure | haAppPicture" class="figure" />
+          </div>
+        </fl-update-image-container>
+      }
+      @if (this.app().figures.length < 5) {
+        <fl-update-image-container
+          [uploadConfig]="getImageConfig()"
+          [showDelete]="false"
+          [showEditIcon]="false">
+          <div class="figure-div add-image-div">
+            <mat-icon class="image-placeholder"> add_a_photo</mat-icon>
+          </div>
+        </fl-update-image-container>
+      }
+    </div>
+  </div>
+</mat-dialog-content>
