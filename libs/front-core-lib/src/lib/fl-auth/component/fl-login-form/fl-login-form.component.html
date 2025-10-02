@@ -6,8 +6,9 @@
       matInput
       type="email"
       formControlName="email"
+      name="email"
       required
-      [placeholder]="'flAuth.email' | translate "
+      [placeholder]="'flAuth.email' | translate"
       autocomplete="username" />
     @if (formGp.get('email').hasError('required')) {
       <mat-error>{{ 'flAuth.error_required' | translate: { field: 'flAuth.email' | translate } }}</mat-error>
@@ -24,11 +25,14 @@
       matInput
       type="password"
       formControlName="password"
+      name="password"
       required
-      [placeholder]=" 'flAuth.password' | translate"
+      [placeholder]="'flAuth.password' | translate"
       autocomplete="current-password" />
     @if (formGp.get('password').hasError('required')) {
-      <mat-error>{{ 'flAuth.error_required' | translate: { field: 'flAuth.password' | translate } }}</mat-error>
+      <mat-error>{{
+        'flAuth.error_required' | translate: { field: 'flAuth.password' | translate }
+      }}</mat-error>
     }
   </mat-form-field>
 </ng-container>

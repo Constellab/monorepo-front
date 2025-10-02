@@ -1,38 +1,36 @@
 @use '@angular/material' as mat;
 @use 'ha-theme-colors' as theme;
 
-
 @mixin define_theme() {
-
   html {
-
     @include mat.theme(
-        (
-          color: (
-            primary: theme.$primary-palette,
-            theme-type: light,
-          ),
-          typography: (
-            plain-family: Plus Jakarta Sans,
-            brand-family: Plus Jakarta Sans,
-          ),
-          density: 0,
-        )
+      (
+        color: (
+          primary: theme.$primary-palette,
+          theme-type: light,
+        ),
+        typography: (
+          plain-family: Plus Jakarta Sans,
+          brand-family: Plus Jakarta Sans,
+        ),
+        density: 0,
+      )
     );
 
-    --primary-color: #25B49C;
-    --primary-color-contrast: #E9F7F5;
-    --accent-color: #C5BBEE;
-    --accent-color-contrast: #F9F8FD;
-    --warn-color: #FF93D0;
-    --warn-color-contrast: #FFF4FA;
-    --success-color: #25B49C;
-    --warning-color: #A60A0C;
+    --primary-color: #25b49c;
+    --primary-color-contrast: #e9f7f5;
+    --accent-color: #c5bbee;
+    --accent-color-contrast: #f9f8fd;
+    --warn-color: #ff93d0;
+    --warn-color-contrast: #fff4fa;
+    --success-color: #25b49c;
+    --warning-color: #a60a0c;
 
     --color-foreground: #072527;
-    --color-foreground-light: #4F6769;
+    --light-color: #4f6769;
+    --hover-color: #f5f5f5;
 
-    --main-background: #FFFFFF;
+    --main-background: #ffffff;
 
     --card-radius: 24px;
     --mat-sys-on-error: #072527 !important;
@@ -60,7 +58,7 @@
     }
   }
 
-  .button-warn{
+  .button-warn {
     --warn-color-contrast: #072527;
   }
 }

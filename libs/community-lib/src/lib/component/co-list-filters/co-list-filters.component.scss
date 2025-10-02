@@ -35,7 +35,7 @@
   top: 100%;
   left: 0;
   min-width: 100%;
-  background-color: #fff;
+  background-color: var(--main-background);
   box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
   z-index: 55;
   padding: 8px;
@@ -66,7 +66,7 @@
 
 .filter-div-portal-option:hover {
   cursor: pointer;
-  background-color: #f5f5f5;
+  background-color: var(--hover-color);
 }
 
 .filter-title-field {

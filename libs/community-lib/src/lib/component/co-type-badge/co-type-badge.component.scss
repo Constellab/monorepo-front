@@ -1,13 +1,11 @@
-.type-badge{
+.type-badge {
   display: flex;
   padding: 5.25px 10.5px 5.25px 5.25px;
   align-items: center;
   gap: 7px;
   border-radius: 84px;
-  background: #FFF;
+  background: var(--main-background);
   box-shadow: 0 0.875px 1.75px 0 rgba(35, 39, 46, 0.08);
   font-size: 10px;
   line-height: 150%;
 }
-
-

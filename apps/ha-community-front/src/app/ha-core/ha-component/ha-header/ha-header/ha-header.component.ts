@@ -85,7 +85,8 @@ export class HaHeaderComponent {
   constructor() {
     effect(() => {
       const user = this.currentUser();
-      this.currentLanguage.set(user != null ? user.lang : ClSupportedLanguage.en);
+      const currentLang = this.translateService.getCurrentLang()();
+      this.currentLanguage.set(user != null ? user.lang : (currentLang ?? ClSupportedLanguage.en));
     });
   }
 

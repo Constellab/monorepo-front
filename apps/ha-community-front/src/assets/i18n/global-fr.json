@@ -85,7 +85,7 @@
 
   "login_page.login_to_your_account": "Connectez-vous à votre compte",
   "login_page.welcome_back": "Heureux de vous revoir !",
-  "login_page.login_subtitle": "Entrew votre e-mail et votre mot de passe pour vous connecter à votre compte.",
+  "login_page.login_subtitle": "Entrez votre e-mail et votre mot de passe pour vous connecter à votre compte.",
   "login_page.no_account_yet": "Vous n'avez pas encore de compte ?",
 
   "join_the_community": "Rejoindre la communauté",
@@ -133,6 +133,7 @@
   "delete_app_figure": "Supprimer l'image de l'app",
   "delete_app_figure_confirmation": "Êtes-vous sûr de vouloir supprimer l'image de l'app ?",
   "app_figure_deleted": "Image de l'app supprimée",
+  "app_no_media_yet": "Vous n'avez pas encore ajouté de médias à cette app",
 
   "create": "Créer",
   "documentation": "Documentation",

@@ -134,6 +134,7 @@
   "delete_app_figure": "Delete app figure",
   "delete_app_figure_confirmation": "Are you sure you want to delete this figure of the app ?",
   "app_figure_deleted": "App figure deleted",
+  "app_no_media_yet": "You have not added any media yet",
 
   "create": "Create",
   "documentation": "Documentation",

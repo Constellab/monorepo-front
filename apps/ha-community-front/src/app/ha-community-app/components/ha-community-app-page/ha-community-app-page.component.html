@@ -42,19 +42,27 @@
             <div class="entity-page-separator"></div>
           </div>
 
-          <div>
-            @if (canEdit()) {
-              <div class="app-page-title-div edit-figures-div g-layout-row-reverse">
-                <button mat-flat-button (click)="openEditAppCarouselDialog()">
-                  {{ 'edit_app_media' | translate }}
-                </button>
+          @if (canEdit() || communityApp().figures.length > 0 || communityApp().video) {
+            <div>
+              @if (canEdit()) {
+                <div class="app-page-title-div edit-figures-div g-layout-row-reverse">
+                  <button mat-flat-button (click)="openEditAppCarouselDialog()">
+                    {{ 'edit_app_media' | translate }}
+                  </button>
+                </div>
+              }
+
+              <div class="carousel">
+                @if (communityApp().figures.length > 0 || communityApp().video) {
+                  <ha-community-app-carousel></ha-community-app-carousel>
+                } @else {
+                  <p>{{ 'app_no_media_yet' | translate }}</p>
+                }
               </div>
-            }
-            <div class="carousel">
-              <ha-community-app-carousel></ha-community-app-carousel>
+
+              <div class="entity-page-separator"></div>
             </div>
-            <div class="entity-page-separator"></div>
-          </div>
+          }
 
           <div class="app-page-about-div">
             <div class="app-page-title-div g-layout-row g-layout-between-center">
