@@ -42,7 +42,7 @@
             <div class="entity-page-separator"></div>
           </div>
 
-          @if (canEdit() || communityApp().figures.length > 0 || communityApp().video) {
+          @if (canEdit() || communityApp().figures?.length > 0 || communityApp().video) {
             <div>
               @if (canEdit()) {
                 <div class="app-page-title-div edit-figures-div g-layout-row-reverse">
@@ -53,7 +53,7 @@
               }
 
               <div class="carousel">
-                @if (communityApp().figures.length > 0 || communityApp().video) {
+                @if (communityApp().figures?.length > 0 || communityApp().video) {
                   <ha-community-app-carousel></ha-community-app-carousel>
                 } @else {
                   <p>{{ 'app_no_media_yet' | translate }}</p>

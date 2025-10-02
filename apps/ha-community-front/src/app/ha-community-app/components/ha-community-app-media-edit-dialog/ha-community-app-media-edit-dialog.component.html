@@ -31,7 +31,7 @@
           </div>
         </fl-update-image-container>
       }
-      @if (this.app().figures.length < 5) {
+      @if (this.app().figures?.length < 5) {
         <fl-update-image-container
           [uploadConfig]="getImageConfig()"
           [showDelete]="false"

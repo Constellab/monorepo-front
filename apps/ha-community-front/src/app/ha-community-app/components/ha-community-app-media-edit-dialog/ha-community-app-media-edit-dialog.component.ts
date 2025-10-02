@@ -48,7 +48,7 @@ export class HaCommunityAppMediaEditDialogComponent {
     const app = this.app();
     let video = this.videoUrlFormControl().value;
     if (app.video === video) return;
-    if (video.length == 0) video = null;
+    if (video?.length == 0) video = null;
     this.communityAppService.updateAppMedia(app.id, video, app.figures).subscribe((communityApp) => {
       this.communityAppState.set(communityApp);
     });
