@@ -4,6 +4,7 @@ import { MatIconButton } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatInput } from '@angular/material/input';
+import { MatTooltip } from '@angular/material/tooltip';
 import { FlConfirmDialogInput, FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlImageModule, FlUploadImageDialogConfig } from '@monorepo/front-core-lib/fl-image';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -30,6 +31,7 @@ import { HaCommunityAppState } from '../../state/ha-community-app.state';
     MatIcon,
     HaAppPicturePipe,
     MatIconButton,
+    MatTooltip,
   ],
 })
 export class HaCommunityAppMediaEditDialogComponent {
@@ -57,7 +59,6 @@ export class HaCommunityAppMediaEditDialogComponent {
   getImageConfig(figure?: string): FlUploadImageDialogConfig {
     return {
       title: { text: 'upload_app_figure', translateText: true },
-      helpText: { text: 'image_square_help', translateText: true },
       imagePreviewWidth: 204,
       imagePreviewHeight: 115,
       uploadImage: (file: File) => {

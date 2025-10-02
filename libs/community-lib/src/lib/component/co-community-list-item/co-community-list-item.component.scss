@@ -94,6 +94,18 @@
   }
 }
 
+.type-and-publish-div {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  align-items: center;
+
+  .not-published-message {
+    font-size: 12px;
+    color: var(--warn-color);
+  }
+}
+
 .short-description-div {
   overflow: hidden;
   color: var(--light-color);

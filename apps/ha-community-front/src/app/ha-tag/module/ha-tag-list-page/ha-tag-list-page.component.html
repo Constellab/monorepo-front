@@ -1,11 +1,12 @@
 <ha-page>
   <fl-infinite-scroll [datasource]="tagsPaginated" infiniteMode="auto" class="section">
-      <co-list-filters [user]="user()"
-                       (sortsCriteriaChanged)="onSortsCriteriaChanged($event)"
-                       (titleFilterChanged)="onTitleFilterChanged($event)"
-                       (spacesFilterChanged)="onSpacesFilterChanged($event)"
-                       (myEntitiesChanged)="onMyEntitiesChanged($event)"
-      ></co-list-filters>
+    <co-list-filters
+      [user]="user()"
+      [listEntityType]="listEntityType"
+      (sortsCriteriaChanged)="onSortsCriteriaChanged($event)"
+      (titleFilterChanged)="onTitleFilterChanged($event)"
+      (spacesFilterChanged)="onSpacesFilterChanged($event)"
+      (myEntitiesChanged)="onMyEntitiesChanged($event)"></co-list-filters>
     <ha-list-of-items>
       @for (tag of tagsPaginated | flDatasourceConnect | async; track tag.id) {
         <a [routerLink]="tag | haDetailRoute">

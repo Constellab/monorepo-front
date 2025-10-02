@@ -72,6 +72,7 @@ export class FlUpdateImageContainerComponent {
         text: this.deleteConfig.title,
         icon: 'delete',
         type: 'button',
+        color: 'warn',
         onClick: () => this.deleteImage(),
       });
     }

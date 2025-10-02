@@ -33,22 +33,19 @@
   <div class="filters-div">
     @if (!hideMyEntitiesFilter() && user()) {
       <mat-checkbox [checked]="false" (change)="onMyEntitiesChange($event.checked)">
-        <span class="my-entities-text">{{ 'coCommunityLib.my_entities' | translate }}</span>
+        <span class="my-entities-text">{{ myEntitiesText() | translate }}</span>
       </mat-checkbox>
     }
 
     <div class="filter-sort-div" (flOutsideClick)="titleFilterIsOpen = false">
       <div class="filter-sort-div-header" (click)="titleFilterIsOpen = !titleFilterIsOpen">
-        <span>{{ 'coCommunityLib.filter_by_title' | translate }}</span>
+        <span>{{ filterTitleText() | translate }}</span>
         <mat-icon>keyboard_arrow_down</mat-icon>
       </div>
       @if (titleFilterIsOpen) {
         <div class="filter-sort-div-portal">
           <mat-form-field class="filter-title-field">
-            <input
-              matInput
-              [formControl]="titleFormControl"
-              placeholder="{{ 'coCommunityLib.title' | translate }}" />
+            <input matInput [formControl]="titleFormControl" placeholder="{{ titleText() | translate }}" />
             <button
               mat-icon-button
               matSuffix

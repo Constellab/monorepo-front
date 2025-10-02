@@ -9,7 +9,12 @@
     </div>
     <div class="content-div">
       <div class="info-div">
-        <co-type-badge [type]="type()"></co-type-badge>
+        <div class="type-and-publish-div">
+          <co-type-badge [type]="type()"></co-type-badge>
+          @if (!publishedAt()) {
+            <span class="not-published-message">{{ 'coCommunityLib.no_published' | translate }}</span>
+          }
+        </div>
         @if (showVisibility()) {
           <co-visibility-badge [space]="space()"></co-visibility-badge>
         }

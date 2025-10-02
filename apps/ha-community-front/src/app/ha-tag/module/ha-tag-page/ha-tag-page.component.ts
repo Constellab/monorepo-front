@@ -3,6 +3,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
 import { ActivatedRoute } from '@angular/router';
 import {
   CoCommunityLibModule,
@@ -10,7 +11,8 @@ import {
   CoTagKeyType,
   CoTagValue,
   CoTagValueEditDialogComponent,
-  CoTagValueEditDialogInput, CoTagValuesTableComponent,
+  CoTagValueEditDialogInput,
+  CoTagValuesTableComponent,
 } from '@monorepo/community-lib';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
@@ -26,9 +28,7 @@ import { TeCompleteConfig, TeRichText, TeTextEditorModule } from '@monorepo/text
 import { TranslatePipe } from '@ngx-translate/core';
 import { first } from 'rxjs';
 
-import {
-  HaEntityPageInfosComponent
-} from '../../../ha-core/ha-component/ha-entity-page-infos/ha-entity-page-infos.component';
+import { HaEntityPageInfosComponent } from '../../../ha-core/ha-component/ha-entity-page-infos/ha-entity-page-infos.component';
 import { HaPageComponent } from '../../../ha-core/ha-component/ha-page/ha-page.component';
 import { HaEntityType } from '../../../ha-core/ha-model/ha-entities/ha-entity-type';
 import { HaTagKey } from '../../../ha-core/ha-model/ha-entities/ha-tag-key.class';
@@ -36,9 +36,7 @@ import {
   HaTagValueDatasourceFilters,
   HaTagValueDatasourcePaginated,
 } from '../../../ha-core/ha-model/ha-entities/ha-tag-value.class';
-import {
-  HaCommunityPageDirective
-} from '../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
+import { HaCommunityPageDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
 import { HaAuthenticatedUserService } from '../../../ha-core/ha-service/ha-authenticated-user.service';
 import { HaHttpRedirectionService } from '../../../ha-core/ha-service/ha-http-redirection.service';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
@@ -48,7 +46,6 @@ import {
   HaTagKeyEditDialogComponent,
   HaTagKeyEditDialogInput,
 } from '../ha-tag-key-edit-dialog/ha-tag-key-edit-dialog.component';
-import { MatTooltip } from '@angular/material/tooltip';
 
 @Component({
   selector: 'ha-tag-page',

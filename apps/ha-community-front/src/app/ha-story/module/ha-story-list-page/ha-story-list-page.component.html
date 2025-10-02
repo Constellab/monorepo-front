@@ -2,6 +2,7 @@
   <fl-infinite-scroll [datasource]="stories" infiniteMode="auto" class="section">
     <co-list-filters
       [user]="user()"
+      [listEntityType]="listEntityType"
       [hideSpaceFilter]="true"
       (myEntitiesChanged)="onMyEntitiesChanged($event)"
       (titleFilterChanged)="onTitleFilterChanged($event)"

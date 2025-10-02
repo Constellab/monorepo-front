@@ -5,6 +5,7 @@ import { RouterLink } from '@angular/router';
 import {
   CoCommunityAppListItemComponent,
   CoCommunityLibModule,
+  CoListEntityType,
   CoListFiltersComponent,
 } from '@monorepo/community-lib';
 import { FlDatasourceSortCriteria } from '@monorepo/front-core-lib/fl-core';
@@ -51,6 +52,7 @@ export class HaCommunityAppListPageComponent extends HaCommunityPageDirective im
   private communityAppService: HaCommunityAppService = inject(HaCommunityAppService);
   private authenticatedUserService = inject(HaAuthenticatedUserService);
 
+  listEntityType = CoListEntityType.APP;
   spacesFilter: string[] = [];
   titleFilter: string = '';
   sortsCriteriaKeys: string[] = ['createdAt', 'title'];
@@ -83,23 +85,25 @@ export class HaCommunityAppListPageComponent extends HaCommunityPageDirective im
     this.updateCommunityApps();
   }
 
-  onSortsCriteriaChanged(sortsCriteria: FlDatasourceSortCriteria[]): void{
+  onSortsCriteriaChanged(sortsCriteria: FlDatasourceSortCriteria[]): void {
     this.sortsCriteria = sortsCriteria;
     this.updateCommunityApps();
   }
 
-  onMyEntitiesChanged(myEntities: boolean): void{
-    if (myEntities && !this.spacesFilter.includes('my-apps'))
-      this.spacesFilter.push('my-apps');
+  onMyEntitiesChanged(myEntities: boolean): void {
+    if (myEntities && !this.spacesFilter.includes('my-apps')) this.spacesFilter.push('my-apps');
     else if (!myEntities && this.spacesFilter.includes('my-apps'))
       this.spacesFilter = this.spacesFilter.filter((id) => id != 'my-apps');
     this.updateCommunityApps();
   }
 
   private updateCommunityApps(): void {
-    this.communityAppsPaginated.getFirstPage({
-      spacesFilter: this.spacesFilter,
-      titleFilter: this.titleFilter,
-    }, this.sortsCriteria);
+    this.communityAppsPaginated.getFirstPage(
+      {
+        spacesFilter: this.spacesFilter,
+        titleFilter: this.titleFilter,
+      },
+      this.sortsCriteria
+    );
   }
 }

@@ -1,6 +1,16 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import { AsyncPipe } from '@angular/common';
-import { Component, inject, input, OnDestroy, OnInit, output } from '@angular/core';
+import {
+  Component,
+  effect,
+  inject,
+  input,
+  OnDestroy,
+  OnInit,
+  output,
+  signal,
+  WritableSignal,
+} from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatIconButton } from '@angular/material/button';
 import { MatCheckbox } from '@angular/material/checkbox';
@@ -18,6 +28,14 @@ import { CoSpace } from '../../model/co-space.class';
 import { CoUser } from '../../model/co-user.class';
 import { CoConfig } from '../../service/co-service-config.config';
 import { CoVisibilityBadgeComponent } from '../co-visibility-badge/co-visibility-badge.component';
+
+export enum CoListEntityType {
+  BRICK = 'brick',
+  AGENT = 'agent',
+  STORY = 'story',
+  APP = 'app',
+  TAG = 'tag',
+}
 
 @Component({
   selector: 'co-list-filters',
@@ -39,24 +57,58 @@ import { CoVisibilityBadgeComponent } from '../co-visibility-badge/co-visibility
   ],
 })
 export class CoListFiltersComponent implements OnInit, OnDestroy {
+  private coConfigService = inject(CoConfig);
+
   user = input<CoUser>(null);
   sortsCriteriaKeys = input<string[]>(['createdAt', 'title']);
   hideMyEntitiesFilter = input(false);
   hideSpaceFilter = input(false);
   hideTitleFilter = input(false);
+  listEntityType = input.required<CoListEntityType>();
   titleFilterChanged = output<string>();
   spacesFilterChanged = output<string[]>();
   myEntitiesChanged = output<boolean>();
   sortsCriteriaChanged = output<FlDatasourceSortCriteria[]>();
+
+  myEntitiesText: WritableSignal<string> = signal('coCommunityLib.my_entities');
+  filterTitleText: WritableSignal<string> = signal('coCommunityLib.filter_by_title');
+  titleText: WritableSignal<string> = signal('coCommunityLib.title');
+
   titleFormControl: FormControl<string> = new FormControl('');
   titleSubscription: Subscription;
   spacesFilterIsOpen = false;
   titleFilterIsOpen = false;
   sortsIsOpen = false;
   spacesSelectionModel = new SelectionModel<CoSpace>(true, [], false, (a, b) => a.id === b.id);
-  private coConfigService = inject(CoConfig);
   userSpace$ = this.coConfigService.getSpacesOfCurrentUser();
   currentSortCriteria: FlDatasourceSortCriteria;
+
+  constructor() {
+    effect(() => {
+      const listEntityType = this.listEntityType();
+      switch (listEntityType) {
+        case CoListEntityType.BRICK:
+          this.myEntitiesText.set('coCommunityLib.my_bricks');
+          this.filterTitleText.set('coCommunityLib.filter_by_name');
+          this.titleText.set('coCommunityLib.name');
+          break;
+        case CoListEntityType.AGENT:
+          this.myEntitiesText.set('coCommunityLib.my_agents');
+          break;
+        case CoListEntityType.STORY:
+          this.myEntitiesText.set('coCommunityLib.my_stories');
+          break;
+        case CoListEntityType.APP:
+          this.myEntitiesText.set('coCommunityLib.my_apps');
+          break;
+        case CoListEntityType.TAG:
+          this.myEntitiesText.set('coCommunityLib.my_tags');
+          this.filterTitleText.set('coCommunityLib.filter_by_label');
+          this.titleText.set('coCommunityLib.label');
+          break;
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.titleSubscription = this.titleFormControl.valueChanges.pipe(debounceTime(250)).subscribe((value) => {

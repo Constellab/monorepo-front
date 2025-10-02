@@ -1,36 +1,28 @@
+import { AsyncPipe } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
-import { CoCommunityTagListItemComponent, CoListFiltersComponent } from '@monorepo/community-lib';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
+import {
+  CoCommunityTagListItemComponent,
+  CoListEntityType,
+  CoListFiltersComponent,
+} from '@monorepo/community-lib';
+import { FlDatasourceSortCriteria } from '@monorepo/front-core-lib/fl-core';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
 
+import { HaListOfItemsComponent } from '../../../ha-core/ha-component/ha-list-of-items/ha-list-of-items.component';
+import { HaPageComponent } from '../../../ha-core/ha-component/ha-page/ha-page.component';
 import {
-  HaTagKey,
   HaTagKeyDatasourceFilters,
   HaTagKeyDatasourcePaginated,
 } from '../../../ha-core/ha-model/ha-entities/ha-tag-key.class';
-import {
-  HaCommunityPageDirective
-} from '../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
+import { HaCommunityPageDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
+import { HaDetailRoutePipe } from '../../../ha-core/ha-module/ha-core-pipe/ha-detail-route/ha-detail-route.pipe';
+import { HaAuthenticatedUserService } from '../../../ha-core/ha-service/ha-authenticated-user.service';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
 import { HaTagService } from '../../../ha-core/ha-service/ha-tag.service';
-import {
-  HaTagKeyEditDialogComponent,
-  HaTagKeyEditDialogInput,
-} from '../ha-tag-key-edit-dialog/ha-tag-key-edit-dialog.component';
-import { HaPageComponent } from '../../../ha-core/ha-component/ha-page/ha-page.component';
-import { HaAuthenticatedUserService } from '../../../ha-core/ha-service/ha-authenticated-user.service';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { FlDatasourceSortCriteria } from '@monorepo/front-core-lib/fl-core';
-import {
-  HaListOfItemsComponent
-} from '../../../ha-core/ha-component/ha-list-of-items/ha-list-of-items.component';
-import { AsyncPipe } from '@angular/common';
-import {
-  HaDetailRoutePipe
-} from '../../../ha-core/ha-module/ha-core-pipe/ha-detail-route/ha-detail-route.pipe';
 
 @Component({
   selector: 'ha-tag-list-page',
@@ -55,6 +47,7 @@ export class HaTagListPageComponent extends HaCommunityPageDirective implements 
   private authenticatedUserService = inject(HaAuthenticatedUserService);
   private tagService = inject(HaTagService);
 
+  listEntityType = CoListEntityType.TAG;
   tagsPaginated: HaTagKeyDatasourcePaginated<HaTagKeyDatasourceFilters>;
   spaceIdsFilter: string[] = [];
   labelFilter: string = '';
@@ -108,4 +101,6 @@ export class HaTagListPageComponent extends HaCommunityPageDirective implements 
       this.spaceIdsFilter = this.spaceIdsFilter.filter((id) => id != 'my-tag-keys');
     this.updateTags();
   }
+
+  protected readonly inject = inject;
 }

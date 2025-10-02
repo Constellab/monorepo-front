@@ -3,7 +3,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { CoCommunityLibModule, CoListFiltersComponent } from '@monorepo/community-lib';
+import { CoCommunityLibModule, CoListEntityType, CoListFiltersComponent } from '@monorepo/community-lib';
 import { ClStringHelper } from '@monorepo/core-lib';
 import { FlDatasourceSortCriteria } from '@monorepo/front-core-lib/fl-core';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
@@ -48,6 +48,7 @@ export class HaStoryListPageComponent extends HaCommunityPageDirective implement
   private topicService: HaTopicService = inject(HaTopicService);
   titleFilter: string = '';
 
+  listEntityType = CoListEntityType.STORY;
   stories: HaStoryListDatasourcePaginated<HaStoryFilters>;
   popularTopics$: Observable<HaTopicDto[]>;
   sortsCriteria: FlDatasourceSortCriteria[];

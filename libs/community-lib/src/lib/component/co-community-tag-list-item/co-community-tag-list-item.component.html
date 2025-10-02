@@ -1,6 +1,8 @@
-<co-community-list-item type="tag"
-                        [title]="tagKey().label"
-                        [shortDescription]="tagKey().description?.getFirstParagraphsText()"
-                        [space]="tagKey().space"
-                        [likes]="tagKey().likes">
+<co-community-list-item
+  type="tag"
+  [title]="tagKey().label"
+  [shortDescription]="tagKey().description?.getFirstParagraphsText()"
+  [space]="tagKey().space"
+  [likes]="tagKey().likes"
+  [publishedAt]="tagKey().publishedAt">
 </co-community-list-item>

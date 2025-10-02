@@ -3,6 +3,7 @@ import { Component, input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { TranslatePipe } from '@ngx-translate/core';
+import { DateTime } from 'luxon';
 
 import { CoSpace } from '../../model/co-space.class';
 import { CoItemTypeIconComponent } from '../co-item-type-icon/co-item-type-icon.component';
@@ -35,4 +36,5 @@ export class CoCommunityListItemComponent {
   likes = input<number>(0);
   comments = input<number>(undefined);
   executions = input<number>(undefined);
+  publishedAt = input<DateTime>(null);
 }
