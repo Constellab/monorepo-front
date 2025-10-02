@@ -1,129 +1,133 @@
-@if (user$ | async; as user) {
-  <ha-header>
-    <div class="profile-header-section">
-      <div class="picture-alias-div">
-        <fl-user-profile-picture [user]="user" [size]="180" [sizeInPx]="true"
-                                 class="icon"></fl-user-profile-picture>
+<div class="profile-page">
+  @if (user$ | async; as user) {
+    <ha-header>
+      <div class="profile-header-section">
+        <div class="picture-alias-div">
+          <fl-user-profile-picture
+            [user]="user"
+            [size]="180"
+            [sizeInPx]="true"
+            class="icon"></fl-user-profile-picture>
 
-        <div class="alias-div">
-          <h1>{{ user.alias }}</h1>
-          <span class="g-large-text">#{{ user.userCode }}</span>
+          <div class="alias-div">
+            <h1>{{ user.alias }}</h1>
+            <span class="g-large-text">#{{ user.userCode }}</span>
+          </div>
         </div>
+        <!--      <div class="user-header-stats-div">-->
+        <!--        <span>{{ 'number_of_contributions' | translate }} : 123</span>-->
+        <!--        <span>{{ 'member_since' | translate }} : 01/01/2022</span>-->
+        <!--      </div>-->
       </div>
-      <!--      <div class="user-header-stats-div">-->
-      <!--        <span>{{ 'number_of_contributions' | translate }} : 123</span>-->
-      <!--        <span>{{ 'member_since' | translate }} : 01/01/2022</span>-->
-      <!--      </div>-->
-    </div>
-  </ha-header>
+    </ha-header>
 
-  <div class="entity-page-section">
-    <div class="entity-page-infos user-infos-list">
+    <div class="entity-page-section">
+      <div class="entity-page-infos user-infos-list">
+        @if (isCurrentUser$ | async) {
+          <div class="entity-page-infos">
+            <button type="button" mat-flat-button (click)="openEditProfileDialog(user)" class="g-full">
+              <mat-icon>edit</mat-icon>
+              {{ 'edit_profile' | translate }}
+            </button>
+          </div>
 
-      @if (isCurrentUser$ | async) {
-        <div class="entity-page-infos">
-          <button type="button" mat-flat-button (click)="openEditProfileDialog(user)" class="g-full">
-            <mat-icon>edit</mat-icon>
-            {{ 'edit_profile' | translate }}
-          </button>
+          <div class="entity-page-separator"></div>
+        }
+
+        <div class="entity-page-info-div">
+          <span class="g-text-medium g-weight-600">{{ 'interests' | translate }}</span>
+          <div class="entity-page-info-div-content">
+            {{ user.interests || ('no_interests_specified' | translate) }}
+          </div>
         </div>
 
         <div class="entity-page-separator"></div>
-      }
 
-      <div class="entity-page-info-div">
-        <span class="g-text-medium g-weight-600">{{ 'interests' | translate }}</span>
-        <div class="entity-page-info-div-content">
-          {{ user.interests || ('no_interests_specified' | translate) }}
-        </div>
-      </div>
-
-      <div class="entity-page-separator"></div>
-
-      @if (commonSpace$ | async; as commonSpaces) {
-        @if (commonSpaces.length > 0) {
-          <div class="entity-page-info-div">
-            <span class="g-text-medium g-weight-600">{{ 'common_spaces' | translate }}</span>
-            <div class="entity-page-info-div-content">
-              @for (space of commonSpaces; track space.id) {
-                <co-visibility-badge [space]="space" size="medium"></co-visibility-badge>
-              }
+        @if (commonSpace$ | async; as commonSpaces) {
+          @if (commonSpaces.length > 0) {
+            <div class="entity-page-info-div">
+              <span class="g-text-medium g-weight-600">{{ 'common_spaces' | translate }}</span>
+              <div class="entity-page-info-div-content">
+                @for (space of commonSpaces; track space.id) {
+                  <co-visibility-badge [space]="space" size="medium"></co-visibility-badge>
+                }
+              </div>
             </div>
+          }
+        }
+      </div>
+      <div class="entity-page-content">
+        <div class="item-type-select-div">
+          <div class="item-type-select-inner-div">
+            @for (itemType of itemTypes; track itemType; let idx = $index) {
+              <div
+                class="item-type-div"
+                (click)="changeCurrentType(itemType)"
+                [ngClass]="itemType === currentType ? 'active-item-type-div' : ''">
+                {{ itemType | translate }}
+              </div>
+              @if (idx < itemTypes.length - 1) {
+                <div class="item-type-select-line"></div>
+              }
+            }
+          </div>
+        </div>
+        @if (currentType === 'stories' && stories$) {
+          <fl-infinite-scroll [datasource]="stories$" infiniteMode="auto">
+            <ha-list-of-items>
+              @for (story of stories$ | flDatasourceConnect | async; track story.id) {
+                <a [routerLink]="story | haDetailRoute">
+                  <co-story-list-item
+                    [story]="story"
+                    [imageLink]="getStoryImageLink(story.id, story?.mainPicture)"></co-story-list-item>
+                </a>
+              }
+            </ha-list-of-items>
+          </fl-infinite-scroll>
+        } @else if (currentType === 'apps' && apps$) {
+          <fl-infinite-scroll [datasource]="apps$" infiniteMode="auto">
+            <ha-list-of-items>
+              @for (app of apps$ | flDatasourceConnect | async; track app.id) {
+                <a [routerLink]="app | haDetailRoute">
+                  <co-community-app-list-item
+                    [communityApp]="app"
+                    [appPicture]="app.picture | haAppPicture"></co-community-app-list-item>
+                </a>
+              }
+            </ha-list-of-items>
+          </fl-infinite-scroll>
+        } @else if (currentType === 'agents' && agents$) {
+          <fl-infinite-scroll [datasource]="agents$" infiniteMode="auto">
+            <ha-list-of-items>
+              @for (agent of agents$ | flDatasourceConnect | async; track agent.id) {
+                <a [routerLink]="agent | haDetailRoute">
+                  <co-agent-list-item [agent]="agent"></co-agent-list-item>
+                </a>
+              }
+            </ha-list-of-items>
+          </fl-infinite-scroll>
+        } @else if (currentType === 'bricks' && bricks$) {
+          <fl-infinite-scroll [datasource]="bricks$" infiniteMode="auto">
+            <ha-list-of-items>
+              @for (brick of bricks$ | flDatasourceConnect | async; track brick.id) {
+                <a [routerLink]="brick | haDetailRoute">
+                  <co-brick-list-item
+                    [brick]="brick"
+                    [brickImage]="brick.imageLink | haBrickImage"></co-brick-list-item>
+                </a>
+              }
+            </ha-list-of-items>
+          </fl-infinite-scroll>
+        } @else {
+          <div class="no-item-div">
+            <span class="g-text-medium g-weight-600">{{ 'no_item_of_this_type' | translate }}</span>
           </div>
         }
-      }
-    </div>
-    <div class="entity-page-content">
-      <div class="item-type-select-div">
-        <div class="item-type-select-inner-div">
-          @for (itemType of itemTypes; track itemType; let idx = $index) {
-            <div
-              class="item-type-div"
-              (click)="changeCurrentType(itemType)"
-              [ngClass]="itemType === currentType ? 'active-item-type-div' : ''">
-              {{ itemType | translate }}
-            </div>
-            @if (idx < itemTypes.length - 1) {
-              <div class="item-type-select-line"></div>
-            }
-          }
-        </div>
       </div>
-      @if (currentType === 'stories' && stories$) {
-        <fl-infinite-scroll [datasource]="stories$" infiniteMode="auto">
-          <ha-list-of-items>
-            @for (story of stories$ | flDatasourceConnect | async; track story.id) {
-              <a [routerLink]="story | haDetailRoute">
-                <co-story-list-item
-                  [story]="story"
-                  [imageLink]="getStoryImageLink(story.id, story?.mainPicture)"></co-story-list-item>
-              </a>
-            }
-          </ha-list-of-items>
-        </fl-infinite-scroll>
-      } @else if(currentType === 'apps' && apps$) {
-        <fl-infinite-scroll [datasource]="apps$" infiniteMode="auto">
-          <ha-list-of-items>
-            @for (app of apps$ | flDatasourceConnect | async; track app.id) {
-              <a [routerLink]="app | haDetailRoute">
-                <co-community-app-list-item
-                  [communityApp]="app"
-                  [appPicture]="app.picture | haAppPicture"></co-community-app-list-item>
-              </a>
-            }
-          </ha-list-of-items>
-        </fl-infinite-scroll>
-      } @else if(currentType === 'agents' && agents$) {
-        <fl-infinite-scroll [datasource]="agents$" infiniteMode="auto">
-          <ha-list-of-items>
-            @for (agent of agents$ | flDatasourceConnect | async; track agent.id) {
-              <a [routerLink]="agent | haDetailRoute">
-                <co-agent-list-item [agent]="agent"></co-agent-list-item>
-              </a>
-            }
-          </ha-list-of-items>
-        </fl-infinite-scroll>
-      } @else if(currentType === 'bricks' && bricks$) {
-        <fl-infinite-scroll [datasource]="bricks$" infiniteMode="auto">
-          <ha-list-of-items>
-            @for (brick of bricks$ | flDatasourceConnect | async; track brick.id) {
-              <a [routerLink]="brick | haDetailRoute">
-                <co-brick-list-item
-                  [brick]="brick"
-                  [brickImage]="brick.imageLink | haBrickImage"></co-brick-list-item>
-              </a>
-            }
-          </ha-list-of-items>
-        </fl-infinite-scroll>
-      } @else {
-        <div class="no-item-div">
-          <span class="g-text-medium g-weight-600">{{ 'no_item_of_this_type' | translate }}</span>
-        </div>
-      }
     </div>
-  </div>
 
-  <ha-footer></ha-footer>
-}
-
-
+    <div class="profile-footer-section">
+      <ha-footer></ha-footer>
+    </div>
+  }
+</div>

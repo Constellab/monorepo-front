@@ -1,4 +1,10 @@
-.profile-header-section{
+.profile-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-header-section {
   display: flex;
   flex-direction: row;
   text-align: start;
@@ -7,35 +13,33 @@
   width: 100%;
 }
 
-.picture-alias-div{
+.picture-alias-div {
   display: flex;
   flex-direction: row;
   gap: 48px;
   align-items: center;
 }
 
-.alias-div{
+.alias-div {
   display: flex;
   flex-direction: column;
   gap: 14px;
   height: fit-content;
 }
 
-.user-header-stats-div{
+.user-header-stats-div {
   display: flex;
   flex-direction: column;
   gap: 14px;
 }
 
-
-.user-infos-list{
+.user-infos-list {
   display: flex;
   flex-direction: column;
   gap: 40px;
 }
 
-
-.item-type-select-div{
+.item-type-select-div {
   display: flex;
   height: 40px;
   justify-content: center;
@@ -44,7 +48,7 @@
   width: 100%;
 }
 
-.item-type-select-inner-div{
+.item-type-select-inner-div {
   display: flex;
   padding: 2.5px;
   justify-content: center;
@@ -55,7 +59,7 @@
   background: rgba(118, 118, 128, 0.12);
 }
 
-.item-type-select-line{
+.item-type-select-line {
   width: 0.8px;
   height: 15px;
   margin: 10px 0;
@@ -63,16 +67,18 @@
   background: rgba(60, 60, 67, 0.18);
 }
 
+.profile-footer-section {
+  margin-top: auto;
+}
 
 @media only screen and (max-width: 600px) {
-
-  .profile-header-section{
+  .profile-header-section {
     flex-direction: column;
     gap: 24px;
     align-items: center;
     justify-content: center;
   }
-  .picture-alias-div{
+  .picture-alias-div {
     flex-direction: column;
     gap: 16px;
     align-items: center;
