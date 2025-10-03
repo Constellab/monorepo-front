@@ -4,7 +4,7 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   CoCommunityLibModule,
   CoTagAdditionalInfoSpecState,
@@ -27,6 +27,7 @@ import { TdAbstractDynamicParamSpecState, TdParamSpecs, TdTechnicalDocModule } f
 import { TeCompleteConfig, TeRichText, TeTextEditorModule } from '@monorepo/text-editor';
 import { TranslatePipe } from '@ngx-translate/core';
 import { first } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { HaEntityPageInfosComponent } from '../../../ha-core/ha-component/ha-entity-page-infos/ha-entity-page-infos.component';
 import { HaPageComponent } from '../../../ha-core/ha-component/ha-page/ha-page.component';
@@ -87,6 +88,7 @@ export class HaTagPageComponent extends HaCommunityPageDirective implements OnIn
   private tagAdditionalInfoSpecState = inject(
     TdAbstractDynamicParamSpecState
   ) as CoTagAdditionalInfoSpecState;
+  private router = inject(Router);
 
   tagKey: HaTagKey;
   textEditorConfig = new TeCompleteConfig();
@@ -170,6 +172,23 @@ export class HaTagPageComponent extends HaCommunityPageDirective implements OnIn
           this.descriptionFormControl.disable();
         }
       });
+  }
+
+  openConfirmDeleteTagKeyDialog(): void{
+    const input: FlConfirmDialogInput = {
+      title: 'delete_tag',
+      content: 'delete_tag_content',
+      successMessage: 'delete_tag_success',
+      observable: this.tagService.deleteTagKey(this.tagKey.id).pipe(
+        map((res) => {
+          if (res) {
+            this.router.navigate([HaRouterService.getTagsListRoute()])
+          }
+        })
+      ),
+    }
+
+    this.dialogService.openConfirmDialog(input);
   }
 
   editAbout(): void {

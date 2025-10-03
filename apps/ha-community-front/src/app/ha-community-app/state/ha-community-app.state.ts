@@ -70,10 +70,18 @@ export class HaCommunityAppState {
     });
   }
 
+  public clean(): void {
+    this.appStatusEvent.set(null);
+    this.currentUser.set(null);
+    this.appCoAuthors.set(null);
+  }
+
   private initUser(appId: string): void {
     this.authenticatedUserService.getUser().subscribe((user) => {
       this.currentUser.set(user);
       this.initCoAuthors(appId);
     });
   }
+
+
 }

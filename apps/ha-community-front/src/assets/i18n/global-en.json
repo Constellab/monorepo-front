@@ -139,6 +139,10 @@
   "replace_delete_image": "Replace / Delete image",
   "recommended_format": "Recommended format",
 
+  "delete_community_app_confirm_title": "Delete app",
+  "delete_community_app_confirm_message": "Are you sure you want to delete this app ?",
+  "community_app_deleted": "App deleted",
+
   "create": "Create",
   "documentation": "Documentation",
   "documentations": "Documentations",

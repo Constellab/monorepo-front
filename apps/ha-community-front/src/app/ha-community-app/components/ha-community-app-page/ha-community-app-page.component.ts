@@ -1,15 +1,17 @@
 import { Component, computed, inject, OnInit, ViewContainerRef } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { MatButton } from '@angular/material/button';
+import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { ActivatedRoute } from '@angular/router';
+import { MatTooltip } from '@angular/material/tooltip';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ClStringHelper } from '@monorepo/core-lib';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlConfirmDialogInput, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { TeRichText, TeTextEditorModule } from '@monorepo/text-editor';
 import { TranslatePipe } from '@ngx-translate/core';
+import { map } from 'rxjs/operators';
 
 import { HaCommentsSectionComponent } from '../../../ha-core/entity-module/ha-comments-core/component/ha-comments-section/ha-comments-section.component';
 import { HaEntityPageInfosComponent } from '../../../ha-core/ha-component/ha-entity-page-infos/ha-entity-page-infos.component';
@@ -20,6 +22,7 @@ import { HaUser } from '../../../ha-core/ha-model/ha-entities/ha-user';
 import { HaCommunityPageDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
 import { HaAuthenticatedUserService } from '../../../ha-core/ha-service/ha-authenticated-user.service';
 import { HaCommunityAppService } from '../../../ha-core/ha-service/ha-community-app.service';
+import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
 import { HaEntityCommentState } from '../../../ha-core/ha-state/ha-entity-comment.state';
 import { HaCommunityAppState } from '../../state/ha-community-app.state';
 import { HaCommunityAppTextEditorConfig } from '../../utils/ha-community-app-text-editor.config';
@@ -45,6 +48,8 @@ import { HaCommunityAppMediaEditDialogComponent } from '../ha-community-app-medi
     MatButton,
     MatIconModule,
     HaCommunityAppCarouselComponent,
+    MatIconButton,
+    MatTooltip,
   ],
   templateUrl: './ha-community-app-page.component.html',
   styleUrl: './ha-community-app-page.component.scss',
@@ -58,6 +63,7 @@ export class HaCommunityAppPageComponent extends HaCommunityPageDirective implem
   private entityCommentState: HaEntityCommentState = inject(HaEntityCommentState);
   private dialogService: FlDialogService = inject(FlDialogService);
   private viewContainerRef = inject(ViewContainerRef);
+  private router = inject(Router);
 
   textEditorConfig: HaCommunityAppTextEditorConfig;
   appDescriptionFormControl = new FormControl<TeRichText>(null);
@@ -144,5 +150,22 @@ export class HaCommunityAppPageComponent extends HaCommunityPageDirective implem
     this.dialogService.openMediumDialog(HaCommunityAppMediaEditDialogComponent, {
       viewContainerRef: this.viewContainerRef,
     });
+  }
+
+  deleteCommunityApp(): void {
+    const data: FlConfirmDialogInput = {
+      title: 'delete_community_app_confirm_title',
+      content: 'delete_community_app_confirm_message',
+      successMessage: 'community_app_deleted',
+      observable: this.communityAppService.deleteApp(this.communityApp().id).pipe(
+        map((res) => {
+          if (res) {
+            this.router.navigate([HaRouterService.getCommunityAppListRoute()]);
+          }
+        })
+      )
+    };
+
+    this.dialogService.openConfirmDialog(data);
   }
 }

@@ -126,8 +126,9 @@ export class HaPublicSidenavComponent implements OnInit {
   }
 
   private initCurrentCompletePath(pathVersion: string): void {
-    this.currentCompletePath = this.router.url.split(pathVersion)[1];
-    this.currentDocId = this.currentCompletePath.split('/').pop();
+
+    this.currentCompletePath = this.router.url?.split(pathVersion)[1];
+    this.currentDocId = this.currentCompletePath?.split('/').pop();
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe((event: NavigationEnd) => {
@@ -466,17 +467,5 @@ export class HaPublicSidenavComponent implements OnInit {
   collapseNode(node: FlTree<HaNode>): void {
     node.object.isExpanded = false;
     this.dataSource$.updateNodeInfo(node.object);
-  }
-
-  isSelected(node: FlTree<HaNode>): boolean {
-    console.log('isSelected', this.currentCompletePath, node.object.completePath);
-    if (this.currentCompletePath.includes(node.object.id)) return true;
-
-    if (node.children && node.children.length > 0) {
-      for (const child of node.children) {
-        if (this.isSelected(child)) return true;
-      }
-    }
-    return false;
   }
 }

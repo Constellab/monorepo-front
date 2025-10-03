@@ -73,6 +73,8 @@ export class HaPublicVersionsComponent extends HaCommunityPageDirective {
   }
 
   private setDataSource(brick: HaBrick): void {
-    this.brickVersions = this.brickVersionService.getDataSource(brick.id);
+    //TODO: FIX THIS
+
+    // this.brickVersions = this.brickVersionService.getDataSource(brick.id);
   }
 }

@@ -16,10 +16,22 @@
           [showCoAuthorsButton]="false">
           @if (canEditTag) {
             <div class="entity-page-info-div">
-              <button type="button" mat-flat-button (click)="openEditTagKeyDialog()" class="g-full">
-                <mat-icon>edit</mat-icon>
-                {{ 'edit_tag' | translate }}
-              </button>
+
+              <div class="g-layout-row g-gap-05em g-layout-start-center">
+                <button type="button" mat-flat-button (click)="openEditTagKeyDialog()" class="g-full">
+                  <mat-icon>edit</mat-icon>
+                  {{ 'edit_tag' | translate }}
+                </button>
+
+                @if (tagKey.createdBy.id === user()?.id) {
+                  <button mat-icon-button (click)="openConfirmDeleteTagKeyDialog()"
+                          class="warn" [matTooltip]="'delete' | translate">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                }
+
+              </div>
+
             </div>
 
             <div class="entity-page-separator"></div>

@@ -78,6 +78,10 @@ export class HaCommunityAppService implements HaCoAuthorService {
     });
   }
 
+  public deleteApp(id: string): Observable<boolean> {
+    return this.apiService.delete(`${this.route}/${id}`);
+  }
+
   public getUserCommunityAppsPaginated(
     pageSize = 4
   ): HaCommunityAppDatasourcePaginated<HaProfileDatasourceFilters> {
