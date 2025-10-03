@@ -71,6 +71,10 @@ export class CaLabServerComponent {
     this.serverState.migrateToDnsChallenge();
   }
 
+  migrateToLabManagerV2(): void {
+    this.serverState.migrateToLabManagerV2();
+  }
+
   deleteServer(): void {
     this.serverState.deleteServer();
   }

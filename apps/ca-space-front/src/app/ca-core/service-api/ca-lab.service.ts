@@ -503,6 +503,14 @@ export class CaLabService {
     );
   }
 
+  public migrateToLabManagerV2(id: string): Observable<CaLabStatusDTO> {
+    return this.apiService.put(
+      `${this.route}/${id}/lab-configurer/migrate-lab-manager-v2`,
+      null,
+      CaLabStatusDTO
+    );
+  }
+
   public stopCurrentServerTask(id: string): Observable<CaLabStatusDTO> {
     return this.apiService.put(`${this.route}/${id}/server/task/stop`, null, CaLabStatusDTO);
   }

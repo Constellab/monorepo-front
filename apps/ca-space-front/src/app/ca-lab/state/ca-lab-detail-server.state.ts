@@ -112,6 +112,15 @@ export class CaLabDetailServerState {
     this.openDialog(input, this.labService.migrateToDnsChallenge(this.state.getLabId()));
   }
 
+  migrateToLabManagerV2(): void {
+    const input: FlConfirmDialogInput = {
+      title: 'lab_configurer_migrate_lab_manager_v2',
+      content: 'lab_configurer_migrate_lab_manager_v2_confirmation',
+    };
+
+    this.openDialog(input, this.labService.migrateToLabManagerV2(this.state.getLabId()));
+  }
+
   deleteServer(): void {
     const input: FlConfirmDialogInput = {
       title: 'lab_delete_server',

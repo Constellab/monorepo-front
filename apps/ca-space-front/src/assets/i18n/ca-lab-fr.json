@@ -130,6 +130,8 @@
   "lab_configurer_migrate_confirmation": "Êtes-vous sûr de vouloir migrer le data lab ?",
   "lab_configurer_migrate_dns": "Migrer le DNS du data lab",
   "lab_configurer_migrate_dns_confirmation": "Êtes-vous sûr de vouloir migrer le DNS du data lab configurer ?",
+  "lab_configurer_migrate_lab_manager_v2": "Migrer vers Lab Manager V2",
+  "lab_configurer_migrate_lab_manager_v2_confirmation": "Êtes-vous sûr de vouloir migrer vers Lab Manager V2 ?",
   "lab_delete_server": "Supprimer le serveur",
   "lab_delete_server_confirmation": "Êtes-vous sûr de vouloir supprimer le serveur ? Toutes les données seront perdues et ne pourront pas être récupéré. Le Lab ne sera plus accessible.",
   "lab_stop_current_task": "Arrêter la tâche en cours",

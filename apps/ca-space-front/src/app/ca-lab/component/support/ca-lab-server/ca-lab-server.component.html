@@ -78,6 +78,14 @@
       <button
         mat-stroked-button
         type="button"
+        class="g-button-small actions-button"
+        (click)="migrateToLabManagerV2()">
+        {{ 'lab_configurer_migrate_lab_manager_v2' | translate }}
+      </button>
+
+      <button
+        mat-stroked-button
+        type="button"
         class="g-button-small actions-button warn"
         (click)="stopCurrentServerTask()">
         {{ 'lab_stop_current_task' | translate }}
