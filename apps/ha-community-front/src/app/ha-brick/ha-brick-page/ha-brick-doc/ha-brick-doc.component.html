@@ -1,0 +1,83 @@
+@if (!docNotFound()) {
+  <div>
+    @if (!isDocLoading() && documentation()) {
+      <div class="doc-div">
+        <div class="doc-div-content g-max-article-width">
+          <div class="doc-title-div">
+            <h2
+              flElementEditable
+              (flElementValueChange)="onTitleChange($event)"
+              [flElementValue]="titleCurrentValue()"
+              [maxLength]="50"
+              [minLength]="2"
+              [flElementDisabled]="!userHasEditRight() || formCtrl.disabled">
+              {{ documentation().title }}
+            </h2>
+
+            <div class="save-info-and-bt-div">
+              @if (!formCtrl.disabled) {
+                <div class="g-layout-row g-layout-between-center">
+                  <te-text-editor-save
+                    [formCtrl]="formCtrl"
+                    [saveFunc]="saveContent"
+                    [debounceTime]="2500"></te-text-editor-save>
+                </div>
+              }
+              @if (userHasEditRight()) {
+                <button mat-icon-button type="button" [matMenuTriggerFor]="menu">
+                  <mat-icon> more_vert</mat-icon>
+                </button>
+              }
+            </div>
+
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item type="button" (click)="changeTextEditorState()">
+                <mat-icon>{{ formCtrl.disabled ? 'edit_note' : 'visibility' }}</mat-icon>
+                <span>{{ (formCtrl.disabled ? 'edit' : 'view') | translate }}</span>
+              </button>
+
+              <button mat-menu-item type="button" (click)="openHistoryPanel()">
+                <mat-icon>history</mat-icon>
+                <span>{{ 'teTextEditor.modifications_history' | translate }}</span>
+              </button>
+
+              @if (userHasEditRight()) {
+                <button mat-menu-item type="button" (click)="downloadDocMarkdown(documentation().id)">
+                  <mat-icon>download</mat-icon>
+                  <span>{{ 'download_markdown' | translate }}</span>
+                </button>
+              }
+
+              <button mat-menu-item type="button" (click)="openSendDocToDify(documentation().id)" *haIsAdmin>
+                <mat-icon>send</mat-icon>
+                <span>{{ 'send_to_dify' | translate }}</span>
+              </button>
+
+              <button mat-menu-item class="warn" type="button" (click)="openResourceDelete()">
+                <mat-icon>delete</mat-icon>
+                <span>{{ 'delete' | translate }}</span>
+              </button>
+            </mat-menu>
+          </div>
+          <article>
+            <form class="documentation-form">
+              <te-text-editor
+                [formControl]="formCtrl"
+                [config]="textEditorConfig"
+                class="content-editor g-max-article-width"
+                [ngClass]="{ 'text-editor-edit': !formCtrl.disabled }"></te-text-editor>
+            </form>
+          </article>
+        </div>
+      </div>
+    } @else {
+      <div class="loader">
+        <fl-loader size="medium"></fl-loader>
+      </div>
+    }
+  </div>
+} @else {
+  <div class="no-doc-div">
+    <ha-ha404 [errorText]="'error_doc_not_found'"></ha-ha404>
+  </div>
+}

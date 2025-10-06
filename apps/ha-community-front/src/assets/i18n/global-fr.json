@@ -142,6 +142,8 @@
   "delete_community_app_confirm_message": "Êtes-vous sûr de vouloir supprimer cette application ? Cette action est irréversible.",
   "community_app_deleted": "Application supprimée",
 
+  "header_search_tooltip": "Rechercher (Ctrl + K)",
+
   "create": "Créer",
   "documentation": "Documentation",
   "documentations": "Documentations",

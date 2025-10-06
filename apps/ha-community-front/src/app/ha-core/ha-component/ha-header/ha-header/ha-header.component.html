@@ -16,7 +16,10 @@
       <a [href]="constellabRoute" target="_blank">Constellab</a>
     </div>
 
-    <div class="search-div" (click)="openInstantSearchDialog()">
+    <div
+      class="search-div"
+      (click)="openInstantSearchDialog()"
+      [matTooltip]="'header_search_tooltip' | translate">
       {{ 'search' | translate }}
       <mat-icon class="search-icon">search</mat-icon>
     </div>

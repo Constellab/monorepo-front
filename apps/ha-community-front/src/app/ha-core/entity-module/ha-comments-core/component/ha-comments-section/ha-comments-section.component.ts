@@ -17,11 +17,6 @@ import { HaEntityCommentState } from '../../../../ha-state/ha-entity-comment.sta
 import { HaAbstractComment, HaCommentEntity } from '../../model/ha-abstract-comment.class';
 import { HaCommentComponent } from '../ha-comment/ha-comment.component';
 
-export interface HaCommentsEntity {
-  id: string;
-  comments: number;
-}
-
 @Component({
   selector: 'ha-comments-section',
   imports: [

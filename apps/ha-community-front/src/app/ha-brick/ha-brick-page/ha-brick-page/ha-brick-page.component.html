@@ -3,7 +3,6 @@
   [showPageDescription]="false"
   [isLoading]="isLoading()"
   [notFound]="brickNotFound()">
-
   @if (brick()) {
     <div class="entity-page-section">
       <div class="entity-page-infos">
@@ -14,7 +13,6 @@
           [date]="brick().createdAt"
           [space]="brick().space"
           [isAuthor]="isAuthor()">
-
           @if (userHasEditRight()) {
             <div class="entity-page-info-div">
               <button type="button" mat-flat-button (click)="createEditBrickDialog()" class="g-full">
@@ -46,7 +44,7 @@
           }
 
           <div class="entity-page-info-div">
-            <ha-public-sidenav></ha-public-sidenav>
+            <ha-brick-sidenav></ha-brick-sidenav>
           </div>
 
           <div class="entity-page-separator"></div>
@@ -59,4 +57,3 @@
     </div>
   }
 </ha-page>
-

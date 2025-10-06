@@ -31,14 +31,5 @@ export const haCommunityAppRoutes: Route[] = [
       import('./components/ha-community-app-page/ha-community-app-page.component').then(
         (m) => m.HaCommunityAppPageComponent
       ),
-    children: [
-      {
-        path: '',
-        loadComponent: () =>
-          import('./components/ha-community-app-detail/ha-community-app-detail.component').then(
-            (m) => m.HaCommunityAppDetailComponent
-          ),
-      },
-    ],
   },
 ];

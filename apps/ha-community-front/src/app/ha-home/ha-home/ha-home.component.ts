@@ -40,7 +40,7 @@ import { HaBrickService } from '../../ha-core/ha-service/ha-brick.service';
 import { HaCommunityAppService } from '../../ha-core/ha-service/ha-community-app.service';
 import { HaRouterService } from '../../ha-core/ha-service/ha-router.service';
 import { HaStoryService } from '../../ha-core/ha-service/ha-story.service';
-import { HaFeatureCardComponent } from '../../ha-main/ha-feature-card/ha-feature-card.component';
+import { HaFeatureCardComponent } from '../ha-feature-card/ha-feature-card.component';
 import { HaHomeItemsListSectionComponent } from '../ha-home-items-list-section/ha-home-items-list-section.component';
 import { HaHomeSectionShineComponent } from '../ha-home-section-shine/ha-home-section-shine.component';
 

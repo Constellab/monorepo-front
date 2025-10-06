@@ -1,0 +1,12 @@
+@if (brick()) {
+  <div class="table-version">
+    @if (userHasEditRight()) {
+      <button mat-flat-button class="button-add-version primary" (click)="openNewVersionDialog(brick().id)">
+        {{ 'add_version' | translate }}
+      </button>
+    }
+    <div class="data-table-versions">
+      <ha-brick-versions-table [datasource]="brickVersions"></ha-brick-versions-table>
+    </div>
+  </div>
+}

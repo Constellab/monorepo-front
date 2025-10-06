@@ -22,8 +22,8 @@ import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
 import { HaCurrentPageState } from '../../../ha-core/ha-state/ha-current-page.state';
 import { HaEntityCommentState } from '../../../ha-core/ha-state/ha-entity-comment.state';
 import { HaBrickPageState } from '../../state/ha-brick-page.state';
-import { HaPublicEditBrickDialogComponent } from '../ha-public-edit-brick-dialog/ha-public-edit-brick-dialog.component';
-import { HaPublicSidenavComponent } from '../ha-public-sidenav/ha-public-sidenav.component';
+import { HaBrickSidenavComponent } from '../ha-brick-sidenav/ha-brick-sidenav.component';
+import { HaEditBrickDialogComponent } from '../ha-edit-brick-dialog/ha-edit-brick-dialog.component';
 
 @Component({
   selector: 'ha-brick-page',
@@ -37,7 +37,7 @@ import { HaPublicSidenavComponent } from '../ha-public-sidenav/ha-public-sidenav
     RouterOutlet,
     HaPageComponent,
     HaEntityPageInfosComponent,
-    HaPublicSidenavComponent,
+    HaBrickSidenavComponent,
     MatButton,
     MatIcon,
     TranslatePipe,
@@ -119,7 +119,7 @@ export class HaBrickPageComponent implements OnInit, OnDestroy {
     };
 
     this.dialogService
-      .openMediumDialog(HaPublicEditBrickDialogComponent, { data: input })
+      .openMediumDialog(HaEditBrickDialogComponent, { data: input })
       .afterClosed()
       .subscribe((brick) => {
         if (brick) {

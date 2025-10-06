@@ -5,6 +5,7 @@ import { MatButton } from '@angular/material/button';
 import { MatDivider } from '@angular/material/divider';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
+import { MatTooltip } from '@angular/material/tooltip';
 import { RouterLink } from '@angular/router';
 import { ClSupportedLanguage } from '@monorepo/core-lib';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
@@ -38,6 +39,7 @@ import { HaInstantSearchDialogComponent } from '../../ha-instant-search-dialog/h
     MatMenuTrigger,
     FlIconModule,
     MatDivider,
+    MatTooltip,
   ],
 })
 export class HaHeaderComponent {

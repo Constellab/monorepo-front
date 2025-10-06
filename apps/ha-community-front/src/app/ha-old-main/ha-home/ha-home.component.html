@@ -1,9 +1,0 @@
-@if (user$ | async) {
-  <ha-logged-in-home [agents$]="agents$" [bricks$]="bricks$" [stories$]="stories$" [apps$]="apps$"></ha-logged-in-home>
-} @else {
-  <ha-not-logged-in-home
-    [apps$]="apps$"
-    [agents$]="agents$"
-    [bricks$]="bricks$"
-    [stories$]="stories$"></ha-not-logged-in-home>
-}

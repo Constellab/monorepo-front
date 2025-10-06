@@ -1,39 +1,16 @@
-<!--<div class="left-panel" *haIsGencoveryMember>-->
-<!--  <mat-icon class="button-close-left-panel" haSidenavButton></mat-icon>-->
-<!--  <button mat-flat-button type="button" (click)="openCreateIconDialog()" class="create-button">-->
-<!--    <mat-icon>create</mat-icon>-->
-<!--    {{ 'create' | translate }}-->
-<!--  </button>-->
-<!--</div>-->
-
-<!--<div class="main-panel">-->
-<!--  <div class="google-material-icons-text-div">-->
-<!--    <span>-->
-<!--      <a-->
-<!--        class="material-icons-link"-->
-<!--        href="https://fonts.google.com/icons?icon.set=Material+Icons"-->
-<!--        target="_blank">-->
-<!--        {{ 'google_material_icons' | translate }}-->
-<!--      </a>-->
-<!--      {{ 'are_also_allowed' | translate }}.-->
-<!--    </span>-->
-<!--  </div>-->
-<!--  <ha-icon-list [reloadList$]="reloadList$"></ha-icon-list>-->
-<!--</div>-->
-
 <ha-page [hideCreateSection]="!isGencoveryMember()" (openCreateDialogOutput)="openCreateIconDialog()">
   <div class="section">
-      <div class="google-material-icons-text-div">
-        <span>
-          <a
-            class="material-icons-link"
-            href="https://fonts.google.com/icons?icon.set=Material+Icons"
-            target="_blank">
-            {{ 'google_material_icons' | translate }}
-          </a>
-          {{ 'are_also_allowed' | translate }}.
-        </span>
-      </div>
-      <ha-icon-list [reloadList$]="reloadList$"></ha-icon-list>
+    <div class="google-material-icons-text-div">
+      <span>
+        <a
+          class="material-icons-link"
+          href="https://fonts.google.com/icons?icon.set=Material+Icons"
+          target="_blank">
+          {{ 'google_material_icons' | translate }}
+        </a>
+        {{ 'are_also_allowed' | translate }}.
+      </span>
+    </div>
+    <ha-icon-list [reloadList$]="reloadList$"></ha-icon-list>
   </div>
 </ha-page>
