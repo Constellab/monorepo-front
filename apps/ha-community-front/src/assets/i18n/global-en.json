@@ -659,5 +659,24 @@
   "invite": "Invite {{user}}",
   "the_app": "The application",
   "open_app": "Open the app",
-  "discover_create_and_share_bricks": "Discover open-source bricks to accelerate your development on Constellab: connectors, scripts, standards, and visualizations. Contribute or reuse them freely."
+  "discover_create_and_share_bricks": "Discover open-source bricks to accelerate your development on Constellab: connectors, scripts, standards, and visualizations. Contribute or reuse them freely.",
+
+  "go_to_homepage": "Go to homepage",
+  "go_to_apps": "Go to apps",
+  "open_documentation_menu": "Open documentation menu",
+  "go_to_constellab_external": "Go to Constellab platform",
+  "open_search": "Open search",
+  "open_user_menu": "Open user menu",
+  "go_to_login": "Go to login page",
+  "go_to_signup": "Go to signup page",
+  "open_mobile_menu": "Open mobile menu",
+  "go_to_product_doc": "Go to product documentation",
+  "go_to_tech_doc": "Go to technical documentation",
+  "go_to_icons_page": "Go to icons page",
+  "go_to_tags_list": "Go to tags list",
+  "go_to_profile": "Go to profile",
+  "go_to_admin_dashboard": "Go to admin dashboard",
+  "logout_action": "Logout",
+  "switch_to_english": "Switch to English",
+  "switch_to_french": "Switch to French"
 }

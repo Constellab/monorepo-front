@@ -2,7 +2,7 @@
   class="header"
   [ngClass]="[isHomePage() ? 'main-header' : '', fullHeight() ? 'header-full-height' : '']">
   <nav class="nav-bar">
-    <a class="nav-bar-icon-div" [routerLink]="homeRoute">
+    <a class="nav-bar-icon-div" [routerLink]="homeRoute" [attr.aria-label]="'go_to_homepage' | translate">
       <img
         ngSrc="assets/fl-logo/community_logo_with_text.png"
         fill
@@ -12,23 +12,47 @@
     </a>
 
     <div class="nav-bar-links-div">
-      <a [routerLink]="storyListRoute">{{ 'stories' | translate }}</a>
-      <a [routerLink]="appsListRoute">{{ 'apps' | translate }}</a>
-      <a [routerLink]="agentListRoute">{{ 'agents' | translate }}</a>
-      <a [routerLink]="brickListRoute">{{ 'bricks' | translate }}</a>
-      <span [matMenuTriggerFor]="documentationMenu">{{ 'documentation' | translate }}</span>
-      <a [href]="constellabRoute" target="_blank">Constellab</a>
+      <a [routerLink]="storyListRoute" [attr.aria-label]="'go_to_stories' | translate">{{
+        'stories' | translate
+      }}</a>
+      <a [routerLink]="appsListRoute" [attr.aria-label]="'go_to_apps' | translate">{{
+        'apps' | translate
+      }}</a>
+      <a [routerLink]="agentListRoute" [attr.aria-label]="'go_to_agents' | translate">{{
+        'agents' | translate
+      }}</a>
+      <a [routerLink]="brickListRoute" [attr.aria-label]="'go_to_bricks' | translate">{{
+        'bricks' | translate
+      }}</a>
+      <span
+        [matMenuTriggerFor]="documentationMenu"
+        [attr.aria-label]="'open_documentation_menu' | translate"
+        role="button"
+        tabindex="0"
+        >{{ 'documentation' | translate }}</span
+      >
+      <a [href]="constellabRoute" target="_blank" [attr.aria-label]="'go_to_constellab_external' | translate"
+        >Constellab</a
+      >
     </div>
 
     <div
       class="search-div"
       (click)="openInstantSearchDialog()"
-      [matTooltip]="'header_search_tooltip' | translate">
+      [matTooltip]="'header_search_tooltip' | translate"
+      [attr.aria-label]="'open_search' | translate"
+      role="button"
+      tabindex="0">
       {{ 'search' | translate }}
       <mat-icon class="search-icon">search</mat-icon>
     </div>
 
-    <div class="lang-div" [matMenuTriggerFor]="languageMenu">
+    <div
+      class="lang-div"
+      [matMenuTriggerFor]="languageMenu"
+      [attr.aria-label]="'change_language' | translate"
+      role="button"
+      tabindex="0">
       {{ currentLanguage() === 'en' ? 'EN' : 'FR' }}
       <mat-icon>arrow_drop_down</mat-icon>
     </div>
@@ -36,25 +60,35 @@
     <div class="nav-bar-action-div">
       <div class="nav-bar-login-signup-div">
         @if (currentUser()) {
-          <button mat-raised-button class="logged-in-user-button" [matMenuTriggerFor]="loggedInMenu">
+          <button
+            mat-raised-button
+            class="logged-in-user-button"
+            [matMenuTriggerFor]="loggedInMenu"
+            [attr.aria-label]="'open_user_menu' | translate">
             <div class="logged-in-user-button-content g-weight-600">
               <fl-user-profile-picture [user]="currentUser()" [size]="2.125"></fl-user-profile-picture>
               {{ currentUser()?.alias }}
             </div>
           </button>
         } @else {
-          <a [routerLink]="loginRoute" mat-raised-button>
+          <a [routerLink]="loginRoute" mat-raised-button [attr.aria-label]="'go_to_login' | translate">
             {{ 'login' | translate }}
           </a>
 
-          <a mat-flat-button [href]="signupUrl">
+          <a mat-flat-button [href]="signupUrl" [attr.aria-label]="'go_to_signup' | translate">
             {{ 'sign_up' | translate }}
           </a>
         }
       </div>
 
       <div class="menu-button">
-        <button type="button" mat-raised-button [matMenuTriggerFor]="smallScreenMenu">Menu</button>
+        <button
+          type="button"
+          mat-raised-button
+          [matMenuTriggerFor]="smallScreenMenu"
+          [attr.aria-label]="'open_mobile_menu' | translate">
+          Menu
+        </button>
       </div>
     </div>
   </nav>
@@ -64,66 +98,111 @@
 </header>
 
 <mat-menu #documentationMenu="matMenu">
-  <a mat-menu-item [routerLink]="productDocRoute">
+  <a mat-menu-item [routerLink]="productDocRoute" [attr.aria-label]="'go_to_product_doc' | translate">
     <mat-icon>menu_book</mat-icon>
     <span>{{ 'product_doc' | translate }}</span>
   </a>
-  <a mat-menu-item [routerLink]="techDocRoute">
+  <a mat-menu-item [routerLink]="techDocRoute" [attr.aria-label]="'go_to_tech_doc' | translate">
     <mat-icon>integration_instructions</mat-icon>
     <span>{{ 'tech_doc' | translate }}</span>
   </a>
-  <a mat-menu-item [routerLink]="iconsPageRoute">
+  <a mat-menu-item [routerLink]="iconsPageRoute" [attr.aria-label]="'go_to_icons_page' | translate">
     <mat-icon>face</mat-icon>
     <span>{{ 'icons' | translate }}</span>
   </a>
-  <a mat-menu-item [routerLink]="tagsListRoute">
+  <a mat-menu-item [routerLink]="tagsListRoute" [attr.aria-label]="'go_to_tags_list' | translate">
     <mat-icon flIcon="tag"></mat-icon>
     <span>{{ 'tags' | translate }}</span>
   </a>
 </mat-menu>
 
 <mat-menu #loggedInMenu>
-  <a mat-menu-item [routerLink]="profileRoute + currentUser()?.id">
+  <a
+    mat-menu-item
+    [routerLink]="profileRoute + currentUser()?.id"
+    [attr.aria-label]="'go_to_profile' | translate">
     <mat-icon>person</mat-icon>
     {{ 'profile' | translate }}
   </a>
-  <a mat-menu-item [routerLink]="adminRoute" *haIsAdmin>
+  <a
+    mat-menu-item
+    [routerLink]="adminRoute"
+    *haIsAdmin
+    [attr.aria-label]="'go_to_admin_dashboard' | translate">
     <mat-icon>admin_panel_settings</mat-icon>
     {{ 'admin_dashboard' | translate }}
   </a>
-  <button mat-menu-item (click)="logout()">
+  <button mat-menu-item (click)="logout()" [attr.aria-label]="'logout_action' | translate">
     <mat-icon>logout</mat-icon>
     {{ 'logout' | translate }}
   </button>
 </mat-menu>
 
 <mat-menu #smallScreenMenu>
-  <button mat-menu-item (click)="openInstantSearchDialog()">
+  <button mat-menu-item (click)="openInstantSearchDialog()" [attr.aria-label]="'open_search' | translate">
     <mat-icon class="search-icon">search</mat-icon>
     {{ 'search' | translate }}
   </button>
   <mat-divider></mat-divider>
-  <a mat-menu-item [routerLink]="storyListRoute">{{ 'stories' | translate }}</a>
-  <a mat-menu-item [routerLink]="appsListRoute">{{ 'apps' | translate }}</a>
-  <a mat-menu-item [routerLink]="agentListRoute">{{ 'agents' | translate }}</a>
-  <a mat-menu-item [routerLink]="brickListRoute">{{ 'bricks' | translate }}</a>
-  <span mat-menu-item [matMenuTriggerFor]="documentationMenu">{{ 'documentation' | translate }}</span>
-  <a mat-menu-item [href]="constellabRoute" target="_blank">Constellab</a>
+  <a mat-menu-item [routerLink]="storyListRoute" [attr.aria-label]="'go_to_stories' | translate">{{
+    'stories' | translate
+  }}</a>
+  <a mat-menu-item [routerLink]="appsListRoute" [attr.aria-label]="'go_to_apps' | translate">{{
+    'apps' | translate
+  }}</a>
+  <a mat-menu-item [routerLink]="agentListRoute" [attr.aria-label]="'go_to_agents' | translate">{{
+    'agents' | translate
+  }}</a>
+  <a mat-menu-item [routerLink]="brickListRoute" [attr.aria-label]="'go_to_bricks' | translate">{{
+    'bricks' | translate
+  }}</a>
+  <span
+    mat-menu-item
+    [matMenuTriggerFor]="documentationMenu"
+    [attr.aria-label]="'open_documentation_menu' | translate"
+    >{{ 'documentation' | translate }}</span
+  >
+  <a
+    mat-menu-item
+    [href]="constellabRoute"
+    target="_blank"
+    [attr.aria-label]="'go_to_constellab_external' | translate"
+    >Constellab</a
+  >
   <mat-divider></mat-divider>
-  <a mat-menu-item [routerLink]="profileRoute + currentUser()?.id">
+  <a
+    mat-menu-item
+    [routerLink]="profileRoute + currentUser()?.id"
+    [attr.aria-label]="'go_to_profile' | translate">
     {{ 'profile' | translate }}
   </a>
-  <a mat-menu-item [routerLink]="adminRoute" *haIsAdmin>
+  <a
+    mat-menu-item
+    [routerLink]="adminRoute"
+    *haIsAdmin
+    [attr.aria-label]="'go_to_admin_dashboard' | translate">
     {{ 'admin_dashboard' | translate }}
   </a>
   <mat-divider></mat-divider>
-  <button mat-menu-item [matMenuTriggerFor]="languageMenu">{{ 'language' | translate }}</button>
-  <button mat-menu-item (click)="logout()">
+  <button mat-menu-item [matMenuTriggerFor]="languageMenu" [attr.aria-label]="'change_language' | translate">
+    {{ 'language' | translate }}
+  </button>
+  <button mat-menu-item (click)="logout()" [attr.aria-label]="'logout_action' | translate">
     {{ 'logout' | translate }}
   </button>
 </mat-menu>
 
 <mat-menu #languageMenu="matMenu">
-  <button mat-menu-item (click)="setLanguage(ClSupportedLanguage.en)">{{ 'english' | translate }}</button>
-  <button mat-menu-item (click)="setLanguage(ClSupportedLanguage.fr)">{{ 'french' | translate }}</button>
+  <button
+    mat-menu-item
+    (click)="setLanguage(ClSupportedLanguage.en)"
+    [attr.aria-label]="'switch_to_english' | translate">
+    {{ 'english' | translate }}
+  </button>
+  <button
+    mat-menu-item
+    (click)="setLanguage(ClSupportedLanguage.fr)"
+    [attr.aria-label]="'switch_to_french' | translate">
+    {{ 'french' | translate }}
+  </button>
 </mat-menu>
