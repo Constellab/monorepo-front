@@ -76,6 +76,17 @@ export class HaCommunityAppPageComponent extends HaCommunityPageDirective implem
 
     if (!app) return app;
 
+    const appImage: string = app.picture ? this.communityAppService.getAppPictureUrl(app.picture) : null;
+
+    super.setMetaTags(
+      { text: 'ha.app.title', translateParam: { param: { title: app.title } } },
+      { text: 'ha.app.description', translateParam: { param: { title: app.title } } },
+      appImage,
+      HaRouterService.getFullRoute(
+        HaRouterService.getCommunityAppRoute(app.id, ClStringHelper.getCleanUrlPath(app.title))
+      )
+    );
+
     this.textEditorConfig = new HaCommunityAppTextEditorConfig(this.communityAppService, app.id);
 
     this.appDescriptionFormControl.patchValue(app.description);
@@ -163,7 +174,7 @@ export class HaCommunityAppPageComponent extends HaCommunityPageDirective implem
             this.router.navigate([HaRouterService.getCommunityAppListRoute()]);
           }
         })
-      )
+      ),
     };
 
     this.dialogService.openConfirmDialog(data);
