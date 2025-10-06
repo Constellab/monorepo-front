@@ -2,6 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import {
   LmlAdminerInfo,
+  LmlComposeEnv,
   LmlComposeList,
   LmlComposeRestartOptions,
   LmlComposeUpOptions,
@@ -95,47 +96,74 @@ export class LmsLabService {
     return this.apiService.get(`${this.composeRoute}/list`);
   }
 
-  listServices(brickName: string, uniqueName: string): Observable<LmlDockerInspect[]> {
-    return this.apiService.get(`${this.composeRoute}/${brickName}/${uniqueName}/services`, LmlDockerInspect);
+  listServices(brickName: string, uniqueName: string, env: LmlComposeEnv): Observable<LmlDockerInspect[]> {
+    return this.apiService.get(
+      `${this.composeRoute}/${brickName}/${uniqueName}/${env}/services`,
+      LmlDockerInspect
+    );
   }
 
-  deleteServices(brickName: string, uniqueName: string): Observable<void> {
-    return this.apiService.post(`${this.composeRoute}/${brickName}/${uniqueName}/delete-services`, null);
+  deleteServices(brickName: string, uniqueName: string, env: LmlComposeEnv): Observable<void> {
+    return this.apiService.post(
+      `${this.composeRoute}/${brickName}/${uniqueName}/${env}/delete-services`,
+      null
+    );
   }
 
-  pullServices(brickName: string, uniqueName: string): Observable<void> {
-    return this.apiService.post(`${this.composeRoute}/${brickName}/${uniqueName}/pull-services`, null);
+  pullServices(brickName: string, uniqueName: string, env: LmlComposeEnv): Observable<void> {
+    return this.apiService.post(`${this.composeRoute}/${brickName}/${uniqueName}/${env}/pull-services`, null);
   }
 
   restartServices(
     brickName: string,
     uniqueName: string,
+    env: LmlComposeEnv,
     options: LmlComposeRestartOptions
   ): Observable<void> {
-    return this.apiService.post(`${this.composeRoute}/${brickName}/${uniqueName}/restart-services`, options);
+    return this.apiService.post(
+      `${this.composeRoute}/${brickName}/${uniqueName}/${env}/restart-services`,
+      options
+    );
   }
 
-  startService(brickName: string, uniqueName: string, serviceName: string): Observable<void> {
+  startService(
+    brickName: string,
+    uniqueName: string,
+    env: LmlComposeEnv,
+    serviceName: string
+  ): Observable<void> {
     return this.apiService.put(
-      `${this.composeRoute}/${brickName}/${uniqueName}/services/${serviceName}/start`,
+      `${this.composeRoute}/${brickName}/${uniqueName}/${env}/services/${serviceName}/start`,
       null
     );
   }
 
-  stopServices(brickName: string, uniqueName: string): Observable<void> {
-    return this.apiService.post(`${this.composeRoute}/${brickName}/${uniqueName}/stop-services`, null);
+  stopServices(brickName: string, uniqueName: string, env: LmlComposeEnv): Observable<void> {
+    return this.apiService.post(`${this.composeRoute}/${brickName}/${uniqueName}/${env}/stop-services`, null);
   }
 
-  startServices(brickName: string, uniqueName: string, options: LmlComposeUpOptions): Observable<void> {
-    return this.apiService.post(`${this.composeRoute}/${brickName}/${uniqueName}/up-services`, options);
+  startServices(
+    brickName: string,
+    uniqueName: string,
+    env: LmlComposeEnv,
+    options: LmlComposeUpOptions
+  ): Observable<void> {
+    return this.apiService.post(
+      `${this.composeRoute}/${brickName}/${uniqueName}/${env}/up-services`,
+      options
+    );
   }
 
-  getComposeContent(brickName: string, uniqueName: string): Observable<{ content: string }> {
-    return this.apiService.get(`${this.composeRoute}/${brickName}/${uniqueName}/content`);
+  getComposeContent(
+    brickName: string,
+    uniqueName: string,
+    env: LmlComposeEnv
+  ): Observable<{ content: string }> {
+    return this.apiService.get(`${this.composeRoute}/${brickName}/${uniqueName}/${env}/content`);
   }
 
-  unregisterSubCompose(brickName: string, uniqueName: string): Observable<void> {
-    return this.apiService.delete(`${this.composeRoute}/sub-compose/${brickName}/${uniqueName}/unregister`);
+  unregisterSubCompose(brickName: string, uniqueName: string, env: LmlComposeEnv): Observable<void> {
+    return this.apiService.delete(`${this.composeRoute}/${brickName}/${uniqueName}/${env}/unregister`);
   }
 
   ////////////////////////////////////// CONTAINER //////////////////////////////////////

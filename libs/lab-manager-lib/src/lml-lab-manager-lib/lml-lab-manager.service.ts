@@ -4,6 +4,7 @@ import {
   LmlAdminerInfo,
   LmlComposeList,
   LmlComposeRestartOptions,
+  LmlComposeUniqueId,
   LmlComposeUpOptions,
   LmlDockerContainerSize,
   LmlDockerErrorLogs,
@@ -56,27 +57,23 @@ export abstract class LmlLabManagerService {
 
   abstract listComposes(): Observable<LmlComposeList>;
 
-  abstract deleteServices(brickName: string, uniqueName: string): Observable<void>;
+  abstract deleteServices(compose: LmlComposeUniqueId): Observable<void>;
 
-  abstract listServices(brickName: string, uniqueName: string): Observable<LmlDockerInspect[]>;
+  abstract listServices(compose: LmlComposeUniqueId): Observable<LmlDockerInspect[]>;
 
-  abstract pullServices(brickName: string, uniqueName: string): Observable<void>;
+  abstract pullServices(compose: LmlComposeUniqueId): Observable<void>;
 
-  abstract restartServices(
-    brickName: string,
-    uniqueName: string,
-    options: LmlComposeRestartOptions
-  ): Observable<void>;
+  abstract restartServices(compose: LmlComposeUniqueId, options: LmlComposeRestartOptions): Observable<void>;
 
-  abstract startComposeService(brickName: string, uniqueName: string, serviceName: string): Observable<void>;
+  abstract startComposeService(compose: LmlComposeUniqueId, serviceName: string): Observable<void>;
 
-  abstract stopServices(brickName: string, uniqueName: string): Observable<void>;
+  abstract stopServices(compose: LmlComposeUniqueId): Observable<void>;
 
-  abstract upServices(brickName: string, uniqueName: string, options: LmlComposeUpOptions): Observable<void>;
+  abstract upServices(compose: LmlComposeUniqueId, options: LmlComposeUpOptions): Observable<void>;
 
-  abstract getComposeContent(brickName: string, uniqueName: string): Observable<{ content: string }>;
+  abstract getComposeContent(compose: LmlComposeUniqueId): Observable<{ content: string }>;
 
-  abstract unregisterSubCompose(brickName: string, uniqueName: string): Observable<void>;
+  abstract unregisterSubCompose(compose: LmlComposeUniqueId): Observable<void>;
 
   ////////////////////////////////////// CONTAINER //////////////////////////////////////
 

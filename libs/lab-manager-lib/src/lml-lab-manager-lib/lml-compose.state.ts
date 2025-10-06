@@ -12,6 +12,7 @@ import {
 import { LmlLabManagerService } from './lml-lab-manager.service';
 import {
   LmlComposeRestartOptions,
+  LmlComposeUniqueId,
   LmlComposeUpOptions,
   LmlDockerInspect,
 } from './model/lml-lab-manager.class';
@@ -25,8 +26,7 @@ interface LmlAdditionalData {
  */
 @Injectable()
 export class LmlComposeState implements OnDestroy {
-  private brickName: string | null = null;
-  private uniqueName: string | null = null;
+  private compose: LmlComposeUniqueId | null = null;
 
   private dockerServices = new BehaviorSubject<FlStatusEvent<LmlDockerInspect[]>>({
     status: 'waiting',
@@ -40,9 +40,8 @@ export class LmlComposeState implements OnDestroy {
   private actionService = inject(FlPortalActionsService);
   private labManagerService = inject(LmlLabManagerService);
 
-  public init(brickName: string, uniqueName: string): void {
-    this.brickName = brickName;
-    this.uniqueName = uniqueName;
+  public init(compose: LmlComposeUniqueId): void {
+    this.compose = compose;
 
     // refresh the values on new action result
     this.subscriptions.add(
@@ -71,7 +70,7 @@ export class LmlComposeState implements OnDestroy {
   public refreshDockerServices(): void {
     if (this.dockerServices.value.status === 'loading') return;
     this.dockerServices.next({ status: 'loading' });
-    this.labManagerService.listServices(this.brickName, this.uniqueName).subscribe({
+    this.labManagerService.listServices(this.compose).subscribe({
       next: (service: LmlDockerInspect[]) =>
         this.dockerServices.next({
           status: 'success',
@@ -87,7 +86,7 @@ export class LmlComposeState implements OnDestroy {
     this.openLabUpForm({ mode: 'start' }).subscribe((formValue) => {
       if (formValue) {
         this.actionService.addAction({
-          action: this.labManagerService.upServices(this.brickName, this.uniqueName, formValue),
+          action: this.labManagerService.upServices(this.compose, formValue),
           text: { text: 'lml.up_services', translateText: true },
           type: this.actionType,
           additionalInformation: {
@@ -102,7 +101,7 @@ export class LmlComposeState implements OnDestroy {
     this.openLabUpForm({ mode: 'restart' }).subscribe((formValue) => {
       if (formValue) {
         this.actionService.addAction({
-          action: this.labManagerService.restartServices(this.brickName, this.uniqueName, formValue),
+          action: this.labManagerService.restartServices(this.compose, formValue),
           text: { text: 'lml.restart_services', translateText: true },
           type: this.actionType,
           additionalInformation: {
@@ -121,7 +120,7 @@ export class LmlComposeState implements OnDestroy {
 
   stopServices(): void {
     this.actionService.addAction({
-      action: this.labManagerService.stopServices(this.brickName, this.uniqueName),
+      action: this.labManagerService.stopServices(this.compose),
       text: { text: 'lml.stop_services', translateText: true },
       type: this.actionType,
       additionalInformation: {
@@ -132,7 +131,7 @@ export class LmlComposeState implements OnDestroy {
 
   deleteServices(): void {
     this.actionService.addAction({
-      action: this.labManagerService.deleteServices(this.brickName, this.uniqueName),
+      action: this.labManagerService.deleteServices(this.compose),
       text: { text: 'lml.delete_services', translateText: true },
       type: this.actionType,
       additionalInformation: {
@@ -143,7 +142,7 @@ export class LmlComposeState implements OnDestroy {
 
   pullServices(): void {
     this.actionService.addAction({
-      action: this.labManagerService.pullServices(this.brickName, this.uniqueName),
+      action: this.labManagerService.pullServices(this.compose),
       text: { text: 'lml.pull_services', translateText: true },
       type: this.actionType,
     });
@@ -151,7 +150,7 @@ export class LmlComposeState implements OnDestroy {
 
   unregisterSubCompose(): Observable<FlPortalActionResult> {
     return this.actionService.addAction({
-      action: this.labManagerService.unregisterSubCompose(this.brickName, this.uniqueName),
+      action: this.labManagerService.unregisterSubCompose(this.compose),
       text: { text: 'lml.unregister_sub_compose', translateText: true },
       type: this.actionType,
     });
@@ -161,7 +160,7 @@ export class LmlComposeState implements OnDestroy {
 
   startComposeService(serviceName: string): void {
     this.actionService.addAction({
-      action: this.labManagerService.startComposeService(this.brickName, this.uniqueName, serviceName),
+      action: this.labManagerService.startComposeService(this.compose, serviceName),
       text: { text: 'lml.service_start', translateText: true },
       type: this.actionType,
       additionalInformation: {

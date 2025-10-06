@@ -175,9 +175,21 @@ export interface LmlNewVersionAvailable {
   currentVersion?: string;
 }
 
+export type LmlComposeEnv = 'prod' | 'dev' | 'all' | 'none';
+
+/*
+ * Object to uniquely identify a docker-compose instance
+ */
+export interface LmlComposeUniqueId {
+  brickName: string;
+  uniqueName: string;
+  env: LmlComposeEnv;
+}
+
 export interface LmlComposeInfo {
   brickName: string;
   uniqueName: string;
+  env: LmlComposeEnv;
   isSubCompose: boolean;
   composeFilePath?: string;
   description?: string;

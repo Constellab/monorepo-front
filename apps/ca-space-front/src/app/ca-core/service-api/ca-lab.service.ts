@@ -6,6 +6,7 @@ import { FlSearchConverter } from '@monorepo/front-core-lib/fl-search';
 import { FlFileHelper } from '@monorepo/front-core-lib/fl-translate';
 import {
   LmlAdminerInfo,
+  LmlComposeEnv,
   LmlComposeList,
   LmlComposeRestartOptions,
   LmlComposeUpOptions,
@@ -283,9 +284,14 @@ export class CaLabService {
     return this.apiService.get(`${this.route}/${id}/lab-manager/docker-compose/list`);
   }
 
-  public listServices(id: string, brickName: string, uniqueName: string): Observable<LmlDockerInspect[]> {
+  public listServices(
+    id: string,
+    brickName: string,
+    uniqueName: string,
+    env: LmlComposeEnv
+  ): Observable<LmlDockerInspect[]> {
     return this.apiService.get(
-      `${this.route}/${id}/lab-manager/docker-compose/${brickName}/${uniqueName}/services`,
+      `${this.route}/${id}/lab-manager/docker-compose/${brickName}/${uniqueName}/${env}/services`,
       LmlDockerInspect
     );
   }
@@ -294,10 +300,11 @@ export class CaLabService {
     id: string,
     brickName: string,
     uniqueName: string,
+    env: LmlComposeEnv,
     serviceName: string
   ): Observable<void> {
     return this.apiService.put(
-      `${this.route}/${id}/lab-manager/docker-compose/${brickName}/${uniqueName}` +
+      `${this.route}/${id}/lab-manager/docker-compose/${brickName}/${uniqueName}/${env}` +
         `/services/${serviceName}/start`,
       null
     );
@@ -307,10 +314,11 @@ export class CaLabService {
     id: string,
     brickName: string,
     uniqueName: string,
+    env: LmlComposeEnv,
     options: LmlComposeUpOptions
   ): Observable<void> {
     return this.apiService.post(
-      `${this.route}/${id}/lab-manager/docker-compose/${brickName}/${uniqueName}/up-services`,
+      `${this.route}/${id}/lab-manager/docker-compose/${brickName}/${uniqueName}/${env}/up-services`,
       options
     );
   }
@@ -319,31 +327,47 @@ export class CaLabService {
     id: string,
     brickName: string,
     uniqueName: string,
+    env: LmlComposeEnv,
     options: LmlComposeRestartOptions
   ): Observable<void> {
     return this.apiService.post(
-      `${this.route}/${id}/lab-manager/docker-compose/${brickName}/${uniqueName}/restart-services`,
+      `${this.route}/${id}/lab-manager/docker-compose/${brickName}/${uniqueName}/${env}/restart-services`,
       options
     );
   }
 
-  public stopServices(id: string, brickName: string, uniqueName: string): Observable<void> {
+  public stopServices(
+    id: string,
+    brickName: string,
+    uniqueName: string,
+    env: LmlComposeEnv
+  ): Observable<void> {
     return this.apiService.post(
-      `${this.route}/${id}/lab-manager/docker-compose/${brickName}/${uniqueName}/stop-services`,
+      `${this.route}/${id}/lab-manager/docker-compose/${brickName}/${uniqueName}/${env}/stop-services`,
       null
     );
   }
 
-  public deleteServices(id: string, brickName: string, uniqueName: string): Observable<void> {
+  public deleteServices(
+    id: string,
+    brickName: string,
+    uniqueName: string,
+    env: LmlComposeEnv
+  ): Observable<void> {
     return this.apiService.post(
-      `${this.route}/${id}/lab-manager/docker-compose/${brickName}/${uniqueName}/delete-services`,
+      `${this.route}/${id}/lab-manager/docker-compose/${brickName}/${uniqueName}/${env}/delete-services`,
       null
     );
   }
 
-  public pullServices(id: string, brickName: string, uniqueName: string): Observable<void> {
+  public pullServices(
+    id: string,
+    brickName: string,
+    uniqueName: string,
+    env: LmlComposeEnv
+  ): Observable<void> {
     return this.apiService.post(
-      `${this.route}/${id}/lab-manager/docker-compose/${brickName}/${uniqueName}/pull-services`,
+      `${this.route}/${id}/lab-manager/docker-compose/${brickName}/${uniqueName}/${env}/pull-services`,
       null
     );
   }
@@ -351,16 +375,22 @@ export class CaLabService {
   public getComposeContent(
     id: string,
     brickName: string,
-    uniqueName: string
+    uniqueName: string,
+    env: LmlComposeEnv
   ): Observable<{ content: string }> {
     return this.apiService.get(
-      `${this.route}/${id}/lab-manager/docker-compose/${brickName}/${uniqueName}/content`
+      `${this.route}/${id}/lab-manager/docker-compose/${brickName}/${uniqueName}/${env}/content`
     );
   }
 
-  public unregisterSubCompose(id: string, brickName: string, uniqueName: string): Observable<void> {
+  public unregisterSubCompose(
+    id: string,
+    brickName: string,
+    uniqueName: string,
+    env: LmlComposeEnv
+  ): Observable<void> {
     return this.apiService.delete(
-      `${this.route}/${id}/lab-manager/sub-compose/${brickName}/${uniqueName}/unregister`
+      `${this.route}/${id}/lab-manager/docker-compose/${brickName}/${uniqueName}/${env}/unregister`
     );
   }
 

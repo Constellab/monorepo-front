@@ -5,6 +5,7 @@ import {
   LmlAdminerInfo,
   LmlComposeList,
   LmlComposeRestartOptions,
+  LmlComposeUniqueId,
   LmlComposeUpOptions,
   LmlDockerContainerSize,
   LmlDockerErrorLogs,
@@ -89,44 +90,40 @@ export class LmsLabManagerService extends LmlLabManagerService {
     return this.labService.listComposes();
   }
 
-  deleteServices(brickName: string, uniqueName: string): Observable<void> {
-    return this.labService.deleteServices(brickName, uniqueName);
+  deleteServices(compose: LmlComposeUniqueId): Observable<void> {
+    return this.labService.deleteServices(compose.brickName, compose.uniqueName, compose.env);
   }
 
-  listServices(brickName: string, uniqueName: string): Observable<LmlDockerInspect[]> {
-    return this.labService.listServices(brickName, uniqueName);
+  listServices(compose: LmlComposeUniqueId): Observable<LmlDockerInspect[]> {
+    return this.labService.listServices(compose.brickName, compose.uniqueName, compose.env);
   }
 
-  pullServices(brickName: string, uniqueName: string): Observable<void> {
-    return this.labService.pullServices(brickName, uniqueName);
+  pullServices(compose: LmlComposeUniqueId): Observable<void> {
+    return this.labService.pullServices(compose.brickName, compose.uniqueName, compose.env);
   }
 
-  restartServices(
-    brickName: string,
-    uniqueName: string,
-    options: LmlComposeRestartOptions
-  ): Observable<void> {
-    return this.labService.restartServices(brickName, uniqueName, options);
+  restartServices(compose: LmlComposeUniqueId, options: LmlComposeRestartOptions): Observable<void> {
+    return this.labService.restartServices(compose.brickName, compose.uniqueName, compose.env, options);
   }
 
-  startComposeService(brickName: string, uniqueName: string, serviceName: string): Observable<void> {
-    return this.labService.startService(brickName, uniqueName, serviceName);
+  startComposeService(compose: LmlComposeUniqueId, serviceName: string): Observable<void> {
+    return this.labService.startService(compose.brickName, compose.uniqueName, compose.env, serviceName);
   }
 
-  stopServices(brickName: string, uniqueName: string): Observable<void> {
-    return this.labService.stopServices(brickName, uniqueName);
+  stopServices(compose: LmlComposeUniqueId): Observable<void> {
+    return this.labService.stopServices(compose.brickName, compose.uniqueName, compose.env);
   }
 
-  upServices(brickName: string, uniqueName: string, options: LmlComposeUpOptions): Observable<void> {
-    return this.labService.startServices(brickName, uniqueName, options);
+  upServices(compose: LmlComposeUniqueId, options: LmlComposeUpOptions): Observable<void> {
+    return this.labService.startServices(compose.brickName, compose.uniqueName, compose.env, options);
   }
 
-  getComposeContent(brickName: string, uniqueName: string): Observable<{ content: string }> {
-    return this.labService.getComposeContent(brickName, uniqueName);
+  getComposeContent(compose: LmlComposeUniqueId): Observable<{ content: string }> {
+    return this.labService.getComposeContent(compose.brickName, compose.uniqueName, compose.env);
   }
 
-  unregisterSubCompose(brickName: string, uniqueName: string): Observable<void> {
-    return this.labService.unregisterSubCompose(brickName, uniqueName);
+  unregisterSubCompose(compose: LmlComposeUniqueId): Observable<void> {
+    return this.labService.unregisterSubCompose(compose.brickName, compose.uniqueName, compose.env);
   }
 
   ////////////////////////////////////// CONTAINER //////////////////////////////////////

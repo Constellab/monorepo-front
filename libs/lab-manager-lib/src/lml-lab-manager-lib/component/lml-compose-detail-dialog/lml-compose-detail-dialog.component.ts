@@ -29,7 +29,7 @@ export class LmlComposeDetailDialogComponent implements OnInit, OnDestroy {
   compose = this.data.compose;
 
   ngOnInit(): void {
-    this.composeState.init(this.compose.brickName, this.compose.uniqueName);
+    this.composeState.init(this.compose);
   }
 
   ngOnDestroy(): void {
@@ -78,7 +78,7 @@ export class LmlComposeDetailDialogComponent implements OnInit, OnDestroy {
 
   // Show compose content
   showComposeContent(): void {
-    this.labManagerService.getComposeContent(this.compose.brickName, this.compose.uniqueName).subscribe({
+    this.labManagerService.getComposeContent(this.compose).subscribe({
       next: (response) => {
         const dialogData: FlCodeDialogData = {
           code: response.content,
