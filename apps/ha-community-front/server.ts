@@ -63,7 +63,7 @@ export function app(): express.Express {
       const scriptSrc =
         "script-src 'self' 'unsafe-hashes' 'sha256-MhtPZXr7+LpJUY5qtMutB+qWfQtMaPccfe7QXtCcEYc=' " +
         "'sha256-fPMfCibMhhkJZAz+L32w5D6q/jMoM8B+cblEqezMH44=' *.constellab.community " +
-        'https://www.google.com https://www.gstatic.com *.googletagmanager.com *.udify.app data:';
+        'https://www.google.com https://www.gstatic.com *.googletagmanager.com https://udify.app data:';
 
       // frame-src https://www.google.com/' is for the recaptcha
       // eslint-disable-next-line max-len
