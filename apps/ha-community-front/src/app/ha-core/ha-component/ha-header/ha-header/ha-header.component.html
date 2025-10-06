@@ -3,8 +3,12 @@
   [ngClass]="[isHomePage() ? 'main-header' : '', fullHeight() ? 'header-full-height' : '']">
   <nav class="nav-bar">
     <a class="nav-bar-icon-div" [routerLink]="homeRoute">
-      <img ngSrc="assets/fl-logo/community_logo_with_text.png" fill class="logo-with-text" />
-      <img ngSrc="assets/fl-logo/community_logo.svg" fill class="logo" />
+      <img
+        ngSrc="assets/fl-logo/community_logo_with_text.png"
+        fill
+        class="logo-with-text"
+        alt="Constellab Community logo" />
+      <img ngSrc="assets/fl-logo/community_logo.svg" fill class="logo" alt="Constellab Community logo" />
     </a>
 
     <div class="nav-bar-links-div">
