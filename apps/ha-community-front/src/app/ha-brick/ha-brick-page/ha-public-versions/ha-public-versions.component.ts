@@ -1,7 +1,8 @@
-import { Component, computed, inject, Signal } from '@angular/core';
+import { Component, effect, inject, Signal } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { Router } from '@angular/router';
 import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { TranslatePipe } from '@ngx-translate/core';
 
@@ -20,7 +21,7 @@ import { HaPublicBrickVersionsTableComponent } from '../ha-public-brick-versions
   selector: 'ha-public-versions-page',
   templateUrl: './ha-public-versions.component.html',
   styleUrls: ['./ha-public-versions.component.scss'],
-  imports: [MatButton, HaPublicBrickVersionsTableComponent, TranslatePipe],
+  imports: [MatButton, HaPublicBrickVersionsTableComponent, TranslatePipe, FlCorePipeModule],
 })
 export class HaPublicVersionsComponent extends HaCommunityPageDirective {
   private brickVersionService: HaBrickVersionService = inject(HaBrickVersionService);
@@ -29,15 +30,17 @@ export class HaPublicVersionsComponent extends HaCommunityPageDirective {
   private router: Router = inject(Router);
 
   brickVersions: HaBrickVersionDataSource;
-  brick: Signal<HaBrick> = computed(() => {
-    const brick = this.brickPageState.brick();
-    if (!brick) {
-      return null;
-    }
-    this.init(brick);
-    return brick;
-  });
+  brick: Signal<HaBrick> = this.brickPageState.brick;
   userHasEditRight: Signal<boolean> = this.brickPageState.getUserHasEditRight();
+
+  constructor() {
+    super();
+
+    effect(() => {
+      const brick = this.brick();
+      if (brick) this.init(brick);
+    });
+  }
 
   private init(brick: HaBrick): void {
     super.setMetaTags(
@@ -73,8 +76,6 @@ export class HaPublicVersionsComponent extends HaCommunityPageDirective {
   }
 
   private setDataSource(brick: HaBrick): void {
-    //TODO: FIX THIS
-
-    // this.brickVersions = this.brickVersionService.getDataSource(brick.id);
+    this.brickVersions = this.brickVersionService.getDataSource(brick.id);
   }
 }

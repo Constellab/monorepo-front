@@ -1,5 +1,5 @@
 import { ClVersion } from '@monorepo/core-lib';
-import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
+import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
 import { Type } from 'class-transformer';
 
 import { HaBrickMajorVersion } from './ha-brick-major-version.class';
@@ -46,4 +46,4 @@ export class HaBrickVersion extends HaEntity {
   }
 }
 
-export type HaBrickVersionDataSource = FlEntityPaginatedDatasource<HaBrickVersion>;
+export type HaBrickVersionDataSource = FlDatasourcePaginated<HaBrickVersion>;

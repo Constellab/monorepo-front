@@ -23,12 +23,15 @@
                 </button>
 
                 @if (communityApp().createdBy.id === currentUser?.id) {
-                  <button mat-icon-button (click)="deleteCommunityApp()" class="warn" [matTooltip]="'delete' | translate">
+                  <button
+                    mat-icon-button
+                    (click)="deleteCommunityApp()"
+                    class="warn"
+                    [matTooltip]="'delete' | translate">
                     <mat-icon>delete</mat-icon>
                   </button>
                 }
               </div>
-
             </div>
           }
           <!--          <div class="entity-page-info-div g-layout-row g-layout-between-center">-->

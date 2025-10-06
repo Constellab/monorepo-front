@@ -60,6 +60,9 @@ export class CaApiErrorService extends FlApiErrorService {
     if (errorResponse.status === 0 || errorResponse.status === 504) {
       // connection lost error
       serverError.message = this.translateService.translate('connection_lost');
+    } else if (!errorResponse.status) {
+      this.showError(errorResponse.message);
+      return throwError(() => serverError);
     } else {
       // handle session expired specifically
       if (serverError.nestedError?.code === 'error.wrong_token') {

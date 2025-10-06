@@ -49,6 +49,9 @@ export class LmsApiErrorService extends FlApiErrorService {
     if (errorResponse.status === 0 || errorResponse.status === 504) {
       // connection lost error
       serverError.message = this.translateService.translate('lms.connection_lost');
+    } else if (!errorResponse.status) {
+      this.showError(errorResponse.message);
+      return throwError(() => serverError);
     } else {
       // get the error message
       serverError.message = this.getErrorMessage(serverError.nestedError, defaultError);

@@ -20,7 +20,6 @@ export class HaBrickVersionService {
     pageSize: number,
     brickId: string
   ): Observable<ClPageI<HaBrickVersion>> {
-    console.log('Getting versions for brick', brickId);
     return this.apiService.get(`${this.route}/current/${brickId}`, HaBrickVersion, {
       resultIsPaginated: true,
       page: page,
@@ -31,7 +30,7 @@ export class HaBrickVersionService {
   public getDataSource(brickId: string): HaBrickVersionDataSource {
     return new FlEntityPaginatedDatasource(
       (page: number, pageSize: number) => this.getAllFromBrick(page, pageSize, brickId),
-      20,
+      20
     );
   }
 
