@@ -1,5 +1,7 @@
 {
   "ok": "Ok",
+  "yes": "Yes",
+  "no": "No",
   "lms": {
     "connection_lost": "Connection lost",
     "global_info": "Global info",

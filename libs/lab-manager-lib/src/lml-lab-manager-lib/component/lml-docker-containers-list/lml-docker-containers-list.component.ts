@@ -34,7 +34,8 @@ export class LmlDockerContainersListComponent {
     ClHelpService.stopEventPropagation(mouseEvent);
     const input: LmlDockerContainerLogsInput = {
       title: { text: container.names, translateText: false },
-      logs$: this.managerService.getLogs(container.names),
+      getLogs: () => this.managerService.getLogs(container.names),
+      refreshInterval: this.managerService.getLogRetrievalInterval(),
     };
 
     this.dialogService.openMediumDialog(LmlDockerContainerLogsDialogComponent, {
@@ -53,7 +54,8 @@ export class LmlDockerContainersListComponent {
   showErrors(containerName: string): void {
     const input: LmlDockerContainerLogsInput = {
       title: { text: containerName, translateText: false },
-      logs$: this.managerService.getContainerErrorLogs(containerName),
+      getLogs: () => this.managerService.getContainerErrorLogs(containerName),
+      refreshInterval: this.managerService.getLogRetrievalInterval(),
     };
 
     this.dialogService.openMediumDialog(LmlDockerContainerLogsDialogComponent, {

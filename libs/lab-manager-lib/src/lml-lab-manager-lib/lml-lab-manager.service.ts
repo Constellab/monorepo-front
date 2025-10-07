@@ -99,4 +99,7 @@ export abstract class LmlLabManagerService {
   abstract stopAdminer(): Observable<boolean>;
 
   abstract cleanLabManager(options: LmlCleanLabManagerOptions): Observable<void>;
+
+  ////////////////////////////////////// CONFIG //////////////////////////////////////
+  abstract getLogRetrievalInterval(): number;
 }

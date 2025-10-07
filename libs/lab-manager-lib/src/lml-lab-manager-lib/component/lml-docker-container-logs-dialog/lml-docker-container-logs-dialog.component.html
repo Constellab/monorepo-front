@@ -1,10 +1,14 @@
 <fl-dialog-header>
   {{ input.title | flTranslatableText | async }}
+
+  <fl-dialog-header-actions>
+    <fl-loader size="small" [matTooltip]="'lml.fetching_logs_regularly' | translate"></fl-loader>
+  </fl-dialog-header-actions>
 </fl-dialog-header>
 
-<mat-dialog-content>
-  <fl-async-section [object]="input.logs$" [showServerErrorText]="true" [emptyText]="'lml.no_log'">
-    <ng-container *flSectionBody="input.logs$ as logs">
+<mat-dialog-content class="content">
+  <fl-async-section [object]="logs$" [showServerErrorText]="true" [emptyText]="'lml.no_log'">
+    <ng-container *flSectionBody="logs$ as logs">
       <p class="logs g-text-small">{{ logs.logs }}</p>
     </ng-container>
   </fl-async-section>

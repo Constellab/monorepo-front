@@ -172,4 +172,9 @@ export class LmsLabManagerService extends LmlLabManagerService {
   cleanLabManager(options: LmlCleanLabManagerOptions): Observable<void> {
     return this.labService.cleanLabManager(options);
   }
+
+  ////////////////////////////////////// CONFIG //////////////////////////////////////
+  getLogRetrievalInterval(): number {
+    return 5000; // 5 seconds
+  }
 }

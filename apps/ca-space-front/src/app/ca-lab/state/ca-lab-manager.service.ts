@@ -217,4 +217,9 @@ export class CaLabManagerService extends LmlLabManagerService {
   cleanLabManager(options: LmlCleanLabManagerOptions): Observable<void> {
     return this.labService.cleanLabManager(this.labState.getLabId(), options);
   }
+
+  ////////////////////////////////////// CONFIG //////////////////////////////////////
+  getLogRetrievalInterval(): number {
+    return 10000; // 10 seconds
+  }
 }

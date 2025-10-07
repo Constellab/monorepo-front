@@ -161,6 +161,7 @@ const lmlLabManagerI18nFr: FlLangTranslation = {
     show_compose_content: 'Voir le contenu du compose',
     compose_description: 'Description',
     unregister_sub_compose: 'Désenregistrer le groupe de services',
+    fetching_logs_regularly: 'Récupération des logs régulièrement',
   },
 };
 
@@ -315,6 +316,7 @@ const lmlLabManagerI18nEn: FlLangTranslation = {
     show_compose_content: 'Show compose content',
     compose_description: 'Description',
     unregister_sub_compose: 'Unregister service group',
+    fetching_logs_regularly: 'Fetching logs regularly',
   },
 };
 
