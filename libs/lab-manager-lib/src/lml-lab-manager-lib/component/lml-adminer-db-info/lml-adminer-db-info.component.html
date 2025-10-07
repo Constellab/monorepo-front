@@ -4,14 +4,14 @@
 </fl-key-value>
 
 <fl-key-value>
-  <fl-key>{{ 'lml.adminer_db' | translate }}</fl-key>
-  {{ adminerDbInfo().dbName }}
-</fl-key-value>
-
-<fl-key-value>
   <fl-key>{{ 'lml.adminer_user' | translate }}</fl-key>
   {{ adminerDbInfo().username }}
 </fl-key-value>
 
 <fl-password-hidden [password]="adminerDbInfo().password" [label]="'lml.adminer_password' | translate">
 </fl-password-hidden>
+
+<fl-key-value>
+  <fl-key>{{ 'lml.adminer_db' | translate }}</fl-key>
+  {{ adminerDbInfo().dbName }}
+</fl-key-value>
