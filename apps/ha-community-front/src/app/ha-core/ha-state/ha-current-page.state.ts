@@ -17,21 +17,23 @@ import {
   HaCreateStoryDtoInput,
   HaStoryEditDialogComponent,
 } from '../../ha-story/module/ha-story-edit-dialog/ha-story-edit-dialog.component';
+import {
+  HaTagKeyEditDialogComponent,
+  HaTagKeyEditDialogInput,
+} from '../../ha-tag/module/ha-tag-key-edit-dialog/ha-tag-key-edit-dialog.component';
+import { HaAgent } from '../ha-model/ha-entities/ha-agent.class';
 import { HaAgentVersion } from '../ha-model/ha-entities/ha-agent-version.class';
+import { HaBrick } from '../ha-model/ha-entities/ha-brick.class';
 import { HaCommunityApp } from '../ha-model/ha-entities/ha-community-app.class';
 import { HaEntityType } from '../ha-model/ha-entities/ha-entity-type';
 import { HaStory } from '../ha-model/ha-entities/ha-story.class';
+import { HaTagKey } from '../ha-model/ha-entities/ha-tag-key.class';
 import { HaAgentService } from '../ha-service/ha-agent.service';
 import { HaBrickService } from '../ha-service/ha-brick.service';
 import { HaCommunityAppService } from '../ha-service/ha-community-app.service';
 import { HaRouterService } from '../ha-service/ha-router.service';
 import { HaStoryService } from '../ha-service/ha-story.service';
 import { HaTagService } from '../ha-service/ha-tag.service';
-import {
-  HaTagKeyEditDialogComponent,
-  HaTagKeyEditDialogInput,
-} from '../../ha-tag/module/ha-tag-key-edit-dialog/ha-tag-key-edit-dialog.component';
-import { HaTagKey } from '../ha-model/ha-entities/ha-tag-key.class';
 
 @Injectable()
 export class HaCurrentPageState implements OnDestroy {
@@ -79,6 +81,28 @@ export class HaCurrentPageState implements OnDestroy {
 
   public getCurrentEntityType(): Signal<HaEntityType | null> {
     return this.currentEntityType;
+  }
+
+  public getEntityPage(entity: any): string {
+    switch (this.currentEntityType()) {
+      case HaEntityType.STORY:
+        const story = entity as HaStory;
+        return HaRouterService.getStoryRoute(story.id, story.titlePath);
+      case HaEntityType.BRICK:
+        const brick = entity as HaBrick;
+        return HaRouterService.getBrickPageRoute(brick.name);
+      case HaEntityType.AGENT:
+        const agent = entity as HaAgent;
+        return HaRouterService.getAgentRoute(agent.id, ClStringHelper.getCleanUrlPath(agent.title));
+      case HaEntityType.APP:
+        const app = entity as HaCommunityApp;
+        return HaRouterService.getCommunityAppRoute(app.id, ClStringHelper.getCleanUrlPath(app.title));
+      case HaEntityType.TAG:
+        const tag = entity as HaTagKey;
+        return HaRouterService.getTagPageRoute(tag.id, tag.technicalName);
+      default:
+        return null;
+    }
   }
 
   public init(): void {

@@ -1,0 +1,20 @@
+<ha-header [fullHeight]="true">
+  <div class="section">
+    @if (invite) {
+      <h1>{{ 'you_have_been_invited_to_become_a_co_author' | translate }}</h1>
+      <span
+        >{{ invite.createdBy.alias }} {{ 'invite_text' | translate }}
+        <span class="g-weight-600">{{ entityTitle }}</span></span
+      >
+      <button mat-flat-button type="button" (click)="acceptInvite()" [disabled]="isLoading">
+        {{ 'become_coauthor' | translate }}
+        @if (isLoading) {
+          <fl-loader class="loader" [size]="20"></fl-loader>
+        }
+      </button>
+    } @else {
+      <span> {{ 'invalid_invite' | translate }} </span>
+    }
+  </div>
+</ha-header>
+<ha-footer></ha-footer>

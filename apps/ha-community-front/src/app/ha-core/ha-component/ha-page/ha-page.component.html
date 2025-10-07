@@ -1,4 +1,4 @@
-<ha-page-header [title]="headerTitle()" [description]="headerDescription()" ></ha-page-header>
+<ha-page-header [title]="headerTitle()" [description]="headerDescription()"></ha-page-header>
 
 <div class="page">
   @if (isLoading()) {
@@ -8,7 +8,7 @@
       </div>
     </div>
   } @else if (notFound()) {
-    <ha-ha404></ha-ha404>
+    <ha-404></ha-404>
   } @else {
     <ng-content></ng-content>
   }
@@ -24,9 +24,13 @@
       </p>
       <div class="section-buttons-div">
         @if (currentUser()) {
-          <button type="button" mat-flat-button (click)="openCreateDialog()">{{ createSectionSubmit() | translate }}</button>
+          <button type="button" mat-flat-button (click)="openCreateDialog()">
+            {{ createSectionSubmit() | translate }}
+          </button>
         } @else {
-          <a type="button" mat-flat-button [routerLink]="loginRoute">{{ createSectionSubmit() | translate }}</a>
+          <a type="button" mat-flat-button [routerLink]="loginRoute">{{
+            createSectionSubmit() | translate
+          }}</a>
         }
       </div>
     </div>

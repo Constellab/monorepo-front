@@ -21,14 +21,13 @@ export const haStoryRoutes: Route[] = [
   },
   {
     path: '404',
-    loadComponent: () => import('../ha404/ha404.component').then((m) => m.Ha404Component),
+    loadComponent: () =>
+      import('../ha-404/ha-404-page/ha-404-page.component').then((m) => m.Ha404PageComponent),
   },
   {
     path: 'invite/:token',
     loadComponent: () =>
-      import('./module/ha-story-invite-page/ha-story-invite-page.component').then(
-        (m) => m.HaStoryInvitePageComponent
-      ),
+      import('../ha-invite/ha-invite-page/ha-invite-page.component').then((m) => m.HaInvitePageComponent),
     canActivate: [HaLoginGuard],
   },
   {

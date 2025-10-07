@@ -5,6 +5,7 @@ import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { ActivatedRoute, NavigationEnd, Params, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
+import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
@@ -12,6 +13,7 @@ import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { TranslatePipe } from '@ngx-translate/core';
 import { filter, Subscription } from 'rxjs';
 
+import { HaFile } from '../../../ha-core/entity-module/ha-file-core/model/ha-file';
 import { HaEntityPageInfosComponent } from '../../../ha-core/ha-component/ha-entity-page-infos/ha-entity-page-infos.component';
 import { HaPageComponent } from '../../../ha-core/ha-component/ha-page/ha-page.component';
 import { HaBrick, HaEditBrickDTO } from '../../../ha-core/ha-model/ha-entities/ha-brick.class';
@@ -43,6 +45,7 @@ import { HaEditBrickDialogComponent } from '../ha-edit-brick-dialog/ha-edit-bric
     TranslatePipe,
     RouterLink,
     NgClass,
+    FlCoreComponentModule,
   ],
 })
 export class HaBrickPageComponent implements OnInit, OnDestroy {
@@ -71,6 +74,8 @@ export class HaBrickPageComponent implements OnInit, OnDestroy {
   });
   userHasEditRight: Signal<boolean> = this.brickPageState.getUserHasEditRight();
   docHeaders = this.brickPageState.docHeaders;
+  docFiles: Signal<HaFile[]> = this.brickPageState.getDocFiles();
+  docFileUrlPrefix: Signal<string> = this.brickPageState.getDocFileUrlPrefix();
   isDocPage = this.currentPageState.isDocumentationPage;
   lastActivatedRoute = this.currentPageState.lastActivatedRoute;
 

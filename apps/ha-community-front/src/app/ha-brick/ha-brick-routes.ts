@@ -18,9 +18,7 @@ export const haBrickRoutes: Route[] = [
   {
     path: 'invite/:token',
     loadComponent: () =>
-      import('./ha-brick-page/ha-brick-user-invite-page/ha-brick-user-invite-page.component').then(
-        (m) => m.HaBrickUserInvitePageComponent
-      ),
+      import('../ha-invite/ha-invite-page/ha-invite-page.component').then((m) => m.HaInvitePageComponent),
     canActivate: [HaLoginGuard],
   },
   {
@@ -52,6 +50,7 @@ export const haBrickRoutes: Route[] = [
   },
   {
     path: '**',
-    loadComponent: () => import('../ha404/ha404.component').then((m) => m.Ha404Component),
+    loadComponent: () =>
+      import('../ha-404/ha-404-page/ha-404-page.component').then((m) => m.Ha404PageComponent),
   },
 ];

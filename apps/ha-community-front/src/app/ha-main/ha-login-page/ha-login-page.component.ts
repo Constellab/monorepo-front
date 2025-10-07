@@ -37,6 +37,10 @@ export class HaLoginPageComponent implements OnInit {
   redirectionRoute: string = FlLoginSavedRoute.getRoutePath();
 
   ngOnInit(): void {
+    this.authenticatedUserService.getUser().subscribe((user) => {
+      if (user) this.redirect();
+    });
+
     this.activatedRoute.queryParams.subscribe((params) => this.checkRouteQueryParams(params));
   }
 
@@ -44,6 +48,10 @@ export class HaLoginPageComponent implements OnInit {
 
   onLoginSuccess(): void {
     this.authenticatedUserService.init();
+    this.redirect();
+  }
+
+  private redirect(): void {
     if (this.redirectionRoute) {
       this.router.navigate([this.redirectionRoute]);
     } else {

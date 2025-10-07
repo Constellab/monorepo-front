@@ -15,7 +15,6 @@ import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { TranslatePipe } from '@ngx-translate/core';
 
 import { HaConstellabHelper } from '../../../ha-model/ha-config/ha-constellab.helper';
-import { HaIsAdminDirective } from '../../../ha-module/ha-core-directive/ha-is-admin/ha-is-admin.directive';
 import { HaAuthService } from '../../../ha-service/ha-auth.service';
 import { HaAuthenticatedUserService } from '../../../ha-service/ha-authenticated-user.service';
 import { HaRouterService } from '../../../ha-service/ha-router.service';
@@ -34,7 +33,6 @@ import { HaInstantSearchDialogComponent } from '../../ha-instant-search-dialog/h
     FlUserModule,
     MatMenu,
     MatMenuItem,
-    HaIsAdminDirective,
     MatIcon,
     MatMenuTrigger,
     FlIconModule,

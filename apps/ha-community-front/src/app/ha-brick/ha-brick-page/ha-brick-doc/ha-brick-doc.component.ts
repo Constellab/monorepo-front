@@ -21,11 +21,11 @@ import {
 import { TranslatePipe } from '@ngx-translate/core';
 import { Observable, Subscription } from 'rxjs';
 
+import { Ha404Component } from '../../../ha-404/ha-404/ha-404.component';
 import {
   HaAdminSendToDifyDialogComponent,
   HaAdminSendToDifyDialogInput,
 } from '../../../ha-admin/module/ha-admin-send-brick-docs-to-dify-dialog/ha-admin-send-to-dify-dialog.component';
-import { HaFile } from '../../../ha-core/entity-module/ha-file-core/model/ha-file';
 import { HaBrick } from '../../../ha-core/ha-model/ha-entities/ha-brick.class';
 import { HaDocumentation } from '../../../ha-core/ha-model/ha-entities/ha-documentation.class';
 import { HaEntityType } from '../../../ha-core/ha-model/ha-entities/ha-entity-type';
@@ -35,7 +35,6 @@ import { HaDocumentationService } from '../../../ha-core/ha-service/ha-documenta
 import { HaHttpRedirectionService } from '../../../ha-core/ha-service/ha-http-redirection.service';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
 import { HaJsonLdState } from '../../../ha-core/ha-state/ha-json-ld.state';
-import { Ha404Component } from '../../../ha404/ha404.component';
 import { HaBrickPageState } from '../../state/ha-brick-page.state';
 import { HaDocTextEditorConfig } from '../ha-doc-text-editor-config.class';
 
@@ -87,10 +86,6 @@ export class HaBrickDocComponent extends HaCommunityPageDirective implements OnI
   isDocLoading: Signal<boolean> = this.brickPageState.isDocLoading;
 
   docNotFound: Signal<boolean> = this.brickPageState.isDocError;
-
-  docFiles: Signal<HaFile[]> = this.brickPageState.getDocFiles();
-
-  docFileUrlPrefix: Signal<string> = this.brickPageState.getDocFileUrlPrefix();
 
   formCtrl = new FormControl<TeRichText>(null);
 

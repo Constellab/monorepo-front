@@ -4,12 +4,12 @@ import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directiv
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { TdTechnicalDocModule, TdTypeEntity } from '@monorepo/technical-doc';
 
+import { Ha404Component } from '../../../ha-404/ha-404/ha-404.component';
 import { HaRunStatAggregatePanelComponent } from '../../../ha-core/ha-component/ha-run-stat-aggregate-panel/ha-run-stat-aggregate-panel.component';
 import { HaBrick } from '../../../ha-core/ha-model/ha-entities/ha-brick.class';
 import { HaRunStatAggregate } from '../../../ha-core/ha-model/ha-entities/ha-run-stat-aggregate.class';
 import { HaCommunityPageDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
-import { Ha404Component } from '../../../ha404/ha404.component';
 import { HaBrickPageState } from '../../state/ha-brick-page.state';
 
 @Component({

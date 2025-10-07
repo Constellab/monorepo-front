@@ -11,9 +11,7 @@ export const haAgentRoutes: Route[] = [
   {
     path: 'invite/:token',
     loadComponent: () =>
-      import('./components/ha-agent-invite-page/ha-agent-invite-page.component').then(
-        (m) => m.HaAgentInvitePageComponent
-      ),
+      import('../ha-invite/ha-invite-page/ha-invite-page.component').then((m) => m.HaInvitePageComponent),
     canActivate: [HaLoginGuard],
   },
   {

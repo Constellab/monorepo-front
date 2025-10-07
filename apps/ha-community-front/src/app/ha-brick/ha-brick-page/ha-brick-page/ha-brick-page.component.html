@@ -24,6 +24,10 @@
             <div class="entity-page-separator"></div>
           }
 
+          <div class="entity-page-info-div">
+            <ha-brick-sidenav></ha-brick-sidenav>
+          </div>
+
           @if (isDocPage() && docHeaders() && docHeaders().length > 0) {
             <div class="entity-page-info-div">
               <span class="g-text-medium g-weight-600">{{ 'table_of_contents' | translate }}</span>
@@ -43,9 +47,18 @@
             <div class="entity-page-separator"></div>
           }
 
-          <div class="entity-page-info-div">
-            <ha-brick-sidenav></ha-brick-sidenav>
-          </div>
+          @if (isDocPage() && docFiles() && docFiles().length > 0) {
+            <div class="entity-page-info-div">
+              <span class="g-text-medium g-weight-600">{{ 'attached_files' | translate }}</span>
+              <div class="entity-page-info-div-content table-of-contents">
+                @for (file of docFiles(); track file.name) {
+                  <a type="button" [href]="docFileUrlPrefix() + file.name" download>
+                    <fl-file-text-icon [filename]="file.name"></fl-file-text-icon>
+                  </a>
+                }
+              </div>
+            </div>
+          }
 
           <div class="entity-page-separator"></div>
         </ha-entity-page-infos>

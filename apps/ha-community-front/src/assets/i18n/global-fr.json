@@ -679,5 +679,8 @@
   "go_to_admin_dashboard": "Aller au tableau de bord admin",
   "logout_action": "Se déconnecter",
   "switch_to_english": "Passer en anglais",
-  "switch_to_french": "Passer en français"
+  "switch_to_french": "Passer en français",
+
+  "invalid_invite": "Invitation invalide",
+  "you_have_been_invited_to_become_a_co_author": "Vous avez été invité à devenir co-auteur"
 }

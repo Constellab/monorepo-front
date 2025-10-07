@@ -6,8 +6,8 @@ import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
 import { TranslatePipe } from '@ngx-translate/core';
 
+import { Ha404Component } from '../../../ha-404/ha-404/ha-404.component';
 import { HaHomeSectionShineComponent } from '../../../ha-home/ha-home-section-shine/ha-home-section-shine.component';
-import { Ha404Component } from '../../../ha404/ha404.component';
 import { HaEntityType } from '../../ha-model/ha-entities/ha-entity-type';
 import { HaAuthenticatedUserService } from '../../ha-service/ha-authenticated-user.service';
 import { HaRouterService } from '../../ha-service/ha-router.service';

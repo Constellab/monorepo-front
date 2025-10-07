@@ -678,5 +678,8 @@
   "go_to_admin_dashboard": "Go to admin dashboard",
   "logout_action": "Logout",
   "switch_to_english": "Switch to English",
-  "switch_to_french": "Switch to French"
+  "switch_to_french": "Switch to French",
+
+  "invalid_invite": "Invalid invite",
+  "you_have_been_invited_to_become_a_co_author": "You have been invited to become a co-author"
 }

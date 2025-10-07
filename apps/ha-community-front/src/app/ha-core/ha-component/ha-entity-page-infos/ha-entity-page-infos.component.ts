@@ -121,7 +121,7 @@ export class HaEntityPageInfosComponent implements OnInit {
         inviteText = 'invite_brick_coauthor_information';
         break;
       case HaEntityType.APP:
-        inviteText = 'invite_app_coauthor_information';
+        inviteText = 'invite_community_app_coauthor_information';
         break;
       case HaEntityType.AGENT:
         inviteText = 'invite_agent_coauthor_information';

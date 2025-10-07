@@ -13,9 +13,7 @@ export const haCommunityAppRoutes: Route[] = [
   {
     path: 'invite/:token',
     loadComponent: () =>
-      import('./components/ha-community-app-invite-page/ha-community-app-invite-page.component').then(
-        (m) => m.HaCommunityAppInvitePageComponent
-      ),
+      import('../ha-invite/ha-invite-page/ha-invite-page.component').then((m) => m.HaInvitePageComponent),
     canActivate: [HaLoginGuard],
   },
   {
