@@ -1,7 +1,7 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
-import { Observable, Subject, switchMap, takeUntil, timer } from 'rxjs';
+import { Observable, share, Subject, switchMap, takeUntil, timer } from 'rxjs';
 
 import { LmlDockerLogs } from '../../model/lml-lab-manager.class';
 
@@ -30,7 +30,8 @@ export class LmlDockerContainerLogsDialogComponent implements OnInit, OnDestroy 
   ngOnInit(): void {
     this.logs$ = timer(0, this.input.refreshInterval).pipe(
       switchMap(() => this.input.getLogs()),
-      takeUntil(this.destroy$)
+      takeUntil(this.destroy$),
+      share()
     );
   }
 

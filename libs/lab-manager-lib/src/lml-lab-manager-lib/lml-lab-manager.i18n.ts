@@ -173,7 +173,7 @@ const lmlLabManagerI18nEn: FlLangTranslation = {
     containers_up: 'Services are up',
     containers_partially_up: 'Services are partially up',
     containers_partially_up_warning:
-      "Some services of the lab are running, please check 'Lab manager' section",
+      "Some services of the lab are not started, please check 'Lab manager' section",
     containers_down_warning: "The services of the lab are not running, please check 'Lab manager' section",
     containers_error: 'Error',
     container_stopped: 'Stopped',

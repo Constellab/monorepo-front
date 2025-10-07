@@ -434,11 +434,11 @@ export class CaLabService {
     return this.apiService.get(`${this.route}/${id}/lab-manager/adminer/info`, null);
   }
 
-  public startAdminer(id: string): Observable<boolean> {
+  public startAdminer(id: string): Observable<void> {
     return this.apiService.put(`${this.route}/${id}/lab-manager/adminer/start`, null);
   }
 
-  public stopAdminer(id: string): Observable<boolean> {
+  public stopAdminer(id: string): Observable<void> {
     return this.apiService.put(`${this.route}/${id}/lab-manager/adminer/stop`, null);
   }
 

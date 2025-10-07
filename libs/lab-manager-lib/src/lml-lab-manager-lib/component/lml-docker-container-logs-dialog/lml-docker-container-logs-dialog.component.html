@@ -2,7 +2,9 @@
   {{ input.title | flTranslatableText | async }}
 
   <fl-dialog-header-actions>
-    <fl-loader size="small" [matTooltip]="'lml.fetching_logs_regularly' | translate"></fl-loader>
+    @if (logs$ | async) {
+      <fl-loader size="small" [matTooltip]="'lml.fetching_logs_regularly' | translate"></fl-loader>
+    }
   </fl-dialog-header-actions>
 </fl-dialog-header>
 

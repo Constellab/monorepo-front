@@ -161,11 +161,11 @@ export class LmsLabManagerService extends LmlLabManagerService {
     return this.labService.getAdminerInfo();
   }
 
-  startAdminer(): Observable<boolean> {
+  startAdminer(): Observable<void> {
     return this.labService.startAdminer();
   }
 
-  stopAdminer(): Observable<boolean> {
+  stopAdminer(): Observable<void> {
     return this.labService.stopAdminer();
   }
 

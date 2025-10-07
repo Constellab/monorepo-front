@@ -71,7 +71,11 @@ export class CaLabGlobalStatusComponent implements OnInit {
     const errors: string[] = [];
 
     if (managerStatus) {
-      if (managerStatus.containersStatus?.status.value === 'PARTIALLY_UP') {
+      // if there is no action in progress and the containers are partially up, show a warning
+      if (
+        !managerStatus.actionInProgress &&
+        managerStatus.containersStatus?.status.value === 'PARTIALLY_UP'
+      ) {
         errors.push(this.translateService.translate('lab_containers_partially_up_warning'));
       }
 

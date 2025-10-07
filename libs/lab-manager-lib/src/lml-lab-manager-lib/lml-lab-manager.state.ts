@@ -28,12 +28,6 @@ export class LmlLabManagerState implements OnDestroy {
 
   private autoRefreshFrequency = 5000;
   private autoRefreshTimeout: any;
-  // stop auto refresh after 2 not running status
-  // this is used to stop auto-refresh if a short not running status is returned (on lab start for example)
-  private readonly autoNotRunningStatusMaxCount = 2;
-  // current number of not running status in a row
-  // set it to the max count to start auto-refresh, so it will not auto-refresh on the first status
-  private autoNotRunningStatusCount = this.autoNotRunningStatusMaxCount;
 
   private subscriptions = new ClSubscriptionHandler();
 
@@ -92,16 +86,8 @@ export class LmlLabManagerState implements OnDestroy {
       object: status,
     });
 
-    if (status.actionInProgress) {
-      // as the task is running, mark the count as 0, it will keep refreshing
-      this.autoNotRunningStatusCount = 0;
-    } else {
-      // if the task is not running, increase the count
-      this.autoNotRunningStatusCount++;
-    }
-
     // only refresh if the count is not maxed out
-    if (this.autoNotRunningStatusCount < this.autoNotRunningStatusMaxCount) {
+    if (status.actionInProgress) {
       this.autoRefreshTimeout = setTimeout(() => this.refreshStatus(true), this.autoRefreshFrequency);
     }
   }

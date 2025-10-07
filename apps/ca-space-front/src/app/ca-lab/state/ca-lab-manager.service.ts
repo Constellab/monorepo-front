@@ -206,11 +206,11 @@ export class CaLabManagerService extends LmlLabManagerService {
     return this.labService.getAdminerInfo(this.labState.getLabId());
   }
 
-  startAdminer(): Observable<boolean> {
+  startAdminer(): Observable<void> {
     return this.labService.startAdminer(this.labState.getLabId());
   }
 
-  stopAdminer(): Observable<boolean> {
+  stopAdminer(): Observable<void> {
     return this.labService.stopAdminer(this.labState.getLabId());
   }
 

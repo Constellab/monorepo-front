@@ -37,10 +37,6 @@ export class CaLabDetailPageState implements OnDestroy {
 
   private timeout: any;
   private statusRefreshFrequency = 10000;
-  private consecutiveNotBusyCount = 1;
-  // Limit for consecutive not busy counts before stopping refresh
-  // usefull to avoid temporary not busy status
-  private readonly consecutiveNotBusyLimit = 2;
 
   private subscriptions = new ClSubscriptionHandler();
 
@@ -55,10 +51,10 @@ export class CaLabDetailPageState implements OnDestroy {
 
     this.status$ = new BehaviorSubject(null);
     this.busyStatus$ = new BehaviorSubject(null);
-    this.refreshStatus(true);
+    this.refreshStatus();
 
     this.subscriptions.add(
-      this.portalService.getResult$(CaLabDetailPageState.actionType).subscribe(() => this.refreshStatus(true))
+      this.portalService.getResult$(CaLabDetailPageState.actionType).subscribe(() => this.refreshStatus())
     );
 
     this.subscriptions.add(labManagerStatus$.subscribe((status) => this.onNewLabManagerStatus(status)));
@@ -80,11 +76,7 @@ export class CaLabDetailPageState implements OnDestroy {
    * @param ignoreNotBusyCount When true, ignores the not busy count
    * and stops refreshing immediately if not busy.
    */
-  private refreshStatus(ignoreNotBusyCount: boolean = false): void {
-    if (ignoreNotBusyCount) {
-      // Set count to limit so that if not busy, refresh stops immediately
-      this.consecutiveNotBusyCount = this.consecutiveNotBusyLimit;
-    }
+  private refreshStatus(): void {
     // clear the timeout if exist to avoid duplicates
     this.clearTimeout();
 
@@ -108,15 +100,7 @@ export class CaLabDetailPageState implements OnDestroy {
 
     if (status.isBusy) {
       // Reset counter when busy
-      this.consecutiveNotBusyCount = 0;
       this.timeout = setTimeout(() => this.refreshStatus(), this.statusRefreshFrequency);
-    } else {
-      // Increment counter when not busy
-      this.consecutiveNotBusyCount++;
-
-      if (this.consecutiveNotBusyCount < this.consecutiveNotBusyLimit) {
-        this.timeout = setTimeout(() => this.refreshStatus(), this.statusRefreshFrequency);
-      }
     }
   }
 
@@ -181,7 +165,7 @@ export class CaLabDetailPageState implements OnDestroy {
 
   public updateLab(lab: CaLab): void {
     this.lab$.next(lab);
-    this.refreshStatus(true);
+    this.refreshStatus();
   }
 
   public getLabId(): string {
@@ -221,7 +205,7 @@ export class CaLabDetailPageState implements OnDestroy {
 
     // if the lab running status is different from the lab manager status, refresh the status immediately
     if (labManagerStatus.actionInProgress !== busyStatus.isBusy) {
-      this.refreshStatus(true);
+      this.refreshStatus();
     }
   }
 

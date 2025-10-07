@@ -38,6 +38,10 @@ export class LmlDockerInspect {
 
   @FlStatusTransform(lmlLabDockerStatusDict)
   status: FlStatus<LmlLabDockerStatus>;
+
+  get containerExists(): boolean {
+    return this.status.value !== 'none';
+  }
 }
 
 export class LmlDockerPsFull {

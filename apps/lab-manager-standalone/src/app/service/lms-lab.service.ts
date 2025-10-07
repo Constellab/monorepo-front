@@ -197,11 +197,11 @@ export class LmsLabService {
 
   /////////////////////////////////// ADMINER ///////////////////////////////////
 
-  startAdminer(): Observable<boolean> {
+  startAdminer(): Observable<void> {
     return this.apiService.put(`${this.adminerRoute}/start`, null);
   }
 
-  stopAdminer(): Observable<boolean> {
+  stopAdminer(): Observable<void> {
     return this.apiService.put(`${this.adminerRoute}/stop`, null);
   }
 

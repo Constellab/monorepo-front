@@ -1,6 +1,6 @@
 <mat-accordion>
   @for (container of containers; track container.names) {
-    <mat-expansion-panel [disabled]="container.status.value === 'none'">
+    <mat-expansion-panel [disabled]="!container.containerExists">
       <mat-expansion-panel-header>
         <mat-panel-title>
           <div class="g-layout-row g-layout-between g-full">
@@ -22,15 +22,17 @@
                 <mat-icon>more_vert</mat-icon>
               </button>
               <mat-menu #menu="matMenu" xPosition="before">
-                <button mat-menu-item type="button" (click)="downloadLogs(container.names)">
-                  <mat-icon>cloud_download</mat-icon>
-                  <span>{{ 'lml.container_download_logs' | translate }}</span>
-                </button>
+                @if (container.containerExists) {
+                  <button mat-menu-item type="button" (click)="downloadLogs(container.names)">
+                    <mat-icon>cloud_download</mat-icon>
+                    <span>{{ 'lml.container_download_logs' | translate }}</span>
+                  </button>
 
-                <button mat-menu-item type="button" (click)="showErrors(container.names)">
-                  <mat-icon>error</mat-icon>
-                  <span>{{ 'lml.show_errors' | translate }}</span>
-                </button>
+                  <button mat-menu-item type="button" (click)="showErrors(container.names)">
+                    <mat-icon>error</mat-icon>
+                    <span>{{ 'lml.show_errors' | translate }}</span>
+                  </button>
+                }
 
                 @if (!readonly) {
                   <button mat-menu-item type="button" (click)="startComposeContainer(container.names)">
@@ -38,15 +40,21 @@
                     <span>{{ 'lml.service_start' | translate }}</span>
                   </button>
 
-                  <button mat-menu-item type="button" (click)="stopContainer(container.names)" class="warn">
-                    <mat-icon>stop</mat-icon>
-                    <span>{{ 'lml.container_stop' | translate }}</span>
-                  </button>
+                  @if (container.containerExists) {
+                    <button mat-menu-item type="button" (click)="stopContainer(container.names)" class="warn">
+                      <mat-icon>stop</mat-icon>
+                      <span>{{ 'lml.container_stop' | translate }}</span>
+                    </button>
 
-                  <button mat-menu-item type="button" (click)="deleteContainer(container.names)" class="warn">
-                    <mat-icon>delete</mat-icon>
-                    <span>{{ 'lml.container_delete' | translate }}</span>
-                  </button>
+                    <button
+                      mat-menu-item
+                      type="button"
+                      (click)="deleteContainer(container.names)"
+                      class="warn">
+                      <mat-icon>delete</mat-icon>
+                      <span>{{ 'lml.container_delete' | translate }}</span>
+                    </button>
+                  }
                 }
               </mat-menu>
             </div>

@@ -94,9 +94,9 @@ export abstract class LmlLabManagerService {
 
   abstract getAdminerInfo(): Observable<LmlAdminerInfo>;
 
-  abstract startAdminer(): Observable<boolean>;
+  abstract startAdminer(): Observable<void>;
 
-  abstract stopAdminer(): Observable<boolean>;
+  abstract stopAdminer(): Observable<void>;
 
   abstract cleanLabManager(options: LmlCleanLabManagerOptions): Observable<void>;
 
