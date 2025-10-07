@@ -27,6 +27,7 @@ html {
   src: url('assets/fl-font/Poppins-Regular.ttf') format('truetype');
   font-style: normal;
   font-weight: 500;
+  font-display: swap;
 }
 
 @font-face {
@@ -34,6 +35,7 @@ html {
   src: url('assets/fl-font/Poppins-Light.ttf') format('truetype');
   font-style: normal;
   font-weight: 100;
+  font-display: swap;
 }
 
 @font-face {
@@ -41,6 +43,7 @@ html {
   src: url('assets/fl-font/Poppins-SemiBold.ttf') format('truetype');
   font-style: normal;
   font-weight: 600;
+  font-display: swap;
 }
 
 @font-face {
@@ -48,6 +51,7 @@ html {
   src: url('assets/fl-font/Poppins-Bold.ttf') format('truetype');
   font-style: normal;
   font-weight: 700;
+  font-display: swap;
 }
 
 html,

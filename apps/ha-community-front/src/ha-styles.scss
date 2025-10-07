@@ -15,6 +15,38 @@
 
 @use './theme/ha-theme';
 
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  src: url('assets/fl-font/PlusJakartaSans-Regular.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  src: url('assets/fl-font/PlusJakartaSans-Light.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 100;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  src: url('assets/fl-font/PlusJakartaSans-SemiBold.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  src: url('assets/fl-font/PlusJakartaSans-Bold.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
 * {
   font-family: 'Plus Jakarta Sans', sans-serif;
 }
@@ -58,7 +90,7 @@
 
 .section-with-background {
   max-width: calc(100% - 240px) !important;
-  background: url('/assets/images/section_background.png') no-repeat bottom;
+  background: url('/assets/images/section_background.webp') no-repeat bottom;
   background-size: cover;
   height: auto;
   aspect-ratio: 1 / 0.38715;
@@ -68,7 +100,7 @@
     max-width: calc(100% - 48px) !important;
     aspect-ratio: 1 / 1.5;
     max-height: 100vh;
-    background: url('/assets/images/mobile_section_background.png') no-repeat center;
+    background: url('/assets/images/mobile_section_background.webp') no-repeat center;
   }
 
   @media only screen and (max-width: 420px) {

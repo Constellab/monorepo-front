@@ -5,7 +5,7 @@
   max-width: 100%;
   height: var(--basic-footer-height);
 
-  background: url('/assets/images/footer_background.png') no-repeat center;
+  background: url('/assets/images/footer_background.webp') no-repeat center;
   background-size: cover;
 
   color: white;
@@ -18,7 +18,7 @@
 }
 
 .main-footer {
-  background: url('/assets/images/footer_background_main.png') no-repeat bottom;
+  background: url('/assets/images/footer_background_main.webp') no-repeat bottom;
   background-size: cover;
   height: auto;
 }
@@ -118,11 +118,11 @@
 
 @media only screen and (max-width: 992px) {
   .footer {
-    background: url('/assets/images/footer_background.png') no-repeat center;
+    background: url('/assets/images/footer_background.webp') no-repeat center;
   }
 
   .main-footer {
-    background: url('/assets/images/mobile_footer_background_main.png') no-repeat bottom;
+    background: url('/assets/images/mobile_footer_background_main.webp') no-repeat bottom;
   }
 
   .main-footer-div {
