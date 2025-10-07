@@ -1,6 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import {
   LmlAdminerInfo,
+  LmlCleanLabManagerOptions,
   LmlComposeList,
   LmlComposeRestartOptions,
   LmlComposeUniqueId,
@@ -69,10 +70,6 @@ export class CaLabManagerService extends LmlLabManagerService {
 
   stopCurrentTask(): Observable<void> {
     return this.labService.stopCurrentTask(this.labState.getLabId());
-  }
-
-  systemPrune(): Observable<void> {
-    return this.labService.systemPrune(this.labState.getLabId());
   }
 
   updateConfig(config: LmlLabManagerConfig): Observable<void> {
@@ -215,5 +212,9 @@ export class CaLabManagerService extends LmlLabManagerService {
 
   stopAdminer(): Observable<boolean> {
     return this.labService.stopAdminer(this.labState.getLabId());
+  }
+
+  cleanLabManager(options: LmlCleanLabManagerOptions): Observable<void> {
+    return this.labService.cleanLabManager(this.labState.getLabId(), options);
   }
 }

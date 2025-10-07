@@ -2,6 +2,7 @@ import { Observable } from 'rxjs';
 
 import {
   LmlAdminerInfo,
+  LmlCleanLabManagerOptions,
   LmlComposeList,
   LmlComposeRestartOptions,
   LmlComposeUniqueId,
@@ -46,8 +47,6 @@ export abstract class LmlLabManagerService {
   abstract pullBiotaDb(options: LmlPullBiotaOptions): Observable<void>;
 
   abstract stopCurrentTask(): Observable<void>;
-
-  abstract systemPrune(): Observable<void>;
 
   abstract updateConfig(config: LmlLabManagerConfig): Observable<void>;
 
@@ -98,4 +97,6 @@ export abstract class LmlLabManagerService {
   abstract startAdminer(): Observable<boolean>;
 
   abstract stopAdminer(): Observable<boolean>;
+
+  abstract cleanLabManager(options: LmlCleanLabManagerOptions): Observable<void>;
 }

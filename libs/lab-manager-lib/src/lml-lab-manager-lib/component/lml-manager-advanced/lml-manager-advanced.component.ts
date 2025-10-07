@@ -74,15 +74,15 @@ export class LmlManagerAdvancedComponent implements OnInit {
     this.managerState.stopCurrentTask();
   }
 
-  systemPrune(): void {
-    this.managerState.systemPrune();
-  }
-
   startAdminer(): void {
     this.managerState.startAdminer();
   }
 
   stopAdminer(): void {
     this.managerState.stopAdminer();
+  }
+
+  cleanLabManager(): void {
+    this.managerState.cleanLabManager();
   }
 }

@@ -46,9 +46,6 @@
   <button mat-stroked-button type="button" class="g-button-small warn" (click)="stopCurrentTask()">
     {{ 'lml.stop_current_task' | translate }}
   </button>
-  <button mat-stroked-button type="button" class="g-button-small warn" (click)="systemPrune()">
-    {{ 'lml.system_prune' | translate }}
-  </button>
 
   <button mat-stroked-button type="button" class="g-button-small warn" (click)="startAdminer()">
     {{ 'lml.start_adminer' | translate }}
@@ -56,6 +53,9 @@
 
   <button mat-stroked-button type="button" class="g-button-small warn" (click)="stopAdminer()">
     {{ 'lml.stop_adminer' | translate }}
+  </button>
+  <button mat-stroked-button type="button" class="g-button-small warn" (click)="cleanLabManager()">
+    {{ 'lml.clean_lab_manager' | translate }}
   </button>
 </div>
 

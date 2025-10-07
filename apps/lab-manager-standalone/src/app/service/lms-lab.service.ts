@@ -2,6 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import {
   LmlAdminerInfo,
+  LmlCleanLabManagerOptions,
   LmlComposeEnv,
   LmlComposeList,
   LmlComposeRestartOptions,
@@ -64,10 +65,6 @@ export class LmsLabService {
 
   stopCurrentTask(): Observable<void> {
     return this.apiService.put(`${this.labRoute}/stop-current-task`, null);
-  }
-
-  systemPrune(): Observable<void> {
-    return this.apiService.delete(`${this.labRoute}/system-prune`);
   }
 
   updateConfig(config: LmlLabManagerConfig): Observable<void> {
@@ -210,5 +207,9 @@ export class LmsLabService {
 
   getAdminerInfo(): Observable<LmlAdminerInfo> {
     return this.apiService.get(`${this.adminerRoute}/info`);
+  }
+
+  cleanLabManager(options: LmlCleanLabManagerOptions): Observable<void> {
+    return this.apiService.post(`${this.labRoute}/system/clean`, options);
   }
 }

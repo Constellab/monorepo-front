@@ -1,0 +1,27 @@
+<fl-dialog-header>
+  {{ 'lml.clean_lab_manager' | translate }}
+</fl-dialog-header>
+
+<mat-dialog-content>
+  <p>{{ 'lml.clean_lab_manager_help' | translate }}</p>
+  <form (ngSubmit)="submit()" id="clean-lab-manager-form" [formGroup]="formGp" class="form">
+    <!--  System prune  -->
+    <mat-checkbox
+      formControlName="removeErrorSubComposes"
+      class="g-mat-checkbox-wrap-text g-mat-checkbox-include-bottom">
+      {{ 'lml.clean_lab_manager_remove_error_sub_composes' | translate }}
+    </mat-checkbox>
+
+    <mat-checkbox
+      formControlName="pruneSystem"
+      class="g-mat-checkbox-wrap-text g-mat-checkbox-include-bottom">
+      {{ 'lml.clean_lab_manager_system_prune' | translate }}
+    </mat-checkbox>
+  </form>
+</mat-dialog-content>
+
+<div mat-dialog-actions>
+  <button mat-flat-button type="submit" form="clean-lab-manager-form" class="g-centered-forced primary">
+    {{ 'lml.clean_lab_manager' | translate }}
+  </button>
+</div>

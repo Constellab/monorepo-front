@@ -7,6 +7,7 @@ import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
 import { BehaviorSubject, combineLatest, distinct, filter, first, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { LmlCleanLabManagerFormDialogComponent } from './component/lml-clean-lab-manager-form-dialog/lml-clean-lab-manager-form-dialog.component';
 import { LmlPullBiotaFormDialogComponent } from './component/lml-pull-biota-form-dialog/lml-pull-biota-form-dialog.component';
 import { LmlLabManagerService } from './lml-lab-manager.service';
 import { LmlLabManagerStatus, LmlNewVersionAvailable } from './model/lml-lab-manager.class';
@@ -174,14 +175,6 @@ export class LmlLabManagerState implements OnDestroy {
     });
   }
 
-  systemPrune(): void {
-    this.actionService.addAction({
-      action: this.labManagerService.systemPrune(),
-      text: { text: 'lml.system_prune', translateText: true },
-      type: this.actionType,
-    });
-  }
-
   startAdminer(): void {
     this.actionService.addAction({
       action: this.labManagerService.startAdminer(),
@@ -196,6 +189,21 @@ export class LmlLabManagerState implements OnDestroy {
       text: { text: 'lml.stop_adminer', translateText: true },
       type: this.actionType,
     });
+  }
+
+  cleanLabManager(): void {
+    this.dialogService
+      .openSmallDialog(LmlCleanLabManagerFormDialogComponent)
+      .afterClosed()
+      .subscribe((result) => {
+        if (result) {
+          this.actionService.addAction({
+            action: this.labManagerService.cleanLabManager(result),
+            text: { text: 'lml.clean_lab_manager', translateText: true },
+            type: this.actionType,
+          });
+        }
+      });
   }
 
   //////////////////// SINGLE CONTAINER MANAGEMENT /////////////////////

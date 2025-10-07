@@ -69,6 +69,11 @@ export interface LmlPullBiotaOptions {
   forceUpdate?: boolean;
 }
 
+export interface LmlCleanLabManagerOptions {
+  removeErrorSubComposes: boolean;
+  pruneSystem: boolean;
+}
+
 export type LmlTaskStatus = 'RUNNING' | 'SUCCESS' | 'ERROR';
 
 const lmlTaskStatusDict: FlStatusDict<LmlTaskStatus> = {

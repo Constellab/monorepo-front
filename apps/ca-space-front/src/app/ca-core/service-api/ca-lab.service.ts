@@ -6,6 +6,7 @@ import { FlSearchConverter } from '@monorepo/front-core-lib/fl-search';
 import { FlFileHelper } from '@monorepo/front-core-lib/fl-translate';
 import {
   LmlAdminerInfo,
+  LmlCleanLabManagerOptions,
   LmlComposeEnv,
   LmlComposeList,
   LmlComposeRestartOptions,
@@ -270,10 +271,6 @@ export class CaLabService {
     return this.apiService.post(`${this.route}/${id}/lab-manager/stop-current-task`, null);
   }
 
-  public systemPrune(id: string): Observable<void> {
-    return this.apiService.post(`${this.route}/${id}/lab-manager/system-prune`, null);
-  }
-
   public updateLabManager(id: string, version: string): Observable<CaLabStatusDTO> {
     return this.apiService.put(`${this.route}/${id}/lab-manager/update/${version}`, null, CaLabStatusDTO);
   }
@@ -443,6 +440,10 @@ export class CaLabService {
 
   public stopAdminer(id: string): Observable<boolean> {
     return this.apiService.put(`${this.route}/${id}/lab-manager/adminer/stop`, null);
+  }
+
+  public cleanLabManager(id: string, options: LmlCleanLabManagerOptions): Observable<void> {
+    return this.apiService.post(`${this.route}/${id}/lab-manager/clean`, options);
   }
 
   //////////////////////////// BACKUP ////////////////////////////////

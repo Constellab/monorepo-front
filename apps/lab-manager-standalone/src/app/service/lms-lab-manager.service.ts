@@ -3,6 +3,7 @@ import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlFileHelper } from '@monorepo/front-core-lib/fl-translate';
 import {
   LmlAdminerInfo,
+  LmlCleanLabManagerOptions,
   LmlComposeList,
   LmlComposeRestartOptions,
   LmlComposeUniqueId,
@@ -68,10 +69,6 @@ export class LmsLabManagerService extends LmlLabManagerService {
 
   stopCurrentTask(): Observable<void> {
     return this.labService.stopCurrentTask();
-  }
-
-  systemPrune(): Observable<void> {
-    return this.labService.systemPrune();
   }
 
   updateConfig(config: LmlLabManagerConfig): Observable<void> {
@@ -170,5 +167,9 @@ export class LmsLabManagerService extends LmlLabManagerService {
 
   stopAdminer(): Observable<boolean> {
     return this.labService.stopAdminer();
+  }
+
+  cleanLabManager(options: LmlCleanLabManagerOptions): Observable<void> {
+    return this.labService.cleanLabManager(options);
   }
 }
