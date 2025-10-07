@@ -1,4 +1,4 @@
-import { inject, Injectable, Injector, REQUEST, Signal, signal, WritableSignal } from '@angular/core';
+import { inject, Injectable, Injector, REQUEST } from '@angular/core';
 import { DateAdapter } from '@angular/material/core';
 import { ClDateHelper, clLangIsSupported, ClStringHelper, ClSupportedLanguage } from '@monorepo/core-lib';
 import { FlPlatformService } from '@monorepo/front-core-lib/fl-core';
@@ -35,17 +35,11 @@ export class FlTranslateService {
 
   private request: any;
 
-  private currentLang: WritableSignal<ClSupportedLanguage> = signal(this.getDefaultLanguage());
-
   constructor() {
     // save this instance to static attribute
     FlTranslateService.instance = this;
 
     this.request = this.injector.get(REQUEST);
-  }
-
-  public getCurrentLang(): Signal<ClSupportedLanguage> {
-    return this.currentLang;
   }
 
   /**
@@ -152,7 +146,6 @@ export class FlTranslateService {
 
     // if it exists, returns the lang from the cookie
     if (cookieLang && this.langIsSupported(cookieLang)) {
-      this.currentLang.set(cookieLang as ClSupportedLanguage);
       return cookieLang as ClSupportedLanguage;
     }
 
@@ -164,15 +157,12 @@ export class FlTranslateService {
       for (const lang of languages) {
         // if the language is available
         if (this.langIsSupported(lang)) {
-          this.currentLang.set(cookieLang as ClSupportedLanguage);
           return lang as ClSupportedLanguage;
         }
       }
     }
 
-    const defaultLang = this.getDefaultLanguage();
-    this.currentLang.set(defaultLang);
-    return defaultLang;
+    return this.getDefaultLanguage();
   }
 
   /**
