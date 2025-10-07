@@ -165,7 +165,7 @@ export class LmsLabService {
 
   ////////////////////////////////////// CONTAINER //////////////////////////////////////
 
-  public deleteContainer(containerName: string): Observable<boolean> {
+  public deleteContainer(containerName: string): Observable<void> {
     return this.apiService.put(`${this.containerRoute}/${containerName}/delete`, null);
   }
 
@@ -187,7 +187,7 @@ export class LmsLabService {
     return this.apiService.get(`${this.containerRoute}/${containerName}/logs`);
   }
 
-  stopContainer(containerName: string): Observable<boolean> {
+  stopContainer(containerName: string): Observable<void> {
     return this.apiService.put(`${this.containerRoute}/${containerName}/stop`, null);
   }
 

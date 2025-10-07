@@ -125,7 +125,7 @@ export class LmsLabManagerService extends LmlLabManagerService {
 
   ////////////////////////////////////// CONTAINER //////////////////////////////////////
 
-  deleteContainer(containerName: string): Observable<boolean> {
+  deleteContainer(containerName: string): Observable<void> {
     return this.labService.deleteContainer(containerName);
   }
 
@@ -151,7 +151,7 @@ export class LmsLabManagerService extends LmlLabManagerService {
     return this.labService.getLogs(containerName);
   }
 
-  stopContainer(containerName: string): Observable<boolean> {
+  stopContainer(containerName: string): Observable<void> {
     return this.labService.stopContainer(containerName);
   }
 

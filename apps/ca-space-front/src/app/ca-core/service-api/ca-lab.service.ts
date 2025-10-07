@@ -393,7 +393,7 @@ export class CaLabService {
 
   ////////////////////////////////////// CONTAINER //////////////////////////////////////
 
-  public deleteContainer(id: string, containerName: string): Observable<boolean> {
+  public deleteContainer(id: string, containerName: string): Observable<void> {
     return this.apiService.put(`${this.route}/${id}/lab-manager/containers/${containerName}/delete`, null);
   }
 
@@ -424,7 +424,7 @@ export class CaLabService {
     return this.apiService.get(`${this.route}/${id}/lab-manager/containers/${containerName}/logs`);
   }
 
-  public stopContainer(id: string, containerName: string): Observable<boolean> {
+  public stopContainer(id: string, containerName: string): Observable<void> {
     return this.apiService.put(`${this.route}/${id}/lab-manager/containers/${containerName}/stop`, null);
   }
 

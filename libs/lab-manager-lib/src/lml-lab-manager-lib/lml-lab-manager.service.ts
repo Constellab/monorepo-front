@@ -76,7 +76,7 @@ export abstract class LmlLabManagerService {
 
   ////////////////////////////////////// CONTAINER //////////////////////////////////////
 
-  abstract deleteContainer(containerName: string): Observable<boolean>;
+  abstract deleteContainer(containerName: string): Observable<void>;
 
   abstract downloadLogs(containerName: string): Observable<Blob>;
 
@@ -88,7 +88,7 @@ export abstract class LmlLabManagerService {
 
   abstract getLogs(containerName: string): Observable<LmlDockerLogs>;
 
-  abstract stopContainer(containerName: string): Observable<boolean>;
+  abstract stopContainer(containerName: string): Observable<void>;
 
   ////////////////////////////////////// ADMINER //////////////////////////////////////
 
