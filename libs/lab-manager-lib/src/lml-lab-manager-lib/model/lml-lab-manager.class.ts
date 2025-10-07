@@ -198,6 +198,7 @@ export interface LmlComposeInfo {
   isSubCompose: boolean;
   composeFilePath?: string;
   description?: string;
+  autoStart: boolean;
 }
 
 export interface LmlComposeList {

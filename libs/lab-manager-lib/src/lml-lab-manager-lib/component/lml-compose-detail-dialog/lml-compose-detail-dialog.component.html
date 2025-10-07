@@ -34,6 +34,11 @@
         {{ compose.composeFilePath }}
       </fl-key-value>
     }
+
+    <fl-key-value>
+      <fl-key>{{ 'lml.auto_start' | translate }}</fl-key>
+      {{ compose.autoStart | flYesNo }}
+    </fl-key-value>
   </div>
 
   <!-- Compose Action buttons -->
