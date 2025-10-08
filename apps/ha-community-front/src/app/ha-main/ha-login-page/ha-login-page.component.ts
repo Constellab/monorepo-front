@@ -11,6 +11,7 @@ import { HaFooterComponent } from '../../ha-core/ha-component/ha-footer/ha-foote
 import { HaHeaderComponent } from '../../ha-core/ha-component/ha-header/ha-header/ha-header.component';
 import { HaConstellabHelper } from '../../ha-core/ha-model/ha-config/ha-constellab.helper';
 import { HaAuthenticatedUserService } from '../../ha-core/ha-service/ha-authenticated-user.service';
+import { HaRouterService } from '../../ha-core/ha-service/ha-router.service';
 import { HaHomeSectionShineComponent } from '../../ha-home/ha-home-section-shine/ha-home-section-shine.component';
 
 @Component({
@@ -37,9 +38,9 @@ export class HaLoginPageComponent implements OnInit {
   redirectionRoute: string = FlLoginSavedRoute.getRoutePath();
 
   ngOnInit(): void {
-    this.authenticatedUserService.getUser().subscribe((user) => {
-      if (user) this.redirect();
-    });
+    if (this.authenticatedUserService.hasAuthorizationCookie()) {
+      this.router.navigate([HaRouterService.getHomeRoute()]);
+    }
 
     this.activatedRoute.queryParams.subscribe((params) => this.checkRouteQueryParams(params));
   }
