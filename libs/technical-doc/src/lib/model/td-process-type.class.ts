@@ -28,9 +28,9 @@ export interface TdIOSpec {
 
   short_description: string;
 
-  is_optional?: boolean;
+  optional?: boolean;
 
-  is_constant?: boolean;
+  constant?: boolean;
 
   sub_class?: boolean;
 }

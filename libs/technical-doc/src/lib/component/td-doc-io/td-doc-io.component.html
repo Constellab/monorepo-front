@@ -10,7 +10,7 @@
     </div>
 
     <div class="g-layout-row-wrap g-layout-start-start">
-      @if (ioSpec.is_optional) {
+      @if (ioSpec.optional) {
         <fl-chip
           class="g-primary-background chip"
           [matTooltip]="'td.optional_tooltip' | translate"
@@ -18,7 +18,7 @@
           {{ 'td.optional' | translate }}
         </fl-chip>
       }
-      @if (ioSpec.is_constant) {
+      @if (ioSpec.constant) {
         <fl-chip
           class="g-primary-background chip"
           [matTooltip]="'td.constant_tooltip' | translate"

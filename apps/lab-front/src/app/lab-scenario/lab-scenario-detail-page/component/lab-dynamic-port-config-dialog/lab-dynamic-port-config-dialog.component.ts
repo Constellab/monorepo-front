@@ -26,8 +26,8 @@ interface LabFormType {
   resourceType: FormControl<LiTypeEntity>;
   humanName: FormControl<string>;
   shortDescription: FormControl<string>;
-  isOptional: FormControl<boolean>;
-  isConstant: FormControl<boolean>;
+  optional: FormControl<boolean>;
+  constant: FormControl<boolean>;
   subClass: FormControl<boolean>;
 }
 
@@ -72,8 +72,8 @@ export class LabDynamicPortConfigDialogComponent {
       resourceType: new FormControl(LiTypeEntity.fromResourceType(data.spec.resource_types[0])),
       humanName: new FormControl(data.spec.human_name),
       shortDescription: new FormControl(data.spec.short_description),
-      isOptional: new FormControl(data.spec.is_optional),
-      isConstant: new FormControl(data.spec.is_constant),
+      optional: new FormControl(data.spec.optional),
+      constant: new FormControl(data.spec.constant),
       // force subClass to true if portType is output
       subClass: new FormControl(data.portType === 'output'),
     });
@@ -86,8 +86,8 @@ export class LabDynamicPortConfigDialogComponent {
         resource_types: [value.resourceType.toTypeRef()],
         human_name: value.humanName,
         short_description: value.shortDescription,
-        is_optional: value.isOptional,
-        is_constant: value.isConstant,
+        optional: value.optional,
+        constant: value.constant,
         sub_class: value.subClass,
       };
       this.dialogRef.close(spec);
