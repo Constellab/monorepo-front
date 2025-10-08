@@ -117,10 +117,15 @@ export class FlAddTagInputComponent implements OnInit, OnDestroy {
   }
 
   private loadPage(inputText: string, mode: FlTagMode): void {
-    const key = this.currentTagKey?.entity ? this.currentTagKey.entity.key : inputText;
     if (mode === 'value') {
+      const key = this.currentTagKey?.entity
+        ? this.currentTagKey.entity.key
+        : this.currentTagKey?.type == 'key' && this.currentTagKey.content
+          ? this.currentTagKey.content
+          : inputText;
       this.getDatasourceFirstPages({ key: key, value: inputText });
     } else {
+      const key = this.currentTagKey?.entity ? this.currentTagKey.entity.key : inputText;
       this.getDatasourceFirstPages({ key: key });
     }
   }
