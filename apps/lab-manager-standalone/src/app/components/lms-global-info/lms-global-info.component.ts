@@ -3,10 +3,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 import { LmlLabManagerState } from '@monorepo/lab-manager-lib';
 
+import { LmsLabService } from '../../service/lms-lab.service';
 import { LmsLabState } from '../../service/lms-lab.state';
 
 @Component({
@@ -25,6 +27,8 @@ import { LmsLabState } from '../../service/lms-lab.state';
 export class LmsGlobalInfoComponent {
   private state = inject(LmsLabState);
   private labManagerState = inject(LmlLabManagerState);
+  private actionService = inject(FlPortalActionsService);
+  private labService = inject(LmsLabService);
 
   labStatus = this.state.labManagerStatus;
   labIsRunning = this.state.labIsRunning;
@@ -42,5 +46,15 @@ export class LmsGlobalInfoComponent {
 
   startLab(): void {
     this.labManagerState.initLab('lms.start_lab');
+  }
+
+  stopLab(): void {
+    this.actionService
+      .addAction({
+        action: this.labService.stopLab(),
+        text: { text: 'lms.stop_lab', translateText: true },
+        type: 'stop-lab',
+      })
+      .subscribe(() => this.labManagerState.refreshStatus());
   }
 }

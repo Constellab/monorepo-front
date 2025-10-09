@@ -59,6 +59,10 @@ export class LmsLabService {
     return this.apiService.post(`${this.labRoute}/init`, null);
   }
 
+  stopLab(): Observable<void> {
+    return this.apiService.post(`${this.labRoute}/stop`, null);
+  }
+
   pullBiotaDb(options: LmlPullBiotaOptions): Observable<void> {
     return this.apiService.post(`${this.labRoute}/pull-biota-db`, options);
   }
