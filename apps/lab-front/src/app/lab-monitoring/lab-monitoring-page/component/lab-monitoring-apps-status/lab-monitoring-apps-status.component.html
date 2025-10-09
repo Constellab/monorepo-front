@@ -37,9 +37,7 @@
               </fl-key-value>
 
               @if (process.statusText) {
-                <div class="g-text-small g-text-light">
-                  {{ process.statusText }}
-                </div>
+                <div>{{ 'monitoring.app_status_details' | translate }}: {{ process.statusText }}</div>
               }
 
               <fl-key-value>
@@ -58,55 +56,7 @@
                         </mat-panel-title>
                       </mat-expansion-panel-header>
 
-                      <fl-key-value>
-                        <fl-key>{{ 'monitoring.app_type' | translate }}</fl-key>
-                        {{ runningApp.appType }}
-                      </fl-key-value>
-
-                      <fl-key-value>
-                        <fl-key>{{ 'monitoring.app_config_path' | translate }}</fl-key>
-                        {{ runningApp.appConfigPath }}
-                      </fl-key-value>
-
-                      @if (runningApp.sourceIds.length > 0) {
-                        <div>{{ 'monitoring.app_input_resources' | translate }}</div>
-
-                        <ul>
-                          @for (inputResource of runningApp.sourceIds; track inputResource) {
-                            <li>
-                              <a [routerLink]="inputResource | liDetailRoute: 'RESOURCE'" class="g-text-link">
-                                {{ inputResource }}
-                              </a>
-                            </li>
-                          }
-                        </ul>
-                      }
-
-                      <fl-key-value>
-                        <fl-key>{{ 'monitoring.app_env_type' | translate }}</fl-key>
-                        {{ runningApp.envType }}
-                      </fl-key-value>
-
-                      @if (runningApp.envFilePath) {
-                        <fl-key-value>
-                          <fl-key>{{ 'monitoring.app_env_file_path' | translate }}</fl-key>
-                          {{ runningApp.envFilePath }}
-                        </fl-key-value>
-                      }
-
-                      @if (runningApp.envFileContent) {
-                        <fl-key-value>
-                          <fl-key>{{ 'monitoring.app_env_file_content' | translate }}</fl-key>
-                          <pre class="env-content">{{ runningApp.envFileContent }}</pre>
-                        </fl-key-value>
-                      }
-
-                      <a
-                        mat-stroked-button
-                        [routerLink]="runningApp.appResourceId | liDetailRoute: 'RESOURCE'"
-                        class="g-button-small app-link">
-                        {{ 'monitoring.app_view_app' | translate }}
-                      </a>
+                      <lab-monitoring-app-detail [appInstance]="runningApp"></lab-monitoring-app-detail>
                     </mat-expansion-panel>
                   }
                 </mat-accordion>

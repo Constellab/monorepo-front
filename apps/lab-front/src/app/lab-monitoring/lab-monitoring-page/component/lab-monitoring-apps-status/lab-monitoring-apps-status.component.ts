@@ -8,7 +8,6 @@ import {
   MatExpansionPanelTitle,
 } from '@angular/material/expansion';
 import { MatIcon } from '@angular/material/icon';
-import { RouterLink } from '@angular/router';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
 import {
@@ -19,9 +18,11 @@ import {
 import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { LiAppService, LiAppsStatus, LiDetailRoutePipe } from '@monorepo/lab-lib/li-core';
+import { LiAppService, LiAppsStatus } from '@monorepo/lab-lib/li-core';
 import { TranslatePipe } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
+
+import { LabMonitoringAppDetailComponent } from '../lab-monitoring-app-detail/lab-monitoring-app-detail.component';
 
 /**
  * Component to show information about the apps status
@@ -42,11 +43,10 @@ import { Observable } from 'rxjs';
     MatExpansionPanelHeader,
     MatExpansionPanelTitle,
     MatAnchor,
-    RouterLink,
     FlCoreComponentModule,
     AsyncPipe,
     TranslatePipe,
-    LiDetailRoutePipe,
+    LabMonitoringAppDetailComponent,
   ],
 })
 export class LabMonitoringAppsStatusComponent {
