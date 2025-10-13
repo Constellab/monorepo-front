@@ -58,4 +58,14 @@ export class LiTagDetailPortalComponent implements OnInit {
       .getTagValueByKeyAndValue(this.input.tagKey, this.input.tagValue)
       .subscribe((tagValueModel) => (this.tagValueModel = tagValueModel));
   }
+
+  getAdditionalInfoString(value: any): string {
+    if (value === null || value === undefined) {
+      return '';
+    }
+    if (typeof value === 'object') {
+      return JSON.stringify(value, null, 2);
+    }
+    return value.toString();
+  }
 }

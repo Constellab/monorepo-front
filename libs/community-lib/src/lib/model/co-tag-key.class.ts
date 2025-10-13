@@ -167,5 +167,6 @@ export const coAdditionalInfoInfosDict: TdCompleteEditParamSpecDict = {
     int: coAdditionalInfoInfoDict('int', 0),
     float: coAdditionalInfoInfoDict('float', 0.0),
     bool: coAdditionalInfoInfoDict('bool', false),
+    dict: coAdditionalInfoInfoDict('dict', {}),
   },
 };

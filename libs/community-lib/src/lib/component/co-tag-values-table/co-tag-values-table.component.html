@@ -43,9 +43,7 @@
             @for (additionalInfo of tagValue.additionalInfos | flObjectKeys; track additionalInfo) {
               <fl-key-value>
                 <fl-key>{{ additionalInfo }}</fl-key>
-                {{
-                  tagValue.additionalInfos[additionalInfo] ? tagValue.additionalInfos[additionalInfo] : 'null'
-                }}
+                {{ getAdditionalInfoString(tagValue.additionalInfos[additionalInfo]) }}
               </fl-key-value>
             }
           }

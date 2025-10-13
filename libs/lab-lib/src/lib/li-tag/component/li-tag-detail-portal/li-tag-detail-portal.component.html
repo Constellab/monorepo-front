@@ -46,7 +46,7 @@
                 {{ (tagKeyModel.additionalInfosSpecs[spec].optional ? 'td.yes' : 'td.no') | translate }}
               </td>
               @if (tagValueModel && tagValueModel.additionalInfos && tagValueModel.additionalInfos[spec]) {
-                <td class="spec-value">{{ tagValueModel.additionalInfos[spec] }}</td>
+                <td class="spec-value">{{ getAdditionalInfoString(tagValueModel.additionalInfos[spec]) }}</td>
               } @else {
                 <td class="spec-value">None</td>
               }

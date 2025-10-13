@@ -94,4 +94,14 @@ export class CoTagValuesTableComponent implements OnInit {
   emitDeleteTagValue(tagValue: CoTagValue): void {
     this.deleteTagValue.emit(tagValue);
   }
+
+  getAdditionalInfoString(value: any): string {
+    if (value === null || value === undefined) {
+      return '';
+    }
+    if (typeof value === 'object') {
+      return JSON.stringify(value, null, 2);
+    }
+    return value.toString();
+  }
 }
