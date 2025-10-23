@@ -1,4 +1,4 @@
-import { inject,Pipe, PipeTransform } from '@angular/core';
+import { inject, Pipe, PipeTransform } from '@angular/core';
 
 import { LmlBrickService } from '../lml-brick.service';
 
@@ -13,6 +13,6 @@ export class LmlCommunityBrickImagePipe implements PipeTransform {
     if (imageLink) {
       return this.brickService.getImageUrl(imageLink);
     }
-    return 'assets/fl-logo/logo.png';
+    return 'assets/fl-logo/constellab-logo.svg';
   }
 }

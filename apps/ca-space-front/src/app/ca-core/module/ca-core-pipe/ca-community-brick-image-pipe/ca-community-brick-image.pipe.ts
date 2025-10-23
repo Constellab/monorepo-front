@@ -1,4 +1,4 @@
-import { inject,Pipe, PipeTransform } from '@angular/core';
+import { inject, Pipe, PipeTransform } from '@angular/core';
 
 import { CaCommunityBrickService } from '../../../service-api/ca-community-brick.service';
 
@@ -10,6 +10,6 @@ export class CaCommunityBrickImagePipe implements PipeTransform {
     if (imageLink) {
       return this.communityBrickService.getImageUrl(imageLink);
     }
-    return 'assets/fl-logo/logo.png';
+    return 'assets/fl-logo/constellab-logo.svg';
   }
 }

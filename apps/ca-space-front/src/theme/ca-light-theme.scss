@@ -6,8 +6,9 @@
 
 .g-dashboard-background {
   background-color: hsla(359, 0%, 100%, 1);
-  background-image: radial-gradient(at 91% 22%, hsla(249, 90%, 63%, 1) 0px, transparent 50%),
-    radial-gradient(at 74% 70%, hsla(180, 39%, 47%, 1) 0px, transparent 50%),
-    radial-gradient(at 83% 0%, hsla(250, 90%, 63%, 1) 0px, transparent 50%),
-    radial-gradient(at 99% 98%, hsla(331, 89%, 77%, 1) 0px, transparent 50%);
+  background-image:
+    radial-gradient(at 91% 22%, #c5bbee 0px, transparent 50%),
+    radial-gradient(at 74% 70%, #25b49c 0px, transparent 50%),
+    radial-gradient(at 83% 0%, #c5bbee 0px, transparent 50%),
+    radial-gradient(at 99% 98%, #ff93d0 0px, transparent 50%);
 }

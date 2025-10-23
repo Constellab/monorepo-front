@@ -9,16 +9,16 @@
 @mixin _color_overrides() {
   // set the color of the button and icon when using a theme
   @include mat.menu-overrides(
-      (
-        item-label-text-color: var(--mat-sys-primary),
-        item-icon-color: var(--mat-sys-primary),
-      )
+    (
+      item-label-text-color: var(--mat-sys-primary),
+      item-icon-color: var(--mat-sys-primary),
+    )
   );
 
   @include mat.icon-button-overrides(
-      (
-        icon-color: var(--mat-sys-primary),
-      )
+    (
+      icon-color: var(--mat-sys-primary),
+    )
   );
 
   // set the color of the mat-button and mat-stroked because by default
@@ -49,10 +49,10 @@
     //);
 
     @include mat.theme-overrides(
-        (
-          primary: #6c4ef6,
-          on-primary: #ffffff,
-        )
+      (
+        primary: #c5bbee,
+        on-primary: #392a75,
+      )
     );
     @include _color_overrides();
   }
@@ -70,10 +70,10 @@
     //);
 
     @include mat.theme-overrides(
-        (
-          primary: #f991c3,
-          on-primary: #222222,
-        )
+      (
+        primary: #ff93d0,
+        on-primary: #790f4b,
+      )
     );
     @include _color_overrides();
   }
@@ -101,18 +101,18 @@
 
     color-scheme: $theme-type;
     @include mat.theme(
-        (
-          color: (
-            primary: theme.$primary-palette,
-            tertiary: theme.$accent-palette,
-            theme-type: $theme-type,
-          ),
-          typography: (
-            plain-family: Poppins,
-            brand-family: Poppins,
-          ),
-          density: 0,
-        )
+      (
+        color: (
+          primary: theme.$primary-palette,
+          tertiary: theme.$accent-palette,
+          theme-type: $theme-type,
+        ),
+        typography: (
+          plain-family: Plus Jakarta Sans,
+          brand-family: Plus Jakarta Sans,
+        ),
+        density: 0,
+      )
     );
 
     // use to override global system variable
@@ -127,12 +127,12 @@
         background: var(--mat-sys-surface),
         // override the main colors
         // we use the same color for light and dark theme
-        primary: #49a8a9,
-        on-primary: #222222,
-        tertiary: #6c4ef6,
-        on-tertiary: #ffffff,
-        error: #f991c3,
-        on-error: #222222
+        primary: #25b49c,
+        on-primary: #041210,
+        tertiary: #c5bbee,
+        on-tertiary: #392a75,
+        error: #ff93d0,
+        on-error: #790f4b
       )
     );
 
@@ -212,25 +212,25 @@
 
     .g-primary-icon {
       @include mat.icon-overrides(
-          (
-            color: var(--mat-sys-primary),
-          )
+        (
+          color: var(--mat-sys-primary),
+        )
       );
     }
 
     .g-accent-icon {
       @include mat.icon-overrides(
-          (
-            color: var(--mat-sys-tertiary),
-          )
+        (
+          color: var(--mat-sys-tertiary),
+        )
       );
     }
 
     .g-warn-icon {
       @include mat.icon-overrides(
-          (
-            color: var(--mat-sys-error),
-          )
+        (
+          color: var(--mat-sys-error),
+        )
       );
     }
 

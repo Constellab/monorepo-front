@@ -22,15 +22,15 @@ export interface FlThemeDetail {
  * Light theme detail
  */
 export const flThemeDetailLight: FlThemeDetail = {
-  primary: '#49A8A9',
-  accent: '#6C4EF6',
-  warn: '#F991C3',
+  primary: '#25b49c',
+  accent: '#c5bbee',
+  warn: '#ff93d0',
   background: '#F9F8F8',
-  foreground: '#010202',
+  foreground: '#041210',
 
-  primaryContrast: '#010202',
-  accentContrast: '#E5E5E5',
-  warnContrast: '#E5E5E5',
+  primaryContrast: '#041210',
+  accentContrast: '#392a75',
+  warnContrast: '#790f4b',
 
   cardBackground: '#EAEAEA',
   hover: '#D2D2D2',
@@ -40,15 +40,15 @@ export const flThemeDetailLight: FlThemeDetail = {
  * Dark theme detail
  */
 export const flThemeDetailDark: FlThemeDetail = {
-  primary: '#49A8A9',
-  accent: '#6C4EF6',
-  warn: '#F991C3',
+  primary: '#25b49c',
+  accent: '#c5bbee',
+  warn: '#ff93d0',
   background: '#1B1919',
   foreground: '#E8E8E8',
 
-  primaryContrast: '#010202',
-  accentContrast: '#E8E8E8',
-  warnContrast: '#010202',
+  primaryContrast: '#041210',
+  accentContrast: '#392a75',
+  warnContrast: '#790f4b',
 
   cardBackground: '#2B2D2E',
   hover: '#3A3D3D',
