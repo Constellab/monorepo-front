@@ -5,16 +5,20 @@ import { TeRichText, TeRichTextDTO, TeTextEditorModule } from '@monorepo/text-ed
 import { Observable, of } from 'rxjs';
 import { Streamlit } from 'streamlit-component-lib';
 
-import { DcComponentData, DcDynamicComponent } from '../../../core/model/dc-dynamic-component.class';
+import {
+  DcAuthenticationInfo,
+  DcDynamicComponent,
+  dcParseJsonInput,
+} from '../../../core/model/dc-dynamic-component.class';
 import { DcCoreMainDirective } from '../../dc-core/directive/dc-core-main-prod/dc-core-main.directive';
 import { DcTextEditorConfig } from './dc-text-editor.config';
 
 export interface DcRichTextConfig {
   placeholder: string;
-  initial_value: TeRichTextDTO;
+  initialValue: TeRichTextDTO;
   disabled: boolean;
-  min_height: string;
-  max_height: string;
+  minHeight: string;
+  maxHeight: string;
   // config: {
   //   api_url: string;
   //   image_folder: string;
@@ -33,7 +37,8 @@ export interface DcRichTextConfig {
   },
 })
 export class DcTextEditorComponent implements OnInit, DcDynamicComponent<DcRichTextConfig, TeRichTextDTO> {
-  @Input() inputData: DcComponentData<DcRichTextConfig>;
+  @Input({ transform: dcParseJsonInput }) inputData: DcRichTextConfig;
+  @Input() authenticationInfo?: DcAuthenticationInfo;
   @Output() outputEvent = new EventEmitter<TeRichTextDTO>();
 
   @HostBinding('style.minHeight') minHeight: string;
@@ -53,17 +58,18 @@ export class DcTextEditorComponent implements OnInit, DcDynamicComponent<DcRichT
   };
 
   ngOnInit(): void {
-    this.mainDirective.init(this.inputData);
-    this.init(this.inputData.component_data);
+    console.log('DcProcessConfigComponent ngOnInit', this.inputData, this.authenticationInfo);
+    this.mainDirective.init(this.authenticationInfo);
+    this.init(this.inputData);
   }
 
   private init(data: DcRichTextConfig): void {
     this.placeholder.set(data.placeholder);
 
-    if (data.initial_value) {
-      const richText = new TeRichText(data.initial_value);
+    if (data.initialValue) {
+      const richText = new TeRichText(data.initialValue);
       this.formCtrl.setValue(richText, { emitEvent: false });
-      Streamlit.setComponentValue(data.initial_value);
+      Streamlit.setComponentValue(data.initialValue);
     }
 
     this.textEditorConfig = new DcTextEditorConfig();
@@ -76,12 +82,12 @@ export class DcTextEditorComponent implements OnInit, DcDynamicComponent<DcRichT
       }
     }
 
-    if (data.min_height) {
-      this.minHeight = data.min_height;
+    if (data.minHeight) {
+      this.minHeight = data.minHeight;
     }
 
-    if (data.max_height) {
-      this.maxHeight = data.max_height;
+    if (data.maxHeight) {
+      this.maxHeight = data.maxHeight;
     }
   }
 }

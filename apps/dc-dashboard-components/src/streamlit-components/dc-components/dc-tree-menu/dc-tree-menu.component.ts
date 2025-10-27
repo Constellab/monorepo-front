@@ -6,7 +6,7 @@ import { MatTree, MatTreeModule } from '@angular/material/tree';
 import { FlDatasourceTree, FlTree } from '@monorepo/front-core-lib/fl-core';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 
-import { DcComponentData, DcDynamicComponent } from '../../../core/model/dc-dynamic-component.class';
+import { DcDynamicComponent } from '../../../core/model/dc-dynamic-component.class';
 
 interface DcTreeItem {
   id: string;
@@ -32,7 +32,7 @@ export interface DcTreeItemOutput {
   styleUrl: './dc-tree-menu.component.scss',
 })
 export class DcTreeMenuComponent implements DcDynamicComponent<DcTreeConfig, DcTreeItemOutput> {
-  inputData = input.required<DcComponentData<DcTreeConfig>>();
+  inputData = input.required<DcTreeConfig>();
   @Output() outputEvent: EventEmitter<DcTreeItemOutput> = new EventEmitter();
 
   tree: FlDatasourceTree<DcTreeItem> = new FlDatasourceTree<DcTreeItem>();
@@ -47,17 +47,14 @@ export class DcTreeMenuComponent implements DcDynamicComponent<DcTreeConfig, DcT
     effect(() => {
       if (this.initialized) {
         this.tree.refreshNodeObjectsAndChildren(
-          this.inputData().component_data.tree_items,
+          this.inputData().tree_items,
           (object: DcTreeItem) => object.children
         );
-        this.onNodeSelectedByKey(this.inputData().component_data.selected_item);
+        this.onNodeSelectedByKey(this.inputData().selected_item);
       } else {
-        this.tree.setData(
-          this.inputData().component_data.tree_items,
-          (object: DcTreeItem) => object.children
-        );
+        this.tree.setData(this.inputData().tree_items, (object: DcTreeItem) => object.children);
       }
-      setTimeout(() => this.onNodeSelectedByKey(this.inputData().component_data.selected_item), 0);
+      setTimeout(() => this.onNodeSelectedByKey(this.inputData().selected_item), 0);
 
       this.initialized = true;
     });

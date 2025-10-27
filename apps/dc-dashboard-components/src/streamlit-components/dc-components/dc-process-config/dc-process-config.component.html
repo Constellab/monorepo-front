@@ -14,13 +14,13 @@
     [formGroup]="formGp"
     (ngSubmit)="submit()"
     class="form g-layout-col"
-    [ngClass]="inputData.component_data.is_dialog ? 'form-min-height' : ''">
+    [ngClass]="inputData.is_dialog ? 'form-min-height' : ''">
     <td-configure-specs-form
       class="g-form-field-compact g-flex-auto"
       [formGp]="formGp"
       [configData]="configData"></td-configure-specs-form>
 
-    @if (inputData.component_data.is_dialog) {
+    @if (inputData.is_dialog) {
       <button mat-flat-button type="submit" class="g-centered-forced primary save-button">
         {{ 'dc.save' | translate }}
       </button>

@@ -1,0 +1,44 @@
+name: Build dashboard components
+
+on:
+  push:
+    tags:
+      - "dc_*"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        app_name: [iframe-message, streamlit-components, reflex-components]
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build ${{ matrix.app_name }}
+        run: npm run dc-${{ matrix.app_name }}:build-prod
+
+      - name: Create version.json file
+        run: echo '{"version":"${{ github.ref_name }}" }' > dist/apps/dc-dashboard-components/${{ matrix.app_name }}/browser/version.json
+
+      - name: Zip the build artifacts
+        run: cd dist/apps/dc-dashboard-components/${{ matrix.app_name }}/browser && zip -r ../../../../../${{ matrix.app_name }}.zip ./*
+
+      - name: Release ${{ matrix.app_name }}
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ${{ matrix.app_name }}.zip
+          repository: Constellab/dashboard-components
+          tag_name: ${{ github.ref_name }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.RELEASE_DASHBOARD_COMPONENTS }}

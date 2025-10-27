@@ -17,7 +17,7 @@ import {
 import { Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 
-import { DcComponentData, DcDynamicComponent } from '../../../core/model/dc-dynamic-component.class';
+import { DcAuthenticationInfo, DcDynamicComponent } from '../../../core/model/dc-dynamic-component.class';
 import { DcCoreMainDirective } from '../../dc-core/directive/dc-core-main-prod/dc-core-main.directive';
 
 export interface DcProcessConfigConfig {
@@ -52,7 +52,8 @@ export interface DcProcessConfigOutput {
 export class DcProcessConfigComponent
 implements OnInit, DcDynamicComponent<DcProcessConfigConfig, TdParamSpecsValues>, OnDestroy
 {
-  @Input() inputData: DcComponentData<DcProcessConfigConfig>;
+  @Input() inputData: DcProcessConfigConfig;
+  @Input() authenticationInfo?: DcAuthenticationInfo;
   @Output() outputEvent = new EventEmitter<DcProcessConfigOutput>();
 
   processDescription: string;
@@ -67,8 +68,8 @@ implements OnInit, DcDynamicComponent<DcProcessConfigConfig, TdParamSpecsValues>
   private mainDirective = inject(DcCoreMainDirective);
 
   ngOnInit(): void {
-    this.mainDirective.init(this.inputData);
-    this.init(this.inputData.component_data);
+    this.mainDirective.init(this.authenticationInfo);
+    this.init(this.inputData);
   }
 
   private init(data: DcProcessConfigConfig): void {

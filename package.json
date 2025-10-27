@@ -57,7 +57,8 @@
     "dc-streamlit-components:serve-iframe": "nx run dc-dashboard-components:serve-streamlit-components:development-iframe -- --no-hmr --port=4201",
     "dc-streamlit-components:build-prod": "nx run dc-dashboard-components:build-streamlit-components:production --base-href='.'",
     "dc-iframe-message:serve": "nx run dc-dashboard-components:serve-iframe-message:development -- --no-hmr --port=4201",
-    "dc-iframe-message:build-prod": "nx run dc-dashboard-components:build-iframe-message:production --base-href='.'"
+    "dc-iframe-message:build-prod": "nx run dc-dashboard-components:build-iframe-message:production --base-href='.'",
+    "dc-reflex-components:build-prod": "nx run dc-dashboard-components:build-reflex-components:production --base-href='.'"
   },
   "private": true,
   "dependencies": {

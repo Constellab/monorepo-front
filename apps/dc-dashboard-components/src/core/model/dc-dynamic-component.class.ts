@@ -52,7 +52,8 @@ export interface DcComponentData<T = any> {
  * Interface for dynamic components
  */
 export interface DcDynamicComponent<INPUT = any, OUTPUT = any> {
-  inputData: DcComponentData<INPUT> | Signal<DcComponentData<INPUT>>;
+  inputData: INPUT | Signal<INPUT>;
+  authenticationInfo?: DcAuthenticationInfo | Signal<DcAuthenticationInfo>;
   outputEvent: EventEmitter<OUTPUT>;
 }
 
@@ -62,4 +63,22 @@ export interface DcDynamicComponent<INPUT = any, OUTPUT = any> {
  */
 export interface DcDynamicComponentEvent {
   setComponentValue(jsonData: any): void;
+}
+
+/**
+ * Parses a JSON string input into an object. This is used when the
+ * component is converted to an custom element and inputs are passed as strings.
+ * @param value The input value to parse.
+ * @returns The parsed object or the original value if not a string.
+ */
+export function dcParseJsonInput(value: string | any): any {
+  if (typeof value === 'string') {
+    try {
+      return JSON.parse(value);
+    } catch (e) {
+      console.error('Failed to parse inputData as JSON:', e);
+      throw e;
+    }
+  }
+  return value;
 }

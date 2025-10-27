@@ -8,7 +8,7 @@ import {
 } from '@monorepo/front-core-lib/fl-menu-dynamic';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 
-import { DcComponentData, DcDynamicComponent } from '../../../core/model/dc-dynamic-component.class';
+import { DcDynamicComponent } from '../../../core/model/dc-dynamic-component.class';
 
 interface DcMenuButtonItem {
   key: string;
@@ -44,13 +44,11 @@ interface DcMenuItemOutput {
 export class DcMenuComponent implements DcDynamicComponent<DcMenuConfig, DcMenuItemOutput> {
   private dynamicMenuService = inject(FlMenuDynamicService);
 
-  @Input() inputData: DcComponentData<DcMenuConfig>;
+  @Input() inputData: DcMenuConfig;
   @Output() outputEvent: EventEmitter<DcMenuItemOutput> = new EventEmitter();
 
   openMenu(event: MouseEvent): void {
-    const menuItems = this.inputData.component_data.menu_items.map((item) =>
-      this.dcMenuItemToDynamicMenu(item)
-    );
+    const menuItems = this.inputData.menu_items.map((item) => this.dcMenuItemToDynamicMenu(item));
     this.dynamicMenuService.openDynamicMenuFromMouseEvent(menuItems, event);
   }
 

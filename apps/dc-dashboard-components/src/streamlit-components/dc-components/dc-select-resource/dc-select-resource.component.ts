@@ -7,7 +7,7 @@ import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { LiResource, LiResourceSearchFields } from '@monorepo/lab-lib/li-core';
 import { LiSelectResourceComponent } from '@monorepo/lab-lib/li-resource';
 
-import { DcComponentData, DcDynamicComponent } from '../../../core/model/dc-dynamic-component.class';
+import { DcAuthenticationInfo, DcDynamicComponent } from '../../../core/model/dc-dynamic-component.class';
 import { DcCoreMainDirective } from '../../dc-core/directive/dc-core-main-prod/dc-core-main.directive';
 
 export interface DcSelectResourceInput {
@@ -32,7 +32,8 @@ export interface DcSelectResourceOutput {
 export class DcSelectResourceComponent
 implements OnInit, DcDynamicComponent<DcSelectResourceInput, DcSelectResourceOutput>
 {
-  @Input() inputData: DcComponentData<DcSelectResourceInput>;
+  @Input() inputData: DcSelectResourceInput;
+  @Input() authenticationInfo?: DcAuthenticationInfo;
   @Output() outputEvent = new EventEmitter<DcSelectResourceOutput>();
 
   private mainDirective = inject(DcCoreMainDirective);
@@ -43,23 +44,20 @@ implements OnInit, DcDynamicComponent<DcSelectResourceInput, DcSelectResourceOut
   columnTagsFilterKeys: string[];
 
   ngOnInit(): void {
-    this.mainDirective.init(this.inputData);
-    if (this.inputData.component_data.default_resource) {
-      this.resource = ClCoreJsonConvert.deserializeObject(
-        this.inputData.component_data.default_resource,
-        LiResource
-      );
+    this.mainDirective.init(this.authenticationInfo);
+    if (this.inputData.default_resource) {
+      this.resource = ClCoreJsonConvert.deserializeObject(this.inputData.default_resource, LiResource);
     }
-    if (this.inputData.component_data.default_filters) {
+    if (this.inputData.default_filters) {
       this.defaultFilters = ClCoreJsonConvert.deserializeObject(
-        this.inputData.component_data.default_filters,
+        this.inputData.default_filters,
         LiResourceSearchFields
       );
     }
-    if (this.inputData.component_data.column_tags_filter_keys) {
-      this.columnTagsFilterKeys = this.inputData.component_data.column_tags_filter_keys;
+    if (this.inputData.column_tags_filter_keys) {
+      this.columnTagsFilterKeys = this.inputData.column_tags_filter_keys;
     }
-    this.placeholder = { text: this.inputData.component_data.placeholder, translateText: false };
+    this.placeholder = { text: this.inputData.placeholder, translateText: false };
   }
 
   setAndEmitResource(resource: LiResource): void {

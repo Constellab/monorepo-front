@@ -18,10 +18,6 @@ export class LabHttpInterceptorService implements HttpInterceptor {
    */
   private linkPublicAuth: LiShareLinkPublicAuth | null = null;
 
-  constructor() {
-    console.log('LabPublicInterceptorService initialized');
-  }
-
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // add lang to the headers
 

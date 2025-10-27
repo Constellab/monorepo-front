@@ -19,7 +19,10 @@ export class DcLoadedComponent {
 
   public setInput(data: DcComponentData): void {
     // set the input data to the component
-    this.componentRef.setInput('inputData', data);
+    this.componentRef.setInput('inputData', data.component_data);
+    if (data.authentication_info) {
+      this.componentRef.setInput('authenticationInfo', data.authentication_info);
+    }
   }
 
   public listenToComponentOutput(): void {

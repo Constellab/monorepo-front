@@ -80,7 +80,15 @@
               "maximumError": "100kb"
             }
           ],
-          "outputHashing": "all"
+          "outputHashing": "all",
+          "optimization": {
+            "scripts": true,
+            "styles": {
+              "minify": true,
+              "inlineCritical": false
+            },
+            "fonts": true
+          }
         },
         "development": {
           "optimization": false,
@@ -99,6 +107,83 @@
           "extractLicenses": false,
           "sourceMap": true,
           "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "build-reflex-components": {
+      "executor": "@angular-devkit/build-angular:application",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/dc-dashboard-components/reflex-components",
+        "index": "apps/dc-dashboard-components/src/index.html",
+        "browser": "apps/dc-dashboard-components/src/streamlit-components/dc-streamlit-components-main-reflex.ts",
+        "polyfills": ["zone.js", "reflect-metadata"],
+        "tsConfig": "apps/dc-dashboard-components/src/streamlit-components/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          "apps/dc-dashboard-components/src/assets",
+          {
+            "glob": "**/*",
+            "input": "libs/front-core-lib/src/assets/mat-icons",
+            "output": "assets/fl-mat-icons"
+          },
+          {
+            "glob": "**/*",
+            "input": "libs/front-core-lib/src/assets/logo",
+            "output": "assets/fl-logo"
+          },
+          {
+            "glob": "**/*",
+            "input": "libs/front-core-lib/src/assets/font",
+            "output": "assets/fl-font"
+          },
+          {
+            "glob": "**/*",
+            "input": "libs/lab-lib/src/assets/i18n",
+            "output": "assets/i18n"
+          }
+        ],
+        "externalDependencies": ["assets/fl-font/*"],
+        "styles": [
+          "apps/dc-dashboard-components/src/streamlit-components/dc-streamlit-components-styles.scss",
+          {
+            "input": "apps/dc-dashboard-components/src/streamlit-components/dc-theme/dc-streamlit-components-light-theme.scss",
+            "bundleName": "light-theme",
+            "inject": false
+          },
+          {
+            "input": "apps/dc-dashboard-components/src/streamlit-components/dc-theme/dc-streamlit-components-dark-theme.scss",
+            "bundleName": "dark-theme",
+            "inject": false
+          }
+        ],
+        "scripts": [],
+        "allowedCommonJsDependencies": ["plotly.js-strict-dist", "hoist-non-react-statics", "react"]
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "2mb",
+              "maximumError": "50mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "6kb",
+              "maximumError": "100kb"
+            }
+          ],
+          "outputHashing": "all",
+          "optimization": {
+            "scripts": true,
+            "styles": {
+              "minify": true,
+              "inlineCritical": false
+            },
+            "fonts": true
+          }
         }
       },
       "defaultConfiguration": "production"
@@ -170,6 +255,92 @@
       },
       "defaultConfiguration": "development",
       "continuous": true
+    },
+    "build-reflex": {
+      "executor": "@angular-devkit/build-angular:browser-esbuild",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/dc-dashboard-components/reflex",
+        "index": {
+          "input": "apps/dc-dashboard-components/src/index.html",
+          "output": "index.html"
+        },
+        "main": "apps/dc-dashboard-components/src/streamlit-components/dc-streamlit-components-main-reflex.ts",
+        "polyfills": ["zone.js", "reflect-metadata"],
+        "tsConfig": "apps/dc-dashboard-components/src/streamlit-components/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          "apps/dc-dashboard-components/src/assets",
+          {
+            "glob": "**/*",
+            "input": "libs/front-core-lib/src/assets/mat-icons",
+            "output": "assets/fl-mat-icons"
+          },
+          {
+            "glob": "**/*",
+            "input": "libs/front-core-lib/src/assets/logo",
+            "output": "assets/fl-logo"
+          },
+          {
+            "glob": "**/*",
+            "input": "libs/front-core-lib/src/assets/font",
+            "output": "assets/fl-font"
+          },
+          {
+            "glob": "**/*",
+            "input": "libs/lab-lib/src/assets/i18n",
+            "output": "assets/i18n"
+          }
+        ],
+        "styles": [
+          "apps/dc-dashboard-components/src/streamlit-components/dc-streamlit-components-styles.scss"
+        ],
+        "scripts": [],
+        "externalDependencies": ["assets/fl-font/*"]
+      },
+      "configurations": {
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/dc-dashboard-components/src/streamlit-components/dc-environment/dc-environment.ts",
+              "with": "apps/dc-dashboard-components/src/streamlit-components/dc-environment/dc-environment.prod.ts"
+            }
+          ],
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "10mb",
+              "maximumError": "50mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "100kb",
+              "maximumError": "500kb"
+            }
+          ],
+          "outputHashing": "none",
+          "optimization": {
+            "scripts": true,
+            "styles": {
+              "minify": true,
+              "inlineCritical": false
+            },
+            "fonts": false
+          },
+          "sourceMap": false,
+          "extractLicenses": false,
+          "vendorChunk": false,
+          "buildOptimizer": true
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "vendorChunk": false,
+          "buildOptimizer": false
+        }
+      },
+      "defaultConfiguration": "production"
     }
   }
 }
