@@ -5,7 +5,7 @@ Special app to build component for streamlit.
 ## Apps
 
 - `dc-components`: Library of components available for streamlit or reflex.
-- `dc-iframe-message` : A small app that a streamlit component run in the Iframe. It sends messages to the parent window dc_streamlit_components which generate the actual component.
+- `dc-streamlit-iframe-message` : A small app that a streamlit component run in the Iframe. It sends messages to the parent window dc_streamlit_components which generate the actual component.
 
 ## Dev a component
 

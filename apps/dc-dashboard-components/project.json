@@ -60,6 +60,7 @@
         "streamlit-production": {
           "tsConfig": "apps/dc-dashboard-components/src/dashboard-components/tsconfig.streamlit.prod.json",
           "browser": "apps/dc-dashboard-components/src/dashboard-components/dc-main-streamlit-prod.ts",
+          "outputPath": "dist/apps/dc-dashboard-components/streamlit-components",
           "fileReplacements": [
             {
               "replace": "apps/dc-dashboard-components/src/dashboard-components/dc-environment/dc-environment.ts",
@@ -104,7 +105,8 @@
         },
         "reflex-prod": {
           "tsConfig": "apps/dc-dashboard-components/src/dashboard-components/tsconfig.reflex.json",
-          "browser": "apps/dc-dashboard-components/src/dashboard-components/dc-main-reflex.ts"
+          "browser": "apps/dc-dashboard-components/src/dashboard-components/dc-main-reflex.ts",
+          "outputPath": "dist/apps/dc-dashboard-components/reflex-components"
         }
       },
       "defaultConfiguration": "production"
@@ -122,15 +124,15 @@
       "defaultConfiguration": "development",
       "continuous": true
     },
-    "build-iframe-message": {
+    "build-streamlit-iframe-message": {
       "executor": "@angular-devkit/build-angular:application",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/apps/dc-dashboard-components/iframe-message",
-        "index": "apps/dc-dashboard-components/src/iframe-message/index.html",
-        "browser": "apps/dc-dashboard-components/src/iframe-message/dc-main-iframe-message.ts",
+        "outputPath": "dist/apps/dc-dashboard-components/streamlit-iframe-message",
+        "index": "apps/dc-dashboard-components/src/streamlit-iframe-message/index.html",
+        "browser": "apps/dc-dashboard-components/src/streamlit-iframe-message/dc-main-iframe-message.ts",
         "polyfills": ["zone.js"],
-        "tsConfig": "apps/dc-dashboard-components/src/iframe-message/tsconfig.app.json",
+        "tsConfig": "apps/dc-dashboard-components/src/streamlit-iframe-message/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [],
         "scripts": [],
@@ -161,14 +163,14 @@
       },
       "defaultConfiguration": "production"
     },
-    "serve-iframe-message": {
+    "serve-streamlit-iframe-message": {
       "executor": "@angular-devkit/build-angular:dev-server",
       "configurations": {
         "production": {
-          "buildTarget": "dc-dashboard-components:build-iframe-message:production"
+          "buildTarget": "dc-dashboard-components:build-streamlit-iframe-message:production"
         },
         "development": {
-          "buildTarget": "dc-dashboard-components:build-iframe-message:development"
+          "buildTarget": "dc-dashboard-components:build-streamlit-iframe-message:development"
         }
       },
       "defaultConfiguration": "development",

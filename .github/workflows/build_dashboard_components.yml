@@ -10,7 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        app_name: [iframe-message, streamlit-components, reflex-components]
+        app_name:
+          [streamlit-iframe-message, streamlit-components, reflex-components]
 
     steps:
       - name: Check out the repository
