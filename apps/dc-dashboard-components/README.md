@@ -4,15 +4,15 @@ Special app to build component for streamlit.
 
 ## Apps
 
-- `dc-streamlit-components`: Library of components available for streamlit.
+- `dc-components`: Library of components available for streamlit or reflex.
 - `dc-iframe-message` : A small app that a streamlit component run in the Iframe. It sends messages to the parent window dc_streamlit_components which generate the actual component.
 
 ## Dev a component
 
-To dev a component, start the dc-streamlit-components app:
+To dev a component, start the dc-components app:
 
 ```bash
-npm run dc-streamlit-components
+npm run dc-components
 ```
 
 Open the http://localhost:4201. This mode is not supposed to be used in a streamlit app.
@@ -30,7 +30,7 @@ the local running component.
 
 To dev the iframe-message, start the dc-iframe-message app:
 
-```bash 
+```bash
 npm run dc-iframe-message
 ```
 
@@ -39,12 +39,12 @@ the local running component.
 
 It must use streamlit-components built in production mode as only on dev app can be run in dev mode at the same time.
 
-## Build a component
+## Build
 
 Push a tag corresponding to the version of the component:
 
-- `dc_streamlit_components_*` for the text editor component
+- `dc_*` for the text editor component
 
-The component will be built and published to the https://github.com/Constellab/dashboard-components public github repository as release.
+The streamlit and reflex components will be built automatically in the CI/CD pipeline.
 
 Now the component can be used in released mode `IS_RELEASE=True` in the StreamlitComponentLoader.

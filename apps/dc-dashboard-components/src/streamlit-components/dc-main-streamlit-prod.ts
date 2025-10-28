@@ -1,10 +1,10 @@
 import { bootstrapApplication } from '@angular/platform-browser';
 import { flLoadEnvironmentFromAssets } from '@monorepo/front-core-lib/fl-core';
 
+import { dcAppConfig } from './dc-app.config';
 import { DcComponentLoaderProdComponent } from './dc-core/component/dc-component-loader-prod/dc-component-loader-prod.component';
 import { environment } from './dc-environment/dc-environment';
 import { dcEnvironmentPath, DcEnvironmentSettings } from './dc-environment/dc-environment.class';
-import { dcStreamlitComponentsConfig } from './dc-streamlit-components-app.config';
 
 /**
  * Component used in production mode to load the dynamic component
@@ -14,7 +14,7 @@ import { dcStreamlitComponentsConfig } from './dc-streamlit-components-app.confi
  */
 flLoadEnvironmentFromAssets(dcEnvironmentPath).then((env: DcEnvironmentSettings) => {
   environment.settings = env;
-  bootstrapApplication(DcComponentLoaderProdComponent, dcStreamlitComponentsConfig(env.baseHref)).catch(
-    (err) => console.error(err)
+  bootstrapApplication(DcComponentLoaderProdComponent, dcAppConfig(env.baseHref)).catch((err) =>
+    console.error(err)
   );
 });

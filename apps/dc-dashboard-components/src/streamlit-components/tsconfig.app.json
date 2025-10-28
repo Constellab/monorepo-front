@@ -5,12 +5,7 @@
     "types": [],
     "moduleResolution": "bundler"
   },
-  "files": [
-    "dc-streamlit-components-main.ts",
-    "dc-streamlit-components-main-prod.ts",
-    "dc-streamlit-components-main-dev-iframe.ts",
-    "dc-streamlit-components-main-reflex.ts"
-  ],
+  "files": ["dc-streamlit-components-main.ts"],
   "include": [
     "../../../../libs/front-core-lib/src/types.d.ts",
     "../../../../libs/text-editor/src/types.d.ts"

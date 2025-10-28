@@ -1,14 +1,25 @@
 <div class="container">
-  <h1>Select resource</h1>
-  <div #selectResource></div>
+  <h1>Select Resource</h1>
+  <dc-select-resource [inputData]="selectResourceConfig()" (outputEvent)="onSelectResourceOutput($event)" />
+</div>
+
+<div class="container">
+  <h1>Select Resource (Dynamic - Example)</h1>
+  <div #selectResourceDynamic></div>
 </div>
 
 <div class="container">
   <h1>Menu</h1>
-  <div #menu></div>
+  <dc-menu [inputData]="menuConfig()" (outputEvent)="onMenuOutput($event)" />
 </div>
 
 <div class="container">
   <h1>Tree</h1>
-  <div #tree></div>
+  <dc-tree [inputData]="treeConfig()" (outputEvent)="onTreeOutput($event)" />
+</div>
+
+<div class="container">
+  <h1>Text Editor</h1>
+  <button (click)="updateTextEditorValue()">Update Text Editor Value</button>
+  <dc-text-editor [inputData]="textEditorConfig()" (outputEvent)="onTextEditorOutput($event)" />
 </div>

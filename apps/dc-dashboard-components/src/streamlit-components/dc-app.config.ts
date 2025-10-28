@@ -49,7 +49,7 @@ function initRootInjector(injector: Injector): void {
   flSetRootInjector(injector);
 }
 
-export function dcStreamlitComponentsConfig(baseHref: string): ApplicationConfig {
+export function dcAppConfig(baseHref: string): ApplicationConfig {
   // configure the lab-lib config
   return {
     providers: [
