@@ -8,9 +8,8 @@ describe('DcComponentLoaderProdComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DcComponentLoaderProdComponent]
-    })
-      .compileComponents();
+      imports: [DcComponentLoaderProdComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(DcComponentLoaderProdComponent);
     component = fixture.componentInstance;

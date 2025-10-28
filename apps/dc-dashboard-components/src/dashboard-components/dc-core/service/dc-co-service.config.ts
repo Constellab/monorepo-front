@@ -51,7 +51,7 @@ export class DcCoServiceConfig extends CoConfig {
     return undefined;
   }
 
-  getSpacesOfCurrentUser():Observable<CoSpace[]>{
+  getSpacesOfCurrentUser(): Observable<CoSpace[]> {
     throw new Error(`Error: getSpacesOfCurrentUser() not implemented in DcCoServiceConfig`);
   }
 }
