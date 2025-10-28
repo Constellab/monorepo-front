@@ -114,6 +114,7 @@ export class DcComponentLoaderDevComponent implements OnInit {
     disabled: false,
     minHeight: '200px',
     maxHeight: '500px',
+    value: null,
   });
 
   ngOnInit(): void {
@@ -140,7 +141,8 @@ export class DcComponentLoaderDevComponent implements OnInit {
   updateTextEditorValue(): void {
     this.textEditorConfig.set({
       placeholder: 'Enter your text here...',
-      initialValue: {
+      initialValue: null,
+      value: {
         version: 2,
         editorVersion: '2.30.2',
         blocks: [

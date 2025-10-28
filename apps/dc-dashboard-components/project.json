@@ -41,14 +41,14 @@
         ],
         "externalDependencies": ["assets/fl-font/*"],
         "styles": [
-          "apps/dc-dashboard-components/src/dashboard-components/dc-components-styles.scss",
+          "apps/dc-dashboard-components/src/dashboard-components/dc-styles.scss",
           {
-            "input": "apps/dc-dashboard-components/src/dashboard-components/dc-theme/dc-dashboard-components-light-theme.scss",
+            "input": "apps/dc-dashboard-components/src/dashboard-components/dc-theme/dc-light-theme.scss",
             "bundleName": "light-theme",
             "inject": false
           },
           {
-            "input": "apps/dc-dashboard-components/src/dashboard-components/dc-theme/dc-dashboard-components-dark-theme.scss",
+            "input": "apps/dc-dashboard-components/src/dashboard-components/dc-theme/dc-dark-theme.scss",
             "bundleName": "dark-theme",
             "inject": false
           }
@@ -57,7 +57,7 @@
         "allowedCommonJsDependencies": ["plotly.js-strict-dist", "hoist-non-react-statics", "react"]
       },
       "configurations": {
-        "production": {
+        "streamlit-production": {
           "tsConfig": "apps/dc-dashboard-components/src/dashboard-components/tsconfig.streamlit.prod.json",
           "browser": "apps/dc-dashboard-components/src/dashboard-components/dc-main-streamlit-prod.ts",
           "fileReplacements": [
@@ -94,7 +94,7 @@
           "sourceMap": true,
           "namedChunks": true
         },
-        "development-iframe": {
+        "development-streamlit-iframe": {
           "tsConfig": "apps/dc-dashboard-components/src/dashboard-components/tsconfig.streamlit.iframe.json",
           "browser": "apps/dc-dashboard-components/src/dashboard-components/dc-main-streamlit-dev-iframe.ts",
           "optimization": false,
@@ -112,14 +112,11 @@
     "serve-components": {
       "executor": "@angular-devkit/build-angular:dev-server",
       "configurations": {
-        "production": {
-          "buildTarget": "dc-dashboard-components:build-components:production"
-        },
         "development": {
           "buildTarget": "dc-dashboard-components:build-components:development"
         },
-        "development-iframe": {
-          "buildTarget": "dc-dashboard-components:build-components:development-iframe"
+        "development-streamlit-iframe": {
+          "buildTarget": "dc-dashboard-components:build-components:development-streamlit-iframe"
         }
       },
       "defaultConfiguration": "development",

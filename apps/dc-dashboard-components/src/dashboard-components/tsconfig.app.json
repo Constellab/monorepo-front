@@ -5,7 +5,7 @@
     "types": [],
     "moduleResolution": "bundler"
   },
-  "files": ["dc-streamlit-components-main.ts"],
+  "files": ["dc-main.ts"],
   "include": [
     "../../../../libs/front-core-lib/src/types.d.ts",
     "../../../../libs/text-editor/src/types.d.ts"
