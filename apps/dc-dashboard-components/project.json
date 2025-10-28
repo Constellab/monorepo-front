@@ -106,7 +106,16 @@
         "reflex-prod": {
           "tsConfig": "apps/dc-dashboard-components/src/dashboard-components/tsconfig.reflex.json",
           "browser": "apps/dc-dashboard-components/src/dashboard-components/dc-main-reflex.ts",
-          "outputPath": "dist/apps/dc-dashboard-components/reflex-components"
+          "outputPath": "dist/apps/dc-dashboard-components/reflex-components",
+          "outputHashing": "all",
+          "optimization": {
+            "scripts": true,
+            "styles": {
+              "minify": true,
+              "inlineCritical": false
+            },
+            "fonts": true
+          }
         }
       },
       "defaultConfiguration": "production"
