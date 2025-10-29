@@ -15,14 +15,10 @@
             </h2>
 
             <div class="save-info-and-bt-div">
-              @if (!formCtrl.disabled) {
-                <div class="g-layout-row g-layout-between-center">
-                  <te-text-editor-save
-                    [formCtrl]="formCtrl"
-                    [saveFunc]="saveContent"
-                    [debounceTime]="2500"></te-text-editor-save>
-                </div>
-              }
+              <div class="g-layout-row g-layout-between-center">
+                <te-text-editor-save [textEditor]="textEditor" [saveFunc]="saveContent"></te-text-editor-save>
+              </div>
+
               @if (userHasEditRight()) {
                 <button mat-icon-button type="button" [matMenuTriggerFor]="menu">
                   <mat-icon> more_vert</mat-icon>
@@ -62,6 +58,7 @@
           <article>
             <form class="documentation-form">
               <te-text-editor
+                #textEditor
                 [formControl]="formCtrl"
                 [config]="textEditorConfig"
                 class="content-editor g-max-article-width"

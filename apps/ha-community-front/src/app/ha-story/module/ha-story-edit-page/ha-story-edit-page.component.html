@@ -96,9 +96,8 @@
             }
             <div class="g-layout-row g-layout-between-center save-info">
               <te-text-editor-save
-                [formCtrl]="contentEditionFormControl"
-                [saveFunc]="saveContentEdition"
-                [debounceTime]="2500"></te-text-editor-save>
+                [textEditor]="textEditor"
+                [saveFunc]="saveContentEdition"></te-text-editor-save>
             </div>
           </div>
 
@@ -138,6 +137,7 @@
         }
         <div class="story-content-form" [ngClass]="contentEditorIsFocused ? ['focus'] : []">
           <te-text-editor
+            #textEditor
             class="border-none editor"
             [config]="textEditorConfig"
             [formControl]="contentEditionFormControl"></te-text-editor>

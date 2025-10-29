@@ -149,13 +149,12 @@ export class CaConstellabDocumentDetailComponent {
 
   toggleEditMode(): void {
     if (this.contentFormControl.disabled) {
-      // use emitFalse to avoid the value change event
-      this.contentFormControl.enable({ emitEvent: false });
+      this.contentFormControl.enable();
       this.constellabDocumentService.checkEditConstellabDocument(this.document.id).subscribe({
-        error: () => this.contentFormControl.disable({ emitEvent: false }),
+        error: () => this.contentFormControl.disable(),
       });
     } else {
-      this.contentFormControl.disable({ emitEvent: false });
+      this.contentFormControl.disable();
     }
   }
 

@@ -1,10 +1,10 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit, viewChild } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
-import { TeRichText, TeTextEditorModule } from '@monorepo/text-editor';
+import { TeRichText, TeTextEditorComponent, TeTextEditorModule } from '@monorepo/text-editor';
 import { TranslatePipe } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
@@ -39,6 +39,8 @@ export class CaFolderDescriptionComponent implements OnInit {
   folder$: Observable<CaHierarchyObjectSimple>;
 
   @Input({ required: true }) folderName: string;
+
+  textEditorRef = viewChild(TeTextEditorComponent);
 
   canEdit: boolean;
 

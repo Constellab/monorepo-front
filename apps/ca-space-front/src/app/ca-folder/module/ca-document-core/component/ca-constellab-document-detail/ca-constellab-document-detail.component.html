@@ -41,13 +41,14 @@
             [date]="document.lastModifiedAt"></fl-last-modification-info>
 
           <te-text-editor-save
-            [formCtrl]="contentFormControl"
+            [textEditor]="textEditor"
             [saveFunc]="saveDescriptionFunc"
             [debounceTime]="2500"></te-text-editor-save>
         </div>
       </div>
 
       <te-text-editor
+        #textEditor
         [formControl]="contentFormControl"
         [config]="textEditorConfig"
         class="g-print-section text-editor"

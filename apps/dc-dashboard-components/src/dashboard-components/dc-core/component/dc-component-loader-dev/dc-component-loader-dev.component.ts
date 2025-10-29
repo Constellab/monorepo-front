@@ -111,10 +111,9 @@ export class DcComponentLoaderDevComponent implements OnInit {
         },
       ],
     },
-    disabled: false,
-    minHeight: '200px',
-    maxHeight: '500px',
-    value: null,
+    minHeight: '500px',
+    maxHeight: '1000px',
+    changeEventDebounceTime: 2500,
   });
 
   ngOnInit(): void {
@@ -165,6 +164,14 @@ export class DcComponentLoaderDevComponent implements OnInit {
       disabled: false,
       minHeight: '200px',
       maxHeight: '500px',
+    });
+  }
+
+  toggleTextEditorDisabled(): void {
+    const currentConfig = this.textEditorConfig();
+    this.textEditorConfig.set({
+      ...currentConfig,
+      disabled: !currentConfig.disabled,
     });
   }
 

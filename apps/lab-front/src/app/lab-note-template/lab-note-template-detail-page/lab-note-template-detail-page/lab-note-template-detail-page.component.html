@@ -34,9 +34,8 @@
       <fl-article-container>
         <fl-article-left-side>
           <te-text-editor-save
-            [formCtrl]="formControl"
+            [textEditor]="textEditor"
             [saveFunc]="saveContentFunc"
-            [debounceTime]="2500"
             class="editor-save"></te-text-editor-save>
 
           <!--  Created by & Last modified bt  -->
@@ -53,6 +52,7 @@
         </fl-article-left-side>
         <fl-article>
           <te-text-editor
+            #textEditor
             [formControl]="formControl"
             class="g-full-height g-print-section"
             [config]="textEditorConfig"

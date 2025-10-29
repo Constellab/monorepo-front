@@ -1,5 +1,6 @@
 import {
   Component,
+  computed,
   effect,
   EventEmitter,
   HostBinding,
@@ -20,12 +21,13 @@ import { DcCoreMainDirective } from '../../dc-core/directive/dc-core-main-prod/d
 import { DcTextEditorConfig } from './dc-text-editor.config';
 
 export interface DcRichTextConfig {
-  placeholder: string;
-  initialValue: TeRichTextDTO;
-  value: TeRichTextDTO;
-  disabled: boolean;
-  minHeight: string;
-  maxHeight: string;
+  placeholder?: string;
+  initialValue?: TeRichTextDTO;
+  value?: TeRichTextDTO;
+  disabled?: boolean;
+  minHeight?: string;
+  maxHeight?: string;
+  changeEventDebounceTime?: number;
   // config: {
   //   api_url: string;
   //   image_folder: string;
@@ -62,14 +64,19 @@ export class DcTextEditorComponent implements OnInit, DcDynamicComponent<DcRichT
   @Input() authenticationInfo?: DcAuthenticationInfo;
   @Output() outputEvent = new EventEmitter<TeRichTextDTO>();
 
-  @HostBinding('style.minHeight') minHeight = signal<string>('');
-  @HostBinding('style.maxHeight') maxHeight = signal<string>('');
+  @HostBinding('style.minHeight') minHeight = '';
+  @HostBinding('style.maxHeight') maxHeight = '';
 
   placeholder = signal<string>(null);
   textEditorConfig = signal<DcTextEditorConfig>(new DcTextEditorConfig());
   formCtrl = signal(new FormControl<TeRichText>(null));
 
   private mainDirective = inject(DcCoreMainDirective);
+
+  changeEventDebounceTime = computed(() => {
+    const dt = this.inputData().changeEventDebounceTime;
+    return dt != null && dt >= 0 ? dt : 2500;
+  });
 
   constructor() {
     // Effect to reactively update form control when inputData changes
@@ -104,11 +111,11 @@ export class DcTextEditorComponent implements OnInit, DcDynamicComponent<DcRichT
 
       // Update height styles
       if (data.minHeight) {
-        this.minHeight.set(data.minHeight);
+        this.minHeight = data.minHeight;
       }
 
       if (data.maxHeight) {
-        this.maxHeight.set(data.maxHeight);
+        this.maxHeight = data.maxHeight;
       }
     });
   }

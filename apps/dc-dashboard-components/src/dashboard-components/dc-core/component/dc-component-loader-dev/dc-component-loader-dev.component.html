@@ -21,5 +21,8 @@
 <div class="container">
   <h1>Text Editor</h1>
   <button (click)="updateTextEditorValue()">Update Text Editor Value</button>
+  <button (click)="toggleTextEditorDisabled()">
+    {{ textEditorConfig().disabled ? 'Enable' : 'Disable' }} Text Editor
+  </button>
   <dc-text-editor [inputData]="textEditorConfig()" (outputEvent)="onTextEditorOutput($event)" />
 </div>

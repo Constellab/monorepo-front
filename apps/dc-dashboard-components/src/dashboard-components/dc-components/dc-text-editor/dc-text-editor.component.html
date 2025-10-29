@@ -6,12 +6,13 @@
 
     <te-text-editor-save
       class="save-button"
-      [formCtrl]="formCtrl()"
+      [textEditor]="textEditor"
       [saveFunc]="saveFunc"
-      [debounceTime]="2500"></te-text-editor-save>
+      [debounceTime]="changeEventDebounceTime()"></te-text-editor-save>
   </div>
 
   <te-text-editor
+    #textEditor
     [config]="textEditorConfig()"
     [formControl]="formCtrl()"
     class="text-editor"></te-text-editor>

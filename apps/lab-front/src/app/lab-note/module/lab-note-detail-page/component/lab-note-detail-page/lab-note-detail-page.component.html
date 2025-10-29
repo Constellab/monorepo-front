@@ -50,10 +50,7 @@
       <div class="container">
         <div class="left-section g-print-hide">
           <!--    Save status        -->
-          <te-text-editor-save
-            [formCtrl]="formControl"
-            [saveFunc]="saveContentFunc"
-            [debounceTime]="2500"></te-text-editor-save>
+          <te-text-editor-save [textEditor]="textEditor" [saveFunc]="saveContentFunc"></te-text-editor-save>
 
           <!-- Tags -->
           <li-tag-list
@@ -98,6 +95,7 @@
         <!--   Note content     -->
         <div class="right-section g-max-article-width">
           <te-text-editor
+            #textEditor
             class="g-full-height g-print-section"
             [config]="textEditorConfig"
             [formControl]="formControl"></te-text-editor>
