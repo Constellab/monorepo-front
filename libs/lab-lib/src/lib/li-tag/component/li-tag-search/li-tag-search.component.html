@@ -15,13 +15,15 @@
       <button
         mat-icon-button
         (click)="syncImportedCommunityTags()"
-        [matTooltip]="'li.synchronize_community_tags' | translate">
+        [matTooltip]="'li.synchronize_community_tags' | translate"
+        type="button"
+        class="primary">
         <mat-icon>sync</mat-icon>
       </button>
       <button
         mat-icon-button
         type="button"
-        class="accent"
+        class="primary"
         [matTooltip]="'li.create_tag' | translate"
         (click)="openCreateDialog()">
         <mat-icon>add</mat-icon>

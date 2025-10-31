@@ -31,7 +31,7 @@
               <form [formGroup]="signupFormGp" (ngSubmit)="signupSubmit()" id="invit-signup">
                 <fl-signup-form [formGp]="signupFormGp"></fl-signup-form>
                 <div class="g-text-centered">
-                  <button mat-flat-button type="submit" form="invit-signup" class="g-button-big accent">
+                  <button mat-flat-button type="submit" form="invit-signup" class="g-button-big primary">
                     {{ 'flAuth.signup' | translate }}
                     @if (isLoading) {
                       <fl-button-loader></fl-button-loader>

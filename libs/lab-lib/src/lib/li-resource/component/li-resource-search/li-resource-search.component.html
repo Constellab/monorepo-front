@@ -16,7 +16,7 @@
       <fl-input-file-icon-container
         [matTooltip]="'li.upload_file' | translate"
         icon="upload_file"
-        class="upload-button accent">
+        class="upload-button primary">
         <input
           flInputFile
           [multiple]="true"
@@ -29,7 +29,7 @@
       <fl-input-file-icon-container
         [matTooltip]="'li.upload_folder' | translate"
         icon="drive_folder_upload"
-        class="upload-button accent">
+        class="upload-button primary">
         <input
           flInputFile
           type="file"
@@ -44,7 +44,7 @@
       <button
         mat-icon-button
         type="button"
-        class="accent"
+        class="primary"
         (click)="openImportFromUrlDialog()"
         [matTooltip]="'li.import_resource_from_link' | translate">
         <mat-icon>cloud_download</mat-icon>

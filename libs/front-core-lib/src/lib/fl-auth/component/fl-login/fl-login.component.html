@@ -1,7 +1,7 @@
 <form [formGroup]="formGp" (ngSubmit)="login()" class="form">
   <fl-login-form [formGp]="formGp"></fl-login-form>
 
-  <button mat-flat-button type="submit" class="connection-button g-button-big accent">
+  <button mat-flat-button type="submit" class="connection-button g-button-big primary">
     {{ 'flAuth.sign_in' | translate }}
     @if (isLoading) {
       <fl-button-loader></fl-button-loader>
