@@ -257,5 +257,7 @@
   "files_already_exist": "One or more files already exist in this folder. Do you want to replace the existing items with a new version or keep all items?",
   "files_import_replace": "Replace existing files",
   "files_import_rename": "Keep existing files and rename the new ones",
-  "file_import_confirm": "Import"
+  "file_import_confirm": "Import",
+  "my_applications": "My applications",
+  "no_application": "No application"
 }

@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, input, Signal } from '@angular/core';
-import { TdTypeStyle } from '@monorepo/technical-doc';
-import { TdTechnicalDocModule } from '@monorepo/technical-doc';
+import { TdTechnicalDocModule, TdTypeStyle } from '@monorepo/technical-doc';
 
 @Component({
   selector: 'ca-hierarchy-object-icon',
@@ -12,7 +11,18 @@ import { TdTechnicalDocModule } from '@monorepo/technical-doc';
 export class CaHierarchyObjectIconComponent {
   style = input.required<TdTypeStyle>();
 
-  size = input<'medium' | 'small'>('medium');
+  size = input<'medium' | 'small' | 'big'>('medium');
 
-  iconSize: Signal<number> = computed(() => (this.size() === 'small' ? 18 : 24));
+  // (this.size() === 'small' ? 18 : 24))
+  iconSize: Signal<number> = computed(() => {
+    switch (this.size()) {
+      case 'small':
+        return 18;
+      case 'big':
+        return 46;
+      case 'medium':
+      default:
+        return 24;
+    }
+  });
 }

@@ -13,10 +13,7 @@ import { Observable, switchMap, tap } from 'rxjs';
 
 import { CaHierarchyObjectIconComponent } from '../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-icon/ca-hierarchy-object-icon.component';
 import { CaRootFolderUserRoleObj } from '../../../../ca-core/model/entities/folder/ca-folder-user.class';
-import {
-  CaHierarchyObjectTagDatasource,
-  CaHierarchyObjectType,
-} from '../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
+import { CaHierarchyObjectTagDatasource } from '../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
 import { CaResource } from '../../../../ca-core/model/entities/folder/ca-resource.class';
 import { CaResourceService } from '../../../../ca-core/service-api/ca-resource.service';
 import { CaHierarchyObjectEventState } from '../../ca-folder-hierarchy-core/state/ca-hierarchy-object-event.state';
@@ -88,7 +85,7 @@ export class CaResourceDetailComponent {
   renameResource(resource: CaResource, name: string): void {
     this.resourceService.renameResource(resource.id, name).subscribe();
     if (this.eventState) {
-      this.eventState.emitRenameEvent(resource.id, CaHierarchyObjectType.RESOURCE, name);
+      this.eventState.emitRenameEvent(resource.id, resource.getHierarchyObjectType(), name);
     }
   }
 }

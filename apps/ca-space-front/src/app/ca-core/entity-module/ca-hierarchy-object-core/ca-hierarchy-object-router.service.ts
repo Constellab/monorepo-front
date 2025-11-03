@@ -42,6 +42,7 @@ export class CaHierarchyObjectRouterService {
       case CaHierarchyObjectType.DOCUMENT:
         return CaRouterService.getDocumentPreviewRoute(hierarchyObject.id);
       case CaHierarchyObjectType.RESOURCE:
+      case CaHierarchyObjectType.APPLICATION:
         return CaRouterService.getResourceDetailRoute(hierarchyObject.id);
     }
   }

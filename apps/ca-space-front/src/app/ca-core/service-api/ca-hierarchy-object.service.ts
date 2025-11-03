@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { ClPageI } from '@monorepo/core-lib';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
-import { FlDatasourceGetPageData } from '@monorepo/front-core-lib/fl-core';
+import { FlDatasourceGetPageData, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 import { FlSearchConverter } from '@monorepo/front-core-lib/fl-search';
 import { FlTag, FlTagDatasource } from '@monorepo/front-core-lib/fl-tag';
 import { Observable } from 'rxjs';
@@ -15,6 +15,7 @@ import {
 import { CaAvailableTags } from '../model/entities/ca-tag.class';
 import {
   CaHierarchyObject,
+  CaHierarchyObjectDatasource,
   CaHierarchyObjectFindOneDTO,
   CaHierarchyObjectTagDatasource,
   CaHierarchyObjectWithParent,
@@ -118,6 +119,30 @@ export class CaHierarchyObjectService {
         pageSize: size,
         resultIsPaginated: true,
       }
+    );
+  }
+
+  public searchApplications(
+    page: number,
+    size: number,
+    filters?: FlDatasourceGetPageData<CaHierarchyObjectSearchFields>
+  ): Observable<ClPageI<CaHierarchyObject>> {
+    const searchInput = FlSearchConverter.convertDatasourceGetPageDataToSearchParams(
+      filters,
+      CaHierarchyObjectSearch.filterConverter,
+      CaHierarchyObjectSearch.sortConverter
+    );
+    return this.apiService.post(`${this.route}/root/search-applications`, searchInput, CaHierarchyObject, {
+      resultIsPaginated: true,
+      page: page,
+      pageSize: size,
+    });
+  }
+
+  public getApplicationsDatasource(pageSize: number = 20): CaHierarchyObjectDatasource {
+    return new FlEntityPaginatedDatasource<CaHierarchyObject>(
+      (page, size) => this.searchApplications(page, size),
+      pageSize
     );
   }
 

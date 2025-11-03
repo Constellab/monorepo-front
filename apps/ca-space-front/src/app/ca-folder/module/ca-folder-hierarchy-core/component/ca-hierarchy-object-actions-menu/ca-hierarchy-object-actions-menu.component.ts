@@ -33,6 +33,7 @@ export class CaHierarchyObjectActionsMenuComponent {
       CaHierarchyObjectType.DOCUMENT,
       CaHierarchyObjectType.CONSTELLAB_DOCUMENT,
       CaHierarchyObjectType.RESOURCE,
+      CaHierarchyObjectType.APPLICATION,
       CaHierarchyObjectType.NOTE,
       CaHierarchyObjectType.SCENARIO,
     ].includes(hierarchyObject.objectType);

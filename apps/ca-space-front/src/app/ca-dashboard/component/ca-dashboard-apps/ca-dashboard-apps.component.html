@@ -1,0 +1,12 @@
+<ca-dashboard-list-layout
+  [datasource]="appsDatasource"
+  sectionTitle="my_applications"
+  titleIcon="app"
+  emptyText="no_application"
+  [completeListRoute]="myAppsRoute"
+  completeListText="all_applications"
+  [showAddButton]="false">
+  <ng-template let-item>
+    <ca-app-card [app]="item"></ca-app-card>
+  </ng-template>
+</ca-dashboard-list-layout>

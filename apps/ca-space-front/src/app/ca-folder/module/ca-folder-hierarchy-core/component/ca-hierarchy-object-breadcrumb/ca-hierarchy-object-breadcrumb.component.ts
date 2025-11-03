@@ -100,6 +100,7 @@ export class CaHierarchyObjectBreadcrumbComponent implements OnInit {
       case CaHierarchyObjectType.DOCUMENT:
         return CaRouterService.getDocumentPreviewRoute(id);
       case CaHierarchyObjectType.RESOURCE:
+      case CaHierarchyObjectType.APPLICATION:
         return CaRouterService.getResourceDetailRoute(id);
     }
   }

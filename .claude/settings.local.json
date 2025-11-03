@@ -13,7 +13,8 @@
       "mcp__playwright__browser_console_messages",
       "mcp__playwright__browser_take_screenshot",
       "mcp__playwright__browser_evaluate",
-      "Bash(nx build-reflex:*)"
+      "Bash(nx build-reflex:*)",
+      "Bash(dir:*)"
     ],
     "deny": []
   }

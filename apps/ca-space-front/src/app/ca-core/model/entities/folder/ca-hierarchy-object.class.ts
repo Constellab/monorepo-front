@@ -17,6 +17,7 @@ export enum CaHierarchyObjectType {
   NOTE = 'NOTE',
   SCENARIO = 'SCENARIO',
   RESOURCE = 'RESOURCE',
+  APPLICATION = 'APPLICATION',
 }
 
 export interface CaHierarchyObjectInfo {
@@ -66,6 +67,13 @@ export const caHierarchyObjectTypeInfos: Record<CaHierarchyObjectType, CaHierarc
     style: {
       icon_type: 'MATERIAL_ICON',
       icon_technical_name: 'resource',
+    },
+  },
+  [CaHierarchyObjectType.APPLICATION]: {
+    label: 'resource',
+    style: {
+      icon_type: 'MATERIAL_ICON',
+      icon_technical_name: 'apps',
     },
   },
 };

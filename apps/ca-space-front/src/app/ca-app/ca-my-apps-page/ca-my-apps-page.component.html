@@ -1,0 +1,22 @@
+<div class="g-page">
+  <fl-async-section [arrayObs]="appsDatasource" emptyText="no_application">
+    <fl-section-header class="g-page-title">
+      <fl-text-icon iconPosition="start">
+        <mat-icon class="g-icon-big g-icon-background g-primary-background" flIcon="app"></mat-icon>
+        <h1>{{ 'my_applications' | translate }}</h1>
+      </fl-text-icon>
+    </fl-section-header>
+
+    <ng-container *flSectionBodyDatasource="appsDatasource as apps">
+      <div class="g-grid-5-cols">
+        @for (app of apps; track app) {
+          <a [routerLink]="app | caDetailRoute">
+            <ca-app-card [app]="app"></ca-app-card>
+          </a>
+        }
+      </div>
+
+      <fl-infinite-load-more-result [datasource]="appsDatasource"></fl-infinite-load-more-result>
+    </ng-container>
+  </fl-async-section>
+</div>

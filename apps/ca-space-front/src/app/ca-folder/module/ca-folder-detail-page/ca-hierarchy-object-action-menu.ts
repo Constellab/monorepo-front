@@ -66,7 +66,10 @@ export class CaHierarchyObjectActionMenu {
       return this.openDocumentActionMenu(event).pipe(
         map((event) => (event ? { entity: 'document', event } : null))
       );
-    } else if (this.hierarchyObject.objectType === CaHierarchyObjectType.RESOURCE) {
+    } else if (
+      this.hierarchyObject.objectType === CaHierarchyObjectType.RESOURCE ||
+      this.hierarchyObject.objectType === CaHierarchyObjectType.APPLICATION
+    ) {
       return this.openResourceActionMenu(event).pipe(
         map((event) => (event ? { entity: 'resource', event } : null))
       );

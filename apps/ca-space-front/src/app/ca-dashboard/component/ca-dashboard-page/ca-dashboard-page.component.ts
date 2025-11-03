@@ -13,11 +13,10 @@ import { CaUserDatasourcePaginated } from '../../../ca-core/model/entities/ca-us
 import { CaSpace } from '../../../ca-core/model/entities/space/ca-space.class';
 import { CaCurrentSpaceService } from '../../../ca-core/service-api/ca-current-space.service';
 import { CaEnvironmentHelper } from '../../../ca-core/utils/ca-environment.helper';
+import { CaDashboardAppsComponent } from '../ca-dashboard-apps/ca-dashboard-apps.component';
 import { CaDashboardFoldersComponent } from '../ca-dashboard-folders/ca-dashboard-folders.component';
 import { CaDashboardLabsComponent } from '../ca-dashboard-labs/ca-dashboard-labs.component';
-import {
-  CaDashboardMyActivityComponent
-} from '../ca-dashboard-my-activity/ca-dashboard-my-activity.component';
+import { CaDashboardMyActivityComponent } from '../ca-dashboard-my-activity/ca-dashboard-my-activity.component';
 import { CaDashboardTeamsComponent } from '../ca-dashboard-teams/ca-dashboard-teams.component';
 import { CaDashboardVideosComponent } from '../ca-dashboard-videos/ca-dashboard-videos.component';
 
@@ -31,6 +30,7 @@ import { CaDashboardVideosComponent } from '../ca-dashboard-videos/ca-dashboard-
   imports: [
     FlCoreDirectiveModule,
     CaUserListInlineComponent,
+    CaDashboardAppsComponent,
     CaDashboardFoldersComponent,
     CaDashboardLabsComponent,
     CaDashboardTeamsComponent,

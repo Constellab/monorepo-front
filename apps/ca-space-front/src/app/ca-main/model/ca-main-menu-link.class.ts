@@ -25,6 +25,11 @@ export const caMainMenuLinks: CaMainMenuLink[] = [
     route: CaRouterService.getMyFoldersRoute(),
   },
   {
+    label: 'my_applications',
+    icon: 'app',
+    route: CaRouterService.getMyAppsRoute(),
+  },
+  {
     label: 'my_labs',
     icon: 'lab',
     route: CaRouterService.getMyLabsRoute(),

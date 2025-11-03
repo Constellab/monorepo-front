@@ -12,25 +12,6 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `npm run <app>:serve` - Pre-configured serve command for specific apps
 - `npm run <app>:build-prod` - Pre-configured production build for specific apps
 
-### Testing
-
-- `npx nx test <project>` - Run all tests for a project
-- `npx nx test <project> --testNamePattern="<test name>"` - Run a specific test
-- `nx affected:test` - Run tests for affected projects only
-
-### Linting & Formatting
-
-- `nx lint` - Run workspace linting and all project lints
-- `nx workspace-lint` - Run NX workspace linting
-- `nx format:write` - Format all files
-- `nx format:check` - Check formatting
-
-### Dependency Management
-
-- `nx dep-graph` - View dependency graph
-- `nx affected:apps` - Show affected applications
-- `nx affected:libs` - Show affected libraries
-
 ## Architecture
 
 ### Project Structure
@@ -82,19 +63,6 @@ This is an NX monorepo with Angular applications and TypeScript libraries for th
 - Destructure imports when possible (e.g., `import { foo } from 'bar'`)
 - Imports are automatically sorted by `simple-import-sort` ESLint rule
 
-## TypeScript Rules
-
-- Explicit function return types required (with allowExpressions: true)
-- No explicit any types discouraged but allowed
-- 2-space indentation with specific function parameter alignment
-- 110 character line length limit
-- Unused variables are errors
-
-## Workflow
-
-- Be sure to typecheck when you’re done making a series of code changes
-- Prefer running single tests, and not the whole test suite, for performance
-
 ## Quick Visual Check
 
 IMMEDIATELY after making a code change, do a quick visual check of the relevant part of the app to make sure it looks right and works as expected.
@@ -104,3 +72,8 @@ IMMEDIATELY after making a code change, do a quick visual check of the relevant 
 3. **Validate feature implementation** - Ensure the change fulfills the user's specific request
 4. **Capture evidence** - Take full page screenshot at desktop viewport (1440px) of each changed view
 5. **Check for errors** - Run `mcp__playwright__browser_console_messages`
+
+## Good Practices
+
+- Use signal where appropriate for reactive state
+- Use input and output signals for component communication

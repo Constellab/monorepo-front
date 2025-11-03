@@ -68,4 +68,9 @@ export const caStructureRoutes: Route[] = [
         (m) => m.CaMyTeamsPageComponent
       ),
   },
+  {
+    path: 'my-apps',
+    loadComponent: () =>
+      import('../ca-app/ca-my-apps-page/ca-my-apps-page.component').then((m) => m.CaMyAppsPageComponent),
+  },
 ];

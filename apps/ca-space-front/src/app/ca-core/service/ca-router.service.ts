@@ -166,6 +166,14 @@ export class CaRouterService {
     this.router.navigate([CaRouterService.getMyTeamsRoute()]);
   }
 
+  public static getMyAppsRoute(): string {
+    return CaRouterService.getFullRoute(`${caConstStructureRoute}/my-apps`);
+  }
+
+  public navigateToMyApps(): void {
+    this.router.navigate([CaRouterService.getMyAppsRoute()]);
+  }
+
   public navigateToTeam(teamId: string): void {
     this.router.navigate([CaRouterService.getTeamRoute(teamId)]);
   }

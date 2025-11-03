@@ -7,11 +7,12 @@ import { CaDocument } from '../../../model/entities/folder/ca-document.class';
 import { CaFolder } from '../../../model/entities/folder/ca-folder.class';
 import { CaHierarchyObject } from '../../../model/entities/folder/ca-hierarchy-object.class';
 import { CaNote } from '../../../model/entities/folder/ca-note.class';
+import { CaResource } from '../../../model/entities/folder/ca-resource.class';
 import { CaScenario } from '../../../model/entities/folder/ca-scenario.class';
 import { CaLab } from '../../../model/entities/lab/ca-lab.class';
 import { CaRouterService } from '../../../service/ca-router.service';
 
-type CaObjectType = 'folder' | 'scenario' | 'note' | 'lab' | 'group' | 'document' | 'user';
+type CaObjectType = 'folder' | 'scenario' | 'note' | 'lab' | 'group' | 'document' | 'user' | 'resource';
 
 /**
  * Pipe to get the detail route of an object
@@ -49,6 +50,8 @@ export class CaDetailRoutePipe implements PipeTransform {
         return CaRouterService.getDocumentDetailRoute(id);
       case 'user':
         return CaRouterService.getUserDetailRoute(id);
+      case 'resource':
+        return CaRouterService.getResourceDetailRoute(id);
       default:
         console.error(`[caDetailRoute] object type ${objectType} not supported`);
         return null;
@@ -56,7 +59,9 @@ export class CaDetailRoutePipe implements PipeTransform {
   }
 
   private getObjectType(obj: any): [CaObjectType, string] {
-    if (obj instanceof CaFolder || obj instanceof CaHierarchyObject) {
+    if (obj instanceof CaHierarchyObject) {
+      return this.getObjectTypeFromHierarchyObject(obj);
+    } else if (obj instanceof CaFolder) {
       return ['folder', obj.id];
     } else if (obj instanceof CaScenario) {
       return ['scenario', obj.id];
@@ -75,9 +80,31 @@ export class CaDetailRoutePipe implements PipeTransform {
       return ['document', obj.id];
     } else if (obj instanceof CaUser) {
       return ['user', obj.id];
+    } else if (obj instanceof CaResource) {
+      return ['resource', obj.id];
     } else {
       console.error('[caDetailRoute] The object is not supported');
       return [null, null];
+    }
+  }
+
+  private getObjectTypeFromHierarchyObject(hierarchyObject: CaHierarchyObject): [CaObjectType, string] {
+    switch (hierarchyObject.objectType) {
+      case 'FOLDER':
+        return ['folder', hierarchyObject.id];
+      case 'SCENARIO':
+        return ['scenario', hierarchyObject.id];
+      case 'NOTE':
+        return ['note', hierarchyObject.id];
+      case 'DOCUMENT':
+      case 'CONSTELLAB_DOCUMENT':
+        return ['document', hierarchyObject.id];
+      case 'RESOURCE':
+      case 'APPLICATION':
+        return ['resource', hierarchyObject.id];
+      default:
+        console.error('[caDetailRoute] The hierarchy object type is not supported');
+        return [null, null];
     }
   }
 }

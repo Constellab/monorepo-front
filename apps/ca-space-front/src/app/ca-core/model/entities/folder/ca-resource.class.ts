@@ -4,6 +4,7 @@ import { TdTypeStyle } from '@monorepo/technical-doc';
 import { DateTime } from 'luxon';
 
 import { CaRootFolderUserRoleObj } from './ca-folder-user.class';
+import { CaHierarchyObjectType } from './ca-hierarchy-object.class';
 
 export class CaResource implements FlEntity {
   id: string;
@@ -20,6 +21,12 @@ export class CaResource implements FlEntity {
 
   @ClLuxonDateTimeTransform()
   validUntil: DateTime;
+
+  isApplication: boolean;
+
+  public getHierarchyObjectType(): CaHierarchyObjectType {
+    return this.isApplication ? CaHierarchyObjectType.APPLICATION : CaHierarchyObjectType.RESOURCE;
+  }
 }
 
 export class CaResourceBasicInfo {
