@@ -5,6 +5,7 @@ import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import { CaBucketCredentialsListComponent } from '../../../ca-core/entity-module/ca-bucket-credentials-core/component/ca-bucket-credentials-list/ca-bucket-credentials-list.component';
 import { CaAdminCloudProviderRegionsListComponent } from '../ca-admin-cloud-provider-regions-list/ca-admin-cloud-provider-regions-list.component';
 import { CaAdminCloudProvidersListComponent } from '../ca-admin-cloud-providers-list/ca-admin-cloud-providers-list.component';
+import { CaAdminOtherComponent } from '../ca-admin-other/ca-admin-other.component';
 
 /**
  * Page to manager cloud providers, object storage, servers
@@ -14,6 +15,7 @@ import { CaAdminCloudProvidersListComponent } from '../ca-admin-cloud-providers-
   templateUrl: './ca-admin-others-page.component.html',
   styleUrls: ['./ca-admin-others-page.component.scss'],
   imports: [
+    CaAdminOtherComponent,
     CaAdminCloudProvidersListComponent,
     CaAdminCloudProviderRegionsListComponent,
     CaBucketCredentialsListComponent,

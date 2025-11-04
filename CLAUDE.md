@@ -63,17 +63,11 @@ This is an NX monorepo with Angular applications and TypeScript libraries for th
 - Destructure imports when possible (e.g., `import { foo } from 'bar'`)
 - Imports are automatically sorted by `simple-import-sort` ESLint rule
 
-## Quick Visual Check
-
-IMMEDIATELY after making a code change, do a quick visual check of the relevant part of the app to make sure it looks right and works as expected.
-
-1. **Identify what changed** - Review the modified components/pages.Reg
-2. **Navigate to affected pages** - Use `mcp__playwright__browser_navigate` to visit each changed view
-3. **Validate feature implementation** - Ensure the change fulfills the user's specific request
-4. **Capture evidence** - Take full page screenshot at desktop viewport (1440px) of each changed view
-5. **Check for errors** - Run `mcp__playwright__browser_console_messages`
-
 ## Good Practices
 
 - Use signal where appropriate for reactive state
 - Use input and output signals for component communication
+- For the dialog use the FlDialogService from '@monorepo/front-core-lib/fl-dialog'
+- For portal use the FlPortalService from '@monorepo/front-core-lib/fl-portal'
+- For info or error message use FlSnackbarService from '@monorepo/front-core-lib/fl-snack-bar'
+- For dependency injection use angular `inject()` function instead of constructor injection where possible

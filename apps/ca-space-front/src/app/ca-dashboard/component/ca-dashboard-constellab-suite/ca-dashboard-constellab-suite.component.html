@@ -1,0 +1,24 @@
+@if (constellabSuite$ | async; as constellabSuite) {
+  <p class="suite-description">{{ 'constellab_suite_description' | translate }}</p>
+
+  <div>
+    @if (constellabSuite.apps) {
+      @for (app of constellabSuite.apps; track app.name) {
+        <div class="app-item" (click)="openAppDetail(app)">
+          <div class="app-content">
+            <ca-icon-container [emoji]="app.emoji" [backgroundColor]="app.background" class="app-icon">
+            </ca-icon-container>
+            <!--            <div class="app-icon" [style.background]="app.background">-->
+            <!--              <span class="emoji">{{ app.emoji }}</span>-->
+            <!--            </div>-->
+            <div class="app-info">
+              <div class="app-name">{{ app.name }}</div>
+              <p class="app-description g-text-small">{{ app.shortDescription }}</p>
+            </div>
+            <mat-icon class="chevron-icon">chevron_right</mat-icon>
+          </div>
+        </div>
+      }
+    }
+  </div>
+}

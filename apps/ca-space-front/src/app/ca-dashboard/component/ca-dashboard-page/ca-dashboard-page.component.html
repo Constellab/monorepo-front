@@ -1,39 +1,15 @@
-<div flClass.gt-sm="g-layout-row" flClass.lt-md="g-layout-col">
-  <div class="dashboard-left">
-    <div class="g-page-title g-layout-row g-layout-start-center g-layout-gap-1em">
-      <div class="g-layout-row g-layout-start-end">
-        @if (currentSpace$ | async; as currentSpace) {
-          <h1>{{ 'welcome_message' | translate: { name: currentSpace.name } }}</h1>
-        }
-      </div>
-      <div class="g-flex-auto">
-        <ca-user-list-inline [userDatasource]="spaceUsers" [disabled]="true"></ca-user-list-inline>
-      </div>
+<div class="header">
+  <div class="g-layout-row g-layout-start-center g-layout-gap-1em">
+    <div class="g-layout-row g-layout-start-end">
+      @if (currentSpace$ | async; as currentSpace) {
+        <h1>{{ 'welcome_message' | translate: { name: currentSpace.name } }}</h1>
+      }
+    </div>
+    <div class="g-flex-auto">
+      <ca-user-list-inline [userDatasource]="spaceUsers" [disabled]="true"></ca-user-list-inline>
     </div>
 
-    <!-- My folder list -->
-    <div class="section">
-      <ca-dashboard-folders></ca-dashboard-folders>
-    </div>
-
-    <!-- apps -->
-    <div class="section">
-      <ca-dashboard-apps></ca-dashboard-apps>
-    </div>
-
-    <!-- labs -->
-    <div class="section">
-      <ca-dashboard-labs></ca-dashboard-labs>
-    </div>
-
-    <!-- My Teams -->
-    <div class="section">
-      <ca-dashboard-teams></ca-dashboard-teams>
-    </div>
-  </div>
-
-  <div class="dashboard-right">
-    <div class="g-full g-layout-row g-layout-start-center g-layout-gap-1em">
+    <div class="header-right g-full g-layout-row g-layout-start-center g-layout-gap-1em">
       <a class="link-button" href="mailto:{{ supportMail }}" matRipple>
         <fl-text-icon class="support">
           <mat-icon>help</mat-icon>
@@ -50,19 +26,54 @@
         <span class="community-text">Community</span>
       </a>
     </div>
+  </div>
+</div>
 
-    <!-- My Activity  -->
-    <div class="r-section">
-      <ca-dashboard-my-activity></ca-dashboard-my-activity>
+<div flClass.gt-md="g-layout-row" flClass.lt-lg="g-layout-col" class="container">
+  <div class="dashboard-left">
+    <div class="main-section">
+      <!-- My folder list -->
+      <div class="section">
+        <ca-dashboard-folders></ca-dashboard-folders>
+      </div>
+
+      <!-- apps -->
+      <div class="section">
+        <ca-dashboard-apps></ca-dashboard-apps>
+      </div>
+
+      <!-- labs -->
+      <div class="section">
+        <ca-dashboard-labs></ca-dashboard-labs>
+      </div>
+
+      <!-- My Teams -->
+      <div class="section">
+        <ca-dashboard-teams></ca-dashboard-teams>
+      </div>
     </div>
+  </div>
 
-    <div class="r-section">
-      <ca-dashboard-videos></ca-dashboard-videos>
+  <div class="dashboard-right">
+    <div class="main-right">
+      <!-- Constellab Suite  -->
+      <div>
+        <fl-card>
+          <fl-card-header>
+            <fl-text-icon class="suite-header">
+              <mat-icon class="g-icon-sparkles">auto_awesome</mat-icon>
+              <h2>{{ 'constellab_suite' | translate }}</h2>
+            </fl-text-icon>
+          </fl-card-header>
+          <fl-card-body>
+            <ca-dashboard-constellab-suite></ca-dashboard-constellab-suite>
+          </fl-card-body>
+        </fl-card>
+      </div>
+
+      <div class="r-section">
+        <ca-dashboard-videos></ca-dashboard-videos>
+      </div>
     </div>
-
-    <!-- Task of the day -->
-    <!--    <div class="r-section">-->
-    <!--      <ca-dashboard-task-of-the-day></ca-dashboard-task-of-the-day>-->
-    <!--    </div>-->
   </div>
 </div>

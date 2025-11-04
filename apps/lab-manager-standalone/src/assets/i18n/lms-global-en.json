@@ -16,7 +16,7 @@
     "refresh_status": "Refresh status",
     "lab_task_is_running": "Lab task is running, please wait for it to finish",
     "lab_is_starting": "Lab is starting, it may take a few minutes.",
-    "go_to_lab": "Go to lab",
+    "go_to_lab": "Open",
     "configure_lab_manager": "Configure lab manager",
     "configure_lab_manager_description": "To configure the lab manager, please upload the configuration file. You can download the configuration file from your desktop lab page in your space.",
     "configuration_file": "Configuration file",

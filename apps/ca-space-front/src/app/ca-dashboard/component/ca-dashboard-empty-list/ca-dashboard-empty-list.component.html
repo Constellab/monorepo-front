@@ -1,0 +1,11 @@
+<ca-icon-container
+  class="icon"
+  [emoji]="emoji()"
+  [backgroundColor]="emojiBackgroundColor()"></ca-icon-container>
+<div class="empty-list-content">
+  <h3>{{ emptyTitle() }}</h3>
+  <p flHide.lt-md class="description">{{ emptyDescription() }}</p>
+</div>
+<div class="empty-list-action">
+  <ng-content select="[action]"></ng-content>
+</div>

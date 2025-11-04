@@ -16,7 +16,7 @@
     "refresh_status": "Rafraîchir le statut",
     "lab_task_is_running": "Une tâche est en cours d'exécution, veuillez patienter",
     "lab_is_starting": "Le lab est en train de démarrer, cela peut prendre quelques minutes.",
-    "go_to_lab": "Ouvrir le lab",
+    "go_to_lab": "Ouvrir",
     "configure_lab_manager": "Configurer le Lab manager",
     "configure_lab_manager_description": "Pour configurer le Lab manager, veuillez uploader le fichier de configuration. Vous pouvez télécharger le fichier de configuration depuis la page de votre desktop lab dans votre espace.",
     "configuration_file": "Fichier de configuration",

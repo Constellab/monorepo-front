@@ -1,8 +1,11 @@
 <fl-card class="card" matRipple>
   <fl-card-body class="body">
     <div class="content">
-      <ca-hierarchy-object-icon [style]="app().style" size="big"></ca-hierarchy-object-icon>
-      <h2 class="app-name">{{ app().name }}</h2>
+      <ca-icon-container
+        [icon]="app().style.icon_technical_name"
+        [backgroundColor]="app().style.background_color"
+        class="icon"></ca-icon-container>
+      <div class="app-name">{{ app().name }}</div>
     </div>
   </fl-card-body>
 </fl-card>

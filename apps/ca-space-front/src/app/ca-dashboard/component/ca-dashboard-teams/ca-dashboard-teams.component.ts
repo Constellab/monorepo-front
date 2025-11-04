@@ -1,9 +1,11 @@
 import { Component, inject, OnInit } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
+import { TranslatePipe } from '@ngx-translate/core';
 
-import {
-  CaTeamCardComponent
-} from '../../../ca-core/entity-module/ca-group-core/component/ca-team-card/ca-team-card.component';
+import { CaTeamCardComponent } from '../../../ca-core/entity-module/ca-group-core/component/ca-team-card/ca-team-card.component';
 import {
   CaTeamFormDialogComponent,
   CaTeamFormDialogInput,
@@ -11,6 +13,7 @@ import {
 import { CaGroup, CaGroupDatasource } from '../../../ca-core/model/entities/ca-group.entity';
 import { CaRouterService } from '../../../ca-core/service/ca-router.service';
 import { CaGroupService } from '../../../ca-core/service-api/ca-group.service';
+import { CaDashboardEmptyListComponent } from '../ca-dashboard-empty-list/ca-dashboard-empty-list.component';
 import { CaDashboardListLayoutComponent } from '../ca-dashboard-list-layout/ca-dashboard-list-layout.component';
 
 /**
@@ -20,7 +23,14 @@ import { CaDashboardListLayoutComponent } from '../ca-dashboard-list-layout/ca-d
   selector: 'ca-dashboard-teams',
   templateUrl: './ca-dashboard-teams.component.html',
   styleUrls: ['./ca-dashboard-teams.component.scss'],
-  imports: [CaDashboardListLayoutComponent, CaTeamCardComponent],
+  imports: [
+    CaDashboardListLayoutComponent,
+    CaTeamCardComponent,
+    CaDashboardEmptyListComponent,
+    MatButtonModule,
+    MatIcon,
+    TranslatePipe,
+  ],
 })
 export class CaDashboardTeamsComponent implements OnInit {
   private groupService = inject(CaGroupService);
@@ -30,6 +40,8 @@ export class CaDashboardTeamsComponent implements OnInit {
   teamsDatasource: CaGroupDatasource;
 
   myTeamsRoute: string = CaRouterService.getMyTeamsRoute();
+
+  color = inject(FlThemeService).getCurrentThemeDetail().primary;
 
   ngOnInit(): void {
     this.teamsDatasource = this.groupService.getMyTeamsDatasource(CaDashboardListLayoutComponent.maxItems);

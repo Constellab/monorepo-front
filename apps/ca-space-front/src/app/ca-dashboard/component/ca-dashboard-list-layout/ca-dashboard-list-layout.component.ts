@@ -1,5 +1,6 @@
-import { NgTemplateOutlet } from '@angular/common';
+import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { Component, ContentChild, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
@@ -8,7 +9,6 @@ import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { TranslatePipe } from '@ngx-translate/core';
 
-import { CaAddCardComponent } from '../../../ca-core/module/ca-core-component/ca-add-card/ca-add-card.component';
 import { CaDetailRoutePipe } from '../../../ca-core/module/ca-core-pipe/ca-detail-route/ca-detail-route.pipe';
 
 /**
@@ -26,9 +26,10 @@ import { CaDetailRoutePipe } from '../../../ca-core/module/ca-core-pipe/ca-detai
     MatIcon,
     FlIconModule,
     NgTemplateOutlet,
-    CaAddCardComponent,
     CaDetailRoutePipe,
     TranslatePipe,
+    MatButtonModule,
+    NgClass,
   ],
 })
 export class CaDashboardListLayoutComponent {
@@ -49,6 +50,8 @@ export class CaDashboardListLayoutComponent {
   @Input() addText: string;
 
   @Input() showAddButton: boolean = true;
+
+  @Input() addButtonColor: string = 'primary';
 
   @Output() addClick: EventEmitter<MouseEvent> = new EventEmitter();
 

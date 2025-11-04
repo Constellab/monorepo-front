@@ -1,0 +1,29 @@
+<fl-dialog-header>
+  <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
+    <ca-icon-container [emoji]="app.emoji" [backgroundColor]="app.background"> </ca-icon-container>
+    <h2>{{ app.name }}</h2>
+  </div>
+</fl-dialog-header>
+
+<mat-dialog-content>
+  <section>
+    <h3>{{ 'constellab_suite_dialog.about_title' | translate }}</h3>
+    <p class="description">{{ app.shortDescription }}</p>
+  </section>
+</mat-dialog-content>
+
+<div mat-dialog-actions>
+  @if (app.communityAppLink) {
+    <button mat-stroked-button (click)="openCommunityLink()" type="button" tabindex="-1">
+      <mat-icon>open_in_new</mat-icon>
+      {{ 'constellab_suite_dialog.view_details' | translate }}
+    </button>
+  }
+  <button mat-stroked-button (click)="requestApp()" type="button" [disabled]="isRequestingApp" tabindex="-1">
+    <mat-icon>mail</mat-icon>
+    {{ 'constellab_suite_dialog.request_app' | translate }}
+    @if (isRequestingApp) {
+      <fl-button-loader></fl-button-loader>
+    }
+  </button>
+</div>

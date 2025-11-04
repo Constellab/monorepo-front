@@ -9,6 +9,10 @@
   word-break: break-word;
 }
 
+.title {
+  font-size: 16px;
+}
+
 .icon {
   display: flex;
 }
@@ -21,6 +25,7 @@
 .folder-user {
   // prevent name overflow
   min-width: 0;
+  margin-top: 1em;
 }
 
 .dates {

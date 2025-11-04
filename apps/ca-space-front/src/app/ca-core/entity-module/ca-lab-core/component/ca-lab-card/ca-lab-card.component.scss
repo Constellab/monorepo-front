@@ -4,6 +4,10 @@
   display: block;
 }
 
+.title {
+  font-size: 16px;
+}
+
 .card-body {
   display: flex;
   flex-direction: column;
@@ -12,6 +16,13 @@
 
 .body-info {
   flex: 1;
+  margin-top: 1em;
+}
+
+.city {
+  --city-image-size: 24px;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
 }
 
 .since-the {
@@ -20,4 +31,45 @@
 
 .action-buttons {
   margin-top: 10px;
+}
+
+.lab-login {
+  flex: 1;
+}
+
+.status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 20px;
+
+  &.running {
+    background-color: var(--mat-sys-primary-container);
+    color: var(--mat-sys-on-primary-container);
+
+    .status-dot {
+      background-color: var(--mat-sys-on-primary-container);
+    }
+  }
+
+  &.stopped {
+    background-color: var(--hover-color);
+    color: var(--light-color);
+
+    .status-dot {
+      background-color: var(--light-color);
+    }
+  }
+}
+
+.status-dot {
+  width: 0.375rem;
+  height: 0.375rem;
+  border-radius: 9999px;
+}
+
+.status-text {
+  font-size: 0.75rem;
+  line-height: 1;
 }

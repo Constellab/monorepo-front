@@ -54,6 +54,7 @@ import { TdTypeInlineComponent } from './component/td-type-inline/td-type-inline
 import { TdTypeUnavailableComponent } from './component/td-type-unavailable/td-type-unavailable.component';
 import { TdVarsMethodsDocComponent } from './component/td-vars-methods-doc/td-vars-methods-doc.component';
 import { TdCleanTypePipe } from './pipe/td-clean-type.pipe';
+import { TdIconAutoColorPipe } from './pipe/td-icon-auto-color.pipe';
 import { TdIconBackgroundColorPipe } from './pipe/td-icon-background-color.pipe';
 import { TdIconColorPipe } from './pipe/td-icon-color.pipe';
 import { TdTypingNamePipe } from './pipe/td-typing-name.pipe';
@@ -124,6 +125,7 @@ import { tdTechnicalDocI18n } from './td-technical-doc.i18n';
     TdIconColorPipe,
     TdDynamicEditableFormGroupComponent,
     TdConfigureSpecsFormComponent,
+    TdIconAutoColorPipe,
   ],
   exports: [
     TdTechnicalDocComponent,
@@ -151,6 +153,7 @@ import { tdTechnicalDocI18n } from './td-technical-doc.i18n';
     TdIconColorPipe,
     TdDynamicEditableFormGroupComponent,
     TdConfigureSpecsFormComponent,
+    TdIconAutoColorPipe,
   ],
 })
 export class TdTechnicalDocModule {

@@ -1,0 +1,32 @@
+@use '@angular/material' as mat;
+
+:host {
+  display: block;
+}
+
+mat-dialog-content {
+  padding: 0;
+}
+
+ca-dashboard-constellab-suite {
+  ::ng-deep {
+    fl-card {
+      border: none;
+      box-shadow: none;
+      background: transparent;
+    }
+
+    fl-card-header {
+      display: none;
+    }
+
+    fl-card-body {
+      padding: 1rem 0;
+    }
+  }
+}
+
+[mat-dialog-actions] {
+  display: flex;
+  justify-content: flex-end;
+}

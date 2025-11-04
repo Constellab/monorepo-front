@@ -3,6 +3,7 @@ import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { MatRipple } from '@angular/material/core';
 import { MatIcon } from '@angular/material/icon';
 import { CoCommunityHelperService } from '@monorepo/community-lib';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -14,9 +15,9 @@ import { CaSpace } from '../../../ca-core/model/entities/space/ca-space.class';
 import { CaCurrentSpaceService } from '../../../ca-core/service-api/ca-current-space.service';
 import { CaEnvironmentHelper } from '../../../ca-core/utils/ca-environment.helper';
 import { CaDashboardAppsComponent } from '../ca-dashboard-apps/ca-dashboard-apps.component';
+import { CaDashboardConstellabSuiteComponent } from '../ca-dashboard-constellab-suite/ca-dashboard-constellab-suite.component';
 import { CaDashboardFoldersComponent } from '../ca-dashboard-folders/ca-dashboard-folders.component';
 import { CaDashboardLabsComponent } from '../ca-dashboard-labs/ca-dashboard-labs.component';
-import { CaDashboardMyActivityComponent } from '../ca-dashboard-my-activity/ca-dashboard-my-activity.component';
 import { CaDashboardTeamsComponent } from '../ca-dashboard-teams/ca-dashboard-teams.component';
 import { CaDashboardVideosComponent } from '../ca-dashboard-videos/ca-dashboard-videos.component';
 
@@ -37,10 +38,11 @@ import { CaDashboardVideosComponent } from '../ca-dashboard-videos/ca-dashboard-
     MatRipple,
     FlTextIconModule,
     MatIcon,
-    CaDashboardMyActivityComponent,
+    CaDashboardConstellabSuiteComponent,
     CaDashboardVideosComponent,
     AsyncPipe,
     TranslatePipe,
+    FlCardModule,
   ],
 })
 export class CaDashboardPageComponent implements OnInit, OnDestroy {

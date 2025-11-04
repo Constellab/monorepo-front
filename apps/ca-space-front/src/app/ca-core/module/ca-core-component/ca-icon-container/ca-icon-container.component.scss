@@ -1,0 +1,37 @@
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  --ca-icon-container-size: 24px;
+  border-radius: 8px;
+}
+
+:host.primary {
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--mat-sys-primary) 15%, white),
+    var(--mat-sys-primary)
+  );
+  color: color-mix(in srgb, var(--mat-sys-tertiary) 30%, black);
+}
+
+:host.accent {
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--mat-sys-tertiary) 15%, white),
+    var(--mat-sys-tertiary)
+  );
+  color: color-mix(in srgb, var(--mat-sys-tertiary) 30%, black);
+}
+
+.icon {
+  width: var(--ca-icon-container-size);
+  height: var(--ca-icon-container-size);
+  font-size: var(--ca-icon-container-size);
+}
+
+.emoji {
+  font-size: calc(var(--ca-icon-container-size));
+}

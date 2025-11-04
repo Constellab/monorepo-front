@@ -6,8 +6,21 @@
   addText="add_new_folder"
   [completeListRoute]="myFoldersRoute"
   completeListText="all_folders"
-  (addClick)="openCreateFolderDialog()">
+  (addClick)="openCreateFolderDialog()"
+  addButtonColor="accent">
   <ng-template let-item>
     <ca-hierarchy-object-card [hierarchyObject]="item"></ca-hierarchy-object-card>
   </ng-template>
+
+  <ca-dashboard-empty-list
+    emoji="📁"
+    [emojiBackgroundColor]="color"
+    [emptyTitle]="'folders_empty_title' | translate"
+    [emptyDescription]="'folders_empty_description' | translate"
+    class="empty-list">
+    <button action mat-stroked-button class="accent" (click)="openCreateFolderDialog()">
+      <mat-icon>add</mat-icon>
+      {{ 'add_new_folder' | translate }}
+    </button>
+  </ca-dashboard-empty-list>
 </ca-dashboard-list-layout>

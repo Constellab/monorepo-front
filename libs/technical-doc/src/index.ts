@@ -44,6 +44,7 @@ export * from './lib/service/td-abstract-dynamic-param-spec.state';
 
 //pipe
 export * from './lib/pipe/td-clean-type.pipe';
+export * from './lib/pipe/td-icon-auto-color.pipe';
 export * from './lib/pipe/td-icon-background-color.pipe';
 export * from './lib/pipe/td-icon-color.pipe';
 export * from './lib/pipe/td-typing-name.pipe';

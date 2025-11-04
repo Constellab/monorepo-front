@@ -1,0 +1,58 @@
+:host {
+  display: block;
+}
+
+.suite-description {
+  font-size: 0.75rem;
+  margin-bottom: 1rem;
+  padding: 0 0.5rem;
+}
+
+.app-item {
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  border-bottom: 1px solid var(--hover-color);
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:hover {
+    background-color: var(--hover-color);
+  }
+}
+
+.app-content {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.app-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  --ca-icon-container-size: 16px;
+}
+
+.app-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.app-name {
+  font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.app-description {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chevron-icon {
+  flex-shrink: 0;
+}

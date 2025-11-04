@@ -10,4 +10,16 @@
   <ng-template let-item>
     <ca-team-card [team]="item"></ca-team-card>
   </ng-template>
+
+  <ca-dashboard-empty-list
+    emoji="👥"
+    [emojiBackgroundColor]="color"
+    [emptyTitle]="'teams_empty_title' | translate"
+    [emptyDescription]="'teams_empty_description' | translate"
+    class="empty-list">
+    <button action mat-stroked-button class="primary" (click)="openCreateTeamDialog()">
+      <mat-icon>add</mat-icon>
+      {{ 'add_new_team' | translate }}
+    </button>
+  </ca-dashboard-empty-list>
 </ca-dashboard-list-layout>

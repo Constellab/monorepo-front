@@ -1,27 +1,21 @@
 <fl-card class="card" matRipple>
   <fl-card-header>
     <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
-      <ca-hierarchy-object-icon [style]="hierarchyObject.style" class="icon"></ca-hierarchy-object-icon>
-      <h2 class="g-text-dense-height">{{ hierarchyObject.name }}</h2>
+      <ca-icon-container
+        [icon]="hierarchyObject.style.icon_technical_name"
+        class="accent"></ca-icon-container>
+      <div class="title g-text-dense-height">{{ hierarchyObject.name }}</div>
     </div>
   </fl-card-header>
 
   <fl-card-body class="body">
     <fl-user-inline [user]="hierarchyObject.user" class="folder-user" [showName]="true"></fl-user-inline>
 
-    <fl-text-icon class="dates">
-      <mat-icon>calendar_today</mat-icon>
-      <fl-from-now [date]="hierarchyObject.lastModifiedAt"></fl-from-now>
-    </fl-text-icon>
-
-    <!--    <div class="g-layout-row g-layout-between-center">-->
-    <!--      @if (folder.chatEnabled) {-->
-    <!--        <mat-icon>comment</mat-icon>-->
-    <!--      }-->
-
-    <!--      @if (folder.hasDescription) {-->
-    <!--        <mat-icon>description</mat-icon>-->
-    <!--      }-->
-    <!--    </div>-->
+    <div class="g-layout-row g-layout-end">
+      <fl-text-icon class="dates g-text-light g-text-small">
+        <mat-icon class="g-icon-small">access_time</mat-icon>
+        <fl-from-now [date]="hierarchyObject.lastModifiedAt"></fl-from-now>
+      </fl-text-icon>
+    </div>
   </fl-card-body>
 </fl-card>

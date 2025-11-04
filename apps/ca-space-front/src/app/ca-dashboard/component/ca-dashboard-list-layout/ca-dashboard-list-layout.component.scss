@@ -7,13 +7,6 @@
   text-decoration: underline;
 }
 
-.all-button {
-  flex-direction: row;
-  display: flex;
-  place-content: stretch flex-end;
-  margin-top: 1em;
-}
-
 .grid-4-cols {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;

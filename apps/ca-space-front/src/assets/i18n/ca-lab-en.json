@@ -18,7 +18,7 @@
   "lab_login_disabled": "Lab stopped, please start the data lab to be able to log in",
   "lab_is_stopping": "Lab is stopping, it may take a few minutes",
   "lab_task_is_running": "Lab task is running, please wait for it to finish",
-  "go_to_lab": "Go to data lab",
+  "go_to_lab": "Open",
   "open_lab_in_new_tab": "Open data lab in new tab",
   "create_lab": "Create data lab",
   "lab_created": "Lab created",

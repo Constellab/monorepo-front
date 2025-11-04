@@ -1,3 +1,7 @@
+:host {
+  --city-image-size: 2em;
+}
+
 .country-div {
   display: flex;
   flex-direction: row;
@@ -5,6 +9,6 @@
 }
 
 .country-img {
-  width: 2em;
+  width: var(--city-image-size);
   margin-right: 0.5em;
 }

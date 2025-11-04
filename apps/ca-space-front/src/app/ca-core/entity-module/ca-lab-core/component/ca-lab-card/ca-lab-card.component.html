@@ -1,45 +1,53 @@
 <fl-card class="card" matRipple>
   <fl-card-header>
-    <!--  Title and logo    -->
-    <fl-text-icon>
-      <mat-icon
-        class="g-icon-background"
-        flIcon="lab"
-        [ngClass]="iconBackground()"
-        [matTooltip]="statusTooltip() | translate"></mat-icon>
-      <h2 class="g-text-dense-height">{{ lab().name }}</h2>
-    </fl-text-icon>
+    <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
+      <ca-icon-container icon="lab" [backgroundColor]="color"></ca-icon-container>
+      <div class="title g-text-dense-height">{{ lab().name }}</div>
+    </div>
   </fl-card-header>
 
   <fl-card-body class="card-body">
+    <div class="g-layout-row g-layout-between-center g-layout-gap-05em">
+      <div class="status-indicator" [ngClass]="statusIndicatorClass()">
+        <div class="status-dot"></div>
+        <span class="status-text">{{ statusText() | translate }}</span>
+      </div>
+
+      <fl-text-icon
+        class="g-text-light g-text-small"
+        [matTooltip]="
+          (lab().currentStatus.status.name | translate) +
+          ' ' +
+          ('since_the' | translate) +
+          ' ' +
+          (lab().currentStatus.createdAt | flDate)
+        ">
+        <mat-icon class="g-icon-small">access_time</mat-icon>
+        {{ lab().currentStatus.createdAt | flDate }}
+      </fl-text-icon>
+    </div>
     <div class="body-info">
       @if (lab().region) {
-        <ca-city [city]="lab().region.city"></ca-city>
+        <ca-city [city]="lab().region.city" class="city"></ca-city>
       }
-
-      <div class="g-text-light g-text-small since-the">
-        {{ lab().currentStatus.status.name | translate }} {{ 'since_the' | translate }}
-        {{ lab().currentStatus.createdAt | flDate }}
-      </div>
     </div>
 
-    <div class="g-layout-row-wrap g-layout-start-center g-layout-gap-05em">
+    <div class="g-layout-row-wrap g-layout-start-center g-layout-gap-05em action-buttons">
       @if (showButtons()) {
         @if (lab().typeObj.isHttpAccessible) {
           <ca-lab-login-button
             [labId]="lab().id"
             [isRunning]="lab().isRunning()"
-            size="small"
-            class="action-buttons"></ca-lab-login-button>
+            class="lab-login"></ca-lab-login-button>
         }
 
         <a
-          mat-stroked-button
+          mat-icon-button
           [routerLink]="lab() | caDetailRoute"
-          class="g-button-small action-buttons"
           (click)="stopEventPropagation($event)"
-          (mousedown)="stopEventPropagation($event)">
-          {{ 'detail' | translate }}
+          (mousedown)="stopEventPropagation($event)"
+          [matTooltip]="'settings' | translate">
+          <mat-icon>settings</mat-icon>
         </a>
       }
     </div>

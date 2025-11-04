@@ -13,10 +13,17 @@ export class TdIconBackgroundColorPipe implements PipeTransform {
   transform(color: TdTypeStyleBackgroundColor): string {
     if (!color) return null;
 
-    if (color === 'primary') return this.themeService.getCurrentThemeDetail().primary;
-    else if (color === 'accent') return this.themeService.getCurrentThemeDetail().accent;
-    else if (color === 'warn') return this.themeService.getCurrentThemeDetail().warn;
+    if (color === 'primary')
+      return TdIconBackgroundColorPipe.getLinearGradient(this.themeService.getCurrentThemeDetail().primary);
+    else if (color === 'accent')
+      return TdIconBackgroundColorPipe.getLinearGradient(this.themeService.getCurrentThemeDetail().accent);
+    else if (color === 'warn')
+      return TdIconBackgroundColorPipe.getLinearGradient(this.themeService.getCurrentThemeDetail().warn);
 
-    return color;
+    return TdIconBackgroundColorPipe.getLinearGradient(color);
+  }
+
+  public static getLinearGradient(color: string): string {
+    return `linear-gradient(135deg, color-mix(in srgb, ${color} 15%, white), ${color})`;
   }
 }

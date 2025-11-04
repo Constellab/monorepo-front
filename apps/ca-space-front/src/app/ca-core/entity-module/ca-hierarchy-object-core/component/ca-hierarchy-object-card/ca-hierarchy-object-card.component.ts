@@ -7,7 +7,7 @@ import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 
 import { CaHierarchyObject } from '../../../../model/entities/folder/ca-hierarchy-object.class';
-import { CaHierarchyObjectIconComponent } from '../ca-hierarchy-object-icon/ca-hierarchy-object-icon.component';
+import { CaIconContainerComponent } from '../../../../module/ca-core-component/ca-icon-container/ca-icon-container.component';
 
 @Component({
   selector: 'ca-hierarchy-object-card',
@@ -17,11 +17,11 @@ import { CaHierarchyObjectIconComponent } from '../ca-hierarchy-object-icon/ca-h
   imports: [
     FlCardModule,
     MatRipple,
-    CaHierarchyObjectIconComponent,
     FlUserModule,
     FlTextIconModule,
     MatIcon,
     FlDateModule,
+    CaIconContainerComponent,
   ],
 })
 export class CaHierarchyObjectCardComponent {

@@ -18,7 +18,7 @@
   "lab_login_disabled": "Lab arrêté, veuillez le démarrer pour pouvoir vous connecter",
   "lab_is_stopping": "Le data lab est en train d'être arrêté, cela peut prendre quelques minutes",
   "lab_task_is_running": "Une tâche est en cours d'exécution, veuillez patienter",
-  "go_to_lab": "Ouvrir le data lab",
+  "go_to_lab": "Ouvrir",
   "open_lab_in_new_tab": "Ouvrir le data lab dans un nouvel onglet",
   "create_lab": "Créer un data lab",
   "lab_created": "Lab créé",
