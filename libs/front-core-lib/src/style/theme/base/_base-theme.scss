@@ -253,6 +253,36 @@
     }
 
     /**
+      Linear gradient background based on the theme and set the text color
+     */
+    .g-primary-gradient-background {
+      background: linear-gradient(
+        135deg,
+        color-mix(in srgb, var(--mat-sys-primary) 15%, white),
+        var(--mat-sys-primary)
+      );
+      color: var(--mat-sys-on-primary);
+    }
+
+    .g-accent-gradient-background {
+      background: linear-gradient(
+        135deg,
+        color-mix(in srgb, var(--mat-sys-tertiary) 15%, white),
+        var(--mat-sys-tertiary)
+      );
+      color: var(--mat-sys-on-tertiary);
+    }
+
+    .g-warn-gradient-background {
+      background: linear-gradient(
+        135deg,
+        color-mix(in srgb, var(--mat-sys-error) 15%, white),
+        var(--mat-sys-error)
+      );
+      color: var(--mat-sys-on-error);
+    }
+
+    /**
       Contrast text for palette. The best color (white or black) depending on the background
      */
     .g-primary-contrast {

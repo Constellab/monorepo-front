@@ -7,7 +7,12 @@
   </fl-card-header>
 
   <fl-card-body class="body">
-    <fl-creation-info [date]="team.createdAt" [user]="team.createdBy" class="g-text-light g-text-small">
-    </fl-creation-info>
+    <fl-user-inline [user]="team.createdBy"></fl-user-inline>
+    <div class="g-layout-row g-layout-end">
+      <fl-text-icon class="dates g-text-light g-text-small">
+        <mat-icon class="g-icon-small">access_time</mat-icon>
+        <fl-from-now [date]="team.createdAt"></fl-from-now>
+      </fl-text-icon>
+    </div>
   </fl-card-body>
 </fl-card>
