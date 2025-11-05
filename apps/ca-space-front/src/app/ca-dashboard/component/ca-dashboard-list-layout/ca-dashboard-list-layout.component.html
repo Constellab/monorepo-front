@@ -14,7 +14,7 @@
           </a>
           <mat-icon>chevron_right</mat-icon>
         </fl-text-icon>
-      } @else if (showAddButton && datasource.page?.totalElements > 0) {
+      } @else if (showAddButton && datasource.page?.totalElements > 0 && false) {
         <button mat-stroked-button type="button" (click)="addClicked($event)" [ngClass]="addButtonColor">
           <mat-icon>add</mat-icon>
           {{ addText | translate }}
@@ -24,7 +24,7 @@
   </fl-section-header>
 
   <ng-container *flSectionBodyDatasource="datasource as items">
-    @if (items.length > 0) {
+    @if (items.length > 0 && false) {
       <div class="grid-4-cols">
         @for (item of items; track item) {
           <a [routerLink]="item | caDetailRoute">

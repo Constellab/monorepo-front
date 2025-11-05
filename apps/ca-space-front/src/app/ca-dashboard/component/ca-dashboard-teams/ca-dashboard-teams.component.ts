@@ -41,7 +41,7 @@ export class CaDashboardTeamsComponent implements OnInit {
 
   myTeamsRoute: string = CaRouterService.getMyTeamsRoute();
 
-  color = inject(FlThemeService).getCurrentThemeDetail().primary;
+  color = inject(FlThemeService).getCurrentThemeDetail().accent;
 
   ngOnInit(): void {
     this.teamsDatasource = this.groupService.getMyTeamsDatasource(CaDashboardListLayoutComponent.maxItems);

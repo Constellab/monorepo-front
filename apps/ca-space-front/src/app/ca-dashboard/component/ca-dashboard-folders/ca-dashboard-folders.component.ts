@@ -38,7 +38,7 @@ export class CaDashboardFoldersComponent implements OnInit {
 
   myFoldersRoute: string = CaRouterService.getMyFoldersRoute();
 
-  color = inject(FlThemeService).getCurrentThemeDetail().primary;
+  color = inject(FlThemeService).getCurrentThemeDetail().accent;
 
   ngOnInit(): void {
     this.getMyFolders();

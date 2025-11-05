@@ -38,7 +38,7 @@ export class CaDashboardLabsComponent implements OnInit {
 
   myLabsRoute: string = CaRouterService.getMyLabsRoute();
 
-  color = inject(FlThemeService).getCurrentThemeDetail().accent;
+  color = inject(FlThemeService).getCurrentThemeDetail().primary;
 
   ngOnInit(): void {
     this.getMyLabs();
