@@ -57,7 +57,8 @@ export class CaHierarchyObjectActionsMenuState {
         break;
       case CaHierarchyObjectType.SCENARIO:
       case CaHierarchyObjectType.RESOURCE:
-        // no preview for scenario, nor resource
+      case CaHierarchyObjectType.APPLICATION:
+        // no preview for scenario, resource nor application
         this.onHierarchyObjectDblClicked(hierarchyObject);
         break;
       case CaHierarchyObjectType.CONSTELLAB_DOCUMENT:
