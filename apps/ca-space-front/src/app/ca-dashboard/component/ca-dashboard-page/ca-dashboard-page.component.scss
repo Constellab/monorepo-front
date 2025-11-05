@@ -3,6 +3,8 @@
   padding: 1em;
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
+  min-height: 100vh;
 }
 
 .header-right {
@@ -15,6 +17,7 @@
   padding: var(--main-menu-margin) 1em;
   border-radius: var(--card-radius);
   background-color: var(--main-background);
+  flex: 1;
 }
 
 .dashboard-left {
