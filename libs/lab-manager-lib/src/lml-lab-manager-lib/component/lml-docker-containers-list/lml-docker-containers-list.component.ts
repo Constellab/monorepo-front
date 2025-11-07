@@ -63,8 +63,8 @@ export class LmlDockerContainersListComponent {
     });
   }
 
-  startComposeContainer(serviceName: string): void {
-    this.composeState.startComposeService(serviceName);
+  startComposeContainer(containerName: string): void {
+    this.managerState.startContainer(containerName);
   }
 
   stopContainer(containerName: string): void {

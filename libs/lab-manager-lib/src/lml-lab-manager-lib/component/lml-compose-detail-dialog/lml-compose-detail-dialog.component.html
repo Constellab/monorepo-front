@@ -1,9 +1,16 @@
 <fl-dialog-header>
   {{ 'lml.compose_details' | translate }}
+
+  <fl-dialog-header-actions>
+    <button mat-stroked-button type="button" class="g-button-small button" (click)="refresh()">
+      <mat-icon>refresh</mat-icon>
+      <span>{{ 'lml.lab_manager_refresh' | translate }}</span>
+    </button>
+  </fl-dialog-header-actions>
 </fl-dialog-header>
 
 <mat-dialog-content>
-  <div class="compose-info">
+  <div>
     <fl-key-value>
       <fl-key>{{ 'lml.brick_name' | translate }}</fl-key>
       {{ compose.brickName }}
@@ -41,11 +48,78 @@
     </fl-key-value>
   </div>
 
+  <!-- Compose Status -->
+  <h2 class="title">{{ 'lml.compose_status' | translate }}</h2>
+  @if (composeStatus$ | async; as composeStatusEvent) {
+    @if (composeStatusEvent.status === 'success' && composeStatusEvent.object; as composeStatus) {
+      <div>
+        <!-- Compose containers status -->
+        <div>
+          <div class="g-layout-row g-layout-start-center g-layout-gap-1em">
+            <fl-status-chip [status]="composeStatus.composeStatus.status" size="small"></fl-status-chip>
+            @if (composeStatus.composeStatus.info) {
+              <span class="g-text-light">{{ composeStatus.composeStatus.info }}</span>
+            }
+          </div>
+        </div>
+
+        <!-- Running process -->
+        @if (composeStatus.subComposeProcess; as processObj) {
+          <div class="g-layout-row g-layout-start-center g-layout-gap-05em title">
+            <h2>{{ 'lml.current_process' | translate }}</h2>
+            <mat-icon [matTooltip]="'lml.current_process_help_text' | translate">info</mat-icon>
+          </div>
+
+          <div class="g-layout-row g-layout-start-center g-layout-gap-1em">
+            <fl-status-chip [status]="processObj.status" size="small"></fl-status-chip>
+            <div>-</div>
+            <div>{{ processObj.processType }}</div>
+            @if (processObj.message) {
+              <div>-</div>
+              <div class="g-text-light message">{{ processObj.message }}</div>
+            }
+          </div>
+
+          <fl-key-value>
+            <fl-key>{{ 'lml.started_at' | translate }}</fl-key>
+            {{ processObj.startedAt | flDate: 'DATE_TIME' }}
+          </fl-key-value>
+
+          @if (processObj.completedAt) {
+            <fl-key-value>
+              <fl-key>{{ 'lml.completed_at' | translate }}</fl-key>
+              {{ processObj.completedAt | flDate: 'DATE_TIME' }} ({{ processObj.durationInMs | flDuration }})
+            </fl-key-value>
+          }
+
+          @if (processObj.status.value === 'RUNNING') {
+            <div class="g-layout-row g-layout-start-center g-layout-gap-1em" style="margin-top: 1em">
+              <button
+                mat-stroked-button
+                type="button"
+                class="g-button-small warn"
+                (click)="stopSubComposeProcess()">
+                {{ 'lml.stop_sub_compose_process' | translate }}
+              </button>
+            </div>
+          }
+        }
+      </div>
+    } @else if (composeStatusEvent.status === 'loading') {
+      <div class="g-centered-forced">
+        <fl-loader size="small"></fl-loader>
+      </div>
+    } @else if (composeStatusEvent.status === 'error') {
+      <div class="g-error-text">
+        {{ 'lml.error_loading_status' | translate }}
+      </div>
+    }
+  }
+
   <!-- Compose Action buttons -->
   @if (compose.composeFilePath) {
+    <h2 class="title">{{ 'lml.compose_actions' | translate }}</h2>
     <div class="action-buttons">
-      <h3>{{ 'lml.compose_actions' | translate }}</h3>
-
       <button mat-stroked-button type="button" class="g-button-small primary" (click)="showComposeContent()">
         {{ 'lml.show_compose_content' | translate }}
       </button>
@@ -73,5 +147,5 @@
   }
 
   <!-- Services list -->
-  <lml-docker-containers [readonly]="!compose.composeFilePath"></lml-docker-containers>
+  <lml-docker-containers class="containers" [readonly]="!compose.composeFilePath"></lml-docker-containers>
 </mat-dialog-content>

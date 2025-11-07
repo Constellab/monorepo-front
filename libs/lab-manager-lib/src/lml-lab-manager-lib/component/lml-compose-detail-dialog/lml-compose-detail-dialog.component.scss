@@ -1,15 +1,22 @@
-.compose-info {
-  margin-bottom: 1rem;
+.title {
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+}
+
+.message {
+  white-space: pre-wrap;
+  word-break: break-word;
+  min-width: 0;
+  flex: 1;
 }
 
 .action-buttons {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-  margin-bottom: 1rem;
+}
 
-  h3 {
-    width: 100%;
-    margin: 0 0 0.5rem 0;
-  }
+.containers {
+  margin-top: 1em;
+  display: block;
 }

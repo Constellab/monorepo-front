@@ -1,12 +1,14 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FlCodeDialogComponent, FlCodeDialogData } from '@monorepo/front-core-lib/fl-code-editor';
+import { FlStatusEvent } from '@monorepo/front-core-lib/fl-core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlPortalActionResult } from '@monorepo/front-core-lib/fl-portal-actions';
+import { Observable } from 'rxjs';
 
 import { LmlComposeState } from '../../lml-compose.state';
 import { LmlLabManagerService } from '../../lml-lab-manager.service';
-import { LmlComposeInfo } from '../../model/lml-lab-manager.class';
+import { LmlComposeInfo, LmlSubComposeStatus } from '../../model/lml-lab-manager.class';
 
 export interface LmlComposeDetailDialogData {
   compose: LmlComposeInfo;
@@ -27,9 +29,12 @@ export class LmlComposeDetailDialogComponent implements OnInit, OnDestroy {
 
   composeState = inject(LmlComposeState);
   compose = this.data.compose;
+  composeStatus$: Observable<FlStatusEvent<LmlSubComposeStatus>>;
 
   ngOnInit(): void {
     this.composeState.init(this.compose);
+    this.composeStatus$ = this.composeState.getComposeStatus$();
+    this.composeState.loadComposeStatus();
   }
 
   ngOnDestroy(): void {
@@ -71,11 +76,6 @@ export class LmlComposeDetailDialogComponent implements OnInit, OnDestroy {
     }
   }
 
-  // Single container actions
-  startComposeContainer(serviceName: string): void {
-    this.composeState.startComposeService(serviceName);
-  }
-
   // Show compose content
   showComposeContent(): void {
     this.labManagerService.getComposeContent(this.compose).subscribe({
@@ -92,5 +92,25 @@ export class LmlComposeDetailDialogComponent implements OnInit, OnDestroy {
         });
       },
     });
+  }
+
+  refresh(): void {
+    this.composeState.refresh();
+  }
+
+  stopSubComposeProcess(): void {
+    this.dialogService
+      .openConfirmDialog({
+        title: 'lml.stop_sub_compose_process_confirm_title',
+        content: 'lml.stop_sub_compose_process_confirm_content',
+      })
+      .afterClosed()
+      .subscribe((result) => {
+        if (result.choice) {
+          this.labManagerService.stopSubComposeProcess(this.compose).subscribe(() => {
+            this.composeState.refresh();
+          });
+        }
+      });
   }
 }

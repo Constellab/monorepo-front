@@ -24,10 +24,4 @@ export class LmlDockerContainersComponent implements OnInit {
       this.composeState.loadDockerServices();
     }
   }
-
-  refresh(): void {
-    if (this.composeState) {
-      this.composeState.refreshDockerServices();
-    }
-  }
 }

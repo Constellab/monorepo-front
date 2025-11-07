@@ -15,10 +15,12 @@ import {
   LmlComposeUniqueId,
   LmlComposeUpOptions,
   LmlDockerInspect,
+  LmlSubComposeStatus,
 } from './model/lml-lab-manager.class';
 
 interface LmlAdditionalData {
   refreshDockerServices?: boolean;
+  refreshComposeStatus?: boolean;
 }
 
 /**
@@ -29,6 +31,10 @@ export class LmlComposeState implements OnDestroy {
   private compose: LmlComposeUniqueId | null = null;
 
   private dockerServices = new BehaviorSubject<FlStatusEvent<LmlDockerInspect[]>>({
+    status: 'waiting',
+  });
+
+  private composeStatus = new BehaviorSubject<FlStatusEvent<LmlSubComposeStatus>>({
     status: 'waiting',
   });
 
@@ -50,8 +56,12 @@ export class LmlComposeState implements OnDestroy {
   }
 
   private onActionResult(result: FlPortalActionResult): void {
-    if ((result?.additionalInformation as LmlAdditionalData)?.refreshDockerServices) {
+    const additionalData = result?.additionalInformation as LmlAdditionalData;
+    if (additionalData?.refreshDockerServices) {
       this.refreshDockerServices();
+    }
+    if (additionalData?.refreshComposeStatus) {
+      this.refreshComposeStatus();
     }
   }
 
@@ -67,7 +77,12 @@ export class LmlComposeState implements OnDestroy {
     }
   }
 
-  public refreshDockerServices(): void {
+  public refresh(): void {
+    this.refreshComposeStatus();
+    this.refreshDockerServices();
+  }
+
+  private refreshDockerServices(): void {
     if (this.dockerServices.value.status === 'loading') return;
     this.dockerServices.next({ status: 'loading' });
     this.labManagerService.listServices(this.compose).subscribe({
@@ -77,6 +92,31 @@ export class LmlComposeState implements OnDestroy {
           object: service,
         }),
       error: (error) => this.dockerServices.next({ status: 'error', error }),
+    });
+  }
+
+  public getComposeStatus$(): Observable<FlStatusEvent<LmlSubComposeStatus>> {
+    return this.composeStatus.asObservable();
+  }
+
+  public loadComposeStatus(): void {
+    // if the status was never loaded, load it
+    const value = this.composeStatus.value;
+    if (value.status === 'waiting') {
+      this.refreshComposeStatus();
+    }
+  }
+
+  private refreshComposeStatus(): void {
+    if (this.composeStatus.value.status === 'loading') return;
+    this.composeStatus.next({ status: 'loading' });
+    this.labManagerService.getComposeStatus(this.compose).subscribe({
+      next: (status: LmlSubComposeStatus) =>
+        this.composeStatus.next({
+          status: 'success',
+          object: status,
+        }),
+      error: (error) => this.composeStatus.next({ status: 'error', error }),
     });
   }
 
@@ -91,6 +131,7 @@ export class LmlComposeState implements OnDestroy {
           type: this.actionType,
           additionalInformation: {
             refreshDockerServices: true,
+            refreshComposeStatus: true,
           } as LmlAdditionalData,
         });
       }
@@ -106,6 +147,7 @@ export class LmlComposeState implements OnDestroy {
           type: this.actionType,
           additionalInformation: {
             refreshDockerServices: true,
+            refreshComposeStatus: true,
           } as LmlAdditionalData,
         });
       }
@@ -125,6 +167,7 @@ export class LmlComposeState implements OnDestroy {
       type: this.actionType,
       additionalInformation: {
         refreshDockerServices: true,
+        refreshComposeStatus: true,
       } as LmlAdditionalData,
     });
   }
@@ -136,6 +179,7 @@ export class LmlComposeState implements OnDestroy {
       type: this.actionType,
       additionalInformation: {
         refreshDockerServices: true,
+        refreshComposeStatus: true,
       } as LmlAdditionalData,
     });
   }
@@ -153,24 +197,17 @@ export class LmlComposeState implements OnDestroy {
       action: this.labManagerService.unregisterSubCompose(this.compose),
       text: { text: 'lml.unregister_sub_compose', translateText: true },
       type: this.actionType,
+      additionalInformation: {
+        refreshComposeStatus: true,
+      } as LmlAdditionalData,
     });
   }
 
   //////////////////// SINGLE CONTAINER MANAGEMENT /////////////////////
 
-  startComposeService(serviceName: string): void {
-    this.actionService.addAction({
-      action: this.labManagerService.startComposeService(this.compose, serviceName),
-      text: { text: 'lml.service_start', translateText: true },
-      type: this.actionType,
-      additionalInformation: {
-        refreshDockerServices: true,
-      } as LmlAdditionalData,
-    });
-  }
-
   ngOnDestroy(): void {
     this.subscriptions?.unsubscribe();
     this.dockerServices.complete();
+    this.composeStatus.complete();
   }
 }

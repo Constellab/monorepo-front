@@ -16,6 +16,7 @@ import {
   LmlLabManagerStatus,
   LmlNewVersionAvailable,
   LmlPullBiotaOptions,
+  LmlSubComposeStatus,
 } from './model/lml-lab-manager.class';
 
 /**
@@ -64,8 +65,6 @@ export abstract class LmlLabManagerService {
 
   abstract restartServices(compose: LmlComposeUniqueId, options: LmlComposeRestartOptions): Observable<void>;
 
-  abstract startComposeService(compose: LmlComposeUniqueId, serviceName: string): Observable<void>;
-
   abstract stopServices(compose: LmlComposeUniqueId): Observable<void>;
 
   abstract upServices(compose: LmlComposeUniqueId, options: LmlComposeUpOptions): Observable<void>;
@@ -74,7 +73,13 @@ export abstract class LmlLabManagerService {
 
   abstract unregisterSubCompose(compose: LmlComposeUniqueId): Observable<void>;
 
+  abstract getComposeStatus(compose: LmlComposeUniqueId): Observable<LmlSubComposeStatus>;
+
+  abstract stopSubComposeProcess(compose: LmlComposeUniqueId): Observable<LmlSubComposeStatus>;
+
   ////////////////////////////////////// CONTAINER //////////////////////////////////////
+
+  abstract startContainer(containerName: string): Observable<void>;
 
   abstract deleteContainer(containerName: string): Observable<void>;
 

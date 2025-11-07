@@ -23,7 +23,7 @@ const lmlLabManagerI18nFr: FlLangTranslation = {
     container_none: 'None',
     container_logs: 'Voir les logs',
     containers: 'Services',
-    service_start: 'Démarrer le service',
+    container_start: 'Démarrer le service',
     container_stop: 'Arrêter le service',
     container_delete: 'Supprimer le service',
     container_download_logs: 'Télécharger les logs',
@@ -162,6 +162,20 @@ const lmlLabManagerI18nFr: FlLangTranslation = {
     compose_description: 'Description',
     unregister_sub_compose: 'Désenregistrer le groupe de services',
     fetching_logs_regularly: 'Récupération des logs régulièrement',
+    compose_status: 'Statut du groupe de services',
+    current_process: 'Processus en cours',
+    current_process_help_text:
+      'Cette section fournit des informations en temps réel sur les opérations en cours ou finies (enregistrement ou désenregistrement) pour un Docker compose',
+    process_type: 'Type de processus',
+    status: 'Statut',
+    message: 'Message',
+    started_at: 'Démarré à',
+    completed_at: 'Terminé à',
+    error_loading_status: 'Erreur lors du chargement du statut',
+    stop_sub_compose_process: 'Arrêter le processus en cours',
+    stop_sub_compose_process_confirm_title: 'Arrêter le processus en cours',
+    stop_sub_compose_process_confirm_content:
+      'Êtes-vous sûr de vouloir arrêter le processus en cours ? Un autre processus peut être démarré par la suite.',
   },
 };
 
@@ -182,7 +196,7 @@ const lmlLabManagerI18nEn: FlLangTranslation = {
     container_none: 'None',
     container_logs: 'View logs',
     containers: 'Services',
-    service_start: 'Start service',
+    container_start: 'Start service',
     container_stop: 'Stop service',
     container_delete: 'Delete service',
     container_download_logs: 'Download logs',
@@ -317,6 +331,20 @@ const lmlLabManagerI18nEn: FlLangTranslation = {
     compose_description: 'Description',
     unregister_sub_compose: 'Unregister service group',
     fetching_logs_regularly: 'Fetching logs regularly',
+    compose_status: 'Service group status',
+    current_process: 'Current process',
+    current_process_help_text:
+      'This section provides real-time information about ongoing or finished operations (registration or unregistration) for a Docker compose',
+    process_type: 'Process type',
+    status: 'Status',
+    message: 'Message',
+    started_at: 'Started at',
+    completed_at: 'Completed at',
+    error_loading_status: 'Error loading status',
+    stop_sub_compose_process: 'Stop current process',
+    stop_sub_compose_process_confirm_title: 'Stop current process',
+    stop_sub_compose_process_confirm_content:
+      'Are you sure you want to stop the current process? Another process can be started afterwards.',
   },
 };
 

@@ -18,6 +18,7 @@ import {
   LmlLabManagerStatus,
   LmlNewVersionAvailable,
   LmlPullBiotaOptions,
+  LmlSubComposeStatus,
 } from '@monorepo/lab-manager-lib';
 import { Observable, tap } from 'rxjs';
 
@@ -103,10 +104,6 @@ export class LmsLabManagerService extends LmlLabManagerService {
     return this.labService.restartServices(compose.brickName, compose.uniqueName, compose.env, options);
   }
 
-  startComposeService(compose: LmlComposeUniqueId, serviceName: string): Observable<void> {
-    return this.labService.startService(compose.brickName, compose.uniqueName, compose.env, serviceName);
-  }
-
   stopServices(compose: LmlComposeUniqueId): Observable<void> {
     return this.labService.stopServices(compose.brickName, compose.uniqueName, compose.env);
   }
@@ -123,7 +120,19 @@ export class LmsLabManagerService extends LmlLabManagerService {
     return this.labService.unregisterSubCompose(compose.brickName, compose.uniqueName, compose.env);
   }
 
+  getComposeStatus(compose: LmlComposeUniqueId): Observable<LmlSubComposeStatus> {
+    return this.labService.getComposeStatus(compose.brickName, compose.uniqueName, compose.env);
+  }
+
+  stopSubComposeProcess(compose: LmlComposeUniqueId): Observable<LmlSubComposeStatus> {
+    return this.labService.stopSubComposeProcess(compose.brickName, compose.uniqueName, compose.env);
+  }
+
   ////////////////////////////////////// CONTAINER //////////////////////////////////////
+
+  startContainer(containerName: string): Observable<void> {
+    return this.labService.startContainer(containerName);
+  }
 
   deleteContainer(containerName: string): Observable<void> {
     return this.labService.deleteContainer(containerName);

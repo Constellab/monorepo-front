@@ -194,6 +194,17 @@ export class LmlLabManagerState implements OnDestroy {
 
   //////////////////// SINGLE CONTAINER MANAGEMENT /////////////////////
 
+  startContainer(containerName: string): void {
+    this.actionService.addAction({
+      action: this.labManagerService.startContainer(containerName),
+      text: { text: 'lml.container_start', translateText: true },
+      type: this.actionType,
+      additionalInformation: {
+        refreshDockerServices: true,
+      } as LmlAdditionalData,
+    });
+  }
+
   stopContainer(containerName: string): void {
     this.actionService.addAction({
       action: this.labManagerService.stopContainer(containerName),

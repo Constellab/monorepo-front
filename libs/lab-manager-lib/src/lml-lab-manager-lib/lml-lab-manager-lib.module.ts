@@ -19,6 +19,7 @@ import { CoCommunityLibModule } from '@monorepo/community-lib';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
+import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
 import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
@@ -109,6 +110,7 @@ import { LmlCommunityBrickImagePipe } from './pipe/lml-community-brick-image.pip
     FlIconModule,
     MatSortHeader,
     FlCoreComponentModule,
+    FlDateModule,
   ],
 })
 export class LmlLabManagerLibModule {

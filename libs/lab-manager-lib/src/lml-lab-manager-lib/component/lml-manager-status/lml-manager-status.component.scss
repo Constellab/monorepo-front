@@ -15,5 +15,8 @@
 }
 
 .info {
-  white-space: pre;
+  white-space: pre-wrap;
+  word-break: break-word;
+  min-width: 0;
+  flex: 1;
 }

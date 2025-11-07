@@ -1,3 +1,4 @@
+import { ClLuxonDateTimeTransform } from '@monorepo/core-lib';
 import { FlArrayObs } from '@monorepo/front-core-lib/fl-core';
 import {
   FlStatus,
@@ -6,6 +7,7 @@ import {
   FlStatusTransform,
 } from '@monorepo/front-core-lib/fl-status';
 import { Type } from 'class-transformer';
+import { DateTime } from 'luxon';
 
 export type LmlLabContainersStatus = 'STOP' | 'DOWN' | 'UP' | 'PARTIALLY_UP' | 'ERROR';
 
@@ -81,7 +83,7 @@ export interface LmlCleanLabManagerOptions {
 export type LmlTaskStatus = 'RUNNING' | 'SUCCESS' | 'ERROR';
 
 const lmlTaskStatusDict: FlStatusDict<LmlTaskStatus> = {
-  RUNNING: FlStatusHelper.getRunningStatus('RUNNING', 'lml.running'),
+  RUNNING: FlStatusHelper.getLoadingStatus('RUNNING', 'lml.running'),
   SUCCESS: FlStatusHelper.getSuccessStatus('SUCCESS', 'lml.success'),
   ERROR: FlStatusHelper.getErrorStatus('ERROR', 'lml.error'),
 };
@@ -207,4 +209,39 @@ export interface LmlComposeInfo {
 
 export interface LmlComposeList {
   composes: LmlComposeInfo[];
+}
+
+/**
+ * Information about a running/finished process on a sub compose
+ */
+export class LmlSubComposeProcessInfo {
+  processType: 'REGISTER' | 'UNREGISTER';
+
+  @FlStatusTransform(lmlTaskStatusDict)
+  status: FlStatus<LmlTaskStatus>;
+
+  message: string;
+
+  @ClLuxonDateTimeTransform()
+  startedAt: DateTime;
+
+  @ClLuxonDateTimeTransform()
+  completedAt?: DateTime;
+
+  get durationInMs(): number | null {
+    if (!this.completedAt) {
+      return null;
+    }
+    return this.completedAt.toMillis() - this.startedAt.toMillis();
+  }
+}
+
+/**
+ * Overall status of a sub compose, including any running process and the docker-compose status
+ */
+export class LmlSubComposeStatus {
+  @Type(() => LmlSubComposeProcessInfo)
+  subComposeProcess?: LmlSubComposeProcessInfo;
+  @Type(() => LmlLabContainerStatusInfo)
+  composeStatus: LmlLabContainerStatusInfo;
 }

@@ -15,6 +15,7 @@ import {
   LmlLabManagerConfig,
   LmlLabManagerStatus,
   LmlPullBiotaOptions,
+  LmlSubComposeStatus,
 } from '@monorepo/lab-manager-lib';
 import { map, Observable } from 'rxjs';
 
@@ -127,18 +128,6 @@ export class LmsLabService {
     );
   }
 
-  startService(
-    brickName: string,
-    uniqueName: string,
-    env: LmlComposeEnv,
-    serviceName: string
-  ): Observable<void> {
-    return this.apiService.put(
-      `${this.composeRoute}/${brickName}/${uniqueName}/${env}/services/${serviceName}/start`,
-      null
-    );
-  }
-
   stopServices(brickName: string, uniqueName: string, env: LmlComposeEnv): Observable<void> {
     return this.apiService.post(`${this.composeRoute}/${brickName}/${uniqueName}/${env}/stop-services`, null);
   }
@@ -167,7 +156,34 @@ export class LmsLabService {
     return this.apiService.delete(`${this.composeRoute}/${brickName}/${uniqueName}/${env}/unregister`);
   }
 
+  getComposeStatus(
+    brickName: string,
+    uniqueName: string,
+    env: LmlComposeEnv
+  ): Observable<LmlSubComposeStatus> {
+    return this.apiService.get(
+      `${this.composeRoute}/${brickName}/${uniqueName}/${env}/status`,
+      LmlSubComposeStatus
+    );
+  }
+
+  stopSubComposeProcess(
+    brickName: string,
+    uniqueName: string,
+    env: LmlComposeEnv
+  ): Observable<LmlSubComposeStatus> {
+    return this.apiService.put(
+      `${this.composeRoute}/${brickName}/${uniqueName}/${env}/stop-sub-compose-process`,
+      null,
+      LmlSubComposeStatus
+    );
+  }
+
   ////////////////////////////////////// CONTAINER //////////////////////////////////////
+
+  public startContainer(containerName: string): Observable<void> {
+    return this.apiService.put(`${this.containerRoute}/${containerName}/start`, null);
+  }
 
   public deleteContainer(containerName: string): Observable<void> {
     return this.apiService.put(`${this.containerRoute}/${containerName}/delete`, null);
