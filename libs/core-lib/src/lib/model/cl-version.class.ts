@@ -56,6 +56,10 @@ export class ClVersion {
     return this.getDif(other) >= 0;
   }
 
+  public isHigher(other: ClVersion): boolean {
+    return this.getDif(other) > 0;
+  }
+
   public isEqual(other: ClVersion): boolean {
     return this.getDif(other) === 0;
   }
@@ -97,7 +101,8 @@ export class ClVersion {
   }
 
   /**
-   * Return the subPatch as a number. If there is no subPatch, return Infinity, so it is greater than beta version
+   * Return the subPatch as a number. If there is no subPatch, return Infinity,
+   * so it is greater than beta version
    */
   public getSubPatchAsNumber(): number {
     return this.subPatch != null ? this.subPatch : Infinity;

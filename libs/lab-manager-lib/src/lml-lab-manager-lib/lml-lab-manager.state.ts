@@ -1,5 +1,5 @@
 import { inject, Injectable, OnDestroy } from '@angular/core';
-import { ClSubscriptionHandler } from '@monorepo/core-lib';
+import { ClSubscriptionHandler, ClVersion } from '@monorepo/core-lib';
 import { FlStatusEvent, flStatutEventResponse, flStatutEventSuccess } from '@monorepo/front-core-lib/fl-core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
@@ -250,9 +250,20 @@ export class LmlLabManagerState implements OnDestroy {
 
   public newLabManagerVersionAvailable$(): Observable<boolean> {
     return this.getNewLabManagerVersion$().pipe(
-      map(
-        (version) => version.currentVersion != null && version.currentVersion !== version.recommendedVersion
-      )
+      map((version) => {
+        // version.currentVersion != null && version.currentVersion !== version.recommendedVersion
+        if (!version.currentVersion || !version.recommendedVersion) {
+          return false;
+        }
+        try {
+          return ClVersion.fromString(version.recommendedVersion).isHigher(
+            ClVersion.fromString(version.currentVersion)
+          );
+        } catch (e) {
+          console.error('Error parsing version', e);
+          return false;
+        }
+      })
     );
   }
 
