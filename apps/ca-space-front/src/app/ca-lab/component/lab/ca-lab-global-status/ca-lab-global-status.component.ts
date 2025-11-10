@@ -4,6 +4,8 @@ import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { ClDateHelper } from '@monorepo/core-lib';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import { LmlLabManagerState, LmlLabManagerStatus } from '@monorepo/lab-manager-lib';
@@ -16,6 +18,7 @@ import { CaLabStatusDTO } from '../../../../ca-core/model/entities/lab/ca-lab.cl
 import { CaLabDetailConfigPageState } from '../../../state/ca-lab-detail-config-page.state';
 import { CaLabDetailPageState } from '../../../state/ca-lab-detail-page.state';
 import { CaLabServerStatusComponent } from '../../server/ca-lab-server-status/ca-lab-server-status.component';
+import { CaLabCodelabInfoComponent } from '../ca-lab-codelab-info/ca-lab-codelab-info.component';
 import { CaLabCurrentTaskComponent } from '../ca-lab-current-task/ca-lab-current-task.component';
 import { CaLabStartStopComponent } from '../ca-lab-start-stop/ca-lab-start-stop.component';
 
@@ -37,6 +40,7 @@ import { CaLabStartStopComponent } from '../ca-lab-start-stop/ca-lab-start-stop.
     CaLabStartStopComponent,
     AsyncPipe,
     TranslatePipe,
+    FlIconModule,
   ],
 })
 export class CaLabGlobalStatusComponent implements OnInit {
@@ -45,6 +49,7 @@ export class CaLabGlobalStatusComponent implements OnInit {
   private labManagerState = inject(LmlLabManagerState);
 
   private translateService = inject(FlTranslateService);
+  private dialogService = inject(FlDialogService);
 
   status$: Observable<CaLabStatusDTO> = this.configState.getStatus$();
 
@@ -59,6 +64,10 @@ export class CaLabGlobalStatusComponent implements OnInit {
       this.configState.getStatus$(),
       this.labManagerState.getStatus$().pipe(startWith(null)),
     ]).pipe(map(([status, managerStatus]) => this.getErrorStatusMessages(status, managerStatus)));
+  }
+
+  openCodelabInfo(): void {
+    this.dialogService.openMediumDialog(CaLabCodelabInfoComponent, { data: this.state.getLabId() });
   }
 
   forceStatusRefresh(): void {

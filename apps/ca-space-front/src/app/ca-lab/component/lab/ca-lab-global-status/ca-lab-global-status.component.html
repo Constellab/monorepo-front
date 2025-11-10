@@ -6,7 +6,16 @@
     </fl-text-icon>
 
     <fl-card-actions>
-      <button mat-stroked-button type="button" (click)="forceStatusRefresh()" class="g-button-small">
+      <button mat-stroked-button type="button" (click)="openCodelabInfo()" class="g-button-small">
+        <mat-icon flIcon="code"></mat-icon>
+        <span>{{ 'codelab_info' | translate }}</span>
+      </button>
+
+      <button
+        mat-stroked-button
+        type="button"
+        (click)="forceStatusRefresh()"
+        class="g-button-small refresh-status">
         <mat-icon>refresh</mat-icon>
         {{ 'refresh_status' | translate }}
       </button>

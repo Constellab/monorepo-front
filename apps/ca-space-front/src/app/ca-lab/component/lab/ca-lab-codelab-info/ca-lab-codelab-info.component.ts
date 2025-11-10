@@ -11,7 +11,6 @@ import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-componen
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
-import { FlClipboardService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { TranslatePipe } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
@@ -38,27 +37,16 @@ import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
   ],
 })
 export class CaLabCodelabInfoComponent implements OnInit {
-  private labId = inject(MAT_DIALOG_DATA);
+  private labId: string = inject(MAT_DIALOG_DATA);
   private labService = inject(CaLabService);
-  private clipboardService = inject(FlClipboardService);
   private communityHelper = inject(CoCommunityHelperService);
 
   codelabInfo$: Observable<CaLabCodelabDTO>;
 
   communityHelpUrl: string;
 
-  showCodeLabToken = false;
-
   ngOnInit(): void {
     this.communityHelpUrl = this.communityHelper.getDevEnvironmentUrl();
     this.codelabInfo$ = this.labService.findCodelabInfo(this.labId);
-  }
-
-  copyToTokenToClipboard(codelabInfo: CaLabCodelabDTO): void {
-    this.clipboardService.copy(codelabInfo.token, { text: 'codelab_token_copied', translateText: true });
-  }
-
-  toggleShowCodeLabToken(): void {
-    this.showCodeLabToken = !this.showCodeLabToken;
   }
 }
