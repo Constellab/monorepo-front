@@ -65,6 +65,18 @@
         {{ 'lms.go_to_lab' | translate }}
       </a>
 
+      @if (labStatus().labManagerStatus?.codelabFrontUrl) {
+        <a
+          target="_blank"
+          mat-stroked-button
+          type="button"
+          [href]="labStatus().labManagerStatus.codelabFrontUrl"
+          class="primary"
+          [disabled]="!labIsRunning() || !labStatus().labManagerStatus">
+          <mat-icon>computer</mat-icon>
+          {{ 'lms.open_codelab' | translate }}
+        </a>
+      }
       @if (labIsRunning()) {
         <button mat-stroked-button type="button" (click)="stopLab()" class="warn">
           <mat-icon>stop</mat-icon>

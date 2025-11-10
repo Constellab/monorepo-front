@@ -121,6 +121,7 @@ export class LmlLabManagerStatus {
   // version of the lab manager that has been used to init the lab
   lastInitVersion: string;
   labFrontUrl: string;
+  codelabFrontUrl: string;
   labStatus: 'STOPPED' | 'RUNNING' | 'STARTING' | 'ERROR';
 
   @Type(() => LmlGlabStatus)

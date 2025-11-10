@@ -16,7 +16,7 @@
     "refresh_status": "Refresh status",
     "lab_task_is_running": "Lab task is running, please wait for it to finish",
     "lab_is_starting": "Lab is starting, it may take a few minutes.",
-    "go_to_lab": "Open",
+    "go_to_lab": "Open data lab",
     "configure_lab_manager": "Configure lab manager",
     "configure_lab_manager_description": "To configure the lab manager, please upload the configuration file. You can download the configuration file from your desktop lab page in your space.",
     "configuration_file": "Configuration file",
@@ -26,6 +26,7 @@
     "stop_lab": "Stop",
     "update_lab_manager": "Update lab manager",
     "update_lab_manager_help": "The version {{version}} of the lab manager is available. To update the lab manager, please run the following commands. Warning: this will stop this app, copy all the commands before running them.",
-    "lab_manager_version": "Lab manager current version"
+    "lab_manager_version": "Lab manager current version",
+    "open_codelab": "Open Codelab"
   }
 }
