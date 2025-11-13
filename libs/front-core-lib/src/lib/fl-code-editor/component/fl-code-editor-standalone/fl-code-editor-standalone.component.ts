@@ -26,6 +26,7 @@ import { tags as t } from '@lezer/highlight';
 import { FlCodeEditorLanguage } from '@monorepo/front-core-lib/fl-code-editor';
 import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
 import { basicSetup } from 'codemirror';
+import { Subject, takeUntil } from 'rxjs';
 
 /**
  * Python IDE editor component using CodeMirror.
@@ -52,10 +53,12 @@ export class FlCodeEditorStandaloneComponent implements OnInit, OnDestroy {
 
   private editorState: EditorState;
   private editorView: any;
+  private destroy$ = new Subject<void>();
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
       this.initEditor();
+      this.listenToFormControlChanges();
     }
   }
 
@@ -67,9 +70,7 @@ export class FlCodeEditorStandaloneComponent implements OnInit, OnDestroy {
         basicSetup,
         this.getLanguage(this.language),
         // use to update the form control value when text changes
-        EditorView.updateListener.of((update) => {
-          this.formCtrl.patchValue(update.state.doc.toString());
-        }),
+        EditorView.updateListener.of((update) => this.onChange(update.state.doc.toString())),
         EditorView.darkTheme.of(this.themeService.isDarkTheme()),
         this.getTheme(),
         EditorState.readOnly.of(this.formCtrl.disabled),
@@ -85,6 +86,28 @@ export class FlCodeEditorStandaloneComponent implements OnInit, OnDestroy {
     if (this.focus) {
       this.editorView.focus();
     }
+  }
+
+  private onChange(value: string): void {
+    const currentFormValue = this.formCtrl.getRawValue();
+    if (value !== currentFormValue) {
+      this.formCtrl.patchValue(value);
+    }
+  }
+
+  private listenToFormControlChanges(): void {
+    this.formCtrl.valueChanges.pipe(takeUntil(this.destroy$)).subscribe((value) => {
+      const currentValue = this.editorView.state.doc.toString();
+      if (value !== currentValue) {
+        this.editorView.dispatch({
+          changes: {
+            from: 0,
+            to: currentValue.length,
+            insert: value || '',
+          },
+        });
+      }
+    });
   }
 
   private getLanguage(language: FlCodeEditorLanguage): Extension {
@@ -181,6 +204,8 @@ export class FlCodeEditorStandaloneComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
     if (this.editorView) this.editorView.destroy();
   }
 }

@@ -1,6 +1,6 @@
 import { Component, HostListener, Input, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { FlCodeEditorComponent } from '@monorepo/front-core-lib/fl-code-editor';
+import { flCheckLanguage, FlCodeEditorComponent } from '@monorepo/front-core-lib/fl-code-editor';
 import { FlCodeEditorLanguage } from '@monorepo/front-core-lib/fl-code-editor';
 
 import { TeElementBlockDirective } from '../../model/te-element.directive';
@@ -22,5 +22,10 @@ export class TeCodeComponent extends TeElementBlockDirective {
   @HostListener('keydown', ['$event'])
   onKeyDown(event: KeyboardEvent): void {
     event.stopPropagation();
+  }
+
+  public setValue(value: string, language: string): void {
+    this.formControl.setValue(value);
+    this.language = flCheckLanguage(language);
   }
 }
