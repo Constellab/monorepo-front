@@ -3,6 +3,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { TranslatePipe } from '@ngx-translate/core';
 
+import { CoListItemType } from '../../model/co-list-item-type.enum';
 import { CoItemTypeIconComponent } from '../co-item-type-icon/co-item-type-icon.component';
 
 @Component({
@@ -12,20 +13,22 @@ import { CoItemTypeIconComponent } from '../co-item-type-icon/co-item-type-icon.
   imports: [TranslatePipe, MatIconModule, FlIconModule, CoItemTypeIconComponent],
 })
 export class CoTypeBadgeComponent {
-  type = input.required<'app' | 'brick' | 'agent' | 'story' | 'tag'>();
+  type = input.required<CoListItemType>();
 
   typeStr = computed(() => {
     switch (this.type()) {
-      case 'app':
+      case CoListItemType.APP:
         return 'coCommunityLib.apps';
-      case 'brick':
+      case CoListItemType.BRICK:
         return 'coCommunityLib.bricks';
-      case 'agent':
+      case CoListItemType.AGENT:
         return 'coCommunityLib.agents';
-      case 'story':
+      case CoListItemType.STORY:
         return 'coCommunityLib.stories';
-      case 'tag':
+      case CoListItemType.TAG:
         return 'coCommunityLib.tags';
+      case CoListItemType.PARTNER:
+        return 'coCommunityLib.partners';
     }
   });
 }

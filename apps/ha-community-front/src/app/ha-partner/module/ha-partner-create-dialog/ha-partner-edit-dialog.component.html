@@ -1,0 +1,49 @@
+<fl-dialog-header>
+  {{ (dialogInput.mode === 'create' ? 'become_partner' : 'edit_partner') | translate }}
+</fl-dialog-header>
+
+<mat-dialog-content>
+  <form (ngSubmit)="submit()" id="partner-form" [formGroup]="formGp">
+    @if (dialogInput.mode === 'update' && imageConfig && deleteImageConfig && partnerId) {
+      <div class="picture-container" [matTooltip]="'partner_logo' | translate">
+        <fl-update-image-container
+          [uploadConfig]="imageConfig"
+          [deleteConfig]="deleteImageConfig"
+          [showDelete]="!!formGp.value.logo"
+          [showEditIcon]="!!formGp.value.logo">
+          <div class="picture-div">
+            @if (!formGp.value.logo) {
+              <mat-icon class="picture-placeholder"> add_a_photo</mat-icon>
+            } @else {
+              <img [src]="getImageUrl(formGp.value.logo)" alt="Partner logo" class="picture" />
+            }
+          </div>
+        </fl-update-image-container>
+      </div>
+    }
+
+    <mat-form-field class="g-form-input">
+      <mat-label>{{ 'name' | translate }}</mat-label>
+      <input
+        matInput
+        formControlName="name"
+        required
+        flInputMaxLength="100"
+        [placeholder]="'name' | translate" />
+      @if (formGp.get('name').hasError('required')) {
+        <mat-error>{{ 'name' | flErrorRequired }}</mat-error>
+      }
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+@if (dialogInput.mode === 'create' || basePartnerName !== formGp.value.name) {
+  <div mat-dialog-actions>
+    <button mat-flat-button type="submit" form="partner-form" class="g-centered-forced primary">
+      {{ 'save' | translate }}
+      @if (isLoading) {
+        <fl-button-loader></fl-button-loader>
+      }
+    </button>
+  </div>
+}

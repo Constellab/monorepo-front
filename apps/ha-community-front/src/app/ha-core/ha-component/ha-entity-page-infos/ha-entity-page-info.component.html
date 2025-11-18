@@ -1,4 +1,10 @@
 <div class="entity-page-infos-list">
+  <!--  @if (imageUrl()) {-->
+  <!--    <div class="entity-image-div">-->
+  <!--      <img [ngSrc]="imageUrl()" alt="Entity Image" fill/>-->
+  <!--    </div>-->
+  <!--  }-->
+
   <ng-content></ng-content>
 
   @if (contributors()?.length > 0) {

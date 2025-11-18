@@ -1,6 +1,7 @@
 import { Component, input } from '@angular/core';
 
 import { CoCommunityLibModule } from '../../co-community-lib.module';
+import { CoListItemType } from '../../model/co-list-item-type.enum';
 import { CoTagKey } from '../../model/co-tag-key.class';
 import { CoCommunityListItemComponent } from '../co-community-list-item/co-community-list-item.component';
 
@@ -12,4 +13,5 @@ import { CoCommunityListItemComponent } from '../co-community-list-item/co-commu
 })
 export class CoCommunityTagListItemComponent {
   tagKey = input.required<CoTagKey>();
+  type = CoListItemType.TAG;
 }

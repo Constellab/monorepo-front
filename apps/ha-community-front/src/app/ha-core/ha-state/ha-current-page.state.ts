@@ -14,6 +14,10 @@ import {
   HaCreateCommunityAppInput,
 } from '../../ha-community-app/components/ha-community-app-create-dialog/ha-community-app-create-dialog.component';
 import {
+  HaEditPartnerDialogInput,
+  HaPartnerEditDialogComponent,
+} from '../../ha-partner/module/ha-partner-create-dialog/ha-partner-edit-dialog.component';
+import {
   HaCreateStoryDtoInput,
   HaStoryEditDialogComponent,
 } from '../../ha-story/module/ha-story-edit-dialog/ha-story-edit-dialog.component';
@@ -26,11 +30,13 @@ import { HaAgentVersion } from '../ha-model/ha-entities/ha-agent-version.class';
 import { HaBrick } from '../ha-model/ha-entities/ha-brick.class';
 import { HaCommunityApp } from '../ha-model/ha-entities/ha-community-app.class';
 import { HaEntityType } from '../ha-model/ha-entities/ha-entity-type';
+import { HaPartner } from '../ha-model/ha-entities/ha-partner';
 import { HaStory } from '../ha-model/ha-entities/ha-story.class';
 import { HaTagKey } from '../ha-model/ha-entities/ha-tag-key.class';
 import { HaAgentService } from '../ha-service/ha-agent.service';
 import { HaBrickService } from '../ha-service/ha-brick.service';
 import { HaCommunityAppService } from '../ha-service/ha-community-app.service';
+import { HaPartnerService } from '../ha-service/ha-partner.service';
 import { HaRouterService } from '../ha-service/ha-router.service';
 import { HaStoryService } from '../ha-service/ha-story.service';
 import { HaTagService } from '../ha-service/ha-tag.service';
@@ -45,6 +51,7 @@ export class HaCurrentPageState implements OnDestroy {
   private agentService = inject(HaAgentService);
   private appService = inject(HaCommunityAppService);
   private tagService = inject(HaTagService);
+  private partnerService = inject(HaPartnerService);
 
   private currentPageSubscription: Subscription;
 
@@ -132,6 +139,9 @@ export class HaCurrentPageState implements OnDestroy {
       case HaEntityType.TAG:
         this.openTagCreateDialog();
         break;
+      case HaEntityType.PARTNER:
+        this.openBecomePartnerDialog();
+        break;
       default:
         break;
     }
@@ -164,6 +174,23 @@ export class HaCurrentPageState implements OnDestroy {
       .subscribe((agentVersion: HaAgentVersion) => {
         if (agentVersion) {
           this.router.navigateByUrl(HaRouterService.getAgentVersionRoute(agentVersion));
+        }
+      });
+  }
+
+  private openBecomePartnerDialog(): void {
+    const input: HaEditPartnerDialogInput = {
+      mode: 'create',
+    };
+
+    this.dialogService
+      .openMediumDialog(HaPartnerEditDialogComponent, { data: input })
+      .afterClosed()
+      .subscribe((partner: HaPartner) => {
+        if (partner) {
+          this.router.navigateByUrl(
+            HaRouterService.getPartnerPage(partner.id, ClStringHelper.getCleanUrlPath(partner.name))
+          );
         }
       });
   }
@@ -251,6 +278,9 @@ export class HaCurrentPageState implements OnDestroy {
         break;
       case 'tags':
         this.currentEntityType.set(HaEntityType.TAG);
+        break;
+      case 'partners':
+        this.currentEntityType.set(HaEntityType.PARTNER);
         break;
       default:
         return null;

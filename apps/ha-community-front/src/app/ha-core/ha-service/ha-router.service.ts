@@ -21,11 +21,21 @@ export class HaRouterService {
   }
 
   public static getBrickListRoute(): string {
-    return '/bricks/';
+    return '/bricks';
   }
 
   public static getLoginRoute(): string {
     return '/login';
+  }
+
+  ////////////////////////// PARTNERS ////////////////////////////////
+
+  public static getPartnerListRoute(): string {
+    return '/partners';
+  }
+
+  public static getPartnerPage(partnerId: string, partnerNamePath: string): string {
+    return `${this.getPartnerListRoute()}/${partnerId}/${partnerNamePath}`;
   }
 
   ////////////////////////// ADMIN ////////////////////////////////
@@ -50,6 +60,10 @@ export class HaRouterService {
     return `${this.getAdminPanelRoute()}/stories`;
   }
 
+  public static getAdminPanelPartnersRoute(): string {
+    return `${this.getAdminPanelRoute()}/partners`;
+  }
+
   ////////////////////////// USEFUL ////////////////////////////////
 
   public static getProductDocRoute(): string {
@@ -70,11 +84,11 @@ export class HaRouterService {
 
   ////////////////////////// AGENTS ////////////////////////////////
   public static getAgentsListRoute(): string {
-    return '/agents/';
+    return '/agents';
   }
 
   public static getAgentRoute(id: string, titlePath: string): string {
-    return `${this.getAgentsListRoute()}${id}/${titlePath}`;
+    return `${this.getAgentsListRoute()}/${id}/${titlePath}`;
   }
 
   public static getAgentVersionRoute(agentVersion: HaAgentVersion): string {
@@ -86,11 +100,11 @@ export class HaRouterService {
 
   ////////////////////////// STORIES ////////////////////////////////
   public static getStoriesListRoute(): string {
-    return '/stories/';
+    return '/stories';
   }
 
   public static getStoryRoute(id: string, titlePath: string): string {
-    return `${this.getStoriesListRoute()}${id}/${titlePath}`;
+    return `${this.getStoriesListRoute()}/${id}/${titlePath}`;
   }
 
   public static getFullStoryRoute(id: string, titlePath: string): string {
@@ -98,14 +112,14 @@ export class HaRouterService {
   }
 
   public static getStoryEditRoute(id: string): string {
-    return `${this.getStoriesListRoute()}edit/${id}`;
+    return `${this.getStoriesListRoute()}/edit/${id}`;
   }
 
   ////////////////////////// BRICKS ////////////////////////////////
 
   public static getBrickPageRoute(brickName: string, brickMajor?: string): string {
     const brickMajorUrl = brickMajor == null || brickMajor === 'latest' ? 'latest' : `v${brickMajor}`;
-    return `${this.getBrickListRoute()}${brickName}/${brickMajorUrl}/`;
+    return `${this.getBrickListRoute()}/${brickName}/${brickMajorUrl}/`;
   }
 
   public static getBrickDocsPageRoute(brickName: string, brickMajor: string): string {
@@ -139,29 +153,29 @@ export class HaRouterService {
 
   ////////////////////////////// COMMUNITY APP ////////////////////////////////
   public static getCommunityAppListRoute(): string {
-    return '/apps/';
+    return '/apps';
   }
 
   public static getCommunityAppRoute(id: string, titlePath: string): string {
-    return `${this.getCommunityAppListRoute()}${id}/${titlePath}`;
+    return `${this.getCommunityAppListRoute()}/${id}/${titlePath}`;
   }
 
   ///////////////////////////// PROFILE ////////////////////////////////
   public static getProfileRoute(): string {
-    return '/profile/';
+    return '/profile';
   }
 
   public static getUserProfileRoute(userId: string): string {
-    return `${this.getProfileRoute()}${userId}`;
+    return `${this.getProfileRoute()}/${userId}`;
   }
 
   ///////////////////////////// TAGS //////////////////////////////////
   public static getTagsListRoute(): string {
-    return '/tags/';
+    return '/tags';
   }
 
   public static getTagPageRoute(id: string, technicalName: string): string {
-    return `${this.getTagsListRoute()}${id}/${technicalName}`;
+    return `${this.getTagsListRoute()}/${id}/${technicalName}`;
   }
 
   //////////////////////////// OTHERS ////////////////////////////////

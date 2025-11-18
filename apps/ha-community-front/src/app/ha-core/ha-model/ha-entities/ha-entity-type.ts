@@ -6,4 +6,5 @@ export enum HaEntityType {
   TAG = 'tag',
   DOC = 'doc',
   ICON = 'icon',
+  PARTNER = 'partner',
 }

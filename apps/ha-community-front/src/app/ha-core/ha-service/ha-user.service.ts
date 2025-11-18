@@ -1,11 +1,16 @@
 import { inject, Injectable } from '@angular/core';
-import { CoUser } from '@monorepo/community-lib';
+import { CoUser, CoUserCertification } from '@monorepo/community-lib';
 import { ClPageI } from '@monorepo/core-lib';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { Observable } from 'rxjs';
 
 import { HaProfileEditDialogFormData } from '../../ha-profile/component/ha-profile-edit-dialog/ha-profile-edit-dialog.component';
 import { HaUser, HaUserSearchFilter } from '../ha-model/ha-entities/ha-user';
+
+export interface HaUserEditCertificationDto {
+  userId: string;
+  certification?: CoUserCertification;
+}
 
 @Injectable({
   providedIn: 'root',
@@ -25,6 +30,10 @@ export class HaUserService {
 
   editUser(formData: HaProfileEditDialogFormData): Observable<CoUser> {
     return this.apiService.put(`${this.route}/edit`, formData);
+  }
+
+  editUserCertification(dto: HaUserEditCertificationDto): Observable<CoUser> {
+    return this.apiService.put(`${this.route}/certification`, dto);
   }
 
   searchUser(filters: HaUserSearchFilter, page: number, pageSize: number): Observable<ClPageI<HaUser>> {

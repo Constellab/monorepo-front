@@ -75,6 +75,8 @@ const coCommunityLibI18nFr: FlLangTranslation = {
     sort_name: 'Nom',
     number_of_run: "Nombre d'exécutions",
     like: 'Like',
+    my_partner_page: 'Ma page partenaire',
+    partners: 'Partenaires',
   },
 };
 
@@ -149,6 +151,8 @@ const coCommunityLibI18nEn: FlLangTranslation = {
     sort_name: 'Name',
     number_of_run: 'Number of runs',
     like: 'Like',
+    my_partner_page: 'My partner page',
+    partners: 'Partners',
   },
 };
 export const coCommunityLibI18n: FlTranslateObject = {

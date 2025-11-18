@@ -57,6 +57,8 @@ export class HaPageComponent {
         return 'icon_list';
       case HaEntityType.TAG:
         return 'tag_list';
+      case HaEntityType.PARTNER:
+        return 'partner_list';
       default:
         return 'list_page';
     }

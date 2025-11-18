@@ -6,7 +6,8 @@
   @if (communityApp()) {
     <div class="entity-page-section">
       <div class="entity-page-infos">
-        <ha-entity-page-infos
+        <ha-entity-page-info
+          [imageUrl]="communityApp().picture | haAppPicture"
           [entityId]="communityApp().id"
           [entityType]="entityType"
           [contributors]="contributors()"
@@ -34,7 +35,7 @@
               </div>
             </div>
           }
-        </ha-entity-page-infos>
+        </ha-entity-page-info>
       </div>
       <div class="entity-page-content">
         <div class="app-page-content">

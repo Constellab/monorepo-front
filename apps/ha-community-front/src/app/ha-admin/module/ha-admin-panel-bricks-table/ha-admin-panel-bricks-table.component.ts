@@ -22,12 +22,7 @@ import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { TranslatePipe } from '@ngx-translate/core';
 
 import { HaBrick } from '../../../ha-core/ha-model/ha-entities/ha-brick.class';
-
-export interface HaAdminPanelBricksTableAction {
-  type: string;
-  icon: string;
-  tooltip: string;
-}
+import { HaAdminPanelTableAction } from '../../model/ha-admin-panel-table-action.class';
 
 export interface HaAdminPanelBricksTableActionEvent {
   type: string;
@@ -66,7 +61,7 @@ export class HaAdminPanelBricksTableComponent {
 
   action = output<HaAdminPanelBricksTableActionEvent>();
 
-  haAdminPanelBricksTableActions: HaAdminPanelBricksTableAction[] = [
+  haAdminPanelBricksTableActions: HaAdminPanelTableAction[] = [
     {
       type: 'download_docs',
       icon: 'cloud_download',
@@ -79,7 +74,7 @@ export class HaAdminPanelBricksTableComponent {
     },
   ];
 
-  onAction(action: HaAdminPanelBricksTableAction, brick: HaBrick): void {
+  onAction(action: HaAdminPanelTableAction, brick: HaBrick): void {
     this.action.emit({
       brick: brick,
       type: action.type,

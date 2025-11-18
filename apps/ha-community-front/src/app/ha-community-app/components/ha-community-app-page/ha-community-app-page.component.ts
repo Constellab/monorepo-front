@@ -14,12 +14,13 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { map } from 'rxjs/operators';
 
 import { HaCommentsSectionComponent } from '../../../ha-core/entity-module/ha-comments-core/component/ha-comments-section/ha-comments-section.component';
-import { HaEntityPageInfosComponent } from '../../../ha-core/ha-component/ha-entity-page-infos/ha-entity-page-infos.component';
+import { HaEntityPageInfoComponent } from '../../../ha-core/ha-component/ha-entity-page-infos/ha-entity-page-info.component';
 import { HaPageComponent } from '../../../ha-core/ha-component/ha-page/ha-page.component';
 import { HaCommunityApp } from '../../../ha-core/ha-model/ha-entities/ha-community-app.class';
 import { HaEntityType } from '../../../ha-core/ha-model/ha-entities/ha-entity-type';
 import { HaUser } from '../../../ha-core/ha-model/ha-entities/ha-user';
 import { HaCommunityPageDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
+import { HaAppPicturePipe } from '../../../ha-core/ha-module/ha-core-pipe/ha-app-picture/ha-app-picture.pipe';
 import { HaAuthenticatedUserService } from '../../../ha-core/ha-service/ha-authenticated-user.service';
 import { HaCommunityAppService } from '../../../ha-core/ha-service/ha-community-app.service';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
@@ -40,7 +41,7 @@ import { HaCommunityAppMediaEditDialogComponent } from '../ha-community-app-medi
     FlTextIconModule,
     FlLoaderModule,
     HaCommentsSectionComponent,
-    HaEntityPageInfosComponent,
+    HaEntityPageInfoComponent,
     HaPageComponent,
     TranslatePipe,
     TeTextEditorModule,
@@ -50,6 +51,7 @@ import { HaCommunityAppMediaEditDialogComponent } from '../ha-community-app-medi
     HaCommunityAppCarouselComponent,
     MatIconButton,
     MatTooltip,
+    HaAppPicturePipe,
   ],
   templateUrl: './ha-community-app-page.component.html',
   styleUrl: './ha-community-app-page.component.scss',

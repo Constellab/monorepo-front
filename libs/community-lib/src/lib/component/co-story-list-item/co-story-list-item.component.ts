@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 
+import { CoListItemType } from '../../model/co-list-item-type.enum';
 import { CoListStoryDto } from '../../model/co-story.class';
 
 @Component({
@@ -11,4 +12,6 @@ import { CoListStoryDto } from '../../model/co-story.class';
 export class CoStoryListItemComponent {
   @Input({ required: true }) story: CoListStoryDto;
   @Input() imageLink?: string;
+
+  type = CoListItemType.STORY;
 }

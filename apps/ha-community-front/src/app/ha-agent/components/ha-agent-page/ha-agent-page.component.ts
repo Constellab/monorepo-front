@@ -18,7 +18,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { first } from 'rxjs';
 
 import { HaCommentsSectionComponent } from '../../../ha-core/entity-module/ha-comments-core/component/ha-comments-section/ha-comments-section.component';
-import { HaEntityPageInfosComponent } from '../../../ha-core/ha-component/ha-entity-page-infos/ha-entity-page-infos.component';
+import { HaEntityPageInfoComponent } from '../../../ha-core/ha-component/ha-entity-page-infos/ha-entity-page-info.component';
 import { HaPageComponent } from '../../../ha-core/ha-component/ha-page/ha-page.component';
 import { HaAgent } from '../../../ha-core/ha-model/ha-entities/ha-agent.class';
 import {
@@ -47,7 +47,7 @@ import {
     FlLoaderModule,
     FlUserModule,
     HaPageComponent,
-    HaEntityPageInfosComponent,
+    HaEntityPageInfoComponent,
     HaCommentsSectionComponent,
     TeTextEditorModule,
     ReactiveFormsModule,

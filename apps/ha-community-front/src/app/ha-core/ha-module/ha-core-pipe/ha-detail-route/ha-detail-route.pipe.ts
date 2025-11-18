@@ -4,6 +4,7 @@ import { ClStringHelper } from '@monorepo/core-lib';
 import { HaAgent } from '../../../ha-model/ha-entities/ha-agent.class';
 import { HaBrick } from '../../../ha-model/ha-entities/ha-brick.class';
 import { HaCommunityApp } from '../../../ha-model/ha-entities/ha-community-app.class';
+import { HaPartner } from '../../../ha-model/ha-entities/ha-partner';
 import { HaListStoryDto, HaStory } from '../../../ha-model/ha-entities/ha-story.class';
 import { HaTagKey } from '../../../ha-model/ha-entities/ha-tag-key.class';
 import { HaRouterService } from '../../../ha-service/ha-router.service';
@@ -32,6 +33,10 @@ export class HaDetailRoutePipe implements PipeTransform {
 
     if (value instanceof HaTagKey) {
       return HaRouterService.getTagPageRoute(value.id, ClStringHelper.getCleanUrlPath(value.technicalName));
+    }
+
+    if (value instanceof HaPartner) {
+      return HaRouterService.getPartnerPage(value.id, ClStringHelper.getCleanUrlPath(value.name));
     }
 
     return null;

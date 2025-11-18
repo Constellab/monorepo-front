@@ -25,6 +25,13 @@
   flex-direction: column;
   gap: 14px;
   height: fit-content;
+
+  .alias-certification-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
 }
 
 .user-header-stats-div {

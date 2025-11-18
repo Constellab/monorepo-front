@@ -5,6 +5,7 @@ import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { TranslatePipe } from '@ngx-translate/core';
 import { DateTime } from 'luxon';
 
+import { CoListItemType } from '../../model/co-list-item-type.enum';
 import { CoSpace } from '../../model/co-space.class';
 import { CoItemTypeIconComponent } from '../co-item-type-icon/co-item-type-icon.component';
 import { CoStatsListComponent } from '../co-stats-list/co-stats-list.component';
@@ -28,7 +29,7 @@ import { CoVisibilityBadgeComponent } from '../co-visibility-badge/co-visibility
 })
 export class CoCommunityListItemComponent {
   image = input<string>(null);
-  type = input.required<'app' | 'brick' | 'agent' | 'story' | 'tag'>();
+  type = input.required<CoListItemType>();
   title = input<string>(null);
   shortDescription = input<string>(null);
   space = input<CoSpace>(null);

@@ -4,6 +4,7 @@ import { haAdminRoutes } from '../ha-admin/ha-admin-routes';
 import { haAgentRoutes } from '../ha-agent/ha-agent-routes';
 import { haBrickRoutes } from '../ha-brick/ha-brick-routes';
 import { haCommunityAppRoutes } from '../ha-community-app/ha-community-app-routes';
+import { haPartnerRoutes } from '../ha-partner/ha-partner-routes';
 import { haProfileRoutes } from '../ha-profile/ha-profile-routes';
 import { haStoryRoutes } from '../ha-story/ha-story-routes';
 import { haTagRoutes } from '../ha-tag/ha-tag-routes';
@@ -32,6 +33,11 @@ export const haMainRoutes: Routes = [
     path: 'agents',
     loadComponent: () => import('./ha-main/ha-main.component').then((m) => m.HaMainComponent),
     children: haAgentRoutes,
+  },
+  {
+    path: 'partners',
+    loadComponent: () => import('./ha-main/ha-main.component').then((m) => m.HaMainComponent),
+    children: haPartnerRoutes,
   },
   {
     path: 'profile',

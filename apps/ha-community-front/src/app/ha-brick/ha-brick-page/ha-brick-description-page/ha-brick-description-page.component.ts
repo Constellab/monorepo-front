@@ -1,4 +1,3 @@
-import { NgOptimizedImage } from '@angular/common';
 import { Component, computed, inject, Signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { CoCommunityLibModule } from '@monorepo/community-lib';
@@ -13,7 +12,6 @@ import { HaEntityType } from '../../../ha-core/ha-model/ha-entities/ha-entity-ty
 import { HaRunStatAggregate } from '../../../ha-core/ha-model/ha-entities/ha-run-stat-aggregate.class';
 import { HaReferenceDTO } from '../../../ha-core/ha-model/ha-entities/ha-version.class';
 import { HaCommunityPageDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
-import { HaBrickImagePipe } from '../../../ha-core/ha-module/ha-core-pipe/ha-brick-image/ha-brick-image.pipe';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
 import { HaBrickPageState } from '../../state/ha-brick-page.state';
 
@@ -22,14 +20,12 @@ import { HaBrickPageState } from '../../state/ha-brick-page.state';
   templateUrl: './ha-brick-description-page.component.html',
   styleUrls: ['./ha-brick-description-page.component.scss'],
   imports: [
-    NgOptimizedImage,
     CoCommunityLibModule,
     HaRunStatAggregatePanelComponent,
     FlKeyValueModule,
     HaGithubStarButtonComponent,
     RouterLink,
     TranslatePipe,
-    HaBrickImagePipe,
   ],
 })
 export class HaBrickDescriptionPageComponent extends HaCommunityPageDirective {

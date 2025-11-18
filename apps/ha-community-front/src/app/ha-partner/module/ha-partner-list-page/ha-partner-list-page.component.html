@@ -1,0 +1,34 @@
+<ha-page [hideCreateSection]="hideCreate()">
+  @if (currentUserPartner()) {
+    <div class="section my-partner-page-div">
+      <h3>{{ 'my-partner-page' | translate }}</h3>
+      <a [routerLink]="currentUserPartner() | haDetailRoute">
+        <co-partner-list-item
+          [partner]="currentUserPartner()"
+          [partnerLogo]="currentUserPartner() | haPartnerLogoUrl">
+        </co-partner-list-item>
+      </a>
+    </div>
+  }
+
+  <fl-infinite-scroll [datasource]="partnerPaginated" infiniteMode="auto" class="section">
+    <h3>{{ 'certified_partners' | translate }}</h3>
+
+    <co-list-filters
+      [user]="user()"
+      [sortsCriteriaKeys]="sortsCriteriaKeys"
+      (sortsCriteriaChanged)="onSortsCriteriaChanged($event)"
+      (titleFilterChanged)="onNameFilterChange($event)"
+      [listEntityType]="listEntityType"
+      [hideMyEntitiesFilter]="true"
+      [hideSpaceFilter]="true" />
+    <ha-list-of-items>
+      @for (partner of partnerPaginated | flDatasourceConnect | async; track partner.id) {
+        <a [routerLink]="partner | haDetailRoute">
+          <co-partner-list-item [partner]="partner" [partnerLogo]="partner | haPartnerLogoUrl">
+          </co-partner-list-item>
+        </a>
+      }
+    </ha-list-of-items>
+  </fl-infinite-scroll>
+</ha-page>

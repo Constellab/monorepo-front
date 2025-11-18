@@ -6,7 +6,7 @@
   @if (agent()) {
     <div class="entity-page-section">
       <div class="entity-page-infos">
-        <ha-entity-page-infos
+        <ha-entity-page-info
           [entityId]="agent().id"
           [entityType]="entityType"
           [contributors]="contributors()"
@@ -75,7 +75,7 @@
           </div>
 
           <div class="entity-page-separator"></div>
-        </ha-entity-page-infos>
+        </ha-entity-page-info>
       </div>
       <div class="entity-page-content">
         <router-outlet></router-outlet>

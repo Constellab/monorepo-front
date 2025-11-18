@@ -129,7 +129,7 @@ Sitemap: ${environment.settings.communityFrontUrl}/sitemap.xml`);
         const smStream = new SitemapStream({ hostname: environment.settings.communityFrontUrl });
 
         const urls = [
-          { url: '/', changefreq: EnumChangefreq.MONTHLY, priority: 1 },
+          { url: '', changefreq: EnumChangefreq.MONTHLY, priority: 1 },
           { url: HaRouterService.getStoriesListRoute(), changefreq: EnumChangefreq.MONTHLY, priority: 1 },
           { url: HaRouterService.getBrickListRoute(), changefreq: EnumChangefreq.MONTHLY, priority: 1 },
           { url: HaRouterService.getAgentsListRoute(), changefreq: EnumChangefreq.MONTHLY, priority: 1 },
@@ -140,6 +140,16 @@ Sitemap: ${environment.settings.communityFrontUrl}/sitemap.xml`);
             changefreq: EnumChangefreq.MONTHLY,
             priority: 1,
           },
+          {
+            url: HaRouterService.getPartnerListRoute(),
+            changefreq: EnumChangefreq.MONTHLY,
+            priority: 1,
+          },
+          {
+            url: HaRouterService.getTagsListRoute(),
+            changefreq: EnumChangefreq.MONTHLY,
+            priority: 1,
+          },
         ];
 
         const dynamicBricksUrls = await fetchBricksMap();
@@ -147,12 +157,16 @@ Sitemap: ${environment.settings.communityFrontUrl}/sitemap.xml`);
         const dynamicAgentsUrls = await fetchAgentsMap();
         const dynamicProfilesUrls = await fetchProfilesMap();
         const dynamicAppsUrls = await fetchAppsMap();
+        const dynamicPartnersUrls = await fetchPartnersMap();
+        const dynamicTagsUrls = await fetchTagsMap();
         const dynamicUrls = [
           ...dynamicAppsUrls,
           ...dynamicBricksUrls,
           ...dynamicStoriesUrls,
           ...dynamicAgentsUrls,
           ...dynamicProfilesUrls,
+          ...dynamicPartnersUrls,
+          ...dynamicTagsUrls,
         ];
         const allUrls = [...urls, ...dynamicUrls];
 
@@ -279,6 +293,26 @@ async function fetchAppsMap(): Promise<SitemapItem[]> {
     return response.data;
   } catch (error) {
     console.error('Error fetching agents URLs:', error);
+    return [];
+  }
+}
+
+async function fetchPartnersMap(): Promise<SitemapItem[]> {
+  try {
+    const response = await axios.get(`${environment.settings.apiUrl}/partner/all-map`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching partners URLs:', error);
+    return [];
+  }
+}
+
+async function fetchTagsMap(): Promise<SitemapItem[]> {
+  try {
+    const response = await axios.get(`${environment.settings.apiUrl}/tag/all-map`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching tags URLs:', error);
     return [];
   }
 }

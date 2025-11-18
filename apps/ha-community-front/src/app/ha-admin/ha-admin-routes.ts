@@ -26,6 +26,13 @@ export const haAdminRoutes: Route[] = [
             (m) => m.HaAdminPanelStoriesComponent
           ),
       },
+      {
+        path: 'partners',
+        loadComponent: () =>
+          import('./module/ha-admin-panel-partners/ha-admin-panel-partners.component').then(
+            (m) => m.HaAdminPanelPartnersComponent
+          ),
+      },
     ],
   },
 ];

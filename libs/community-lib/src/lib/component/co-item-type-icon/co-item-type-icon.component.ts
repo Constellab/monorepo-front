@@ -3,6 +3,8 @@ import { Component, computed, input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 
+import { CoListItemType } from '../../model/co-list-item-type.enum';
+
 @Component({
   selector: 'co-item-type-icon',
   templateUrl: './co-item-type-icon.component.html',
@@ -10,22 +12,24 @@ import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
   imports: [FlIconModule, MatIconModule, NgClass],
 })
 export class CoItemTypeIconComponent {
-  type = input.required<'app' | 'brick' | 'agent' | 'story' | 'tag'>();
+  type = input.required<CoListItemType>();
 
   size = input<'small' | 'medium' | 'big'>('medium');
 
   color = computed(() => {
     switch (this.type()?.toLowerCase()) {
-      case 'app':
+      case CoListItemType.APP:
         return 'accent';
-      case 'brick':
+      case CoListItemType.BRICK:
         return 'warn';
-      case 'agent':
+      case CoListItemType.AGENT:
         return 'primary';
-      case 'story':
+      case CoListItemType.STORY:
         return 'warn';
-      case 'tag':
+      case CoListItemType.TAG:
         return 'accent';
+      case CoListItemType.PARTNER:
+        return 'primary';
       default:
         return 'primary';
     }
@@ -56,4 +60,6 @@ export class CoItemTypeIconComponent {
         return '';
     }
   });
+
+  isPartnerType = computed(() => this.type() === CoListItemType.PARTNER);
 }

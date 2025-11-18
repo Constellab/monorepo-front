@@ -1,3 +1,7 @@
 <div [ngClass]="`type-icon-div ${sizeClass()} ${colorClass()}`">
-  <mat-icon [flIcon]="type()" class="type-icon"></mat-icon>
+  @if (isPartnerType()) {
+    <mat-icon class="type-icon">handshake</mat-icon>
+  } @else {
+    <mat-icon [flIcon]="type()" class="type-icon"></mat-icon>
+  }
 </div>

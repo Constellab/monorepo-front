@@ -1,14 +1,4 @@
 <div class="brick-page-content">
-  <div class="title-div">
-    <div class="icon-title">
-      @if (brick().imageLink) {
-        <div class="brick-icon">
-          <img [ngSrc]="brick().imageLink | haBrickImage" [alt]="brick().name + 'logo'" fill priority />
-        </div>
-      }
-      <h2>{{ brick().name }}</h2>
-    </div>
-  </div>
   @if (brickRunStatAggregate()) {
     <ha-run-stat-aggregate-panel [runStatAggregate]="brickRunStatAggregate()"></ha-run-stat-aggregate-panel>
   }

@@ -4,7 +4,10 @@ import { Observable } from 'rxjs';
 
 import { HaAuthenticatedUserService } from '../../../ha-service/ha-authenticated-user.service';
 
-@Directive({ selector: '[haIsAdmin]' })
+@Directive({
+  selector: '[haIsAdmin]',
+  host: { ngSkipHydration: 'true' },
+})
 export class HaIsAdminDirective extends FlAbstractIfDirective implements OnInit, OnDestroy {
   private authenticatedUserService = inject(HaAuthenticatedUserService);
 

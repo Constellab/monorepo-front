@@ -1,0 +1,22 @@
+.entity-image-div {
+  max-width: 300px;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 12px;
+  position: relative;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.entity-page-infos-list {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.entity-page-info-div-title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}

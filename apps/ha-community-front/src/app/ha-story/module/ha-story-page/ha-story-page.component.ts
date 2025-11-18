@@ -16,7 +16,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { first } from 'rxjs';
 
 import { HaCommentsSectionComponent } from '../../../ha-core/entity-module/ha-comments-core/component/ha-comments-section/ha-comments-section.component';
-import { HaEntityPageInfosComponent } from '../../../ha-core/ha-component/ha-entity-page-infos/ha-entity-page-infos.component';
+import { HaEntityPageInfoComponent } from '../../../ha-core/ha-component/ha-entity-page-infos/ha-entity-page-info.component';
 import { HaPageComponent } from '../../../ha-core/ha-component/ha-page/ha-page.component';
 import { HaEntityType } from '../../../ha-core/ha-model/ha-entities/ha-entity-type';
 import { HaCommunityPageDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
@@ -40,7 +40,7 @@ import { HaStoryTextEditorConfig } from '../ha-story-edit-page/ha-story-text-edi
     FlLoaderModule,
     HaPageComponent,
     HaCommentsSectionComponent,
-    HaEntityPageInfosComponent,
+    HaEntityPageInfoComponent,
     TranslatePipe,
     RouterLink,
     NgClass,
@@ -88,6 +88,13 @@ export class HaStoryPageComponent extends HaCommunityPageDirective implements On
     return [this.story().createdBy, ...coAuthors];
   });
   storyEditRoute = computed(() => HaRouterService.getStoryEditRoute(this.story()?.id));
+  imageUrl = computed(() => {
+    const story = this.story();
+    if (story && story.mainPicture) {
+      return this.storyService.getImageUrl(story.id, story.mainPicture);
+    }
+    return null;
+  });
 
   ngOnInit(): void {
     this.activatedRoute.params.pipe(first()).subscribe((params) => {

@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 import { CoAgent } from '../../model/co-agent.class';
+import { CoListItemType } from '../../model/co-list-item-type.enum';
 
 @Component({
   selector: 'co-agent-list-item',
@@ -11,4 +12,6 @@ import { CoAgent } from '../../model/co-agent.class';
 export class CoAgentListItemComponent {
   @Input()
   agent: CoAgent;
+
+  type = CoListItemType.AGENT;
 }

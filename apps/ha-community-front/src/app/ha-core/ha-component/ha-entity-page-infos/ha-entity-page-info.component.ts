@@ -29,9 +29,9 @@ import { HaEntityCommentState } from '../../ha-state/ha-entity-comment.state';
 import { HaEntityLikeState } from '../../ha-state/ha-entity-like.state';
 
 @Component({
-  selector: 'ha-entity-page-infos',
-  templateUrl: './ha-entity-page-infos.component.html',
-  styleUrl: './ha-entity-page-infos.component.scss',
+  selector: 'ha-entity-page-info',
+  templateUrl: './ha-entity-page-info.component.html',
+  styleUrl: './ha-entity-page-info.component.scss',
   imports: [
     FlUserModule,
     FlDateModule,
@@ -46,7 +46,7 @@ import { HaEntityLikeState } from '../../ha-state/ha-entity-like.state';
   ],
   providers: [HaEntityLikeState],
 })
-export class HaEntityPageInfosComponent implements OnInit {
+export class HaEntityPageInfoComponent implements OnInit {
   private entityCommentState = inject(HaEntityCommentState);
   private entityLikeState = inject(HaEntityLikeState);
   private scroller = inject(ViewportScroller);
@@ -64,6 +64,7 @@ export class HaEntityPageInfosComponent implements OnInit {
   executions = input<number>(undefined);
   isAuthor = input<boolean>(false);
   showCoAuthorsButton = input<boolean>(true);
+  imageUrl = input<string>(null);
 
   isLiked = this.entityLikeState.getIsLiked();
   likesCount = this.entityLikeState.getLikesCount();

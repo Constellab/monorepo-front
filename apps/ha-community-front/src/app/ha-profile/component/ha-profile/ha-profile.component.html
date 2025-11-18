@@ -1,17 +1,19 @@
 <div class="profile-page">
-  @if (user$ | async; as user) {
+  @if (user()) {
     <ha-header>
       <div class="profile-header-section">
         <div class="picture-alias-div">
           <fl-user-profile-picture
-            [user]="user"
+            [user]="user()"
             [size]="180"
             [sizeInPx]="true"
             class="icon"></fl-user-profile-picture>
 
           <div class="alias-div">
-            <h1>{{ user.alias }}</h1>
-            <span class="g-large-text">#{{ user.userCode }}</span>
+            <div class="alias-certification-row">
+              <h1>{{ user().alias }}</h1>
+            </div>
+            <span class="g-large-text">#{{ user().userCode }}</span>
           </div>
         </div>
         <!--      <div class="user-header-stats-div">-->
@@ -23,12 +25,32 @@
 
     <div class="entity-page-section">
       <div class="entity-page-infos user-infos-list">
-        @if (isCurrentUser$ | async) {
+        @if (isCurrentUser()) {
           <div class="entity-page-infos">
-            <button type="button" mat-flat-button (click)="openEditProfileDialog(user)" class="g-full">
+            <button type="button" mat-flat-button (click)="openEditProfileDialog(user())" class="g-full">
               <mat-icon>edit</mat-icon>
               {{ 'edit_profile' | translate }}
             </button>
+          </div>
+
+          <div class="entity-page-separator"></div>
+
+          @if (!partner()) {
+            <div class="entity-page-infos">
+              <button type="button" mat-flat-button (click)="openBecomePartnerDialog()" class="g-full">
+                <mat-icon>handshake</mat-icon>
+                {{ 'become_partner' | translate }}
+              </button>
+            </div>
+
+            <div class="entity-page-separator"></div>
+          }
+        } @else if (partner()) {
+          <div class="entity-page-infos">
+            <a type="button" mat-flat-button [routerLink]="partnerPageUrl()" class="g-full">
+              <mat-icon>handshake</mat-icon>
+              {{ 'view_partner_page' | translate }}
+            </a>
           </div>
 
           <div class="entity-page-separator"></div>
@@ -37,36 +59,34 @@
         <div class="entity-page-info-div">
           <span class="g-text-medium g-weight-600">{{ 'interests' | translate }}</span>
           <div class="entity-page-info-div-content">
-            {{ user.interests || ('no_interests_specified' | translate) }}
+            {{ user().interests || ('no_interests_specified' | translate) }}
           </div>
         </div>
 
         <div class="entity-page-separator"></div>
 
-        @if (commonSpace$ | async; as commonSpaces) {
-          @if (commonSpaces.length > 0) {
-            <div class="entity-page-info-div">
-              <span class="g-text-medium g-weight-600">{{ 'common_spaces' | translate }}</span>
-              <div class="entity-page-info-div-content">
-                @for (space of commonSpaces; track space.id) {
-                  <co-visibility-badge [space]="space" size="medium"></co-visibility-badge>
-                }
-              </div>
+        @if (commonSpaces() && commonSpaces().length > 0) {
+          <div class="entity-page-info-div">
+            <span class="g-text-medium g-weight-600">{{ 'common_spaces' | translate }}</span>
+            <div class="entity-page-info-div-content">
+              @for (space of commonSpaces(); track space.id) {
+                <co-visibility-badge [space]="space" size="medium"></co-visibility-badge>
+              }
             </div>
-          }
+          </div>
         }
       </div>
       <div class="entity-page-content">
         <div class="item-type-select-div">
           <div class="item-type-select-inner-div">
-            @for (itemType of itemTypes; track itemType; let idx = $index) {
+            @for (sectionType of sectionsTypes; track sectionType; let idx = $index) {
               <div
                 class="item-type-div"
-                (click)="changeCurrentType(itemType)"
-                [ngClass]="itemType === currentType ? 'active-item-type-div' : ''">
-                {{ itemType | translate }}
+                (click)="changeCurrentType(sectionType)"
+                [ngClass]="sectionType === currentType ? 'active-item-type-div' : ''">
+                {{ sectionType | translate }}
               </div>
-              @if (idx < itemTypes.length - 1) {
+              @if (idx < sectionsTypes.length - 1) {
                 <div class="item-type-select-line"></div>
               }
             }

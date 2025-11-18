@@ -35,6 +35,7 @@ export enum CoListEntityType {
   STORY = 'story',
   APP = 'app',
   TAG = 'tag',
+  PARTNER = 'partner',
 }
 
 @Component({
@@ -105,6 +106,11 @@ export class CoListFiltersComponent implements OnInit, OnDestroy {
           this.myEntitiesText.set('coCommunityLib.my_tags');
           this.filterTitleText.set('coCommunityLib.filter_by_label');
           this.titleText.set('coCommunityLib.label');
+          break;
+        case CoListEntityType.PARTNER:
+          this.myEntitiesText.set('coCommunityLib.my_partner_page');
+          this.filterTitleText.set('coCommunityLib.filter_by_name');
+          this.titleText.set('coCommunityLib.name');
           break;
       }
     });

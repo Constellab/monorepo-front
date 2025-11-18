@@ -9,7 +9,7 @@
       (myEntitiesChanged)="onMyEntitiesChanged($event)"></co-list-filters>
     <ha-list-of-items>
       @for (brick of bricks | flDatasourceConnect | async; track brick.id) {
-        <a [routerLink]="getBrickRoute(brick)">
+        <a [routerLink]="brick | haDetailRoute">
           <co-brick-list-item
             [brick]="brick"
             [brickImage]="brick.imageLink | haBrickImage"></co-brick-list-item>

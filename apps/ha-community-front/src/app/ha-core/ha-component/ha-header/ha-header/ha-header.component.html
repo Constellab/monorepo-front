@@ -11,6 +11,17 @@
       <img ngSrc="assets/fl-logo/community_logo.svg" fill class="logo" alt="Constellab Community logo" />
     </a>
 
+    <div
+      class="search-div"
+      (click)="openInstantSearchDialog()"
+      [matTooltip]="'header_search_tooltip' | translate"
+      [attr.aria-label]="'open_search' | translate"
+      role="button"
+      tabindex="0">
+      {{ 'search' | translate }}
+      <mat-icon class="search-icon">search</mat-icon>
+    </div>
+
     <div class="nav-bar-links-div">
       <a [routerLink]="storyListRoute" [attr.aria-label]="'go_to_stories' | translate">{{
         'stories' | translate
@@ -24,37 +35,20 @@
       <a [routerLink]="brickListRoute" [attr.aria-label]="'go_to_bricks' | translate">{{
         'bricks' | translate
       }}</a>
+      <a [routerLink]="partnerListRoute" [attr.aria-label]="'go_to_partners' | translate">{{
+        'partners' | translate
+      }}</a>
+      <a [href]="constellabRoute" target="_blank" [attr.aria-label]="'go_to_constellab_external' | translate"
+        >Space</a
+      >
       <span
         [matMenuTriggerFor]="documentationMenu"
-        [attr.aria-label]="'open_documentation_menu' | translate"
+        [matTooltip]="'open_menu' | translate"
+        [attr.aria-label]="'open_menu' | translate"
         role="button"
         tabindex="0"
-        >{{ 'documentation' | translate }}</span
+        ><mat-icon>menu</mat-icon></span
       >
-      <a [href]="constellabRoute" target="_blank" [attr.aria-label]="'go_to_constellab_external' | translate"
-        >Constellab</a
-      >
-    </div>
-
-    <div
-      class="search-div"
-      (click)="openInstantSearchDialog()"
-      [matTooltip]="'header_search_tooltip' | translate"
-      [attr.aria-label]="'open_search' | translate"
-      role="button"
-      tabindex="0">
-      {{ 'search' | translate }}
-      <mat-icon class="search-icon">search</mat-icon>
-    </div>
-
-    <div
-      class="lang-div"
-      [matMenuTriggerFor]="languageMenu"
-      [attr.aria-label]="'change_language' | translate"
-      role="button"
-      tabindex="0">
-      {{ currentLanguage() === 'en' ? 'EN' : 'FR' }}
-      <mat-icon>arrow_drop_down</mat-icon>
     </div>
 
     <div class="nav-bar-action-div">
@@ -114,12 +108,20 @@
     <mat-icon flIcon="tag"></mat-icon>
     <span>{{ 'tags' | translate }}</span>
   </a>
+  <button
+    mat-menu-item
+    [matMenuTriggerFor]="languageMenu"
+    class="doc-menu-language-button"
+    [attr.aria-label]="'change_language' | translate">
+    <mat-icon>language</mat-icon>
+    {{ currentLanguage() === 'en' ? 'EN' : 'FR' }}
+  </button>
 </mat-menu>
 
 <mat-menu #loggedInMenu>
   <a
     mat-menu-item
-    [routerLink]="profileRoute + currentUser()?.id"
+    [routerLink]="profileRoute + '/' + currentUser()?.id"
     [attr.aria-label]="'go_to_profile' | translate">
     <mat-icon>person</mat-icon>
     {{ 'profile' | translate }}
@@ -156,6 +158,9 @@
   <a mat-menu-item [routerLink]="brickListRoute" [attr.aria-label]="'go_to_bricks' | translate">{{
     'bricks' | translate
   }}</a>
+  <a mat-menu-item [routerLink]="partnerListRoute" [attr.aria-label]="'go_to_partners' | translate">{{
+    'partners' | translate
+  }}</a>
   <span
     mat-menu-item
     [matMenuTriggerFor]="documentationMenu"
@@ -167,12 +172,12 @@
     [href]="constellabRoute"
     target="_blank"
     [attr.aria-label]="'go_to_constellab_external' | translate"
-    >Constellab</a
+    >Space</a
   >
   <mat-divider></mat-divider>
   <a
     mat-menu-item
-    [routerLink]="profileRoute + currentUser()?.id"
+    [routerLink]="profileRoute + '/' + currentUser()?.id"
     [attr.aria-label]="'go_to_profile' | translate">
     {{ 'profile' | translate }}
   </a>

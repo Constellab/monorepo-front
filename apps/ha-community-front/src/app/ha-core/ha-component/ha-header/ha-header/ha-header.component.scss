@@ -69,15 +69,13 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   gap: 20px;
   cursor: pointer;
   padding: 5px 12px;
   border-radius: 20px;
   transition: 0.3s;
-}
-
-.search-div:hover {
+  flex: auto;
   background: var(--hover-color);
 }
 
@@ -185,5 +183,9 @@
 
   .menu-button {
     display: inline-block;
+  }
+
+  .doc-menu-language-button {
+    display: none;
   }
 }

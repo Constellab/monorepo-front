@@ -29,5 +29,10 @@ export class HaAdminPanelPageComponent {
       icon: 'description',
       route: HaRouterService.getAdminPanelStoriesRoute(),
     },
+    {
+      label: { text: 'partners', translateText: true },
+      icon: 'handshake',
+      route: HaRouterService.getAdminPanelPartnersRoute(),
+    },
   ];
 }

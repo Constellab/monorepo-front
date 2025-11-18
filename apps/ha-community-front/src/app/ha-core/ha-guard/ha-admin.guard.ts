@@ -1,23 +1,16 @@
-import { inject,Injectable } from '@angular/core';
-import { Router, UrlTree } from '@angular/router';
+import { inject, Injectable } from '@angular/core';
+import { UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { HaAuthService } from '../ha-service/ha-auth.service';
 import { HaAuthenticatedUserService } from '../ha-service/ha-authenticated-user.service';
-import { HaRouterService } from '../ha-service/ha-router.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HaAdminGuard {
-  private loginService = inject(HaAuthService);
   private authenticatedUserService = inject(HaAuthenticatedUserService);
-  private router = inject(Router);
 
   canActivate(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    if (!this.loginService.hasAuthorizationCookie()) {
-      return this.router.createUrlTree([HaRouterService.getLoginRoute()]);
-    }
     return this.authenticatedUserService.isAdmin();
   }
 }

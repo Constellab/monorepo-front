@@ -19,6 +19,7 @@ import {
 import { HaUser } from '../../../ha-core/ha-model/ha-entities/ha-user';
 import { HaCommunityPageDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
 import { HaBrickImagePipe } from '../../../ha-core/ha-module/ha-core-pipe/ha-brick-image/ha-brick-image.pipe';
+import { HaDetailRoutePipe } from '../../../ha-core/ha-module/ha-core-pipe/ha-detail-route/ha-detail-route.pipe';
 import { HaAuthenticatedUserService } from '../../../ha-core/ha-service/ha-authenticated-user.service';
 import { HaBrickService } from '../../../ha-core/ha-service/ha-brick.service';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
@@ -40,6 +41,7 @@ import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
     HaListOfItemsComponent,
     HaPageComponent,
     CoListFiltersComponent,
+    HaDetailRoutePipe,
   ],
 })
 export class HaListBricksPageComponent extends HaCommunityPageDirective implements OnInit {

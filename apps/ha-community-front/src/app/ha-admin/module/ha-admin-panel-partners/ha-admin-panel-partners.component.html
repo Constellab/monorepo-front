@@ -1,0 +1,22 @@
+<fl-card class="card">
+  <fl-card-header>
+    <fl-search-header>
+      <fl-text-icon>
+        <mat-icon>handshake</mat-icon>
+        <h2 class="g-admin-panel-section-title">{{ 'partners' | translate }}</h2>
+      </fl-text-icon>
+    </fl-search-header>
+  </fl-card-header>
+  <fl-card-body class="g-full-height">
+    <fl-search>
+      <fl-search-advanced-form>
+        <ha-admin-panel-partners-search-form></ha-admin-panel-partners-search-form>
+      </fl-search-advanced-form>
+      <fl-search-result>
+        <ha-admin-panel-partners-table
+          [datasource]="datasource"
+          (action)="onAction($event)"></ha-admin-panel-partners-table>
+      </fl-search-result>
+    </fl-search>
+  </fl-card-body>
+</fl-card>

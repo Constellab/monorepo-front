@@ -1,0 +1,82 @@
+<ha-page
+  [pageTitle]="partner()?.name ?? partnerName"
+  [isLoading]="isLoading()"
+  [notFound]="notFound()"
+  [showPageDescription]="false"
+  [hideCreateSection]="true">
+  @if (partner()) {
+    <div class="entity-page-section">
+      <div class="entity-page-infos">
+        <!--        <ha-entity-page-infos-->
+        <!--          [entityId]="partner().id"-->
+        <!--          [entityType]="entityType"-->
+        <!--          [isAuthor]="isAuthor()"-->
+        <!--          [contributors]="contributors()"-->
+        <!--          [date]="partner().createdAt">-->
+        <!--          @if (canEdit()) {-->
+        <!--            <div class="entity-page-infos">-->
+        <!--              <a type="button" mat-flat-button [routerLink]="partnerEditRoute()" class="g-full">-->
+        <!--                <mat-icon>edit</mat-icon>-->
+        <!--                {{ 'edit_partner' | translate }}-->
+        <!--              </a>-->
+        <!--            </div>-->
+
+        <!--            <div class="entity-page-separator"></div>-->
+        <!--          }-->
+        <!--        </ha-entity-page-infos>-->
+        <ha-entity-page-info
+          [imageUrl]="imageUrl()"
+          [entityId]="partner().id"
+          [entityType]="entityType"
+          [isAuthor]="canEdit()"
+          [contributors]="[]"
+          [date]="partner().createdAt">
+          @if (canEdit()) {
+            <div class="entity-page-infos">
+              <button type="button" mat-flat-button (click)="openEditPartnerDialog()" class="g-full">
+                <mat-icon>edit</mat-icon>
+                {{ 'edit_partner' | translate }}
+              </button>
+            </div>
+          }
+        </ha-entity-page-info>
+      </div>
+      <div class="entity-page-content">
+        @if (!partner().certified && canEdit()) {
+          <div class="not-certified-info-div">
+            {{ 'partner_not_certified_info' | translate }}
+          </div>
+        }
+
+        <div class="g-layout-row g-layout-between-center">
+          <h2>{{ 'partner_info' | translate }}</h2>
+          @if (canEdit() && formControl) {
+            @if (formControl.disabled) {
+              <button mat-flat-button (click)="editPartnerInfo()">
+                {{ 'edit_information' | translate }}
+              </button>
+            } @else {
+              <button mat-flat-button (click)="savePartnerInfo()">
+                @if (onPartnerInfoLoading()) {
+                  <fl-loader></fl-loader>
+                } @else {
+                  {{ 'save' | translate }}
+                }
+              </button>
+            }
+          }
+        </div>
+        <article>
+          <te-text-editor
+            class="community-text-editor"
+            [formControl]="formControl"
+            [config]="textEditorConfig()">
+          </te-text-editor>
+        </article>
+      </div>
+      <div class="entity-page-comment" id="comments">
+        <ha-comments-section [user]="currentUser()"></ha-comments-section>
+      </div>
+    </div>
+  }
+</ha-page>

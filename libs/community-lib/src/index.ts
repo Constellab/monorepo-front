@@ -27,6 +27,7 @@ export * from './lib/component/co-type-badge/co-type-badge.component';
 export * from './lib/component/co-item-type-icon/co-item-type-icon.component';
 export * from './lib/component/co-stats-list/co-stats-list.component';
 export * from './lib/component/co-list-filters/co-list-filters.component';
+export * from './lib/component/co-partner-list-item/co-partner-list-item.component';
 
 // Helpers
 export * from './lib/helper/co-community-helper.service';
@@ -41,6 +42,8 @@ export * from './lib/model/co-icon.class';
 export * from './lib/model/co-community-app.class';
 export * from './lib/model/co-tag-key.class';
 export * from './lib/model/co-tag-value.class';
+export * from './lib/model/co-partner.class';
+export * from './lib/model/co-list-item-type.enum';
 
 // States
 export * from './lib/state/co-tag-additional-info-spec.state';

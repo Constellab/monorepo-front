@@ -15,6 +15,7 @@ import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { TranslatePipe } from '@ngx-translate/core';
 
 import { HaConstellabHelper } from '../../../ha-model/ha-config/ha-constellab.helper';
+import { HaIsAdminDirective } from '../../../ha-module/ha-core-directive/ha-is-admin/ha-is-admin.directive';
 import { HaAuthService } from '../../../ha-service/ha-auth.service';
 import { HaAuthenticatedUserService } from '../../../ha-service/ha-authenticated-user.service';
 import { HaRouterService } from '../../../ha-service/ha-router.service';
@@ -38,6 +39,7 @@ import { HaInstantSearchDialogComponent } from '../../ha-instant-search-dialog/h
     FlIconModule,
     MatDivider,
     MatTooltip,
+    HaIsAdminDirective,
   ],
 })
 export class HaHeaderComponent {
@@ -60,6 +62,8 @@ export class HaHeaderComponent {
 
   brickListRoute = HaRouterService.getBrickListRoute();
 
+  partnerListRoute = HaRouterService.getPartnerListRoute();
+
   appsListRoute = HaRouterService.getCommunityAppListRoute();
 
   productDocRoute = HaRouterService.getProductDocRoute();
@@ -79,6 +83,8 @@ export class HaHeaderComponent {
   signupUrl = HaConstellabHelper.getConstellabSignupUrl();
 
   currentUser = toSignal(this.authenticatedUserService.getUser());
+
+  isAdminUser = toSignal(this.authenticatedUserService.isAdmin());
 
   currentLanguage: WritableSignal<ClSupportedLanguage> = signal(this.translateService.getUserLanguage());
 

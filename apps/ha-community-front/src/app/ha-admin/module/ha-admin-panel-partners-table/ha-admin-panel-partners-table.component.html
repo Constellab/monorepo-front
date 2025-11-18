@@ -1,0 +1,81 @@
+<mat-table mat-table [dataSource]="datasource()" flSearchTableSort>
+  <!-- name -->
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
+      {{ 'name' | translate }}
+    </mat-header-cell>
+    <mat-cell *matCellDef="let partner">
+      {{ partner.name }}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="certified">
+    <mat-header-cell *matHeaderCellDef>
+      {{ 'certified' | translate }}
+    </mat-header-cell>
+    <mat-cell *matCellDef="let partner">
+      @if (partner.certified) {
+        <mat-icon color="primary" matTooltip="{{ 'partner_is_certified' | translate }}"
+          >check_circle</mat-icon
+        >
+      } @else {
+        <mat-icon color="warn" matTooltip="{{ 'partner_not_certified' | translate }}">block</mat-icon>
+      }
+    </mat-cell>
+  </ng-container>
+
+  <!-- Created -->
+  <ng-container matColumnDef="created">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
+      {{ 'creation_info' | translate }}
+    </mat-header-cell>
+    <mat-cell *matCellDef="let partner">
+      <fl-user-with-date [user]="partner.createdBy" [date]="partner.createdAt"></fl-user-with-date>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Last modified -->
+  <ng-container matColumnDef="lastModified">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
+      {{ 'last_modification_info' | translate }}
+    </mat-header-cell>
+    <mat-cell *matCellDef="let partner">
+      <fl-user-with-date [user]="partner.lastModifiedBy" [date]="partner.lastModifiedAt"></fl-user-with-date>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <mat-header-cell *matHeaderCellDef class="actions-cell">
+      {{ 'actions' | translate }}
+    </mat-header-cell>
+    <mat-cell *matCellDef="let partner" class="actions-cell">
+      <a
+        mat-icon-button
+        [routerLink]="partner | haDetailRoute"
+        [matTooltip]="'view_partner_page' | translate">
+        <mat-icon>launch</mat-icon>
+      </a>
+
+      @if (partner.certified) {
+        <button
+          mat-icon-button
+          class="g-table-icon-button-cell"
+          (click)="revokeCertification(partner)"
+          [matTooltip]="'revoke_certification' | translate">
+          <mat-icon>block</mat-icon>
+        </button>
+      } @else {
+        <button
+          mat-icon-button
+          class="g-table-icon-button-cell"
+          (click)="grantCertification(partner)"
+          [matTooltip]="'grant_certification' | translate">
+          <mat-icon>check_circle</mat-icon>
+        </button>
+      }
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="columns(); sticky: true"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: columns()"></mat-row>
+</mat-table>

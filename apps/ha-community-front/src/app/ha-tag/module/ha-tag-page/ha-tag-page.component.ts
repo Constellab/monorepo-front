@@ -29,7 +29,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { first } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { HaEntityPageInfosComponent } from '../../../ha-core/ha-component/ha-entity-page-infos/ha-entity-page-infos.component';
+import { HaEntityPageInfoComponent } from '../../../ha-core/ha-component/ha-entity-page-infos/ha-entity-page-info.component';
 import { HaPageComponent } from '../../../ha-core/ha-component/ha-page/ha-page.component';
 import { HaEntityType } from '../../../ha-core/ha-model/ha-entities/ha-entity-type';
 import { HaTagKey } from '../../../ha-core/ha-model/ha-entities/ha-tag-key.class';
@@ -62,7 +62,7 @@ import {
     TdTechnicalDocModule,
     FlIconModule,
     HaPageComponent,
-    HaEntityPageInfosComponent,
+    HaEntityPageInfoComponent,
     TranslatePipe,
     MatButton,
     MatIconButton,
@@ -174,7 +174,7 @@ export class HaTagPageComponent extends HaCommunityPageDirective implements OnIn
       });
   }
 
-  openConfirmDeleteTagKeyDialog(): void{
+  openConfirmDeleteTagKeyDialog(): void {
     const input: FlConfirmDialogInput = {
       title: 'delete_tag',
       content: 'delete_tag_content',
@@ -182,11 +182,11 @@ export class HaTagPageComponent extends HaCommunityPageDirective implements OnIn
       observable: this.tagService.deleteTagKey(this.tagKey.id).pipe(
         map((res) => {
           if (res) {
-            this.router.navigate([HaRouterService.getTagsListRoute()])
+            this.router.navigate([HaRouterService.getTagsListRoute()]);
           }
         })
       ),
-    }
+    };
 
     this.dialogService.openConfirmDialog(input);
   }

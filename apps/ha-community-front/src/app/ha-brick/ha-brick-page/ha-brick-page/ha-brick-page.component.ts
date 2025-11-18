@@ -14,11 +14,12 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { filter, Subscription } from 'rxjs';
 
 import { HaFile } from '../../../ha-core/entity-module/ha-file-core/model/ha-file';
-import { HaEntityPageInfosComponent } from '../../../ha-core/ha-component/ha-entity-page-infos/ha-entity-page-infos.component';
+import { HaEntityPageInfoComponent } from '../../../ha-core/ha-component/ha-entity-page-infos/ha-entity-page-info.component';
 import { HaPageComponent } from '../../../ha-core/ha-component/ha-page/ha-page.component';
 import { HaBrick, HaEditBrickDTO } from '../../../ha-core/ha-model/ha-entities/ha-brick.class';
 import { HaEntityType } from '../../../ha-core/ha-model/ha-entities/ha-entity-type';
 import { HaUser } from '../../../ha-core/ha-model/ha-entities/ha-user';
+import { HaBrickImagePipe } from '../../../ha-core/ha-module/ha-core-pipe/ha-brick-image/ha-brick-image.pipe';
 import { HaAuthenticatedUserService } from '../../../ha-core/ha-service/ha-authenticated-user.service';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
 import { HaCurrentPageState } from '../../../ha-core/ha-state/ha-current-page.state';
@@ -38,7 +39,7 @@ import { HaEditBrickDialogComponent } from '../ha-edit-brick-dialog/ha-edit-bric
     FlTextIconModule,
     RouterOutlet,
     HaPageComponent,
-    HaEntityPageInfosComponent,
+    HaEntityPageInfoComponent,
     HaBrickSidenavComponent,
     MatButton,
     MatIcon,
@@ -46,6 +47,7 @@ import { HaEditBrickDialogComponent } from '../ha-edit-brick-dialog/ha-edit-bric
     RouterLink,
     NgClass,
     FlCoreComponentModule,
+    HaBrickImagePipe,
   ],
 })
 export class HaBrickPageComponent implements OnInit, OnDestroy {
