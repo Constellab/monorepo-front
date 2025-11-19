@@ -14,4 +14,8 @@ export class HaConstellabHelper {
   public static getGencoveryFOAUrl(): string {
     return 'https://gencovery.com/fair-open-access';
   }
+
+  public static getCommunityDiscordInviteUrl(): string {
+    return 'https://discord.com/invite/EASQ28m2dD';
+  }
 }

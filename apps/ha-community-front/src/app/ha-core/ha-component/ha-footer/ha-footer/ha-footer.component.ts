@@ -1,6 +1,10 @@
 import { NgOptimizedImage, NgTemplateOutlet } from '@angular/common';
 import { Component, input } from '@angular/core';
-import { MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle } from '@angular/material/expansion';
+import {
+  MatExpansionPanel,
+  MatExpansionPanelHeader,
+  MatExpansionPanelTitle,
+} from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
@@ -36,4 +40,5 @@ export class HaFooterComponent {
   bricksListRoute = HaRouterService.getBrickListRoute();
   tagsListRoute = HaRouterService.getTagsListRoute();
   constellabUrl = HaConstellabHelper.getConstellabUrl();
+  discordUrl = HaConstellabHelper.getCommunityDiscordInviteUrl();
 }

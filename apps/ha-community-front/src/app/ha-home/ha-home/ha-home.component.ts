@@ -11,6 +11,7 @@ import {
 import { MatIcon } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { TranslatePipe } from '@ngx-translate/core';
 
 import { HaFooterComponent } from '../../ha-core/ha-component/ha-footer/ha-footer/ha-footer.component';
@@ -64,6 +65,7 @@ import { HaHomeSectionShineComponent } from '../ha-home-section-shine/ha-home-se
     MatButton,
     RouterLink,
     MatIcon,
+    FlIconModule,
   ],
 })
 export class HaHomeComponent extends HaCommunityPageDirective implements OnInit {
@@ -87,6 +89,8 @@ export class HaHomeComponent extends HaCommunityPageDirective implements OnInit 
   technicalDocRoute = HaRouterService.getTechDocRoute();
 
   homeVideoLink = HaEnvironmentHelper.getHomeVideoLink();
+
+  discordUrl = HaConstellabHelper.getCommunityDiscordInviteUrl();
 
   ngOnInit(): void {
     super.setMetaTags(

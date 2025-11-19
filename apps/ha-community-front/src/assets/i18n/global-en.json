@@ -84,10 +84,10 @@
   "tag_list.create_section.submit": "Submit a tag",
 
   "partner_list.header.title": "Partners",
-  "partner_list.header.description": "Partners are certified by Gencovery",
+  "partner_list.header.description": "Join the Constellab Partner Network to build, integrate, and showcase powerful digital and AI solutions for organizations. Together, we accelerate innovation, enable partners to deliver services, and create real impact.",
   "partner_list.create_section.hint": "Increase your reach by becoming a partner",
   "partner_list.create_section.title": "Become a partner",
-  "partner_list.create_section.subtitle": "Become a Gencovery Partner to increase your visibility and showcase your expertise.",
+  "partner_list.create_section.subtitle": "Join the Constellab Partner Network.",
   "partner_list.create_section.submit": "Become a Partner",
 
   "login_page.login_to_your_account": "Login to your account",
@@ -546,7 +546,7 @@
   "constellab": "Constellab",
   "members": "Members",
   "fair_open_access_description": "Get open access to start on Constellab, create open-source projects, earn credits from your work",
-  "join_our_discord": "Join our Discord",
+  "join_the_community_discord": "Join the Community Discord",
   "delete_agent_version": "Delete agent version",
   "delete_agent_version_confirmation": "Are you sure you want to delete this agent version ?",
   "agent_version_deleted": "Agent version deleted",
