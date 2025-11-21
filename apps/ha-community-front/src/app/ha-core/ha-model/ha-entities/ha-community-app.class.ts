@@ -11,6 +11,7 @@ export class HaCommunityApp extends HaEntity implements CoCommunityApp {
   appUrl: string;
   @TeRichTextTransform()
   description: TeRichText;
+  contactMail?: string;
   likes: number;
   comments: number;
   executions: number;
@@ -23,7 +24,8 @@ export class HaCommunityApp extends HaEntity implements CoCommunityApp {
 
 export class HaCommunityAppEdit {
   title: string;
-  appUrl: string;
+  appUrl?: string;
+  contactMail?: string;
   picture?: string;
   description?: TeRichText;
   spaceId?: string;

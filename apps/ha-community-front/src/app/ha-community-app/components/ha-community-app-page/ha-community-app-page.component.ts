@@ -145,6 +145,7 @@ export class HaCommunityAppPageComponent extends HaCommunityPageDirective implem
         id: this.communityApp().id,
         title: this.communityApp().title,
         appUrl: this.communityApp().appUrl,
+        contactMail: this.communityApp().contactMail,
         picture: this.communityApp().picture,
         spaceId: this.communityApp().space?.id,
       },

@@ -42,9 +42,19 @@
           <div>
             <div class="app-page-title-div app-page-launch-div">
               <h2>{{ 'the_app' | translate }}</h2>
-              <a type="button" mat-flat-button [href]="communityApp().appUrl" target="_blank">{{
-                'open_app' | translate
-              }}</a>
+              <div class="g-layout-row g-gap-05em">
+                @if (communityApp().contactMail) {
+                  <a type="button" mat-flat-button [href]="'mailto:' + communityApp().contactMail">{{
+                    'contact_creator' | translate
+                  }}</a>
+                }
+
+                @if (communityApp().appUrl) {
+                  <a type="button" mat-flat-button [href]="communityApp().appUrl" target="_blank">{{
+                    'open_app' | translate
+                  }}</a>
+                }
+              </div>
             </div>
             <div class="entity-page-separator"></div>
           </div>

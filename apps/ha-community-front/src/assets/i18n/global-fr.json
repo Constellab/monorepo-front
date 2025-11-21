@@ -735,5 +735,9 @@
   "partner_certification_granted": "Certification du partenaire confiée",
   "confirm_grant_certification": "Etes-vous sûr de vouloir confier la certification de ce partenaire ?",
   "confirm_revoke_certification": "Etes-vous sûr de vouloir révoquer la certification de ce partenaire ?",
-  "open_documentation_menu": "Ouvrir le menu de documentation"
+  "open_documentation_menu": "Ouvrir le menu de documentation",
+  "contact_mail": "Mail de contact",
+  "contact_mail_pattern_error": "Le mail de contact doit être une adresse email valide",
+  "the_contact_mail_is_required": "Le mail de contact est requis si vous ne fournissez pas d'URL de l'app",
+  "contact_creator": "Contacter le créateur"
 }

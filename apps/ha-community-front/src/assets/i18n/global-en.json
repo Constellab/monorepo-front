@@ -330,7 +330,7 @@
   "ha.app.title": "{{title}} - Constellab Community",
   "ha.app.description": "This is the page of the app {{title}}",
   "ha.apps.title": "Apps - Constellab Community",
-  "ha.apps.description": "List of apps page",
+  "ha.apps.description": "List of Apps available in Community, Apps are ready-to-use applications to speed up your work.",
   "ha.user.title": "{{alias}} - Constellab Community",
   "ha.user.description": "This is the page of the user {{alias}}",
   "ha.icons.title": "Icons - Constellab Community",
@@ -342,7 +342,7 @@
   "ha.tag_list.title": "Tags - Constellab Community",
   "ha.tag_list.description": "List of Community tags page",
   "ha.partners.title": "Partners - Constellab Community",
-  "ha.partners.description": "List of certified partners page",
+  "ha.partners.description": "List of Community certified partners, become a partner to improve your reach and showcase powerful digital and AI solutions for organizations.",
   "ha.partner.title": "{{name}} - Constellab Community",
   "ha.partner.description": "This is the page of the partner {{name}}",
   "light_theme": "Light theme",
@@ -734,5 +734,9 @@
   "partner_certification_granted": "Partner certification granted",
   "confirm_grant_certification": "Are you sure you want to grant the certification to this partner ?",
   "confirm_revoke_certification": "Are you sure you want to revoke the certification of this partner ?",
-  "open_documentation_menu": "Open documentation menu"
+  "open_documentation_menu": "Open documentation menu",
+  "contact_mail": "Contact mail",
+  "contact_mail_pattern_error": "The contact mail must be a valid email address",
+  "the_contact_mail_is_required": "The contact mail is required if you do not provide an app URL",
+  "contact_creator": "Contact creator"
 }

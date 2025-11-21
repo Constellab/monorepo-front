@@ -107,18 +107,34 @@ export class HaCommunityAppCreateDialogComponent
   }
 
   buildForm(): UntypedFormGroup {
-    return new FormBuilder().group({
-      picture: [null],
-      title: [null, Validators.required],
-      appUrl: [null, [Validators.required, Validators.pattern('^\\s*https?://.+\\s*$')]],
-      description: [null],
-      spaceId: [null],
-      id: [null],
-    });
+    return new FormBuilder().group(
+      {
+        picture: [null],
+        title: [null, Validators.required],
+        appUrl: [null, [Validators.pattern('^\\s*https?://.+\\s*$')]],
+        contactMail: [null, Validators.email],
+        description: [null],
+        spaceId: [null],
+        id: [null],
+      },
+      {
+        validators: this.atLeastOneContactValidator,
+      }
+    );
+  }
+
+  private atLeastOneContactValidator(group: UntypedFormGroup): { [key: string]: boolean } | null {
+    const appUrl = group.get('appUrl')?.value;
+    const contactMail = group.get('contactMail')?.value;
+
+    const hasAppUrl = appUrl && appUrl.trim().length > 0;
+    const hasContactMail = contactMail && contactMail.trim().length > 0;
+
+    return !hasAppUrl && !hasContactMail ? { atLeastOneContactRequired: true } : null;
   }
 
   create(formValue: HaCommunityAppEdit): Observable<HaCommunityApp> {
-    formValue.appUrl = formValue.appUrl.trim();
+    formValue.appUrl = formValue.appUrl?.trim();
     return this.communityAppService.create(formValue);
   }
 
