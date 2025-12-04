@@ -31,7 +31,7 @@ the local running component.
 To dev the iframe-message, start the dc-iframe-message app:
 
 ```bash
-npm run dc-iframe-message
+npm run dc-streamlit-iframe-message:serve
 ```
 
 Then in python back, mark the StreamlitComponentLoader a not release `IS_RELEASE=False`, this will use

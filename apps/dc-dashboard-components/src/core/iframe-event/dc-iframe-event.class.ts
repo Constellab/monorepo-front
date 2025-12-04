@@ -54,5 +54,5 @@ export type DcMainToIframeEvent = {
 export function dcGetIframeMessageHost(): string {
   const location = window.location;
   if (location.hostname === 'localhost') return '*';
-  return `${location.protocol}//${location.hostname}`;
+  return `${location.protocol}//${location.host}`;
 }
