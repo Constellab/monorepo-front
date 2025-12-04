@@ -37,6 +37,7 @@ npm run dc-streamlit-iframe-message:serve
 Then in python back, mark the StreamlitComponentLoader a not release `IS_RELEASE=False`, this will use
 the local running component.
 
+You must test the streamlit app using `http://localhost:8511` and not sub domain like `http://dev-app.localhost:8510/` because of cross origin restriction.
 It must use streamlit-components built in production mode as only on dev app can be run in dev mode at the same time.
 
 ## Build
