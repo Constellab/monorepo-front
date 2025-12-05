@@ -6,13 +6,13 @@ echo "{\"apiBaseUrl\" : \"$API_URL\",  \"devApiBaseUrl\" : \"$LAB_DEV_API_URL\",
 
 # Set VIRTUAL_HOST_DOMAIN based on VIRTUAL_HOST env var
 if [ -n "$VIRTUAL_HOST" ]; then
-  export VIRTUAL_HOST_DOMAIN="*.$VIRTUAL_HOST"
+  export VIRTUAL_HOST_DOMAIN_VALUE="*.$VIRTUAL_HOST"
 else
-  export VIRTUAL_HOST_DOMAIN=""
+  export VIRTUAL_HOST_DOMAIN_VALUE=""
 fi
 
 # Replace the variables in the nginx template file and create the nginx configuration file
-envsubst '${VIRTUAL_HOST_DOMAIN}' < /etc/nginx/conf.d/nginx.template > /etc/nginx/conf.d/default.conf
+envsubst '${VIRTUAL_HOST_DOMAIN_VALUE}' < /etc/nginx/conf.d/nginx.template > /etc/nginx/conf.d/default.conf
 
 # Execute the nginx docker entry point
 . /docker-entrypoint.sh
