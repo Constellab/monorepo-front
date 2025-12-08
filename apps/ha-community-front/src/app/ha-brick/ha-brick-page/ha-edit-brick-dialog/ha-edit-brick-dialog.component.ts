@@ -137,6 +137,7 @@ export class HaEditBrickDialogComponent
       this.repoError = false;
       this.formGp.controls.pipRepo.removeValidators(Validators.required);
       this.formGp.controls.gitRepo.removeValidators(Validators.required);
+
       if (this.formGp.valid) {
         this.update(this.formGp.value as HaEditBrickDTO).subscribe({
           next: (newEntity) => this.onSaveSuccess(newEntity, this.getUpdateSuccessMessage()),

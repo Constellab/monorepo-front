@@ -29,6 +29,8 @@
             <ha-brick-sidenav></ha-brick-sidenav>
           </div>
 
+          <div class="entity-page-separator"></div>
+
           @if (isDocPage() && docHeaders() && docHeaders().length > 0) {
             <div class="entity-page-info-div">
               <span class="g-text-medium g-weight-600">{{ 'table_of_contents' | translate }}</span>
@@ -59,9 +61,8 @@
                 }
               </div>
             </div>
+            <div class="entity-page-separator"></div>
           }
-
-          <div class="entity-page-separator"></div>
         </ha-entity-page-info>
       </div>
       <div class="entity-page-content">

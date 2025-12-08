@@ -1,5 +1,5 @@
 <ha-page-header [title]="headerTitle()" [description]="headerDescription()">
-  @if (!hideCreateSection()) {
+  @if (!hideCreateSection() && showHeaderCreateButton()) {
     <div class="section-buttons-div header-create-button-div">
       @if (currentUser()) {
         <button type="button" mat-flat-button (click)="openCreateDialog()">
