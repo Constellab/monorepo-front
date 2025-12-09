@@ -3,12 +3,14 @@ import { AsyncPipe } from '@angular/common';
 import {
   Component,
   effect,
+  ElementRef,
   inject,
   input,
   OnDestroy,
   OnInit,
   output,
   signal,
+  ViewChild,
   WritableSignal,
 } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
@@ -84,6 +86,9 @@ export class CoListFiltersComponent implements OnInit, OnDestroy {
   userSpace$ = this.coConfigService.getSpacesOfCurrentUser();
   currentSortCriteria: FlDatasourceSortCriteria;
 
+  @ViewChild('titleInput')
+  titleInputRef: ElementRef<HTMLInputElement>;
+
   constructor() {
     effect(() => {
       const listEntityType = this.listEntityType();
@@ -155,6 +160,15 @@ export class CoListFiltersComponent implements OnInit, OnDestroy {
 
   onMyEntitiesChange(checked: boolean): void {
     this.myEntitiesChanged.emit(checked);
+  }
+
+  onTitleIsOpenChange(): void {
+    this.titleFilterIsOpen = !this.titleFilterIsOpen;
+    if (this.titleFilterIsOpen) {
+      setTimeout(() => {
+        this.titleInputRef?.nativeElement?.focus();
+      }, 0);
+    }
   }
 
   ngOnDestroy(): void {

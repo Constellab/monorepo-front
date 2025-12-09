@@ -739,5 +739,6 @@
   "contact_mail": "Mail de contact",
   "contact_mail_pattern_error": "Le mail de contact doit être une adresse email valide",
   "the_contact_mail_is_required": "Le mail de contact est requis si vous ne fournissez pas d'URL de l'app",
-  "contact_creator": "Contacter le créateur"
+  "contact_creator": "Contacter le créateur",
+  "app_picture_uploaded": "Image de l'application uploadée"
 }

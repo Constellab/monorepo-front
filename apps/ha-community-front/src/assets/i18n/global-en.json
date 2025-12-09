@@ -738,5 +738,6 @@
   "contact_mail": "Contact mail",
   "contact_mail_pattern_error": "The contact mail must be a valid email address",
   "the_contact_mail_is_required": "The contact mail is required if you do not provide an app URL",
-  "contact_creator": "Contact creator"
+  "contact_creator": "Contact creator",
+  "app_picture_uploaded": "App picture uploaded"
 }

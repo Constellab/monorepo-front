@@ -38,14 +38,18 @@
     }
 
     <div class="filter-sort-div" (flOutsideClick)="titleFilterIsOpen = false">
-      <div class="filter-sort-div-header" (click)="titleFilterIsOpen = !titleFilterIsOpen">
+      <div class="filter-sort-div-header" (click)="onTitleIsOpenChange()">
         <span>{{ filterTitleText() | translate }}</span>
         <mat-icon>keyboard_arrow_down</mat-icon>
       </div>
       @if (titleFilterIsOpen) {
         <div class="filter-sort-div-portal">
           <mat-form-field class="filter-title-field">
-            <input matInput [formControl]="titleFormControl" placeholder="{{ titleText() | translate }}" />
+            <input
+              matInput
+              [formControl]="titleFormControl"
+              #titleInput
+              placeholder="{{ titleText() | translate }}" />
             <button
               mat-icon-button
               matSuffix
