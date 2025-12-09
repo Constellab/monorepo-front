@@ -28,20 +28,23 @@
         <fl-key-value class="code1-v2">
           <fl-key>{{ 'td.type' | translate }}</fl-key>
           <code>{{
-              configSpecs()[configSpec].type === 'str' ? 'string' : configSpecs()[configSpec].type
-            }}</code>
+            configSpecs()[configSpec].type === 'str' ? 'string' : configSpecs()[configSpec].type
+          }}</code>
         </fl-key-value>
       }
       @if (configSpecs()[configSpec].additional_info?.allowed_values) {
         <fl-key-value class="code1-v2">
           <fl-key>{{ 'td.allowed_values' | translate }}</fl-key>
-          @for (allowedValue of configSpecs()[configSpec].additional_info?.allowed_values;
-            track allowedValue) {
-            <span
-              ><code>{{ allowedValue }}</code
-              >&nbsp;</span
-            >
-          }
+          <div>
+            @for (
+              allowedValue of configSpecs()[configSpec].additional_info?.allowed_values;
+              track allowedValue
+            ) {
+              <span
+                ><code>{{ allowedValue }}</code></span
+              ><br />
+            }
+          </div>
         </fl-key-value>
       }
       @if (configSpecs()[configSpec].default_value) {
