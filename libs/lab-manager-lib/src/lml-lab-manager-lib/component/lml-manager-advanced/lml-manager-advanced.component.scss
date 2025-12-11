@@ -31,3 +31,20 @@
   color: var(--text-secondary);
   font-style: italic;
 }
+
+.env-badge {
+  border: 2px solid;
+  border-radius: 20px;
+  padding: 2px 5px;
+  text-transform: uppercase;
+}
+
+.end-badge-prod {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+.env-badge-dev {
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+}

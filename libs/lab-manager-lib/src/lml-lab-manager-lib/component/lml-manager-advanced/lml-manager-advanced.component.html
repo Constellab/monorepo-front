@@ -76,7 +76,15 @@
         @for (compose of composesData.composes; track compose.brickName + '-' + compose.uniqueName) {
           <div class="compose-item g-layout-row g-layout-between-center">
             <div>
-              <div>{{ compose.brickName }} - {{ compose.uniqueName }}</div>
+              <div>
+                {{ compose.brickName }} - {{ compose.uniqueName }}
+                @if (compose.env === 'dev' || compose.env === 'prod') {
+                  -
+                  <span class="env-badge g-text-small" [ngClass]="'env-badge-' + compose.env">{{
+                    compose.env
+                  }}</span>
+                }
+              </div>
               <div class="g-text-small">{{ compose.description }}</div>
             </div>
             <button mat-stroked-button class="g-button-small primary" (click)="openComposeDetail(compose)">
