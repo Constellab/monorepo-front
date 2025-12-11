@@ -131,6 +131,10 @@ export class LmlLabManagerStatus {
   get actionInProgress(): boolean {
     return this.labStatus === 'STARTING' || (this.currentTask && this.currentTask.status.value === 'RUNNING');
   }
+
+  get codelabFullUrl(): string | null {
+    return this.codelabFrontUrl ? `${this.codelabFrontUrl}/?folder=/lab/user` : null;
+  }
 }
 
 export class LmlLabManagerBrickVersionDTO {

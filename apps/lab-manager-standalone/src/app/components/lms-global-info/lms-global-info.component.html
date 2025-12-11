@@ -65,12 +65,12 @@
         {{ 'lms.go_to_lab' | translate }}
       </a>
 
-      @if (labStatus().labManagerStatus?.codelabFrontUrl) {
+      @if (labStatus().labManagerStatus?.codelabFullUrl) {
         <a
           target="_blank"
           mat-stroked-button
           type="button"
-          [href]="labStatus().labManagerStatus.codelabFrontUrl"
+          [href]="labStatus().labManagerStatus.codelabFullUrl"
           class="primary"
           [disabled]="!labIsRunning() || !labStatus().labManagerStatus">
           <mat-icon>computer</mat-icon>
