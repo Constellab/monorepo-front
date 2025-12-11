@@ -1,4 +1,7 @@
-<ha-page [hideCreateSection]="!isGencoveryMember()" (openCreateDialogOutput)="openCreateIconDialog()">
+<ha-page
+  [hideCreateSection]="!isGencoveryMember()"
+  [showHeaderCreateButton]="true"
+  (openCreateDialogOutput)="openCreateIconDialog()">
   <div class="section">
     <div class="google-material-icons-text-div">
       <span>

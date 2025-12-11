@@ -36,6 +36,7 @@ export class HaPageComponent {
   isLoading = input<boolean>(false);
   notFound = input<boolean>(false);
   hideCreateSection = input<boolean>(false);
+  showHeaderCreateButton = input<boolean>(false);
 
   openCreateDialogOutput = output<void>();
 

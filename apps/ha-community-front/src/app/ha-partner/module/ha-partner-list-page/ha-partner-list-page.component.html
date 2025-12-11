@@ -1,4 +1,4 @@
-<ha-page [hideCreateSection]="hideCreate()">
+<ha-page [hideCreateSection]="hideCreate()" [showHeaderCreateButton]="true">
   @if (currentUserPartner()) {
     <div class="section my-partner-page-div">
       <h3>{{ 'my-partner-page' | translate }}</h3>
@@ -13,7 +13,6 @@
 
   <fl-infinite-scroll [datasource]="partnerPaginated" infiniteMode="auto" class="section">
     <h3>{{ 'certified_partners' | translate }}</h3>
-
     <co-list-filters
       [user]="user()"
       [sortsCriteriaKeys]="sortsCriteriaKeys"

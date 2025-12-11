@@ -72,7 +72,12 @@ export class HaProfileEditDialogComponent
       id: [this.user.id],
       alias: [
         this.user.alias,
-        [Validators.required, Validators.pattern(/^[a-zA-Z0-9 ]*$/), Validators.maxLength(52)],
+        [
+          Validators.required,
+          // Autorise lettres accentuées, chiffres et espaces
+          Validators.pattern(/^[\p{L}0-9 ]*$/u),
+          Validators.maxLength(52),
+        ],
       ],
       linkedinLink: [
         this.user.linkedinLink,
