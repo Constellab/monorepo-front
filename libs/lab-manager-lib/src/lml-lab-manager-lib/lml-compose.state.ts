@@ -122,11 +122,14 @@ export class LmlComposeState implements OnDestroy {
 
   //////////////////////////// Compose Actions ////////////////////////////
 
-  upServices(): void {
+  upServices(services?: string[]): void {
     this.openLabUpForm({ mode: 'start' }).subscribe((formValue) => {
       if (formValue) {
         this.actionService.addAction({
-          action: this.labManagerService.upServices(this.compose, formValue),
+          action: this.labManagerService.upServices(this.compose, {
+            updateContainers: formValue.updateContainers,
+            services: services,
+          }),
           text: { text: 'lml.up_services', translateText: true },
           type: this.actionType,
           additionalInformation: {

@@ -65,6 +65,7 @@ export interface LmlDockerContainerSize {
 
 export interface LmlComposeUpOptions {
   updateContainers?: boolean;
+  services?: string[];
 }
 
 export interface LmlComposeRestartOptions extends LmlComposeUpOptions {

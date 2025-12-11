@@ -63,8 +63,14 @@ export class LmlDockerContainersListComponent {
     });
   }
 
-  startComposeContainer(containerName: string): void {
-    this.managerState.startContainer(containerName);
+  startComposeContainer(container: LmlDockerInspect): void {
+    if (container.status.value === 'none') {
+      // container does not exist, we need to up the service
+      // in this case, the name is the service name
+      this.composeState.upServices([container.names]);
+    } else {
+      this.managerState.startContainer(container.names);
+    }
   }
 
   stopContainer(containerName: string): void {
