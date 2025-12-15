@@ -122,34 +122,34 @@ html {
 
   .g-big-title {
     font-size: 64px;
-    letter-spacing: -3.2px;
+    letter-spacing: -2.7px;
   }
 
   h1 {
     font-size: 54px;
     line-height: 100%;
-    letter-spacing: -2.7px;
+    letter-spacing: -2.4px;
 
     @media only screen and (max-width: 992px) {
       font-size: 38px !important;
-      letter-spacing: -1.9px !important;
+      letter-spacing: -1.6px !important;
     }
   }
 
   .g-medium-title {
     font-size: 48px;
     line-height: 110%;
-    letter-spacing: -2.4px;
+    letter-spacing: -1.9px;
   }
 
   h2 {
     font-size: 38px;
     line-height: 100%;
-    letter-spacing: -1.9px;
+    letter-spacing: -1.6px;
 
     @media only screen and (max-width: 992px) {
       font-size: 32px !important;
-      letter-spacing: -1.6px !important;
+      letter-spacing: -0.48px !important;
       line-height: 110% !important;
     }
   }
@@ -157,14 +157,14 @@ html {
   h3 {
     font-size: 32px;
     line-height: 110%;
-    letter-spacing: -1.6px;
+    letter-spacing: -0.48px;
   }
 
   .g-small-title {
     font-size: 24px;
     font-weight: 600;
     line-height: normal;
-    letter-spacing: -0.48px;
+    letter-spacing: -0.36px;
   }
 
   p {
@@ -178,18 +178,18 @@ html {
   .g-large-text {
     font-size: 18px;
     line-height: 150%;
-    letter-spacing: -0.36px;
+    letter-spacing: -0.32px;
 
     @media only screen and (max-width: 992px) {
       font-size: 16px !important;
-      letter-spacing: -0.32px !important;
+      letter-spacing: -0.28px !important;
     }
   }
 
   .g-text-medium {
     font-size: 16px;
     line-height: 150%;
-    letter-spacing: -0.32px;
+    letter-spacing: -0.28px;
   }
 
   .g-text-regular {

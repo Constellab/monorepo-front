@@ -1,0 +1,29 @@
+<fl-dialog-header>
+  {{ 'edit_agent' | translate }}
+</fl-dialog-header>
+
+<mat-dialog-content>
+  <form [formGroup]="formGp" (ngSubmit)="submit()">
+    <mat-form-field class="g-form-input">
+      <mat-label>{{ 'title' | translate }}</mat-label>
+      <input
+        matInput
+        formControlName="title"
+        required
+        flInputMaxLength="100"
+        [placeholder]="'title' | translate" />
+      @if (formGp.get('title').hasError('required')) {
+        <mat-error>{{ 'title' | flErrorRequired }}</mat-error>
+      }
+    </mat-form-field>
+
+    <button mat-raised-button type="button" [matTooltip]="'edit_agent_style' | translate" (click)="openEditStyleDialog()">
+      <mat-icon>edit</mat-icon>
+      {{ 'edit_agent_style' | translate }}
+    </button>
+
+    <button mat-flat-button class="primary" type="submit" [disabled]="formGp.invalid">
+      {{ 'save' | translate }}
+    </button>
+  </form>
+</mat-dialog-content>

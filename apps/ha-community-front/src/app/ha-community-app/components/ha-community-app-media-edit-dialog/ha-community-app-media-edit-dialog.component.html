@@ -25,10 +25,11 @@
       <span class="g-text-small">({{ 'recommended_dimension' | translate }} : 16/9)</span>
     </div>
     <div class="media-figures-div">
-      @for (figure of this.app().figures; track figure) {
+      @for (figure of this.app().figures; track figure; let i = $index) {
         <fl-update-image-container
           [uploadConfig]="getImageConfig(figure)"
           [deleteConfig]="getDeleteImageConfig(figure)"
+          [additionalActions]="getReorderActions(i)"
           [matTooltip]="'replace_delete_image' | translate">
           <div class="figure-div">
             <img [src]="figure | haAppPicture" class="figure" />

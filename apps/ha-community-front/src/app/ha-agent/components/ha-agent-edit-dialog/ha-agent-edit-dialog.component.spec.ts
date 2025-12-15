@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HaAgentEditStyleDialogComponent } from './ha-agent-edit-style-dialog.component';
+import { HaAgentEditDialogComponent } from './ha-agent-edit-dialog.component';
 
 describe('HaAgentEditDialogComponent', () => {
-  let component: HaAgentEditStyleDialogComponent;
-  let fixture: ComponentFixture<HaAgentEditStyleDialogComponent>;
+  let component: HaAgentEditDialogComponent;
+  let fixture: ComponentFixture<HaAgentEditDialogComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [HaAgentEditStyleDialogComponent],
+      declarations: [HaAgentEditDialogComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(HaAgentEditStyleDialogComponent);
+    fixture = TestBed.createComponent(HaAgentEditDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -93,7 +93,7 @@
 
           <div class="tag-values-div tag-page-section">
             <div class="tag-div-header">
-              <h4>{{ 'predefined_tag_values' | translate }}</h4>
+              <h4>{{ 'predefined_tag_values' | translate }} ({{ tagValueCount$ | async }})</h4>
               @if (canEditTag && !tagKey.deprecated) {
                 <div class="g-layout-row g-layout-start-center g-gap-05em">
                   <button mat-raised-button (click)="openEditAdditionalInfoSpecDialog()">

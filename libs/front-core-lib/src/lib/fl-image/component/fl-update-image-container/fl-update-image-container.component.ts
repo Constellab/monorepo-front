@@ -43,6 +43,11 @@ export class FlUpdateImageContainerComponent {
   @Input() deleteConfig: FlConfirmDialogInput;
   @Input() showDelete: boolean = true;
 
+  /**
+   * Additional menu actions to display in the context menu
+   */
+  @Input() additionalActions: FlMenuDynamic[] = [];
+
   @HostBinding('class.disabled')
   @Input()
   disabled: boolean = false;
@@ -76,6 +81,12 @@ export class FlUpdateImageContainerComponent {
         onClick: () => this.deleteImage(),
       });
     }
+
+    // Add additional actions if provided
+    if (this.additionalActions && this.additionalActions.length > 0) {
+      menu.push(...this.additionalActions);
+    }
+
     this.menuDynamic.openDynamicMenuFromMouseEvent(menu, event);
   }
 

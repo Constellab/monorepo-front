@@ -192,4 +192,12 @@ export class HaCommunityAppService implements HaCoAuthorService {
       HaCommunityApp
     );
   }
+
+  rearrangeMedias(appId: string, figures: string[]): Observable<HaCommunityApp> {
+    return this.apiService.put(
+      `${this.route}/rearrange-medias/${appId}`,
+      { figures: figures },
+      HaCommunityApp
+    );
+  }
 }

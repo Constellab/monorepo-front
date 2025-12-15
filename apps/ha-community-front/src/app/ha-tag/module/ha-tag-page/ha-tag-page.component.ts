@@ -26,7 +26,7 @@ import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { TdAbstractDynamicParamSpecState, TdParamSpecs, TdTechnicalDocModule } from '@monorepo/technical-doc';
 import { TeCompleteConfig, TeRichText, TeTextEditorModule } from '@monorepo/text-editor';
 import { TranslatePipe } from '@ngx-translate/core';
-import { first } from 'rxjs';
+import { first, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { HaEntityPageInfoComponent } from '../../../ha-core/ha-component/ha-entity-page-infos/ha-entity-page-info.component';
@@ -47,6 +47,7 @@ import {
   HaTagKeyEditDialogComponent,
   HaTagKeyEditDialogInput,
 } from '../ha-tag-key-edit-dialog/ha-tag-key-edit-dialog.component';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'ha-tag-page',
@@ -70,6 +71,7 @@ import {
     FlLoaderModule,
     MatTooltip,
     CoTagValuesTableComponent,
+    AsyncPipe,
   ],
   templateUrl: './ha-tag-page.component.html',
   styleUrl: './ha-tag-page.component.scss',
@@ -105,6 +107,7 @@ export class HaTagPageComponent extends HaCommunityPageDirective implements OnIn
   tempTitle: string;
   onDescriptionEditionLoading: boolean;
   user = toSignal(this.authenticatedUserService.getUser());
+  tagValueCount$: Observable<number>;
 
   ngOnInit(): void {
     this.checkRouteParams();
@@ -341,6 +344,8 @@ export class HaTagPageComponent extends HaCommunityPageDirective implements OnIn
     this.descriptionFormControl.disable();
 
     this.tagAdditionalInfoSpecState.init(tagKey);
+
+    this.tagValueCount$ = this.tagService.tagValuesCount(this.tagKey.id);
 
     if (updateValue) {
       this.tagValues = this.tagService.getAllValueWithFiltersPaginated();

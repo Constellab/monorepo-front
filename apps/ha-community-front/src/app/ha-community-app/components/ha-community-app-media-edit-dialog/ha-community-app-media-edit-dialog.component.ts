@@ -7,6 +7,7 @@ import { MatInput } from '@angular/material/input';
 import { MatTooltip } from '@angular/material/tooltip';
 import { FlConfirmDialogInput, FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlImageModule, FlUploadImageDialogConfig } from '@monorepo/front-core-lib/fl-image';
+import { FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
 import { TranslatePipe } from '@ngx-translate/core';
 import { Observable, of } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
@@ -97,6 +98,31 @@ export class HaCommunityAppMediaEditDialogComponent {
     };
   }
 
+  getReorderActions(index: number): FlMenuDynamic[] {
+    const app = this.app();
+    const actions: FlMenuDynamic[] = [];
+
+    if (index > 0) {
+      actions.push({
+        text: { text: 'move_left', translateText: true },
+        icon: 'arrow_back',
+        type: 'button',
+        onClick: () => this.moveFigureUp(index),
+      });
+    }
+
+    if (index < app.figures.length - 1) {
+      actions.push({
+        text: { text: 'move_right', translateText: true },
+        icon: 'arrow_forward',
+        type: 'button',
+        onClick: () => this.moveFigureDown(index),
+      });
+    }
+
+    return actions;
+  }
+
   private deleteFigure(figure: string): Observable<any> {
     return this.communityAppService.deleteFile(figure).pipe(
       mergeMap(() => {
@@ -108,5 +134,28 @@ export class HaCommunityAppMediaEditDialogComponent {
         this.communityAppState.set(communityApp);
       })
     );
+  }
+
+  moveFigureUp(index: number): void {
+    if (index === 0) return;
+    const app = this.app();
+    const figures = [...app.figures];
+    [figures[index - 1], figures[index]] = [figures[index], figures[index - 1]];
+    this.rearrangeFigures(figures);
+  }
+
+  moveFigureDown(index: number): void {
+    const app = this.app();
+    if (index === app.figures.length - 1) return;
+    const figures = [...app.figures];
+    [figures[index], figures[index + 1]] = [figures[index + 1], figures[index]];
+    this.rearrangeFigures(figures);
+  }
+
+  private rearrangeFigures(figures: string[]): void {
+    const app = this.app();
+    this.communityAppService.rearrangeMedias(app.id, figures).subscribe((communityApp) => {
+      this.communityAppState.set(communityApp);
+    });
   }
 }

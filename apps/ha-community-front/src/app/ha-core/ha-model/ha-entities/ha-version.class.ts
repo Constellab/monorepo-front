@@ -62,17 +62,21 @@ export class HaAddVersionInput {
         this.brickVersionReferences.push({ name: b.name, version: b.version });
       }
     }
-    for (const d of environment.pip) {
-      for (const p of d.packages) {
-        if (p.is_brick) {
-          this.brickVersionReferences.push({ name: p.name, version: p.version });
+    if (environment.pip && environment.pip.length > 0) {
+      for (const d of environment.pip) {
+        for (const p of d.packages) {
+          if (p.is_brick) {
+            this.brickVersionReferences.push({ name: p.name, version: p.version });
+          }
         }
       }
     }
-    for (const d of environment.git) {
-      for (const p of d.packages) {
-        if (p.is_brick) {
-          this.brickVersionReferences.push({ name: p.name, version: p.version });
+    if (environment.git && environment.git.length > 0) {
+      for (const d of environment.git) {
+        for (const p of d.packages) {
+          if (p.is_brick) {
+            this.brickVersionReferences.push({ name: p.name, version: p.version });
+          }
         }
       }
     }

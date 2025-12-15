@@ -144,6 +144,8 @@
   "add_image": "Ajouter une image",
   "replace_delete_image": "Remplacer / Supprimer l'image",
   "recommended_dimension": "Format recommandé",
+  "move_left": "Déplacer à gauche",
+  "move_right": "Déplacer à droite",
 
   "delete_community_app_confirm_title": "Supprimer l'application",
   "delete_community_app_confirm_message": "Êtes-vous sûr de vouloir supprimer cette application ? Cette action est irréversible.",
@@ -423,6 +425,7 @@
   "replace_not_published_agent_version_content": "Cette action remplacera la version de l'agent non publiée par une nouvelle version",
   "agent_version_created": "Version de l'agent créée",
   "agent_version_replaced": "Version de l'agent remplacée",
+  "agent_updated": "Agent mis à jour",
   "my_agents": "Mes agents",
   "my_bricks": "Mes bricks",
   "agent_with_no_published_version": "Agent sans version publiée",

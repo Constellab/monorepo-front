@@ -144,6 +144,10 @@ export class HaTagService implements HaCoAuthorService {
     );
   }
 
+  tagValuesCount(tagKeyId: string): Observable<number> {
+    return this.apiService.get(`${this.route}/${tagKeyId}/value/count`, Number);
+  }
+
   getCoAuthors(id: string): Observable<HaUser[]> {
     throw new Error('Method not implemented.');
   }

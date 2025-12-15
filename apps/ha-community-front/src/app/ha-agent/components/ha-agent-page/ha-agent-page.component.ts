@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnInit, Signal } from '@angular/core';
+import { Component, computed, inject, OnInit, Signal, ViewContainerRef } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
@@ -21,10 +21,7 @@ import { HaCommentsSectionComponent } from '../../../ha-core/entity-module/ha-co
 import { HaEntityPageInfoComponent } from '../../../ha-core/ha-component/ha-entity-page-infos/ha-entity-page-info.component';
 import { HaPageComponent } from '../../../ha-core/ha-component/ha-page/ha-page.component';
 import { HaAgent } from '../../../ha-core/ha-model/ha-entities/ha-agent.class';
-import {
-  HaAgentVersion,
-  HaAgentVersionFileInput,
-} from '../../../ha-core/ha-model/ha-entities/ha-agent-version.class';
+import { HaAgentVersionFileInput } from '../../../ha-core/ha-model/ha-entities/ha-agent-version.class';
 import { HaEntityType } from '../../../ha-core/ha-model/ha-entities/ha-entity-type';
 import { HaUser } from '../../../ha-core/ha-model/ha-entities/ha-user';
 import { HaDetailRoutePipe } from '../../../ha-core/ha-module/ha-core-pipe/ha-detail-route/ha-detail-route.pipe';
@@ -33,9 +30,9 @@ import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
 import { HaEntityCommentState } from '../../../ha-core/ha-state/ha-entity-comment.state';
 import { HaAgentPageState } from '../../state/ha-agent-page.state';
 import {
-  HaAgentEditStyleDialogComponent,
-  HaAgentEditStyleDialogInputData,
-} from '../ha-agent-edit-style-dialog/ha-agent-edit-style-dialog.component';
+  HaAgentEditDialogComponent,
+  HaAgentEditDialogInputData,
+} from '../ha-agent-edit-dialog/ha-agent-edit-dialog.component';
 
 @Component({
   selector: 'ha-agent-page',
@@ -72,6 +69,7 @@ export class HaAgentPageComponent implements OnInit {
   private agentService = inject(HaAgentService);
   private dialogService = inject(FlDialogService);
   private router = inject(Router);
+  private viewContainerRef = inject(ViewContainerRef);
 
   profileRoute = HaRouterService.getProfileRoute();
 
@@ -111,22 +109,23 @@ export class HaAgentPageComponent implements OnInit {
   }
 
   openEditAgentDialog(): void {
-    const dialogData: HaAgentEditStyleDialogInputData = {
+    const dialogData: HaAgentEditDialogInputData = {
       mode: 'update',
       object: {
-        style: this.currentVersion().style,
-        isVersion: true,
-        entityId: this.currentVersion().id,
+        agent: this.agent(),
+        version: this.currentVersion(),
       },
     };
 
     this.dialogService
-      .openMediumDialog(HaAgentEditStyleDialogComponent, { data: dialogData })
+      .openMediumDialog(HaAgentEditDialogComponent, {
+        data: dialogData,
+        viewContainerRef: this.viewContainerRef,
+      })
       .afterClosed()
-      .subscribe((result: HaAgentVersion) => {
+      .subscribe((result: HaAgent) => {
         if (result) {
-          this.agentPageState.setAgent(result.agent);
-          this.agentPageState.setAgentVersion(result);
+          this.agentPageState.setAgent(result);
         }
       });
   }
