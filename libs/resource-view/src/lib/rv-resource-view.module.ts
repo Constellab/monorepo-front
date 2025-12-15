@@ -22,6 +22,7 @@ import { SpSpreadsheetModule } from '@monorepo/spreadsheet';
 import { TeTextEditorModule } from '@monorepo/text-editor';
 
 import { RvResourceViewComponent } from './component/rv-resource-view/rv-resource-view.component';
+import { RvResourceViewDialogComponent } from './component/rv-resource-view-dialog/rv-resource-view-dialog.component';
 import { RvRichTextResourceViewComponent } from './component/rv-rich-text-resource-view/rv-rich-text-resource-view.component';
 import { RvTechnicalInfoButtonComponent } from './component/rv-technical-info-button/rv-technical-info-button.component';
 import { RvTechnicalInfoDialogComponent } from './component/rv-technical-info-dialog/rv-technical-info-dialog.component';
@@ -89,6 +90,7 @@ import { rvResourceViewI18n } from './rv-resource-view.i18n';
     RvViewAudioComponent,
     RvViewMarkdownComponent,
     RvViewIframeComponent,
+    RvResourceViewDialogComponent,
   ],
   exports: [
     RvResourceViewComponent,
@@ -108,6 +110,7 @@ import { rvResourceViewI18n } from './rv-resource-view.i18n';
     RvViewAudioComponent,
     RvViewMarkdownComponent,
     RvViewIframeComponent,
+    RvResourceViewDialogComponent,
   ],
 })
 export class RvResourceViewModule {

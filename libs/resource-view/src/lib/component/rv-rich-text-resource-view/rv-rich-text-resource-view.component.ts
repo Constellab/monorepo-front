@@ -1,8 +1,13 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { Observable } from 'rxjs';
 
 import { RvResourceViewBase } from '../../model/rv-resource-view.class';
 import { RvViewConfig } from '../../model/rv-view-config.class';
+import {
+  RvResourceViewDialogComponent,
+  RvResourceViewDialogData,
+} from '../rv-resource-view-dialog/rv-resource-view-dialog.component';
 
 /**
  * Component to show a resource view inside a rich text editor.
@@ -14,6 +19,8 @@ import { RvViewConfig } from '../../model/rv-view-config.class';
   standalone: false,
 })
 export class RvRichTextResourceViewComponent implements OnInit {
+  private dialogService = inject(FlDialogService);
+
   @Input({ required: true }) view$: Observable<RvResourceViewBase>;
 
   @Input() resourceId?: string;
@@ -55,6 +62,19 @@ export class RvRichTextResourceViewComponent implements OnInit {
   onTitleChange(title: string): void {
     this.viewTitle = title;
     this.viewTitleChange.emit(title);
+  }
+
+  openViewInDialog(): void {
+    const data: RvResourceViewDialogData = {
+      view: this.view,
+      resourceId: this.resourceId,
+      config: this.viewConfig,
+      viewTitle: this.viewTitle,
+    };
+
+    this.dialogService.openFullDialog(RvResourceViewDialogComponent, {
+      data,
+    });
   }
 
   onCaptionChange(caption: string): void {

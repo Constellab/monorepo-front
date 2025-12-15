@@ -18,6 +18,7 @@ export * from './lib/component/rv-view-plotly/rv-view-plotly.component';
 export * from './lib/component/rv-view-spreadsheet/rv-view-spreadsheet.component';
 export * from './lib/component/rv-view-app/rv-view-app.component';
 export * from './lib/component/rv-view-text/rv-view-text.component';
+export * from './lib/component/rv-resource-view-dialog/rv-resource-view-dialog.component';
 
 // model
 export * from './lib/model/rv-basic-plot-2d.class';

@@ -1,0 +1,13 @@
+<fl-dialog-header>
+  {{ dialogInput.viewTitle }}
+</fl-dialog-header>
+
+<mat-dialog-content>
+  <div class="chart-container g-layout-row g-layout-center-center">
+    <rv-resource-view
+      [resourceId]="dialogInput.resourceId"
+      [view]="dialogInput.view"
+      [config]="dialogInput.config"
+      class="resource-view"></rv-resource-view>
+  </div>
+</mat-dialog-content>

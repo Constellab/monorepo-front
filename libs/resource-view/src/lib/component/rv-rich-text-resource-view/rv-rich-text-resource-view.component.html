@@ -20,6 +20,11 @@
       (titleChange)="onTitleChange($event)"
       (captionChange)="onCaptionChange($event)"
       [editable]="editable"></te-title-caption>
+    @if (view) {
+      <span class="open-in-dialog-text g-text-small" (click)="openViewInDialog()">
+        ({{ 'rvResourceView.open_in_full_screen' | translate }})
+      </span>
+    }
 
     @if (view) {
       <rv-technical-info-button
