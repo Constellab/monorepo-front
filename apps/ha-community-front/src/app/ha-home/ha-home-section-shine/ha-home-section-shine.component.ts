@@ -1,3 +1,4 @@
+import { NgOptimizedImage } from '@angular/common';
 import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
@@ -6,6 +7,6 @@ import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
   selector: 'ha-home-section-shine',
   templateUrl: './ha-home-section-shine.component.html',
   styleUrls: ['./ha-home-section-shine.component.scss'],
-  imports: [MatIconModule,FlIconModule],
+  imports: [MatIconModule, FlIconModule, NgOptimizedImage],
 })
 export class HaHomeSectionShineComponent {}

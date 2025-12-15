@@ -1,4 +1,4 @@
-.shine-div{
+.shine-div {
   display: flex;
   padding: 6px 12px 6px 6px;
   align-items: center;
@@ -9,4 +9,10 @@
   line-height: 150%;
   width: fit-content;
   background: white;
+}
+
+.shine-image-div {
+  position: relative;
+  width: 12px;
+  height: 12px;
 }

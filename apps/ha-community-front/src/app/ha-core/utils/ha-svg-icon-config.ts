@@ -3,11 +3,6 @@ import { flIconsDefault } from '@monorepo/front-core-lib/fl-svg-icon';
 
 export const haSvgIcons: FlIcon[] = [
   ...flIconsDefault,
-  // {name: 'brick-icon', filename: 'brick.svg'},
-
-  { name: 'comment-accent', filename: 'comment-accent.svg' },
-  { name: 'comment-primary', filename: 'comment-primary.svg' },
-  { name: 'comment-warn', filename: 'comment-warn.svg' },
 
   { name: 'heart', filename: 'heart.svg' },
   { name: 'heart-fill', filename: 'heart-fill.svg' },
@@ -19,7 +14,4 @@ export const haSvgIcons: FlIcon[] = [
   { name: 'x', filename: 'x-logo.svg' },
   { name: 'facebook', filename: 'facebook-logo.svg' },
   { name: 'discord', filename: 'discord-logo.svg' },
-
-  // algolia
-  { name: 'algolia', filename: 'Algolia-logo-blue.svg' },
 ];

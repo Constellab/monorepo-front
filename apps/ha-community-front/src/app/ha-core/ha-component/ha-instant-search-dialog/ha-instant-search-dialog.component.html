@@ -31,6 +31,15 @@
               @case ('brick') {
                 <mat-icon svgIcon="brick"></mat-icon>
               }
+              @case ('partner') {
+                <mat-icon class="g-icon-small">handshake</mat-icon>
+              }
+              @case ('app') {
+                <mat-icon svgIcon="app"></mat-icon>
+              }
+              @case ('tag') {
+                <mat-icon class="g-icon-small">local_offer</mat-icon>
+              }
               @case ('doc') {
                 <mat-icon class="g-icon-small">info</mat-icon>
               }
@@ -53,7 +62,7 @@
         </a>
       }
     } @else {
-      <div class="no-hits">Start typing to see results</div>
+      <div class="no-hits">{{ 'start_typing_to_get_results' | translate }}</div>
     }
   </div>
 
