@@ -169,7 +169,7 @@ if (environment.production) {
     virtualHost: 'localhost',
     spaceFrontUrl: 'http://localhost:4200',
     spaceApiUrl: 'http://localhost:3001',
-    communityFrontUrl: 'https://commuity-pre-prod.gencovery.com',
+    communityFrontUrl: 'https://community-pre-prod.gencovery.com',
     communityApiUrl: 'https://community-api-pre-prod.constellab-pre-prod.gencovery.com',
     captchaSiteKey: '123456',
     prodFrontUrls: 'http://localhost:4200',

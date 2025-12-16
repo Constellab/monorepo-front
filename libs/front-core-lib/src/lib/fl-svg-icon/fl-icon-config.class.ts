@@ -81,6 +81,7 @@ export const flIconsDefault: FlIcon[] = [
   { name: 'download', filename: 'download.svg' },
   { name: 'like', filename: 'like.svg' },
   { name: 'comment', filename: 'comment.svg' },
+  { name: 'community-icon', filename: 'community_logo.svg' },
 ];
 
 export function getFileIconFromExtension(extension: string): string {
