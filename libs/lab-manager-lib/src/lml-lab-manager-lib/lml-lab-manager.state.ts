@@ -8,7 +8,6 @@ import { BehaviorSubject, combineLatest, distinct, filter, first, Observable } f
 import { map } from 'rxjs/operators';
 
 import { LmlCleanLabManagerFormDialogComponent } from './component/lml-clean-lab-manager-form-dialog/lml-clean-lab-manager-form-dialog.component';
-import { LmlPullBiotaFormDialogComponent } from './component/lml-pull-biota-form-dialog/lml-pull-biota-form-dialog.component';
 import { LmlLabManagerService } from './lml-lab-manager.service';
 import { LmlLabManagerStatus, LmlNewVersionAvailable } from './model/lml-lab-manager.class';
 
@@ -134,21 +133,6 @@ export class LmlLabManagerState implements OnDestroy {
       .subscribe((newVersion) => {
         if (newVersion) {
           this.labManagerService.updateLabManager(newVersion);
-        }
-      });
-  }
-
-  pullBiotaDb(): void {
-    this.dialogService
-      .openSmallDialog(LmlPullBiotaFormDialogComponent)
-      .afterClosed()
-      .subscribe((result) => {
-        if (result) {
-          this.actionService.addAction({
-            action: this.labManagerService.pullBiotaDb(result),
-            text: { text: 'lml.pull_biota', translateText: true },
-            type: this.actionType,
-          });
         }
       });
   }

@@ -15,7 +15,6 @@ import {
   LmlLabManagerService,
   LmlLabManagerStatus,
   LmlNewVersionAvailable,
-  LmlPullBiotaOptions,
   LmlSubComposeStatus,
 } from '@monorepo/lab-manager-lib';
 import { Observable } from 'rxjs';
@@ -63,10 +62,6 @@ export class CaLabManagerService extends LmlLabManagerService {
 
   initLab(): Observable<void> {
     return this.labService.initAll(this.labState.getLabId());
-  }
-
-  pullBiotaDb(options: LmlPullBiotaOptions): Observable<void> {
-    return this.labService.pullBiotaDb(this.labState.getLabId(), options);
   }
 
   stopCurrentTask(): Observable<void> {

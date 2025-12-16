@@ -15,7 +15,6 @@ import {
   LmlLabManagerConfig,
   LmlLabManagerStatus,
   LmlNewVersionAvailable,
-  LmlPullBiotaOptions,
   LmlSubComposeStatus,
 } from './model/lml-lab-manager.class';
 
@@ -44,8 +43,6 @@ export abstract class LmlLabManagerService {
   abstract getStatus(): Observable<LmlLabManagerStatus>;
 
   abstract initLab(): Observable<void>;
-
-  abstract pullBiotaDb(options: LmlPullBiotaOptions): Observable<void>;
 
   abstract stopCurrentTask(): Observable<void>;
 

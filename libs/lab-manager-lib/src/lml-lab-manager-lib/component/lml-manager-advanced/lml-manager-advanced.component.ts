@@ -66,10 +66,6 @@ export class LmlManagerAdvancedComponent implements OnInit {
     this.managerState.updateLabManager();
   }
 
-  pullBiotaDb(): void {
-    this.managerState.pullBiotaDb();
-  }
-
   stopCurrentTask(): void {
     this.managerState.stopCurrentTask();
   }

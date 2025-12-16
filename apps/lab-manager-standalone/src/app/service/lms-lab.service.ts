@@ -14,7 +14,6 @@ import {
   LmlDockerPsFull,
   LmlLabManagerConfig,
   LmlLabManagerStatus,
-  LmlPullBiotaOptions,
   LmlSubComposeStatus,
 } from '@monorepo/lab-manager-lib';
 import { map, Observable } from 'rxjs';
@@ -62,10 +61,6 @@ export class LmsLabService {
 
   stopLab(): Observable<void> {
     return this.apiService.post(`${this.labRoute}/stop`, null);
-  }
-
-  pullBiotaDb(options: LmlPullBiotaOptions): Observable<void> {
-    return this.apiService.post(`${this.labRoute}/pull-biota-db`, options);
   }
 
   stopCurrentTask(): Observable<void> {

@@ -72,10 +72,6 @@ export interface LmlComposeRestartOptions extends LmlComposeUpOptions {
   destroyContainers?: boolean; // if true container will be destroyed and recreated
 }
 
-export interface LmlPullBiotaOptions {
-  forceUpdate?: boolean;
-}
-
 export interface LmlCleanLabManagerOptions {
   removeErrorSubComposes: boolean;
   pruneSystem: boolean;
@@ -113,10 +109,6 @@ export class LmlLabManagerStatus {
   adminerIsRunning: boolean;
 
   version: string;
-  biota: {
-    exists: boolean;
-    dbUrl?: string;
-  };
   isConfigured: boolean;
   isInitialized: boolean;
   // version of the lab manager that has been used to init the lab
@@ -170,7 +162,6 @@ export interface LmlAdminerInfo {
 
   gwsCoreProd: LmlAdminerDbInfo;
   gwsCoreDev: LmlAdminerDbInfo;
-  gwsBiota: LmlAdminerDbInfo;
 }
 
 export interface LmlDockerProgress {

@@ -13,13 +13,6 @@
       <fl-key>{{ 'lml.lab_manager_version' | translate }}</fl-key>
       {{ labStatus.version }}
     </fl-key-value>
-
-    @if (labStatus.biota?.dbUrl) {
-      <fl-key-value>
-        <fl-key>{{ 'lml.biota_db_url' | translate }}</fl-key>
-        {{ labStatus.biota.dbUrl }}
-      </fl-key-value>
-    }
   }
 </div>
 
@@ -40,9 +33,6 @@
     {{ 'lml.update_lab_manager' | translate }}
   </button>
 
-  <button mat-stroked-button type="button" class="g-button-small primary" (click)="pullBiotaDb()">
-    {{ 'lml.pull_biota' | translate }}
-  </button>
   <button mat-stroked-button type="button" class="g-button-small warn" (click)="stopCurrentTask()">
     {{ 'lml.stop_current_task' | translate }}
   </button>

@@ -48,14 +48,12 @@ import { LmlManagerComponent } from './component/lml-manager/lml-manager.compone
 import { LmlManagerAdvancedComponent } from './component/lml-manager-advanced/lml-manager-advanced.component';
 import { LmlManagerConfigComponent } from './component/lml-manager-config/lml-manager-config.component';
 import { LmlManagerStatusComponent } from './component/lml-manager-status/lml-manager-status.component';
-import { LmlPullBiotaFormDialogComponent } from './component/lml-pull-biota-form-dialog/lml-pull-biota-form-dialog.component';
 import { lmlLabManagerI18n } from './lml-lab-manager.i18n';
 import { LmlCommunityBrickImagePipe } from './pipe/lml-community-brick-image.pipe';
 
 @NgModule({
   declarations: [
     LmlDockerUpFormComponent,
-    LmlPullBiotaFormDialogComponent,
     LmlCleanLabManagerFormDialogComponent,
     LmlDockerContainersListComponent,
     LmlDockerContainerLogsDialogComponent,
