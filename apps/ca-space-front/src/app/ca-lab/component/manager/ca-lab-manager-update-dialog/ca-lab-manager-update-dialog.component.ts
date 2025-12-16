@@ -1,20 +1,23 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Component, inject } from '@angular/core';
+import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
+import { clVersionValidator } from '@monorepo/core-lib';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+import { LmlLabManagerLibModule, LmlLabManagerMigrationPlanDTO } from '@monorepo/lab-manager-lib';
 import { TranslatePipe } from '@ngx-translate/core';
+import { of } from 'rxjs';
 
 import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
 
 export interface CaLabManagerUpdateDialogInput {
   labId: string;
-  labManagerCurrentVersion: string;
-  labManagerRecommendedVersion: string;
+  migrationPlan: LmlLabManagerMigrationPlanDTO;
 }
 
 /**
@@ -38,31 +41,34 @@ export interface CaLabManagerUpdateDialogInput {
     MatButton,
     FlCorePipeModule,
     TranslatePipe,
+    LmlLabManagerLibModule,
+    FlSectionModule,
   ],
 })
-export class CaLabManagerUpdateDialogComponent implements OnInit {
+export class CaLabManagerUpdateDialogComponent {
   private labService = inject(CaLabService);
   private dialogRef = inject<MatDialogRef<CaLabManagerUpdateDialogComponent>>(MatDialogRef);
 
-  input: CaLabManagerUpdateDialogInput;
+  input: CaLabManagerUpdateDialogInput = inject(MAT_DIALOG_DATA);
 
-  formCtrl: FormControl;
+  migrationPlan$ = of(this.input.migrationPlan);
 
-  constructor() {
-    const input = inject<CaLabManagerUpdateDialogInput>(MAT_DIALOG_DATA);
-
-    this.input = input;
-  }
-
-  ngOnInit(): void {
-    this.formCtrl = new FormControl(this.input.labManagerRecommendedVersion);
-  }
+  formCtrl = new FormControl(this.input.migrationPlan.targetVersion, [
+    Validators.required,
+    clVersionValidator(),
+  ]);
 
   submit(): void {
     if (this.formCtrl.valid) {
       const obs = this.labService.updateLabManager(this.input.labId, this.formCtrl.value);
 
       this.dialogRef.close(obs);
+    }
+  }
+
+  reloadMigrationPlan(): void {
+    if (this.formCtrl.value && this.formCtrl.valid) {
+      this.migrationPlan$ = this.labService.getLabManagerMigrationPlan(this.input.labId, this.formCtrl.value);
     }
   }
 }

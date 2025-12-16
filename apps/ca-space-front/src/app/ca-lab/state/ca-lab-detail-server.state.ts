@@ -6,6 +6,7 @@ import {
 } from '@monorepo/front-core-lib/fl-dialog';
 import { FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
 import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
+import { LmlLabManagerMigrationPlanDTO } from '@monorepo/lab-manager-lib';
 import { Observable } from 'rxjs';
 
 import { CaLabService } from '../../ca-core/service-api/ca-lab.service';
@@ -59,11 +60,10 @@ export class CaLabDetailServerState {
     this.openDialog(input, this.labService.configureServer(this.state.getLabId()));
   }
 
-  updateLabManager(currentVersion: string, recommendedVersion: string): void {
+  updateLabManager(migrationPlan: LmlLabManagerMigrationPlanDTO): void {
     const input: CaLabManagerUpdateDialogInput = {
       labId: this.state.getLabId(),
-      labManagerCurrentVersion: currentVersion,
-      labManagerRecommendedVersion: recommendedVersion,
+      migrationPlan: migrationPlan,
     };
 
     this.dialogService

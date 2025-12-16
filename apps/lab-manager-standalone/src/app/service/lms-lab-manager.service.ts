@@ -14,9 +14,9 @@ import {
   LmlDockerLogs,
   LmlDockerPsFull,
   LmlLabManagerConfig,
+  LmlLabManagerMigrationPlanDTO,
   LmlLabManagerService,
   LmlLabManagerStatus,
-  LmlNewVersionAvailable,
   LmlSubComposeStatus,
 } from '@monorepo/lab-manager-lib';
 import { Observable, tap } from 'rxjs';
@@ -47,8 +47,8 @@ export class LmsLabManagerService extends LmlLabManagerService {
     return this.labService.getLabManagerConfig();
   }
 
-  getLabManagerRecommendedVersion(): Observable<string> {
-    return this.labService.getLabManagerRecommendedVersion();
+  getVersionUpgradeInfo(): Observable<LmlLabManagerMigrationPlanDTO> {
+    return this.labService.getVersionUpgradeInfo();
   }
 
   getLabStartingError(): Observable<LmlDockerErrorLogs> {
@@ -71,9 +71,9 @@ export class LmsLabManagerService extends LmlLabManagerService {
     return this.labService.updateConfig(config);
   }
 
-  updateLabManager(version: LmlNewVersionAvailable): void {
+  updateLabManager(migrationPlan: LmlLabManagerMigrationPlanDTO): void {
     this.dialogService.openMediumDialog(LmsUpdateLabManagerDialogComponent, {
-      data: version,
+      data: migrationPlan,
     });
   }
 

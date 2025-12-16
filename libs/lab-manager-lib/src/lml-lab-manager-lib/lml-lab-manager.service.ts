@@ -14,9 +14,9 @@ import {
   LmlDockerPsFull,
   LmlLabManagerConfig,
   LmlLabManagerStatus,
-  LmlNewVersionAvailable,
   LmlSubComposeStatus,
 } from './model/lml-lab-manager.class';
+import { LmlLabManagerMigrationPlanDTO } from './model/lml-migration.class';
 
 /**
  * Class to implement to communicate with the lab manager api
@@ -33,7 +33,7 @@ export abstract class LmlLabManagerService {
 
   abstract getLabManagerConfig(): Observable<LmlLabManagerConfig>;
 
-  abstract getLabManagerRecommendedVersion(): Observable<string>;
+  abstract getVersionUpgradeInfo(): Observable<LmlLabManagerMigrationPlanDTO>;
 
   abstract getLabStartingError(): Observable<LmlDockerErrorLogs>;
 
@@ -48,7 +48,7 @@ export abstract class LmlLabManagerService {
 
   abstract updateConfig(config: LmlLabManagerConfig): Observable<void>;
 
-  abstract updateLabManager(version: LmlNewVersionAvailable): void;
+  abstract updateLabManager(migrationPlan: LmlLabManagerMigrationPlanDTO): void;
 
   ////////////////////////////////////// COMPOSE //////////////////////////////////////
 

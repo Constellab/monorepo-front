@@ -24,6 +24,7 @@ import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
 import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { FlMarkdownModule } from '@monorepo/front-core-lib/fl-markdown';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { FlStatusModule } from '@monorepo/front-core-lib/fl-status';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
@@ -48,6 +49,7 @@ import { LmlManagerComponent } from './component/lml-manager/lml-manager.compone
 import { LmlManagerAdvancedComponent } from './component/lml-manager-advanced/lml-manager-advanced.component';
 import { LmlManagerConfigComponent } from './component/lml-manager-config/lml-manager-config.component';
 import { LmlManagerStatusComponent } from './component/lml-manager-status/lml-manager-status.component';
+import { LmlMigrationPlanComponent } from './component/lml-migration-plan/lml-migration-plan.component';
 import { lmlLabManagerI18n } from './lml-lab-manager.i18n';
 import { LmlCommunityBrickImagePipe } from './pipe/lml-community-brick-image.pipe';
 
@@ -72,8 +74,14 @@ import { LmlCommunityBrickImagePipe } from './pipe/lml-community-brick-image.pip
     LmlAdminerInfoDialogComponent,
     LmlAdminerDbInfoComponent,
     LmlDockerContainerErrorDialogComponent,
+    LmlMigrationPlanComponent,
   ],
-  exports: [LmlManagerComponent, LmlBricksConfigFormComponent, LmlBrickVersionDetailDialogComponent],
+  exports: [
+    LmlManagerComponent,
+    LmlBricksConfigFormComponent,
+    LmlBrickVersionDetailDialogComponent,
+    LmlMigrationPlanComponent,
+  ],
   imports: [
     CommonModule,
 
@@ -109,6 +117,7 @@ import { LmlCommunityBrickImagePipe } from './pipe/lml-community-brick-image.pip
     MatSortHeader,
     FlCoreComponentModule,
     FlDateModule,
+    FlMarkdownModule,
   ],
 })
 export class LmlLabManagerLibModule {

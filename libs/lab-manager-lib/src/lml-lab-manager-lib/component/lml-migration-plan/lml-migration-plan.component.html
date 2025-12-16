@@ -1,0 +1,16 @@
+@if (migrationPlan().hasMigrations()) {
+  <h3>{{ 'lml.upgrade_will_trigger_migrations' | translate }}</h3>
+
+  <mat-accordion class="accordion">
+    @for (migration of migrationPlan().migrations; track migration.version) {
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ migration.version }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="g-embedded-html" [innerHTML]="migration.description | flMarkdown"></div>
+      </mat-expansion-panel>
+    }
+  </mat-accordion>
+}

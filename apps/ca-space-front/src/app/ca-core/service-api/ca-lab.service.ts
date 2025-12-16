@@ -17,6 +17,7 @@ import {
   LmlDockerLogs,
   LmlDockerPsFull,
   LmlLabManagerConfig,
+  LmlLabManagerMigrationPlanDTO,
   LmlLabManagerStatus,
   LmlSubComposeStatus,
 } from '@monorepo/lab-manager-lib';
@@ -56,10 +57,7 @@ import {
   CaLabFreeUpdateDto,
 } from '../model/entities/lab/ca-lab-free.class';
 import { CaLabGreenOption, CaLabGreenOptionFormDto } from '../model/entities/lab/ca-lab-green-option.class';
-import {
-  CaLabManagerRecommendedVersion,
-  CaLabManagerRestoreBackupConfigDTO,
-} from '../model/entities/lab/ca-lab-manager.class';
+import { CaLabManagerRestoreBackupConfigDTO } from '../model/entities/lab/ca-lab-manager.class';
 import { CaServerCompleteInfo } from '../model/entities/lab/ca-lab-server.class';
 import {
   CaLabStatusRunRequest,
@@ -245,10 +243,6 @@ export class CaLabService {
     return this.apiService.get(`${this.route}/${id}/lab-manager/config`, LmlLabManagerConfig);
   }
 
-  public getLabManagerRecommendedVersion(): Observable<CaLabManagerRecommendedVersion> {
-    return this.apiService.get(`${this.route}/lab-manager/recommended-version`);
-  }
-
   public getLabManagerStatus(id: string): Observable<LmlLabManagerStatus> {
     return this.apiService.get(`${this.route}/${id}/lab-manager/status`, LmlLabManagerStatus, {
       hideSnackBarError: true,
@@ -269,6 +263,23 @@ export class CaLabService {
 
   public updateLabManager(id: string, version: string): Observable<CaLabStatusDTO> {
     return this.apiService.put(`${this.route}/${id}/lab-manager/update/${version}`, null, CaLabStatusDTO);
+  }
+
+  public getVersionUpgradeInfo(id: string): Observable<LmlLabManagerMigrationPlanDTO> {
+    return this.apiService.get(
+      `${this.route}/${id}/lab-manager/version-upgrade-info`,
+      LmlLabManagerMigrationPlanDTO
+    );
+  }
+
+  public getLabManagerMigrationPlan(
+    id: string,
+    targetVersion: string
+  ): Observable<LmlLabManagerMigrationPlanDTO> {
+    return this.apiService.get(
+      `${this.route}/${id}/lab-manager/migration-plan/${targetVersion}`,
+      LmlLabManagerMigrationPlanDTO
+    );
   }
 
   ////////////////////////////////////// COMPOSE //////////////////////////////////////

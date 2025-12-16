@@ -13,6 +13,7 @@ import {
   LmlDockerLogs,
   LmlDockerPsFull,
   LmlLabManagerConfig,
+  LmlLabManagerMigrationPlanDTO,
   LmlLabManagerStatus,
   LmlSubComposeStatus,
 } from '@monorepo/lab-manager-lib';
@@ -71,10 +72,8 @@ export class LmsLabService {
     return this.apiService.put(`${this.labRoute}/bricks-config`, config);
   }
 
-  getLabManagerRecommendedVersion(): Observable<string> {
-    return this.apiService
-      .get('lab-manager-recommended-version')
-      .pipe(map((version: { labManagerRecommendedVersion: string }) => version.labManagerRecommendedVersion));
+  getVersionUpgradeInfo(): Observable<LmlLabManagerMigrationPlanDTO> {
+    return this.apiService.get(`version-upgrade-info`, LmlLabManagerMigrationPlanDTO);
   }
 
   getLabStartingErrors(): Observable<LmlDockerErrorLogs> {

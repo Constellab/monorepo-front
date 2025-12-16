@@ -20,6 +20,7 @@ export * from './lml-lab-manager-lib/component/lml-manager-advanced/lml-manager-
 export * from './lml-lab-manager-lib/component/lml-manager-config/lml-manager-config.component';
 export * from './lml-lab-manager-lib/component/lml-manager-status/lml-manager-status.component';
 export * from './lml-lab-manager-lib/component/lml-manager/lml-manager.component';
+export * from './lml-lab-manager-lib/component/lml-migration-plan/lml-migration-plan.component';
 
 // pipes
 export * from './lml-lab-manager-lib/pipe/lml-community-brick-image.pipe';
@@ -33,3 +34,4 @@ export * from './lml-lab-manager-lib/lml-lab-manager.state';
 // model
 export * from './lml-lab-manager-lib/model/lml-brick.class';
 export * from './lml-lab-manager-lib/model/lml-lab-manager.class';
+export * from './lml-lab-manager-lib/model/lml-migration.class';

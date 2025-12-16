@@ -46,6 +46,7 @@
   "lab_containers_partially_up_warning": "Some services of the data lab are running, please check 'Lab manager' section",
   "lab_containers_down_warning": "The services of the data lab are not running, please check 'Lab manager' section",
   "lab_manager_version": "Lab manager version",
+  "lab_manager_version_invalid": "Version is invalid, please use the format X.Y.Z (ex: 1.0.0)",
   "lab_manager_recommended_version": "Recommended version",
   "lab_is_running": "Lab is running",
   "lab_is_not_running": "Lab is not running",

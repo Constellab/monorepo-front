@@ -12,9 +12,9 @@ import {
   LmlDockerLogs,
   LmlDockerPsFull,
   LmlLabManagerConfig,
+  LmlLabManagerMigrationPlanDTO,
   LmlLabManagerService,
   LmlLabManagerStatus,
-  LmlNewVersionAvailable,
   LmlSubComposeStatus,
 } from '@monorepo/lab-manager-lib';
 import { Observable } from 'rxjs';
@@ -46,10 +46,8 @@ export class CaLabManagerService extends LmlLabManagerService {
     return this.labService.getLabManagerConfig(this.labState.getLabId());
   }
 
-  getLabManagerRecommendedVersion(): Observable<string> {
-    return this.labService
-      .getLabManagerRecommendedVersion()
-      .pipe(map((version) => version.labManagerRecommendedVersion));
+  getVersionUpgradeInfo(): Observable<LmlLabManagerMigrationPlanDTO> {
+    return this.labService.getVersionUpgradeInfo(this.labState.getLabId());
   }
 
   getLabStartingError(): Observable<LmlDockerErrorLogs> {
@@ -72,8 +70,8 @@ export class CaLabManagerService extends LmlLabManagerService {
     return this.labService.updateConfig(this.labState.getLabId(), config);
   }
 
-  updateLabManager(version: LmlNewVersionAvailable): void {
-    this.labServerState.updateLabManager(version.currentVersion, version.recommendedVersion);
+  updateLabManager(migrationPlan: LmlLabManagerMigrationPlanDTO): void {
+    this.labServerState.updateLabManager(migrationPlan);
   }
 
   ////////////////////////////////////// COMPOSE //////////////////////////////////////

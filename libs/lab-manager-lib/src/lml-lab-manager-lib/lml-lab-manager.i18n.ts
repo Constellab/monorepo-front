@@ -171,6 +171,7 @@ const lmlLabManagerI18nFr: FlLangTranslation = {
     stop_sub_compose_process_confirm_title: 'Arrêter le processus en cours',
     stop_sub_compose_process_confirm_content:
       'Êtes-vous sûr de vouloir arrêter le processus en cours ? Un autre processus peut être démarré par la suite.',
+    upgrade_will_trigger_migrations: 'La mise à niveau déclenchera les migrations suivantes',
   },
 };
 
@@ -336,6 +337,7 @@ const lmlLabManagerI18nEn: FlLangTranslation = {
     stop_sub_compose_process_confirm_title: 'Stop current process',
     stop_sub_compose_process_confirm_content:
       'Are you sure you want to stop the current process? Another process can be started afterwards.',
+    upgrade_will_trigger_migrations: 'The upgrade will trigger the following migrations',
   },
 };
 

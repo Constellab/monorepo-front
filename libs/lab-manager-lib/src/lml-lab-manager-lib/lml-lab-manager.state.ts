@@ -1,15 +1,16 @@
 import { inject, Injectable, OnDestroy } from '@angular/core';
-import { ClSubscriptionHandler, ClVersion } from '@monorepo/core-lib';
-import { FlStatusEvent, flStatutEventResponse, flStatutEventSuccess } from '@monorepo/front-core-lib/fl-core';
+import { ClSubscriptionHandler } from '@monorepo/core-lib';
+import { FlStatusEvent, flStatutEventSuccess } from '@monorepo/front-core-lib/fl-core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
 import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
-import { BehaviorSubject, combineLatest, distinct, filter, first, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { BehaviorSubject, distinct, filter, Observable } from 'rxjs';
+import { map, share } from 'rxjs/operators';
 
 import { LmlCleanLabManagerFormDialogComponent } from './component/lml-clean-lab-manager-form-dialog/lml-clean-lab-manager-form-dialog.component';
 import { LmlLabManagerService } from './lml-lab-manager.service';
-import { LmlLabManagerStatus, LmlNewVersionAvailable } from './model/lml-lab-manager.class';
+import { LmlLabManagerStatus } from './model/lml-lab-manager.class';
+import { LmlLabManagerMigrationPlanDTO } from './model/lml-migration.class';
 
 interface LmlAdditionalData {
   refreshDockerContainers?: boolean;
@@ -128,13 +129,11 @@ export class LmlLabManagerState implements OnDestroy {
   }
 
   updateLabManager(): void {
-    this.getNewLabManagerVersion$()
-      .pipe(first())
-      .subscribe((newVersion) => {
-        if (newVersion) {
-          this.labManagerService.updateLabManager(newVersion);
-        }
-      });
+    this.getVersionUpgradeInfo$().subscribe((newVersion) => {
+      if (newVersion) {
+        this.labManagerService.updateLabManager(newVersion);
+      }
+    });
   }
 
   stopCurrentTask(): void {
@@ -219,36 +218,12 @@ export class LmlLabManagerState implements OnDestroy {
     });
   }
 
-  public getNewLabManagerVersion$(): Observable<LmlNewVersionAvailable> {
-    // use getStatusEvent$ to enable update lab manager update event is lab manager status is error
-    const status$ = this.getStatusEvent$().pipe(flStatutEventResponse());
-    return combineLatest([status$, this.labManagerService.getLabManagerRecommendedVersion()]).pipe(
-      map(([labManagerStatus, recommendedVersion]) => {
-        return {
-          currentVersion: labManagerStatus.status === 'success' ? labManagerStatus?.object.version : null,
-          recommendedVersion,
-        };
-      })
-    );
+  public getVersionUpgradeInfo$(): Observable<LmlLabManagerMigrationPlanDTO> {
+    return this.labManagerService.getVersionUpgradeInfo().pipe(share());
   }
 
   public newLabManagerVersionAvailable$(): Observable<boolean> {
-    return this.getNewLabManagerVersion$().pipe(
-      map((version) => {
-        // version.currentVersion != null && version.currentVersion !== version.recommendedVersion
-        if (!version.currentVersion || !version.recommendedVersion) {
-          return false;
-        }
-        try {
-          return ClVersion.fromString(version.recommendedVersion).isHigher(
-            ClVersion.fromString(version.currentVersion)
-          );
-        } catch (e) {
-          console.error('Error parsing version', e);
-          return false;
-        }
-      })
-    );
+    return this.getVersionUpgradeInfo$().pipe(map((migrationPlan) => migrationPlan.updateIsAvailable()));
   }
 
   ngOnDestroy(): void {

@@ -4,18 +4,18 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
 import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
-import { LmlNewVersionAvailable } from '@monorepo/lab-manager-lib';
+import { LmlLabManagerLibModule, LmlLabManagerMigrationPlanDTO } from '@monorepo/lab-manager-lib';
 
 import { LmsLabService } from '../../service/lms-lab.service';
 
 @Component({
   selector: 'lms-update-lab-manager-dialog',
-  imports: [FlDialogModule, FlTranslateModule, AsyncPipe, FlKeyValueModule],
+  imports: [FlDialogModule, FlTranslateModule, AsyncPipe, FlKeyValueModule, LmlLabManagerLibModule],
   templateUrl: './lms-update-lab-manager-dialog.component.html',
   styleUrl: './lms-update-lab-manager-dialog.component.scss',
 })
 export class LmsUpdateLabManagerDialogComponent {
-  input: LmlNewVersionAvailable = inject(MAT_DIALOG_DATA);
+  input: LmlLabManagerMigrationPlanDTO = inject(MAT_DIALOG_DATA);
   private labService = inject(LmsLabService);
 
   command$ = this.labService.getUpdateLabManagerCommand();

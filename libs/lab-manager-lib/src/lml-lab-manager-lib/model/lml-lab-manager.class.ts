@@ -178,11 +178,6 @@ export interface LmlDockerErrorLogs {
   logs: string;
 }
 
-export interface LmlNewVersionAvailable {
-  recommendedVersion: string;
-  currentVersion?: string;
-}
-
 export type LmlComposeEnv = 'prod' | 'dev' | 'all' | 'none';
 
 /*

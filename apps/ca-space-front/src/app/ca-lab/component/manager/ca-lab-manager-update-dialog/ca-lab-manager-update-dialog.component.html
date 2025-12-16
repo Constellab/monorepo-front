@@ -7,23 +7,37 @@
     <div class="help-text">
       <fl-key-value>
         <fl-key>{{ 'lab_manager_version' | translate }}</fl-key>
-        {{ input.labManagerCurrentVersion }}
+        {{ input.migrationPlan.sourceVersion }}
       </fl-key-value>
 
       <fl-key-value>
         <fl-key>{{ 'lab_manager_recommended_version' | translate }}</fl-key>
-        {{ input.labManagerRecommendedVersion }}
+        {{ input.migrationPlan.targetVersion }}
       </fl-key-value>
     </div>
 
     <!--  Lab manager version  -->
     <mat-form-field class="g-form-input">
       <mat-label>{{ 'lab_manager_version' | translate }}</mat-label>
-      <input matInput [formControl]="formCtrl" required [placeholder]="'lab_manager_version' | translate" />
+      <input
+        matInput
+        [formControl]="formCtrl"
+        required
+        [placeholder]="'lab_manager_version' | translate"
+        (change)="reloadMigrationPlan()" />
       @if (formCtrl.hasError('required')) {
         <mat-error>{{ 'lab_manager_version' | flErrorRequired }}</mat-error>
       }
+      @if (formCtrl.hasError('incorrectVersionFormat')) {
+        <mat-error>{{ 'lab_manager_version_invalid' | translate }}</mat-error>
+      }
     </mat-form-field>
+
+    <fl-async-section [object]="migrationPlan$">
+      <ng-container *flSectionBody="migrationPlan$ as migrationPlan">
+        <lml-migration-plan [migrationPlan]="migrationPlan" class="migration-plan"></lml-migration-plan>
+      </ng-container>
+    </fl-async-section>
   </form>
 </mat-dialog-content>
 

@@ -1,3 +1,4 @@
+import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { Transform } from 'class-transformer';
 
 import { ClTransformFnParams } from '../json-transform/cl-json.converter';
@@ -132,5 +133,21 @@ export function ClVersionTransform(): PropertyDecorator {
   return (target: any, key: string): void => {
     transformToPlain(target, key);
     transformToClass(target, key);
+  };
+}
+
+export function clVersionValidator(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const value: any = control.value;
+    if (value == null || value.length === 0) {
+      return null; // don't validate empty values to allow optional controls
+    }
+
+    try {
+      ClVersion.fromString(value);
+      return null;
+    } catch {
+      return { incorrectVersionFormat: true };
+    }
   };
 }

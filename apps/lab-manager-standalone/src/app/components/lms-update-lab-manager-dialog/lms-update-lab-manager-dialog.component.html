@@ -5,12 +5,14 @@
 <mat-dialog-content>
   <fl-key-value class="help-text">
     <fl-key>{{ 'lms.lab_manager_version' | translate }}</fl-key>
-    {{ input.currentVersion }}
+    {{ input.sourceVersion }}
   </fl-key-value>
 
   <div class="help-text">
-    {{ 'lms.update_lab_manager_help' | translate: { version: input.recommendedVersion } }}
+    {{ 'lms.update_lab_manager_help' | translate: { version: input.targetVersion } }}
   </div>
 
   <code class="g-text-small">{{ command$ | async }}</code>
+
+  <lml-migration-plan [migrationPlan]="input" class="migration-plan"></lml-migration-plan>
 </mat-dialog-content>
