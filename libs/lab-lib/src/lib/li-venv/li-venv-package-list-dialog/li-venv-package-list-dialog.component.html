@@ -1,0 +1,19 @@
+<fl-dialog-header> {{ input.venvName }} - {{ 'li.venv_packages' | translate }} </fl-dialog-header>
+
+<mat-dialog-content>
+  <fl-async-section [object]="venvPackages$">
+    <ng-container *flSectionBody="venvPackages$ as venvPackages">
+      <div class="packages-container">
+        @if (venvPackages.length === 0) {
+          <div class="no-packages">{{ 'li.venv_no_packages' | translate }}</div>
+        } @else {
+          <div>
+            @for (entry of venvPackages; track entry.name) {
+              <div>{{ entry.name }}=={{ entry.version }}</div>
+            }
+          </div>
+        }
+      </div>
+    </ng-container>
+  </fl-async-section>
+</mat-dialog-content>

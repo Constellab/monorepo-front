@@ -9,3 +9,9 @@
     </ng-container>
   </fl-async-section>
 </mat-dialog-content>
+
+<div mat-dialog-actions>
+  <button mat-flat-button (click)="openPackageListDialog()" class="g-centered-forced">
+    {{ 'li.venv_view_packages' | translate }}
+  </button>
+</div>

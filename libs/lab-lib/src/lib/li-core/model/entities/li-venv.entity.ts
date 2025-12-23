@@ -50,6 +50,10 @@ export class LiVEnvCompleteInfo {
   configFileContent: string;
 }
 
+export class LiVEnvPackages {
+  packages: Record<string, string>;
+}
+
 export class LiVenvArrayObs extends FlArrayObs<LiVenvBasicInfo> {
   protected equals(a: LiVenvBasicInfo, b: LiVenvBasicInfo): boolean {
     return a.name === b.name;

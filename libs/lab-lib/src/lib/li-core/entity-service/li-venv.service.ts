@@ -1,8 +1,8 @@
-import { inject,Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { Observable } from 'rxjs';
 
-import { LiVEnvCompleteInfo, LiVEnvsStatus } from '../model/entities/li-venv.entity';
+import { LiVEnvCompleteInfo, LiVEnvPackages, LiVEnvsStatus } from '../model/entities/li-venv.entity';
 
 @Injectable({
   providedIn: 'root',
@@ -26,5 +26,9 @@ export class LiVenvService {
 
   public deleteAllVenvs(): Observable<any> {
     return this.apiService.delete(`${this.route}`);
+  }
+
+  public getVenvPackages(venvName: string): Observable<LiVEnvPackages> {
+    return this.apiService.post(`${this.route}/packages`, { venv_name: venvName }, LiVEnvPackages);
   }
 }
