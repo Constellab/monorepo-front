@@ -348,6 +348,7 @@
     "share_to_space": "Space",
     "received_by": "Received by",
     "system_config": "System configuration",
+    "system": "System",
     "python_version": "Python version",
     "existing_tags": "Existing tags",
     "add_tags_to_entity": "Add tags",

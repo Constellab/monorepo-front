@@ -9,7 +9,13 @@ import { FL_PORTAL_DATA, FlPortalModule } from '@monorepo/front-core-lib/fl-port
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { FlTagModule } from '@monorepo/front-core-lib/fl-tag';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { LiTagKeyModel, LiTagService, LiTagValueModel } from '@monorepo/lab-lib/li-core';
+import {
+  LiEntityTag,
+  LiTagKeyModel,
+  LiTagOrigin,
+  LiTagService,
+  LiTagValueModel,
+} from '@monorepo/lab-lib/li-core';
 import { TranslatePipe } from '@ngx-translate/core';
 
 import { LiTagOriginsComponent } from '../li-tag-origins/li-tag-origins.component';
@@ -47,6 +53,8 @@ export class LiTagDetailPortalComponent implements OnInit {
 
   tagValueModel: LiTagValueModel;
 
+  entityTag: LiEntityTag;
+
   tagEntityId: string;
 
   ngOnInit(): void {
@@ -57,6 +65,9 @@ export class LiTagDetailPortalComponent implements OnInit {
     this.tagService
       .getTagValueByKeyAndValue(this.input.tagKey, this.input.tagValue)
       .subscribe((tagValueModel) => (this.tagValueModel = tagValueModel));
+    this.tagService.getEntityTag(this.tagEntityId).subscribe((tag: LiEntityTag) => {
+      this.entityTag = tag;
+    });
   }
 
   getAdditionalInfoString(value: any): string {

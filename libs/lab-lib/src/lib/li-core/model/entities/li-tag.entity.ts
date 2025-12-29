@@ -9,6 +9,7 @@ import { TypeHelpOptions } from 'class-transformer/types/interfaces/type-help-op
 import { LiBaseEntity } from '../global/li-entity.entity';
 import { LiEntityType, LiNavigableEntityGrouped } from './li-navigable-entity.entity';
 import { LiUser } from './li-user.entity';
+import { DateTime } from 'luxon';
 
 export type LiEntityTagType = 'SCENARIO' | 'NOTE' | 'RESOURCE' | 'VIEW' | 'SCENARIO_TEMPLATE';
 export type LiTagValueFormat = 'STRING' | 'INTEGER' | 'FLOAT' | 'BOOLEAN' | 'DATETIME';
@@ -31,9 +32,6 @@ export class LiTag implements FlTag, FlEntity {
   @Expose({ name: 'is_community_tag_value' })
   isCommunityTagValue: boolean;
 
-  @Expose({ name: 'additional_info' })
-  additionalInfo?: Record<string, any>;
-
   @Expose({ name: 'is_user_origin' })
   isUserOrigin: boolean;
 
@@ -50,7 +48,6 @@ export class LiTag implements FlTag, FlEntity {
     tag.isUserOrigin = true;
     tag.isCommunityTagKey = tagKeyEntity?.isCommunityTag ?? false;
     tag.isCommunityTagValue = tagValueEntity?.isCommunityTagValue ?? false;
-    tag.additionalInfo = tagValueEntity?.additionalInfos ?? {};
     return tag;
   }
 }
@@ -139,7 +136,30 @@ export class LiTagOrigin {
 }
 
 /**
- * Object representing the tags entity
+ * Object representing the tag entity
+ */
+export class LiEntityTag extends LiBaseEntity {
+  key: string;
+
+  value: FlTagValue;
+
+  @Expose({ name: 'is_user_origin' })
+  isUserOrigin: boolean;
+
+  label?: string;
+
+  @Expose({ name: 'is_propagable' })
+  isPropagable: boolean;
+
+  @Expose({ name: 'created_at' })
+  createdAt: DateTime;
+
+  @Expose({ name: 'updated_at' })
+  updatedAt: DateTime;
+}
+
+/**
+ * Object representing the tag key entity
  */
 export class LiTagKeyModel extends LiBaseEntity {
   key: string;

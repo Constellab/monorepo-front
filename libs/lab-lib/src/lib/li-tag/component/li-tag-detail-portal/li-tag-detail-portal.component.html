@@ -59,11 +59,11 @@
 
       <fl-key-value>
         <fl-key>{{ 'li.created_at' | translate }}</fl-key>
-        {{ tagKeyModel.createdAt | flDate: 'DATE_TIME' }}
+        {{ entityTag.createdAt | flDate: 'DATE_TIME' }}
       </fl-key-value>
 
       <fl-text-ok-nok
-        [value]="tagKeyModel.isPropagable"
+        [value]="entityTag.isPropagable"
         [okText]="'li.tag_is_propagable' | translate"
         [nokText]="'li.tag_is_not_propagable' | translate"></fl-text-ok-nok>
 

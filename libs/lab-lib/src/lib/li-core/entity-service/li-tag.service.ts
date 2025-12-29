@@ -16,7 +16,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import {
-  LiCreateTagResponse,
+  LiCreateTagResponse, LiEntityTag,
   LiEntityTagType,
   LiTag,
   LiTagDatasource,
@@ -286,6 +286,10 @@ export class LiTagService extends FlTagService {
 
   public getEntityTagOrigins(entityTagId: string): Observable<LiTagOrigin[]> {
     return this.apiService.get(`${this.route}/entity/${entityTagId}/origins`, LiTagOrigin);
+  }
+
+  public getEntityTag(entityTagId: string): Observable<LiEntityTag> {
+    return this.apiService.get(`${this.route}/entity/${entityTagId}`, LiEntityTag);
   }
 
   //////////////////////////////// PROPAGATION ////////////////////////////////////////////
