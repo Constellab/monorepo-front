@@ -7,17 +7,7 @@
       {{ 'home.header.subtitle' | translate }}
     </p>
 
-    <div class="g-layout-row g-gap-1em">
-      @if (!user()) {
-        <a type="button" mat-flat-button [href]="signUpRoute">
-          {{ 'join_the_community' | translate }}
-        </a>
-      }
-      <a mat-raised-button [href]="discordUrl" target="_blank">
-        <mat-icon flIcon="discord"></mat-icon>
-        {{ 'join_the_community_discord' | translate }}
-      </a>
-    </div>
+    <ng-template [ngTemplateOutlet]="joinButtonsDiv"></ng-template>
   </div>
 </ha-header>
 

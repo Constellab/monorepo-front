@@ -1,5 +1,5 @@
 import { NgOptimizedImage } from '@angular/common';
-import { Component, input } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -38,4 +38,11 @@ export class CoCommunityListItemComponent {
   comments = input<number>(undefined);
   executions = input<number>(undefined);
   publishedAt = input<DateTime>(null);
+
+  cleanedShortDescription = computed(() => {
+    // trim and remove &nbsp; entities
+    return this.shortDescription()
+      ?.replace(/&nbsp;/g, ' ')
+      .trim();
+  });
 }
