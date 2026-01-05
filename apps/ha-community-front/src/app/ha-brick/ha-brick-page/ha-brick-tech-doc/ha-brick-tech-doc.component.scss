@@ -12,6 +12,16 @@
   align-items: center;
 }
 
+@media (max-width: 900px) {
+  .doc-div {
+    width: 100%;
+  }
+
+  .doc-div-content {
+    width: 100%;
+  }
+}
+
 .doc-title-div {
   display: flex;
   align-items: center;

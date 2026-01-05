@@ -5,11 +5,11 @@ import { TdParamSpecs } from '@monorepo/technical-doc';
 import { TeRichText, TeRichTextTransform } from '@monorepo/text-editor';
 import { Expose, Type } from 'class-transformer';
 import { TypeHelpOptions } from 'class-transformer/types/interfaces/type-help-options.interface';
+import { DateTime } from 'luxon';
 
 import { LiBaseEntity } from '../global/li-entity.entity';
 import { LiEntityType, LiNavigableEntityGrouped } from './li-navigable-entity.entity';
 import { LiUser } from './li-user.entity';
-import { DateTime } from 'luxon';
 
 export type LiEntityTagType = 'SCENARIO' | 'NOTE' | 'RESOURCE' | 'VIEW' | 'SCENARIO_TEMPLATE';
 export type LiTagValueFormat = 'STRING' | 'INTEGER' | 'FLOAT' | 'BOOLEAN' | 'DATETIME';
