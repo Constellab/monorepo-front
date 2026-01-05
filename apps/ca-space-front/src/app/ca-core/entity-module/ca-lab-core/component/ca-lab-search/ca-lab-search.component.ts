@@ -22,6 +22,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 
 import { CaLab, CaLabDatasource } from '../../../../model/entities/lab/ca-lab.class';
 import { CaIsAdminDirective } from '../../../../module/ca-core-directive/ca-is-admin/ca-is-admin.directive';
+import { CaRouterService } from '../../../../service/ca-router.service';
 import { CaLabService } from '../../../../service-api/ca-lab.service';
 import { CaLabSearch, CaLabSearchFields } from '../../model/ca-lab-search.class';
 import {
@@ -60,6 +61,7 @@ export class CaLabSearchComponent implements OnInit {
   private labService = inject(CaLabService);
   private themeService = inject(FlThemeService);
   private dialogService = inject(FlDialogService);
+  private routerService = inject(CaRouterService);
 
   /**
    * Mode for the search
@@ -155,7 +157,7 @@ export class CaLabSearchComponent implements OnInit {
     this.dialogService
       .openMediumDialog(CaLabAdminFormDialogComponent, { data: dialogInput })
       .afterClosed()
-      .subscribe((lab) => this.onCreateLabClosed(lab));
+      .subscribe((lab: CaLab) => this.onCreateLabClosed(lab));
   }
 
   openCreateLabFreeForm(): void {
@@ -171,7 +173,7 @@ export class CaLabSearchComponent implements OnInit {
 
   private onCreateLabClosed(lab?: CaLab): void {
     if (lab) {
-      this.datasource.unshiftItem(lab);
+      this.routerService.navigateToLabDetail(lab.id);
     }
   }
 }
