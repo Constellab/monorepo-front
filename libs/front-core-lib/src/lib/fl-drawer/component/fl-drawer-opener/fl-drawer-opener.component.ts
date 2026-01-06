@@ -31,7 +31,7 @@ export class FlDrawerOpenerComponent {
     this.timeout = setTimeout(() => this.openDrawer(), this.hoverDelay);
   }
 
-  @HostListener('mouseleave', ['$event']) onMouseLeave(): void {
+  @HostListener('mouseleave') onMouseLeave(): void {
     clearTimeout(this.timeout);
   }
 

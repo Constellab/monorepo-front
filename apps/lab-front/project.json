@@ -140,7 +140,8 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/apps/lab-front"],
       "options": {
-        "jestConfig": "apps/lab-front/jest.config.ts"
+        "jestConfig": "apps/lab-front/jest.config.ts",
+        "tsConfig": "apps/lab-front/tsconfig.spec.json"
       }
     }
   }

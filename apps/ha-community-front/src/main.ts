@@ -5,6 +5,7 @@ import {
   inject,
   mergeApplicationConfig,
   provideAppInitializer,
+  provideZoneChangeDetection,
 } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { FlDifyLoaderService } from '@monorepo/front-core-lib/fl-chatbot';
@@ -46,7 +47,10 @@ function bootstrapApp(): void {
 
   const config = mergeApplicationConfig(haAppConfig, browserConfig);
 
-  bootstrapApplication(HaAppComponent, config).catch((err) => console.error(err));
+  bootstrapApplication(HaAppComponent, {
+    ...config,
+    providers: [provideZoneChangeDetection(), ...config.providers],
+  }).catch((err) => console.error(err));
 }
 
 if (environment.production) {

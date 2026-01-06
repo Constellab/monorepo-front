@@ -10,7 +10,8 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/technical-doc"],
       "options": {
-        "jestConfig": "libs/technical-doc/jest.config.ts"
+        "jestConfig": "libs/technical-doc/jest.config.ts",
+        "tsConfig": "libs/technical-doc/tsconfig.spec.json"
       }
     },
     "lint": {

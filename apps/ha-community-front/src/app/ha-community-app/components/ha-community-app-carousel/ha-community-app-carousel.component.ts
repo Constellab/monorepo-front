@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, computed, ElementRef, inject, signal, ViewChild } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
@@ -18,7 +17,7 @@ interface HaCommunityAppCarouselItem {
   selector: 'ha-community-app-carousel',
   templateUrl: './ha-community-app-carousel.component.html',
   styleUrl: './ha-community-app-carousel.component.scss',
-  imports: [MatIconButton, MatIcon, CommonModule, FlImageModule, FlVideoModule],
+  imports: [MatIconButton, MatIcon, FlImageModule, FlVideoModule],
 })
 export class HaCommunityAppCarouselComponent implements AfterViewInit {
   @ViewChild('carouselContainer', { static: false }) carouselContainer!: ElementRef<HTMLDivElement>;

@@ -1,5 +1,11 @@
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-import { importProvidersFrom, inject, Injector, provideAppInitializer } from '@angular/core';
+import {
+  importProvidersFrom,
+  inject,
+  Injector,
+  provideAppInitializer,
+  provideZoneChangeDetection,
+} from '@angular/core';
 import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { MAT_TOOLTIP_DEFAULT_OPTIONS } from '@angular/material/tooltip';
@@ -48,6 +54,7 @@ function initRootInjector(injector: Injector): () => void {
 function bootstrapApp(): void {
   bootstrapApplication(LmsAppComponent, {
     providers: [
+      provideZoneChangeDetection(),
       importProvidersFrom(
         BrowserModule,
         FlApiModule.forRoot(LmsApiServiceConfig, LmsApiErrorService),

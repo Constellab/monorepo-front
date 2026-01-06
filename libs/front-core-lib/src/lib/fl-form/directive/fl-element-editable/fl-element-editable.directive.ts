@@ -64,13 +64,13 @@ export class FlElementEditableDirective {
 
   private previousValue: string;
 
-  @HostListener('mousedown', ['$event']) onMouseDown(): void {
+  @HostListener('mousedown') onMouseDown(): void {
     if (this.flElementDisabled || !this.flElementIgnoreDrag) return;
     this.mouseDownTime = ClDateHelper.getDate();
   }
 
   // only trigger when click down last for less than 500ms
-  @HostListener('mouseup', ['$event']) onMouseUp(): void {
+  @HostListener('mouseup') onMouseUp(): void {
     if (this.flElementDisabled || !this.flElementIgnoreDrag) return;
     const mouseUpTime = ClDateHelper.getDate();
     const diff = mouseUpTime.diff(this.mouseDownTime, 'milliseconds').milliseconds;
@@ -80,12 +80,12 @@ export class FlElementEditableDirective {
     this.mouseDownTime = null;
   }
 
-  @HostListener('click', ['$event']) onClick(): void {
+  @HostListener('click') onClick(): void {
     if (this.flElementDisabled || this.flElementIgnoreDrag) return;
     this.setEditable();
   }
 
-  @HostListener('blur', ['$event']) onBlur(): void {
+  @HostListener('blur') onBlur(): void {
     this.setNotEditable();
   }
 

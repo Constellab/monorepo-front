@@ -10,7 +10,7 @@ import { AfterViewInit, Directive, HostBinding } from '@angular/core';
   standalone: false,
 })
 export class FlDisableAnimationInitDirective implements AfterViewInit {
-  @HostBinding('@.disabled') private disabled = true;
+  @HostBinding('@.disabled') disabled = true;
 
   ngAfterViewInit(): void {
     setTimeout(() => (this.disabled = false), 0);

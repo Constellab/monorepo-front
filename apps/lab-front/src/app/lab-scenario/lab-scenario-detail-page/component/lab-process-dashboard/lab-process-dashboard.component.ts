@@ -144,7 +144,7 @@ export class LabProcessDashboardComponent implements OnInit, OnDestroy {
 
   // save config on ctrl + s
   @HostListener('window:keydown', ['$event'])
-  private keyEvent(event: KeyboardEvent): void {
+  keyEvent(event: KeyboardEvent): void {
     if ((event.ctrlKey || event.metaKey) && event.key === 's') {
       // prevent saving when there is another dialog opened
       if (this.dialogService.numberOfOpenedDialog() <= 1) {

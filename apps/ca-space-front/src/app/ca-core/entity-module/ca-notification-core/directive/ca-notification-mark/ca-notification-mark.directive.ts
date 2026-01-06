@@ -30,7 +30,7 @@ export class CaNotificationMarkDirective implements OnInit, OnDestroy {
   private subscription: Subscription;
 
   @HostBinding('class.g-notification-mark')
-  private markShown: boolean = false;
+  markShown: boolean = false;
 
   ngOnInit(): void {
     if (this.caNotificationMarkDisabled) return;

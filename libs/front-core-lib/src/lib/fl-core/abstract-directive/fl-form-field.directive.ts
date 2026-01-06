@@ -40,7 +40,7 @@ export abstract class FlFormFieldDirective<INNER, OUTER = INNER> implements Cont
 
   /** Whether the input is disabled */
   @HostBinding('class.disabled')
-  private _disabled: boolean = false;
+  _disabled: boolean = false;
 
   /** Whether filling out the input is required in the form. */
   private _required: boolean = false;

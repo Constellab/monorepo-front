@@ -1,5 +1,11 @@
-import { ApplicationConfig, ApplicationRef, mergeApplicationConfig, TransferState } from '@angular/core';
-import { bootstrapApplication } from '@angular/platform-browser';
+import {
+  ApplicationConfig,
+  ApplicationRef,
+  mergeApplicationConfig,
+  provideZoneChangeDetection,
+  TransferState,
+} from '@angular/core';
+import { bootstrapApplication, BootstrapContext } from '@angular/platform-browser';
 import { provideServerRendering } from '@angular/ssr';
 import { FL_TRANSLATE_MODULE_CONFIG } from '@monorepo/front-core-lib/fl-translate';
 import { FlTranslateModuleConfig } from '@monorepo/front-core-lib/fl-translate';
@@ -29,6 +35,11 @@ const serverConfig: ApplicationConfig = {
 
 export const config = mergeApplicationConfig(haAppConfig, serverConfig);
 
-const bootstrap = (): Promise<ApplicationRef> => bootstrapApplication(HaAppComponent, config);
+const bootstrap = (context: BootstrapContext): Promise<ApplicationRef> =>
+  bootstrapApplication(
+    HaAppComponent,
+    { ...config, providers: [provideZoneChangeDetection(), ...config.providers] },
+    context
+  );
 
 export default bootstrap;

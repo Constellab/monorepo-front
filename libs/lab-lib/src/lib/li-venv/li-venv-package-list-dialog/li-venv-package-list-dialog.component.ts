@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
@@ -21,7 +20,7 @@ interface LiVenvPackageEntry {
   selector: 'li-venv-package-list-dialog',
   templateUrl: './li-venv-package-list-dialog.component.html',
   styleUrls: ['./li-venv-package-list-dialog.component.scss'],
-  imports: [FlDialogModule, MatDialogContent, FlSectionModule, CommonModule, TranslateModule],
+  imports: [FlDialogModule, MatDialogContent, FlSectionModule, TranslateModule],
 })
 export class LiVenvPackageListDialogComponent {
   input = inject<LiVenvPackageListDialogInput>(MAT_DIALOG_DATA);

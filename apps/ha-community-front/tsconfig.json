@@ -20,6 +20,8 @@
   },
   "compilerOptions": {
     "outDir": "./dist/out-tsc",
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "module": "preserve",
+    "moduleResolution": "bundler"
   }
 }

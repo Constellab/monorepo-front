@@ -54,7 +54,7 @@ export class FlElasticSearchDirective implements OnInit, OnDestroy {
       .subscribe((value) => this.triggerEvent(value));
   }
 
-  @HostListener('input', ['$event']) onInput(ev: InputEvent): void {
+  @HostListener('input', ['$event']) onInput(ev: Event): void {
     this.keyUpSubject.next((ev.target as HTMLInputElement).value);
   }
 

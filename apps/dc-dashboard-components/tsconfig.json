@@ -18,5 +18,9 @@
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": true
+  },
+  "compilerOptions": {
+    "module": "preserve",
+    "moduleResolution": "bundler"
   }
 }
