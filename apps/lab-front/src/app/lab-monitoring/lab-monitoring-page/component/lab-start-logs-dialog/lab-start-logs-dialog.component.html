@@ -1,0 +1,31 @@
+<fl-dialog-header>
+  {{ 'monitoring.start_logs' | translate }}
+</fl-dialog-header>
+
+<mat-dialog-content>
+  <fl-async-section [object]="startLogs$">
+    <ng-container *flSectionBody="startLogs$ as startLogs">
+      @if (startLogs?.mainErrors.length === 0 && startLogs?.errors.length === 0) {
+        <p>{{ 'monitoring.start_logs_no_errors' | translate }}</p>
+      }
+
+      @if (startLogs.mainErrors && startLogs.mainErrors.length > 0) {
+        <div>
+          <h3>{{ 'monitoring.start_logs_main_errors' | translate }}</h3>
+          @for (error of startLogs.mainErrors; track $index) {
+            <div class="error-item">{{ error }}</div>
+          }
+        </div>
+      }
+
+      @if (startLogs.errors && startLogs.errors.length > 0) {
+        <div class="other-errors-section">
+          <h3>{{ 'monitoring.start_logs_other_errors' | translate }}</h3>
+          @for (error of startLogs.mainErrors; track $index) {
+            <div class="error-item">{{ error }}</div>
+          }
+        </div>
+      }
+    </ng-container>
+  </fl-async-section>
+</mat-dialog-content>

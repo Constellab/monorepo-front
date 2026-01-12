@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject,OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
@@ -18,6 +18,7 @@ import { LiSystemConfigDialogComponent } from '@monorepo/lab-lib/li-system';
 import { TranslatePipe } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
+import { LabStartLogsDialogComponent } from '../lab-start-logs-dialog/lab-start-logs-dialog.component';
 import { LabSynchroDialogComponent } from '../lab-synchro-dialog/lab-synchro-dialog.component';
 
 @Component({
@@ -104,5 +105,9 @@ export class LabInfoComponent implements OnInit {
 
   openPipPackageList(): void {
     this.dialogService.openSmallDialog(LiSystemConfigDialogComponent);
+  }
+
+  openStartLogs(): void {
+    this.dialogService.openSmallDialog(LabStartLogsDialogComponent);
   }
 }

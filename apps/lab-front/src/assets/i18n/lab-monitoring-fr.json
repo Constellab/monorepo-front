@@ -82,6 +82,13 @@
     "clean_share_links": "Nettoyer les liens de partage",
     "clean_expired_share_links": "Supprimer les liens de partage expirés",
     "clean_invalid_share_links": "Supprimer les liens de partage invalides (liens où l'objet partagé a été supprimé)",
-    "share_links_cleaned": "Liens nettoyés"
+    "share_links_cleaned": "Liens nettoyés",
+    "start_error_title": "Erreur de démarrage détectée",
+    "start_error_description": "Le lab a rencontré des erreurs lors du démarrage. Cliquez sur le bouton ci-dessous pour voir les logs d'erreur.",
+    "view_start_logs": "Voir les logs de démarrage",
+    "start_logs": "Logs de démarrage",
+    "start_logs_main_errors": "Erreurs principales",
+    "start_logs_other_errors": "Other errors",
+    "start_logs_no_errors": "Aucune erreur trouvée"
   }
 }

@@ -4,6 +4,7 @@
   </fl-card-header>
 
   <fl-card-body>
+    <!--  Lab main status  -->
     @if (isLoading) {
       <div class="g-text-centered">
         <fl-loader size="medium"></fl-loader>
@@ -12,7 +13,7 @@
       @if (labInfo) {
         <div>
           <fl-text-icon>
-            <mat-icon class="g-icon-big primary">check</mat-icon>
+            <mat-icon class="g-icon-big g-primary-text">check</mat-icon>
             <p class="g-text-big">{{ 'monitoring.lab_running' | translate }}</p>
             <fl-key-value>
               <fl-key>{{ 'monitoring.lab_name' | translate }}</fl-key>
@@ -25,36 +26,6 @@
               </fl-key-value>
             }
           </fl-text-icon>
-          <div class="action">
-            <button mat-stroked-button type="button" class="g-button-small action-button" (click)="syncLab()">
-              <mat-icon>refresh</mat-icon>
-              {{ 'monitoring.synchronize_lab' | translate }}
-            </button>
-            <button
-              mat-stroked-button
-              type="button"
-              class="g-button-small action-button"
-              (click)="cleanLab()">
-              <mat-icon>delete</mat-icon>
-              {{ 'monitoring.clean_lab' | translate }}
-            </button>
-            <button
-              mat-stroked-button
-              type="button"
-              class="g-button-small action-button"
-              (click)="deleteUnavailableTypings()">
-              <mat-icon>delete</mat-icon>
-              {{ 'monitoring.delete_unavailable_typings' | translate }}
-            </button>
-            <button
-              mat-stroked-button
-              type="button"
-              class="g-button-small action-button"
-              (click)="openPipPackageList()">
-              <mat-icon>inventory_2</mat-icon>
-              {{ 'monitoring.system_config' | translate }}
-            </button>
-          </div>
         </div>
       } @else {
         <fl-text-icon>
@@ -64,8 +35,56 @@
       }
     }
 
+    <!--  Lab system status  -->
     @if (systemStatus$ | async; as systemStatus) {
+      @if (systemStatus.hasStartError) {
+        <div class="start-error-section g-layout-row g-layout-start-center g-layout-gap-1em">
+          <mat-icon class="g-warn-icon">warning</mat-icon>
+          <div>
+            <p class="g-text-big">{{ 'monitoring.start_error_title' | translate }}</p>
+            <p>{{ 'monitoring.start_error_description' | translate }}</p>
+          </div>
+          <button
+            mat-stroked-button
+            type="button"
+            class="g-button-small log-button"
+            (click)="openStartLogs()">
+            <mat-icon>error_outline</mat-icon>
+            {{ 'monitoring.view_start_logs' | translate }}
+          </button>
+        </div>
+      }
       <li-monitor-disk [freeDisk]="systemStatus.freeDisk" class="disk-info"></li-monitor-disk>
+    }
+
+    <!--  System action buttons  -->
+    @if (labInfo) {
+      <div class="action">
+        <button mat-stroked-button type="button" class="g-button-small action-button" (click)="syncLab()">
+          <mat-icon>refresh</mat-icon>
+          {{ 'monitoring.synchronize_lab' | translate }}
+        </button>
+        <button mat-stroked-button type="button" class="g-button-small action-button" (click)="cleanLab()">
+          <mat-icon>delete</mat-icon>
+          {{ 'monitoring.clean_lab' | translate }}
+        </button>
+        <button
+          mat-stroked-button
+          type="button"
+          class="g-button-small action-button"
+          (click)="deleteUnavailableTypings()">
+          <mat-icon>delete</mat-icon>
+          {{ 'monitoring.delete_unavailable_typings' | translate }}
+        </button>
+        <button
+          mat-stroked-button
+          type="button"
+          class="g-button-small action-button"
+          (click)="openPipPackageList()">
+          <mat-icon>inventory_2</mat-icon>
+          {{ 'monitoring.system_config' | translate }}
+        </button>
+      </div>
     }
   </fl-card-body>
 </fl-card>

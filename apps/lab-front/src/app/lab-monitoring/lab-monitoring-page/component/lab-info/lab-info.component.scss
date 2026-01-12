@@ -1,13 +1,23 @@
-.action {
+.start-error-section {
   margin-top: 1em;
-}
-
-.action-button {
-  margin-left: 0.5em;
-  margin-right: 0.5em;
+  margin-bottom: 1em;
 }
 
 .disk-info {
   display: block;
   margin-top: 1em;
+}
+
+.log-button {
+  // vertical align end
+  align-self: self-end;
+}
+
+.action {
+  margin-top: 2em;
+}
+
+.action-button {
+  margin-left: 0.5em;
+  margin-right: 0.5em;
 }

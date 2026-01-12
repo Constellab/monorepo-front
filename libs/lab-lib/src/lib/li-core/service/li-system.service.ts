@@ -3,7 +3,13 @@ import { FlApiWithCacheService, FlServerError } from '@monorepo/front-core-lib/f
 import { Observable, of, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-import { LiPipPackage, LiSystemConfig, LiSystemInfo, LiSystemStatus } from '../model/global/li-system.class';
+import {
+  LiPipPackage,
+  LiStartLogFileObject,
+  LiSystemConfig,
+  LiSystemInfo,
+  LiSystemStatus,
+} from '../model/global/li-system.class';
 
 @Injectable({
   providedIn: 'root',
@@ -58,5 +64,9 @@ export class LiSystemService {
 
   public getSystemConfig(): Observable<LiSystemConfig> {
     return this.apiService.get(`${this.route}/config`, LiPipPackage);
+  }
+
+  public getStartLogs(): Observable<LiStartLogFileObject> {
+    return this.apiService.get(`${this.route}/start-logs`, LiStartLogFileObject);
   }
 }

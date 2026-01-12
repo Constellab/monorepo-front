@@ -4,13 +4,38 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Commands
 
-### Build & Serve
+### Development
 
 - `nx serve <app>` - Serve application (development mode with hot reload)
 - `nx build <app>` - Build application for development
 - `nx build <app> --prod` - Build application for production
 - `npm run <app>:serve` - Pre-configured serve command for specific apps
 - `npm run <app>:build-prod` - Pre-configured production build for specific apps
+
+Common apps: `ca-space-front`, `lab-front`, `ha-community-front`, `lab-manager-standalone`, `dc-dashboard-components`
+
+### Testing
+
+- `nx test <project>` - Run tests for a specific project
+- `nx test <project> --watch` - Run tests in watch mode
+- `nx affected:test` - Run tests for all affected projects
+- `nx e2e <app>-e2e` - Run end-to-end tests for an app
+
+### Code Quality
+
+- `nx lint` - Run linting across the workspace
+- `nx lint <project>` - Lint a specific project
+- `nx affected:lint` - Lint all affected projects
+- `npm run format` - Format all files with Prettier
+- `npm run format:check` - Check formatting without writing changes
+
+Pre-commit hooks automatically run `lint-staged`, which formats and lints staged files.
+
+### NX Utilities
+
+- `nx dep-graph` - View the dependency graph of the monorepo
+- `nx affected:apps` - Show affected applications
+- `nx affected:libs` - Show affected libraries
 
 ## Architecture
 
@@ -25,6 +50,8 @@ This is an NX monorepo with Angular applications and TypeScript libraries for th
 - **ha-community-front** - Community application with SSR support (prefix: `ha`)
 - **lab-manager-standalone** - Standalone lab manager application
 - **dc-dashboard-components** - Dashboard components for Streamlit integration
+
+Each app has a corresponding e2e test project (e.g., `ca-space-front-e2e`).
 
 #### Libraries (libs/)
 
@@ -42,18 +69,18 @@ This is an NX monorepo with Angular applications and TypeScript libraries for th
 - **mail** - Email functionality
 - **technical-doc** - Technical documentation components
 
-### Module System
+### Module System & Imports
 
-- Uses barrel exports with granular imports from `@monorepo/` namespace
-- front-core-lib uses submodule imports: `@monorepo/front-core-lib/fl-<module>`
-- lab-lib uses submodule imports: `@monorepo/lab-lib/li-<module>`
+All libraries are imported via the `@monorepo/` namespace defined in `tsconfig.base.json`:
 
-### Component Architecture
+- **core-lib**: `@monorepo/core-lib`
+- **front-core-lib**: Uses granular submodule imports - `@monorepo/front-core-lib/fl-<module>`
+  - Example: `@monorepo/front-core-lib/fl-dialog`, `@monorepo/front-core-lib/fl-core`
+- **lab-lib**: Uses granular submodule imports - `@monorepo/lab-lib/li-<module>`
+  - Example: `@monorepo/lab-lib/li-core`, `@monorepo/lab-lib/li-entity`
+- **Other libs**: Direct imports like `@monorepo/chart`, `@monorepo/bio-network`
 
-- **Prefixes**: Each library has a consistent prefix (ca, fl, li, lml, etc.)
-- **Naming**: Components follow prefix-name pattern (e.g., `fl-button`, `ca-header`)
-- **Theming**: Light/dark theme support with dynamic theme switching
-- **State Management**: Uses Angular services and RxJS for state management
+This granular import structure allows for better tree-shaking and build optimization.
 
 ## Code Style
 
@@ -61,13 +88,35 @@ This is an NX monorepo with Angular applications and TypeScript libraries for th
 
 - Use ES modules (import/export) syntax, not CommonJS (require)
 - Destructure imports when possible (e.g., `import { foo } from 'bar'`)
-- Imports are automatically sorted by `simple-import-sort` ESLint rule
 
-## Good Practices
+### CSS and Styling
 
-- Use signal where appropriate for reactive state
-- Use input and output signals for component communication
-- For the dialog use the FlDialogService from '@monorepo/front-core-lib/fl-dialog'
-- For portal use the FlPortalService from '@monorepo/front-core-lib/fl-portal'
-- For info or error message use FlSnackbarService from '@monorepo/front-core-lib/fl-snack-bar'
-- For dependency injection use angular `inject()` function instead of constructor injection where possible
+- **Generate minimal CSS**: Only write CSS that is absolutely necessary for the component's functionality
+- **Use basic styles**: Keep styles simple and minimal unless specifically asked otherwise
+- **Preserve default styles**: DO NOT override default browser/Material styles for standard elements:
+  - Never override: `font`, `h1`, `h2`, `h3`, `h4`, `h5`, `h6`, `p`, `div`, `ul`, `ol`, `li`, etc.
+  - Let the default behavior and theme handle these elements
+- **For layout, use Flexbox**: When layout is needed, use flex-based layouts
+- **Use utility classes**: For flex layouts, use pre-defined classes from `libs/front-core-lib/src/style/fl-flex.scss`
+
+## Angular Patterns & Good Practices
+
+### Modern Angular Features
+
+- **Signals**: Use Angular signals for reactive state where appropriate
+- **Input/Output Signals**: Prefer input and output signals for component communication
+- **Dependency Injection**: Use `inject()` function instead of constructor injection where possible
+- **Standalone Components**: Project uses Angular 21 with support for standalone components
+
+### Common Services
+
+- **Dialog**: Use `FlDialogService` from `@monorepo/front-core-lib/fl-dialog`
+- **Portal**: Use `FlPortalService` from `@monorepo/front-core-lib/fl-portal`
+- **Notifications**: Use `FlSnackbarService` from `@monorepo/front-core-lib/fl-snack-bar`
+- **Theme**: Use `FlThemeService` from `@monorepo/front-core-lib/fl-theme` for theme switching
+
+### Testing
+
+- Test framework: Jest with `jest-preset-angular`
+- Test files: `*.spec.ts` files alongside source files
+- E2E testing: Cypress for end-to-end tests

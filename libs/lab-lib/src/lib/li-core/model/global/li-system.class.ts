@@ -36,4 +36,16 @@ export class LiSystemStatus {
   @Expose({ name: 'free_disk' })
   @Type(() => LiMonitorFreeDiskDTO)
   freeDisk: LiMonitorFreeDiskDTO;
+
+  @Expose({ name: 'has_start_error' })
+  hasStartError: boolean;
+}
+
+export class LiStartLogFileObject {
+  progress: Record<string, any>;
+
+  @Expose({ name: 'main_errors' })
+  mainErrors: string[];
+
+  errors: string[];
 }

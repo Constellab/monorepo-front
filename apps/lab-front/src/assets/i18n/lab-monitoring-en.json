@@ -82,6 +82,13 @@
     "clean_share_links": "Clean share links",
     "clean_expired_share_links": "Delete expired share links",
     "clean_invalid_share_links": "Delete invalid share links (links where share object was delete)",
-    "share_links_cleaned": "Links cleaned"
+    "share_links_cleaned": "Links cleaned",
+    "start_error_title": "Start error detected",
+    "start_error_description": "The lab encountered errors during startup. Click the button below to view the error logs.",
+    "view_start_logs": "View start logs",
+    "start_logs": "Start logs",
+    "start_logs_main_errors": "Main errors",
+    "start_logs_other_errors": "Other errors",
+    "start_logs_no_errors": "No errors found"
   }
 }
