@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { inject, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -21,13 +21,10 @@ import { FlFileTextIconComponent } from './component/fl-file-text-icon/fl-file-t
 import { FlLimitHeightComponent } from './component/fl-limit-height/fl-limit-height.component';
 import { FlPasswordHiddenComponent } from './component/fl-password-hidden/fl-password-hidden.component';
 import { FlPinUnpinButtonComponent } from './component/fl-pin-unpin-button/fl-pin-unpin-button.component';
-import {
-  FlSelectLanguageOptionsComponent,
-} from './component/fl-select-language-options/fl-select-language-options.component';
-import {
-  FlSelectUserCategoryOptionComponent,
-} from './component/fl-select-user-category-option/fl-select-user-category-option.component';
-import { flCoreComponentI18n } from './i18n/fl-core-component.i18n';
+import { FlPoweredByConstellabComponent } from './component/fl-powered-by-constellab/fl-powered-by-constellab.component';
+import { FlSelectLanguageOptionsComponent } from './component/fl-select-language-options/fl-select-language-options.component';
+import { FlSelectUserCategoryOptionComponent } from './component/fl-select-user-category-option/fl-select-user-category-option.component';
+import { FL_CORE_COMPONENT_I18N } from './i18n/fl-core-component.i18n';
 
 /**
  * Core modules containing components
@@ -43,6 +40,7 @@ import { flCoreComponentI18n } from './i18n/fl-core-component.i18n';
     FlPinUnpinButtonComponent,
     FlFileTextIconComponent,
     FlPasswordHiddenComponent,
+    FlPoweredByConstellabComponent,
   ],
   exports: [
     FlLimitHeightComponent,
@@ -54,6 +52,7 @@ import { flCoreComponentI18n } from './i18n/fl-core-component.i18n';
     FlPinUnpinButtonComponent,
     FlFileTextIconComponent,
     FlPasswordHiddenComponent,
+    FlPoweredByConstellabComponent,
   ],
   imports: [
     CommonModule,
@@ -73,12 +72,13 @@ import { flCoreComponentI18n } from './i18n/fl-core-component.i18n';
     MatOptionModule,
     FlTextIconModule,
     FlIconModule,
+    NgOptimizedImage,
   ],
 })
 export class FlCoreComponentModule {
   constructor() {
     const translateService = inject(FlTranslateService);
 
-    translateService.addModuleTranslation('FlCoreComponentModule', flCoreComponentI18n);
+    translateService.addModuleTranslation('FlCoreComponentModule', FL_CORE_COMPONENT_I18N);
   }
 }

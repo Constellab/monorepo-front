@@ -38,12 +38,18 @@ function getSubConfigs(folder, prefix, isLib, disableModuleBoundary) {
         prefix: [classPrefix],
       },
       {
-        selector: ['function', 'variable'],
+        selector: ['function'],
         modifiers: ['exported'],
         // define as PascalCase because the prefix is not included in the format check
         // so if the name is e.g. "flMyFunction" it will still be valid because it checks for "MyFunction"
         format: ['PascalCase'],
         prefix: [prefix],
+      },
+      {
+        selector: ['variable'],
+        modifiers: ['exported'],
+        format: ['UPPER_CASE'],
+        prefix: [prefix.toUpperCase() + '_'],
       },
     ],
   };

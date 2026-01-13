@@ -1,6 +1,7 @@
-import { AsyncPipe, NgOptimizedImage } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
 import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
@@ -10,7 +11,6 @@ import { RvResourceViewModule, RvViewConfig } from '@monorepo/resource-view';
 import { TdTechnicalDocModule } from '@monorepo/technical-doc';
 import { combineLatest, map, Observable } from 'rxjs';
 
-import { LabEnvironmentHelper } from '../../lab-core/lab-environment.helper';
 import { LabHttpInterceptorService } from '../../lab-core/lab-http-interceptor';
 import { LabOpenRouteResourceViewModuleConfig } from '../model/lab-public-route-view.config';
 
@@ -21,9 +21,9 @@ import { LabOpenRouteResourceViewModuleConfig } from '../model/lab-public-route-
     RvResourceViewModule,
     TdTechnicalDocModule,
     AsyncPipe,
-    NgOptimizedImage,
     FlCoreDirectiveModule,
     FlTranslateModule,
+    FlCoreComponentModule,
   ],
   templateUrl: './lab-public-route-resource-page.component.html',
   styleUrl: './lab-public-route-resource-page.component.scss',
@@ -66,8 +66,6 @@ export class LabPublicRouteResourcePageComponent implements OnInit, OnDestroy {
   );
 
   logo = this.themeService.getConstellabLogo();
-
-  constellabUrl = LabEnvironmentHelper.getConstellabPublicUrl();
 
   getViewConfig(view: LiResourceView): RvViewConfig {
     if (view.viewConfig == null) return null;

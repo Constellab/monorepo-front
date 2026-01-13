@@ -21,7 +21,6 @@ export interface FlThemeServiceConfig {
 }
 
 export const FL_THEME_SERVICE_CONFIG = new InjectionToken<string>('FL_THEME_SERVICE_CONFIG');
-
 /**
  * Service to manage light and dark theme
  */
@@ -165,5 +164,11 @@ export class FlThemeService {
     return this.isDarkTheme()
       ? 'assets/fl-logo/constellab-logo-text-white.svg'
       : 'assets/fl-logo/constellab-logo-text-black.svg';
+  }
+
+  public getPoweredByLogo(): string {
+    return this.isDarkTheme()
+      ? 'assets/fl-logo/powered-by-constellab-white.svg'
+      : 'assets/fl-logo/powered-by-constellab-black.svg';
   }
 }

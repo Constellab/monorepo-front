@@ -8,5 +8,6 @@ export * from './component/fl-external-link/fl-external-link.component';
 export * from './component/fl-file-text-icon/fl-file-text-icon.component';
 export * from './component/fl-limit-height/fl-limit-height.component';
 export * from './component/fl-pin-unpin-button/fl-pin-unpin-button.component';
+export * from './component/fl-powered-by-constellab/fl-powered-by-constellab.component';
 export * from './component/fl-select-language-options/fl-select-language-options.component';
 export * from './component/fl-select-user-category-option/fl-select-user-category-option.component';

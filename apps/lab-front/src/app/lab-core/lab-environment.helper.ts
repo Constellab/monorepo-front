@@ -29,7 +29,6 @@ export class LabEnvironmentHelper {
 
   // return the full URL for the codelab with direct link to open the right folder
   public static getCodelabFullUrl(): string {
-    // eslint-disable-next-line max-len
     return `${LabEnvironmentHelper.getCodelabUrl()}/?folder=/lab/user`;
   }
 
@@ -93,9 +92,5 @@ export class LabEnvironmentHelper {
 
   public static getCommunityApiUrl(): string {
     return LabEnvironmentHelper.getEnv().settings.communityApiUrl;
-  }
-
-  public static getConstellabPublicUrl(): string {
-    return 'https://gencovery.com/constellab';
   }
 }

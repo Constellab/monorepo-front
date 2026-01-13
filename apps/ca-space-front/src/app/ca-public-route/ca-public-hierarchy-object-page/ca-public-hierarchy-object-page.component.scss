@@ -12,3 +12,10 @@
   justify-content: center;
   width: 100%;
 }
+
+.powered_by {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  z-index: 9999;
+}

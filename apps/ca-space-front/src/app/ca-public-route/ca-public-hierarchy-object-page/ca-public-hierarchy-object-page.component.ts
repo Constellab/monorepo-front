@@ -14,7 +14,6 @@ import {
   CaHierarchyObject,
   CaHierarchyObjectType,
 } from '../../ca-core/model/entities/folder/ca-hierarchy-object.class';
-import { CaDocumentService } from '../../ca-core/service-api/ca-document.service';
 import { CaHierarchyObjectTokenService } from '../../ca-core/service-api/ca-hierarchy-object-token.service';
 import { CaConstellabDocumentDetailComponent } from '../../ca-folder/module/ca-document-core/component/ca-constellab-document-detail/ca-constellab-document-detail.component';
 import { CaDocumentPreviewComponent } from '../../ca-folder/module/ca-document-core/component/ca-document-preview/ca-document-preview.component';
@@ -32,7 +31,6 @@ export class CaPublicHierarchyObjectPageComponent implements OnInit, OnDestroy {
 
   private hierarchyObjectTokenService = inject(CaHierarchyObjectTokenService);
   private spaceInterceptor = inject(CaSpaceInterceptor);
-  private documentService = inject(CaDocumentService);
 
   // force the user role to be viewer
   private readonly userRole = new CaRootFolderUserRoleObj(CaRootFolderUserRole.VIEWER);
