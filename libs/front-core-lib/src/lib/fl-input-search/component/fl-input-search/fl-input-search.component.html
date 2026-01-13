@@ -35,7 +35,12 @@
   @if (datasource.isLoading || initIsLoading) {
     <fl-loader matSuffix [size]="20" class="loader"></fl-loader>
   } @else if (advancedButton) {
-    <button mat-icon-button type="button" matSuffix (click)="callAdvancedButton($event)">
+    <button
+      mat-icon-button
+      type="button"
+      matSuffix
+      (click)="callAdvancedButton($event)"
+      [disabled]="disabled">
       <mat-icon>loupe</mat-icon>
     </button>
   }

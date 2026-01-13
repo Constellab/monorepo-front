@@ -2,7 +2,8 @@ import {
   Component,
   ContentChild,
   ElementRef,
-  EventEmitter, inject,
+  EventEmitter,
+  inject,
   Input,
   OnDestroy,
   OnInit,
@@ -25,7 +26,7 @@ import {
 } from '../../directive/fl-input-search-prefix.directive';
 
 /**
- * Additional config, if provided, a button is showed in the input
+ * Additional config, if provided, a button is shown in the input
  * to open an advanced search dialog.
  * The dialog must return the selected item.
  */
@@ -33,13 +34,13 @@ export interface FlInputSearchAdvancedButton<T> {
   onClick: () => Observable<T | null>;
 }
 
-export abstract class FLInputSearchEvent {
+abstract class FlInputSearchEvent {
   abstract onOpen(): void;
   abstract onClose(): void;
 }
 
 /**
- * Input/Select component to search for a entity and select one.
+ * Input/Select component to search for an entity and select one.
  * Should be wrap by a component that supports form and is specific to the entity.
  */
 @Component({
@@ -75,6 +76,10 @@ export class FlInputSearchComponent<T> implements OnInit, OnDestroy {
     } else {
       this.inputControl.enable();
     }
+  }
+
+  get disabled(): boolean {
+    return this.inputControl.disabled;
   }
 
   @Input() advancedButton?: FlInputSearchAdvancedButton<any>;
@@ -120,7 +125,7 @@ export class FlInputSearchComponent<T> implements OnInit, OnDestroy {
 
   private initSubscription?: Subscription;
 
-  private event = inject(FLInputSearchEvent, { optional: true });
+  private event = inject(FlInputSearchEvent, { optional: true });
 
   ngOnInit(): void {
     if (this.datasource == null) {
@@ -227,7 +232,7 @@ export class FlInputSearchComponent<T> implements OnInit, OnDestroy {
     this.initSubscription = obs.subscribe({
       next: (item) => {
         this.initIsLoading = false;
-        // if a item was selected before the init, we don't override it
+        // if an item was selected before the init, we don't override it
         if (this._selectedItem) return;
         // for this case, we trigger the change because this is the full object
         this.setSelectedItemAndEmit(item);
@@ -258,14 +263,14 @@ export class FlInputSearchComponent<T> implements OnInit, OnDestroy {
     }
   }
 
-  open(): void{
-    if(this.event){
+  open(): void {
+    if (this.event) {
       this.event.onOpen();
     }
   }
 
-  close(): void{
-    if(this.event){
+  close(): void {
+    if (this.event) {
       this.event.onClose();
     }
   }
