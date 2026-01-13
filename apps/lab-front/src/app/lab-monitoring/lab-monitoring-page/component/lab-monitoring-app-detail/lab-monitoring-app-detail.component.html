@@ -3,10 +3,6 @@
   {{ appInstance().appType }}
 </fl-key-value>
 
-<fl-key-value>
-  <fl-key>{{ 'monitoring.app_config_path' | translate }}</fl-key>
-  {{ appInstance().appConfigPath }}
-</fl-key-value>
 
 @if (appInstance().sourceIds.length > 0) {
   <div>{{ 'monitoring.app_input_resources' | translate }}</div>

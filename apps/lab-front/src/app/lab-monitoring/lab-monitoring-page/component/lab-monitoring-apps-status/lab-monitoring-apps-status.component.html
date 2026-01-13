@@ -40,27 +40,26 @@
                 <div>{{ 'monitoring.app_status_details' | translate }}: {{ process.statusText }}</div>
               }
 
+              @if (process.startedBy && process.startedAt) {
+                <div class="g-layout-row g-layout-start-center g-layout-gap-1em">
+                  <p>{{ 'monitoring.app_started' | translate }} :</p>
+                  <fl-user-with-date
+                    [user]="process.startedBy"
+                    [date]="process.startedAt"></fl-user-with-date>
+                </div>
+              }
+
               <fl-key-value>
                 <fl-key>{{ 'monitoring.app_nb_of_connection' | translate }}</fl-key>
                 {{ process.nbOfConnections }}
               </fl-key-value>
 
-              <!--   List of the apps     -->
-              @if (process.runningApps.length > 0) {
-                <mat-accordion>
-                  @for (runningApp of process.runningApps; track runningApp.appResourceId; let i = $index) {
-                    <mat-expansion-panel>
-                      <mat-expansion-panel-header>
-                        <mat-panel-title>
-                          {{ runningApp.name }}
-                        </mat-panel-title>
-                      </mat-expansion-panel-header>
+              <fl-key-value>
+                <fl-key>{{ 'monitoring.app_config_path' | translate }}</fl-key>
+                {{ process.configFilePath }}
+              </fl-key-value>
 
-                      <lab-monitoring-app-detail [appInstance]="runningApp"></lab-monitoring-app-detail>
-                    </mat-expansion-panel>
-                  }
-                </mat-accordion>
-              }
+              <lab-monitoring-app-detail [appInstance]="process.app"></lab-monitoring-app-detail>
             </fl-card-body>
           </fl-card>
         }

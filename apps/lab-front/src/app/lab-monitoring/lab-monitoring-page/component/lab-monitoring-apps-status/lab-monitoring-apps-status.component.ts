@@ -23,6 +23,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
 import { LabMonitoringAppDetailComponent } from '../lab-monitoring-app-detail/lab-monitoring-app-detail.component';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 
 /**
  * Component to show information about the apps status
@@ -47,6 +48,7 @@ import { LabMonitoringAppDetailComponent } from '../lab-monitoring-app-detail/la
     AsyncPipe,
     TranslatePipe,
     LabMonitoringAppDetailComponent,
+    FlUserModule,
   ],
 })
 export class LabMonitoringAppsStatusComponent {
