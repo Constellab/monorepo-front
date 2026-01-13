@@ -1,8 +1,12 @@
 <!--   Owner section      -->
-@if ((isOwner$ | async) && (isHttpAccessible$ | async)) {
-  <ca-lab-global-status class="g-section"></ca-lab-global-status>
+@if (isOwner$ | async) {
+  @if (isHttpAccessible$ | async) {
+    <ca-lab-global-status class="g-section"></ca-lab-global-status>
 
-  <ca-lab-manager class="g-section"></ca-lab-manager>
+    <ca-lab-manager class="g-section"></ca-lab-manager>
+  }
 
-  <ca-lab-green-options class="g-section"></ca-lab-green-options>
+  @if (isCloud$ | async) {
+    <ca-lab-green-options class="g-section"></ca-lab-green-options>
+  }
 }

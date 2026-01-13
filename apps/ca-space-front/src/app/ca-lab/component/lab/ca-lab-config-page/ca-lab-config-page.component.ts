@@ -23,6 +23,7 @@ export class CaLabConfigPageComponent implements OnInit {
   isOwner$: Observable<boolean> = this.state.isLabOwner$();
 
   isHttpAccessible$: Observable<boolean> = this.state.isHttpAccessible$();
+  isCloud$: Observable<boolean> = this.state.isCloud$();
 
   ngOnInit(): void {
     this.configState.init();
