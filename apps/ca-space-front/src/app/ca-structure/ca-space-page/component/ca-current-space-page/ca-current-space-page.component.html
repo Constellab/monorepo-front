@@ -1,11 +1,11 @@
 <div class="g-page-fixed">
-  <fl-horizontal-nav-bar class="g-page-title" [items]="routes">
-    <fl-horizontal-nav-bar-title>
-      @if (space$ | async; as space) {
+  @if (space$ | async; as space) {
+    <fl-horizontal-nav-bar class="g-page-title" [items]="routes" [smallScreenTitle]="space.name">
+      <fl-horizontal-nav-bar-title>
         <h1 class="title">{{ space.name }}</h1>
-      }
-    </fl-horizontal-nav-bar-title>
-  </fl-horizontal-nav-bar>
+      </fl-horizontal-nav-bar-title>
+    </fl-horizontal-nav-bar>
+  }
 
   <router-outlet></router-outlet>
 </div>

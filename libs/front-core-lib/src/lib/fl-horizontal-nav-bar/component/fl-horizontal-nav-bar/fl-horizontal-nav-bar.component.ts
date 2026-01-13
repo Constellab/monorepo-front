@@ -1,5 +1,5 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, inject,Input, ViewChild } from '@angular/core';
+import { Component, inject, input, ViewChild } from '@angular/core';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { NavigationEnd, Router } from '@angular/router';
 import { Observable, startWith } from 'rxjs';
@@ -21,7 +21,16 @@ export class FlHorizontalNavBarComponent {
   private breakpointObserver = inject(BreakpointObserver);
   private router = inject(Router);
 
-  @Input() items: FlHorizontalNavBarItem[];
+  /**
+   * Items to display in the navigation bar
+   */
+  items = input.required<FlHorizontalNavBarItem[]>();
+
+  /**
+   * Title to display on small screen menu
+   * This title will be shown with the current active item below
+   */
+  smallScreenTitle = input.required<string>();
 
   @ViewChild(MatMenuTrigger, { static: false }) trigger: MatMenuTrigger;
 
@@ -42,7 +51,7 @@ export class FlHorizontalNavBarComponent {
   }
 
   private getActiveItem(): FlHorizontalNavBarItem {
-    for (const item of this.items) {
+    for (const item of this.items()) {
       if (
         item.route &&
         this.router.isActive(item.route, {
