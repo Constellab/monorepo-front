@@ -3,6 +3,65 @@ import nx from '@nx/eslint-plugin';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
 
 import angular from 'angular-eslint';
+
+function getSubConfigs(folder, prefix, isLib, disableModuleBoundary) {
+  const filesPattern = isLib
+    ? [`libs/${folder}/**/*.ts`, `libs/${folder}/**/*.tsx`]
+    : [`apps/${folder}/**/*.ts`, `apps/${folder}/**/*.tsx`];
+
+  const selectorPrefix = prefix;
+  const classPrefix = prefix.charAt(0).toUpperCase() + prefix.slice(1);
+
+  const rules = {
+    '@angular-eslint/directive-selector': [
+      'error',
+      {
+        type: 'attribute',
+        prefix: selectorPrefix,
+        style: 'camelCase',
+      },
+    ],
+    '@angular-eslint/component-selector': [
+      'error',
+      {
+        type: 'element',
+        prefix: selectorPrefix,
+        style: 'kebab-case',
+      },
+    ],
+    '@typescript-eslint/naming-convention': [
+      'error',
+      {
+        selector: ['class', 'interface', 'typeAlias'],
+        modifiers: ['exported'],
+        format: ['PascalCase'],
+        prefix: [classPrefix],
+      },
+      {
+        selector: ['function', 'variable'],
+        modifiers: ['exported'],
+        // define as PascalCase because the prefix is not included in the format check
+        // so if the name is e.g. "flMyFunction" it will still be valid because it checks for "MyFunction"
+        format: ['PascalCase'],
+        prefix: [prefix],
+      },
+    ],
+  };
+
+  if (disableModuleBoundary) {
+    rules['@nx/enforce-module-boundaries'] = 'off';
+  }
+
+  if (isLib) {
+    rules['@angular-eslint/prefer-standalone'] = 'off';
+  }
+
+  return {
+    files: filesPattern,
+    rules: rules,
+  };
+}
+
 export default defineConfig([
   ...nx.configs['flat/base'],
   ...nx.configs['flat/typescript'],
@@ -87,4 +146,29 @@ export default defineConfig([
     extends: [angular.configs.templateRecommended, angular.configs.templateAccessibility],
     rules: {},
   },
+
+  // App and library-specific configurations
+  ...nx.configs['flat/angular'],
+  ...nx.configs['flat/angular-template'],
+
+  // Apps
+  getSubConfigs('ca-space-front', 'ca', false, false),
+  getSubConfigs('dc-dashboard-components', 'dc', false, false),
+  getSubConfigs('ha-community-front', 'ha', false, false),
+  getSubConfigs('lab-front', 'lab', false, false),
+  getSubConfigs('lab-manager-standalone', 'lms', false, false),
+
+  // Libraries
+  getSubConfigs('bio-network', 'bn', true, false),
+  getSubConfigs('chart', 'ch', true, false),
+  getSubConfigs('community-lib', 'co', true, false),
+  getSubConfigs('front-core-lib', 'fl', true, true),
+  getSubConfigs('lab-lib', 'li', true, true),
+  getSubConfigs('lab-manager-lib', 'lml', true, false),
+  getSubConfigs('mail', 'ma', true, false),
+  getSubConfigs('protocol', 'pr', true, false),
+  getSubConfigs('resource-view', 'rv', true, false),
+  getSubConfigs('spreadsheet', 'sp', true, false),
+  getSubConfigs('technical-doc', 'td', true, false),
+  getSubConfigs('text-editor', 'te', true, false),
 ]);
