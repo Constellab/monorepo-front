@@ -10,4 +10,8 @@ export class FlChipComponent {
   @HostBinding('class')
   @Input()
   size: 'normal' | 'small' | 'tiny' = 'normal';
+
+  @HostBinding('class.disabled')
+  @Input()
+  disabled: boolean = false;
 }

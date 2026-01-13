@@ -1,9 +1,9 @@
-import { Component, EventEmitter, inject,Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormGroupDirective, NgForm, UntypedFormGroup } from '@angular/forms';
 import { FlFormHelper } from '@monorepo/front-core-lib/fl-core';
 import { FlMouseButton } from '@monorepo/front-core-lib/fl-core';
 import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
-import { Subscription } from 'rxjs';
+import { merge, Subscription } from 'rxjs';
 
 import { FlFormFilledInput, FlFormInputsManagerConfig } from '../fl-form-inputs-manager.class';
 
@@ -80,7 +80,9 @@ export class FlFormInputsManagerComponent implements OnInit, OnDestroy {
       }
     }
 
-    this.subscription = this.formGp.valueChanges.subscribe(() => this.refreshChipList());
+    this.subscription = merge(this.formGp.valueChanges, this.formGp.statusChanges).subscribe(() =>
+      this.refreshChipList()
+    );
 
     // call the refresh on start
     this.refreshChipList();
@@ -116,12 +118,18 @@ export class FlFormInputsManagerComponent implements OnInit, OnDestroy {
   }
 
   onChipClick(formInput: FlFormFilledInput, event: MouseEvent): void {
+    if (formInput.control.disabled) {
+      return;
+    }
     if (event.button === FlMouseButton.MIDDLE) {
       this.clearInput(formInput);
     }
   }
 
   clearInput(formInput: FlFormFilledInput): void {
+    if (formInput.control.disabled) {
+      return;
+    }
     // clear the form control value
     formInput.control.reset();
 

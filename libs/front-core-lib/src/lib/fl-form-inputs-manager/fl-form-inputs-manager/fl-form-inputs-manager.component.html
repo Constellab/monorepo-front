@@ -1,5 +1,9 @@
 @for (input of filledInputs; track input.key) {
-  <fl-chip class="chip" size="small" (auxclick)="onChipClick(input, $event)">
+  <fl-chip
+    class="chip g-text-not-selectable"
+    size="small"
+    [disabled]="input.control.disabled"
+    (auxclick)="onChipClick(input, $event)">
     <fl-text-icon iconPosition="end" gap="5px">
       {{ input.name | flTranslatableText | async }}
       <mat-icon class="g-icon-tiny remove-icon" (click)="clearInput(input)">cancel</mat-icon>
