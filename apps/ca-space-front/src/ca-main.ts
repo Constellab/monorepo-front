@@ -26,7 +26,6 @@ import { ClSupportedLanguage } from '@monorepo/core-lib';
 import { FlApiModule } from '@monorepo/front-core-lib/fl-api';
 import { FlAuthModule } from '@monorepo/front-core-lib/fl-auth';
 import { FL_CAPTCHA_MODULE_CONFIG, FlCaptchaModuleConfig } from '@monorepo/front-core-lib/fl-captcha';
-import { FlDifyLoaderService } from '@monorepo/front-core-lib/fl-chatbot';
 import {
   flLoadEnvironmentFromAssets,
   flLuxonDateFormat,
@@ -67,10 +66,6 @@ import { caEnvironmentPath, CaEnvironmentSettings } from './environments/ca-envi
 
 function loadThemeOnInit(themeService: FlThemeService): void {
   themeService.init();
-}
-
-function loadDify(difyService: FlDifyLoaderService): void {
-  difyService.load(CaEnvironmentHelper.getDifyChatbotToken(), CaEnvironmentHelper.isProduction());
 }
 
 function configureCaptcha(): FlCaptchaModuleConfig {
@@ -132,7 +127,6 @@ function bootstrapApp(): void {
         multi: true,
       },
       provideAppInitializer(() => loadThemeOnInit(inject(FlThemeService))),
-      provideAppInitializer(() => loadDify(inject(FlDifyLoaderService))),
       provideAppInitializer(() => initRootInjector(inject(Injector))),
       provideAppInitializer(() => TeFixInit.fixEditorInit()),
       { provide: FL_CAPTCHA_MODULE_CONFIG, useFactory: configureCaptcha },
