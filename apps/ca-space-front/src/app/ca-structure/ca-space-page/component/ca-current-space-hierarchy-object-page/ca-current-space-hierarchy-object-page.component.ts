@@ -31,9 +31,9 @@ import {
 } from '../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
 import { CaHierarchyObjectService } from '../../../../ca-core/service-api/ca-hierarchy-object.service';
 import {
+  CaHierarchyObjectActionBase,
   CaHierarchyObjectBaseActionMenu,
   CaHierarchyObjectMoveToTrashAction,
-  CaHierarchyObjectRestoreFromTrashAction,
 } from '../../../../ca-folder/module/ca-folder-detail-page/ca-hierarchy-object-base-action-menu';
 
 @Component({
@@ -127,10 +127,12 @@ export class CaCurrentSpaceHierarchyObjectPageComponent implements OnInit {
       .subscribe((hierarchyObjectActionEvent) => this.onMenuEvent(hierarchyObjectActionEvent));
   }
 
-  private onMenuEvent(
-    event: CaHierarchyObjectMoveToTrashAction | CaHierarchyObjectRestoreFromTrashAction | null
-  ): void {
+  private onMenuEvent(event: CaHierarchyObjectMoveToTrashAction | CaHierarchyObjectActionBase | null): void {
     if (event == null) return;
-    this.datasource.updateItem(event.hierarchyObject);
+    if (event.action === 'delete') {
+      this.datasource.removeItemById(event.hierarchyObjectId);
+    } else {
+      this.datasource.updateItem(event.hierarchyObject);
+    }
   }
 }

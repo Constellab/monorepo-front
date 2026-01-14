@@ -226,17 +226,17 @@ export class CaHierarchyObjectBaseActionMenu extends FlBaseActionMenu {
   }
 
   /**
-   * Simple menu with only move to trash or restore from trash
+   * Simple menu with only move to trash,  restore from trash and delete button
    * @param event
    * @param hierarchyObject
    */
   public openTrashRestoreMenu(
     event: MouseEvent,
     hierarchyObject: CaHierarchyObject
-  ): Observable<CaHierarchyObjectMoveToTrashAction | CaHierarchyObjectRestoreFromTrashAction | null> {
+  ): Observable<CaHierarchyObjectMoveToTrashAction | CaHierarchyObjectActionBase | null> {
     const menu: FlMenuDynamic[] = [];
     if (hierarchyObject.isInTrash()) {
-      menu.push(this.getRestoreFromTrashButton());
+      menu.push(...this.getHierarchyObjectTrashMenu());
     } else {
       menu.push(this.getMoveToTrashButton());
     }
