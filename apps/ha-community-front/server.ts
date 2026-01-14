@@ -32,7 +32,7 @@ environment.settings = {
 };
 
 // The Express app is exported so that it can be used by serverless Functions.
-export function app(): express.Express {
+function app(): express.Express {
   const server = express();
   const serverDistFolder = dirname(fileURLToPath(import.meta.url));
   const browserDistFolder = resolve(serverDistFolder, '../browser');
@@ -59,14 +59,14 @@ export function app(): express.Express {
       //'unsafe-hashes' 'sha256-MhtPZXr7+LpJUY5qtMutB+qWfQtMaPccfe7QXtCcEYc='
       // is for the inline script in the index.html
       // script-src : https://www.google.com, https://www.gstatic.com
-      // eslint-disable-next-line max-len
+
       const scriptSrc =
         "script-src 'self' 'unsafe-hashes' 'sha256-MhtPZXr7+LpJUY5qtMutB+qWfQtMaPccfe7QXtCcEYc=' " +
         "'sha256-fPMfCibMhhkJZAz+L32w5D6q/jMoM8B+cblEqezMH44=' *.constellab.community " +
         'https://www.google.com https://www.gstatic.com *.googletagmanager.com https://udify.app data:';
 
       // frame-src https://www.google.com/' is for the recaptcha
-      // eslint-disable-next-line max-len
+
       const frameSrc =
         "frame-src 'self' *.gencovery.com *.constellab.community *.gencovery.io *.constellab.app " +
         'youtube.com www.youtube.com https://www.google.com https://udify.app';
@@ -78,12 +78,11 @@ export function app(): express.Express {
       const imgSrc =
         "img-src 'self' blob: data: http: https: *.gencovery.com *.constellab.community http://www.w3.org";
       // https://cdn.jsdelivr.net/npm/@emoji-mart/data is used to allow the emoji-mart data
-      // eslint-disable-next-line max-len
       const connectSrc =
         "connect-src 'self' *.gencovery.com *.constellab.community https://fonts.googleapis.com " +
         'https://fonts.gstatic.com *.google-analytics.com *.googletagmanager.com *.algolianet.com ' +
-        '*.algolia.net https://cdn.jsdelivr.net/npm/@emoji-mart/data https://api.github.com';
-      // eslint-disable-next-line max-len
+        '*.algolia.net https://cdn.jsdelivr.net/npm/@emoji-mart/data https://api.github.com ' +
+        'https://www.google.com/recaptcha';
       const mediaSrc = "media-src 'self' https://storage.sbg.cloud.ovh.net";
 
       res.setHeader(
