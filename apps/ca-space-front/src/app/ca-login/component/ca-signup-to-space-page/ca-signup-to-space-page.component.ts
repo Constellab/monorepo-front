@@ -95,7 +95,7 @@ export class CaSignupToSpacePageComponent implements OnInit {
   }
 
   private generateCaptcha(): Observable<string> {
-    return this.captchaService.executeCaptcha('action_two');
+    return this.captchaService.executeCaptcha('signup');
   }
 
   private signupSuccess(): void {

@@ -68,7 +68,7 @@ if (environment.production) {
     constellabApiUrl: 'https://api.preconstellab.com',
     constellabFrontUrl: 'https://preconstellab.com',
     communityFrontUrl: 'http://localhost:4200',
-    captchaSiteKey: '123456',
+    captchaSiteKey: '',
     googleAnalyticsId: 'G-HDSPQ44FBS',
     discordLink: 'https://discord.com/invite/7nmH5qKM',
     algoliaAppId: 'S233I3C24Z',
@@ -76,7 +76,6 @@ if (environment.production) {
     algoliaIndexName: 'Community Preprod',
     algoliaSiteVerificationKey: null,
     difyChatbotToken: '22bhCqCeaaGiVEhr',
-    // eslint-disable-next-line max-len
     homeVideoLink: null,
   };
 

@@ -165,7 +165,7 @@ if (environment.production) {
     communityApiUrl: 'https://community-api-pre-prod.constellab-pre-prod.gencovery.com',
     communityFrontUrl: 'http://localhost:4200',
     frontDomain: 'localhost',
-    captchaSiteKey: '123456',
+    captchaSiteKey: '',
     difyChatbotToken: '',
   };
   bootstrapApp();

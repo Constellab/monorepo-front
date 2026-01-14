@@ -179,7 +179,7 @@ if (environment.production) {
     spaceApiUrl: 'http://localhost:3001',
     communityFrontUrl: 'https://community-pre-prod.gencovery.com',
     communityApiUrl: 'https://community-api-pre-prod.constellab-pre-prod.gencovery.com',
-    captchaSiteKey: '123456',
+    captchaSiteKey: '',
     prodFrontUrls: 'http://localhost:4200',
     devFrontUrls: 'http://localhost:4200',
   };

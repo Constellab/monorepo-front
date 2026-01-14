@@ -75,7 +75,7 @@ export class FlSignupPageComponent implements OnInit {
   }
 
   private generateCaptcha(): Observable<string> {
-    return this.captchaService.executeCaptcha('action_one');
+    return this.captchaService.executeCaptcha('signup');
   }
 
   private onSignupSuccess(): void {

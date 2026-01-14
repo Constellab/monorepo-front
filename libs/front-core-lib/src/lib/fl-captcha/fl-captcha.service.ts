@@ -15,7 +15,7 @@ export class FlCaptchaService {
 
   public executeCaptcha(action: string): Observable<string> {
     // disable captcha on local
-    if (this.config.isLocal || ClHelpService.isNullOrEmpty(this.config.siteKey)) return of(null);
+    if (ClHelpService.isNullOrEmpty(this.config.siteKey)) return of(null);
 
     const captchaService = this.injector.get(ReCaptchaV3Service);
     return captchaService.execute(action).pipe(

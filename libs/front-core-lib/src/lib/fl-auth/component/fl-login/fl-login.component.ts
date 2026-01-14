@@ -46,7 +46,7 @@ export class FlLoginComponent {
   }
 
   private generateCaptcha(): Observable<string> {
-    return this.captchaService.executeCaptcha('action_two');
+    return this.captchaService.executeCaptcha('login');
   }
 
   private onLoginSuccess(response: FlAuthLoginResponse): void {
