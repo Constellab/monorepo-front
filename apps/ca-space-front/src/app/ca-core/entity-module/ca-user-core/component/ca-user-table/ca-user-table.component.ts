@@ -163,4 +163,24 @@ export class CaUserTableComponent {
 
     this.dialogService.openConfirmDialog(input).afterClosed().subscribe();
   }
+
+  deleteUser(user: CaUser): void {
+    const input: FlConfirmDialogInput = {
+      title: 'delete_user',
+      content: 'delete_user_confirmation',
+      observable: this.userAccountsService.deleteUser(user.id),
+      successMessage: 'user_deleted',
+    };
+
+    this.dialogService
+      .openConfirmDialog(input)
+      .afterClosed()
+      .subscribe((result) => this.onDeleteUserClosed(result, user));
+  }
+
+  private onDeleteUserClosed(result: FlConfirmDialogResult, user: CaUser): void {
+    if (result.choice) {
+      this.datasource.removeItem(user);
+    }
+  }
 }

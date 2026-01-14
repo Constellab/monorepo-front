@@ -102,6 +102,13 @@
             <span>{{ 'lock_user' | translate }}</span>
           </button>
         }
+
+        @if (row.statusMailNotValidated()) {
+          <button mat-menu-item type="button" (click)="deleteUser(row)" class="warn">
+            <mat-icon>delete</mat-icon>
+            <span>{{ 'delete_user' | translate }}</span>
+          </button>
+        }
       </mat-menu>
     </mat-cell>
   </ng-container>
