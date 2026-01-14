@@ -16,10 +16,6 @@ export class CaUserAccountsService extends FlUserAccountService {
 
   private readonly route: string = 'accounts';
 
-  constructor() {
-    super();
-  }
-
   /**
    * Signup a new user
    */
@@ -66,9 +62,5 @@ export class CaUserAccountsService extends FlUserAccountService {
 
   public updateLicense(userId: string, license: CaUserUpdateLicenseDTO): Observable<CaUser> {
     return this.apiService.put(`${this.route}/${userId}/license`, license, CaUser);
-  }
-
-  public deleteUser(userId: string): Observable<void> {
-    return this.apiService.delete(`${this.route}/${userId}`);
   }
 }

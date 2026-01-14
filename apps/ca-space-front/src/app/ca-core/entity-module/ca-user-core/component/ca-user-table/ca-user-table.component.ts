@@ -34,6 +34,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { CaUser, CaUserDatasourcePaginated } from '../../../../model/entities/ca-user.class';
 import { CaDetailRoutePipe } from '../../../../module/ca-core-pipe/ca-detail-route/ca-detail-route.pipe';
 import { CaUserAccountsService } from '../../../../service-api/ca-user-accounts.service';
+import { CaUserDeletionService } from '../../../../service-api/ca-user-deletion.service';
 import {
   CaUserUpdateLicenseDialogInput,
   CaUserUpdateLicenseFormDialogComponent,
@@ -77,6 +78,7 @@ import {
 })
 export class CaUserTableComponent {
   private userAccountsService = inject(CaUserAccountsService);
+  private userDeletionService = inject(CaUserDeletionService);
   private dialogService = inject(FlDialogService);
 
   @Input({ required: true }) datasource: CaUserDatasourcePaginated<any>;
@@ -168,7 +170,7 @@ export class CaUserTableComponent {
     const input: FlConfirmDialogInput = {
       title: 'delete_user',
       content: 'delete_user_confirmation',
-      observable: this.userAccountsService.deleteUser(user.id),
+      observable: this.userDeletionService.deleteUser(user.id),
       successMessage: 'user_deleted',
     };
 
