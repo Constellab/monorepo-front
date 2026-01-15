@@ -1,4 +1,4 @@
-import { Component, inject,Input } from '@angular/core';
+import { Component, inject, Input, signal } from '@angular/core';
 import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { LiResourceView, LiViewConfig, LiViewConfigService } from '@monorepo/lab-lib/li-core';
@@ -27,6 +27,8 @@ import { LiResourceDetailState } from '../../state/li-resource-detail.state';
 export class LiResourceViewDetailComponent {
   private viewConfigService = inject(LiViewConfigService);
   private resourceState = inject(LiResourceDetailState, { optional: true });
+
+  headerHidden = this.resourceState?.isHeaderHidden ?? signal(false);
 
   @Input({ required: true }) labView: LiResourceView;
 

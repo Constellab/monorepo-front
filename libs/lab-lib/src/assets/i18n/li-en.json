@@ -201,6 +201,8 @@
     "favorite_views": "Favorite views",
     "native_views": "Native views",
     "undock_view": "Undock view",
+    "show_header": "Show header",
+    "hide_header": "Hide header",
     "views": "Views",
     "resource_info": "Resource info",
     "transformers": "Transformers",

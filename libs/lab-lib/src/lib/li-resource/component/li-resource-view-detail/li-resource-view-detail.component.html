@@ -1,30 +1,32 @@
 <fl-section [object]="labView" class="g-full-height container">
-  <fl-section-header class="header">
-    <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
-      <td-type-icon-badge [style]="labView.style" [iconSize]="28"></td-type-icon-badge>
-      <h3
-        class="header-title g-text-ellipsis-2-lines"
-        flElementEditable
-        (flElementValueChange)="updateTitle($event)">
-        {{ labView.title }}
-      </h3>
+  @if (!headerHidden()) {
+    <fl-section-header class="header">
+      <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
+        <td-type-icon-badge [style]="labView.style" [iconSize]="28"></td-type-icon-badge>
+        <h3
+          class="header-title g-text-ellipsis-2-lines"
+          flElementEditable
+          (flElementValueChange)="updateTitle($event)">
+          {{ labView.title }}
+        </h3>
 
-      @if (labView.viewConfig) {
-        <li-view-config-favorite
+        @if (labView.viewConfig) {
+          <li-view-config-favorite
+            [viewConfig]="labView.viewConfig"
+            (update)="onUpdate($event)"></li-view-config-favorite>
+        }
+      </div>
+
+      <fl-section-actions>
+        <ng-content></ng-content>
+        <rv-technical-info-button [technicalInfo]="labView.view.technical_info"></rv-technical-info-button>
+
+        <li-view-config-actions-menu
           [viewConfig]="labView.viewConfig"
-          (update)="onUpdate($event)"></li-view-config-favorite>
-      }
-    </div>
-
-    <fl-section-actions>
-      <ng-content></ng-content>
-      <rv-technical-info-button [technicalInfo]="labView.view.technical_info"></rv-technical-info-button>
-
-      <li-view-config-actions-menu
-        [viewConfig]="labView.viewConfig"
-        (update)="onUpdate($event)"></li-view-config-actions-menu>
-    </fl-section-actions>
-  </fl-section-header>
+          (update)="onUpdate($event)"></li-view-config-actions-menu>
+      </fl-section-actions>
+    </fl-section-header>
+  }
 
   <ng-container *flSectionBody>
     <rv-resource-view

@@ -1,12 +1,6 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { MatAnchor, MatButton } from '@angular/material/button';
-import {
-  MatAccordion,
-  MatExpansionPanel,
-  MatExpansionPanelHeader,
-  MatExpansionPanelTitle,
-} from '@angular/material/expansion';
 import { MatIcon } from '@angular/material/icon';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
@@ -18,12 +12,12 @@ import {
 import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { LiAppService, LiAppsStatus } from '@monorepo/lab-lib/li-core';
 import { TranslatePipe } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
 import { LabMonitoringAppDetailComponent } from '../lab-monitoring-app-detail/lab-monitoring-app-detail.component';
-import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 
 /**
  * Component to show information about the apps status
@@ -39,10 +33,6 @@ import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
     MatButton,
     FlSectionModule,
     FlKeyValueModule,
-    MatAccordion,
-    MatExpansionPanel,
-    MatExpansionPanelHeader,
-    MatExpansionPanelTitle,
     MatAnchor,
     FlCoreComponentModule,
     AsyncPipe,

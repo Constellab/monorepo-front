@@ -1,8 +1,14 @@
-<div class="g-layout-col g-full-height">
-  @if (hasChildren()) {
-    <li-resource-children-tabs></li-resource-children-tabs>
+<div class="g-layout-col g-full-height li-resource-detail-container">
+  @if (headerHidden()) {
+    <div class="header-reveal-zone" (click)="showHeader()" (keydown.enter)="showHeader()" tabindex="0">
+      <mat-icon class="show-header-button" [matTooltip]="'li.show_header' | translate">expand_more</mat-icon>
+    </div>
+  } @else {
+    @if (hasChildren()) {
+      <li-resource-children-tabs></li-resource-children-tabs>
+    }
+    <li-resource-detail-header [displayMode]="displayMode" class="header"></li-resource-detail-header>
   }
-  <li-resource-detail-header [displayMode]="displayMode" class="header"></li-resource-detail-header>
 
   <!-- View -->
   <fl-async-section
@@ -13,6 +19,13 @@
     <ng-container *flSectionBodyStatusEvent="selectedView() as view">
       @if (view) {
         <li-resource-view-detail [labView]="view" class="g-full-height">
+          <button
+            mat-icon-button
+            type="button"
+            [matTooltip]="'li.hide_header' | translate"
+            (click)="hideHeader()">
+            <mat-icon>expand_less</mat-icon>
+          </button>
           <button
             mat-icon-button
             type="button"

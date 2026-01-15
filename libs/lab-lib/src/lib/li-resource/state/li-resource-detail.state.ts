@@ -47,6 +47,7 @@ export class LiResourceDetailState implements OnDestroy {
   private queryParamHandler: FlQueryParamHandler<{
     resourceId: string;
     viewId: string;
+    hideHeader: string;
   }> = inject(FlQueryParamHandler);
 
   private static id = 0;
@@ -60,6 +61,8 @@ export class LiResourceDetailState implements OnDestroy {
   private _selectedView: WritableSignal<FlStatusEvent<LiResourceView>> = signal(null);
 
   private favoriteViews: Record<string, LiViewConfigDatasource> = {};
+
+  private hideHeader: WritableSignal<boolean> = signal(false);
 
   // if true the query param handler will be updated
   private updateQueryParams: boolean;
@@ -105,6 +108,11 @@ export class LiResourceDetailState implements OnDestroy {
         // load the main resource
         this.selectResource(resourceId, params.viewId, false);
       }
+
+      // Initialize hideHeader from query params
+      if (params.hideHeader != null) {
+        this.hideHeader.set(params.hideHeader === 'true');
+      }
     });
 
     this.updateQueryParams = updateQueryParams;
@@ -121,6 +129,17 @@ export class LiResourceDetailState implements OnDestroy {
       this.resourceService
         .getResourceChildren(resource.id)
         .subscribe((children) => this.resources.update((resources) => [...resources, ...children]));
+    }
+
+    /**
+     * For application, hide the header by default unless specified in query params
+     */
+    if (resource.isApplication) {
+      this.queryParamHandler.getFirstQueryParams().subscribe((params) => {
+        if (params.hideHeader == null) {
+          this.setHideHeader(true);
+        }
+      });
     }
   }
 
@@ -344,6 +363,17 @@ export class LiResourceDetailState implements OnDestroy {
   get actionType(): string {
     // use id to make sure that the action type is unique by state
     return `view-portal-loader-${this.id}`;
+  }
+
+  public setHideHeader(hide: boolean): void {
+    this.hideHeader.set(hide);
+    if (this.updateQueryParams) {
+      this.queryParamHandler.mergeQueryParams({ hideHeader: hide.toString() });
+    }
+  }
+
+  public get isHeaderHidden(): Signal<boolean> {
+    return this.hideHeader.asReadonly();
   }
 
   ngOnDestroy(): void {

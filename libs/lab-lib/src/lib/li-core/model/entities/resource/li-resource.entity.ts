@@ -70,6 +70,9 @@ export class LiResource extends LiBaseEntityWithUser implements LiFlaggedEntity 
   @Expose({ name: 'shared_with_space' })
   sharedWithSpace: boolean;
 
+  @Expose({ name: 'is_application' })
+  isApplication: boolean;
+
   isFsNode(): boolean {
     return this.fsNode != null;
   }

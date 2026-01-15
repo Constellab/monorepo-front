@@ -44,6 +44,7 @@ export class LiResourceDetailComponent implements OnInit {
 
   hasChildren: Signal<boolean> = this.state.hasChildren;
   selectedView = this.state.selectedView;
+  headerHidden = this.state.isHeaderHidden;
 
   ngOnInit(): void {
     if (this.resourceId instanceof Observable) {
@@ -60,5 +61,13 @@ export class LiResourceDetailComponent implements OnInit {
 
   undockView(): void {
     this.state.undockCurrentView();
+  }
+
+  hideHeader(): void {
+    this.state.setHideHeader(true);
+  }
+
+  showHeader(): void {
+    this.state.setHideHeader(false);
   }
 }
