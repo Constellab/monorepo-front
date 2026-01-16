@@ -1,3 +1,6 @@
+import 'zone.js';
+import 'reflect-metadata';
+
 import { createCustomElement } from '@angular/elements';
 import { createApplication } from '@angular/platform-browser';
 

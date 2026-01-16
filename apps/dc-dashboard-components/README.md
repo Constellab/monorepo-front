@@ -15,7 +15,7 @@ To dev a component, start the dc-components app:
 npm run dc-components
 ```
 
-Open the http://localhost:4201. This mode is not supposed to be used in a streamlit app.
+Open the http://localhost:4201. This mode is standalone and does not requires streamlit or reflex app.
 
 To run in dev mode in streamlit app, execute the following command:
 
@@ -25,6 +25,16 @@ npm run dc-streamlit-components:serve-iframe
 
 Then in python back, mark the StreamlitComponentLoader a not release `IS_RELEASE=False`, this will use
 the local running component.
+
+## Test a component in reflex app
+
+To test a component in reflex app, follow these steps:
+
+1. Build the dc-components app in dev mode: `npm run dc-components:build-dev`
+2. Copy the built files from `dist/dc-dashboard-components/reflex-components/browser` to the reflex app static folder `my_reflex_app/assets/external/`
+3. In the corresponding reflex component, replace the `import '/public/external/gws_plugin/main.js;'` with `import '/public/external/browser/main.js';`;
+4. Run the reflex app
+   `
 
 ## Dev the iframe-message
 

@@ -58,7 +58,8 @@
     "dc-streamlit-components:build-prod": "nx run dc-dashboard-components:build-components:streamlit-production --base-href='.'",
     "dc-streamlit-iframe-message:serve": "nx run dc-dashboard-components:serve-streamlit-iframe-message:development -- --no-hmr --port=4201",
     "dc-streamlit-iframe-message:build-prod": "nx run dc-dashboard-components:build-streamlit-iframe-message:production --base-href='.'",
-    "dc-reflex-components:build-prod": "nx run dc-dashboard-components:build-components:reflex-prod --base-href='.'"
+    "dc-reflex-components:build-prod": "nx run dc-dashboard-components:build-components:reflex-prod",
+    "dc-reflex-components:build-dev": "nx run dc-dashboard-components:build-components:reflex-dev"
   },
   "private": true,
   "dependencies": {

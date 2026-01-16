@@ -107,7 +107,9 @@
           "tsConfig": "apps/dc-dashboard-components/src/dashboard-components/tsconfig.reflex.json",
           "browser": "apps/dc-dashboard-components/src/dashboard-components/dc-main-reflex.ts",
           "outputPath": "dist/apps/dc-dashboard-components/reflex-components",
-          "outputHashing": "all",
+          "polyfills": false,
+          "index": false,
+          "outputHashing": "none",
           "optimization": {
             "scripts": true,
             "styles": {
@@ -116,6 +118,18 @@
             },
             "fonts": true
           }
+        },
+        "reflex-dev": {
+          "tsConfig": "apps/dc-dashboard-components/src/dashboard-components/tsconfig.reflex.json",
+          "browser": "apps/dc-dashboard-components/src/dashboard-components/dc-main-reflex.ts",
+          "outputPath": "dist/apps/dc-dashboard-components/reflex-components",
+          "polyfills": false,
+          "index": false,
+          "outputHashing": "none",
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
         }
       },
       "defaultConfiguration": "production"
