@@ -2,3 +2,18 @@
   // reduce padding for full iframe
   padding: 1em 0 0 1em;
 }
+
+.show-header-container {
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.show-header {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  background-color: var(--hover-color);
+  border-radius: 50%;
+  z-index: 9999;
+  cursor: pointer;
+}

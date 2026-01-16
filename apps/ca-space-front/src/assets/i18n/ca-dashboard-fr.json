@@ -285,5 +285,7 @@
     "request_app": "Demander l'application"
   },
   "close": "Fermer",
-  "app_request_success": "Demande envoyée, nous vous contacterons bientôt"
+  "app_request_success": "Demande envoyée, nous vous contacterons bientôt",
+  "hide_header": "Cacher l'en-tête",
+  "show_header": "Afficher l'en-tête"
 }

@@ -1,7 +1,8 @@
-import { Component, inject, Injector, input } from '@angular/core';
+import { Component, inject, Injector, input, signal } from '@angular/core';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
 import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
@@ -16,6 +17,7 @@ import { CaRootFolderUserRoleObj } from '../../../../ca-core/model/entities/fold
 import { CaHierarchyObjectTagDatasource } from '../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
 import { CaResource } from '../../../../ca-core/model/entities/folder/ca-resource.class';
 import { CaResourceService } from '../../../../ca-core/service-api/ca-resource.service';
+import { CaHierarchyObjectDetailState } from '../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
 import { CaHierarchyObjectEventState } from '../../ca-folder-hierarchy-core/state/ca-hierarchy-object-event.state';
 import {
   CaResourceActionEvent,
@@ -34,6 +36,7 @@ import {
     FlDateModule,
     FlFormModule,
     FlTagModule,
+    MatTooltipModule,
   ],
   templateUrl: './ca-resource-detail.component.html',
   styleUrl: './ca-resource-detail.component.scss',
@@ -44,9 +47,12 @@ export class CaResourceDetailComponent {
   tags = input<CaHierarchyObjectTagDatasource>();
 
   private resourceService = inject(CaResourceService);
+  // use optional because when used in public route (with share link), the state is not provided
   private eventState = inject(CaHierarchyObjectEventState, { optional: true });
+  private hierarchyObjectDetailState = inject(CaHierarchyObjectDetailState, { optional: true });
   private injector = inject(Injector);
 
+  headerHidden = this.hierarchyObjectDetailState?.isHeaderHidden ?? signal(false);
   private sanitizer = inject(DomSanitizer);
 
   // don't use an observable because it breaks the safe url
@@ -87,5 +93,15 @@ export class CaResourceDetailComponent {
     if (this.eventState) {
       this.eventState.emitRenameEvent(resource.id, resource.getHierarchyObjectType(), name);
     }
+  }
+
+  hideHeader(): void {
+    if (this.hierarchyObjectDetailState) {
+      this.hierarchyObjectDetailState.updateViewSettings({ hideHeader: true });
+    }
+  }
+
+  showHideHeaderButton(): boolean {
+    return this.hierarchyObjectDetailState != null;
   }
 }

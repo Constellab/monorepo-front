@@ -1,4 +1,4 @@
-import { inject, Injectable, OnDestroy } from '@angular/core';
+import { inject, Injectable, OnDestroy, Signal, signal, WritableSignal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ClCoreJsonConvert, ClSubscriptionHandler } from '@monorepo/core-lib';
 import { FlQueryParamHandler, FlRouterHelper } from '@monorepo/front-core-lib/fl-core';
@@ -56,7 +56,8 @@ export class CaHierarchyObjectDetailState implements OnDestroy {
   private router = inject(Router);
   private routerService = inject(CaRouterService);
   private eventState = inject(CaHierarchyObjectEventState);
-  private queryParamHandler: FlQueryParamHandler<{ showTree?: string }> = inject(FlQueryParamHandler);
+  private queryParamHandler: FlQueryParamHandler<{ showTree?: string; hideHeader?: string }> =
+    inject(FlQueryParamHandler);
 
   private hierarchyObject$: BehaviorSubject<CaHierarchyObjectContext>;
   private hierarchyObjectId$: Observable<CaHierarchyObjectContextId>;
@@ -69,6 +70,8 @@ export class CaHierarchyObjectDetailState implements OnDestroy {
 
   // by default the tree is opened
   private treeDrawerOpened$: BehaviorSubject<boolean>;
+
+  private hideHeader: WritableSignal<boolean> = signal(false);
 
   private subscriptions = new ClSubscriptionHandler();
 
@@ -118,7 +121,7 @@ export class CaHierarchyObjectDetailState implements OnDestroy {
     // load the root folders
     this.folderService.getAllRootFolders().subscribe((folders) => this.addHierarchyFolderInTree(folders));
 
-    this.initTreeDrawerOpened();
+    this.initQueryParams();
 
     // handle the current object tags
     this.subscriptions.add(
@@ -168,6 +171,13 @@ export class CaHierarchyObjectDetailState implements OnDestroy {
         .subscribe((tags) => this.childrenTags.setData(tags))
     );
 
+    // set default query params for application objects
+    this.getHierarchyContext$().subscribe((hierarchyObject) => {
+      if (hierarchyObject.hierarchyObject.objectType === CaHierarchyObjectType.APPLICATION) {
+        this.initForApplicationObject();
+      }
+    });
+
     // handle the events
     this.subscriptions.add(this.eventState.getEvent$().subscribe((event) => this.onEvent(event)));
   }
@@ -187,19 +197,6 @@ export class CaHierarchyObjectDetailState implements OnDestroy {
         userRole: new CaRootFolderUserRoleObj(findResult.userRole),
       }))
     );
-  }
-
-  toggleTree(): void {
-    this.setTreeOpened(!this.treeDrawerOpened$.value);
-  }
-
-  public setTreeOpened(treeOpened: boolean): void {
-    this.treeDrawerOpened$.next(treeOpened);
-    if (treeOpened) {
-      this.queryParamHandler.mergeQueryParams({ showTree: null });
-    } else {
-      this.queryParamHandler.mergeQueryParams({ showTree: 'false' });
-    }
   }
 
   public getHierarchyContext$(): Observable<CaHierarchyObjectContext> {
@@ -321,12 +318,56 @@ export class CaHierarchyObjectDetailState implements OnDestroy {
     return this.childrenTags;
   }
 
-  private initTreeDrawerOpened(): void {
+  private initQueryParams(): void {
     // init tree open
     this.queryParamHandler.getFirstQueryParams().subscribe(
       // if the query param is not present, the tree is opened
-      (params) => this.treeDrawerOpened$.next(params.showTree !== 'false')
+      (params) => {
+        this.treeDrawerOpened$.next(params.showTree !== 'false');
+        if (params.hideHeader != null) {
+          this.hideHeader.set(params.hideHeader === 'true');
+        }
+      }
     );
+  }
+
+  private initForApplicationObject(): void {
+    this.queryParamHandler.getFirstQueryParams().subscribe((params) => {
+      const updates: { treeOpened?: boolean; hideHeader?: boolean } = {};
+      if (params.showTree == null) {
+        updates.treeOpened = false;
+      }
+      if (params.hideHeader == null) {
+        updates.hideHeader = true;
+      }
+      if (Object.keys(updates).length > 0) {
+        this.updateViewSettings(updates);
+      }
+    });
+  }
+
+  public updateViewSettings(options: { treeOpened?: boolean; hideHeader?: boolean }): void {
+    const params: { showTree?: string | null; hideHeader?: string } = {};
+
+    if (options.treeOpened !== undefined) {
+      this.treeDrawerOpened$.next(options.treeOpened);
+      params.showTree = options.treeOpened ? null : 'false';
+    }
+
+    if (options.hideHeader !== undefined) {
+      this.hideHeader.set(options.hideHeader);
+      params.hideHeader = options.hideHeader.toString();
+    }
+
+    this.queryParamHandler.mergeQueryParams(params);
+  }
+
+  toggleTree(): void {
+    this.updateViewSettings({ treeOpened: !this.treeDrawerOpened$.value });
+  }
+
+  public get isHeaderHidden(): Signal<boolean> {
+    return this.hideHeader.asReadonly();
   }
 
   //////////////////////////////////// EVENTS /////////////////////////////////////
@@ -361,12 +402,11 @@ export class CaHierarchyObjectDetailState implements OnDestroy {
 
     const hierarchyObjectContext = this.hierarchyObject$.value;
     if (hierarchyObjectContext?.hierarchyObject?.id === hierarchyObjectId) {
-      const clone = ClCoreJsonConvert.deepCloneClassAndMerge(
+      hierarchyObjectContext.hierarchyObject = ClCoreJsonConvert.deepCloneClassAndMerge(
         hierarchyObjectContext.hierarchyObject,
         hierarchyObject,
         CaHierarchyObject
       );
-      hierarchyObjectContext.hierarchyObject = clone;
 
       this.hierarchyObject$.next(hierarchyObjectContext);
     }

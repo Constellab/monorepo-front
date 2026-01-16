@@ -285,5 +285,7 @@
     "request_app": "Request App"
   },
   "close": "Close",
-  "app_request_success": "Request sent, we will contact you shortly"
+  "app_request_success": "Request sent, we will contact you shortly",
+  "hide_header": "Hide header",
+  "show_header": "Show header"
 }
