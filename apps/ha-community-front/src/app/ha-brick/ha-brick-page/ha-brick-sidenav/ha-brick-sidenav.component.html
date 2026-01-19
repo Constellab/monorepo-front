@@ -13,80 +13,91 @@
       [routerLink]="'.'"
       [relativeTo]="activatedRoute"
       [routerLinkActive]="'active'"
-      class="g-text-small tree-node g-layout-row g-layout-start-center tree-node-div">
+      class="g-text-small tree-node g-layout-row g-layout-start-center tree-node-div"
+      [ngClass]="currentDocId === '' ? 'selected-tree-node' : ''">
       {{ 'introduction' | translate }}
     </a>
 
-    <mat-tree
-      #tree
-      cdkDropList
-      [cdkDropListData]="tree"
-      (cdkDropListDropped)="drop($event)"
-      [dataSource]="dataSource$"
-      [childrenAccessor]="dataSource$.childrenAccessor"
-      [trackBy]="dataSource$.trackById">
-      <!-- This is the tree node template for leaf nodes -->
-      <mat-tree-node
-        cdkDrag
-        [cdkDragDisabled]="!userHasEditRight()"
-        [cdkDragData]="node"
-        *matTreeNodeDef="let node"
-        [isExpanded]="node.object.isExpanded"
-        matTreeNodePadding
-        [matTreeNodePaddingIndent]="10"
-        class="g-drag-hide-placeholder"
-        (mouseenter)="hoverId = node.id"
-        (mouseleave)="hoverId = null">
-        @if (node.object.children) {
-          <div
-            class="g-text-small tree-node g-layout-row g-layout-start-center"
-            matTreeNodeToggle
-            (click)="node.object.isExpanded ? collapseNode(node) : expandNode(node)">
-            <div class="tree-node-div">
-              {{ node.object.name }}
+    <!--    <mat-tree-->
+    <!--      #tree-->
+    <!--      cdkDropList-->
+    <!--      [cdkDropListData]="tree"-->
+    <!--      (cdkDropListDropped)="drop($event)"-->
+    <!--      [dataSource]="dataSource$"-->
+    <!--      [childrenAccessor]="dataSource$.childrenAccessor"-->
+    <!--      [trackBy]="dataSource$.trackById">-->
+    <!--      &lt;!&ndash; This is the tree node template for leaf nodes &ndash;&gt;-->
+    <!--      <mat-tree-node-->
+    <!--        cdkDrag-->
+    <!--        [cdkDragDisabled]="!userHasEditRight()"-->
+    <!--        [cdkDragData]="node"-->
+    <!--        *matTreeNodeDef="let node"-->
+    <!--        [isExpanded]="node.object.isExpanded"-->
+    <!--        matTreeNodePadding-->
+    <!--        [matTreeNodePaddingIndent]="10"-->
+    <!--        class="g-drag-hide-placeholder"-->
+    <!--        (mouseenter)="hoverId = node.id"-->
+    <!--        (mouseleave)="hoverId = null">-->
+    <!--        @if (node.object.children) {-->
+    <!--          <div-->
+    <!--            class="g-text-small tree-node g-layout-row g-layout-start-center"-->
+    <!--            matTreeNodeToggle-->
+    <!--            (click)="node.object.isExpanded ? collapseNode(node) : expandNode(node)">-->
+    <!--            <div class="tree-node-div">-->
+    <!--              {{ node.object.name }}-->
 
-              <div class="line-icons">
-                @if (userHasEditRight() && hoverId === node.object.id) {
-                  <mat-icon
-                    (click)="onClickMenu($event, true, node.children?.length > 0, node.id)"
-                    class="g-icon-small icon-pointer">
-                    more_vert
-                  </mat-icon>
-                  <mat-icon cdkDragHandle class="drag-drop-bt g-icon-small"> drag_handle</mat-icon>
-                }
-              </div>
-            </div>
-            <button
-              mat-icon-button
-              class="g-button-icon-small toggle-parent-button"
-              [attr.aria-label]="'Toggle ' + node.object.name"
-              type="button">
-              <mat-icon>
-                {{ tree.isExpanded(node) ? 'arrow_drop_down' : 'arrow_right' }}
-              </mat-icon>
-            </button>
-          </div>
-        } @else {
-          <a
-            [routerLink]="'doc/' + node.object.completePath + '/' + node.id"
-            class="g-text-small tree-node a-tree-node g-layout-row g-layout-start-center">
-            <div class="tree-node-without-children tree-node-div">
-              {{ node.object.name }}
-              <div class="line-icons">
-                @if (userHasEditRight() && hoverId === node.object.id) {
-                  <mat-icon
-                    (click)="onClickMenu($event, false, false, node.id)"
-                    class="g-icon-small icon-pointer">
-                    more_vert
-                  </mat-icon>
-                  <mat-icon cdkDragHandle class="drag-drop-bt g-icon-small"> drag_handle</mat-icon>
-                }
-              </div>
-            </div>
-          </a>
-        }
-      </mat-tree-node>
-    </mat-tree>
+    <!--              <div class="line-icons">-->
+    <!--                @if (userHasEditRight() && hoverId === node.object.id) {-->
+    <!--                  <mat-icon-->
+    <!--                    (click)="onClickMenu($event, true, node.children?.length > 0, node.id)"-->
+    <!--                    class="g-icon-small icon-pointer">-->
+    <!--                    more_vert-->
+    <!--                  </mat-icon>-->
+    <!--                  <mat-icon cdkDragHandle class="drag-drop-bt g-icon-small"> drag_handle</mat-icon>-->
+    <!--                }-->
+    <!--              </div>-->
+    <!--            </div>-->
+    <!--            <button-->
+    <!--              mat-icon-button-->
+    <!--              class="g-button-icon-small toggle-parent-button"-->
+    <!--              [attr.aria-label]="'Toggle ' + node.object.name"-->
+    <!--              type="button">-->
+    <!--              <mat-icon>-->
+    <!--                {{ tree.isExpanded(node) ? 'arrow_drop_down' : 'arrow_right' }}-->
+    <!--              </mat-icon>-->
+    <!--            </button>-->
+    <!--          </div>-->
+    <!--        } @else {-->
+    <!--          <a-->
+    <!--            [routerLink]="'doc/' + node.object.completePath + '/' + node.id"-->
+    <!--            class="g-text-small tree-node a-tree-node g-layout-row g-layout-start-center">-->
+    <!--            <div class="tree-node-without-children tree-node-div">-->
+    <!--              {{ node.object.name }}-->
+    <!--              <div class="line-icons">-->
+    <!--                @if (userHasEditRight() && hoverId === node.object.id) {-->
+    <!--                  <mat-icon-->
+    <!--                    (click)="onClickMenu($event, false, false, node.id)"-->
+    <!--                    class="g-icon-small icon-pointer">-->
+    <!--                    more_vert-->
+    <!--                  </mat-icon>-->
+    <!--                  <mat-icon cdkDragHandle class="drag-drop-bt g-icon-small"> drag_handle</mat-icon>-->
+    <!--                }-->
+    <!--              </div>-->
+    <!--            </div>-->
+    <!--          </a>-->
+    <!--        }-->
+    <!--      </mat-tree-node>-->
+    <!--    </mat-tree>-->
+    <ha-brick-sidenav-tree
+      [sidenavObjects]="dataSource$"
+      [selectedObject]="currentDocId"
+      [getRoute]="getRoute"
+      [canEdit]="userHasEditRight()"
+      [dragAndDropDisabled]="false"
+      [showActionIcons]="true"
+      [parentDocFolderId]="parentDocFolderId"
+      (menuButtonEvent)="onDocumentationTreeEvent($event)"
+      (refreshDatasource)="onRefreshDocumentationTree()"></ha-brick-sidenav-tree>
 
     <mat-tree
       #techTree
@@ -134,7 +145,8 @@
       [routerLink]="'version'"
       [relativeTo]="activatedRoute"
       [routerLinkActive]="'active'"
-      class="g-text-small tree-node g-layout-row g-layout-start-center tree-node-div">
+      class="g-text-small tree-node g-layout-row g-layout-start-center tree-node-div"
+      [ngClass]="currentDocId === 'version' ? 'selected-tree-node' : ''">
       {{ 'version' | translate }}
     </a>
   </div>

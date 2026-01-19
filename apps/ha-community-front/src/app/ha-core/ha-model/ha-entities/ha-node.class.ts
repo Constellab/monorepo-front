@@ -3,7 +3,7 @@ import { Type } from 'class-transformer';
 
 import { HaBaseEntity, HaEntity } from './ha-entity.class';
 
-export class HaNoteObjectsTreeDatasource extends FlDatasourceTree<HaNode> {
+export class HaNodeObjectsTreeDatasource extends FlDatasourceTree<HaNode> {
   constructor() {
     super((a, b) => a.order - b.order);
   }
@@ -13,6 +13,11 @@ export class HaNoteObjectsTreeDatasource extends FlDatasourceTree<HaNode> {
       this.tree.addOrReplaceObject(object, object.parentId);
     }
 
+    this.sortAndEmits();
+  }
+
+  addNodeObjectsWithChildren(objects: HaNode[]): void {
+    this.addNodeObjectsWithChildrenRecur(objects);
     this.sortAndEmits();
   }
 
@@ -47,11 +52,6 @@ export class HaNoteObjectsTreeDatasource extends FlDatasourceTree<HaNode> {
     }, 10);
   }
 
-  addNodeObjectsWithChildren(objects: HaNode[]): void {
-    this.addNodeObjectsWithChildrenRecur(objects);
-    this.sortAndEmits();
-  }
-
   private addNodeObjectsWithChildrenRecur(objects: HaNode[]): void {
     for (const object of objects) {
       this.tree.addOrReplaceObject(object, object.parentId);
@@ -60,6 +60,7 @@ export class HaNoteObjectsTreeDatasource extends FlDatasourceTree<HaNode> {
         this.addNodeObjectsWithChildrenRecur(object.children);
       }
     }
+    console.log(this.tree.children);
   }
 }
 

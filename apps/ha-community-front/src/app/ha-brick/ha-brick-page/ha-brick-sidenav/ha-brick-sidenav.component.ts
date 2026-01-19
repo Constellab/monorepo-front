@@ -1,5 +1,4 @@
-import { CdkDrag, CdkDragDrop, CdkDragHandle, CdkDropList } from '@angular/cdk/drag-drop';
-import { isPlatformBrowser, isPlatformServer } from '@angular/common';
+import { isPlatformBrowser, isPlatformServer, NgClass } from '@angular/common';
 import {
   Component,
   inject,
@@ -42,14 +41,19 @@ import { HaFolder } from '../../../ha-core/ha-model/ha-entities/ha-folder.class'
 import {
   HaNode,
   HaNodeDTO,
+  HaNodeObjectsTreeDatasource,
   HaNodeType,
-  HaNoteObjectsTreeDatasource,
 } from '../../../ha-core/ha-model/ha-entities/ha-node.class';
 import { HaBrickService } from '../../../ha-core/ha-service/ha-brick.service';
 import { HaDocumentationService } from '../../../ha-core/ha-service/ha-documentation.service';
 import { HaFolderService } from '../../../ha-core/ha-service/ha-folder.service';
 import { HaBrickPageState } from '../../state/ha-brick-page.state';
 import { HaBrickSidenavCreateFormDialogComponent } from '../ha-brick-sidenav-create-form-dialog/ha-brick-sidenav-create-form-dialog.component';
+import {
+  HaBrickSidenavTreeComponent,
+  HaBrickSidenavTreeEvent,
+  HaBrickSidenavTreeEventType,
+} from '../ha-brick-sidenav-tree/ha-brick-sidenav-tree.component';
 
 @Component({
   selector: 'ha-brick-sidenav',
@@ -63,14 +67,13 @@ import { HaBrickSidenavCreateFormDialogComponent } from '../ha-brick-sidenav-cre
     MatTree,
     MatTreeNodeDef,
     MatTreeNode,
-    CdkDragHandle,
     TranslatePipe,
     MatTreeNodePadding,
     MatIconButton,
-    CdkDropList,
-    CdkDrag,
     MatTreeNodeToggle,
     MatTooltip,
+    HaBrickSidenavTreeComponent,
+    NgClass,
   ],
 })
 export class HaBrickSidenavComponent implements OnInit {
@@ -100,13 +103,11 @@ export class HaBrickSidenavComponent implements OnInit {
   // expansion model tracks expansion state
   hoverId: string;
 
-  dataSource$: HaNoteObjectsTreeDatasource = new HaNoteObjectsTreeDatasource();
-  techDataSource$: HaNoteObjectsTreeDatasource = new HaNoteObjectsTreeDatasource();
+  dataSource$: HaNodeObjectsTreeDatasource = new HaNodeObjectsTreeDatasource();
+  techDataSource$: HaNodeObjectsTreeDatasource = new HaNodeObjectsTreeDatasource();
 
   activatedRoute: ActivatedRoute = this.route;
 
-  //TRANSFERSTATE
-  DOCUMENTATIONS_KEY: StateKey<object>;
   TECH_DOCUMENTATION_KEY: StateKey<object>;
 
   parentDocFolderId: string;
@@ -114,7 +115,6 @@ export class HaBrickSidenavComponent implements OnInit {
   currentDocId: string;
 
   ngOnInit(): void {
-    this.DOCUMENTATIONS_KEY = makeStateKey<object>('DOCUMENTATIONS_KEY');
     this.TECH_DOCUMENTATION_KEY = makeStateKey<object>('TECH_DOCUMENTATION_KEY');
 
     this.brickAndPathVersion$.subscribe(([brick, pathVersion]) => {
@@ -125,6 +125,10 @@ export class HaBrickSidenavComponent implements OnInit {
     });
   }
 
+  getRoute: (node: HaNode) => string = (node: HaNode) => {
+    return 'doc/' + node.completePath;
+  };
+
   private initCurrentCompletePath(pathVersion: string): void {
     this.currentCompletePath = this.router.url?.split(pathVersion)[1];
     this.currentDocId = this.currentCompletePath?.split('/').pop();
@@ -132,6 +136,7 @@ export class HaBrickSidenavComponent implements OnInit {
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe((event: NavigationEnd) => {
         this.currentCompletePath = event.url.split(pathVersion)[1];
+        this.currentDocId = this.currentCompletePath?.split('/').pop();
       });
   }
 
@@ -156,28 +161,18 @@ export class HaBrickSidenavComponent implements OnInit {
   }
 
   private getDocumentations(brick: HaBrick, pathVersion: string): void {
-    if (isPlatformBrowser(this.platformId) && this.transferState.hasKey(this.DOCUMENTATIONS_KEY)) {
-      const data = this.transferState.get(this.DOCUMENTATIONS_KEY, null) as HaNode;
-      this.transferState.remove(this.DOCUMENTATIONS_KEY);
-      this.onDocumentationsData(data.children);
-      return;
-    }
     this.brickService.getBrickDocs(brick.id, pathVersion).subscribe((data) => {
-      if (isPlatformServer(this.platformId) && !this.transferState.hasKey(this.DOCUMENTATIONS_KEY)) {
-        this.transferState.set(this.DOCUMENTATIONS_KEY, data);
-      }
+      this.parentDocFolderId = data.id;
       this.onDocumentationsData(data.children);
     });
   }
 
   private onDocumentationsData(nodes: HaNode[]): void {
-    const children = [];
-    this.parentDocFolderId = nodes[0].parentId;
-    for (const child of nodes) {
-      child.parentId = null;
-      children.push(child);
-    }
-    this.dataSource$.addNodeObjectsWithChildren(children);
+    nodes.map((n) => {
+      n.parentId = null;
+      return n;
+    });
+    this.dataSource$.addNodeObjectsWithChildren(nodes);
   }
 
   private onTechDocumentationsData(nodes: HaNode[]): void {
@@ -217,6 +212,24 @@ export class HaBrickSidenavComponent implements OnInit {
       );
       this.menuOpen = true;
     }
+  }
+
+  onDocumentationTreeEvent(event: HaBrickSidenavTreeEvent): void {
+    switch (event.type) {
+      case HaBrickSidenavTreeEventType.CREATE:
+        this.openCreateDialog(event.id);
+        break;
+      case HaBrickSidenavTreeEventType.EDIT_TITLE:
+        this.prepareEditDialog(event.id, event.isFolder);
+        break;
+      case HaBrickSidenavTreeEventType.DELETE:
+        this.openResourceDelete(event.id, event.isFolder);
+        break;
+    }
+  }
+
+  onRefreshDocumentationTree(): void {
+    this.getDocumentations(this.brick(), this.pathVersion());
   }
 
   private getContextMenuConfig(isFolder: boolean, id?: string, hasChild: boolean = false): FlMenuDynamic[] {
@@ -354,108 +367,6 @@ export class HaBrickSidenavComponent implements OnInit {
     };
 
     this.openSmallDialog(input);
-  }
-
-  isDocNodeSelected(node: HaNode): boolean {
-    if (!this.currentCompletePath || this.currentCompletePath.length == 0) return false;
-
-    let completePath: string = this.currentCompletePath.split('doc/')[1];
-    if (completePath == null) return false;
-    if (completePath.includes('technical-folder')) {
-      return completePath + '/' == node.completePath;
-    }
-    const completePathSplit = completePath.split('/');
-    // remove last fragment
-    completePath = completePathSplit.slice(0, completePathSplit.length - 1).join('/') + '/';
-    return completePath == node.completePath;
-  }
-
-  drop(event: CdkDragDrop<MatTree<FlTree<HaNode>>, MatTree<FlTree<HaNode>>, FlTree<HaNode>>): void {
-    const tree = event.container.data;
-    const node = event.item.data;
-    const visibleNodes: FlTree<HaNode>[] = this.dataSource$.getVisibleNodes(tree);
-
-    let newParentId: string = null;
-    if (event.currentIndex > 0) {
-      for (let i = event.currentIndex - (event.currentIndex > event.previousIndex ? 0 : 1); i >= 0; i--) {
-        if (visibleNodes[i].object.children && tree.isExpanded(visibleNodes[i])) {
-          newParentId = visibleNodes[i].id;
-          break;
-        }
-        if (!visibleNodes[i].object.children) {
-          newParentId = visibleNodes[i].object.parentId;
-          break;
-        }
-      }
-    }
-
-    const nodesBeforeInTheSameFolder = visibleNodes.filter(
-      (n) => n.object.parentId == newParentId && visibleNodes.indexOf(n) < event.currentIndex
-    );
-
-    const newOrder = nodesBeforeInTheSameFolder.length;
-
-    const oldParentId = node.object.parentId;
-
-    const body = {
-      nodeId: node.object.id,
-      nodeType: node.object.children ? 'FOLDER' : 'DOCUMENTATION',
-      oldOrder: node.object.order,
-      newOrder: newOrder,
-      oldParentId: oldParentId ?? this.parentDocFolderId,
-      newParentId: newParentId ?? this.parentDocFolderId,
-      mainFolderId: this.parentDocFolderId,
-    };
-
-    if (newParentId != oldParentId) {
-      const nodesToMoveDown = visibleNodes.filter(
-        (n) => n.object.parentId == newParentId && n.object.order >= newOrder
-      );
-      this.moveDownNodes(nodesToMoveDown);
-    } else {
-      if (node.object.order > newOrder) {
-        const nodesToMoveDown = visibleNodes.filter(
-          (n) =>
-            n.object.parentId == newParentId &&
-            n.object.order >= newOrder &&
-            n.object.order < node.object.order
-        );
-        this.moveDownNodes(nodesToMoveDown);
-      } else {
-        const nodesToMoveUp = visibleNodes.filter(
-          (n) =>
-            n.object.parentId == newParentId &&
-            n.object.order <= newOrder &&
-            n.object.order > node.object.order
-        );
-        this.moveUpNodes(nodesToMoveUp);
-      }
-    }
-
-    node.object.parentId = newParentId;
-    node.object.order = newOrder;
-
-    this.dataSource$.updateNodeLocation(node.object, oldParentId, newParentId);
-
-    this.folderService.updateTree(body).subscribe((node) => {
-      if (node) {
-        this.getDocumentations(this.brick(), this.pathVersion());
-      }
-    });
-  }
-
-  private moveUpNodes(nodes: FlTree<HaNode>[]): void {
-    for (const node of nodes) {
-      node.object.order -= 1;
-      this.dataSource$.updateNodeInfo(node.object);
-    }
-  }
-
-  private moveDownNodes(nodes: FlTree<HaNode>[]): void {
-    for (const node of nodes) {
-      node.object.order += 1;
-      this.dataSource$.updateNodeInfo(node.object);
-    }
   }
 
   expandNode(node: FlTree<HaNode>): void {

@@ -28,6 +28,7 @@ import {
 } from '../../ha-core/ha-model/ha-entities/ha-run-stat-aggregate.class';
 import { HaUser } from '../../ha-core/ha-model/ha-entities/ha-user';
 import { HaReferenceDTO } from '../../ha-core/ha-model/ha-entities/ha-version.class';
+import { HaAuthenticatedUserService } from '../../ha-core/ha-service/ha-authenticated-user.service';
 import { HaBrickService } from '../../ha-core/ha-service/ha-brick.service';
 import { HaBrickVersionService } from '../../ha-core/ha-service/ha-brick-version.service';
 import { HaDocumentationService } from '../../ha-core/ha-service/ha-documentation.service';
@@ -44,6 +45,7 @@ export class HaBrickPageState {
   private documentationService = inject(HaDocumentationService);
   private httpRedirectionService = inject(HaHttpRedirectionService);
   private runStatAggregateService = inject(HaRunStatAggregateService);
+  private authenticatedUserService = inject(HaAuthenticatedUserService);
 
   private BRICK_KEY: StateKey<object> = makeStateKey<HaBrick>('brick');
   private LATEST_BRICK_VERSION_KEY: StateKey<object> = makeStateKey<HaBrick>('latest-brick-version');
@@ -321,6 +323,16 @@ export class HaBrickPageState {
   }
 
   private initUserHasEditRight(brick: HaBrick): void {
+    this.authenticatedUserService.getUser().subscribe((user: HaUser) => {
+      if (user) {
+        this.checkUserRights(brick);
+      } else {
+        this.userHasEditRight.set(false);
+      }
+    });
+  }
+
+  private checkUserRights(brick: HaBrick): void {
     this.brickService.checkUserRights(brick.id, false).subscribe((res) => {
       this.userHasEditRight.set(res);
     });

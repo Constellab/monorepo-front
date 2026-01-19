@@ -1,0 +1,69 @@
+<mat-tree
+  #tree
+  [dataSource]="sidenavObjects()"
+  [childrenAccessor]="sidenavObjects().childrenAccessor"
+  [trackBy]="sidenavObjects().trackById"
+  cdkDropList
+  [cdkDropListData]="tree"
+  (cdkDropListDropped)="drop($event)"
+  [cdkDropListDisabled]="dragAndDropDisabled()"
+  class="tree">
+  <!-- This is the tree node template for leaf nodes -->
+  <mat-tree-node
+    *matTreeNodeDef="let node"
+    cdkDrag
+    [cdkDragDisabled]="dragAndDropDisabled() || !canEdit()"
+    [cdkDragData]="node"
+    matTreeNodePadding
+    class="g-drag-hide-placeholder"
+    [matTreeNodePaddingIndent]="10"
+    (mouseenter)="hoverId = node.id"
+    (mouseleave)="hoverId = null"
+    [ngClass]="{ 'selected-tree-node': isSelected(node) }">
+    @if (node.object.children) {
+      <div class="g-text-small tree-node g-layout-row g-layout-start-center" matTreeNodeToggle>
+        <div class="tree-node-div">
+          {{ node.object.name }}
+
+          <div class="line-icons">
+            @if (canEdit() && hoverId === node.object.id && showActionIcons()) {
+              <mat-icon
+                (click)="onClickMenu($event, true, node.children?.length > 0, node.id)"
+                class="g-icon-small icon-pointer">
+                more_vert
+              </mat-icon>
+              <mat-icon cdkDragHandle class="drag-drop-bt g-icon-small"> drag_handle</mat-icon>
+            }
+          </div>
+        </div>
+        <button
+          mat-icon-button
+          class="g-button-icon-small toggle-parent-button"
+          [attr.aria-label]="'Toggle ' + node.object.name"
+          type="button">
+          <mat-icon>
+            {{ tree.isExpanded(node) ? 'arrow_drop_down' : 'arrow_right' }}
+          </mat-icon>
+        </button>
+      </div>
+    } @else {
+      <a
+        [routerLink]="getRoute()(node.object)"
+        class="g-text-small tree-node a-tree-node g-layout-row g-layout-start-center">
+        <div class="tree-node-without-children tree-node-div">
+          {{ node.object.name }}
+          <div class="line-icons">
+            @if (canEdit() && hoverId === node.object.id) {
+              <mat-icon
+                (click)="onClickMenu($event, false, false, node.id)"
+                class="g-icon-small icon-pointer">
+                more_vert
+              </mat-icon>
+              <mat-icon cdkDragHandle class="drag-drop-bt g-icon-small">drag_handle</mat-icon>
+            }
+          </div>
+        </div>
+      </a>
+    }
+  </mat-tree-node>
+</mat-tree>

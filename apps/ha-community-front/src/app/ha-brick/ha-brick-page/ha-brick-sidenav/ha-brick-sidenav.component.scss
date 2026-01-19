@@ -123,3 +123,7 @@ mat-tree-node {
 .router {
   height: 100%;
 }
+
+.selected-tree-node {
+  color: var(--primary-color);
+}
