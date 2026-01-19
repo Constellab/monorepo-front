@@ -4,7 +4,11 @@ import { ClCoreJsonConvert } from '@monorepo/core-lib';
 import { FlInputSearchModule } from '@monorepo/front-core-lib/fl-input-search';
 import { FlTranslatableText, FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import { LiResource, LiResourceSearchFields } from '@monorepo/lab-lib/li-core';
+import {
+  LiResource,
+  LiResourceSearchFields,
+  LiResourceSearchFieldsDisabled,
+} from '@monorepo/lab-lib/li-core';
 import { LiSelectResourceComponent } from '@monorepo/lab-lib/li-resource';
 
 import { DcAuthenticationInfo, DcDynamicComponent } from '../../../core/model/dc-dynamic-component.class';
@@ -14,7 +18,7 @@ export interface DcSelectResourceInput {
   placeholder: string;
   default_resource?: any;
   default_filters?: Partial<LiResourceSearchFields>;
-  column_tags_filter_keys?: string[];
+  disabled_filters?: Partial<LiResourceSearchFieldsDisabled>;
 }
 
 export interface DcSelectResourceOutput {
@@ -41,7 +45,7 @@ implements OnInit, DcDynamicComponent<DcSelectResourceInput, DcSelectResourceOut
   resource: LiResource;
   placeholder: FlTranslatableText;
   defaultFilters: LiResourceSearchFields;
-  columnTagsFilterKeys: string[];
+  disabledFilters: LiResourceSearchFieldsDisabled;
 
   ngOnInit(): void {
     this.mainDirective.init(this.authenticationInfo);
@@ -54,8 +58,8 @@ implements OnInit, DcDynamicComponent<DcSelectResourceInput, DcSelectResourceOut
         LiResourceSearchFields
       );
     }
-    if (this.inputData.column_tags_filter_keys) {
-      this.columnTagsFilterKeys = this.inputData.column_tags_filter_keys;
+    if (this.inputData.disabled_filters) {
+      this.disabledFilters = this.inputData.disabled_filters;
     }
     this.placeholder = { text: this.inputData.placeholder, translateText: false };
   }

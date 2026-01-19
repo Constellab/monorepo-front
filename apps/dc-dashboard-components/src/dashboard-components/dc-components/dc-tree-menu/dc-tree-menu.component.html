@@ -6,16 +6,18 @@
     [matTreeNodePaddingIndent]="10"
     [ngClass]="{ 'selected-tree-node': isSelected(node) }">
     <div class="g-text-small g-layout-row g-layout-start-center tree-node">
-      <button
-        mat-icon-button
-        matTreeNodeToggle
-        class="g-button-icon-small toggle-parent-button"
-        [attr.aria-label]="'Toggle ' + node.object.label"
-        type="button">
-        <mat-icon>
-          {{ matTree.isExpanded(node) ? 'arrow_drop_down' : 'arrow_right' }}
-        </mat-icon>
-      </button>
+      @if (node.children && node.children.length > 0) {
+        <button
+          mat-icon-button
+          matTreeNodeToggle
+          class="g-button-icon-small toggle-parent-button"
+          [attr.aria-label]="'Toggle ' + node.object.label"
+          type="button">
+          <mat-icon>
+            {{ matTree.isExpanded(node) ? 'arrow_drop_down' : 'arrow_right' }}
+          </mat-icon>
+        </button>
+      }
       @if (node.object.material_icon) {
         <mat-icon [flIcon]="node.object.material_icon" class="icon"></mat-icon>
       }

@@ -51,6 +51,11 @@ export class LiResourceSearchFields {
   id: string;
 }
 
+/**
+ * Type to indicate which fields are disabled in the advanced search form
+ */
+export type LiResourceSearchFieldsDisabled = Partial<Record<keyof LiResourceSearchFields, boolean>>;
+
 export class LiResourceSearch {
   /**
    * Const to configure Form Input Manager for advanced search

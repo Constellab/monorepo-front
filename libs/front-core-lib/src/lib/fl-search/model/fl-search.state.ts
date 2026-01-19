@@ -37,9 +37,6 @@ export class FlSearchState<T> implements OnDestroy {
   // list of filter that are added programmatically and override search criteria
   private hiddenFilters: Record<string, any> = {};
 
-  // list of column tags filter keys for Table resource column filter
-  private columnTagsFilterKeys: string[] = [];
-
   // subject used to prevent search call on form change
   // it is call when the form is submitted to override the form change (to avoid calling search twice)
   private skipSearch = new Subject<{ _skipSearch: true }>();
@@ -327,14 +324,6 @@ export class FlSearchState<T> implements OnDestroy {
 
   public getConfig(): FlSearchConfig {
     return this.config;
-  }
-
-  public setColumnTagsFilterKeys(columnTagsFilterKeys: string[] = []): void {
-    this.columnTagsFilterKeys = columnTagsFilterKeys;
-  }
-
-  public getColumnTagsFilterKeys(): string[] {
-    return this.columnTagsFilterKeys;
   }
 
   ngOnDestroy(): void {

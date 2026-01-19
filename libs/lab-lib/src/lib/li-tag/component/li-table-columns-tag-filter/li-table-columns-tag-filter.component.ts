@@ -1,4 +1,4 @@
-import { Component, inject, input, OnDestroy, output, ViewChild } from '@angular/core';
+import { Component, inject, OnDestroy, output, ViewChild } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import {
   MatExpansionPanel,
@@ -36,8 +36,6 @@ import { TranslatePipe } from '@ngx-translate/core';
   styleUrl: './li-table-columns-tag-filter.component.scss',
 })
 export class LiTableColumnsTagFilterComponent extends FlFormFieldDirective<FlTag[]> implements OnDestroy {
-  columnTagKeys = input<string[]>([]);
-
   selectionChange = output<FlTag[]>();
 
   @ViewChild(FlAddTagInputComponent) addTagInputComponent: FlAddTagInputComponent;

@@ -17,6 +17,7 @@ import {
   LiResource,
   LiResourceDatasource,
   LiResourceSearchFields,
+  LiResourceSearchFieldsDisabled,
   LiResourceService,
 } from '@monorepo/lab-lib/li-core';
 import { Observable } from 'rxjs';
@@ -47,7 +48,7 @@ export class LiSelectResourceComponent extends FlFormFieldDirective<LiResource> 
 
   placeholder = input<FlTranslatableText>('li.resource_select');
   defaultFilters = input<LiResourceSearchFields>(null);
-  columnTagsFilterKeys = input<string[]>([]);
+  disabledFilters = input<LiResourceSearchFieldsDisabled>(null);
 
   resourceChange = output<LiResource>();
   openDialog = output();
@@ -87,7 +88,7 @@ export class LiSelectResourceComponent extends FlFormFieldDirective<LiResource> 
         this.openDialog.emit();
         const data: LiSelectResourceDialogInput = {
           defaultFilters: this.defaultFilters(),
-          columnTagsFilterKeys: this.columnTagsFilterKeys(),
+          disabledFilters: this.disabledFilters(),
         };
         return this.dialogService
           .openBigDialog(LiSelectResourceDialogComponent, { data: data })

@@ -62,10 +62,7 @@ export class LiResourceSearchFormComponent implements OnInit {
 
   formGp: UntypedFormGroup;
 
-  columnTagsFilterKeys: string[];
-
   ngOnInit(): void {
     this.formGp = this.searchState.advancedSearchFormGroup;
-    this.columnTagsFilterKeys = this.searchState.getColumnTagsFilterKeys();
   }
 }

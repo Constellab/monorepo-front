@@ -25,10 +25,10 @@
     [disableFilteredOptions]="true"
     [allowUnknownTag]="true"></fl-add-tag-input>
 
-  @if (columnTagKeys().length > 0) {
+  @if (value?.length > 0) {
     <div class="g-layout-row-wrap g-layout-gap-05em g-text-small">
-      @for (tagKey of columnTagKeys(); track tagKey) {
-        <fl-tag class="chip" [flTag]="{ key: tagKey }" (click)="onKeyClick(tagKey)"></fl-tag>
+      @for (tag of value; track tag.key) {
+        <fl-tag class="chip" [flTag]="tag" (click)="onKeyClick(tag.key)"></fl-tag>
       }
     </div>
   }

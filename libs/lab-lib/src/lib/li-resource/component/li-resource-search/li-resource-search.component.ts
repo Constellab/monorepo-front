@@ -28,6 +28,7 @@ import {
   LiResource,
   LiResourceSearch,
   LiResourceSearchFields,
+  LiResourceSearchFieldsDisabled,
   LiResourceService,
   LiRouterService,
 } from '@monorepo/lab-lib/li-core';
@@ -89,9 +90,9 @@ export class LiResourceSearchComponent implements OnInit, OnDestroy {
   @Input() defaultFilters: LiResourceSearchFields = null;
 
   /**
-   * Use to list available column tag keys for table resource search form
+   * Use to disable some fields in the advanced search form.
    */
-  @Input() columnTagsFilterKeys: string[] = [];
+  @Input() disabledFilters: LiResourceSearchFieldsDisabled = null;
 
   @Output() resourceSelected: EventEmitter<LiResource> = new EventEmitter<LiResource>();
 
@@ -141,10 +142,14 @@ export class LiResourceSearchComponent implements OnInit, OnDestroy {
     if (this.defaultFilters) {
       this.searchState.advancedSearchFormGroup.patchValue(this.defaultFilters);
     }
+    if (this.disabledFilters) {
+      Object.entries(this.disabledFilters).forEach(([key, value]) => {
+        if (value === true) {
+          this.searchState.advancedSearchFormGroup.controls[key]?.disable();
+        }
+      });
+    }
     this.listenToUploadAction();
-
-    // set known column tag filter keys for Table resource search
-    this.searchState.setColumnTagsFilterKeys(this.columnTagsFilterKeys);
   }
 
   selectResource(resource: LiResource): void {

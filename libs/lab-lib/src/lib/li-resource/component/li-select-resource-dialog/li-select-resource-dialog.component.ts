@@ -2,7 +2,11 @@ import { Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlSavedSearch } from '@monorepo/front-core-lib/fl-search';
-import { LiResource, LiResourceSearchFields } from '@monorepo/lab-lib/li-core';
+import {
+  LiResource,
+  LiResourceSearchFields,
+  LiResourceSearchFieldsDisabled,
+} from '@monorepo/lab-lib/li-core';
 import { TranslatePipe } from '@ngx-translate/core';
 
 import { LiResourceSearchComponent } from '../li-resource-search/li-resource-search.component';
@@ -12,7 +16,7 @@ export interface LiSelectResourceDialogInput {
 
   defaultFilters?: LiResourceSearchFields;
 
-  columnTagsFilterKeys?: string[];
+  disabledFilters?: LiResourceSearchFieldsDisabled;
 }
 
 /**
@@ -31,13 +35,13 @@ export class LiSelectResourceDialogComponent {
 
   savedSearch: FlSavedSearch[];
   defaultFilters: LiResourceSearchFields;
-  columnTagsFilterKeys: string[];
+  disabledFilters: LiResourceSearchFieldsDisabled;
 
   constructor() {
     const data = inject<LiSelectResourceDialogInput>(MAT_DIALOG_DATA);
     this.defaultFilters = data?.defaultFilters;
+    this.disabledFilters = data?.disabledFilters;
     this.savedSearch = data?.savedSearches;
-    this.columnTagsFilterKeys = data?.columnTagsFilterKeys;
   }
 
   onResourceSelected(resource: LiResource): void {

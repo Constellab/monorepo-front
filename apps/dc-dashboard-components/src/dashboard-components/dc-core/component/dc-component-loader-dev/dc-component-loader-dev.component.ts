@@ -52,8 +52,8 @@ export class DcComponentLoaderDevComponent implements OnInit {
     placeholder: 'Select a resource',
     default_filters: {
       tags: [{ key: 'raw_data' }, { key: 'origin', value: 'biolector_dashboard' }],
+      columnTags: [{ key: 'well' }],
     },
-    column_tags_filter_keys: ['well'],
   });
 
   menuConfig = signal<DcMenuConfig>({
@@ -180,8 +180,8 @@ export class DcComponentLoaderDevComponent implements OnInit {
       placeholder: 'Select a resource (dynamic)',
       default_filters: {
         tags: [{ key: 'raw_data' }, { key: 'origin', value: 'biolector_dashboard' }],
+        columnTags: [{ key: 'well' }],
       },
-      column_tags_filter_keys: ['well'],
     };
 
     this.loadComponent(
