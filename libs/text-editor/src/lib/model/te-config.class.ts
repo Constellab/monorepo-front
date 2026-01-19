@@ -19,6 +19,7 @@ import { TeHintBlock } from '../block/te-hint-block.class';
 import { TeIframeBlock } from '../block/te-iframe-block.class';
 import { TeNestedListBlock } from '../block/te-nested-list-block.class';
 import { TeParagraphBlock } from '../block/te-paragraph-block.class';
+import { TeRawHtmlBlock } from '../block/te-raw-html-block.class';
 import TeTable from '../block/te-table-block.class';
 import { TeTimestampBlock } from '../block/te-timestamp-block.class';
 import { TeVideoBlock } from '../block/te-video-block.class';
@@ -266,6 +267,9 @@ export class TeCompleteConfig extends TeConfig {
       },
       iframe: {
         class: teComponentBlockFactory(TeIframeBlock, envInjector, applicationRef),
+      },
+      html: {
+        class: teComponentBlockFactory(TeRawHtmlBlock, envInjector, applicationRef),
       },
       table: this.getTableConfig(),
       hint: {

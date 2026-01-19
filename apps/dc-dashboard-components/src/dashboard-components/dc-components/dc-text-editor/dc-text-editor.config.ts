@@ -28,11 +28,19 @@ export class DcRichTextImageConfig implements TeFigureBlockConfig {
 }
 
 export class DcTextEditorConfig extends TeCompleteConfig {
+  constructor(private customTools?: TeTools) {
+    super();
+  }
+
   getTools(envInjector: EnvironmentInjector, applicationRef: ApplicationRef): TeTools {
     // configure and add the image block
     // const imageConfig = new DcRichTextImageConfig(this.apiUrl, this.imageFolder, this.httpClient);
     // tools.figure = this.getImageConfig(imageConfig, envInjector, applicationRef);
 
-    return super.getTools(envInjector, applicationRef);
+    const tools = super.getTools(envInjector, applicationRef);
+    if (this.customTools) {
+      Object.assign(tools, this.customTools);
+    }
+    return tools;
   }
 }

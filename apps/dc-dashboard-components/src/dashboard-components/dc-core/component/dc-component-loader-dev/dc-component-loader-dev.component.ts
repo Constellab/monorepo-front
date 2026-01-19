@@ -1,5 +1,5 @@
 import { Component, ElementRef, inject, OnInit, signal, ViewChild } from '@angular/core';
-import { TeBlockType, TeRichTextDTO } from '@monorepo/text-editor';
+import { TeBlockType, TeRichTextDTO, TeTools } from '@monorepo/text-editor';
 
 import {
   DcComponentData,
@@ -20,6 +20,7 @@ import {
   DcTreeMenuComponent,
 } from '../../../dc-components/dc-tree-menu/dc-tree-menu.component';
 import { DcComponentLoaderService } from '../../service/dc-component-loader.service';
+import { DcTextEditorToolExampleBlock } from '../dc-text-editor-tool-example';
 
 /**
  * Class to transfer the dynamic component output to the streamlit component
@@ -115,6 +116,8 @@ export class DcComponentLoaderDevComponent implements OnInit {
     maxHeight: '1000px',
     changeEventDebounceTime: 2500,
   });
+
+  textEditorCustomTools: TeTools = { test: DcTextEditorToolExampleBlock };
 
   ngOnInit(): void {
     // Keep one example of dynamic loading

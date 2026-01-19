@@ -1,4 +1,4 @@
-import { EventEmitter, Signal } from '@angular/core';
+import { EventEmitter, OutputEmitterRef, Signal } from '@angular/core';
 
 /**
  * Auth info for the dc components
@@ -54,7 +54,7 @@ export interface DcComponentData<T = any> {
 export interface DcDynamicComponent<INPUT = any, OUTPUT = any> {
   inputData: INPUT | Signal<INPUT>;
   authenticationInfo?: DcAuthenticationInfo | Signal<DcAuthenticationInfo>;
-  outputEvent: EventEmitter<OUTPUT>;
+  outputEvent: EventEmitter<OUTPUT> | OutputEmitterRef<OUTPUT>;
 }
 
 /**

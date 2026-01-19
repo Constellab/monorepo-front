@@ -14,7 +14,7 @@ import { DcHttpInterceptorService } from '../../service/dc-http-interceptor.serv
 export class DcCoreMainDirective {
   private httpInterceptorServices: HttpInterceptor[] = inject(HTTP_INTERCEPTORS) as any;
 
-  public init(authenticationInfo: DcAuthenticationInfo): void {
+  public init(authenticationInfo?: DcAuthenticationInfo): void {
     if (authenticationInfo) {
       // Configure the DcHttpInterceptorService
       for (const interceptor of this.httpInterceptorServices) {

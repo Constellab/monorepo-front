@@ -1,22 +1,14 @@
-import {
-  Component,
-  computed,
-  effect,
-  EventEmitter,
-  HostBinding,
-  inject,
-  Input,
-  input,
-  OnInit,
-  Output,
-  signal,
-} from '@angular/core';
+import { Component, computed, effect, HostBinding, inject, input, output, signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
-import { TeRichText, TeRichTextDTO, TeTextEditorModule } from '@monorepo/text-editor';
+import { TeRichText, TeRichTextDTO, TeTextEditorModule, TeTools } from '@monorepo/text-editor';
 import { Observable, of } from 'rxjs';
 
-import { DcAuthenticationInfo, DcDynamicComponent } from '../../../core/model/dc-dynamic-component.class';
+import {
+  DcAuthenticationInfo,
+  DcDynamicComponent,
+  dcParseJsonInput,
+} from '../../../core/model/dc-dynamic-component.class';
 import { DcCoreMainDirective } from '../../dc-core/directive/dc-core-main-prod/dc-core-main.directive';
 import { DcTextEditorConfig } from './dc-text-editor.config';
 
@@ -34,18 +26,6 @@ export interface DcRichTextConfig {
   // };
 }
 
-export function dcParseJsonInput1(value: string | any): DcRichTextConfig | undefined {
-  if (typeof value === 'string') {
-    try {
-      return JSON.parse(value);
-    } catch (e) {
-      console.error('Failed to parse inputData as JSON:', e);
-      throw e;
-    }
-  }
-  return value;
-}
-
 @Component({
   standalone: true,
   imports: [TeTextEditorModule, ReactiveFormsModule, FlTranslateModule],
@@ -57,18 +37,24 @@ export function dcParseJsonInput1(value: string | any): DcRichTextConfig | undef
     class: 'g-scrollable-element',
   },
 })
-export class DcTextEditorComponent implements OnInit, DcDynamicComponent<DcRichTextConfig, TeRichTextDTO> {
+export class DcTextEditorComponent implements DcDynamicComponent<DcRichTextConfig, TeRichTextDTO> {
   inputData = input<DcRichTextConfig, string | DcRichTextConfig>({} as DcRichTextConfig, {
-    transform: dcParseJsonInput1,
+    transform: dcParseJsonInput,
   });
-  @Input() authenticationInfo?: DcAuthenticationInfo;
-  @Output() outputEvent = new EventEmitter<TeRichTextDTO>();
+  authenticationInfo = input<DcAuthenticationInfo | null, string | DcAuthenticationInfo | null>(null, {
+    transform: dcParseJsonInput,
+  });
+
+  outputEvent = output<TeRichTextDTO>();
+
+  useCustomTools = input<boolean>(false);
+  customTools = input<TeTools>();
 
   @HostBinding('style.minHeight') minHeight = '';
   @HostBinding('style.maxHeight') maxHeight = '';
 
   placeholder = signal<string>(null);
-  textEditorConfig = signal<DcTextEditorConfig>(new DcTextEditorConfig());
+  textEditorConfig = signal<DcTextEditorConfig>(null);
   formCtrl = signal(new FormControl<TeRichText>(null));
 
   private mainDirective = inject(DcCoreMainDirective);
@@ -79,6 +65,25 @@ export class DcTextEditorComponent implements OnInit, DcDynamicComponent<DcRichT
   });
 
   constructor() {
+    // Effect to initialize text editor config
+    effect(() => {
+      if (this.useCustomTools()) {
+        // When custom tools are enabled, create config and once tools is provided
+        if (this.customTools()) {
+          const textEditorConfig = new DcTextEditorConfig(this.customTools());
+          this.textEditorConfig.set(textEditorConfig);
+        }
+      } else {
+        this.textEditorConfig.set(new DcTextEditorConfig());
+      }
+    });
+
+    effect(() => {
+      if (this.authenticationInfo()) {
+        this.mainDirective.init(this.authenticationInfo());
+      }
+    });
+
     // Effect to reactively update form control when inputData changes
     effect(() => {
       const data = this.inputData();
@@ -101,7 +106,6 @@ export class DcTextEditorComponent implements OnInit, DcDynamicComponent<DcRichT
 
       // Update disabled state
       if (!!data.disabled !== this.formCtrl().disabled) {
-        console.log('Updating form control disabled state', this.formCtrl().disabled, '->', data.disabled);
         if (data.disabled) {
           this.formCtrl().disable();
         } else {
@@ -124,8 +128,4 @@ export class DcTextEditorComponent implements OnInit, DcDynamicComponent<DcRichT
     this.outputEvent.emit(value.toJson());
     return of(value.toJson());
   };
-
-  ngOnInit(): void {
-    this.mainDirective.init(this.authenticationInfo);
-  }
 }

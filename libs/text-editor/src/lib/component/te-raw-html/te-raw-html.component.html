@@ -1,0 +1,9 @@
+<div class="raw-html-container">
+  @if (sanitizedHtml()) {
+    <div class="raw-html-content" [innerHTML]="sanitizedHtml()"></div>
+  } @else {
+    <div class="g-text-centered">
+      <p>{{ 'teTextEditor.raw_html_empty' | translate }}</p>
+    </div>
+  }
+</div>

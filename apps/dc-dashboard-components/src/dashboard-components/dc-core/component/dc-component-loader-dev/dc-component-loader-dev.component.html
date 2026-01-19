@@ -24,5 +24,9 @@
   <button (click)="toggleTextEditorDisabled()">
     {{ textEditorConfig().disabled ? 'Enable' : 'Disable' }} Text Editor
   </button>
-  <dc-text-editor [inputData]="textEditorConfig()" (outputEvent)="onTextEditorOutput($event)" />
+  <dc-text-editor
+    [inputData]="textEditorConfig()"
+    [customTools]="textEditorCustomTools"
+    [useCustomTools]="true"
+    (outputEvent)="onTextEditorOutput($event)" />
 </div>

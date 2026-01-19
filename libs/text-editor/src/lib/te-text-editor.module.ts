@@ -46,6 +46,7 @@ import { TeIframeComponent } from './component/te-iframe/te-iframe.component';
 import { TeLinkDialogComponent } from './component/te-link-dialog/te-link-dialog.component';
 import { TeMentionInlineComponent } from './component/te-mention-inline/te-mention-inline.component';
 import { TeMentionPortalComponent } from './component/te-mention-portal/te-mention-portal.component';
+import { TeRawHtmlComponent } from './component/te-raw-html/te-raw-html.component';
 import { TeTextEditorComponent } from './component/te-text-editor/te-text-editor.component';
 import { TeTextEditorBrowserSideComponent } from './component/te-text-editor-browser-side/te-text-editor-browser-side.component';
 import { TeTextEditorHistoryModificationComponent } from './component/te-text-editor-history-modification/te-text-editor-history-modification.component';
@@ -65,7 +66,7 @@ import { TeFormulaInlineToolClass } from './inline-tool/te-formula-inline-tool.c
 import { teVariableTagName } from './model/te-variable.class';
 import { TeRichTextIsEmptyPipe } from './pipe/te-rich-text-is-empty/te-rich-text-is-empty.pipe';
 import { teMentionTagName } from './plugin/te-mention.class';
-import { teTextEditorI18n } from './te-text-editor.i18n';
+import { TE_TEXT_EDITOR_I18N } from './te-text-editor.i18n';
 
 @NgModule({
   declarations: [
@@ -95,6 +96,7 @@ import { teTextEditorI18n } from './te-text-editor.i18n';
     TeTimestampConfigDialogComponent,
     TeTextEditorSaveComponent,
     TeIframeComponent,
+    TeRawHtmlComponent,
     TeFormulaInlineComponent,
     TeEditBlockMetadataDialogComponent,
   ],
@@ -160,7 +162,7 @@ export class TeTextEditorModule {
     const injector = inject(Injector);
     const platformId = inject(PLATFORM_ID);
 
-    translateService.addModuleTranslation('TeTextEditorModule', teTextEditorI18n);
+    translateService.addModuleTranslation('TeTextEditorModule', TE_TEXT_EDITOR_I18N);
 
     if (!TeTextEditorModule.init) {
       if (isPlatformBrowser(platformId)) {

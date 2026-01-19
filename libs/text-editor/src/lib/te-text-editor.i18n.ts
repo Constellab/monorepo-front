@@ -26,6 +26,8 @@ const teTextEditorI18nFr: FlLangTranslation = {
     iframe: 'Iframe',
     iframe_url_error: 'Url iframe invalide',
     edit_iframe_url: "Modifier l'url de l'iframe",
+    raw_html: 'HTML brut',
+    raw_html_empty: 'Aucun HTML défini',
     open_in_another_window: 'Ouvrir dans une autre fenêtre',
     text: 'Texte',
     header_1: 'Titre 1',
@@ -148,6 +150,8 @@ const teTextEditorI18nEn: FlLangTranslation = {
     iframe: 'Iframe',
     iframe_url_error: 'Invalid iframe url',
     edit_iframe_url: 'Edit iframe url',
+    raw_html: 'Raw HTML',
+    raw_html_empty: 'No HTML defined',
     open_in_another_window: 'Open in another window',
     text: 'Text',
     header_1: 'Header 1',
@@ -254,7 +258,7 @@ const teTextEditorI18nEn: FlLangTranslation = {
   },
 };
 
-export const teTextEditorI18n: FlTranslateObject = {
+export const TE_TEXT_EDITOR_I18N: FlTranslateObject = {
   [ClSupportedLanguage.en]: teTextEditorI18nEn,
   [ClSupportedLanguage.fr]: teTextEditorI18nFr,
 };

@@ -105,7 +105,7 @@
         },
         "reflex-prod": {
           "tsConfig": "apps/dc-dashboard-components/src/dashboard-components/tsconfig.reflex.json",
-          "browser": "apps/dc-dashboard-components/src/dashboard-components/dc-main-reflex.ts",
+          "browser": "apps/dc-dashboard-components/src/dashboard-components/reflex-public-api.ts",
           "outputPath": "dist/apps/dc-dashboard-components/reflex-components",
           "polyfills": false,
           "index": false,
@@ -121,7 +121,7 @@
         },
         "reflex-dev": {
           "tsConfig": "apps/dc-dashboard-components/src/dashboard-components/tsconfig.reflex.json",
-          "browser": "apps/dc-dashboard-components/src/dashboard-components/dc-main-reflex.ts",
+          "browser": "apps/dc-dashboard-components/src/dashboard-components/reflex-public-api.ts",
           "outputPath": "dist/apps/dc-dashboard-components/reflex-components",
           "polyfills": false,
           "index": false,
@@ -133,6 +133,24 @@
         }
       },
       "defaultConfiguration": "production"
+    },
+    "build-reflex": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "nx run dc-dashboard-components:build-components:reflex-dev",
+          "node apps/dc-dashboard-components/src/dashboard-components/esbuild.reflex-lib.mjs"
+        ],
+        "parallel": false
+      },
+      "configurations": {
+        "production": {
+          "commands": [
+            "nx run dc-dashboard-components:build-components:reflex-prod",
+            "node apps/dc-dashboard-components/src/dashboard-components/esbuild.reflex-lib.mjs --prod"
+          ]
+        }
+      }
     },
     "serve-components": {
       "executor": "@angular-devkit/build-angular:dev-server",

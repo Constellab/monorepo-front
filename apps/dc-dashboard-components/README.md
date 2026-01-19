@@ -12,10 +12,10 @@ Special app to build component for streamlit.
 To dev a component, start the dc-components app:
 
 ```bash
-npm run dc-components
+npm run dc-components:serve
 ```
 
-Open the http://localhost:4201. This mode is standalone and does not requires streamlit or reflex app.
+Open the http://localhost:4201. This mode is standalone and does not require streamlit or reflex app.
 
 To run in dev mode in streamlit app, execute the following command:
 
@@ -47,7 +47,7 @@ npm run dc-streamlit-iframe-message:serve
 Then in python back, mark the StreamlitComponentLoader a not release `IS_RELEASE=False`, this will use
 the local running component.
 
-You must test the streamlit app using `http://localhost:8511` and not sub domain like `http://dev-app.localhost:8510/` because of cross origin restriction.
+You must test the streamlit app using `http://localhost:8511` and not subdomain like `http://dev-app.localhost:8510/` because of cross-origin restriction.
 It must use streamlit-components built in production mode as only on dev app can be run in dev mode at the same time.
 
 ## Build
