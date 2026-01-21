@@ -23,6 +23,7 @@ mat-tree-node {
 .object-name {
   flex: 1;
   padding-right: 0.5em;
+  word-break: break-word;
 }
 
 .node-icon {
