@@ -4,10 +4,15 @@ import {
   FlConfirmDialogResult,
   FlDialogService,
 } from '@monorepo/front-core-lib/fl-dialog';
+import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { FlPortalActionDetail, FlPortalActionDetailStatusEvent } from '../../model/fl-portal-actions.class';
+import { FlPortalActionDetail } from '../../model/fl-portal-action-detail.class';
+import {
+  FlPortalActionDetailStatusEvent,
+  FlPortalActionProcessing,
+} from '../../model/fl-portal-actions.class';
 
 /**
  * Component inside {@link FlPortalActionsComponent} that subscribe
@@ -24,6 +29,7 @@ export class FlPortalActionLineComponent implements OnInit {
 
   statusEvent$: Observable<FlPortalActionDetailStatusEvent>;
   link$: Observable<string | null>;
+  displayedText$: Observable<FlTranslatableText>;
 
   private dialogService = inject(FlDialogService);
 
@@ -32,6 +38,14 @@ export class FlPortalActionLineComponent implements OnInit {
     this.link$ = this.action
       .getResult$()
       .pipe(map((result) => (result.status === 'success' ? result.link : null)));
+    this.displayedText$ = this.statusEvent$.pipe(
+      map((event) => {
+        if (event.status === 'processing' && (event as FlPortalActionProcessing).message) {
+          return (event as FlPortalActionProcessing).message;
+        }
+        return this.action.text;
+      })
+    );
   }
 
   cancelAction(): void {

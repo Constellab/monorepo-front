@@ -38,18 +38,16 @@ export class LiResourceDownloadService {
       return;
     }
 
-    const action = this.actionService.addAction(
-      {
-        type: this.downloadAction,
-        text: {
-          text: 'li.preparing_resource_download',
-          translateText: true,
-          translateParam: { param: { resourceName: resource.name } },
-        },
-        action: this.downloadBasicResource(resource),
+    const action = this.actionService.addAction({
+      type: this.downloadAction,
+      text: {
+        text: 'li.preparing_resource_download',
+        translateText: true,
+        translateParam: { param: { resourceName: resource.name } },
       },
-      true
-    );
+      action: this.downloadBasicResource(resource),
+      autoClose: true,
+    });
     action.subscribe((result) => this.callDownloadResource(result));
   }
 

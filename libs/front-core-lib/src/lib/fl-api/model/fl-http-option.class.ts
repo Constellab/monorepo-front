@@ -3,12 +3,12 @@ import { ClClassReference } from '@monorepo/core-lib';
 
 export interface FlHttpGetUrlOption {
   /**
-   * the N° of the page if the request if paginated
+   * the N° of the page if the request is paginated
    */
   page?: number;
 
   /**
-   * the size of the page if the request if paginated
+   * the size of the page if the request is paginated
    */
   pageSize?: number;
 
@@ -21,12 +21,12 @@ export interface FlHttpGetUrlOption {
 /**
  * Mode for the serialization
  * ClassToPlain use class transformer to convert to string
- * Stringify use basic json stringify
+ * Stringify use basic JSON stringify
  * None, does not modify the object
  * If a class reference is provided, the object is converted to this class before
- * calling the serialization, it is useful when receiving serializing plain object and not classes
+ * calling the serialization. It is useful when receiving serializing plain object and not classes
  *
- * The default is serialisation
+ * The default is serialization
  */
 export type FlHttpOptionSerialization = 'classToPlain' | 'stringify' | 'none' | ClClassReference;
 
@@ -39,17 +39,22 @@ export interface FlHttpOption extends FlHttpGetUrlOption {
     | {
         [param: string]: string | string[];
       };
+
+  /**
+   * if set to true the http request will report progress events
+   * Must be used with observe: 'events'
+   */
   reportProgress?: boolean;
 
   /**
    * if set to true the call supposed that the result is a {@link ClPage}
-   * and if a class reference is provided to convert the result to class with json converter,
-   * the Page.content will be convert to class reference array
+   * and if a class reference is provided to convert the result to class with JSON converter,
+   * the Page.content will be converted to class reference array
    */
   resultIsPaginated?: boolean;
 
   /**
-   * If set to true the snack bar error is not shown when a http error occurs
+   * If set to true the snack bar error is not shown when an http error occurs
    *
    * The default is false
    */

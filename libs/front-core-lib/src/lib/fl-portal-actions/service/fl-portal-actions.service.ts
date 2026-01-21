@@ -24,39 +24,45 @@ export class FlPortalActionsService {
   //provided if a portal is currently opened
   private currentOverlay: FlOverlayRef = null;
 
-  private autoClose: boolean = false;
   private autoCloseDelay: number = 3000;
   private autoCloseTimer: any = null;
 
   constructor() {
-    this.actionsState.getResult$().subscribe((result) => this.onResult(result));
+    // Subscribe to progress state changes to block/unblock window close
+    this.actionsState.hasProgressAction$().subscribe((hasProgress) => {
+      if (hasProgress) {
+        FlWindowsHelper.blockWindowsClose();
+      } else {
+        FlWindowsHelper.unblockWindowsClose();
+      }
+    });
+
+    // Subscribe to all actions finished for auto-close
+    this.actionsState.allActionsFinished$().subscribe(({ finished, shouldAutoClose }) => {
+      if (finished && shouldAutoClose) {
+        // Start auto-close timer
+        this.clearAutoCloseTimer();
+        this.autoCloseTimer = setTimeout(() => this.closeOverlay(), this.autoCloseDelay);
+      } else if (!finished) {
+        // New action added, clear the timer
+        this.clearAutoCloseTimer();
+      }
+    });
   }
 
   /**
    * Add an action or multiple actions to the action portal
    * If portal is closed, it opens it
    * @param action
-   * @param autoClose if true, the portal is close after all the action finished (with a small delay)
    * @param openPortal when false the portal is not opened if it doesn't exist
    */
   public addAction<T>(
     action: FlPortalAction<T>,
-    autoClose?: boolean,
     openPortal: boolean = true
   ): Observable<FlPortalActionResult<T>> {
     if (action == null) return null;
     // clear the auto close timer if it exists
     this.clearAutoCloseTimer();
-
-    // update the auto close value
-    if (autoClose != null) {
-      this.autoClose = autoClose;
-    }
-
-    // block windows close if we track http events
-    if (action.trackHttpEvents) {
-      FlWindowsHelper.blockWindowsClose();
-    }
 
     if (this.currentOverlay != null) {
       return this.actionsState.appendAction(action);
@@ -122,26 +128,6 @@ export class FlPortalActionsService {
    */
   public getResult$(type: string | string[] = []): Observable<FlPortalActionResult> {
     return this.actionsState.getResult$(type);
-  }
-
-  // each time a result is emitted, check if auto close is set and if all action are finished
-  private onResult(result: FlPortalActionResult): void {
-    if (this.autoClose && this.actionsState.allActionAreFinished()) {
-      // call close with a delay
-      this.autoCloseTimer = setTimeout(() => this.checkAndAutoClose(), this.autoCloseDelay);
-    }
-
-    // we the action with track http events finished, unblock windows close
-    if (result.action.trackHttpEvents) {
-      FlWindowsHelper.unblockWindowsClose();
-    }
-  }
-
-  // called after a delay, check if all actions are still finished and close if yes
-  private checkAndAutoClose(): void {
-    if (this.actionsState.allActionAreFinished()) {
-      this.closeOverlay();
-    }
   }
 
   private clearAutoCloseTimer(): void {

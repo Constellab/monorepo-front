@@ -1,10 +1,7 @@
-import { inject,Injectable, OnDestroy } from '@angular/core';
+import { inject, Injectable, OnDestroy } from '@angular/core';
 import { FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
-import { FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
-import { FlPortalConfig } from '@monorepo/front-core-lib/fl-portal';
-import { FlPortalService } from '@monorepo/front-core-lib/fl-portal';
-import { FlPortalActionResult } from '@monorepo/front-core-lib/fl-portal-actions';
-import { FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
+import { FlOverlayRef, FlPortalConfig, FlPortalService } from '@monorepo/front-core-lib/fl-portal';
+import { FlPortalActionResult, FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { Observable, Subscription } from 'rxjs';
 
@@ -87,7 +84,8 @@ export class SpSpreadsheetChartState implements OnDestroy {
   /**
    * Generate the chart config from select and open portal afterward
    * @param result
-   * @param fromSelectionId if provided and result.mode === 'update', the chart corresponding to the selection is deleted
+   * @param fromSelectionId if provided and result.mode === 'update',
+   *        the chart corresponding to the selection is deleted
    * @private
    */
   private generateChart(result?: SpSheetChartSelectionResult, fromSelectionId?: symbol): void {
@@ -113,15 +111,13 @@ export class SpSpreadsheetChartState implements OnDestroy {
 
       if (chartOverlay instanceof Observable) {
         // call the action service to register the chart creation
-        this.actionService.addAction(
-          {
-            type: this.chartActionName,
-            action: chartOverlay,
-            text: { text: 'spSpreadsheet.creating_chart', translateText: true },
-            additionalInformation: result.formValue,
-          },
-          true
-        );
+        this.actionService.addAction({
+          type: this.chartActionName,
+          action: chartOverlay,
+          text: { text: 'spSpreadsheet.creating_chart', translateText: true },
+          additionalInformation: result.formValue,
+          autoClose: true,
+        });
       } else {
         this.registerPortalOverlay(chartOverlay, result.formValue);
       }

@@ -1,4 +1,4 @@
-import { inject,Injectable, NgZone, OnDestroy } from '@angular/core';
+import { inject, Injectable, NgZone, OnDestroy } from '@angular/core';
 import { FlPortalActionResult } from '@monorepo/front-core-lib/fl-portal-actions';
 import { FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
 import { Subscription } from 'rxjs';
@@ -50,15 +50,13 @@ export class SpSpreadsheetPaginationState implements OnDestroy {
     // + 1 because we want to start from the next line of the last line
     const fromRow = sheet.getLastRowsOffsetIndex() + 1;
     this.ngZone.run(() => {
-      this.actionService.addAction(
-        {
-          type: this.getNextPageAction(),
-          action: this.pagination.loadRows(fromRow),
-          text: { text: 'spSpreadsheet.loading_next_rows', translateText: true },
-          additionalInformation: sheet.id,
-        },
-        true
-      );
+      this.actionService.addAction({
+        type: this.getNextPageAction(),
+        action: this.pagination.loadRows(fromRow),
+        text: { text: 'spSpreadsheet.loading_next_rows', translateText: true },
+        additionalInformation: sheet.id,
+        autoClose: true,
+      });
     });
   }
 
@@ -73,15 +71,13 @@ export class SpSpreadsheetPaginationState implements OnDestroy {
     // - 1 because we want to start from the previous line of the first line (offset)
     const toRow = sheet.getFirstRowsOffsetIndex();
     this.ngZone.run(() => {
-      this.actionService.addAction(
-        {
-          type: this.getPreviousPageAction(),
-          action: this.pagination.loadPreviousRows(toRow),
-          text: { text: 'spSpreadsheet.loading_previous_rows', translateText: true },
-          additionalInformation: sheet.id,
-        },
-        true
-      );
+      this.actionService.addAction({
+        type: this.getPreviousPageAction(),
+        action: this.pagination.loadPreviousRows(toRow),
+        text: { text: 'spSpreadsheet.loading_previous_rows', translateText: true },
+        additionalInformation: sheet.id,
+        autoClose: true,
+      });
     });
   }
 

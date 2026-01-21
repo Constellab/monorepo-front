@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { FlPortalActionDetail } from '../../model/fl-portal-actions.class';
+import { FlPortalActionDetail } from '../../model/fl-portal-action-detail.class';
 import { FlPortalActionsService } from '../../service/fl-portal-actions.service';
 import { FlPortalActionsState } from '../../service/fl-portal-actions.state';
 

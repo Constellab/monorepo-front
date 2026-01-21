@@ -104,14 +104,12 @@ export class CaHierarchyObjectTagsDialogComponent implements OnInit {
 
   private addTagsToEntity(): void {
     this.portalActionService
-      .addAction(
-        {
-          type: 'add-tag',
-          text: { text: 'adding_tags', translateText: true },
-          action: this.hierarchyObjectService.createTags(this.data.hierarchyObjectId, this.newTags.array),
-        },
-        true
-      )
+      .addAction({
+        type: 'add-tag',
+        text: { text: 'adding_tags', translateText: true },
+        action: this.hierarchyObjectService.createTags(this.data.hierarchyObjectId, this.newTags.array),
+        autoClose: true,
+      })
       .subscribe((result: FlPortalActionResult<FlTag[]>) => {
         if (result.status === 'success') {
           this.tags.addItem(result.result);

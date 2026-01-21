@@ -205,14 +205,12 @@ export class LiResourceDetailState implements OnDestroy {
    * Call and open the view in a portal, using the action service
    */
   public callView(view$: Observable<LiResourceView>, viewName: string): void {
-    this.actionService.addAction(
-      {
-        type: this.actionType,
-        text: { text: viewName, translateText: false },
-        action: view$,
-      },
-      true
-    );
+    this.actionService.addAction({
+      type: this.actionType,
+      text: { text: viewName, translateText: false },
+      action: view$,
+      autoClose: true,
+    });
   }
 
   public setMainView(view: LiResourceView): void {

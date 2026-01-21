@@ -92,14 +92,12 @@ export class LabInfoComponent implements OnInit {
 
   private onCleanLabClosed(result: FlConfirmDialogResult): void {
     if (result.choice) {
-      this.actionService.addAction(
-        {
-          type: 'lab-garbage-collector',
-          action: this.systemService.triggerGarbageCollection(),
-          text: { text: 'monitoring.clean_lab', translateText: true },
-        },
-        true
-      );
+      this.actionService.addAction({
+        type: 'lab-garbage-collector',
+        action: this.systemService.triggerGarbageCollection(),
+        text: { text: 'monitoring.clean_lab', translateText: true },
+        autoClose: true,
+      });
     }
   }
 

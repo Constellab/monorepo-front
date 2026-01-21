@@ -114,8 +114,9 @@ export class LiTagSearchComponent implements OnInit {
               text: 'li.synchronization_community_tags',
               translateText: true,
             },
+            autoClose: true,
           };
-          this.actionService.addAction(action, true);
+          this.actionService.addAction(action);
         }
       });
   }

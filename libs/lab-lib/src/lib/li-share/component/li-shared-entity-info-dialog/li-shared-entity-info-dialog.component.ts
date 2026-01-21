@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject,OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
 import { MatDivider } from '@angular/material/divider';
@@ -182,7 +182,7 @@ export class LiSharedEntityInfoDialogComponent implements OnInit {
         action: this.input.autoSend(specs),
         type: 'send-to-lab',
       };
-      this.actionService.addAction(action, false);
+      this.actionService.addAction(action);
     }
   }
 

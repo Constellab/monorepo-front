@@ -102,9 +102,11 @@
   "document_deleted": "Fichier supprimé",
   "upload_folder": "Uploader un dossier",
   "uploading_folder": "Envoie du dossier",
+  "processing_folder": "Traitement du dossier",
   "drop_folder_error": "Impossible de déposer des dossier, veuillez utiliser le bouton 'Uploader un dossier'.",
   "document_size": "Taille",
   "uploading_document": "Envoie de {{name}}",
+  "processing_document": "Traitement de {{name}}",
   "preview_document": "Voir",
   "view_document": "Voir",
   "download_document": "Télécharger",
@@ -287,5 +289,6 @@
   "close": "Fermer",
   "app_request_success": "Demande envoyée, nous vous contacterons bientôt",
   "hide_header": "Cacher l'en-tête",
-  "show_header": "Afficher l'en-tête"
+  "show_header": "Afficher l'en-tête",
+  "folder_upload_max_files_error": "Le dossier contient trop de fichiers ({{nbFiles}}), l'upload est limitée à {{maxFiles}}."
 }

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject,Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -154,15 +154,12 @@ export class LiScenarioSearchComponent implements OnInit {
 
   private onImportScenarioClosed(configValues: TdParamSpecsValues): void {
     if (configValues) {
-      this.actionService.addAction(
-        {
-          type: 'import-scenario',
-          action: this.scenarioService.importScenarioFromLab(configValues),
-          text: { text: 'li.downloading_scenario', translateText: true },
-          successLink: (scenario: LiScenario) => LiRouterService.getScenarioDetailRoute(scenario.id),
-        },
-        false
-      );
+      this.actionService.addAction({
+        type: 'import-scenario',
+        action: this.scenarioService.importScenarioFromLab(configValues),
+        text: { text: 'li.downloading_scenario', translateText: true },
+        successLink: (scenario: LiScenario) => LiRouterService.getScenarioDetailRoute(scenario.id),
+      });
 
       this.snackBarService.openSuccessMessage(
         {

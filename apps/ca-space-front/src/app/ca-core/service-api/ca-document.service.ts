@@ -29,7 +29,8 @@ export class CaDocumentService {
     return this.apiService.post(
       `${this.route}/folder/${folderId}/upload/files/${overrideMode}`,
       formData,
-      CaHierarchyObject
+      CaHierarchyObject,
+      { observe: 'events', reportProgress: true }
     );
   }
 
@@ -44,7 +45,10 @@ export class CaDocumentService {
     const formData: FormData = new FormData();
     files.forEach((file) => formData.append('file', file));
 
-    return this.apiService.post(`${this.route}/folder/${folderId}/upload/folder`, formData);
+    return this.apiService.post(`${this.route}/folder/${folderId}/upload/folder`, formData, null, {
+      observe: 'events',
+      reportProgress: true,
+    });
   }
 
   public getDocumentPreviewUrl(documentId: string, documentName: string): string {

@@ -102,9 +102,11 @@
   "document_deleted": "File deleted",
   "upload_folder": "Upload a folder",
   "uploading_folder": "Uploading folder",
+  "processing_folder": "Processing folder",
   "drop_folder_error": "Can't drop folder, please use the 'Upload folder' button.",
   "document_size": "Size",
   "uploading_document": "Uploading {{name}}",
+  "processing_document": "Processing {{name}}",
   "preview_document": "Preview",
   "view_document": "View",
   "download_document": "Download",
@@ -287,5 +289,6 @@
   "close": "Close",
   "app_request_success": "Request sent, we will contact you shortly",
   "hide_header": "Hide header",
-  "show_header": "Show header"
+  "show_header": "Show header",
+  "folder_upload_max_files_error": "The folder contains too many files ({{nbFiles}}), the upload is limited to {{maxFiles}} files."
 }

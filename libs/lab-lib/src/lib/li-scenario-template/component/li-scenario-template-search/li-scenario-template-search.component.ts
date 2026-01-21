@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject,Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
@@ -106,6 +106,6 @@ export class LiScenarioTemplateSearchComponent implements OnInit {
       successLink: (result: LiScenarioTemplate) => LiRouterService.getScenarioTemplateDetailRoute(result.id),
     };
 
-    this.actionsService.addAction(action, false);
+    this.actionsService.addAction(action);
   }
 }

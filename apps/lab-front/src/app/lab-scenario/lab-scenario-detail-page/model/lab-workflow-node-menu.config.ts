@@ -5,7 +5,7 @@ import { FlSavedSearch } from '@monorepo/front-core-lib/fl-search';
 import { flThemeDetailLight } from '@monorepo/front-core-lib/fl-theme';
 import { LiResource, LiResourceSearchFields, LiTypeEntity } from '@monorepo/lab-lib/li-core';
 import {
-  labResourceSearchName,
+  LI_RESOURCE_SEARCH_NAME,
   LiResourceDetailDialogComponent,
   LiSelectResourceDialogComponent,
   LiSelectResourceDialogInput,
@@ -109,7 +109,7 @@ export class LabWorkflowNodeMenuConfig extends PrWorkflowNodeMenuConfig {
       resourceTypingNames: port.currentSpecs.resource_types.map((type) => type.typing_name),
     };
     const savedSearch: FlSavedSearch = {
-      searchName: labResourceSearchName,
+      searchName: LI_RESOURCE_SEARCH_NAME,
       id: null,
       label: 'Compatible resources',
       color: flThemeDetailLight.primary,

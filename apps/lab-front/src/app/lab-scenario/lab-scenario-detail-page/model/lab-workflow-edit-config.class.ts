@@ -334,8 +334,9 @@ export class LabWorkflowEditConfig implements OnDestroy {
       type: LabWorkflowAction.RESET_PROCESS,
       action: obs,
       text: { text: 'biox.resetting_process', translateText: true },
+      autoClose: true,
     };
-    this.actionsService.addAction(action, true);
+    this.actionsService.addAction(action);
   }
 
   public addDynamicInputPort(node: PrWorkflowNodeProcess): void {
@@ -559,7 +560,8 @@ export class LabWorkflowEditConfig implements OnDestroy {
       const actionObs = action.action;
       action.action = resetObs.pipe(switchMap(() => actionObs));
     }
-    return this.actionsService.addAction(action, true);
+    action.autoClose = true;
+    return this.actionsService.addAction(action);
   }
 
   /**

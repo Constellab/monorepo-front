@@ -49,7 +49,7 @@ import {
 import { LiResourceSearchFormComponent } from '../li-resource-search-form/li-resource-search-form.component';
 import { LiResourceTableComponent } from '../li-resource-table/li-resource-table.component';
 
-export const labResourceSearchName: string = 'li-resource';
+export const LI_RESOURCE_SEARCH_NAME: string = 'li-resource';
 
 /**
  * Complete component to search on resource. It supports a select mode and manage file upload.
@@ -225,26 +225,39 @@ export class LiResourceSearchComponent implements OnInit, OnDestroy {
   private uploadFiles(fileTypingNames: string[], files: File[]): void {
     for (let i = 0; i < fileTypingNames.length; i++) {
       const action: FlPortalAction = {
-        text: { text: files[i].name, translateText: false },
+        text: {
+          text: 'li.uploading_file',
+          translateText: true,
+          translateParam: { param: { name: files[i].name } },
+        },
+        processingMessage: {
+          text: 'li.processing_file',
+          translateText: true,
+          translateParam: { param: { name: files[i].name } },
+        },
         type: LiFileResourceService.uploadFileActon,
         action: this.fileResourceService.uploadFile(files[i], fileTypingNames[i]),
         trackHttpEvents: true,
         successLink: (result) => LiRouterService.getResourceDetailRoute(result.id),
       };
 
-      this.actionsService.addAction(action, false);
+      this.actionsService.addAction(action);
     }
   }
 
   private uploadFolder(folderTypingName: string, files: File[]): void {
     const action: FlPortalAction = {
       text: { text: 'li.uploading_folder', translateText: true },
+      processingMessage: {
+        text: 'li.processing_folder',
+        translateText: true,
+      },
       type: LiFileResourceService.uploadFileActon,
       action: this.fileResourceService.uploadFolder(folderTypingName, files),
       trackHttpEvents: true,
     };
 
-    this.actionsService.addAction(action, false);
+    this.actionsService.addAction(action);
   }
 
   public listenToUploadAction(): void {
@@ -276,7 +289,7 @@ export class LiResourceSearchComponent implements OnInit, OnDestroy {
     // list of predefined search of the resources
     return [
       {
-        searchName: labResourceSearchName,
+        searchName: LI_RESOURCE_SEARCH_NAME,
         id: 'flagged-resources',
         label: 'Flagged resources',
         color: this.themeService.getCurrentThemeDetail().primary,
@@ -285,7 +298,7 @@ export class LiResourceSearchComponent implements OnInit, OnDestroy {
         filtersCriteria: {} as Partial<LiResourceSearchFields>,
       },
       {
-        searchName: labResourceSearchName,
+        searchName: LI_RESOURCE_SEARCH_NAME,
         id: 'all-resources',
         label: 'All resources',
         color: this.themeService.getCurrentThemeDetail().primary,
@@ -311,15 +324,12 @@ export class LiResourceSearchComponent implements OnInit, OnDestroy {
 
   private onImportFromUrlClosed(configValues: TdParamSpecsValues): void {
     if (configValues) {
-      this.actionsService.addAction(
-        {
-          type: 'import-resource',
-          action: this.resourceService.importResourceFromLink(configValues),
-          text: { text: 'li.downloading_resource', translateText: true },
-          successLink: (resource: LiResource) => LiRouterService.getResourceDetailRoute(resource.id),
-        },
-        false
-      );
+      this.actionsService.addAction({
+        type: 'import-resource',
+        action: this.resourceService.importResourceFromLink(configValues),
+        text: { text: 'li.downloading_resource', translateText: true },
+        successLink: (resource: LiResource) => LiRouterService.getResourceDetailRoute(resource.id),
+      });
 
       this.snackBarService.openSuccessMessage(
         { text: 'li.downloading_resource_help_text', translateText: true },

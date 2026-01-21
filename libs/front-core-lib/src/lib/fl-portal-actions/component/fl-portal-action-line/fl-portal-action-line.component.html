@@ -4,10 +4,10 @@
   [ngClass]="{ link: link$ | async }">
   <div
     class="text"
-    [matTooltip]="action.text | flTranslatableText | async"
+    [matTooltip]="displayedText$ | async | flTranslatableText | async"
     matTooltipShowDelay="1000"
     matTooltipPosition="above">
-    {{ action.text | flTranslatableText | async }}
+    {{ displayedText$ | async | flTranslatableText | async }}
   </div>
 
   @if (statusEvent$ | async; as statusEvent) {
@@ -17,6 +17,10 @@
       }
       @case ('loading') {
         <!--   loader the same size as the icons   -->
+        <fl-loader [size]="24" class="icon"></fl-loader>
+      }
+      @case ('processing') {
+        <!--   indeterminate loader for server processing   -->
         <fl-loader [size]="24" class="icon"></fl-loader>
       }
       @case ('progress') {
@@ -33,8 +37,7 @@
             type="button"
             (click)="cancelAction()"
             [matTooltip]="'flPortalAction.cancelAction' | translate"
-            matTooltipPosition="before"
-          >
+            matTooltipPosition="before">
             <mat-icon>cancel</mat-icon>
           </button>
         </div>

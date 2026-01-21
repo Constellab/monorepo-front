@@ -2,6 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { ClHelpService } from '@monorepo/core-lib';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlPortalAction, FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { filter, mergeMap, Observable, of } from 'rxjs';
 import { map, share, switchMap } from 'rxjs/operators';
 
@@ -16,7 +17,6 @@ import {
 import { CaFolder, CaFolderWithHierarchy } from '../../model/entities/folder/ca-folder.class';
 import { CaHierarchyObject } from '../../model/entities/folder/ca-hierarchy-object.class';
 import { CaDocumentService } from '../../service-api/ca-document.service';
-import { CaFolderService } from '../../service-api/ca-folder.service';
 import { CaHierarchyObjectService } from '../../service-api/ca-hierarchy-object.service';
 import {
   CaFolderFormDialogComponent,
@@ -39,15 +39,19 @@ import {
   providedIn: 'root',
 })
 export class CaFolderActionService {
-  private folderService = inject(CaFolderService);
   private documentService = inject(CaDocumentService);
   private hierarchyObjectService = inject(CaHierarchyObjectService);
   private dialogService = inject(FlDialogService);
   private actionService = inject(FlPortalActionsService);
+  private snackBarService = inject(FlSnackBarService);
 
   private uploadDocumentActionName = 'upload-document-action';
   private uploadFolderActionName = 'upload-folder-action';
   private moveFolderActionName = 'move-to-folder-action';
+
+  // Max number of files allowed to upload in a folder at once
+  // This is also defined in the backend
+  private static readonly MAX_FOLDER_UPLOAD_FILES = 10000;
 
   public openCreateRootFolderDialog(): Observable<CaFolderWithHierarchy | null> {
     const dialogInput: CaFolderFormDialogInput = {
@@ -141,9 +145,16 @@ export class CaFolderActionService {
           translateParam: { param: { name: file.name } },
         },
         additionalInformation: folderId,
+        trackHttpEvents: true,
+        processingMessage: {
+          text: 'processing_document',
+          translateText: true,
+          translateParam: { param: { name: file.name } },
+        },
+        autoClose: false,
       };
 
-      this.actionService.addAction(action, false);
+      this.actionService.addAction(action);
     }
   }
 
@@ -167,6 +178,17 @@ export class CaFolderActionService {
   public uploadFolder(folderId: string, fileEvent: File | File[]): void {
     const files = ClHelpService.convertObjectOrArrayToArray(fileEvent);
 
+    if (files.length > CaFolderActionService.MAX_FOLDER_UPLOAD_FILES) {
+      this.snackBarService.openErrorMessage({
+        text: 'folder_upload_max_files_error',
+        translateText: true,
+        translateParam: {
+          param: { nbFiles: files.length, maxFiles: CaFolderActionService.MAX_FOLDER_UPLOAD_FILES },
+        },
+      });
+      return;
+    }
+
     const action: FlPortalAction = {
       type: this.uploadFolderActionName,
       action: this.documentService.uploadFolder(files, folderId),
@@ -175,9 +197,15 @@ export class CaFolderActionService {
         translateText: true,
       },
       additionalInformation: folderId,
+      trackHttpEvents: true,
+      autoClose: false,
+      processingMessage: {
+        text: 'processing_folder',
+        translateText: true,
+      },
     };
 
-    this.actionService.addAction(action, false);
+    this.actionService.addAction(action);
   }
 
   public getUploadedDocumentActionResult(): Observable<{ folderId: string; document: CaHierarchyObject }> {

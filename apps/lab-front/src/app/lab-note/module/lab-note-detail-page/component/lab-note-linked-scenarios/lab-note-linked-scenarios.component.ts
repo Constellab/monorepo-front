@@ -1,4 +1,4 @@
-import { Component, inject,OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -82,14 +82,12 @@ export class LabNoteLinkedScenariosComponent implements OnInit, OnDestroy {
 
   private selectScenarioClosed(scenario?: LiScenario): void {
     if (scenario) {
-      this.actionService.addAction(
-        {
-          type: this.actionName,
-          action: this.noteService.addScenario(this.state.currentNote.id, scenario.id),
-          text: { text: 'biox.note_link_scenario', translateText: true },
-        },
-        true
-      );
+      this.actionService.addAction({
+        type: this.actionName,
+        action: this.noteService.addScenario(this.state.currentNote.id, scenario.id),
+        text: { text: 'biox.note_link_scenario', translateText: true },
+        autoClose: true,
+      });
     }
   }
 

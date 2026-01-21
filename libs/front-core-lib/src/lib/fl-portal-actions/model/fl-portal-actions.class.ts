@@ -1,7 +1,5 @@
-import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { filter } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 /**
  * Action to be shown in the screen
@@ -24,7 +22,8 @@ export interface FlPortalAction<T = any> {
   text: FlTranslatableText;
 
   /**
-   * If true the action must return a HttpEvent and the action will display a progress bar
+   * If true the action must return a HttpEvent and the action will display a progress bar.
+   * The action observable must be an http request with observe: 'events' and reportProgress: true
    */
   trackHttpEvents?: boolean;
 
@@ -39,133 +38,34 @@ export interface FlPortalAction<T = any> {
    * @param result
    */
   successLink?: (result: T) => string;
+
+  /**
+   * Message to display when upload is complete and server is processing.
+   * Only used when trackHttpEvents is true.
+   */
+  processingMessage?: FlTranslatableText;
+
+  /**
+   * If true, the portal will auto-close after this action finishes.
+   * If any action has autoClose: false, the portal will stay open.
+   * Defaults to false.
+   */
+  autoClose?: boolean;
 }
 
 /**
  * Current status of the action
  * Progress is like loading but with information about loader (like file upload)
+ * Processing is when upload is complete and server is processing
  */
-export type FlPortalActionStatus = 'ready' | 'waiting' | 'loading' | 'progress' | 'success' | 'error';
-
-/**
- * Information used within the {@link FlPortalActionsComponent}
- */
-export class FlPortalActionDetail {
-  // used in the ngFor to track loaders
-  symbol: symbol;
-
-  text: FlTranslatableText;
-
-  private actionSubject$: BehaviorSubject<FlPortalActionDetailStatusEvent> = new BehaviorSubject({
-    status: 'waiting',
-  });
-
-  private subscription: Subscription;
-
-  constructor(private action: FlPortalAction) {
-    this.symbol = Symbol();
-    this.text = action.text;
-  }
-
-  public callAction(): Observable<FlPortalActionResult> {
-    this.emitLoading();
-    this.subscription = this.action.action.subscribe({
-      next: (result) => this.onSuccess(result),
-      error: (error) => this.emitError(error),
-    });
-    return this.getResult$();
-  }
-
-  private emitLoading(): void {
-    this.actionSubject$.next({ status: 'loading' });
-  }
-
-  private onSuccess(result: any): void {
-    if (this.action.trackHttpEvents) {
-      this.emitProgress(result);
-    } else {
-      this.emitSuccess(result);
-    }
-  }
-
-  private emitProgress(result: HttpEvent<any>): void {
-    // if upload progress
-    if (result.type === HttpEventType.UploadProgress) {
-      const progress = Math.trunc((result.loaded / result.total) * 100);
-      this.actionSubject$.next({ status: 'progress', progressValue: progress });
-    }
-    // end of the request with the object
-    else if (result.type === HttpEventType.Response) {
-      this.emitSuccess(result.body);
-      // once the upload is down, show a basic loader
-    } else if (
-      result.type === HttpEventType.DownloadProgress ||
-      result.type === HttpEventType.ResponseHeader
-    ) {
-      this.emitLoading();
-    }
-  }
-
-  private emitSuccess(result: any): void {
-    const link = this.action.successLink ? this.action.successLink(result) : null;
-
-    this.actionSubject$.next({
-      status: 'success',
-      result: result,
-      action: this.action,
-      additionalInformation: this.action.additionalInformation,
-      link: link,
-    });
-    this.actionSubject$.complete();
-  }
-
-  private emitError(error: any): void {
-    this.actionSubject$.next({
-      status: 'error',
-      result: error,
-      action: this.action,
-      additionalInformation: this.action.additionalInformation,
-    });
-    console.error(error);
-    this.actionSubject$.complete();
-  }
-
-  public getStatusEvent$(): Observable<FlPortalActionDetailStatusEvent> {
-    return this.actionSubject$.asObservable();
-  }
-
-  public getResult$(): Observable<FlPortalActionResult> {
-    // only keep the success and error events
-    return this.getStatusEvent$().pipe(
-      filter((result) => result.status === 'success' || result.status === 'error')
-    ) as any;
-  }
-
-  public getCurrentStatus(): FlPortalActionStatus {
-    return this.actionSubject$.value.status;
-  }
-
-  public isFinished(): boolean {
-    return this.getCurrentStatus() === 'success' || this.getCurrentStatus() === 'error';
-  }
-
-  public isTrackingHttpEvents(): boolean {
-    return this.action.trackHttpEvents;
-  }
-
-  public cancel(): void {
-    // only the tracking http event can be stopped, the others have not effect as the request
-    // is already on server
-    if (this.isTrackingHttpEvents()) {
-      // emit a cancel event
-      this.emitError('Canceled');
-
-      // unsubscribe the observable to kill request
-      // if this is a tracking http event
-      this.subscription?.unsubscribe();
-    }
-  }
-}
+export type FlPortalActionStatus =
+  | 'ready'
+  | 'waiting'
+  | 'loading'
+  | 'progress'
+  | 'processing'
+  | 'success'
+  | 'error';
 
 /**
  * Event emitted by the portal action , can be any state
@@ -173,6 +73,7 @@ export class FlPortalActionDetail {
 export type FlPortalActionDetailStatusEvent =
   | FlPortalActionResult
   | FlPortalActionProgress
+  | FlPortalActionProcessing
   | FlPortalActionEmpty;
 
 /**
@@ -181,6 +82,14 @@ export type FlPortalActionDetailStatusEvent =
 export interface FlPortalActionProgress {
   status: 'progress';
   progressValue: number; // percentage of the progress
+}
+
+/**
+ * Object emitted when upload is complete and server is processing
+ */
+export interface FlPortalActionProcessing {
+  status: 'processing';
+  message?: FlTranslatableText; // optional message to override the default text
 }
 
 /**

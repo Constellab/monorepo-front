@@ -134,19 +134,17 @@ export class LiManageEntityTagsDialogComponent {
 
   private addTagsToEntity(): void {
     this.portalActionService
-      .addAction(
-        {
-          type: 'add-tag',
-          text: { text: 'li.adding_tag', translateText: true },
-          action: this.tagService.addEntityTags(
-            this.input.entityType,
-            this.input.entityId,
-            this.newTags.array,
-            this.isPropagable
-          ),
-        },
-        true
-      )
+      .addAction({
+        type: 'add-tag',
+        text: { text: 'li.adding_tag', translateText: true },
+        action: this.tagService.addEntityTags(
+          this.input.entityType,
+          this.input.entityId,
+          this.newTags.array,
+          this.isPropagable
+        ),
+        autoClose: true,
+      })
       .subscribe((result: FlPortalActionResult<LiTag[]>) => {
         if (result.status === 'success') {
           this.currentTags.addItem(result.result);
@@ -171,14 +169,12 @@ export class LiManageEntityTagsDialogComponent {
   private removeCheckPropagationDialogResult(tag: LiTag, result?: FlConfirmDialogResult): void {
     if (result?.choice) {
       this.portalActionService
-        .addAction(
-          {
-            type: 'delete-tag',
-            text: { text: 'li.deleting_tag', translateText: true },
-            action: this.tagService.deleteEntityTag(this.input.entityType, this.input.entityId, tag),
-          },
-          true
-        )
+        .addAction({
+          type: 'delete-tag',
+          text: { text: 'li.deleting_tag', translateText: true },
+          action: this.tagService.deleteEntityTag(this.input.entityType, this.input.entityId, tag),
+          autoClose: true,
+        })
         .subscribe((result: FlPortalActionResult<void>) => {
           if (result.status === 'success') {
             this.currentTags.removeItem(tag);
