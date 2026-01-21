@@ -51,7 +51,7 @@ export class CaFolderActionService {
 
   // Max number of files allowed to upload in a folder at once
   // This is also defined in the backend
-  private static readonly MAX_FOLDER_UPLOAD_FILES = 10000;
+  private static readonly MAX_FOLDER_UPLOAD_FILES = 1000;
 
   public openCreateRootFolderDialog(): Observable<CaFolderWithHierarchy | null> {
     const dialogInput: CaFolderFormDialogInput = {
