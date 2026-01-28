@@ -1,15 +1,14 @@
 import { isPlatformBrowser, isPlatformServer, NgClass } from '@angular/common';
 import {
   Component,
+  effect,
   inject,
   makeStateKey,
-  OnInit,
   PLATFORM_ID,
   Signal,
   StateKey,
   TransferState,
 } from '@angular/core';
-import { toObservable } from '@angular/core/rxjs-interop';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
@@ -33,7 +32,7 @@ import { FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
 import { FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import { TranslatePipe } from '@ngx-translate/core';
-import { filter, Observable } from 'rxjs';
+import { filter } from 'rxjs';
 
 import { HaBrick } from '../../../ha-core/ha-model/ha-entities/ha-brick.class';
 import { HaDocumentation } from '../../../ha-core/ha-model/ha-entities/ha-documentation.class';
@@ -76,7 +75,7 @@ import {
     NgClass,
   ],
 })
-export class HaBrickSidenavComponent implements OnInit {
+export class HaBrickSidenavComponent {
   private brickService = inject(HaBrickService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
@@ -92,7 +91,7 @@ export class HaBrickSidenavComponent implements OnInit {
 
   userHasEditRight = this.brickPageState.getUserHasEditRight();
 
-  brickAndPathVersion$: Observable<[HaBrick, string]> = toObservable(this.brickPageState.brickAndPathVersion);
+  brickAndPathVersion = this.brickPageState.brickAndPathVersion;
 
   pathVersion: Signal<string> = this.brickPageState.getBrickVersionPath();
   brick: Signal<HaBrick> = this.brickPageState.brick;
@@ -114,14 +113,15 @@ export class HaBrickSidenavComponent implements OnInit {
   currentCompletePath: string;
   currentDocId: string;
 
-  ngOnInit(): void {
-    this.TECH_DOCUMENTATION_KEY = makeStateKey<object>('TECH_DOCUMENTATION_KEY');
-
-    this.brickAndPathVersion$.subscribe(([brick, pathVersion]) => {
-      if (!brick) return null;
+  constructor() {
+    effect(() => {
+      this.TECH_DOCUMENTATION_KEY = makeStateKey<object>('TECH_DOCUMENTATION_KEY');
+      const brickAndPathVersion = this.brickAndPathVersion();
+      const brick = brickAndPathVersion[0];
+      const pathVersion = brickAndPathVersion[1];
+      if (!brick) return;
       this.initCurrentCompletePath(pathVersion);
       this.init(brick, pathVersion);
-      return brick;
     });
   }
 
