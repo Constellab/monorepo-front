@@ -1,5 +1,6 @@
-import { inject,Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { FlPlatformService } from '@monorepo/front-core-lib/fl-core';
 
 import { HaMetadataNamesConfig } from '../ha-model/ha-config/ha-metadata-names.config';
 import { HaMetadataService } from './ha-metadata.service';
@@ -10,8 +11,12 @@ import { HaMetadataService } from './ha-metadata.service';
 export class HaHttpRedirectionService {
   private metadataService = inject(HaMetadataService);
   private router = inject(Router);
+  private platformService = inject(FlPlatformService);
 
   redirectTo(url: string): void {
+    if (!this.platformService.isBrowserPlatform()) {
+      return;
+    }
     this.metadataService.addMetaTag(HaMetadataNamesConfig.REDIRECT_URL, url, false);
     this.router.navigate([url], {
       replaceUrl: true,

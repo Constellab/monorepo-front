@@ -1,4 +1,4 @@
-import { FlDatasourceTree, FlEntity } from '@monorepo/front-core-lib/fl-core';
+import { FlDatasourceTree } from '@monorepo/front-core-lib/fl-core';
 import { Type } from 'class-transformer';
 
 import { HaBaseEntity, HaEntity } from './ha-entity.class';
@@ -60,7 +60,6 @@ export class HaNodeObjectsTreeDatasource extends FlDatasourceTree<HaNode> {
         this.addNodeObjectsWithChildrenRecur(object.children);
       }
     }
-    console.log(this.tree.children);
   }
 }
 
@@ -114,9 +113,4 @@ export enum HaNodeType {
   DOC = 'DOC',
   FOL = 'FOL',
   TEC = 'TEC',
-}
-
-export class EntityWithPotentialsChildren<T> implements FlEntity {
-  id: string;
-  children?: T[];
 }

@@ -72,7 +72,6 @@ export class HaAgentCreateDialogComponent
   }
 
   onFileSelected(event: any): void {
-    console.log(event)
     this.formGp.controls.versionFile.patchValue(null);
     if (event == null) {
       return;

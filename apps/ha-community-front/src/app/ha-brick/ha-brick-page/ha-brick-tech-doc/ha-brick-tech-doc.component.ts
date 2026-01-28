@@ -51,7 +51,7 @@ export class HaBrickTechDocComponent extends HaCommunityPageDirective implements
     this.route.params.subscribe((params) => {
       this.brickPageState.initTechDoc(params.brickName, params.version, params.type, params.uniqueName);
       this.url = HaRouterService.getTechnicalDocRoute(
-        params.briockName,
+        params.brickName,
         params.version,
         params.type,
         params.uniqueName

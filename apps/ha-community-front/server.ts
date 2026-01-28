@@ -222,7 +222,7 @@ Sitemap: ${environment.settings.communityFrontUrl}/sitemap.xml`);
         url: `${protocol}://${headers.host}${originalUrl}`,
         publicPath: browserDistFolder,
         providers: [
-          { provide: APP_BASE_HREF, useValue: baseUrl },
+          { provide: APP_BASE_HREF, useValue: baseUrl ?? '/' },
           // provide the request object to the DI so it can be access in SSR
           // check if this is still useful with new hydrate method
           // TODO check if this is really useful once app built
