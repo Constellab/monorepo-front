@@ -21,7 +21,13 @@
       @if (node.object.material_icon) {
         <mat-icon [flIcon]="node.object.material_icon" class="icon"></mat-icon>
       }
-      <div [ngClass]="{ 'g-text-link': !node.object.disabled }" (click)="onItemClick(node)">
+      <div
+        [ngClass]="
+        {
+        'g-text-link': !node.object.disabled,
+        'tree-node-padding': !node.children || node.children.length === 0
+        }"
+        (click)="onItemClick(node)">
         {{ node.object.label }}
       </div>
     </div>
