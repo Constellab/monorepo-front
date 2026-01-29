@@ -255,6 +255,10 @@ export class HaBrickPageState {
 
     this.docStatusEvent.set({ status: 'loading' });
 
+    console.log('Initializing doc with ID:', docId);
+    console.log('URL segments:', url.map((segment) => segment.path).join('/'));
+    console.log('Brick:', brick);
+
     if (!ClStringHelper.isUUID(docId)) {
       if (url.length == 1 && url[0].path == 'getting-started') {
         this.redirectToGettingStartedDoc(brick);
