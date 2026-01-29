@@ -186,9 +186,19 @@ export class HaBrickPageState {
   });
 
   public init(brickName: string, version: string): void {
+    if (!this.isValidVersion(version)) {
+      this.brickStatusEvent.set({ status: 'error', error: 'invalid_version' });
+      return;
+    }
     this.pathVersion.set(version);
     this.tempTitle.set(ClStringHelper.fromKebabCaseToSentence(brickName));
     this.initBrick(brickName);
+  }
+
+  private isValidVersion(version: string): boolean {
+    if (!version) return false;
+    // Valid formats: 'latest' or 'vX' or 'vX.X.X' (with optional -beta.X suffix)
+    return version === 'latest' || /^v\d+(\.\d+(\.\d+)?)?(-beta\.\d+)?$/.test(version);
   }
 
   public setBrick(brick: HaBrick): void {
@@ -458,6 +468,11 @@ export class HaBrickPageState {
     techDocType: string,
     techDocUniqueName: string
   ): void {
+    if (!this.isValidVersion(version)) {
+      this.techDocStatusEvent.set({ status: 'error', error: 'invalid_version' });
+      return;
+    }
+
     this.techDocStatusEvent.set({ status: 'loading' });
 
     if (isPlatformBrowser(this.platformId) && this.transferState.hasKey(this.TECH_DOC_KEY)) {

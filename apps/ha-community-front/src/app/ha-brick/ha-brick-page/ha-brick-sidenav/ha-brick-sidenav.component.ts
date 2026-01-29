@@ -119,10 +119,16 @@ export class HaBrickSidenavComponent {
       const brickAndPathVersion = this.brickAndPathVersion();
       const brick = brickAndPathVersion[0];
       const pathVersion = brickAndPathVersion[1];
-      if (!brick) return;
+      if (!brick || !this.isValidVersion(pathVersion)) return;
       this.initCurrentCompletePath(pathVersion);
       this.init(brick, pathVersion);
     });
+  }
+
+  private isValidVersion(version: string): boolean {
+    if (!version) return false;
+    // Valid formats: 'latest' or 'vX' or 'vX.X.X' (with optional -beta.X suffix)
+    return version === 'latest' || /^v\d+(\.\d+(\.\d+)?)?(-beta\.\d+)?$/.test(version);
   }
 
   getRoute: (node: HaNode) => string = (node: HaNode) => {
