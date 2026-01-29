@@ -118,7 +118,12 @@ export class HaRouterService {
   ////////////////////////// BRICKS ////////////////////////////////
 
   public static getBrickPageRoute(brickName: string, brickMajor?: string): string {
-    const brickMajorUrl = brickMajor == null || brickMajor === 'latest' ? 'latest' : `v${brickMajor}`;
+    const brickMajorUrl =
+      brickMajor == null || brickMajor === 'latest'
+        ? 'latest'
+        : brickMajor.startsWith('v')
+          ? brickMajor
+          : `v${brickMajor}`;
     return `${this.getBrickListRoute()}/${brickName}/${brickMajorUrl}/`;
   }
 

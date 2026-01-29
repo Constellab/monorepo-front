@@ -14,10 +14,10 @@ export class HaHttpRedirectionService {
   private platformService = inject(FlPlatformService);
 
   redirectTo(url: string): void {
+    this.metadataService.addMetaTag(HaMetadataNamesConfig.REDIRECT_URL, url, false);
     if (!this.platformService.isBrowserPlatform()) {
       return;
     }
-    this.metadataService.addMetaTag(HaMetadataNamesConfig.REDIRECT_URL, url, false);
     this.router.navigate([url], {
       replaceUrl: true,
       preserveFragment: true,
