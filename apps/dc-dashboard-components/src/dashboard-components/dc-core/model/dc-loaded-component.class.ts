@@ -1,4 +1,4 @@
-import { ComponentRef } from '@angular/core';
+import { ComponentRef, OutputRefSubscription } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import {
@@ -8,7 +8,7 @@ import {
 } from '../../../core/model/dc-dynamic-component.class';
 
 export class DcLoadedComponent {
-  private subscription: Subscription;
+  private subscription: Subscription | OutputRefSubscription;
 
   constructor(
     public readonly id: string,

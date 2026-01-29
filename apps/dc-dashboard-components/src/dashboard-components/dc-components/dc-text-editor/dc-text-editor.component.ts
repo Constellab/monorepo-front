@@ -1,14 +1,20 @@
-import { Component, computed, effect, HostBinding, inject, input, output, signal } from '@angular/core';
+import {
+  booleanAttribute,
+  Component,
+  computed,
+  effect,
+  HostBinding,
+  inject,
+  input,
+  output,
+  signal,
+} from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 import { TeRichText, TeRichTextDTO, TeTextEditorModule, TeTools } from '@monorepo/text-editor';
 import { Observable, of } from 'rxjs';
 
-import {
-  DcAuthenticationInfo,
-  DcDynamicComponent,
-  dcParseJsonInput,
-} from '../../../core/model/dc-dynamic-component.class';
+import { DcDynamicComponent, dcParseJsonInput } from '../../../core/model/dc-dynamic-component.class';
 import { DcCoreMainDirective } from '../../dc-core/directive/dc-core-main-prod/dc-core-main.directive';
 import { DcTextEditorConfig } from './dc-text-editor.config';
 
@@ -38,16 +44,16 @@ export interface DcRichTextConfig {
   },
 })
 export class DcTextEditorComponent implements DcDynamicComponent<DcRichTextConfig, TeRichTextDTO> {
-  inputData = input<DcRichTextConfig, string | DcRichTextConfig>({} as DcRichTextConfig, {
+  inputData = input({} as DcRichTextConfig, {
     transform: dcParseJsonInput,
   });
-  authenticationInfo = input<DcAuthenticationInfo | null, string | DcAuthenticationInfo | null>(null, {
+  authenticationInfo = input(null, {
     transform: dcParseJsonInput,
   });
 
   outputEvent = output<TeRichTextDTO>();
 
-  useCustomTools = input<boolean>(false);
+  useCustomTools = input(false, { transform: booleanAttribute });
   customTools = input<TeTools>();
 
   @HostBinding('style.minHeight') minHeight = '';

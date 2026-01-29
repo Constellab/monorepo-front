@@ -38,9 +38,22 @@ export class DcTextEditorConfig extends TeCompleteConfig {
     // tools.figure = this.getImageConfig(imageConfig, envInjector, applicationRef);
 
     const tools = super.getTools(envInjector, applicationRef);
+    const result: TeTools = {};
+
+    // First, add all custom tools, so they are first in the list
     if (this.customTools) {
-      Object.assign(tools, this.customTools);
+      for (const key in this.customTools) {
+        result[key] = this.customTools[key];
+      }
     }
-    return tools;
+
+    // Then, add parent tools only if they don't exist
+    for (const key in tools) {
+      if (!(key in result)) {
+        result[key] = tools[key];
+      }
+    }
+
+    return result;
   }
 }

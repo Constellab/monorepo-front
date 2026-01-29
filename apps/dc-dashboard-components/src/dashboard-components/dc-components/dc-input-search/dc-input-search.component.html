@@ -1,0 +1,13 @@
+<fl-input-search
+  [selectedItem]="selectedItemObject()"
+  (selectedItemChange)="onSelectItem($event)"
+  [datasource]="datasource()"
+  [placeholder]="placeholder()"
+  [required]="required()"
+  [minInputSearchLength]="minInputSearchLength()"
+  [initSearchOnFocus]="initSearchOnFocus()"
+  [disabled]="disabled()">
+  <div *flInputSearchOption="datasource() as item">
+    {{ item.toString() }}
+  </div>
+</fl-input-search>

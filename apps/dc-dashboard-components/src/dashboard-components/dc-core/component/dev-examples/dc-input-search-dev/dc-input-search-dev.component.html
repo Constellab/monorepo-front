@@ -1,0 +1,11 @@
+<div class="container">
+  <h1>Input Search</h1>
+  <dc-input-search
+    [pageResult]="pageResult()"
+    [selectedItem]="selectedItem()"
+    [pageSize]="5"
+    placeholder="Search a fruit"
+    [minInputSearchLength]="1"
+    (searchRequest)="onSearchRequest($event)"
+    (itemSelected)="onItemSelected($event)" />
+</div>

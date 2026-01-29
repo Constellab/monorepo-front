@@ -12,7 +12,7 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { MAT_TOOLTIP_DEFAULT_OPTIONS } from '@angular/material/tooltip';
 import { LuxonDateAdapter } from '@angular/material-luxon-adapter';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { provideRouter } from '@angular/router';
+import { provideRouter, Routes } from '@angular/router';
 import { CoCommunityLibModule } from '@monorepo/community-lib';
 import { ClSupportedLanguage } from '@monorepo/core-lib';
 import { FlApiModule } from '@monorepo/front-core-lib/fl-api';
@@ -49,7 +49,7 @@ function initRootInjector(injector: Injector): void {
   flSetRootInjector(injector);
 }
 
-export function dcAppConfig(baseHref: string): ApplicationConfig {
+export function dcAppConfig(baseHref: string, routes: Routes = []): ApplicationConfig {
   // configure the lab-lib config
   return {
     providers: [
@@ -83,7 +83,7 @@ export function dcAppConfig(baseHref: string): ApplicationConfig {
         CoCommunityLibModule.forRoot(DcCoServiceConfig)
       ),
       provideHttpClient(withInterceptorsFromDi()),
-      provideRouter([]),
+      provideRouter(routes),
       provideAppInitializer(() => loadThemeOnInit(inject(FlThemeService))),
       provideAppInitializer(() => initRootInjector(inject(Injector))),
       {

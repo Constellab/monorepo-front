@@ -1,4 +1,19 @@
-.container {
+.dev-container {
+  height: 100vh;
+}
+
+mat-sidenav {
+  width: 220px;
+}
+
+mat-sidenav-content {
   padding: 1em;
-  display: block;
+}
+
+.active {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+:host-context(.dark-theme) .active {
+  background-color: rgba(255, 255, 255, 0.08);
 }
