@@ -111,7 +111,11 @@ export class HaCoAuthorDialogComponent implements OnInit {
       .pipe(debounceTime(this.searchDebounceTime))
       .subscribe((inputText) => {
         this.isInputValueEmail = ClStringHelper.isEmail(inputText);
-        this.loadPage(inputText);
+        if (inputText?.length >= 2) {
+          this.loadPage(inputText);
+        } else {
+          this.filteredOptions.clear();
+        }
       });
   }
 

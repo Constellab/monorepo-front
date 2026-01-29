@@ -8,7 +8,7 @@ export class HaEnvironmentHelper {
       constellabApiUrl: environment.settings.constellabApiUrl || 'https://api.preconstellab.com',
       constellabFrontUrl: environment.settings.constellabFrontUrl || 'https://preconstellab.com',
       communityFrontUrl: environment.settings.communityFrontUrl || 'http://localhost:4200',
-      captchaSiteKey: environment.settings.captchaSiteKey || '123465',
+      captchaSiteKey: environment.settings.captchaSiteKey || null,
       googleAnalyticsId: environment.settings.googleAnalyticsId || 'eazeaze',
       discordLink: environment.settings.discordLink || 'https://discord.com/invite/7nmH5qKM',
       algoliaAppId: environment.settings.algoliaAppId || 'S233I3C24Z',
