@@ -19,7 +19,6 @@ let initialized = false;
  */
 export async function dcInitComponents(basePath: string = '.'): Promise<void> {
   if (initialized) {
-    console.log('DcComponents already initialized.');
     return;
   }
   initialized = true;

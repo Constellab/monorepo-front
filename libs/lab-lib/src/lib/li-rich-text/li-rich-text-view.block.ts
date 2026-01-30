@@ -172,6 +172,7 @@ export class LiRichTextViewBlock extends TeComponentBlock<LiRichTextViewComponen
     if (viewConfig == null) return;
     this.options.data = {
       id: viewConfig.id + '_' + new Date().getTime(),
+      view_config_id: viewConfig.id,
       resource_id: viewConfig.resource.id,
       scenario_id: viewConfig.scenario?.id,
       view_method_name: viewConfig.viewName,
