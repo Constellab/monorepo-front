@@ -286,3 +286,24 @@
   height: 17px !important;
   width: 17px !important;
 }
+
+// Chatbot styles
+.co-chatbot-backdrop {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.co-chatbot-panel {
+  animation: chatbot-slide-up 0.2s ease-out;
+}
+
+@keyframes chatbot-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

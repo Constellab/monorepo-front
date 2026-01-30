@@ -1,0 +1,56 @@
+<div class="co-chatbot-container">
+  @if (hasError()) {
+    <div class="co-chatbot-error">
+      <mat-icon>error_outline</mat-icon>
+      <span>{{ 'coCommunityLib.chatbot_connection_error' | translate }}</span>
+      <button mat-stroked-button (click)="reconnect()">
+        {{ 'coCommunityLib.chatbot_retry' | translate }}
+      </button>
+    </div>
+  } @else if (isConnecting()) {
+    <div class="co-chatbot-connecting">
+      <mat-spinner diameter="24"></mat-spinner>
+      <span>{{ 'coCommunityLib.chatbot_connecting' | translate }}</span>
+    </div>
+  } @else {
+    <div class="co-chatbot-messages" #messagesContainer>
+      @for (message of displayMessages(); track $index) {
+        <co-ragflow-chat-message [message]="message"></co-ragflow-chat-message>
+      }
+
+      @if (isTyping() && !streamingContent()) {
+        <div class="co-chatbot-typing">
+          <div class="co-chatbot-typing-dots">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+      }
+    </div>
+
+    <div class="co-chatbot-input">
+      <mat-form-field class="g-full" subscriptSizing="dynamic" >
+        <textarea
+          matInput
+          cdkTextareaAutosize
+          cdkAutosizeMinRows="2"
+          cdkAutosizeMaxRows="20"
+          #messageInput
+          [formControl]="messageCtrl"
+          [placeholder]="placeholder() | translate"
+          (keydown)="onKeydown($event)"
+          [disabled]="!isConnected() || isTyping()">
+        </textarea>
+        <button
+          mat-icon-button
+          matSuffix
+          type="button"
+          (click)="sendMessage()"
+          [disabled]="!isConnected() || isTyping() || !messageCtrl.value?.trim()">
+          <mat-icon>send</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+  }
+</div>

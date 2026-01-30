@@ -18,9 +18,7 @@
       "Bash(nx run:*)",
       "Bash(git log:*)",
       "Bash(tree:*)",
-      "Bash(npm ls:*)",
-      "Bash(git checkout:*)",
-      "Bash(ls:*)"
+      "Bash(find:*)"
     ],
     "deny": []
   }

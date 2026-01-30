@@ -1,0 +1,22 @@
+<div class="co-chatbot-panel-container">
+  <div class="co-chatbot-panel-header">
+    <span>{{ 'coCommunityLib.chatbot_title' | translate }}</span>
+    <div class="co-chatbot-panel-actions">
+      <button
+        mat-icon-button
+        (click)="startNewConversation()"
+        [matTooltip]="'coCommunityLib.chatbot_new_conversation' | translate">
+        <mat-icon>add_comment</mat-icon>
+      </button>
+      <button mat-icon-button (click)="close()" [matTooltip]="'coCommunityLib.chatbot_close' | translate">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <co-ragflow-chatbot
+    [chatId]="config.chatId"
+    [userId]="config.userId"
+    [conversationId]="config.conversationId">
+  </co-ragflow-chatbot>
+</div>

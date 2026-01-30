@@ -28,6 +28,13 @@ export * from './lib/component/co-item-type-icon/co-item-type-icon.component';
 export * from './lib/component/co-stats-list/co-stats-list.component';
 export * from './lib/component/co-list-filters/co-list-filters.component';
 export * from './lib/component/co-partner-list-item/co-partner-list-item.component';
+export * from './lib/component/co-ragflow-chatbot/co-ragflow-chatbot.component';
+export * from './lib/component/co-ragflow-chatbot/co-ragflow-chat-message/co-ragflow-chat-message.component';
+// eslint-disable-next-line max-len
+export * from './lib/component/co-ragflow-chatbot/co-ragflow-chatbot-bubble/co-ragflow-chatbot-bubble.component';
+// eslint-disable-next-line max-len
+export * from './lib/component/co-ragflow-chatbot/co-ragflow-chatbot-panel/co-ragflow-chatbot-panel.component';
+export * from './lib/component/co-ragflow-chatbot/co-ragflow-chatbot-panel/co-ragflow-chatbot-panel.config';
 
 // Helpers
 export * from './lib/helper/co-community-helper.service';
@@ -44,6 +51,8 @@ export * from './lib/model/co-tag-key.class';
 export * from './lib/model/co-tag-value.class';
 export * from './lib/model/co-partner.class';
 export * from './lib/model/co-list-item-type.enum';
+export * from './lib/model/co-ragflow-chatbot.class';
 
 // States
 export * from './lib/state/co-tag-additional-info-spec.state';
+export * from './lib/state/co-ragflow-chatbot.state';

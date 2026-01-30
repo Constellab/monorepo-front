@@ -15,8 +15,8 @@ export class HaEnvironmentHelper {
       algoliaSearchKey: environment.settings.algoliaSearchKey || '8fd4e2048efc6363ff0dca169b6522af',
       algoliaIndexName: environment.settings.algoliaIndexName || 'Community Preprod',
       algoliaSiteVerificationKey: environment.settings.algoliaSiteVerificationKey || null,
-      difyChatbotToken: environment.settings.difyChatbotToken || null,
       homeVideoLink: environment.settings.homeVideoLink || null,
+      ragflowChatId: environment.settings.ragflowChatId || '26505d6e028211f1a6b4fa8e0bdfc3da',
     };
     return environment;
   }
@@ -53,11 +53,11 @@ export class HaEnvironmentHelper {
     return HaEnvironmentHelper.getEnv().settings.discordLink;
   }
 
-  public static getDifyChatbotToken(): string | null {
-    return HaEnvironmentHelper.getEnv().settings.difyChatbotToken;
-  }
-
   public static getHomeVideoLink(): string | null {
     return HaEnvironmentHelper.getEnv().settings.homeVideoLink || null;
+  }
+
+  public static getRagflowChatId(): string | null {
+    return HaEnvironmentHelper.getEnv().settings.ragflowChatId || null;
   }
 }

@@ -112,3 +112,5 @@ export class CoCommunityLibModule {
     };
   }
 }
+
+export { CoConfig };
