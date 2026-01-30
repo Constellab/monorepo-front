@@ -27,7 +27,6 @@ environment.settings = {
   algoliaSearchKey: process?.env['ALGOLIA_SEARCH_KEY'] || '8fd4e2048efc6363ff0dca169b6522af',
   algoliaIndexName: process?.env['ALGOLIA_INDEX_NAME'] || 'Community Preprod',
   algoliaSiteVerificationKey: process?.env['ALGOLIA_SITE_VERIFICATION_KEY'] || null,
-  difyChatbotToken: process?.env['DIFY_CHATBOT_TOKEN'] || null,
   homeVideoLink: process?.env['HOME_VIDEO_LINK'] || null,
 };
 
@@ -63,13 +62,13 @@ function app(): express.Express {
       const scriptSrc =
         "script-src 'self' 'unsafe-hashes' 'sha256-MhtPZXr7+LpJUY5qtMutB+qWfQtMaPccfe7QXtCcEYc=' " +
         "'sha256-fPMfCibMhhkJZAz+L32w5D6q/jMoM8B+cblEqezMH44=' *.constellab.community " +
-        'https://www.google.com https://www.gstatic.com *.googletagmanager.com https://udify.app data:';
+        'https://www.google.com https://www.gstatic.com *.googletagmanager.com data:';
 
       // frame-src https://www.google.com/' is for the recaptcha
 
       const frameSrc =
         "frame-src 'self' *.gencovery.com *.constellab.community *.gencovery.io *.constellab.app " +
-        'youtube.com www.youtube.com https://www.google.com https://udify.app';
+        'youtube.com www.youtube.com https://www.google.com';
       const workerSrc = "worker-src  *.gencovery.com *.constellab.community data: 'self' blob:";
       const styleSrc =
         "style-src 'self' 'unsafe-inline' *.gencovery.com *.constellab.community " +

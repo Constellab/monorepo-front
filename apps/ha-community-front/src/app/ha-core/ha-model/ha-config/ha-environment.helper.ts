@@ -15,7 +15,6 @@ export class HaEnvironmentHelper {
       algoliaSearchKey: environment.settings.algoliaSearchKey || '8fd4e2048efc6363ff0dca169b6522af',
       algoliaIndexName: environment.settings.algoliaIndexName || 'Community Preprod',
       algoliaSiteVerificationKey: environment.settings.algoliaSiteVerificationKey || null,
-      difyChatbotToken: environment.settings.difyChatbotToken || null,
       homeVideoLink: environment.settings.homeVideoLink || null,
     };
     return environment;
@@ -51,10 +50,6 @@ export class HaEnvironmentHelper {
 
   public static getDiscordLink(): string {
     return HaEnvironmentHelper.getEnv().settings.discordLink;
-  }
-
-  public static getDifyChatbotToken(): string | null {
-    return HaEnvironmentHelper.getEnv().settings.difyChatbotToken;
   }
 
   public static getHomeVideoLink(): string | null {

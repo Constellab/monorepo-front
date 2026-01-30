@@ -41,8 +41,6 @@ export interface HaEnvironmentSettings {
 
   algoliaSiteVerificationKey: string;
 
-  difyChatbotToken: string;
-
   homeVideoLink: string;
 }
 
