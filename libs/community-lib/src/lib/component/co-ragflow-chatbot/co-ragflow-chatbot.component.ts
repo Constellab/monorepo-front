@@ -1,3 +1,4 @@
+import { TextFieldModule } from '@angular/cdk/text-field';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -33,6 +34,7 @@ import { CoRagflowChatMessageComponent } from './co-ragflow-chat-message/co-ragf
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     ReactiveFormsModule,
+    TextFieldModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
@@ -174,6 +176,14 @@ export class CoRagflowChatbotComponent implements OnInit {
   }
 
   reconnect(): void {
+    this.connect();
+  }
+
+  startNewConversation(): void {
+    this.chatbotService.clearConversation(this.chatId());
+    this.messages.set([]);
+    this.streamingContent.set('');
+    this.chatbotService.disconnect();
     this.connect();
   }
 

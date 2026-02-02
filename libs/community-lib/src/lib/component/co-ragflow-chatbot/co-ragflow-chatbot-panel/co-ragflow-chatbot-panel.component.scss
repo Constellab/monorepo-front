@@ -1,13 +1,20 @@
 .co-chatbot-panel-container {
   display: flex;
   flex-direction: column;
-  width: 380px;
-  height: 500px;
+  width: 400px;
+  height: 600px;
   max-height: calc(100vh - 120px);
   background: var(--main-background, white);
   border-radius: 12px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
   overflow: hidden;
+
+  @media (max-width: 480px) {
+    width: 100vw;
+    height: 100vh;
+    max-height: 100vh;
+    border-radius: 0;
+  }
 }
 
 .co-chatbot-panel-header {
@@ -21,6 +28,12 @@
   button {
     color: inherit !important;
   }
+}
+
+.co-chatbot-panel-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .co-chatbot-panel-title {
