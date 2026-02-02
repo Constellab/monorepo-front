@@ -11,6 +11,7 @@ import {
 } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ClHelpService, ClSupportedLanguage } from '@monorepo/core-lib';
+import { CoRagflowChatbotBubbleComponent } from '@monorepo/community-lib';
 import { FlCookieService, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 
 import { HaInstantSearchDialogComponent } from '../../ha-core/ha-component/ha-instant-search-dialog/ha-instant-search-dialog.component';
@@ -26,12 +27,14 @@ import { HaCookieConsentComponent } from '../ha-cookie-consent/ha-cookie-consent
   templateUrl: './ha-main.component.html',
   styleUrls: ['./ha-main.component.scss'],
   providers: [HaThemeState, HaJsonLdState, HaCurrentPageState],
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, CoRagflowChatbotBubbleComponent],
 })
 export class HaMainComponent implements OnInit, AfterContentInit, OnDestroy {
   currentLanguage: ClSupportedLanguage;
 
   isSmallScreen = false;
+  isBrowser = false;
+  ragflowChatId: string | null = null;
 
   private authUserService: HaAuthenticatedUserService = inject(HaAuthenticatedUserService);
   private cookieService: FlCookieService = inject(FlCookieService);
@@ -53,6 +56,8 @@ export class HaMainComponent implements OnInit, AfterContentInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.isBrowser = isPlatformBrowser(this.platformId);
+    this.ragflowChatId = HaEnvironmentHelper.getRagflowChatId();
     this.themeState.init();
     this.currentPageState.init();
 

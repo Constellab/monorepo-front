@@ -1,0 +1,28 @@
+<div class="co-chat-message" [class.co-chat-message--user]="isUser()" [class.co-chat-message--assistant]="isAssistant()">
+  <div class="co-chat-message-avatar">
+    @if (isUser()) {
+      <mat-icon>person</mat-icon>
+    } @else {
+      <mat-icon>smart_toy</mat-icon>
+    }
+  </div>
+  <div class="co-chat-message-body">
+    <div class="co-chat-message-content">
+      {{ formattedContent() }}
+    </div>
+
+    @if (hasReferences()) {
+      <div class="co-chat-message-sources">
+        <div class="co-chat-message-sources-title">
+          <mat-icon>menu_book</mat-icon>
+          {{ 'coCommunityLib.chatbot_sources' | translate }}
+        </div>
+        <ul class="co-chat-message-sources-list">
+          @for (source of uniqueSources(); track source) {
+            <li class="co-chat-message-source-item">{{ source }}</li>
+          }
+        </ul>
+      </div>
+    }
+  </div>
+</div>

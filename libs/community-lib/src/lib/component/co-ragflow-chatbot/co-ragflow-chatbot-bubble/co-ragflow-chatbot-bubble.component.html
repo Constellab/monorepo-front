@@ -1,0 +1,11 @@
+<button
+  mat-fab
+  class="co-chatbot-bubble"
+  [class.co-chatbot-bubble--open]="isOpen()"
+  (click)="toggle()">
+  @if (isOpen()) {
+    <mat-icon>close</mat-icon>
+  } @else {
+    <mat-icon>chat</mat-icon>
+  }
+</button>

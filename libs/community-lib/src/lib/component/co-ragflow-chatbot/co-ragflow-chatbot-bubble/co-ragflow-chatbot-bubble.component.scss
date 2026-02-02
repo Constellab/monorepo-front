@@ -1,0 +1,16 @@
+:host {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 1000;
+}
+
+.co-chatbot-bubble {
+  transition: transform 0.2s ease;
+  background-color: var(--primary-color, #25b49c) !important;
+  color: var(--primary-color-contrast, #e9f7f5) !important;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}

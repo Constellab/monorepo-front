@@ -1,0 +1,14 @@
+<div class="co-chatbot-panel-container">
+  <div class="co-chatbot-panel-header">
+    <span class="co-chatbot-panel-title">{{ 'coCommunityLib.chatbot_title' | translate }}</span>
+    <button mat-icon-button (click)="close()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <co-ragflow-chatbot
+    [chatId]="config.chatId"
+    [userId]="config.userId"
+    [conversationId]="config.conversationId">
+  </co-ragflow-chatbot>
+</div>

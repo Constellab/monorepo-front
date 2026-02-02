@@ -77,6 +77,14 @@ const coCommunityLibI18nFr: FlLangTranslation = {
     like: 'Like',
     my_partner_page: 'Ma page partenaire',
     partners: 'Partenaires',
+
+    // Chatbot
+    chatbot_title: 'Constellab Assistant',
+    chatbot_placeholder: 'Posez votre question...',
+    chatbot_connecting: 'Connexion en cours...',
+    chatbot_connection_error: 'Erreur de connexion au chatbot',
+    chatbot_retry: 'Réessayer',
+    chatbot_sources: 'Sources',
   },
 };
 
@@ -153,6 +161,14 @@ const coCommunityLibI18nEn: FlLangTranslation = {
     like: 'Like',
     my_partner_page: 'My partner page',
     partners: 'Partners',
+
+    // Chatbot
+    chatbot_title: 'Constellab Assistant',
+    chatbot_placeholder: 'Ask your question...',
+    chatbot_connecting: 'Connecting...',
+    chatbot_connection_error: 'Failed to connect to chatbot',
+    chatbot_retry: 'Retry',
+    chatbot_sources: 'Sources',
   },
 };
 export const coCommunityLibI18n: FlTranslateObject = {
