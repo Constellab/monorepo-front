@@ -494,6 +494,7 @@
     "no_tags_to_synchronize": "All your Community tags are already synchronized",
     "delete_tag_key": "Delete tag key",
     "delete_tag_key_content": "Are you sure you want to delete the tag key ? This will also delete all the values of this tag key.",
+    "delete_tag_key_success": "Tag key deleted",
     "include_deprecated_tags": "Include deprecated tags",
     "delete_tag": "Delete tag",
     "delete_tag_value": "Delete tag value",
