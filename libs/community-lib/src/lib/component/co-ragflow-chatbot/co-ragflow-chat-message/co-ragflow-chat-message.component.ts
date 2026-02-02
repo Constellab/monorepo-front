@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { TranslatePipe } from '@ngx-translate/core';
 
 import { CoRagflowMessage } from '../../../model/co-ragflow-chatbot.class';
 
@@ -9,7 +8,7 @@ import { CoRagflowMessage } from '../../../model/co-ragflow-chatbot.class';
   templateUrl: './co-ragflow-chat-message.component.html',
   styleUrls: ['./co-ragflow-chat-message.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MatIconModule, TranslatePipe],
+  imports: [MatIconModule],
 })
 export class CoRagflowChatMessageComponent {
   message = input.required<CoRagflowMessage>();

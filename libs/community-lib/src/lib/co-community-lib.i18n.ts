@@ -85,6 +85,8 @@ const coCommunityLibI18nFr: FlLangTranslation = {
     chatbot_connection_error: 'Erreur de connexion au chatbot',
     chatbot_retry: 'Réessayer',
     chatbot_sources: 'Sources',
+    chatbot_new_conversation: 'Nouvelle conversation',
+    chatbot_close: 'Fermer',
   },
 };
 
@@ -169,6 +171,8 @@ const coCommunityLibI18nEn: FlLangTranslation = {
     chatbot_connection_error: 'Failed to connect to chatbot',
     chatbot_retry: 'Retry',
     chatbot_sources: 'Sources',
+    chatbot_new_conversation: 'New conversation',
+    chatbot_close: 'Close',
   },
 };
 export const coCommunityLibI18n: FlTranslateObject = {

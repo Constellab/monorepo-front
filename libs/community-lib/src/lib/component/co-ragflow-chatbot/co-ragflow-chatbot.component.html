@@ -33,10 +33,12 @@
       <mat-form-field class="g-full" subscriptSizing="dynamic" >
         <textarea
           matInput
+          cdkTextareaAutosize
+          cdkAutosizeMinRows="2"
+          cdkAutosizeMaxRows="20"
           #messageInput
           [formControl]="messageCtrl"
           [placeholder]="placeholder() | translate"
-          rows="1"
           (keydown)="onKeydown($event)"
           [disabled]="!isConnected() || isTyping()">
         </textarea>

@@ -53,15 +53,14 @@ export class CoRagflowChatbotBubbleComponent implements OnDestroy {
   open(): void {
     if (this.overlayRef) return;
 
-    const positionStrategy = this.overlay
-      .position()
-      .global()
-      .bottom('90px')
-      .right('24px');
+    const isSmallScreen = window.innerWidth <= 480;
+    const positionStrategy = isSmallScreen
+      ? this.overlay.position().global().top('0').left('0')
+      : this.overlay.position().global().bottom('90px').right('24px');
 
     this.overlayRef = this.overlay.create({
       positionStrategy,
-      hasBackdrop: true,
+      hasBackdrop: !isSmallScreen,
       backdropClass: 'co-chatbot-backdrop',
       panelClass: 'co-chatbot-panel',
     });

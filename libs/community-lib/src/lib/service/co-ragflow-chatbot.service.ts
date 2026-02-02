@@ -13,6 +13,8 @@ import {
 } from '../model/co-ragflow-chatbot.class';
 import { CoConfig } from './co-service-config.config';
 
+const CONVERSATION_STORAGE_KEY = 'ragflow_conversation_';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -58,7 +60,9 @@ export class CoRagflowChatbotService implements OnDestroy {
 
     this.socket.on('connect', () => {
       this.connectionState$.next('connected');
-      this.joinConversation(config.chatId, config.conversationId);
+      // Use provided conversationId or try to restore from storage
+      const conversationId = config.conversationId || this.getStoredConversationId(config.chatId);
+      this.joinConversation(config.chatId, conversationId);
     });
 
     this.socket.on('disconnect', () => {
@@ -128,6 +132,9 @@ export class CoRagflowChatbotService implements OnDestroy {
 
     this.socket.on('conversation_joined', (data: CoRagflowConversationJoined) => {
       this.currentConversationId = data.conversationId;
+      if (this.currentChatId) {
+        this.storeConversationId(this.currentChatId, data.conversationId);
+      }
       this.conversationJoined$.next(data);
     });
 
@@ -184,5 +191,32 @@ export class CoRagflowChatbotService implements OnDestroy {
 
   get conversationId(): string | null {
     return this.currentConversationId;
+  }
+
+  /**
+   * Clear the stored conversation for a chat, starting fresh on next connect
+   */
+  clearConversation(chatId: string): void {
+    try {
+      localStorage.removeItem(CONVERSATION_STORAGE_KEY + chatId);
+    } catch {
+      // localStorage not available
+    }
+  }
+
+  private storeConversationId(chatId: string, conversationId: string): void {
+    try {
+      localStorage.setItem(CONVERSATION_STORAGE_KEY + chatId, conversationId);
+    } catch {
+      // localStorage not available
+    }
+  }
+
+  private getStoredConversationId(chatId: string): string | undefined {
+    try {
+      return localStorage.getItem(CONVERSATION_STORAGE_KEY + chatId) || undefined;
+    } catch {
+      return undefined;
+    }
   }
 }
