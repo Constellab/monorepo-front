@@ -85,9 +85,6 @@ const coCommunityLibI18nFr: FlLangTranslation = {
     chatbot_connection_error: 'Erreur de connexion au chatbot',
     chatbot_retry: 'Réessayer',
     chatbot_sources: 'Sources',
-    chatbot_new_conversation: 'Nouvelle conversation',
-    chatbot_close: 'Fermer',
-    chatbot_welcome_message: 'Bonjour ! Je suis Constellab Assistant. Comment puis-je vous aider ?',
   },
 };
 
@@ -172,9 +169,6 @@ const coCommunityLibI18nEn: FlLangTranslation = {
     chatbot_connection_error: 'Failed to connect to chatbot',
     chatbot_retry: 'Retry',
     chatbot_sources: 'Sources',
-    chatbot_new_conversation: 'New conversation',
-    chatbot_close: 'Close',
-    chatbot_welcome_message: 'Hello! I am Constellab Assistant. How can I help you?',
   },
 };
 export const coCommunityLibI18n: FlTranslateObject = {

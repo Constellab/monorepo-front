@@ -1,3 +1,7 @@
+textarea{
+  resize: none;
+}
+
 .co-chatbot-container {
   display: flex;
   flex-direction: column;
@@ -67,10 +71,6 @@
       animation-delay: 0s;
     }
   }
-}
-
-textarea {
-  resize: none;
 }
 
 @keyframes typing-bounce {

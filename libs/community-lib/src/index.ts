@@ -3,6 +3,7 @@ export * from './lib/co-community-lib.module';
 // Services
 export * from './lib/service/co-service-config.config';
 export * from './lib/service/co-icon.service';
+export * from './lib/service/co-ragflow-chatbot.service';
 
 // Components
 export * from './lib/component/co-agent-list-item/co-agent-list-item.component';

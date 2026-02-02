@@ -1,11 +1,21 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
-import { ChangeDetectionStrategy, Component, inject, input, OnDestroy, signal } from '@angular/core';
+import { Overlay, OverlayRef } from '@angular/cdk/overlay';
+import { ComponentPortal } from '@angular/cdk/portal';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  inject,
+  Injector,
+  input,
+  OnDestroy,
+  signal,
+} from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { FlOverlayRef, FlPortalConfig, FlPortalService } from '@monorepo/front-core-lib/fl-portal';
 
 import { CoRagflowChatbotPanelComponent } from '../co-ragflow-chatbot-panel/co-ragflow-chatbot-panel.component';
-import { CoRagflowChatbotPanelConfig } from '../co-ragflow-chatbot-panel/co-ragflow-chatbot-panel.config';
+import { CO_RAGFLOW_CHATBOT_CONFIG, CoRagflowChatbotPanelConfig } from '../co-ragflow-chatbot-panel/co-ragflow-chatbot-panel.config';
 
 @Component({
   selector: 'co-ragflow-chatbot-bubble',
@@ -15,8 +25,9 @@ import { CoRagflowChatbotPanelConfig } from '../co-ragflow-chatbot-panel/co-ragf
   imports: [MatButtonModule, MatIconModule],
 })
 export class CoRagflowChatbotBubbleComponent implements OnDestroy {
-  private portalService = inject(FlPortalService);
-  private breakpointObserver = inject(BreakpointObserver);
+  private overlay = inject(Overlay);
+  private injector = inject(Injector);
+  private destroyRef = inject(DestroyRef);
 
   /** The Ragflow agent ID to use */
   chatId = input.required<string>();
@@ -29,7 +40,7 @@ export class CoRagflowChatbotBubbleComponent implements OnDestroy {
 
   isOpen = signal(false);
 
-  private overlayRef: FlOverlayRef | null = null;
+  private overlayRef: OverlayRef | null = null;
 
   toggle(): void {
     if (this.isOpen()) {
@@ -42,7 +53,18 @@ export class CoRagflowChatbotBubbleComponent implements OnDestroy {
   open(): void {
     if (this.overlayRef) return;
 
-    const isSmallScreen = this.breakpointObserver.isMatched('(max-width: 480px)');
+    const positionStrategy = this.overlay
+      .position()
+      .global()
+      .bottom('90px')
+      .right('24px');
+
+    this.overlayRef = this.overlay.create({
+      positionStrategy,
+      hasBackdrop: true,
+      backdropClass: 'co-chatbot-backdrop',
+      panelClass: 'co-chatbot-panel',
+    });
 
     const config: CoRagflowChatbotPanelConfig = {
       chatId: this.chatId(),
@@ -51,40 +73,16 @@ export class CoRagflowChatbotBubbleComponent implements OnDestroy {
       onClose: () => this.close(),
     };
 
-    let portalConfig: FlPortalConfig;
+    const injector = this.createInjector(config);
+    const portal = new ComponentPortal(CoRagflowChatbotPanelComponent, null, injector);
 
-    if (isSmallScreen) {
-      portalConfig = this.portalService.configureAbsolutePortal(
-        { top: '0', left: '0' },
-        {
-          width: '100vw',
-          height: '100vh',
-          hasBackdrop: true,
-          disposeOnBackdropClick: true,
-          backdropClass: 'co-chatbot-backdrop',
-          panelClass: 'co-chatbot-panel',
-        }
-      );
-    } else {
-      portalConfig = this.portalService.configureAbsolutePortal(
-        { bottom: '90px', right: '24px' },
-        {
-          hasBackdrop: true,
-          disposeOnBackdropClick: true,
-          backdropClass: 'co-chatbot-backdrop',
-          panelClass: 'co-chatbot-panel',
-        }
-      );
-    }
-
-    this.overlayRef = this.portalService.createPortal(CoRagflowChatbotPanelComponent, portalConfig, config);
-
+    this.overlayRef.attach(portal);
     this.isOpen.set(true);
 
-    this.overlayRef.detachments().subscribe(() => {
-      this.overlayRef = null;
-      this.isOpen.set(false);
-    });
+    this.overlayRef
+      .backdropClick()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => this.close());
   }
 
   close(): void {
@@ -97,5 +95,12 @@ export class CoRagflowChatbotBubbleComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     this.close();
+  }
+
+  private createInjector(config: CoRagflowChatbotPanelConfig): Injector {
+    return Injector.create({
+      parent: this.injector,
+      providers: [{ provide: CO_RAGFLOW_CHATBOT_CONFIG, useValue: config }],
+    });
   }
 }

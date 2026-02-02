@@ -1,14 +1,16 @@
-import { TextFieldModule } from '@angular/cdk/text-field';
 import {
-  AfterViewChecked,
   ChangeDetectionStrategy,
   Component,
+  computed,
+  DestroyRef,
   ElementRef,
   inject,
   input,
   OnInit,
+  signal,
   ViewChild,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -17,7 +19,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { TranslatePipe } from '@ngx-translate/core';
 
-import { CoRagflowChatbotState } from '../../state/co-ragflow-chatbot.state';
+import {
+  CoRagflowConnectionState,
+  CoRagflowMessage,
+} from '../../model/co-ragflow-chatbot.class';
+import { CoRagflowChatbotService } from '../../service/co-ragflow-chatbot.service';
 import { CoRagflowChatMessageComponent } from './co-ragflow-chat-message/co-ragflow-chat-message.component';
 
 @Component({
@@ -25,10 +31,8 @@ import { CoRagflowChatMessageComponent } from './co-ragflow-chat-message/co-ragf
   templateUrl: './co-ragflow-chatbot.component.html',
   styleUrls: ['./co-ragflow-chatbot.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [CoRagflowChatbotState],
   imports: [
     ReactiveFormsModule,
-    TextFieldModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
@@ -38,8 +42,9 @@ import { CoRagflowChatMessageComponent } from './co-ragflow-chat-message/co-ragf
     CoRagflowChatMessageComponent,
   ],
 })
-export class CoRagflowChatbotComponent implements OnInit, AfterViewChecked {
-  private state = inject(CoRagflowChatbotState);
+export class CoRagflowChatbotComponent implements OnInit {
+  private chatbotService = inject(CoRagflowChatbotService);
+  private destroyRef = inject(DestroyRef);
 
   @ViewChild('messagesContainer') messagesContainer: ElementRef<HTMLElement>;
   @ViewChild('messageInput') messageInput: ElementRef<HTMLTextAreaElement>;
@@ -58,40 +63,107 @@ export class CoRagflowChatbotComponent implements OnInit, AfterViewChecked {
 
   messageCtrl = new FormControl<string>('');
 
-  // Expose state signals directly
-  readonly connectionState = this.state.connectionState;
-  readonly messages = this.state.messages;
-  readonly isTyping = this.state.isTyping;
-  readonly streamingContent = this.state.streamingContent;
-  readonly isConnected = this.state.isConnected;
-  readonly isConnecting = this.state.isConnecting;
-  readonly hasError = this.state.hasError;
-  readonly displayMessages = this.state.displayMessages;
+  messages = signal<CoRagflowMessage[]>([]);
+  isTyping = signal<boolean>(false);
+  streamingContent = signal<string>('');
+  connectionState = signal<CoRagflowConnectionState>('disconnected');
 
-  private shouldScrollToBottom = false;
+  isConnected = computed(() => this.connectionState() === 'connected');
+  isConnecting = computed(() => this.connectionState() === 'connecting');
+  hasError = computed(() => this.connectionState() === 'error');
+
+  displayMessages = computed(() => {
+    const msgs = this.messages();
+    const streaming = this.streamingContent();
+
+    if (streaming) {
+      // Clean reference markers from streaming content
+      const cleanedStreaming = streaming
+        .replace(/\s*\[ID:\s*\d+\]/gi, '')
+        .replace(/\s*\[\d+\](?=\s*[.,;:]|\s*$)/g, '');
+      return [
+        ...msgs,
+        { role: 'assistant' as const, content: cleanedStreaming },
+      ];
+    }
+    return msgs;
+  });
 
   ngOnInit(): void {
-    this.state.connect({
+    this.setupSubscriptions();
+    this.connect();
+  }
+
+  private connect(): void {
+    this.chatbotService.connect({
       chatId: this.chatId(),
       userId: this.userId(),
       conversationId: this.conversationId(),
     });
   }
 
-  ngAfterViewChecked(): void {
-    if (this.shouldScrollToBottom) {
-      this.scrollToBottom();
-      this.shouldScrollToBottom = false;
-    }
+  private setupSubscriptions(): void {
+    this.chatbotService.connectionState
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((state) => {
+        this.connectionState.set(state);
+      });
+
+    this.chatbotService.conversationJoined
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((data) => {
+        this.messages.set(data.messages || []);
+        this.scrollToBottom();
+      });
+
+    this.chatbotService.typingStart
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => {
+        this.isTyping.set(true);
+        this.streamingContent.set('');
+      });
+
+    this.chatbotService.typingEnd
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => {
+        this.isTyping.set(false);
+      });
+
+    this.chatbotService.messageChunk
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((data) => {
+        this.streamingContent.update((current) => current + data.content);
+        this.scrollToBottom();
+      });
+
+    this.chatbotService.messageComplete
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((data) => {
+        this.messages.update((msgs) => [...msgs, { ...data.message, references: data.references }]);
+        this.streamingContent.set('');
+        this.scrollToBottom();
+      });
+
+    this.chatbotService.messageError
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => {
+        this.isTyping.set(false);
+        this.streamingContent.set('');
+      });
   }
 
   sendMessage(): void {
     const message = this.messageCtrl.value?.trim();
     if (!message || !this.isConnected() || this.isTyping()) return;
 
-    this.state.sendMessage(message);
+    this.messages.update((msgs) => [
+      ...msgs,
+      { role: 'user', content: message, timestamp: new Date() },
+    ]);
+
+    this.chatbotService.sendMessage(message);
     this.messageCtrl.reset();
-    this.shouldScrollToBottom = true;
+    this.scrollToBottom();
   }
 
   onKeydown(event: KeyboardEvent): void {
@@ -102,26 +174,15 @@ export class CoRagflowChatbotComponent implements OnInit, AfterViewChecked {
   }
 
   reconnect(): void {
-    this.state.connect({
-      chatId: this.chatId(),
-      userId: this.userId(),
-      conversationId: this.conversationId(),
-    });
-  }
-
-  startNewConversation(): void {
-    this.state.startNewConversation(this.chatId());
-    this.state.disconnect();
-    this.state.connect({
-      chatId: this.chatId(),
-      userId: this.userId(),
-    });
+    this.connect();
   }
 
   private scrollToBottom(): void {
-    if (this.messagesContainer) {
-      const container = this.messagesContainer.nativeElement;
-      container.scrollTop = container.scrollHeight;
-    }
+    setTimeout(() => {
+      if (this.messagesContainer) {
+        const container = this.messagesContainer.nativeElement;
+        container.scrollTop = container.scrollHeight;
+      }
+    }, 0);
   }
 }
