@@ -7,5 +7,5 @@
   },
   "files": ["dc-main-iframe-message.ts"],
   "include": [],
-  "exclude": ["../../jest.config.ts", "src/**/*.test.ts", "src/**/*.spec.ts"]
+  "exclude": ["src/**/*.test.ts", "src/**/*.spec.ts"]
 }

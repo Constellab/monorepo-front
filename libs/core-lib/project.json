@@ -12,10 +12,10 @@
       }
     },
     "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/libs/core-lib"],
+      "executor": "@nx/vitest:test",
+      "outputs": ["{options.reportsDirectory}"],
       "options": {
-        "jestConfig": "libs/core-lib/jest.config.ts"
+        "reportsDirectory": "../../coverage/libs/core-lib"
       }
     }
   }

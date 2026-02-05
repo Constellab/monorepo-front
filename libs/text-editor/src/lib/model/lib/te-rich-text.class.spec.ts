@@ -381,7 +381,7 @@ describe('TeRichText', () => {
       it('should return text from first paragraphs', () => {
         const text = richText.getFirstParagraphsText();
 
-        expect(text).toBe('First paragraph with content Second paragraph ');
+        expect(text).toBe('First paragraph with content Second paragraph');
       });
 
       it('should return null for empty rich text', () => {
@@ -426,7 +426,7 @@ describe('TeRichText', () => {
         const richTextWithHtml = new TeRichText(dto);
 
         const result = richTextWithHtml.getFirstParagraphsText();
-        expect(result).toBe('Bold and italic text ');
+        expect(result).toBe('Bold and italic text');
       });
     });
   });

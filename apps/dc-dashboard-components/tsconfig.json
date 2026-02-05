@@ -4,9 +4,6 @@
   "include": [],
   "references": [
     {
-      "path": "./tsconfig.editor.json"
-    },
-    {
       "path": "./src/text-editor/tsconfig.app.json"
     },
     {

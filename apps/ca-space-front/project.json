@@ -133,12 +133,8 @@
       }
     },
     "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/apps/ca-space-front"],
-      "options": {
-        "jestConfig": "apps/ca-space-front/jest.config.ts",
-        "tsConfig": "apps/ca-space-front/tsconfig.spec.json"
-      }
+      "executor": "@angular/build:unit-test",
+      "options": {}
     }
   }
 }

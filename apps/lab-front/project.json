@@ -137,12 +137,8 @@
       }
     },
     "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/apps/lab-front"],
-      "options": {
-        "jestConfig": "apps/lab-front/jest.config.ts",
-        "tsConfig": "apps/lab-front/tsconfig.spec.json"
-      }
+      "executor": "@angular/build:unit-test",
+      "options": {}
     }
   }
 }

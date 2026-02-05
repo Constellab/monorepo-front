@@ -1,4 +1,5 @@
 import { Duration } from 'luxon';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { TeBlockType } from './te-block.class';
 import {
@@ -27,7 +28,7 @@ describe('TeRichTextModifications', () => {
   let mockGetUser: TeRichTextGetUserFunction;
 
   beforeEach(() => {
-    mockGetUser = jest.fn().mockResolvedValue(mockUser);
+    mockGetUser = vi.fn().mockResolvedValue(mockUser);
   });
 
   describe('static configuration methods', () => {
@@ -663,7 +664,7 @@ describe('TeRichTextModifications', () => {
         lastname: 'Two',
       };
 
-      const mockGetUserFn = jest.fn().mockImplementation((userId: string) => {
+      const mockGetUserFn = vi.fn().mockImplementation((userId: string) => {
         if (userId === 'user-1') return Promise.resolve(mockUser1);
         if (userId === 'user-2') return Promise.resolve(mockUser2);
         return Promise.resolve(null);

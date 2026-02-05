@@ -7,11 +7,10 @@
   "tags": ["front"],
   "targets": {
     "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/libs/technical-doc"],
+      "executor": "@nx/vitest:test",
+      "outputs": ["{options.reportsDirectory}"],
       "options": {
-        "jestConfig": "libs/technical-doc/jest.config.ts",
-        "tsConfig": "libs/technical-doc/tsconfig.spec.json"
+        "reportsDirectory": "../../coverage/libs/technical-doc"
       }
     },
     "lint": {

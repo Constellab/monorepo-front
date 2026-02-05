@@ -13,11 +13,10 @@
       }
     },
     "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/libs/front-core-lib"],
+      "executor": "@nx/vitest:test",
+      "outputs": ["{options.reportsDirectory}"],
       "options": {
-        "jestConfig": "libs/front-core-lib/jest.config.ts",
-        "tsConfig": "libs/front-core-lib/tsconfig.spec.json"
+        "reportsDirectory": "../../coverage/libs/front-core-lib"
       }
     }
   }

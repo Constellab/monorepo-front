@@ -7,11 +7,10 @@
   "tags": ["front"],
   "targets": {
     "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/libs/protocol"],
+      "executor": "@nx/vitest:test",
+      "outputs": ["{options.reportsDirectory}"],
       "options": {
-        "jestConfig": "libs/protocol/jest.config.js",
-        "tsConfig": "libs/protocol/tsconfig.spec.json"
+        "reportsDirectory": "../../coverage/libs/protocol"
       }
     },
     "lint": {

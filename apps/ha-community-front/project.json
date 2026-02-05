@@ -135,13 +135,9 @@
       }
     },
     "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/apps/ha-community-front"],
-      "options": {
-        "jestConfig": "apps/ha-community-front/jest.config.ts",
-        "tsConfig": "apps/ha-community-front/tsconfig.spec.json"
-      }
-    },
+      "executor": "@angular/build:unit-test",
+      "options": {}
+    }
     "server": {
       "executor": "@angular-devkit/build-angular:server",
       "options": {

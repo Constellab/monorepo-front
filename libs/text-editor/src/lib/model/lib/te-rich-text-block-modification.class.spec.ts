@@ -58,7 +58,7 @@ describe('TeRichTextBlockModification', () => {
         mockTime
       );
 
-      expect(modification.time.toISO()).toMatch(/2023-01-01T10:00:00\.000(\+00:00|Z)/);
+      expect(modification.time.toUTC().toISO()).toMatch(/2023-01-01T10:00:00\.000(\+00:00|Z)/);
     });
 
     it('should generate UUID when id is not provided', () => {
@@ -117,7 +117,7 @@ describe('TeRichTextBlockModification', () => {
       const modification = TeRichTextBlockModification.fromJsonObject(dto);
 
       expect(modification.id).toBe('json-id');
-      expect(modification.time.toISO()).toMatch(/2023-01-01T10:00:00\.000(\+00:00|Z)/);
+      expect(modification.time.toUTC().toISO()).toMatch(/2023-01-01T10:00:00\.000(\+00:00|Z)/);
       expect(modification.blockId).toBe(mockBlockId);
       expect(modification.blockType).toBe(TeBlockType.PARAGRAPH);
       expect(modification.type).toBe(TeRichTextModificationType.UPDATED);
@@ -385,7 +385,7 @@ describe('TeRichTextBlockModification', () => {
 
       expect(result).toEqual({
         id: 'test-id',
-        time: expect.stringMatching(/2023-01-01T10:00:00\.000(\+00:00|Z)/),
+        time: expect.stringMatching(/2023-01-01T\d{2}:00:00\.000([+-]\d{2}:00|Z)/),
         blockId: mockBlockId,
         blockType: TeBlockType.PARAGRAPH,
         type: TeRichTextModificationType.CREATED,

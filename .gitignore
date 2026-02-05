@@ -54,3 +54,5 @@ logs
 
 .eslintcache
 .prettiercache
+
+vitest.config.*.timestamp*

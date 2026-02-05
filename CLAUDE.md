@@ -117,6 +117,5 @@ This granular import structure allows for better tree-shaking and build optimiza
 
 ### Testing
 
-- Test framework: Jest with `jest-preset-angular`
 - Test files: `*.spec.ts` files alongside source files
 - E2E testing: Cypress for end-to-end tests
