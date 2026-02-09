@@ -13,6 +13,7 @@ import {
 import { CoConfig } from './co-service-config.config';
 
 const CONVERSATION_STORAGE_KEY = 'ragflow_conversation_';
+const UNAUTHORIZED_CONVERSATION_ERROR = 'Unauthorized: you do not have access to this conversation';
 
 /**
  * @deprecated Use CoRagflowChatbotState instead for component-level state management.
@@ -65,10 +66,9 @@ export class CoRagflowChatbotService implements OnDestroy {
     this.connectionState.set('connecting');
 
     const apiUrl = this.coConfig.getCommunityApiUrl();
+
     this.socket = io(`${apiUrl}/ragflow-chatbot`, {
-      auth: {
-        userId: config.userId,
-      },
+      withCredentials: true, // Send HTTPOnly cookies with the WebSocket connection
     });
 
     this.setupSocketListeners();
@@ -177,6 +177,14 @@ export class CoRagflowChatbotService implements OnDestroy {
     this.socket.on('message_error', (data: CoRagflowMessageError) => {
       this.isTyping.set(false);
       this.streamingContent.set('');
+
+      // Handle unauthorized conversation access - create a new conversation
+      if (data.error === UNAUTHORIZED_CONVERSATION_ERROR && this.currentChatId) {
+        this.clearConversation(this.currentChatId);
+        this.joinConversation(this.currentChatId);
+        return;
+      }
+
       console.error('Message error:', data.error);
     });
   }
