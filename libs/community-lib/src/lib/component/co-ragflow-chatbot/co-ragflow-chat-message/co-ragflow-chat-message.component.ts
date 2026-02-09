@@ -16,18 +16,6 @@ export class CoRagflowChatMessageComponent {
   isUser = computed(() => this.message().role === 'user');
   isAssistant = computed(() => this.message().role === 'assistant');
 
-  /** Unique document names from references */
-  uniqueSources = computed(() => {
-    const refs = this.message().references;
-    if (!refs?.length) return [];
-
-    // Get unique document names
-    const uniqueNames = [...new Set(refs.map((ref) => ref.documentName))];
-    return uniqueNames;
-  });
-
-  hasReferences = computed(() => this.uniqueSources().length > 0);
-
   /** Content with reference markers removed or formatted */
   formattedContent = computed(() => {
     const content = this.message().content;

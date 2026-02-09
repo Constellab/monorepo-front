@@ -1,31 +1,22 @@
-import { computed, inject, Injectable, OnDestroy, signal } from '@angular/core';
+import { computed, DestroyRef, inject, Injectable, signal } from '@angular/core';
 import { io, Socket } from 'socket.io-client';
 
-import {
-  CoRagflowChatbotConfig,
-  CoRagflowConnectionState,
-  CoRagflowConversationJoined,
-  CoRagflowMessage,
-  CoRagflowMessageChunk,
-  CoRagflowMessageComplete,
-  CoRagflowMessageError,
-} from '../model/co-ragflow-chatbot.class';
-import { CoConfig } from './co-service-config.config';
+import { CoConfig } from '../../co-community-lib.module';
+import { CoRagflowChatbotConfig, CoRagflowConnectionState, CoRagflowConversationJoined, CoRagflowMessage, CoRagflowMessageChunk, CoRagflowMessageComplete, CoRagflowMessageError } from '../../model/co-ragflow-chatbot.class';
 
 const CONVERSATION_STORAGE_KEY = 'ragflow_conversation_';
 
 /**
- * @deprecated Use CoRagflowChatbotState instead for component-level state management.
- * This global service is kept for backward compatibility but should not be used in new code.
- * CoRagflowChatbotState is injected at component level and provides better isolation.
+ * State management for the Ragflow chatbot component
+ * This is a component-level state that should be provided at the component level
  */
-@Injectable({
-  providedIn: 'root',
-})
-export class CoRagflowChatbotService implements OnDestroy {
+@Injectable()
+export class CoRagflowChatbotState {
   private coConfig = inject(CoConfig);
+  private destroyRef = inject(DestroyRef);
 
   private socket: Socket | null = null;
+  private currentChatId: string | null = null;
 
   // Signals
   readonly connectionState = signal<CoRagflowConnectionState>('disconnected');
@@ -47,10 +38,11 @@ export class CoRagflowChatbotService implements OnDestroy {
     return msgs;
   });
 
-  private currentChatId: string | null = null;
-
-  ngOnDestroy(): void {
-    this.disconnect();
+  constructor() {
+    // Cleanup on component destroy
+    this.destroyRef.onDestroy(() => {
+      this.disconnect();
+    });
   }
 
   /**
@@ -104,30 +96,6 @@ export class CoRagflowChatbotService implements OnDestroy {
   }
 
   /**
-   * Join a conversation (create new or resume existing)
-   */
-  private joinConversation(chatId: string, conversationId?: string): void {
-    if (!this.socket?.connected) return;
-
-    const payload: { chatId: string; conversationId?: string } = { chatId };
-    if (conversationId) {
-      payload.conversationId = conversationId;
-    }
-
-    this.socket.emit('join_conversation', payload);
-  }
-
-  /**
-   * Leave the current conversation
-   */
-  leaveConversation(): void {
-    if (this.socket?.connected) {
-      this.socket.emit('leave_conversation');
-    }
-    this.conversationId.set(null);
-  }
-
-  /**
    * Send a message to the chatbot
    */
   sendMessage(message: string): void {
@@ -143,8 +111,45 @@ export class CoRagflowChatbotService implements OnDestroy {
   }
 
   /**
-   * Setup all socket event listeners
+   * Start a new conversation (clear history and reconnect)
    */
+  startNewConversation(chatId: string): void {
+    this.clearConversation(chatId);
+    this.messages.set([]);
+    this.streamingContent.set('');
+  }
+
+  /**
+   * Clear the stored conversation for a chat
+   */
+  clearConversation(chatId: string): void {
+    try {
+      localStorage.removeItem(CONVERSATION_STORAGE_KEY + chatId);
+    } catch {
+      // localStorage not available
+    }
+  }
+
+  // Private methods
+
+  private joinConversation(chatId: string, conversationId?: string): void {
+    if (!this.socket?.connected) return;
+
+    const payload: { chatId: string; conversationId?: string } = { chatId };
+    if (conversationId) {
+      payload.conversationId = conversationId;
+    }
+
+    this.socket.emit('join_conversation', payload);
+  }
+
+  private leaveConversation(): void {
+    if (this.socket?.connected) {
+      this.socket.emit('leave_conversation');
+    }
+    this.conversationId.set(null);
+  }
+
   private setupSocketListeners(): void {
     if (!this.socket) return;
 
@@ -179,26 +184,6 @@ export class CoRagflowChatbotService implements OnDestroy {
       this.streamingContent.set('');
       console.error('Message error:', data.error);
     });
-  }
-
-  /**
-   * Start a new conversation (clear history and reconnect)
-   */
-  startNewConversation(chatId: string): void {
-    this.clearConversation(chatId);
-    this.messages.set([]);
-    this.streamingContent.set('');
-  }
-
-  /**
-   * Clear the stored conversation for a chat, starting fresh on next connect
-   */
-  clearConversation(chatId: string): void {
-    try {
-      localStorage.removeItem(CONVERSATION_STORAGE_KEY + chatId);
-    } catch {
-      // localStorage not available
-    }
   }
 
   private storeConversationId(chatId: string, conversationId: string): void {
