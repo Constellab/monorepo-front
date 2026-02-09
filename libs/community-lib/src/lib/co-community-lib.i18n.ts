@@ -87,6 +87,7 @@ const coCommunityLibI18nFr: FlLangTranslation = {
     chatbot_sources: 'Sources',
     chatbot_new_conversation: 'Nouvelle conversation',
     chatbot_close: 'Fermer',
+    chatbot_welcome_message: 'Bonjour ! Je suis Constellab Assistant. Comment puis-je vous aider ?',
   },
 };
 
@@ -173,6 +174,7 @@ const coCommunityLibI18nEn: FlLangTranslation = {
     chatbot_sources: 'Sources',
     chatbot_new_conversation: 'New conversation',
     chatbot_close: 'Close',
+    chatbot_welcome_message: 'Hello! I am Constellab Assistant. How can I help you?',
   },
 };
 export const coCommunityLibI18n: FlTranslateObject = {

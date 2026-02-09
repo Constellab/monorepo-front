@@ -1,10 +1,12 @@
 import { computed, DestroyRef, inject, Injectable, signal } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { io, Socket } from 'socket.io-client';
 
 import { CoConfig } from '../../co-community-lib.module';
 import { CoRagflowChatbotConfig, CoRagflowConnectionState, CoRagflowConversationJoined, CoRagflowMessage, CoRagflowMessageChunk, CoRagflowMessageComplete, CoRagflowMessageError } from '../../model/co-ragflow-chatbot.class';
 
 const CONVERSATION_STORAGE_KEY = 'ragflow_conversation_';
+const UNAUTHORIZED_CONVERSATION_ERROR = 'Unauthorized: you do not have access to this conversation';
 
 /**
  * State management for the Ragflow chatbot component
@@ -13,6 +15,7 @@ const CONVERSATION_STORAGE_KEY = 'ragflow_conversation_';
 @Injectable()
 export class CoRagflowChatbotState {
   private coConfig = inject(CoConfig);
+  private translateService = inject(TranslateService);
   private destroyRef = inject(DestroyRef);
 
   private socket: Socket | null = null;
@@ -57,10 +60,9 @@ export class CoRagflowChatbotState {
     this.connectionState.set('connecting');
 
     const apiUrl = this.coConfig.getCommunityApiUrl();
+
     this.socket = io(`${apiUrl}/ragflow-chatbot`, {
-      auth: {
-        userId: config.userId,
-      },
+      withCredentials: true, // Send HTTPOnly cookies with the WebSocket connection
     });
 
     this.setupSocketListeners();
@@ -158,7 +160,18 @@ export class CoRagflowChatbotState {
       if (this.currentChatId) {
         this.storeConversationId(this.currentChatId, data.conversationId);
       }
-      this.messages.set(data.messages || []);
+
+      const messages = data.messages || [];
+      // Add welcome message for new conversations
+      if (messages.length === 0) {
+        const welcomeMessage: CoRagflowMessage = {
+          role: 'assistant',
+          content: this.translateService.instant('coCommunityLib.chatbot_welcome_message'),
+        };
+        this.messages.set([welcomeMessage]);
+      } else {
+        this.messages.set(messages);
+      }
     });
 
     this.socket.on('typing_start', () => {
@@ -182,6 +195,14 @@ export class CoRagflowChatbotState {
     this.socket.on('message_error', (data: CoRagflowMessageError) => {
       this.isTyping.set(false);
       this.streamingContent.set('');
+
+      // Handle unauthorized conversation access - create a new conversation
+      if (data.error === UNAUTHORIZED_CONVERSATION_ERROR && this.currentChatId) {
+        this.clearConversation(this.currentChatId);
+        this.joinConversation(this.currentChatId);
+        return;
+      }
+
       console.error('Message error:', data.error);
     });
   }
