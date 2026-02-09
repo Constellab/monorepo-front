@@ -111,7 +111,7 @@
     "test": {
       "executor": "@angular/build:unit-test",
       "options": {}
-    }
+    },
     "serve-static": {
       "executor": "@nx/web:file-server",
       "options": {
