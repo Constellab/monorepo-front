@@ -2,10 +2,11 @@ import { ChangeDetectionStrategy, Component, inject, ViewChild } from '@angular/
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { FL_PORTAL_DATA } from '@monorepo/front-core-lib/fl-portal';
 import { TranslatePipe } from '@ngx-translate/core';
 
 import { CoRagflowChatbotComponent } from '../co-ragflow-chatbot.component';
-import { CO_RAGFLOW_CHATBOT_CONFIG, CoRagflowChatbotPanelConfig } from './co-ragflow-chatbot-panel.config';
+import { CoRagflowChatbotPanelConfig } from './co-ragflow-chatbot-panel.config';
 
 @Component({
   selector: 'co-ragflow-chatbot-panel',
@@ -17,7 +18,7 @@ import { CO_RAGFLOW_CHATBOT_CONFIG, CoRagflowChatbotPanelConfig } from './co-rag
 export class CoRagflowChatbotPanelComponent {
   @ViewChild(CoRagflowChatbotComponent) chatbot: CoRagflowChatbotComponent;
 
-  public config: CoRagflowChatbotPanelConfig = inject(CO_RAGFLOW_CHATBOT_CONFIG);
+  public config: CoRagflowChatbotPanelConfig = inject(FL_PORTAL_DATA);
 
   close(): void {
     this.config.onClose();

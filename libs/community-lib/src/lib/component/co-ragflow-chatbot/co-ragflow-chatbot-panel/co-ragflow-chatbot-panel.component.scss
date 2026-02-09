@@ -24,6 +24,7 @@
   padding: 12px 8px 12px 16px;
   background: var(--primary-color, #25b49c);
   color: var(--primary-color-contrast, #e9f7f5);
+  border-bottom: 2px solid white;
 
   button {
     color: inherit !important;
@@ -34,11 +35,6 @@
   display: flex;
   align-items: center;
   gap: 6px;
-}
-
-.co-chatbot-panel-title {
-  font-weight: 500;
-  font-size: 16px;
 }
 
 co-ragflow-chatbot {
