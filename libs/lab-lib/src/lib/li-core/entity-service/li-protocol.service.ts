@@ -12,7 +12,7 @@ import {
   TdParamSpecVisibility,
   TdTypeStyle,
 } from '@monorepo/technical-doc';
-import { delay, Observable, tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 
 import {
   LiAgent,
@@ -28,7 +28,6 @@ import {
   LiScenarioTemplate,
 } from '../model/entities/process/li-scenario-template.entity';
 import { LiProtocolUpdateDTO } from '../model/entities/process/li-workflow-action.class';
-
 
 @Injectable({
   providedIn: 'root',
@@ -522,13 +521,11 @@ export class LiProtocolService {
     name: string,
     paramSpec: TdParamSpec
   ): Observable<LiProtocolUpdateDTO> {
-    return this.apiService
-      .post(
-        `${this.baseRoute}/${protocolId}/process/${processName}/${configSpecName}/dynamic-param-spec/${name}`,
-        paramSpec,
-        LiProtocolUpdateDTO
-      )
-      .pipe(delay(3000));
+    return this.apiService.post(
+      `${this.baseRoute}/${protocolId}/process/${processName}/${configSpecName}/dynamic-param-spec/${name}`,
+      paramSpec,
+      LiProtocolUpdateDTO
+    );
   }
 
   public updateDynamicParamSpec(
