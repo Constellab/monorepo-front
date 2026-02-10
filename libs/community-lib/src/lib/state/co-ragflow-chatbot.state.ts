@@ -2,8 +2,16 @@ import { computed, DestroyRef, inject, Injectable, signal } from '@angular/core'
 import { TranslateService } from '@ngx-translate/core';
 import { io, Socket } from 'socket.io-client';
 
-import { CoConfig } from '../../co-community-lib.module';
-import { CoRagflowChatbotConfig, CoRagflowConnectionState, CoRagflowConversationJoined, CoRagflowMessage, CoRagflowMessageChunk, CoRagflowMessageComplete, CoRagflowMessageError } from '../../model/co-ragflow-chatbot.class';
+import { CoConfig } from '../co-community-lib.module';
+import {
+  CoRagflowChatbotConfig,
+  CoRagflowConnectionState,
+  CoRagflowConversationJoined,
+  CoRagflowMessage,
+  CoRagflowMessageChunk,
+  CoRagflowMessageComplete,
+  CoRagflowMessageError,
+} from '../model/co-ragflow-chatbot.class';
 
 const CONVERSATION_STORAGE_KEY = 'ragflow_conversation_';
 const UNAUTHORIZED_CONVERSATION_ERROR = 'Unauthorized: you do not have access to this conversation';

@@ -17,8 +17,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { TranslatePipe } from '@ngx-translate/core';
 
+import { CoRagflowChatbotState } from '../../state/co-ragflow-chatbot.state';
 import { CoRagflowChatMessageComponent } from './co-ragflow-chat-message/co-ragflow-chat-message.component';
-import { CoRagflowChatbotState } from './co-ragflow-chatbot.state';
 
 @Component({
   selector: 'co-ragflow-chatbot',
