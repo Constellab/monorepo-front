@@ -3,7 +3,6 @@ export * from './lib/co-community-lib.module';
 // Services
 export * from './lib/service/co-service-config.config';
 export * from './lib/service/co-icon.service';
-export * from './lib/service/co-ragflow-chatbot.service';
 
 // Components
 export * from './lib/component/co-agent-list-item/co-agent-list-item.component';
@@ -30,7 +29,6 @@ export * from './lib/component/co-stats-list/co-stats-list.component';
 export * from './lib/component/co-list-filters/co-list-filters.component';
 export * from './lib/component/co-partner-list-item/co-partner-list-item.component';
 export * from './lib/component/co-ragflow-chatbot/co-ragflow-chatbot.component';
-export * from './lib/component/co-ragflow-chatbot/co-ragflow-chatbot.state';
 export * from './lib/component/co-ragflow-chatbot/co-ragflow-chat-message/co-ragflow-chat-message.component';
 // eslint-disable-next-line max-len
 export * from './lib/component/co-ragflow-chatbot/co-ragflow-chatbot-bubble/co-ragflow-chatbot-bubble.component';
