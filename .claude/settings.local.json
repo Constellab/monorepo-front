@@ -17,7 +17,8 @@
       "Bash(dir:*)",
       "Bash(nx run:*)",
       "Bash(git log:*)",
-      "Bash(tree:*)"
+      "Bash(tree:*)",
+      "Bash(find:*)"
     ],
     "deny": []
   }

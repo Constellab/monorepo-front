@@ -1,4 +1,5 @@
 import { computed, DestroyRef, inject, Injectable, signal } from '@angular/core';
+import { FlLocalStorageService } from '@monorepo/front-core-lib/fl-core';
 import { TranslateService } from '@ngx-translate/core';
 import { io, Socket } from 'socket.io-client';
 
@@ -25,6 +26,7 @@ export class CoRagflowChatbotState {
   private coConfig = inject(CoConfig);
   private translateService = inject(TranslateService);
   private destroyRef = inject(DestroyRef);
+  private localStorage = inject(FlLocalStorageService);
 
   private socket: Socket | null = null;
   private currentChatId: string | null = null;
@@ -133,11 +135,7 @@ export class CoRagflowChatbotState {
    * Clear the stored conversation for a chat
    */
   clearConversation(chatId: string): void {
-    try {
-      localStorage.removeItem(CONVERSATION_STORAGE_KEY + chatId);
-    } catch {
-      // localStorage not available
-    }
+    this.localStorage.removeItem(CONVERSATION_STORAGE_KEY + chatId);
   }
 
   // Private methods
@@ -216,18 +214,10 @@ export class CoRagflowChatbotState {
   }
 
   private storeConversationId(chatId: string, conversationId: string): void {
-    try {
-      localStorage.setItem(CONVERSATION_STORAGE_KEY + chatId, conversationId);
-    } catch {
-      // localStorage not available
-    }
+    this.localStorage.setItem(CONVERSATION_STORAGE_KEY + chatId, conversationId);
   }
 
   private getStoredConversationId(chatId: string): string | undefined {
-    try {
-      return localStorage.getItem(CONVERSATION_STORAGE_KEY + chatId) || undefined;
-    } catch {
-      return undefined;
-    }
+    return this.localStorage.getItem(CONVERSATION_STORAGE_KEY + chatId) || undefined;
   }
 }
