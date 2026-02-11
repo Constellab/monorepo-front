@@ -4,7 +4,7 @@ import { Type } from 'class-transformer';
 import { CaCloudProviderRegion } from '../ca-cloud-provider.class';
 import { CaServerCloud } from '../server/ca-server-cloud.class';
 import { CaSpace } from '../space/ca-space.class';
-import { CaLabBillingMode, CaLabDesktopPlatform, CaLabType } from './ca-lab.class';
+import { CaLab, CaLabBillingMode, CaLabDesktopPlatform, CaLabType } from './ca-lab.class';
 import { CaLabVolumeType } from './ca-lab-volume.class';
 
 export class CaLabAdminForm {
@@ -42,6 +42,9 @@ export class CaLabAdminForm {
 
   @Type(() => CaCloudProviderRegion)
   weeklyBackupRegion?: CaCloudProviderRegion;
+
+  @Type(() => CaLab)
+  copyConfigFromLab: CaLab;
 }
 
 export class CaLabDesktopForm {

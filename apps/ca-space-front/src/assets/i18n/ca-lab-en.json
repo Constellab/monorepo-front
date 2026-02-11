@@ -175,6 +175,7 @@
   "lab_advanced_configuration_warning": "Warning, use the following options only if you know what you are doing.",
   "lab_gws_core_prod_db_password": "Prod db password",
   "lab_gws_core_dev_db_password": "Dev db password",
+  "copy_lab_config": "Copy  data lab configuration (bricks)",
   "lab_type_CLOUD": "Cloud",
   "lab_type_CLOUD_desc": "Get access to a cloud-based data lab and save you time with fully automated server management",
   "lab_type_ON_PREMISE": "On premise",

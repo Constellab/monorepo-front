@@ -321,6 +321,20 @@
               [placeholder]="'codelab_token' | translate" />
           </mat-form-field>
         }
+
+        @if (isCreateMode()) {
+          <fl-text-icon class="subtitle">
+            <mat-icon>settings</mat-icon>
+            <h3>{{ 'copy_lab_config' | translate }}</h3>
+          </fl-text-icon>
+          <!--  Lab  -->
+          <fl-form-field class="g-form-input">
+            <ca-select-lab
+              formControlName="copyConfigFromLab"
+              mode="all"
+              [placeholder]="'copy_lab_config' | translate"></ca-select-lab>
+          </fl-form-field>
+        }
       </div>
     </form>
   }
