@@ -28,7 +28,7 @@ environment.settings = {
   algoliaIndexName: process?.env['ALGOLIA_INDEX_NAME'] || 'Community Preprod',
   algoliaSiteVerificationKey: process?.env['ALGOLIA_SITE_VERIFICATION_KEY'] || null,
   homeVideoLink: process?.env['HOME_VIDEO_LINK'] || null,
-  ragflowChatId: process?.env['RAGFLOW_CHAT_ID'] || '26505d6e028211f1a6b4fa8e0bdfc3da',
+  ragflowChatId: process?.env['RAGFLOW_CHAT_ID'] || null,
 };
 
 // The Express app is exported so that it can be used by serverless Functions.
