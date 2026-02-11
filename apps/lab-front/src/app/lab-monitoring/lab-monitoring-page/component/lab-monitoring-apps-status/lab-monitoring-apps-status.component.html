@@ -6,7 +6,21 @@
     </fl-text-icon>
 
     <fl-card-actions>
-      <button mat-stroked-button type="button" (click)="stopAll()" class="g-button-small">
+      <button mat-stroked-button type="button" [matMenuTriggerFor]="nginxMenu" class="g-button-small">
+        Nginx
+      </button>
+      <mat-menu #nginxMenu="matMenu">
+        <a mat-menu-item [href]="nginxConfigUrl" target="_blank">
+          {{ 'monitoring.nginx_config' | translate }}
+        </a>
+        <a mat-menu-item [href]="nginxAccessLogUrl" target="_blank">
+          {{ 'monitoring.nginx_access_log' | translate }}
+        </a>
+        <a mat-menu-item [href]="nginxErrorLogUrl" target="_blank">
+          {{ 'monitoring.nginx_error_log' | translate }}
+        </a>
+      </mat-menu>
+      <button mat-stroked-button type="button" (click)="stopAll()" class="g-button-small stop-all">
         {{ 'monitoring.app_stop_all_processus' | translate }}
       </button>
     </fl-card-actions>

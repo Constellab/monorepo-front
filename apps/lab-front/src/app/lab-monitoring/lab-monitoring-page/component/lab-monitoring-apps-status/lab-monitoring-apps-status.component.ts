@@ -2,6 +2,7 @@ import { AsyncPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { MatAnchor, MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
 import {
@@ -31,6 +32,9 @@ import { LabMonitoringAppDetailComponent } from '../lab-monitoring-app-detail/la
     FlTextIconModule,
     MatIcon,
     MatButton,
+    MatMenu,
+    MatMenuItem,
+    MatMenuTrigger,
     FlSectionModule,
     FlKeyValueModule,
     MatAnchor,
@@ -46,6 +50,10 @@ export class LabMonitoringAppsStatusComponent {
   private dialogService = inject(FlDialogService);
 
   status$: Observable<LiAppsStatus> = this.appService.getStatus();
+
+  nginxConfigUrl: string = this.appService.getNginxConfigUrl();
+  nginxAccessLogUrl: string = this.appService.getNginxAccessLogUrl();
+  nginxErrorLogUrl: string = this.appService.getNginxErrorLogUrl();
 
   stopAll(): void {
     const input: FlConfirmDialogInput = {

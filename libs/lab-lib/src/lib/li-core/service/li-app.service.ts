@@ -35,4 +35,16 @@ export class LiAppService {
   public getDownloadAppLogUrl(appId: string): string {
     return this.apiService.getBaseRouteUrl(`${this.route}/${appId}/logs/download`);
   }
+
+  public getNginxConfigUrl(): string {
+    return this.apiService.getBaseRouteUrl(`${this.route}/nginx/config`);
+  }
+
+  public getNginxAccessLogUrl(): string {
+    return this.apiService.getBaseRouteUrl(`${this.route}/nginx/access-log`);
+  }
+
+  public getNginxErrorLogUrl(): string {
+    return this.apiService.getBaseRouteUrl(`${this.route}/nginx/error-log`);
+  }
 }

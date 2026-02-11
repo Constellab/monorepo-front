@@ -90,6 +90,9 @@
     "start_logs": "Logs de démarrage",
     "start_logs_main_errors": "Erreurs principales",
     "start_logs_other_errors": "Other errors",
-    "start_logs_no_errors": "Aucune erreur trouvée"
+    "start_logs_no_errors": "Aucune erreur trouvée",
+    "nginx_config": "Télécharger la config Nginx",
+    "nginx_access_log": "Télécharger le log d'accès Nginx",
+    "nginx_error_log": "Télécharger le log d'erreur Nginx"
   }
 }
