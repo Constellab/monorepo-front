@@ -27,6 +27,7 @@ import { CaCloudProviderRegionInlineComponent } from '../../../ca-cloud-provider
 import { CaSelectCloudProviderRegionOptionsComponent } from '../../../ca-cloud-provider-core/component/ca-select-cloud-provider-region-options/ca-select-cloud-provider-region-options.component';
 import { CaSelectServerCloudComponent } from '../../../ca-server-core/component/ca-select-server-cloud/ca-select-server-cloud.component';
 import { CaSelectSpaceComponent } from '../../../ca-space-core/component/ca-select-space/ca-select-space.component';
+import { CaSelectLabComponent } from '../ca-select-lab/ca-select-lab.component';
 
 export interface CaLabAdminFormDialogInput extends FlFormDialogInput<CaLabAdminForm> {
   id?: string; // only on update mode
@@ -67,6 +68,7 @@ export interface CaLabAdminFormDialogInput extends FlFormDialogInput<CaLabAdminF
     FlCorePipeModule,
     TranslatePipe,
     FlTextIconModule,
+    CaSelectLabComponent,
   ],
 })
 export class CaLabAdminFormDialogComponent
@@ -132,6 +134,7 @@ export class CaLabAdminFormDialogComponent
       desktopPlatform: [this.platformService.isSafari() ? 'MAC' : 'WINDOWS', [Validators.required]],
       dailyBackupRegion: [{ value: null, disabled: this.isUpdateMode() }, [Validators.required]],
       weeklyBackupRegion: [{ value: null, disabled: this.isUpdateMode() }, [Validators.required]],
+      copyConfigFromLab: [null], // only for create mode, to copy the config from an existing lab
     });
   }
 
