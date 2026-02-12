@@ -65,7 +65,6 @@ export interface CoRagflowMessageError {
  * Configuration for the Ragflow chatbot
  */
 export interface CoRagflowChatbotConfig {
-  chatId: string;
   userId?: string;
   conversationId?: string;
 }

@@ -44,9 +44,6 @@ export class CoRagflowChatbotComponent implements OnInit, AfterViewChecked {
   @ViewChild('messagesContainer') messagesContainer: ElementRef<HTMLElement>;
   @ViewChild('messageInput') messageInput: ElementRef<HTMLTextAreaElement>;
 
-  /** The Ragflow agent ID to use */
-  chatId = input.required<string>();
-
   /** Optional user ID for authentication */
   userId = input<string>();
 
@@ -72,7 +69,6 @@ export class CoRagflowChatbotComponent implements OnInit, AfterViewChecked {
 
   ngOnInit(): void {
     this.state.connect({
-      chatId: this.chatId(),
       userId: this.userId(),
       conversationId: this.conversationId(),
     });
@@ -103,17 +99,15 @@ export class CoRagflowChatbotComponent implements OnInit, AfterViewChecked {
 
   reconnect(): void {
     this.state.connect({
-      chatId: this.chatId(),
       userId: this.userId(),
       conversationId: this.conversationId(),
     });
   }
 
   startNewConversation(): void {
-    this.state.startNewConversation(this.chatId());
+    this.state.startNewConversation();
     this.state.disconnect();
     this.state.connect({
-      chatId: this.chatId(),
       userId: this.userId(),
     });
   }

@@ -42,8 +42,6 @@ export interface HaEnvironmentSettings {
   algoliaSiteVerificationKey: string;
 
   homeVideoLink: string;
-
-  ragflowChatId: string;
 }
 
 // Path of the environment json file created during the docker run (used in production)

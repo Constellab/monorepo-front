@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { isPlatformBrowser } from '@angular/common';
 import {
@@ -34,8 +35,9 @@ export class HaMainComponent implements OnInit, AfterContentInit, OnDestroy {
 
   isSmallScreen = false;
   isBrowser = false;
-  ragflowChatId: string | null = null;
+  isChatbotActive = false;
 
+  private http: HttpClient = inject(HttpClient);
   private authUserService: HaAuthenticatedUserService = inject(HaAuthenticatedUserService);
   private cookieService: FlCookieService = inject(FlCookieService);
   private breakpointObserver: BreakpointObserver = inject(BreakpointObserver);
@@ -57,8 +59,16 @@ export class HaMainComponent implements OnInit, AfterContentInit, OnDestroy {
 
   ngOnInit(): void {
     this.isBrowser = isPlatformBrowser(this.platformId);
-    this.ragflowChatId = HaEnvironmentHelper.getRagflowChatId();
     this.themeState.init();
+
+    if (this.isBrowser) {
+      this.http
+        .get<{ active: boolean }>(`${HaEnvironmentHelper.getApiUrl()}/ragflow-chatbot/status`)
+        .subscribe({
+          next: (res) => (this.isChatbotActive = res.active),
+          error: () => (this.isChatbotActive = false),
+        });
+    }
     this.currentPageState.init();
 
     this.authUserService.getUser().subscribe((user) => {

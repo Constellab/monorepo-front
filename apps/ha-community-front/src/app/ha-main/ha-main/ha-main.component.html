@@ -1,5 +1,5 @@
 <router-outlet></router-outlet>
 
-@if (isBrowser && ragflowChatId) {
-  <co-ragflow-chatbot-bubble [chatId]="ragflowChatId"></co-ragflow-chatbot-bubble>
+@if (isBrowser && isChatbotActive) {
+  <co-ragflow-chatbot-bubble></co-ragflow-chatbot-bubble>
 }

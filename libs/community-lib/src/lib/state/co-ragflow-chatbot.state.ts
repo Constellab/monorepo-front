@@ -14,7 +14,7 @@ import {
   CoRagflowMessageError,
 } from '../model/co-ragflow-chatbot.class';
 
-const CONVERSATION_STORAGE_KEY = 'ragflow_conversation_';
+const CONVERSATION_STORAGE_KEY = 'ragflow_conversation';
 const UNAUTHORIZED_CONVERSATION_ERROR = 'Unauthorized: you do not have access to this conversation';
 
 /**
@@ -29,7 +29,6 @@ export class CoRagflowChatbotState {
   private localStorage = inject(FlLocalStorageService);
 
   private socket: Socket | null = null;
-  private currentChatId: string | null = null;
 
   // Signals
   readonly connectionState = signal<CoRagflowConnectionState>('disconnected');
@@ -66,7 +65,6 @@ export class CoRagflowChatbotState {
       this.disconnect();
     }
 
-    this.currentChatId = config.chatId;
     this.connectionState.set('connecting');
 
     const apiUrl = this.coConfig.getCommunityApiUrl();
@@ -80,8 +78,8 @@ export class CoRagflowChatbotState {
     this.socket.on('connect', () => {
       this.connectionState.set('connected');
       // Use provided conversationId or try to restore from storage
-      const conversationId = config.conversationId || this.getStoredConversationId(config.chatId);
-      this.joinConversation(config.chatId, conversationId);
+      const conversationId = config.conversationId || this.getStoredConversationId();
+      this.joinConversation(conversationId);
     });
 
     this.socket.on('disconnect', () => {
@@ -104,46 +102,48 @@ export class CoRagflowChatbotState {
     }
     this.connectionState.set('disconnected');
     this.conversationId.set(null);
-    this.currentChatId = null;
   }
 
   /**
    * Send a message to the chatbot
    */
   sendMessage(message: string): void {
-    if (!this.socket?.connected || !this.currentChatId) return;
+    if (!this.socket?.connected) return;
 
     // Add user message to the messages list
     this.messages.update((msgs) => [...msgs, { role: 'user', content: message, timestamp: new Date() }]);
 
-    this.socket.emit('send_message', {
-      chatId: this.currentChatId,
-      message,
-    });
+    const payload: { message: string; conversationId?: string; sessionId?: string } = { message };
+    const currentConversationId = this.conversationId();
+    if (currentConversationId) {
+      payload.conversationId = currentConversationId;
+    }
+
+    this.socket.emit('send_message', payload);
   }
 
   /**
    * Start a new conversation (clear history and reconnect)
    */
-  startNewConversation(chatId: string): void {
-    this.clearConversation(chatId);
+  startNewConversation(): void {
+    this.clearConversation();
     this.messages.set([]);
     this.streamingContent.set('');
   }
 
   /**
-   * Clear the stored conversation for a chat
+   * Clear the stored conversation
    */
-  clearConversation(chatId: string): void {
-    this.localStorage.removeItem(CONVERSATION_STORAGE_KEY + chatId);
+  clearConversation(): void {
+    this.localStorage.removeItem(CONVERSATION_STORAGE_KEY);
   }
 
   // Private methods
 
-  private joinConversation(chatId: string, conversationId?: string): void {
+  private joinConversation(conversationId?: string): void {
     if (!this.socket?.connected) return;
 
-    const payload: { chatId: string; conversationId?: string } = { chatId };
+    const payload: { conversationId?: string } = {};
     if (conversationId) {
       payload.conversationId = conversationId;
     }
@@ -163,9 +163,7 @@ export class CoRagflowChatbotState {
 
     this.socket.on('conversation_joined', (data: CoRagflowConversationJoined) => {
       this.conversationId.set(data.conversationId);
-      if (this.currentChatId) {
-        this.storeConversationId(this.currentChatId, data.conversationId);
-      }
+      this.storeConversationId(data.conversationId);
 
       const messages = data.messages || [];
       // Add welcome message for new conversations
@@ -203,9 +201,9 @@ export class CoRagflowChatbotState {
       this.streamingContent.set('');
 
       // Handle unauthorized conversation access - create a new conversation
-      if (data.error === UNAUTHORIZED_CONVERSATION_ERROR && this.currentChatId) {
-        this.clearConversation(this.currentChatId);
-        this.joinConversation(this.currentChatId);
+      if (data.error === UNAUTHORIZED_CONVERSATION_ERROR) {
+        this.clearConversation();
+        this.joinConversation();
         return;
       }
 
@@ -213,11 +211,11 @@ export class CoRagflowChatbotState {
     });
   }
 
-  private storeConversationId(chatId: string, conversationId: string): void {
-    this.localStorage.setItem(CONVERSATION_STORAGE_KEY + chatId, conversationId);
+  private storeConversationId(conversationId: string): void {
+    this.localStorage.setItem(CONVERSATION_STORAGE_KEY, conversationId);
   }
 
-  private getStoredConversationId(chatId: string): string | undefined {
-    return this.localStorage.getItem(CONVERSATION_STORAGE_KEY + chatId) || undefined;
+  private getStoredConversationId(): string | undefined {
+    return this.localStorage.getItem(CONVERSATION_STORAGE_KEY) || undefined;
   }
 }

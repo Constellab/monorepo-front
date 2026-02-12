@@ -16,7 +16,6 @@ export class HaEnvironmentHelper {
       algoliaIndexName: environment.settings.algoliaIndexName || 'Community Preprod',
       algoliaSiteVerificationKey: environment.settings.algoliaSiteVerificationKey || null,
       homeVideoLink: environment.settings.homeVideoLink || null,
-      ragflowChatId: environment.settings.ragflowChatId || null,
     };
     return environment;
   }
@@ -55,9 +54,5 @@ export class HaEnvironmentHelper {
 
   public static getHomeVideoLink(): string | null {
     return HaEnvironmentHelper.getEnv().settings.homeVideoLink || null;
-  }
-
-  public static getRagflowChatId(): string | null {
-    return HaEnvironmentHelper.getEnv().settings.ragflowChatId || null;
   }
 }

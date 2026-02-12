@@ -25,7 +25,6 @@ export const environment: HaEnvironment = {
     algoliaIndexName: '',
     algoliaSiteVerificationKey: '',
     homeVideoLink: '',
-    ragflowChatId: '',
   },
 };
 

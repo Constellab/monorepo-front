@@ -18,9 +18,6 @@ export class CoRagflowChatbotBubbleComponent implements OnDestroy {
   private portalService = inject(FlPortalService);
   private breakpointObserver = inject(BreakpointObserver);
 
-  /** The Ragflow agent ID to use */
-  chatId = input.required<string>();
-
   /** Optional user ID for authentication */
   userId = input<string>();
 
@@ -45,7 +42,6 @@ export class CoRagflowChatbotBubbleComponent implements OnDestroy {
     const isSmallScreen = this.breakpointObserver.isMatched('(max-width: 480px)');
 
     const config: CoRagflowChatbotPanelConfig = {
-      chatId: this.chatId(),
       userId: this.userId(),
       conversationId: this.conversationId(),
       onClose: () => this.close(),

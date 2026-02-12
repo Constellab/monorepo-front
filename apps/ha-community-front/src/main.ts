@@ -68,7 +68,6 @@ if (environment.production) {
     algoliaIndexName: 'Community Preprod',
     algoliaSiteVerificationKey: null,
     homeVideoLink: null,
-    ragflowChatId: null,
   };
 
   bootstrapApp();
