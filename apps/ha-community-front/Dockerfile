@@ -1,5 +1,5 @@
 # Build step
-FROM node:22-alpine3.22 AS buildContainer
+FROM node:22-alpine3.22 AS build_container
 
 WORKDIR /app
 
@@ -19,7 +19,7 @@ WORKDIR /app
 
 COPY apps/ha-community-front/entrypoint.sh /entrypoint.sh
 
-COPY --from=buildContainer /app/dist /app/dist
+COPY --from=build_container /app/dist /app/dist
 
 RUN sed -i -e 's/\r$//' /entrypoint.sh && \
 #    sed -i -e 's/\r$//' /etc/nginx/conf.d/default.conf && \

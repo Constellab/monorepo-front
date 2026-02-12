@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { isPlatformBrowser } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 import {
   AfterContentInit,
   Component,
@@ -11,8 +11,8 @@ import {
   PLATFORM_ID,
 } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { ClHelpService, ClSupportedLanguage } from '@monorepo/core-lib';
 import { CoRagflowChatbotBubbleComponent } from '@monorepo/community-lib';
+import { ClHelpService, ClSupportedLanguage } from '@monorepo/core-lib';
 import { FlCookieService, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 
 import { HaInstantSearchDialogComponent } from '../../ha-core/ha-component/ha-instant-search-dialog/ha-instant-search-dialog.component';
