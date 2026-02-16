@@ -1,16 +1,19 @@
 mat-tree-node {
   min-height: 0;
-  margin-top: 5px;
-  margin-bottom: 5px;
   border-radius: 10px;
 }
 
 .selected-tree-node {
-  background-color: var(--hover-color);
+  color: var(--primary-color);
+}
+
+.child-node{
+  border-left: 2px solid var(--hover-color);
 }
 
 .tree-node {
   min-height: 32px;
+  padding: 5px 0;
 }
 
 .tree-node-padding {

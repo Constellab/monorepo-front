@@ -3,9 +3,9 @@
   <mat-tree-node
     *matTreeNodeDef="let node"
     matTreeNodePadding
-    [matTreeNodePaddingIndent]="10"
+    [matTreeNodePaddingIndent]="14"
     [ngClass]="{ 'selected-tree-node': isSelected(node) }">
-    <div class="g-text-small g-layout-row g-layout-start-center tree-node">
+    <div class="g-text-small g-layout-row g-layout-start-center tree-node" [ngClass]="{ 'child-node': node.parent.object.label }">
       @if (node.children && node.children.length > 0) {
         <button
           mat-icon-button
