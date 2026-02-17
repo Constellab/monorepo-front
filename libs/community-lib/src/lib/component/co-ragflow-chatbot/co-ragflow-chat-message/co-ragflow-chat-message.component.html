@@ -1,4 +1,7 @@
-<div class="co-chat-message" [class.co-chat-message--user]="isUser()" [class.co-chat-message--assistant]="isAssistant()">
+<div
+  class="co-chat-message"
+  [class.co-chat-message--user]="isUser()"
+  [class.co-chat-message--assistant]="isAssistant()">
   <div class="co-chat-message-avatar">
     @if (isUser()) {
       <mat-icon>person</mat-icon>
@@ -7,9 +10,7 @@
     }
   </div>
   <div class="co-chat-message-body">
-    <div class="co-chat-message-content">
-      {{ formattedContent() }}
-    </div>
+    <div class="co-chat-message-content" [innerHTML]="formattedContent() | flMarkdown"></div>
 
     <!-- Sources section temporarily hidden
     @if (hasReferences()) {
