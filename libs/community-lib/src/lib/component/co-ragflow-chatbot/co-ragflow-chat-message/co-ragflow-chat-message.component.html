@@ -10,8 +10,11 @@
     }
   </div>
   <div class="co-chat-message-body">
-    <div class="co-chat-message-content" [innerHTML]="formattedContent() | flMarkdown"></div>
-
+    @if (isUser()) {
+      <div class="co-chat-message-content">{{ formattedContent() }}</div>
+    } @else {
+      <div class="co-chat-message-content" [innerHTML]="formattedContent() | flMarkdown"></div>
+    }
     <!-- Sources section temporarily hidden
     @if (hasReferences()) {
       <div class="co-chat-message-sources">
