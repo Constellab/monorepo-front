@@ -1,4 +1,4 @@
-import { Component, inject,OnInit } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { MatButton, MatIconAnchor } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
@@ -40,59 +40,52 @@ export interface LiLogBetweenDatesDialogInput {
   ],
 })
 export class LiLogsBetweenDatesDialogComponent implements OnInit {
-  title: string;
-  loadFunction: (lastDate?: DateTime) => Observable<LiLogsBetweenDates>;
-  downloadUrl?: string;
+  private input = inject<LiLogBetweenDatesDialogInput>(MAT_DIALOG_DATA);
 
-  isLoading: boolean = false;
-  logs: LiLogsBetweenDates;
+  title = signal(this.input.title);
+  downloadUrl = signal(this.input.downloadUrl);
+  isLoading = signal(false);
+  logs = signal<LiLogsBetweenDates>(undefined);
+  loadNextPageDisabled = computed(() => this.isLoading() || this.logs()?.isLastPage);
 
-  constructor() {
-    const input = inject<LiLogBetweenDatesDialogInput>(MAT_DIALOG_DATA);
-
-    this.title = input.title;
-    this.loadFunction = input.loadFunction;
-    this.downloadUrl = input.downloadUrl;
-  }
+  private loadFunction = this.input.loadFunction;
 
   ngOnInit(): void {
     this.loadLogs();
   }
 
   loadNextPage(): void {
-    if (this.logs) {
-      this.loadLogs(this.logs.nextPageDate);
+    const logs = this.logs();
+    if (logs) {
+      this.loadLogs(logs.nextPageDate);
     }
   }
 
   private loadLogs(lastDate?: DateTime): void {
-    if (this.isLoading) return;
-    this.isLoading = true;
+    if (this.isLoading()) return;
+    this.isLoading.set(true);
     this.loadFunction(lastDate).subscribe({
       next: (logs) => this.onSuccess(logs),
       error: () => this.onError(),
     });
   }
 
-  private onSuccess(logs: LiLogsBetweenDates): void {
-    if (this.logs) {
-      // if this is a new page load we update the existing logs
-      this.logs.logs.push(...logs.logs);
-    } else {
-      this.logs = logs;
-    }
-    this.logs.isLastPage = logs.isLastPage;
-    if (!this.logs.isLastPage) {
-      this.logs.nextPageDate = logs.logs[logs.logs.length - 1].datetime.plus({ milliseconds: 1 }) as DateTime;
-    }
-    this.isLoading = false;
+  private onSuccess(newLogs: LiLogsBetweenDates): void {
+    const currentLogs = this.logs();
+    const mergedLogLines = currentLogs ? [...currentLogs.logs, ...newLogs.logs] : newLogs.logs;
+    const nextPageDate = !newLogs.isLastPage
+      ? (newLogs.logs[newLogs.logs.length - 1].datetime.plus({ milliseconds: 1 }) as DateTime)
+      : undefined;
+
+    this.logs.set({
+      ...newLogs,
+      logs: mergedLogLines,
+      nextPageDate,
+    });
+    this.isLoading.set(false);
   }
 
   private onError(): void {
-    this.isLoading = false;
-  }
-
-  get loadNextPageDisabled(): boolean {
-    return this.isLoading || this.logs?.isLastPage;
+    this.isLoading.set(false);
   }
 }
