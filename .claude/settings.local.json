@@ -18,7 +18,24 @@
       "Bash(nx run:*)",
       "Bash(git log:*)",
       "Bash(tree:*)",
-      "Bash(find:*)"
+      "Bash(find:*)",
+      "Bash(python3:*)",
+      "Bash(gws community update-doc:*)",
+      "mcp__rich-text-editor__load_remote_document",
+      "mcp__rich-text-editor__get_blocks_summary",
+      "mcp__rich-text-editor__get_block",
+      "mcp__rich-text-editor__update_block_data",
+      "mcp__rich-text-editor__add_hint",
+      "mcp__rich-text-editor__remove_block",
+      "mcp__rich-text-editor__move_block",
+      "mcp__rich-text-editor__add_paragraph",
+      "mcp__rich-text-editor__add_header",
+      "mcp__rich-text-editor__add_list",
+      "mcp__rich-text-editor__get_document_markdown",
+      "mcp__rich-text-editor__update_block",
+      "mcp__rich-text-editor__insert_blocks",
+      "mcp__rich-text-editor__upload_document",
+      "Bash(grep:*)"
     ],
     "deny": []
   }
