@@ -69,7 +69,7 @@ export class HaBrickDocComponent extends HaCommunityPageDirective implements OnI
   private brickPageState: HaBrickPageState = inject(HaBrickPageState);
   private jsonLdState: HaJsonLdState = inject(HaJsonLdState);
 
-  versionPath: Signal<string> = this.brickPageState.getBrickVersionPath();
+  versionPath: Signal<string> = this.brickPageState.pathVersion;
 
   brick: Signal<HaBrick> = this.brickPageState.brick;
 
@@ -81,7 +81,7 @@ export class HaBrickDocComponent extends HaCommunityPageDirective implements OnI
     return doc;
   });
 
-  userHasEditRight: Signal<boolean> = this.brickPageState.getUserHasEditRight();
+  userHasEditRight: Signal<boolean> = this.brickPageState.userHasEditRight;
 
   isDocLoading: Signal<boolean> = this.brickPageState.isDocLoading;
 
@@ -103,9 +103,6 @@ export class HaBrickDocComponent extends HaCommunityPageDirective implements OnI
     super();
     effect(() => {
       const brick = this.brick();
-      if (brick == null) {
-        return;
-      }
       if (this.urlSubscription != null) {
         this.urlSubscription?.unsubscribe();
       }

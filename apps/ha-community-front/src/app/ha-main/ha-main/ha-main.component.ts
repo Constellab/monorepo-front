@@ -4,12 +4,14 @@ import { HttpClient } from '@angular/common/http';
 import {
   AfterContentInit,
   Component,
+  DestroyRef,
   HostListener,
   inject,
   OnDestroy,
   OnInit,
   PLATFORM_ID,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RouterOutlet } from '@angular/router';
 import { CoRagflowChatbotBubbleComponent } from '@monorepo/community-lib';
 import { ClHelpService, ClSupportedLanguage } from '@monorepo/core-lib';
@@ -45,6 +47,7 @@ export class HaMainComponent implements OnInit, AfterContentInit, OnDestroy {
   private dialogService: FlDialogService = inject(FlDialogService);
   private currentPageState: HaCurrentPageState = inject(HaCurrentPageState);
   private platformId: any = inject(PLATFORM_ID);
+  private destroyRef = inject(DestroyRef);
 
   @HostListener('window:keydown', ['$event'])
   onCtrlK(event: KeyboardEvent): void {
@@ -71,11 +74,11 @@ export class HaMainComponent implements OnInit, AfterContentInit, OnDestroy {
     }
     this.currentPageState.init();
 
-    this.authUserService.getUser().subscribe((user) => {
+    this.authUserService.getUser().pipe(takeUntilDestroyed(this.destroyRef)).subscribe((user) => {
       this.currentLanguage = user != null ? user.lang : ClSupportedLanguage.en;
     });
 
-    this.breakpointObserver.observe('(max-width: 965px)').subscribe(() => {
+    this.breakpointObserver.observe('(max-width: 965px)').pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
       this.updateIsSmallScreen();
     });
   }

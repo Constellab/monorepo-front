@@ -9,7 +9,6 @@ import {
   signal,
   StateKey,
   TransferState,
-  WritableSignal,
 } from '@angular/core';
 import { UrlSegment } from '@angular/router';
 import { ClStringHelper } from '@monorepo/core-lib';
@@ -17,6 +16,7 @@ import { FlStatusEvent } from '@monorepo/front-core-lib/fl-core';
 import { TdTypeEntity } from '@monorepo/technical-doc';
 import { TeBlockHeaderData, TeBlockHeaderLevel } from '@monorepo/text-editor';
 import { plainToInstance } from 'class-transformer';
+import { first } from 'rxjs';
 
 import { HaFile } from '../../ha-core/entity-module/ha-file-core/model/ha-file';
 import { HaBrick } from '../../ha-core/ha-model/ha-entities/ha-brick.class';
@@ -51,60 +51,58 @@ export class HaBrickPageState {
   private LATEST_BRICK_VERSION_KEY: StateKey<object> = makeStateKey<HaBrick>('latest-brick-version');
   private DOC_KEY: StateKey<object> = makeStateKey<HaDocumentation>('doc');
   private TECH_DOC_KEY: StateKey<object> = makeStateKey<object>('techDoc');
+  private CO_AUTHORS_KEY: StateKey<object> = makeStateKey<object>('co-authors');
+  private DIRECT_REFERENCES_KEY: StateKey<object> = makeStateKey<object>('direct-references');
+  private BRICK_RUN_STAT_KEY: StateKey<object> = makeStateKey<object>('brick-run-stat');
+  private DOC_FILES_KEY: StateKey<object> = makeStateKey<object>('doc-files');
 
-  private pathVersion: WritableSignal<string> = signal<string>(null);
-  private userHasEditRight: WritableSignal<boolean> = signal<boolean>(null);
-  private docFileUrlPrefix: WritableSignal<string> = signal<string>(null);
-  private docFiles: WritableSignal<HaFile[]> = signal<HaFile[]>(null);
-  private brickStatusEvent: WritableSignal<FlStatusEvent<HaBrick>> = signal<FlStatusEvent<HaBrick>>(null);
-  private latestBrickVersionStatusEvent: WritableSignal<FlStatusEvent<HaBrickVersion>> =
-    signal<FlStatusEvent<HaBrickVersion>>(null);
-  private docStatusEvent: WritableSignal<FlStatusEvent<HaDocumentation>> =
-    signal<FlStatusEvent<HaDocumentation>>(null);
-  private brickRunStatAggregateStatusEvent: WritableSignal<FlStatusEvent<HaRunStatAggregate>> =
-    signal<FlStatusEvent<HaRunStatAggregate>>(null);
-  private runStatAggregateStatusEvent: WritableSignal<FlStatusEvent<HaRunStatAggregate>> =
-    signal<FlStatusEvent<HaRunStatAggregate>>(null);
-  private tempTitle: WritableSignal<string> = signal<string>('');
-  private brickCoAuthors: WritableSignal<HaUser[]> = signal<HaUser[]>(null);
+  // --- Writable signals (private) ---
+  private _pathVersion = signal<string>(null);
+  private _userHasEditRight = signal<boolean>(null);
+  private _docFileUrlPrefix = signal<string>(null);
+  private _docFiles = signal<HaFile[]>(null);
+  private _tempTitle = signal<string>('');
+  private _coAuthors = signal<HaUser[]>(null);
+  private _directReferences = signal<HaReferenceDTO[]>(null);
 
-  public brickAndPathVersion: Signal<[HaBrick, string]> = computed(() => {
+  private brickStatusEvent = signal<FlStatusEvent<HaBrick>>(null);
+  private latestBrickVersionStatusEvent = signal<FlStatusEvent<HaBrickVersion>>(null);
+  private docStatusEvent = signal<FlStatusEvent<HaDocumentation>>(null);
+  private brickRunStatAggregateStatusEvent = signal<FlStatusEvent<HaRunStatAggregate>>(null);
+  private runStatAggregateStatusEvent = signal<FlStatusEvent<HaRunStatAggregate>>(null);
+  private techDocStatusEvent = signal<FlStatusEvent<TdTypeEntity>>(null);
+
+  // --- Public readonly signals ---
+  readonly pathVersion: Signal<string> = this._pathVersion.asReadonly();
+  readonly userHasEditRight: Signal<boolean> = this._userHasEditRight.asReadonly();
+  readonly docFileUrlPrefix: Signal<string> = this._docFileUrlPrefix.asReadonly();
+  readonly docFiles: Signal<HaFile[]> = this._docFiles.asReadonly();
+  readonly tempTitle: Signal<string> = this._tempTitle.asReadonly();
+  readonly coAuthors: Signal<HaUser[]> = this._coAuthors.asReadonly();
+  readonly directReferences: Signal<HaReferenceDTO[]> = this._directReferences.asReadonly();
+
+  // --- Computed signals ---
+  readonly brickAndPathVersion: Signal<[HaBrick, string]> = computed(() => {
     return [this.brick(), this.pathVersion()];
   });
-  public isBrickLoading: Signal<boolean> = computed(() => {
+
+  readonly isBrickLoading: Signal<boolean> = computed(() => {
     return this.brickStatusEvent() && this.brickStatusEvent().status === 'loading';
   });
-  public isBrickError: Signal<boolean> = computed(() => {
+
+  readonly isBrickError: Signal<boolean> = computed(() => {
     return this.brickStatusEvent() && this.brickStatusEvent().status === 'error';
   });
-  public getBrickError: Signal<string> = computed(() => {
-    const brickStatusEvent = this.brickStatusEvent();
-    if (this.isBrickError() && brickStatusEvent.status === 'error') {
-      return brickStatusEvent.error as string;
-    }
-    return null;
-  });
-  public brick: Signal<HaBrick> = computed(() => {
+
+  readonly brick: Signal<HaBrick> = computed(() => {
     const brickStatusEvent = this.brickStatusEvent();
     if (brickStatusEvent && brickStatusEvent.status === 'success') {
       return brickStatusEvent.object;
     }
     return null;
   });
-  public isLatestBrickVersionLoading: Signal<boolean> = computed(() => {
-    return this.latestBrickVersionStatusEvent() && this.latestBrickVersionStatusEvent().status === 'loading';
-  });
-  public isLatestBrickVersionError: Signal<boolean> = computed(() => {
-    return this.latestBrickVersionStatusEvent() && this.latestBrickVersionStatusEvent().status === 'error';
-  });
-  public getLatestBrickVersionError: Signal<string> = computed(() => {
-    const latestBrickVersionStatusEvent = this.latestBrickVersionStatusEvent();
-    if (this.isLatestBrickVersionError() && latestBrickVersionStatusEvent.status === 'error') {
-      return latestBrickVersionStatusEvent.error as string;
-    }
-    return null;
-  });
-  public latestBrickVersion: Signal<HaBrickVersion> = computed(() => {
+
+  readonly latestBrickVersion: Signal<HaBrickVersion> = computed(() => {
     const latestBrickVersionStatusEvent = this.latestBrickVersionStatusEvent();
     if (latestBrickVersionStatusEvent && latestBrickVersionStatusEvent.status === 'success') {
       return latestBrickVersionStatusEvent.object;
@@ -112,51 +110,31 @@ export class HaBrickPageState {
     return null;
   });
 
-  public getCoAuthors(): Signal<HaUser[]> {
-    return this.brickCoAuthors;
-  }
-
-  public isDocLoading: Signal<boolean> = computed(() => {
+  readonly isDocLoading: Signal<boolean> = computed(() => {
     return this.docStatusEvent() && this.docStatusEvent().status === 'loading';
   });
 
-  public isDocError: Signal<boolean> = computed(() => {
+  readonly isDocError: Signal<boolean> = computed(() => {
     return this.docStatusEvent() && this.docStatusEvent().status === 'error';
   });
 
-  public getDocError: Signal<string> = computed(() => {
-    const docStatusEvent = this.docStatusEvent();
-    if (this.isDocError() && docStatusEvent.status === 'error') {
-      return docStatusEvent.error as string;
-    }
-    return null;
-  });
-
-  public doc: Signal<HaDocumentation> = computed(() => {
+  readonly doc: Signal<HaDocumentation> = computed(() => {
     const docStatusEvent = this.docStatusEvent();
     if (docStatusEvent && docStatusEvent.status === 'success') {
       return docStatusEvent.object;
     }
     return null;
   });
-  private directReferences: WritableSignal<HaReferenceDTO[]> = signal<HaReferenceDTO[]>(null);
 
-  private techDocStatusEvent: WritableSignal<FlStatusEvent<TdTypeEntity>> =
-    signal<FlStatusEvent<TdTypeEntity>>(null);
-  public isTechDocLoading: Signal<boolean> = computed(() => {
+  readonly isTechDocLoading: Signal<boolean> = computed(() => {
     return this.techDocStatusEvent() && this.techDocStatusEvent().status === 'loading';
   });
-  public isTechDocError: Signal<boolean> = computed(() => {
+
+  readonly isTechDocError: Signal<boolean> = computed(() => {
     return this.techDocStatusEvent() && this.techDocStatusEvent().status === 'error';
   });
-  public getTechDocError: Signal<string> = computed(() => {
-    const techDocStatusEvent = this.techDocStatusEvent();
-    if (this.isTechDocError() && techDocStatusEvent.status === 'error') {
-      return techDocStatusEvent.error as string;
-    }
-    return null;
-  });
-  public techDoc: Signal<TdTypeEntity> = computed(() => {
+
+  readonly techDoc: Signal<TdTypeEntity> = computed(() => {
     const techDocStatusEvent = this.techDocStatusEvent();
     if (techDocStatusEvent && techDocStatusEvent.status === 'success') {
       return techDocStatusEvent.object;
@@ -164,7 +142,7 @@ export class HaBrickPageState {
     return null;
   });
 
-  public brickRunStatAggregate: Signal<HaRunStatAggregate> = computed(() => {
+  readonly brickRunStatAggregate: Signal<HaRunStatAggregate> = computed(() => {
     const brickRunStatAggregateStatusEvent = this.brickRunStatAggregateStatusEvent();
     if (brickRunStatAggregateStatusEvent && brickRunStatAggregateStatusEvent.status === 'success') {
       return brickRunStatAggregateStatusEvent.object;
@@ -172,7 +150,7 @@ export class HaBrickPageState {
     return null;
   });
 
-  public runStatAggregate: Signal<HaRunStatAggregate> = computed(() => {
+  readonly runStatAggregate: Signal<HaRunStatAggregate> = computed(() => {
     const runStatAggregateStatusEvent = this.runStatAggregateStatusEvent();
     if (runStatAggregateStatusEvent && runStatAggregateStatusEvent.status === 'success') {
       return runStatAggregateStatusEvent.object;
@@ -180,25 +158,21 @@ export class HaBrickPageState {
     return null;
   });
 
-  public docHeaders: Signal<TeBlockHeaderData[]> = computed(() => {
+  readonly docHeaders: Signal<TeBlockHeaderData[]> = computed(() => {
     if (!this.doc()?.content) return [];
     return this.doc().content?.getHeadersData([TeBlockHeaderLevel.HEADER_1, TeBlockHeaderLevel.HEADER_2]);
   });
+
+  // --- Public methods ---
 
   public init(brickName: string, version: string): void {
     if (!this.isValidVersion(version)) {
       this.brickStatusEvent.set({ status: 'error', error: 'invalid_version' });
       return;
     }
-    this.pathVersion.set(version);
-    this.tempTitle.set(ClStringHelper.fromKebabCaseToSentence(brickName));
+    this._pathVersion.set(version);
+    this._tempTitle.set(ClStringHelper.fromKebabCaseToSentence(brickName));
     this.initBrick(brickName);
-  }
-
-  private isValidVersion(version: string): boolean {
-    if (!version) return false;
-    // Valid formats: 'latest' or 'vX' or 'vX.X.X' (with optional -beta.X suffix)
-    return version === 'latest' || /^v\d+(\.\d+(\.\d+)?)?(-beta\.\d+)?$/.test(version);
   }
 
   public setBrick(brick: HaBrick): void {
@@ -212,64 +186,16 @@ export class HaBrickPageState {
     this.initCoAuthors(brick.id);
   }
 
-  public initCoAuthors(brickId: string): void {
-    this.brickService.getCoAuthors(brickId).subscribe((coAuthors) => {
-      this.brickCoAuthors.set(coAuthors);
-    });
-  }
-
-  public getDirectReferences(): Signal<HaReferenceDTO[]> {
-    return this.directReferences;
-  }
-
-  public getBrickVersionPath(): Signal<string> {
-    return this.pathVersion;
-  }
-
-  public getUserHasEditRight(): Signal<boolean> {
-    return this.userHasEditRight;
-  }
-
-  public getDocFileUrlPrefix(): Signal<string> {
-    return this.docFileUrlPrefix;
-  }
-
-  public getDocFiles(): Signal<HaFile[]> {
-    return this.docFiles;
-  }
-
-  public getTempTitle(): Signal<string> {
-    return this.tempTitle;
-  }
-
-  public setLatestBrickVersion(brickVersion: HaBrickVersion): void {
-    if (brickVersion == null || brickVersion.id == null) {
-      this.latestBrickVersionStatusEvent.set({
-        status: 'error',
-        error: 'brick_version_not_found',
-      });
-      return;
-    }
-
-    this.latestBrickVersionStatusEvent.set({
-      status: 'success',
-      object: brickVersion,
-    });
-    this.initBrickVersionDirectReferences(brickVersion.id);
-  }
-
   public initDoc(docId: string, url: UrlSegment[], brick: HaBrick): void {
     if (this.doc() && this.doc().id === docId) {
       return;
     }
 
-    this.docStatusEvent.set({ status: 'loading' });
-
-    console.log('Initializing doc with ID:', docId);
-    console.log('URL segments:', url.map((segment) => segment.path).join('/'));
-    console.log('Brick:', brick);
-
+    // Non-UUID docId requires brick for redirect logic — skip until brick is loaded
     if (!ClStringHelper.isUUID(docId)) {
+      if (!brick) return;
+
+      this.docStatusEvent.set({ status: 'loading' });
       if (url.length == 1 && url[0].path == 'getting-started') {
         this.redirectToGettingStartedDoc(brick);
         return;
@@ -278,6 +204,11 @@ export class HaBrickPageState {
       this.redirectToCompletePathDoc(url);
       return;
     }
+
+    // UUID docId — can load immediately without brick
+    this.docStatusEvent.set({ status: 'loading' });
+    this.initDocFileUrlPrefix(docId);
+    this.initDocFiles(docId);
 
     if (isPlatformBrowser(this.platformId) && this.transferState.hasKey(this.DOC_KEY)) {
       this.setDoc(plainToInstance(HaDocumentation, this.transferState.get(this.DOC_KEY, null)));
@@ -308,6 +239,89 @@ export class HaBrickPageState {
     });
   }
 
+  public setDoc(doc: HaDocumentation): void {
+    if (doc == null || doc.id == null) {
+      this.docStatusEvent.set({ status: 'error', error: 'doc_not_found' });
+      return;
+    }
+
+    this.docStatusEvent.set({ status: 'success', object: doc });
+  }
+
+  public initTechDoc(
+    brickName: string,
+    version: string,
+    techDocType: string,
+    techDocUniqueName: string
+  ): void {
+    if (!this.isValidVersion(version)) {
+      this.techDocStatusEvent.set({ status: 'error', error: 'invalid_version' });
+      return;
+    }
+
+    this.techDocStatusEvent.set({ status: 'loading' });
+
+    if (isPlatformBrowser(this.platformId) && this.transferState.hasKey(this.TECH_DOC_KEY)) {
+      this.setTechDoc(this.transferState.get(this.TECH_DOC_KEY, null) as TdTypeEntity);
+      this.transferState.remove(this.TECH_DOC_KEY);
+      return;
+    }
+
+    this.brickService.getTechDocByPath(brickName, version, techDocType, techDocUniqueName).subscribe({
+      next: (techDoc) => {
+        if (!techDoc) {
+          this.techDocStatusEvent.set({ status: 'error', error: 'tech_doc_not_found' });
+          return;
+        }
+        this.setTechDoc(techDoc);
+        if (isPlatformServer(this.platformId) && !this.transferState.hasKey(this.TECH_DOC_KEY)) {
+          this.transferState.set(this.TECH_DOC_KEY, techDoc);
+        }
+      },
+      error: (error) => {
+        this.techDocStatusEvent.set({ status: 'error', error: error });
+      },
+    });
+  }
+
+  // --- Private methods ---
+
+  private isValidVersion(version: string): boolean {
+    if (!version) return false;
+    return version === 'latest' || /^v\d+\.\d+\.\d+(-beta\.\d+)?$/.test(version);
+  }
+
+  private initCoAuthors(brickId: string): void {
+    if (isPlatformBrowser(this.platformId) && this.transferState.hasKey(this.CO_AUTHORS_KEY)) {
+      this._coAuthors.set(this.transferState.get(this.CO_AUTHORS_KEY, null) as HaUser[]);
+      this.transferState.remove(this.CO_AUTHORS_KEY);
+      return;
+    }
+
+    this.brickService.getCoAuthors(brickId).subscribe((coAuthors) => {
+      this._coAuthors.set(coAuthors);
+      if (isPlatformServer(this.platformId) && !this.transferState.hasKey(this.CO_AUTHORS_KEY)) {
+        this.transferState.set(this.CO_AUTHORS_KEY, coAuthors);
+      }
+    });
+  }
+
+  private setLatestBrickVersion(brickVersion: HaBrickVersion): void {
+    if (brickVersion == null || brickVersion.id == null) {
+      this.latestBrickVersionStatusEvent.set({
+        status: 'error',
+        error: 'brick_version_not_found',
+      });
+      return;
+    }
+
+    this.latestBrickVersionStatusEvent.set({
+      status: 'success',
+      object: brickVersion,
+    });
+    this.initBrickVersionDirectReferences(brickVersion.id);
+  }
+
   private redirectToGettingStartedDoc(brick: HaBrick): void {
     this.brickService
       .getBrickGettingStarted(this.brick()?.name ?? brick?.name, this.pathVersion())
@@ -325,30 +339,19 @@ export class HaBrickPageState {
       });
   }
 
-  public setDoc(doc: HaDocumentation): void {
-    if (doc == null || doc.id == null) {
-      this.docStatusEvent.set({ status: 'error', error: 'doc_not_found' });
-      return;
-    }
-
-    this.docStatusEvent.set({ status: 'success', object: doc });
-    this.initDocFileUrlPrefix(doc.id);
-    this.initDocFiles(doc.id);
-  }
-
   private initUserHasEditRight(brick: HaBrick): void {
-    this.authenticatedUserService.getUser().subscribe((user: HaUser) => {
+    this.authenticatedUserService.getUser().pipe(first()).subscribe((user: HaUser) => {
       if (user) {
         this.checkUserRights(brick);
       } else {
-        this.userHasEditRight.set(false);
+        this._userHasEditRight.set(false);
       }
     });
   }
 
   private checkUserRights(brick: HaBrick): void {
     this.brickService.checkUserRights(brick.id, false).subscribe((res) => {
-      this.userHasEditRight.set(res);
+      this._userHasEditRight.set(res);
     });
   }
 
@@ -411,19 +414,37 @@ export class HaBrickPageState {
   }
 
   private initBrickVersionDirectReferences(brickVersionId: string): void {
+    if (isPlatformBrowser(this.platformId) && this.transferState.hasKey(this.DIRECT_REFERENCES_KEY)) {
+      this._directReferences.set(this.transferState.get(this.DIRECT_REFERENCES_KEY, null) as HaReferenceDTO[]);
+      this.transferState.remove(this.DIRECT_REFERENCES_KEY);
+      return;
+    }
+
     this.brickVersionService.getDirectReferences(brickVersionId).subscribe((res) => {
-      this.directReferences.set(res);
+      this._directReferences.set(res);
+      if (isPlatformServer(this.platformId) && !this.transferState.hasKey(this.DIRECT_REFERENCES_KEY)) {
+        this.transferState.set(this.DIRECT_REFERENCES_KEY, res);
+      }
     });
   }
 
   private initDocFileUrlPrefix(docId: string): void {
-    this.docFileUrlPrefix.set(this.documentationService.getDocFilePrefix(docId));
+    this._docFileUrlPrefix.set(this.documentationService.getDocFilePrefix(docId));
   }
 
   private initDocFiles(docId: string): void {
+    if (isPlatformBrowser(this.platformId) && this.transferState.hasKey(this.DOC_FILES_KEY)) {
+      this._docFiles.set(this.transferState.get(this.DOC_FILES_KEY, null) as HaFile[]);
+      this.transferState.remove(this.DOC_FILES_KEY);
+      return;
+    }
+
     this.documentationService.getDocFiles(docId).subscribe({
       next: (docFiles) => {
-        this.docFiles.set(docFiles);
+        this._docFiles.set(docFiles);
+        if (isPlatformServer(this.platformId) && !this.transferState.hasKey(this.DOC_FILES_KEY)) {
+          this.transferState.set(this.DOC_FILES_KEY, docFiles);
+        }
       },
       error: (error) => {
         this.docStatusEvent.set({ status: 'error', error: error });
@@ -459,43 +480,6 @@ export class HaBrickPageState {
           this.docStatusEvent.set({ status: 'error', error: error });
         },
       });
-    return;
-  }
-
-  public initTechDoc(
-    brickName: string,
-    version: string,
-    techDocType: string,
-    techDocUniqueName: string
-  ): void {
-    if (!this.isValidVersion(version)) {
-      this.techDocStatusEvent.set({ status: 'error', error: 'invalid_version' });
-      return;
-    }
-
-    this.techDocStatusEvent.set({ status: 'loading' });
-
-    if (isPlatformBrowser(this.platformId) && this.transferState.hasKey(this.TECH_DOC_KEY)) {
-      this.setTechDoc(this.transferState.get(this.TECH_DOC_KEY, null) as TdTypeEntity);
-      this.transferState.remove(this.TECH_DOC_KEY);
-      return;
-    }
-
-    this.brickService.getTechDocByPath(brickName, version, techDocType, techDocUniqueName).subscribe({
-      next: (techDoc) => {
-        if (!techDoc) {
-          this.techDocStatusEvent.set({ status: 'error', error: 'tech_doc_not_found' });
-          return;
-        }
-        this.setTechDoc(techDoc);
-        if (isPlatformServer(this.platformId) && !this.transferState.hasKey(this.TECH_DOC_KEY)) {
-          this.transferState.set(this.TECH_DOC_KEY, techDoc);
-        }
-      },
-      error: (error) => {
-        this.techDocStatusEvent.set({ status: 'error', error: error });
-      },
-    });
   }
 
   private setTechDoc(techDoc: TdTypeEntity): void {
@@ -516,11 +500,23 @@ export class HaBrickPageState {
   }
 
   private initBrickRunStatAggregate(brickId: string): void {
+    if (isPlatformBrowser(this.platformId) && this.transferState.hasKey(this.BRICK_RUN_STAT_KEY)) {
+      this.brickRunStatAggregateStatusEvent.set({
+        status: 'success',
+        object: this.transferState.get(this.BRICK_RUN_STAT_KEY, null) as HaRunStatAggregate,
+      });
+      this.transferState.remove(this.BRICK_RUN_STAT_KEY);
+      return;
+    }
+
     this.runStatAggregateService
       .getObjectRunStatAggregate(brickId, HaRunStatAggregateObjectType.BRICK)
       .subscribe({
         next: (runStatAggregate) => {
           this.brickRunStatAggregateStatusEvent.set({ status: 'success', object: runStatAggregate });
+          if (isPlatformServer(this.platformId) && !this.transferState.hasKey(this.BRICK_RUN_STAT_KEY)) {
+            this.transferState.set(this.BRICK_RUN_STAT_KEY, runStatAggregate);
+          }
         },
         error: (error) => {
           this.brickRunStatAggregateStatusEvent.set({ status: 'error', error: error });

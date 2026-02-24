@@ -1,5 +1,6 @@
 import { computed, inject, Injectable, Signal, signal, WritableSignal } from '@angular/core';
 import { FlStatusEvent } from '@monorepo/front-core-lib/fl-core';
+import { first } from 'rxjs';
 
 import { HaCommunityApp } from '../../ha-core/ha-model/ha-entities/ha-community-app.class';
 import { HaUser } from '../../ha-core/ha-model/ha-entities/ha-user';
@@ -77,7 +78,7 @@ export class HaCommunityAppState {
   }
 
   private initUser(appId: string): void {
-    this.authenticatedUserService.getUser().subscribe((user) => {
+    this.authenticatedUserService.getUser().pipe(first()).subscribe((user) => {
       this.currentUser.set(user);
       this.initCoAuthors(appId);
     });

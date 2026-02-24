@@ -1,6 +1,7 @@
 import { computed, inject, Injectable, Signal, signal, WritableSignal } from '@angular/core';
 import { ClStringHelper } from '@monorepo/core-lib';
 import { FlStatusEvent } from '@monorepo/front-core-lib/fl-core';
+import { first } from 'rxjs';
 import { FlConfirmDialogResult, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { TeRichText } from '@monorepo/text-editor';
@@ -344,7 +345,7 @@ export class HaAgentPageState {
   }
 
   private initUser(agentId: string, paramTitle: string): void {
-    this.authenticatedUserService.getUser().subscribe((user) => {
+    this.authenticatedUserService.getUser().pipe(first()).subscribe((user) => {
       this.currentUser.set(user);
       this.initAgent(agentId, paramTitle);
     });

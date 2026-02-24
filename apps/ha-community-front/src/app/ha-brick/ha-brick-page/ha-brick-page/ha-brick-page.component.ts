@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, computed, DOCUMENT, inject, OnDestroy, OnInit, Signal } from '@angular/core';
+import { Component, computed, DOCUMENT, effect, inject, OnDestroy, OnInit, Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
@@ -11,7 +11,7 @@ import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { TranslatePipe } from '@ngx-translate/core';
-import { filter, Subscription } from 'rxjs';
+import { filter, map, Subscription } from 'rxjs';
 
 import { HaFile } from '../../../ha-core/entity-module/ha-file-core/model/ha-file';
 import { HaEntityPageInfoComponent } from '../../../ha-core/ha-component/ha-entity-page-infos/ha-entity-page-info.component';
@@ -59,12 +59,19 @@ export class HaBrickPageComponent implements OnInit, OnDestroy {
   private dialogService: FlDialogService = inject(FlDialogService);
   private currentPageState = inject(HaCurrentPageState);
 
+  private navigationEnd = toSignal(
+    this.router.events.pipe(
+      filter((e) => e instanceof NavigationEnd),
+      map(() => true)
+    )
+  );
+
   currentUser: Signal<HaUser> = toSignal(this.authenticatedUserService.getUser());
   brick: Signal<HaBrick> = this.brickPageState.brick;
   brickNotFound: Signal<boolean> = this.brickPageState.isBrickError;
   isLoading: Signal<boolean> = this.brickPageState.isBrickLoading;
-  tempTitle = this.brickPageState.getTempTitle();
-  brickCoAuthors = this.brickPageState.getCoAuthors();
+  tempTitle = this.brickPageState.tempTitle;
+  brickCoAuthors = this.brickPageState.coAuthors;
   contributors: Signal<HaUser[]> = computed(() => {
     const coAuthors = this.brickCoAuthors();
     if (!this.brick() || !coAuthors) return [];
@@ -74,10 +81,10 @@ export class HaBrickPageComponent implements OnInit, OnDestroy {
     if (!this.currentUser() || !this.brick()) return false;
     return this.currentUser().id === this.brick().createdBy.id;
   });
-  userHasEditRight: Signal<boolean> = this.brickPageState.getUserHasEditRight();
+  userHasEditRight: Signal<boolean> = this.brickPageState.userHasEditRight;
   docHeaders = this.brickPageState.docHeaders;
-  docFiles: Signal<HaFile[]> = this.brickPageState.getDocFiles();
-  docFileUrlPrefix: Signal<string> = this.brickPageState.getDocFileUrlPrefix();
+  docFiles: Signal<HaFile[]> = this.brickPageState.docFiles;
+  docFileUrlPrefix: Signal<string> = this.brickPageState.docFileUrlPrefix;
   isDocPage = this.currentPageState.isDocumentationPage;
   lastActivatedRoute = this.currentPageState.lastActivatedRoute;
 
@@ -86,6 +93,15 @@ export class HaBrickPageComponent implements OnInit, OnDestroy {
   paramsSubscription: Subscription;
 
   entityType: HaEntityType = HaEntityType.BRICK;
+
+  constructor() {
+    effect(() => {
+      if (!this.navigationEnd()) return;
+      if (!this.isLatestVersion) {
+        this.setLatestBrickCanonicalUrl();
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
@@ -99,12 +115,6 @@ export class HaBrickPageComponent implements OnInit, OnDestroy {
         this.isLatestVersion = true;
       }
       this.brickPageState.init(params.brickName, params.version);
-    });
-
-    this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe(() => {
-      if (!this.isLatestVersion) {
-        this.setLatestBrickCanonicalUrl();
-      }
     });
   }
 

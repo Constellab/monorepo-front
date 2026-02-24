@@ -14,7 +14,7 @@
       [relativeTo]="activatedRoute"
       [routerLinkActive]="'active'"
       class="g-text-small tree-node g-layout-row g-layout-start-center tree-node-div"
-      [ngClass]="currentDocId === '' ? 'selected-tree-node' : ''">
+      [ngClass]="currentDocId() === '' ? 'selected-tree-node' : ''">
       {{ 'introduction' | translate }}
     </a>
 
@@ -90,7 +90,7 @@
     <!--    </mat-tree>-->
     <ha-brick-sidenav-tree
       [sidenavObjects]="dataSource$"
-      [selectedObject]="currentDocId"
+      [selectedObject]="currentDocId()"
       [getRoute]="getRoute"
       [canEdit]="userHasEditRight()"
       [dragAndDropDisabled]="false"
@@ -115,7 +115,7 @@
           <div
             class="g-text-small tree-node g-layout-row g-layout-start-center"
             matTreeNodeToggle
-            (click)="node.object.isExpanded ? collapseNode(node) : expandNode(node)">
+            (click)="node.object.isExpanded ? collapseTechNode(node) : expandTechNode(node)">
             <div class="tree-node-div">
               {{ node.object.name }}
             </div>
@@ -146,7 +146,7 @@
       [relativeTo]="activatedRoute"
       [routerLinkActive]="'active'"
       class="g-text-small tree-node g-layout-row g-layout-start-center tree-node-div"
-      [ngClass]="currentDocId === 'version' ? 'selected-tree-node' : ''">
+      [ngClass]="currentDocId() === 'version' ? 'selected-tree-node' : ''">
       {{ 'version' | translate }}
     </a>
   </div>

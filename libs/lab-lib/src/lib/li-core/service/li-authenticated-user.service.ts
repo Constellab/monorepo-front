@@ -1,4 +1,4 @@
-import { inject,Injectable } from '@angular/core';
+import { DestroyRef, inject, Injectable } from '@angular/core';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { FlCleanableService, FlCleanerService } from '@monorepo/front-core-lib/fl-core';
 import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
@@ -25,6 +25,9 @@ export class LiAuthenticatedUserService implements FlCleanableService {
 
   constructor() {
     FlCleanerService.getInstance().registerService(this);
+    inject(DestroyRef).onDestroy(() => {
+      FlCleanerService.getInstance().unregisterService(this);
+    });
   }
 
   /**

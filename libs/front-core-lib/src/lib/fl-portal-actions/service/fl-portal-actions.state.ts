@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { DestroyRef, inject, Injectable } from '@angular/core';
 import { ClHelpService } from '@monorepo/core-lib';
 import { FlCleanableService, FlCleanerService } from '@monorepo/front-core-lib/fl-core';
 import { BehaviorSubject, combineLatest, EMPTY, merge, Observable, of } from 'rxjs';
@@ -22,6 +22,9 @@ export class FlPortalActionsState implements FlCleanableService {
 
   constructor() {
     FlCleanerService.getInstance().registerService(this);
+    inject(DestroyRef).onDestroy(() => {
+      FlCleanerService.getInstance().unregisterService(this);
+    });
   }
 
   /**

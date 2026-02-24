@@ -118,12 +118,14 @@ export class HaRouterService {
   ////////////////////////// BRICKS ////////////////////////////////
 
   public static getBrickPageRoute(brickName: string, brickMajor?: string): string {
-    const brickMajorUrl =
-      brickMajor == null || brickMajor === 'latest'
-        ? 'latest'
-        : brickMajor.startsWith('v')
-          ? brickMajor
-          : `v${brickMajor}`;
+    let brickMajorUrl: string;
+    if (brickMajor == null || brickMajor === 'latest') {
+      brickMajorUrl = 'latest';
+    } else {
+      const version = brickMajor.startsWith('v') ? brickMajor : `v${brickMajor}`;
+      // Only accept full version format (vX.X.X), fallback to 'latest' otherwise
+      brickMajorUrl = /^v\d+\.\d+\.\d+(-beta\.\d+)?$/.test(version) ? version : 'latest';
+    }
     return `${this.getBrickListRoute()}/${brickName}/${brickMajorUrl}/`;
   }
 

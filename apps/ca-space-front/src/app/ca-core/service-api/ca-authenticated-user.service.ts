@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { DOCUMENT,inject, Injectable } from '@angular/core';
+import { DestroyRef, DOCUMENT, inject, Injectable } from '@angular/core';
 import { ClSupportedLanguage, ClTheme, ClUserCategory } from '@monorepo/core-lib';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { FlCleanableService, FlCleanerService } from '@monorepo/front-core-lib/fl-core';
@@ -37,6 +37,9 @@ export class CaAuthenticatedUserService implements FlCleanableService {
 
   constructor() {
     FlCleanerService.getInstance().registerService(this);
+    inject(DestroyRef).onDestroy(() => {
+      FlCleanerService.getInstance().unregisterService(this);
+    });
   }
 
   /**

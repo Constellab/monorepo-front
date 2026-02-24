@@ -1,28 +1,35 @@
-import { Directive, ElementRef, HostListener, inject,OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Directive, effect, ElementRef, HostListener, inject, OnInit } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { NavigationEnd, Router } from '@angular/router';
+import { filter } from 'rxjs';
 
 @Directive({ selector: '[haSidenavButton]' })
 export class HaSidenavButtonDirective implements OnInit {
   private elementRef = inject(ElementRef);
   private router = inject(Router);
 
+  private navEnd = toSignal(
+    this.router.events.pipe(filter((e) => e instanceof NavigationEnd))
+  );
+
   isOpen: boolean = false;
   isActivated: boolean = false;
   windowSize: number;
 
+  constructor() {
+    effect(() => {
+      if (!this.navEnd()) return;
+      const sidenav: any = this.elementRef.nativeElement.closest('.left-panel');
+      if (sidenav?.style.left !== '0px') return;
+      this.isOpen = false;
+      sidenav.style.left = '-100%';
+      sidenav.classList.remove('left-panel-open');
+      this.elementRef.nativeElement.innerHTML = 'menu';
+    });
+  }
+
   ngOnInit(): void {
     this.elementRef.nativeElement.innerHTML = 'menu';
-
-    this.router.events.subscribe((e: any) => {
-      if (e.type == 1) {
-        const sidenav: any = this.elementRef.nativeElement.closest('.left-panel');
-        if (sidenav.style.left != '0px') return;
-        this.isOpen = false;
-        sidenav.style.left = '-100%';
-        sidenav.classList.remove('left-panel-open');
-        this.elementRef.nativeElement.innerHTML = 'menu';
-      }
-    });
   }
 
   @HostListener('window:resize', ['$event'])

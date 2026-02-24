@@ -34,7 +34,8 @@ export class FlApiService {
     options: FlHttpOption = {}
   ): Observable<any> {
     options.headers = this.mergeHeader(options.headers);
-    return this.http.get(this.getUrlForId(route, id, options.overrideApiUrl), options).pipe(
+    const url = this.getUrlForId(route, id, options.overrideApiUrl);
+    return this.http.get(url, options).pipe(
       catchError((err) => this.catchError(err, options)),
       map((result) => this.deserialize(result, classReference, options.resultIsPaginated))
     );
@@ -52,7 +53,8 @@ export class FlApiService {
     options: FlHttpOption = {}
   ): Observable<any> {
     options.headers = this.mergeHeader(options.headers);
-    return this.http.get(this.getUrl(route, options), options).pipe(
+    const url = this.getUrl(route, options);
+    return this.http.get(url, options).pipe(
       catchError((err) => this.catchError(err, options)),
       map((result) => {
         return this.deserialize(result, classReference, options.resultIsPaginated);
@@ -74,8 +76,9 @@ export class FlApiService {
     options: FlHttpOption = {}
   ): Observable<any> {
     options.headers = this.mergeHeader(options.headers);
+    const url = this.getUrl(route, options);
     return this.http
-      .put(this.getUrl(route, options), this.convertObjectToPlain(body, options.serialization), options)
+      .put(url, this.convertObjectToPlain(body, options.serialization), options)
       .pipe(
         catchError((err) => this.catchError(err, options)),
         map((result) => this.deserialize(result, classReference, options.resultIsPaginated))
@@ -96,8 +99,9 @@ export class FlApiService {
     options: FlHttpOption = {}
   ): Observable<any> {
     options.headers = this.mergeHeader(options.headers);
+    const url = this.getUrl(route, options);
     return this.http
-      .patch(this.getUrl(route, options), this.convertObjectToPlain(body, options.serialization), options)
+      .patch(url, this.convertObjectToPlain(body, options.serialization), options)
       .pipe(
         catchError((err) => this.catchError(err, options)),
         map((result) => this.deserialize(result, classReference, options.resultIsPaginated))
@@ -118,8 +122,9 @@ export class FlApiService {
     options: FlHttpOption = {}
   ): Observable<any> {
     options.headers = this.mergeHeader(options.headers);
+    const url = this.getUrl(route, options);
     return this.http
-      .post(this.getUrl(route, options), this.convertObjectToPlain(body, options.serialization), options)
+      .post(url, this.convertObjectToPlain(body, options.serialization), options)
       .pipe(
         catchError((err) => this.catchError(err, options)),
         map((result) => this.deserialize(result, classReference, options.resultIsPaginated))
@@ -141,7 +146,8 @@ export class FlApiService {
     options: FlHttpOption = {}
   ): Observable<any> {
     options.headers = this.mergeHeader(options.headers);
-    return this.http.delete(this.getUrlForId(route, id, options.overrideApiUrl), options).pipe(
+    const url = this.getUrlForId(route, id, options.overrideApiUrl);
+    return this.http.delete(url, options).pipe(
       catchError((err) => this.catchError(err, options)),
       map((result) => this.deserialize(result, classReference, options.resultIsPaginated))
     );
@@ -159,7 +165,8 @@ export class FlApiService {
     options: FlHttpOption = {}
   ): Observable<any> {
     options.headers = this.mergeHeader(options.headers);
-    return this.http.delete(this.getUrl(route, options), options).pipe(
+    const url = this.getUrl(route, options);
+    return this.http.delete(url, options).pipe(
       catchError((err) => this.catchError(err, options)),
       map((result) => this.deserialize(result, classReference, options.resultIsPaginated))
     );
@@ -180,7 +187,8 @@ export class FlApiService {
   ): Observable<Blob> {
     options.headers = this.mergeHeader(options.headers);
     options.responseType = 'blob';
-    return this.http.get(this.getUrl(route), options).pipe(
+    const url = this.getUrl(route);
+    return this.http.get(url, options).pipe(
       tap((file) => this.downloadFileSuccess(file as Blob, filename, directDownload)),
       catchError((err) => this.catchError(err, options))
     ) as Observable<Blob>;
@@ -203,7 +211,8 @@ export class FlApiService {
   ): Observable<Blob> {
     options.headers = this.mergeHeader(options.headers);
     options.responseType = 'blob';
-    return this.http.post(this.getUrl(route), this.convertObjectToPlain(body), options).pipe(
+    const url = this.getUrl(route);
+    return this.http.post(url, this.convertObjectToPlain(body), options).pipe(
       tap((file) => this.downloadFileSuccess(file as Blob, filename, directDownload)),
       catchError((err) => this.catchError(err, options))
     ) as Observable<Blob>;

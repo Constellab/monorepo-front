@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { DestroyRef, inject, Injectable } from '@angular/core';
 import { ClCachedObservable, ClDeserializationRef } from '@monorepo/core-lib';
 import { FlCleanableService, FlCleanerService } from '@monorepo/front-core-lib/fl-core';
 
@@ -19,6 +19,9 @@ export class FlApiWithCacheService extends FlApiService implements FlCleanableSe
   constructor() {
     super();
     FlCleanerService.getInstance().registerService(this);
+    inject(DestroyRef).onDestroy(() => {
+      FlCleanerService.getInstance().unregisterService(this);
+    });
   }
 
   /**

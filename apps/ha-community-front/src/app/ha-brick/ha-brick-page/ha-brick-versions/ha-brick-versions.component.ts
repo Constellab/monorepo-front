@@ -31,7 +31,7 @@ export class HaBrickVersionsComponent extends HaCommunityPageDirective {
 
   brickVersions: HaBrickVersionDataSource;
   brick: Signal<HaBrick> = this.brickPageState.brick;
-  userHasEditRight: Signal<boolean> = this.brickPageState.getUserHasEditRight();
+  userHasEditRight: Signal<boolean> = this.brickPageState.userHasEditRight;
 
   constructor() {
     super();

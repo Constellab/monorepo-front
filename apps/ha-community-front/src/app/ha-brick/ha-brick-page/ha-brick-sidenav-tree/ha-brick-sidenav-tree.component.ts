@@ -1,6 +1,6 @@
 import { CdkDrag, CdkDragDrop, CdkDragHandle, CdkDropList } from '@angular/cdk/drag-drop';
 import { NgClass } from '@angular/common';
-import { Component, effect, inject, input, OnDestroy, output, Signal, viewChild } from '@angular/core';
+import { Component, effect, inject, input, OnDestroy, output, Signal, untracked, viewChild } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import {
@@ -11,7 +11,7 @@ import {
   MatTreeNodeToggle,
 } from '@angular/material/tree';
 import { RouterLink } from '@angular/router';
-import { ClSubscriptionHandler } from '@monorepo/core-lib';
+import { Subscription } from 'rxjs';
 import { FlTree } from '@monorepo/front-core-lib/fl-core';
 import { FlMenuDynamic, FlMenuDynamicService } from '@monorepo/front-core-lib/fl-menu-dynamic';
 import { FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
@@ -86,18 +86,17 @@ export class HaBrickSidenavTreeComponent implements OnDestroy {
 
   openedMenu: FlOverlayRef;
 
-  private subscription = new ClSubscriptionHandler();
+  private ancestorsSubscription: Subscription;
 
   constructor() {
     effect(() => {
       const selectedObjectId = this.selectedObject();
-      setTimeout(() => {
-        this.subscription.add(
-          this.sidenavObjects()
-            .findAncestorsNode$(selectedObjectId)
-            .subscribe((ancestors) => this.refreshSelectedAndExpand(ancestors))
-        );
-      }, 0);
+      untracked(() => {
+        this.ancestorsSubscription?.unsubscribe();
+        this.ancestorsSubscription = this.sidenavObjects()
+          .findAncestorsNode$(selectedObjectId)
+          .subscribe((ancestors) => this.refreshSelectedAndExpand(ancestors));
+      });
     });
   }
 
@@ -145,7 +144,6 @@ export class HaBrickSidenavTreeComponent implements OnDestroy {
     const oldParentId = node.object.parentId;
 
     if (this.parentDocFolderId() == null) {
-      console.log('Parent doc folder id is null, cannot move node');
       return;
     }
 
@@ -212,14 +210,12 @@ export class HaBrickSidenavTreeComponent implements OnDestroy {
   private moveUpNodes(nodes: FlTree<HaNode>[]): void {
     for (const node of nodes) {
       node.object.order -= 1;
-      this.sidenavObjects().updateNodeInfo(node.object);
     }
   }
 
   private moveDownNodes(nodes: FlTree<HaNode>[]): void {
     for (const node of nodes) {
       node.object.order += 1;
-      this.sidenavObjects().updateNodeInfo(node.object);
     }
   }
 
@@ -290,6 +286,6 @@ export class HaBrickSidenavTreeComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.ancestorsSubscription?.unsubscribe();
   }
 }

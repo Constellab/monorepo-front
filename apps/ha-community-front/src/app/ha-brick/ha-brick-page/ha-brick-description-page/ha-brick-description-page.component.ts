@@ -40,7 +40,7 @@ export class HaBrickDescriptionPageComponent extends HaCommunityPageDirective {
     return brick;
   });
   latestBrickVersion: Signal<HaBrickVersion> = this.brickPageState.latestBrickVersion;
-  directReferences: Signal<HaReferenceDTO[]> = this.brickPageState.getDirectReferences();
+  directReferences: Signal<HaReferenceDTO[]> = this.brickPageState.directReferences;
   brickRunStatAggregate: Signal<HaRunStatAggregate> = this.brickPageState.brickRunStatAggregate;
 
   entityType = HaEntityType.BRICK;

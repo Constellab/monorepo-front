@@ -1,4 +1,4 @@
-import { inject, Injectable } from '@angular/core';
+import { DestroyRef, inject, Injectable } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ClPage } from '@monorepo/core-lib';
 import {
@@ -38,6 +38,9 @@ export class CaCurrentSpaceService implements FlCleanableService {
 
   constructor() {
     FlCleanerService.getInstance().registerService(this);
+    inject(DestroyRef).onDestroy(() => {
+      FlCleanerService.getInstance().unregisterService(this);
+    });
   }
 
   public init(): void {

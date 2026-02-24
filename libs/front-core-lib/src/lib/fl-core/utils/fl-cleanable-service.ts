@@ -37,7 +37,16 @@ export class FlCleanerService {
    * @param service service to register
    */
   public registerService(service: FlCleanableService): void {
-    this.registeredServices.push(service);
+    if (!this.registeredServices.includes(service)) {
+      this.registeredServices.push(service);
+    }
+  }
+
+  public unregisterService(service: FlCleanableService): void {
+    const index = this.registeredServices.indexOf(service);
+    if (index >= 0) {
+      this.registeredServices.splice(index, 1);
+    }
   }
 
   /**

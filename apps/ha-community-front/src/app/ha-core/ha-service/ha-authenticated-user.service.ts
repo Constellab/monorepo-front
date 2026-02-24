@@ -1,5 +1,5 @@
 import { isPlatformBrowser, isPlatformServer } from '@angular/common';
-import { inject, Injectable, Injector, PLATFORM_ID, REQUEST } from '@angular/core';
+import { DestroyRef, inject, Injectable, Injector, PLATFORM_ID, REQUEST } from '@angular/core';
 import { ClSupportedLanguage, ClTheme } from '@monorepo/core-lib';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { flAuthExpiredCookie, FlCleanableService, FlCleanerService } from '@monorepo/front-core-lib/fl-core';
@@ -29,8 +29,12 @@ export class HaAuthenticatedUserService implements FlCleanableService {
 
   constructor() {
     const request = this.injector.get(REQUEST, null, { optional: true });
+    const destroyRef = inject(DestroyRef);
 
     FlCleanerService.getInstance().registerService(this);
+    destroyRef.onDestroy(() => {
+      FlCleanerService.getInstance().unregisterService(this);
+    });
     if (isPlatformServer(this.platformId)) {
       this.request = request;
     }

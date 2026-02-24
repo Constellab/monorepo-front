@@ -1,6 +1,7 @@
 import { isPlatformBrowser, isPlatformServer, NgClass } from '@angular/common';
 import {
   Component,
+  computed,
   effect,
   inject,
   makeStateKey,
@@ -9,6 +10,7 @@ import {
   StateKey,
   TransferState,
 } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
@@ -32,7 +34,7 @@ import { FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
 import { FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import { TranslatePipe } from '@ngx-translate/core';
-import { filter } from 'rxjs';
+import { filter, map } from 'rxjs';
 
 import { HaBrick } from '../../../ha-core/ha-model/ha-entities/ha-brick.class';
 import { HaDocumentation } from '../../../ha-core/ha-model/ha-entities/ha-documentation.class';
@@ -89,12 +91,28 @@ export class HaBrickSidenavComponent {
   private brickPageState = inject(HaBrickPageState);
   private translateService: FlTranslateService = inject(FlTranslateService);
 
-  userHasEditRight = this.brickPageState.getUserHasEditRight();
+  userHasEditRight = this.brickPageState.userHasEditRight;
 
   brickAndPathVersion = this.brickPageState.brickAndPathVersion;
 
-  pathVersion: Signal<string> = this.brickPageState.getBrickVersionPath();
+  pathVersion: Signal<string> = this.brickPageState.pathVersion;
   brick: Signal<HaBrick> = this.brickPageState.brick;
+
+  private currentUrl = toSignal(
+    this.router.events.pipe(
+      filter((e) => e instanceof NavigationEnd),
+      map((e: NavigationEnd) => e.url)
+    ),
+    { initialValue: this.router.url }
+  );
+
+  currentDocId = computed(() => {
+    const pathVersion = this.pathVersion();
+    const url = this.currentUrl();
+    if (!url || !pathVersion) return '';
+    const segment = url.split(pathVersion)[1];
+    return segment?.split('/').pop() ?? '';
+  });
 
   menuOpen: boolean;
   openedMenu: FlOverlayRef;
@@ -107,67 +125,76 @@ export class HaBrickSidenavComponent {
 
   activatedRoute: ActivatedRoute = this.route;
 
-  TECH_DOCUMENTATION_KEY: StateKey<object>;
+  private DOCS_KEY: StateKey<object> = makeStateKey<object>('DOCS_KEY');
+
+  private techDocsLoaded = false;
+  private currentBrick: HaBrick;
+  private currentPathVersion: string;
 
   parentDocFolderId: string;
-  currentCompletePath: string;
-  currentDocId: string;
 
   constructor() {
     effect(() => {
-      this.TECH_DOCUMENTATION_KEY = makeStateKey<object>('TECH_DOCUMENTATION_KEY');
       const brickAndPathVersion = this.brickAndPathVersion();
       const brick = brickAndPathVersion[0];
       const pathVersion = brickAndPathVersion[1];
       if (!brick || !this.isValidVersion(pathVersion)) return;
-      this.initCurrentCompletePath(pathVersion);
+      this.dataSource$ = new HaNodeObjectsTreeDatasource();
+      this.techDataSource$ = new HaNodeObjectsTreeDatasource();
       this.init(brick, pathVersion);
     });
   }
 
   private isValidVersion(version: string): boolean {
     if (!version) return false;
-    // Valid formats: 'latest' or 'vX' or 'vX.X.X' (with optional -beta.X suffix)
-    return version === 'latest' || /^v\d+(\.\d+(\.\d+)?)?(-beta\.\d+)?$/.test(version);
+    // Valid formats: 'latest' or 'vX.X.X' (with optional -beta.X suffix)
+    return version === 'latest' || /^v\d+\.\d+\.\d+(-beta\.\d+)?$/.test(version);
   }
 
   getRoute: (node: HaNode) => string = (node: HaNode) => {
     return 'doc/' + node.completePath;
   };
 
-  private initCurrentCompletePath(pathVersion: string): void {
-    this.currentCompletePath = this.router.url?.split(pathVersion)[1];
-    this.currentDocId = this.currentCompletePath?.split('/').pop();
-    this.router.events
-      .pipe(filter((event) => event instanceof NavigationEnd))
-      .subscribe((event: NavigationEnd) => {
-        this.currentCompletePath = event.url.split(pathVersion)[1];
-        this.currentDocId = this.currentCompletePath?.split('/').pop();
-      });
+  private init(brick: HaBrick, pathVersion: string): void {
+    this.currentBrick = brick;
+    this.currentPathVersion = pathVersion;
+    this.getDocumentations(brick, pathVersion);
+    this.initTechDocPlaceholder();
   }
 
-  private init(brick: HaBrick, pathVersion: string): void {
-    this.getTechnicalDocumentations(brick, pathVersion);
-    this.getDocumentations(brick, pathVersion);
+  private initTechDocPlaceholder(): void {
+    this.techDocsLoaded = false;
+    const techFolder = new HaNode(
+      'technical-folder',
+      null,
+      null,
+      this.translateService.translate('technical_documentations'),
+      0,
+      null,
+      []
+    );
+    this.techDataSource$.addNodeObjectsWithChildren([techFolder]);
   }
 
   private getTechnicalDocumentations(brick: HaBrick, pathVersion: string): void {
-    if (isPlatformBrowser(this.platformId) && this.transferState.hasKey(this.TECH_DOCUMENTATION_KEY)) {
-      const data = this.transferState.get(this.TECH_DOCUMENTATION_KEY, null) as HaNode;
-      this.transferState.remove(this.TECH_DOCUMENTATION_KEY);
-      this.onTechDocumentationsData(data?.children);
-      return;
-    }
     this.brickService.getTechnicalDocumentation(brick.id, pathVersion).subscribe((data) => {
-      if (isPlatformServer(this.platformId) && !this.transferState.hasKey(this.TECH_DOCUMENTATION_KEY)) {
-        this.transferState.set(this.TECH_DOCUMENTATION_KEY, data);
-      }
       this.onTechDocumentationsData(data?.children);
     });
   }
 
   private getDocumentations(brick: HaBrick, pathVersion: string): void {
+    if (isPlatformBrowser(this.platformId) && this.transferState.hasKey(this.DOCS_KEY)) {
+      const data = this.transferState.get(this.DOCS_KEY, null) as HaNode;
+      this.transferState.remove(this.DOCS_KEY);
+      this.parentDocFolderId = data.id;
+      this.onDocumentationsData(data.children);
+      return;
+    }
+
     this.brickService.getBrickDocs(brick.id, pathVersion).subscribe((data) => {
+      if (isPlatformServer(this.platformId) && !this.transferState.hasKey(this.DOCS_KEY)) {
+        this.transferState.set(this.DOCS_KEY, data);
+      }
       this.parentDocFolderId = data.id;
       this.onDocumentationsData(data.children);
     });
@@ -183,7 +210,6 @@ export class HaBrickSidenavComponent {
 
   private onTechDocumentationsData(nodes: HaNode[]): void {
     if (!nodes || nodes?.length == 0) return;
-    const children = [];
     const techFolder = new HaNode(
       'technical-folder',
       null,
@@ -193,12 +219,12 @@ export class HaBrickSidenavComponent {
       null,
       []
     );
+    techFolder.isExpanded = true;
     for (const child of nodes) {
       child.parentId = 'technical-folder';
       techFolder.children.push(child);
     }
-    children.push(techFolder);
-    this.techDataSource$.addNodeObjectsWithChildren(children);
+    this.techDataSource$.addNodeObjectsWithChildren([techFolder]);
   }
 
   onClickMenu(event: MouseEvent, isFolder: boolean, hasChild: boolean = false, id?: string): void {
@@ -298,7 +324,7 @@ export class HaBrickSidenavComponent {
 
   private onCloseConfirmDialog(res: FlConfirmDialogResult): void {
     if (res.choice) {
-      this.brickService.getBrickDocs(this.brick()?.id, this.pathVersion()).subscribe(() => {});
+      this.getDocumentations(this.brick(), this.pathVersion());
     }
   }
 
@@ -383,5 +409,19 @@ export class HaBrickSidenavComponent {
   collapseNode(node: FlTree<HaNode>): void {
     node.object.isExpanded = false;
     this.dataSource$.updateNodeInfo(node.object);
+  }
+
+  expandTechNode(node: FlTree<HaNode>): void {
+    if (node.object.id === 'technical-folder' && !this.techDocsLoaded) {
+      this.techDocsLoaded = true;
+      this.getTechnicalDocumentations(this.currentBrick, this.currentPathVersion);
+    }
+    node.object.isExpanded = true;
+    this.techDataSource$.updateNodeInfo(node.object);
+  }
+
+  collapseTechNode(node: FlTree<HaNode>): void {
+    node.object.isExpanded = false;
+    this.techDataSource$.updateNodeInfo(node.object);
   }
 }
