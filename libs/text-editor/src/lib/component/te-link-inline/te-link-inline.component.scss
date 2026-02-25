@@ -1,0 +1,21 @@
+:host {
+  display: inline;
+  outline: none;
+}
+
+.link-text {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+a {
+  display: inline;
+  align-items: center;
+
+  mat-icon {
+    font-size: 14px;
+    height: 14px;
+    width: 14px;
+    vertical-align: middle;
+  }
+}

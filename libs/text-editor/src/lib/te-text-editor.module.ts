@@ -44,6 +44,7 @@ import { TeFormulaComponent } from './component/te-formula/te-formula.component'
 import { TeFormulaInlineComponent } from './component/te-formula-inline/te-formula-inline.component';
 import { TeIframeComponent } from './component/te-iframe/te-iframe.component';
 import { TeLinkDialogComponent } from './component/te-link-dialog/te-link-dialog.component';
+import { TeLinkInlineComponent } from './component/te-link-inline/te-link-inline.component';
 import { TeMentionInlineComponent } from './component/te-mention-inline/te-mention-inline.component';
 import { TeMentionPortalComponent } from './component/te-mention-portal/te-mention-portal.component';
 import { TeRawHtmlComponent } from './component/te-raw-html/te-raw-html.component';
@@ -63,6 +64,7 @@ import { TeVariableFormDialogComponent } from './component/te-variable-form-dial
 import { TeVariableInlineComponent } from './component/te-variable-inline/te-variable-inline.component';
 import { TeVideoComponent } from './component/te-video/te-video.component';
 import { TeFormulaInlineToolClass } from './inline-tool/te-formula-inline-tool.class';
+import { TeLinkInlineToolClass } from './inline-tool/te-link-inline-tool.class';
 import { teVariableTagName } from './model/te-variable.class';
 import { TeRichTextIsEmptyPipe } from './pipe/te-rich-text-is-empty/te-rich-text-is-empty.pipe';
 import { teMentionTagName } from './plugin/te-mention.class';
@@ -98,6 +100,7 @@ import { TE_TEXT_EDITOR_I18N } from './te-text-editor.i18n';
     TeIframeComponent,
     TeRawHtmlComponent,
     TeFormulaInlineComponent,
+    TeLinkInlineComponent,
     TeEditBlockMetadataDialogComponent,
   ],
   exports: [
@@ -179,6 +182,11 @@ export class TeTextEditorModule {
         customElements.define(
           TeFormulaInlineToolClass.TAG,
           createCustomElement(TeFormulaInlineComponent, { injector: injector })
+        );
+
+        customElements.define(
+          TeLinkInlineToolClass.TAG,
+          createCustomElement(TeLinkInlineComponent, { injector: injector })
         );
       }
       TeTextEditorModule.init = true;

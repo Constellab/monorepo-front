@@ -1,4 +1,4 @@
-import { Component, inject,OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, ValidatorFn, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ClYoutubeHelper } from '@monorepo/core-lib';
@@ -6,6 +6,7 @@ import { ClYoutubeHelper } from '@monorepo/core-lib';
 export interface TeLinkDialogInput {
   title: string;
   isYoutube?: boolean;
+  initialValue?: string;
 }
 
 @Component({
@@ -17,6 +18,8 @@ export interface TeLinkDialogInput {
 export class TeLinkDialogComponent implements OnInit {
   private dialogRef = inject<MatDialogRef<TeLinkDialogComponent>>(MatDialogRef);
 
+  private data = inject<TeLinkDialogInput>(MAT_DIALOG_DATA);
+
   linkControl: FormControl<string>;
 
   title: string;
@@ -24,14 +27,15 @@ export class TeLinkDialogComponent implements OnInit {
   isYoutube: boolean;
 
   constructor() {
-    const data = inject<TeLinkDialogInput>(MAT_DIALOG_DATA);
-
-    this.title = data.title;
-    this.isYoutube = data.isYoutube;
+    this.title = this.data.title;
+    this.isYoutube = this.data.isYoutube;
   }
 
   ngOnInit(): void {
-    this.linkControl = new FormControl<string>(null, [Validators.required, this.isYoutubeVideo()]);
+    this.linkControl = new FormControl<string>(this.data.initialValue || null, [
+      Validators.required,
+      this.isYoutubeVideo(),
+    ]);
   }
 
   submit(): void {

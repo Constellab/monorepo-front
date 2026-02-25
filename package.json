@@ -100,6 +100,7 @@
     "cookie-parser": "^1.4.7",
     "d3": "7.9.0",
     "diff": "^7.0.0",
+    "dompurify": "^3.3.1",
     "drawflow": "0.0.59",
     "editorjs-html": "^3.4.3",
     "emoji-mart": "^5.6.0",

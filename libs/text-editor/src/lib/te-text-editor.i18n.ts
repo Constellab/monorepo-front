@@ -292,13 +292,9 @@ export function teGetI18nConfig(translateService: FlTranslateService): I18nConfi
         Italic: translateService.translate('teTextEditor.italic'),
         Underline: translateService.translate('teTextEditor.underline'),
         Strikethrough: translateService.translate('teTextEditor.strikethrough'),
-        Link: translateService.translate('teTextEditor.link'),
         InlineCode: translateService.translate('teTextEditor.inline_code'),
       },
       tools: {
-        link: {
-          'Add a link': translateService.translate('teTextEditor.add_link'),
-        },
         table: {
           'Add column to the left': translateService.translate('teTextEditor.add_column_to_left'),
           'Add column to the right': translateService.translate('teTextEditor.add_column_to_right'),

@@ -33,6 +33,7 @@ import { TeCleanStyleInlineTool } from '../inline-tool/te-clean-style-inline-too
 import { TeFakeInlineTool } from '../inline-tool/te-fake-inline-tool.class';
 import { TeFormulaInlineToolClass } from '../inline-tool/te-formula-inline-tool.class';
 import { teInlineToolFactory } from '../inline-tool/te-inline-tool.factory';
+import { TeLinkInlineToolClass } from '../inline-tool/te-link-inline-tool.class';
 import { TeStrikethroughInlineTool } from '../inline-tool/te-strikethrough-inline-tool.class';
 import { TeUnderlineInlineTool } from '../inline-tool/te-underline-inline-tool.class';
 import { TeVariableInlineToolClass } from '../inline-tool/te-variable-inline-tool.class';
@@ -213,11 +214,11 @@ export abstract class TeConfig {
   }
 
   getBasicInlineToolbar(): string[] {
-    return ['convertTo', 'bold', 'italic', 'underline', 'strikethrough', 'link', 'cleanStyle'];
+    return ['convertTo', 'bold', 'italic', 'underline', 'strikethrough', 'linkInline', 'cleanStyle'];
   }
 
   getFullInlineToolbar(variable: boolean = false): string[] {
-    const tools = ['convertTo', 'bold', 'italic', 'underline', 'strikethrough', 'link', 'inlineCode'];
+    const tools = ['convertTo', 'bold', 'italic', 'underline', 'strikethrough', 'linkInline', 'inlineCode'];
     if (variable) tools.push('variable');
     tools.push('formulaInline', 'cleanStyle');
     return tools;
@@ -235,6 +236,7 @@ export class TeBasicConfig extends TeConfig {
       bold: TeBoldInlineTool as any,
       underline: TeUnderlineInlineTool,
       strikethrough: TeStrikethroughInlineTool,
+      linkInline: teInlineToolFactory(TeLinkInlineToolClass),
       cleanStyle: TeCleanStyleInlineTool,
       fake: TeFakeInlineTool,
 
@@ -284,6 +286,7 @@ export class TeCompleteConfig extends TeConfig {
       underline: TeUnderlineInlineTool,
       strikethrough: TeStrikethroughInlineTool,
       inlineCode: this.getInlineCodeConfig(),
+      linkInline: teInlineToolFactory(TeLinkInlineToolClass),
       variable: teInlineToolFactory(TeVariableInlineToolClass),
       formulaInline: teInlineToolFactory(TeFormulaInlineToolClass),
       cleanStyle: TeCleanStyleInlineTool,

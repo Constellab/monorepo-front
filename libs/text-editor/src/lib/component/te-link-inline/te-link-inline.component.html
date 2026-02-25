@@ -1,0 +1,9 @@
+@if (disabled) {
+  @if (isInternal) {
+    <a [routerLink]="relativePath">{{ displayText }}</a>
+  } @else {
+    <a [href]="data.url" target="_blank">{{ displayText }} <mat-icon>open_in_new</mat-icon></a>
+  }
+} @else {
+  <span class="link-text">{{ displayText }}</span>
+}

@@ -21,8 +21,10 @@ import { FlHtmlHelper, FlKeyboardHelper, FlKeyboardKey } from '@monorepo/front-c
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import { Subject, Subscription } from 'rxjs';
 
+import { TeLinkInlineToolClass } from '../../inline-tool/te-link-inline-tool.class';
 import { TeHTMLEditorJSON, TeRichText, TeRichTextAggregate, TeRichTextModifications } from '../../model/lib';
 import { TeConfig } from '../../model/te-config.class';
+import { TeElementInlineDirective } from '../../model/te-element.directive';
 import { TeEvent } from '../../model/te-event.class';
 import { TeTextEditorUndoRedo } from '../../model/te-text-editor-undo-redo.class';
 import { TeEmoji } from '../../plugin/te-emoji.class';
@@ -231,12 +233,19 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
     this.onEditorKeyPressed(event);
   };
 
+  private containerPasteListener = (): void => {
+    this.convertPastedAnchorsToLinkInline();
+  };
+
   private createListeners(): void {
     // listener for undo/redo
     document.addEventListener('keydown', this.outsideUndoRedoListener);
 
     // enable emoji picker globally
     this.editorContainer.nativeElement.addEventListener('keypress', this.containerKeyPressedListener);
+
+    // convert pasted <a> tags to <te-link-inline> elements
+    this.editorContainer.nativeElement.addEventListener('paste', this.containerPasteListener);
 
     this.listenToConfigEvent();
   }
@@ -254,7 +263,8 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
 
   private destroyListeners(): void {
     document.removeEventListener('keydown', this.outsideUndoRedoListener);
-    this.editorContainer?.nativeElement.removeEventListener('keypress', this.outsideUndoRedoListener);
+    this.editorContainer?.nativeElement.removeEventListener('keypress', this.containerKeyPressedListener);
+    this.editorContainer?.nativeElement.removeEventListener('paste', this.containerPasteListener);
 
     this.subscription?.unsubscribe();
   }
@@ -300,6 +310,32 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
         const mention = new TeMention(this.config.getAdditionalConfig().mention, event);
         mention.init();
       }
+    }, 0);
+  }
+
+  /**
+   * After a paste event, scan the editor for <a> tags
+   * and convert them to <te-link-inline> custom elements
+   */
+  private convertPastedAnchorsToLinkInline(): void {
+    // Wait for EditorJS to finish processing the paste
+    setTimeout(() => {
+      const container = this.editorContainer.nativeElement;
+      const anchors = container.querySelectorAll('a[href]');
+      if (anchors.length === 0) return;
+
+      anchors.forEach((anchor: HTMLAnchorElement) => {
+        const url = anchor.getAttribute('href') || '';
+        const text = anchor.textContent || url;
+        const data = JSON.stringify({ url, text });
+
+        const linkEl = document.createElement(TeLinkInlineToolClass.TAG);
+        linkEl.setAttribute(TeElementInlineDirective.dataAttribute, data);
+
+        anchor.replaceWith(linkEl);
+      });
+
+      this.onTextEditorChange();
     }, 0);
   }
 
