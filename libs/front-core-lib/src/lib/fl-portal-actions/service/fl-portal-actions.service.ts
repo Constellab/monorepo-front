@@ -1,4 +1,5 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { FlWindowsHelper } from '@monorepo/front-core-lib/fl-core';
 import {
   FlConfirmDialogInput,
@@ -20,6 +21,7 @@ export class FlPortalActionsService {
   private portalService = inject(FlPortalService);
   private actionsState = inject(FlPortalActionsState);
   private dialogService = inject(FlDialogService);
+  private platformId = inject(PLATFORM_ID);
 
   //provided if a portal is currently opened
   private currentOverlay: FlOverlayRef = null;
@@ -28,6 +30,8 @@ export class FlPortalActionsService {
   private autoCloseTimer: any = null;
 
   constructor() {
+    if (!isPlatformBrowser(this.platformId)) return;
+
     // Subscribe to progress state changes to block/unblock window close
     this.actionsState.hasProgressAction$().subscribe((hasProgress) => {
       if (hasProgress) {

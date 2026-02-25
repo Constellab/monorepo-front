@@ -42,6 +42,10 @@ export class FlDatasourceTree<T extends FlEntity> {
     this.sortAndEmits();
   }
 
+  clear(): void {
+    this.tree.children = [];
+  }
+
   /////////////////////////////// FIND ///////////////////////////////
 
   public findNodeObject(nodeId: string): T | null {

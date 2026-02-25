@@ -29,8 +29,6 @@ import {
   FlConfirmDialogResult,
   FlDialogService,
 } from '@monorepo/front-core-lib/fl-dialog';
-import { FlMenuDynamic, FlMenuDynamicService } from '@monorepo/front-core-lib/fl-menu-dynamic';
-import { FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
 import { FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -79,9 +77,8 @@ import {
 })
 export class HaBrickSidenavComponent {
   private brickService = inject(HaBrickService);
-  private route = inject(ActivatedRoute);
+  route = inject(ActivatedRoute);
   private router = inject(Router);
-  private contextMenuService = inject(FlMenuDynamicService);
   private documentationService = inject(HaDocumentationService);
   private folderService = inject(HaFolderService);
   private dialogService = inject(FlDialogService);
@@ -89,11 +86,9 @@ export class HaBrickSidenavComponent {
   private transferState = inject(TransferState);
   private portalActionsService = inject(FlPortalActionsService);
   private brickPageState = inject(HaBrickPageState);
-  private translateService: FlTranslateService = inject(FlTranslateService);
+  private translateService = inject(FlTranslateService);
 
   userHasEditRight = this.brickPageState.userHasEditRight;
-
-  brickAndPathVersion = this.brickPageState.brickAndPathVersion;
 
   pathVersion: Signal<string> = this.brickPageState.pathVersion;
   brick: Signal<HaBrick> = this.brickPageState.brick;
@@ -114,16 +109,8 @@ export class HaBrickSidenavComponent {
     return segment?.split('/').pop() ?? '';
   });
 
-  menuOpen: boolean;
-  openedMenu: FlOverlayRef;
-
-  // expansion model tracks expansion state
-  hoverId: string;
-
-  dataSource$: HaNodeObjectsTreeDatasource = new HaNodeObjectsTreeDatasource();
-  techDataSource$: HaNodeObjectsTreeDatasource = new HaNodeObjectsTreeDatasource();
-
-  activatedRoute: ActivatedRoute = this.route;
+  dataSource$ = new HaNodeObjectsTreeDatasource();
+  techDataSource$ = new HaNodeObjectsTreeDatasource();
 
   private DOCS_KEY: StateKey<object> = makeStateKey<object>('DOCS_KEY');
 
@@ -135,20 +122,13 @@ export class HaBrickSidenavComponent {
 
   constructor() {
     effect(() => {
-      const brickAndPathVersion = this.brickAndPathVersion();
-      const brick = brickAndPathVersion[0];
-      const pathVersion = brickAndPathVersion[1];
-      if (!brick || !this.isValidVersion(pathVersion)) return;
-      this.dataSource$ = new HaNodeObjectsTreeDatasource();
-      this.techDataSource$ = new HaNodeObjectsTreeDatasource();
+      const brick = this.brick();
+      const pathVersion = this.pathVersion();
+      if (!brick || !pathVersion) return;
+      this.dataSource$.clear();
+      this.techDataSource$.clear();
       this.init(brick, pathVersion);
     });
-  }
-
-  private isValidVersion(version: string): boolean {
-    if (!version) return false;
-    // Valid formats: 'latest' or 'vX.X.X' (with optional -beta.X suffix)
-    return version === 'latest' || /^v\d+\.\d+\.\d+(-beta\.\d+)?$/.test(version);
   }
 
   getRoute: (node: HaNode) => string = (node: HaNode) => {
@@ -227,23 +207,12 @@ export class HaBrickSidenavComponent {
     this.techDataSource$.addNodeObjectsWithChildren([techFolder]);
   }
 
-  onClickMenu(event: MouseEvent, isFolder: boolean, hasChild: boolean = false, id?: string): void {
+  onClickMenu(event: MouseEvent): void {
     event.preventDefault();
     event.stopPropagation();
-    if (this.menuOpen) {
-      this.openedMenu.overlayRef.detach();
-    }
-    if (!id) {
-      this.brickService.getRootFolderId(this.brick()?.id, this.pathVersion()).subscribe((res) => {
-        this.openCreateDialog(res.id);
-      });
-    } else {
-      this.openedMenu = this.contextMenuService.openDynamicMenuFromMouseEvent(
-        this.getContextMenuConfig(isFolder, id, hasChild),
-        event
-      );
-      this.menuOpen = true;
-    }
+    this.brickService.getRootFolderId(this.brick()?.id, this.pathVersion()).subscribe((res) => {
+      this.openCreateDialog(res.id);
+    });
   }
 
   onDocumentationTreeEvent(event: HaBrickSidenavTreeEvent): void {
@@ -262,48 +231,6 @@ export class HaBrickSidenavComponent {
 
   onRefreshDocumentationTree(): void {
     this.getDocumentations(this.brick(), this.pathVersion());
-  }
-
-  private getContextMenuConfig(isFolder: boolean, id?: string, hasChild: boolean = false): FlMenuDynamic[] {
-    if (isFolder) {
-      return [
-        {
-          type: 'button',
-          text: { text: 'create', translateText: true },
-          icon: 'add',
-          onClick: () => this.openCreateDialog(id),
-        },
-        {
-          type: 'button',
-          text: { text: 'edit_title', translateText: true },
-          icon: 'edit',
-          onClick: () => this.prepareEditDialog(id, isFolder),
-        },
-        {
-          type: 'button',
-          text: { text: 'delete', translateText: true },
-          icon: 'delete',
-          color: 'warn',
-          onClick: () => this.openResourceDelete(id, isFolder),
-          disabled: hasChild,
-        },
-      ];
-    }
-    return [
-      {
-        type: 'button',
-        text: { text: 'edit_title', translateText: true },
-        icon: 'edit',
-        onClick: () => this.prepareEditDialog(id, isFolder),
-      },
-      {
-        type: 'button',
-        text: { text: 'delete', translateText: true },
-        icon: 'delete',
-        color: 'warn',
-        onClick: () => this.openResourceDelete(id, isFolder),
-      },
-    ];
   }
 
   openResourceDelete(id: string, isFolder: boolean): void {
@@ -399,16 +326,6 @@ export class HaBrickSidenavComponent {
     };
 
     this.openSmallDialog(input);
-  }
-
-  expandNode(node: FlTree<HaNode>): void {
-    node.object.isExpanded = true;
-    this.dataSource$.updateNodeInfo(node.object);
-  }
-
-  collapseNode(node: FlTree<HaNode>): void {
-    node.object.isExpanded = false;
-    this.dataSource$.updateNodeInfo(node.object);
   }
 
   expandTechNode(node: FlTree<HaNode>): void {
