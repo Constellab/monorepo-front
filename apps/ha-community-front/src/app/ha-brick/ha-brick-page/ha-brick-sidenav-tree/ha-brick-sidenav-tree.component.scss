@@ -1,9 +1,9 @@
 .selected-tree-node {
-  color: var(--primary-color);
+  color: var(--primary-color) !important;
 }
 
 .tree-node {
-  min-height: 32px;
+  min-height: 30px !important;
   padding-right: 0;
   width: 100%;
   border-radius: 0.7rem;

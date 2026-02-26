@@ -112,6 +112,11 @@ html {
     }
   }
 
+  .mat-tree-node {
+    color: inherit !important;
+    min-height: inherit !important;
+  }
+
   .mat-mdc-button-disabled {
     color: grey !important;
   }

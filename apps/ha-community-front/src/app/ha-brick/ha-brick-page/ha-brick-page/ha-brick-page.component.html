@@ -40,7 +40,7 @@
                     [routerLink]="'.'"
                     [relativeTo]="lastActivatedRoute()"
                     [fragment]="title.text.toLowerCase().replaceAll(' ', '-')"
-                    [ngClass]="title.level === 2 ? 'g-weight-600' : ''">
+                    [ngClass]="title.level === 2 ? 'g-weight-600' : 'small-title'">
                     {{ title.text }}
                   </a>
                 }
