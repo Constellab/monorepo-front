@@ -13,6 +13,7 @@ import { Observable } from 'rxjs';
 
 import {
   HaAddVersionInput,
+  HaBrickSettingsDTO,
   HaNewVersionDTO,
   HaNewVersionFile,
 } from '../../../ha-core/ha-model/ha-entities/ha-version.class';
@@ -45,6 +46,7 @@ export class HaAddVersionDialogComponent
   brickName: string;
   isUpdate: boolean = false;
   inputFile: HaAddVersionInput;
+  rawSettings: HaBrickSettingsDTO;
   errorFile: boolean;
   errorFileText: string;
   isLoadingImport: boolean = false;
@@ -69,18 +71,9 @@ export class HaAddVersionDialogComponent
     });
   }
 
-  create(formValue: Partial<HaNewVersionDTO>): Observable<Partial<HaNewVersionDTO>> {
-    formValue.brickName = this.brickName;
-    formValue.isBeta = this.inputFile.version.includes('-beta.');
-    if (formValue.isBeta) {
-      formValue.subPatch = +this.inputFile.version.split('-beta.')[1];
-    }
-    formValue.version = this.inputFile.version;
-    return this.brickService.createNewVersion(
-      formValue,
-      this.inputFile.technicalInfo,
-      this.inputFile.brickVersionReferences
-    );
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  create(_formValue: Partial<HaNewVersionDTO>): Observable<any> {
+    return this.brickService.createVersionFromSettings(this.rawSettings);
   }
 
   update(): Observable<Partial<HaNewVersionDTO>> {
@@ -112,9 +105,10 @@ export class HaAddVersionDialogComponent
         const srcResult = JSON.parse(e.target.result);
         if ((srcResult as HaNewVersionFile) && this.isSettingJson(srcResult)) {
           this.brickService
-            .isActualBrickAndNewVersion(this.brickName, srcResult.name, srcResult.version)
+            .isActualBrickAndNewVersion(srcResult.name, srcResult.version)
             .subscribe(([res, res2]) => {
               if (res) {
+                this.rawSettings = srcResult;
                 this.inputFile = new HaAddVersionInput(
                   res,
                   srcResult.name,

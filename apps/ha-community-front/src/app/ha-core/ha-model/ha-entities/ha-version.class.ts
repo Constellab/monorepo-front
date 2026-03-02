@@ -32,6 +32,15 @@ export class HaNewVersionDTO {
   references?: HaReferenceDTO[];
 }
 
+export interface HaBrickSettingsDTO {
+  name: string;
+  version: string;
+  author?: string;
+  variables?: Record<string, any>;
+  technical_info?: Record<string, any>;
+  environment?: HaEnvironmentDTO;
+}
+
 export class HaAddVersionInput {
   isNew: boolean;
   name: string;
