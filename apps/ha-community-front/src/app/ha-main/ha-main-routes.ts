@@ -73,6 +73,13 @@ export const haMainRoutes: Routes = [
       import('./ha-login-page/ha-login-page.component').then((m) => m.HaLoginPageComponent),
   },
   {
+    path: 'cli-auth',
+    loadComponent: () =>
+      import('../ha-cli-auth/ha-cli-auth-page/ha-cli-auth-page.component').then(
+        (m) => m.HaCliAuthPageComponent
+      ),
+  },
+  {
     path: '',
     loadComponent: () => import('./ha-main/ha-main.component').then((m) => m.HaMainComponent),
     children: [

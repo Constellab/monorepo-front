@@ -1,0 +1,50 @@
+<ha-header [fullHeight]="true">
+  <div class="cli-auth-section">
+    @switch (state) {
+      @case ('loading') {
+        <div class="cli-auth-center">
+          <fl-loader></fl-loader>
+        </div>
+      }
+      @case ('confirmation') {
+        <div class="cli-auth-content">
+          <h1>{{ 'cli_auth.page_title' | translate }}</h1>
+          <p class="cli-auth-description">{{ 'cli_auth.requesting_access' | translate }}</p>
+          @if (currentUser(); as user) {
+            <p class="cli-auth-user-info">
+              {{ 'cli_auth.logged_in_as' | translate }} <strong>{{ user.email }}</strong>
+            </p>
+          }
+          <div class="cli-auth-actions">
+            <button mat-raised-button color="primary" (click)="authorize()">
+              {{ 'cli_auth.authorize' | translate }}
+            </button>
+            <button mat-raised-button (click)="deny()">
+              {{ 'cli_auth.deny' | translate }}
+            </button>
+          </div>
+        </div>
+      }
+      @case ('success') {
+        <div class="cli-auth-content">
+          <h1>{{ 'cli_auth.success_title' | translate }}</h1>
+          <p>{{ 'cli_auth.success_message' | translate }}</p>
+        </div>
+      }
+      @case ('error') {
+        <div class="cli-auth-content">
+          <h1>{{ 'cli_auth.page_title' | translate }}</h1>
+          <p class="cli-auth-error">{{ errorMessage | translate }}</p>
+        </div>
+      }
+      @case ('denied') {
+        <div class="cli-auth-content">
+          <h1>{{ 'cli_auth.denied_title' | translate }}</h1>
+          <p>{{ 'cli_auth.denied_message' | translate }}</p>
+        </div>
+      }
+    }
+  </div>
+</ha-header>
+
+<ha-footer></ha-footer>
