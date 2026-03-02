@@ -52,14 +52,14 @@ export class HaBrickVersionsComponent extends HaCommunityPageDirective {
     this.setDataSource(brick);
   }
 
-  openNewVersionDialog(brickId: string): void {
+  openNewVersionDialog(brickName: string): void {
     const input: FlFormDialogInput<HaNewVersionDTO> = {
       mode: 'create',
       object: {
         version: null,
         repoType: null,
         commit: null,
-        brickId: brickId,
+        brickName: brickName,
         subPatch: null,
         isBeta: false,
       } as HaNewVersionDTO,

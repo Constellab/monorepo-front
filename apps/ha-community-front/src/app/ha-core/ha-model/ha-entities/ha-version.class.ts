@@ -17,7 +17,7 @@ export class HaVersion extends HaEntity {
 }
 
 export class HaNewVersionDTO {
-  brickId: string;
+  brickName: string;
 
   version: string;
 

@@ -42,7 +42,7 @@ export class HaAddVersionDialogComponent
 {
   private brickService = inject(HaBrickService);
 
-  brickId: string;
+  brickName: string;
   isUpdate: boolean = false;
   inputFile: HaAddVersionInput;
   errorFile: boolean;
@@ -56,7 +56,7 @@ export class HaAddVersionDialogComponent
   ngOnInit(): void {
     this.isUpdate = this.dialogInput.mode == 'update';
     this.init();
-    this.brickId = this.dialogInput.object.brickId;
+    this.brickName = this.dialogInput.object.brickName;
     this.errorFile = false;
   }
 
@@ -70,7 +70,7 @@ export class HaAddVersionDialogComponent
   }
 
   create(formValue: Partial<HaNewVersionDTO>): Observable<Partial<HaNewVersionDTO>> {
-    formValue.brickId = this.brickId;
+    formValue.brickName = this.brickName;
     formValue.isBeta = this.inputFile.version.includes('-beta.');
     if (formValue.isBeta) {
       formValue.subPatch = +this.inputFile.version.split('-beta.')[1];
@@ -112,7 +112,7 @@ export class HaAddVersionDialogComponent
         const srcResult = JSON.parse(e.target.result);
         if ((srcResult as HaNewVersionFile) && this.isSettingJson(srcResult)) {
           this.brickService
-            .isActualBrickAndNewVersion(this.brickId, srcResult.name, srcResult.version)
+            .isActualBrickAndNewVersion(this.brickName, srcResult.name, srcResult.version)
             .subscribe(([res, res2]) => {
               if (res) {
                 this.inputFile = new HaAddVersionInput(
