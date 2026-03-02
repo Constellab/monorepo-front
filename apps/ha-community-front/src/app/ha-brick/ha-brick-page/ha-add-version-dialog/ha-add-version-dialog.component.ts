@@ -104,25 +104,23 @@ export class HaAddVersionDialogComponent
       reader.onload = (e: any) => {
         const srcResult = JSON.parse(e.target.result);
         if ((srcResult as HaNewVersionFile) && this.isSettingJson(srcResult)) {
-          this.brickService
-            .isActualBrickAndNewVersion(srcResult.name, srcResult.version)
-            .subscribe(([res, res2]) => {
-              if (res) {
-                this.rawSettings = srcResult;
-                this.inputFile = new HaAddVersionInput(
-                  res,
-                  srcResult.name,
-                  srcResult.version,
-                  srcResult.environment,
-                  srcResult.technical_info
-                );
-                this.isUpdate = res2;
-              } else {
-                this.errorFile = true;
-                this.errorFileText = 'file_wrong_brick_or_major';
-              }
-              this.isLoadingImport = false;
-            });
+          this.brickService.isActualBrickAndNewVersion(srcResult.name, srcResult.version).subscribe((res) => {
+            if (res.sameBrick) {
+              this.rawSettings = srcResult;
+              this.inputFile = new HaAddVersionInput(
+                true,
+                srcResult.name,
+                srcResult.version,
+                srcResult.environment,
+                srcResult.technical_info
+              );
+              this.isUpdate = res.sameVersion;
+            } else {
+              this.errorFile = true;
+              this.errorFileText = 'file_wrong_brick_or_major';
+            }
+            this.isLoadingImport = false;
+          });
         } else {
           this.isLoadingImport = false;
           this.errorFile = true;

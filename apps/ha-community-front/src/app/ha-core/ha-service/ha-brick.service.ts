@@ -192,7 +192,7 @@ export class HaBrickService implements HaCoAuthorService {
   public isActualBrickAndNewVersion(
     brickName: string,
     inputBrickVersion: string
-  ): Observable<[boolean, boolean]> {
+  ): Observable<{ sameBrick: boolean; sameVersion: boolean }> {
     return this.apiService.post(`${this.route}/is-actual-brick-and-new-version`, {
       brickName,
       inputBrickVersion,
