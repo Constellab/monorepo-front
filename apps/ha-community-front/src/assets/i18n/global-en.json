@@ -743,5 +743,20 @@
   "the_contact_mail_is_required": "The contact mail is required if you do not provide an app URL",
   "contact_creator": "Contact creator",
   "app_picture_uploaded": "App picture uploaded",
-  "start_typing_to_get_results": "Start typing to get results"
+  "start_typing_to_get_results": "Start typing to get results",
+
+  "cli_auth.page_title": "CLI Authorization",
+  "cli_auth.requesting_access": "The Gencovery CLI is requesting access to your account.",
+  "cli_auth.logged_in_as": "You are logged in as",
+  "cli_auth.authorize": "Authorize",
+  "cli_auth.deny": "Deny",
+  "cli_auth.success_title": "Authorization granted",
+  "cli_auth.success_message": "You can now return to your terminal and close this page.",
+  "cli_auth.denied_title": "Authorization denied",
+  "cli_auth.denied_message": "The CLI will not have access to your account. You can close this page.",
+  "cli_auth.error_invalid_code": "The authorization code is invalid or does not exist.",
+  "cli_auth.error_code_expired": "The authorization code has expired. Please restart the process from the CLI.",
+  "cli_auth.error_code_used": "This authorization code has already been used.",
+  "cli_auth.error_no_code": "No authorization code provided.",
+  "cli_auth.error_unknown": "An unexpected error occurred. Please try again from the CLI."
 }

@@ -744,5 +744,20 @@
   "the_contact_mail_is_required": "Le mail de contact est requis si vous ne fournissez pas d'URL de l'app",
   "contact_creator": "Contacter le créateur",
   "app_picture_uploaded": "Image de l'application uploadée",
-  "start_typing_to_get_results": "Commencez à taper pour obtenir des résultats"
+  "start_typing_to_get_results": "Commencez à taper pour obtenir des résultats",
+
+  "cli_auth.page_title": "Autorisation CLI",
+  "cli_auth.requesting_access": "Le CLI Gencovery demande l'accès à votre compte.",
+  "cli_auth.logged_in_as": "Vous êtes connecté en tant que",
+  "cli_auth.authorize": "Autoriser",
+  "cli_auth.deny": "Refuser",
+  "cli_auth.success_title": "Autorisation accordée",
+  "cli_auth.success_message": "Vous pouvez maintenant retourner dans votre terminal et fermer cette page.",
+  "cli_auth.denied_title": "Autorisation refusée",
+  "cli_auth.denied_message": "Le CLI n'aura pas accès à votre compte. Vous pouvez fermer cette page.",
+  "cli_auth.error_invalid_code": "Le code d'autorisation est invalide ou n'existe pas.",
+  "cli_auth.error_code_expired": "Le code d'autorisation a expiré. Veuillez relancer le processus depuis le CLI.",
+  "cli_auth.error_code_used": "Ce code d'autorisation a déjà été utilisé.",
+  "cli_auth.error_no_code": "Aucun code d'autorisation fourni.",
+  "cli_auth.error_unknown": "Une erreur inattendue s'est produite. Veuillez réessayer depuis le CLI."
 }

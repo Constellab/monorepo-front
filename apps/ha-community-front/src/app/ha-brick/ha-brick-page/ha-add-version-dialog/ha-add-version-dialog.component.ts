@@ -13,6 +13,7 @@ import { Observable } from 'rxjs';
 
 import {
   HaAddVersionInput,
+  HaBrickSettingsDTO,
   HaNewVersionDTO,
   HaNewVersionFile,
 } from '../../../ha-core/ha-model/ha-entities/ha-version.class';
@@ -42,9 +43,10 @@ export class HaAddVersionDialogComponent
 {
   private brickService = inject(HaBrickService);
 
-  brickId: string;
+  brickName: string;
   isUpdate: boolean = false;
   inputFile: HaAddVersionInput;
+  rawSettings: HaBrickSettingsDTO;
   errorFile: boolean;
   errorFileText: string;
   isLoadingImport: boolean = false;
@@ -56,7 +58,7 @@ export class HaAddVersionDialogComponent
   ngOnInit(): void {
     this.isUpdate = this.dialogInput.mode == 'update';
     this.init();
-    this.brickId = this.dialogInput.object.brickId;
+    this.brickName = this.dialogInput.object.brickName;
     this.errorFile = false;
   }
 
@@ -69,18 +71,9 @@ export class HaAddVersionDialogComponent
     });
   }
 
-  create(formValue: Partial<HaNewVersionDTO>): Observable<Partial<HaNewVersionDTO>> {
-    formValue.brickId = this.brickId;
-    formValue.isBeta = this.inputFile.version.includes('-beta.');
-    if (formValue.isBeta) {
-      formValue.subPatch = +this.inputFile.version.split('-beta.')[1];
-    }
-    formValue.version = this.inputFile.version;
-    return this.brickService.createNewVersion(
-      formValue,
-      this.inputFile.technicalInfo,
-      this.inputFile.brickVersionReferences
-    );
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  create(_formValue: Partial<HaNewVersionDTO>): Observable<any> {
+    return this.brickService.createVersionFromSettings(this.rawSettings);
   }
 
   update(): Observable<Partial<HaNewVersionDTO>> {
@@ -111,24 +104,23 @@ export class HaAddVersionDialogComponent
       reader.onload = (e: any) => {
         const srcResult = JSON.parse(e.target.result);
         if ((srcResult as HaNewVersionFile) && this.isSettingJson(srcResult)) {
-          this.brickService
-            .isActualBrickAndNewVersion(this.brickId, srcResult.name, srcResult.version)
-            .subscribe(([res, res2]) => {
-              if (res) {
-                this.inputFile = new HaAddVersionInput(
-                  res,
-                  srcResult.name,
-                  srcResult.version,
-                  srcResult.environment,
-                  srcResult.technical_info
-                );
-                this.isUpdate = res2;
-              } else {
-                this.errorFile = true;
-                this.errorFileText = 'file_wrong_brick_or_major';
-              }
-              this.isLoadingImport = false;
-            });
+          this.brickService.isActualBrickAndNewVersion(srcResult.name, srcResult.version).subscribe((res) => {
+            if (res.sameBrick) {
+              this.rawSettings = srcResult;
+              this.inputFile = new HaAddVersionInput(
+                true,
+                srcResult.name,
+                srcResult.version,
+                srcResult.environment,
+                srcResult.technical_info
+              );
+              this.isUpdate = res.sameVersion;
+            } else {
+              this.errorFile = true;
+              this.errorFileText = 'file_wrong_brick_or_major';
+            }
+            this.isLoadingImport = false;
+          });
         } else {
           this.isLoadingImport = false;
           this.errorFile = true;

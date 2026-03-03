@@ -17,7 +17,7 @@ export class HaVersion extends HaEntity {
 }
 
 export class HaNewVersionDTO {
-  brickId: string;
+  brickName: string;
 
   version: string;
 
@@ -30,6 +30,15 @@ export class HaNewVersionDTO {
   technicalInfo?: Record<string, any>;
 
   references?: HaReferenceDTO[];
+}
+
+export interface HaBrickSettingsDTO {
+  name: string;
+  version: string;
+  author?: string;
+  variables?: Record<string, any>;
+  technical_info?: Record<string, any>;
+  environment: HaEnvironmentDTO;
 }
 
 export class HaAddVersionInput {

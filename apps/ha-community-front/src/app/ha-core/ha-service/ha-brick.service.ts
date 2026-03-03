@@ -29,7 +29,7 @@ import { HaDocumentation, HaDocumentationSearchDTO } from '../ha-model/ha-entiti
 import { HaNode } from '../ha-model/ha-entities/ha-node.class';
 import { HaStory } from '../ha-model/ha-entities/ha-story.class';
 import { HaUser } from '../ha-model/ha-entities/ha-user';
-import { HaNewVersionDTO, HaReferenceDTO } from '../ha-model/ha-entities/ha-version.class';
+import { HaBrickSettingsDTO } from '../ha-model/ha-entities/ha-version.class';
 
 @Injectable({
   providedIn: 'root',
@@ -138,16 +138,8 @@ export class HaBrickService implements HaCoAuthorService {
     return this.apiService.get(this.route + `/root-folder/${brickId}/${version}`);
   }
 
-  public createNewVersion(
-    newVersion: Partial<HaNewVersionDTO>,
-    technicalInfo: Record<string, any>,
-    references?: HaReferenceDTO[]
-  ): Observable<any> {
-    if (references && references.length > 0) {
-      newVersion.references = references;
-    }
-    newVersion.technicalInfo = technicalInfo;
-    return this.apiService.post(this.route + '/new-version', newVersion);
+  public createVersionFromSettings(settings: HaBrickSettingsDTO): Observable<any> {
+    return this.apiService.post(this.route + '/version-from-settings', settings);
   }
 
   public getLastVersion(brickName: string): Observable<HaBrickVersion> {
@@ -198,13 +190,11 @@ export class HaBrickService implements HaCoAuthorService {
 
   //VERIFY IF BRICK IT'S A NEW BRICK VERSION
   public isActualBrickAndNewVersion(
-    brickId: string,
-    inputBrickName: string,
+    brickName: string,
     inputBrickVersion: string
-  ): Observable<[boolean, boolean]> {
+  ): Observable<{ sameBrick: boolean; sameVersion: boolean }> {
     return this.apiService.post(`${this.route}/is-actual-brick-and-new-version`, {
-      brickId,
-      inputBrickName,
+      brickName,
       inputBrickVersion,
     });
   }
