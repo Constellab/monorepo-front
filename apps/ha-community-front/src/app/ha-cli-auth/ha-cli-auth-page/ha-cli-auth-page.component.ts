@@ -3,7 +3,6 @@ import { Component, inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { MatButton } from '@angular/material/button';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { FlLoginSavedRoute } from '@monorepo/front-core-lib/fl-core';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -11,6 +10,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { HaFooterComponent } from '../../ha-core/ha-component/ha-footer/ha-footer/ha-footer.component';
 import { HaHeaderComponent } from '../../ha-core/ha-component/ha-header/ha-header/ha-header.component';
 import { HaAuthenticatedUserService } from '../../ha-core/ha-service/ha-authenticated-user.service';
+import { HaCliAuthService } from '../../ha-core/ha-service/ha-cli-auth.service';
 import { HaRouterService } from '../../ha-core/ha-service/ha-router.service';
 
 const SESSION_STORAGE_KEY = 'cli-auth-code';
@@ -24,7 +24,7 @@ const SESSION_STORAGE_KEY = 'cli-auth-code';
 export class HaCliAuthPageComponent implements OnInit {
   private activatedRoute = inject(ActivatedRoute);
   private router = inject(Router);
-  private apiService = inject(FlApiService);
+  private cliAuthService = inject(HaCliAuthService);
   private authenticatedUserService = inject(HaAuthenticatedUserService);
   private platformId = inject(PLATFORM_ID);
 
@@ -63,45 +63,29 @@ export class HaCliAuthPageComponent implements OnInit {
 
   authorize(): void {
     this.state = 'loading';
-    this.apiService.put(`cli-auth/validate/${this.code}`, {}).subscribe({
+    this.cliAuthService.validate(this.code).subscribe({
       next: () => {
         this.state = 'success';
         sessionStorage.removeItem(SESSION_STORAGE_KEY);
       },
       error: (err) => {
         this.state = 'error';
-        this.errorMessage = this.mapError(err);
+        this.errorMessage = err?.error?.detail;
       },
     });
   }
 
   deny(): void {
     this.state = 'loading';
-    this.apiService.put(`cli-auth/refuse/${this.code}`, {}).subscribe({
+    this.cliAuthService.refuse(this.code).subscribe({
       next: () => {
         this.state = 'denied';
         sessionStorage.removeItem(SESSION_STORAGE_KEY);
       },
       error: (err) => {
         this.state = 'error';
-        this.errorMessage = this.mapError(err);
+        this.errorMessage = err?.error?.detail;
       },
     });
-  }
-
-  private mapError(err: any): string {
-    const status = err?.status;
-    const message = err?.error?.detail || err?.error?.message || '';
-
-    if (status === 404 || message.includes('not found') || message.includes('invalid')) {
-      return 'cli_auth.error_invalid_code';
-    }
-    if (status === 410 || message.includes('expired')) {
-      return 'cli_auth.error_code_expired';
-    }
-    if (status === 409 || message.includes('already')) {
-      return 'cli_auth.error_code_used';
-    }
-    return 'cli_auth.error_unknown';
   }
 }

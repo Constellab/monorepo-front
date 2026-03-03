@@ -38,7 +38,7 @@ export interface HaBrickSettingsDTO {
   author?: string;
   variables?: Record<string, any>;
   technical_info?: Record<string, any>;
-  environment?: HaEnvironmentDTO;
+  environment: HaEnvironmentDTO;
 }
 
 export class HaAddVersionInput {
