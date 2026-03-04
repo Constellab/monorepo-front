@@ -23,7 +23,7 @@
     (closed)="close()">
     <fl-infinite-scroll [datasource]="datasource" class="g-mat-option-infinite-scroll">
       @for (item of items$ | async; track item) {
-        <mat-option [value]="item">
+        <mat-option [value]="item" class="g-mat-option-fit-height">
           <ng-container
             *ngTemplateOutlet="optionTemplate; context: getOptionTemplateContext(item)"></ng-container>
         </mat-option>
