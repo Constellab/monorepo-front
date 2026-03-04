@@ -1,0 +1,40 @@
+<fl-card class="card">
+  <fl-card-header>
+    {{ process().app.name }}
+
+    <fl-card-actions>
+      <button mat-stroked-button type="button" (click)="stopProcess()" class="g-button-small">
+        {{ 'monitoring.app_stop_process' | translate }}
+      </button>
+    </fl-card-actions>
+  </fl-card-header>
+  <fl-card-body>
+    <fl-key-value>
+      <fl-key>{{ 'monitoring.app_status' | translate }}</fl-key>
+      {{ 'monitoring.app_status_' + process().status | translate }}
+    </fl-key-value>
+
+    @if (process().statusText) {
+      <div>{{ 'monitoring.app_status_details' | translate }}: {{ process().statusText }}</div>
+    }
+
+    @if (process().startedBy && process().startedAt) {
+      <div class="g-layout-row g-layout-start-center g-layout-gap-1em">
+        <p>{{ 'monitoring.app_started' | translate }} :</p>
+        <fl-user-with-date [user]="process().startedBy" [date]="process().startedAt"></fl-user-with-date>
+      </div>
+    }
+
+    <fl-key-value>
+      <fl-key>{{ 'monitoring.app_nb_of_connection' | translate }}</fl-key>
+      {{ process().nbOfConnections }}
+    </fl-key-value>
+
+    <fl-key-value>
+      <fl-key>{{ 'monitoring.app_config_path' | translate }}</fl-key>
+      {{ process().configFilePath }}
+    </fl-key-value>
+
+    <lab-monitoring-app-detail [appInstance]="process().app"></lab-monitoring-app-detail>
+  </fl-card-body>
+</fl-card>

@@ -71,7 +71,6 @@
     "app_stop_all_processus": "Stop all app",
     "app_stop_all_processus_confirmation": "Are you sure you want to stop all apps ? The apps are automatically restarted when requested.",
     "app_all_processus_stopped": "All apps have been stopped",
-    "app_process": "App",
     "app_env_type": "Environment app type",
     "app_env_file_path": "Environment file path",
     "app_env_file_content": "Environment file content",

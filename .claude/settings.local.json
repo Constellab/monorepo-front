@@ -35,7 +35,8 @@
       "mcp__rich-text-editor__update_block",
       "mcp__rich-text-editor__insert_blocks",
       "mcp__rich-text-editor__upload_document",
-      "Bash(grep:*)"
+      "Bash(grep:*)",
+      "mcp__ide__getDiagnostics"
     ],
     "deny": []
   }

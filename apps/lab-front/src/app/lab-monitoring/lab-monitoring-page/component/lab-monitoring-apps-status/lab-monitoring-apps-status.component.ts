@@ -10,15 +10,13 @@ import {
   FlConfirmDialogResult,
   FlDialogService,
 } from '@monorepo/front-core-lib/fl-dialog';
-import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { LiAppService, LiAppsStatus } from '@monorepo/lab-lib/li-core';
 import { TranslatePipe } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
-import { LabMonitoringAppDetailComponent } from '../lab-monitoring-app-detail/lab-monitoring-app-detail.component';
+import { LabAppDetailComponent } from '../lab-app-detail/lab-app-detail.component';
 
 /**
  * Component to show information about the apps status
@@ -36,13 +34,11 @@ import { LabMonitoringAppDetailComponent } from '../lab-monitoring-app-detail/la
     MatMenuItem,
     MatMenuTrigger,
     FlSectionModule,
-    FlKeyValueModule,
     MatAnchor,
     FlCoreComponentModule,
     AsyncPipe,
     TranslatePipe,
-    LabMonitoringAppDetailComponent,
-    FlUserModule,
+    LabAppDetailComponent,
   ],
 })
 export class LabMonitoringAppsStatusComponent {
@@ -69,23 +65,13 @@ export class LabMonitoringAppsStatusComponent {
       .subscribe((result: FlConfirmDialogResult) => this.onConfirmationClosed(result));
   }
 
-  stopProcess(processId: string): void {
-    const input: FlConfirmDialogInput = {
-      title: 'monitoring.app_stop_process',
-      content: 'monitoring.app_stop_process_confirmation',
-      observable: this.appService.stopProcess(processId),
-      successMessage: 'monitoring.app_stopped',
-    };
-
-    this.dialogService
-      .openConfirmDialog(input)
-      .afterClosed()
-      .subscribe((result: FlConfirmDialogResult) => this.onConfirmationClosed(result));
+  refreshStatus(): void {
+    this.status$ = this.appService.getStatus();
   }
 
   private onConfirmationClosed(result: FlConfirmDialogResult): void {
     if (result.choice) {
-      this.status$ = this.appService.getStatus();
+      this.refreshStatus();
     }
   }
 }
