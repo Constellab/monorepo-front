@@ -18,7 +18,6 @@ export const environment: CaEnvironment = {
     communityFrontUrl: '',
     frontDomain: '',
     captchaSiteKey: '',
-    difyChatbotToken: '',
   },
 };
 

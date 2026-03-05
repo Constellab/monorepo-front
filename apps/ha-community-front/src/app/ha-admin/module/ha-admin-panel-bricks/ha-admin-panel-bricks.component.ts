@@ -3,7 +3,6 @@ import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import {
   FlSavedSearch,
@@ -18,7 +17,6 @@ import { FlFileHelper } from '@monorepo/front-core-lib/fl-translate';
 import { TranslatePipe } from '@ngx-translate/core';
 
 import { HaBrick, HaBrickDatasourcePaginated } from '../../../ha-core/ha-model/ha-entities/ha-brick.class';
-import { HaEntityType } from '../../../ha-core/ha-model/ha-entities/ha-entity-type';
 import { HaBrickService } from '../../../ha-core/ha-service/ha-brick.service';
 import { HaBrickVersionService } from '../../../ha-core/ha-service/ha-brick-version.service';
 import {
@@ -30,11 +28,6 @@ import {
   HaAdminPanelBricksTableActionEvent,
   HaAdminPanelBricksTableComponent,
 } from '../ha-admin-panel-bricks-table/ha-admin-panel-bricks-table.component';
-import {
-  HaAdminSendToDifyDialogComponent,
-  HaAdminSendToDifyDialogInput,
-} from '../ha-admin-send-brick-docs-to-dify-dialog/ha-admin-send-to-dify-dialog.component';
-
 @Component({
   selector: 'ha-admin-panel-bricks',
   imports: [
@@ -58,8 +51,6 @@ export class HaAdminPanelBricksComponent implements OnInit {
   private brickService = inject(HaBrickService);
   private brickVersionService = inject(HaBrickVersionService);
   private themeService = inject(FlThemeService);
-
-  private dialogService = inject(FlDialogService);
 
   datasource: HaBrickDatasourcePaginated<HaAdminPanelBrickSearchFields>;
 
@@ -98,23 +89,12 @@ export class HaAdminPanelBricksComponent implements OnInit {
       case 'download_docs':
         this.urlToDownloadDocsZipPrefix(actionEvent.brick.id);
         break;
-      case 'send_docs_to_dify':
-        this.openAdminSendBrickDocsToDifyDialog(actionEvent.brick);
-        break;
     }
   }
 
   private urlToDownloadDocsZipPrefix(brickId: string): void {
     const zipFileUrl = this.brickService.urlToDownloadDocsZipPrefix() + brickId;
     FlFileHelper.downloadUrl(zipFileUrl);
-  }
-
-  private openAdminSendBrickDocsToDifyDialog(brick: HaBrick): void {
-    const data: HaAdminSendToDifyDialogInput = {
-      entityType: HaEntityType.BRICK,
-      entityId: brick.id,
-    };
-    this.dialogService.openSmallDialog(HaAdminSendToDifyDialogComponent, { data: data });
   }
 
   private getSavedSearch(): FlSavedSearch[] {

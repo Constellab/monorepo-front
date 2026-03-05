@@ -67,11 +67,6 @@ export class HaAdminPanelBricksTableComponent {
       icon: 'cloud_download',
       tooltip: 'download_brick_docs_zip_file',
     },
-    {
-      type: 'send_docs_to_dify',
-      icon: 'send',
-      tooltip: 'send_brick_docs_to_dify',
-    },
   ];
 
   onAction(action: HaAdminPanelTableAction, brick: HaBrick): void {

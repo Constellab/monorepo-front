@@ -22,15 +22,9 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { Observable, Subscription } from 'rxjs';
 
 import { Ha404Component } from '../../../ha-404/ha-404/ha-404.component';
-import {
-  HaAdminSendToDifyDialogComponent,
-  HaAdminSendToDifyDialogInput,
-} from '../../../ha-admin/module/ha-admin-send-brick-docs-to-dify-dialog/ha-admin-send-to-dify-dialog.component';
 import { HaBrick } from '../../../ha-core/ha-model/ha-entities/ha-brick.class';
 import { HaDocumentation } from '../../../ha-core/ha-model/ha-entities/ha-documentation.class';
-import { HaEntityType } from '../../../ha-core/ha-model/ha-entities/ha-entity-type';
 import { HaCommunityPageDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
-import { HaIsAdminDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-is-admin/ha-is-admin.directive';
 import { HaDocumentationService } from '../../../ha-core/ha-service/ha-documentation.service';
 import { HaHttpRedirectionService } from '../../../ha-core/ha-service/ha-http-redirection.service';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
@@ -56,7 +50,6 @@ import { HaDocTextEditorConfig } from '../ha-doc-text-editor-config.class';
     FlLoaderModule,
     Ha404Component,
     TranslatePipe,
-    HaIsAdminDirective,
   ],
 })
 export class HaBrickDocComponent extends HaCommunityPageDirective implements OnInit, OnDestroy {
@@ -199,15 +192,6 @@ export class HaBrickDocComponent extends HaCommunityPageDirective implements OnI
   downloadDocMarkdown(docId: string): void {
     const zipFileUrl = this.documentationService.urlToDownloadDocMarkdown(docId);
     FlFileHelper.downloadUrl(zipFileUrl);
-  }
-
-  openSendDocToDify(docId: string): void {
-    const data: HaAdminSendToDifyDialogInput = {
-      entityType: HaEntityType.DOC,
-      entityId: docId,
-    };
-
-    this.dialogService.openSmallDialog(HaAdminSendToDifyDialogComponent, { data: data });
   }
 
   private onDocLoaded(doc: HaDocumentation): void {

@@ -56,10 +56,7 @@
       "@monorepo/front-core-lib/fl-card": [
         "libs/front-core-lib/src/lib/fl-card/index.ts"
       ],
-      "@monorepo/front-core-lib/fl-chatbot": [
-        "libs/front-core-lib/src/lib/fl-chatbot/index.ts"
-      ],
-      "@monorepo/front-core-lib/fl-code-editor": [
+"@monorepo/front-core-lib/fl-code-editor": [
         "libs/front-core-lib/src/lib/fl-code-editor/index.ts"
       ],
       "@monorepo/front-core-lib/fl-color": [

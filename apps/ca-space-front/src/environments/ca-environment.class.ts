@@ -27,9 +27,6 @@ export interface CaEnvironmentSettings {
 
   // recaptcha site key
   captchaSiteKey: string;
-
-  // dify chatbot token
-  difyChatbotToken: string | null;
 }
 
 // Path of the environment json file created during the docker run (used in production)

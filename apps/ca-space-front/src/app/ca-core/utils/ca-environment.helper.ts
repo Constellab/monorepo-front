@@ -30,10 +30,6 @@ export class CaEnvironmentHelper {
     return CaEnvironmentHelper.getEnv().settings.captchaSiteKey;
   }
 
-  public static getDifyChatbotToken(): string | null {
-    return CaEnvironmentHelper.getEnv().settings.difyChatbotToken;
-  }
-
   public static getSupportMail(): string {
     return 'clientsuccess@gencovery.com';
   }

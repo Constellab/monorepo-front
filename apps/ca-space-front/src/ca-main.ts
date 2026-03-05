@@ -166,7 +166,6 @@ if (environment.production) {
     communityFrontUrl: 'http://localhost:4200',
     frontDomain: 'localhost',
     captchaSiteKey: '',
-    difyChatbotToken: '',
   };
   bootstrapApp();
 }
