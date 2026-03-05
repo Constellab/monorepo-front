@@ -24,7 +24,7 @@ export class HaAuthenticatedUserService implements FlCleanableService {
   private snackBarService = inject(FlSnackBarService);
   private readonly userRoute: string = 'user';
   private userAuthenticated: HaUser;
-  public userSubject: BehaviorSubject<HaUser> = new BehaviorSubject<HaUser>(null);
+  public userSubject: BehaviorSubject<HaUser | undefined> = new BehaviorSubject<HaUser | undefined>(undefined);
   private request: any;
 
   constructor() {

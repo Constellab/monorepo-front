@@ -15,7 +15,7 @@ import { ClStringHelper } from '@monorepo/core-lib';
 import { TdTypeEntity } from '@monorepo/technical-doc';
 import { TeBlockHeaderData, TeBlockHeaderLevel } from '@monorepo/text-editor';
 import { plainToInstance } from 'class-transformer';
-import { first, Observable, of, tap } from 'rxjs';
+import { filter, first, Observable, of, tap } from 'rxjs';
 
 import { HaFile } from '../../ha-core/entity-module/ha-file-core/model/ha-file';
 import { HaBrick } from '../../ha-core/ha-model/ha-entities/ha-brick.class';
@@ -304,13 +304,16 @@ export class HaBrickPageState {
   }
 
   private initUserHasEditRight(brick: HaBrick): void {
-    this.authenticatedUserService.getUser().pipe(first()).subscribe((user: HaUser) => {
-      if (user) {
-        this.checkUserRights(brick);
-      } else {
-        this._userHasEditRight.set(false);
-      }
-    });
+    this.authenticatedUserService
+      .getUser()
+      .pipe(filter(user => user !== undefined), first())
+      .subscribe((user: HaUser) => {
+        if (user) {
+          this.checkUserRights(brick);
+        } else {
+          this._userHasEditRight.set(false);
+        }
+      });
   }
 
   private checkUserRights(brick: HaBrick): void {
