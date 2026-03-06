@@ -1,14 +1,21 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
+import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import {
+  LiCreateTriggeredJobFromTemplateDTO,
+  LiTriggeredJob,
   LiTriggeredJobArrayObs,
   LiTriggeredJobService,
 } from '@monorepo/lab-lib/li-core';
-import { LiTriggeredJobTableComponent } from '@monorepo/lab-lib/li-triggered-job';
+import {
+  LiTriggeredJobFormDialogComponent,
+  LiTriggeredJobTableComponent,
+} from '@monorepo/lab-lib/li-triggered-job';
 import { TranslatePipe } from '@ngx-translate/core';
 import { Observable, share } from 'rxjs';
 
@@ -19,6 +26,7 @@ import { Observable, share } from 'rxjs';
   imports: [
     FlTextIconModule,
     MatIcon,
+    MatButton,
     TranslatePipe,
     FlCardModule,
     FlSectionModule,
@@ -27,6 +35,7 @@ import { Observable, share } from 'rxjs';
 })
 export class LabMonitoringJobsPageComponent implements OnInit {
   private triggeredJobService = inject(LiTriggeredJobService);
+  private dialogService = inject(FlDialogService);
 
   jobs$: Observable<any>;
   jobsList: LiTriggeredJobArrayObs;
@@ -34,5 +43,18 @@ export class LabMonitoringJobsPageComponent implements OnInit {
   ngOnInit(): void {
     this.jobs$ = this.triggeredJobService.getAll().pipe(share());
     this.jobsList = new LiTriggeredJobArrayObs(this.jobs$);
+  }
+
+  openCreateJobDialog(): void {
+    const input: FlFormDialogInput<LiCreateTriggeredJobFromTemplateDTO> = { mode: 'create' };
+
+    this.dialogService
+      .openSmallDialog(LiTriggeredJobFormDialogComponent, { data: input, panelClass: 'g-dialog-allow-overflow' })
+      .afterClosed()
+      .subscribe((job: LiTriggeredJob) => {
+        if (job) {
+          this.jobsList.addItem(job);
+        }
+      });
   }
 }

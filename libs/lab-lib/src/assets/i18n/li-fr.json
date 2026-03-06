@@ -524,6 +524,9 @@
     "job_delete_confirmation": "Êtes-vous sûr de vouloir supprimer ce job ?",
     "job_deleted": "Job supprimé",
     "job_run_manual": "Exécuter manuellement",
-    "job_run_manual_success": "Job déclenché avec succès"
+    "job_run_manual_success": "Job déclenché avec succès",
+    "job_create": "Créer un job",
+    "job_created": "Job créé avec succès",
+    "job_select_scenario_template": "Sélectionner un modèle de scénario"
   }
 }

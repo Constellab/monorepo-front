@@ -1,0 +1,70 @@
+<fl-dialog-header>
+  {{ title | translate }}
+</fl-dialog-header>
+
+<mat-dialog-content>
+  <form (ngSubmit)="submit()" id="triggered-job-form" [formGroup]="formGp">
+    <!--  Scenario Template  -->
+    <fl-form-field class="g-form-input">
+      <li-select-scenario-template
+        formControlName="scenarioTemplate"
+        [placeholder]="'li.job_select_scenario_template' | translate"
+        (valueChange)="onTemplateSelected($event)"></li-select-scenario-template>
+    </fl-form-field>
+
+    <!--  Name  -->
+    <mat-form-field class="g-form-input">
+      <mat-label>{{ 'li.name' | translate }}</mat-label>
+      <input
+        matInput
+        formControlName="name"
+        required
+        flInputMaxLength="255"
+        placeholder="{{ 'li.name' | translate }}" />
+      @if (formGp.get('name').hasError('required')) {
+        <mat-error>{{ 'li.name' | flErrorRequired }}</mat-error>
+      }
+    </mat-form-field>
+
+    <!--  Description  -->
+    <mat-form-field class="g-form-input">
+      <mat-label>{{ 'li.description' | translate }}</mat-label>
+      <textarea
+        matInput
+        formControlName="description"
+        placeholder="{{ 'li.description' | translate }}"
+        rows="3"></textarea>
+    </mat-form-field>
+
+    <!--  Cron Expression  -->
+    <mat-form-field class="g-form-input">
+      <mat-label>{{ 'li.job_cron_expression' | translate }}</mat-label>
+      <input
+        matInput
+        formControlName="cronExpression"
+        required
+        placeholder="0 0 * * *" />
+      @if (formGp.get('cronExpression').hasError('required')) {
+        <mat-error>{{ 'li.job_cron_expression' | flErrorRequired }}</mat-error>
+      }
+    </mat-form-field>
+
+    <!--  Active  -->
+    <mat-slide-toggle formControlName="isActive">
+      @if (formGp.get('isActive').value) {
+        <span class="status-active">{{ 'li.job_active_yes' | translate }}</span>
+      } @else {
+        <span class="status-inactive">{{ 'li.job_active_no' | translate }}</span>
+      }
+    </mat-slide-toggle>
+  </form>
+</mat-dialog-content>
+
+<div mat-dialog-actions>
+  <button mat-flat-button type="submit" form="triggered-job-form" class="g-centered-forced primary">
+    {{ 'li.save' | translate }}
+    @if (isLoading) {
+      <fl-button-loader></fl-button-loader>
+    }
+  </button>
+</div>

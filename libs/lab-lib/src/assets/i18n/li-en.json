@@ -524,6 +524,9 @@
     "job_delete_confirmation": "Are you sure you want to delete this job ?",
     "job_deleted": "Job deleted",
     "job_run_manual": "Run manually",
-    "job_run_manual_success": "Job triggered successfully"
+    "job_run_manual_success": "Job triggered successfully",
+    "job_create": "Create job",
+    "job_created": "Job created successfully",
+    "job_select_scenario_template": "Select a scenario template"
   }
 }

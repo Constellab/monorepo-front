@@ -75,6 +75,14 @@ export class LiTriggeredJob extends LiBaseEntityWithUser {
   lastRun: LiTriggeredJobRun | null;
 }
 
+export class LiCreateTriggeredJobFromTemplateDTO {
+  scenario_template_id: string;
+  name: string;
+  description: string | null;
+  cron_expression: string;
+  is_active: boolean;
+}
+
 export class LiTriggeredJobArrayObs extends FlArrayObs<LiTriggeredJob> {
   protected equals(a: LiTriggeredJob, b: LiTriggeredJob): boolean {
     return a.id === b.id;
