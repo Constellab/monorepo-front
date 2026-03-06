@@ -509,6 +509,21 @@
     "spec": "Spec",
     "delete_tag_value_content": "Are you sure you want to delete the tag value ? This will also delete all the objects that use this tag value.",
     "warnings": "Warnings",
-    "apps": "Apps"
+    "apps": "Apps",
+    "job_trigger_type": "Trigger type",
+    "job_active": "Status",
+    "job_active_yes": "Active",
+    "job_active_no": "Inactive",
+    "job_cron_expression": "Cron expression",
+    "job_next_run": "Next run",
+    "job_last_run_status": "Last run status",
+    "job_last_run_at": "Last run",
+    "job_activate": "Activate",
+    "job_deactivate": "Deactivate",
+    "job_delete": "Delete job",
+    "job_delete_confirmation": "Are you sure you want to delete this job ?",
+    "job_deleted": "Job deleted",
+    "job_run_manual": "Run manually",
+    "job_run_manual_success": "Job triggered successfully"
   }
 }

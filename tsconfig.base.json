@@ -254,6 +254,9 @@
       "@monorepo/lab-lib/li-transformer": [
         "libs/lab-lib/src/lib/li-transformer/index.ts"
       ],
+      "@monorepo/lab-lib/li-triggered-job": [
+        "libs/lab-lib/src/lib/li-triggered-job/index.ts"
+      ],
       "@monorepo/lab-lib/li-type": [
         "libs/lab-lib/src/lib/li-type/index.ts"
       ],

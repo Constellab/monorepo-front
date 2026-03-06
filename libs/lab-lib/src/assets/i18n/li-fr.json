@@ -509,6 +509,21 @@
     "spec": "Spécification",
     "delete_tag_value_content": "Êtes-vous sûr de vouloir supprimer cette valeur de tag ? La valeur sera supprimée de tous les objets qui l'utilisent.",
     "warnings": "Avertissements",
-    "apps": "Apps"
+    "apps": "Apps",
+    "job_trigger_type": "Type de déclencheur",
+    "job_active": "Statut",
+    "job_active_yes": "Actif",
+    "job_active_no": "Inactif",
+    "job_cron_expression": "Expression cron",
+    "job_next_run": "Prochaine exécution",
+    "job_last_run_status": "Statut du dernier run",
+    "job_last_run_at": "Dernier run",
+    "job_activate": "Activer",
+    "job_deactivate": "Désactiver",
+    "job_delete": "Supprimer le job",
+    "job_delete_confirmation": "Êtes-vous sûr de vouloir supprimer ce job ?",
+    "job_deleted": "Job supprimé",
+    "job_run_manual": "Exécuter manuellement",
+    "job_run_manual_success": "Job déclenché avec succès"
   }
 }

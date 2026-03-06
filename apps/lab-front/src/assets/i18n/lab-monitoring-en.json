@@ -92,6 +92,9 @@
     "start_logs_no_errors": "No errors found",
     "nginx_config": "Download Nginx config",
     "nginx_access_log": "Download Nginx access log",
-    "nginx_error_log": "Download Nginx error log"
+    "nginx_error_log": "Download Nginx error log",
+    "jobs": "Jobs",
+    "jobs_list": "Jobs list",
+    "delete_all_jobs": "Delete all jobs"
   }
 }

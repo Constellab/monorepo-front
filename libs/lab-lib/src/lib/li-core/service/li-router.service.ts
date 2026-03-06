@@ -134,6 +134,10 @@ export class LiRouterService {
     return `${LiRouterService.getMonitoringRoute()}/activity`;
   }
 
+  public static getMonitoringJobsRoute(): string {
+    return `${LiRouterService.getMonitoringRoute()}/jobs`;
+  }
+
   public static getOtherRoute(): string {
     return `${LiRouterService.getMonitoringRoute()}/other`;
   }
