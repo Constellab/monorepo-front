@@ -6,6 +6,7 @@
   [required]="required"
   [disabled]="disabled"
   [minInputSearchLength]="0"
+  [initSearchOnFocus]="true"
   [advancedButton]="advancedButton"
   (inputBlur)="markAsTouched()">
   <td-type-inline *flInputSearchOption="datasource as type" [text]="type.humanName" [style]="type.style">
