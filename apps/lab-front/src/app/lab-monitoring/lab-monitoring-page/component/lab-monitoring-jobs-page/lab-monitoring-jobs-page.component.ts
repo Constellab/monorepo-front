@@ -1,8 +1,8 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
-import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
+import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
@@ -37,7 +37,7 @@ export class LabMonitoringJobsPageComponent implements OnInit {
   private triggeredJobService = inject(LiTriggeredJobService);
   private dialogService = inject(FlDialogService);
 
-  jobs$: Observable<any>;
+  jobs$: Observable<LiTriggeredJob[]>;
   jobsList: LiTriggeredJobArrayObs;
 
   ngOnInit(): void {
@@ -49,7 +49,10 @@ export class LabMonitoringJobsPageComponent implements OnInit {
     const input: FlFormDialogInput<LiCreateTriggeredJobFromTemplateDTO> = { mode: 'create' };
 
     this.dialogService
-      .openSmallDialog(LiTriggeredJobFormDialogComponent, { data: input, panelClass: 'g-dialog-allow-overflow' })
+      .openSmallDialog(LiTriggeredJobFormDialogComponent, {
+        data: input,
+        panelClass: 'g-dialog-allow-overflow',
+      })
       .afterClosed()
       .subscribe((job: LiTriggeredJob) => {
         if (job) {

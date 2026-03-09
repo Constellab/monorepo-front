@@ -95,7 +95,6 @@
     "nginx_error_log": "Download Nginx error log",
     "jobs": "Jobs",
     "jobs_list": "Jobs list",
-    "delete_all_jobs": "Delete all jobs",
     "job_create": "Create job"
   }
 }

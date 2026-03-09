@@ -95,7 +95,6 @@
     "nginx_error_log": "Télécharger le log d'erreur Nginx",
     "jobs": "Jobs",
     "jobs_list": "Liste des jobs",
-    "delete_all_jobs": "Supprimer tous les jobs",
     "job_create": "Créer un job"
   }
 }
