@@ -1,0 +1,112 @@
+<mat-table [dataSource]="datasource">
+  <!-- Name -->
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef>
+      {{ 'li.name' | translate }}
+    </mat-header-cell>
+    <mat-cell *matCellDef="let job">
+      {{ job.name }}
+    </mat-cell>
+  </ng-container>
+
+  <!-- Trigger type -->
+  <ng-container matColumnDef="triggerType">
+    <mat-header-cell *matHeaderCellDef>
+      {{ 'li.job_trigger_type' | translate }}
+    </mat-header-cell>
+    <mat-cell *matCellDef="let job">
+      {{ job.triggerType }}
+    </mat-cell>
+  </ng-container>
+
+  <!-- Active -->
+  <ng-container matColumnDef="isActive">
+    <mat-header-cell *matHeaderCellDef>
+      {{ 'li.job_active' | translate }}
+    </mat-header-cell>
+    <mat-cell *matCellDef="let job">
+      <span class="job-status-badge" [class.active]="job.isActive" [class.inactive]="!job.isActive">
+        {{ (job.isActive ? 'li.job_active_yes' : 'li.job_active_no') | translate }}
+      </span>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Cron expression -->
+  <ng-container matColumnDef="cronExpression">
+    <mat-header-cell *matHeaderCellDef>
+      {{ 'li.job_cron_expression' | translate }}
+    </mat-header-cell>
+    <mat-cell *matCellDef="let job">
+      @if (job.cronExpression) {
+        <code>{{ job.cronExpression }}</code>
+      }
+    </mat-cell>
+  </ng-container>
+
+  <!-- Next run -->
+  <ng-container matColumnDef="nextRunAt">
+    <mat-header-cell *matHeaderCellDef>
+      {{ 'li.job_next_run' | translate }}
+    </mat-header-cell>
+    <mat-cell *matCellDef="let job">
+      @if (job.nextRunAt) {
+        <fl-from-now [date]="job.nextRunAt"></fl-from-now>
+      }
+    </mat-cell>
+  </ng-container>
+
+  <!-- Last run status -->
+  <ng-container matColumnDef="lastRunStatus">
+    <mat-header-cell *matHeaderCellDef>
+      {{ 'li.job_last_run_status' | translate }}
+    </mat-header-cell>
+    <mat-cell *matCellDef="let job">
+      @if (job.lastRun) {
+        <span class="job-status-badge" [ngClass]="'run-' + job.lastRun.status.toLowerCase()">
+          {{ job.lastRun.status }}
+        </span>
+      }
+    </mat-cell>
+  </ng-container>
+
+  <!-- Last run date -->
+  <ng-container matColumnDef="lastRunAt">
+    <mat-header-cell *matHeaderCellDef>
+      {{ 'li.job_last_run_at' | translate }}
+    </mat-header-cell>
+    <mat-cell *matCellDef="let job">
+      @if (job.lastRun) {
+        <fl-from-now [date]="job.lastRun.startedAt"></fl-from-now>
+      }
+    </mat-cell>
+  </ng-container>
+
+  <!-- Actions -->
+  <ng-container matColumnDef="actions">
+    <mat-header-cell class="g-table-icon-button-cell" *matHeaderCellDef></mat-header-cell>
+    <mat-cell class="g-table-icon-button-cell" *matCellDef="let row">
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu" xPosition="before">
+        <button mat-menu-item type="button" (click)="toggleJobActive(row)">
+          <mat-icon>{{ row.isActive ? 'pause' : 'play_arrow' }}</mat-icon>
+          <span>{{ (row.isActive ? 'li.job_deactivate' : 'li.job_activate') | translate }}</span>
+        </button>
+
+        <button mat-menu-item type="button" (click)="runManual(row)">
+          <mat-icon>play_circle</mat-icon>
+          <span>{{ 'li.job_run_manual' | translate }}</span>
+        </button>
+
+        <button mat-menu-item type="button" (click)="openDeleteJobDialog(row)" class="warn">
+          <mat-icon>clear</mat-icon>
+          <span>{{ 'li.job_delete' | translate }}</span>
+        </button>
+      </mat-menu>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: columns"></mat-row>
+</mat-table>

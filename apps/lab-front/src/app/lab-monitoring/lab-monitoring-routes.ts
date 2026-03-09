@@ -54,6 +54,13 @@ export const labMonitoringRoutes: Routes = [
           ).then((m) => m.LabMonitoringActivityPageComponent),
       },
       {
+        path: 'jobs',
+        loadComponent: () =>
+          import(
+            './lab-monitoring-page/component/lab-monitoring-jobs-page/lab-monitoring-jobs-page.component'
+          ).then((m) => m.LabMonitoringJobsPageComponent),
+      },
+      {
         path: 'other',
         loadComponent: () =>
           import(

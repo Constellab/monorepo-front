@@ -1,0 +1,38 @@
+.job-status-badge {
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+
+  &.active {
+    background-color: var(--primary-color);
+    color: var(--primary-color-contrast);
+  }
+
+  &.inactive {
+    background-color: var(--warn-color);
+    color: var(--warn-color-contrast);
+  }
+
+  &.run-success {
+    background-color: var(--primary-color);
+    color: var(--primary-color-contrast);
+  }
+
+  &.run-error {
+    background-color: var(--warn-color);
+    color: var(--warn-color-contrast);
+  }
+
+  &.run-running {
+    background-color: var(--accent-color);
+    color: var(--accent-color-contrast);
+  }
+}
+
+code {
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+  background-color: rgba(0, 0, 0, 0.05);
+}

@@ -92,6 +92,9 @@
     "start_logs_no_errors": "Aucune erreur trouvée",
     "nginx_config": "Télécharger la config Nginx",
     "nginx_access_log": "Télécharger le log d'accès Nginx",
-    "nginx_error_log": "Télécharger le log d'erreur Nginx"
+    "nginx_error_log": "Télécharger le log d'erreur Nginx",
+    "jobs": "Jobs",
+    "jobs_list": "Liste des jobs",
+    "job_create": "Créer un job"
   }
 }

@@ -49,6 +49,11 @@ export class LabMonitoringPageComponent {
       route: LiRouterService.getMonitoringActivityRoute(),
     },
     {
+      label: { text: 'monitoring.jobs', translateText: true },
+      icon: 'work',
+      route: LiRouterService.getMonitoringJobsRoute(),
+    },
+    {
       label: { text: 'monitoring.other', translateText: true },
       icon: 'source',
       route: LiRouterService.getOtherRoute(),
