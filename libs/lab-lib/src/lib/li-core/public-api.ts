@@ -3,7 +3,7 @@
  * Exports all TypeScript files from li-core
  */
 
-export * from './component/li-error-detail/li-error-detail.component';
+export * from './component/li-error-snack-bar/li-error-snack-bar.component';
 export * from './entity-service/li-bio-network.service';
 export * from './entity-service/li-brick.service';
 export * from './entity-service/li-file-resource.service';

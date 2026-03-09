@@ -1,13 +1,13 @@
 import { ComponentType } from '@angular/cdk/overlay';
 import { isPlatformServer } from '@angular/common';
-import { inject,Injectable, PLATFORM_ID } from '@angular/core';
+import { inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { MatSnackBar, MatSnackBarConfig, MatSnackBarRef } from '@angular/material/snack-bar';
 import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
 
 import { FlSnackBarInfoComponent } from './component/fl-snack-bar-info/fl-snack-bar-info.component';
 import {
+  FL_SNACKBAR_ADDITIONAL_CONFIG_DEFAULT,
   FlSnackBarAdditionalConfig,
-  flSnackBarAdditionalConfigDefault,
   FlSnackBarInfoInput,
 } from './model/fl-snack-bar.class';
 
@@ -28,7 +28,7 @@ export class FlSnackBarService {
   public openSuccessMessage(
     message: FlTranslatableText,
     duration: number = 3000,
-    additionalConfig: FlSnackBarAdditionalConfig = flSnackBarAdditionalConfigDefault
+    additionalConfig: FlSnackBarAdditionalConfig = FL_SNACKBAR_ADDITIONAL_CONFIG_DEFAULT
   ): MatSnackBarRef<FlSnackBarInfoComponent> {
     return this.openSnackBarInfo(
       {
@@ -50,7 +50,7 @@ export class FlSnackBarService {
   public openErrorMessage(
     message: FlTranslatableText,
     duration: number = null,
-    additionalConfig: FlSnackBarAdditionalConfig = flSnackBarAdditionalConfigDefault
+    additionalConfig: FlSnackBarAdditionalConfig = FL_SNACKBAR_ADDITIONAL_CONFIG_DEFAULT
   ): MatSnackBarRef<FlSnackBarInfoComponent> {
     return this.openSnackBarInfo(
       {

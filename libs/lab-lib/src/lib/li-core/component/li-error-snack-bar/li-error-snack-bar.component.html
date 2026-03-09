@@ -1,0 +1,22 @@
+<div class="g-layout-row g-layout-between-center g-full-height">
+  <div
+    class="message g-text-dense-height"
+    [ngClass]="showAsSuccess ? 'g-primary-contrast' : 'g-warn-contrast'">
+    {{ text }}
+  </div>
+
+  @if (showSendToSupport) {
+    <button class="button button-warn" mat-button type="button" (click)="sendToSupport()">
+      {{ 'li.send_to_support' | translate }}
+    </button>
+  }
+
+  <button
+    class="button"
+    [ngClass]="showAsSuccess ? 'button-success' : 'button-warn'"
+    mat-button
+    type="button"
+    (click)="close()">
+    {{ 'flSnackBar.ok' | translate }}
+  </button>
+</div>

@@ -3,19 +3,17 @@ import { FlLangTranslation, FlTranslateObject } from '@monorepo/front-core-lib/f
 
 const flTradFr: FlLangTranslation = {
   flSnackBar: {
-    details: 'Détail',
-    ok : 'Ok',
+    ok: 'Ok',
   },
 };
 
 const flTradEn: FlLangTranslation = {
   flSnackBar: {
-    details: 'Details',
-    ok : 'Ok',
+    ok: 'Ok',
   },
 };
 
-export const flSnackBarI18n: FlTranslateObject = {
+export const FL_SNACK_BAR_I18N: FlTranslateObject = {
   [ClSupportedLanguage.en]: flTradEn,
   [ClSupportedLanguage.fr]: flTradFr,
 };

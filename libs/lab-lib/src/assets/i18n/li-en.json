@@ -76,6 +76,9 @@
     "view_type": "View type",
     "view_include_not_favorite": "Include not favorite views",
     "connection_lost": "The connection has been lost",
+    "send_to_support": "Send to support",
+    "error_sent_to_support": "Error sent to support",
+    "error_send_to_support_failed": "Failed to send error to support",
     "credentials_with_same_name_exist": "Some credentials with the same name exist",
     "credentials_type": "Credentials type",
     "type": "Type",
@@ -108,6 +111,8 @@
     "view_logs": "View logs",
     "log_download": "Download file",
     "log_download_json": "Download log as json file",
+    "log_instance_id": "Error unique id",
+    "log_request_id": "Request id",
     "from_date": "From date",
     "to_date": "To date",
     "download_logs": "Download logs",
@@ -527,6 +532,7 @@
     "job_run_manual_success": "Job triggered successfully",
     "job_create": "Create job",
     "job_created": "Job created successfully",
-    "job_select_scenario_template": "Select a scenario template"
+    "job_select_scenario_template": "Select a scenario template",
+    "request_id": "Request id"
   }
 }

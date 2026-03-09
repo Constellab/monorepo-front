@@ -76,6 +76,9 @@
     "view_type": "Type de vue",
     "view_include_not_favorite": "Inclure les vues non favorites",
     "connection_lost": "La connexion a été perdue",
+    "send_to_support": "Envoyer au support",
+    "error_sent_to_support": "Erreur envoyée au support",
+    "error_send_to_support_failed": "Échec de l'envoi de l'erreur au support",
     "credentials_with_same_name_exist": "Des identifiants avec le même nom existent",
     "credentials_type": "Type d'identifiants",
     "type": "Type",
@@ -108,6 +111,8 @@
     "view_logs": "Voir les logs",
     "log_download": "Télécharger le fichier",
     "log_download_json": "Télécharger le log au format json",
+    "log_instance_id": "Id unique de l'erreur",
+    "log_request_id": "Id de la requête",
     "from_date": "Depuis",
     "to_date": "Jusqu'à",
     "download_logs": "Télécharger les logs",
@@ -527,6 +532,7 @@
     "job_run_manual_success": "Job déclenché avec succès",
     "job_create": "Créer un job",
     "job_created": "Job créé avec succès",
-    "job_select_scenario_template": "Sélectionner un modèle de scénario"
+    "job_select_scenario_template": "Sélectionner un modèle de scénario",
+    "request_id": "Id de la requête"
   }
 }
