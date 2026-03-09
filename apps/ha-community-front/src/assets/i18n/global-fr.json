@@ -231,6 +231,7 @@
   "brick_name": "Nom de la brique",
   "replace_version_text": "Cette action remplacera une version existante",
   "file_wrong_type": "Le fichier importé n’est pas un fichier json valide",
+  "file_invalid_json": "Le fichier importé contient du JSON invalide",
   "file_wrong_brick_or_major": "Mauvaise brique ou version majeure",
   "file_wrong_format": "Le fichier importé n’est pas au bon format",
   "brick_already_exists": "La brique référencée dans le fichier 'settings.json' existe déjà",

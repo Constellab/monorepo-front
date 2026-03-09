@@ -102,7 +102,15 @@ export class HaAddVersionDialogComponent
       const reader = new FileReader();
 
       reader.onload = (e: any) => {
-        const srcResult = JSON.parse(e.target.result);
+        let srcResult: any;
+        try {
+          srcResult = JSON.parse(e.target.result);
+        } catch {
+          this.isLoadingImport = false;
+          this.errorFile = true;
+          this.errorFileText = 'file_invalid_json';
+          return;
+        }
         if ((srcResult as HaNewVersionFile) && this.isSettingJson(srcResult)) {
           this.brickService.isActualBrickAndNewVersion(srcResult.name, srcResult.version).subscribe((res) => {
             if (res.sameBrick) {
