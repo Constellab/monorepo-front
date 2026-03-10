@@ -1,10 +1,14 @@
-import { inject,Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { ClDateHelper } from '@monorepo/core-lib';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { DateTime } from 'luxon';
 import { Observable } from 'rxjs';
 
-import { LiCurrentMonitorDTO, LiMonitorGraphicsBetweenDates } from '../model/entities/li-monitor.entity';
+import {
+  LiCurrentMonitorDTO,
+  LiDiskFolderSizesDTO,
+  LiMonitorGraphicsBetweenDates,
+} from '../model/entities/li-monitor.entity';
 
 @Injectable({
   providedIn: 'root',
@@ -32,5 +36,9 @@ export class LiMonitorService {
       },
       LiMonitorGraphicsBetweenDates
     );
+  }
+
+  public getFolderSizes(): Observable<LiDiskFolderSizesDTO> {
+    return this.apiService.get(`${this.route}/folder-sizes`, LiDiskFolderSizesDTO);
   }
 }

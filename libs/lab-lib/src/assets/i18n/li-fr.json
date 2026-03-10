@@ -533,6 +533,14 @@
     "job_create": "Créer un job",
     "job_created": "Job créé avec succès",
     "job_select_scenario_template": "Sélectionner un modèle de scénario",
-    "request_id": "Id de la requête"
+    "request_id": "Id de la requête",
+    "folder_sizes": "Tailles des dossiers",
+    "folder_sizes_details": "Détails",
+    "folder_sizes_total": "Total",
+    "folder_sizes_loading": "Calcul des tailles des dossiers, cela peut prendre un moment...",
+    "folder_sizes_name": "Nom",
+    "folder_sizes_size": "Taille",
+    "folder_sizes_path": "Chemin",
+    "folder_sizes_error": "Erreur"
   }
 }

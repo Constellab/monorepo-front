@@ -1,0 +1,22 @@
+.error {
+  color: var(--warn-color);
+}
+
+.total {
+  margin-bottom: 16px;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px;
+}
+
+.loading-text {
+  margin-top: 16px;
+}
+
+table {
+  width: 100%;
+}

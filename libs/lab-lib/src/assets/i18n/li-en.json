@@ -533,6 +533,14 @@
     "job_create": "Create job",
     "job_created": "Job created successfully",
     "job_select_scenario_template": "Select a scenario template",
-    "request_id": "Request id"
+    "request_id": "Request id",
+    "folder_sizes": "Folder sizes",
+    "folder_sizes_details": "Details",
+    "folder_sizes_total": "Total",
+    "folder_sizes_loading": "Calculating folder sizes, this may take a moment...",
+    "folder_sizes_name": "Name",
+    "folder_sizes_size": "Size",
+    "folder_sizes_path": "Path",
+    "folder_sizes_error": "Error"
   }
 }
