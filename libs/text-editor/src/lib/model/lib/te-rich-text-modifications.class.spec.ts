@@ -325,7 +325,7 @@ describe('TeRichTextModifications', () => {
       expect(modifications.getModifications()[0].blockId).toBe('block-2');
     });
 
-    it('should filter out slash command modifications', () => {
+    it('should keep slash content modifications', () => {
       const slashModification = new TeRichTextBlockModification(
         mockBlockId,
         TeBlockType.PARAGRAPH,
@@ -348,8 +348,7 @@ describe('TeRichTextModifications', () => {
 
       modifications.fusion(newModifications);
 
-      expect(modifications.getModifications()).toHaveLength(1);
-      expect(modifications.getModifications()[0].blockId).toBe('other-block');
+      expect(modifications.getModifications()).toHaveLength(2);
     });
   });
 
@@ -568,6 +567,172 @@ describe('TeRichTextModifications', () => {
 
         expect(modifications.getLastRedoModification().id).toBe('mod-1');
       });
+    });
+  });
+
+  describe('getFirstModificationOfLastGroup', () => {
+    it('should return null for empty modifications', () => {
+      const modifications = new TeRichTextModifications();
+
+      expect(modifications.getFirstModificationOfLastGroup()).toBeNull();
+    });
+
+    it('should return the last modification when it has no groupId', () => {
+      const mod1 = new TeRichTextBlockModification(
+        'block-1', TeBlockType.PARAGRAPH, TeRichTextModificationType.CREATED, 0, mockUserId, 'mod-1'
+      );
+      const mod2 = new TeRichTextBlockModification(
+        'block-2', TeBlockType.PARAGRAPH, TeRichTextModificationType.CREATED, 1, mockUserId, 'mod-2'
+      );
+      const modifications = new TeRichTextModifications([mod1, mod2]);
+
+      const result = modifications.getFirstModificationOfLastGroup();
+
+      expect(result.id).toBe('mod-2');
+    });
+
+    it('should return the first modification of the last group', () => {
+      const groupId = 'group-1';
+      const mod1 = new TeRichTextBlockModification(
+        'block-1', TeBlockType.PARAGRAPH, TeRichTextModificationType.CREATED, 0, mockUserId, 'mod-1'
+      );
+      const mod2 = new TeRichTextBlockModification(
+        'block-2', TeBlockType.PARAGRAPH, TeRichTextModificationType.DELETED, 1, mockUserId, 'mod-2',
+        undefined, groupId
+      );
+      const mod3 = new TeRichTextBlockModification(
+        'block-3', TeBlockType.PARAGRAPH, TeRichTextModificationType.CREATED, 0, mockUserId, 'mod-3',
+        undefined, groupId
+      );
+      const modifications = new TeRichTextModifications([mod1, mod2, mod3]);
+
+      const result = modifications.getFirstModificationOfLastGroup();
+
+      expect(result.id).toBe('mod-2');
+    });
+
+    it('should distinguish different groups', () => {
+      const mod1 = new TeRichTextBlockModification(
+        'block-1', TeBlockType.PARAGRAPH, TeRichTextModificationType.CREATED, 0, mockUserId, 'mod-1',
+        undefined, 'group-A'
+      );
+      const mod2 = new TeRichTextBlockModification(
+        'block-2', TeBlockType.PARAGRAPH, TeRichTextModificationType.CREATED, 1, mockUserId, 'mod-2',
+        undefined, 'group-B'
+      );
+      const modifications = new TeRichTextModifications([mod1, mod2]);
+
+      const result = modifications.getFirstModificationOfLastGroup();
+
+      expect(result.id).toBe('mod-2');
+    });
+  });
+
+  describe('getLastRedoGroup', () => {
+    it('should return empty array when no redo modifications exist', () => {
+      const modifications = new TeRichTextModifications();
+
+      expect(modifications.getLastRedoGroup()).toEqual([]);
+    });
+
+    it('should return single modification when last redo has no groupId', () => {
+      const mod1 = new TeRichTextBlockModification(
+        'block-1', TeBlockType.PARAGRAPH, TeRichTextModificationType.CREATED, 0, mockUserId, 'mod-1'
+      );
+      const mod2 = new TeRichTextBlockModification(
+        'block-2', TeBlockType.PARAGRAPH, TeRichTextModificationType.CREATED, 1, mockUserId, 'mod-2'
+      );
+      const modifications = new TeRichTextModifications([mod1, mod2]);
+      modifications.removeModificationsAfterUndo('mod-1');
+
+      const result = modifications.getLastRedoGroup();
+
+      expect(result).toHaveLength(1);
+      expect(result[0].id).toBe('mod-2');
+    });
+
+    it('should return all modifications with the same groupId at the end of redo stack', () => {
+      const groupId = 'group-1';
+      const mod1 = new TeRichTextBlockModification(
+        'block-1', TeBlockType.PARAGRAPH, TeRichTextModificationType.CREATED, 0, mockUserId, 'mod-1'
+      );
+      const mod2 = new TeRichTextBlockModification(
+        'block-2', TeBlockType.PARAGRAPH, TeRichTextModificationType.DELETED, 1, mockUserId, 'mod-2',
+        undefined, groupId
+      );
+      const mod3 = new TeRichTextBlockModification(
+        'block-3', TeBlockType.PARAGRAPH, TeRichTextModificationType.CREATED, 0, mockUserId, 'mod-3',
+        undefined, groupId
+      );
+      const modifications = new TeRichTextModifications([mod1, mod2, mod3]);
+      modifications.removeModificationsAfterUndo('mod-2');
+
+      const result = modifications.getLastRedoGroup();
+
+      expect(result).toHaveLength(2);
+      expect(result[0].id).toBe('mod-2');
+      expect(result[1].id).toBe('mod-3');
+    });
+
+    it('should stop at different groupId boundary', () => {
+      const mod1 = new TeRichTextBlockModification(
+        'block-1', TeBlockType.PARAGRAPH, TeRichTextModificationType.CREATED, 0, mockUserId, 'mod-1',
+        undefined, 'group-A'
+      );
+      const mod2 = new TeRichTextBlockModification(
+        'block-2', TeBlockType.PARAGRAPH, TeRichTextModificationType.CREATED, 1, mockUserId, 'mod-2',
+        undefined, 'group-B'
+      );
+      const modifications = new TeRichTextModifications([mod1, mod2]);
+      modifications.removeModificationsAfterUndo('mod-1');
+
+      const result = modifications.getLastRedoGroup();
+
+      expect(result).toHaveLength(1);
+      expect(result[0].id).toBe('mod-2');
+    });
+  });
+
+  describe('removeLastRedoGroup', () => {
+    it('should remove all modifications of the last redo group', () => {
+      const groupId = 'group-1';
+      const mod1 = new TeRichTextBlockModification(
+        'block-1', TeBlockType.PARAGRAPH, TeRichTextModificationType.CREATED, 0, mockUserId, 'mod-1'
+      );
+      const mod2 = new TeRichTextBlockModification(
+        'block-2', TeBlockType.PARAGRAPH, TeRichTextModificationType.DELETED, 1, mockUserId, 'mod-2',
+        undefined, groupId
+      );
+      const mod3 = new TeRichTextBlockModification(
+        'block-3', TeBlockType.PARAGRAPH, TeRichTextModificationType.CREATED, 0, mockUserId, 'mod-3',
+        undefined, groupId
+      );
+      const modifications = new TeRichTextModifications([mod1, mod2, mod3]);
+      modifications.removeModificationsAfterUndo('mod-2');
+
+      modifications.removeLastRedoGroup();
+
+      expect(modifications.getLastRedoModification()).toBeNull();
+    });
+
+    it('should remove only one modification when no groupId', () => {
+      const mod1 = new TeRichTextBlockModification(
+        'block-1', TeBlockType.PARAGRAPH, TeRichTextModificationType.CREATED, 0, mockUserId, 'mod-1'
+      );
+      const mod2 = new TeRichTextBlockModification(
+        'block-2', TeBlockType.PARAGRAPH, TeRichTextModificationType.CREATED, 1, mockUserId, 'mod-2'
+      );
+      const mod3 = new TeRichTextBlockModification(
+        'block-3', TeBlockType.PARAGRAPH, TeRichTextModificationType.CREATED, 2, mockUserId, 'mod-3'
+      );
+      const modifications = new TeRichTextModifications([mod1, mod2, mod3]);
+      modifications.removeModificationsAfterUndo('mod-2');
+
+      modifications.removeLastRedoGroup();
+
+      const lastRedo = modifications.getLastRedoModification();
+      expect(lastRedo).toBeDefined();
+      expect(lastRedo.id).toBe('mod-2');
     });
   });
 

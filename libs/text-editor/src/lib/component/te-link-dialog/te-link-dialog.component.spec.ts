@@ -1,5 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
+import { MockFlErrorRequiredPipe, MockTranslatePipe } from '../te-test-helpers';
 import { TeLinkDialogComponent } from './te-link-dialog.component';
 
 describe('CaTextEditorLinkDialogComponent', () => {
@@ -8,11 +11,14 @@ describe('CaTextEditorLinkDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [TeLinkDialogComponent],
+      declarations: [TeLinkDialogComponent, MockTranslatePipe, MockFlErrorRequiredPipe],
+      providers: [
+        { provide: MAT_DIALOG_DATA, useValue: { title: '', isYoutube: false } },
+        { provide: MatDialogRef, useValue: { close: () => {} } },
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
-  });
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(TeLinkDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

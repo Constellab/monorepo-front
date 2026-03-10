@@ -3,7 +3,8 @@ import { BlockToolData } from '@editorjs/editorjs/types/tools/block-tool-data';
 import { ToolboxConfig } from '@editorjs/editorjs/types/tools/tool-settings';
 import { ClStringHelper } from '@monorepo/core-lib';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { TeComponentBlock, TeHelper } from '@monorepo/text-editor';
+import { TeComponentBlock, TeHelper, TeSourceUrlRegistry } from '@monorepo/text-editor';
+import { catchError, EMPTY, from, switchMap } from 'rxjs';
 
 import { HaDocumentationService } from '../../../ha-core/ha-service/ha-documentation.service';
 import { HaDocContentViewComponent } from './ha-doc-content-view/ha-doc-content-view.component';
@@ -40,11 +41,41 @@ export class HaDocContentViewBlock extends TeComponentBlock<HaDocContentViewComp
   initInputs(data: HaDocViewConfig): void {
     this.componentInstance.viewConfig = data;
 
-    // load the view
     const docService = this.envInjector.get(HaDocumentationService);
 
     if (data.filename == null) return;
-    this.componentInstance.view$ = docService.getView(this.additionalData, data.filename);
+
+    // Set source URL attributes for cross-document copy support
+    const viewUrl = docService.getViewUrl(this.additionalData, data.filename);
+    this.htmlElement.setAttribute('data-te-source-url', viewUrl);
+    this.htmlElement.setAttribute('data-te-source-filename', data.filename);
+
+    // Check if a source URL was registered (cross-document paste)
+    const sourceUrl = TeSourceUrlRegistry.consume(data.filename);
+
+    this.componentInstance.view$ = docService.getView(this.additionalData, data.filename).pipe(
+      catchError(() => {
+        if (!sourceUrl) return EMPTY;
+
+        // Re-download from source and re-upload to current document
+        return from(fetch(sourceUrl, { credentials: 'include' }).then((r) => r.blob())).pipe(
+          switchMap((blob) => {
+            const formData = new FormData();
+            formData.append('file', new File([blob], data.filename));
+            return docService.uploadDocResourceViewFile(this.additionalData, formData);
+          }),
+          switchMap((res: any) => {
+            // Update block data with new filename
+            data.filename = res.filename;
+            this.options.data = data;
+            this.htmlElement.setAttribute('data-te-source-filename', res.filename);
+            const newViewUrl = docService.getViewUrl(this.additionalData, res.filename);
+            this.htmlElement.setAttribute('data-te-source-url', newViewUrl);
+            return docService.getView(this.additionalData, res.filename);
+          })
+        );
+      })
+    );
   }
 
   // this is only for read only mode

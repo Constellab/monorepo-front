@@ -36,7 +36,12 @@
       "mcp__rich-text-editor__insert_blocks",
       "mcp__rich-text-editor__upload_document",
       "Bash(grep:*)",
-      "mcp__ide__getDiagnostics"
+      "mcp__ide__getDiagnostics",
+      "Bash(npx tsc --noEmit --project libs/text-editor/tsconfig.lib.json 2>&1 | tail -10)",
+      "Bash(npx tsc --noEmit --project libs/text-editor/tsconfig.lib.json 2>&1 | head -50)",
+      "Bash(cd \"C:/Users/ValentinFOEX/Documents/monorepo-front\" && mv libs/text-editor/src/lib/model/te-figure-source-url-registry.ts libs/text-editor/src/lib/model/te-source-url-registry.ts)",
+      "Bash(cd \"C:/Users/ValentinFOEX/Documents/monorepo-front\" && npx tsc --noEmit --project libs/text-editor/tsconfig.lib.json 2>&1 | head -30)",
+      "Bash(cd \"C:/Users/ValentinFOEX/Documents/monorepo-front\" && npx tsc --noEmit --project apps/ha-community-front/tsconfig.app.json 2>&1 | head -30)"
     ],
     "deny": []
   }

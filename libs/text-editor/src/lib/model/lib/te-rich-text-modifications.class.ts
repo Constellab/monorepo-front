@@ -137,9 +137,7 @@ export class TeRichTextModifications {
         return [];
       }
     }
-    modifications = modifications.filter(
-      (m) => JSON.stringify(m.blockValue) != '{"text":"/"}' && m.type !== TeRichTextModificationType.MOVED
-    );
+    modifications = modifications.filter((m) => m.type !== TeRichTextModificationType.MOVED);
 
     return modifications;
   }
@@ -188,6 +186,24 @@ export class TeRichTextModifications {
     return this.modifications[this.modifications.length - 1];
   }
 
+  /**
+   * Get the first modification of the last group.
+   * If the last modification has a groupId, returns the first modification with the same groupId.
+   * Otherwise, returns the last modification (single modification without group).
+   */
+  public getFirstModificationOfLastGroup(): TeRichTextBlockModification | null {
+    const last = this.getLastModification();
+    if (!last) return null;
+    if (!last.groupId) return last;
+
+    for (let i = 0; i < this.modifications.length; i++) {
+      if (this.modifications[i].groupId === last.groupId) {
+        return this.modifications[i];
+      }
+    }
+    return last;
+  }
+
   public addModification(modification: TeRichTextBlockModification): void {
     this.modifications.push(modification);
   }
@@ -203,6 +219,31 @@ export class TeRichTextModifications {
   public getLastRedoModification(): TeRichTextBlockModification | null {
     if (this.redoModifications.length == 0) return null;
     return this.redoModifications[this.redoModifications.length - 1];
+  }
+
+  /**
+   * Get the last redo group (all modifications at the end of redoModifications with the same groupId).
+   * If the last redo modification has no groupId, returns an array with just that modification.
+   */
+  public getLastRedoGroup(): TeRichTextBlockModification[] {
+    const last = this.getLastRedoModification();
+    if (!last) return [];
+    if (!last.groupId) return [last];
+
+    const group: TeRichTextBlockModification[] = [];
+    for (let i = this.redoModifications.length - 1; i >= 0; i--) {
+      if (this.redoModifications[i].groupId === last.groupId) {
+        group.unshift(this.redoModifications[i]);
+      } else {
+        break;
+      }
+    }
+    return group;
+  }
+
+  public removeLastRedoGroup(): void {
+    const group = this.getLastRedoGroup();
+    this.redoModifications.splice(this.redoModifications.length - group.length, group.length);
   }
 
   private resetRedoModifications(): void {

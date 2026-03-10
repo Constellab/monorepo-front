@@ -1,5 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 
+import { MockTranslatePipe } from '../te-test-helpers';
 import { TeTitleCaptionComponent } from './te-title-caption.component';
 
 describe('CaTextEditorTitleCaptionComponent', () => {
@@ -8,11 +11,13 @@ describe('CaTextEditorTitleCaptionComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [TeTitleCaptionComponent],
+      declarations: [TeTitleCaptionComponent, MockTranslatePipe],
+      providers: [
+        { provide: FlDialogService, useValue: { open: () => {} } },
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
-  });
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(TeTitleCaptionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

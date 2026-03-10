@@ -61,6 +61,34 @@ describe('TeRichTextBlockModification', () => {
       expect(modification.time.toUTC().toISO()).toMatch(/2023-01-01T10:00:00\.000(\+00:00|Z)/);
     });
 
+    it('should create instance with optional groupId parameter', () => {
+      const groupId = 'group-123';
+      const modification = new TeRichTextBlockModification(
+        mockBlockId,
+        TeBlockType.PARAGRAPH,
+        TeRichTextModificationType.CREATED,
+        0,
+        mockUserId,
+        undefined,
+        undefined,
+        groupId
+      );
+
+      expect(modification.groupId).toBe(groupId);
+    });
+
+    it('should have undefined groupId when not provided', () => {
+      const modification = new TeRichTextBlockModification(
+        mockBlockId,
+        TeBlockType.PARAGRAPH,
+        TeRichTextModificationType.CREATED,
+        0,
+        mockUserId
+      );
+
+      expect(modification.groupId).toBeUndefined();
+    });
+
     it('should generate UUID when id is not provided', () => {
       const modification1 = new TeRichTextBlockModification(
         mockBlockId,
@@ -161,6 +189,24 @@ describe('TeRichTextBlockModification', () => {
       const modification = TeRichTextBlockModification.fromJsonObject(dto);
 
       expect(modification.oldIndex).toBe(1);
+    });
+
+    it('should set groupId when provided', () => {
+      const dto: TeRichTextBlockModificationDTO = {
+        id: 'json-id',
+        time: mockTime,
+        blockId: mockBlockId,
+        blockType: TeBlockType.PARAGRAPH,
+        type: TeRichTextModificationType.CREATED,
+        index: 0,
+        userId: mockUserId,
+        blockValue: mockBlockData,
+        groupId: 'group-456',
+      };
+
+      const modification = TeRichTextBlockModification.fromJsonObject(dto);
+
+      expect(modification.groupId).toBe('group-456');
     });
   });
 
@@ -394,7 +440,26 @@ describe('TeRichTextBlockModification', () => {
         blockValue: mockBlockData,
         differences: modification.differences,
         oldIndex: 2,
+        groupId: undefined,
       });
+    });
+
+    it('should include groupId in JSON object when set', () => {
+      const modification = new TeRichTextBlockModification(
+        mockBlockId,
+        TeBlockType.PARAGRAPH,
+        TeRichTextModificationType.CREATED,
+        0,
+        mockUserId,
+        'test-id',
+        mockTime,
+        'group-789'
+      );
+      modification.blockValue = mockBlockData;
+
+      const result = modification.toJsonObject();
+
+      expect(result.groupId).toBe('group-789');
     });
   });
 

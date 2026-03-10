@@ -100,6 +100,10 @@ implements HaFileServiceInterface<HaDocumentation>, TeTextEditorHistoryService
     return this.apiService.get(`${this.route}/${docId}/view/${filename}`);
   }
 
+  getViewUrl(docId: string, filename: string): string {
+    return this.apiService.getBaseRouteUrl(`${this.route}/${docId}/view/${filename}`);
+  }
+
   ////////////////////////////////// FILE //////////////////////////////////
 
   public getDocFiles(docId: string): Observable<HaFile[]> {

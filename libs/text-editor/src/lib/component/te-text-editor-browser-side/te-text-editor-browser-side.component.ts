@@ -24,6 +24,7 @@ import { Subject, Subscription } from 'rxjs';
 import { TeHTMLEditorJSON, TeRichText, TeRichTextAggregate, TeRichTextModifications } from '../../model/lib';
 import { TeConfig } from '../../model/te-config.class';
 import { TeEvent } from '../../model/te-event.class';
+import { TeSourceUrlRegistry } from '../../model/te-source-url-registry';
 import { TeTextEditorUndoRedo } from '../../model/te-text-editor-undo-redo.class';
 import { TeEmoji } from '../../plugin/te-emoji.class';
 import { TeMention } from '../../plugin/te-mention.class';
@@ -101,6 +102,10 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
   async ngOnInit(): Promise<void> {
     this.hideToolbar = this.config.uiConfig.hideToolbar;
     this.includeToolbarButton = this.config.uiConfig.includeToolbarButton;
+
+    // Always listen for copy/cut to register figure source URLs (even in read mode)
+    document.addEventListener('copy', this.copyHandler, true);
+    document.addEventListener('cut', this.copyHandler, true);
 
     setTimeout(async () => {
       import('@editorjs/editorjs').then((module) => {
@@ -233,7 +238,7 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
 
   private createListeners(): void {
     // listener for undo/redo
-    document.addEventListener('keydown', this.outsideUndoRedoListener);
+    this.editorContainer.nativeElement.addEventListener('keydown', this.outsideUndoRedoListener);
 
     // enable emoji picker globally
     this.editorContainer.nativeElement.addEventListener('keypress', this.containerKeyPressedListener);
@@ -253,19 +258,16 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
   }
 
   private destroyListeners(): void {
-    document.removeEventListener('keydown', this.outsideUndoRedoListener);
-    this.editorContainer?.nativeElement.removeEventListener('keypress', this.outsideUndoRedoListener);
+    this.editorContainer?.nativeElement.removeEventListener('keydown', this.outsideUndoRedoListener);
+    this.editorContainer?.nativeElement.removeEventListener('keypress', this.containerKeyPressedListener);
 
     this.subscription?.unsubscribe();
   }
 
   private async onKeyDown(e: KeyboardEvent): Promise<void> {
-    // TODO: Faire une state pour la gestion de cet event quand il y a plusieurs text editor
     if ((e.metaKey || e.ctrlKey) && e.key == 'z') {
-      e.preventDefault();
       this.undoEvent(e);
     } else if ((e.metaKey || e.ctrlKey) && e.key == 'y') {
-      e.preventDefault();
       this.redoEvent(e);
     }
   }
@@ -303,6 +305,25 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
     }, 0);
   }
 
+  /**
+   * On copy/cut, register source URLs for all blocks with document-specific resources
+   * (figures, resource views, etc.). Each block sets data-te-source-url and
+   * data-te-source-filename attributes on its host element.
+   */
+  private copyHandler = (): void => {
+    const elements = this.editorContainer.nativeElement.querySelectorAll('[data-te-source-url]');
+    if (elements.length === 0) return;
+
+    TeSourceUrlRegistry.clear();
+    elements.forEach((el: Element) => {
+      const url = el.getAttribute('data-te-source-url');
+      const filename = el.getAttribute('data-te-source-filename');
+      if (url && filename) {
+        TeSourceUrlRegistry.set(filename, url);
+      }
+    });
+  };
+
   printJson(): void {
     this.editor.save().then((data: any) => {
       console.log(data);
@@ -320,5 +341,7 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
     }
     this.isLoaded$.complete();
     this.destroyListeners();
+    document.removeEventListener('copy', this.copyHandler, true);
+    document.removeEventListener('cut', this.copyHandler, true);
   }
 }

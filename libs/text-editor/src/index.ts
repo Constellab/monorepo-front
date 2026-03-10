@@ -44,6 +44,7 @@ export * from './lib/model/te-modifications-group.class';
 export * from './lib/model/te-text-editor-history.service';
 export * from './lib/model/te-text-editor-history-user.class';
 export * from './lib/model/te-text-editor-undo-redo.class';
+export * from './lib/model/te-source-url-registry';
 export * from './lib/model/te-variable.class';
 export * from './lib/model/te-metadata-block-config.class';
 

@@ -17,6 +17,7 @@ import { Observable, of } from 'rxjs';
 
 import { TeFigureBlockConfig } from '../../block/te-figure-block.class';
 import { TeBlockFigureData, TeBlockFigureUploadedResponse } from '../../model/lib';
+import { TeSourceUrlRegistry } from '../../model/te-source-url-registry';
 import { TeElementBlockDirective } from '../../model/te-element.directive';
 
 /**
@@ -56,12 +57,21 @@ export class TeFigureComponent extends TeElementBlockDirective implements OnInit
 
   uploadIsLoading = false;
 
+  /**
+   * Source URL from another document, looked up from the registry during init.
+   * Used to re-download and re-upload the image if it fails to load from the current document.
+   */
+  private sourceUrl: string | null = null;
+
   constructor() {
     super();
   }
 
   ngOnInit(): void {
     if (!ClHelpService.isNullOrEmpty(this.data)) {
+      // Check if a source URL was registered for this filename (cross-document paste)
+      this.sourceUrl = TeSourceUrlRegistry.consume(this.data.filename);
+
       // let the parent have its width
       setTimeout(() => this.initImage(this.data), 0);
     }
@@ -79,6 +89,10 @@ export class TeFigureComponent extends TeElementBlockDirective implements OnInit
     const imageUrl = this.config.getImageUrl(data.filename);
     this.sanitizedUrl = this.sanitizer.sanitize(SecurityContext.URL, imageUrl);
 
+    // Set source URL attributes for cross-document copy support
+    this.elementRef.nativeElement.setAttribute('data-te-source-url', this.sanitizedUrl);
+    this.elementRef.nativeElement.setAttribute('data-te-source-filename', data.filename);
+
     const parentWidth = this.elementRef.nativeElement.clientWidth;
     // if the image is larger than container, resize it
     if (parentWidth > 0 && data.width > parentWidth) {
@@ -95,6 +109,34 @@ export class TeFigureComponent extends TeElementBlockDirective implements OnInit
   onImageResize(resizeEvent: FlResizeEvent): void {
     this.data.width = resizeEvent.width;
     this.data.height = resizeEvent.height;
+  }
+
+  /**
+   * Called when the image fails to load (e.g. cross-document paste where the filename
+   * references an image in another document). If a source URL is available,
+   * download the image from the source and re-upload it to the current document.
+   */
+  onImageLoadError(): void {
+    if (!this.sourceUrl || this.disabled || this.uploadIsLoading) return;
+
+    const url = this.sourceUrl;
+    this.sourceUrl = null; // prevent retry loop
+    this.imageReady = false;
+    this.uploadIsLoading = true;
+
+    fetch(url, { credentials: 'include' })
+      .then((response) => {
+        if (!response.ok) throw new Error(`Failed to fetch image: ${response.status}`);
+        return response.blob();
+      })
+      .then((blob) => {
+        const extension = blob.type.split('/')[1] || 'png';
+        const file = new File([blob], `pasted-image.${extension}`, { type: blob.type });
+        this.onFileSelected(file);
+      })
+      .catch(() => {
+        this.uploadIsLoading = false;
+      });
   }
 
   private openFileSelector(): void {
