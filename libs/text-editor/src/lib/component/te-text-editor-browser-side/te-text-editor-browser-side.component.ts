@@ -16,7 +16,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { EditorConfig } from '@editorjs/editorjs/types/configs/editor-config';
-import { ClHelpService } from '@monorepo/core-lib';
+import { ClHelpService, ClStringHelper } from '@monorepo/core-lib';
 import { FlHtmlHelper, FlKeyboardHelper, FlKeyboardKey } from '@monorepo/front-core-lib/fl-core';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import { Subject, Subscription } from 'rxjs';
@@ -106,6 +106,7 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
     // Always listen for copy/cut to register figure source URLs (even in read mode)
     document.addEventListener('copy', this.copyHandler, true);
     document.addEventListener('cut', this.copyHandler, true);
+    this.editorContainer.nativeElement.addEventListener('paste', this.pasteUrlAsLinkHandler, true);
 
     setTimeout(async () => {
       import('@editorjs/editorjs').then((module) => {
@@ -306,6 +307,25 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * On paste, if the pasted content is a URL, convert it to a clickable link.
+   */
+  private pasteUrlAsLinkHandler = (e: ClipboardEvent): void => {
+    const text = e.clipboardData?.getData('text/plain')?.trim();
+    if (!text) return;
+
+    // Check if the entire pasted text is a single URL
+    if (!ClStringHelper.isHttpLink(text)) return;
+
+    // If the HTML already contains a link, let EditorJS handle it
+    const html = e.clipboardData?.getData('text/html');
+    if (html && html.includes('<a ')) return;
+
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    document.execCommand('insertHTML', false, `<a href="${text}">${text}</a>`);
+  };
+
+  /**
    * On copy/cut, register source URLs for all blocks with document-specific resources
    * (figures, resource views, etc.). Each block sets data-te-source-url and
    * data-te-source-filename attributes on its host element.
@@ -343,5 +363,6 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
     this.destroyListeners();
     document.removeEventListener('copy', this.copyHandler, true);
     document.removeEventListener('cut', this.copyHandler, true);
+    this.editorContainer?.nativeElement.removeEventListener('paste', this.pasteUrlAsLinkHandler, true);
   }
 }

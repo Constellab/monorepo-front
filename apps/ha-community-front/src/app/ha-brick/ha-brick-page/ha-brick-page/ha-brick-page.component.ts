@@ -4,6 +4,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { ActivatedRoute, NavigationEnd, Params, Router, RouterLink, RouterOutlet } from '@angular/router';
+import { ClStringHelper } from '@monorepo/core-lib';
 import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
 import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
@@ -101,6 +102,13 @@ export class HaBrickPageComponent implements OnInit, OnDestroy {
         this.setLatestBrickCanonicalUrl();
       }
     });
+  }
+
+  scrollToHeader(text: string): void {
+    let id = ClStringHelper.toKebabCase(text);
+    id = id.replace(/[^a-zA-Z-]/g, '');
+    const element = document.getElementById(id);
+    element?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
   ngOnInit(): void {

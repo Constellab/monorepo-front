@@ -96,6 +96,13 @@ export class HaStoryPageComponent extends HaCommunityPageDirective implements On
     return null;
   });
 
+  scrollToHeader(text: string): void {
+    let id = ClStringHelper.toKebabCase(text);
+    id = id.replace(/[^a-zA-Z-]/g, '');
+    const element = document.getElementById(id);
+    element?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
   ngOnInit(): void {
     this.activatedRoute.params.pipe(first()).subscribe((params) => {
       this.textEditorConfig = new HaStoryTextEditorConfig(this.storyService, params.id);

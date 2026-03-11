@@ -34,7 +34,7 @@ export function teGetHeaderWithIdBlockDefaultConfig(): TeHeaderWithIdBlockConfig
   return {
     levels: [2, 3, 4],
     defaultLevel: 2,
-    showCopyLinkButton: false,
+    showCopyLinkButton: true,
     placeholder: TeHelper.getTranslateService().translate('teTextEditor.title'),
   };
 }
@@ -97,11 +97,54 @@ export class TeHeaderWithIdBlock extends Header implements TeBlockWithMetadata, 
     id = id.replace(/[^a-zA-Z-]/g, '');
     this.node.setAttribute('id', id);
 
+    if (this.config.showCopyLinkButton) {
+      this.addCopyLinkButton(id);
+
+      if (this.options.readOnly) {
+        this.node.style.cursor = 'pointer';
+        this.node.addEventListener('click', () => this.scrollToHeader());
+      }
+    }
+
     return this.node;
   }
 
+  private addCopyLinkButton(headerId: string): void {
+    const clipboardService = flRootInjector.get(FlClipboardService);
+
+    const button = document.createElement('div');
+    button.className = 'te-header-copy-link-btn';
+    button.contentEditable = 'false';
+    button.innerHTML = '<span class="material-icons-outlined">link</span>';
+
+    button.addEventListener('mousedown', (e: MouseEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const url = window.location.href.split('#')[0];
+      const anchor = headerId ? `#${headerId}` : '';
+      clipboardService.copy(`${url}${anchor}`, {
+        text: 'teTextEditor.link_copied',
+        translateText: true,
+      });
+      this.scrollToHeader();
+    });
+
+    this.node.classList.add('te-header-with-copy-link');
+    this.node.appendChild(button);
+  }
+
   save(block: HTMLElement): BlockToolData {
+    // Remove the copy-link button before saving so it's not included in the text
+    const button = block.querySelector('.te-header-copy-link-btn');
+    button?.remove();
+
     super.save(block);
+
+    // Re-add the button after saving
+    if (button) {
+      block.appendChild(button);
+    }
+
     return {
       ...this.data,
       metadata: this.metadata,
@@ -194,6 +237,10 @@ export class TeHeaderWithIdBlock extends Header implements TeBlockWithMetadata, 
           this.render();
         }
       });
+  }
+
+  private scrollToHeader(): void {
+    this.node.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
   private changeLevel(level: number): void {

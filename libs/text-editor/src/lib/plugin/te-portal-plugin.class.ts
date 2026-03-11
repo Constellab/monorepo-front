@@ -43,12 +43,19 @@ export abstract class TePortalPlugin {
 
     this.keyListener = this.buildKeyListener();
 
-    // wait a little bit before opening the portal
-    // to avoid opening it if a stop key is pressed
+    this.schedulePortalOpen();
+  }
+
+  /**
+   * Schedule when the portal should be opened.
+   * By default, waits a short delay then opens.
+   * Subclasses can override to wait for additional conditions (e.g. first character typed).
+   */
+  protected schedulePortalOpen(): void {
     setTimeout(() => this.callPortal(), TePortalPlugin.OPEN_DELAY);
   }
 
-  private callPortal(): void {
+  protected callPortal(): void {
     // if the key listener was completed, we do nothing
     // it happens when the stop key is pressed quickly after trigger key
     if (this.keyListener.isCompleted()) {
