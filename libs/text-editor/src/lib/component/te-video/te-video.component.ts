@@ -1,4 +1,4 @@
-import { Component, inject,Input, OnInit, SecurityContext } from '@angular/core';
+import { Component, inject, Input, OnInit, SecurityContext } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ClYoutubeHelper } from '@monorepo/core-lib';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
@@ -23,7 +23,9 @@ export class TeVideoComponent extends TeElementBlockDirective implements OnInit 
   @Input() caption: string;
 
   sanitizedUrl: SafeUrl;
+  thumbnailUrl: string;
   urlError: boolean = false;
+  iframeLoaded: boolean = false;
 
   constructor() {
     super();
@@ -31,6 +33,10 @@ export class TeVideoComponent extends TeElementBlockDirective implements OnInit 
 
   ngOnInit(): void {
     this.setUrl(this.url);
+  }
+
+  loadIframe(): void {
+    this.iframeLoaded = true;
   }
 
   public openLinkDialog(): void {
@@ -53,7 +59,12 @@ export class TeVideoComponent extends TeElementBlockDirective implements OnInit 
       this.sanitizedUrl = this.sanitize.bypassSecurityTrustResourceUrl(
         this.sanitize.sanitize(SecurityContext.URL, url)
       );
+
+      const videoId = ClYoutubeHelper.getYoutubeVideoId(url);
+      this.thumbnailUrl = videoId ? `https://img.youtube.com/vi/${videoId}/hqdefault.jpg` : null;
+
       this.urlError = false;
+      this.iframeLoaded = false;
     } else {
       this.urlError = true;
     }

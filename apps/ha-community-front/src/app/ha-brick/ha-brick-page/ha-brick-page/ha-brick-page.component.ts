@@ -3,7 +3,7 @@ import { Component, computed, DOCUMENT, effect, inject, OnDestroy, OnInit, Signa
 import { toSignal } from '@angular/core/rxjs-interop';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
-import { ActivatedRoute, NavigationEnd, Params, Router, RouterLink, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Params, Router, RouterOutlet } from '@angular/router';
 import { ClStringHelper } from '@monorepo/core-lib';
 import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
 import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
@@ -45,7 +45,6 @@ import { HaEditBrickDialogComponent } from '../ha-edit-brick-dialog/ha-edit-bric
     MatButton,
     MatIcon,
     TranslatePipe,
-    RouterLink,
     NgClass,
     FlCoreComponentModule,
     HaBrickImagePipe,

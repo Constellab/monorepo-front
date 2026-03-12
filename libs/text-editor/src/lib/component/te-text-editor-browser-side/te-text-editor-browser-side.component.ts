@@ -211,6 +211,8 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
     // the save method can be called only if the editor is not in readOnly mode
     if (!this.editor?.readOnly || this.editor.readOnly.isEnabled) return;
 
+    this.ensureTrailingEmptyParagraph();
+
     const outputData: TeHTMLEditorJSON = await this.editor.save();
     // if the data is null, there was an error in the editor, don't emit the event
     // so the content is not cleared
@@ -225,6 +227,23 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
     this.richTextAggregate.updateContent(newRichText, 'current');
 
     this.textChange.emit(this.richTextAggregate.richText);
+  }
+
+  /**
+   * Ensure there is always an empty paragraph at the end of the editor.
+   * This allows users to easily add content after non-text blocks (images, tables, etc.).
+   */
+  private ensureTrailingEmptyParagraph(): void {
+    const blocksCount = this.editor.blocks.getBlocksCount();
+    if (blocksCount === 0) return;
+
+    const lastBlock = this.editor.blocks.getBlockByIndex(blocksCount - 1);
+    if (!lastBlock) return;
+
+    // If the last block is already an empty paragraph, no need to add another one
+    if (lastBlock.name === 'paragraph' && lastBlock.isEmpty) return;
+
+    this.editor.blocks.insert('paragraph', { text: '' });
   }
 
   /////////////////////// LISTENERS ///////////////////////
