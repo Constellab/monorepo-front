@@ -94,13 +94,10 @@ export class TeHeaderWithIdBlock extends Header implements TeBlockWithMetadata, 
     const id = TeHelper.getHeaderId(this.node.innerText);
     this.node.setAttribute('id', id);
 
-    if (this.config.showCopyLinkButton) {
+    if (this.config.showCopyLinkButton && this.options.readOnly) {
       this.addCopyLinkButton(id);
-
-      if (this.options.readOnly) {
-        this.node.style.cursor = 'pointer';
-        this.node.addEventListener('click', () => this.scrollToHeader());
-      }
+      this.node.style.cursor = 'pointer';
+      this.node.addEventListener('click', () => this.scrollToHeader());
     }
 
     return this.node;

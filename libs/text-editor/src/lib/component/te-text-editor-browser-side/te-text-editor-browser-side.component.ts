@@ -247,11 +247,7 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
     // If the last block is already an empty paragraph, no need to add another one
     if (lastBlock.name === 'paragraph' && lastBlock.isEmpty) return;
 
-    // Only add a trailing paragraph if the current block is the last one
-    const currentIndex = this.editor.blocks.getCurrentBlockIndex();
-    if (currentIndex < blocksCount - 1) return;
-
-    this.editor.blocks.insert('paragraph', { text: '' });
+    this.editor.blocks.insert('paragraph', { text: '' }, undefined, blocksCount, false, false);
   }
 
   /////////////////////// LISTENERS ///////////////////////
@@ -396,17 +392,18 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
 
   /**
    * On copy/cut, register source URLs for all blocks with document-specific resources
-   * (figures, resource views, etc.). Each block sets data-te-source-url and
-   * data-te-source-filename attributes on its host element.
+   * (figures, resource views, etc.). Each block sets source URL and
+   * source filename attributes on its host element.
    */
   private copyHandler = (): void => {
-    const elements = this.editorContainer.nativeElement.querySelectorAll('[data-te-source-url]');
+    const selector = `[${TeSourceUrlRegistry.SOURCE_URL_ATTR}]`;
+    const elements = this.editorContainer.nativeElement.querySelectorAll(selector);
     if (elements.length === 0) return;
 
     TeSourceUrlRegistry.clear();
     elements.forEach((el: Element) => {
-      const url = el.getAttribute('data-te-source-url');
-      const filename = el.getAttribute('data-te-source-filename');
+      const url = el.getAttribute(TeSourceUrlRegistry.SOURCE_URL_ATTR);
+      const filename = el.getAttribute(TeSourceUrlRegistry.SOURCE_FILENAME_ATTR);
       if (url && filename) {
         TeSourceUrlRegistry.set(filename, url);
       }

@@ -9,6 +9,9 @@
  * The registry is cleared on each new copy operation.
  */
 export class TeSourceUrlRegistry {
+  static readonly SOURCE_URL_ATTR = 'data-te-source-url';
+  static readonly SOURCE_FILENAME_ATTR = 'data-te-source-filename';
+
   private static sourceUrls = new Map<string, string>();
 
   static clear(): void {
