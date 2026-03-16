@@ -44,10 +44,35 @@ export class TeTextEditorServerSideComponent implements OnInit {
           if (!videoId) return '';
           const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
           const embedUrl = `https://www.youtube.com/embed/${videoId}`;
-          const title = block.data.title || 'YouTube video';
-          const caption = block.data.caption ? `<figcaption>${block.data.caption}</figcaption>` : '';
-          // eslint-disable-next-line max-len
-          return `<figure class="ssr-video"><a href="${embedUrl}" target="_blank" rel="noopener"><img src="${thumbnailUrl}" alt="${title}" loading="lazy" /><span class="ssr-video-play">&#9654;</span></a>${caption}</figure>`;
+
+          const figure: HTMLElement = this.renderer.createElement('figure');
+          this.renderer.addClass(figure, 'ssr-video');
+
+          const anchor: HTMLAnchorElement = this.renderer.createElement('a');
+          this.renderer.setAttribute(anchor, 'href', embedUrl);
+          this.renderer.setAttribute(anchor, 'target', '_blank');
+          this.renderer.setAttribute(anchor, 'rel', 'noopener');
+
+          const img: HTMLImageElement = this.renderer.createElement('img');
+          this.renderer.setAttribute(img, 'src', thumbnailUrl);
+          this.renderer.setAttribute(img, 'alt', block.data.title || 'YouTube video');
+          this.renderer.setAttribute(img, 'loading', 'lazy');
+
+          const playBtn: HTMLElement = this.renderer.createElement('span');
+          this.renderer.addClass(playBtn, 'ssr-video-play');
+          playBtn.innerHTML = '&#9654;';
+
+          this.renderer.appendChild(anchor, img);
+          this.renderer.appendChild(anchor, playBtn);
+          this.renderer.appendChild(figure, anchor);
+
+          if (block.data.caption) {
+            const figcaption: HTMLElement = this.renderer.createElement('figcaption');
+            figcaption.textContent = block.data.caption;
+            this.renderer.appendChild(figure, figcaption);
+          }
+
+          return figure.outerHTML;
         },
       });
       const HTML = parser.parse(this.richText.toHTMLEditorJson());

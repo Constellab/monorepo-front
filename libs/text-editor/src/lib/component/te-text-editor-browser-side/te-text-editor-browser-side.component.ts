@@ -13,6 +13,7 @@ import {
   OnDestroy,
   OnInit,
   Output,
+  Renderer2,
   ViewChild,
 } from '@angular/core';
 import { EditorConfig } from '@editorjs/editorjs/types/configs/editor-config';
@@ -41,6 +42,7 @@ TeRichTextModifications.setFrontTimeDifference();
   standalone: false,
 })
 export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
+  private renderer = inject(Renderer2);
   private envInjector = inject(EnvironmentInjector);
   private applicationRef = inject(ApplicationRef);
   private translateService = inject(FlTranslateService);
@@ -213,9 +215,9 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
     // the save method can be called only if the editor is not in readOnly mode
     if (!this.editor?.readOnly || this.editor.readOnly.isEnabled) return;
 
-    this.ensureTrailingEmptyParagraph();
-
     const outputData: TeHTMLEditorJSON = await this.editor.save();
+
+    this.ensureTrailingEmptyParagraph();
     // if the data is null, there was an error in the editor, don't emit the event
     // so the content is not cleared
     if (outputData == null) return;
@@ -244,6 +246,10 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
 
     // If the last block is already an empty paragraph, no need to add another one
     if (lastBlock.name === 'paragraph' && lastBlock.isEmpty) return;
+
+    // Only add a trailing paragraph if the current block is the last one
+    const currentIndex = this.editor.blocks.getCurrentBlockIndex();
+    if (currentIndex < blocksCount - 1) return;
 
     this.editor.blocks.insert('paragraph', { text: '' });
   }
@@ -377,7 +383,15 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
 
     e.preventDefault();
     e.stopImmediatePropagation();
-    document.execCommand('insertHTML', false, `<a href="${text}">${text}</a>`);
+    const selection = window.getSelection();
+    if (!selection || !selection.rangeCount) return;
+    const range = selection.getRangeAt(0);
+    range.deleteContents();
+    const anchor: HTMLAnchorElement = this.renderer.createElement('a');
+    this.renderer.setAttribute(anchor, 'href', text);
+    anchor.textContent = text;
+    range.insertNode(anchor);
+    selection.collapseToEnd();
   };
 
   /**

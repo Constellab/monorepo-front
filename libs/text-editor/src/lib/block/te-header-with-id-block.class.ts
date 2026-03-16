@@ -1,7 +1,6 @@
 import { BlockTool, BlockToolConstructorOptions, BlockToolData, ToolboxConfig } from '@editorjs/editorjs';
 import { MenuConfig } from '@editorjs/editorjs/types/tools';
 import Header from '@editorjs/header';
-import { ClStringHelper } from '@monorepo/core-lib';
 import { flRootInjector } from '@monorepo/front-core-lib/fl-core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlClipboardService } from '@monorepo/front-core-lib/fl-snack-bar';
@@ -92,9 +91,7 @@ export class TeHeaderWithIdBlock extends Header implements TeBlockWithMetadata, 
 
     if (this.node.innerText.trim() == '') return this.node;
 
-    let id = ClStringHelper.toKebabCase(this.node.innerText);
-    //remove all special characters and numbers
-    id = id.replace(/[^a-zA-Z-]/g, '');
+    const id = TeHelper.getHeaderId(this.node.innerText);
     this.node.setAttribute('id', id);
 
     if (this.config.showCopyLinkButton) {
@@ -112,12 +109,14 @@ export class TeHeaderWithIdBlock extends Header implements TeBlockWithMetadata, 
   private addCopyLinkButton(headerId: string): void {
     const clipboardService = flRootInjector.get(FlClipboardService);
 
-    const button = document.createElement('div');
+    const button = this.node.ownerDocument.createElement('button');
     button.className = 'te-header-copy-link-btn';
     button.contentEditable = 'false';
+    button.setAttribute('aria-label', 'Copy link to header');
+    button.type = 'button';
     button.innerHTML = '<span class="material-icons-outlined">link</span>';
 
-    button.addEventListener('mousedown', (e: MouseEvent) => {
+    const copyLink = (e: Event): void => {
       e.preventDefault();
       e.stopPropagation();
       const url = window.location.href.split('#')[0];
@@ -127,7 +126,9 @@ export class TeHeaderWithIdBlock extends Header implements TeBlockWithMetadata, 
         translateText: true,
       });
       this.scrollToHeader();
-    });
+    };
+
+    button.addEventListener('click', copyLink);
 
     this.node.classList.add('te-header-with-copy-link');
     this.node.appendChild(button);
@@ -138,7 +139,7 @@ export class TeHeaderWithIdBlock extends Header implements TeBlockWithMetadata, 
     const button = block.querySelector('.te-header-copy-link-btn');
     button?.remove();
 
-    super.save(block);
+    const savedData = super.save(block);
 
     // Re-add the button after saving
     if (button) {
@@ -146,7 +147,7 @@ export class TeHeaderWithIdBlock extends Header implements TeBlockWithMetadata, 
     }
 
     return {
-      ...this.data,
+      ...savedData,
       metadata: this.metadata,
     };
   }
