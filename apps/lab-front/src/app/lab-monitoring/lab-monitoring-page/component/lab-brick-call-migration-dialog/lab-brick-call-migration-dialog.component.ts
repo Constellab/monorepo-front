@@ -51,8 +51,8 @@ export class LabBrickCallMigrationDialogComponent implements OnInit {
 
   isLoading: boolean = false;
 
-  compareBrickMigration = (m1: LiBrickMigration, m2: LiBrickMigration): boolean => {
-    return m1.version.isEqual(m2.version) && m1.dbUniqueName === m2.dbUniqueName;
+  compareBrickMigration = (m1: LiBrickMigration, m2: LiBrickMigration | null): boolean => {
+    return m2 != null && m1.version.isEqual(m2.version) && m1.dbUniqueName === m2.dbUniqueName;
   };
 
   ngOnInit(): void {

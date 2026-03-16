@@ -71,6 +71,10 @@ export class LabScenarioDetailActionMenu extends LiScenarioActionMenu {
       menu.push(this.getRemoveFromQueueButton());
     }
 
+    if (!this.scenario.isDraft()) {
+      menu.push(this.getDeleteIntermediateResourcesButton());
+    }
+
     if (this.scenario.protocolIsEditable()) {
       menu.push(this.getDeleteButton());
     }
@@ -166,9 +170,20 @@ export class LabScenarioDetailActionMenu extends LiScenarioActionMenu {
     return {
       type: 'button',
       text: 'biox.delete_scenario',
+
       icon: 'delete',
       color: 'warn',
       onClick: () => this.deleteScenario(),
+    };
+  }
+
+  private getDeleteIntermediateResourcesButton(): FlMenuDynamic {
+    return {
+      type: 'button',
+      text: 'biox.delete_scenario_intermediate_resources',
+      icon: 'delete_sweep',
+      color: 'warn',
+      onClick: () => this.deleteIntermediateResources(),
     };
   }
 

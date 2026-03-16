@@ -2,24 +2,26 @@ import { Expose, Type } from 'class-transformer';
 
 import { LiMonitorFreeDiskDTO } from '../entities/li-monitor.entity';
 
-export class LiSpace {
+export class LiLab {
   id: string;
   name: string;
-  domain: string;
-  photo?: string;
+
+  @Expose({ name: 'is_current_lab' })
+  isCurrentLab: boolean;
+
+  @Expose({ name: 'space_id' })
+  spaceId?: string;
+
+  @Expose({ name: 'space_name' })
+  spaceName?: string;
 }
 
 export class LiSystemInfo {
-  @Expose({ name: 'lab_name' })
-  labName: string;
+  @Type(() => LiLab)
+  lab: LiLab;
 
   @Expose({ name: 'front_version' })
   frontVersion: string;
-
-  @Type(() => LiSpace)
-  space: LiSpace;
-
-  id: string;
 }
 
 export class LiPipPackage {
