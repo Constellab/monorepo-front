@@ -19,6 +19,7 @@ import { EditorConfig } from '@editorjs/editorjs/types/configs/editor-config';
 import { ClHelpService, ClStringHelper } from '@monorepo/core-lib';
 import { FlHtmlHelper, FlKeyboardHelper, FlKeyboardKey } from '@monorepo/front-core-lib/fl-core';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+import { marked } from 'marked';
 import { Subject, Subscription } from 'rxjs';
 
 import { TeHTMLEditorJSON, TeRichText, TeRichTextAggregate, TeRichTextModifications } from '../../model/lib';
@@ -106,6 +107,7 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
     // Always listen for copy/cut to register figure source URLs (even in read mode)
     document.addEventListener('copy', this.copyHandler, true);
     document.addEventListener('cut', this.copyHandler, true);
+    this.editorContainer.nativeElement.addEventListener('paste', this.pasteMarkdownAsHtmlHandler, true);
     this.editorContainer.nativeElement.addEventListener('paste', this.pasteUrlAsLinkHandler, true);
 
     setTimeout(async () => {
@@ -326,6 +328,40 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * On paste, if the pasted content is plain markdown containing fenced code blocks,
+   * convert it to HTML so EditorJS can properly create code blocks instead of inline code.
+   */
+  private pasteMarkdownAsHtmlHandler = (e: ClipboardEvent): void => {
+    const html = e.clipboardData?.getData('text/html');
+    // If HTML is already provided, let EditorJS handle it natively
+    if (html) return;
+
+    const text = e.clipboardData?.getData('text/plain');
+    if (!text) return;
+
+    // Only intercept if the text contains markdown fenced code blocks
+    if (!/^```/m.test(text)) return;
+
+    e.preventDefault();
+    e.stopImmediatePropagation();
+
+    const renderer = new marked.Renderer();
+    // Render code blocks with language class so TeCodeBlock.onPaste can detect the language
+    renderer.code = (code: string, language: string): string => {
+      const langClass = language ? ` class="language-${language}"` : '';
+      return `<pre${langClass}>${code}</pre>`;
+    };
+
+    const convertedHtml = marked.parse(text, { renderer }) as string;
+
+    const dt = new DataTransfer();
+    dt.setData('text/html', convertedHtml);
+    dt.setData('text/plain', text);
+    const newEvent = new ClipboardEvent('paste', { clipboardData: dt, bubbles: true, cancelable: true });
+    e.target.dispatchEvent(newEvent);
+  };
+
+  /**
    * On paste, if the pasted content is a URL, convert it to a clickable link.
    */
   private pasteUrlAsLinkHandler = (e: ClipboardEvent): void => {
@@ -382,6 +418,7 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
     this.destroyListeners();
     document.removeEventListener('copy', this.copyHandler, true);
     document.removeEventListener('cut', this.copyHandler, true);
+    this.editorContainer?.nativeElement.removeEventListener('paste', this.pasteMarkdownAsHtmlHandler, true);
     this.editorContainer?.nativeElement.removeEventListener('paste', this.pasteUrlAsLinkHandler, true);
   }
 }
