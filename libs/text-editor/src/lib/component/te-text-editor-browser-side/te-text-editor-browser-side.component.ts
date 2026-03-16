@@ -13,17 +13,20 @@ import {
   OnDestroy,
   OnInit,
   Output,
+  Renderer2,
   ViewChild,
 } from '@angular/core';
 import { EditorConfig } from '@editorjs/editorjs/types/configs/editor-config';
-import { ClHelpService } from '@monorepo/core-lib';
+import { ClHelpService, ClStringHelper } from '@monorepo/core-lib';
 import { FlHtmlHelper, FlKeyboardHelper, FlKeyboardKey } from '@monorepo/front-core-lib/fl-core';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+import { marked } from 'marked';
 import { Subject, Subscription } from 'rxjs';
 
 import { TeHTMLEditorJSON, TeRichText, TeRichTextAggregate, TeRichTextModifications } from '../../model/lib';
 import { TeConfig } from '../../model/te-config.class';
 import { TeEvent } from '../../model/te-event.class';
+import { TeSourceUrlRegistry } from '../../model/te-source-url-registry';
 import { TeTextEditorUndoRedo } from '../../model/te-text-editor-undo-redo.class';
 import { TeEmoji } from '../../plugin/te-emoji.class';
 import { TeMention } from '../../plugin/te-mention.class';
@@ -39,6 +42,7 @@ TeRichTextModifications.setFrontTimeDifference();
   standalone: false,
 })
 export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
+  private renderer = inject(Renderer2);
   private envInjector = inject(EnvironmentInjector);
   private applicationRef = inject(ApplicationRef);
   private translateService = inject(FlTranslateService);
@@ -101,6 +105,12 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
   async ngOnInit(): Promise<void> {
     this.hideToolbar = this.config.uiConfig.hideToolbar;
     this.includeToolbarButton = this.config.uiConfig.includeToolbarButton;
+
+    // Always listen for copy/cut to register figure source URLs (even in read mode)
+    document.addEventListener('copy', this.copyHandler, true);
+    document.addEventListener('cut', this.copyHandler, true);
+    this.editorContainer.nativeElement.addEventListener('paste', this.pasteMarkdownAsHtmlHandler, true);
+    this.editorContainer.nativeElement.addEventListener('paste', this.pasteUrlAsLinkHandler, true);
 
     setTimeout(async () => {
       import('@editorjs/editorjs').then((module) => {
@@ -206,6 +216,8 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
     if (!this.editor?.readOnly || this.editor.readOnly.isEnabled) return;
 
     const outputData: TeHTMLEditorJSON = await this.editor.save();
+
+    this.ensureTrailingEmptyParagraph();
     // if the data is null, there was an error in the editor, don't emit the event
     // so the content is not cleared
     if (outputData == null) return;
@@ -221,6 +233,23 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
     this.textChange.emit(this.richTextAggregate.richText);
   }
 
+  /**
+   * Ensure there is always an empty paragraph at the end of the editor.
+   * This allows users to easily add content after non-text blocks (images, tables, etc.).
+   */
+  private ensureTrailingEmptyParagraph(): void {
+    const blocksCount = this.editor.blocks.getBlocksCount();
+    if (blocksCount === 0) return;
+
+    const lastBlock = this.editor.blocks.getBlockByIndex(blocksCount - 1);
+    if (!lastBlock) return;
+
+    // If the last block is already an empty paragraph, no need to add another one
+    if (lastBlock.name === 'paragraph' && lastBlock.isEmpty) return;
+
+    this.editor.blocks.insert('paragraph', { text: '' }, undefined, blocksCount, false, false);
+  }
+
   /////////////////////// LISTENERS ///////////////////////
 
   private outsideUndoRedoListener = async (e: any): Promise<void> => {
@@ -233,7 +262,7 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
 
   private createListeners(): void {
     // listener for undo/redo
-    document.addEventListener('keydown', this.outsideUndoRedoListener);
+    this.editorContainer.nativeElement.addEventListener('keydown', this.outsideUndoRedoListener);
 
     // enable emoji picker globally
     this.editorContainer.nativeElement.addEventListener('keypress', this.containerKeyPressedListener);
@@ -253,19 +282,16 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
   }
 
   private destroyListeners(): void {
-    document.removeEventListener('keydown', this.outsideUndoRedoListener);
-    this.editorContainer?.nativeElement.removeEventListener('keypress', this.outsideUndoRedoListener);
+    this.editorContainer?.nativeElement.removeEventListener('keydown', this.outsideUndoRedoListener);
+    this.editorContainer?.nativeElement.removeEventListener('keypress', this.containerKeyPressedListener);
 
     this.subscription?.unsubscribe();
   }
 
   private async onKeyDown(e: KeyboardEvent): Promise<void> {
-    // TODO: Faire une state pour la gestion de cet event quand il y a plusieurs text editor
     if ((e.metaKey || e.ctrlKey) && e.key == 'z') {
-      e.preventDefault();
       this.undoEvent(e);
     } else if ((e.metaKey || e.ctrlKey) && e.key == 'y') {
-      e.preventDefault();
       this.redoEvent(e);
     }
   }
@@ -303,6 +329,87 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
     }, 0);
   }
 
+  /**
+   * On paste, if the pasted content is plain markdown containing fenced code blocks,
+   * convert it to HTML so EditorJS can properly create code blocks instead of inline code.
+   */
+  private pasteMarkdownAsHtmlHandler = (e: ClipboardEvent): void => {
+    const html = e.clipboardData?.getData('text/html');
+    // If HTML is already provided, let EditorJS handle it natively
+    if (html) return;
+
+    const text = e.clipboardData?.getData('text/plain');
+    if (!text) return;
+
+    // Only intercept if the text contains markdown fenced code blocks
+    if (!/^```/m.test(text)) return;
+
+    e.preventDefault();
+    e.stopImmediatePropagation();
+
+    const renderer = new marked.Renderer();
+    // Render code blocks with language class so TeCodeBlock.onPaste can detect the language
+    renderer.code = (code: string, language: string): string => {
+      const langClass = language ? ` class="language-${language}"` : '';
+      return `<pre${langClass}>${code}</pre>`;
+    };
+
+    const convertedHtml = marked.parse(text, { renderer }) as string;
+
+    const dt = new DataTransfer();
+    dt.setData('text/html', convertedHtml);
+    dt.setData('text/plain', text);
+    const newEvent = new ClipboardEvent('paste', { clipboardData: dt, bubbles: true, cancelable: true });
+    e.target.dispatchEvent(newEvent);
+  };
+
+  /**
+   * On paste, if the pasted content is a URL, convert it to a clickable link.
+   */
+  private pasteUrlAsLinkHandler = (e: ClipboardEvent): void => {
+    const text = e.clipboardData?.getData('text/plain')?.trim();
+    if (!text) return;
+
+    // Check if the entire pasted text is a single URL
+    if (!ClStringHelper.isHttpLink(text)) return;
+
+    // If the HTML already contains a link, let EditorJS handle it
+    const html = e.clipboardData?.getData('text/html');
+    if (html && html.includes('<a ')) return;
+
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    const selection = window.getSelection();
+    if (!selection || !selection.rangeCount) return;
+    const range = selection.getRangeAt(0);
+    range.deleteContents();
+    const anchor: HTMLAnchorElement = this.renderer.createElement('a');
+    this.renderer.setAttribute(anchor, 'href', text);
+    anchor.textContent = text;
+    range.insertNode(anchor);
+    selection.collapseToEnd();
+  };
+
+  /**
+   * On copy/cut, register source URLs for all blocks with document-specific resources
+   * (figures, resource views, etc.). Each block sets source URL and
+   * source filename attributes on its host element.
+   */
+  private copyHandler = (): void => {
+    const selector = `[${TeSourceUrlRegistry.SOURCE_URL_ATTR}]`;
+    const elements = this.editorContainer.nativeElement.querySelectorAll(selector);
+    if (elements.length === 0) return;
+
+    TeSourceUrlRegistry.clear();
+    elements.forEach((el: Element) => {
+      const url = el.getAttribute(TeSourceUrlRegistry.SOURCE_URL_ATTR);
+      const filename = el.getAttribute(TeSourceUrlRegistry.SOURCE_FILENAME_ATTR);
+      if (url && filename) {
+        TeSourceUrlRegistry.set(filename, url);
+      }
+    });
+  };
+
   printJson(): void {
     this.editor.save().then((data: any) => {
       console.log(data);
@@ -320,5 +427,9 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
     }
     this.isLoaded$.complete();
     this.destroyListeners();
+    document.removeEventListener('copy', this.copyHandler, true);
+    document.removeEventListener('cut', this.copyHandler, true);
+    this.editorContainer?.nativeElement.removeEventListener('paste', this.pasteMarkdownAsHtmlHandler, true);
+    this.editorContainer?.nativeElement.removeEventListener('paste', this.pasteUrlAsLinkHandler, true);
   }
 }

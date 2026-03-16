@@ -86,7 +86,7 @@ export class FlAutoScrollToAnchorDirective implements AfterViewInit, OnDestroy {
 
     if (children) {
       // Scroll to the element
-      children.scrollIntoView(true);
+      children.scrollIntoView({ behavior: 'smooth', block: 'start' });
       this.lastScrolledAnchor = anchor;
     }
   }

@@ -1,6 +1,6 @@
 import { SanitizerConfig } from '@editorjs/editorjs/types/configs';
 import { BlockToolConstructorOptions } from '@editorjs/editorjs/types/tools/block-tool';
-import { ClHelpService } from '@monorepo/core-lib';
+import { ClHelpService, ClStringHelper } from '@monorepo/core-lib';
 import { FlHtmlHelper } from '@monorepo/front-core-lib/fl-core';
 import { FlKeyboardKey } from '@monorepo/front-core-lib/fl-core';
 import { flRootInjector } from '@monorepo/front-core-lib/fl-core';
@@ -287,6 +287,24 @@ export class TeHelper {
       element.style.padding = '4px';
       element.style.margin = '4px';
     }
+  }
+
+  /**
+   * Generate a header id from a text string
+   */
+  public static getHeaderId(text: string): string {
+    let id = ClStringHelper.toKebabCase(text);
+    id = id.replace(/[^a-zA-Z0-9-]/g, '');
+    return id;
+  }
+
+  /**
+   * Scroll to a header element by its text
+   */
+  public static scrollToHeader(text: string): void {
+    const id = TeHelper.getHeaderId(text);
+    const element = document.getElementById(id);
+    element?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
   /**

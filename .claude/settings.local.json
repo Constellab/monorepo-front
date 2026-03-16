@@ -36,7 +36,9 @@
       "mcp__rich-text-editor__insert_blocks",
       "mcp__rich-text-editor__upload_document",
       "Bash(grep:*)",
-      "mcp__ide__getDiagnostics"
+      "mcp__ide__getDiagnostics",
+      "Bash(npx tsc --noEmit --project libs/text-editor/tsconfig.lib.json 2>&1 | tail -10)",
+      "Bash(npx tsc --noEmit --project libs/text-editor/tsconfig.lib.json 2>&1 | head -50)"
     ],
     "deny": []
   }

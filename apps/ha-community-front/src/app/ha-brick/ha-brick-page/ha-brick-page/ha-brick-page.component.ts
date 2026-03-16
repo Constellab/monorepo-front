@@ -3,8 +3,9 @@ import { Component, computed, DOCUMENT, effect, inject, OnDestroy, OnInit, Signa
 import { toSignal } from '@angular/core/rxjs-interop';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
-import { ActivatedRoute, NavigationEnd, Params, Router, RouterLink, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Params, Router, RouterOutlet } from '@angular/router';
 import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
+import { TeHelper } from '@monorepo/text-editor';
 import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
@@ -44,7 +45,6 @@ import { HaEditBrickDialogComponent } from '../ha-edit-brick-dialog/ha-edit-bric
     MatButton,
     MatIcon,
     TranslatePipe,
-    RouterLink,
     NgClass,
     FlCoreComponentModule,
     HaBrickImagePipe,
@@ -101,6 +101,10 @@ export class HaBrickPageComponent implements OnInit, OnDestroy {
         this.setLatestBrickCanonicalUrl();
       }
     });
+  }
+
+  scrollToHeader(text: string): void {
+    TeHelper.scrollToHeader(text);
   }
 
   ngOnInit(): void {

@@ -1,7 +1,6 @@
 import { BlockTool, BlockToolConstructorOptions, BlockToolData, ToolboxConfig } from '@editorjs/editorjs';
 import { MenuConfig } from '@editorjs/editorjs/types/tools';
 import Header from '@editorjs/header';
-import { ClStringHelper } from '@monorepo/core-lib';
 import { flRootInjector } from '@monorepo/front-core-lib/fl-core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlClipboardService } from '@monorepo/front-core-lib/fl-snack-bar';
@@ -34,7 +33,7 @@ export function teGetHeaderWithIdBlockDefaultConfig(): TeHeaderWithIdBlockConfig
   return {
     levels: [2, 3, 4],
     defaultLevel: 2,
-    showCopyLinkButton: false,
+    showCopyLinkButton: true,
     placeholder: TeHelper.getTranslateService().translate('teTextEditor.title'),
   };
 }
@@ -92,18 +91,60 @@ export class TeHeaderWithIdBlock extends Header implements TeBlockWithMetadata, 
 
     if (this.node.innerText.trim() == '') return this.node;
 
-    let id = ClStringHelper.toKebabCase(this.node.innerText);
-    //remove all special characters and numbers
-    id = id.replace(/[^a-zA-Z-]/g, '');
+    const id = TeHelper.getHeaderId(this.node.innerText);
     this.node.setAttribute('id', id);
+
+    if (this.config.showCopyLinkButton && this.options.readOnly) {
+      this.addCopyLinkButton(id);
+      this.node.style.cursor = 'pointer';
+      this.node.addEventListener('click', () => this.scrollToHeader());
+    }
 
     return this.node;
   }
 
+  private addCopyLinkButton(headerId: string): void {
+    const clipboardService = flRootInjector.get(FlClipboardService);
+
+    const button = this.node.ownerDocument.createElement('button');
+    button.className = 'te-header-copy-link-btn';
+    button.contentEditable = 'false';
+    button.setAttribute('aria-label', 'Copy link to header');
+    button.type = 'button';
+    button.innerHTML = '<span class="material-icons-outlined">link</span>';
+
+    const copyLink = (e: Event): void => {
+      e.preventDefault();
+      e.stopPropagation();
+      const url = window.location.href.split('#')[0];
+      const anchor = headerId ? `#${headerId}` : '';
+      clipboardService.copy(`${url}${anchor}`, {
+        text: 'teTextEditor.link_copied',
+        translateText: true,
+      });
+      this.scrollToHeader();
+    };
+
+    button.addEventListener('click', copyLink);
+
+    this.node.classList.add('te-header-with-copy-link');
+    this.node.appendChild(button);
+  }
+
   save(block: HTMLElement): BlockToolData {
-    super.save(block);
+    // Remove the copy-link button before saving so it's not included in the text
+    const button = block.querySelector('.te-header-copy-link-btn');
+    button?.remove();
+
+    const savedData = super.save(block);
+
+    // Re-add the button after saving
+    if (button) {
+      block.appendChild(button);
+    }
+
     return {
-      ...this.data,
+      ...savedData,
       metadata: this.metadata,
     };
   }
@@ -194,6 +235,10 @@ export class TeHeaderWithIdBlock extends Header implements TeBlockWithMetadata, 
           this.render();
         }
       });
+  }
+
+  private scrollToHeader(): void {
+    this.node.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
   private changeLevel(level: number): void {

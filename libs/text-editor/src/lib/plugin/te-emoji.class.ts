@@ -11,6 +11,8 @@ import { TeKeyListener } from './te-key-listener.class';
 import { TePortalPlugin } from './te-portal-plugin.class';
 
 export class TeEmoji extends TePortalPlugin {
+  private waitListener: (event: KeyboardEvent) => void;
+
   constructor(private event: KeyboardEvent) {
     super();
   }
@@ -20,6 +22,24 @@ export class TeEmoji extends TePortalPlugin {
       FlKeyboardKey.ESCAPE,
       FlKeyboardKey.SPACE,
     ]);
+  }
+
+  /**
+   * Wait for the user to type at least one character after ":" before opening the emoji picker.
+   */
+  protected override schedulePortalOpen(): void {
+    this.waitListener = () => {
+      if (this.keyListener.isCompleted()) {
+        document.removeEventListener('keyup', this.waitListener);
+        return;
+      }
+      const text = this.keyListener.getCurrentText();
+      if (text.length > 0) {
+        document.removeEventListener('keyup', this.waitListener);
+        this.callPortal();
+      }
+    };
+    document.addEventListener('keyup', this.waitListener);
   }
 
   protected onClose(emoji: string): void {

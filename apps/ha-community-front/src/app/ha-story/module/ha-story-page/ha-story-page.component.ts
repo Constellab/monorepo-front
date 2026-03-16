@@ -11,7 +11,7 @@ import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import { TeBlockHeaderLevel, TeRichText, TeTextEditorModule } from '@monorepo/text-editor';
+import { TeBlockHeaderLevel, TeHelper, TeRichText, TeTextEditorModule } from '@monorepo/text-editor';
 import { TranslatePipe } from '@ngx-translate/core';
 import { first } from 'rxjs';
 
@@ -95,6 +95,10 @@ export class HaStoryPageComponent extends HaCommunityPageDirective implements On
     }
     return null;
   });
+
+  scrollToHeader(text: string): void {
+    TeHelper.scrollToHeader(text);
+  }
 
   ngOnInit(): void {
     this.activatedRoute.params.pipe(first()).subscribe((params) => {

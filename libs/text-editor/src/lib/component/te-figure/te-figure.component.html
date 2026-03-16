@@ -14,7 +14,8 @@
         draggable="false"
         flImageFullscreen
         [alt]="data.title"
-        class="image" />
+        class="image"
+        (error)="onImageLoadError()" />
     </div>
     <figcaption class="g-text-centered">
       <te-title-caption

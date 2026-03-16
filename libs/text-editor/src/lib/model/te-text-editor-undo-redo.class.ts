@@ -4,10 +4,36 @@ export class TeTextEditorUndoRedo {
   constructor(private editor: any) {}
 
   public undoEvent(richTextAggregate: TeRichTextAggregate): void {
-    const undoResult: TeRichTextBlockModification = richTextAggregate.undoLastModification();
+    const undoResults: TeRichTextBlockModification[] = richTextAggregate.undoLastModification();
 
-    if (undoResult == null) return;
+    if (undoResults.length === 0) return;
 
+    // Apply in reverse order to undo correctly
+    for (const undoResult of undoResults.slice().reverse()) {
+      this.applyUndoToEditor(undoResult, richTextAggregate);
+    }
+
+    const lastResult = undoResults[undoResults.length - 1];
+    this.setCaret(lastResult.blockId, lastResult.index);
+  }
+
+  public redoEvent(richTextAggregate: TeRichTextAggregate): void {
+    const redoResults: TeRichTextBlockModification[] = richTextAggregate.redoLastModification();
+
+    if (redoResults.length === 0) return;
+
+    for (const redoResult of redoResults) {
+      this.applyRedoToEditor(redoResult, richTextAggregate);
+    }
+
+    const lastResult = redoResults[redoResults.length - 1];
+    this.setCaret(lastResult.blockId, lastResult.index);
+  }
+
+  private applyUndoToEditor(
+    undoResult: TeRichTextBlockModification,
+    richTextAggregate: TeRichTextAggregate
+  ): void {
     switch (undoResult.type) {
       case TeRichTextModificationType.CREATED:
         this.editor.blocks.delete(undoResult.index);
@@ -28,14 +54,12 @@ export class TeTextEditorUndoRedo {
         this.editor.blocks.move(undoResult.oldIndex, undoResult.index);
         break;
     }
-    this.setCaret(undoResult.blockId, undoResult.index);
   }
 
-  public redoEvent(richTextAggregate: TeRichTextAggregate): void {
-    const redoResult: TeRichTextBlockModification = richTextAggregate.redoLastModification();
-
-    if (redoResult == null) return;
-
+  private applyRedoToEditor(
+    redoResult: TeRichTextBlockModification,
+    richTextAggregate: TeRichTextAggregate
+  ): void {
     switch (redoResult.type) {
       case TeRichTextModificationType.CREATED:
         if (this.editor.blocks.getById(redoResult.blockId) != null) {
@@ -56,7 +80,6 @@ export class TeTextEditorUndoRedo {
         this.editor.blocks.move(redoResult.index, redoResult.oldIndex);
         break;
     }
-    this.setCaret(redoResult.blockId, redoResult.index);
   }
 
   private setCaret(blockId: string, index: number): void {

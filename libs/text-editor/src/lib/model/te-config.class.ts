@@ -1,7 +1,6 @@
 import { ApplicationRef, EnvironmentInjector } from '@angular/core';
 import { ToolConstructable, ToolSettings } from '@editorjs/editorjs/types/tools';
 import { BlockToolData } from '@editorjs/editorjs/types/tools/block-tool-data';
-import InlineCode from '@editorjs/inline-code';
 import { flRootInjector } from '@monorepo/front-core-lib/fl-core';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 
@@ -32,6 +31,7 @@ import { TeBoldInlineTool } from '../inline-tool/te-bold-inline-tool.class';
 import { TeCleanStyleInlineTool } from '../inline-tool/te-clean-style-inline-tool.class';
 import { TeFakeInlineTool } from '../inline-tool/te-fake-inline-tool.class';
 import { TeFormulaInlineToolClass } from '../inline-tool/te-formula-inline-tool.class';
+import { TeInlineCodeTool } from '../inline-tool/te-inline-code-tool.class';
 import { teInlineToolFactory } from '../inline-tool/te-inline-tool.factory';
 import { TeStrikethroughInlineTool } from '../inline-tool/te-strikethrough-inline-tool.class';
 import { TeUnderlineInlineTool } from '../inline-tool/te-underline-inline-tool.class';
@@ -178,7 +178,7 @@ export abstract class TeConfig {
 
   getInlineCodeConfig(): ToolSettings {
     return {
-      class: InlineCode,
+      class: TeInlineCodeTool,
       shortcut: 'CMD+SHIFT+M',
     };
   }

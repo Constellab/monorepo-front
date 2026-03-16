@@ -1,5 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 
+import { MockTranslatePipe } from '../te-test-helpers';
 import { TeVideoComponent } from './te-video.component';
 
 describe('CaTextEditorVideoComponent', () => {
@@ -8,11 +11,13 @@ describe('CaTextEditorVideoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [TeVideoComponent],
+      declarations: [TeVideoComponent, MockTranslatePipe],
+      providers: [
+        { provide: FlDialogService, useValue: { open: () => {} } },
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
-  });
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(TeVideoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
