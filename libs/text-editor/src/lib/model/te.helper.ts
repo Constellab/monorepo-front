@@ -294,7 +294,7 @@ export class TeHelper {
    */
   public static getHeaderId(text: string): string {
     let id = ClStringHelper.toKebabCase(text);
-    id = id.replace(/[^a-zA-Z-]/g, '');
+    id = id.replace(/[^a-zA-Z0-9-]/g, '');
     return id;
   }
 
