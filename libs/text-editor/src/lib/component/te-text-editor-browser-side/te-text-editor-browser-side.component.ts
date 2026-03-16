@@ -215,13 +215,9 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
     // the save method can be called only if the editor is not in readOnly mode
     if (!this.editor?.readOnly || this.editor.readOnly.isEnabled) return;
 
-    // Ensure the trailing empty paragraph is present before saving, and
-    // suppress the synthetic change event it triggers.
-    this.skipNextChange = true;
-    this.ensureTrailingEmptyParagraph();
-
     const outputData: TeHTMLEditorJSON = await this.editor.save();
 
+    this.ensureTrailingEmptyParagraph();
     // if the data is null, there was an error in the editor, don't emit the event
     // so the content is not cleared
     if (outputData == null) return;
@@ -358,8 +354,7 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
     const renderer = new marked.Renderer();
     // Render code blocks with language class so TeCodeBlock.onPaste can detect the language
     renderer.code = (code: string, language: string): string => {
-      const sanitizedLang = language ? language.replace(/[^a-zA-Z0-9-]/g, '') : '';
-      const langClass = sanitizedLang ? ` class="language-${sanitizedLang}"` : '';
+      const langClass = language ? ` class="language-${language}"` : '';
       return `<pre${langClass}>${code}</pre>`;
     };
 
