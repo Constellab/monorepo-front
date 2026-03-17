@@ -1,4 +1,3 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { TeBlockType } from './te-block.class';
 import { TeHTMLEditorJSON,TeRichText } from './te-rich-text.class';
 import {
@@ -30,7 +29,7 @@ describe('TeRichTextAggregate', () => {
   let mockGetUser: TeRichTextGetUserFunction;
 
   beforeEach(() => {
-    mockGetUser = vi.fn().mockResolvedValue(mockUser);
+    mockGetUser = jest.fn().mockResolvedValue(mockUser);
   });
 
   describe('constructor', () => {
@@ -853,9 +852,9 @@ describe('TeRichTextAggregate', () => {
         style: 'unordered',
         meta: {},
         items: [
-          { content: 'Item 1', meta: {}, items: [] },
+          { content: 'Item 1', meta: {}, items: [] as any[] },
           { content: 'Item 2', meta: {}, items: [
-            { content: 'Sub-item 2.1', meta: {}, items: [] },
+            { content: 'Sub-item 2.1', meta: {}, items: [] as any[] },
           ]},
         ],
       };
@@ -869,10 +868,10 @@ describe('TeRichTextAggregate', () => {
       const updatedListData = {
         style: 'unordered',
         items: [
-          { content: 'Item 1 modified', meta: {}, items: [] },
+          { content: 'Item 1 modified', meta: {}, items: [] as any[] },
           { content: 'Item 2', meta: {}, items: [
-            { content: 'Sub-item 2.1', meta: {}, items: [] },
-            { content: 'Sub-item 2.2', meta: {}, items: [] },
+            { content: 'Sub-item 2.1', meta: {}, items: [] as any[] },
+            { content: 'Sub-item 2.2', meta: {}, items: [] as any[] },
           ]},
         ],
       };
