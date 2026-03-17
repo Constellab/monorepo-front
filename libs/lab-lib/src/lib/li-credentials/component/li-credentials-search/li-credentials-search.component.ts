@@ -47,7 +47,13 @@ export class LiCredentialsSearchComponent implements OnInit {
 
   @Output() credentialsSelected: EventEmitter<LiCredentials> = new EventEmitter();
 
-  columns: FlTableColumnStatic<LiCredentials>[] = ['name', 'description', 'type', 'created', 'actions'];
+  @Input() columns: FlTableColumnStatic<LiCredentials>[] = [
+    'name',
+    'description',
+    'type',
+    'created',
+    'actions',
+  ];
 
   datasource: LiCredentialsDatasource<LiCredentialsSearchFields>;
 
