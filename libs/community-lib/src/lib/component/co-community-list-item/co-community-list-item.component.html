@@ -1,5 +1,5 @@
 <div class="list-item-container">
-  <div class="list-item-div">
+  <div class="list-item-div" [class.main-background-list-item]="mainBackground()">
     <div class="image-div">
       @if (image()) {
         <img [ngSrc]="image()" fill="" alt="" />
@@ -35,10 +35,12 @@
             [executions]="executions()"
             [dense]="true"></co-stats-list>
         </div>
-        <div class="discover-div">
-          {{ 'coCommunityLib.discover' | translate }}
-          <mat-icon>chevron_right</mat-icon>
-        </div>
+        @if (!hideDiscover()) {
+          <div class="discover-div">
+            {{ 'coCommunityLib.discover' | translate }}
+            <mat-icon>chevron_right</mat-icon>
+          </div>
+        }
       </div>
     </div>
   </div>

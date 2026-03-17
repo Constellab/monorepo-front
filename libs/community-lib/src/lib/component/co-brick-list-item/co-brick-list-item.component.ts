@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, input } from '@angular/core';
 
 import { CoBrick } from '../../model/co-brick.class';
 import { CoListItemType } from '../../model/co-list-item-type.enum';
@@ -12,6 +12,9 @@ import { CoListItemType } from '../../model/co-list-item-type.enum';
 export class CoBrickListItemComponent {
   @Input({ required: true }) brick: CoBrick;
   @Input() brickImage: string;
+
+  mainBackground = input<boolean>(false);
+  hideDiscover = input<boolean>(false);
 
   type = CoListItemType.BRICK;
 }

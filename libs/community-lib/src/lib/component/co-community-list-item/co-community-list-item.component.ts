@@ -39,6 +39,9 @@ export class CoCommunityListItemComponent {
   executions = input<number>(undefined);
   publishedAt = input<DateTime>(null);
 
+  mainBackground = input<boolean>(false);
+  hideDiscover = input<boolean>(false);
+
   cleanedShortDescription = computed(() => {
     // trim and remove &nbsp; entities
     return this.shortDescription()

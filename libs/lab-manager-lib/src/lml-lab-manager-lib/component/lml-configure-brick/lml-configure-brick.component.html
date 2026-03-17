@@ -55,6 +55,8 @@
                   <co-brick-list-item
                     [brick]="brick"
                     [brickImage]="brick.imageLink | lmlCommunityBrickImage"
+                    [mainBackground]="true"
+                    [hideDiscover]="true"
                     class="brick-item"
                     (click)="onBrickSelected(brick)"></co-brick-list-item>
                 </div>
@@ -78,6 +80,8 @@
             <co-brick-list-item
               [brick]="formGp.get('brick').value"
               [brickImage]="formGp.get('brick').value?.imageLink | lmlCommunityBrickImage"
+              [mainBackground]="true"
+              [hideDiscover]="true"
               class="selected-brick-item"></co-brick-list-item>
           </div>
 
