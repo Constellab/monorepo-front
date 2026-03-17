@@ -1,4 +1,4 @@
-import { TeBlockWithMetadata } from './te-metadata-block-config.class';
+import { TeBlockWithMetadata } from '../te-metadata-block-config.class';
 
 export enum TeBlockType {
   PARAGRAPH = 'paragraph',
