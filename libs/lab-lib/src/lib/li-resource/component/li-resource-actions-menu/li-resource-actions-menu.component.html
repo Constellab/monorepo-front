@@ -19,6 +19,13 @@
     </button>
   }
 
+  @if (resource.contentIsDeleted && resource.origin === 'IMPORTED_FROM_LAB') {
+    <button mat-menu-item type="button" (click)="downloadContentFromOriginLab()">
+      <mat-icon>cloud_sync</mat-icon>
+      <span>{{ 'li.download_content_from_origin_lab' | translate }}</span>
+    </button>
+  }
+
   @if (resource.isUpdatable()) {
     <button mat-menu-item type="button" (click)="openUpdateName()">
       <mat-icon>edit</mat-icon>

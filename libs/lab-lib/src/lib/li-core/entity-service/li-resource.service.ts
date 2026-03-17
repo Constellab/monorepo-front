@@ -245,6 +245,12 @@ export class LiResourceService {
     );
   }
 
+  //////////////////////////////////////// DOWNLOAD CONTENT ///////////////////////////////////////
+
+  public downloadContent(id: string): Observable<LiResource> {
+    return this.apiService.post(`${this.route}/${id}/download-content`, null, LiResource);
+  }
+
   //////////////////////////////////////// SHARED RESOURCE ///////////////////////////////////////
   public getSharedResourceOrigin(id: string): Observable<LiSharedEntity> {
     return this.apiService.get(`${this.route}/${id}/shared-origin`, LiSharedEntity);
