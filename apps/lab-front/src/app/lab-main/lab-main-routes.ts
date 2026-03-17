@@ -19,7 +19,7 @@ import { labAppRoutes } from '../lab-app/lab-app-routes';
 import { labBiotaRoutes } from '../lab-biota/lab-biota-routes';
 import { labDocumentationRoutes } from '../lab-documentation/lab-documentation-routes';
 import { LabLoginRoutes } from '../lab-login/lab-login-routes';
-import { labMonitoringRoutes } from '../lab-monitoring/lab-monitoring-routes';
+import { LAB_MONITORING_ROUTES } from '../lab-monitoring/lab-monitoring-routes';
 import { labNoteRoutes } from '../lab-note/lab-note-routes';
 import { labNoteTemplateRoutes } from '../lab-note-template/lab-note-template-routes';
 import { LAB_OPEN_ROUTES } from '../lab-public-route/lab-public.routes';
@@ -30,7 +30,7 @@ import { labTagRoutes } from '../lab-tag/lab-tag-routes';
 import { labViewRoutes } from '../lab-view/lab-view-routes';
 import { LabAutoLoginGuard } from './guard/lab-auto-login.guard';
 
-export const labMainRoutes: Routes = [
+export const LAB_MAIN_ROUTES: Routes = [
   {
     path: '',
     redirectTo: 'login',
@@ -111,7 +111,7 @@ export const labMainRoutes: Routes = [
       //////////////////////// MONITORING  /////////////////////////
       {
         path: liConstMonitoringRoute,
-        children: labMonitoringRoutes,
+        children: LAB_MONITORING_ROUTES,
       },
     ],
   },

@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { MatIcon } from '@angular/material/icon';
 import { MatSortHeader } from '@angular/material/sort';
 import {
   MatCell,
@@ -35,7 +34,6 @@ import { TranslatePipe } from '@ngx-translate/core';
     MatHeaderRow,
     MatRowDef,
     MatRow,
-    MatIcon,
     MatSortHeader,
     FlCorePipeModule,
     TranslatePipe,

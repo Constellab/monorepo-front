@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, EventEmitter, inject,Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
 import {
@@ -8,7 +8,8 @@ import {
   FlFormFieldDirective,
   FlInputSearchFilter,
 } from '@monorepo/front-core-lib/fl-core';
-import { FlInputSearchModule } from '@monorepo/front-core-lib/fl-input-search';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlInputSearchAdvancedButton, FlInputSearchModule } from '@monorepo/front-core-lib/fl-input-search';
 import { FlTranslatableText, FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { LiCredentials, LiCredentialsDatasource, LiCredentialsType } from '@monorepo/lab-lib/li-core';
@@ -17,6 +18,7 @@ import { Observable } from 'rxjs';
 import { LiCredentialsService } from '../../service/li-credentials.service';
 import { LiCredentialsSearchFields } from '../../service/li-credentials-search.class';
 import { LiCredentialsInlineComponent } from '../li-credentials-inline/li-credentials-inline.component';
+import { LiSelectCredentialsDialogComponent } from '../li-select-credentials-dialog/li-select-credentials-dialog.component';
 
 @Component({
   selector: 'li-select-credentials',
@@ -34,6 +36,7 @@ import { LiCredentialsInlineComponent } from '../li-credentials-inline/li-creden
 })
 export class LiSelectCredentialsComponent extends FlFormFieldDirective<LiCredentials> implements OnInit {
   private credentialsService = inject(LiCredentialsService);
+  private dialogService = inject(FlDialogService);
 
   @Input() placeholder: FlTranslatableText = { text: 'li.select_credentials', translateText: true };
 
@@ -44,6 +47,8 @@ export class LiSelectCredentialsComponent extends FlFormFieldDirective<LiCredent
   selectedCredentials: LiCredentials | Observable<LiCredentials>;
 
   datasource: LiCredentialsDatasource<FlInputSearchFilter>;
+
+  advancedButton: FlInputSearchAdvancedButton<LiCredentials>;
 
   constructor() {
     const ngControl = inject(NgControl, { optional: true, self: true });
@@ -66,6 +71,10 @@ export class LiSelectCredentialsComponent extends FlFormFieldDirective<LiCredent
       20,
       { initFirstPage: false }
     );
+
+    this.advancedButton = {
+      onClick: () => this.dialogService.openBigDialog(LiSelectCredentialsDialogComponent).afterClosed(),
+    };
   }
 
   writeValue(obj: LiCredentials): void {

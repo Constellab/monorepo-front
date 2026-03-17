@@ -1,3 +1,5 @@
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { FlFormInputsManagerConfig } from '@monorepo/front-core-lib/fl-form-inputs-manager';
 import {
   FlSearchFilterCriteriaConverter,
   FlSearchSortCriteriaConverter,
@@ -11,6 +13,11 @@ export class LiCredentialsSearchFields {
 }
 
 export class LiCredentialsSearch {
+  public static searchManagerConfig: FlFormInputsManagerConfig<LiCredentialsSearchFields> = {
+    name: 'li.name',
+    type: 'li.credentials_type',
+  };
+
   /**
    * Convert used by the advanced search to convert the form result to list of {@link FlSearchCriteria}
    */
@@ -21,10 +28,14 @@ export class LiCredentialsSearch {
 
   public static sortConverter: FlSearchSortCriteriaConverter = {
     name: 'name',
-    space: 'space.name',
-    virtualHost: 'virtualHost',
-    currentStatus: 'currentStatus.status',
-    createdBy: ['createdBy.firstname', 'createdBy.lastname'],
-    serverCloud: 'serverCloud.serverStandard.name',
+    type: 'type',
+    created_at: 'created_at',
   };
+
+  public static getSearchForm(): FormGroup {
+    return new FormBuilder().group({
+      name: [null],
+      type: [null],
+    });
+  }
 }

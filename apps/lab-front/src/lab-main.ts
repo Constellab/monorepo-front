@@ -60,7 +60,7 @@ import { LabHttpInterceptorService } from './app/lab-core/lab-http-interceptor';
 import { LabLibConfig } from './app/lab-core/lab-lib.config';
 import { LabResourceViewModuleConfig } from './app/lab-core/lab-resource-view.config';
 import { LabUserConfig } from './app/lab-core/lab-user-config.service';
-import { labMainRoutes } from './app/lab-main/lab-main-routes';
+import { LAB_MAIN_ROUTES } from './app/lab-main/lab-main-routes';
 import { LabWorkflowResourcesState } from './app/lab-scenario/lab-scenario-detail-page/state/lab-workflow-resources.state';
 import { environment } from './environments/lab-environment';
 import { labEnvironmentPath, LabEnvironmentSettings } from './environments/lab-environment.class';
@@ -102,7 +102,7 @@ function bootstrapApp(): void {
     providers: [
       provideZoneChangeDetection(),
       provideRouter(
-        labMainRoutes,
+        LAB_MAIN_ROUTES,
         withPreloading(PreloadAllModules),
         withInMemoryScrolling({ scrollPositionRestoration: 'enabled' })
       ),

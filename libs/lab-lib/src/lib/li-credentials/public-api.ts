@@ -5,8 +5,11 @@
 
 export * from './component/li-credentials-form-dialog/li-credentials-form-dialog.component';
 export * from './component/li-credentials-inline/li-credentials-inline.component';
+export * from './component/li-credentials-search/li-credentials-search.component';
+export * from './component/li-credentials-search-form/li-credentials-search-form.component';
 export * from './component/li-credentials-table/li-credentials-table.component';
-export * from './service/li-credentials-search.class';
-export * from './component/li-select-credentials-dynamic-field/li-select-credentials-dynamic-field.component';
 export * from './component/li-select-credentials/li-select-credentials.component';
+export * from './component/li-select-credentials-dialog/li-select-credentials-dialog.component';
+export * from './component/li-select-credentials-dynamic-field/li-select-credentials-dynamic-field.component';
+export * from './service/li-credentials-search.class';
 export * from './service/li-credentials.service';
