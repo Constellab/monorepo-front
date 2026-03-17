@@ -18,9 +18,9 @@ export class FlYesNoPipe implements PipeTransform {
     if (value == null) {
       return null;
     } else if (value) {
-      stringValue = this.translateService.translate('yes');
+      stringValue = this.translateService.translate('flCorePipe.yes');
     } else {
-      stringValue = this.translateService.translate('no');
+      stringValue = this.translateService.translate('flCorePipe.no');
     }
 
     if (lowercase) {

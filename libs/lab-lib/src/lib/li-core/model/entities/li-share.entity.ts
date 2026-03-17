@@ -4,7 +4,7 @@ import { Expose, Type } from 'class-transformer';
 import { DateTime } from 'luxon';
 
 import { LiBaseEntity } from '../global/li-entity.entity';
-import { LiLab } from '../global/li-system.class';
+import { LiLab } from './li-lab.entity';
 import { LiEntityType } from './li-navigable-entity.entity';
 import { LiBaseEntityWithUser, LiUser } from './li-user.entity';
 

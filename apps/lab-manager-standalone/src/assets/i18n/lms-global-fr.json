@@ -1,7 +1,5 @@
 {
   "ok": "Ok",
-  "yes": "Oui",
-  "no": "Non",
   "lms": {
     "connection_lost": "Connection perdue",
     "global_info": "Informations générales",

@@ -24,6 +24,7 @@ export type TdParamSpecType =
   | 'note_param'
   | 'scenario_param'
   | 'space_folder_param'
+  | 'lab_model_param'
   | 'dynamic'
   | 'dict';
 
@@ -150,7 +151,8 @@ interface TdParamSpecBasic extends TdParamSpecBase {
     | 'note_param'
     | 'scenario_param'
     | 'space_folder_param'
-    | 'rich_text_param';
+    | 'rich_text_param'
+    | 'lab_model_param';
 }
 
 export interface TdParamSelectCredentials extends TdParamSpecBase {
@@ -186,7 +188,7 @@ export interface TdParamSpecDynamic extends TdParamSpecBase {
 }
 
 // list of param spec type that uses a code editor
-export const tdCodeParamSpecTypeList: TdParamSpecType[] = [
+export const TD_CODE_PARAM_SPEC_TYPE_LIST: TdParamSpecType[] = [
   'python_code_param',
   'r_code_param',
   'julia_code_param',

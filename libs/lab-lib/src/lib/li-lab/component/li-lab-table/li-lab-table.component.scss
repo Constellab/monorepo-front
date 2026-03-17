@@ -1,0 +1,19 @@
+.dev-chip,
+.current-lab-chip {
+  display: inline-block;
+  margin-left: 0.5em;
+  padding: 0 0.4em;
+  font-size: 0.75em;
+  font-weight: 500;
+  border-radius: 4px;
+}
+
+.dev-chip {
+  background-color: var(--warn-color);
+  color: var(--warn-contrast);
+}
+
+.current-lab-chip {
+  background-color: var(--primary-color);
+  color: var(--primary-contrast);
+}

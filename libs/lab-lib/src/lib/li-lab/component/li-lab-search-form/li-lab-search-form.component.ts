@@ -1,0 +1,38 @@
+import { Component, inject, OnInit } from '@angular/core';
+import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
+import { MatOption } from '@angular/material/core';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { MatSelect } from '@angular/material/select';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
+import { FlSearchState } from '@monorepo/front-core-lib/fl-search';
+import { LiLabEnvironment, LiLabMode } from '@monorepo/lab-lib/li-core';
+import { TranslatePipe } from '@ngx-translate/core';
+
+@Component({
+  selector: 'li-lab-search-form',
+  templateUrl: './li-lab-search-form.component.html',
+  styleUrls: ['./li-lab-search-form.component.scss'],
+  imports: [
+    ReactiveFormsModule,
+    MatFormField,
+    MatLabel,
+    MatInput,
+    MatSelect,
+    MatOption,
+    FlCorePipeModule,
+    TranslatePipe,
+  ],
+})
+export class LiLabSearchFormComponent implements OnInit {
+  private searchState = inject<FlSearchState<any>>(FlSearchState);
+
+  formGp: UntypedFormGroup;
+
+  labModes = LiLabMode;
+  labEnvironments = LiLabEnvironment;
+
+  ngOnInit(): void {
+    this.formGp = this.searchState.advancedSearchFormGroup;
+  }
+}

@@ -1,0 +1,65 @@
+<mat-table mat-table [dataSource]="datasource" flSearchTableSort>
+  <!-- Name -->
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
+      <span> {{ 'li.name' | translate }}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      {{ row.name }}
+      @if (row.isCurrentLab) {
+        <span class="current-lab-chip">{{ 'li.is_current_lab' | translate }}</span>
+      }
+    </mat-cell>
+  </ng-container>
+
+  <!-- Space Name -->
+  <ng-container matColumnDef="spaceName">
+    <mat-header-cell *matHeaderCellDef>
+      <span> {{ 'li.space_name' | translate }}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      {{ row.spaceName }}
+    </mat-cell>
+  </ng-container>
+
+  <!-- Environment -->
+  <ng-container matColumnDef="environment">
+    <mat-header-cell *matHeaderCellDef>
+      <span> {{ 'li.lab_environment' | translate }}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      {{ 'li.lab_environment_' + row.environment | translate }}
+      @if (row.mode === labModes.DEV) {
+        <span class="dev-chip">DEV</span>
+      }
+    </mat-cell>
+  </ng-container>
+
+  <!-- Domain -->
+  <ng-container matColumnDef="domain">
+    <mat-header-cell *matHeaderCellDef>
+      <span> {{ 'li.lab_domain' | translate }}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      {{ row.domain }}
+    </mat-cell>
+  </ng-container>
+
+  <!-- Has Credentials -->
+  <ng-container matColumnDef="hasCredentials">
+    <mat-header-cell *matHeaderCellDef>
+      <span> {{ 'li.lab_has_credentials' | translate }}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      {{ !!row.credentialsId | flYesNo }}
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
+
+  <mat-row
+    *matRowDef="let row; columns: columns"
+    [class.g-table-row-selectable]="rowSelectable"
+    (click)="rowClicked(row)">
+  </mat-row>
+</mat-table>

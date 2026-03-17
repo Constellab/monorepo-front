@@ -1,0 +1,16 @@
+<fl-input-search
+  [selectedItem]="selectedLab"
+  (selectedItemChange)="setAndEmitValue($event)"
+  [datasource]="datasource"
+  [placeholder]="placeholder | flTranslatableText | async"
+  [required]="required"
+  [disabled]="disabled"
+  [minInputSearchLength]="0"
+  [initSearchOnFocus]="true"
+  [advancedButton]="advancedButton">
+  <div class="photo" *flInputSearchPrefix="datasource as lab">
+    <mat-icon flIcon="lab">science</mat-icon>
+  </div>
+
+  <li-lab-inline *flInputSearchOption="datasource as lab" [lab]="lab"> </li-lab-inline>
+</fl-input-search>

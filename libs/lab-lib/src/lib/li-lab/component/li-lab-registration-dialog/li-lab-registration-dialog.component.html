@@ -1,0 +1,57 @@
+<fl-dialog-header>
+  {{ 'li.lab_registration' | translate }}
+</fl-dialog-header>
+
+<mat-dialog-content>
+  <p class="g-text-light">{{ 'li.lab_registration_description' | translate }}</p>
+
+  <!-- Section 1: Generate code URL -->
+  <div class="section">
+    <h3>{{ 'li.lab_generate_code' | translate }}</h3>
+    <p class="g-text-small g-text-light">{{ 'li.lab_generate_code_description' | translate }}</p>
+
+    <div class="section-actions">
+      @if (!generatedUrl) {
+        <button mat-stroked-button type="button" (click)="generateCode()">
+          <mat-icon>link</mat-icon>
+          {{ 'li.lab_generate_url' | translate }}
+          @if (isGenerating) {
+            <fl-button-loader></fl-button-loader>
+          }
+        </button>
+      }
+
+      @if (generatedUrl) {
+        <div class="url-container">
+          <div class="url-text">{{ generatedUrl }}</div>
+          <button mat-icon-button type="button" (click)="copyUrl()">
+            <mat-icon>content_copy</mat-icon>
+          </button>
+        </div>
+      }
+    </div>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <!-- Section 2: Register from URL -->
+  <div class="section">
+    <h3>{{ 'li.lab_register_from_url' | translate }}</h3>
+    <p class="g-text-small g-text-light">{{ 'li.lab_register_from_url_description' | translate }}</p>
+
+    <mat-form-field class="g-form-input input-url">
+      <mat-label>{{ 'li.lab_paste_url' | translate }}</mat-label>
+      <input matInput [(ngModel)]="registerUrl" [placeholder]="'li.lab_paste_url' | translate" />
+    </mat-form-field>
+
+    <div class="section-actions">
+      <button mat-flat-button type="button" class="primary" (click)="register()" [disabled]="!registerUrl">
+        <mat-icon>add_link</mat-icon>
+        {{ 'li.lab_register' | translate }}
+        @if (isRegistering) {
+          <fl-button-loader></fl-button-loader>
+        }
+      </button>
+    </div>
+  </div>
+</mat-dialog-content>

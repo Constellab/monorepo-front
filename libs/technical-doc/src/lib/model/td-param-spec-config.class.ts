@@ -9,7 +9,7 @@ import {
   FlDynamicFieldConfigUnknown,
 } from '@monorepo/front-core-lib/fl-dynamic-field';
 
-import { tdCodeParamSpecTypeList, TdParamSpec, TdParamSpecSimple } from './td-config-spec.class';
+import { TD_CODE_PARAM_SPEC_TYPE_LIST, TdParamSpec, TdParamSpecSimple } from './td-config-spec.class';
 
 export class TdParamSpecConfig {
   public static convertParamSpecToAbstractConfig(spec: TdParamSpecSimple): FlDynamicFieldConfig {
@@ -56,6 +56,10 @@ export class TdParamSpecConfig {
       config.type = 'credentials_param';
       config.additionalInfo = { credentialsType: spec.additional_info.credentials_type };
       return config;
+    } else if (spec.type === 'lab_model_param') {
+      const config: FlDynamicFieldConfigUnknown = TdParamSpecConfig.convertToBaseFieldConfig(spec) as any;
+      config.type = 'lab_model_param';
+      return config;
     } else if (spec.type === 'note_template_param') {
       const config: FlDynamicFieldConfigUnknown = TdParamSpecConfig.convertToBaseFieldConfig(spec) as any;
       config.type = 'note_template_param';
@@ -72,7 +76,7 @@ export class TdParamSpecConfig {
       const config: FlDynamicFieldConfigUnknown = TdParamSpecConfig.convertToBaseFieldConfig(spec) as any;
       config.type = 'space_folder_param';
       return config;
-    } else if (tdCodeParamSpecTypeList.includes(spec.type)) {
+    } else if (TD_CODE_PARAM_SPEC_TYPE_LIST.includes(spec.type)) {
       const config: FlDynamicFieldConfig = TdParamSpecConfig.convertToBaseFieldConfig(spec) as any;
       config.type = spec.type;
       config.fullWidth = true;
@@ -82,7 +86,7 @@ export class TdParamSpecConfig {
       config.type = 'rich_text_param';
       config.fullWidth = true;
       return config;
-    } else {
+    } else if (['str', 'int', 'float'].includes(spec.type)) {
       const config: FlDynamicFieldConfigInput = TdParamSpecConfig.convertToBaseFieldConfig(spec) as any;
       config.type = 'input';
       config.inputType = spec.type === 'str' ? 'text' : 'number';
@@ -94,6 +98,9 @@ export class TdParamSpecConfig {
         config.integer = spec.type === 'int';
       }
       return config;
+    } else {
+      // raise error for unknown type
+      throw new Error('Unknown param spec type: ' + spec.type);
     }
   }
 

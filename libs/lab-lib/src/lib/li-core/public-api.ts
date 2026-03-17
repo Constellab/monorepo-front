@@ -38,6 +38,7 @@ export * from './model/entities/li-brick.entity';
 export * from './model/entities/li-community-space.entity';
 export * from './model/entities/li-credentials.entity';
 export * from './model/entities/li-folder.class';
+export * from './model/entities/li-lab.entity';
 export * from './model/entities/li-log.entity';
 export * from './model/entities/li-monitor.entity';
 export * from './model/entities/li-navigable-entity.entity';

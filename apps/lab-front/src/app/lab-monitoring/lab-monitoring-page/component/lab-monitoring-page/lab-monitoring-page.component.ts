@@ -39,6 +39,11 @@ export class LabMonitoringPageComponent {
       route: LiRouterService.getMonitoringLogsRoute(),
     },
     {
+      label: { text: 'monitoring.labs', translateText: true },
+      icon: 'lab',
+      route: LiRouterService.getMonitoringLabRoute(),
+    },
+    {
       label: { text: 'biox.credentials', translateText: true },
       icon: 'key',
       route: LiRouterService.getMonitoringCredentialsRoute(),
