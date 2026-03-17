@@ -1,9 +1,9 @@
-import { AfterViewInit, Component, inject,OnInit } from '@angular/core';
+import { AfterViewInit, Component, inject } from '@angular/core';
 import { MatOption } from '@angular/material/core';
 import { MatSelect } from '@angular/material/select';
 import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib/fl-core';
 import { FlStatus } from '@monorepo/front-core-lib/fl-status';
-import { labScenarioStatusDict } from '@monorepo/lab-lib/li-core';
+import { LI_SCENARIO_STATUS_DICT } from '@monorepo/lab-lib/li-core';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
@@ -18,7 +18,7 @@ export class LiScenarioStatusOptionsComponent
 {
   select: MatSelect;
 
-  statusList: FlStatus[] = Object.values(labScenarioStatusDict);
+  statusList: FlStatus[] = Object.values(LI_SCENARIO_STATUS_DICT);
 
   constructor() {
     const select = inject(MatSelect, { host: true, optional: true });

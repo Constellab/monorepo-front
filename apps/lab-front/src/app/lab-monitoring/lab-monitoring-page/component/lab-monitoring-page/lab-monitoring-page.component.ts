@@ -50,7 +50,7 @@ export class LabMonitoringPageComponent {
     },
     {
       label: { text: 'monitoring.jobs', translateText: true },
-      icon: 'work',
+      icon: 'work_outline',
       route: LiRouterService.getMonitoringJobsRoute(),
     },
     {

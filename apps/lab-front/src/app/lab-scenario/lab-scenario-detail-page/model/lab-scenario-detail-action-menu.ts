@@ -56,7 +56,7 @@ export class LabScenarioDetailActionMenu extends LiScenarioActionMenu {
       menu.push(this.getValidateButton());
     }
 
-    if (this.scenario.protocolIsEditable()) {
+    if (this.scenario.isResettable()) {
       menu.push(this.getResetButton());
     }
     if (!this.scenario.isDraft()) {
@@ -75,7 +75,7 @@ export class LabScenarioDetailActionMenu extends LiScenarioActionMenu {
       menu.push(this.getDeleteIntermediateResourcesButton());
     }
 
-    if (this.scenario.protocolIsEditable()) {
+    if (this.scenario.isResettable()) {
       menu.push(this.getDeleteButton());
     }
 

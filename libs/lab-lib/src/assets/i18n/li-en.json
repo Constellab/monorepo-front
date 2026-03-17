@@ -34,6 +34,7 @@
     "progress_bar_progress": "Progress",
     "draft": "Draft",
     "scenario_in_queue": "Waiting",
+    "running_in_external_lab": "Running externally",
     "running": "Running",
     "partially_run": "Partially run",
     "scenario_waiting_for_cli": "Waiting",
