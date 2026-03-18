@@ -11,7 +11,7 @@
       <mat-select [formControl]="formControl" [compareWith]="compareBrickMigration">
         @for (migration of brickMigrations$ | async; track migration) {
           <mat-option [value]="migration" class="g-mat-option-fit-height">
-            {{ migration.version }} | {{ migration.dbUniqueName }} |
+            {{ migration.version }} |
             <span class="g-text-light g-text-small">{{ migration.shortDescription }}</span>
           </mat-option>
         }

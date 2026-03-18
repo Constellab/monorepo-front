@@ -30,7 +30,7 @@ export class LiBrickService {
     return this.apiService.get(`${this.route}/${brickName}/migrations`, LiBrickMigration);
   }
 
-  public callMigration(brickName: string, version: string, dbUniqueName: string): Observable<void> {
-    return this.apiService.post(`${this.route}/${brickName}/call-migration/${version}/${dbUniqueName}`, null);
+  public callMigration(brickName: string, version: string): Observable<void> {
+    return this.apiService.post(`${this.route}/${brickName}/call-migration/${version}`, null);
   }
 }

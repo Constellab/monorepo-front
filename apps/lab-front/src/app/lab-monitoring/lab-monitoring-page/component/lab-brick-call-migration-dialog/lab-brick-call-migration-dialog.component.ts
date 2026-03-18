@@ -52,7 +52,7 @@ export class LabBrickCallMigrationDialogComponent implements OnInit {
   isLoading: boolean = false;
 
   compareBrickMigration = (m1: LiBrickMigration, m2: LiBrickMigration | null): boolean => {
-    return m2 != null && m1.version.isEqual(m2.version) && m1.dbUniqueName === m2.dbUniqueName;
+    return m2 != null && m1.version.isEqual(m2.version);
   };
 
   ngOnInit(): void {
@@ -69,12 +69,10 @@ export class LabBrickCallMigrationDialogComponent implements OnInit {
   private callMigration(migration: LiBrickMigration): void {
     this.isLoading = true;
 
-    this.brickService
-      .callMigration(this.brickName, migration.version.toString(), migration.dbUniqueName)
-      .subscribe({
-        next: () => this.onSuccess(),
-        error: () => (this.isLoading = false),
-      });
+    this.brickService.callMigration(this.brickName, migration.version.toString()).subscribe({
+      next: () => this.onSuccess(),
+      error: () => (this.isLoading = false),
+    });
   }
 
   private onSuccess(): void {
