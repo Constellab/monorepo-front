@@ -134,7 +134,7 @@ export class LiFolderSelectComponent
 
   private handleEmptyFolderList(): void {
     this.systemService.getSystemInfo().subscribe((systemInfo) => {
-      this.labDashboardRoute = this.liConfig.getSpaceDashboardLabUrl(systemInfo.lab.id);
+      this.labDashboardRoute = this.liConfig.getSpaceDashboardLabUrl(systemInfo.lab.labId);
       this.isEmpty = true;
     });
   }

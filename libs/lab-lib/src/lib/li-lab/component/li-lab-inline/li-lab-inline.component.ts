@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { LiLab } from '@monorepo/lab-lib/li-core';
+import { LiLab, LiLabMode } from '@monorepo/lab-lib/li-core';
 
 @Component({
   selector: 'li-lab-inline',
@@ -9,4 +9,6 @@ import { LiLab } from '@monorepo/lab-lib/li-core';
 })
 export class LiLabInlineComponent {
   @Input({ required: true }) lab: LiLab;
+
+  labModes = LiLabMode;
 }

@@ -13,7 +13,11 @@ export enum LiLabEnvironment {
 }
 
 export class LiLab {
-  id: string;
+  id: string; // Id of the model
+
+  @Expose({ name: 'lab_id' })
+  labId: string; // Id of the lab
+
   name: string;
 
   @Expose({ name: 'is_current_lab' })

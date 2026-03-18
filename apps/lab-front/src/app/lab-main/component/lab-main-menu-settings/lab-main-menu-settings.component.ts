@@ -65,7 +65,7 @@ export class LabMainMenuSettingsComponent implements OnInit {
   }
 
   private getSystemInfoSuccess(systemInfo: LiSystemInfo): void {
-    this.labConfigRoute = LabEnvironmentHelper.getSpaceConfigLabUrl(systemInfo.lab.id);
+    this.labConfigRoute = LabEnvironmentHelper.getSpaceConfigLabUrl(systemInfo.lab.labId);
   }
 
   logout(): void {

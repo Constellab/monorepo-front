@@ -1,6 +1,9 @@
 <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
   <div>
     {{ lab.name }}
+    @if (lab.mode === labModes.DEV) {
+      <span class="dev-chip">DEV</span>
+    }
 
     @if (lab.spaceName) {
       <div class="g-text-small g-text-light">{{ lab.spaceName }}</div>

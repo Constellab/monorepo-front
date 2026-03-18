@@ -1,8 +1,8 @@
 <fl-key-value>
   <fl-key>{{ 'li.share_origin_lab' | translate }}</fl-key>
   {{ sharedEntity.lab.name }}
-  @if (sharedEntity.lab.id) {
-    <span class="g-text-small"> ({{ sharedEntity.lab.id }})</span>
+  @if (sharedEntity.lab.labId) {
+    <span class="g-text-small"> ({{ sharedEntity.lab.labId }})</span>
   }
 </fl-key-value>
 
