@@ -215,9 +215,10 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
     // the save method can be called only if the editor is not in readOnly mode
     if (!this.editor?.readOnly || this.editor.readOnly.isEnabled) return;
 
+    this.ensureTrailingEmptyParagraph();
+
     const outputData: TeHTMLEditorJSON = await this.editor.save();
 
-    this.ensureTrailingEmptyParagraph();
     // if the data is null, there was an error in the editor, don't emit the event
     // so the content is not cleared
     if (outputData == null) return;
@@ -244,9 +245,20 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
     const lastBlock = this.editor.blocks.getBlockByIndex(blocksCount - 1);
     if (!lastBlock) return;
 
-    // If the last block is already an empty paragraph, no need to add another one
-    if (lastBlock.name === 'paragraph' && lastBlock.isEmpty) return;
+    // If the last block is already an empty paragraph, check for duplicates
+    if (lastBlock.name === 'paragraph' && lastBlock.isEmpty) {
+      // Remove duplicate trailing empty paragraphs
+      if (blocksCount >= 2) {
+        const secondToLast = this.editor.blocks.getBlockByIndex(blocksCount - 2);
+        if (secondToLast?.name === 'paragraph' && secondToLast.isEmpty) {
+          this.skipNextChange = true;
+          this.editor.blocks.delete(blocksCount - 1);
+        }
+      }
+      return;
+    }
 
+    this.skipNextChange = true;
     this.editor.blocks.insert('paragraph', { text: '' }, undefined, blocksCount, false, false);
   }
 

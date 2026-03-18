@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { BlockTool, BlockToolConstructorOptions, BlockToolData, ToolboxConfig } from '@editorjs/editorjs';
 import { MenuConfig } from '@editorjs/editorjs/types/tools';
 import Header from '@editorjs/header';
@@ -238,6 +239,11 @@ export class TeHeaderWithIdBlock extends Header implements TeBlockWithMetadata, 
   }
 
   private scrollToHeader(): void {
+    const id = this.node.getAttribute('id');
+    if (id) {
+      const router = flRootInjector.get(Router);
+      router.navigate([], { fragment: id, replaceUrl: true });
+    }
     this.node.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
