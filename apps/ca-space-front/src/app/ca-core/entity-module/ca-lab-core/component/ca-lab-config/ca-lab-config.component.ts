@@ -23,7 +23,7 @@ import { CaLabConfig } from '../../../../model/entities/lab/ca-lab-config.class'
 export class CaLabConfigComponent {
   labConfig = input.required<CaLabConfig>();
   showDetailButton = input<boolean>(true);
-  labId = input<string>();
+  labId = input.required<string>();
 
   private dialogService = inject(FlDialogService);
   private communityHelper = inject(CoCommunityHelperService);

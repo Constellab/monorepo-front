@@ -22,15 +22,23 @@ export class CaLabManagerBrickService extends LmlBrickService {
 
   private coCommunityHelper = inject(CoCommunityHelperService);
 
+  private requireLabId(labId: string | undefined): string {
+    if (!labId) {
+      throw new Error('labId is required for CaLabManagerBrickService');
+    }
+    return labId;
+  }
+
   getAllWithFilters(
-    labId: string,
+    labId: string | undefined,
     spacesFilter: string[],
     titleFilter: string,
     page: number,
     size: number
   ): Observable<ClPage<LmlCommunityBrick>> {
+    const id = this.requireLabId(labId);
     return this.apiService.post(
-      `${this.route}/${labId}/brick/filters`,
+      `${this.route}/${id}/brick/filters`,
       { spacesFilter: spacesFilter, titleFilter: titleFilter },
       LmlCommunityBrick,
       {
@@ -41,19 +49,26 @@ export class CaLabManagerBrickService extends LmlBrickService {
     );
   }
 
-  getByName(labId: string, name: string): Observable<LmlCommunityBrick> {
-    return this.apiService.get(`${this.route}/${labId}/brick/${name}`, LmlCommunityBrick);
+  getByName(labId: string | undefined, name: string): Observable<LmlCommunityBrick> {
+    const id = this.requireLabId(labId);
+    return this.apiService.get(`${this.route}/${id}/brick/${name}`, LmlCommunityBrick);
   }
 
-  getBrickVersion(labId: string, brickName: string, brickVersion: string): Observable<LmlBrickVersion> {
+  getBrickVersion(
+    labId: string | undefined,
+    brickName: string,
+    brickVersion: string
+  ): Observable<LmlBrickVersion> {
+    const id = this.requireLabId(labId);
     return this.apiService.get(
-      `${this.route}/${labId}/brick/${brickName}/version/${brickVersion}`,
+      `${this.route}/${id}/brick/${brickName}/version/${brickVersion}`,
       LmlBrickVersion
     );
   }
 
-  getBrickLatestVersion(labId: string, brickName: string): Observable<LmlBrickVersion> {
-    return this.apiService.get(`${this.route}/${labId}/brick/${brickName}/latest`, LmlBrickVersion);
+  getBrickLatestVersion(labId: string | undefined, brickName: string): Observable<LmlBrickVersion> {
+    const id = this.requireLabId(labId);
+    return this.apiService.get(`${this.route}/${id}/brick/${brickName}/latest`, LmlBrickVersion);
   }
 
   getImageUrl(filename: string): string {
@@ -71,8 +86,9 @@ export class CaLabManagerBrickService extends LmlBrickService {
     return this.spaceService.getMySpaces();
   }
 
-  getVersionsList(labId: string, brickId: string): Observable<string[]> {
-    return this.apiService.get(`${this.route}/${labId}/brick/versions-list/${brickId}`, null);
+  getVersionsList(labId: string | undefined, brickId: string): Observable<string[]> {
+    const id = this.requireLabId(labId);
+    return this.apiService.get(`${this.route}/${id}/brick/versions-list/${brickId}`, null);
   }
 
   spaceActivated(): boolean {
