@@ -557,7 +557,7 @@
     "lab_paste_url": "Paste the registration URL",
     "lab_register": "Register lab",
     "lab_registered": "Lab registered successfully",
-    "lab_registration_description": "Registering two labs together creates credentials that allow them to easily share scenarios and resources with each other.",
+    "lab_registration_description": "Registering two labs together creates credentials that allow them to easily share scenarios and resources with each other. If the lab or credentials already exist, this process will update them.",
     "lab_mode": "Mode",
     "lab_mode_prod": "Production",
     "lab_mode_dev": "Development",

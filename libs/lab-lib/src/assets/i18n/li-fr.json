@@ -557,7 +557,7 @@
     "lab_paste_url": "Coller l'URL d'enregistrement",
     "lab_register": "Enregistrer le lab",
     "lab_registered": "Lab enregistré avec succès",
-    "lab_registration_description": "L'enregistrement de deux labs crée des identifiants qui leur permettent de partager facilement des scénarios et des ressources entre eux.",
+    "lab_registration_description": "L'enregistrement de deux labs crée des identifiants qui leur permettent de partager facilement des scénarios et des ressources entre eux. Si le lab ou les identifiants existent déjà, ce processus les mettra à jour.",
     "lab_mode": "Mode",
     "lab_mode_prod": "Production",
     "lab_mode_dev": "Développement",

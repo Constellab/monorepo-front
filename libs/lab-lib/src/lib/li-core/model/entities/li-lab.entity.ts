@@ -39,7 +39,7 @@ export class LiLab {
   credentialsId?: string;
 
   toString(): string {
-    return this.name;
+    return this.name + (this.mode === LiLabMode.DEV ? ' (dev)' : '');
   }
 }
 
