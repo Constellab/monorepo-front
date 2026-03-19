@@ -127,7 +127,7 @@ export class CaScenarioTechnicalReportComponent implements OnInit, OnDestroy {
       title: { text: 'lab_configuration', translateText: true },
       helpText: { text: 'scenario_brick_config_help', translateText: true },
       showDetailButton: this.userRole().canEdit(),
-      labId: this.scenario().lab?.id,
+      labId: this.scenario().lab.id,
     };
 
     this.dialogService.openSmallDialog(CaLabConfigDialogComponent, { data: input, autoFocus: false });

@@ -16,7 +16,7 @@ interface LmlCommunityBrickFilers {
 }
 
 interface LmlConfigureBrickDialogData {
-  labId: string;
+  labId?: string;
   brickVersionDTO?: LmlLabManagerBrickVersionDTO;
 }
 

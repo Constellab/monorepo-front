@@ -31,7 +31,7 @@ import { LmlConfigureBrickComponent } from '../lml-configure-brick/lml-configure
 })
 export class LmlBricksConfigFormComponent {
   @Input({ required: true }) brickVersions: LmlBrickVersionDTODatasource;
-  @Input({ required: true }) labId: string;
+  @Input() labId: string;
 
   @Output() configChange: EventEmitter<LmlLabManagerConfig> = new EventEmitter<LmlLabManagerConfig>();
 
