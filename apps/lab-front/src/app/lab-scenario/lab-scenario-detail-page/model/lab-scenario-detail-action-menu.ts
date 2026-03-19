@@ -75,7 +75,7 @@ export class LabScenarioDetailActionMenu extends LiScenarioActionMenu {
       menu.push(this.getDeleteIntermediateResourcesButton());
     }
 
-    if (this.scenario.isResettable()) {
+    if (this.scenario.isDeletable()) {
       menu.push(this.getDeleteButton());
     }
 

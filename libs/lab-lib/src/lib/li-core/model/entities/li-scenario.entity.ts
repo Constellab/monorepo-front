@@ -134,6 +134,10 @@ export class LiScenario extends LiBaseEntityWithUser implements LiFolderObject {
     return this.status.value === 'RUNNING' || this.status.value === 'WAITING_FOR_CLI_PROCESS';
   }
 
+  isDeletable(): boolean {
+    return this.isInfoEditable() && !this.isRunningOrWaiting();
+  }
+
   isRunningInExternalLab(): boolean {
     return this.status.value === 'RUNNING_IN_EXTERNAL_LAB';
   }
