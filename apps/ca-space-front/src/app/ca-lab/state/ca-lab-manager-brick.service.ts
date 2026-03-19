@@ -48,12 +48,12 @@ export class CaLabManagerBrickService extends LmlBrickService {
   getBrickVersion(labId: string, brickName: string, brickVersion: string): Observable<LmlBrickVersion> {
     return this.apiService.get(
       `${this.route}/${labId}/brick/${brickName}/version/${brickVersion}`,
-      LmlCommunityBrick
+      LmlBrickVersion
     );
   }
 
   getBrickLatestVersion(labId: string, brickName: string): Observable<LmlBrickVersion> {
-    return this.apiService.get(`${this.route}/${labId}/brick/${brickName}/latest`, LmlCommunityBrick);
+    return this.apiService.get(`${this.route}/${labId}/brick/${brickName}/latest`, LmlBrickVersion);
   }
 
   getImageUrl(filename: string): string {

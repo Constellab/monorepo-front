@@ -6,7 +6,7 @@ import { LmlBrickService } from '../../lml-brick.service';
 import { LmlBrickVersion } from '../../model/lml-brick.class';
 
 export interface LmlBrickVersionDetailDialogInput {
-  labId?: string;
+  labId: string;
   brickName: string;
   brickVersion: string;
 }
