@@ -15,6 +15,7 @@ export class LmsLabManagerBrickService extends LmlBrickService {
   private communityService = inject(CoCommunityHelperService);
 
   getAllWithFilters(
+    _labId: string,
     spacesFilter: string[],
     titleFilter: string,
     page: number,
@@ -32,15 +33,15 @@ export class LmsLabManagerBrickService extends LmlBrickService {
     );
   }
 
-  getByName(name: string): Observable<LmlCommunityBrick> {
+  getByName(_labId: string, name: string): Observable<LmlCommunityBrick> {
     return this.apiService.get(`${this.route}/${name}`, LmlCommunityBrick);
   }
 
-  getBrickLatestVersion(brickName: string): Observable<LmlBrickVersion> {
+  getBrickLatestVersion(_labId: string, brickName: string): Observable<LmlBrickVersion> {
     return this.apiService.get(`${this.route}/${brickName}/latest`, LmlBrickVersion);
   }
 
-  getBrickVersion(brickName: string, brickVersion: string): Observable<LmlBrickVersion> {
+  getBrickVersion(_labId: string, brickName: string, brickVersion: string): Observable<LmlBrickVersion> {
     return this.apiService.get(`${this.route}/${brickName}/version/${brickVersion}`, LmlBrickVersion);
   }
 
@@ -56,7 +57,7 @@ export class LmsLabManagerBrickService extends LmlBrickService {
     return of([]);
   }
 
-  getVersionsList(brickId: string): Observable<string[]> {
+  getVersionsList(_labId: string, brickId: string): Observable<string[]> {
     return this.apiService.get(`${this.route}/${brickId}/version`, null);
   }
 

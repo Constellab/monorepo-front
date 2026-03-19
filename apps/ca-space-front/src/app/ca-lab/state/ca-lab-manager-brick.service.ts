@@ -23,13 +23,14 @@ export class CaLabManagerBrickService extends LmlBrickService {
   private coCommunityHelper = inject(CoCommunityHelperService);
 
   getAllWithFilters(
+    labId: string,
     spacesFilter: string[],
     titleFilter: string,
     page: number,
     size: number
   ): Observable<ClPage<LmlCommunityBrick>> {
     return this.apiService.post(
-      `${this.route}/brick/filters`,
+      `${this.route}/${labId}/brick/filters`,
       { spacesFilter: spacesFilter, titleFilter: titleFilter },
       LmlCommunityBrick,
       {
@@ -40,16 +41,19 @@ export class CaLabManagerBrickService extends LmlBrickService {
     );
   }
 
-  getByName(name: string): Observable<LmlCommunityBrick> {
-    return this.apiService.get(`${this.route}/brick/${name}`, LmlCommunityBrick);
+  getByName(labId: string, name: string): Observable<LmlCommunityBrick> {
+    return this.apiService.get(`${this.route}/${labId}/brick/${name}`, LmlCommunityBrick);
   }
 
-  getBrickVersion(brickName: string, brickVersion: string): Observable<LmlBrickVersion> {
-    return this.apiService.get(`${this.route}/brick/${brickName}/version/${brickVersion}`, LmlCommunityBrick);
+  getBrickVersion(labId: string, brickName: string, brickVersion: string): Observable<LmlBrickVersion> {
+    return this.apiService.get(
+      `${this.route}/${labId}/brick/${brickName}/version/${brickVersion}`,
+      LmlCommunityBrick
+    );
   }
 
-  getBrickLatestVersion(brickName: string): Observable<LmlBrickVersion> {
-    return this.apiService.get(`${this.route}/brick/${brickName}/latest`, LmlCommunityBrick);
+  getBrickLatestVersion(labId: string, brickName: string): Observable<LmlBrickVersion> {
+    return this.apiService.get(`${this.route}/${labId}/brick/${brickName}/latest`, LmlCommunityBrick);
   }
 
   getImageUrl(filename: string): string {
@@ -67,8 +71,8 @@ export class CaLabManagerBrickService extends LmlBrickService {
     return this.spaceService.getMySpaces();
   }
 
-  getVersionsList(brickId: string): Observable<string[]> {
-    return this.apiService.get(`${this.route}/brick/versions-list/${brickId}`, null);
+  getVersionsList(labId: string, brickId: string): Observable<string[]> {
+    return this.apiService.get(`${this.route}/${labId}/brick/versions-list/${brickId}`, null);
   }
 
   spaceActivated(): boolean {

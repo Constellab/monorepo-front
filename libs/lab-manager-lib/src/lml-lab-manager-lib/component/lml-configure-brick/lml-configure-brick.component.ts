@@ -15,6 +15,11 @@ interface LmlCommunityBrickFilers {
   title: string;
 }
 
+interface LmlConfigureBrickDialogData {
+  labId: string;
+  brickVersionDTO?: LmlLabManagerBrickVersionDTO;
+}
+
 @Component({
   selector: 'lml-config-brick',
   templateUrl: './lml-configure-brick.component.html',
@@ -40,7 +45,9 @@ export class LmlConfigureBrickComponent implements OnInit {
 
   isUpdate: boolean;
 
-  private brickVersionDTO: LmlLabManagerBrickVersionDTO = inject(MAT_DIALOG_DATA);
+  private dialogData: LmlConfigureBrickDialogData = inject(MAT_DIALOG_DATA);
+  private brickVersionDTO = this.dialogData.brickVersionDTO;
+  private labId = this.dialogData.labId;
   private dialogRef = inject(MatDialogRef);
   private communityBrickService = inject(LmlBrickService);
 
@@ -56,7 +63,7 @@ export class LmlConfigureBrickComponent implements OnInit {
 
     if (this.isUpdate) {
       this.brickSelectionMode = false;
-      this.communityBrickService.getByName(this.brickVersionDTO.name).subscribe((brick) => {
+      this.communityBrickService.getByName(this.labId, this.brickVersionDTO.name).subscribe((brick) => {
         this.initBrickVersionSelection(brick);
       });
     }
@@ -100,6 +107,7 @@ export class LmlConfigureBrickComponent implements OnInit {
     this.bricks$ = new FlEntityPaginatedDatasource(
       (page, size, requestData) =>
         this.communityBrickService.getAllWithFilters(
+          this.labId,
           requestData.filtersCriteria.spaceIds,
           requestData.filtersCriteria.title,
           page,
@@ -115,7 +123,7 @@ export class LmlConfigureBrickComponent implements OnInit {
   private initBrickVersionSelection(brick: LmlCommunityBrick): void {
     this.formGp.controls.name.patchValue(brick?.name);
     this.formGp.controls.brick.patchValue(brick);
-    this.communityBrickService.getVersionsList(brick.id).subscribe((versionsList) => {
+    this.communityBrickService.getVersionsList(this.labId, brick.id).subscribe((versionsList) => {
       if (this.formGp.controls.version.value && versionsList.includes(this.formGp.controls.version.value)) {
         const splitIndex = versionsList.indexOf(this.formGp.controls.version.value);
         this.versions = versionsList.slice(0, splitIndex + 1);

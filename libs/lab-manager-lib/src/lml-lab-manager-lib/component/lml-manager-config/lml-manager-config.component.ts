@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 
 import { LmlLabManagerService } from '../../lml-lab-manager.service';
@@ -15,6 +15,8 @@ import { LmlBrickVersionDTODatasource, LmlLabManagerConfig } from '../../model/l
   standalone: false,
 })
 export class LmlManagerConfigComponent implements OnInit, OnDestroy {
+  @Input({ required: true }) labId: string;
+
   brickVersions: LmlBrickVersionDTODatasource;
   configHasChanged: boolean = false;
 

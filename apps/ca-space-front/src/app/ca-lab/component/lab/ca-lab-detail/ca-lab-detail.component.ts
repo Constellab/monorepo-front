@@ -91,6 +91,7 @@ export class CaLabDetailComponent implements OnInit {
       labConfig: this.labService.getConfig(lab.id),
       title: { text: 'lab_installed_brick', translateText: true },
       helpText: { text: 'lab_installed_brick_help', translateText: true },
+      labId: lab.id,
     };
 
     this.dialogService.openSmallDialog(CaLabConfigDialogComponent, { data: input });

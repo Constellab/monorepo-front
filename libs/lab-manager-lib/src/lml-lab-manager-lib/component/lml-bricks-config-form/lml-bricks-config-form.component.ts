@@ -31,6 +31,7 @@ import { LmlConfigureBrickComponent } from '../lml-configure-brick/lml-configure
 })
 export class LmlBricksConfigFormComponent {
   @Input({ required: true }) brickVersions: LmlBrickVersionDTODatasource;
+  @Input({ required: true }) labId: string;
 
   @Output() configChange: EventEmitter<LmlLabManagerConfig> = new EventEmitter<LmlLabManagerConfig>();
 
@@ -48,6 +49,7 @@ export class LmlBricksConfigFormComponent {
 
   openBrickVersionDetailDialog(brickVersionDTO: LmlLabManagerBrickVersionDTO): void {
     const data: LmlBrickVersionDetailDialogInput = {
+      labId: this.labId,
       brickName: brickVersionDTO.name,
       brickVersion: brickVersionDTO.version,
     };
@@ -60,7 +62,7 @@ export class LmlBricksConfigFormComponent {
   openBrickVersionForm(brickVersionDTO?: LmlLabManagerBrickVersionDTO): void {
     this.dialogService
       .openBigDialog(LmlConfigureBrickComponent, {
-        data: brickVersionDTO,
+        data: { labId: this.labId, brickVersionDTO },
       })
       .afterClosed()
       .subscribe((brickVersion) =>
@@ -126,7 +128,7 @@ export class LmlBricksConfigFormComponent {
 
   addGwsCoreBrick(): void {
     this.addGwsCoreIsLoading = true;
-    this.brickService.getBrickLatestVersion(ClBrick.GWS_CORE).subscribe({
+    this.brickService.getBrickLatestVersion(this.labId, ClBrick.GWS_CORE).subscribe({
       next: (brick) => this.getGwsCoreBrickSuccess(brick),
       error: () => (this.addGwsCoreIsLoading = false),
     });

@@ -41,6 +41,8 @@ export class CaLabManagerComponent implements OnDestroy {
   private state = inject(CaLabDetailPageState);
   private labService = inject(CaLabService);
 
+  labId = this.state.getLabId();
+
   private subscription: Subscription;
 
   openStatusDialog(): void {
@@ -52,6 +54,7 @@ export class CaLabManagerComponent implements OnDestroy {
       labConfig: this.labService.getConfig(this.state.getLabId()),
       title: { text: 'lab_installed_brick', translateText: true },
       helpText: { text: 'lab_installed_brick_help', translateText: true },
+      labId: this.state.getLabId(),
     };
 
     this.dialogService.openSmallDialog(CaLabConfigDialogComponent, { data: input });

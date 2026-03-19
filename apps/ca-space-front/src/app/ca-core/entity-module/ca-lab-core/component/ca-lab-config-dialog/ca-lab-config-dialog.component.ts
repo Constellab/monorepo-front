@@ -14,6 +14,7 @@ export interface CaLabConfigDialogInput {
   title: FlTranslatableText;
   helpText: FlTranslatableText;
   showDetailButton?: boolean;
+  labId?: string;
 }
 
 /**
