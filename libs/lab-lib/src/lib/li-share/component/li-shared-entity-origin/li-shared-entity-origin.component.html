@@ -1,7 +1,7 @@
 <fl-key-value>
   <fl-key>{{ 'li.share_origin_lab' | translate }}</fl-key>
   @if (sharedEntity.lab.frontUrl) {
-    <a [href]="sharedEntity.lab.frontUrl" target="_blank" class="g-text-link">{{ sharedEntity.lab.name }}</a>
+    <fl-external-link [link]="sharedEntity.lab.frontUrl" [text]="sharedEntity.lab.name"></fl-external-link>
   } @else {
     {{ sharedEntity.lab.name }}
   }
@@ -24,9 +24,9 @@
   <fl-key-value>
     <fl-key>Origin object id</fl-key>
     @if (sharedEntity.externalObjectUrl) {
-      <a [href]="sharedEntity.externalObjectUrl" target="_blank" class="g-text-link">{{
-        sharedEntity.externalId
-      }}</a>
+      <fl-external-link
+        [link]="sharedEntity.externalObjectUrl"
+        [text]="sharedEntity.externalId"></fl-external-link>
     } @else {
       {{ sharedEntity.externalId }}
     }

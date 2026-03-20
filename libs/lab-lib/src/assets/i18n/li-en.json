@@ -568,6 +568,11 @@
     "lab_environment_DESKTOP": "Desktop",
     "lab_environment_LOCAL": "Local",
     "lab_domain": "Domain",
-    "lab_has_credentials": "Has credentials"
+    "lab_has_credentials": "Has credentials",
+    "external_object_id": "Origin object id",
+    "external_lab_detail": "External lab details",
+    "view_original_object": "View original object",
+    "external_lab_tooltip": "This process was run in an external lab",
+    "loading": "Loading"
   }
 }

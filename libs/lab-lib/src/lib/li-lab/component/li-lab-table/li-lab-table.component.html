@@ -41,7 +41,11 @@
       <span> {{ 'li.lab_domain' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
-      {{ row.domain }}
+      @if (row.frontUrl) {
+        <fl-external-link [link]="row.frontUrl" [text]="row.domain"></fl-external-link>
+      } @else {
+        {{ row.domain }}
+      }
     </mat-cell>
   </ng-container>
 

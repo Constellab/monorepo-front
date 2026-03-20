@@ -568,6 +568,11 @@
     "lab_environment_DESKTOP": "Bureau",
     "lab_environment_LOCAL": "Local",
     "lab_domain": "Domaine",
-    "lab_has_credentials": "Identifiants"
+    "lab_has_credentials": "Identifiants",
+    "external_object_id": "Id de l'objet d'origine",
+    "external_lab_detail": "Détails du lab externe",
+    "view_original_object": "Voir l'objet original",
+    "external_lab_tooltip": "Ce processus a été exécuté dans un lab externe",
+    "loading": "Chargement"
   }
 }

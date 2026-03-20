@@ -102,6 +102,9 @@ export class LiProcess extends LiBaseEntityWithUser {
   @Expose({ name: 'is_agent' })
   isAgent: boolean;
 
+  @Expose({ name: 'external_lab_id' })
+  externalLabId?: string;
+
   // return true if the process is of type Source
   isInput(): boolean {
     return this.processTypingName === TdTypingName.task.input.typingName;

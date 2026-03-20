@@ -13,6 +13,7 @@ import {
   MatTable,
 } from '@angular/material/table';
 import { FlArrayObs, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
+import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { FlSearchModule } from '@monorepo/front-core-lib/fl-search';
 import { LiLab, LiLabMode } from '@monorepo/lab-lib/li-core';
@@ -35,6 +36,7 @@ import { TranslatePipe } from '@ngx-translate/core';
     MatRowDef,
     MatRow,
     MatSortHeader,
+    FlCoreComponentModule,
     FlCorePipeModule,
     TranslatePipe,
   ],

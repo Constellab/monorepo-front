@@ -3,6 +3,7 @@
  * Exports all TypeScript files from li-lab
  */
 
+export * from './component/li-external-lab-detail-dialog/li-external-lab-detail-dialog.component';
 export * from './component/li-lab-inline/li-lab-inline.component';
 export * from './component/li-lab-registration-dialog/li-lab-registration-dialog.component';
 export * from './component/li-lab-search/li-lab-search.component';
