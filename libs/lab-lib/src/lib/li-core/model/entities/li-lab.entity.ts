@@ -35,6 +35,9 @@ export class LiLab {
 
   domain?: string;
 
+  @Expose({ name: 'front_url' })
+  frontUrl?: string;
+
   @Expose({ name: 'credentials_id' })
   credentialsId?: string;
 

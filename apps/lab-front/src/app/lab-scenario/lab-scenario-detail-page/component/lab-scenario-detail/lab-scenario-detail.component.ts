@@ -1,18 +1,26 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject,OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { ClSubscriptionHandler } from '@monorepo/core-lib';
 import { FlArticleModule } from '@monorepo/front-core-lib/fl-article';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import { LiFolder, LiScenario, LiScenarioService, LiTagDatasource } from '@monorepo/lab-lib/li-core';
+import {
+  LiFolder,
+  LiScenario,
+  LiScenarioService,
+  LiSharedEntityOriginDialogData,
+  LiTagDatasource,
+} from '@monorepo/lab-lib/li-core';
 import { LiObjectSyncInfoComponent, LiObjectValidationInfoComponent } from '@monorepo/lab-lib/li-entity';
 import { LiFolderInlineSelectComponent } from '@monorepo/lab-lib/li-folder';
+import { LiSharedEntityOriginDialogComponent } from '@monorepo/lab-lib/li-share';
 import { LiTagListComponent } from '@monorepo/lab-lib/li-tag';
 import { TeBasicConfig, TeRichText, TeTextEditorModule } from '@monorepo/text-editor';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -52,6 +60,7 @@ import { LabScenarioLinkedNotesComponent } from '../lab-scenario-linked-notes/la
 export class LabScenarioDetailComponent implements OnInit, OnDestroy {
   private scenarioState = inject(LabScenarioDetailPageState);
   private scenarioService = inject(LiScenarioService);
+  private dialogService = inject(FlDialogService);
 
   scenario$: Observable<LiScenario>;
   tags$: LiTagDatasource;
@@ -87,6 +96,13 @@ export class LabScenarioDetailComponent implements OnInit, OnDestroy {
         }
       })
     );
+  }
+
+  openShareOrigin(scenario: LiScenario): void {
+    if (scenario.creationType === 'IMPORTED') {
+      const data: LiSharedEntityOriginDialogData = { entityType: 'SCENARIO', entityId: scenario.id };
+      this.dialogService.openMediumDialog(LiSharedEntityOriginDialogComponent, { data });
+    }
   }
 
   updateFolder(folder: LiFolder): void {

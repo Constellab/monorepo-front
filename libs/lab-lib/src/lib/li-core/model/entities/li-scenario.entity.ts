@@ -1,11 +1,6 @@
 import { ClLuxonDateTimeTransform } from '@monorepo/core-lib';
 import { FlEntity, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
-import {
-  FlStatus,
-  FlStatusDict,
-  FlStatusHelper,
-  FlStatusTransform,
-} from '@monorepo/front-core-lib/fl-status';
+import { FlStatus, FlStatusDict, FlStatusHelper } from '@monorepo/front-core-lib/fl-status';
 import { TeRichText, TeRichTextTransform } from '@monorepo/text-editor';
 import { Expose, Type } from 'class-transformer';
 import { DateTime } from 'luxon';
@@ -20,10 +15,16 @@ export type LiScenarioStatus =
   | 'IN_QUEUE'
   | 'WAITING_FOR_CLI_PROCESS'
   | 'RUNNING'
-  | 'RUNNING_IN_EXTERNAL_LAB'
   | 'SUCCESS'
   | 'ERROR'
   | 'PARTIALLY_RUN';
+
+export type LiScenarioDisplayStatus =
+  | LiScenarioStatus
+  | 'RUNNING_IN_EXTERNAL_LAB'
+  | 'IN_QUEUE_IN_EXTERNAL_LAB'
+  | 'WAITING_FOR_CLI_PROCESS_IN_EXTERNAL_LAB';
+
 export type LiScenarioPidStatus = 'NONE' | 'RUNNING' | 'UNEXPECTED_STOPPED';
 
 // const to list the scenario status translation texts
@@ -33,16 +34,23 @@ export const LI_SCENARIO_STATUS_DICT: FlStatusDict<LiScenarioStatus> = {
   SUCCESS: FlStatusHelper.getSuccessStatus('SUCCESS', 'li.success'),
   ERROR: FlStatusHelper.getErrorStatus('ERROR', 'li.error'),
   RUNNING: FlStatusHelper.getLoadingStatus('RUNNING', 'li.running'),
-  RUNNING_IN_EXTERNAL_LAB: FlStatusHelper.getLoadingStatus(
-    'RUNNING_IN_EXTERNAL_LAB',
-    'li.running_in_external_lab'
-  ),
   WAITING_FOR_CLI_PROCESS: FlStatusHelper.getLoadingStatus(
     'WAITING_FOR_CLI_PROCESS',
     'li.scenario_waiting_for_cli'
   ),
   PARTIALLY_RUN: FlStatusHelper.getInfoStatus('PARTIALLY_RUN', 'li.partially_run', FlStatusHelper.draftIcon),
 };
+
+// display-only statuses for external lab scenarios
+const LI_SCENARIO_EXTERNAL_STATUS_MAP: Partial<Record<LiScenarioStatus, FlStatus<LiScenarioDisplayStatus>>> =
+  {
+    RUNNING: FlStatusHelper.getLoadingStatus('RUNNING_IN_EXTERNAL_LAB', 'li.running_in_external_lab'),
+    IN_QUEUE: FlStatusHelper.getLoadingStatus('IN_QUEUE_IN_EXTERNAL_LAB', 'li.scenario_in_queue_external'),
+    WAITING_FOR_CLI_PROCESS: FlStatusHelper.getLoadingStatus(
+      'WAITING_FOR_CLI_PROCESS_IN_EXTERNAL_LAB',
+      'li.scenario_waiting_for_cli_external'
+    ),
+  };
 
 export type LiScenarioCreationType = 'MANUAL' | 'AUTO' | 'IMPORTED';
 export const LI_SCENARIO_CREATION_TYPES: FlStatusDict<LiScenarioCreationType> = {
@@ -80,8 +88,18 @@ export class LiScenario extends LiBaseEntityWithUser implements LiFolderObject {
   @Type(() => LiEntity)
   protocol: LiEntity;
 
-  @FlStatusTransform(LI_SCENARIO_STATUS_DICT)
-  status: FlStatus<LiScenarioStatus>;
+  status: LiScenarioStatus;
+
+  @Expose({ name: 'is_running_in_external_lab' })
+  isRunningInExternalLab: boolean;
+
+  get statusInfo(): FlStatus<LiScenarioDisplayStatus> {
+    if (this.isRunningInExternalLab) {
+      const externalStatus = LI_SCENARIO_EXTERNAL_STATUS_MAP[this.status];
+      if (externalStatus) return externalStatus;
+    }
+    return LI_SCENARIO_STATUS_DICT[this.status];
+  }
 
   @Expose({ name: 'is_validated' })
   isValidated: boolean;
@@ -118,28 +136,20 @@ export class LiScenario extends LiBaseEntityWithUser implements LiFolderObject {
 
   // return true if basic info can be edited (like title, description...)
   isInfoEditable(): boolean {
-    return (!this.isArchived && !this.isValidated) || this.isRunningInExternalLab();
+    return !this.isArchived && !this.isValidated;
   }
 
   // return true if the protocol of the scenario can be edited
   protocolIsEditable(): boolean {
-    return this.isInfoEditable() && !this.isRunningOrWaiting() && !this.isRunningInExternalLab();
-  }
-
-  isResettable(): boolean {
-    return this.isRunningOrWaiting() || this.isFinished() || this.isRunningInExternalLab();
-  }
-
-  isRunning(): boolean {
-    return this.status.value === 'RUNNING' || this.status.value === 'WAITING_FOR_CLI_PROCESS';
-  }
-
-  isDeletable(): boolean {
     return this.isInfoEditable() && !this.isRunningOrWaiting();
   }
 
-  isRunningInExternalLab(): boolean {
-    return this.status.value === 'RUNNING_IN_EXTERNAL_LAB';
+  isResettable(): boolean {
+    return this.isRunningOrWaiting() || this.isFinished();
+  }
+
+  isRunning(): boolean {
+    return this.status === 'RUNNING' || this.status === 'WAITING_FOR_CLI_PROCESS';
   }
 
   isRunningOrWaiting(): boolean {
@@ -147,15 +157,15 @@ export class LiScenario extends LiBaseEntityWithUser implements LiFolderObject {
   }
 
   isFinished(): boolean {
-    return this.status.value === 'SUCCESS' || this.status.value === 'ERROR';
+    return this.status === 'SUCCESS' || this.status === 'ERROR';
   }
 
   isDraft(): boolean {
-    return this.status.value === 'DRAFT';
+    return this.status === 'DRAFT';
   }
 
   isWaiting(): boolean {
-    return this.status.value === 'IN_QUEUE';
+    return this.status === 'IN_QUEUE';
   }
 
   get isSpecialCreationType(): boolean {

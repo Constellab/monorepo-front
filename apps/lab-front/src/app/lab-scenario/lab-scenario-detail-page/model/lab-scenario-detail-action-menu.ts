@@ -67,7 +67,7 @@ export class LabScenarioDetailActionMenu extends LiScenarioActionMenu {
     menu.push(this.getDuplicateButton());
     menu.push(this.getArchiveButton());
 
-    if (this.scenario.status.value === 'IN_QUEUE') {
+    if (this.scenario.status === 'IN_QUEUE') {
       menu.push(this.getRemoveFromQueueButton());
     }
 
@@ -75,7 +75,7 @@ export class LabScenarioDetailActionMenu extends LiScenarioActionMenu {
       menu.push(this.getDeleteIntermediateResourcesButton());
     }
 
-    if (this.scenario.isDeletable()) {
+    if (this.scenario.protocolIsEditable()) {
       menu.push(this.getDeleteButton());
     }
 
@@ -276,6 +276,8 @@ export class LabScenarioDetailActionMenu extends LiScenarioActionMenu {
       .getMainProtocol$()
       .pipe(
         map((flow) => ({
+          processType: flow.getProcessType(),
+          processId: flow.id,
           progressBar: flow.progressBar,
           runBy: flow.runBy,
         }))

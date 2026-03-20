@@ -14,7 +14,6 @@ export * from './entity-service/li-note-resource.service';
 export * from './entity-service/li-note-template.service';
 export * from './entity-service/li-note.service';
 export * from './entity-service/li-process.service';
-export * from './entity-service/li-progress-bar.service';
 export * from './entity-service/li-protocol.service';
 export * from './entity-service/li-queue.service';
 export * from './entity-service/li-resource-table.service';

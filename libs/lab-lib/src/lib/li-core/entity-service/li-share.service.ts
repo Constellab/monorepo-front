@@ -13,6 +13,11 @@ import {
 import { LiResourceView } from '../model/entities/resource/li-resource-view.entity';
 import { LiResourceService } from './li-resource.service';
 
+export interface LiSharedEntityOriginDialogData {
+  entityType: LiShareLinkEntityType;
+  entityId: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -42,6 +47,13 @@ export class LiShareService {
       (page, pageSize) => this.getSharedTo(entityType, entityId, page, pageSize),
       20
     );
+  }
+
+  public getSharedEntityOriginInfo(
+    entityType: LiShareLinkEntityType,
+    entityId: string
+  ): Observable<LiSharedEntity> {
+    return this.apiService.get(`${this.route}/${entityType}/${entityId}/shared-origin`, LiSharedEntity);
   }
 
   /////////////////////////////////// RESOURCE ///////////////////////////////////

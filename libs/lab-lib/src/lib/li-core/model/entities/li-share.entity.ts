@@ -60,6 +60,12 @@ export class LiSharedEntity extends LiBaseEntity {
   @Type(() => LiUser)
   user?: LiUser;
 
+  @Expose({ name: 'external_id' })
+  externalId?: string;
+
+  @Expose({ name: 'external_object_url' })
+  externalObjectUrl?: string;
+
   @Expose({ name: 'created_by' })
   @Type(() => LiUser)
   createdBy?: LiUser;

@@ -1,4 +1,4 @@
-import { inject,Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
@@ -16,7 +16,7 @@ import {
 } from '@monorepo/lab-lib/li-core';
 import { PrWorkflow, PrWorkflowLayer } from '@monorepo/protocol';
 import { TeRichText } from '@monorepo/text-editor';
-import { BehaviorSubject, merge,Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, merge, Observable, Subscription } from 'rxjs';
 import { filter, map, tap } from 'rxjs/operators';
 
 import { LabWorkflowFactory } from '../model/lab-workflow.factory';
@@ -159,7 +159,7 @@ export class LabScenarioDetailPageState {
     const mainProtocol = this.protocols[this.mainProtocolId].value;
     const scenario = this.currentScenario;
     // Stop refresh if scenario is not running (including queue) and the main protocol is finished
-    if (!scenario.isRunning() && scenario.status.value !== 'IN_QUEUE' && !mainProtocol.isRunning()) return;
+    if (!scenario.isRunning() && scenario.status !== 'IN_QUEUE' && !mainProtocol.isRunning()) return;
 
     this.timeout = setTimeout(() => {
       this.timeout = null;

@@ -10,7 +10,7 @@ import { map } from 'rxjs/operators';
 
 import { LiFolder } from '../model/entities/li-folder.class';
 import { LiNavigableEntityImpact } from '../model/entities/li-navigable-entity.entity';
-import { LiSharedEntity, LiShareLink } from '../model/entities/li-share.entity';
+import { LiShareLink } from '../model/entities/li-share.entity';
 import { LiProcessType } from '../model/entities/li-type/li-process-type.entity';
 import { LiResource } from '../model/entities/resource/li-resource.entity';
 import {
@@ -252,9 +252,6 @@ export class LiResourceService {
   }
 
   //////////////////////////////////////// SHARED RESOURCE ///////////////////////////////////////
-  public getSharedResourceOrigin(id: string): Observable<LiSharedEntity> {
-    return this.apiService.get(`${this.route}/${id}/shared-origin`, LiSharedEntity);
-  }
 
   public importResourceFromLink(configValues: TdParamSpecsValues): Observable<LiResource> {
     return this.apiService.post(`${this.route}/import-from-link`, configValues, LiResource);

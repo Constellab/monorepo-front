@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, inject,Input, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
@@ -9,7 +9,13 @@ import { FlClipboardService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import { LiDetailRoutePipe, LiResource, LiTagDatasource, LiTagService } from '@monorepo/lab-lib/li-core';
+import {
+  LiDetailRoutePipe,
+  LiResource,
+  LiSharedEntityOriginDialogData,
+  LiTagDatasource,
+  LiTagService,
+} from '@monorepo/lab-lib/li-core';
 import { LiFolderInlineComponent } from '@monorepo/lab-lib/li-folder';
 import { LiSharedEntityOriginDialogComponent } from '@monorepo/lab-lib/li-share';
 import { LiTagListComponent } from '@monorepo/lab-lib/li-tag';
@@ -65,7 +71,8 @@ export class LiResourceInfoComponent implements OnInit {
 
   openResourceShareOrigin(): void {
     if (this.resource.origin === 'IMPORTED_FROM_LAB') {
-      this.dialogService.openMediumDialog(LiSharedEntityOriginDialogComponent, { data: this.resource.id });
+      const data: LiSharedEntityOriginDialogData = { entityType: 'RESOURCE', entityId: this.resource.id };
+      this.dialogService.openMediumDialog(LiSharedEntityOriginDialogComponent, { data });
     }
   }
 

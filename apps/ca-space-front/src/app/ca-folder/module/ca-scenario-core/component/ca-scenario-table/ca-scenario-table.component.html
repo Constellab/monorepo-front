@@ -7,6 +7,7 @@
     <mat-cell *matCellDef="let scenario">
       @if (!rowSelectable) {
         <!--    Invisible link  -->
+        <!-- eslint-disable-next-line @angular-eslint/template/elements-content -->
         <a [routerLink]="scenario | caDetailRoute" class="g-row-link"></a>
       }
 
@@ -47,7 +48,7 @@
       <span>{{ 'status' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let scenario">
-      <fl-status-chip [status]="scenario.status" mode="iconText"> </fl-status-chip>
+      <fl-status-chip [status]="scenario.statusInfo" mode="iconText"> </fl-status-chip>
     </mat-cell>
   </ng-container>
 

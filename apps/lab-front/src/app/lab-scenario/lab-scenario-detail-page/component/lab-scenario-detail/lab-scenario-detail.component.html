@@ -19,11 +19,14 @@
       <!--  Type  -->
       <fl-text-icon
         class="separator"
+        (click)="openShareOrigin(scenario)"
         [matTooltip]="'biox.scenario_creation_type_help_' + scenario.creationType | translate">
         <mat-icon flIcon="scenario"></mat-icon>
         <fl-key-value>
           <fl-key>{{ 'biox.scenario_creation_type' | translate }}</fl-key>
-          {{ 'biox.scenario_creation_type_' + scenario.creationType | translate }}
+          <span [class.g-text-link]="scenario.creationType === 'IMPORTED'">
+            {{ 'biox.scenario_creation_type_' + scenario.creationType | translate }}
+          </span>
         </fl-key-value>
       </fl-text-icon>
       <!--  Validated info  -->

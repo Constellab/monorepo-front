@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject,Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatDivider } from '@angular/material/divider';
@@ -12,19 +12,22 @@ import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlUser, FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import {
+  LiProcessClass,
+  LiProcessService,
   LiProgressBar,
   LiProgressBarMessages,
-  LiProgressBarService,
   LiProgressMessage,
   LiProgressMessageDatasource,
 } from '@monorepo/lab-lib/li-core';
 import { TranslatePipe } from '@ngx-translate/core';
-import { mergeMap,Observable, Subscription } from 'rxjs';
+import { mergeMap, Observable, Subscription } from 'rxjs';
 import { filter, first, map } from 'rxjs/operators';
 
 import { LiProgressMessageComponent } from '../li-progress-message/li-progress-message.component';
 
 export interface LiProcessRunInfoData {
+  processType: LiProcessClass;
+  processId: string;
   progressBar: LiProgressBar;
   brickVersionOnCreate?: string;
   brickVersionOnRun?: string;
@@ -62,7 +65,7 @@ interface LiProgressWithMessage {
   ],
 })
 export class LiProgressBarInfoComponent implements OnInit, OnDestroy {
-  private progressBarService = inject(LiProgressBarService);
+  private processService = inject(LiProcessService);
 
   @Input({ required: true }) processRunInfo$: Observable<LiProcessRunInfoData>;
 
@@ -89,7 +92,8 @@ export class LiProgressBarInfoComponent implements OnInit, OnDestroy {
   private subscription?: Subscription;
 
   private readonly nbOfMessages = 20;
-  private progressBarId: string;
+  private processType: LiProcessClass;
+  private processId: string;
 
   ngOnInit(): void {
     this.messageDatasource = new LiProgressMessageDatasource();
@@ -103,13 +107,15 @@ export class LiProgressBarInfoComponent implements OnInit, OnDestroy {
     this.subscription = this.processRunInfo$
       .pipe(
         filter(() => this.liveMode !== false),
-        mergeMap((processRunInfo) => this.getMessages(processRunInfo.progressBar))
+        mergeMap((processRunInfo) => this.getMessages(processRunInfo))
       )
       .subscribe((messages) => this.addMessageToList(messages));
   }
 
-  private getMessages(progressBar: LiProgressBar): Observable<LiProgressWithMessage> {
-    this.progressBarId = progressBar.id;
+  private getMessages(processRunInfo: LiProcessRunInfoData): Observable<LiProgressWithMessage> {
+    this.processType = processRunInfo.processType;
+    this.processId = processRunInfo.processId;
+    const progressBar = processRunInfo.progressBar;
 
     // init live mode and show live mode toggle on first load
     // enable live mode if the progress bar is not completed
@@ -120,8 +126,8 @@ export class LiProgressBarInfoComponent implements OnInit, OnDestroy {
       this.showLiveModeToggle = progressBar.isRunning();
     }
     // get the last 20 messages
-    return this.progressBarService
-      .getProgressBarMessages(progressBar.id, this.nbOfMessages)
+    return this.processService
+      .getProgressBarMessages(this.processType, this.processId, this.nbOfMessages)
       .pipe(map((messages) => ({ progressBar, messages: messages })));
   }
 
@@ -139,8 +145,8 @@ export class LiProgressBarInfoComponent implements OnInit, OnDestroy {
       this.messageDatasource.array[this.messageDatasource.array.length - 1]?.datetime;
     if (lastMessageDatetime) {
       // load message that are older than the last message in the list
-      this.progressBarService
-        .getProgressBarMessages(this.progressBarId, this.nbOfMessages, lastMessageDatetime)
+      this.processService
+        .getProgressBarMessages(this.processType, this.processId, this.nbOfMessages, lastMessageDatetime)
         .subscribe({
           next: (messages) =>
             this.loadMoreMessagesSuccess({
@@ -192,9 +198,7 @@ export class LiProgressBarInfoComponent implements OnInit, OnDestroy {
       this.processRunInfo$
         .pipe(first())
         .subscribe((processRunInfo) =>
-          this.getMessages(processRunInfo.progressBar).subscribe((messages) =>
-            this.addMessageToList(messages)
-          )
+          this.getMessages(processRunInfo).subscribe((messages) => this.addMessageToList(messages))
         );
     }
   }

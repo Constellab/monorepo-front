@@ -161,6 +161,8 @@ export class LabProcessDashboardComponent implements OnInit, OnDestroy {
   openProgressDetails(): void {
     const data$: Observable<LiProcessRunInfoData> = this.process$.pipe(
       map((process) => ({
+        processType: process.getProcessType(),
+        processId: process.id,
         progressBar: process.progressBar,
         brickVersionOnCreate: process.brickVersionOnCreate,
         brickVersionOnRun: process.brickVersionOnRun,
