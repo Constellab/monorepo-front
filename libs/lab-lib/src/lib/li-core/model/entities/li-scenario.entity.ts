@@ -168,6 +168,10 @@ export class LiScenario extends LiBaseEntityWithUser implements LiFolderObject {
     return this.status === 'IN_QUEUE';
   }
 
+  isImported(): boolean {
+    return this.creationType === 'IMPORTED';
+  }
+
   get isSpecialCreationType(): boolean {
     return this.creationType === 'AUTO' || this.creationType === 'IMPORTED';
   }

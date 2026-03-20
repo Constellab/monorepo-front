@@ -1,4 +1,4 @@
-import { inject,Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { ClHelpService, ClPageI } from '@monorepo/core-lib';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import {
@@ -207,5 +207,9 @@ export class LiScenarioService {
 
   public getExportToLabConfigSpecs(): Observable<TdParamSpecs> {
     return this.apiService.get(`${this.route}/export-to-lab/config-specs`);
+  }
+
+  public updateFromExternalLab(scenarioId: string): Observable<LiScenario> {
+    return this.apiService.put(`${this.route}/${scenarioId}/update-from-external-lab`, null, LiScenario);
   }
 }

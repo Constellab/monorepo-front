@@ -63,6 +63,10 @@ export class LabScenarioDetailActionMenu extends LiScenarioActionMenu {
       menu.push(this.getMonitorMenuButton());
     }
 
+    if (this.scenario.isImported()) {
+      menu.push(this.getUpdateFromExternalLabButton());
+    }
+
     menu.push(this.getShareButton());
     menu.push(this.getDuplicateButton());
     menu.push(this.getArchiveButton());
@@ -71,9 +75,9 @@ export class LabScenarioDetailActionMenu extends LiScenarioActionMenu {
       menu.push(this.getRemoveFromQueueButton());
     }
 
-    if (!this.scenario.isDraft()) {
-      menu.push(this.getDeleteIntermediateResourcesButton());
-    }
+    // if (!this.scenario.isDraft()) {
+    //   menu.push(this.getDeleteIntermediateResourcesButton());
+    // }
 
     if (this.scenario.protocolIsEditable()) {
       menu.push(this.getDeleteButton());
@@ -174,6 +178,15 @@ export class LabScenarioDetailActionMenu extends LiScenarioActionMenu {
       icon: 'delete',
       color: 'warn',
       onClick: () => this.deleteScenario(),
+    };
+  }
+
+  private getUpdateFromExternalLabButton(): FlMenuDynamic {
+    return {
+      type: 'button',
+      text: 'biox.update_scenario_from_external_lab',
+      icon: 'cloud_sync',
+      onClick: () => this.updateFromExternalLab(),
     };
   }
 
@@ -377,6 +390,21 @@ export class LabScenarioDetailActionMenu extends LiScenarioActionMenu {
       });
       this.injector.get(LiRouterService).navigateToScenarioListRoute();
     }
+  }
+
+  private updateFromExternalLab(): void {
+    const input: FlConfirmDialogInput = {
+      title: 'biox.update_scenario_from_external_lab',
+      content: 'biox.update_scenario_from_external_lab_confirm',
+      observable: this.injector.get(LiScenarioService).updateFromExternalLab(this.scenario.id),
+      successMessage: 'biox.update_scenario_from_external_lab_success',
+    };
+
+    this.injector
+      .get(FlDialogService)
+      .openConfirmDialog(input)
+      .afterClosed()
+      .subscribe((result) => this.onConfirmUpdateClosed(result));
   }
 
   private deleteIntermediateResources(): void {

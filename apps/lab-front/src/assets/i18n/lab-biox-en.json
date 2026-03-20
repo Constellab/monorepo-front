@@ -162,6 +162,9 @@
     "share_agent_warning.parameter_without_description": "Some parameters of the agent have no description, you should add a description to each parameter before sharing it to the Community.",
     "share_agent_warning.input_port_with_type_resource": "Some input ports of the agent have the resource type 'Resource', you should set the proper resource type for each input port before sharing it to the Community.",
     "share_agent_warning.output_port_with_type_resource": "Some output ports of the agent have the resource type 'Resource', you should set the proper resource type for each output port before sharing it to the Community.",
-    "apps": "Apps"
+    "apps": "Apps",
+    "update_scenario_from_external_lab": "Update from external lab",
+    "update_scenario_from_external_lab_confirm": "The current scenario will be overridden by the remote scenario.",
+    "update_scenario_from_external_lab_success": "Scenario updated from external lab."
   }
 }
