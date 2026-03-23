@@ -117,7 +117,7 @@ export class LabScenarioDetailPageState {
    * @param refreshWorkflow if true, the protocol are reloaded
    */
   public updateScenario(scenario: LiScenario, refreshWorkflow: boolean = false): void {
-    if (scenario == null) return;
+    if (scenario == null || scenario.id !== this.currentScenario.id) return;
     this.scenario$.next(scenario);
 
     if (refreshWorkflow) {

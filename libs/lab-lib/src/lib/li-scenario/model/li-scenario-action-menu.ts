@@ -5,6 +5,7 @@ import {
   FlDialogService,
 } from '@monorepo/front-core-lib/fl-dialog';
 import { FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import {
   LiNote,
   LiRouterService,
@@ -15,10 +16,10 @@ import {
 import { LiEntityActionMenu } from '@monorepo/lab-lib/li-entity';
 import { LiNoteFormDialogComponent, LiNoteFormDialogInput } from '@monorepo/lab-lib/li-note';
 import { LiSharedEntityInfoDialogComponent, LiSharedEntityInfoDialogInput } from '@monorepo/lab-lib/li-share';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 
 export type LiScenarioActionEvent = {
-  action: 'archive' | 'unarchive';
+  action: 'archive' | 'unarchive' | 'send-to-lab';
   scenario: LiScenario;
 };
 
@@ -182,7 +183,10 @@ export class LiScenarioActionMenu extends LiEntityActionMenu {
         specs$: this.injector.get(LiScenarioService).getExportToLabConfigSpecs(),
       },
       autoSend: (configValues) =>
-        this.injector.get(LiScenarioService).exportScenarioToLab(this.scenario.id, configValues),
+        this.injector
+          .get(LiScenarioService)
+          .exportScenarioToLab(this.scenario.id, configValues)
+          .pipe(tap((scenario: LiScenario) => this.onShareSuccess(scenario))),
     };
 
     this.injector
@@ -193,5 +197,17 @@ export class LiScenarioActionMenu extends LiEntityActionMenu {
       })
       .afterClosed()
       .subscribe(() => this.subject.complete());
+  }
+
+  private onShareSuccess(scenario: LiScenario): void {
+    this.injector.get(FlSnackBarService).openSuccessMessage(
+      {
+        text: 'li.scenario_sent_to_lab',
+        translateText: true,
+        translateParam: { param: { url: LiRouterService.getScenarioDetailRoute(scenario.id) } },
+      },
+      5000
+    );
+    this.subject.next({ action: 'send-to-lab', scenario: scenario });
   }
 }

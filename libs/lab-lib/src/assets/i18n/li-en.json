@@ -573,6 +573,7 @@
     "external_lab_detail": "External lab details",
     "view_original_object": "View original object",
     "external_lab_tooltip": "This process was run in an external lab",
-    "loading": "Loading"
+    "loading": "Loading",
+    "scenario_sent_to_lab": "Sending scenario to lab, to check the progress check <a href='{{url}}' target='_blank'>the sending scenario</a>."
   }
 }

@@ -573,6 +573,7 @@
     "external_lab_detail": "Détails du lab externe",
     "view_original_object": "Voir l'objet original",
     "external_lab_tooltip": "Ce processus a été exécuté dans un lab externe",
-    "loading": "Chargement"
+    "loading": "Chargement",
+    "scenario_sent_to_lab": "Scénario en cours d'envoie au lab, pour suivre l'avancement du téléchargement, voir <a href='{{url}}' target='_blank'>le scenario d'envoi</a>."
   }
 }
