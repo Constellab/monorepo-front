@@ -69,4 +69,14 @@ export class TeTextEditorComponent extends FlFormFieldDirective<TeRichText> impl
   onTextChange(value: TeRichText): void {
     this.setAndEmitValue(value);
   }
+
+  onEditIdleTimeout(): void {
+    // Disable the form control so the parent form stays in sync
+    // (e.g. the edit/view button reflects the correct state).
+    if (this.ngControl?.control) {
+      this.ngControl.control.disable();
+    } else {
+      this.disabled = true;
+    }
+  }
 }

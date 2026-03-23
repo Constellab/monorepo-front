@@ -21,7 +21,7 @@ import { ClHelpService, ClStringHelper } from '@monorepo/core-lib';
 import { FlHtmlHelper, FlKeyboardHelper, FlKeyboardKey } from '@monorepo/front-core-lib/fl-core';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import { marked } from 'marked';
-import { Subject, Subscription } from 'rxjs';
+import { Subject, Subscription, take } from 'rxjs';
 
 import { TeHTMLEditorJSON, TeRichText, TeRichTextAggregate, TeRichTextModifications } from '../../model/lib';
 import { TeConfig } from '../../model/te-config.class';
@@ -33,6 +33,18 @@ import { TeMention } from '../../plugin/te-mention.class';
 import { teGetI18nConfig } from '../../te-text-editor.i18n';
 
 TeRichTextModifications.setFrontTimeDifference();
+
+/**
+ * Time in milliseconds before the editor automatically switches back to view mode
+ * when idle (no modifications) in edit mode with a refresh method configured.
+ */
+const TE_EDIT_IDLE_TIMEOUT_MS = 600_000; // 10 minutes
+
+/**
+ * Interval in milliseconds for periodic content refresh while in edit mode
+ * without modifications. Only active when a refreshContent$ method is configured.
+ */
+const TE_EDIT_REFRESH_INTERVAL_MS = 60_000; // 1 minute
 
 @Component({
   selector: 'te-text-editor-browser-side',
@@ -54,6 +66,8 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
   @Input() placeholder: string;
 
   @Output() textChange: EventEmitter<TeRichText> = new EventEmitter();
+
+  @Output() editIdleTimeout: EventEmitter<void> = new EventEmitter();
 
   @ViewChild('editorContainer', { static: true }) editorContainer: ElementRef<HTMLElement>;
 
@@ -83,6 +97,10 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
   private destroyed = false;
 
   private skipNextChange = false;
+
+  private editIdleTimer: ReturnType<typeof setTimeout> | null = null;
+
+  private editRefreshInterval: ReturnType<typeof setInterval> | null = null;
 
   constructor() {
     // create richTextAggregate from richText and render the value
@@ -122,6 +140,7 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
   private onDisableChange(disable: boolean): void {
     if (disable) {
       this.destroyListeners();
+      this.clearEditIdleTimer();
     } else {
       this.createListeners();
     }
@@ -133,9 +152,27 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
       if (!this.editor.readOnly.isEnabled) {
         this.onTextEditorChange().then(() => this.editor.readOnly.toggle(true));
       } else {
+        this.refreshContent();
         this.editor.readOnly.toggle(false);
+        this.startEditIdleTimer();
       }
     }
+  }
+
+  /**
+   * Refresh the editor content if the config provides a refreshContent$ method.
+   */
+  private refreshContent(): void {
+    const contentObs = this.config.refreshContent$();
+    if (contentObs == null) return;
+
+    contentObs.pipe(take(1)).subscribe((richText) => {
+      if (this.destroyed) return;
+      // skip re-render if content hasn't changed — preserves cursor position
+      if (this.richTextAggregate?.richText?.contentAreEquals(richText)) return;
+      this.richTextAggregate = new TeRichTextAggregate(richText);
+      this.renderValue(richText);
+    });
   }
 
   private async initEditor(module: any): Promise<void> {
@@ -231,6 +268,9 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
     // update the content and set the user as the current user
     this.richTextAggregate.updateContent(newRichText, 'current');
 
+    // reset the idle timer since the user made a modification
+    this.resetEditIdleTimer();
+
     this.textChange.emit(this.richTextAggregate.richText);
   }
 
@@ -260,6 +300,51 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
 
     this.skipNextChange = true;
     this.editor.blocks.insert('paragraph', { text: '' }, undefined, blocksCount, false, false);
+  }
+
+  /////////////////////// EDIT IDLE TIMER & PERIODIC REFRESH ///////////////////////
+
+  /**
+   * Start the idle timer and periodic refresh only if the config provides a refreshContent$ method.
+   * - Idle timer: switches back to view mode after TE_EDIT_IDLE_TIMEOUT_MS without modifications.
+   * - Periodic refresh: refreshes content every TE_EDIT_REFRESH_INTERVAL_MS without modifications.
+   * Both are reset when the user makes a modification.
+   */
+  private startEditIdleTimer(): void {
+    if (this.config.refreshContent$() == null) return;
+    this.clearEditIdleTimer();
+    this.editIdleTimer = setTimeout(() => this.onEditIdleTimeoutExpired(), TE_EDIT_IDLE_TIMEOUT_MS);
+    this.editRefreshInterval = setInterval(() => this.refreshContent(), TE_EDIT_REFRESH_INTERVAL_MS);
+  }
+
+  private resetEditIdleTimer(): void {
+    if (this.editIdleTimer == null) return;
+    this.startEditIdleTimer();
+  }
+
+  private clearEditIdleTimer(): void {
+    if (this.editIdleTimer != null) {
+      clearTimeout(this.editIdleTimer);
+      this.editIdleTimer = null;
+    }
+    if (this.editRefreshInterval != null) {
+      clearInterval(this.editRefreshInterval);
+      this.editRefreshInterval = null;
+    }
+  }
+
+  private onEditIdleTimeoutExpired(): void {
+    this.clearEditIdleTimer();
+    if (this.destroyed || this.editor == null) return;
+    if (this.editor.readOnly?.isEnabled) return;
+
+    // save content, switch to readonly, refresh, and notify parent
+    this.onTextEditorChange().then(() => {
+      this.editor.readOnly.toggle(true);
+      this.destroyListeners();
+      this.refreshContent();
+      this.editIdleTimeout.emit();
+    });
   }
 
   /////////////////////// LISTENERS ///////////////////////
@@ -430,6 +515,7 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.destroyed = true;
+    this.clearEditIdleTimer();
     if (this.editor) {
       // wait for the editor to be ready before destroying it
       // we must destroy it, otherwise there is a memory leak

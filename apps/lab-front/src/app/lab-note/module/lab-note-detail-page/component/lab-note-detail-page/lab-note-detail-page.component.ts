@@ -82,7 +82,7 @@ export class LabNoteDetailPageComponent implements OnInit, OnDestroy {
 
   private init(id: string): void {
     this.state.init(id);
-    this.textEditorConfig = new LabNoteTextEditorConfig(id);
+    this.textEditorConfig = new LabNoteTextEditorConfig(id, this.noteService);
     this.note$ = this.state.getNote$();
     this.state
       .getContent$()

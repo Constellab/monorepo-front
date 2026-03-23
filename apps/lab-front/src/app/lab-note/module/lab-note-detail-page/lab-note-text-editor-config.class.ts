@@ -1,5 +1,6 @@
 import { ApplicationRef, EnvironmentInjector } from '@angular/core';
 import {
+  LiNoteService,
   LiRichTextAudioTranscriptionConfig,
   LiRichTextFileConfig,
   LiRichTextImageConfig,
@@ -15,9 +16,11 @@ import {
   TeCompleteConfig,
   teComponentBlockFactory,
   teInlineToolFactory,
+  TeRichText,
   TeTools,
   TeVariableInlineToolClass,
 } from '@monorepo/text-editor';
+import { map, Observable } from 'rxjs';
 
 import {
   LabNoteInsertTemplateBlockTune,
@@ -28,8 +31,16 @@ import {
  * Config for the text editor in the note to support view in the editor
  */
 export class LabNoteTextEditorConfig extends TeCompleteConfig {
-  constructor(private noteId: string) {
+  constructor(
+    private noteId: string,
+    private noteService?: LiNoteService
+  ) {
     super();
+  }
+
+  override refreshContent$(): Observable<TeRichText> | null {
+    if (this.noteService == null) return null;
+    return this.noteService.getNoteContent(this.noteId).pipe(map((dto) => new TeRichText(dto)));
   }
 
   /**

@@ -5,9 +5,10 @@ import {
   TeCompleteConfig,
   TeFigureBlockConfig,
   TeFileBlockConfig,
+  TeRichText,
   TeTools,
 } from '@monorepo/text-editor';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 import { CaConstellabDocumentService } from '../../../ca-core/service-api/ca-constellab-document.service';
 
@@ -58,6 +59,12 @@ export class CaConstellabDocumentTextEditorConfig extends TeCompleteConfig {
     private hierarchyObjectToken?: string
   ) {
     super();
+  }
+
+  override refreshContent$(): Observable<TeRichText> {
+    return this.constellabDocumentService
+      .getConstellabDocument(this.documentId)
+      .pipe(map((doc) => doc.content));
   }
 
   getTools(envInjector: EnvironmentInjector, applicationRef: ApplicationRef): TeTools {

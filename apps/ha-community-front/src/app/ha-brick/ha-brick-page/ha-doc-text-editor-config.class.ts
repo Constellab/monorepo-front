@@ -6,9 +6,10 @@ import {
   teComponentBlockFactory,
   TeFigureBlockConfig,
   TeFileBlockConfig,
+  TeRichText,
   TeTools,
 } from '@monorepo/text-editor';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 import { HaFile } from '../../ha-core/entity-module/ha-file-core/model/ha-file';
 import { HaDocumentationService } from '../../ha-core/ha-service/ha-documentation.service';
@@ -54,6 +55,10 @@ export class HaDocTextEditorConfig extends TeCompleteConfig {
   ) {
     super();
     this.figureConfig = new HaDocTextEditorImageConfig(docId, docService);
+  }
+
+  override refreshContent$(): Observable<TeRichText> {
+    return this.docService.getById(this.docId).pipe(map((doc) => doc.content));
   }
 
   getTools(envInjector: EnvironmentInjector, applicationRef: ApplicationRef): TeTools {
