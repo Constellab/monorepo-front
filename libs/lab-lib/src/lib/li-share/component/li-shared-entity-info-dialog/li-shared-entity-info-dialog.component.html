@@ -98,12 +98,9 @@
 
   <fl-text-icon>
     <mat-icon flIcon="lab"></mat-icon>
-    <h2>{{ 'li.labs_that_used_share_link' | translate }}</h2>
+    <h2>{{ 'li.entities_sent_to_lab' | translate }}</h2>
   </fl-text-icon>
-  <fl-infinite-scroll
-    [datasource]="sharedEntities"
-    class="g-infinite-table"
-    textNoResult="li.not_shared_yet">
+  <fl-infinite-scroll [datasource]="sharedEntities" class="g-infinite-table" textNoResult="li.not_shared_yet">
     @if (!sharedEntities.isEmpty()) {
       <li-shared-entity-table [datasource]="sharedEntities"></li-shared-entity-table>
     }
