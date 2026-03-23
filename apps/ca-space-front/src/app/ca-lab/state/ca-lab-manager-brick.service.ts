@@ -8,9 +8,7 @@ import { Observable } from 'rxjs';
 import { CaCoServiceConfig } from '../../ca-core/model/config/ca-co-service-config.service';
 import { CaSpaceService } from '../../ca-core/service-api/ca-space.service';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class CaLabManagerBrickService extends LmlBrickService {
   private readonly route = 'community';
 
@@ -22,6 +20,12 @@ export class CaLabManagerBrickService extends LmlBrickService {
 
   private coCommunityHelper = inject(CoCommunityHelperService);
 
+  private labId: string;
+
+  override setLabId(labId: string): void {
+    this.labId = labId;
+  }
+
   getAllWithFilters(
     spacesFilter: string[],
     titleFilter: string,
@@ -29,7 +33,7 @@ export class CaLabManagerBrickService extends LmlBrickService {
     size: number
   ): Observable<ClPage<LmlCommunityBrick>> {
     return this.apiService.post(
-      `${this.route}/brick/filters`,
+      `${this.route}/${this.labId}/brick/filters`,
       { spacesFilter: spacesFilter, titleFilter: titleFilter },
       LmlCommunityBrick,
       {
@@ -41,15 +45,18 @@ export class CaLabManagerBrickService extends LmlBrickService {
   }
 
   getByName(name: string): Observable<LmlCommunityBrick> {
-    return this.apiService.get(`${this.route}/brick/${name}`, LmlCommunityBrick);
+    return this.apiService.get(`${this.route}/${this.labId}/brick/${name}`, LmlCommunityBrick);
   }
 
   getBrickVersion(brickName: string, brickVersion: string): Observable<LmlBrickVersion> {
-    return this.apiService.get(`${this.route}/brick/${brickName}/version/${brickVersion}`, LmlCommunityBrick);
+    return this.apiService.get(
+      `${this.route}/${this.labId}/brick/${brickName}/version/${brickVersion}`,
+      LmlBrickVersion
+    );
   }
 
   getBrickLatestVersion(brickName: string): Observable<LmlBrickVersion> {
-    return this.apiService.get(`${this.route}/brick/${brickName}/latest`, LmlCommunityBrick);
+    return this.apiService.get(`${this.route}/${this.labId}/brick/${brickName}/latest`, LmlBrickVersion);
   }
 
   getImageUrl(filename: string): string {
@@ -68,7 +75,7 @@ export class CaLabManagerBrickService extends LmlBrickService {
   }
 
   getVersionsList(brickId: string): Observable<string[]> {
-    return this.apiService.get(`${this.route}/brick/versions-list/${brickId}`, null);
+    return this.apiService.get(`${this.route}/${this.labId}/brick/versions-list/${brickId}`, null);
   }
 
   spaceActivated(): boolean {

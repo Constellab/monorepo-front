@@ -60,7 +60,7 @@ export class LmlBricksConfigFormComponent {
   openBrickVersionForm(brickVersionDTO?: LmlLabManagerBrickVersionDTO): void {
     this.dialogService
       .openBigDialog(LmlConfigureBrickComponent, {
-        data: brickVersionDTO,
+        data: { brickVersionDTO },
       })
       .afterClosed()
       .subscribe((brickVersion) =>

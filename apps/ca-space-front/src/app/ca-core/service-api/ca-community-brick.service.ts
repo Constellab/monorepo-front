@@ -13,11 +13,12 @@ export class CaCommunityBrickService {
 
   private readonly route = 'community';
 
-  public getByName(name: string, userId: string): Observable<CaCommunityBrick> {
-    return this.apiService.post(`${this.route}/brick/name/${name}`, { userId: userId }, CaCommunityBrick);
+  public getByName(labId: string, name: string, userId: string): Observable<CaCommunityBrick> {
+    return this.apiService.post(`${this.route}/${labId}/brick/name/${name}`, { userId: userId }, CaCommunityBrick);
   }
 
   public getAllWithFilters(
+    labId: string,
     spacesFilter: string[],
     titleFilter: string,
     page: number,
@@ -25,7 +26,7 @@ export class CaCommunityBrickService {
     userId: string
   ): Observable<ClPage<CaCommunityBrick>> {
     return this.apiService.post(
-      `${this.route}/brick/filters`,
+      `${this.route}/${labId}/brick/filters`,
       { spacesFilter: spacesFilter, titleFilter: titleFilter, userId: userId },
       CaCommunityBrick,
       {
@@ -43,7 +44,7 @@ export class CaCommunityBrickService {
     );
   }
 
-  getVersionsList(brickId: string, userId: string): Observable<string[]> {
-    return this.apiService.post(`${this.route}/brick/versions-list/${brickId}`, { userId: userId }, null);
+  getVersionsList(labId: string, brickId: string, userId: string): Observable<string[]> {
+    return this.apiService.post(`${this.route}/${labId}/brick/versions-list/${brickId}`, { userId: userId }, null);
   }
 }

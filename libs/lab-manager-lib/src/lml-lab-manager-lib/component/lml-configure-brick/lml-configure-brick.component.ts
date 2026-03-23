@@ -15,6 +15,10 @@ interface LmlCommunityBrickFilers {
   title: string;
 }
 
+interface LmlConfigureBrickDialogData {
+  brickVersionDTO?: LmlLabManagerBrickVersionDTO;
+}
+
 @Component({
   selector: 'lml-config-brick',
   templateUrl: './lml-configure-brick.component.html',
@@ -40,7 +44,8 @@ export class LmlConfigureBrickComponent implements OnInit {
 
   isUpdate: boolean;
 
-  private brickVersionDTO: LmlLabManagerBrickVersionDTO = inject(MAT_DIALOG_DATA);
+  private dialogData: LmlConfigureBrickDialogData = inject(MAT_DIALOG_DATA);
+  private brickVersionDTO = this.dialogData.brickVersionDTO;
   private dialogRef = inject(MatDialogRef);
   private communityBrickService = inject(LmlBrickService);
 

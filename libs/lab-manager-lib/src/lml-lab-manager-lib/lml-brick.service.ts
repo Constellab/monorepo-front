@@ -5,6 +5,12 @@ import { Observable } from 'rxjs';
 import { LmlBrickVersion, LmlCommunityBrick } from './model/lml-brick.class';
 
 export abstract class LmlBrickService {
+  /**
+   * Set the lab ID for implementations that need it (e.g. CaLabManagerBrickService).
+   * No-op by default.
+   */
+  public setLabId(_labId: string): void {}
+
   public abstract getAllWithFilters(
     spacesFilter: string[],
     titleFilter: string,
