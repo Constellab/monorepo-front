@@ -17,7 +17,6 @@ import { LmlLabManagerState } from '../../lml-lab-manager.state';
 })
 export class LmlManagerComponent implements OnInit, OnDestroy {
   @Input() autoRefreshStatusFrequency: number;
-  @Input() labId: string;
 
   // if true a loader with text is displayed when the lab manager is busy
   @Input() showCurrentAction: boolean = true;

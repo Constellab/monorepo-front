@@ -16,7 +16,6 @@ interface LmlCommunityBrickFilers {
 }
 
 interface LmlConfigureBrickDialogData {
-  labId?: string;
   brickVersionDTO?: LmlLabManagerBrickVersionDTO;
 }
 
@@ -47,7 +46,6 @@ export class LmlConfigureBrickComponent implements OnInit {
 
   private dialogData: LmlConfigureBrickDialogData = inject(MAT_DIALOG_DATA);
   private brickVersionDTO = this.dialogData.brickVersionDTO;
-  private labId = this.dialogData.labId;
   private dialogRef = inject(MatDialogRef);
   private communityBrickService = inject(LmlBrickService);
 
@@ -63,7 +61,7 @@ export class LmlConfigureBrickComponent implements OnInit {
 
     if (this.isUpdate) {
       this.brickSelectionMode = false;
-      this.communityBrickService.getByName(this.labId, this.brickVersionDTO.name).subscribe((brick) => {
+      this.communityBrickService.getByName(this.brickVersionDTO.name).subscribe((brick) => {
         this.initBrickVersionSelection(brick);
       });
     }
@@ -107,7 +105,6 @@ export class LmlConfigureBrickComponent implements OnInit {
     this.bricks$ = new FlEntityPaginatedDatasource(
       (page, size, requestData) =>
         this.communityBrickService.getAllWithFilters(
-          this.labId,
           requestData.filtersCriteria.spaceIds,
           requestData.filtersCriteria.title,
           page,
@@ -123,7 +120,7 @@ export class LmlConfigureBrickComponent implements OnInit {
   private initBrickVersionSelection(brick: LmlCommunityBrick): void {
     this.formGp.controls.name.patchValue(brick?.name);
     this.formGp.controls.brick.patchValue(brick);
-    this.communityBrickService.getVersionsList(this.labId, brick.id).subscribe((versionsList) => {
+    this.communityBrickService.getVersionsList(brick.id).subscribe((versionsList) => {
       if (this.formGp.controls.version.value && versionsList.includes(this.formGp.controls.version.value)) {
         const splitIndex = versionsList.indexOf(this.formGp.controls.version.value);
         this.versions = versionsList.slice(0, splitIndex + 1);

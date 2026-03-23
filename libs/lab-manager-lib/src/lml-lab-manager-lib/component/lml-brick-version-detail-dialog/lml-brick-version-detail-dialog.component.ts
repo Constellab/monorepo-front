@@ -6,7 +6,6 @@ import { LmlBrickService } from '../../lml-brick.service';
 import { LmlBrickVersion } from '../../model/lml-brick.class';
 
 export interface LmlBrickVersionDetailDialogInput {
-  labId?: string;
   brickName: string;
   brickVersion: string;
 }
@@ -25,7 +24,6 @@ export class LmlBrickVersionDetailDialogComponent {
   private brickService = inject(LmlBrickService);
 
   brickVersion$: Observable<LmlBrickVersion> = this.brickService.getBrickVersion(
-    this.input.labId,
     this.input.brickName,
     this.input.brickVersion
   );

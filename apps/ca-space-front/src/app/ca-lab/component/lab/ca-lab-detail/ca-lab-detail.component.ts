@@ -27,6 +27,8 @@ import { CaLabLoginButtonComponent } from '../../../../ca-core/entity-module/ca-
 import { CaLab } from '../../../../ca-core/model/entities/lab/ca-lab.class';
 import { CaRouterService } from '../../../../ca-core/service/ca-router.service';
 import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
+import { LmlBrickService } from '@monorepo/lab-manager-lib';
+
 import { CaLabDetailPageState } from '../../../state/ca-lab-detail-page.state';
 import {
   CaLabDesktopConfigureDialogComponent,
@@ -67,6 +69,7 @@ export class CaLabDetailComponent implements OnInit {
   private labService = inject(CaLabService);
   private communityHelper = inject(CoCommunityHelperService);
   private routerService = inject(CaRouterService);
+  private brickService = inject(LmlBrickService);
 
   lab$: Observable<CaLab>;
   isOwner$: Observable<boolean> = this.state.isLabOwner$();
@@ -87,11 +90,11 @@ export class CaLabDetailComponent implements OnInit {
   }
 
   openLabConfig(lab: CaLab): void {
+    this.brickService.setLabId(lab.id);
     const input: CaLabConfigDialogInput = {
       labConfig: this.labService.getConfig(lab.id),
       title: { text: 'lab_installed_brick', translateText: true },
       helpText: { text: 'lab_installed_brick_help', translateText: true },
-      labId: lab.id,
     };
 
     this.dialogService.openSmallDialog(CaLabConfigDialogComponent, { data: input });

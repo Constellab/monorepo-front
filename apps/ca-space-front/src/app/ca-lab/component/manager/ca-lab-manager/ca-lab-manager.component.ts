@@ -4,6 +4,7 @@ import { MatIcon } from '@angular/material/icon';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import {
+  LmlBrickService,
   LmlLabManagerLibModule,
 } from '@monorepo/lab-manager-lib';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -40,8 +41,13 @@ export class CaLabManagerComponent implements OnDestroy {
   private dialogService = inject(FlDialogService);
   private state = inject(CaLabDetailPageState);
   private labService = inject(CaLabService);
+  private brickService = inject(LmlBrickService);
 
   labId = this.state.getLabId();
+
+  constructor() {
+    this.brickService.setLabId(this.labId);
+  }
 
   private subscription: Subscription;
 
@@ -54,7 +60,6 @@ export class CaLabManagerComponent implements OnDestroy {
       labConfig: this.labService.getConfig(this.state.getLabId()),
       title: { text: 'lab_installed_brick', translateText: true },
       helpText: { text: 'lab_installed_brick_help', translateText: true },
-      labId: this.state.getLabId(),
     };
 
     this.dialogService.openSmallDialog(CaLabConfigDialogComponent, { data: input });

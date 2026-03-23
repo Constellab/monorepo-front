@@ -13,7 +13,6 @@ export interface CaLabConfigDialogInput {
   labConfig: Observable<CaLabConfig>;
   title: FlTranslatableText;
   helpText: FlTranslatableText;
-  labId: string;
   showDetailButton?: boolean;
 }
 

@@ -5,28 +5,26 @@ import { Observable } from 'rxjs';
 import { LmlBrickVersion, LmlCommunityBrick } from './model/lml-brick.class';
 
 export abstract class LmlBrickService {
+  /**
+   * Set the lab ID for implementations that need it (e.g. CaLabManagerBrickService).
+   * No-op by default.
+   */
+  public setLabId(_labId: string): void {}
+
   public abstract getAllWithFilters(
-    labId: string | undefined,
     spacesFilter: string[],
     titleFilter: string,
     page: number,
     size: number
   ): Observable<ClPage<LmlCommunityBrick>>;
 
-  public abstract getVersionsList(labId: string | undefined, brickId: string): Observable<string[]>;
+  public abstract getVersionsList(brickId: string): Observable<string[]>;
 
-  public abstract getByName(labId: string | undefined, name: string): Observable<LmlCommunityBrick>;
+  public abstract getByName(name: string): Observable<LmlCommunityBrick>;
 
-  public abstract getBrickLatestVersion(
-    labId: string | undefined,
-    brickName: string
-  ): Observable<LmlBrickVersion>;
+  public abstract getBrickLatestVersion(brickName: string): Observable<LmlBrickVersion>;
 
-  public abstract getBrickVersion(
-    labId: string | undefined,
-    brickName: string,
-    brickVersion: string
-  ): Observable<LmlBrickVersion>;
+  public abstract getBrickVersion(brickName: string, brickVersion: string): Observable<LmlBrickVersion>;
 
   public abstract getImageUrl(filename: string): string;
 

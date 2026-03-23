@@ -15,8 +15,6 @@ import { LmlBrickVersionDTODatasource, LmlLabManagerConfig } from '../../model/l
   standalone: false,
 })
 export class LmlManagerConfigComponent implements OnInit, OnDestroy {
-  @Input() labId: string;
-
   brickVersions: LmlBrickVersionDTODatasource;
   configHasChanged: boolean = false;
 

@@ -23,7 +23,6 @@ import { CaLabConfig } from '../../../../model/entities/lab/ca-lab-config.class'
 export class CaLabConfigComponent {
   labConfig = input.required<CaLabConfig>();
   showDetailButton = input<boolean>(true);
-  labId = input.required<string>();
 
   private dialogService = inject(FlDialogService);
   private communityHelper = inject(CoCommunityHelperService);
@@ -34,7 +33,6 @@ export class CaLabConfigComponent {
 
   openBrickVersionDetail(brickVersion: CaBrickVersionComplete): void {
     const data: LmlBrickVersionDetailDialogInput = {
-      labId: this.labId(),
       brickName: brickVersion.brick.name,
       brickVersion: brickVersion.version,
     };
