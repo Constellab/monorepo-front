@@ -5,6 +5,7 @@
     [event]="event"
     [disabled]="disabled"
     (textChange)="onTextChange($event)"
+    (editIdleTimeout)="onEditIdleTimeout()"
     [richText]="value"></te-text-editor-browser-side>
 } @else {
   <te-text-editor-server-side [richText]="value" [config]="config"></te-text-editor-server-side>

@@ -3,6 +3,7 @@ import { ToolConstructable, ToolSettings } from '@editorjs/editorjs/types/tools'
 import { BlockToolData } from '@editorjs/editorjs/types/tools/block-tool-data';
 import { flRootInjector } from '@monorepo/front-core-lib/fl-core';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+import { Observable } from 'rxjs';
 
 import { TeCodeBlock } from '../block/te-code-block.class';
 import { TeComponentInitData } from '../block/te-component-block.class';
@@ -37,6 +38,7 @@ import { TeStrikethroughInlineTool } from '../inline-tool/te-strikethrough-inlin
 import { TeUnderlineInlineTool } from '../inline-tool/te-underline-inline-tool.class';
 import { TeVariableInlineToolClass } from '../inline-tool/te-variable-inline-tool.class';
 import { TeMentionConfig, TeMentionInlineTool } from '../plugin/te-mention.class';
+import { TeRichText } from './lib/te-rich-text.class';
 import { TeHelper } from './te.helper';
 import { teComponentBlockFactory } from './te-block-factory.class';
 import { teBlockTuneFactory } from './te-block-tune-factory.class';
@@ -101,6 +103,16 @@ export abstract class TeConfig {
 
   public getDefaultBlock(): string {
     return 'paragraph';
+  }
+
+  /**
+   * Override this method to provide a way to refresh the editor content from the server.
+   * Used when entering edit mode and after an idle timeout in edit mode.
+   * If it returns an Observable, the content will be reloaded.
+   * By default returns null (no refresh).
+   */
+  public refreshContent$(): Observable<TeRichText> | null {
+    return null;
   }
 
   getParagraphConfig(): ToolSettings {
