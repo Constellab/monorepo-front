@@ -3,7 +3,6 @@ import { ComponentType } from '@angular/cdk/overlay';
 import { RvViewAppComponent } from '../component/rv-view-app/rv-view-app.component';
 import { RvViewAudioComponent } from '../component/rv-view-audio/rv-view-audio.component';
 import { RvViewChart2dComponent } from '../component/rv-view-chart-2d/rv-view-chart2d.component';
-import { RvViewHtmlComponent } from '../component/rv-view-html/rv-view-html.component';
 import { RvViewIframeComponent } from '../component/rv-view-iframe/rv-view-iframe.component';
 import { RvViewImageComponent } from '../component/rv-view-image/rv-view-image.component';
 import { RvViewJsonComponent } from '../component/rv-view-json/rv-view-json.component';
@@ -29,15 +28,12 @@ export interface RvResourceViewTypeInfo {
 /**
  * List of default views supported by the resource view library
  */
-export const rvDefaultViewTypeInfos: Record<RvResourceViewType, RvResourceViewTypeInfo> = {
+export const RV_DEFAULT_VIEW_TYPE_INFOS: Record<RvResourceViewType, RvResourceViewTypeInfo> = {
   'json-view': {
     viewComponent: RvViewJsonComponent,
   },
   'text-view': {
     viewComponent: RvViewTextComponent,
-  },
-  'html-view': {
-    viewComponent: RvViewHtmlComponent,
   },
   'iframe-view': {
     viewComponent: RvViewIframeComponent,

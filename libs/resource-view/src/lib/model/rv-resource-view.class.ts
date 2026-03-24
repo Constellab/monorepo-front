@@ -28,7 +28,6 @@ export type RvResourceViewType =
   | 'multi-view'
   | 'venn-diagram-view'
   | 'heatmap-view'
-  | 'html-view'
   | 'iframe-view'
   | 'markdown-view'
   | 'plotly-view'
@@ -69,13 +68,6 @@ export interface RvResourceViewImage extends RvResourceViewBase {
   data: {
     base_64_img: string;
     mime_type: string;
-  };
-}
-
-export interface RvResourceViewHTML extends RvResourceViewBase {
-  type: 'html-view';
-  data: {
-    html: string;
   };
 }
 
@@ -140,7 +132,6 @@ export type RvResourceView =
   | RvResourceViewNetwork
   | RvResourceViewText
   | RvResourceViewTable
-  | RvResourceViewHTML
   | RvResourceViewMarkdown
   | RvResourceViewPlotly
   | RvResourceViewApp

@@ -1,7 +1,6 @@
-import { inject,Injectable, ViewContainerRef } from '@angular/core';
+import { inject, Injectable, ViewContainerRef } from '@angular/core';
 import { FlPortalService } from '@monorepo/front-core-lib/fl-portal';
-import { LiResourceTableService } from '@monorepo/lab-lib/li-core';
-import { LiResourceService } from '@monorepo/lab-lib/li-core';
+import { LiResourceService, LiResourceTableService } from '@monorepo/lab-lib/li-core';
 import {
   LiResourceRichTextViewComponent,
   LiResourceSpreadsheetPageLoader,
@@ -18,8 +17,8 @@ import {
   LiTableChartConfigVulcanoPlot,
 } from '@monorepo/lab-lib/li-resource';
 import {
+  RV_DEFAULT_VIEW_TYPE_INFOS,
   RvConfigValues,
-  rvDefaultViewTypeInfos,
   RvResourceViewModuleConfig,
   RvResourceViewTable,
   RvResourceViewText,
@@ -169,7 +168,7 @@ export class LabResourceViewModuleConfig extends RvResourceViewModuleConfig {
 
   getAvailableViews(): Record<string, RvResourceViewTypeInfo> {
     return {
-      ...rvDefaultViewTypeInfos,
+      ...RV_DEFAULT_VIEW_TYPE_INFOS,
       view: {
         viewComponent: null,
       },

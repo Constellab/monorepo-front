@@ -1,8 +1,8 @@
 import { LiResourceTableService, LiResourceView, LiShareService } from '@monorepo/lab-lib/li-core';
 import { LiResourceRichTextViewComponent } from '@monorepo/lab-lib/li-resource';
 import {
+  RV_DEFAULT_VIEW_TYPE_INFOS,
   RvConfigValues,
-  rvDefaultViewTypeInfos,
   RvResourceViewModuleConfig,
   RvResourceViewTable,
   RvResourceViewText,
@@ -66,7 +66,7 @@ export class LabOpenRouteSpreadsheetViewConfig extends RvSpreadsheetViewConfig {
   }
 }
 
-export class LiTextViewConfig extends RvTextViewConfig {
+export class LabTextViewConfig extends RvTextViewConfig {
   constructor(private shareService: LiShareService) {
     super();
   }
@@ -97,7 +97,7 @@ export class LabOpenRouteResourceViewModuleConfig extends RvResourceViewModuleCo
 
   getAvailableViews(): Record<string, RvResourceViewTypeInfo> {
     return {
-      ...rvDefaultViewTypeInfos,
+      ...RV_DEFAULT_VIEW_TYPE_INFOS,
       // disable the list and folder view because they require api calls
       // view: {
       //   viewComponent: null,
@@ -119,7 +119,7 @@ export class LabOpenRouteResourceViewModuleConfig extends RvResourceViewModuleCo
   }
 
   getTextViewConfig(): RvTextViewConfig {
-    return new LiTextViewConfig(this.shareService);
+    return new LabTextViewConfig(this.shareService);
   }
 
   /**

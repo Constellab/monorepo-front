@@ -7,7 +7,7 @@ import {
   RvTextViewBasicConfig,
   RvTextViewConfig,
 } from './rv-resource-view-module.config';
-import { rvDefaultViewTypeInfos, RvResourceViewTypeInfo } from './rv-type-info.class';
+import { RV_DEFAULT_VIEW_TYPE_INFOS, RvResourceViewTypeInfo } from './rv-type-info.class';
 
 /**
  * Default configuration for the ResourceViewModule (basic)
@@ -18,7 +18,7 @@ import { rvDefaultViewTypeInfos, RvResourceViewTypeInfo } from './rv-type-info.c
 export class RvResourceViewModuleBasicConfig extends RvResourceViewModuleConfig {
   // list the views that are available
   getAvailableViews(): Record<string, RvResourceViewTypeInfo> {
-    return rvDefaultViewTypeInfos;
+    return RV_DEFAULT_VIEW_TYPE_INFOS;
   }
 
   getSpreadsheetViewConfig(): RvSpreadsheetViewConfig {
