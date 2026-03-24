@@ -10,6 +10,7 @@ import {
   LiNote,
   LiRouterService,
   LiScenario,
+  LiScenarioSentToLabResponse,
   LiScenarioService,
   LiTagDatasource,
 } from '@monorepo/lab-lib/li-core';
@@ -19,7 +20,7 @@ import { LiSharedEntityInfoDialogComponent, LiSharedEntityInfoDialogInput } from
 import { Observable, tap } from 'rxjs';
 
 export type LiScenarioActionEvent = {
-  action: 'archive' | 'unarchive' | 'send-to-lab';
+  action: 'archive' | 'unarchive';
   scenario: LiScenario;
 };
 
@@ -186,7 +187,7 @@ export class LiScenarioActionMenu extends LiEntityActionMenu {
         this.injector
           .get(LiScenarioService)
           .exportScenarioToLab(this.scenario.id, configValues)
-          .pipe(tap((scenario: LiScenario) => this.onShareSuccess(scenario))),
+          .pipe(tap((result) => this.onSentScenarioSuccess(result))),
     };
 
     this.injector
@@ -199,15 +200,14 @@ export class LiScenarioActionMenu extends LiEntityActionMenu {
       .subscribe(() => this.subject.complete());
   }
 
-  private onShareSuccess(scenario: LiScenario): void {
+  protected onSentScenarioSuccess(result: LiScenarioSentToLabResponse): void {
     this.injector.get(FlSnackBarService).openSuccessMessage(
       {
         text: 'li.scenario_sent_to_lab',
         translateText: true,
-        translateParam: { param: { url: LiRouterService.getScenarioDetailRoute(scenario.id) } },
+        translateParam: { param: { url: LiRouterService.getScenarioDetailRoute(result.exportScenario.id) } },
       },
       5000
     );
-    this.subject.next({ action: 'send-to-lab', scenario: scenario });
   }
 }

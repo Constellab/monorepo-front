@@ -18,6 +18,7 @@ import {
   LiRunningScenarioInfo,
   LiScenario,
   LiScenarioDatasource,
+  LiScenarioSentToLabResponse,
   LiScenarioSimpleForm,
 } from '../model/entities/li-scenario.entity';
 import { LiScenarioSearch, LiScenarioSearchFields } from '../model/search/li-scenario-search.class';
@@ -200,8 +201,15 @@ export class LiScenarioService {
     return this.apiService.get(`${this.route}/import-from-lab/config-specs`);
   }
 
-  public exportScenarioToLab(id: string, configValues: TdParamSpecsValues): Observable<LiScenario> {
-    return this.apiService.post(`${this.route}/${id}/export-to-lab`, configValues, LiScenario);
+  public exportScenarioToLab(
+    id: string,
+    configValues: TdParamSpecsValues
+  ): Observable<LiScenarioSentToLabResponse> {
+    return this.apiService.post(
+      `${this.route}/${id}/export-to-lab`,
+      configValues,
+      LiScenarioSentToLabResponse
+    );
   }
 
   public getExportToLabConfigSpecs(): Observable<TdParamSpecs> {

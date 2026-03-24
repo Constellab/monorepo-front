@@ -207,3 +207,13 @@ export class LiRunningScenarioInfo extends LiEntity {
     title: string;
   };
 }
+
+export class LiScenarioSentToLabResponse {
+  @Expose({ name: 'exported_scenario' })
+  @Type(() => LiScenario)
+  exportedScenario: LiScenario;
+
+  @Expose({ name: 'export_scenario' })
+  @Type(() => LiScenario)
+  exportScenario: LiScenario;
+}

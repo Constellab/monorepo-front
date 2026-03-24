@@ -15,6 +15,7 @@ import {
   LiQueueService,
   LiRouterService,
   LiScenario,
+  LiScenarioSentToLabResponse,
   LiScenarioService,
 } from '@monorepo/lab-lib/li-core';
 import { LiValidateObjectDialogComponent, LiValidateObjectDialogInput } from '@monorepo/lab-lib/li-entity';
@@ -88,16 +89,7 @@ export class LabScenarioDetailActionMenu extends LiScenarioActionMenu {
 
     return this.generateMenu(menu, event).pipe(
       tap((event: LiScenarioActionEvent) => {
-        if (event.action === 'send-to-lab') {
-          // the received event is the "send scenario", so we don't update current scenario
-          // Not ideal, but wait 5 seconds for the current scenario to be update before refreshing it
-          // because it then can have a running status (if run in external lab)
-          setTimeout(() => {
-            this.scenarioState.refreshScenario();
-          }, 5000);
-        } else {
-          this.scenarioState.updateScenario(event.scenario);
-        }
+        this.scenarioState.updateScenario(event.scenario);
       })
     );
   }
@@ -430,5 +422,16 @@ export class LabScenarioDetailActionMenu extends LiScenarioActionMenu {
     };
 
     this.injector.get(FlDialogService).openConfirmDialog(input);
+  }
+
+  /**
+   * Overrides the sent scenario to refresh the current scenario
+   */
+  protected onSentScenarioSuccess(result: LiScenarioSentToLabResponse): void {
+    super.onSentScenarioSuccess(result);
+    // the received event is the "send scenario", so we don't update current scenario
+    // Not ideal, but wait 5 seconds for the current scenario to be update before refreshing it
+    // because it then can have a running status (if run in external lab)
+    this.scenarioState.updateScenario(result.exportedScenario);
   }
 }
