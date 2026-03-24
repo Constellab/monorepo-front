@@ -358,6 +358,7 @@
     "share_origin_lab": "Lab origin",
     "share_origin_by": "Shared by",
     "share_origin_space": "Space origin",
+    "share_origin_id": "Object id in the origin lab",
     "share_origin_at": "Shared",
     "share_origin_info": "Origin information",
     "share_to_lab": "Lab",

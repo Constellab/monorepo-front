@@ -22,7 +22,7 @@
 
 @if (sharedEntity.externalId) {
   <fl-key-value>
-    <fl-key>Origin object id</fl-key>
+    <fl-key>{{ 'li.share_origin_id' | translate }}</fl-key>
     @if (sharedEntity.externalObjectUrl) {
       <fl-external-link
         [link]="sharedEntity.externalObjectUrl"

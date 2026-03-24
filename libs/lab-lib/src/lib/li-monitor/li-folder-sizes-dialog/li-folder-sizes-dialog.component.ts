@@ -31,9 +31,14 @@ export class LiFolderSizesDialogComponent {
   constructor() {
     inject(LiMonitorService)
       .getFolderSizes()
-      .subscribe((result) => {
-        this.folderSizes.set(result);
-        this.isLoading.set(false);
+      .subscribe({
+        next: (result) => {
+          this.folderSizes.set(result);
+          this.isLoading.set(false);
+        },
+        error: () => {
+          this.isLoading.set(false);
+        },
       });
   }
 }

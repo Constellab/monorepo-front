@@ -55,20 +55,20 @@ export class LiSharedEntity extends LiBaseEntity {
   shareMode: LiSharedEntityMode;
 
   @Type(() => LiLab)
-  lab?: LiLab;
+  lab: LiLab;
 
   @Type(() => LiUser)
-  user?: LiUser;
+  user: LiUser;
 
   @Expose({ name: 'external_id' })
-  externalId?: string;
+  externalId: string;
 
   @Expose({ name: 'external_object_url' })
   externalObjectUrl?: string;
 
   @Expose({ name: 'created_by' })
   @Type(() => LiUser)
-  createdBy?: LiUser;
+  createdBy: LiUser;
 }
 
 export type LiSharedEntityDatasource = FlDatasourcePaginated<LiSharedEntity>;
