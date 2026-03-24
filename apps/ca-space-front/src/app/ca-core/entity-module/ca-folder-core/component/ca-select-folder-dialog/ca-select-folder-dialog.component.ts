@@ -99,12 +99,12 @@ export class CaSelectFolderDialogComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.selectedFolder = ancestors.shift();
+    const currentObject = ancestors.shift();
 
-    if (this.selectedFolder.isRoot()) {
+    if (currentObject.isRoot()) {
       this.initRoots();
     } else {
-      this.getChildren(this.selectedFolder.parentId);
+      this.getChildren(currentObject.parentId);
       this.parentFolders = ancestors.reverse();
     }
   }
@@ -140,10 +140,15 @@ export class CaSelectFolderDialogComponent implements OnInit, OnDestroy {
   }
 
   private selectFolder(folder: CaHierarchyObject): void {
+    if (folder.objectType !== CaHierarchyObjectType.FOLDER) return;
+    if (this.dialogInput.currentObjectId && folder.id === this.dialogInput.currentObjectId) return;
     this.selectedFolder = folder;
   }
 
   private folderDblClicked(folder: CaHierarchyObject): void {
+    if (folder.objectType !== CaHierarchyObjectType.FOLDER) return;
+    if (this.dialogInput.currentObjectId && folder.id === this.dialogInput.currentObjectId) return;
+
     if (this.isRootMode()) {
       this.selectFolder(folder);
       this.close();

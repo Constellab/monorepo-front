@@ -183,7 +183,7 @@ export class CaHierarchyObjectService {
       null,
       CaHierarchyObject
     );
-  }
+}
 
   public deleteHierarchyObject(hierarchyObjectId: string): Observable<void> {
     return this.apiService.delete(`${this.route}/${hierarchyObjectId}`);

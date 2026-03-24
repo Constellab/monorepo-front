@@ -33,6 +33,12 @@ export type CaHierarchyObjectEvent =
       hierarchyObjectId: string;
       hierarchyObjectType: CaHierarchyObjectType;
     }
+  | {
+      action: 'moveToFolder';
+      hierarchyObjectId: string;
+      hierarchyObjectType: CaHierarchyObjectType;
+      hierarchyObject: CaHierarchyObject;
+    }
   // special event to update the folder
   | {
       action: 'updateFolder';
@@ -151,11 +157,20 @@ export class CaHierarchyObjectEventState implements OnDestroy {
   public emitHierarchyObjectEvent(
     hierarchyObjectEvent: CaHierarchyObjectMoveToTrashAction | CaHierarchyObjectMoveToFolderAction
   ): void {
-    this.emitEvent({
-      action: 'delete',
-      hierarchyObjectId: hierarchyObjectEvent.hierarchyObject.id,
-      hierarchyObjectType: hierarchyObjectEvent.hierarchyObject.objectType,
-    });
+    if (hierarchyObjectEvent.action === 'moveToFolder') {
+      this.emitEvent({
+        action: 'moveToFolder',
+        hierarchyObjectId: hierarchyObjectEvent.hierarchyObject.id,
+        hierarchyObjectType: hierarchyObjectEvent.hierarchyObject.objectType,
+        hierarchyObject: hierarchyObjectEvent.hierarchyObject,
+      });
+    } else {
+      this.emitEvent({
+        action: 'delete',
+        hierarchyObjectId: hierarchyObjectEvent.hierarchyObject.id,
+        hierarchyObjectType: hierarchyObjectEvent.hierarchyObject.objectType,
+      });
+    }
   }
 
   ngOnDestroy(): void {

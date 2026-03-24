@@ -388,6 +388,9 @@ export class CaHierarchyObjectDetailState implements OnDestroy {
       case 'delete':
         this.onFolderDelete(event.hierarchyObjectId, event.hierarchyObjectType);
         break;
+      case 'moveToFolder':
+        this.onFolderDelete(event.hierarchyObjectId, event.hierarchyObjectType);
+        break;
     }
   }
 

@@ -129,6 +129,9 @@ export class CaHierarchyObjectSearchState implements OnDestroy {
       case 'delete':
         this.deleteHierarchyObjectById(event.hierarchyObjectId);
         return;
+      case 'moveToFolder':
+        this.onMoveToFolder(event.hierarchyObjectId, event.hierarchyObject);
+        return;
     }
   }
 
@@ -154,6 +157,14 @@ export class CaHierarchyObjectSearchState implements OnDestroy {
     // if the new object is a child of the current context
     if (folder.parentId === currentContext.hierarchyObjectId) {
       this.childrenDatasource.unshiftItem(folder);
+    }
+  }
+
+  private async onMoveToFolder(hierarchyObjectId: string, hierarchyObject: CaHierarchyObject): Promise<void> {
+    const currentContext = await this.state.getHierarchyContextIdPromise();
+    // only remove if the object actually moved to a different folder
+    if (hierarchyObject.parentId !== currentContext.hierarchyObjectId) {
+      this.deleteHierarchyObjectById(hierarchyObjectId);
     }
   }
 
