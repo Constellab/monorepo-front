@@ -73,6 +73,6 @@ export class LabScenarioDetailHeaderComponent implements OnInit {
   }
 
   private getActionMenu(scenario: LiScenario): LabScenarioDetailActionMenu {
-    return new LabScenarioDetailActionMenu(this.injector, scenario, this.scenarioState.getTags$());
+    return new LabScenarioDetailActionMenu(this.injector, scenario, this.scenarioState);
   }
 }

@@ -7,17 +7,6 @@
       [innerHTML]="text | flTranslatableText | async"></div>
   </div>
 
-  @if (showDetailButton) {
-    <button
-      class="button"
-      [ngClass]="{ 'button-success': mode === 'success', 'button-warn': mode === 'error' }"
-      mat-button
-      type="button"
-      (click)="openDetailDialog($event)">
-      {{ 'flSnackBar.details' | translate }}
-    </button>
-  }
-
   @if (showCloseButton) {
     <button
       class="button"

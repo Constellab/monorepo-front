@@ -5,4 +5,6 @@ import { ClApiError } from '@monorepo/core-lib';
  */
 export interface LiApiError extends ClApiError {
   show_as: 'error' | 'info';
+
+  requestId: string;
 }

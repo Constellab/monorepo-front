@@ -1,4 +1,4 @@
-import { inject,Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { Observable } from 'rxjs';
 
@@ -26,5 +26,9 @@ export class LiLogService {
 
   public getDownloadJsonUrl(logName: string): string {
     return this.apiService.getBaseRouteUrl(`${this.route}/${logName}/download/json`);
+  }
+
+  public sendToSupport(requestId: string): Observable<any> {
+    return this.apiService.post(`${this.route}/${requestId}/send-to-support`, {});
   }
 }

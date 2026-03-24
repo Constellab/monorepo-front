@@ -3,7 +3,7 @@ import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { RouterLink } from '@angular/router';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlConfirmDialogInput, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlPortalActionResult } from '@monorepo/front-core-lib/fl-portal-actions';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
@@ -24,9 +24,7 @@ import {
   LiResourceUpdateFolderDialogInput,
   LiResourceUpdateFolderDialogOutput,
 } from '../li-resource-update-folder-dialog/li-resource-update-folder-dialog.component';
-import {
-  LiUpdateResourceNameDialogComponent,
-} from '../li-update-resource-name-dialog/li-update-resource-name-dialog.component';
+import { LiUpdateResourceNameDialogComponent } from '../li-update-resource-name-dialog/li-update-resource-name-dialog.component';
 import { LiUpdateResourceTypeComponent } from '../li-update-resource-type/li-update-resource-type.component';
 
 /**
@@ -73,6 +71,16 @@ export class LiResourceActionsMenuComponent implements OnInit {
 
   downloadResource(): void {
     this.resourceDownloadService.downloadResource(this.resource);
+  }
+
+  downloadContentFromOriginLab(): void {
+    const input: FlConfirmDialogInput = {
+      title: { text: 'li.download_content_from_origin_lab', translateText: true },
+      content: { text: 'li.download_content_from_origin_lab_confirm', translateText: true },
+      observable: this.resourceService.downloadContent(this.resource.id),
+      successMessage: { text: 'li.download_content_from_origin_lab_success', translateText: true },
+    };
+    this.dialogService.openConfirmDialog(input);
   }
 
   openImportResource(): void {
@@ -162,10 +170,9 @@ export class LiResourceActionsMenuComponent implements OnInit {
 
     // for imported or transformed resources, we add an info message
     if (this.resource.scenario) {
-      confirmation += `<p>${this.translateService.translate(
-        'li.delete_generated_resource_confirmation',
-        { param: { scenarioTitle: this.resource.scenario.title } }
-      )}</p>`;
+      confirmation += `<p>${this.translateService.translate('li.delete_generated_resource_confirmation', {
+        param: { scenarioTitle: this.resource.scenario.title },
+      })}</p>`;
 
       const deleteResourceWithExp = this.translateService.translate(
         'li.delete_resource_with_exp_confirm_impact',

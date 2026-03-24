@@ -40,67 +40,57 @@
   "home.footer.text": "An open space to share, learn, and contribute to data science.",
   "home.footer.a_website_designed_by": "A website designed by",
   "home.footer.all_rights_reserved": "All rights reserved.",
-
   "story_list.header.title": "Stories & feedback",
   "story_list.header.description": "An active community focused on scientific data and open science.",
   "story_list.create_section.hint": "Stories & feedback",
   "story_list.create_section.title": "Do you have a resource to share?",
   "story_list.create_section.subtitle": "Share it to accelerate projects for the entire community.",
   "story_list.create_section.submit": "Submit a story",
-
   "app_list.header.title": "Applications shared by the community",
   "app_list.header.description": "Visualization, analysis, transformation... explore apps created by Gencovery or by users to get the most out of your data, without coding.",
   "app_list.create_section.hint": "Applications shared by the community",
   "app_list.create_section.title": "Have you developed an app?",
   "app_list.create_section.subtitle": "Share it to accelerate projects for the entire community.",
   "app_list.create_section.submit": "Submit an app",
-
   "agent_list.header.title": "Ready-to-use smart agents",
   "agent_list.header.description": "Automate your tasks, guides, and analyses with configurable agents created by Gencovery or the community. A simple way to save time without technical complexity.",
   "agent_list.create_section.hint": "Ready-to-use smart agents",
   "agent_list.create_section.title": "Have you developed an agent?",
   "agent_list.create_section.subtitle": "Share it to accelerate projects for the entire community.",
   "agent_list.create_section.submit": "Submit an agent",
-
   "brick_list.header.title": "Technical bricks to reuse or customize",
   "brick_list.header.description": "Discover open-source bricks to accelerate your development on Constellab: connectors, scripts, standards, and visualizations. Contribute or reuse them freely.",
   "brick_list.create_section.hint": "Technical bricks to reuse or customize",
   "brick_list.create_section.title": "Have you developed a brick?",
   "brick_list.create_section.subtitle": "Share it to accelerate projects for the entire community.",
   "brick_list.create_section.submit": "Submit a brick",
-
   "icon_list.header.title": "Icons to customize your processes, resources and agents",
   "icon_list.header.description": "Discover icons to customize your processes, resources and agents. Contribute or reuse them freely.",
   "icon_list.create_section.hint": "Icons to customize your processes, resources and agents",
   "icon_list.create_section.title": "Do you want to upload an icon?",
   "icon_list.create_section.subtitle": "Share it to enrich the icon library of the community.",
   "icon_list.create_section.submit": "Submit an icon",
-
   "tag_list.header.title": "Tags and metadata",
   "tag_list.header.description": "Discover the Constellab Community tags and metadata database.",
   "tag_list.create_section.hint": "Tags and metadata",
   "tag_list.create_section.title": "Do you want to create a new tag?",
   "tag_list.create_section.subtitle": "Create it to enrich the tag library of the community.",
   "tag_list.create_section.submit": "Submit a tag",
-
   "partner_list.header.title": "Partners",
   "partner_list.header.description": "Join the Constellab Partner Network to build, integrate, and showcase powerful digital and AI solutions for organizations. Together, we accelerate innovation, enable partners to deliver services, and create real impact.",
   "partner_list.create_section.hint": "Increase your reach by becoming a partner",
   "partner_list.create_section.title": "Become a partner",
   "partner_list.create_section.subtitle": "Join the Constellab Partner Network.",
   "partner_list.create_section.submit": "Become a Partner",
-
   "login_page.login_to_your_account": "Login to your account",
   "login_page.welcome_back": "Welcome back!",
   "login_page.login_subtitle": "Fill in your credentials to access your account.",
   "login_page.no_account_yet": "No account yet?",
-
   "join_the_community": "Join the community",
   "discover_all_stories": "Discover all stories",
   "discover_all_apps": "Discover all apps",
   "discover_all_agents": "Discover all agents",
   "discover_all_bricks": "Discover all bricks",
-
   "contributors": "Contributor(s)",
   "publication_date": "Publication date",
   "confidentiality": "Confidentiality",
@@ -111,14 +101,12 @@
   "edit_about": "Edit about",
   "edit_app_media": "Edit app media",
   "menu": "Menu",
-
   "description_of_the_agent": "Description of the agent",
   "edit_version_info": "Edit version info",
   "edit_story": "Edit story",
   "edit_story_page_title": "Edit story - {{storyTitle}}",
   "edit_brick": "Edit brick",
   "edit_agent": "Edit agent",
-
   "share_on": "Share on",
   "contact": "Contact",
   "how_to_contribute": "How to contribute ?",
@@ -129,7 +117,6 @@
   "no_agent_version_published_yet": "No agent version published yet",
   "no_interests_specified": "No interests specified",
   "language": "Language",
-
   "delete_app_picture": "Delete app picture",
   "delete_app_picture_confirmation": "Are you sure you want to delete the picture of the app ?",
   "app_picture_deleted": "App picture deleted",
@@ -147,13 +134,10 @@
   "recommended_format": "Recommended format",
   "move_left": "Move left",
   "move_right": "Move right",
-
   "delete_community_app_confirm_title": "Delete app",
   "delete_community_app_confirm_message": "Are you sure you want to delete this app ?",
   "community_app_deleted": "App deleted",
-
   "header_search_tooltip": "Search (Ctrl + K)",
-
   "create": "Create",
   "documentation": "Documentation",
   "documentations": "Documentations",
@@ -264,8 +248,6 @@
   "publish_story": "Publish story",
   "publish_story_dialog_content": "Are you sure you want to publish this story ?",
   "story_published": "Story published",
-  "yes": "Yes",
-  "no": "No",
   "story_content_no_picture_error": "The story content must contain at least one picture",
   "back_to_bricks_list": "Back to bricks list",
   "back_to_stories_list": "Back to stories list",
@@ -678,7 +660,6 @@
   "the_app": "The application",
   "open_app": "Open the app",
   "discover_create_and_share_bricks": "Discover open-source bricks to accelerate your development on Constellab: connectors, scripts, standards, and visualizations. Contribute or reuse them freely.",
-
   "go_to_homepage": "Go to homepage",
   "go_to_apps": "Go to apps",
   "open_menu": "Open menu",
@@ -697,7 +678,6 @@
   "logout_action": "Logout",
   "switch_to_english": "Switch to English",
   "switch_to_french": "Switch to French",
-
   "invalid_invite": "Invalid invite",
   "you_have_been_invited_to_become_a_co_author": "You have been invited to become a co-author",
   "become_partner": "Become a partner",
@@ -734,7 +714,6 @@
   "contact_creator": "Contact creator",
   "app_picture_uploaded": "App picture uploaded",
   "start_typing_to_get_results": "Start typing to get results",
-
   "cli_auth.page_title": "CLI Authorization",
   "cli_auth.requesting_access": "The Gencovery CLI is requesting access to your account.",
   "cli_auth.logged_in_as": "You are logged in as",

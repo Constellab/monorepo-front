@@ -56,3 +56,4 @@ logs
 .prettiercache
 
 vitest.config.*.timestamp*
+.nx/polygraph

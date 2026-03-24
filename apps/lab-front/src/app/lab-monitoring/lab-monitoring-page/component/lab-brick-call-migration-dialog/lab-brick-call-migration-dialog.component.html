@@ -10,8 +10,8 @@
       <mat-label>{{ 'monitoring.select_migration_version' | translate }}</mat-label>
       <mat-select [formControl]="formControl" [compareWith]="compareBrickMigration">
         @for (migration of brickMigrations$ | async; track migration) {
-          <mat-option [value]="migration">
-            {{ migration.version }} | {{ migration.dbUniqueName }} |
+          <mat-option [value]="migration" class="g-mat-option-fit-height">
+            {{ migration.version }} |
             <span class="g-text-light g-text-small">{{ migration.shortDescription }}</span>
           </mat-option>
         }

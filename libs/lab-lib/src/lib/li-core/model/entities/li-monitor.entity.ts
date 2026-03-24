@@ -126,3 +126,29 @@ export class LiCurrentMonitorDTO {
   @Type(() => LiMonitorFreeDiskDTO)
   freeDisk: LiMonitorFreeDiskDTO;
 }
+
+export class LiFolderSizeDTO {
+  @Expose({ name: 'path' })
+  path: string;
+
+  @Expose({ name: 'name' })
+  name: string;
+
+  @Expose({ name: 'pretty_name' })
+  prettyName: string;
+
+  @Expose({ name: 'size' })
+  size: number | null;
+
+  @Expose({ name: 'error' })
+  error: string | null;
+}
+
+export class LiDiskFolderSizesDTO {
+  @Expose({ name: 'folders' })
+  @Type(() => LiFolderSizeDTO)
+  folders: LiFolderSizeDTO[];
+
+  @Expose({ name: 'total_size' })
+  totalSize: number;
+}

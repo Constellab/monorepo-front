@@ -3,7 +3,7 @@
  * Exports all TypeScript files from li-core
  */
 
-export * from './component/li-error-detail/li-error-detail.component';
+export * from './component/li-error-snack-bar/li-error-snack-bar.component';
 export * from './entity-service/li-bio-network.service';
 export * from './entity-service/li-brick.service';
 export * from './entity-service/li-file-resource.service';
@@ -14,7 +14,6 @@ export * from './entity-service/li-note-resource.service';
 export * from './entity-service/li-note-template.service';
 export * from './entity-service/li-note.service';
 export * from './entity-service/li-process.service';
-export * from './entity-service/li-progress-bar.service';
 export * from './entity-service/li-protocol.service';
 export * from './entity-service/li-queue.service';
 export * from './entity-service/li-resource-table.service';
@@ -38,6 +37,7 @@ export * from './model/entities/li-brick.entity';
 export * from './model/entities/li-community-space.entity';
 export * from './model/entities/li-credentials.entity';
 export * from './model/entities/li-folder.class';
+export * from './model/entities/li-lab.entity';
 export * from './model/entities/li-log.entity';
 export * from './model/entities/li-monitor.entity';
 export * from './model/entities/li-navigable-entity.entity';

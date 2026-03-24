@@ -49,6 +49,12 @@ export class LiLogLine {
 
   @Expose({ name: 'stack_trace' })
   stackTrace: string;
+
+  @Expose({ name: 'instance_id' })
+  instanceId: string;
+
+  @Expose({ name: 'request_id' })
+  requestId: string;
 }
 
 export class LiLogsBetweenDates {

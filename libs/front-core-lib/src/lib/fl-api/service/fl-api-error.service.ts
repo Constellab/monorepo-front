@@ -11,9 +11,8 @@ import { FlServerError } from '../model/fl-server-error.class';
  * Service to provide to handle error of the {@link FlApiService}
  */
 export abstract class FlApiErrorService {
-
-  protected snackBarService= inject(FlSnackBarService);
-  protected translateService= inject(FlTranslateService);
+  protected snackBarService = inject(FlSnackBarService);
+  protected translateService = inject(FlTranslateService);
 
   /**
    * Method called when an error during an http call occurred
@@ -68,35 +67,14 @@ export abstract class FlApiErrorService {
    * Open an error snackbar with the text
    * @param message message to display
    * @param duration snackbar duration
-   * @param detailButton if provided, a detail button is displayed and this method is trigger on click
-   * The snack bar is closed on click
    */
-  protected showError(message: string, duration?: number, detailButton?: (event: MouseEvent) => void): void {
+  protected showError(message: string, duration?: number): void {
     if (duration == null) {
       duration = this.defaultApiErrorDuration;
     }
 
     this.snackBarService.openErrorMessage({ text: message, translateText: false }, duration, {
       showCloseButton: true,
-      detailButton: detailButton,
-    });
-  }
-
-  /**
-   * Open a warning snackbar with the text
-   * @param message message to display
-   * @param duration snackbar duration
-   * @param detailButton if provided, a detail button is displayed and this method is trigger on click
-   * The snack bar is closed on click
-   */
-  protected showInfo(message: string, duration?: number, detailButton?: (event: MouseEvent) => void): void {
-    if (duration == null) {
-      duration = this.defaultApiErrorDuration;
-    }
-
-    this.snackBarService.openSuccessMessage({ text: message, translateText: false }, duration, {
-      showCloseButton: true,
-      detailButton: detailButton,
     });
   }
 }

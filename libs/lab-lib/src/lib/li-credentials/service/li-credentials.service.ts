@@ -1,4 +1,4 @@
-import { inject,Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { ClCredentials, ClPageI } from '@monorepo/core-lib';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { FlDatasourceGetPageData, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
@@ -48,6 +48,14 @@ export class LiCredentialsService {
 
   public getAll(page: number, pageSize: number): Observable<ClPageI<LiCredentials>> {
     return this.apiService.get(this.route, LiCredentials, { resultIsPaginated: true, page, pageSize });
+  }
+
+  public searchDatasource(): LiCredentialsDatasource<LiCredentialsSearchFields> {
+    return new FlEntityPaginatedDatasource(
+      (page: number, pageSize: number, data) => this.search(page, pageSize, data),
+      20,
+      { initFirstPage: false }
+    );
   }
 
   public getAllDatasource(): LiCredentialsDatasource {

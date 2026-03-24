@@ -17,6 +17,14 @@
             currentMonitor.monitor.diskUsageFree | flByteText
           }}
           {{ 'monitoring.disk_space_available' | translate }})
+          <button
+            mat-stroked-button
+            color="primary"
+            (click)="openFolderSizesDialog()"
+            class="g-button-small detail-button">
+            <mat-icon>folder</mat-icon>
+            {{ 'li.folder_sizes_details' | translate }}
+          </button>
         </fl-key-value>
         <fl-key-value>
           <fl-key>{{ 'monitoring.number_of_processes' | translate }}</fl-key>

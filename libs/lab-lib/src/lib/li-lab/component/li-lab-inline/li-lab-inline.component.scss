@@ -1,0 +1,10 @@
+.dev-chip {
+  display: inline-block;
+  margin-left: 0.5em;
+  padding: 0 0.4em;
+  font-size: 0.75em;
+  font-weight: 500;
+  border-radius: 4px;
+  background-color: var(--warn-color);
+  color: var(--warn-contrast);
+}

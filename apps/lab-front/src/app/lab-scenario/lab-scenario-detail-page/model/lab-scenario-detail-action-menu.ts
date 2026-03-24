@@ -15,8 +15,8 @@ import {
   LiQueueService,
   LiRouterService,
   LiScenario,
+  LiScenarioSentToLabResponse,
   LiScenarioService,
-  LiTagDatasource,
 } from '@monorepo/lab-lib/li-core';
 import { LiValidateObjectDialogComponent, LiValidateObjectDialogInput } from '@monorepo/lab-lib/li-entity';
 import { LiLogBetweenDatesDialogInput, LiLogsBetweenDatesDialogComponent } from '@monorepo/lab-lib/li-log';
@@ -41,8 +41,12 @@ import { LabScenarioDetailPageState } from '../state/lab-scenario-detail-page.st
  * Action menu for a lab scenario
  */
 export class LabScenarioDetailActionMenu extends LiScenarioActionMenu {
-  constructor(injector: Injector, scenario: LiScenario, tags: LiTagDatasource) {
-    super(injector, scenario, tags);
+  constructor(
+    injector: Injector,
+    scenario: LiScenario,
+    private scenarioState: LabScenarioDetailPageState
+  ) {
+    super(injector, scenario, scenarioState.getTags$());
   }
 
   public openActionMenuDetail(event: MouseEvent): Observable<LiScenarioActionEvent> {
@@ -56,28 +60,36 @@ export class LabScenarioDetailActionMenu extends LiScenarioActionMenu {
       menu.push(this.getValidateButton());
     }
 
-    if (this.scenario.protocolIsEditable()) {
+    if (this.scenario.isResettable()) {
       menu.push(this.getResetButton());
     }
     if (!this.scenario.isDraft()) {
       menu.push(this.getMonitorMenuButton());
     }
 
+    if (this.scenario.isImported()) {
+      menu.push(this.getUpdateFromExternalLabButton());
+    }
+
     menu.push(this.getShareButton());
     menu.push(this.getDuplicateButton());
     menu.push(this.getArchiveButton());
 
-    if (this.scenario.status.value === 'IN_QUEUE') {
+    if (this.scenario.status === 'IN_QUEUE') {
       menu.push(this.getRemoveFromQueueButton());
     }
+
+    // if (!this.scenario.isDraft()) {
+    //   menu.push(this.getDeleteIntermediateResourcesButton());
+    // }
 
     if (this.scenario.protocolIsEditable()) {
       menu.push(this.getDeleteButton());
     }
 
     return this.generateMenu(menu, event).pipe(
-      tap((event) => {
-        this.injector.get(LabScenarioDetailPageState).updateScenario(event.scenario);
+      tap((event: LiScenarioActionEvent) => {
+        this.scenarioState.updateScenario(event.scenario);
       })
     );
   }
@@ -166,9 +178,29 @@ export class LabScenarioDetailActionMenu extends LiScenarioActionMenu {
     return {
       type: 'button',
       text: 'biox.delete_scenario',
+
       icon: 'delete',
       color: 'warn',
       onClick: () => this.deleteScenario(),
+    };
+  }
+
+  private getUpdateFromExternalLabButton(): FlMenuDynamic {
+    return {
+      type: 'button',
+      text: 'biox.update_scenario_from_external_lab',
+      icon: 'cloud_sync',
+      onClick: () => this.updateFromExternalLab(),
+    };
+  }
+
+  private getDeleteIntermediateResourcesButton(): FlMenuDynamic {
+    return {
+      type: 'button',
+      text: 'biox.delete_scenario_intermediate_resources',
+      icon: 'delete_sweep',
+      color: 'warn',
+      onClick: () => this.deleteIntermediateResources(),
     };
   }
 
@@ -193,7 +225,7 @@ export class LabScenarioDetailActionMenu extends LiScenarioActionMenu {
 
   private onConfirmUpdateClosed(result: FlConfirmDialogResult<LiScenario>): void {
     if (result?.choice) {
-      this.injector.get(LabScenarioDetailPageState).updateScenario(result.result);
+      this.scenarioState.updateScenario(result.result);
     }
     this.subject.complete();
   }
@@ -203,7 +235,7 @@ export class LabScenarioDetailActionMenu extends LiScenarioActionMenu {
       mode: 'create',
       protocolId: this.scenario.protocol.id,
       defaultName: this.scenario.title,
-      defaultDescription: this.injector.get(LabScenarioDetailPageState).currentDescription,
+      defaultDescription: this.scenarioState.currentDescription,
     };
 
     this.injector
@@ -247,7 +279,7 @@ export class LabScenarioDetailActionMenu extends LiScenarioActionMenu {
 
   private onResetSuccess(result: FlPortalActionResult<LiScenario>): void {
     if (result.status === 'success') {
-      this.injector.get(LabScenarioDetailPageState).updateScenario(result.result, true);
+      this.scenarioState.updateScenario(result.result, true);
       this.injector.get(FlSnackBarService).openSuccessMessage({
         text: 'biox.scenario_reset',
         translateText: true,
@@ -261,6 +293,8 @@ export class LabScenarioDetailActionMenu extends LiScenarioActionMenu {
       .getMainProtocol$()
       .pipe(
         map((flow) => ({
+          processType: flow.getProcessType(),
+          processId: flow.id,
           progressBar: flow.progressBar,
           runBy: flow.runBy,
         }))
@@ -323,7 +357,7 @@ export class LabScenarioDetailActionMenu extends LiScenarioActionMenu {
   }
 
   private deleteScenario(): void {
-    const scenario = this.injector.get(LabScenarioDetailPageState).currentScenario;
+    const scenario = this.scenarioState.currentScenario;
 
     const text = this.injector.get(FlTranslateService).translate('biox.delete_scenario_confirmation');
     let content = `</p>${text}</p>`;
@@ -362,8 +396,23 @@ export class LabScenarioDetailActionMenu extends LiScenarioActionMenu {
     }
   }
 
+  private updateFromExternalLab(): void {
+    const input: FlConfirmDialogInput = {
+      title: 'biox.update_scenario_from_external_lab',
+      content: 'biox.update_scenario_from_external_lab_confirm',
+      observable: this.injector.get(LiScenarioService).updateFromExternalLab(this.scenario.id),
+      successMessage: 'biox.update_scenario_from_external_lab_success',
+    };
+
+    this.injector
+      .get(FlDialogService)
+      .openConfirmDialog(input)
+      .afterClosed()
+      .subscribe((result) => this.onConfirmUpdateClosed(result));
+  }
+
   private deleteIntermediateResources(): void {
-    const scenario = this.injector.get(LabScenarioDetailPageState).currentScenario;
+    const scenario = this.scenarioState.currentScenario;
 
     const input: FlConfirmDialogInput = {
       title: 'biox.delete_scenario_intermediate_resources',
@@ -373,5 +422,16 @@ export class LabScenarioDetailActionMenu extends LiScenarioActionMenu {
     };
 
     this.injector.get(FlDialogService).openConfirmDialog(input);
+  }
+
+  /**
+   * Overrides the sent scenario to refresh the current scenario
+   */
+  protected onSentScenarioSuccess(result: LiScenarioSentToLabResponse): void {
+    super.onSentScenarioSuccess(result);
+    // the received event is the "send scenario", so we don't update current scenario
+    // Not ideal, but wait 5 seconds for the current scenario to be update before refreshing it
+    // because it then can have a running status (if run in external lab)
+    this.scenarioState.updateScenario(result.exportedScenario);
   }
 }

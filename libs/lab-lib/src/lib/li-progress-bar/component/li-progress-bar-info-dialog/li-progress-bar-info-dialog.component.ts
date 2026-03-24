@@ -6,7 +6,7 @@ import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
-import { LiProgressBarService } from '@monorepo/lab-lib/li-core';
+import { LiProcessService } from '@monorepo/lab-lib/li-core';
 import { TranslatePipe } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -38,11 +38,11 @@ export type LiProgressBarInfoDialogData = Observable<LiProcessRunInfoData>;
   ],
 })
 export class LiProgressBarInfoDialogComponent {
-  private labProgressBarService = inject(LiProgressBarService);
+  private processService = inject(LiProcessService);
 
   processRunInfo$: LiProgressBarInfoDialogData = inject(MAT_DIALOG_DATA);
 
   downloadUrl$: Observable<string> = this.processRunInfo$.pipe(
-    map((data) => this.labProgressBarService.getDownloadProgressBarUrl(data.progressBar.id))
+    map((data) => this.processService.getDownloadProgressBarUrl(data.processType, data.processId))
   );
 }

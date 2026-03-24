@@ -1,26 +1,37 @@
 <fl-key-value>
   <fl-key>{{ 'li.share_origin_lab' | translate }}</fl-key>
-  {{ sharedEntity.labName }}
-  @if (sharedEntity.labId) {
-    <span class="g-text-small"> ({{ sharedEntity.labId }})</span>
+  @if (sharedEntity.lab.frontUrl) {
+    <fl-external-link [link]="sharedEntity.lab.frontUrl" [text]="sharedEntity.lab.name"></fl-external-link>
+  } @else {
+    {{ sharedEntity.lab.name }}
+  }
+  @if (sharedEntity.lab.labId) {
+    <span class="g-text-small"> ({{ sharedEntity.lab.labId }})</span>
   }
 </fl-key-value>
 
 <fl-key-value>
   <fl-key>{{ 'li.share_origin_by' | translate }}</fl-key>
-  {{ sharedEntity.userFirstname }} {{ sharedEntity.userLastname }}
-  @if (sharedEntity.userId) {
-    <span class="g-text-small"> ({{ sharedEntity.userId }})</span>
-  }
+  <fl-user-inline [user]="sharedEntity.user"></fl-user-inline>
 </fl-key-value>
 
 <fl-key-value>
   <fl-key>{{ 'li.share_origin_space' | translate }}</fl-key>
-  {{ sharedEntity.spaceName }}
-  @if (sharedEntity.spaceId) {
-    <span class="g-text-small"> ({{ sharedEntity.spaceId }})</span>
-  }
+  {{ sharedEntity.lab.spaceName }}
 </fl-key-value>
+
+@if (sharedEntity.externalId) {
+  <fl-key-value>
+    <fl-key>{{ 'li.share_origin_id' | translate }}</fl-key>
+    @if (sharedEntity.externalObjectUrl) {
+      <fl-external-link
+        [link]="sharedEntity.externalObjectUrl"
+        [text]="sharedEntity.externalId"></fl-external-link>
+    } @else {
+      {{ sharedEntity.externalId }}
+    }
+  </fl-key-value>
+}
 
 <fl-key-value>
   <fl-key>{{ 'li.share_origin_at' | translate }}</fl-key>

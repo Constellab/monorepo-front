@@ -8,7 +8,7 @@ import {
   FlDynamicGroupAdditionalConfig,
 } from '@monorepo/front-core-lib/fl-dynamic-field';
 import {
-  tdCodeParamSpecTypeList,
+  TD_CODE_PARAM_SPEC_TYPE_LIST,
   TdDynamicEditableFormGroupComponent,
   TdParamSpecType,
 } from '@monorepo/technical-doc';
@@ -23,6 +23,7 @@ export class LiProcessDynamicFieldConfig extends FlDynamicFieldConfigService {
       tags_param: this.buildTagField,
       open_ai_chat_param: this.buildOpenAiChatField,
       credentials_param: this.buildSelectCredentialsField,
+      lab_model_param: this.buildSelectLabField,
       note_template_param: this.buildSelectNoteTemplateField,
       note_param: this.buildSelectNoteField,
       scenario_param: this.buildSelectScenarioField,
@@ -31,7 +32,7 @@ export class LiProcessDynamicFieldConfig extends FlDynamicFieldConfigService {
     };
 
     // for each code spec type, set the code editor component
-    for (const codeSpec of tdCodeParamSpecTypeList) {
+    for (const codeSpec of TD_CODE_PARAM_SPEC_TYPE_LIST) {
       config[codeSpec] = this.buildCodeEditorField;
     }
     return config;
@@ -53,9 +54,8 @@ export class LiProcessDynamicFieldConfig extends FlDynamicFieldConfigService {
     viewContainer: ViewContainerRef,
     config: FlDynamicFieldConfigUnknown
   ): Promise<ComponentRef<FlDynamicFieldAbstractDirective>> {
-    const type = await import(
-      './component/li-code-editor-dynamic-field/li-code-editor-dynamic-field.component'
-    );
+    const type =
+      await import('./component/li-code-editor-dynamic-field/li-code-editor-dynamic-field.component');
     const component = viewContainer.createComponent(type.LiCodeEditorDynamicFieldComponent);
     component.instance.specType = config.type as TdParamSpecType;
     return component;
@@ -64,9 +64,9 @@ export class LiProcessDynamicFieldConfig extends FlDynamicFieldConfigService {
   private async buildOpenAiChatField(
     viewContainer: ViewContainerRef
   ): Promise<ComponentRef<FlDynamicFieldAbstractDirective>> {
-    const type = await import(
-      '../li-open-ai/component/li-open-ai-chat-dynamic-field/li-open-ai-chat-dynamic-field.component'
-    );
+    const type =
+      // eslint-disable-next-line max-len
+      await import('../li-open-ai/component/li-open-ai-chat-dynamic-field/li-open-ai-chat-dynamic-field.component');
     return viewContainer.createComponent(type.LiOpenAiChatDynamicFieldComponent);
   }
 
@@ -84,6 +84,14 @@ export class LiProcessDynamicFieldConfig extends FlDynamicFieldConfigService {
     return component;
   }
 
+  private async buildSelectLabField(
+    viewContainer: ViewContainerRef
+  ): Promise<ComponentRef<FlDynamicFieldAbstractDirective>> {
+    const type =
+      await import('../li-lab/component/li-select-lab-dynamic-field/li-select-lab-dynamic-field.component');
+    return viewContainer.createComponent(type.LiSelectLabDynamicFieldComponent);
+  }
+
   private async buildSelectNoteTemplateField(
     viewContainer: ViewContainerRef
   ): Promise<ComponentRef<FlDynamicFieldAbstractDirective>> {
@@ -97,9 +105,9 @@ export class LiProcessDynamicFieldConfig extends FlDynamicFieldConfigService {
   private async buildSelectNoteField(
     viewContainer: ViewContainerRef
   ): Promise<ComponentRef<FlDynamicFieldAbstractDirective>> {
-    const type = await import(
-      '../li-note/component/li-select-note-dynamic-field/li-select-note-dynamic-field.component'
-    );
+    const type =
+      // eslint-disable-next-line max-len
+      await import('../li-note/component/li-select-note-dynamic-field/li-select-note-dynamic-field.component');
     return viewContainer.createComponent(type.LiSelectNoteDynamicFieldComponent);
   }
 
@@ -107,7 +115,7 @@ export class LiProcessDynamicFieldConfig extends FlDynamicFieldConfigService {
     viewContainer: ViewContainerRef
   ): Promise<ComponentRef<FlDynamicFieldAbstractDirective>> {
     const type = await import(
-      // eslint-disable-next-line max-len
+       
       '../li-scenario/component/li-select-scenario-dynamic-field/li-select-scenario-dynamic-field.component'
     );
     return viewContainer.createComponent(type.LiSelectScenarioDynamicFieldComponent);
@@ -116,18 +124,18 @@ export class LiProcessDynamicFieldConfig extends FlDynamicFieldConfigService {
   private async buildSelectFolderField(
     viewContainer: ViewContainerRef
   ): Promise<ComponentRef<FlDynamicFieldAbstractDirective>> {
-    const type = await import(
-      '../li-folder/component/li-select-folder-dynamic-field/li-select-folder-dynamic-field.component'
-    );
+    const type =
+      // eslint-disable-next-line max-len
+      await import('../li-folder/component/li-select-folder-dynamic-field/li-select-folder-dynamic-field.component');
     return viewContainer.createComponent(type.LiSelectFolderDynamicFieldComponent);
   }
 
   private async buildRichTextField(
     viewContainer: ViewContainerRef
   ): Promise<ComponentRef<FlDynamicFieldAbstractDirective>> {
-    const type = await import(
-      '../li-rich-text/component/li-rich-text-dynamic-field/li-rich-text-dynamic-field.component'
-    );
+    const type =
+      // eslint-disable-next-line max-len
+      await import('../li-rich-text/component/li-rich-text-dynamic-field/li-rich-text-dynamic-field.component');
     return viewContainer.createComponent(type.LiRichTextDynamicFieldComponent);
   }
 }

@@ -54,6 +54,11 @@ export interface LiSharedEntityInfoDialogInput {
   };
 }
 
+/**
+ * Action type for sending an entity to another lab.
+ */
+const LI_SEND_TO_LAB_ACTION = 'send-to-lab';
+
 @Component({
   selector: 'li-shared-entity-info-dialog',
   templateUrl: './li-shared-entity-info-dialog.component.html',
@@ -180,7 +185,7 @@ export class LiSharedEntityInfoDialogComponent implements OnInit {
       const action: FlPortalAction = {
         text: this.getSendActionText(),
         action: this.input.autoSend(specs),
-        type: 'send-to-lab',
+        type: LI_SEND_TO_LAB_ACTION,
       };
       this.actionService.addAction(action);
     }

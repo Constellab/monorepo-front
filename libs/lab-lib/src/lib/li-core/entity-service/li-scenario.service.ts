@@ -1,4 +1,4 @@
-import { inject,Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { ClHelpService, ClPageI } from '@monorepo/core-lib';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import {
@@ -18,9 +18,9 @@ import {
   LiRunningScenarioInfo,
   LiScenario,
   LiScenarioDatasource,
+  LiScenarioSentToLabResponse,
   LiScenarioSimpleForm,
 } from '../model/entities/li-scenario.entity';
-import { LiResource } from '../model/entities/resource/li-resource.entity';
 import { LiScenarioSearch, LiScenarioSearchFields } from '../model/search/li-scenario-search.class';
 
 @Injectable({
@@ -194,18 +194,29 @@ export class LiScenarioService {
   }
 
   public importScenarioFromLab(configValues: TdParamSpecsValues): Observable<LiScenario> {
-    return this.apiService.post(`${this.route}/import-from-lab`, configValues, LiResource);
+    return this.apiService.post(`${this.route}/import-from-lab`, configValues, LiScenario);
   }
 
   public getImportScenarioConfigSpecs(): Observable<TdParamSpecs> {
     return this.apiService.get(`${this.route}/import-from-lab/config-specs`);
   }
 
-  public exportScenarioToLab(id: string, configValues: TdParamSpecsValues): Observable<LiScenario> {
-    return this.apiService.post(`${this.route}/${id}/export-to-lab`, configValues, LiResource);
+  public exportScenarioToLab(
+    id: string,
+    configValues: TdParamSpecsValues
+  ): Observable<LiScenarioSentToLabResponse> {
+    return this.apiService.post(
+      `${this.route}/${id}/export-to-lab`,
+      configValues,
+      LiScenarioSentToLabResponse
+    );
   }
 
   public getExportToLabConfigSpecs(): Observable<TdParamSpecs> {
     return this.apiService.get(`${this.route}/export-to-lab/config-specs`);
+  }
+
+  public updateFromExternalLab(scenarioId: string): Observable<LiScenario> {
+    return this.apiService.put(`${this.route}/${scenarioId}/update-from-external-lab`, null, LiScenario);
   }
 }

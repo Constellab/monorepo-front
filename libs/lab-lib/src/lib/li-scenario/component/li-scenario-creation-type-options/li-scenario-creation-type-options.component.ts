@@ -5,7 +5,7 @@ import { MatSelect } from '@angular/material/select';
 import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib/fl-core';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
-import { flScenarioCreationTypes } from '@monorepo/lab-lib/li-core';
+import { LI_SCENARIO_CREATION_TYPES } from '@monorepo/lab-lib/li-core';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
@@ -20,7 +20,7 @@ export class LiScenarioCreationTypeOptionsComponent
 {
   select: MatSelect;
 
-  creationTypes = flScenarioCreationTypes;
+  creationTypes = LI_SCENARIO_CREATION_TYPES;
 
   constructor() {
     const select = inject(MatSelect, { host: true, optional: true });

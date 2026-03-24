@@ -10,6 +10,7 @@
       [style.border-left-color]="scenario.folder?.id | flStringToRgb">
       <!--    Invisible link  -->
       @if (!rowSelectable) {
+        <!-- eslint-disable-next-line @angular-eslint/template/elements-content -->
         <a [routerLink]="scenario | liDetailRoute" [target]="rowLinkTarget" class="g-row-link"></a>
       }
 
@@ -32,7 +33,7 @@
       <span>{{ 'li.status' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let scenario">
-      <fl-status-chip [status]="scenario.status" mode="iconText" size="small"> </fl-status-chip>
+      <fl-status-chip [status]="scenario.statusInfo" mode="iconText" size="small"> </fl-status-chip>
 
       <li-scenario-icons [scenario]="scenario" class="status-icon over-link"></li-scenario-icons>
     </mat-cell>

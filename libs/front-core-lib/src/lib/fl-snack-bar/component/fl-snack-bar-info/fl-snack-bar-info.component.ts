@@ -1,4 +1,4 @@
-import { Component, inject,OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MAT_SNACK_BAR_DATA, MatSnackBarRef } from '@angular/material/snack-bar';
 import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
 
@@ -20,7 +20,6 @@ export class FlSnackBarInfoComponent {
   mode: FlSnackBarMode;
   text: FlTranslatableText;
   showCloseButton: boolean;
-  showDetailButton: boolean;
 
   constructor() {
     const data = this.data;
@@ -35,14 +34,9 @@ export class FlSnackBarInfoComponent {
     this.mode = data.mode;
     this.text = data.text;
     this.showCloseButton = data.additionalConfig.showCloseButton;
-    this.showDetailButton = data.additionalConfig.detailButton != null;
   }
 
   closeSnackBar(): void {
     this.snackBarRef.dismiss();
-  }
-
-  openDetailDialog(event: MouseEvent): void {
-    this.data.additionalConfig.detailButton(event);
   }
 }

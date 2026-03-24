@@ -35,14 +35,8 @@ export interface FlSnackBarAdditionalConfig {
    * default to true
    */
   showCloseButton?: boolean;
-
-  /**
-   * if provided, a detail button is displayed and this method is trigger on click
-   * The snack bar is closed on click
-   */
-  detailButton?: (event: MouseEvent) => void;
 }
 
-export const flSnackBarAdditionalConfigDefault: FlSnackBarAdditionalConfig = {
+export const FL_SNACKBAR_ADDITIONAL_CONFIG_DEFAULT: FlSnackBarAdditionalConfig = {
   showCloseButton: true,
 };

@@ -73,6 +73,9 @@ export class LiResource extends LiBaseEntityWithUser implements LiFlaggedEntity 
   @Expose({ name: 'is_application' })
   isApplication: boolean;
 
+  @Expose({ name: 'content_is_deleted' })
+  contentIsDeleted: boolean;
+
   isFsNode(): boolean {
     return this.fsNode != null;
   }

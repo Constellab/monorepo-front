@@ -162,6 +162,9 @@
     "share_agent_warning.parameter_without_description": "L'agent a des paramètres sans description, vous devriez ajouter une description pour chaque paramètre avant de le partager.",
     "share_agent_warning.input_port_with_type_resource": "L'agent a des ports d'entrée avec le type de Ressource, vous devriez choisir le type de ressource approprié pour chaque ports d'entrée avant de le partager.",
     "share_agent_warning.output_port_with_type_resource": "L'agent a des ports de sortie avec le type de Ressource, vous devriez choisir le type de ressource approprié pour chaque ports de sortie avant de le partager.",
-    "apps": "Apps"
+    "apps": "Apps",
+    "update_scenario_from_external_lab": "Mettre à jour depuis le lab externe",
+    "update_scenario_from_external_lab_confirm": "Le scénario actuel sera remplacé par le scénario distant.",
+    "update_scenario_from_external_lab_success": "Scénario mis à jour depuis le lab externe."
   }
 }

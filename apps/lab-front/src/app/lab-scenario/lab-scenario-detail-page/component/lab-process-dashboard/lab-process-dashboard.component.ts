@@ -6,19 +6,24 @@ import { MatIcon } from '@angular/material/icon';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { MatTooltip } from '@angular/material/tooltip';
 import { CoCommunityHelperService, CoCommunityLibModule } from '@monorepo/community-lib';
-import { FlWarningDialogComponent, FlWarningDialogData } from '@monorepo/front-core-lib/fl-dialog';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import {
+  FlDialogService,
+  FlWarningDialogComponent,
+  FlWarningDialogData,
+} from '@monorepo/front-core-lib/fl-dialog';
 import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
 import { FlStatusModule } from '@monorepo/front-core-lib/fl-status';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
-import { FlTranslatableText, FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
 import {
   LiCreateCommunityAgentVersionResDto,
   LiProcess,
   LiProcessService,
   LiProtocolService,
+  LiRouterService,
   LiTaskGeneratorService,
 } from '@monorepo/lab-lib/li-core';
+import { LiExternalLabDetailDialogComponent, LiExternalLabDetailDialogData } from '@monorepo/lab-lib/li-lab';
 import { LiLogBetweenDatesDialogInput, LiLogsBetweenDatesDialogComponent } from '@monorepo/lab-lib/li-log';
 import {
   LiMonitorBetweenDatesDialogComponent,
@@ -88,7 +93,6 @@ export class LabProcessDashboardComponent implements OnInit, OnDestroy {
   private communityHelper = inject(CoCommunityHelperService);
   private protocolService = inject(LiProtocolService);
   private labCoServiceConfig = inject(LabCoServiceConfig);
-  private translateService = inject(FlTranslateService);
 
   process$ = this.nodeState.getProcess$();
   nodeProcess$ = this.nodeState.getNode$();
@@ -122,6 +126,14 @@ export class LabProcessDashboardComponent implements OnInit, OnDestroy {
         this.isCodeShown.set(process.config.specs['code']?.visibility == 'public');
       }
     });
+  }
+
+  openExternalLabDetail(process: LiProcess): void {
+    const data: LiExternalLabDetailDialogData = {
+      labModelId: process.externalLabId,
+      routePath: LiRouterService.getScenarioDetailRoute(process.scenarioId),
+    };
+    this.dialogService.openSmallDialog(LiExternalLabDetailDialogComponent, { data });
   }
 
   openTypingDoc(typingName: string): void {
@@ -161,6 +173,8 @@ export class LabProcessDashboardComponent implements OnInit, OnDestroy {
   openProgressDetails(): void {
     const data$: Observable<LiProcessRunInfoData> = this.process$.pipe(
       map((process) => ({
+        processType: process.getProcessType(),
+        processId: process.id,
         progressBar: process.progressBar,
         brickVersionOnCreate: process.brickVersionOnCreate,
         brickVersionOnRun: process.brickVersionOnRun,

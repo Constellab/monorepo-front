@@ -37,6 +37,7 @@
     "delete_all_venvs_confirmation": "Are you sure you want to delete all virtual environments ? This will completely clear the virtual environments folder.",
     "delete_all_venvs_success": "All virtual environments have been deleted",
     "logs": "Logs",
+    "labs": "Labs",
     "log_folder": "Log folder",
     "gpu_ram_total": "GPU RAM total",
     "lab_disk_space": "Lab disk space",
@@ -95,6 +96,7 @@
     "nginx_error_log": "Download Nginx error log",
     "jobs": "Jobs",
     "jobs_list": "Jobs list",
-    "job_create": "Create job"
+    "job_create": "Create job",
+    "add_lab": "Add lab"
   }
 }

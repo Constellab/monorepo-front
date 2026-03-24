@@ -66,13 +66,10 @@ export class LiBrickMigration {
   @ClVersionTransform()
   version: ClVersion;
 
-  @Expose({ name: 'db_unique_name' })
-  dbUniqueName: string;
-
   @Expose({ name: 'short_description' })
   shortDescription: string;
 
   toString(): string {
-    return this.version.toString() + ' | ' + this.dbUniqueName + ' | ' + this.shortDescription;
+    return this.version.toString() + ' | ' + this.shortDescription;
   }
 }

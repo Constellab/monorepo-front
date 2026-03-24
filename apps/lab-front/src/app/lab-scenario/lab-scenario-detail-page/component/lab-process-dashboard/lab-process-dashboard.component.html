@@ -19,6 +19,16 @@
         </div>
 
         <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
+          @if (process.externalLabId) {
+            <button
+              mat-icon-button
+              [matTooltip]="'li.external_lab_tooltip' | translate"
+              matTooltipPosition="below"
+              (click)="openExternalLabDetail(process)">
+              <mat-icon>cloud_sync</mat-icon>
+            </button>
+          }
+
           @if (isCommunityAgent) {
             <button
               mat-icon-button
@@ -166,7 +176,12 @@
 
       <!--   Show process error     -->
       @if (process.errorInfo && process.isError()) {
-        <div class="process-error process-run-error g-text-link" (click)="openProgressDetails()">
+        <div
+          class="process-error process-run-error g-text-link"
+          tabindex="0"
+          role="button"
+          (click)="openProgressDetails()"
+          (keydown.enter)="openProgressDetails()">
           {{ process.errorInfo.detail }}
         </div>
       } @else if (process.typeStatus === 'UNAVAILABLE') {

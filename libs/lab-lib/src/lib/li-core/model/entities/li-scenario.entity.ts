@@ -1,11 +1,6 @@
 import { ClLuxonDateTimeTransform } from '@monorepo/core-lib';
 import { FlEntity, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
-import {
-  FlStatus,
-  FlStatusDict,
-  FlStatusHelper,
-  FlStatusTransform,
-} from '@monorepo/front-core-lib/fl-status';
+import { FlStatus, FlStatusDict, FlStatusHelper } from '@monorepo/front-core-lib/fl-status';
 import { TeRichText, TeRichTextTransform } from '@monorepo/text-editor';
 import { Expose, Type } from 'class-transformer';
 import { DateTime } from 'luxon';
@@ -23,10 +18,17 @@ export type LiScenarioStatus =
   | 'SUCCESS'
   | 'ERROR'
   | 'PARTIALLY_RUN';
+
+export type LiScenarioDisplayStatus =
+  | LiScenarioStatus
+  | 'RUNNING_IN_EXTERNAL_LAB'
+  | 'IN_QUEUE_IN_EXTERNAL_LAB'
+  | 'WAITING_FOR_CLI_PROCESS_IN_EXTERNAL_LAB';
+
 export type LiScenarioPidStatus = 'NONE' | 'RUNNING' | 'UNEXPECTED_STOPPED';
 
 // const to list the scenario status translation texts
-export const labScenarioStatusDict: FlStatusDict<LiScenarioStatus> = {
+export const LI_SCENARIO_STATUS_DICT: FlStatusDict<LiScenarioStatus> = {
   DRAFT: FlStatusHelper.getDraftStatus('DRAFT', 'li.draft'),
   IN_QUEUE: FlStatusHelper.getInfoStatus('IN_QUEUE', 'li.scenario_in_queue', FlStatusHelper.draftIcon),
   SUCCESS: FlStatusHelper.getSuccessStatus('SUCCESS', 'li.success'),
@@ -39,8 +41,19 @@ export const labScenarioStatusDict: FlStatusDict<LiScenarioStatus> = {
   PARTIALLY_RUN: FlStatusHelper.getInfoStatus('PARTIALLY_RUN', 'li.partially_run', FlStatusHelper.draftIcon),
 };
 
+// display-only statuses for external lab scenarios
+const LI_SCENARIO_EXTERNAL_STATUS_MAP: Partial<Record<LiScenarioStatus, FlStatus<LiScenarioDisplayStatus>>> =
+  {
+    RUNNING: FlStatusHelper.getLoadingStatus('RUNNING_IN_EXTERNAL_LAB', 'li.running_in_external_lab'),
+    IN_QUEUE: FlStatusHelper.getLoadingStatus('IN_QUEUE_IN_EXTERNAL_LAB', 'li.scenario_in_queue_external'),
+    WAITING_FOR_CLI_PROCESS: FlStatusHelper.getLoadingStatus(
+      'WAITING_FOR_CLI_PROCESS_IN_EXTERNAL_LAB',
+      'li.scenario_waiting_for_cli_external'
+    ),
+  };
+
 export type LiScenarioCreationType = 'MANUAL' | 'AUTO' | 'IMPORTED';
-export const flScenarioCreationTypes: FlStatusDict<LiScenarioCreationType> = {
+export const LI_SCENARIO_CREATION_TYPES: FlStatusDict<LiScenarioCreationType> = {
   MANUAL: FlStatusHelper.getInfoStatus(
     'MANUAL',
     'li.scenario_creation_type_MANUAL',
@@ -75,8 +88,18 @@ export class LiScenario extends LiBaseEntityWithUser implements LiFolderObject {
   @Type(() => LiEntity)
   protocol: LiEntity;
 
-  @FlStatusTransform(labScenarioStatusDict)
-  status: FlStatus<LiScenarioStatus>;
+  status: LiScenarioStatus;
+
+  @Expose({ name: 'is_running_in_external_lab' })
+  isRunningInExternalLab: boolean;
+
+  get statusInfo(): FlStatus<LiScenarioDisplayStatus> {
+    if (this.isRunningInExternalLab) {
+      const externalStatus = LI_SCENARIO_EXTERNAL_STATUS_MAP[this.status];
+      if (externalStatus) return externalStatus;
+    }
+    return LI_SCENARIO_STATUS_DICT[this.status];
+  }
 
   @Expose({ name: 'is_validated' })
   isValidated: boolean;
@@ -121,8 +144,12 @@ export class LiScenario extends LiBaseEntityWithUser implements LiFolderObject {
     return this.isInfoEditable() && !this.isRunningOrWaiting();
   }
 
+  isResettable(): boolean {
+    return this.isRunningOrWaiting() || this.isFinished();
+  }
+
   isRunning(): boolean {
-    return this.status.value === 'RUNNING' || this.status.value === 'WAITING_FOR_CLI_PROCESS';
+    return this.status === 'RUNNING' || this.status === 'WAITING_FOR_CLI_PROCESS';
   }
 
   isRunningOrWaiting(): boolean {
@@ -130,15 +157,19 @@ export class LiScenario extends LiBaseEntityWithUser implements LiFolderObject {
   }
 
   isFinished(): boolean {
-    return this.status.value === 'SUCCESS' || this.status.value === 'ERROR';
+    return this.status === 'SUCCESS' || this.status === 'ERROR';
   }
 
   isDraft(): boolean {
-    return this.status.value === 'DRAFT';
+    return this.status === 'DRAFT';
   }
 
   isWaiting(): boolean {
-    return this.status.value === 'IN_QUEUE';
+    return this.status === 'IN_QUEUE';
+  }
+
+  isImported(): boolean {
+    return this.creationType === 'IMPORTED';
   }
 
   get isSpecialCreationType(): boolean {
@@ -146,7 +177,7 @@ export class LiScenario extends LiBaseEntityWithUser implements LiFolderObject {
   }
 
   get specialTypeInfo(): FlStatus<LiScenarioCreationType> {
-    return flScenarioCreationTypes[this.creationType];
+    return LI_SCENARIO_CREATION_TYPES[this.creationType];
   }
 
   toString(): string {
@@ -175,4 +206,14 @@ export class LiRunningScenarioInfo extends LiEntity {
     id: string;
     title: string;
   };
+}
+
+export class LiScenarioSentToLabResponse {
+  @Expose({ name: 'exported_scenario' })
+  @Type(() => LiScenario)
+  exportedScenario: LiScenario;
+
+  @Expose({ name: 'export_scenario' })
+  @Type(() => LiScenario)
+  exportScenario: LiScenario;
 }

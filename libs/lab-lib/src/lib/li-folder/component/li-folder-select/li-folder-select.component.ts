@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, EventEmitter, inject,Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
 import {
@@ -134,7 +134,7 @@ export class LiFolderSelectComponent
 
   private handleEmptyFolderList(): void {
     this.systemService.getSystemInfo().subscribe((systemInfo) => {
-      this.labDashboardRoute = this.liConfig.getSpaceDashboardLabUrl(systemInfo.id);
+      this.labDashboardRoute = this.liConfig.getSpaceDashboardLabUrl(systemInfo.lab.labId);
       this.isEmpty = true;
     });
   }

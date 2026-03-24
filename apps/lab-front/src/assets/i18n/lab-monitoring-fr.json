@@ -37,6 +37,7 @@
     "delete_all_venvs_confirmation": "Êtes-vous sûr de vouloir supprimer tous les environnements virtuels ? Cela va complétement vider le dosser des environnements virtuels.",
     "delete_all_venvs_success": "Environnements virtuels supprimés",
     "logs": "Logs",
+    "labs": "Labs",
     "log_folder": "Dosser des logs",
     "gpu_ram_total": "RAM totale du GPU",
     "lab_disk_space": "Espace disque du lab",
@@ -95,6 +96,7 @@
     "nginx_error_log": "Télécharger le log d'erreur Nginx",
     "jobs": "Jobs",
     "jobs_list": "Liste des jobs",
-    "job_create": "Créer un job"
+    "job_create": "Créer un job",
+    "add_lab": "Ajouter un lab"
   }
 }

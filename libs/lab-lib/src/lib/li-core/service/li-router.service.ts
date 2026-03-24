@@ -126,6 +126,10 @@ export class LiRouterService {
     return `${LiRouterService.getMonitoringRoute()}/logs`;
   }
 
+  public static getMonitoringLabRoute(): string {
+    return `${LiRouterService.getMonitoringRoute()}/lab`;
+  }
+
   public static getMonitoringCredentialsRoute(): string {
     return `${LiRouterService.getMonitoringRoute()}/credentials`;
   }

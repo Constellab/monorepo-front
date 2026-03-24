@@ -16,7 +16,6 @@ import { Observable, Subscription } from 'rxjs';
 
 import { LabDynamicParamSpecState } from '../../state/lab-dynamic-param-spec.state';
 import { LabProcessDashboardConfigState } from '../../state/lab-process-dashboard-config-state.service';
-import { LabConfigureProtocolComponent } from '../lab-configure-protocol/lab-configure-protocol.component';
 import { LabConfigureTaskComponent } from '../lab-configure-task/lab-configure-task.component';
 
 /**
@@ -53,12 +52,14 @@ export class LabConfigureProcessComponent implements OnInit, OnDestroy {
     this.subscription = this.process$.subscribe((process) => this.showProcessConfig(process));
   }
 
-  private showProcessConfig(process: LiProcess): void {
+  private async showProcessConfig(process: LiProcess): Promise<void> {
     // Check if the config has changed since the last process to avoid reloading the component
     if (!this.dashboardState.configHasChanged(process)) return;
     this.clearViewRef();
 
     if (process.isProtocol) {
+      const { LabConfigureProtocolComponent } =
+        await import('../lab-configure-protocol/lab-configure-protocol.component');
       const componentRef = this.viewContainer.createComponent(LabConfigureProtocolComponent);
       componentRef.instance.protocolId = process.id;
     } else {

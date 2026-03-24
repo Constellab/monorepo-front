@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 
-export const labMonitoringRoutes: Routes = [
+export const LAB_MONITORING_ROUTES: Routes = [
   {
     path: '',
     loadComponent: () =>
@@ -19,23 +19,34 @@ export const labMonitoringRoutes: Routes = [
       {
         path: 'usage',
         loadComponent: () =>
-          import(
-            './lab-monitoring-page/component/lab-monitoring-usage-page/lab-monitoring-usage-page.component'
-          ).then((m) => m.LabMonitoringUsagePageComponent),
+          // eslint-disable-next-line max-len
+          import('./lab-monitoring-page/component/lab-monitoring-usage-page/lab-monitoring-usage-page.component').then(
+            (m) => m.LabMonitoringUsagePageComponent
+          ),
       },
       {
         path: 'virtual-envs',
         loadComponent: () =>
-          import(
-            './lab-monitoring-page/component/lab-monitoring-venvs-page/lab-monitoring-venvs-page.component'
-          ).then((m) => m.LabMonitoringVenvsPageComponent),
+          // eslint-disable-next-line max-len
+          import('./lab-monitoring-page/component/lab-monitoring-venvs-page/lab-monitoring-venvs-page.component').then(
+            (m) => m.LabMonitoringVenvsPageComponent
+          ),
       },
       {
         path: 'logs',
         loadComponent: () =>
-          import(
-            './lab-monitoring-page/component/lab-monitoring-logs-page/lab-monitoring-logs-page.component'
-          ).then((m) => m.LabMonitoringLogsPageComponent),
+          // eslint-disable-next-line max-len
+          import('./lab-monitoring-page/component/lab-monitoring-logs-page/lab-monitoring-logs-page.component').then(
+            (m) => m.LabMonitoringLogsPageComponent
+          ),
+      },
+      {
+        path: 'lab',
+        loadComponent: () =>
+          // eslint-disable-next-line max-len
+          import('./lab-monitoring-page/component/lab-monitoring-lab-page/lab-monitoring-lab-page.component').then(
+            (m) => m.LabMonitoringLabPageComponent
+          ),
       },
       {
         path: 'credentials',
@@ -56,16 +67,18 @@ export const labMonitoringRoutes: Routes = [
       {
         path: 'jobs',
         loadComponent: () =>
-          import(
-            './lab-monitoring-page/component/lab-monitoring-jobs-page/lab-monitoring-jobs-page.component'
-          ).then((m) => m.LabMonitoringJobsPageComponent),
+          // eslint-disable-next-line max-len
+          import('./lab-monitoring-page/component/lab-monitoring-jobs-page/lab-monitoring-jobs-page.component').then(
+            (m) => m.LabMonitoringJobsPageComponent
+          ),
       },
       {
         path: 'other',
         loadComponent: () =>
-          import(
-            './lab-monitoring-page/component/lab-monitoring-other-page/lab-monitoring-other-page.component'
-          ).then((m) => m.LabMonitoringOtherPageComponent),
+          // eslint-disable-next-line max-len
+          import('./lab-monitoring-page/component/lab-monitoring-other-page/lab-monitoring-other-page.component').then(
+            (m) => m.LabMonitoringOtherPageComponent
+          ),
       },
     ],
   },

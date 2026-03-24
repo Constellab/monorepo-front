@@ -4,8 +4,11 @@ import { Expose, Type } from 'class-transformer';
 import { DateTime } from 'luxon';
 
 import { LiBaseEntity } from '../global/li-entity.entity';
+import { LiLab } from './li-lab.entity';
 import { LiEntityType } from './li-navigable-entity.entity';
 import { LiBaseEntityWithUser, LiUser } from './li-user.entity';
+
+export type LiSharedEntityMode = 'LAB' | 'USER';
 
 export type LiShareLinkEntityType = 'RESOURCE' | 'SCENARIO';
 
@@ -48,27 +51,20 @@ export class LiShareLink extends LiBaseEntityWithUser {
 export type LiShareLinkDatasource = FlDatasourcePaginated<LiShareLink>;
 
 export class LiSharedEntity extends LiBaseEntity {
-  // above to ts
-  @Expose({ name: 'lab_id' })
-  labId: string;
+  @Expose({ name: 'share_mode' })
+  shareMode: LiSharedEntityMode;
 
-  @Expose({ name: 'lab_name' })
-  labName: string;
+  @Type(() => LiLab)
+  lab: LiLab;
 
-  @Expose({ name: 'user_id' })
-  userId: string;
+  @Type(() => LiUser)
+  user: LiUser;
 
-  @Expose({ name: 'user_firstname' })
-  userFirstname: string;
+  @Expose({ name: 'external_id' })
+  externalId: string;
 
-  @Expose({ name: 'user_lastname' })
-  userLastname: string;
-
-  @Expose({ name: 'space_id' })
-  spaceId: string;
-
-  @Expose({ name: 'space_name' })
-  spaceName: string;
+  @Expose({ name: 'external_object_url' })
+  externalObjectUrl?: string;
 
   @Expose({ name: 'created_by' })
   @Type(() => LiUser)

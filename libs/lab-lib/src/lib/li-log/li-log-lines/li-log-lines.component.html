@@ -1,21 +1,31 @@
 <table>
   <tbody>
     @for (line of logLines(); track line) {
-      <tr>
+      <tr [class]="'level-' + line.level.toLowerCase()">
+        <td class="level-indicator"></td>
         <td class="info">
           <span class="head">{{ line.datetime | flDate: 'DATE_TIME_WITH_SECONDS' }} - {{ line.level }}</span>
-          @if (showContext() && line.context !== 'MAIN') {
-            <br />
-            <div class="g-text-tiny g-text-dense-height" [matTooltip]="line.context">
-              {{ line.context }}
-              @if (line.contextId) {
-                : {{ line.contextId }}
-              }
-            </div>
-          }
         </td>
         <td class="message">
           <li-log-line-content [line]="line"></li-log-line-content>
+          @if ((showContext() && line.context !== 'MAIN') || line.instanceId || line.requestId) {
+            <div class="metadata">
+              @if (showContext() && line.context !== 'MAIN') {
+                <span class="meta-chip">
+                  {{ line.context }}
+                  @if (line.contextId) {
+                    ({{ line.contextId }})
+                  }
+                </span>
+              }
+              @if (line.requestId) {
+                <span class="meta-chip"> {{ 'li.log_request_id' | translate }}: {{ line.requestId }} </span>
+              }
+              @if (line.instanceId) {
+                <span class="meta-chip"> {{ 'li.log_instance_id' | translate }}: {{ line.instanceId }} </span>
+              }
+            </div>
+          }
         </td>
       </tr>
     }

@@ -1,5 +1,33 @@
+$level-colors: (
+  error: var(--warn-color),
+  exception: var(--warn-color),
+  warning: var(--accent-color),
+  info: var(--primary-color),
+  debug: var(--hover-color),
+  progress: var(--primary-color),
+);
+
+tr {
+  &:hover {
+    background: rgba(0, 0, 0, 0.03);
+  }
+}
+
+.level-indicator {
+  width: 3px;
+  padding: 0;
+
+  @each $level, $color in $level-colors {
+    .level-#{$level} & {
+      background: $color;
+    }
+  }
+}
+
 .info {
   vertical-align: baseline;
+  white-space: nowrap;
+  padding-right: 8px;
 }
 
 .head {
@@ -10,4 +38,21 @@
   white-space: pre-wrap;
   word-break: break-word;
   vertical-align: baseline;
+}
+
+.metadata {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  margin-top: 2px;
+}
+
+.meta-chip {
+  font-size: 0.65rem;
+  line-height: 1.2em;
+  padding: 1px 5px;
+  border-radius: 3px;
+  background: rgba(0, 0, 0, 0.08);
+  cursor: default;
+  white-space: nowrap;
 }

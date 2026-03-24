@@ -12,8 +12,10 @@ import {
   MatTable,
 } from '@angular/material/table';
 import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
+import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { LiSharedEntity, LiSharedEntityDatasource } from '@monorepo/lab-lib/li-core';
+import { LiLabInlineComponent } from '@monorepo/lab-lib/li-lab';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
@@ -27,7 +29,9 @@ import { TranslatePipe } from '@ngx-translate/core';
     MatHeaderCell,
     MatCellDef,
     MatCell,
+    FlCoreComponentModule,
     FlUserModule,
+    LiLabInlineComponent,
     MatHeaderRowDef,
     MatHeaderRow,
     MatRowDef,
@@ -38,5 +42,11 @@ import { TranslatePipe } from '@ngx-translate/core';
 export class LiSharedEntityTableComponent {
   @Input() datasource: LiSharedEntityDatasource;
 
-  @Input() columns: FlTableColumnStatic<LiSharedEntity>[] = ['lab', 'space', 'receiver', 'sharedBy'];
+  @Input() columns: FlTableColumnStatic<LiSharedEntity>[] = [
+    'lab',
+    'space',
+    'externalId',
+    'receiver',
+    'sharedBy',
+  ];
 }

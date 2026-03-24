@@ -1,0 +1,39 @@
+<div class="form g-layout-col" [formGroup]="formGp">
+  <div class="g-full main-fields">
+    <mat-form-field class="g-full">
+      <mat-label>{{ 'li.name' | translate }}</mat-label>
+      <input matInput formControlName="name" [placeholder]="'li.name' | translate" autocomplete="off" />
+    </mat-form-field>
+
+    <mat-form-field class="g-full">
+      <mat-label>{{ 'li.lab_mode' | translate }}</mat-label>
+      <mat-select formControlName="mode" [placeholder]="'li.lab_mode' | translate">
+        @for (key of labModes | flObjectKeys; track key) {
+          <mat-option [value]="key">
+            {{ 'li.lab_mode_' + labModes[key] | translate }}
+          </mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="g-full">
+      <mat-label>{{ 'li.lab_environment' | translate }}</mat-label>
+      <mat-select formControlName="environment" [placeholder]="'li.lab_environment' | translate">
+        @for (key of labEnvironments | flObjectKeys; track key) {
+          <mat-option [value]="key">
+            {{ 'li.lab_environment_' + labEnvironments[key] | translate }}
+          </mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="g-full">
+      <mat-label>{{ 'li.lab_domain' | translate }}</mat-label>
+      <input
+        matInput
+        formControlName="domain"
+        [placeholder]="'li.lab_domain' | translate"
+        autocomplete="off" />
+    </mat-form-field>
+  </div>
+</div>

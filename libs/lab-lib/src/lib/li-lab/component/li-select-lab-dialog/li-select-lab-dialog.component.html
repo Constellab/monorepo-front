@@ -1,0 +1,10 @@
+<fl-dialog-header>
+  {{ 'li.select_lab' | translate }}
+</fl-dialog-header>
+
+<mat-dialog-content>
+  <li-lab-search
+    [labSelectable]="true"
+    [fullPageSearch]="false"
+    (labSelected)="onLabSelected($event)"></li-lab-search>
+</mat-dialog-content>

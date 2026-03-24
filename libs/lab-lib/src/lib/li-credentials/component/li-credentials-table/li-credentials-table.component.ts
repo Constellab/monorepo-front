@@ -1,7 +1,8 @@
-import { Component, inject,Input } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
+import { MatSortHeader } from '@angular/material/sort';
 import {
   MatCell,
   MatCellDef,
@@ -25,6 +26,7 @@ import {
   FlConfirmDialogResult,
   FlDialogService,
 } from '@monorepo/front-core-lib/fl-dialog';
+import { FlSearchModule } from '@monorepo/front-core-lib/fl-search';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { LiCredentials, LiCredentialsData } from '@monorepo/lab-lib/li-core';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -56,6 +58,8 @@ import {
     MatHeaderRow,
     MatRowDef,
     MatRow,
+    MatSortHeader,
+    FlSearchModule,
     TranslatePipe,
   ],
 })
@@ -66,6 +70,16 @@ export class LiCredentialsTableComponent {
   @Input() datasource: FlArrayObs<LiCredentials>;
 
   @Input() columns: FlTableColumnStatic<LiCredentials>[];
+
+  @Input() rowSelectable: boolean = false;
+
+  @Output() credentialsSelected: EventEmitter<LiCredentials> = new EventEmitter();
+
+  rowClicked(credentials: LiCredentials): void {
+    if (this.rowSelectable) {
+      this.credentialsSelected.next(credentials);
+    }
+  }
 
   updateCredentials(credentials: LiCredentials): void {
     // open user check credentials dialog

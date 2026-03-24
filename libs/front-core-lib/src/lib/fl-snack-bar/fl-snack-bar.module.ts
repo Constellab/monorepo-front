@@ -6,7 +6,7 @@ import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 
 import { FlTranslateModule } from '../fl-translate/fl-translate.module';
 import { FlSnackBarInfoComponent } from './component/fl-snack-bar-info/fl-snack-bar-info.component';
-import { flSnackBarI18n } from './fl-snack-bar.i18n';
+import { FL_SNACK_BAR_I18N } from './fl-snack-bar.i18n';
 import { FlSnackBarService } from './fl-snack-bar.service';
 
 /**
@@ -36,6 +36,6 @@ export class FlSnackBarModule {
   constructor() {
     const translateService = inject(FlTranslateService);
 
-    translateService.addModuleTranslation('FlSnackBarModule', flSnackBarI18n);
+    translateService.addModuleTranslation('FlSnackBarModule', FL_SNACK_BAR_I18N);
   }
 }

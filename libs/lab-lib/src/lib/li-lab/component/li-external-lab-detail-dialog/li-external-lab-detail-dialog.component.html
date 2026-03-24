@@ -1,0 +1,50 @@
+<fl-dialog-header>
+  {{ 'li.external_lab_detail' | translate }}
+</fl-dialog-header>
+
+<mat-dialog-content>
+  <fl-async-section [object]="lab$">
+    <ng-container *flSectionBody="lab$ as lab">
+      <div class="g-layout-col g-layout-gap-1em">
+        <div class="g-layout-col g-layout-gap-05em">
+          <div>
+            <strong>{{ 'li.name' | translate }}:</strong> {{ lab.name }}
+          </div>
+
+          @if (lab.spaceName) {
+            <div>
+              <strong>{{ 'li.space_name' | translate }}:</strong> {{ lab.spaceName }}
+            </div>
+          }
+
+          <div>
+            <strong>{{ 'li.lab_mode' | translate }}:</strong> {{ 'li.lab_mode_' + lab.mode | translate }}
+          </div>
+
+          <div>
+            <strong>{{ 'li.lab_environment' | translate }}:</strong>
+            {{ 'li.lab_environment_' + lab.environment | translate }}
+          </div>
+
+          @if (lab.domain) {
+            <div>
+              <strong>{{ 'li.lab_domain' | translate }}:</strong>
+              @if (lab.frontUrl) {
+                <fl-external-link [link]="lab.frontUrl" [text]="lab.domain"></fl-external-link>
+              } @else {
+                {{ lab.domain }}
+              }
+            </div>
+          }
+        </div>
+
+        @if (originalObjectUrl) {
+          <fl-external-link
+            [link]="originalObjectUrl"
+            [text]="'li.view_original_object' | translate"
+            class="object-link"></fl-external-link>
+        }
+      </div>
+    </ng-container>
+  </fl-async-section>
+</mat-dialog-content>

@@ -3,17 +3,21 @@ import { FlLangTranslation, FlTranslateObject } from '@monorepo/front-core-lib/f
 
 const flTradFr: FlLangTranslation = {
   flCorePipe: {
-    error_required: 'Le champ \'{{field}}\' est obligatoire',
+    error_required: "Le champ '{{field}}' est obligatoire",
+    yes: 'Oui',
+    no: 'Non',
   },
 };
 
 const flTradEn: FlLangTranslation = {
   flCorePipe: {
-    error_required: 'The field \'{{field}}\' is mandatory',
+    error_required: "The field '{{field}}' is mandatory",
+    yes: 'Yes',
+    no: 'No',
   },
 };
 
-export const flCorePipeI18n: FlTranslateObject = {
+export const FL_CORE_PIPE_I18N: FlTranslateObject = {
   [ClSupportedLanguage.en]: flTradEn,
   [ClSupportedLanguage.fr]: flTradFr,
 };

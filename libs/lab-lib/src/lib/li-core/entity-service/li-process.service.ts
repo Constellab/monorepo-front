@@ -1,4 +1,4 @@
-import { inject,Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { ClDateHelper } from '@monorepo/core-lib';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { DateTime } from 'luxon';
@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 
 import { LiLogsBetweenDates } from '../model/entities/li-log.entity';
 import { LiMonitorGraphicsBetweenDates } from '../model/entities/li-monitor.entity';
+import { LiProgressBarMessages } from '../model/entities/li-progress-bar.entity';
 import { LiProcessClass } from '../model/entities/process/li-process.entity';
 
 @Injectable({
@@ -40,5 +41,23 @@ export class LiProcessService {
       },
       LiMonitorGraphicsBetweenDates
     );
+  }
+
+  public getDownloadProgressBarUrl(processType: LiProcessClass, id: string): string {
+    return this.apiService.getBaseRouteUrl(`${this.route}/${processType}/${id}/progress-bar/download`);
+  }
+
+  public getProgressBarMessages(
+    processType: LiProcessClass,
+    id: string,
+    nbOfMessages: number,
+    fromDatetime?: DateTime
+  ): Observable<LiProgressBarMessages> {
+    const route = fromDatetime
+      ? `${this.route}/${processType}/${id}/progress-bar/messages/${fromDatetime}`
+      : `${this.route}/${processType}/${id}/progress-bar/messages`;
+    return this.apiService.get(route, LiProgressBarMessages, {
+      params: { nb_of_messages: nbOfMessages.toString() },
+    });
   }
 }

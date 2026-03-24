@@ -5,7 +5,9 @@
       {{ 'li.share_to_lab' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
-      {{ row.labName }}
+      @if (row.lab) {
+        <li-lab-inline [lab]="row.lab"></li-lab-inline>
+      }
     </mat-cell>
   </ng-container>
 
@@ -15,7 +17,7 @@
       {{ 'li.share_to_space' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
-      {{ row.spaceName }}
+      {{ row.lab?.spaceName }}
     </mat-cell>
   </ng-container>
 
@@ -24,7 +26,27 @@
     <mat-header-cell *matHeaderCellDef>
       {{ 'li.received_by' | translate }}
     </mat-header-cell>
-    <mat-cell *matCellDef="let row"> {{ row.userFirstname }} {{ row.userLastname }} </mat-cell>
+    <mat-cell *matCellDef="let row">
+      @if (row.user) {
+        <fl-user-inline [user]="row.user"></fl-user-inline>
+      }
+    </mat-cell>
+  </ng-container>
+
+  <!-- External Object Id -->
+  <ng-container matColumnDef="externalId">
+    <mat-header-cell *matHeaderCellDef>
+      {{ 'li.external_object_id' | translate }}
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      @if (row.externalId) {
+        @if (row.externalObjectUrl) {
+          <fl-external-link [link]="row.externalObjectUrl" [text]="row.externalId"></fl-external-link>
+        } @else {
+          {{ row.externalId }}
+        }
+      }
+    </mat-cell>
   </ng-container>
 
   <!-- SharedBy -->
