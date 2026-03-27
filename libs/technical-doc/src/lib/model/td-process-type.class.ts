@@ -30,7 +30,5 @@ export interface TdIOSpec {
 
   optional?: boolean;
 
-  constant?: boolean;
-
   sub_class?: boolean;
 }

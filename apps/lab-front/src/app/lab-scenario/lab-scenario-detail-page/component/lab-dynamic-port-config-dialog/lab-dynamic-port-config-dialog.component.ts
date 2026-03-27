@@ -27,7 +27,6 @@ interface LabFormType {
   humanName: FormControl<string>;
   shortDescription: FormControl<string>;
   optional: FormControl<boolean>;
-  constant: FormControl<boolean>;
   subClass: FormControl<boolean>;
 }
 
@@ -73,7 +72,6 @@ export class LabDynamicPortConfigDialogComponent {
       humanName: new FormControl(data.spec.human_name),
       shortDescription: new FormControl(data.spec.short_description),
       optional: new FormControl(data.spec.optional),
-      constant: new FormControl(data.spec.constant),
       // force subClass to true if portType is output
       subClass: new FormControl(data.portType === 'output'),
     });
@@ -87,7 +85,6 @@ export class LabDynamicPortConfigDialogComponent {
         human_name: value.humanName,
         short_description: value.shortDescription,
         optional: value.optional,
-        constant: value.constant,
         sub_class: value.subClass,
       };
       this.dialogRef.close(spec);
