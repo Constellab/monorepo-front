@@ -114,29 +114,57 @@
     {
       "folder": "scenario",
       "title": "Scenario overview",
-      "remote_doc_id": "",
+      "remote_doc_id": "78873f58-3114-48dd-94a2-d3c9e42e2df2",
       "description": "Landing page for the Scenario section. Explains what a scenario is, key concepts, lifecycle, and types.",
       "sections": [
         "What is a scenario?",
         "Key concepts",
-        "Scenario lifecycle",
         "Scenario types",
-        "Spotlight video",
         "What's in this section?"
       ],
-      "source_files": []
+      "source_files": [
+        "libs/lab-lib/src/lib/li-core/model/entities/li-scenario.entity.ts",
+        "libs/lab-lib/src/lib/li-core/model/entities/process/li-process.entity.ts",
+        "libs/lab-lib/src/lib/li-core/model/entities/process/li-protocol.entity.ts",
+        "libs/lab-lib/src/lib/li-core/model/entities/process/li-scenario-template.entity.ts",
+        "libs/lab-lib/src/lib/li-core/model/entities/resource/li-resource.entity.ts",
+        "libs/lab-lib/src/lib/li-core/model/entities/li-agent.entity.ts",
+        "libs/lab-lib/src/lib/li-scenario/component/li-scenario-creation-type-options/li-scenario-creation-type-options.component.ts"
+      ]
+    },
+    {
+      "folder": "scenario",
+      "title": "Scenarios page",
+      "remote_doc_id": "6b381a59-988c-43f9-af12-c72cf342a701",
+      "description": "The Scenarios list page: browsing, searching, and filtering scenarios.",
+      "sections": [
+        "The Scenarios page",
+        "How to search and filter scenarios"
+      ],
+      "source_files": [
+        "apps/lab-front/src/app/lab-scenario/lab-scenarios-page/"
+      ]
     },
     {
       "folder": "scenario",
       "title": "Creating and configuring a scenario",
-      "remote_doc_id": "",
+      "remote_doc_id": "c15a4c2c-7f79-448f-9355-10e78cf4cb02",
       "description": "Building a scenario from scratch: creating, adding processes, connecting ports, adding resources, configuring.",
       "sections": [
         "How to create a scenario?",
-        "How to add a process to a scenario?",
+        "How to add an object to a scenario?",
+        "How to add a process?",
+        "How to add a resource?",
+        "How to add a Community agent?",
+        "How to add a scenario template?",
+        "How to add an empty protocol?",
         "Interact with process ports",
-        "How to add a resource to a scenario?",
-        "How to configure a process?"
+        "How to add a resource connected to a process?",
+        "How to configure a process?",
+        "How to configure a protocol?",
+        "How to delete an object or a connection?",
+        "How to change the style of a process?",
+        "How to configure a process with a dynamic config?"
       ],
       "source_files": [
         "apps/lab-front/src/app/lab-scenario/lab-scenarios-page/",
@@ -145,19 +173,28 @@
         "apps/lab-front/src/app/lab-scenario/lab-scenario-detail-page/component/lab-workflow-actions/",
         "apps/lab-front/src/app/lab-scenario/lab-scenario-detail-page/component/lab-process-io-panel/",
         "apps/lab-front/src/app/lab-scenario/lab-scenario-detail-page/component/lab-configure-process/",
-        "apps/lab-front/src/app/lab-scenario/lab-scenario-detail-page/component/lab-configure-task/"
+        "apps/lab-front/src/app/lab-scenario/lab-scenario-detail-page/component/lab-configure-task/",
+        "apps/lab-front/src/app/lab-scenario/lab-scenario-detail-page/component/lab-process-edit-style-dialog/",
+        "apps/lab-front/src/app/lab-scenario/lab-scenario-detail-page/component/lab-dynamic-port-config-dialog/",
+        "apps/lab-front/src/app/lab-scenario/lab-scenario-detail-page/component/lab-configure-protocol/",
+        "apps/lab-front/src/app/lab-scenario/lab-scenario-detail-page/component/lab-configure-protocol-dialog/"
       ]
     },
     {
       "folder": "scenario",
-      "title": "Running and managing a scenario",
-      "remote_doc_id": "",
-      "description": "Day-to-day scenario operations: running, updating, describing, managing, and execution queue.",
+      "title": "Scenario execution",
+      "remote_doc_id": "87b0a186-2fb4-4427-9ebd-5da8c660389d",
+      "description": "Scenario execution and control: lifecycle, running, re-running, stopping, resetting, individual process execution, and the execution queue.",
       "sections": [
+        "Scenario lifecycle",
         "How to run a scenario?",
-        "How to update a scenario?",
-        "How to describe a scenario?",
-        "How to manage a scenario?",
+        "Re-running a scenario",
+        "How to run a scenario in an external lab?",
+        "How to run a process?",
+        "How to reset a scenario?",
+        "How to reset a process?",
+        "How to stop a scenario?",
+        "How does the scenario execution queue work?",
         "How to check the scenario queue?"
       ],
       "source_files": [
@@ -167,40 +204,28 @@
     },
     {
       "folder": "scenario",
-      "title": "Scenario collaboration",
-      "remote_doc_id": "",
-      "description": "Teamwork features: linking notes, synchronizing with space, validation workflow, sharing between labs.",
+      "title": "Managing a scenario",
+      "remote_doc_id": "3e2f1551-97df-47fa-92d0-329f7808790b",
+      "description": "Day-to-day scenario operations: running, updating, describing, managing, and execution queue.",
       "sections": [
+        "How to describe a scenario?",
+        "How to manage a scenario?",
         "How to link notes to a scenario?",
         "How to synchronize a scenario?",
         "How to validate a scenario?",
         "How to share scenarios between data labs?"
       ],
       "source_files": [
+        "apps/lab-front/src/app/lab-scenario/lab-scenario-detail-page/component/lab-scenario-detail-header/",
+        "apps/lab-front/src/app/lab-scenario/lab-scenario-detail-page/component/lab-scenario-detail/",
         "apps/lab-front/src/app/lab-scenario/lab-scenario-detail-page/component/lab-scenario-linked-notes/",
         "libs/lab-lib/src/lib/li-share/"
       ]
     },
     {
       "folder": "scenario",
-      "title": "Process customization",
-      "remote_doc_id": "",
-      "description": "Visual customization (icon, color) and dynamic configuration of processes.",
-      "sections": [
-        "How to change the style of a process?",
-        "How to configure a process with a dynamic config?"
-      ],
-      "source_files": [
-        "apps/lab-front/src/app/lab-scenario/lab-scenario-detail-page/component/lab-process-edit-style-dialog/",
-        "apps/lab-front/src/app/lab-scenario/lab-scenario-detail-page/component/lab-dynamic-port-config-dialog/",
-        "apps/lab-front/src/app/lab-scenario/lab-scenario-detail-page/component/lab-configure-protocol/",
-        "apps/lab-front/src/app/lab-scenario/lab-scenario-detail-page/component/lab-configure-protocol-dialog/"
-      ]
-    },
-    {
-      "folder": "scenario",
       "title": "Community agents",
-      "remote_doc_id": "",
+      "remote_doc_id": "04d23cb3-d473-416b-a0df-1e9f3a997967",
       "description": "Full agent lifecycle: sharing, downloading, converting, importing, and editing Community agents.",
       "sections": [
         "How to share an agent to Community?",
