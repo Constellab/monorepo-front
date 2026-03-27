@@ -59,7 +59,7 @@ import { TdIconBackgroundColorPipe } from './pipe/td-icon-background-color.pipe'
 import { TdIconColorPipe } from './pipe/td-icon-color.pipe';
 import { TdTypingNamePipe } from './pipe/td-typing-name.pipe';
 import { TdTechnicalDocServiceConfig } from './service/td-technical-doc-service-config.config';
-import { tdTechnicalDocI18n } from './td-technical-doc.i18n';
+import { TD_TECHNICAL_DOC_I18N } from './td-technical-doc.i18n';
 
 @NgModule({
   imports: [
@@ -160,7 +160,7 @@ export class TdTechnicalDocModule {
   constructor() {
     const translateService = inject(FlTranslateService);
 
-    translateService.addModuleTranslation('TdTechnicalDocModule', tdTechnicalDocI18n);
+    translateService.addModuleTranslation('TdTechnicalDocModule', TD_TECHNICAL_DOC_I18N);
   }
 
   public static forRoot(

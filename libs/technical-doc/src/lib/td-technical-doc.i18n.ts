@@ -143,7 +143,7 @@ const tdTechnicalDocI18nEn: FlLangTranslation = {
   },
 };
 
-export const tdTechnicalDocI18n: FlTranslateObject = {
+export const TD_TECHNICAL_DOC_I18N: FlTranslateObject = {
   [ClSupportedLanguage.en]: tdTechnicalDocI18nEn,
   [ClSupportedLanguage.fr]: tdTechnicalDocI18nFr,
 };
