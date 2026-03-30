@@ -7,6 +7,7 @@ import { DateTime } from 'luxon';
 
 import { CoListItemType } from '../../model/co-list-item-type.enum';
 import { CoSpace } from '../../model/co-space.class';
+import { CoUser } from '../../model/co-user.class';
 import { CoItemTypeIconComponent } from '../co-item-type-icon/co-item-type-icon.component';
 import { CoStatsListComponent } from '../co-stats-list/co-stats-list.component';
 import { CoTypeBadgeComponent } from '../co-type-badge/co-type-badge.component';
@@ -38,6 +39,8 @@ export class CoCommunityListItemComponent {
   comments = input<number>(undefined);
   executions = input<number>(undefined);
   publishedAt = input<DateTime>(null);
+
+  author = input<CoUser>(null);
 
   mainBackground = input<boolean>(false);
   hideDiscover = input<boolean>(false);

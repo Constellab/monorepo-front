@@ -70,6 +70,31 @@
   align-self: stretch;
 }
 
+.author-visibility-div {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  line-height: 150%;
+  letter-spacing: -0.2px;
+
+  .author-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .author-icon {
+    width: 11.3px;
+    height: 11.3px;
+    font-size: 11.3px;
+  }
+
+  .author-separator {
+    color: var(--light-color);
+  }
+}
+
 .text-div {
   display: flex;
   flex-direction: column;
@@ -82,14 +107,15 @@
 .title-div {
   overflow: hidden;
   color: var(--color-foreground);
-  text-overflow: ellipsis;
-  white-space: nowrap;
   font-size: 20px;
   font-style: normal;
   font-weight: 600;
   line-height: 120%; /* 24px */
   letter-spacing: -1px;
   width: 100%;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
 
   @container item (width < 450px) {
     font-size: 18px;

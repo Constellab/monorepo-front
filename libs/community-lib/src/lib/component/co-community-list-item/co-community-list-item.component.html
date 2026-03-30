@@ -15,9 +15,20 @@
             <span class="not-published-message">{{ 'coCommunityLib.no_published' | translate }}</span>
           }
         </div>
-        @if (showVisibility()) {
-          <co-visibility-badge [space]="space()"></co-visibility-badge>
-        }
+        <div class="author-visibility-div">
+          @if (author()) {
+            <div class="author-badge">
+              <mat-icon class="author-icon">person</mat-icon>
+              <span>{{ author().alias || author().firstname + ' ' + author().lastname }}</span>
+            </div>
+          }
+          @if (author() && showVisibility()) {
+            <span class="author-separator">-</span>
+          }
+          @if (showVisibility()) {
+            <co-visibility-badge [space]="space()"></co-visibility-badge>
+          }
+        </div>
       </div>
       <div class="text-div">
         <div class="title-div">
