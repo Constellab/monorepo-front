@@ -1,5 +1,9 @@
-.social-links{
+.social-links {
   display: flex;
   align-items: flex-start;
   gap: 20px;
+
+  @media only screen and (max-width: 992px) {
+    gap: 8px;
+  }
 }
