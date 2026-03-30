@@ -2,18 +2,21 @@
   color: var(--light-color);
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  margin-top: 16px;
+  gap: 4px;
+  margin-top: 8px;
 
-  a {
+  .version-link {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    min-height: 30px;
+    border-radius: 0.7rem;
   }
 
-  a:hover {
+  .version-link:hover {
     text-decoration: underline;
+    cursor: pointer;
   }
 
   .not-published-message {

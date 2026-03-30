@@ -47,14 +47,14 @@
               }
             </div>
             <div class="entity-page-info-div-content additional-info-div">
-              <a [routerLink]="'.'">
+              <a [routerLink]="'.'" class="g-text-small version-link">
                 <span>Overview</span>
               </a>
               @for (version of versions(); track version.id) {
-                <a [routerLink]="['version', version.version]">
+                <a [routerLink]="['version', version.version]" class="g-text-small version-link">
                   <span>{{ 'version' | translate }} {{ version.version }}</span>
                   @if (version.versionState === 'DRAFT') {
-                    <span class="not-published-message g-text-small">{{ 'not_published' | translate }}</span>
+                    <span class="not-published-message">{{ 'not_published' | translate }}</span>
                   }
                 </a>
               }
@@ -67,7 +67,9 @@
             <span class="g-text-medium g-weight-600">{{ 'necessary_bricks' | translate }}</span>
             <div class="entity-page-info-div-content additional-info-div">
               @for (brickVersion of brickDependencies(); track brickVersion.id) {
-                <a [routerLink]="brickVersion.brickMajorVersion.brick | haDetailRoute"
+                <a
+                  class="g-text-small version-link"
+                  [routerLink]="brickVersion.brickMajorVersion.brick | haDetailRoute"
                   >{{ brickVersion.brickMajorVersion.brick.name }} {{ brickVersion.version }}</a
                 >
               }

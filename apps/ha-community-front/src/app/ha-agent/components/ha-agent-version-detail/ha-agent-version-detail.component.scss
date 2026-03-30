@@ -1,8 +1,8 @@
-h2{
+h2 {
   padding: 24px 0;
 }
 
-.agent-version-card{
+.agent-version-card {
   margin-top: 24px;
   background: var(--card-background);
   padding: 32px;
@@ -10,35 +10,24 @@ h2{
   border: 12px solid var(--border-color);
 }
 
-.io-card{
+.io-card {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 48px;
 
-  h3{
+  h3 {
     margin-bottom: 24px;
   }
 }
 
-.io-div{
-  width: 344px;
+.io-div {
+  width: 100%;
 }
 
-.title-copy-div{
+.title-copy-div {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 16px;
-}
-
-@media only screen and (max-width: 992px) {
-
-  .io-card{
-    flex-direction: column;
-    gap: 48px;
-  }
-
-  .io-div{
-    width: 100%;
-  }
 }

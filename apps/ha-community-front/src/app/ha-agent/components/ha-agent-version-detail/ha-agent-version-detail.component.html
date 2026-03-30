@@ -35,19 +35,23 @@
     (agentVersion()?.inputSpecs?.specs | flIsNotEmpty) || (agentVersion()?.outputSpecs?.specs | flIsNotEmpty)
   ) {
     <div class="agent-version-card io-card">
-      <div class="io-div">
-        <h3 class="g-small-title">{{ 'input' | translate }}(s)</h3>
-        @for (spec of agentVersion()?.inputSpecs?.specs | flObjectKeys; track spec) {
-          <td-doc-io [ioSpec]="agentVersion()?.inputSpecs?.specs[spec]"></td-doc-io>
-        }
-      </div>
+      @if (agentVersion()?.inputSpecs?.specs | flIsNotEmpty) {
+        <div class="io-div">
+          <h3 class="g-small-title">{{ 'input' | translate }}(s)</h3>
+          @for (spec of agentVersion()?.inputSpecs?.specs | flObjectKeys; track spec) {
+            <td-doc-io [ioSpec]="agentVersion()?.inputSpecs?.specs[spec]"></td-doc-io>
+          }
+        </div>
+      }
 
-      <div class="io-div">
-        <h3 class="g-small-title">{{ 'output' | translate }}(s)</h3>
-        @for (spec of agentVersion()?.outputSpecs?.specs | flObjectKeys; track spec) {
-          <td-doc-io [ioSpec]="agentVersion()?.outputSpecs?.specs[spec]"></td-doc-io>
-        }
-      </div>
+      @if (agentVersion()?.outputSpecs?.specs | flIsNotEmpty) {
+        <div class="io-div">
+          <h3 class="g-small-title">{{ 'output' | translate }}(s)</h3>
+          @for (spec of agentVersion()?.outputSpecs?.specs | flObjectKeys; track spec) {
+            <td-doc-io [ioSpec]="agentVersion()?.outputSpecs?.specs[spec]"></td-doc-io>
+          }
+        </div>
+      }
     </div>
   }
 
@@ -58,7 +62,7 @@
     </div>
   }
 
-  @if (isEditable() || agentVersion().params | flIsNotEmpty) {
+  @if (agentVersion().params?.['specs'] | flIsNotEmpty) {
     <div class="agent-version-card">
       <h3 class="g-small-title">{{ 'parameters' | translate }}</h3>
       <td-config [configSpecs]="agentVersion().params['specs']" />
