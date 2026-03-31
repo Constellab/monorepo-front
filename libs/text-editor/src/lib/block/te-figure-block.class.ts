@@ -33,7 +33,7 @@ export class TeFigureBlock extends TeComponentBlock<TeFigureComponent> {
 
   static override get pasteConfig(): PasteConfig {
     return {
-      // tags: ['img'], // uncomment to support pasting image from html page
+      tags: ['IMG'],
       files: {
         mimeTypes: ['image/*'],
       },
@@ -67,9 +67,13 @@ export class TeFigureBlock extends TeComponentBlock<TeFigureComponent> {
   }
 
   onPaste(event: PasteEvent): void {
-    // if a file image is pasted (like a screenshot), we will get the file here
     if (event.type === 'file') {
       this.componentInstance.onFileSelected((event.detail as any).file);
+    } else if (event.type === 'tag') {
+      const img = (event.detail as any).data as HTMLImageElement;
+      if (img?.src) {
+        this.componentInstance.uploadFromUrl(img.src);
+      }
     }
   }
 }

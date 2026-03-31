@@ -10,7 +10,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { ClHelpService } from '@monorepo/core-lib';
+import { ClHelpService, ClStringHelper } from '@monorepo/core-lib';
 import { FlInputFileDirective } from '@monorepo/front-core-lib/fl-input-file';
 import { FlResizeEvent } from '@monorepo/front-core-lib/fl-resize';
 import { Observable, of } from 'rxjs';
@@ -121,6 +121,14 @@ export class TeFigureComponent extends TeElementBlockDirective implements OnInit
 
     const url = this.sourceUrl;
     this.sourceUrl = null; // prevent retry loop
+    this.uploadFromUrl(url);
+  }
+
+  private openFileSelector(): void {
+    setTimeout(() => this.inputFile.nativeElement.click(), 0);
+  }
+
+  public uploadFromUrl(url: string): void {
     this.imageReady = false;
     this.uploadIsLoading = true;
 
@@ -131,7 +139,7 @@ export class TeFigureComponent extends TeElementBlockDirective implements OnInit
       })
       .then((blob) => {
         const extension = blob.type.split('/')[1] || 'png';
-        const file = new File([blob], `pasted-image.${extension}`, { type: blob.type });
+        const file = new File([blob], `image.${extension}`, { type: blob.type });
         this.onFileSelected(file);
       })
       .catch(() => {
@@ -139,13 +147,13 @@ export class TeFigureComponent extends TeElementBlockDirective implements OnInit
       });
   }
 
-  private openFileSelector(): void {
-    setTimeout(() => this.inputFile.nativeElement.click(), 0);
-  }
-
   public onFileSelected(file: File): void {
+    const extension = file.name.split('.').pop() || 'png';
+    const renamedFile = new File([file], `${ClStringHelper.generateUUID()}.${extension}`, {
+      type: file.type,
+    });
     this.uploadIsLoading = true;
-    this.config.imageUploader(file).subscribe({
+    this.config.imageUploader(renamedFile).subscribe({
       next: (response) => this.onUploadSuccess(response),
       error: () => (this.uploadIsLoading = false),
     });
