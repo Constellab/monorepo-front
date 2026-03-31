@@ -15,7 +15,8 @@ export class HaCommunityPageDirective implements OnDestroy {
     pageTitle: FlTranslatableText,
     pageDescription: FlTranslatableText,
     image: string,
-    url: string
+    url: string,
+    ogType: string = 'website'
   ): void {
     this.subscription = forkJoin({
       title: this.translateService.translatableTextObs(pageTitle),
@@ -23,7 +24,15 @@ export class HaCommunityPageDirective implements OnDestroy {
     }).subscribe((value) => {
       this.metadataService.setPageTitle(value.title, false);
       this.metadataService.addMetaTag('description', value.description);
-      this.metadataService.setSocialMetaTags(value.title, value.description, image, url);
+      this.metadataService.setSocialMetaTags(
+        value.title,
+        value.description,
+        image,
+        url,
+        false,
+        undefined,
+        ogType
+      );
     });
   }
 

@@ -36,10 +36,11 @@ export class HaMetadataService {
     image: string,
     url: string,
     hasTranslation: boolean = false,
-    data?: any
+    data?: any,
+    ogType: string = 'website'
   ): void {
     this.setTwitterMetaTags(title, description, image, hasTranslation, data);
-    this.setOGMetaTags(title, description, image, url, hasTranslation, data);
+    this.setOGMetaTags(title, description, image, url, hasTranslation, data, ogType);
   }
 
   getMetaTag(name: string, isProperty: boolean = false): string {
@@ -106,9 +107,10 @@ export class HaMetadataService {
     image: string,
     url: string,
     hasTranslation: boolean = false,
-    data?: any
+    data?: any,
+    ogType: string = 'website'
   ): void {
-    this.metaService.updateTag({ property: 'og:type', content: 'website' });
+    this.metaService.updateTag({ property: 'og:type', content: ogType });
     this.metaService.updateTag({ property: 'og:title', content: title });
     if (hasTranslation) {
       this.metaService.updateTag({

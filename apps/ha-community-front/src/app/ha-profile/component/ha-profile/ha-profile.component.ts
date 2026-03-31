@@ -197,10 +197,9 @@ export class HaProfileComponent extends HaCommunityPageDirective implements OnIn
   }
 
   private onUser(user: CoUser): void {
-    this.jsonLdState.setProfilePageJsonLdContent(
-      user,
-      user.photo ? this.userConfig.getUserPhotoUrl(user.photo) : null
-    );
+    const photoUrl = user.photo ? this.userConfig.getUserPhotoUrl(user.photo) : null;
+
+    this.jsonLdState.setProfilePageJsonLdContent(user, photoUrl);
 
     super.setMetaTags(
       {
@@ -211,9 +210,12 @@ export class HaProfileComponent extends HaCommunityPageDirective implements OnIn
         text: 'ha.user.description',
         translateParam: { param: { alias: user.alias } },
       },
-      user.photo ? this.userConfig.getUserPhotoUrl(user.photo) : null,
-      HaRouterService.getFullRoute(this.router.url)
+      photoUrl,
+      HaRouterService.getFullRoute(this.router.url),
+      'profile'
     );
+
+    this.metadataService.addMetaTag('profile:username', user.alias);
   }
 
   ngOnDestroy(): void {
