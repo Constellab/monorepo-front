@@ -38,4 +38,12 @@ export class CaSettingsService {
   public requestApp(requestAppDto: CnRequestAppDTO): Observable<void> {
     return this.apiService.post(`${this.route}/request-app`, requestAppDto);
   }
+
+  public getFreeLabConfig(): Observable<any> {
+    return this.apiService.get(`${this.route}/free-lab-config`);
+  }
+
+  public updateFreeLabConfig(freeLabConfig: any): Observable<any> {
+    return this.apiService.put(`${this.route}/free-lab-config`, freeLabConfig);
+  }
 }

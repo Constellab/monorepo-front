@@ -27,10 +27,31 @@ export class CaAdminOtherComponent {
   }
 
   uploadConstellabSuite(file: File): void {
+    if (!file) return;
     this.settingsService.uploadConstellabSuite(file).subscribe(() => this.uploadConstellabSuiteSuccess());
   }
 
   private uploadConstellabSuiteSuccess(): void {
     this.snackBarService.openSuccessMessage({ text: 'constellab_suite_uploaded', translateText: true });
+  }
+
+  downloadFreeLabConfig(): void {
+    this.settingsService.getFreeLabConfig().subscribe((blob) => {
+      FlFileHelper.downloadJsonFile(blob, 'free-lab-config.json');
+    });
+  }
+
+  uploadFreeLabConfig(file: File): void {
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      const json = JSON.parse(reader.result as string);
+      this.settingsService.updateFreeLabConfig(json).subscribe(() => this.uploadFreeLabConfigSuccess());
+    };
+    reader.readAsText(file);
+  }
+
+  private uploadFreeLabConfigSuccess(): void {
+    this.snackBarService.openSuccessMessage({ text: 'free_lab_config_uploaded', translateText: true });
   }
 }

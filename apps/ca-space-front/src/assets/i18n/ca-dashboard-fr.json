@@ -264,8 +264,6 @@
   "no_application": "Aucune application",
   "constellab_suite": "Constellab Suite",
   "constellab_suite_description": "Démarrage rapide avec des applications prêtes à l'emploi en utilisant la suite Constellab",
-  "download_constellab_suite": "Télécharger le json Constellab Suite",
-  "upload_constellab_suite": "Uploader le json Constellab Suite",
   "constellab_suite_uploaded": "Constellab Suite json uploadé",
   "folders_empty_title": "Aucun dossier créé",
   "folders_empty_description": "Créez votre premier dossier pour organiser vos projets, scénarios, notes de laboratoire et données. Les dossiers facilitent la structuration de votre travail et la collaboration efficace avec votre équipe.",
@@ -290,5 +288,10 @@
   "app_request_success": "Demande envoyée, nous vous contacterons bientôt",
   "hide_header": "Cacher l'en-tête",
   "show_header": "Afficher l'en-tête",
-  "folder_upload_max_files_error": "Le dossier contient trop de fichiers ({{nbFiles}}), l'upload est limitée à {{maxFiles}}."
+  "folder_upload_max_files_error": "Le dossier contient trop de fichiers ({{nbFiles}}), l'upload est limitée à {{maxFiles}}.",
+  "admin_configurations": "Configurations",
+  "free_lab_config": "Config Data Lab gratuit",
+  "free_lab_config_uploaded": "Config Data Lab gratuit uploadée",
+  "download": "Télécharger",
+  "upload": "Uploader"
 }
