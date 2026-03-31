@@ -1,4 +1,4 @@
-import { Component, computed, inject, Signal } from '@angular/core';
+import { Component, computed, inject, OnDestroy, Signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { CoCommunityLibModule } from '@monorepo/community-lib';
 import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
@@ -13,6 +13,7 @@ import { HaRunStatAggregate } from '../../../ha-core/ha-model/ha-entities/ha-run
 import { HaReferenceDTO } from '../../../ha-core/ha-model/ha-entities/ha-version.class';
 import { HaCommunityPageDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
+import { HaJsonLdState } from '../../../ha-core/ha-state/ha-json-ld.state';
 import { HaBrickPageState } from '../../state/ha-brick-page.state';
 
 @Component({
@@ -28,9 +29,10 @@ import { HaBrickPageState } from '../../state/ha-brick-page.state';
     TranslatePipe,
   ],
 })
-export class HaBrickDescriptionPageComponent extends HaCommunityPageDirective {
+export class HaBrickDescriptionPageComponent extends HaCommunityPageDirective implements OnDestroy {
   private router: Router = inject(Router);
   private brickPageState: HaBrickPageState = inject(HaBrickPageState);
+  private jsonLdState: HaJsonLdState = inject(HaJsonLdState);
 
   brick: Signal<HaBrick> = computed(() => {
     const brick = this.brickPageState.brick();
@@ -46,10 +48,8 @@ export class HaBrickDescriptionPageComponent extends HaCommunityPageDirective {
   entityType = HaEntityType.BRICK;
 
   private onBrick(brick: HaBrick): void {
-    this.metadataService.setPageTitle('ha.brick.title', true, {
-      title: brick.name,
-    });
-    this.metadataService.addMetaTag('description', 'ha.brick.description', true, { description: brick.name });
+    const pageUrl = HaRouterService.getFullRoute(this.router.url);
+
     super.setMetaTags(
       {
         text: 'ha.brick.title',
@@ -60,7 +60,14 @@ export class HaBrickDescriptionPageComponent extends HaCommunityPageDirective {
         translateParam: { param: { title: brick.name } },
       },
       brick.imageLink,
-      HaRouterService.getFullRoute(this.router.url)
+      pageUrl
     );
+
+    this.jsonLdState.setSoftwareAppJsonLdContent(brick.name, pageUrl, brick.imageLink);
+  }
+
+  override ngOnDestroy(): void {
+    super.ngOnDestroy();
+    this.jsonLdState.clearJsonLdContent();
   }
 }

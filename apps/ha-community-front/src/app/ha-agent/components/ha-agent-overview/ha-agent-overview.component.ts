@@ -1,4 +1,4 @@
-import { Component, computed, inject, Signal } from '@angular/core';
+import { Component, computed, inject, OnDestroy, Signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { CoCommunityLibModule } from '@monorepo/community-lib';
@@ -15,6 +15,7 @@ import { HaAgent } from '../../../ha-core/ha-model/ha-entities/ha-agent.class';
 import { HaCommunityPageDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
 import { HaAgentService } from '../../../ha-core/ha-service/ha-agent.service';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
+import { HaJsonLdState } from '../../../ha-core/ha-state/ha-json-ld.state';
 import { HaAgentPageState } from '../../state/ha-agent-page.state';
 import { HaAgentTextEditorConfig } from '../ha-agent-core/ha-agent-text-editor.config';
 import { HaAgentVersionDetailComponent } from '../ha-agent-version-detail/ha-agent-version-detail.component';
@@ -36,10 +37,11 @@ import { HaAgentVersionDetailComponent } from '../ha-agent-version-detail/ha-age
     TranslatePipe,
   ],
 })
-export class HaAgentOverviewComponent extends HaCommunityPageDirective {
+export class HaAgentOverviewComponent extends HaCommunityPageDirective implements OnDestroy {
   private agentPageState: HaAgentPageState = inject(HaAgentPageState);
   private agentService = inject(HaAgentService);
   private tdService: HaTdServiceConfig = inject(HaTdServiceConfig);
+  private jsonLdState: HaJsonLdState = inject(HaJsonLdState);
 
   agent: Signal<HaAgent> = computed(() => {
     const agent_ = this.agentPageState.getAgent()();
@@ -47,14 +49,22 @@ export class HaAgentOverviewComponent extends HaCommunityPageDirective {
       agent_.latestStyle.icon_type === 'COMMUNITY_IMAGE'
         ? this.tdService.getCommunityIconBaseApiUrl() + `/${agent_.latestStyle.icon_technical_name}`
         : null;
+    const pageUrl = HaRouterService.getFullRoute(
+      HaRouterService.getAgentRoute(agent_.id, ClStringHelper.getCleanUrlPath(agent_.title))
+    );
+
     super.setMetaTags(
       { text: 'ha.agent.title', translateParam: { param: { title: agent_.title } } },
-      { text: 'ha.agent.description', translateParam: { param: { title: agent_.title } } },
+      {
+        text: 'ha.agent.description',
+        translateParam: { param: { title: agent_.title, author: agent_.createdBy?.alias } },
+      },
       agentImage,
-      HaRouterService.getFullRoute(
-        HaRouterService.getAgentRoute(agent_.id, ClStringHelper.getCleanUrlPath(agent_.title))
-      )
+      pageUrl
     );
+
+    this.jsonLdState.setSoftwareAppJsonLdContent(agent_.title, pageUrl, agentImage);
+
     return agent_;
   });
   agentDescriptionFormControl = computed(() => {
@@ -74,7 +84,6 @@ export class HaAgentOverviewComponent extends HaCommunityPageDirective {
   }
 
   saveDescription(): void {
-
     if (this.agent().description?.contentAreEquals(this.agentDescriptionFormControl().value)) {
       this.agentDescriptionFormControl().disable();
       return;
@@ -88,5 +97,10 @@ export class HaAgentOverviewComponent extends HaCommunityPageDirective {
         this.onAgentDescriptionLoading = false;
         this.agentDescriptionFormControl().disable();
       });
+  }
+
+  override ngOnDestroy(): void {
+    super.ngOnDestroy();
+    this.jsonLdState.clearJsonLdContent();
   }
 }
