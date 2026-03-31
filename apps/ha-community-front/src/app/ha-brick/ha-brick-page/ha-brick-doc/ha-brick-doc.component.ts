@@ -202,15 +202,6 @@ export class HaBrickDocComponent extends HaCommunityPageDirective implements OnI
 
     this.textEditorConfig = new HaDocTextEditorConfig(this.documentationService, doc.id);
 
-    this.metadataService.setPageTitle('ha.documentation.brick.title', true, {
-      brickTitle: this.brick().name,
-      docTitle: doc.title,
-    });
-    this.metadataService.addMetaTag('description', 'ha.documentation.brick.description', true, {
-      brickTitle: this.brick().name,
-      docTitle: doc.title,
-    });
-
     super.setMetaTags(
       {
         text: 'ha.documentation.brick.title',
@@ -221,7 +212,8 @@ export class HaBrickDocComponent extends HaCommunityPageDirective implements OnI
         translateParam: { param: { brickTitle: this.brick().name, docTitle: doc.title } },
       },
       this.brick().imageLink,
-      HaRouterService.getFullRoute(this.router.url)
+      HaRouterService.getFullRoute(this.router.url),
+      'article'
     );
   }
 
