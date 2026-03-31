@@ -10,11 +10,13 @@ import { HaCommunityPageDirective } from '../../../ha-core/ha-module/ha-core-dir
 import { HaAuthenticatedUserService } from '../../../ha-core/ha-service/ha-authenticated-user.service';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
 import { HaStoryService } from '../../../ha-core/ha-service/ha-story.service';
+import { HaJsonLdState } from '../../../ha-core/ha-state/ha-json-ld.state';
 
 @Injectable()
 export class HaStoryState extends HaCommunityPageDirective implements OnDestroy {
   private storyService = inject(HaStoryService);
   private authenticatedUserService: HaAuthenticatedUserService = inject(HaAuthenticatedUserService);
+  private jsonLdState: HaJsonLdState = inject(HaJsonLdState);
 
   private router: Router = inject(Router);
 
@@ -84,6 +86,9 @@ export class HaStoryState extends HaCommunityPageDirective implements OnDestroy 
         this.isLoading.set(false);
         this.notFound.set(false);
 
+        const imageUrl = this.getStoryImageLink(story.mainPicture, story.id);
+        const pageUrl = HaRouterService.getFullRoute(this.router.url);
+
         super.setMetaTags(
           {
             text: 'ha.story.title',
@@ -91,10 +96,31 @@ export class HaStoryState extends HaCommunityPageDirective implements OnDestroy 
           },
           {
             text: 'ha.story.description',
-            translateParam: { param: { title: story.title } },
+            translateParam: { param: { title: story.title, author: story.createdBy?.alias } },
           },
-          this.getStoryImageLink(story.mainPicture, story.id),
-          HaRouterService.getFullRoute(this.router.url)
+          imageUrl,
+          pageUrl,
+          'article'
+        );
+
+        // Article-specific OG meta tags
+        if (story.publishedAt) {
+          this.metadataService.addMetaTag('article:published_time', String(story.publishedAt));
+        }
+        if (story.lastModifiedAt) {
+          this.metadataService.addMetaTag('article:modified_time', String(story.lastModifiedAt));
+        }
+        if (story.createdBy?.alias) {
+          this.metadataService.addMetaTag('article:author', story.createdBy.alias);
+        }
+
+        // JSON-LD Article schema
+        const authors = [story.createdBy, ...(story.getCoAuthors() ?? [])].filter(Boolean);
+        this.jsonLdState.setArticleJsonLdContent(
+          story.title,
+          imageUrl ? [imageUrl] : [],
+          story.publishedAt ?? story.createdAt,
+          authors
         );
       },
       error: () => {
@@ -133,6 +159,7 @@ export class HaStoryState extends HaCommunityPageDirective implements OnDestroy 
   }
 
   ngOnDestroy(): void {
+    this.jsonLdState.clearJsonLdContent();
     this.storySubscription?.unsubscribe();
     this.storyFilesSubscription?.unsubscribe();
     this.userSubscription?.unsubscribe();

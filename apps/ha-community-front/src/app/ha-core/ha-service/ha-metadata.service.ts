@@ -21,12 +21,15 @@ export class HaMetadataService {
   }
 
   addMetaTag(name: string, content: string, hasTranslation: boolean = false, data?: any): void {
+    const isProperty = name.startsWith('og:') || name.startsWith('article:') || name.startsWith('profile:');
+    const tag = isProperty ? { property: name, content } : { name, content };
+
     if (hasTranslation) {
       this.translateService.get(content, data).subscribe((contentTrad: string) => {
-        this.metaService.updateTag({ name: name, content: contentTrad });
+        this.metaService.updateTag({ ...tag, content: contentTrad });
       });
     } else {
-      this.metaService.updateTag({ name: name, content: content });
+      this.metaService.updateTag(tag);
     }
   }
 

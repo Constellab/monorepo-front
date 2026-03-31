@@ -295,7 +295,7 @@
   "ha.stories.title": "Stories - Constellab Community",
   "ha.stories.description": "List of stories page",
   "ha.story.title": "{{title}} - Constellab Community",
-  "ha.story.description": "This is the page of the story {{title}}",
+  "ha.story.description": "{{title}} — a story by {{author}} on Constellab Community.",
   "ha.brick.title": "{{title}} - Constellab Community",
   "ha.brick.description": "This is the page of the brick {{title}}",
   "ha.bricks.title": "Bricks - Constellab Community",
