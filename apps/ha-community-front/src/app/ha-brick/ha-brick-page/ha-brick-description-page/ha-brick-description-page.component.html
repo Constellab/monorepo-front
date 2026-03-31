@@ -4,7 +4,9 @@
   }
   <div class="description-div">
     <h3 class="g-small-title">{{ 'description' | translate }} :</h3>
-    <p>{{ brick().description }}</p>
+    <article>
+      <p>{{ brick().description }}</p>
+    </article>
   </div>
   @if (brick() && latestBrickVersion()) {
     <div class="version-div">
