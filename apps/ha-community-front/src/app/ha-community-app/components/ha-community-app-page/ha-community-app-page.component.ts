@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnInit, ViewContainerRef } from '@angular/core';
+import { Component, computed, inject, OnDestroy, OnInit, ViewContainerRef } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -25,6 +25,7 @@ import { HaAuthenticatedUserService } from '../../../ha-core/ha-service/ha-authe
 import { HaCommunityAppService } from '../../../ha-core/ha-service/ha-community-app.service';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
 import { HaEntityCommentState } from '../../../ha-core/ha-state/ha-entity-comment.state';
+import { HaJsonLdState } from '../../../ha-core/ha-state/ha-json-ld.state';
 import { HaCommunityAppState } from '../../state/ha-community-app.state';
 import { HaCommunityAppTextEditorConfig } from '../../utils/ha-community-app-text-editor.config';
 import { HaCommunityAppCarouselComponent } from '../ha-community-app-carousel/ha-community-app-carousel.component';
@@ -57,12 +58,13 @@ import { HaCommunityAppMediaEditDialogComponent } from '../ha-community-app-medi
   styleUrl: './ha-community-app-page.component.scss',
   providers: [HaCommunityAppState, HaEntityCommentState],
 })
-export class HaCommunityAppPageComponent extends HaCommunityPageDirective implements OnInit {
+export class HaCommunityAppPageComponent extends HaCommunityPageDirective implements OnInit, OnDestroy {
   private activatedRoute: ActivatedRoute = inject(ActivatedRoute);
   private authenticatedUserService: HaAuthenticatedUserService = inject(HaAuthenticatedUserService);
   private communityAppState: HaCommunityAppState = inject(HaCommunityAppState);
   private communityAppService: HaCommunityAppService = inject(HaCommunityAppService);
   private entityCommentState: HaEntityCommentState = inject(HaEntityCommentState);
+  private jsonLdState: HaJsonLdState = inject(HaJsonLdState);
   private dialogService: FlDialogService = inject(FlDialogService);
   private viewContainerRef = inject(ViewContainerRef);
   private router = inject(Router);
@@ -79,15 +81,18 @@ export class HaCommunityAppPageComponent extends HaCommunityPageDirective implem
     if (!app) return app;
 
     const appImage: string = app.picture ? this.communityAppService.getAppPictureUrl(app.picture) : null;
+    const pageUrl = HaRouterService.getFullRoute(
+      HaRouterService.getCommunityAppRoute(app.id, ClStringHelper.getCleanUrlPath(app.title))
+    );
 
     super.setMetaTags(
       { text: 'ha.app.title', translateParam: { param: { title: app.title } } },
       { text: 'ha.app.description', translateParam: { param: { title: app.title } } },
       appImage,
-      HaRouterService.getFullRoute(
-        HaRouterService.getCommunityAppRoute(app.id, ClStringHelper.getCleanUrlPath(app.title))
-      )
+      pageUrl
     );
+
+    this.jsonLdState.setSoftwareAppJsonLdContent(app.title, pageUrl, appImage);
 
     this.textEditorConfig = new HaCommunityAppTextEditorConfig(this.communityAppService, app.id);
 
@@ -181,5 +186,10 @@ export class HaCommunityAppPageComponent extends HaCommunityPageDirective implem
     };
 
     this.dialogService.openConfirmDialog(data);
+  }
+
+  override ngOnDestroy(): void {
+    super.ngOnDestroy();
+    this.jsonLdState.clearJsonLdContent();
   }
 }

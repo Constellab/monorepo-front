@@ -314,7 +314,7 @@
   "ha.agent_version.title": "V{{version}} - {{title}} - Constellab Community",
   "ha.agent_version.description": "Page de la version {{version}} de l'agent {{title}}",
   "ha.app.title": "{{title}} - Constellab Community",
-  "ha.app.description": "Page de l'app {{title}}",
+  "ha.app.description": "{{title}} — une application prête à l'emploi sur Constellab Community.",
   "ha.apps.title": "Apps - Constellab Community",
   "ha.apps.description": "Liste des apps de Constellab Community",
   "ha.user.title": "{{alias}} - Constellab Community",

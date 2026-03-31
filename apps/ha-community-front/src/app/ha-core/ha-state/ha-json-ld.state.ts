@@ -74,6 +74,24 @@ export class HaJsonLdState {
     this.setJsonLdContent(JSON.stringify(jsonLd));
   }
 
+  public setSoftwareAppJsonLdContent(name: string, url: string, image?: string): void {
+    this.clearJsonLdContent();
+    const jsonLd: Record<string, unknown> = {
+      '@context': 'https://schema.org',
+      '@type': 'SoftwareApplication',
+      name,
+      url,
+      applicationCategory: 'WebApplication',
+      offers: {
+        '@type': 'Offer',
+        price: '0',
+        priceCurrency: 'USD',
+      },
+    };
+    if (image) jsonLd.image = image;
+    this.setJsonLdContent(JSON.stringify(jsonLd));
+  }
+
   public clearJsonLdContent(): void {
     if (this.document.head.querySelector('script[type="application/ld+json"]') != null) {
       this.document.head.querySelector('script[type="application/ld+json"]').remove();
