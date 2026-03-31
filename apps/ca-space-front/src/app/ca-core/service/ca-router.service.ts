@@ -13,7 +13,7 @@ import {
 } from '../utils/ca-base-route';
 import { CaEnvironmentHelper } from '../utils/ca-environment.helper';
 
-/* eslint-disable @typescript-eslint/member-ordering */
+ 
 /**
  * Class to get app route paths
  */
@@ -276,5 +276,9 @@ export class CaRouterService {
 
   public static getSpaceDomainUrl(spaceDomain: string, fullRoute: string): string {
     return `${CaRouterService.getSpaceDomainBaseUrl(spaceDomain)}${fullRoute}`;
+  }
+
+  public navigateToExternalSpaceRoute(spaceDomain: string, route: string): void {
+    window.location.href = CaRouterService.getSpaceDomainUrl(spaceDomain, route);
   }
 }

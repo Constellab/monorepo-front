@@ -20,7 +20,7 @@ import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
 import { TranslatePipe } from '@ngx-translate/core';
 
-import { CaLab, CaLabDatasource } from '../../../../model/entities/lab/ca-lab.class';
+import { CaLab, CaLabDatasource, CaLabWithSpace } from '../../../../model/entities/lab/ca-lab.class';
 import { CaIsAdminDirective } from '../../../../module/ca-core-directive/ca-is-admin/ca-is-admin.directive';
 import { CaRouterService } from '../../../../service/ca-router.service';
 import { CaLabService } from '../../../../service-api/ca-lab.service';
@@ -157,7 +157,7 @@ export class CaLabSearchComponent implements OnInit {
     this.dialogService
       .openMediumDialog(CaLabAdminFormDialogComponent, { data: dialogInput })
       .afterClosed()
-      .subscribe((lab: CaLab) => this.onCreateLabClosed(lab));
+      .subscribe((lab: CaLabWithSpace) => this.onCreateLabClosed(lab));
   }
 
   openCreateLabFreeForm(): void {
@@ -168,12 +168,15 @@ export class CaLabSearchComponent implements OnInit {
     this.dialogService
       .openMediumDialog(CaLabFreeAdminFormDialogComponent, { data: dialogInput })
       .afterClosed()
-      .subscribe((lab) => this.onCreateLabClosed(lab));
+      .subscribe((lab: CaLabWithSpace) => this.onCreateLabClosed(lab));
   }
 
-  private onCreateLabClosed(lab?: CaLab): void {
+  private onCreateLabClosed(lab?: CaLabWithSpace): void {
     if (lab) {
-      this.routerService.navigateToLabDetail(lab.id);
+      this.routerService.navigateToExternalSpaceRoute(
+        lab.space.domain,
+        CaRouterService.getLabDetailRoute(lab.id)
+      );
     }
   }
 }
