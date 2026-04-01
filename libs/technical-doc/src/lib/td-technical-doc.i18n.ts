@@ -23,10 +23,7 @@ const tdTechnicalDocI18nFr: FlLangTranslation = {
     deprecated: 'Obsolète',
     deprecated_since: 'Obsolète depuis la version',
     optional: 'Optionnel',
-    constant: 'Constant',
     optional_tooltip: "La tâche sera exécutée même si cette entrée n'est pas connectée",
-    constant_tooltip:
-      'Cette sortie ne créera pas de nouvelle ressource mais fera référence à une ressource existante',
     advanced_parameter: 'Paramètre avancé',
     type_unavailable_detail:
       "Le type '<strong>{typingName}</strong>' de l'objet n'est pas disponible. Veuillez vérifiez que la brique '<strong>{brickName}</strong>' est correctement installé.",
@@ -95,12 +92,8 @@ const tdTechnicalDocI18nEn: FlLangTranslation = {
     deprecated_since: 'Deprecated since the version',
     optional: 'Optional',
     not_optional: 'Required',
-    constant: 'Constant',
-    not_constant: 'Not constant',
     optional_tooltip: 'The task will be run even if this input is not connected',
     not_optional_tooltip: 'The task will not be run if this input is not connected',
-    constant_tooltip: 'This output will not create a new resource but reference an existing resource',
-    not_constant_tooltip: 'This output will create a new resource',
     advanced_parameter: 'Advanced parameter',
     type_unavailable_detail:
       "The type '<strong>{{typingName}}</strong>' of the object is not available. Please check if the brick '<strong>{{brickName}}</strong>' is correctly installed.",

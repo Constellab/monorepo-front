@@ -65,26 +65,6 @@
       </mat-radio-group>
     </ng-container>
 
-    <!--  IsConstant   -->
-    @if (portType === 'output') {
-      <p class="subtitle">
-        <strong>{{ 'td.constant' | translate }}</strong>
-      </p>
-      <mat-radio-group formControlName="constant" class="g-layout-row g-layout-between-stretch" required>
-        <mat-radio-button [value]="false" class="radio-button" flRadioButtonBig>
-          <div>{{ 'td.not_constant' | translate }}</div>
-          <div class="g-text-small g-text-light radio-description">
-            {{ 'td.not_constant_tooltip' | translate }}
-          </div>
-        </mat-radio-button>
-        <mat-radio-button [value]="true" class="radio-button" flRadioButtonBig>
-          <div>{{ 'td.constant' | translate }}</div>
-          <div class="g-text-small g-text-light radio-description">
-            {{ 'td.constant_tooltip' | translate }}
-          </div>
-        </mat-radio-button>
-      </mat-radio-group>
-    }
   </form>
 </mat-dialog-content>
 
