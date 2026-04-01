@@ -3,11 +3,16 @@
 </div>
 
 <div class="drop-zone" flDragHover="drag-file-hover" (flDrop)="onFileDrop($event)">
-  <fl-card class="g-full-height card-table">
+  <fl-card
+    class="g-full-height card-table"
+    flBulkSelection
+    [flBulkSelectionDatasource]="children"
+    [flBulkSelectionActions]="bulkActions">
     <fl-card-header>
       <ca-folder-detail></ca-folder-detail>
 
       <fl-card-actions>
+        <fl-bulk-selection-toggle></fl-bulk-selection-toggle>
         <ca-folder-detail-actions class="actions"></ca-folder-detail-actions>
       </fl-card-actions>
     </fl-card-header>

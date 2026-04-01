@@ -324,6 +324,17 @@ body {
     background-color: var(--hover-color) !important;
   }
 
+  // Bulk selection: highlight selected rows
+  mat-row.fl-bulk-selected {
+    background-color: var(--hover-color) !important;
+  }
+
+  // Bulk selection: toggle button active state
+  .fl-bulk-toggle-active {
+    background-color: var(--primary-color) !important;
+    color: var(--primary-contrast-color) !important;
+  }
+
   .g-column-width-fit {
     flex: initial;
   }

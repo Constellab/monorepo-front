@@ -10,10 +10,6 @@ import {
   CaActivitySearch,
   CaActivitySearchFields,
 } from '../entity-module/ca-activity-core/model/ca-activity-search.class';
-import {
-  CaHierarchyObjectSearch,
-  CaHierarchyObjectSearchFields,
-} from '../entity-module/ca-hierarchy-object-core/ca-hierarchy-object-search.class';
 import { CaActivity } from '../model/entities/ca-activity.class';
 import { CaBucketLocationDTO } from '../model/entities/ca-object-storage.class';
 import { CaUser } from '../model/entities/ca-user.class';
@@ -89,17 +85,8 @@ export class CaFolderService {
     });
   }
 
-  public searchRootFolders(
-    page: number,
-    size: number,
-    data: FlDatasourceGetPageData<CaHierarchyObjectSearchFields>
-  ): Observable<ClPageI<CaHierarchyObject>> {
-    const searchInput = FlSearchConverter.convertDatasourceGetPageDataToSearchParams(
-      data,
-      CaHierarchyObjectSearch.filterConverter,
-      CaHierarchyObjectSearch.sortConverter
-    );
-    return this.apiService.post(`${this.route}/root/search`, searchInput, CaHierarchyObject, {
+  public searchRootFolders(page: number, size: number, data: any): Observable<ClPageI<CaHierarchyObject>> {
+    return this.apiService.post(`${this.route}/root/search`, data, CaHierarchyObject, {
       resultIsPaginated: true,
       page: page,
       pageSize: size,

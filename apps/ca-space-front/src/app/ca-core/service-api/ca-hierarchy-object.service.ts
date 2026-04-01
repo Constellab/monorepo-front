@@ -1,17 +1,11 @@
 import { inject, Injectable } from '@angular/core';
-import { ClPageI } from '@monorepo/core-lib';
+import { ClBulkActionResult, ClPageI } from '@monorepo/core-lib';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
-import { FlDatasourceGetPageData, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
-import { FlSearchConverter } from '@monorepo/front-core-lib/fl-search';
+import { FlBulkActionContext } from '@monorepo/front-core-lib/fl-bulk-selection';
+import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 import { FlTag, FlTagDatasource } from '@monorepo/front-core-lib/fl-tag';
 import { Observable } from 'rxjs';
 
-import {
-  CaHierarchyObjectAdminSearchFields,
-  CaHierarchyObjectSearch,
-  CaHierarchyObjectSearchFields,
-  CaHierarchyObjectSearchTrashField,
-} from '../entity-module/ca-hierarchy-object-core/ca-hierarchy-object-search.class';
 import { CaAvailableTags } from '../model/entities/ca-tag.class';
 import {
   CaHierarchyObject,
@@ -41,14 +35,9 @@ export class CaHierarchyObjectService {
     id: string,
     page: number,
     size: number,
-    data: FlDatasourceGetPageData<CaHierarchyObjectSearchFields>
+    data: any
   ): Observable<ClPageI<CaHierarchyObject>> {
-    const searchInput = FlSearchConverter.convertDatasourceGetPageDataToSearchParams(
-      data,
-      CaHierarchyObjectSearch.filterConverter,
-      CaHierarchyObjectSearch.sortConverter
-    );
-    return this.apiService.post(`${this.route}/${id}/children/paginated`, searchInput, CaHierarchyObject, {
+    return this.apiService.post(`${this.route}/${id}/children/paginated`, data, CaHierarchyObject, {
       resultIsPaginated: true,
       page: page,
       pageSize: size,
@@ -59,60 +48,35 @@ export class CaHierarchyObjectService {
     id: string,
     page: number,
     size: number,
-    data: FlDatasourceGetPageData<CaHierarchyObjectSearchTrashField>
+    data: any
   ): Observable<ClPageI<CaHierarchyObject>> {
-    const searchInput = FlSearchConverter.convertDatasourceGetPageDataToSearchParams(
-      data,
-      CaHierarchyObjectSearch.getTrashFilterConverter(false),
-      CaHierarchyObjectSearch.sortConverter
-    );
-    return this.apiService.post(
-      `${this.route}/${id}/trash/children/paginated`,
-      searchInput,
-      CaHierarchyObject,
-      {
-        resultIsPaginated: true,
-        page: page,
-        pageSize: size,
-      }
-    );
+    return this.apiService.post(`${this.route}/${id}/trash/children/paginated`, data, CaHierarchyObject, {
+      resultIsPaginated: true,
+      page: page,
+      pageSize: size,
+    });
   }
 
   public searchInRootFoldersAndChildren(
     page: number,
     size: number,
-    filters: FlDatasourceGetPageData<CaHierarchyObjectSearchFields>
+    data: any
   ): Observable<ClPageI<CaHierarchyObjectWithParent>> {
-    const searchInput = FlSearchConverter.convertDatasourceGetPageDataToSearchParams(
-      filters,
-      CaHierarchyObjectSearch.filterConverter,
-      CaHierarchyObjectSearch.sortConverter
-    );
-    return this.apiService.post(
-      `${this.route}/root/search-children`,
-      searchInput,
-      CaHierarchyObjectWithParent,
-      {
-        page: page,
-        pageSize: size,
-        resultIsPaginated: true,
-      }
-    );
+    return this.apiService.post(`${this.route}/root/search-children`, data, CaHierarchyObjectWithParent, {
+      page: page,
+      pageSize: size,
+      resultIsPaginated: true,
+    });
   }
 
   public searchTrashInRootFoldersAndChildren(
     page: number,
     size: number,
-    filters: FlDatasourceGetPageData<CaHierarchyObjectSearchTrashField>
+    data: any
   ): Observable<ClPageI<CaHierarchyObjectWithParent>> {
-    const searchInput = FlSearchConverter.convertDatasourceGetPageDataToSearchParams(
-      filters,
-      CaHierarchyObjectSearch.getTrashFilterConverter(true),
-      CaHierarchyObjectSearch.sortConverter
-    );
     return this.apiService.post(
       `${this.route}/root/trash/search-children`,
-      searchInput,
+      data,
       CaHierarchyObjectWithParent,
       {
         page: page,
@@ -122,17 +86,8 @@ export class CaHierarchyObjectService {
     );
   }
 
-  public searchApplications(
-    page: number,
-    size: number,
-    filters?: FlDatasourceGetPageData<CaHierarchyObjectSearchFields>
-  ): Observable<ClPageI<CaHierarchyObject>> {
-    const searchInput = FlSearchConverter.convertDatasourceGetPageDataToSearchParams(
-      filters,
-      CaHierarchyObjectSearch.filterConverter,
-      CaHierarchyObjectSearch.sortConverter
-    );
-    return this.apiService.post(`${this.route}/root/search-applications`, searchInput, CaHierarchyObject, {
+  public searchApplications(page: number, size: number, data?: any): Observable<ClPageI<CaHierarchyObject>> {
+    return this.apiService.post(`${this.route}/root/search-applications`, data, CaHierarchyObject, {
       resultIsPaginated: true,
       page: page,
       pageSize: size,
@@ -149,14 +104,9 @@ export class CaHierarchyObjectService {
   public searchInCurrentSpace(
     page: number,
     pageSize: number,
-    data: FlDatasourceGetPageData<CaHierarchyObjectAdminSearchFields>
+    data: any
   ): Observable<ClPageI<CaHierarchyObject>> {
-    const searchInput = FlSearchConverter.convertDatasourceGetPageDataToSearchParams(
-      data,
-      CaHierarchyObjectSearch.filterConverterAdmin,
-      CaHierarchyObjectSearch.sortConverter
-    );
-    return this.apiService.post(`${this.route}/current-space/search`, searchInput, CaHierarchyObject, {
+    return this.apiService.post(`${this.route}/current-space/search`, data, CaHierarchyObject, {
       page: page,
       pageSize: pageSize,
       resultIsPaginated: true,
@@ -183,7 +133,7 @@ export class CaHierarchyObjectService {
       null,
       CaHierarchyObject
     );
-}
+  }
 
   public deleteHierarchyObject(hierarchyObjectId: string): Observable<void> {
     return this.apiService.delete(`${this.route}/${hierarchyObjectId}`);
@@ -191,6 +141,27 @@ export class CaHierarchyObjectService {
 
   public emptyTrash(folderId: string): Observable<void> {
     return this.apiService.put(`${this.route}/${folderId}/empty-trash`, null);
+  }
+
+  /////////////////////////// BULK ////////////////////////////////////////////
+
+  public bulkMoveToTrash(context: FlBulkActionContext): Observable<ClBulkActionResult> {
+    return this.apiService.put(`${this.route}/bulk/move-to-trash`, context, ClBulkActionResult);
+  }
+
+  public bulkMoveToFolder(
+    context: FlBulkActionContext,
+    targetFolderId: string
+  ): Observable<ClBulkActionResult> {
+    return this.apiService.put(
+      `${this.route}/bulk/move-to-folder`,
+      { context, targetFolderId },
+      ClBulkActionResult
+    );
+  }
+
+  public bulkCreateTags(context: FlBulkActionContext, tags: FlTag[]): Observable<ClBulkActionResult> {
+    return this.apiService.post(`${this.route}/bulk/tags/multiple`, { context, tags }, ClBulkActionResult);
   }
 
   //////////////////////////////// TAGS /////////////////////////////////////

@@ -19,7 +19,10 @@ import {
 import { CaAuthenticatedUserService } from '../../../../service-api/ca-authenticated-user.service';
 import { CaFolderService } from '../../../../service-api/ca-folder.service';
 import { CaHierarchyObjectService } from '../../../../service-api/ca-hierarchy-object.service';
-import { CaHierarchyObjectSearchFields } from '../../../ca-hierarchy-object-core/ca-hierarchy-object-search.class';
+import {
+  CaHierarchyObjectSearchContextBuilder,
+  CaHierarchyObjectSearchFields,
+} from '../../../ca-hierarchy-object-core/ca-hierarchy-object-search.class';
 import {
   CaHierarchyObjectTableComponent,
   CaHierarchyObjectTableEvent,
@@ -64,7 +67,7 @@ export class CaSelectFolderDialogComponent implements OnInit, OnDestroy {
   private hierarchyObjectService = inject(CaHierarchyObjectService);
   private authenticatedUserService = inject(CaAuthenticatedUserService);
 
-  foldersDatasource: CaHierarchyObjectDatasource;
+  foldersDatasource: CaHierarchyObjectDatasource<any>;
 
   columns: FlTableColumnStatic<CaHierarchyObject>[] = ['name', 'user', 'lastModifiedAt'];
 
@@ -188,13 +191,20 @@ export class CaSelectFolderDialogComponent implements OnInit, OnDestroy {
     const filters = new CaHierarchyObjectSearchFields();
     filters.objectType = CaHierarchyObjectType.FOLDER;
     this.foldersDatasource = new FlEntityPaginatedDatasource(
-      (page, pageSize) =>
-        this.hierarchyObjectService.searchChildren(folderId, page, pageSize, {
-          filtersCriteria: filters,
-          sortsCriteria: [{ key: 'name', direction: 'ASC' }],
-        }),
-      30
+      (page, pageSize, requestData) =>
+        this.hierarchyObjectService.searchChildren(folderId, page, pageSize, requestData),
+      30,
+      {
+        initFirstPage: false,
+        contextBuilder: new CaHierarchyObjectSearchContextBuilder(),
+      }
     );
+    this.foldersDatasource.setFilterCriteria(filters);
+    this.foldersDatasource.setSortCriteria({
+      key: 'name',
+      direction: 'ASC',
+    });
+    this.foldersDatasource.getFirstPage();
   }
 
   close(): void {

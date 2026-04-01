@@ -19,6 +19,7 @@ import { CaHierarchyObjectRouterService } from '../../../../ca-core/entity-modul
 import {
   CaHierarchyObjectAdminSearchFields,
   CaHierarchyObjectSearch,
+  CaHierarchyObjectSearchAdminContextBuilder,
 } from '../../../../ca-core/entity-module/ca-hierarchy-object-core/ca-hierarchy-object-search.class';
 import { CaHierarchyObjectAdminSearchFormComponent } from '../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-admin-search-form/ca-hierarchy-object-admin-search-form.component';
 import {
@@ -88,7 +89,10 @@ export class CaCurrentSpaceHierarchyObjectPageComponent implements OnInit {
     this.datasource = new FlEntityPaginatedDatasource(
       (page, size, data) => this.hierarchyObjectService.searchInCurrentSpace(page, size, data),
       20,
-      { initFirstPage: false }
+      {
+        initFirstPage: false,
+        contextBuilder: new CaHierarchyObjectSearchAdminContextBuilder(),
+      }
     );
     this.searchState.init(config, this.datasource);
   }

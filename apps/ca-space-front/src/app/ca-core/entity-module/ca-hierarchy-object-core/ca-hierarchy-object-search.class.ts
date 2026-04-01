@@ -3,6 +3,7 @@ import { FlFormInputsManagerConfig } from '@monorepo/front-core-lib/fl-form-inpu
 import {
   FlSearchConverter,
   FlSearchCriteria,
+  FlSearchDatasourceContextBuilder,
   FlSearchDateInterval,
   FlSearchFilterCriteriaConverter,
   FlSearchSortCriteriaConverter,
@@ -135,5 +136,39 @@ export class CaHierarchyObjectSearch {
       includeTrashObjects: false,
       id: null,
     });
+  }
+}
+
+export class CaHierarchyObjectSearchContextBuilder extends FlSearchDatasourceContextBuilder<CaHierarchyObjectSearchFields> {
+  getFilterConverter(): FlSearchFilterCriteriaConverter<CaHierarchyObjectSearchFields> {
+    return CaHierarchyObjectSearch.filterConverter;
+  }
+
+  getSortConverter(): FlSearchSortCriteriaConverter {
+    return CaHierarchyObjectSearch.sortConverter;
+  }
+}
+
+export class CaHierarchyObjectSearchAdminContextBuilder extends FlSearchDatasourceContextBuilder<CaHierarchyObjectAdminSearchFields> {
+  getFilterConverter(): FlSearchFilterCriteriaConverter<CaHierarchyObjectAdminSearchFields> {
+    return CaHierarchyObjectSearch.filterConverterAdmin;
+  }
+
+  getSortConverter(): FlSearchSortCriteriaConverter {
+    return CaHierarchyObjectSearch.sortConverter;
+  }
+}
+
+export class CaHierarchyObjectSearchTrashContextBuilder extends FlSearchDatasourceContextBuilder<CaHierarchyObjectSearchTrashField> {
+  constructor(private enableSubObjectFilter: boolean) {
+    super();
+  }
+
+  getFilterConverter(): FlSearchFilterCriteriaConverter<CaHierarchyObjectSearchTrashField> {
+    return CaHierarchyObjectSearch.getTrashFilterConverter(this.enableSubObjectFilter);
+  }
+
+  getSortConverter(): FlSearchSortCriteriaConverter {
+    return CaHierarchyObjectSearch.sortConverter;
   }
 }

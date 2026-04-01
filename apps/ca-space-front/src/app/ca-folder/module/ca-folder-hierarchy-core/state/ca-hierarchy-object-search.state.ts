@@ -7,6 +7,7 @@ import { of } from 'rxjs';
 
 import {
   CaHierarchyObjectSearch,
+  CaHierarchyObjectSearchContextBuilder,
   CaHierarchyObjectSearchFields,
 } from '../../../../ca-core/entity-module/ca-hierarchy-object-core/ca-hierarchy-object-search.class';
 import {
@@ -40,7 +41,11 @@ export class CaHierarchyObjectSearchState implements OnDestroy {
     this.childrenDatasource = new FlEntityPaginatedDatasource<
       CaHierarchyObject,
       CaHierarchyObjectSearchFields
-    >(() => of(clGetEmptyPage()), 25, { initFirstPage: false, disableAutoDisconnect: true });
+    >(() => of(clGetEmptyPage()), 25, {
+      initFirstPage: false,
+      disableAutoDisconnect: true,
+      contextBuilder: new CaHierarchyObjectSearchContextBuilder(),
+    });
 
     // init the children search state
     const config: FlSearchConfig = {

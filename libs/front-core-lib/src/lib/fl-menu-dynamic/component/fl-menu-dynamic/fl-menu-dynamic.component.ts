@@ -58,9 +58,4 @@ export class FlMenuDynamicComponent {
       this.buttonClick.next(menuItem);
     }
   }
-
-  getTextClass(menuItem: FlMenuDynamic): string {
-    if (!menuItem.color) return null;
-    return FlThemeHelper.paletteToTextCssClass(menuItem.color);
-  }
 }

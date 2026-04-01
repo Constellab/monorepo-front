@@ -26,6 +26,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 import {
   CaHierarchyObjectSearch,
   CaHierarchyObjectSearchFields,
+  CaHierarchyObjectSearchTrashContextBuilder,
 } from '../../../../ca-core/entity-module/ca-hierarchy-object-core/ca-hierarchy-object-search.class';
 import { CaHierarchyObjectTableComponent } from '../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-table/ca-hierarchy-object-table.component';
 import {
@@ -104,9 +105,11 @@ export class CaHierarchyObjectTrashDialogComponent implements OnInit {
 
   ngOnInit(): void {
     let getPageFunction: FlDatasourceGetPageFunction<CaHierarchyObject, CaHierarchyObjectSearchFields>;
+    let enableSubObjectFilter: boolean;
     const input = this.input;
     if (input.mode === 'all') {
       this.title = this.translateService.translate('all_folder_trash');
+      enableSubObjectFilter = true;
       getPageFunction = (page, pageSize, requestData) => {
         return this.hierarchyObjectService.searchTrashInRootFoldersAndChildren(page, pageSize, requestData);
       };
@@ -114,6 +117,7 @@ export class CaHierarchyObjectTrashDialogComponent implements OnInit {
       this.title = this.translateService.translate('folder_trash', {
         param: { name: input.folderName },
       });
+      enableSubObjectFilter = false;
       getPageFunction = (page, pageSize, requestData) => {
         return this.hierarchyObjectService.searchTrashChildren(input.folderId, page, pageSize, requestData);
       };
@@ -121,7 +125,10 @@ export class CaHierarchyObjectTrashDialogComponent implements OnInit {
     this.hierarchyObjects = new FlEntityPaginatedDatasource<CaHierarchyObject, CaHierarchyObjectSearchFields>(
       getPageFunction,
       25,
-      { initFirstPage: false }
+      {
+        initFirstPage: false,
+        contextBuilder: new CaHierarchyObjectSearchTrashContextBuilder(enableSubObjectFilter),
+      }
     );
 
     // init the children search state

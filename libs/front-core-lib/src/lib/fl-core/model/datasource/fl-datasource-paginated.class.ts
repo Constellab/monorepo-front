@@ -5,6 +5,10 @@ import { filter } from 'rxjs/operators';
 import { FlSortDirection } from '../fl-sort.class';
 import { FlArrayObs } from './fl-array-obs.class';
 
+export abstract class FlDatasourceContextBuilder {
+  abstract build(data: FlDatasourceGetPageData): any;
+}
+
 export interface FlDatasourceSortCriteria {
   key: string;
   direction: FlSortDirection;
@@ -46,6 +50,11 @@ export interface FlDatasourcePaginatedOptions {
    * Default: false
    */
   throwError?: boolean;
+
+  /**
+   * Optional context builder that transforms the raw page data before passing it to the get page function
+   */
+  contextBuilder?: FlDatasourceContextBuilder;
 }
 
 const defaultOptions: FlDatasourcePaginatedOptions = {
@@ -90,6 +99,7 @@ export abstract class FlDatasourcePaginated<T, F = void> extends FlArrayObs<T> {
     super(null, options.disableAutoDisconnect);
 
     const fullOptions = { ...defaultOptions, ...options };
+    this.contextBuilder = fullOptions.contextBuilder;
     if (fullOptions.initFirstPage) {
       this.getFirstPage();
     }
@@ -143,10 +153,7 @@ export abstract class FlDatasourcePaginated<T, F = void> extends FlArrayObs<T> {
 
   private callGetPageFunction(pageNumber: number): void {
     this.isLoading = true;
-    const requestData: FlDatasourceGetPageData = {
-      filtersCriteria: this.filtersCriteria,
-      sortsCriteria: this.sortsCriteria,
-    };
+    const requestData = this.buildRequestContext();
     this.getPageFunction(pageNumber, this.pageSize, requestData).subscribe({
       next: (result) => this.onSuccess(result),
       error: (error) => this.onError(error),
@@ -238,5 +245,17 @@ export abstract class FlDatasourcePaginated<T, F = void> extends FlArrayObs<T> {
 
   public setPageFunction(getPageFunction: FlDatasourceGetPageFunction<T, F>): void {
     this.getPageFunction = getPageFunction;
+  }
+
+  ////////////////// SEARCH CONTEXT ////////////////////////
+
+  public contextBuilder?: FlDatasourceContextBuilder;
+
+  public buildRequestContext(): any {
+    const rawData: FlDatasourceGetPageData = {
+      filtersCriteria: this.filtersCriteria,
+      sortsCriteria: this.sortsCriteria,
+    };
+    return this.contextBuilder ? this.contextBuilder.build(rawData) : rawData;
   }
 }

@@ -1,0 +1,23 @@
+:host {
+  display: block;
+}
+
+.fl-bulk-selection-bar {
+  // background: var(--surface-color);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 4px 12px;
+  gap: 8px;
+}
+
+.fl-bulk-selection-separator {
+  width: 1px;
+  height: 24px;
+  background: var(--hover-color);
+}
+
+.fl-bulk-selection-count {
+  font-weight: 500;
+  min-width: 24px;
+  text-align: center;
+}

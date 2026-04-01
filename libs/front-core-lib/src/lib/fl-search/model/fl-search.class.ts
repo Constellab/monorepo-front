@@ -31,9 +31,11 @@ export type FlSearchOperatorMultiple = 'IN' | 'NOT_IN' | 'BETWEEN';
  * Criteria for an advance search. Its tell which column to filter with which operation (EQ, LE...)
  * and the value to check
  */
-export type FlSearchCriteria<COLUMN = any> = SearchCriteriaSingle<COLUMN> | SearchCriteriaMultiple<COLUMN>;
+export type FlSearchCriteria<COLUMN = any> =
+  | FlSearchCriteriaSingle<COLUMN>
+  | FlSearchCriteriaMultiple<COLUMN>;
 
-export interface SearchCriteriaSingle<COLUMN = any> {
+interface FlSearchCriteriaSingle<COLUMN = any> {
   /**
    * Name of the column. Support '.' to go deeply in objects
    */
@@ -50,7 +52,7 @@ export interface SearchCriteriaSingle<COLUMN = any> {
   value: COLUMN;
 }
 
-export interface SearchCriteriaMultiple<COLUMN = any> {
+interface FlSearchCriteriaMultiple<COLUMN = any> {
   /**
    * Name of the column. Support '.' to go deeply in objects
    */

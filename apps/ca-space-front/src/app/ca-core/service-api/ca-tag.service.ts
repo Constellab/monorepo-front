@@ -28,6 +28,14 @@ export class CaTagService extends FlTagService implements OnDestroy {
     });
   }
 
+  public initFromChildren(hierarchyObjectId: string): void {
+    this.availableTags.clear();
+
+    this.hierarchyObjectService.getAvailableTagsInChildren(hierarchyObjectId).subscribe((tags) => {
+      this.availableTags.setData(tags.tags);
+    });
+  }
+
   public initFromTags(tags: CaAvailableTagDatasource): void {
     if (this.availableTags) {
       this.availableTags.manualDisconnect();
@@ -38,26 +46,22 @@ export class CaTagService extends FlTagService implements OnDestroy {
   }
 
   searchTag(filters: Partial<FlTagSearchFilter>): Observable<ClPageI<FlTagSearchResult>> {
-    // search key
     if (filters.value == null) {
-      // search values
-      return this.availableTags.connect().pipe(
-        map((tags) => tags.map((tag) => tag.key)),
-        map((tags) => this.filterStrResult(tags, filters.key, 'key'))
-      );
-    } else {
       return this.availableTags.connect().pipe(
         map((tags) => {
-          const key = tags.find((tag) => tag.key === filters.key);
-          if (key) {
-            return key.values.map((value) => value);
-          }
-          return [];
-        }),
-        map((tags) => tags.map((tag) => tag.toString())),
-        map((tags) => this.filterStrResult(tags, filters.value, 'value'))
+          const keys = tags.map((tag) => tag.key);
+          return this.filterStrResult(keys, filters.key, 'key');
+        })
       );
     }
+
+    return this.availableTags.connect().pipe(
+      map((tags) => {
+        const matchingTag = tags.find((tag) => tag.key === filters.key);
+        const values = matchingTag?.values.map((value) => value.toString()) ?? [];
+        return this.filterStrResult(values, filters.value, 'value');
+      })
+    );
   }
 
   searchCommunityTag(): Observable<ClPageI<FlTagSearchResult>> {

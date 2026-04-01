@@ -73,6 +73,8 @@ export class FlPortalActionDetail {
 
   private emitSuccess(result: any): void {
     const link = this.action.successLink ? this.action.successLink(result) : null;
+    const onSuccessClick = this.action.onSuccessClick ? () => this.action.onSuccessClick(result) : null;
+    const successMessage = this.action.successMessage ? this.action.successMessage(result) : null;
 
     this.actionSubject$.next({
       status: 'success',
@@ -80,6 +82,8 @@ export class FlPortalActionDetail {
       action: this.action,
       additionalInformation: this.action.additionalInformation,
       link: link,
+      onSuccessClick: onSuccessClick,
+      successMessage: successMessage,
     });
     this.actionSubject$.complete();
   }
