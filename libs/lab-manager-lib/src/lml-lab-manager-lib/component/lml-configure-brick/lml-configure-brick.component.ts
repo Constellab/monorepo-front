@@ -120,7 +120,7 @@ export class LmlConfigureBrickComponent implements OnInit {
   private initBrickVersionSelection(brick: LmlCommunityBrick): void {
     this.formGp.controls.name.patchValue(brick?.name);
     this.formGp.controls.brick.patchValue(brick);
-    this.communityBrickService.getVersionsList(brick.id).subscribe((versionsList) => {
+    this.communityBrickService.getVersionsList(brick.name).subscribe((versionsList) => {
       if (this.formGp.controls.version.value && versionsList.includes(this.formGp.controls.version.value)) {
         const splitIndex = versionsList.indexOf(this.formGp.controls.version.value);
         this.versions = versionsList.slice(0, splitIndex + 1);

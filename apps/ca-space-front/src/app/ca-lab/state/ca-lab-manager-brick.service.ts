@@ -74,8 +74,8 @@ export class CaLabManagerBrickService extends LmlBrickService {
     return this.spaceService.getMySpaces();
   }
 
-  getVersionsList(brickId: string): Observable<string[]> {
-    return this.apiService.get(`${this.route}/${this.labId}/brick/versions-list/${brickId}`, null);
+  getVersionsList(brickName: string): Observable<string[]> {
+    return this.apiService.get(`bricks/${brickName}/versions-list`, null);
   }
 
   spaceActivated(): boolean {

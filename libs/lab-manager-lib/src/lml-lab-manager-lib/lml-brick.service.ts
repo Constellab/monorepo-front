@@ -18,7 +18,7 @@ export abstract class LmlBrickService {
     size: number
   ): Observable<ClPage<LmlCommunityBrick>>;
 
-  public abstract getVersionsList(brickId: string): Observable<string[]>;
+  public abstract getVersionsList(brickName: string): Observable<string[]>;
 
   public abstract getByName(name: string): Observable<LmlCommunityBrick>;
 

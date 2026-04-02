@@ -56,8 +56,8 @@ export class LmsLabManagerBrickService extends LmlBrickService {
     return of([]);
   }
 
-  getVersionsList(brickId: string): Observable<string[]> {
-    return this.apiService.get(`${this.route}/${brickId}/version`, null);
+  getVersionsList(brickName: string): Observable<string[]> {
+    return this.apiService.get(`${this.route}/${brickName}/version`, null);
   }
 
   spaceActivated(): boolean {
