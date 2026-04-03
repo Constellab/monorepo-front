@@ -69,7 +69,7 @@ export class FlBulkSelectionState {
     return {
       selectedIds: Array.from(this.selectedIds()),
       isAllSelected: this.isAllSelected(),
-      searchInput: this.datasource.buildRequestContext(),
+      searchInput: this.datasource.buildConvertedRequestData(),
     };
   }
 

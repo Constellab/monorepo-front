@@ -4,10 +4,7 @@ import { filter } from 'rxjs/operators';
 
 import { FlSortDirection } from '../fl-sort.class';
 import { FlArrayObs } from './fl-array-obs.class';
-
-export abstract class FlDatasourceContextBuilder {
-  abstract build(data: FlDatasourceGetPageData): any;
-}
+import { FlDatasourcePageProvider } from './fl-datasource-page-provider.class';
 
 export interface FlDatasourceSortCriteria {
   key: string;
@@ -50,11 +47,6 @@ export interface FlDatasourcePaginatedOptions {
    * Default: false
    */
   throwError?: boolean;
-
-  /**
-   * Optional context builder that transforms the raw page data before passing it to the get page function
-   */
-  contextBuilder?: FlDatasourceContextBuilder;
 }
 
 const defaultOptions: FlDatasourcePaginatedOptions = {
@@ -91,15 +83,22 @@ export abstract class FlDatasourcePaginated<T, F = void> extends FlArrayObs<T> {
 
   private readonly throwError: boolean = false;
 
+  private pageProvider: FlDatasourcePageProvider<T, F>;
+
   constructor(
-    private getPageFunction: FlDatasourceGetPageFunction<T, F>,
+    getPageFunctionOrProvider: FlDatasourceGetPageFunction<T, F> | FlDatasourcePageProvider<T, F>,
     private pageSize: number,
     options: FlDatasourcePaginatedOptions = defaultOptions
   ) {
     super(null, options.disableAutoDisconnect);
 
+    if (getPageFunctionOrProvider instanceof FlDatasourcePageProvider) {
+      this.pageProvider = getPageFunctionOrProvider;
+    } else {
+      this.pageProvider = new FlDatasourcePageProvider(getPageFunctionOrProvider);
+    }
+
     const fullOptions = { ...defaultOptions, ...options };
-    this.contextBuilder = fullOptions.contextBuilder;
     if (fullOptions.initFirstPage) {
       this.getFirstPage();
     }
@@ -153,8 +152,11 @@ export abstract class FlDatasourcePaginated<T, F = void> extends FlArrayObs<T> {
 
   private callGetPageFunction(pageNumber: number): void {
     this.isLoading = true;
-    const requestData = this.buildRequestContext();
-    this.getPageFunction(pageNumber, this.pageSize, requestData).subscribe({
+    const requestData: FlDatasourceGetPageData<F> = {
+      filtersCriteria: this.filtersCriteria,
+      sortsCriteria: this.sortsCriteria,
+    };
+    this.pageProvider.getPage(pageNumber, this.pageSize, requestData).subscribe({
       next: (result) => this.onSuccess(result),
       error: (error) => this.onError(error),
     });
@@ -244,18 +246,18 @@ export abstract class FlDatasourcePaginated<T, F = void> extends FlArrayObs<T> {
   }
 
   public setPageFunction(getPageFunction: FlDatasourceGetPageFunction<T, F>): void {
-    this.getPageFunction = getPageFunction;
+    this.pageProvider.setGetPageFn(getPageFunction);
   }
 
-  ////////////////// SEARCH CONTEXT ////////////////////////
+  public setPageProvider(provider: FlDatasourcePageProvider<T, F>): void {
+    this.pageProvider = provider;
+  }
 
-  public contextBuilder?: FlDatasourceContextBuilder;
-
-  public buildRequestContext(): any {
-    const rawData: FlDatasourceGetPageData = {
+  public buildConvertedRequestData(): any {
+    const rawData: FlDatasourceGetPageData<F> = {
       filtersCriteria: this.filtersCriteria,
       sortsCriteria: this.sortsCriteria,
     };
-    return this.contextBuilder ? this.contextBuilder.build(rawData) : rawData;
+    return this.pageProvider.convertRequestData(rawData);
   }
 }

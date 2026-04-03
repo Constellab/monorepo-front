@@ -2,10 +2,17 @@ import { inject, Injectable } from '@angular/core';
 import { ClBulkActionResult, ClPageI } from '@monorepo/core-lib';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { FlBulkActionContext } from '@monorepo/front-core-lib/fl-bulk-selection';
-import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
+import { FlDatasourcePaginatedOptions, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
+import { FlAdvancedSearchInput, FlSearchDatasourcePageProvider } from '@monorepo/front-core-lib/fl-search';
 import { FlTag, FlTagDatasource } from '@monorepo/front-core-lib/fl-tag';
 import { Observable } from 'rxjs';
 
+import {
+  CaHierarchyObjectAdminSearchFields,
+  CaHierarchyObjectSearch,
+  CaHierarchyObjectSearchFields,
+  CaHierarchyObjectSearchTrashField,
+} from '../entity-module/ca-hierarchy-object-core/ca-hierarchy-object-search.class';
 import { CaAvailableTags } from '../model/entities/ca-tag.class';
 import {
   CaHierarchyObject,
@@ -35,7 +42,7 @@ export class CaHierarchyObjectService {
     id: string,
     page: number,
     size: number,
-    data: any
+    data: FlAdvancedSearchInput
   ): Observable<ClPageI<CaHierarchyObject>> {
     return this.apiService.post(`${this.route}/${id}/children/paginated`, data, CaHierarchyObject, {
       resultIsPaginated: true,
@@ -48,7 +55,7 @@ export class CaHierarchyObjectService {
     id: string,
     page: number,
     size: number,
-    data: any
+    data: FlAdvancedSearchInput
   ): Observable<ClPageI<CaHierarchyObject>> {
     return this.apiService.post(`${this.route}/${id}/trash/children/paginated`, data, CaHierarchyObject, {
       resultIsPaginated: true,
@@ -60,7 +67,7 @@ export class CaHierarchyObjectService {
   public searchInRootFoldersAndChildren(
     page: number,
     size: number,
-    data: any
+    data: FlAdvancedSearchInput
   ): Observable<ClPageI<CaHierarchyObjectWithParent>> {
     return this.apiService.post(`${this.route}/root/search-children`, data, CaHierarchyObjectWithParent, {
       page: page,
@@ -72,7 +79,7 @@ export class CaHierarchyObjectService {
   public searchTrashInRootFoldersAndChildren(
     page: number,
     size: number,
-    data: any
+    data: FlAdvancedSearchInput
   ): Observable<ClPageI<CaHierarchyObjectWithParent>> {
     return this.apiService.post(
       `${this.route}/root/trash/search-children`,
@@ -86,7 +93,11 @@ export class CaHierarchyObjectService {
     );
   }
 
-  public searchApplications(page: number, size: number, data?: any): Observable<ClPageI<CaHierarchyObject>> {
+  public searchApplications(
+    page: number,
+    size: number,
+    data?: FlAdvancedSearchInput
+  ): Observable<ClPageI<CaHierarchyObject>> {
     return this.apiService.post(`${this.route}/root/search-applications`, data, CaHierarchyObject, {
       resultIsPaginated: true,
       page: page,
@@ -104,13 +115,75 @@ export class CaHierarchyObjectService {
   public searchInCurrentSpace(
     page: number,
     pageSize: number,
-    data: any
+    data: FlAdvancedSearchInput
   ): Observable<ClPageI<CaHierarchyObject>> {
     return this.apiService.post(`${this.route}/current-space/search`, data, CaHierarchyObject, {
       page: page,
       pageSize: pageSize,
       resultIsPaginated: true,
     });
+  }
+
+  /////////////////////////// DATASOURCE BUILDERS ////////////////////////////////////////////
+
+  public getSearchChildrenDatasource(
+    id: string,
+    pageSize: number,
+    options?: FlDatasourcePaginatedOptions
+  ): FlEntityPaginatedDatasource<CaHierarchyObject, CaHierarchyObjectSearchFields> {
+    const pageProvider = new FlSearchDatasourcePageProvider<CaHierarchyObject, CaHierarchyObjectSearchFields>(
+      CaHierarchyObjectSearch.filterConverter,
+      CaHierarchyObjectSearch.sortConverter,
+      (page, size, data) => this.searchChildren(id, page, size, data)
+    );
+    return new FlEntityPaginatedDatasource(pageProvider, pageSize, options);
+  }
+
+  public getSearchTrashChildrenDatasource(
+    id: string,
+    enableSubObjectFilter: boolean,
+    pageSize: number,
+    options?: FlDatasourcePaginatedOptions
+  ): FlEntityPaginatedDatasource<CaHierarchyObject, CaHierarchyObjectSearchTrashField> {
+    const pageProvider = new FlSearchDatasourcePageProvider<
+      CaHierarchyObject,
+      CaHierarchyObjectSearchTrashField
+    >(
+      CaHierarchyObjectSearch.getTrashFilterConverter(enableSubObjectFilter),
+      CaHierarchyObjectSearch.sortConverter,
+      (page, size, data) => this.searchTrashChildren(id, page, size, data)
+    );
+    return new FlEntityPaginatedDatasource(pageProvider, pageSize, options);
+  }
+
+  public getSearchTrashInRootFoldersAndChildrenDatasource(
+    pageSize: number,
+    options?: FlDatasourcePaginatedOptions
+  ): FlEntityPaginatedDatasource<CaHierarchyObjectWithParent, CaHierarchyObjectSearchTrashField> {
+    const pageProvider = new FlSearchDatasourcePageProvider<
+      CaHierarchyObjectWithParent,
+      CaHierarchyObjectSearchTrashField
+    >(
+      CaHierarchyObjectSearch.getTrashFilterConverter(true),
+      CaHierarchyObjectSearch.sortConverter,
+      (page, size, data) => this.searchTrashInRootFoldersAndChildren(page, size, data)
+    );
+    return new FlEntityPaginatedDatasource(pageProvider, pageSize, options);
+  }
+
+  public getSearchInCurrentSpaceDatasource(
+    pageSize: number,
+    options?: FlDatasourcePaginatedOptions
+  ): FlEntityPaginatedDatasource<CaHierarchyObject, CaHierarchyObjectAdminSearchFields> {
+    const pageProvider = new FlSearchDatasourcePageProvider<
+      CaHierarchyObject,
+      CaHierarchyObjectAdminSearchFields
+    >(
+      CaHierarchyObjectSearch.filterConverterAdmin,
+      CaHierarchyObjectSearch.sortConverter,
+      (page, size, data) => this.searchInCurrentSpace(page, size, data)
+    );
+    return new FlEntityPaginatedDatasource(pageProvider, pageSize, options);
   }
 
   /////////////////////////// UPDATE ////////////////////////////////////////////

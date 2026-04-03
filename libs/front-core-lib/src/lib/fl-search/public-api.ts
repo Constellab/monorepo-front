@@ -20,4 +20,4 @@ export * from './model/fl-search-url.helper';
 export * from './model/fl-saved-search.class';
 export * from './model/fl-search-converter.class';
 export * from './model/fl-search-state-config.class';
-export * from './model/fl-search-datasource-context-builder.class';
+export * from './model/fl-search-datasource-page-provider.class';

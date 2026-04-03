@@ -127,6 +127,10 @@ This granular import structure allows for better tree-shaking and build optimiza
 <!-- nx configuration start-->
 <!-- Leave the start & end comments to automatically receive updates. -->
 
+## Important Rules
+
+- **Do NOT build applications unless explicitly asked by the user.** Never run `nx build`, `npm run <app>:build-prod`, or any build command on your own initiative.
+
 ## General Guidelines for working with Nx
 
 - For navigating/exploring the workspace, invoke the `nx-workspace` skill first - it has patterns for querying projects, targets, and dependencies

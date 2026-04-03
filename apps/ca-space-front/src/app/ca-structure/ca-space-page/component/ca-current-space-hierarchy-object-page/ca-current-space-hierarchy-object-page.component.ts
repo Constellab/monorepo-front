@@ -7,6 +7,7 @@ import { FlEntityPaginatedDatasource, FlTableColumnStatic } from '@monorepo/fron
 import {
   FlSavedSearch,
   FlSearchConfig,
+  FlSearchDatasourcePageProvider,
   FlSearchModule,
   FlSearchState,
 } from '@monorepo/front-core-lib/fl-search';
@@ -19,7 +20,6 @@ import { CaHierarchyObjectRouterService } from '../../../../ca-core/entity-modul
 import {
   CaHierarchyObjectAdminSearchFields,
   CaHierarchyObjectSearch,
-  CaHierarchyObjectSearchAdminContextBuilder,
 } from '../../../../ca-core/entity-module/ca-hierarchy-object-core/ca-hierarchy-object-search.class';
 import { CaHierarchyObjectAdminSearchFormComponent } from '../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-admin-search-form/ca-hierarchy-object-admin-search-form.component';
 import {
@@ -86,14 +86,17 @@ export class CaCurrentSpaceHierarchyObjectPageComponent implements OnInit {
       defaultSort: { key: 'name', direction: 'ASC' },
     };
 
-    this.datasource = new FlEntityPaginatedDatasource(
-      (page, size, data) => this.hierarchyObjectService.searchInCurrentSpace(page, size, data),
-      20,
-      {
-        initFirstPage: false,
-        contextBuilder: new CaHierarchyObjectSearchAdminContextBuilder(),
-      }
+    const pageProvider = new FlSearchDatasourcePageProvider<
+      CaHierarchyObject,
+      CaHierarchyObjectAdminSearchFields
+    >(
+      CaHierarchyObjectSearch.filterConverterAdmin,
+      CaHierarchyObjectSearch.sortConverter,
+      (page, size, data) => this.hierarchyObjectService.searchInCurrentSpace(page, size, data)
     );
+    this.datasource = new FlEntityPaginatedDatasource(pageProvider, 20, {
+      initFirstPage: false,
+    });
     this.searchState.init(config, this.datasource);
   }
 

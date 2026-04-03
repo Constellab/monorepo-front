@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { ClHelpService, ClPage, ClPageI } from '@monorepo/core-lib';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { FlDatasourceGetPageData, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
-import { FlSearchConverter } from '@monorepo/front-core-lib/fl-search';
+import { FlAdvancedSearchInput, FlSearchConverter } from '@monorepo/front-core-lib/fl-search';
 import { TeBlockFigureUploadedResponse, TeRichText } from '@monorepo/text-editor';
 import { Observable } from 'rxjs';
 
@@ -85,7 +85,11 @@ export class CaFolderService {
     });
   }
 
-  public searchRootFolders(page: number, size: number, data: any): Observable<ClPageI<CaHierarchyObject>> {
+  public searchRootFolders(
+    page: number,
+    size: number,
+    data: FlAdvancedSearchInput
+  ): Observable<ClPageI<CaHierarchyObject>> {
     return this.apiService.post(`${this.route}/root/search`, data, CaHierarchyObject, {
       resultIsPaginated: true,
       page: page,

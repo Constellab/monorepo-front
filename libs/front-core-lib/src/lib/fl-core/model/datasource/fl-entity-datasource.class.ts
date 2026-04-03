@@ -2,6 +2,7 @@ import { ClCoreJsonConvert, clGetEmptyPage, ClHelpService } from '@monorepo/core
 import { of } from 'rxjs';
 
 import { FlEntity } from '../fl-entity.class';
+import { FlDatasourcePageProvider } from './fl-datasource-page-provider.class';
 import {
   FlDatasourceGetPageFunction,
   FlDatasourcePaginated,
@@ -10,11 +11,11 @@ import {
 
 export class FlEntityPaginatedDatasource<T extends FlEntity, F = void> extends FlDatasourcePaginated<T, F> {
   constructor(
-    getPageFunction: FlDatasourceGetPageFunction<T, F>,
+    getPageFunctionOrProvider: FlDatasourceGetPageFunction<T, F> | FlDatasourcePageProvider<T, F>,
     pageSize: number,
     options?: FlDatasourcePaginatedOptions
   ) {
-    super(getPageFunction, pageSize, options);
+    super(getPageFunctionOrProvider, pageSize, options);
   }
 
   protected equals(a: T, b: T): boolean {

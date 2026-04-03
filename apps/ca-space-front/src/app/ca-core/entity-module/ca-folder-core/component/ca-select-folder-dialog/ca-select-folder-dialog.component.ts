@@ -8,6 +8,7 @@ import { ClHelpService } from '@monorepo/core-lib';
 import { FlEntityPaginatedDatasource, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
+import { FlSearchDatasourcePageProvider } from '@monorepo/front-core-lib/fl-search';
 import { FlTranslatableText, FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 import { TranslatePipe } from '@ngx-translate/core';
 
@@ -20,7 +21,7 @@ import { CaAuthenticatedUserService } from '../../../../service-api/ca-authentic
 import { CaFolderService } from '../../../../service-api/ca-folder.service';
 import { CaHierarchyObjectService } from '../../../../service-api/ca-hierarchy-object.service';
 import {
-  CaHierarchyObjectSearchContextBuilder,
+  CaHierarchyObjectSearch,
   CaHierarchyObjectSearchFields,
 } from '../../../ca-hierarchy-object-core/ca-hierarchy-object-search.class';
 import {
@@ -190,15 +191,15 @@ export class CaSelectFolderDialogComponent implements OnInit, OnDestroy {
     // get only folder children
     const filters = new CaHierarchyObjectSearchFields();
     filters.objectType = CaHierarchyObjectType.FOLDER;
-    this.foldersDatasource = new FlEntityPaginatedDatasource(
+    const pageProvider = new FlSearchDatasourcePageProvider<CaHierarchyObject, CaHierarchyObjectSearchFields>(
+      CaHierarchyObjectSearch.filterConverter,
+      CaHierarchyObjectSearch.sortConverter,
       (page, pageSize, requestData) =>
-        this.hierarchyObjectService.searchChildren(folderId, page, pageSize, requestData),
-      30,
-      {
-        initFirstPage: false,
-        contextBuilder: new CaHierarchyObjectSearchContextBuilder(),
-      }
+        this.hierarchyObjectService.searchChildren(folderId, page, pageSize, requestData)
     );
+    this.foldersDatasource = new FlEntityPaginatedDatasource(pageProvider, 30, {
+      initFirstPage: false,
+    });
     this.foldersDatasource.setFilterCriteria(filters);
     this.foldersDatasource.setSortCriteria({
       key: 'name',
