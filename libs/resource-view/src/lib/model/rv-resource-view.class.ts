@@ -66,8 +66,7 @@ export interface RvResourceViewNetwork extends RvResourceViewBase {
 export interface RvResourceViewImage extends RvResourceViewBase {
   type: 'image-view';
   data: {
-    base_64_img: string;
-    mime_type: string;
+    src: string;
   };
 }
 
