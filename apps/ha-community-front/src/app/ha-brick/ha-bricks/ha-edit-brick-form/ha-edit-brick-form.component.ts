@@ -85,15 +85,17 @@ export class HaEditBrickFormComponent implements OnInit {
       repoPip: [null],
       technicalInfo: [null],
       references: [null],
-      visibility: [HaBrickVisibility.PUBLIC],
       credentialUsername: [null],
       credentialPassword: [null],
-      space: [this.spaces[0]],
+      space: [null],
     });
   }
 
   submit(): void {
-    const formValue: Partial<HaBrickCreationDTO> = this.formGp.value;
+    const formValue: Partial<HaBrickCreationDTO> = {
+      ...this.formGp.value,
+      visibility: this.formGp.value.space ? HaBrickVisibility.PRIVATE : HaBrickVisibility.PUBLIC,
+    };
 
     if (this.formGp.value.repoPip || this.formGp.value.repoGit) {
       this.repoError = false;
@@ -165,12 +167,7 @@ export class HaEditBrickFormComponent implements OnInit {
               this.formGp.controls.technicalInfo.setValue(this.inputFile.technicalInfo);
               this.formGp.controls.isBeta.setValue(this.inputFile.isBeta);
 
-              if (this.formGp.controls.visibility.value === HaBrickVisibility.PRIVATE) {
-                this.formGp.controls.visibility.setValue(HaBrickVisibility.PRIVATE);
-              } else {
-                this.formGp.controls.visibility.setValue(HaBrickVisibility.PUBLIC);
-              }
-              this.formGp.controls.space.setValue(this.spaces[0]);
+              this.formGp.controls.space.setValue(null);
 
               this.formGp.controls.repoType.setValue(HaRepoType.PIP);
               if (this.inputFile.isBeta) {

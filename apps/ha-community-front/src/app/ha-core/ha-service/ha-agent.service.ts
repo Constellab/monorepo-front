@@ -108,6 +108,10 @@ export class HaAgentService implements HaCoAuthorService {
     return this.apiService.put(`${this.route}/${agentId}/title`, { title: title }, HaAgent);
   }
 
+  updateSpace(agentId: string, spaceId: string | null): Observable<HaAgent> {
+    return this.apiService.put(`${this.route}/${agentId}/space`, { spaceId }, HaAgent);
+  }
+
   /**
    * Call http put to update a agent description
    * @param agentId

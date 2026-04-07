@@ -34,36 +34,23 @@
       }
     </mat-form-field>
 
-    <!--  visibility  -->
-    <mat-label>{{ 'visibility' | translate }}</mat-label>
-    <mat-radio-group formControlName="visibility">
-      <mat-radio-button
-        [value]="'private'"
-        class="radio-bt"
-        [checked]="formGp.value.visibility === 'private'">
-        {{ 'private' | translate }}</mat-radio-button
-      >
-      <mat-radio-button [value]="'public'" class="radio-bt" [checked]="formGp.value.visibility === 'public'">
-        {{ 'public' | translate }}</mat-radio-button
-      >
-    </mat-radio-group>
-
-    <!--  space  -->
-    @if (formGp.value.visibility === 'private') {
-      <mat-label class="input-repo">{{ 'space' | translate }}</mat-label>
-      <div>
-        <mat-radio-group formControlName="space">
-          @for (space of spaces; track space.id) {
-            <mat-radio-button
-              [value]="space"
-              class="radio-bt"
-              [checked]="formGp.value.space?.id === space?.id">
-              {{ space.name }}
-            </mat-radio-button>
-          }
-        </mat-radio-group>
-      </div>
-    }
+    <!--  confidentiality  -->
+    <mat-label>{{ 'confidentiality' | translate }}</mat-label>
+    <div>
+      <mat-radio-group formControlName="space">
+        <mat-radio-button [value]="null" class="radio-bt" [checked]="!formGp.value.space">
+          {{ 'public' | translate }}
+        </mat-radio-button>
+        @for (space of spaces; track space.id) {
+          <mat-radio-button
+            [value]="space"
+            class="radio-bt"
+            [checked]="formGp.value.space?.id === space?.id">
+            {{ space.name }}
+          </mat-radio-button>
+        }
+      </mat-radio-group>
+    </div>
 
     <!--  pipRepo  -->
     <mat-form-field class="g-form-input input-repo" appearance="outline">

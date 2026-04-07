@@ -1,10 +1,7 @@
 import { inject, Injectable } from '@angular/core';
-import { ClPage } from '@monorepo/core-lib';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
-import { Observable } from 'rxjs';
 
 import { CaCoServiceConfig } from '../model/config/ca-co-service-config.service';
-import { CaCommunityBrick } from '../model/entities/ca-community-brick.class';
 
 @Injectable({ providedIn: 'root' })
 export class CaCommunityBrickService {
@@ -13,38 +10,10 @@ export class CaCommunityBrickService {
 
   private readonly route = 'community';
 
-  public getByName(labId: string, name: string, userId: string): Observable<CaCommunityBrick> {
-    return this.apiService.post(`${this.route}/${labId}/brick/name/${name}`, { userId: userId }, CaCommunityBrick);
-  }
-
-  public getAllWithFilters(
-    labId: string,
-    spacesFilter: string[],
-    titleFilter: string,
-    page: number,
-    size: number,
-    userId: string
-  ): Observable<ClPage<CaCommunityBrick>> {
-    return this.apiService.post(
-      `${this.route}/${labId}/brick/filters`,
-      { spacesFilter: spacesFilter, titleFilter: titleFilter, userId: userId },
-      CaCommunityBrick,
-      {
-        page: page,
-        pageSize: size,
-        resultIsPaginated: true,
-      }
-    );
-  }
-
   getImageUrl(filename: string): string {
     return this.apiService.getBaseRouteUrl(
       `brick/image/${filename}`,
       this.communityServiceConfig.getCommunityApiUrl() + '/'
     );
-  }
-
-  getVersionsList(labId: string, brickId: string, userId: string): Observable<string[]> {
-    return this.apiService.post(`${this.route}/${labId}/brick/versions-list/${brickId}`, { userId: userId }, null);
   }
 }

@@ -20,7 +20,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { HaBrick, HaEditBrickDTO } from '../../../ha-core/ha-model/ha-entities/ha-brick.class';
+import { HaBrick, HaBrickVisibility, HaEditBrickDTO } from '../../../ha-core/ha-model/ha-entities/ha-brick.class';
 import { HaSpace } from '../../../ha-core/ha-model/ha-entities/ha-space.class';
 import { HaBrickImagePipe } from '../../../ha-core/ha-module/ha-core-pipe/ha-brick-image/ha-brick-image.pipe';
 import { HaBrickService } from '../../../ha-core/ha-service/ha-brick.service';
@@ -116,7 +116,6 @@ export class HaEditBrickDialogComponent
       description: [null, [Validators.required, Validators.maxLength(255)]],
       gitRepo: [null],
       pipRepo: [null],
-      visibility: [null],
       credentialUsername: [null],
       credentialPassword: [null],
       space: [null],
@@ -139,7 +138,11 @@ export class HaEditBrickDialogComponent
       this.formGp.controls.gitRepo.removeValidators(Validators.required);
 
       if (this.formGp.valid) {
-        this.update(this.formGp.value as HaEditBrickDTO).subscribe({
+        const formValue: HaEditBrickDTO = {
+          ...this.formGp.value,
+          visibility: this.formGp.value.space ? HaBrickVisibility.PRIVATE : HaBrickVisibility.PUBLIC,
+        };
+        this.update(formValue).subscribe({
           next: (newEntity) => this.onSaveSuccess(newEntity, this.getUpdateSuccessMessage()),
           error: () => (this.isLoading = false),
         });
