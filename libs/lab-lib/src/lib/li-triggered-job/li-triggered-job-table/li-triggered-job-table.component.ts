@@ -15,6 +15,7 @@ import {
   MatRowDef,
   MatTable,
 } from '@angular/material/table';
+import { MatTooltip } from '@angular/material/tooltip';
 import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
 import {
@@ -22,13 +23,11 @@ import {
   FlConfirmDialogResult,
   FlDialogService,
 } from '@monorepo/front-core-lib/fl-dialog';
-import {
-  LiTriggeredJob,
-  LiTriggeredJobArrayObs,
-  LiTriggeredJobService,
-} from '@monorepo/lab-lib/li-core';
-import { TranslatePipe } from '@ngx-translate/core';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
+import { LiTriggeredJob, LiTriggeredJobArrayObs, LiTriggeredJobService } from '@monorepo/lab-lib/li-core';
+import { TranslatePipe } from '@ngx-translate/core';
+
+import { LiCronHumanPipe } from '../li-cron-human.pipe';
 
 @Component({
   selector: 'li-triggered-job-table',
@@ -52,7 +51,9 @@ import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
     MatRowDef,
     MatRow,
     TranslatePipe,
-    NgClass
+    NgClass,
+    LiCronHumanPipe,
+    MatTooltip,
   ],
 })
 export class LiTriggeredJobTableComponent {

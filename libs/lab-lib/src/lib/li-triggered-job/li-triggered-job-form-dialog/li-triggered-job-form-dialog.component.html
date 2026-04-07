@@ -36,18 +36,33 @@
         rows="3"></textarea>
     </mat-form-field>
 
+    <!--  Cron presets  -->
+    <mat-label>{{ 'li.job_schedule' | translate }}</mat-label>
+    <div class="cron-presets">
+      @for (preset of cronPresets; track preset.cron) {
+        <button
+          mat-stroked-button
+          type="button"
+          [class.selected]="selectedPreset === preset.cron"
+          (click)="selectPreset(preset.cron)">
+          {{ preset.labelKey | translate }}
+        </button>
+      }
+    </div>
+
     <!--  Cron Expression  -->
     <mat-form-field class="g-form-input">
       <mat-label>{{ 'li.job_cron_expression' | translate }}</mat-label>
-      <input
-        matInput
-        formControlName="cronExpression"
-        required
-        placeholder="0 0 * * *" />
+      <input matInput formControlName="cronExpression" required placeholder="0 0 * * *" />
       @if (formGp.get('cronExpression').hasError('required')) {
         <mat-error>{{ 'li.job_cron_expression' | flErrorRequired }}</mat-error>
       }
     </mat-form-field>
+
+    <!--  Human-readable cron  -->
+    @if (cronHumanText) {
+      <p class="cron-human-text">{{ cronHumanText }}</p>
+    }
 
     <!--  Active  -->
     <mat-slide-toggle formControlName="isActive">

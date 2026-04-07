@@ -21,7 +21,14 @@ import { LiSelectScenarioTemplateComponent } from '@monorepo/lab-lib/li-scenario
 import { TranslatePipe } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
+import { LiCronHumanPipe } from '../li-cron-human.pipe';
+
 export type LiTriggeredJobFormDialogInput = FlFormDialogInput<LiCreateTriggeredJobFromTemplateDTO>;
+
+interface LiCronPreset {
+  cron: string;
+  labelKey: string;
+}
 
 @Component({
   selector: 'li-triggered-job-form-dialog',
@@ -45,6 +52,7 @@ export type LiTriggeredJobFormDialogInput = FlFormDialogInput<LiCreateTriggeredJ
     TranslatePipe,
     FlCorePipeModule,
   ],
+  providers: [LiCronHumanPipe],
 })
 export class LiTriggeredJobFormDialogComponent
   extends FlFormDialogAbstractDirective<LiCreateTriggeredJobFromTemplateDTO, LiTriggeredJob>
@@ -52,12 +60,47 @@ export class LiTriggeredJobFormDialogComponent
 {
   private triggeredJobService = inject(LiTriggeredJobService);
 
+  cronPresets: LiCronPreset[] = [
+    { cron: '0 * * * *', labelKey: 'li.job_cron_every_hour' },
+    { cron: '0 0 * * *', labelKey: 'li.job_cron_every_day' },
+    { cron: '0 0 * * 1', labelKey: 'li.job_cron_every_week' },
+  ];
+
+  selectedPreset: string | null = this.cronPresets[0].cron;
+  cronHumanText: string | null = null;
+
+  private cronHumanPipe = inject(LiCronHumanPipe);
+
   constructor() {
     super();
   }
 
   ngOnInit(): void {
     this.init();
+    this.selectPreset(this.cronPresets[0].cron);
+
+    this.formGp.get('cronExpression').valueChanges.subscribe((value: string) => {
+      if (this.cronPresets.some((p) => p.cron === value)) {
+        this.selectedPreset = value;
+      } else {
+        this.selectedPreset = null;
+      }
+      this.updateCronHumanText(value);
+    });
+  }
+
+  selectPreset(cron: string): void {
+    this.selectedPreset = cron;
+    this.formGp.patchValue({ cronExpression: cron });
+  }
+
+  private updateCronHumanText(value: string): void {
+    if (!value) {
+      this.cronHumanText = null;
+      return;
+    }
+    const humanText = this.cronHumanPipe.transform(value);
+    this.cronHumanText = humanText !== value ? humanText : null;
   }
 
   get title(): string {
