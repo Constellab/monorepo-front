@@ -2,7 +2,7 @@ import { ClHelpService, ClPageI } from '@monorepo/core-lib';
 import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
 import { FrequentlyUsed, init, SearchIndex } from 'emoji-mart';
 import { from, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 
 export interface FlEmojiCategory {
   name: string;
@@ -181,7 +181,8 @@ export class FlEmojiHelper {
       value = `:${value}`;
     }
 
-    return from(SearchIndex.search(value)).pipe(
+    return from(this.getEmojiData()).pipe(
+      switchMap(() => from(SearchIndex.search(value))),
       map((emojis: FlEmojiMartEmoji[]) => {
         if (!emojis) return [];
         return emojis.map((emoji, index) => {
