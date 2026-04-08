@@ -17,6 +17,7 @@ import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import { FlSearchModule } from '@monorepo/front-core-lib/fl-search';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { LiDetailRoutePipe, LiNoteTemplate, LiNoteTemplateDatasource } from '@monorepo/lab-lib/li-core';
+import { LiGetEntityTagsPipe, LiTagListComponent } from '@monorepo/lab-lib/li-tag';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
@@ -35,6 +36,8 @@ import { TranslatePipe } from '@ngx-translate/core';
     MatCell,
     RouterLink,
     FlUserModule,
+    LiTagListComponent,
+    LiGetEntityTagsPipe,
     MatHeaderRowDef,
     MatHeaderRow,
     MatRowDef,
@@ -49,7 +52,7 @@ export class LiNoteTemplateTableComponent {
 
   @Input({ required: true }) datasource: LiNoteTemplateDatasource<any>;
 
-  @Input() columns: FlTableColumnStatic<LiNoteTemplate>[] = ['title', 'creation', 'lastModification'];
+  @Input() columns: FlTableColumnStatic<LiNoteTemplate>[] = ['title', 'tags', 'lastModification'];
 
   @Output() noteTemplateSelected: EventEmitter<LiNoteTemplate> = new EventEmitter();
 

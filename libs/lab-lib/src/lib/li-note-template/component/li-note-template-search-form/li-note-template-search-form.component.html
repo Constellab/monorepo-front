@@ -1,14 +1,22 @@
 <div class="form g-layout-col" [formGroup]="formGp">
-  <div class="g-full g-layout-row-wrap g-layout-between-center">
+  <!--  Main search fields    -->
+  <div class="g-full main-fields">
     <!--  Title  -->
     <mat-form-field class="g-full">
       <mat-label>{{ 'li.title' | translate }}</mat-label>
       <input matInput formControlName="title" [placeholder]="'li.title' | translate" autocomplete="off" />
     </mat-form-field>
+  </div>
 
+  <!--   Tags    -->
+  <li-tag-filters formControlName="tags"></li-tag-filters>
+
+  <div class="g-full g-layout-row-wrap g-layout-between-center">
     <!--  Created by  -->
     <fl-form-field class="g-search-field g-form-field-compact">
-      <fl-select-user formControlName="createdBy" [placeholder]="'li.created_by' | translate"></fl-select-user>
+      <fl-select-user
+        formControlName="createdBy"
+        [placeholder]="'li.created_by' | translate"></fl-select-user>
     </fl-form-field>
 
     <!--  Last Modified by  -->

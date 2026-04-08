@@ -6,12 +6,15 @@ import {
   FlSearchFilterCriteriaConverter,
   FlSearchSortCriteriaConverter,
 } from '@monorepo/front-core-lib/fl-search';
+import { FlTag } from '@monorepo/front-core-lib/fl-tag';
 import { Type } from 'class-transformer';
 
 import { LiUser } from '../entities/li-user.entity';
 
 export class LiNoteTemplateSearchFields {
   title: string;
+
+  tags: FlTag[];
 
   @Type(() => LiUser)
   createdBy: LiUser;
@@ -34,6 +37,7 @@ export class LiNoteTemplateSearch {
    */
   public static searchManagerConfig: FlFormInputsManagerConfig<LiNoteTemplateSearchFields> = {
     title: 'li.title',
+    tags: 'flTag.tags',
     // group the creation date into one chip
     createdAt: 'li.creation_date',
     createdBy: 'li.created_by',
@@ -46,6 +50,7 @@ export class LiNoteTemplateSearch {
    */
   public static filterConverter: FlSearchFilterCriteriaConverter<LiNoteTemplateSearchFields> = {
     title: { key: 'title', operator: 'CONTAINS' },
+    tags: { key: 'tags', operator: 'EQ' },
     createdBy: { key: 'created_by', operator: 'EQ', convertValue: FlSearchConverter.getEntityId },
     createdAt: FlSearchConverter.dateInterval('created_at'),
     lastModifiedAt: FlSearchConverter.dateInterval('last_modified_at'),
@@ -62,6 +67,7 @@ export class LiNoteTemplateSearch {
   public static getSearchForm(): FormGroup {
     return new FormBuilder().group({
       title: [null],
+      tags: [null],
       createdBy: [null],
       createdAt: new FormBuilder().group({
         from: [null],

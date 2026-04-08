@@ -38,6 +38,15 @@
             [saveFunc]="saveContentFunc"
             class="editor-save"></te-text-editor-save>
 
+          <!--  Tags  -->
+          <li-tag-list
+            class="g-flex-auto"
+            [tags]="tags$"
+            [showNoTagMessage]="true"
+            entityType="NOTE_TEMPLATE"
+            [enableDetails]="true"
+            [entityId]="noteTemplate.id"></li-tag-list>
+
           <!--  Created by & Last modified bt  -->
           <p class="g-text-small g-text-light separator">
             <fl-creation-info

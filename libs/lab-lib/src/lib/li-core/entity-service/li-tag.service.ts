@@ -16,18 +16,19 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import {
-  LiCreateTagResponse, LiEntityTag,
+  LiCreateTagResponse,
+  LiEntityTag,
   LiEntityTagType,
   LiTag,
   LiTagDatasource,
   LiTagKeyModel,
   LiTagKeyModelDatasource,
   LiTagOrigin,
+  LiTagPropagationImpactDTO,
   LiTagsNotSynchronized,
   LiTagValueEditDTO,
   LiTagValueModel,
   LiTagValueModelDatasource,
-  TagPropagationImpactDTO,
 } from '../model/entities/li-tag.entity';
 import { LiTagSearch, LiTagSearchFields } from '../model/search/li-tag-search.class';
 
@@ -297,11 +298,11 @@ export class LiTagService extends FlTagService {
     entityType: LiEntityTagType,
     entityId: string,
     tags: FlTag[]
-  ): Observable<TagPropagationImpactDTO> {
+  ): Observable<LiTagPropagationImpactDTO> {
     return this.apiService.post(
       `${this.route}/check-propagation-add/${entityType}/${entityId}`,
       tags,
-      TagPropagationImpactDTO
+      LiTagPropagationImpactDTO
     );
   }
 
@@ -309,11 +310,11 @@ export class LiTagService extends FlTagService {
     entityType: LiEntityTagType,
     entityId: string,
     tag: FlTag
-  ): Observable<TagPropagationImpactDTO> {
+  ): Observable<LiTagPropagationImpactDTO> {
     return this.apiService.post(
       `${this.route}/check-propagation-delete/${entityType}/${entityId}`,
       tag,
-      TagPropagationImpactDTO
+      LiTagPropagationImpactDTO
     );
   }
 

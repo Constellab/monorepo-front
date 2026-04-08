@@ -9,18 +9,23 @@
 
       <!--    Invisible link  -->
       @if (!rowSelectable) {
+        <!-- eslint-disable-next-line @angular-eslint/template/elements-content -->
         <a [routerLink]="row | liDetailRoute" class="g-row-link"></a>
       }
     </mat-cell>
   </ng-container>
 
-  <!-- Creation -->
-  <ng-container matColumnDef="creation">
-    <mat-header-cell *matHeaderCellDef mat-sort-header>
-      <span>{{ 'li.creation_info' | translate }}</span>
+  <!-- Tags -->
+  <ng-container matColumnDef="tags">
+    <mat-header-cell *matHeaderCellDef>
+      <span> {{ 'li.tags' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
-      <fl-user-with-date [user]="row.createdBy" [date]="row.createdAt"></fl-user-with-date>
+      @defer (on viewport) {
+        <li-tag-list [tags]="row | labGetEntityTags"></li-tag-list>
+      } @placeholder {
+        <div></div>
+      }
     </mat-cell>
   </ng-container>
 

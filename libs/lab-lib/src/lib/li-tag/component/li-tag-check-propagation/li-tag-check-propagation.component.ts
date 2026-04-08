@@ -4,7 +4,7 @@ import { MatButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { FlConfirmDialogResult, FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
-import { LiTagDatasource, TagPropagationImpactDTO } from '@monorepo/lab-lib/li-core';
+import { LiTagDatasource, LiTagPropagationImpactDTO } from '@monorepo/lab-lib/li-core';
 import { LiNavigableEntityGroupsComponent } from '@monorepo/lab-lib/li-navigable-entity';
 import { TranslatePipe } from '@ngx-translate/core';
 import { Observable, share } from 'rxjs';
@@ -13,7 +13,7 @@ import { map } from 'rxjs/operators';
 import { LiTagListComponent } from '../li-tag-list/li-tag-list.component';
 
 export interface LiTagCheckPropagationInput {
-  impactDTO$: Observable<TagPropagationImpactDTO>;
+  impactDTO$: Observable<LiTagPropagationImpactDTO>;
   mode: 'ADD' | 'REMOVE';
 }
 
@@ -39,7 +39,7 @@ export interface LiTagCheckPropagationInput {
 export class LiTagCheckPropagationComponent {
   private dialogRef = inject<MatDialogRef<LiTagCheckPropagationComponent>>(MatDialogRef);
 
-  impactDTO$: Observable<TagPropagationImpactDTO>;
+  impactDTO$: Observable<LiTagPropagationImpactDTO>;
 
   tags: LiTagDatasource;
 

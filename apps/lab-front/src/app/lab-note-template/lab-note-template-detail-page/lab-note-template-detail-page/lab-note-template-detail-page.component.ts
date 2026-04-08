@@ -1,4 +1,4 @@
-import { Component, inject,OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
@@ -15,7 +15,14 @@ import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import { LiNoteTemplate, LiNoteTemplateService, LiRouterService } from '@monorepo/lab-lib/li-core';
+import {
+  LiNoteTemplate,
+  LiNoteTemplateService,
+  LiRouterService,
+  LiTagDatasource,
+  LiTagService,
+} from '@monorepo/lab-lib/li-core';
+import { LiTagListComponent } from '@monorepo/lab-lib/li-tag';
 import { TeConfig, TeRichText, TeRichTextDTO, TeTextEditorModule } from '@monorepo/text-editor';
 import { TranslatePipe } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
@@ -37,6 +44,7 @@ import { LabNoteTemplateTextEditorConfig } from '../lab-note-template-text-edito
     MatMenu,
     MatMenuItem,
     FlArticleModule,
+    LiTagListComponent,
     TeTextEditorModule,
     FlUserModule,
     ReactiveFormsModule,
@@ -48,8 +56,11 @@ export class LabNoteTemplateDetailPageComponent implements OnInit {
   private dialogService = inject(FlDialogService);
   private routerService = inject(LiRouterService);
   private noteTemplateService = inject(LiNoteTemplateService);
+  private tagService = inject(LiTagService);
 
   noteTemplate: LiNoteTemplate;
+
+  tags$: LiTagDatasource;
 
   textEditorConfig: TeConfig;
 
@@ -68,6 +79,7 @@ export class LabNoteTemplateDetailPageComponent implements OnInit {
     this.noteTemplateId = id;
     this.textEditorConfig = new LabNoteTemplateTextEditorConfig(id);
     this.isLoading = true;
+    this.tags$ = this.tagService.getEntityTagsDatasource('NOTE_TEMPLATE', id);
     this.noteTemplateService.getNoteTemplate(id).subscribe({
       next: (template) => this.getNoteTemplateSuccess(template),
       error: () => (this.isLoading = false),

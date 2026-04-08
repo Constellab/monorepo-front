@@ -1,8 +1,9 @@
-import { inject,Pipe, PipeTransform } from '@angular/core';
+import { inject, Pipe, PipeTransform } from '@angular/core';
 import { FlEntity } from '@monorepo/front-core-lib/fl-core';
 import {
   LiEntityTagType,
   LiNote,
+  LiNoteTemplate,
   LiResource,
   LiScenario,
   LiScenarioTemplate,
@@ -36,6 +37,8 @@ export class LiGetEntityTagsPipe implements PipeTransform {
       return 'VIEW';
     } else if (entity instanceof LiScenarioTemplate) {
       return 'SCENARIO_TEMPLATE';
+    } else if (entity instanceof LiNoteTemplate) {
+      return 'NOTE_TEMPLATE';
     } else {
       console.error('[labGetEntityTags] Entity type not supported', entity);
       return null;

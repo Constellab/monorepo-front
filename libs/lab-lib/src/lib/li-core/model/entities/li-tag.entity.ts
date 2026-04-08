@@ -11,7 +11,13 @@ import { LiBaseEntity } from '../global/li-entity.entity';
 import { LiEntityType, LiNavigableEntityGrouped } from './li-navigable-entity.entity';
 import { LiUser } from './li-user.entity';
 
-export type LiEntityTagType = 'SCENARIO' | 'NOTE' | 'RESOURCE' | 'VIEW' | 'SCENARIO_TEMPLATE';
+export type LiEntityTagType =
+  | 'SCENARIO'
+  | 'NOTE'
+  | 'RESOURCE'
+  | 'VIEW'
+  | 'SCENARIO_TEMPLATE'
+  | 'NOTE_TEMPLATE';
 export type LiTagValueFormat = 'STRING' | 'INTEGER' | 'FLOAT' | 'BOOLEAN' | 'DATETIME';
 
 /**
@@ -252,7 +258,7 @@ export class LiTagValueModel extends LiBaseEntity implements CoTagValue {
 
 export type LiTagValueModelDatasource = FlDatasourcePaginated<LiTagValueModel>;
 
-export class TagPropagationImpactDTO {
+export class LiTagPropagationImpactDTO {
   @Type(() => LiTag)
   tags: LiTag[];
 
