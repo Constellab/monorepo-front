@@ -1,4 +1,4 @@
-import { Component, computed, input } from '@angular/core';
+import { Component, computed, inject, input } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
@@ -18,7 +18,7 @@ export interface CoTagCommunityTagInput {
   styleUrl: './co-tag-community-icon.component.scss',
 })
 export class CoTagCommunityIconComponent {
-  private communityHelperService = new CoCommunityHelperService();
+  private communityHelperService = inject(CoCommunityHelperService);
 
   key = input.required<CoTagCommunityTagInput>();
 
