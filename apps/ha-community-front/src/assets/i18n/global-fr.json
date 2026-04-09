@@ -729,5 +729,10 @@
   "cli_auth.error_code_expired": "Le code d'autorisation a expiré. Veuillez relancer le processus depuis le CLI.",
   "cli_auth.error_code_used": "Ce code d'autorisation a déjà été utilisé.",
   "cli_auth.error_no_code": "Aucun code d'autorisation fourni.",
-  "cli_auth.error_unknown": "Une erreur inattendue s'est produite. Veuillez réessayer depuis le CLI."
+  "cli_auth.error_unknown": "Une erreur inattendue s'est produite. Veuillez réessayer depuis le CLI.",
+  "error_loading_co_authors": "Erreur lors du chargement des co-auteurs",
+  "error_loading_agent_versions": "Erreur lors du chargement des versions de l'agent",
+  "error_loading_brick_dependencies": "Erreur lors du chargement des dépendances de bricks",
+  "error_invalid_file_format": "Format de fichier invalide",
+  "error_uploading_file": "Erreur lors de l'upload du fichier"
 }

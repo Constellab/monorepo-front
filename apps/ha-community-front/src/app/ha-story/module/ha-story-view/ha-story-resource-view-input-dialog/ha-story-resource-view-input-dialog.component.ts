@@ -1,9 +1,10 @@
 import { CdkScrollable } from '@angular/cdk/scrolling';
 import { Component, inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogContent,MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlInputFileModule } from '@monorepo/front-core-lib/fl-input-file';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { TranslatePipe } from '@ngx-translate/core';
 
 import { HaStoryService } from '../../../../ha-core/ha-service/ha-story.service';
@@ -40,6 +41,7 @@ export interface HaStoryResourceViewInputDialogOutputData {
 export class HaStoryResourceViewInputDialogComponent {
   private dialogRef = inject<MatDialogRef<HaStoryResourceViewInputDialogComponent>>(MatDialogRef);
   private storyService = inject(HaStoryService);
+  private snackBarService = inject(FlSnackBarService);
 
   storyId: string;
   isLoading: boolean = false;
@@ -53,7 +55,13 @@ export class HaStoryResourceViewInputDialogComponent {
   async parseJsonFile(file: any): Promise<any> {
     return new Promise((resolve, reject) => {
       const fileReader = new FileReader();
-      fileReader.onload = (event) => resolve(JSON.parse(event.target.result as string));
+      fileReader.onload = (event) => {
+        try {
+          resolve(JSON.parse(event.target.result as string));
+        } catch (e) {
+          reject(e);
+        }
+      };
       fileReader.onerror = (error) => reject(error);
       fileReader.readAsText(file);
     });
@@ -66,14 +74,20 @@ export class HaStoryResourceViewInputDialogComponent {
     const fileData: any = await this.parseJsonFile(file);
     if (!this.checkJsonFileData(fileData)) {
       this.isLoading = false;
-      console.log('ERROR FILE FORMAT');
+      this.snackBarService.openErrorMessage({ text: 'error_invalid_file_format', translateText: true });
       return;
     }
-    this.storyService.uploadStoryResourceViewFile(this.storyId, formData).subscribe((res: any) => {
-      this.dialogRef.close({
-        filename: res.filename,
-        view: fileData,
-      } as HaStoryResourceViewInputDialogOutputData);
+    this.storyService.uploadStoryResourceViewFile(this.storyId, formData).subscribe({
+      next: (res: any) => {
+        this.dialogRef.close({
+          filename: res.filename,
+          view: fileData,
+        } as HaStoryResourceViewInputDialogOutputData);
+      },
+      error: () => {
+        this.isLoading = false;
+        this.snackBarService.openErrorMessage({ text: 'error_uploading_file', translateText: true });
+      },
     });
   }
 

@@ -3,6 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogContent, MatDialogRef } from '@angular/materi
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlInputFileModule } from '@monorepo/front-core-lib/fl-input-file';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { TranslatePipe } from '@ngx-translate/core';
 
 import { HaAgentService } from '../../../../ha-core/ha-service/ha-agent.service';
@@ -32,6 +33,7 @@ export interface HaAgentResourceViewInputDialogOutputData {
 export class HaAgentResourceViewInputDialogComponent {
   private dialogRef = inject<MatDialogRef<HaAgentResourceViewInputDialogComponent>>(MatDialogRef);
   private agentService = inject(HaAgentService);
+  private snackBarService = inject(FlSnackBarService);
 
   agentId: string;
   isLoading: boolean = false;
@@ -45,7 +47,13 @@ export class HaAgentResourceViewInputDialogComponent {
   async parseJsonFile(file: any): Promise<any> {
     return new Promise((resolve, reject) => {
       const fileReader = new FileReader();
-      fileReader.onload = (event) => resolve(JSON.parse(event.target.result as string));
+      fileReader.onload = (event) => {
+        try {
+          resolve(JSON.parse(event.target.result as string));
+        } catch (e) {
+          reject(e);
+        }
+      };
       fileReader.onerror = (error) => reject(error);
       fileReader.readAsText(file);
     });
@@ -58,14 +66,20 @@ export class HaAgentResourceViewInputDialogComponent {
     const fileData: any = await this.parseJsonFile(file);
     if (!this.checkJsonFileData(fileData)) {
       this.isLoading = false;
-      console.log('ERROR FILE FORMAT');
+      this.snackBarService.openErrorMessage({ text: 'error_invalid_file_format', translateText: true });
       return;
     }
-    this.agentService.uploadResourceViewFile(this.agentId, formData).subscribe((res: any) => {
-      this.dialogRef.close({
-        filename: res.filename,
-        view: fileData,
-      } as HaAgentResourceViewInputDialogOutputData);
+    this.agentService.uploadResourceViewFile(this.agentId, formData).subscribe({
+      next: (res: any) => {
+        this.dialogRef.close({
+          filename: res.filename,
+          view: fileData,
+        } as HaAgentResourceViewInputDialogOutputData);
+      },
+      error: () => {
+        this.isLoading = false;
+        this.snackBarService.openErrorMessage({ text: 'error_uploading_file', translateText: true });
+      },
     });
   }
 

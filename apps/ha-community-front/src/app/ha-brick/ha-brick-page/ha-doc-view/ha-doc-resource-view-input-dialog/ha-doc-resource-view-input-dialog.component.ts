@@ -3,6 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogContent, MatDialogRef } from '@angular/materi
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlInputFileModule } from '@monorepo/front-core-lib/fl-input-file';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { TranslatePipe } from '@ngx-translate/core';
 
 import { HaDocumentationService } from '../../../../ha-core/ha-service/ha-documentation.service';
@@ -32,6 +33,7 @@ export interface HaDocResourceViewInputDialogOutputData {
 export class HaDocResourceViewInputDialogComponent {
   private dialogRef = inject<MatDialogRef<HaDocResourceViewInputDialogComponent>>(MatDialogRef);
   private docService = inject(HaDocumentationService);
+  private snackBarService = inject(FlSnackBarService);
 
   docId: string;
   isLoading: boolean = false;
@@ -45,7 +47,13 @@ export class HaDocResourceViewInputDialogComponent {
   async parseJsonFile(file: any): Promise<any> {
     return new Promise((resolve, reject) => {
       const fileReader = new FileReader();
-      fileReader.onload = (event) => resolve(JSON.parse(event.target.result as string));
+      fileReader.onload = (event) => {
+        try {
+          resolve(JSON.parse(event.target.result as string));
+        } catch (e) {
+          reject(e);
+        }
+      };
       fileReader.onerror = (error) => reject(error);
       fileReader.readAsText(file);
     });
@@ -57,15 +65,21 @@ export class HaDocResourceViewInputDialogComponent {
     formData.append('file', file);
     const fileData: any = await this.parseJsonFile(file);
     if (!this.checkJsonFileData(fileData)) {
-      console.log('ERROR FILE FORMAT');
       this.isLoading = false;
+      this.snackBarService.openErrorMessage({ text: 'error_invalid_file_format', translateText: true });
       return;
     }
-    this.docService.uploadDocResourceViewFile(this.docId, formData).subscribe((res: any) => {
-      this.dialogRef.close({
-        filename: res.filename,
-        view: fileData,
-      } as HaDocResourceViewInputDialogOutputData);
+    this.docService.uploadDocResourceViewFile(this.docId, formData).subscribe({
+      next: (res: any) => {
+        this.dialogRef.close({
+          filename: res.filename,
+          view: fileData,
+        } as HaDocResourceViewInputDialogOutputData);
+      },
+      error: () => {
+        this.isLoading = false;
+        this.snackBarService.openErrorMessage({ text: 'error_uploading_file', translateText: true });
+      },
     });
   }
 

@@ -727,5 +727,10 @@
   "cli_auth.error_code_expired": "The authorization code has expired. Please restart the process from the CLI.",
   "cli_auth.error_code_used": "This authorization code has already been used.",
   "cli_auth.error_no_code": "No authorization code provided.",
-  "cli_auth.error_unknown": "An unexpected error occurred. Please try again from the CLI."
+  "cli_auth.error_unknown": "An unexpected error occurred. Please try again from the CLI.",
+  "error_loading_co_authors": "Failed to load co-authors",
+  "error_loading_agent_versions": "Failed to load agent versions",
+  "error_loading_brick_dependencies": "Failed to load brick dependencies",
+  "error_invalid_file_format": "Invalid file format",
+  "error_uploading_file": "Failed to upload file"
 }
