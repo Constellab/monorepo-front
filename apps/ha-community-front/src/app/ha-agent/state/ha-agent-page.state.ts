@@ -261,8 +261,12 @@ export class HaAgentPageState {
   }
 
   public initCoAuthors(): void {
-    this.agentService.getCoAuthors(this.agent()?.id).subscribe((coAuthors) => {
-      this.agentCoAuthors.set(coAuthors);
+    this.agentService.getCoAuthors(this.agent()?.id).subscribe({
+      next: (coAuthors) => this.agentCoAuthors.set(coAuthors),
+      error: () => {
+        this.agentCoAuthors.set([]);
+        this.snackBarService.openErrorMessage({ text: 'error_loading_co_authors', translateText: true });
+      },
     });
   }
 
@@ -339,8 +343,12 @@ export class HaAgentPageState {
     if (agent == null) {
       return;
     }
-    this.agentService.getPublishedAgentVersions(agent.id).subscribe((agentVersions) => {
-      this.agentVersionsList.set(agentVersions);
+    this.agentService.getPublishedAgentVersions(agent.id).subscribe({
+      next: (agentVersions) => this.agentVersionsList.set(agentVersions),
+      error: () => {
+        this.agentVersionsList.set([]);
+        this.snackBarService.openErrorMessage({ text: 'error_loading_agent_versions', translateText: true });
+      },
     });
   }
 
@@ -358,8 +366,15 @@ export class HaAgentPageState {
   }
 
   private checkBrickDependencies(agentVersion: HaAgentVersion): void {
-    this.agentService.getAgentVersionBrickDependencies(agentVersion.id).subscribe((brickDependencies) => {
-      this.brickDependencies.set(brickDependencies);
+    this.agentService.getAgentVersionBrickDependencies(agentVersion.id).subscribe({
+      next: (brickDependencies) => this.brickDependencies.set(brickDependencies),
+      error: () => {
+        this.brickDependencies.set([]);
+        this.snackBarService.openErrorMessage({
+          text: 'error_loading_brick_dependencies',
+          translateText: true,
+        });
+      },
     });
   }
 
