@@ -148,8 +148,8 @@ export class CoListFiltersComponent implements OnInit, OnDestroy {
   selectSortCriteria(sortCriteriaKey: string): void {
     if (
       this.currentSortCriteria &&
-      this.currentSortCriteria?.key == sortCriteriaKey &&
-      this.currentSortCriteria?.direction == 'DESC'
+      this.currentSortCriteria?.key === sortCriteriaKey &&
+      this.currentSortCriteria?.direction === 'DESC'
     ) {
       this.currentSortCriteria = { key: sortCriteriaKey, direction: 'ASC' };
     } else {
