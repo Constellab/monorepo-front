@@ -62,7 +62,7 @@ export enum CoListEntityType {
 export class CoListFiltersComponent implements OnInit, OnDestroy {
   private coConfigService = inject(CoConfig);
 
-  user = input<CoUser>(null);
+  user = input<CoUser | null>(null);
   sortsCriteriaKeys = input<string[]>(['createdAt', 'title']);
   hideMyEntitiesFilter = input(false);
   hideSpaceFilter = input(false);

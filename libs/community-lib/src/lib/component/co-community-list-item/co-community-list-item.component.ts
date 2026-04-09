@@ -29,18 +29,18 @@ import { CoVisibilityBadgeComponent } from '../co-visibility-badge/co-visibility
   ],
 })
 export class CoCommunityListItemComponent {
-  image = input<string>(null);
+  image = input<string | null>(null);
   type = input.required<CoListItemType>();
-  title = input<string>(null);
-  shortDescription = input<string>(null);
-  space = input<CoSpace>(null);
+  title = input<string | null>(null);
+  shortDescription = input<string | null>(null);
+  space = input<CoSpace | null>(null);
   showVisibility = input<boolean>(true);
   likes = input<number>(0);
   comments = input<number>(undefined);
   executions = input<number>(undefined);
-  publishedAt = input<DateTime>(null);
+  publishedAt = input<DateTime | null>(null);
 
-  author = input<CoUser>(null);
+  author = input<CoUser | null>(null);
 
   mainBackground = input<boolean>(false);
   hideDiscover = input<boolean>(false);

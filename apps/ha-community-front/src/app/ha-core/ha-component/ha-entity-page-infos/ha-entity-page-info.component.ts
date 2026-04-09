@@ -64,7 +64,7 @@ export class HaEntityPageInfoComponent implements OnInit {
   executions = input<number>(undefined);
   isAuthor = input<boolean>(false);
   showCoAuthorsButton = input<boolean>(true);
-  imageUrl = input<string>(null);
+  imageUrl = input<string | null>(null);
 
   isLiked = this.entityLikeState.getIsLiked();
   likesCount = this.entityLikeState.getLikesCount();

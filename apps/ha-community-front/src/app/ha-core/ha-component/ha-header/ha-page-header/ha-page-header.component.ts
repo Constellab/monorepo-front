@@ -21,7 +21,7 @@ export class HaPageHeaderComponent {
 
   title = input.required<FlTranslatableText>();
 
-  description = input<string>(null);
+  description = input<string | null>(null);
 
   completeTreePaths = computed(() => {
     const urls = this.currentPageState.getUrls()();

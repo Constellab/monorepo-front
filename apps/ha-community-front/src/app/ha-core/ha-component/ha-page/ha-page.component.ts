@@ -31,7 +31,7 @@ import { HaPageHeaderComponent } from '../ha-header/ha-page-header/ha-page-heade
   ],
 })
 export class HaPageComponent {
-  pageTitle = input<string>(null);
+  pageTitle = input<string | null>(null);
   showPageDescription = input<boolean>(true);
   isLoading = input<boolean>(false);
   notFound = input<boolean>(false);

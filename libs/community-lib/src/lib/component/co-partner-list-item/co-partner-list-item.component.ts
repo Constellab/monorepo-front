@@ -12,6 +12,6 @@ import { CoCommunityListItemComponent } from '../co-community-list-item/co-commu
 })
 export class CoPartnerListItemComponent {
   partner = input.required<CoPartner>();
-  partnerLogo = input<string>(null);
+  partnerLogo = input<string | null>(null);
   type = CoListItemType.PARTNER;
 }
