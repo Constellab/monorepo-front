@@ -734,5 +734,6 @@
   "error_loading_agent_versions": "Erreur lors du chargement des versions de l'agent",
   "error_loading_brick_dependencies": "Erreur lors du chargement des dépendances de bricks",
   "error_invalid_file_format": "Format de fichier invalide",
-  "error_uploading_file": "Erreur lors de l'upload du fichier"
+  "error_uploading_file": "Erreur lors de l'upload du fichier",
+  "error_loading_spaces": "Erreur lors du chargement des espaces"
 }

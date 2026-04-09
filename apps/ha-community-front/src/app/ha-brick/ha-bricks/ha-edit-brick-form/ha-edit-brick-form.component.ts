@@ -14,10 +14,7 @@ import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { TranslatePipe } from '@ngx-translate/core';
 
-import {
-  HaBrickCreationDTO,
-  HaBrickVisibility,
-} from '../../../ha-core/ha-model/ha-entities/ha-brick.class';
+import { HaBrickCreationDTO, HaBrickVisibility } from '../../../ha-core/ha-model/ha-entities/ha-brick.class';
 import { HaSpace } from '../../../ha-core/ha-model/ha-entities/ha-space.class';
 import { HaAddVersionInput, HaRepoType } from '../../../ha-core/ha-model/ha-entities/ha-version.class';
 import { HaBrickService } from '../../../ha-core/ha-service/ha-brick.service';
@@ -64,9 +61,14 @@ export class HaEditBrickFormComponent implements OnInit {
   fileName: string = '';
 
   ngOnInit(): void {
-    this.spaceService.getSpacesOfCurrentUser().subscribe((spaces) => {
-      this.spaces = spaces;
-      this.buildForm();
+    this.spaceService.getSpacesOfCurrentUser().subscribe({
+      next: (spaces) => {
+        this.spaces = spaces;
+        this.buildForm();
+      },
+      error: () => {
+        this.snackBarService.openErrorMessage({ text: 'error_loading_spaces', translateText: true });
+      },
     });
   }
 
@@ -141,8 +143,17 @@ export class HaEditBrickFormComponent implements OnInit {
     if (typeof FileReader !== 'undefined' && !this.errorFile) {
       const reader = new FileReader();
 
-      reader.onload = (e: any) => {
-        const srcResult = JSON.parse(e.target.result);
+      reader.onload = (e: ProgressEvent<FileReader>) => {
+        let srcResult: any;
+        try {
+          srcResult = JSON.parse(e.target.result as string);
+        } catch {
+          this.errorFile = true;
+          this.errorFileText = 'file_wrong_format';
+          this.snackBarService.openErrorMessage({ text: this.errorFileText, translateText: true });
+          this.fileName = '';
+          return;
+        }
 
         if (!srcResult.name || !srcResult.version || !srcResult.environment) {
           this.errorFile = true;
@@ -184,10 +195,10 @@ export class HaEditBrickFormComponent implements OnInit {
                 this.errorFile = true;
                 this.errorFileText = 'file_wrong_format';
                 this.snackBarService.openErrorMessage({ text: this.errorFileText, translateText: true });
-                this.fileName = ''
+                this.fileName = '';
                 return;
               }
-              this.fileName = e.name;
+              this.fileName = $event.name;
             } else {
               this.errorFile = true;
               this.errorFileText = 'brick_already_exists';

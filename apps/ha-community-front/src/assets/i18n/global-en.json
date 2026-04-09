@@ -732,5 +732,6 @@
   "error_loading_agent_versions": "Failed to load agent versions",
   "error_loading_brick_dependencies": "Failed to load brick dependencies",
   "error_invalid_file_format": "Invalid file format",
-  "error_uploading_file": "Failed to upload file"
+  "error_uploading_file": "Failed to upload file",
+  "error_loading_spaces": "Failed to load spaces"
 }
