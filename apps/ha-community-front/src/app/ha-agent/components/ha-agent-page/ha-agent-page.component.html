@@ -61,22 +61,24 @@
             </div>
           </div>
 
-          <div class="entity-page-separator"></div>
+          @if (brickDependencies()?.length > 0) {
+            <div class="entity-page-separator"></div>
 
-          <div class="entity-page-info-div">
-            <span class="g-text-medium g-weight-600">{{ 'necessary_bricks' | translate }}</span>
-            <div class="entity-page-info-div-content additional-info-div">
-              @for (brickVersion of brickDependencies(); track brickVersion.id) {
-                <a
-                  class="g-text-small version-link"
-                  [routerLink]="brickVersion.brickMajorVersion.brick | haDetailRoute"
-                  >{{ brickVersion.brickMajorVersion.brick.name }} {{ brickVersion.version }}</a
-                >
-              }
+            <div class="entity-page-info-div">
+              <span class="g-text-medium g-weight-600">{{ 'necessary_bricks' | translate }}</span>
+              <div class="entity-page-info-div-content additional-info-div">
+                @for (brickVersion of brickDependencies(); track brickVersion.id) {
+                  <a
+                    class="g-text-small version-link"
+                    [routerLink]="brickVersion.brickMajorVersion.brick | haDetailRoute"
+                    >{{ brickVersion.brickMajorVersion.brick.name }} {{ brickVersion.version }}</a
+                  >
+                }
+              </div>
             </div>
-          </div>
 
-          <div class="entity-page-separator"></div>
+            <div class="entity-page-separator"></div>
+          }
         </ha-entity-page-info>
       </div>
       <div class="entity-page-content">
