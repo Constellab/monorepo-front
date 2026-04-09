@@ -6,12 +6,13 @@ import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { TeComponentBlock, TeHelper, TeSourceUrlRegistry } from '@monorepo/text-editor';
 import { catchError, EMPTY, from, switchMap } from 'rxjs';
 
+import {
+  HaResourceViewInputDialogComponent,
+  HaResourceViewInputDialogData,
+  HaResourceViewInputDialogOutputData,
+} from '../../../ha-core/ha-component/ha-resource-view-input-dialog/ha-resource-view-input-dialog.component';
 import { HaDocumentationService } from '../../../ha-core/ha-service/ha-documentation.service';
 import { HaDocContentViewComponent } from './ha-doc-content-view/ha-doc-content-view.component';
-import {
-  HaDocResourceViewInputDialogComponent,
-  HaDocResourceViewInputDialogOutputData,
-} from './ha-doc-resource-view-input-dialog/ha-doc-resource-view-input-dialog.component';
 
 export interface HaDocViewConfig {
   filename: string;
@@ -89,13 +90,19 @@ export class HaDocContentViewBlock extends TeComponentBlock<HaDocContentViewComp
 
   public openSelectResourceView(): void {
     const dialogService: FlDialogService = this.envInjector.get(FlDialogService);
+    const docService = this.envInjector.get(HaDocumentationService);
+    const data: HaResourceViewInputDialogData = {
+      entityId: this.additionalData,
+      headerTranslationKey: 'add_a_view_to_the_doc',
+      uploadFn: (entityId, file) => docService.uploadDocResourceViewFile(entityId, file),
+    };
     dialogService
-      .openSmallDialog(HaDocResourceViewInputDialogComponent, { data: { docId: this.additionalData } })
+      .openSmallDialog(HaResourceViewInputDialogComponent, { data })
       .afterClosed()
       .subscribe((res) => this.insertResourceView(res));
   }
 
-  private insertResourceView(res?: HaDocResourceViewInputDialogOutputData): void {
+  private insertResourceView(res?: HaResourceViewInputDialogOutputData): void {
     if (res == null || res.filename == null || res.view == null) {
       this.destroy();
       this.options.api.blocks.delete(this.options.api.blocks.getBlockIndex(this.options.block.id));

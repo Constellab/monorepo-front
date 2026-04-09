@@ -5,12 +5,13 @@ import { ClStringHelper } from '@monorepo/core-lib';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { TeComponentBlock, TeHelper } from '@monorepo/text-editor';
 
+import {
+  HaResourceViewInputDialogComponent,
+  HaResourceViewInputDialogData,
+  HaResourceViewInputDialogOutputData,
+} from '../../../ha-core/ha-component/ha-resource-view-input-dialog/ha-resource-view-input-dialog.component';
 import { HaAgentService } from '../../../ha-core/ha-service/ha-agent.service';
 import { HaAgentContentViewComponent } from './ha-agent-content-view/ha-agent-content-view.component';
-import {
-  HaAgentResourceViewInputDialogComponent,
-  HaAgentResourceViewInputDialogOutputData,
-} from './ha-agent-resource-view-input-dialog/ha-agent-resource-view-input-dialog.component';
 
 export interface HaAgentViewConfig {
   filename: string;
@@ -58,13 +59,19 @@ export class HaAgentContentViewBlock extends TeComponentBlock<HaAgentContentView
 
   public openSelectResourceView(): void {
     const dialogService: FlDialogService = this.envInjector.get(FlDialogService);
+    const agentService = this.envInjector.get(HaAgentService);
+    const data: HaResourceViewInputDialogData = {
+      entityId: this.additionalData,
+      headerTranslationKey: 'add_a_view_to_the_agent',
+      uploadFn: (entityId, file) => agentService.uploadResourceViewFile(entityId, file),
+    };
     dialogService
-      .openSmallDialog(HaAgentResourceViewInputDialogComponent, { data: { agentId: this.additionalData } })
+      .openSmallDialog(HaResourceViewInputDialogComponent, { data })
       .afterClosed()
       .subscribe((res) => this.insertResourceView(res));
   }
 
-  private insertResourceView(res?: HaAgentResourceViewInputDialogOutputData): void {
+  private insertResourceView(res?: HaResourceViewInputDialogOutputData): void {
     if (res == null || res.filename == null || res.view == null) {
       this.destroy();
       this.options.api.blocks.delete(this.options.api.blocks.getBlockIndex(this.options.block.id));

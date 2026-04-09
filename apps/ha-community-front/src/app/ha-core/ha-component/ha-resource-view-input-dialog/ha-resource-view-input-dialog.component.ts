@@ -5,46 +5,41 @@ import { FlInputFileModule } from '@monorepo/front-core-lib/fl-input-file';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { TranslatePipe } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
 
-import { HaDocumentationService } from '../../../../ha-core/ha-service/ha-documentation.service';
-
-export interface HaDocResourceViewInputDialogInputData {
-  docId: string;
+export interface HaResourceViewInputDialogData {
+  entityId: string;
+  headerTranslationKey: string;
+  uploadFn: (entityId: string, file: FormData) => Observable<any>;
 }
 
-export interface HaDocViewFileData {
+export interface HaViewFileData {
   type: string;
   title: string;
   technical_info: any[];
   data: Record<string, any>;
 }
 
-export interface HaDocResourceViewInputDialogOutputData {
+export interface HaResourceViewInputDialogOutputData {
   filename: string;
-  view: HaDocViewFileData;
+  view: HaViewFileData;
 }
 
 @Component({
-  selector: 'ha-doc-resource-view-input-dialog',
-  templateUrl: './ha-doc-resource-view-input-dialog.component.html',
-  styleUrls: ['./ha-doc-resource-view-input-dialog.component.scss'],
+  selector: 'ha-resource-view-input-dialog',
+  templateUrl: './ha-resource-view-input-dialog.component.html',
+  styleUrls: ['./ha-resource-view-input-dialog.component.scss'],
   imports: [FlDialogModule, MatDialogContent, FlLoaderModule, FlInputFileModule, TranslatePipe],
 })
-export class HaDocResourceViewInputDialogComponent {
-  private dialogRef = inject<MatDialogRef<HaDocResourceViewInputDialogComponent>>(MatDialogRef);
-  private docService = inject(HaDocumentationService);
+export class HaResourceViewInputDialogComponent {
+  private dialogRef = inject<MatDialogRef<HaResourceViewInputDialogComponent>>(MatDialogRef);
   private snackBarService = inject(FlSnackBarService);
+  private data = inject<HaResourceViewInputDialogData>(MAT_DIALOG_DATA);
 
-  docId: string;
+  headerTranslationKey = this.data.headerTranslationKey;
   isLoading: boolean = false;
 
-  constructor() {
-    const data = inject<HaDocResourceViewInputDialogInputData>(MAT_DIALOG_DATA);
-
-    this.docId = data.docId;
-  }
-
-  async parseJsonFile(file: any): Promise<any> {
+  async parseJsonFile(file: File): Promise<HaViewFileData> {
     return new Promise((resolve, reject) => {
       const fileReader = new FileReader();
       fileReader.onload = (event) => {
@@ -59,22 +54,23 @@ export class HaDocResourceViewInputDialogComponent {
     });
   }
 
-  async uploadFile(file: any): Promise<void> {
+  async uploadFile(file: File | File[]): Promise<void> {
+    if (Array.isArray(file)) return;
     this.isLoading = true;
     const formData = new FormData();
     formData.append('file', file);
-    const fileData: any = await this.parseJsonFile(file);
+    const fileData: HaViewFileData = await this.parseJsonFile(file);
     if (!this.checkJsonFileData(fileData)) {
       this.isLoading = false;
       this.snackBarService.openErrorMessage({ text: 'error_invalid_file_format', translateText: true });
       return;
     }
-    this.docService.uploadDocResourceViewFile(this.docId, formData).subscribe({
+    this.data.uploadFn(this.data.entityId, formData).subscribe({
       next: (res: any) => {
         this.dialogRef.close({
           filename: res.filename,
           view: fileData,
-        } as HaDocResourceViewInputDialogOutputData);
+        } as HaResourceViewInputDialogOutputData);
       },
       error: () => {
         this.isLoading = false;
@@ -83,7 +79,7 @@ export class HaDocResourceViewInputDialogComponent {
     });
   }
 
-  checkJsonFileData(file: any): boolean {
+  checkJsonFileData(file: HaViewFileData): boolean {
     return file.data != null && file.type != null && file.title != null;
   }
 }
