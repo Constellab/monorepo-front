@@ -1,5 +1,6 @@
 import { BlockTool, BlockToolConstructorOptions } from '@editorjs/editorjs/types/tools/block-tool';
 import List from '@editorjs/list';
+import { ClHelpService } from '@monorepo/core-lib';
 import { FlKeyboardKey } from '@monorepo/front-core-lib/fl-core';
 
 import { TeBlockListData } from '../model/lib';
@@ -18,22 +19,17 @@ export class TeNestedListBlock extends List implements BlockTool {
     const node = super.render();
 
     if (!this.options.readOnly) {
-      node.addEventListener('keydown', (event: KeyboardEvent) => this.handleKeyDown(event, node));
-
-      // Fix: both the list plugin and EditorJS core call Range.setStart/setEnd
-      // with textContent.length as offset on Element nodes (e.g. formula).
-      // setStart/setEnd on an Element expects a child-node index, not a character offset.
-      // This causes IndexSizeError when inline elements are present.
-      // We temporarily patch Range.setStart/setEnd during Enter and Backspace
-      // to redirect invalid offsets to the correct position in the parent element.
+      // Capture phase: intercept backspace before the list plugin can delete the block
       node.addEventListener('keydown', (event: KeyboardEvent) => {
-        if (
-          (event.key === FlKeyboardKey.ENTER && !event.shiftKey) ||
-          event.key === FlKeyboardKey.BACKSPACE
-        ) {
+        if (event.key === FlKeyboardKey.BACKSPACE) {
+          this.patchRangeForInlineElements();
+          this.handleBackspace(event, node);
+        } else if (event.key === FlKeyboardKey.ENTER && !event.shiftKey) {
           this.patchRangeForInlineElements();
         }
       }, true);
+
+      node.addEventListener('keydown', (event: KeyboardEvent) => this.handleKeyDown(event, node));
     }
 
     return node;
@@ -84,14 +80,69 @@ export class TeNestedListBlock extends List implements BlockTool {
     }, 0);
   }
 
+  /**
+   * Handle backspace in capture phase, before the list plugin can delete the block.
+   */
+  private handleBackspace(event: KeyboardEvent, node: HTMLElement): void {
+    if (node.innerText.trim() === '') {
+      TeHelper.convertBlockToParagraphIfEmpty(event, node, this.options);
+      return;
+    }
+
+    this.convertSingleItemListToParagraph(event, node);
+  }
+
   private handleKeyDown(event: KeyboardEvent, node: HTMLElement): void {
-    const converted = TeHelper.convertBlockToParagraphIfEmpty(event, node, this.options);
-
-    if (converted) return;
-
     if (event.key === FlKeyboardKey.ARROW_RIGHT) {
       TeHelper.handleRightArrow(event);
     }
+  }
+
+  /**
+   * When backspace is pressed at the beginning of a single-item list,
+   * convert the list block to a paragraph preserving the item content.
+   */
+  private convertSingleItemListToParagraph(event: KeyboardEvent, node: HTMLElement): void {
+    const items = node.querySelectorAll('.cdx-list__item');
+    if (items.length !== 1) return;
+
+    const childrenContainer = items[0].querySelector('.cdx-list__item-children');
+    if (childrenContainer && childrenContainer.children.length > 0) return;
+
+    const selection = window.getSelection();
+    if (!selection || selection.rangeCount === 0) return;
+
+    const range = selection.getRangeAt(0);
+    if (!range.collapsed) return;
+
+    const contentEl = items[0].querySelector('.cdx-list__item-content');
+    if (!contentEl) return;
+
+    if (!this.isCursorAtContentStart(range, contentEl)) return;
+
+    ClHelpService.stopEventPropagation(event);
+
+    const content = contentEl.innerHTML;
+    const index = this.options.api.blocks.getBlockIndex(this.options.block.id);
+
+    this.options.api.blocks.delete(index);
+    this.options.api.blocks.insert('paragraph', { text: content }, null, index);
+    this.options.api.caret.setToBlock(index, 'start');
+  }
+
+  /**
+   * Check if the cursor (range) is at the very start of the given container element.
+   */
+  private isCursorAtContentStart(range: Range, container: Element): boolean {
+    if (range.startOffset !== 0) return false;
+
+    let current = range.startContainer;
+    while (current && current !== container) {
+      if (current.parentNode && current !== current.parentNode.firstChild) return false;
+      current = current.parentNode;
+    }
+
+    return current === container;
   }
 
   /**

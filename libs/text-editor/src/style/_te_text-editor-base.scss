@@ -314,6 +314,18 @@
       }
     }
 
+    h3.te-header-with-copy-link,
+    h4.te-header-with-copy-link {
+      .te-header-copy-link-btn {
+        width: 18px;
+        height: 18px;
+
+        .material-icons-outlined {
+          font-size: 14px;
+        }
+      }
+    }
+
     //////////////////// LIST ////////////////////
     .cdx-list {
       --spacing-s: 0px;
