@@ -1,7 +1,7 @@
 <div class="visibility-badge" [style.font-size]="textSize()">
   @if (space()?.photo) {
     <div [style.width]="iconSize()" [style.height]="iconSize()" class="space-badge-photo">
-      <img [ngSrc]="spacePhoto" [alt]="space.name + 'image'" fill />
+      <img [ngSrc]="spacePhoto()" [alt]="space()?.name + ' image'" fill />
     </div>
   } @else {
     <mat-icon [style.width]="iconSize()" [style.height]="iconSize()" [style.font-size]="iconSize()">

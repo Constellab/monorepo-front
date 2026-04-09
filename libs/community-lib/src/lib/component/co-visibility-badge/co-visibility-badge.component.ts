@@ -16,7 +16,7 @@ import { CoConfig } from '../../service/co-service-config.config';
 export class CoVisibilityBadgeComponent {
   private coServiceConfig = inject(CoConfig);
 
-  space = input<CoSpace>(null);
+  space = input<CoSpace | null>(null);
 
   size = input<'small' | 'medium'>('small');
 
@@ -28,10 +28,11 @@ export class CoVisibilityBadgeComponent {
     return this.size() === 'small' ? '10px' : '14px';
   });
 
-  get spacePhoto(): string {
-    if (this.space() && this.space().photo && !ClStringHelper.isHttpLink(this.space().photo)) {
-      this.space().photo = this.coServiceConfig.getSpacePhotoUrl(this.space().photo);
+  spacePhoto = computed(() => {
+    const photo = this.space()?.photo;
+    if (photo && !ClStringHelper.isHttpLink(photo)) {
+      return this.coServiceConfig.getSpacePhotoUrl(photo);
     }
-    return this.space().photo;
-  }
+    return photo;
+  });
 }
