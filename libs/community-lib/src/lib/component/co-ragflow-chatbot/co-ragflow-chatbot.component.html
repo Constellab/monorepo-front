@@ -14,7 +14,7 @@
     </div>
   } @else {
     <div class="co-chatbot-messages" #messagesContainer>
-      @for (message of displayMessages(); track $index) {
+      @for (message of displayMessages(); track message.id ?? $index) {
         <co-ragflow-chat-message [message]="message"></co-ragflow-chat-message>
       }
 
@@ -30,7 +30,7 @@
     </div>
 
     <div class="co-chatbot-input">
-      <mat-form-field class="g-full" subscriptSizing="dynamic" >
+      <mat-form-field class="g-full" subscriptSizing="dynamic">
         <textarea
           matInput
           cdkTextareaAutosize
