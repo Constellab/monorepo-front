@@ -83,6 +83,19 @@ function initRootInjector(injector: Injector): void {
   return flSetRootInjector(injector);
 }
 
+/**
+ * Root application configuration.
+ *
+ * Key architectural decisions:
+ * - SSR support: provideClientHydration + TransferState ensure data fetched on the server
+ *   is reused on the client without duplicate API calls (see HaBrickPageState for usage).
+ * - Two HTTP interceptors: FlHttpInterceptorService (adds auth/lang headers) and
+ *   HaHttpInterceptorSsrService (rewrites relative URLs to absolute for SSR).
+ * - provideAppInitializer hooks run at startup: load theme, set root injector, fetch authenticated user.
+ * - Library modules (Fl*, Co*, Td*) are configured via forRoot() with app-specific config classes
+ *   (e.g. HaApiServiceConfig provides the API base URL to FlApiModule).
+ */
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export const haAppConfig: ApplicationConfig = {
   providers: [
     provideRouter(

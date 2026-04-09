@@ -25,6 +25,19 @@ import { HaJsonLdState } from '../../ha-core/ha-state/ha-json-ld.state';
 import { HaThemeState } from '../../ha-core/ha-state/ha-theme.state';
 import { HaCookieConsentComponent } from '../ha-cookie-consent/ha-cookie-consent.component';
 
+/**
+ * Root layout component wrapping all authenticated pages.
+ *
+ * Responsibilities:
+ * - Provides shared layout (header, footer, sidenav) via its template.
+ * - Manages app-wide state: theme (HaThemeState), SEO structured data (HaJsonLdState),
+ *   and current page tracking (HaCurrentPageState).
+ * - Initializes Google Analytics after cookie consent.
+ * - Activates the Ragflow chatbot bubble if the backend reports it as active.
+ * - Listens for Ctrl+K to open the instant search dialog (Algolia-powered).
+ *
+ * Note: /login and /cli-auth do NOT go through this component (see ha-main-routes.ts).
+ */
 @Component({
   selector: 'ha-main',
   templateUrl: './ha-main.component.html',
@@ -74,13 +87,19 @@ export class HaMainComponent implements OnInit, AfterContentInit, OnDestroy {
     }
     this.currentPageState.init();
 
-    this.authUserService.getUser().pipe(takeUntilDestroyed(this.destroyRef)).subscribe((user) => {
-      this.currentLanguage = user != null ? user.lang : ClSupportedLanguage.en;
-    });
+    this.authUserService
+      .getUser()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((user) => {
+        this.currentLanguage = user != null ? user.lang : ClSupportedLanguage.en;
+      });
 
-    this.breakpointObserver.observe('(max-width: 965px)').pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
-      this.updateIsSmallScreen();
-    });
+    this.breakpointObserver
+      .observe('(max-width: 965px)')
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => {
+        this.updateIsSmallScreen();
+      });
   }
 
   private updateIsSmallScreen(): void {

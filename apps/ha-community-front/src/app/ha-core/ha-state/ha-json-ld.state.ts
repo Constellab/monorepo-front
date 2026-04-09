@@ -4,6 +4,18 @@ import { DateTime } from 'luxon';
 
 import { HaRouterService } from '../ha-service/ha-router.service';
 
+/**
+ * Manages JSON-LD structured data for SEO (schema.org).
+ *
+ * Injects a <script type="application/ld+json"> tag into <head> for each page type:
+ * - Article: stories and documentation pages
+ * - ProfilePage: user profile pages
+ * - Product: bricks (packages)
+ * - SoftwareApplication: community apps
+ *
+ * Each page component calls the appropriate setter; clearJsonLdContent() removes the previous one.
+ * This is critical for SSR — search engine crawlers read the server-rendered JSON-LD.
+ */
 @Injectable()
 export class HaJsonLdState {
   private document: Document = inject(DOCUMENT);

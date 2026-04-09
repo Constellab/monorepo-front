@@ -4,6 +4,16 @@ import { inject, Injectable, PLATFORM_ID, REQUEST } from '@angular/core';
 import { Request } from 'express';
 import { Observable } from 'rxjs';
 
+/**
+ * SSR-only HTTP interceptor.
+ *
+ * During server-side rendering, the browser's cookies aren't available to HttpClient.
+ * This interceptor reads the Authorization cookie from the Express request object
+ * and forwards it as an HTTP header on all outgoing API calls, so the backend
+ * can authenticate the user during SSR.
+ *
+ * On the browser this interceptor is a no-op (isPlatformServer is false).
+ */
 @Injectable()
 export class HaHttpInterceptorSsrService implements HttpInterceptor {
   private platformId = inject(PLATFORM_ID);

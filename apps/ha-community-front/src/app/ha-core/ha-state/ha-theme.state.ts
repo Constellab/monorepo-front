@@ -5,6 +5,13 @@ import { Subject } from 'rxjs';
 
 import { HaAuthenticatedUserService } from '../ha-service/ha-authenticated-user.service';
 
+/**
+ * Manages theme (light/dark) state.
+ *
+ * Provided by HaMainComponent. Initializes to light theme on load.
+ * When a logged-in user changes theme, it's persisted via the API (PUT /user/theme).
+ * FlThemeService handles the actual CSS class toggle on <body>.
+ */
 @Injectable()
 export class HaThemeState {
   private themeService = inject(FlThemeService);

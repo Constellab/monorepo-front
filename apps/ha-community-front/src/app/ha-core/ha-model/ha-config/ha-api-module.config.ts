@@ -5,7 +5,11 @@ import { FlApiServiceConfig } from '@monorepo/front-core-lib/fl-api';
 import { HaEnvironmentHelper } from './ha-environment.helper';
 
 /**
- * Class to configure the FlApiService
+ * App-specific configuration for FlApiService (from front-core-lib).
+ *
+ * FlApiService is the shared HTTP wrapper used by all entity services. This config class
+ * tells it how to build API URLs and how to deserialize paginated responses.
+ * Provided via FlApiModule.forRoot(HaApiServiceConfig, HaApiErrorService) in ha-app.config.ts.
  */
 @Injectable({
   providedIn: 'root',

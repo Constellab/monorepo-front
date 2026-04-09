@@ -4,6 +4,13 @@ import { ClBrick, ClStringHelper } from '@monorepo/core-lib';
 import { HaEnvironmentHelper } from '../ha-model/ha-config/ha-environment.helper';
 import { HaAgentVersion } from '../ha-model/ha-entities/ha-agent-version.class';
 
+/**
+ * Centralized route builder for the community app.
+ *
+ * All internal URLs are constructed here to avoid scattered string concatenation.
+ * Used by components, states, and JSON-LD generation to build navigation links.
+ * All methods are static — no instance state needed.
+ */
 @Injectable({
   providedIn: 'root',
 })

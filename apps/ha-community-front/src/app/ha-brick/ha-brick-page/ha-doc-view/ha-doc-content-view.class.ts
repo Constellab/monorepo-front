@@ -21,6 +21,22 @@ export interface HaDocViewConfig {
   caption: string;
 }
 
+/**
+ * EditorJS custom block for embedding resource views (charts, tables) in documentation.
+ *
+ * Extends TeComponentBlock from the text-editor lib, which bridges EditorJS blocks
+ * with Angular components. The pattern is the same for stories (HaStoryContentViewBlock)
+ * and agents (HaAgentContentViewBlock).
+ *
+ * Key flow:
+ * 1. User clicks "+" in the editor → appendCallback() opens a file upload dialog.
+ * 2. User uploads a JSON view file → insertResourceView() saves the block data.
+ * 3. initInputs() loads the view from the API and passes it to the Angular component.
+ *
+ * Cross-document copy support: when a view block is pasted into a different document,
+ * initInputs() detects the missing file (catchError) and re-downloads it from the
+ * source document URL stored in data attributes (TeSourceUrlRegistry).
+ */
 export class HaDocContentViewBlock extends TeComponentBlock<HaDocContentViewComponent> {
   public static readonly TAG_NAME = 'ha-report-content-view';
 

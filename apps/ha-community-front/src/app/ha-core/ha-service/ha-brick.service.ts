@@ -31,6 +31,18 @@ import { HaStory } from '../ha-model/ha-entities/ha-story.class';
 import { HaUser } from '../ha-model/ha-entities/ha-user';
 import { HaBrickSettingsDTO } from '../ha-model/ha-entities/ha-version.class';
 
+/**
+ * API service for brick (package) operations.
+ *
+ * Pattern used across all entity services (HaStoryService, HaAgentService, etc.):
+ * - Uses FlApiService for HTTP calls (handles auth headers, base URL, deserialization).
+ * - Paginated endpoints return Observable<ClPage<T>>, wrapped by FlEntityPaginatedDatasource
+ *   for infinite scroll / paginated lists.
+ * - getAllWithFiltersPaginated() creates a datasource that components can feed with filter changes.
+ *
+ * Implements HaCoAuthorService interface for the co-author invitation system
+ * shared between bricks, stories, and agents.
+ */
 @Injectable({
   providedIn: 'root',
 })

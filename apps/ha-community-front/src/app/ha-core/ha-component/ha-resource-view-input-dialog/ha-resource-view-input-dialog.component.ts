@@ -25,6 +25,15 @@ export interface HaResourceViewInputDialogOutputData {
   view: HaViewFileData;
 }
 
+/**
+ * Shared dialog for uploading a JSON resource view file.
+ *
+ * Used by brick docs, stories, and agents to attach chart/table views to EditorJS content.
+ * The caller provides entityId, a translation key for the header, and an uploadFn via MAT_DIALOG_DATA.
+ * On success, returns { filename, view } so the parent block can initialize the view component.
+ *
+ * Validates that the JSON file contains required fields (data, type, title) before uploading.
+ */
 @Component({
   selector: 'ha-resource-view-input-dialog',
   templateUrl: './ha-resource-view-input-dialog.component.html',

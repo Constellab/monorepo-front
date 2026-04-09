@@ -1,6 +1,13 @@
 import { environment } from '../../../../environments/ha-environment';
 import { HaEnvironment } from '../../../../environments/ha-environment.class';
 
+/**
+ * Centralized access to environment configuration.
+ *
+ * Settings are loaded at bootstrap from assets/settings.json (production) or hardcoded
+ * defaults (development) — see main.ts for the loading logic.
+ * Each getter provides a fallback default so the app works locally without a settings file.
+ */
 export class HaEnvironmentHelper {
   public static getEnv(): HaEnvironment {
     environment.settings = {

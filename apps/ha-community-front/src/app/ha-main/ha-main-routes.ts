@@ -9,6 +9,17 @@ import { haProfileRoutes } from '../ha-profile/ha-profile-routes';
 import { haStoryRoutes } from '../ha-story/ha-story-routes';
 import { haTagRoutes } from '../ha-tag/ha-tag-routes';
 
+/**
+ * Main application routes.
+ *
+ * Each feature module (bricks, stories, agents, etc.) has its own route file (e.g. ha-brick-routes.ts)
+ * loaded as children of HaMainComponent, which provides the shared layout (header, footer, sidenav).
+ *
+ * Exceptions:
+ * - /login and /cli-auth are standalone pages WITHOUT the shared layout.
+ * - /icons is inlined here (no dedicated route file) since it's a single page.
+ */
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export const haMainRoutes: Routes = [
   {
     path: 'admin',

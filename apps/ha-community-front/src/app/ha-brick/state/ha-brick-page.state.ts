@@ -35,6 +35,27 @@ import { HaHttpRedirectionService } from '../../ha-core/ha-service/ha-http-redir
 import { HaRouterService } from '../../ha-core/ha-service/ha-router.service';
 import { HaRunStatAggregateService } from '../../ha-core/ha-service/ha-run-stat-aggregate.service';
 
+/**
+ * State management for the brick detail page.
+ *
+ * This is the most complex state in the app — it illustrates the key patterns used across all page states:
+ *
+ * 1. **Signal-based state**: Private WritableSignals + public readonly signals.
+ *    Components bind to the readonly signals; only the state class can mutate them.
+ *
+ * 2. **SSR TransferState pattern**: Data fetched during server-side rendering is stored in
+ *    TransferState keys. On the client, getFromTransferStateOrFetch() checks for cached data
+ *    before making an API call, avoiding duplicate requests after hydration.
+ *
+ * 3. **Loading/error pattern**: Each async resource (brick, doc, techDoc) has its own
+ *    _loading and _error signals so the template can show appropriate UI states.
+ *
+ * 4. **Provided per-component**: Declared with @Injectable() (no providedIn) and listed in the
+ *    component's providers array, so each page instance gets its own state.
+ *
+ * Other page states (ha-agent-page.state, ha-story.state, etc.) follow the same patterns
+ * but are simpler since they don't have the doc/techDoc/version complexity.
+ */
 @Injectable()
 export class HaBrickPageState {
   private platformId = inject(PLATFORM_ID);
@@ -189,7 +210,7 @@ export class HaBrickPageState {
           this.transferState.set(this.DOC_KEY, doc);
         }
       },
-      error: (error) => {
+      error: () => {
         this._docError.set(true);
         this._docLoading.set(false);
         this._doc.set(null);
@@ -237,7 +258,7 @@ export class HaBrickPageState {
         }
         this.setTechDoc(techDoc as TdTypeEntity);
       },
-      error: (error) => {
+      error: () => {
         this._techDocError.set(true);
         this._techDocLoading.set(false);
         this._techDoc.set(null);
@@ -252,6 +273,10 @@ export class HaBrickPageState {
     return version === 'latest' || /^v\d+\.\d+\.\d+(-beta\.\d+)?$/.test(version);
   }
 
+  /**
+   * SSR hydration helper: on the browser, returns cached TransferState data if available;
+   * otherwise calls the API and caches the result on the server for the next hydration cycle.
+   */
   private getFromTransferStateOrFetch<T>(key: StateKey<T>, fetcher: () => Observable<T>): Observable<T> {
     if (isPlatformBrowser(this.platformId) && this.transferState.hasKey(key as StateKey<any>)) {
       const data = this.transferState.get(key as StateKey<any>, null) as T;
@@ -306,7 +331,10 @@ export class HaBrickPageState {
   private initUserHasEditRight(brick: HaBrick): void {
     this.authenticatedUserService
       .getUser()
-      .pipe(filter(user => user !== undefined), first())
+      .pipe(
+        filter((user) => user !== undefined),
+        first()
+      )
       .subscribe((user: HaUser) => {
         if (user) {
           this.checkUserRights(brick);
@@ -330,7 +358,7 @@ export class HaBrickPageState {
       next: (brick) => {
         this.onInitBrick(brick as HaBrick);
       },
-      error: (error) => {
+      error: () => {
         this._brickError.set(true);
         this._brickLoading.set(false);
         this._brick.set(null);
@@ -364,7 +392,7 @@ export class HaBrickPageState {
           this.transferState.set(this.LATEST_BRICK_VERSION_KEY, brickVersion);
         }
       },
-      error: (error) => {
+      error: () => {
         this._latestBrickVersion.set(null);
       },
     });
@@ -389,7 +417,7 @@ export class HaBrickPageState {
       next: (docFiles) => {
         this._docFiles.set(docFiles as HaFile[]);
       },
-      error: (error) => {
+      error: () => {
         this._docError.set(true);
         this._docLoading.set(false);
         this._doc.set(null);
@@ -420,7 +448,7 @@ export class HaBrickPageState {
             this._doc.set(null);
           }
         },
-        error: (error) => {
+        error: () => {
           this._docError.set(true);
           this._docLoading.set(false);
           this._doc.set(null);
@@ -456,7 +484,7 @@ export class HaBrickPageState {
       next: (runStatAggregate) => {
         this._brickRunStatAggregate.set(runStatAggregate as HaRunStatAggregate);
       },
-      error: (error) => {
+      error: () => {
         this._brickRunStatAggregate.set(null);
       },
     });
@@ -467,7 +495,7 @@ export class HaBrickPageState {
       next: (runStatAggregate) => {
         this._runStatAggregate.set(runStatAggregate);
       },
-      error: (error) => {
+      error: () => {
         this._runStatAggregate.set(null);
       },
     });

@@ -12,6 +12,18 @@ import { HaBrick } from '../ha-model/ha-entities/ha-brick.class';
 import { HaUser, HaUserCategory } from '../ha-model/ha-entities/ha-user';
 import { HaAuthService } from './ha-auth.service';
 
+/**
+ * Manages the currently authenticated user state.
+ *
+ * Initialized at app startup via provideAppInitializer (see ha-app.config.ts).
+ * If an auth cookie exists, fetches the user from the API and pushes it to userSubject.
+ * Other components/services observe getUser() to react to auth state changes.
+ *
+ * SSR-aware: on the server, reads cookies from the Express request object
+ * to determine auth state without browser APIs.
+ *
+ * Implements FlCleanableService so FlCleanerService can reset it on logout.
+ */
 @Injectable({
   providedIn: 'root',
 })

@@ -41,6 +41,19 @@ import { HaRouterService } from '../ha-service/ha-router.service';
 import { HaStoryService } from '../ha-service/ha-story.service';
 import { HaTagService } from '../ha-service/ha-tag.service';
 
+/**
+ * Tracks the current page context based on the active route.
+ *
+ * Listens to NavigationEnd events and extracts the entity type (brick, story, agent, etc.)
+ * from the URL segments. Exposes:
+ * - entityService: the correct service for the current entity type
+ * - entityRoute: the route to navigate to a specific entity
+ * - openCreateDialog(): opens the correct creation dialog for the current entity type
+ * - isDocumentationPage: whether the user is viewing a documentation page
+ *
+ * Used by the header and shared layout components to show context-aware actions
+ * (e.g. "Create" button that opens the right dialog for the current section).
+ */
 @Injectable()
 export class HaCurrentPageState implements OnDestroy {
   private activatedRoute = inject(ActivatedRoute);
