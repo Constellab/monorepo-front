@@ -10,7 +10,10 @@
       "executor": "@angular-devkit/build-angular:application",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/apps/dc-dashboard-components/dashboard-components",
+        "outputPath": {
+          "base": "dist/apps/dc-dashboard-components/dashboard-components",
+          "browser": "gws_plugin"
+        },
         "index": "apps/dc-dashboard-components/src/index.html",
         "browser": "apps/dc-dashboard-components/src/dashboard-components/dc-main.ts",
         "polyfills": ["zone.js", "reflect-metadata"],
@@ -60,7 +63,10 @@
         "streamlit-production": {
           "tsConfig": "apps/dc-dashboard-components/src/dashboard-components/tsconfig.streamlit.prod.json",
           "browser": "apps/dc-dashboard-components/src/dashboard-components/dc-main-streamlit-prod.ts",
-          "outputPath": "dist/apps/dc-dashboard-components/streamlit-components",
+          "outputPath": {
+            "base": "dist/apps/dc-dashboard-components/streamlit-components",
+            "browser": "gws_plugin"
+          },
           "fileReplacements": [
             {
               "replace": "apps/dc-dashboard-components/src/dashboard-components/dc-environment/dc-environment.ts",
@@ -106,8 +112,11 @@
         "reflex-prod": {
           "tsConfig": "apps/dc-dashboard-components/src/dashboard-components/tsconfig.reflex.json",
           "browser": "apps/dc-dashboard-components/src/dashboard-components/reflex-public-api.ts",
-          "outputPath": "dist/apps/dc-dashboard-components/reflex-components",
-          "polyfills": false,
+          "outputPath": {
+            "base": "dist/apps/dc-dashboard-components/reflex-components",
+            "browser": "gws_plugin"
+          },
+          "polyfills": ["zone.js", "reflect-metadata"],
           "index": false,
           "outputHashing": "none",
           "optimization": {
@@ -122,8 +131,11 @@
         "reflex-dev": {
           "tsConfig": "apps/dc-dashboard-components/src/dashboard-components/tsconfig.reflex.json",
           "browser": "apps/dc-dashboard-components/src/dashboard-components/reflex-public-api.ts",
-          "outputPath": "dist/apps/dc-dashboard-components/reflex-components",
-          "polyfills": false,
+          "outputPath": {
+            "base": "dist/apps/dc-dashboard-components/reflex-components",
+            "browser": "gws_plugin"
+          },
+          "polyfills": ["zone.js", "reflect-metadata"],
           "index": false,
           "outputHashing": "none",
           "optimization": false,
@@ -169,7 +181,10 @@
       "executor": "@angular-devkit/build-angular:application",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/apps/dc-dashboard-components/streamlit-iframe-message",
+        "outputPath": {
+          "base": "dist/apps/dc-dashboard-components/streamlit-iframe-message",
+          "browser": "gws_plugin"
+        },
         "index": "apps/dc-dashboard-components/src/streamlit-iframe-message/index.html",
         "browser": "apps/dc-dashboard-components/src/streamlit-iframe-message/dc-main-iframe-message.ts",
         "polyfills": ["zone.js"],

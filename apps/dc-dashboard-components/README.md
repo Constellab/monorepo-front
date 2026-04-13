@@ -30,11 +30,9 @@ the local running component.
 
 To test a component in reflex app, follow these steps:
 
-1. Build the dc-components app in dev mode: `npm run dc-components:build-dev`
-2. Copy the built files from `dist/dc-dashboard-components/reflex-components/browser` to the reflex app static folder `my_reflex_app/assets/external/`
-3. In the corresponding reflex component, replace the `import '/public/external/gws_plugin/main.js;'` with `import '/public/external/browser/main.js';`;
-4. Run the reflex app
-   `
+1. Build the dc-reflex-components app in dev mode: `npm run dc-reflex-components:build-dev`
+2. Copy the built files from `dist/dc-dashboard-components/reflex-components/gws_plugin` to the reflex app static folder `my_reflex_app/assets/external/`
+3. Disable relase mode in **AppPluginDownloader** by setting `IS_RELEASE=False` to use the local files instead of downloading from github release.
 
 ## Dev the iframe-message
 

@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, ElementRef, OnInit, signal, ViewChild } from '@angular/core';
 import { LiPaginatedResponse } from '@monorepo/lab-lib/li-core';
 
 import {
@@ -36,10 +36,17 @@ const FAKE_ITEMS: FakeItem[] = [
   templateUrl: './dc-input-search-dev.component.html',
   styleUrl: '../dc-dev-examples.scss',
 })
-export class DcInputSearchDevComponent {
+export class DcInputSearchDevComponent implements OnInit {
+  @ViewChild('inputSearchReflex', { static: true })
+  inputSearchReflexContainer: ElementRef<HTMLElement>;
+
   pageResult = signal<LiPaginatedResponse<any>>(undefined);
 
   selectedItem = signal<any>(FAKE_ITEMS[0]);
+
+  ngOnInit(): void {
+    this.initInputSearchReflex();
+  }
 
   onSearchRequest(request: DcInputSearchRequest): void {
     console.log('Search ', request);
@@ -63,5 +70,45 @@ export class DcInputSearchDevComponent {
 
   onItemSelected(item: any): void {
     console.log('Item selected:', item);
+  }
+
+  private initInputSearchReflex(): void {
+    const container = this.inputSearchReflexContainer.nativeElement;
+
+    const element = document.createElement('custom-input-search') as any;
+    element.style.display = 'flex';
+    element.style.flexDirection = 'column';
+    element.style.width = '100%';
+    element.placeholder = 'Search a fruit (custom element)';
+    element.pageSize = 5;
+    element.minInputSearchLength = 1;
+    element.selectedItem = FAKE_ITEMS[0];
+
+    element.addEventListener('searchRequest', (event: CustomEvent<DcInputSearchRequest>) => {
+      console.log('Custom element search request:', event.detail);
+      const request = event.detail;
+      const searchText = request.search_text.toLowerCase();
+
+      const filtered = searchText
+        ? FAKE_ITEMS.filter((item) => item.label.toLowerCase().includes(searchText))
+        : FAKE_ITEMS;
+
+      const start = request.page * request.page_size;
+      const pageItems = filtered.slice(start, start + request.page_size);
+
+      element.pageResult = {
+        objects: pageItems,
+        page: request.page,
+        is_last_page: start + request.page_size >= filtered.length,
+        number_of_items_per_page: request.page_size,
+        total_number_of_items: filtered.length,
+      };
+    });
+
+    element.addEventListener('itemSelected', (event: CustomEvent) => {
+      console.log('Custom element item selected:', event.detail);
+    });
+
+    container.appendChild(element);
   }
 }

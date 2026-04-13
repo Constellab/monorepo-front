@@ -30,10 +30,10 @@ jobs:
         run: npm run dc-${{ matrix.app_name }}:build-prod
 
       - name: Create version.json file
-        run: echo '{"version":"${{ github.ref_name }}" }' > dist/apps/dc-dashboard-components/${{ matrix.app_name }}/browser/version.json
+        run: echo '{"version":"${{ github.ref_name }}" }' > dist/apps/dc-dashboard-components/${{ matrix.app_name }}/gws_plugin/version.json
 
       - name: Zip the build artifacts
-        run: cd dist/apps/dc-dashboard-components/${{ matrix.app_name }}/browser && zip -r ../../../../../${{ matrix.app_name }}.zip ./*
+        run: cd dist/apps/dc-dashboard-components/${{ matrix.app_name }}/gws_plugin && zip -r ../../../../../${{ matrix.app_name }}.zip ./*
 
       - name: Release ${{ matrix.app_name }}
         uses: softprops/action-gh-release@v2

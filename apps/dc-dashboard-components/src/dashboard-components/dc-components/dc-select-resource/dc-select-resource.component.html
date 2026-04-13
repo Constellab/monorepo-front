@@ -1,7 +1,9 @@
-<li-select-resource
-  class="select"
-  [placeholder]="placeholder"
-  [defaultFilters]="defaultFilters"
-  [disabledFilters]="disabledFilters"
-  [(ngModel)]="resource"
-  (resourceChange)="setAndEmitResource(resource)"></li-select-resource>
+@if (isInitialized()) {
+  <li-select-resource
+    class="select"
+    [placeholder]="placeholder()"
+    [defaultFilters]="defaultFilters()"
+    [disabledFilters]="disabledFilters()"
+    [ngModel]="resource()"
+    (resourceChange)="setAndEmitResource($event)"></li-select-resource>
+}

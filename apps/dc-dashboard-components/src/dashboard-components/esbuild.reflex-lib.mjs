@@ -12,12 +12,12 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 const isProd = process.argv.includes('--prod');
-const outDir = 'dist/apps/dc-dashboard-components/reflex-components/browser';
+const outDir = 'dist/apps/dc-dashboard-components/reflex-components/gws_plugin';
 
 await esbuild.build({
   stdin: {
-    // Entry point that re-exports everything from main.js
-    contents: `export * from './main.js';`,
+    // Import polyfills first (zone.js, reflect-metadata), then re-export from main.js
+    contents: `import './polyfills.js';\nexport * from './main.js';`,
     resolveDir: outDir,
   },
   bundle: true,
@@ -30,11 +30,12 @@ await esbuild.build({
 });
 
 // Clean up files that are now bundled into dc-reflex.js
-const filesToDelete = fs.readdirSync(outDir)
-  .filter(f => f === 'main.js' || f.startsWith('chunk-'))
-  .map(f => path.join(outDir, f));
+const filesToDelete = fs
+  .readdirSync(outDir)
+  .filter((f) => f === 'main.js' || f === 'polyfills.js' || f.startsWith('chunk-'))
+  .map((f) => path.join(outDir, f));
 
-filesToDelete.forEach(f => fs.unlinkSync(f));
+filesToDelete.forEach((f) => fs.unlinkSync(f));
 
 console.log(`Built dc-reflex.js (${isProd ? 'production' : 'development'})`);
 console.log(`Cleaned up ${filesToDelete.length} bundled files`);

@@ -47,7 +47,10 @@ export class LiSelectResourceComponent extends FlFormFieldDirective<LiResource> 
   private dialogService = inject(FlDialogService);
 
   placeholder = input<FlTranslatableText>('li.resource_select');
-  defaultFilters = input<LiResourceSearchFields>(null);
+  defaultFilters = input(null, {
+    transform: (value: LiResourceSearchFields | null) =>
+      value == null ? new LiResourceSearchFields() : value,
+  });
   disabledFilters = input<LiResourceSearchFieldsDisabled>(null);
 
   resourceChange = output<LiResource>();
