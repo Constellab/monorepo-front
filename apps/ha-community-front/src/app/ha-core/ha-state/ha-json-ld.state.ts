@@ -86,6 +86,26 @@ export class HaJsonLdState {
     this.setJsonLdContent(JSON.stringify(jsonLd));
   }
 
+  public setOrganizationJsonLdContent(): void {
+    this.clearJsonLdContent();
+    const appUrl = HaRouterService.getAppUrl();
+    const jsonLd = {
+      '@context': 'https://schema.org',
+      '@type': 'Organization',
+      name: 'Constellab Community',
+      alternateName: 'Gencovery',
+      url: appUrl,
+      logo: `${appUrl}/assets/images/community-favicon-v2.png`,
+      sameAs: [
+        'https://www.linkedin.com/company/gencovery',
+        'https://x.com/gencovery',
+        'https://github.com/Constellab',
+        'https://www.facebook.com/groups/451485394362000/',
+      ],
+    };
+    this.setJsonLdContent(JSON.stringify(jsonLd));
+  }
+
   public setSoftwareAppJsonLdContent(name: string, url: string, image?: string): void {
     this.clearJsonLdContent();
     const jsonLd: Record<string, unknown> = {
