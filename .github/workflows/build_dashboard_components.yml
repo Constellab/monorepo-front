@@ -4,6 +4,8 @@ on:
   push:
     tags:
       - "dc_*"
+permissions:
+  contents: read
 
 jobs:
   build:
@@ -15,12 +17,12 @@ jobs:
 
     steps:
       - name: Check out the repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6.0.2
 
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v6.3.0
         with:
-          node-version: "20"
+          node-version: "24"
           cache: "npm"
 
       - name: Install dependencies
@@ -36,10 +38,12 @@ jobs:
         run: cd dist/apps/dc-dashboard-components/${{ matrix.app_name }}/gws_plugin && zip -r ../../../../../${{ matrix.app_name }}.zip ./*
 
       - name: Release ${{ matrix.app_name }}
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3.0.0
         with:
           files: ${{ matrix.app_name }}.zip
           repository: Constellab/dashboard-components
           tag_name: ${{ github.ref_name }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.RELEASE_DASHBOARD_COMPONENTS }}
+          # This secret holds the github token 'release-dashbord-components' with permissions to create releases
+          # in the Constellab/dashboard-components repository
+          # This token is stored in bmaisonneuve account.
+          token: ${{ secrets.RELEASE_DASHBOARD_COMPONENTS }}

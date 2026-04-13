@@ -3,7 +3,7 @@ name: Main Workflow space front
 on:
   push:
     tags:
-      - 'lms_*'
+      - "lms_*"
 
 jobs:
   call_reusable_workflow:
@@ -23,17 +23,17 @@ jobs:
     needs: call_reusable_workflow
     steps:
       - name: Check out the repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6.0.2
 
       - name: Log in to Docker Hub
-        uses: docker/login-action@v3
+        uses: docker/login-action@v3.7.0
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       # step to set the docker image description from docker_hub_README.md
       - name: Docker Hub Description
-        uses: peter-evans/dockerhub-description@v4
+        uses: peter-evans/dockerhub-description@v4.0.2
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
