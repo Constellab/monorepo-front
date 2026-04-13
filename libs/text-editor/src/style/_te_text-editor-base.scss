@@ -429,8 +429,11 @@
 
     ///////////////////////// TABLE /////////////////////////
     .tc-toolbox {
-      --toggler-dots-color: var(--hover-color);
+      --toggler-dots-color: var(--light-color);
       --toggler-dots-color-hovered: var(--light-color);
+
+      // Ensure column/row popover menus render above the sticky heading row (z-index: 2)
+      z-index: 3;
     }
 
     .tc-popover,
