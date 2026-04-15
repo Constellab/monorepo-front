@@ -100,26 +100,7 @@ export default defineConfig([
         },
       ],
 
-      indent: [
-        'error',
-        2,
-        {
-          SwitchCase: 1,
-
-          FunctionDeclaration: {
-            parameters: 'first',
-            body: 1,
-          },
-
-          FunctionExpression: {
-            parameters: 'first',
-            body: 1,
-          },
-
-          ignoredNodes: ['PropertyDefinition'],
-        },
-      ],
-
+      indent: 'off',
       'max-len': [
         'error',
         {
