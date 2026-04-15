@@ -27,8 +27,6 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { filter, Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { LmlBrickService } from '@monorepo/lab-manager-lib';
-
 import {
   CaLabConfigDialogComponent,
   CaLabConfigDialogInput,
@@ -66,7 +64,6 @@ export class CaScenarioTechnicalReportComponent implements OnInit, OnDestroy {
   private workflowResourcesState = inject(PrWorkflowResourcesState);
   private snackBarService = inject(FlSnackBarService);
   private communityHelper = inject(CoCommunityHelperService);
-  private brickService = inject(LmlBrickService);
 
   scenario = input.required<CaScenario>();
   userRole = input.required<CaRootFolderUserRoleObj>();
@@ -125,7 +122,6 @@ export class CaScenarioTechnicalReportComponent implements OnInit, OnDestroy {
   }
 
   openLabConfigDialog(): void {
-    this.brickService.setLabId(this.scenario().lab.id);
     const input: CaLabConfigDialogInput = {
       labConfig: this.scenarioService.getScenarioLabConfig(this.scenario().id),
       title: { text: 'lab_configuration', translateText: true },

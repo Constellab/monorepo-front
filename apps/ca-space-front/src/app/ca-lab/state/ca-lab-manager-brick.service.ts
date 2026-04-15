@@ -1,20 +1,15 @@
 import { inject, Injectable } from '@angular/core';
 import { CoBrickVersionPath, CoCommunityHelperService, CoSpace } from '@monorepo/community-lib';
 import { ClPage } from '@monorepo/core-lib';
-import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { LmlBrickService, LmlBrickVersion, LmlCommunityBrick } from '@monorepo/lab-manager-lib';
 import { Observable } from 'rxjs';
 
-import { CaCoServiceConfig } from '../../ca-core/model/config/ca-co-service-config.service';
+import { CaCommunityBrickService } from '../../ca-core/service-api/ca-community-brick.service';
 import { CaSpaceService } from '../../ca-core/service-api/ca-space.service';
 
 @Injectable()
 export class CaLabManagerBrickService extends LmlBrickService {
-  private readonly route = 'community';
-
-  private apiService = inject(FlApiService);
-
-  private communityServiceConfig = inject(CaCoServiceConfig);
+  private communityBrickService = inject(CaCommunityBrickService);
 
   private spaceService = inject(CaSpaceService);
 
@@ -22,7 +17,7 @@ export class CaLabManagerBrickService extends LmlBrickService {
 
   private labId: string;
 
-  override setLabId(labId: string): void {
+  setLabId(labId: string): void {
     this.labId = labId;
   }
 
@@ -32,38 +27,23 @@ export class CaLabManagerBrickService extends LmlBrickService {
     page: number,
     size: number
   ): Observable<ClPage<LmlCommunityBrick>> {
-    return this.apiService.post(
-      `${this.route}/${this.labId}/brick/filters`,
-      { spacesFilter: spacesFilter, titleFilter: titleFilter },
-      LmlCommunityBrick,
-      {
-        page: page,
-        pageSize: size,
-        resultIsPaginated: true,
-      }
-    );
+    return this.communityBrickService.getAllWithFilters(this.labId, spacesFilter, titleFilter, page, size);
   }
 
   getByName(name: string): Observable<LmlCommunityBrick> {
-    return this.apiService.get(`${this.route}/${this.labId}/brick/${name}`, LmlCommunityBrick);
+    return this.communityBrickService.getByName(this.labId, name);
   }
 
   getBrickVersion(brickName: string, brickVersion: string): Observable<LmlBrickVersion> {
-    return this.apiService.get(
-      `${this.route}/${this.labId}/brick/${brickName}/version/${brickVersion}`,
-      LmlBrickVersion
-    );
+    return this.communityBrickService.getBrickVersion(this.labId, brickName, brickVersion);
   }
 
   getBrickLatestVersion(brickName: string): Observable<LmlBrickVersion> {
-    return this.apiService.get(`${this.route}/${this.labId}/brick/${brickName}/latest`, LmlBrickVersion);
+    return this.communityBrickService.getBrickLatestVersion(this.labId, brickName);
   }
 
   getImageUrl(filename: string): string {
-    return this.apiService.getBaseRouteUrl(
-      `brick/image/${filename}`,
-      this.communityServiceConfig.getCommunityApiUrl() + '/'
-    );
+    return this.communityBrickService.getImageUrl(filename);
   }
 
   getBrickUrl(brickName: string, version: CoBrickVersionPath): string {
@@ -75,7 +55,7 @@ export class CaLabManagerBrickService extends LmlBrickService {
   }
 
   getVersionsList(brickName: string): Observable<string[]> {
-    return this.apiService.get(`bricks/${brickName}/versions-list`, null);
+    return this.communityBrickService.getVersionsList(brickName);
   }
 
   spaceActivated(): boolean {

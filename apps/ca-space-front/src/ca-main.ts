@@ -41,7 +41,6 @@ import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
 import { FlHttpInterceptorService, FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import { LmlBrickService } from '@monorepo/lab-manager-lib';
 import { PrProtocolModule } from '@monorepo/protocol';
 import { RV_MODULE_CONFIG, RvResourceViewModuleBasicConfig } from '@monorepo/resource-view';
 import { TdTechnicalDocModule } from '@monorepo/technical-doc';
@@ -52,14 +51,13 @@ import { CaAppComponent } from './app/ca-app.component';
 import { caAppRoutes } from './app/ca-app-routes';
 import { CaSpaceInterceptor } from './app/ca-core/interceptor/ca-space-interceptor.service';
 import { CaApiServiceConfig } from './app/ca-core/model/config/ca-api-module.config';
-import { CaCoServiceConfig } from './app/ca-core/model/config/ca-co-service-config.service';
+import { CaCommunityLibConfigService } from './app/ca-core/model/config/ca-community-lib-config.service';
 import { caSvgIcons } from './app/ca-core/model/config/ca-svg-icon-config';
 import { CaTdServiceConfig } from './app/ca-core/model/config/ca-td-service.config';
 import { CaUserConfig } from './app/ca-core/model/config/ca-user-config.service';
 import { CaApiErrorService } from './app/ca-core/service/ca-api-error.service';
 import { CaUserAccountsService } from './app/ca-core/service-api/ca-user-accounts.service';
 import { CaEnvironmentHelper } from './app/ca-core/utils/ca-environment.helper';
-import { CaLabManagerBrickService } from './app/ca-lab/state/ca-lab-manager-brick.service';
 import { CaAuthService } from './app/ca-login/service/ca-auth.service';
 import { environment } from './environments/ca-environment';
 import { caEnvironmentPath, CaEnvironmentSettings } from './environments/ca-environment.class';
@@ -114,7 +112,7 @@ function bootstrapApp(): void {
         FlUserModule.forRoot(CaUserConfig),
         BnBioNetworkModule.forRoot(),
         TdTechnicalDocModule.forRoot(CaTdServiceConfig),
-        CoCommunityLibModule.forRoot(CaCoServiceConfig)
+        CoCommunityLibModule.forRoot(CaCommunityLibConfigService)
       ),
       {
         provide: HTTP_INTERCEPTORS,
@@ -133,7 +131,6 @@ function bootstrapApp(): void {
       { provide: RV_MODULE_CONFIG, useClass: RvResourceViewModuleBasicConfig },
       CookieService,
       provideHttpClient(withInterceptorsFromDi()),
-      { provide: LmlBrickService, useClass: CaLabManagerBrickService },
       provideAnimations(),
 
       // form field default config

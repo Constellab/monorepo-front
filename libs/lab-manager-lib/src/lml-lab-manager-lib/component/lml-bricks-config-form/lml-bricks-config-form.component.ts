@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output, ViewContainerRef } from '@angular/core';
 import { ClBrick } from '@monorepo/core-lib';
 import {
   FlConfirmDialogInput,
@@ -45,6 +45,7 @@ export class LmlBricksConfigFormComponent {
   private snackBarService = inject(FlSnackBarService);
   private dialogService = inject(FlDialogService);
   private brickService = inject(LmlBrickService);
+  private viewContainerRef = inject(ViewContainerRef);
 
   openBrickVersionDetailDialog(brickVersionDTO: LmlLabManagerBrickVersionDTO): void {
     const data: LmlBrickVersionDetailDialogInput = {
@@ -61,6 +62,7 @@ export class LmlBricksConfigFormComponent {
     this.dialogService
       .openBigDialog(LmlConfigureBrickComponent, {
         data: { brickVersionDTO },
+        viewContainerRef: this.viewContainerRef,
       })
       .afterClosed()
       .subscribe((brickVersion) =>

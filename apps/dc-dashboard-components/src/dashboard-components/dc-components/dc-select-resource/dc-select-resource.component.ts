@@ -37,7 +37,7 @@ export interface DcSelectResourceOutput {
   hostDirectives: [DcCoreMainDirective],
 })
 export class DcSelectResourceComponent
-implements OnInit, DcDynamicComponent<DcSelectResourceInput, DcSelectResourceOutput>
+  implements OnInit, DcDynamicComponent<DcSelectResourceInput, DcSelectResourceOutput>
 {
   inputData = input<DcSelectResourceInput, any>(null, {
     transform: dcParseJsonInput,
@@ -51,7 +51,6 @@ implements OnInit, DcDynamicComponent<DcSelectResourceInput, DcSelectResourceOut
 
   isInitialized = computed(() => {
     const data = this.inputData();
-    console.log('Input data for select resource:', data);
     return !!data;
   });
 
