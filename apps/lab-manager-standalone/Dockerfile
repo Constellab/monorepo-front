@@ -20,8 +20,8 @@ FROM nginx:alpine
 # Get build result
 COPY --from=buildContainer /app/dist/apps/lab-manager-standalone/browser /usr/share/nginx/html
 
-# Copy the default nginx.conf
-COPY /apps/lab-manager-standalone/nginx.conf /etc/nginx/conf.d/default.conf
+# Copy the default nginx.conf as a template (envsubst will generate default.conf at runtime)
+COPY /apps/lab-manager-standalone/nginx.conf /etc/nginx/conf.d/nginx.template
 
 # Copy the entry point
 COPY apps/lab-manager-standalone/entrypoint.sh /entrypoint.sh
