@@ -4,7 +4,7 @@
  */
 
 // Init function
-export { dcInitComponents } from './dc-main-reflex';
+export { dcInitComponents } from './dc-main-reflex-prod';
 
 export { TeComponentBlock } from '@monorepo/text-editor';
 

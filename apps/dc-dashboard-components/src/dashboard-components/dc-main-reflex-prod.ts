@@ -2,11 +2,14 @@ import { ComponentType } from '@angular/cdk/overlay';
 import { ApplicationRef } from '@angular/core';
 import { createCustomElement } from '@angular/elements';
 import { createApplication } from '@angular/platform-browser';
+import { flLoadEnvironmentFromAssets } from '@monorepo/front-core-lib/fl-core';
 
 import { dcAppConfig } from './dc-app.config';
 import { DcInputSearchComponent } from './dc-components/dc-input-search/dc-input-search.component';
 import { DcSelectResourceComponent } from './dc-components/dc-select-resource/dc-select-resource.component';
 import { DcTextEditorComponent } from './dc-components/dc-text-editor/dc-text-editor.component';
+import { environment } from './dc-environment/dc-environment';
+import { DcEnvironmentSettings } from './dc-environment/dc-environment.class';
 
 let initialized = false;
 
@@ -23,6 +26,10 @@ export async function dcInitComponents(basePath: string = './external/gws_plugin
     return;
   }
   initialized = true;
+
+  const envPath = 'external/gws_plugin/assets/environment.json';
+  const env: DcEnvironmentSettings = await flLoadEnvironmentFromAssets(envPath);
+  environment.settings = env;
 
   const app = await createApplication(dcAppConfig(basePath));
 
