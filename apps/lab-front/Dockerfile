@@ -1,18 +1,18 @@
 # Build step
-FROM node:24-alpine3.22 AS buildContainer
+FROM oven/bun:1-alpine AS buildContainer
 
 WORKDIR /app
 
 # Copy package.json
-COPY /package.json /package-lock.json ./
+COPY /package.json /bun.lock ./
 
 # Install dependencies
-RUN npm ci
+RUN bun install --frozen-lockfile
 
 # Copy the workspace and build the app
 COPY . .
 
-RUN npm run lab-front:build-prod
+RUN bun run lab-front:build-prod
 
 FROM nginx:alpine
 # Copy the dist lab-front

@@ -1,18 +1,18 @@
 # Build step
-FROM node:24-alpine3.22 AS build_container
+FROM oven/bun:1-alpine AS build_container
 
 WORKDIR /app
 
-COPY package*.json ./
+COPY package.json bun.lock ./
 
-RUN npm ci
+RUN bun install --frozen-lockfile
 
 COPY . .
 
-RUN npm run ha-community-front:build-prod
+RUN bun run ha-community-front:build-prod
 
 # Production step
-FROM node:24-alpine3.22 AS production
+FROM oven/bun:1-alpine AS production
 
 WORKDIR /app
 # Copy the entry point
