@@ -4,8 +4,13 @@ on:
   push:
     tags:
       - "dc_*"
+
 permissions:
   contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   build:
@@ -23,6 +28,13 @@ jobs:
         uses: oven-sh/setup-bun@v2
         with:
           bun-version: latest
+
+      - name: Cache Bun dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.bun/install/cache
+          key: bun-${{ hashFiles('bun.lock') }}
+          restore-keys: bun-
 
       - name: Install dependencies
         run: bun install --frozen-lockfile
@@ -42,7 +54,4 @@ jobs:
           files: ${{ matrix.app_name }}.zip
           repository: Constellab/dashboard-components
           tag_name: ${{ github.ref_name }}
-          # This secret holds the github token 'release-dashbord-components' with permissions to create releases
-          # in the Constellab/dashboard-components repository
-          # This token is stored in bmaisonneuve account.
           token: ${{ secrets.RELEASE_DASHBOARD_COMPONENTS }}

@@ -1,0 +1,33 @@
+name: Update Docker Hub README
+
+on:
+  workflow_call:
+    inputs:
+      repository:
+        required: true
+        type: string
+      readme_filepath:
+        required: true
+        type: string
+    secrets:
+      docker_username:
+        required: true
+      docker_password:
+        required: true
+
+jobs:
+  update_readme:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v6.0.2
+
+      - name: Docker Hub Description
+        uses: peter-evans/dockerhub-description@v4.0.2
+        with:
+          username: ${{ secrets.docker_username }}
+          password: ${{ secrets.docker_password }}
+          repository: ${{ inputs.repository }}
+          readme-filepath: ${{ inputs.readme_filepath }}

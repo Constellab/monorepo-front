@@ -3,7 +3,15 @@ name: Main Workflow community front
 on:
   push:
     tags:
-      - 'ha_*'
+      - "ha_*"
+
+permissions:
+  contents: read
+  packages: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   call_reusable_workflow:
