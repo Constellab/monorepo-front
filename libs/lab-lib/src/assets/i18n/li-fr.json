@@ -1,5 +1,7 @@
 {
   "li": {
+    "yes": "Oui",
+    "no": "Non",
     "activities": "Activités",
     "activity_user": "Utilisateur",
     "activity_object_id": "ID de l'objet",
