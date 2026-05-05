@@ -1,13 +1,13 @@
 import {
-  liConstAppFullRoute,
-  liConstBiotaFullRoute,
-  liConstNoteFullRoute,
-  liConstNoteTemplateFullRoute,
-  liConstResourceFullRoute,
-  liConstScenarioFullRoute,
-  liConstScenarioTemplateRoute,
-  liConstTagFullRoute,
-  liConstViewFullRoute,
+  LI_CONST_APP_FULL_ROUTE,
+  LI_CONST_BIOTA_FULL_ROUTE,
+  LI_CONST_NOTE_FULL_ROUTE,
+  LI_CONST_NOTE_TEMPLATE_FULL_ROUTE,
+  LI_CONST_RESOURCE_FULL_ROUTE,
+  LI_CONST_SCENARIO_FULL_ROUTE,
+  LI_CONST_SCENARIO_TEMPLATE_ROUTE,
+  LI_CONST_TAG_FULL_ROUTE,
+  LI_CONST_VIEW_FULL_ROUTE,
 } from '@monorepo/lab-lib/li-core';
 
 /**
@@ -20,57 +20,57 @@ export interface LabMainMenuLink {
   divider?: boolean;
 }
 
-export function getMainMenuLinks(): LabMainMenuLink[] {
+export function labGetMainMenuLinks(): LabMainMenuLink[] {
   return [
     {
       label: 'biox.scenarios',
       icon: 'scenario',
-      route: liConstScenarioFullRoute,
+      route: LI_CONST_SCENARIO_FULL_ROUTE,
     },
     {
       label: 'g.resources',
       icon: 'resource',
-      route: liConstResourceFullRoute,
+      route: LI_CONST_RESOURCE_FULL_ROUTE,
     },
     {
       label: 'biox.views',
       icon: 'view',
-      route: liConstViewFullRoute,
+      route: LI_CONST_VIEW_FULL_ROUTE,
     },
     {
       label: 'biox.scenario_templates',
       icon: 'scenario_template',
-      route: liConstScenarioTemplateRoute,
+      route: LI_CONST_SCENARIO_TEMPLATE_ROUTE,
     },
     {
       label: 'biox.notes',
       icon: 'note',
-      route: liConstNoteFullRoute,
+      route: LI_CONST_NOTE_FULL_ROUTE,
       divider: true,
     },
     {
       label: 'biox.note_templates',
       icon: 'note_template',
-      route: liConstNoteTemplateFullRoute,
+      route: LI_CONST_NOTE_TEMPLATE_FULL_ROUTE,
     },
     {
       label: 'biox.apps',
       icon: 'dashboard',
-      route: liConstAppFullRoute,
+      route: LI_CONST_APP_FULL_ROUTE,
       divider: true,
     },
     {
       label: 'biox.tags',
       icon: 'tag',
-      route: liConstTagFullRoute,
+      route: LI_CONST_TAG_FULL_ROUTE,
       divider: true,
     },
   ];
 }
 
-export const labBiotaMenuLink: LabMainMenuLink = {
+export const LAB_BIOTA_MENU_LINK: LabMainMenuLink = {
   label: 'biota.biota',
   icon: 'database',
-  route: liConstBiotaFullRoute,
+  route: LI_CONST_BIOTA_FULL_ROUTE,
   divider: true,
 };

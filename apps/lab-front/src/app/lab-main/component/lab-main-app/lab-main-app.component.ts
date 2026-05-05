@@ -22,7 +22,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 
 import { LabEnvStore } from '../../../lab-core/lab-env.store';
 import { LabEnvironmentHelper } from '../../../lab-core/lab-environment.helper';
-import { getMainMenuLinks, labBiotaMenuLink, LabMainMenuLink } from '../../lab-main-menu-link.class';
+import { LAB_BIOTA_MENU_LINK, labGetMainMenuLinks, LabMainMenuLink } from '../../lab-main-menu-link.class';
 import { LabMainMenuSettingsComponent } from '../lab-main-menu-settings/lab-main-menu-settings.component';
 
 @Component({
@@ -53,7 +53,7 @@ export class LabMainAppComponent implements OnInit {
   private titleService = inject(Title);
   private brickService = inject(LiBrickService);
 
-  accessibleLinks: LabMainMenuLink[] = getMainMenuLinks();
+  accessibleLinks: LabMainMenuLink[] = labGetMainMenuLinks();
 
   spaceAppUrl: string = LabEnvironmentHelper.getSpaceFrontAppUrl();
 
@@ -84,7 +84,7 @@ export class LabMainAppComponent implements OnInit {
 
   private checkBiotaSuccess(brick: LiBrickEntity): void {
     if (brick && brick.status.value !== 'CRITICAL') {
-      this.accessibleLinks.push(labBiotaMenuLink);
+      this.accessibleLinks.push(LAB_BIOTA_MENU_LINK);
     }
   }
 
