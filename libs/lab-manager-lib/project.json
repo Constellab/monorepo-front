@@ -4,13 +4,17 @@
   "sourceRoot": "libs/lab-manager-lib/src",
   "prefix": "lml",
   "projectType": "library",
-  "tags": ["front"],
+  "tags": [
+    "front"
+  ],
   "targets": {
     "test": {
       "executor": "@nx/vitest:test",
-      "outputs": ["{options.reportsDirectory}"],
+      "outputs": [
+        "{options.reportsDirectory}"
+      ],
       "options": {
-        "reportsDirectory": "../../coverage/libs/lab-manager-lib"
+        "reportsDirectory": "{projectRoot}/../../coverage/libs/lab-manager-lib"
       }
     },
     "lint": {

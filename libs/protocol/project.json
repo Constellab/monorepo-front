@@ -4,19 +4,26 @@
   "projectType": "library",
   "sourceRoot": "libs/protocol/src",
   "prefix": "pr",
-  "tags": ["front"],
+  "tags": [
+    "front"
+  ],
   "targets": {
     "test": {
       "executor": "@nx/vitest:test",
-      "outputs": ["{options.reportsDirectory}"],
+      "outputs": [
+        "{options.reportsDirectory}"
+      ],
       "options": {
-        "reportsDirectory": "../../coverage/libs/protocol"
+        "reportsDirectory": "{projectRoot}/../../coverage/libs/protocol"
       }
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": ["libs/protocol/src/**/*.ts", "libs/protocol/src/**/*.html"]
+        "lintFilePatterns": [
+          "libs/protocol/src/**/*.ts",
+          "libs/protocol/src/**/*.html"
+        ]
       }
     }
   }

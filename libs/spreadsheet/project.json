@@ -8,16 +8,23 @@
   "targets": {
     "test": {
       "executor": "@nx/vitest:test",
-      "outputs": ["{options.reportsDirectory}"],
+      "outputs": [
+        "{options.reportsDirectory}"
+      ],
       "options": {
-        "reportsDirectory": "../../coverage/libs/spreadsheet"
+        "reportsDirectory": "{projectRoot}/../../coverage/libs/spreadsheet"
       }
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
+      "outputs": [
+        "{options.outputFile}"
+      ],
       "options": {
-        "lintFilePatterns": ["libs/spreadsheet/**/*.ts", "libs/spreadsheet/**/*.html"]
+        "lintFilePatterns": [
+          "libs/spreadsheet/**/*.ts",
+          "libs/spreadsheet/**/*.html"
+        ]
       }
     }
   }

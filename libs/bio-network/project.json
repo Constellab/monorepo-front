@@ -8,16 +8,23 @@
   "targets": {
     "test": {
       "executor": "@nx/vitest:test",
-      "outputs": ["{options.reportsDirectory}"],
+      "outputs": [
+        "{options.reportsDirectory}"
+      ],
       "options": {
-        "reportsDirectory": "../../coverage/libs/bio-network"
+        "reportsDirectory": "{projectRoot}/../../coverage/libs/bio-network"
       }
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
+      "outputs": [
+        "{options.outputFile}"
+      ],
       "options": {
-        "lintFilePatterns": ["libs/bio-network/**/*.ts", "libs/bio-network/**/*.html"]
+        "lintFilePatterns": [
+          "libs/bio-network/**/*.ts",
+          "libs/bio-network/**/*.html"
+        ]
       }
     }
   }

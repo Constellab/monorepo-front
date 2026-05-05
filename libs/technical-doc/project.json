@@ -4,19 +4,26 @@
   "projectType": "library",
   "sourceRoot": "libs/technical-doc/src",
   "prefix": "td",
-  "tags": ["front"],
+  "tags": [
+    "front"
+  ],
   "targets": {
     "test": {
       "executor": "@nx/vitest:test",
-      "outputs": ["{options.reportsDirectory}"],
+      "outputs": [
+        "{options.reportsDirectory}"
+      ],
       "options": {
-        "reportsDirectory": "../../coverage/libs/technical-doc"
+        "reportsDirectory": "{projectRoot}/../../coverage/libs/technical-doc"
       }
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": ["libs/technical-doc/src/**/*.ts", "libs/technical-doc/src/**/*.html"]
+        "lintFilePatterns": [
+          "libs/technical-doc/src/**/*.ts",
+          "libs/technical-doc/src/**/*.html"
+        ]
       }
     }
   }
