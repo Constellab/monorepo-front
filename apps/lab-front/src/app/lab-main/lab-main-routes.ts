@@ -4,6 +4,8 @@ import {
   LI_CONST_BASE_ROUTE,
   LI_CONST_BIOTA_ROUTE,
   LI_CONST_DOC_ROUTE,
+  LI_CONST_FORM_ROUTE,
+  LI_CONST_FORM_TEMPLATE_ROUTE,
   LI_CONST_MONITORING_ROUTE,
   LI_CONST_NOTE_ROUTE,
   LI_CONST_NOTE_TEMPLATE_ROUTE,
@@ -18,6 +20,8 @@ import {
 import { labAppRoutes } from '../lab-app/lab-app-routes';
 import { labBiotaRoutes } from '../lab-biota/lab-biota-routes';
 import { labDocumentationRoutes } from '../lab-documentation/lab-documentation-routes';
+import { LAB_FORM_ROUTES } from '../lab-form/lab-form-routes';
+import { LAB_FORM_TEMPLATE_ROUTES } from '../lab-form-template/lab-form-template-routes';
 import { LabLoginRoutes } from '../lab-login/lab-login-routes';
 import { LAB_MONITORING_ROUTES } from '../lab-monitoring/lab-monitoring-routes';
 import { labNoteRoutes } from '../lab-note/lab-note-routes';
@@ -70,6 +74,18 @@ export const LAB_MAIN_ROUTES: Routes = [
       {
         path: LI_CONST_NOTE_TEMPLATE_ROUTE,
         children: labNoteTemplateRoutes,
+      },
+
+      ////////////////////////  FORM TEMPLATE  /////////////////////////
+      {
+        path: LI_CONST_FORM_TEMPLATE_ROUTE,
+        children: LAB_FORM_TEMPLATE_ROUTES,
+      },
+
+      ////////////////////////  FORM  /////////////////////////
+      {
+        path: LI_CONST_FORM_ROUTE,
+        children: LAB_FORM_ROUTES,
       },
 
       ////////////////////////  BIOTA  /////////////////////////

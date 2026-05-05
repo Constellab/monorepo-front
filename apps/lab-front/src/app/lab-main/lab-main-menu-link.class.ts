@@ -1,6 +1,8 @@
 import {
   LI_CONST_APP_FULL_ROUTE,
   LI_CONST_BIOTA_FULL_ROUTE,
+  LI_CONST_FORM_FULL_ROUTE,
+  LI_CONST_FORM_TEMPLATE_FULL_ROUTE,
   LI_CONST_NOTE_FULL_ROUTE,
   LI_CONST_NOTE_TEMPLATE_FULL_ROUTE,
   LI_CONST_RESOURCE_FULL_ROUTE,
@@ -52,6 +54,17 @@ export function labGetMainMenuLinks(): LabMainMenuLink[] {
       label: 'biox.note_templates',
       icon: 'note_template',
       route: LI_CONST_NOTE_TEMPLATE_FULL_ROUTE,
+    },
+    {
+      label: 'li.forms',
+      icon: 'description',
+      route: LI_CONST_FORM_FULL_ROUTE,
+      divider: true,
+    },
+    {
+      label: 'li.form_templates',
+      icon: 'description',
+      route: LI_CONST_FORM_TEMPLATE_FULL_ROUTE,
     },
     {
       label: 'biox.apps',

@@ -17,7 +17,9 @@ export type LiEntityTagType =
   | 'RESOURCE'
   | 'VIEW'
   | 'SCENARIO_TEMPLATE'
-  | 'NOTE_TEMPLATE';
+  | 'NOTE_TEMPLATE'
+  | 'FORM_TEMPLATE'
+  | 'FORM';
 export type LiTagValueFormat = 'STRING' | 'INTEGER' | 'FLOAT' | 'BOOLEAN' | 'DATETIME';
 
 /**

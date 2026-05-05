@@ -18,9 +18,11 @@ export type LiEntityType =
   | 'SCENARIO_TEMPLATE'
   | 'NOTE_TEMPLATE'
   | 'FOLDER'
-  | 'TAG';
+  | 'TAG'
+  | 'FORM_TEMPLATE'
+  | 'FORM';
 
-export const labEntityTypeIcon: Record<LiEntityType, string> = {
+export const LI_ENTITY_TYPE_ICON: Record<LiEntityType, string> = {
   SCENARIO: 'scenario',
   RESOURCE: 'resource',
   VIEW: 'view',
@@ -29,6 +31,8 @@ export const labEntityTypeIcon: Record<LiEntityType, string> = {
   NOTE_TEMPLATE: 'note_template',
   FOLDER: 'folder',
   TAG: 'tag',
+  FORM_TEMPLATE: 'description',
+  FORM: 'description',
 };
 
 export class LiNavigableEntity {
@@ -43,11 +47,11 @@ export class LiNavigableEntity {
   parentType?: LiEntityType;
 
   get typeIcon(): string {
-    return labEntityTypeIcon[this.type];
+    return LI_ENTITY_TYPE_ICON[this.type];
   }
 
   get parentTypeIcon(): string {
-    return labEntityTypeIcon[this.parentType];
+    return LI_ENTITY_TYPE_ICON[this.parentType];
   }
 }
 
@@ -86,7 +90,7 @@ export class LiNavigableEntityGrouped<T = any> {
   entities: T[];
 
   get typeIcon(): string {
-    return labEntityTypeIcon[this.type];
+    return LI_ENTITY_TYPE_ICON[this.type];
   }
 }
 

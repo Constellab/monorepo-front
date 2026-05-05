@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import {
   LI_CONST_BASE_ROUTE,
   LI_CONST_DOC_FULL_ROUTE,
+  LI_CONST_FORM_FULL_ROUTE,
+  LI_CONST_FORM_TEMPLATE_FULL_ROUTE,
   LI_CONST_MONITORING_FULL_ROUTE,
   LI_CONST_NOTE_FULL_ROUTE,
   LI_CONST_NOTE_TEMPLATE_FULL_ROUTE,
@@ -86,6 +88,18 @@ export class LiRouterService {
 
   public static getNoteTemplateDetailRoute(id: string): string {
     return `${LI_CONST_NOTE_TEMPLATE_FULL_ROUTE}/${id}`;
+  }
+
+  public static getFormSearchRoute(): string {
+    return LI_CONST_FORM_FULL_ROUTE;
+  }
+
+  public static getFormDetailRoute(id: string): string {
+    return `${LI_CONST_FORM_FULL_ROUTE}/${id}`;
+  }
+
+  public static getFormTemplateDetailRoute(id: string): string {
+    return `${LI_CONST_FORM_TEMPLATE_FULL_ROUTE}/${id}`;
   }
 
   public static getDocRoute(): string {
@@ -181,6 +195,14 @@ export class LiRouterService {
 
   public navigateToNoteSearch(): Promise<boolean> {
     return this.router.navigate([LiRouterService.getNoteSearchRoute()]);
+  }
+
+  public navigateToFormDetail(id: string): Promise<boolean> {
+    return this.router.navigate([LiRouterService.getFormDetailRoute(id)]);
+  }
+
+  public navigateToFormTemplateDetail(id: string): Promise<boolean> {
+    return this.router.navigate([LiRouterService.getFormTemplateDetailRoute(id)]);
   }
 
   public navigateToDocumentSearch(): Promise<boolean> {

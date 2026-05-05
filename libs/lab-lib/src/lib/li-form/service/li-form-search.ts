@@ -55,8 +55,8 @@ export class LiFormSearch {
   public static sortConverter: FlSearchSortCriteriaConverter = {
     name: 'name',
     status: 'status',
-    created_at: 'created_at',
-    last_modified_at: 'last_modified_at',
+    creation: 'created_at',
+    lastModification: 'last_modified_at',
   };
 
   public static getSearchForm(): FormGroup {
