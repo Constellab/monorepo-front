@@ -102,6 +102,7 @@
       "@monorepo/lab-lib/li-core": ["libs/lab-lib/src/lib/li-core/index.ts"],
       "@monorepo/lab-lib/li-credentials": ["libs/lab-lib/src/lib/li-credentials/index.ts"],
       "@monorepo/lab-lib/li-entity": ["libs/lab-lib/src/lib/li-entity/index.ts"],
+      "@monorepo/lab-lib/li-form": ["libs/lab-lib/src/lib/li-form/index.ts"],
       "@monorepo/lab-lib/li-lab": ["libs/lab-lib/src/lib/li-lab/index.ts"],
       "@monorepo/lab-lib/li-folder": ["libs/lab-lib/src/lib/li-folder/index.ts"],
       "@monorepo/lab-lib/li-log": ["libs/lab-lib/src/lib/li-log/index.ts"],
