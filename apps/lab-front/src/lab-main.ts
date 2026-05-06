@@ -38,10 +38,10 @@ import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
 import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import {
+  LI_SVG_ICONS,
   LiAuthService,
   LiBioNetworkService,
   LiConfig,
-  liSvgIcons,
   LiTagService,
   LiTdServiceConfig,
 } from '@monorepo/lab-lib/li-core';
@@ -120,7 +120,7 @@ function bootstrapApp(): void {
         // configuration of Front library
         FlIconModule.forRoot({
           iconFolder: 'assets/fl-mat-icons/',
-          iconsToRegister: liSvgIcons,
+          iconsToRegister: LI_SVG_ICONS,
         }),
         FlDialogModule.forRoot(),
         FlSnackBarModule.forRoot(),

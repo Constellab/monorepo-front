@@ -57,13 +57,13 @@ export function labGetMainMenuLinks(): LabMainMenuLink[] {
     },
     {
       label: 'li.forms',
-      icon: 'description',
+      icon: 'form',
       route: LI_CONST_FORM_FULL_ROUTE,
       divider: true,
     },
     {
       label: 'li.form_templates',
-      icon: 'description',
+      icon: 'form_template',
       route: LI_CONST_FORM_TEMPLATE_FULL_ROUTE,
     },
     {

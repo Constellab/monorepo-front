@@ -102,6 +102,10 @@ export class LiRouterService {
     return `${LI_CONST_FORM_TEMPLATE_FULL_ROUTE}/${id}`;
   }
 
+  public static getFormTemplateVersionRoute(templateId: string, versionId: string): string {
+    return `${LI_CONST_FORM_TEMPLATE_FULL_ROUTE}/${templateId}/versions/${versionId}`;
+  }
+
   public static getDocRoute(): string {
     return LI_CONST_DOC_FULL_ROUTE;
   }
@@ -203,6 +207,10 @@ export class LiRouterService {
 
   public navigateToFormTemplateDetail(id: string): Promise<boolean> {
     return this.router.navigate([LiRouterService.getFormTemplateDetailRoute(id)]);
+  }
+
+  public navigateToFormTemplateVersion(templateId: string, versionId: string): Promise<boolean> {
+    return this.router.navigate([LiRouterService.getFormTemplateVersionRoute(templateId, versionId)]);
   }
 
   public navigateToDocumentSearch(): Promise<boolean> {

@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { of } from 'rxjs';
 
-import { LiForm, LiFormFull } from '../model/li-form.dto';
+import { LiForm, LiFormFull } from '../model/li-form.entity';
 import { LiFormSaveEvent } from '../model/li-form-save-event.dto';
 import { LiFormService } from './li-form.service';
 

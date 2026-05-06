@@ -44,7 +44,7 @@ export const FL_ICON_MODULE = new InjectionToken<FlIconConfig>('FL_ICON_MODULE')
 /**
  * List of default icon
  */
-export const flIconsDefault: FlIcon[] = [
+export const FL_ICONS_DEFAULT: FlIcon[] = [
   { name: 'scenario', matIconName: 'slow_motion_video' },
   { name: 'protocol', filename: 'cogs-solid.svg' },
   { name: 'scenario_template', matIconName: 'extension' },
@@ -82,9 +82,11 @@ export const flIconsDefault: FlIcon[] = [
   { name: 'like', filename: 'like.svg' },
   { name: 'comment', filename: 'comment.svg' },
   { name: 'community-icon', filename: 'community_logo.svg' },
+  { name: 'form', filename: 'form.svg' },
+  { name: 'form_template', filename: 'form.svg' },
 ];
 
-export function getFileIconFromExtension(extension: string): string {
+export function flGetFileIconFromExtension(extension: string): string {
   if (!extension) return 'insert_drive_file';
 
   extension = extension.replace('.', '').toLowerCase();

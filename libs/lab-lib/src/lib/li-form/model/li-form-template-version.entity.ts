@@ -2,12 +2,10 @@ import { ClLuxonDateTimeTransform } from '@monorepo/core-lib';
 import { Expose, Type } from 'class-transformer';
 import { DateTime } from 'luxon';
 
-import { LiUser } from '../../li-core/model/entities/li-user.entity';
+import { LiBaseEntityWithUser, LiUser } from '../../li-core/model/entities/li-user.entity';
 import { LiFormTemplateVersionStatus } from './li-form.enum';
 
-export class LiFormTemplateVersionSummary {
-  id: string;
-
+export class LiFormTemplateVersionSummary extends LiBaseEntityWithUser {
   @Expose({ name: 'template_id' })
   templateId: string;
 
@@ -22,14 +20,6 @@ export class LiFormTemplateVersionSummary {
   @Expose({ name: 'published_by' })
   @Type(() => LiUser)
   publishedBy: LiUser | null;
-
-  @Expose({ name: 'created_at' })
-  @ClLuxonDateTimeTransform()
-  createdAt: DateTime;
-
-  @Expose({ name: 'last_modified_at' })
-  @ClLuxonDateTimeTransform()
-  lastModifiedAt: DateTime;
 }
 
 export class LiFormTemplateVersion extends LiFormTemplateVersionSummary {

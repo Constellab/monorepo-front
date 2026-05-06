@@ -1,0 +1,159 @@
+<div class="g-page page">
+  <fl-section class="g-flex-auto" [object]="template()" [isLoading]="isLoading()">
+    <ng-container *flSectionBody>
+      <!-- Header -->
+      <div class="g-layout-row g-layout-start-center">
+        <div class="g-flex-auto g-flex">
+          <fl-text-icon>
+            <mat-icon flIcon="form_template" class="g-icon-big"></mat-icon>
+            <h1 flElementEditable (flElementValueChange)="updateName($event)" class="title">
+              {{ template().name }}
+            </h1>
+          </fl-text-icon>
+        </div>
+
+        <div class="g-print-hide action-buttons">
+          <button mat-stroked-button class="g-button-small" (click)="createNewDraft()">
+            <mat-icon>add</mat-icon>
+            {{ 'li.form_create_version' | translate }}
+          </button>
+
+          <button mat-icon-button type="button" (click)="openActionMenu($event)">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <!-- Two-column layout -->
+      <div class="container">
+        <!-- Left sidebar: metadata -->
+        <div class="left-section g-print-hide">
+          <!-- Description -->
+          <p
+            class="g-text-light description"
+            flElementEditable
+            (flElementValueChange)="updateDescription($event)">
+            {{ template().description || ('li.form_template_no_description' | translate) }}
+          </p>
+
+          <!-- Tags -->
+          <li-tag-list
+            class="separator"
+            [tags]="tags$()"
+            [showNoTagMessage]="true"
+            entityType="FORM_TEMPLATE"
+            [enableDetails]="true"
+            [entityId]="template().id"></li-tag-list>
+
+          <!-- Created by & Last modified by -->
+          <p class="g-text-small g-text-light separator">
+            <fl-creation-info [user]="template().createdBy" [date]="template().createdAt"></fl-creation-info>
+          </p>
+          <p class="g-text-small g-text-light">
+            <fl-last-modification-info
+              [user]="template().lastModifiedBy"
+              [date]="template().lastModifiedAt"></fl-last-modification-info>
+          </p>
+        </div>
+
+        <!-- Right: main content -->
+        <div class="right-section">
+          <!-- Version chips nav bar -->
+          <div class="version-nav">
+            <div class="version-chips">
+              @for (v of template().versions; track v.id) {
+                <a
+                  class="version-chip"
+                  [class.version-chip-selected]="isSelectedVersion(v)"
+                  [routerLink]="getVersionRoute(v)">
+                  <span class="version-chip-label">v{{ v.version }}</span>
+                  <span class="version-chip-sep">·</span>
+                  <span class="version-chip-status g-text-small">
+                    {{ getVersionStatus(v).name | translate }}
+                  </span>
+                </a>
+              }
+            </div>
+          </div>
+
+          <!-- Version content card -->
+          <fl-card>
+            @if (selectedVersion()) {
+              <fl-card-header>
+                <span class="card-title">
+                  {{ 'li.form_version' | translate }} {{ selectedVersion().version }}
+                </span>
+                <fl-status-chip
+                  [status]="getVersionStatus(selectedVersion())"
+                  mode="iconText"
+                  size="small"></fl-status-chip>
+
+                <fl-card-actions>
+                  @if (selectedVersion().status === 'DRAFT') {
+                    <button mat-flat-button class="primary" (click)="publishVersion()">
+                      <mat-icon>publish</mat-icon>
+                      {{ 'li.form_publish_version' | translate }}
+                    </button>
+                    <button mat-stroked-button class="warn" (click)="deleteVersion()">
+                      <mat-icon>delete</mat-icon>
+                      {{ 'li.form_delete_version' | translate }}
+                    </button>
+                  }
+                  @if (selectedVersion().status === 'PUBLISHED' || selectedVersion().status === 'ARCHIVED') {
+                    <button mat-icon-button [matMenuTriggerFor]="versionMenu">
+                      <mat-icon>more_vert</mat-icon>
+                    </button>
+                    <mat-menu #versionMenu="matMenu" xPosition="before">
+                      <button mat-menu-item (click)="createDraftFromVersion()">
+                        <mat-icon>content_copy</mat-icon>
+                        <span>{{ 'li.form_create_draft_from_version' | translate }}</span>
+                      </button>
+
+                      @if (selectedVersion().status === 'PUBLISHED') {
+                        <button mat-menu-item (click)="archiveVersion()" class="warn">
+                          <mat-icon>archive</mat-icon>
+                          <span>{{ 'li.form_archive_version' | translate }}</span>
+                        </button>
+                      }
+                      @if (selectedVersion().status === 'ARCHIVED') {
+                        <button mat-menu-item (click)="unarchiveVersion()">
+                          <mat-icon>unarchive</mat-icon>
+                          <span>{{ 'li.form_unarchive_version' | translate }}</span>
+                        </button>
+                      }
+                    </mat-menu>
+                  }
+                </fl-card-actions>
+              </fl-card-header>
+            }
+
+            <fl-card-body>
+              <fl-section [object]="selectedVersion()" [isLoading]="isVersionLoading()">
+                <ng-container *flSectionBody>
+                  <li-form-template-version-editor
+                    [templateId]="template().id"
+                    [version]="selectedVersion()"
+                    [readonly]="isReadonly()"
+                    (versionUpdated)="onVersionUpdated($event)">
+                  </li-form-template-version-editor>
+                </ng-container>
+              </fl-section>
+
+              <!-- No versions empty state -->
+              @if (template().versions?.length === 0) {
+                <div class="empty-state">
+                  <mat-icon class="empty-state-icon">description</mat-icon>
+                  <p>{{ 'li.form_no_versions' | translate }}</p>
+                  <button mat-flat-button class="primary" (click)="createNewDraft()">
+                    <mat-icon>add</mat-icon>
+                    {{ 'li.form_create_version' | translate }}
+                  </button>
+                </div>
+              }
+            </fl-card-body>
+          </fl-card>
+        </div>
+      </div>
+    </ng-container>
+  </fl-section>
+</div>

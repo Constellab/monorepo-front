@@ -6,6 +6,10 @@ tr.detail-row {
   height: 0;
 }
 
+tr.element-row {
+  cursor: pointer;
+}
+
 tr.element-row:not(.expanded-row):hover {
   background: var(--hover-color);
 }

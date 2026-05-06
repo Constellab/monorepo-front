@@ -8,7 +8,7 @@ import {
 import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
 
 import { TdConfigI } from '../../model/td-config.class';
-import { TdParamSpecs } from '../../model/td-config-spec.class';
+import { TdParamSpec, TdParamSpecs } from '../../model/td-config-spec.class';
 import { TdAbstractDynamicParamSpecState } from '../../service/td-abstract-dynamic-param-spec.state';
 import {
   TdEditParamSpecDialogComponent,
@@ -41,7 +41,7 @@ export class TdConfigureParamSpecsTableDialogComponent {
       paramSpecFormInfoList$: this.dynamicParamSpecState.getParamSpecsInfos(),
       configSpecName: this.data.configSpecName,
       name: param?.name,
-      spec: param ? Object.assign({}, param) : null,
+      spec: param ? (Object.assign({}, param) as TdParamSpec) : null,
     };
 
     this.dialogService

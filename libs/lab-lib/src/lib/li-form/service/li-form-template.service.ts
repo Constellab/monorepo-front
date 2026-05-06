@@ -3,6 +3,7 @@ import { ClPageI } from '@monorepo/core-lib';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { FlDatasourceGetPageData, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 import { FlSearchConverter } from '@monorepo/front-core-lib/fl-search';
+import { TdCompleteEditParamSpecDict } from '@monorepo/technical-doc';
 import { Observable } from 'rxjs';
 
 import {
@@ -10,12 +11,12 @@ import {
   LiFormTemplate,
   LiFormTemplateWithVersions,
   LiUpdateFormTemplateDTO,
-} from '../model/li-form-template.dto';
+} from '../model/li-form-template.entity';
 import {
   LiCreateFormTemplateVersionDTO,
   LiFormTemplateVersion,
   LiUpdateFormTemplateVersionDTO,
-} from '../model/li-form-template-version.dto';
+} from '../model/li-form-template-version.entity';
 import { LiFormTemplateSearch, LiFormTemplateSearchFields } from './li-form-template-search';
 
 export type LiFormTemplateDatasource<F = void> = FlEntityPaginatedDatasource<LiFormTemplate, F>;
@@ -120,5 +121,17 @@ export class LiFormTemplateService {
       null,
       LiFormTemplateVersion
     );
+  }
+
+  public unarchiveVersion(templateId: string, versionId: string): Observable<LiFormTemplateVersion> {
+    return this.apiService.post(
+      `${this.route}/${templateId}/version/${versionId}/unarchive`,
+      null,
+      LiFormTemplateVersion
+    );
+  }
+
+  public getParamSpecsInfos(): Observable<TdCompleteEditParamSpecDict> {
+    return this.apiService.get(`${this.route}/config/get-param-spec-types`);
   }
 }

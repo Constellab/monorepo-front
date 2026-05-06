@@ -10,7 +10,7 @@ import { LiEntityActionMenu } from '@monorepo/lab-lib/li-entity';
 import { Observable } from 'rxjs';
 
 import { LiFormService } from '../service/li-form.service';
-import { LiForm } from './li-form.dto';
+import { LiForm } from './li-form.entity';
 
 export type LiFormActionEvent = {
   action: 'archive' | 'unarchive' | 'delete';

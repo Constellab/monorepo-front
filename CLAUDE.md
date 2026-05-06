@@ -98,15 +98,17 @@ This granular import structure allows for better tree-shaking and build optimiza
   - Let the default behavior and theme handle these elements
 - **For layout, use Flexbox**: When layout is needed, use flex-based layouts
 - **Use utility classes**: For flex layouts, use pre-defined classes from `libs/front-core-lib/src/style/fl-flex.scss`
+- **Button colors**: Use CSS classes `"primary"`, `"warn"`, or `"accent"` on buttons — NOT the `color` attribute. Example: `<button mat-flat-button class="primary">` or `<button mat-stroked-button class="warn">`
 
 ## Angular Patterns & Good Practices
 
 ### Modern Angular Features
 
-- **Signals**: Use Angular signals for reactive state where appropriate
-- **Input/Output Signals**: Prefer input and output signals for component communication
+- **Signals**: Use Angular signals (`signal()`, `computed()`) for all component state — avoid plain class properties for reactive data
+- **Input/Output Signals**: Prefer `input()` / `input.required()` and `output()` signals for component communication
 - **Dependency Injection**: Use `inject()` function instead of constructor injection where possible
 - **Standalone Components**: Project uses Angular 21 with support for standalone components
+- **Component file structure**: Each component MUST have its own dedicated folder. Never put multiple components in the same folder. The folder name matches the component name (e.g., `component/li-form-search/li-form-search.component.ts`)
 
 ### Common Services
 

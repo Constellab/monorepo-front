@@ -26,7 +26,8 @@ export type TdParamSpecType =
   | 'space_folder_param'
   | 'lab_model_param'
   | 'dynamic'
-  | 'dict';
+  | 'dict'
+  | 'computed';
 
 /**
  * Visibility of the param spec

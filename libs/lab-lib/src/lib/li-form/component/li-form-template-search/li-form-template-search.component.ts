@@ -16,15 +16,15 @@ import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
 import { LiRouterService } from '@monorepo/lab-lib/li-core';
 import { TranslatePipe } from '@ngx-translate/core';
 
-import { LiFormTemplate } from '../../model/li-form-template.dto';
+import { LiFormTemplate } from '../../model/li-form-template.entity';
 import { LiFormTemplateDatasource, LiFormTemplateService } from '../../service/li-form-template.service';
 import { LiFormTemplateSearch, LiFormTemplateSearchFields } from '../../service/li-form-template-search';
 import {
   LiFormTemplateFormDialogComponent,
   LiFormTemplateFormDialogInput,
 } from '../li-form-template-form-dialog/li-form-template-form-dialog.component';
-import { LiFormTemplateSearchFormComponent } from './li-form-template-search-form.component';
-import { LiFormTemplateTableComponent } from './li-form-template-table.component';
+import { LiFormTemplateSearchFormComponent } from '../li-form-template-search-form/li-form-template-search-form.component';
+import { LiFormTemplateTableComponent } from '../li-form-template-table/li-form-template-table.component';
 
 @Component({
   selector: 'li-form-template-search',
@@ -53,12 +53,7 @@ export class LiFormTemplateSearchComponent implements OnInit {
 
   @Input() fullPageSearch: boolean = true;
 
-  @Input() columns: FlTableColumnStatic<LiFormTemplate>[] = [
-    'name',
-    'currentVersion',
-    'tags',
-    'lastModification',
-  ];
+  @Input() columns: FlTableColumnStatic<LiFormTemplate>[] = ['name', 'tags', 'lastModification'];
 
   @Output() templateSelected: EventEmitter<LiFormTemplate> = new EventEmitter();
 

@@ -20,6 +20,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 @Component({
   selector: 'li-form-search-form',
   templateUrl: './li-form-search-form.component.html',
+  styleUrl: './li-form-search-form.component.scss',
   imports: [
     ReactiveFormsModule,
     MatFormField,

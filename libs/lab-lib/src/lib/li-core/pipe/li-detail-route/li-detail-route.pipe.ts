@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { LiForm } from '../../../li-form/model/li-form.dto';
-import { LiFormTemplate } from '../../../li-form/model/li-form-template.dto';
+import { LiForm } from '../../../li-form/model/li-form.entity';
+import { LiFormTemplate } from '../../../li-form/model/li-form-template.entity';
 import { LiEntityType } from '../../model/entities/li-navigable-entity.entity';
 import { LiNote } from '../../model/entities/li-note.entity';
 import { LiNoteTemplate } from '../../model/entities/li-note-template.entity';

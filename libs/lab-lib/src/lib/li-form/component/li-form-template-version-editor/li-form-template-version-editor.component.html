@@ -1,0 +1,46 @@
+<div class="version-editor">
+  <!-- Version info -->
+  @if (version().status === 'PUBLISHED' && version().publishedAt) {
+    <div
+      class="g-text-small g-text-light version-info g-layout-row-wrap g-layout-start-center g-layout-gap-05em">
+      <div>{{ 'li.form_published_at' | translate }} :</div>
+      <fl-user-with-date [user]="version().publishedBy" [date]="version().publishedAt"></fl-user-with-date>
+    </div>
+  }
+  @if (version().status === 'DRAFT' && version().lastModifiedAt) {
+    <div class="g-text-small g-text-light version-info">
+      <fl-last-modification-info
+        [date]="version().lastModifiedAt"
+        [user]="version().lastModifiedBy"></fl-last-modification-info>
+    </div>
+  }
+
+  <!-- Fields table -->
+  @if (hasFields()) {
+    <td-editable-param-specs-table
+      [columnsToDisplayWithExpand]="tableColumns()"
+      (editElementClick)="editField($event)"
+      (deleteElementClick)="deleteField($event)" />
+  } @else if (!readonly()) {
+    <!-- Empty state for drafts with no fields -->
+    <div class="empty-fields">
+      <mat-icon class="empty-fields-icon">playlist_add</mat-icon>
+      <p>{{ 'li.form_no_fields_yet' | translate }}</p>
+    </div>
+  } @else {
+    <!-- Empty state for published/archived with no fields -->
+    <div class="empty-fields">
+      <p class="g-text-light">{{ 'li.form_no_fields' | translate }}</p>
+    </div>
+  }
+
+  <!-- Actions -->
+  @if (!readonly()) {
+    <div class="version-editor-actions">
+      <button mat-stroked-button (click)="addField()">
+        <mat-icon>add</mat-icon>
+        {{ 'li.form_add_field' | translate }}
+      </button>
+    </div>
+  }
+</div>

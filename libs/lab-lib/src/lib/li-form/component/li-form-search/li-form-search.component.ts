@@ -12,11 +12,11 @@ import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
 import { TranslatePipe } from '@ngx-translate/core';
 
-import { LiForm } from '../../model/li-form.dto';
+import { LiForm } from '../../model/li-form.entity';
 import { LiFormDatasource, LiFormService } from '../../service/li-form.service';
 import { LiFormSearch, LiFormSearchFields } from '../../service/li-form-search';
-import { LiFormSearchFormComponent } from './li-form-search-form.component';
-import { LiFormTableComponent } from './li-form-table.component';
+import { LiFormSearchFormComponent } from '../li-form-search-form/li-form-search-form.component';
+import { LiFormTableComponent } from '../li-form-table/li-form-table.component';
 
 @Component({
   selector: 'li-form-search',

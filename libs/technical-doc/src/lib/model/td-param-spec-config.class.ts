@@ -9,10 +9,27 @@ import {
   FlDynamicFieldConfigUnknown,
 } from '@monorepo/front-core-lib/fl-dynamic-field';
 
-import { TD_CODE_PARAM_SPEC_TYPE_LIST, TdParamSpec, TdParamSpecSimple } from './td-config-spec.class';
+import {
+  TD_CODE_PARAM_SPEC_TYPE_LIST,
+  TdParamSpec,
+  TdParamSpecBase,
+  TdParamSpecSimple,
+} from './td-config-spec.class';
 
 export class TdParamSpecConfig {
-  public static convertParamSpecToAbstractConfig(spec: TdParamSpecSimple): FlDynamicFieldConfig {
+  public static convertParamSpecToAbstractConfig(
+    spec: TdParamSpecSimple | TdParamSpecBase
+  ): FlDynamicFieldConfig {
+    if (spec.type === 'computed') {
+      const config: FlDynamicFieldConfigInput = TdParamSpecConfig.convertToBaseFieldConfig(spec) as any;
+      config.type = 'input';
+      config.inputType = 'text';
+      config.disabled = true;
+      config.hint = spec.additional_info?.expression
+        ? `Computed: ${spec.additional_info.expression}`
+        : spec.short_description;
+      return config;
+    }
     if (spec.additional_info?.allowed_values && spec.additional_info?.allowed_values.length > 0) {
       if (spec.additional_info?.allowed_values.length > 10) {
         const config: FlDynamicFieldConfigSelectSearch = TdParamSpecConfig.convertToBaseFieldConfig(
@@ -104,7 +121,7 @@ export class TdParamSpecConfig {
     }
   }
 
-  public static convertToBaseFieldConfig(spec: TdParamSpec): FlDynamicFieldConfigBase {
+  public static convertToBaseFieldConfig(spec: TdParamSpec | TdParamSpecBase): FlDynamicFieldConfigBase {
     return {
       controlType: 'formControl',
       type: null,

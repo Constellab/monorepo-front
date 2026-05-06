@@ -1,5 +1,5 @@
 import { Component, computed, input } from '@angular/core';
-import { getFileIconFromExtension } from '@monorepo/front-core-lib/fl-svg-icon';
+import { flGetFileIconFromExtension } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlFileHelper } from '@monorepo/front-core-lib/fl-translate';
 
 /**
@@ -17,6 +17,6 @@ export class FlFileTextIconComponent {
   icon = computed(() => {
     const extension = FlFileHelper.getFileExtension(this.filename());
 
-    return getFileIconFromExtension(extension);
+    return flGetFileIconFromExtension(extension);
   });
 }

@@ -10,7 +10,7 @@ import { LiEntityActionMenu } from '@monorepo/lab-lib/li-entity';
 import { Observable } from 'rxjs';
 
 import { LiFormTemplateService } from '../service/li-form-template.service';
-import { LiFormTemplate } from './li-form-template.dto';
+import { LiFormTemplate } from './li-form-template.entity';
 
 export type LiFormTemplateActionEvent = {
   action: 'archive' | 'unarchive' | 'delete';
@@ -36,6 +36,16 @@ export class LiFormTemplateActionMenu extends LiEntityActionMenu {
     return this.generateMenu(menu, event);
   }
 
+  public openDetailActionMenu(event: MouseEvent): Observable<LiFormTemplateActionEvent> {
+    const menu: FlMenuDynamic[] = [
+      this.getTagsButton('FORM_TEMPLATE', this.template.id, this.tags),
+      this.getArchiveButton(),
+      this.getDeleteButton(),
+    ];
+
+    return this.generateMenu(menu, event);
+  }
+
   protected getArchiveButton(): FlMenuDynamic {
     if (this.template.isArchived) {
       return {
@@ -46,7 +56,7 @@ export class LiFormTemplateActionMenu extends LiEntityActionMenu {
         onClick: () =>
           this.toggleArchive({
             title: 'li.form_unarchive_template',
-            content: 'li.unarchive_form_template_confirmation',
+            content: 'li.form_unarchive_template_confirmation',
             observable: this.injector.get(LiFormTemplateService).unarchive(this.template.id),
             successMessage: 'li.form_template_unarchived',
           }),
@@ -60,7 +70,7 @@ export class LiFormTemplateActionMenu extends LiEntityActionMenu {
         onClick: () =>
           this.toggleArchive({
             title: 'li.form_archive_template',
-            content: 'li.archive_form_template_confirmation',
+            content: 'li.form_archive_template_confirmation',
             observable: this.injector.get(LiFormTemplateService).archive(this.template.id),
             successMessage: 'li.form_template_archived',
           }),
@@ -102,7 +112,7 @@ export class LiFormTemplateActionMenu extends LiEntityActionMenu {
       .get(FlDialogService)
       .openConfirmDialog({
         title: 'li.form_delete_template',
-        content: 'li.delete_form_template_confirmation',
+        content: 'li.form_delete_template_confirmation',
         observable: this.injector.get(LiFormTemplateService).delete(this.template.id),
         successMessage: 'li.form_template_deleted',
       })

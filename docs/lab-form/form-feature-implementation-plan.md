@@ -125,9 +125,9 @@ describe('prepareSavePayload', () => {
 
 Files to create:
 
-- `li-form-template.dto.ts` — `LiFormTemplateDTO`, `LiFormTemplateWithVersionsDTO`, `LiCreateFormTemplateDTO`, `LiUpdateFormTemplateDTO`
-- `li-form-template-version.dto.ts` — `LiFormTemplateVersionDTO`, `LiFormTemplateVersionSummaryDTO`, `LiCreateFormTemplateVersionDTO`, `LiUpdateFormTemplateVersionDTO`
-- `li-form.dto.ts` — `LiFormDTO`, `LiFormFullDTO`, `LiCreateFormDTO`, `LiUpdateFormDTO`, `LiSaveFormDTO`, `LiSaveFormResponseDTO`
+- `li-form-template.entity.ts` — `LiFormTemplateDTO`, `LiFormTemplateWithVersionsDTO`, `LiCreateFormTemplateDTO`, `LiUpdateFormTemplateDTO`
+- `li-form-template-version.entity.ts` — `LiFormTemplateVersionDTO`, `LiFormTemplateVersionSummaryDTO`, `LiCreateFormTemplateVersionDTO`, `LiUpdateFormTemplateVersionDTO`
+- `li-form.entity.ts` — `LiFormDTO`, `LiFormFullDTO`, `LiCreateFormDTO`, `LiUpdateFormDTO`, `LiSaveFormDTO`, `LiSaveFormResponseDTO`
 - `li-form-save-event.dto.ts` — `LiFormSaveEventDTO`, `LiFormChangeEntryDTO`
 - `li-form.enum.ts` — `LiFormTemplateVersionStatus`, `LiFormStatus`, `LiFormChangeAction`
 
@@ -559,9 +559,9 @@ Reuse existing tag components (`FlTagListComponent`, tag picker dialogs) on:
 libs/lab-lib/src/lib/li-form/
 ├── index.ts                                    # barrel export
 ├── model/
-│   ├── li-form-template.dto.ts
-│   ├── li-form-template-version.dto.ts
-│   ├── li-form.dto.ts
+│   ├── li-form-template.entity.ts
+│   ├── li-form-template-version.entity.ts
+│   ├── li-form.entity.ts
 │   ├── li-form-save-event.dto.ts
 │   └── li-form.enum.ts
 ├── service/

@@ -26,12 +26,15 @@ import { LiDetailRoutePipe, LiTagService } from '@monorepo/lab-lib/li-core';
 import { LiGetEntityTagsPipe, LiTagListComponent } from '@monorepo/lab-lib/li-tag';
 import { TranslatePipe } from '@ngx-translate/core';
 
-import { LiForm } from '../../model/li-form.dto';
-import { LiFormActionEvent, LiFormActionMenu } from '../../model/li-form-action-menu.class';
+import { LiFormTemplate } from '../../model/li-form-template.entity';
+import {
+  LiFormTemplateActionEvent,
+  LiFormTemplateActionMenu,
+} from '../../model/li-form-template-action-menu.class';
 
 @Component({
-  selector: 'li-form-table',
-  templateUrl: './li-form-table.component.html',
+  selector: 'li-form-template-table',
+  templateUrl: './li-form-template-table.component.html',
   imports: [
     MatTable,
     FlSearchModule,
@@ -58,40 +61,40 @@ import { LiFormActionEvent, LiFormActionMenu } from '../../model/li-form-action-
     LiGetEntityTagsPipe,
   ],
 })
-export class LiFormTableComponent {
-  @Input({ required: true }) datasource: FlArrayObs<LiForm>;
+export class LiFormTemplateTableComponent {
+  @Input({ required: true }) datasource: FlArrayObs<LiFormTemplate>;
 
-  @Input() columns: FlTableColumnStatic<LiForm>[] = ['name', 'status', 'tags', 'lastModification'];
+  @Input() columns: FlTableColumnStatic<LiFormTemplate>[] = ['name', 'tags', 'lastModification'];
 
   @Input() rowSelectable: boolean = false;
 
-  @Output() formSelected: EventEmitter<LiForm> = new EventEmitter();
+  @Output() templateSelected: EventEmitter<LiFormTemplate> = new EventEmitter();
 
   private injector = inject(Injector);
   private tagService = inject(LiTagService);
 
-  rowClicked(form: LiForm): void {
+  rowClicked(template: LiFormTemplate): void {
     if (this.rowSelectable) {
-      this.formSelected.next(form);
+      this.templateSelected.next(template);
     }
   }
 
-  openActionMenu(form: LiForm, event: MouseEvent): void {
+  openActionMenu(template: LiFormTemplate, event: MouseEvent): void {
     ClHelpService.stopEventPropagation(event);
-    const actionMenu = new LiFormActionMenu(
+    const actionMenu = new LiFormTemplateActionMenu(
       this.injector,
-      form,
-      this.tagService.getEntityTagsDatasource('FORM', form.id)
+      template,
+      this.tagService.getEntityTagsDatasource('FORM_TEMPLATE', template.id)
     );
 
     actionMenu.openActionMenuInTable(event).subscribe((action) => this.onAction(action));
   }
 
-  private onAction(action: LiFormActionEvent): void {
+  private onAction(action: LiFormTemplateActionEvent): void {
     if (action.action === 'delete') {
-      this.datasource.removeItem(action.form);
+      this.datasource.removeItem(action.template);
     } else {
-      this.datasource.updateItem(action.form);
+      this.datasource.updateItem(action.template);
     }
   }
 }
