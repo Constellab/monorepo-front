@@ -59,34 +59,34 @@
       <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplayWithExpand.length">
         <div class="element-detail" [@detailExpand]="element === expandedElement ? 'expanded' : 'collapsed'">
           <div>
-            @if (element.short_description?.length > 0) {
+            @if (element.spec.short_description?.length > 0) {
               <fl-key-value>
                 <fl-key>
                   <span>{{ 'td.short_description' | translate }}</span>
                 </fl-key>
-                {{ element.short_description }}
+                {{ element.spec.short_description }}
               </fl-key-value>
             } @else {
               <span class="g-text-light g-text-small">{{ 'td.no_description' | translate }}</span>
             }
           </div>
           <div class="additional-infos-div">
-            @if (element.additional_info && Object.keys(element.additional_info).length > 0) {
-              @for (key of Object.keys(element.additional_info); track key) {
-                @if (element.additional_info[key]) {
+            @if (element.spec.additional_info && Object.keys(element.spec.additional_info).length > 0) {
+              @for (key of Object.keys(element.spec.additional_info); track key) {
+                @if (element.spec.additional_info[key]) {
                   <fl-key-value>
                     <fl-key
                       ><span>{{ 'td.' + key | translate }}</span></fl-key
                     >
-                    {{ element.additional_info[key] }}
+                    {{ element.spec.additional_info[key] }}
                   </fl-key-value>
                 }
               }
             }
           </div>
           @if (
-            !(element.short_description?.length > 0) &&
-            (!element.additional_info || !(Object.keys(element.additional_info).length > 0))
+            !(element.spec.short_description?.length > 0) &&
+            (!element.spec.additional_info || !(Object.keys(element.spec.additional_info).length > 0))
           ) {
             <div class="empty-table">
               {{ 'td.no_additional_info' | translate }}

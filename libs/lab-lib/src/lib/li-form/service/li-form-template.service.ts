@@ -3,7 +3,7 @@ import { ClPageI } from '@monorepo/core-lib';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { FlDatasourceGetPageData, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 import { FlSearchConverter } from '@monorepo/front-core-lib/fl-search';
-import { TdCompleteEditParamSpecDict } from '@monorepo/technical-doc';
+import { TdParamSpec, TdParamSpecInfo } from '@monorepo/technical-doc';
 import { Observable } from 'rxjs';
 
 import {
@@ -15,7 +15,6 @@ import {
 import {
   LiCreateFormTemplateVersionDTO,
   LiFormTemplateVersion,
-  LiUpdateFormTemplateVersionDTO,
 } from '../model/li-form-template-version.entity';
 import { LiFormTemplateSearch, LiFormTemplateSearchFields } from './li-form-template-search';
 
@@ -91,18 +90,6 @@ export class LiFormTemplateService {
     return this.apiService.get(`${this.route}/${templateId}/version/${versionId}`, LiFormTemplateVersion);
   }
 
-  public updateVersion(
-    templateId: string,
-    versionId: string,
-    dto: LiUpdateFormTemplateVersionDTO
-  ): Observable<LiFormTemplateVersion> {
-    return this.apiService.put(
-      `${this.route}/${templateId}/version/${versionId}`,
-      dto,
-      LiFormTemplateVersion
-    );
-  }
-
   public deleteVersion(templateId: string, versionId: string): Observable<void> {
     return this.apiService.delete(`${this.route}/${templateId}/version/${versionId}`);
   }
@@ -131,7 +118,53 @@ export class LiFormTemplateService {
     );
   }
 
-  public getParamSpecsInfos(): Observable<TdCompleteEditParamSpecDict> {
+  // Field methods
+
+  private versionFieldRoute(templateId: string, versionId: string, fieldName: string): string {
+    return `${this.route}/${templateId}/version/${versionId}/field/${fieldName}`;
+  }
+
+  public createField(
+    templateId: string,
+    versionId: string,
+    fieldName: string,
+    spec: TdParamSpec
+  ): Observable<LiFormTemplateVersion> {
+    const route = this.versionFieldRoute(templateId, versionId, fieldName);
+    return this.apiService.post(route, spec, LiFormTemplateVersion);
+  }
+
+  public updateField(
+    templateId: string,
+    versionId: string,
+    fieldName: string,
+    spec: TdParamSpec
+  ): Observable<LiFormTemplateVersion> {
+    const route = this.versionFieldRoute(templateId, versionId, fieldName);
+    return this.apiService.put(route, spec, LiFormTemplateVersion);
+  }
+
+  public renameAndUpdateField(
+    templateId: string,
+    versionId: string,
+    fieldName: string,
+    newFieldName: string,
+    spec: TdParamSpec
+  ): Observable<LiFormTemplateVersion> {
+    const route = this.versionFieldRoute(templateId, versionId, fieldName);
+    return this.apiService.put(`${route}/rename-and-update/${newFieldName}`, spec, LiFormTemplateVersion);
+  }
+
+  public deleteField(
+    templateId: string,
+    versionId: string,
+    fieldName: string
+  ): Observable<LiFormTemplateVersion> {
+    const route = this.versionFieldRoute(templateId, versionId, fieldName);
+    return this.apiService.delete(route, LiFormTemplateVersion);
+  }
+
+  public getParamSpecsInfos(): Observable<TdParamSpecInfo[]> {
     return this.apiService.get(`${this.route}/config/get-param-spec-types`);
   }
 }

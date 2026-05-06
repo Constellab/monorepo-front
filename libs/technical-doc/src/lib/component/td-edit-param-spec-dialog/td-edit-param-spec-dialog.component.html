@@ -1,27 +1,94 @@
 <fl-dialog-header>
-  @if (isEdit) {
-    {{ 'td.edit_param_spec' | translate }}
-  } @else {
-    {{ 'td.create_param_spec' | translate }}
-  }
+  {{ data.title | flTranslatableText | async }}
 </fl-dialog-header>
 
-<mat-dialog-content class="content">
-  @if (isLoading) {
+<mat-dialog-content>
+  @if (isLoading()) {
     <fl-loader class="loader"></fl-loader>
   } @else {
-    <fl-dynamic-form-group class="g-form-field-compact" [control]="formGroup" [config]="formGroupConfig">
-    </fl-dynamic-form-group>
-    <button
-      mat-flat-button
-      (click)="saveParamSpec()"
-      type="button"
-      class="save-button primary"
-      [disabled]="formGroup.invalid || isButtonLoading">
-      {{ 'td.save' | translate }}
-      @if (isButtonLoading) {
-        <fl-button-loader></fl-button-loader>
+    <form id="paramSpecForm" [formGroup]="formGroup" class="form-content" (ngSubmit)="saveParamSpec()">
+      <div class="section">
+        <h4 class="section-title">{{ 'td.section_identity' | translate }}</h4>
+
+        <mat-form-field class="full-width">
+          <mat-label>{{ 'td.type' | translate }}</mat-label>
+          <mat-select formControlName="type" (selectionChange)="onTypeChange($event.value)">
+            @for (group of groupedTypes(); track group.category) {
+              <mat-optgroup [label]="group.category">
+                @for (option of group.options; track option.key) {
+                  <mat-option [value]="option.key">{{ option.humanName }}</mat-option>
+                }
+              </mat-optgroup>
+            }
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+          <mat-label>{{ 'td.key' | translate }}</mat-label>
+          <input matInput formControlName="key" />
+          @if (formGroup.get('key').hasError('pattern')) {
+            <mat-error>{{ 'td.key_invalid_identifier' | translate }}</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+          <mat-label>{{ 'td.label' | translate }}</mat-label>
+          <input matInput formControlName="human_name" />
+        </mat-form-field>
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <div class="section">
+        <h4 class="section-title">{{ 'td.section_behavior' | translate }}</h4>
+
+        <div class="checkbox-row">
+          <mat-checkbox formControlName="optional">
+            {{ 'td.optional' | translate }}
+          </mat-checkbox>
+        </div>
+
+        <mat-form-field class="full-width">
+          <mat-label>{{ 'td.default_value' | translate }}</mat-label>
+          <input matInput formControlName="default_value" />
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+          <mat-label>{{ 'td.short_description' | translate }}</mat-label>
+          <textarea matInput formControlName="short_description" rows="2"></textarea>
+        </mat-form-field>
+      </div>
+
+      @if (additionalInfoFormGroupConfig()) {
+        <mat-divider></mat-divider>
+
+        <div class="section" formGroupName="additional_info">
+          <h4 class="section-title">{{ 'td.additional_info' | translate }}</h4>
+
+          <fl-dynamic-form-group
+            class="g-form-field-compact"
+            [control]="$any(formGroup.get('additional_info'))"
+            [config]="additionalInfoFormGroupConfig()">
+          </fl-dynamic-form-group>
+        </div>
       }
-    </button>
+    </form>
   }
 </mat-dialog-content>
+
+<mat-dialog-actions align="center">
+  <button mat-stroked-button type="button" (click)="cancel()">
+    {{ 'td.cancel' | translate }}
+  </button>
+  <button
+    mat-flat-button
+    class="primary"
+    type="submit"
+    form="paramSpecForm"
+    [disabled]="formGroup?.invalid || isButtonLoading()">
+    {{ 'td.save' | translate }}
+    @if (isButtonLoading()) {
+      <fl-button-loader></fl-button-loader>
+    }
+  </button>
+</mat-dialog-actions>

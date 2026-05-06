@@ -1,12 +1,11 @@
-import { inject, Injectable, OnDestroy, ViewContainerRef } from '@angular/core';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { inject, Injectable, OnDestroy } from '@angular/core';
 import {
   TdAbstractDynamicParamSpecState,
-  TdCompleteEditParamSpecDict,
-  TdEditableParamSpec,
   TdEditParamSpecDialogComponent,
   TdEditParamSpecDialogInput,
   TdParamSpec,
+  TdParamSpecEntry,
+  TdParamSpecInfo,
   TdParamSpecs,
 } from '@monorepo/technical-doc';
 import { Observable } from 'rxjs';
@@ -21,14 +20,10 @@ export class LiFormTemplateDynamicParamSpecState
   implements OnDestroy
 {
   private formTemplateService = inject(LiFormTemplateService);
-  private dialogService = inject(FlDialogService);
-  private viewContainerRef = inject(ViewContainerRef);
 
   private templateId: string;
   private versionId: string;
   private content: TdParamSpecs = {};
-
-  private static readonly CONFIG_SPEC_NAME = 'fields';
 
   setVersionContent(templateId: string, versionId: string, content: TdParamSpecs): void {
     this.templateId = templateId;
@@ -37,17 +32,15 @@ export class LiFormTemplateDynamicParamSpecState
     this.setParamSpecs(this.content);
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  openEditConfigDialog(_configName: string): void {
-    this.openParamSpecDialog();
+  openConfigureParamSpecsTableDialog(): void {
+    throw new Error('Method not implemented. Use openParamSpecFormDialog instead.');
   }
 
-  openParamSpecDialog(param?: TdEditableParamSpec): void {
+  openParamSpecFormDialog(entry?: TdParamSpecEntry): void {
     const input: TdEditParamSpecDialogInput = {
       paramSpecFormInfoList$: this.getParamSpecsInfos(),
-      configSpecName: LiFormTemplateDynamicParamSpecState.CONFIG_SPEC_NAME,
-      name: param?.name,
-      spec: param ? (Object.assign({}, param) as TdParamSpec) : null,
+      paramSpec: entry,
+      title: { text: entry ? 'li.form_edit_field' : 'li.form_add_field', translateText: true },
     };
 
     this.dialogService
@@ -64,47 +57,37 @@ export class LiFormTemplateDynamicParamSpecState
       });
   }
 
-  addParamSpec(configSpecName: string, paramName: string, paramSpec: TdParamSpec): Observable<TdParamSpecs> {
-    const updatedContent = { ...this.content, [paramName]: paramSpec };
-    return this.updateAndRefresh(updatedContent);
+  addParamSpec(paramName: string, paramSpec: TdParamSpec): Observable<TdParamSpecs> {
+    return this.formTemplateService
+      .createField(this.templateId, this.versionId, paramName, paramSpec)
+      .pipe(map((version) => this.refreshContent(version)));
   }
 
-  editParamSpec(configSpecName: string, paramName: string, paramSpec: TdParamSpec): Observable<TdParamSpecs> {
-    const updatedContent = { ...this.content, [paramName]: paramSpec };
-    return this.updateAndRefresh(updatedContent);
+  editParamSpec(paramName: string, paramSpec: TdParamSpec): Observable<TdParamSpecs> {
+    return this.formTemplateService
+      .updateField(this.templateId, this.versionId, paramName, paramSpec)
+      .pipe(map((version) => this.refreshContent(version)));
   }
 
-  renameAndEditParamSpec(
-    configSpecName: string,
-    oldName: string,
-    newName: string,
-    paramSpec: TdParamSpec
-  ): Observable<TdParamSpecs> {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { [oldName]: _old, ...rest } = this.content;
-    const updatedContent = { ...rest, [newName]: paramSpec };
-    return this.updateAndRefresh(updatedContent);
+  renameAndEditParamSpec(oldName: string, newName: string, paramSpec: TdParamSpec): Observable<TdParamSpecs> {
+    return this.formTemplateService
+      .renameAndUpdateField(this.templateId, this.versionId, oldName, newName, paramSpec)
+      .pipe(map((version) => this.refreshContent(version)));
   }
 
-  deleteParamSpec(configSpecName: string, paramName: string): Observable<TdParamSpecs> {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { [paramName]: _removed, ...updatedContent } = this.content;
-    return this.updateAndRefresh(updatedContent);
+  deleteParamSpec(paramName: string): Observable<TdParamSpecs> {
+    return this.formTemplateService
+      .deleteField(this.templateId, this.versionId, paramName)
+      .pipe(map((version) => this.refreshContent(version)));
   }
 
-  getParamSpecsInfos(): Observable<TdCompleteEditParamSpecDict> {
+  getParamSpecsInfos(): Observable<TdParamSpecInfo[]> {
     return this.formTemplateService.getParamSpecsInfos();
   }
 
-  private updateAndRefresh(updatedContent: TdParamSpecs): Observable<TdParamSpecs> {
-    return this.formTemplateService
-      .updateVersion(this.templateId, this.versionId, { content: updatedContent })
-      .pipe(
-        map((version: LiFormTemplateVersion) => {
-          this.content = version.content ?? updatedContent;
-          this.setParamSpecs(this.content);
-          return this.content;
-        })
-      );
+  private refreshContent(version: LiFormTemplateVersion): TdParamSpecs {
+    this.content = version.content ?? {};
+    this.setParamSpecs(this.content);
+    return this.content;
   }
 }

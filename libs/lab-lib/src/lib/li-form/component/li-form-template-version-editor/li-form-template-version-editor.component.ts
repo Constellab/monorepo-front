@@ -9,7 +9,7 @@ import {
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import {
   TdAbstractDynamicParamSpecState,
-  TdEditableParamSpec,
+  TdParamSpecEntry,
   TdParamSpecs,
   TdTechnicalDocModule,
 } from '@monorepo/technical-doc';
@@ -38,7 +38,7 @@ export class LiFormTemplateVersionEditorComponent {
 
   versionUpdated = output<LiFormTemplateVersion>();
 
-  private static readonly COLUMNS = ['name', 'type', 'optional', 'default_value', 'human_name'];
+  private static readonly COLUMNS = ['key', 'type', 'optional', 'default_value', 'human_name'];
 
   tableColumns = computed(() => {
     const cols = ['expand', ...LiFormTemplateVersionEditorComponent.COLUMNS];
@@ -61,19 +61,19 @@ export class LiFormTemplateVersionEditorComponent {
   }
 
   addField(): void {
-    this.dynamicState.openParamSpecDialog();
+    this.dynamicState.openParamSpecFormDialog();
   }
 
-  editField(param: TdEditableParamSpec): void {
-    this.dynamicState.openParamSpecDialog(param);
+  editField(entry: TdParamSpecEntry): void {
+    this.dynamicState.openParamSpecFormDialog(entry);
   }
 
-  deleteField(param: TdEditableParamSpec): void {
+  deleteField(entry: TdParamSpecEntry): void {
     const input: FlConfirmDialogInput = {
       title: 'td.confirm_param_spec_deletion_title',
       content: 'td.confirm_param_spec_deletion_content',
       successMessage: 'td.confirm_param_spec_deletion_success',
-      observable: this.dynamicState.deleteParamSpec('fields', param.name),
+      observable: this.dynamicState.deleteParamSpec(entry.key),
     };
 
     this.dialogService

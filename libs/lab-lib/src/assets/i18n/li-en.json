@@ -637,6 +637,7 @@
     "form_archive_version_confirmation": "Archiving this version will make it read-only. Continue?",
     "form_delete_version_confirmation": "This draft version will be permanently deleted.",
     "form_add_field": "Add field",
+    "form_edit_field": "Edit field",
     "form_template_fields_description": "Define the fields for this form template version",
     "form_template_detail": "Form template detail",
     "form_published_at": "Published at",

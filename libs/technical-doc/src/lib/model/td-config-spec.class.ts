@@ -75,17 +75,10 @@ export interface TdParamSpecBase {
    */
   visibility: TdParamSpecVisibility;
 
-  // allowed_values?: any;
-
   /**
    * Custom properties depending on the type of the param
    */
   additional_info: any;
-
-  /**
-   * Key of the param spec, used to identify the param in the config (optional)
-   */
-  key?: string;
 }
 
 /**
@@ -200,3 +193,8 @@ export const TD_CODE_PARAM_SPEC_TYPE_LIST: TdParamSpecType[] = [
 ];
 
 export type TdParamSpecsValues = Record<string, any>;
+
+export interface TdParamSpecEntry {
+  key: string;
+  spec: TdParamSpec;
+}

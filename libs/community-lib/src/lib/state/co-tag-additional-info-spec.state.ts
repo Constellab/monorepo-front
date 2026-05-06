@@ -1,88 +1,63 @@
-import { inject, Injectable, OnDestroy, ViewContainerRef } from '@angular/core';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { inject, Injectable, OnDestroy } from '@angular/core';
 import {
   TdAbstractDynamicParamSpecState,
-  TdCompleteEditParamSpecDict,
-  TdConfigureParamSpecsTableDialogComponent,
-  TdConfigureParamSpecsTableDialogInput,
   TdParamSpec,
+  TdParamSpecInfo,
   TdParamSpecs,
 } from '@monorepo/technical-doc';
 import { Observable, of, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { coAdditionalInfoInfosDict, CoTagKey } from '../model/co-tag-key.class';
+import { CO_ADDITIONAL_INFO_DICT, CoTagKey } from '../model/co-tag-key.class';
 import { CoConfig } from '../service/co-service-config.config';
 
 @Injectable()
 export class CoTagAdditionalInfoSpecState extends TdAbstractDynamicParamSpecState implements OnDestroy {
   private coConfigService = inject(CoConfig);
-  private dialogService = inject(FlDialogService);
-  private viewContainerRef = inject(ViewContainerRef);
 
   onAdditionalInfoSpecsChanged$: Subject<TdParamSpecs> = new Subject<TdParamSpecs>();
 
   private tagKey: CoTagKey;
-
-  constructor() {
-    super();
-  }
 
   init(tagKey: CoTagKey): void {
     this.tagKey = tagKey;
     this.setParamSpecs(tagKey.additionalInfosSpecs ?? {});
   }
 
-  openEditConfigDialog(): void {
+  openConfigureParamSpecsTableDialog(): void {
     if (!this.tagKey) return;
 
-    const paramSpecs: TdParamSpecs = this.tagKey.additionalInfosSpecs;
-
-    const input: TdConfigureParamSpecsTableDialogInput = {
-      paramSpecs: paramSpecs,
-      configSpecName: this.tagKey.technicalName,
-      dynamicParamsDescription: {
-        text: 'coCommunityLib.tag_additional_info_spec_description',
-        translateText: true,
-      },
-    };
-
-    this.dialogService.openMediumDialog(TdConfigureParamSpecsTableDialogComponent, {
-      data: input,
-      viewContainerRef: this.viewContainerRef,
+    this.openConfigureParamSpecsDialog({
+      text: 'coCommunityLib.tag_additional_info_spec_description',
+      translateText: true,
     });
   }
 
-  addParamSpec(configSpecName: string, paramName: string, paramSpec: TdParamSpec): Observable<TdParamSpecs> {
+  addParamSpec(paramName: string, paramSpec: TdParamSpec): Observable<TdParamSpecs> {
     return this.coConfigService
-      .addAdditionalInfoSpec(configSpecName, paramName, paramSpec)
+      .addAdditionalInfoSpec(this.tagKey.technicalName, paramName, paramSpec)
       .pipe(map((result: TdParamSpecs) => this.onPortalActionResult(result)));
   }
 
-  deleteParamSpec(configSpecName: string, paramName: string): Observable<TdParamSpecs> {
+  deleteParamSpec(paramName: string): Observable<TdParamSpecs> {
     return this.coConfigService
-      .deleteAdditionalInfoSpec(configSpecName, paramName)
+      .deleteAdditionalInfoSpec(this.tagKey.technicalName, paramName)
       .pipe(map((result: TdParamSpecs) => this.onPortalActionResult(result)));
   }
 
-  editParamSpec(configSpecName: string, paramName: string, paramSpec: TdParamSpec): Observable<TdParamSpecs> {
+  editParamSpec(paramName: string, paramSpec: TdParamSpec): Observable<TdParamSpecs> {
     return this.coConfigService
-      .editAdditionalInfoSpec(configSpecName, paramName, paramSpec)
+      .editAdditionalInfoSpec(this.tagKey.technicalName, paramName, paramSpec)
       .pipe(map((result: TdParamSpecs) => this.onPortalActionResult(result)));
   }
 
-  getParamSpecsInfos(): Observable<TdCompleteEditParamSpecDict> {
-    return of(coAdditionalInfoInfosDict);
+  getParamSpecsInfos(): Observable<TdParamSpecInfo[]> {
+    return of(CO_ADDITIONAL_INFO_DICT);
   }
 
-  renameAndEditParamSpec(
-    configSpecName: string,
-    oldName: string,
-    newName: string,
-    paramSpec: TdParamSpec
-  ): Observable<TdParamSpecs> {
+  renameAndEditParamSpec(oldName: string, newName: string, paramSpec: TdParamSpec): Observable<TdParamSpecs> {
     return this.coConfigService
-      .renameAndEditAdditionalInfoSpec(configSpecName, oldName, newName, paramSpec)
+      .renameAndEditAdditionalInfoSpec(this.tagKey.technicalName, oldName, newName, paramSpec)
       .pipe(map((result: TdParamSpecs) => this.onPortalActionResult(result)));
   }
 

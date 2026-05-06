@@ -7,18 +7,14 @@ import {
 } from '@monorepo/front-core-lib/fl-dialog';
 import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
 
-import { TdConfigI } from '../../model/td-config.class';
-import { TdParamSpec, TdParamSpecs } from '../../model/td-config-spec.class';
+import { TdParamSpecEntry, TdParamSpecs } from '../../model/td-config-spec.class';
 import { TdAbstractDynamicParamSpecState } from '../../service/td-abstract-dynamic-param-spec.state';
 import {
   TdEditParamSpecDialogComponent,
   TdEditParamSpecDialogInput,
 } from '../td-edit-param-spec-dialog/td-edit-param-spec-dialog.component';
-import { TdEditableParamSpec } from '../td-editable-param-specs-table/td-editable-param-specs-table.component';
 
 export interface TdConfigureParamSpecsTableDialogInput {
-  configSpecName: string;
-  paramSpecs: TdParamSpecs;
   dynamicParamsDescription: FlTranslatableText;
 }
 
@@ -36,12 +32,13 @@ export class TdConfigureParamSpecsTableDialogComponent {
 
   description: FlTranslatableText = this.data.dynamicParamsDescription;
 
-  openEditParamSpecDialog(param: TdEditableParamSpec = null): void {
+  openEditParamSpecDialog(entry: TdParamSpecEntry = null): void {
     const input: TdEditParamSpecDialogInput = {
       paramSpecFormInfoList$: this.dynamicParamSpecState.getParamSpecsInfos(),
-      configSpecName: this.data.configSpecName,
-      name: param?.name,
-      spec: param ? (Object.assign({}, param) as TdParamSpec) : null,
+      paramSpec: entry,
+      title: entry
+        ? { text: 'td.edit_param_spec', translateText: true }
+        : { text: 'td.add_param_spec', translateText: true },
     };
 
     this.dialogService
@@ -50,36 +47,29 @@ export class TdConfigureParamSpecsTableDialogComponent {
         viewContainerRef: this.viewContainerRef,
       })
       .afterClosed()
-      .subscribe((output: TdParamSpecs | TdConfigI) => this.onEditClosed(output));
+      .subscribe((output: TdParamSpecs) => this.onEditClosed(output));
   }
 
-  openDeleteParamDialog(param: TdEditableParamSpec): void {
+  openDeleteParamDialog(entry: TdParamSpecEntry): void {
     const input: FlConfirmDialogInput = {
       title: 'td.confirm_param_spec_deletion_title',
       content: 'td.confirm_param_spec_deletion_content',
       successMessage: 'td.confirm_param_spec_deletion_success',
-      observable: this.dynamicParamSpecState.deleteParamSpec(this.data.configSpecName, param.name),
+      observable: this.dynamicParamSpecState.deleteParamSpec(entry.key),
     };
 
     this.dialogService
       .openConfirmDialog(input)
       .afterClosed()
-      .subscribe((res: FlConfirmDialogResult<TdParamSpecs | TdConfigI>) => {
+      .subscribe((res: FlConfirmDialogResult<TdParamSpecs>) => {
         if (!res || !res.choice || 'values' in res.result) return;
         this.dynamicParamSpecState.setParamSpecs(res.result as TdParamSpecs);
       });
   }
 
-  private onEditClosed(output: TdParamSpecs | TdConfigI): void {
+  private onEditClosed(output: TdParamSpecs): void {
     if (!output) return;
 
-    if ('specs' in output) {
-      this.data.paramSpecs = (output as TdConfigI).specs[this.data.configSpecName].additional_info.specs;
-      this.dynamicParamSpecState.setParamSpecs(this.data.paramSpecs);
-      return;
-    } else {
-      this.data.paramSpecs = output as TdParamSpecs;
-      this.dynamicParamSpecState.setParamSpecs(this.data.paramSpecs);
-    }
+    this.dynamicParamSpecState.setParamSpecs(output);
   }
 }

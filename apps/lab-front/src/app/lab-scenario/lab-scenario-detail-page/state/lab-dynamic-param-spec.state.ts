@@ -1,14 +1,10 @@
-import { inject, Injectable, OnDestroy, ViewContainerRef } from '@angular/core';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { FlPortalActionResult } from '@monorepo/front-core-lib/fl-portal-actions';
+import { inject, Injectable, OnDestroy } from '@angular/core';
 import { LiProcess, LiProtocolService, LiProtocolUpdateDTO } from '@monorepo/lab-lib/li-core';
 import {
   TdAbstractDynamicParamSpecState,
-  TdCompleteEditParamSpecDict,
   TdConfig,
-  TdConfigureParamSpecsTableDialogComponent,
-  TdConfigureParamSpecsTableDialogInput,
   TdParamSpec,
+  TdParamSpecInfo,
   TdParamSpecs,
 } from '@monorepo/technical-doc';
 import { Observable } from 'rxjs';
@@ -20,113 +16,94 @@ import { LabWorkflowEditConfig } from '../model/lab-workflow-edit-config.class';
 export class LabDynamicParamSpecState extends TdAbstractDynamicParamSpecState implements OnDestroy {
   private labProtocolService = inject(LiProtocolService);
   private editConfig = inject(LabWorkflowEditConfig);
-  private dialogService = inject(FlDialogService);
-  private viewContainerRef = inject(ViewContainerRef);
 
   private process: LiProcess = null;
 
-  constructor() {
-    super();
-  }
-
   setProcess(process: LiProcess): void {
     this.process = process;
-    for (const spec of Object.keys(process.config.specs)) {
-      if (process.config.specs[spec] && process.config.specs[spec].type == 'dynamic') {
-        this.setParamSpecs(process.config.specs[spec].additional_info.specs);
+    const dynamicConfigSpec = this.getDynamicConfigSpecParamSpecs().additional_info.specs;
+    this.setParamSpecs(dynamicConfigSpec);
+  }
+
+  getDynamicConfigSpecName(): string {
+    for (const spec of Object.keys(this.process.config.specs)) {
+      if (this.process.config.specs[spec] && this.process.config.specs[spec].type == 'dynamic') {
+        return spec;
       }
     }
+
+    throw new Error('No dynamic config spec found in process config');
   }
 
-  openEditConfigDialog(configName: string): void {
-    if (this.process.config.specs[configName]?.type != 'dynamic') return;
-
-    const paramsSpecs: TdParamSpecs = this.process.config.specs[configName].additional_info.specs;
-
-    const input: TdConfigureParamSpecsTableDialogInput = {
-      paramSpecs: paramsSpecs,
-      configSpecName: configName,
-      dynamicParamsDescription: {
-        text: 'biox.agent_params_spec_description',
-        translateText: true,
-      },
-    };
-
-    this.dialogService
-      .openMediumDialog(TdConfigureParamSpecsTableDialogComponent, {
-        data: input,
-        viewContainerRef: this.viewContainerRef,
-      })
-      .afterClosed()
-      .subscribe(() => {});
+  getDynamicConfigSpecParamSpecs(): TdParamSpec {
+    return this.process.config.specs[this.getDynamicConfigSpecName()];
   }
 
-  addParamSpec(configSpecName: string, paramName: string, paramSpec: TdParamSpec): Observable<TdConfig> {
+  openConfigureParamSpecsTableDialog(): void {
+    this.openConfigureParamSpecsDialog({
+      text: 'biox.agent_params_spec_description',
+      translateText: true,
+    });
+  }
+
+  addParamSpec(paramName: string, paramSpec: TdParamSpec): Observable<TdParamSpecs> {
     const obs = this.labProtocolService.addDynamicParamSpec(
       this.process.parentProtocolId,
       this.process.instanceName,
-      configSpecName,
+      this.getDynamicConfigSpecName(),
       paramName,
       paramSpec
     );
-    return this.onPortalActionResult(obs, configSpecName);
+    return this.onPortalActionResult(obs);
   }
 
-  deleteParamSpec(configSpecName: string, paramName: string): Observable<TdConfig> {
+  deleteParamSpec(paramName: string): Observable<TdParamSpecs> {
     const obs = this.labProtocolService.deleteDynamicParamSpec(
       this.process.parentProtocolId,
       this.process.instanceName,
-      configSpecName,
+      this.getDynamicConfigSpecName(),
       paramName
     );
-    return this.onPortalActionResult(obs, configSpecName);
+    return this.onPortalActionResult(obs);
   }
 
-  editParamSpec(configSpecName: string, paramName: string, paramSpec: TdParamSpec): Observable<TdConfig> {
+  editParamSpec(paramName: string, paramSpec: TdParamSpec): Observable<TdParamSpecs> {
     const obs = this.labProtocolService.updateDynamicParamSpec(
       this.process.parentProtocolId,
       this.process.instanceName,
-      configSpecName,
+      this.getDynamicConfigSpecName(),
       paramName,
       paramSpec
     );
-    return this.onPortalActionResult(obs, configSpecName);
+    return this.onPortalActionResult(obs);
   }
 
-  renameAndEditParamSpec(
-    configSpecName: string,
-    oldName: string,
-    newName: string,
-    paramSpec: TdParamSpec
-  ): Observable<TdConfig> {
+  renameAndEditParamSpec(oldName: string, newName: string, paramSpec: TdParamSpec): Observable<TdParamSpecs> {
     const obs = this.labProtocolService.renameAndUpdateDynamicParamSpec(
       this.process.parentProtocolId,
       this.process.instanceName,
-      configSpecName,
+      this.getDynamicConfigSpecName(),
       oldName,
       newName,
       paramSpec
     );
-    return this.onPortalActionResult(obs, configSpecName);
+    return this.onPortalActionResult(obs);
   }
 
-  getParamSpecsInfos(): Observable<TdCompleteEditParamSpecDict> {
+  getParamSpecsInfos(): Observable<TdParamSpecInfo[]> {
     return this.labProtocolService.getParamSpecsInfos(
       this.process.parentProtocolId,
       this.process.instanceName
     );
   }
 
-  private onPortalActionResult(
-    obs: Observable<LiProtocolUpdateDTO>,
-    configSpecName: string
-  ): Observable<TdConfig> {
+  private onPortalActionResult(obs: Observable<LiProtocolUpdateDTO>): Observable<TdParamSpecs> {
     return obs.pipe(
-      map((result: LiProtocolUpdateDTO): TdConfig => {
+      map((result: LiProtocolUpdateDTO): TdParamSpecs => {
         const config = result.process.config as TdConfig;
-        this.updateProcessConfig(configSpecName, config);
+        this.updateProcessConfig(this.getDynamicConfigSpecName(), config);
         this.editConfig.updateProcessDynamicConfig(result);
-        return config;
+        return config.specs[this.getDynamicConfigSpecName()].additional_info.specs;
       })
     );
   }

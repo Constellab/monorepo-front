@@ -302,6 +302,8 @@ export class ClStringHelper {
 
     str = str.toLowerCase().replaceAll(' ', '').replaceAll('_', ' ');
 
+    if (str.length === 0) return str;
+
     return str[0].toUpperCase() + str.substring(1);
   }
 

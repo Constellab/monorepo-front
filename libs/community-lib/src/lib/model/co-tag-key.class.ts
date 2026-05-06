@@ -1,4 +1,4 @@
-import { TdCompleteEditParamSpecDict, TdEditParamSpecDetail, TdParamSpecs } from '@monorepo/technical-doc';
+import { TdParamSpecInfo, TdParamSpecs } from '@monorepo/technical-doc';
 import { TeRichText } from '@monorepo/text-editor';
 import { DateTime } from 'luxon';
 
@@ -33,140 +33,84 @@ export interface CoTagKey {
   tagCoAuthors?: CoUser[];
 }
 
-export function coAdditionalInfoInfoDict(type: string, defaultValue: any = null): TdEditParamSpecDetail {
-  const otherFields: Record<string, any> = {};
-
+function coAdditionalInfoForType(type: string): Record<string, any> | null {
   if (type === 'str') {
-    otherFields['min_length'] = {
-      additional_info: {},
-      default_value: null,
-      optional: true,
-      short_description: null,
-      type: 'int',
-      human_name: 'Min Length',
-      visibility: 'public',
-      unit: null,
-    };
-
-    otherFields['max_length'] = {
-      additional_info: {},
-      default_value: null,
-      optional: true,
-      short_description: null,
-      type: 'int',
-      human_name: 'Max Length',
-      visibility: 'public',
-      unit: null,
-    };
-
-    otherFields['allowed_values'] = {
-      additional_info: {},
-      default_value: null,
-      optional: true,
-      short_description: null,
-      type: 'list',
-      human_name: 'Allowed Values',
-      visibility: 'public',
-      unit: null,
+    return {
+      min_length: {
+        additional_info: {},
+        default_value: null,
+        optional: true,
+        short_description: null,
+        type: 'int',
+        human_name: 'Min Length',
+        visibility: 'public',
+        unit: null,
+      },
+      max_length: {
+        additional_info: {},
+        default_value: null,
+        optional: true,
+        short_description: null,
+        type: 'int',
+        human_name: 'Max Length',
+        visibility: 'public',
+        unit: null,
+      },
+      allowed_values: {
+        additional_info: {},
+        default_value: null,
+        optional: true,
+        short_description: null,
+        type: 'list',
+        human_name: 'Allowed Values',
+        visibility: 'public',
+        unit: null,
+      },
     };
   }
 
   if (type === 'int' || type === 'float') {
-    otherFields['min_value'] = {
-      additional_info: {},
-      default_value: null,
-      optional: true,
-      short_description: null,
-      type: type,
-      human_name: 'Min Value',
-      visibility: 'public',
-      unit: null,
-    };
-
-    otherFields['max_value'] = {
-      additional_info: {},
-      default_value: null,
-      optional: true,
-      short_description: null,
-      type: type,
-      human_name: 'Max Value',
-      visibility: 'public',
-      unit: null,
-    };
-
-    otherFields['allowed_values'] = {
-      additional_info: {},
-      default_value: null,
-      optional: true,
-      short_description: null,
-      type: 'list',
-      human_name: 'Allowed Values',
-      visibility: 'public',
-      unit: null,
+    return {
+      min_value: {
+        additional_info: {},
+        default_value: null,
+        optional: true,
+        short_description: null,
+        type: type,
+        human_name: 'Min Value',
+        visibility: 'public',
+        unit: null,
+      },
+      max_value: {
+        additional_info: {},
+        default_value: null,
+        optional: true,
+        short_description: null,
+        type: type,
+        human_name: 'Max Value',
+        visibility: 'public',
+        unit: null,
+      },
+      allowed_values: {
+        additional_info: {},
+        default_value: null,
+        optional: true,
+        short_description: null,
+        type: 'list',
+        human_name: 'Allowed Values',
+        visibility: 'public',
+        unit: null,
+      },
     };
   }
 
-  return {
-    additional_info: otherFields,
-    default_value: {
-      additional_info: {},
-      default_value: defaultValue,
-      optional: true,
-      short_description: null,
-      type: type as any,
-      human_name: 'Default Value',
-      visibility: 'public',
-      unit: null,
-    },
-    optional: {
-      additional_info: {},
-      default_value: true,
-      human_name: 'Optional',
-      visibility: 'public',
-      unit: null,
-      short_description: null,
-      type: 'bool',
-      optional: false,
-    },
-    name: {
-      additional_info: {},
-      default_value: null,
-      type: 'str',
-      short_description: null,
-      human_name: 'Name',
-      visibility: 'public',
-      unit: null,
-      optional: false,
-    },
-    short_description: {
-      additional_info: {},
-      default_value: null,
-      type: 'str',
-      short_description: null,
-      visibility: 'public',
-      human_name: 'Short Description',
-      unit: null,
-      optional: true,
-    },
-    human_name: {
-      additional_info: {},
-      default_value: null,
-      type: 'str',
-      short_description: null,
-      visibility: 'public',
-      human_name: 'Human Name',
-      unit: null,
-      optional: true,
-    },
-  };
+  return null;
 }
 
-export const coAdditionalInfoInfosDict: TdCompleteEditParamSpecDict = {
-  simple: {
-    str: coAdditionalInfoInfoDict('str', null),
-    int: coAdditionalInfoInfoDict('int', 0),
-    float: coAdditionalInfoInfoDict('float', 0.0),
-    bool: coAdditionalInfoInfoDict('bool', false),
-    dict: coAdditionalInfoInfoDict('dict', {}),
-  },
-};
+export const CO_ADDITIONAL_INFO_DICT: TdParamSpecInfo[] = [
+  { type: 'str', label: 'String', category: 'simple', additional_info: coAdditionalInfoForType('str') },
+  { type: 'int', label: 'Integer', category: 'simple', additional_info: coAdditionalInfoForType('int') },
+  { type: 'float', label: 'Float', category: 'simple', additional_info: coAdditionalInfoForType('float') },
+  { type: 'bool', label: 'Boolean', category: 'simple', additional_info: null },
+  { type: 'dict', label: 'Dictionary', category: 'simple', additional_info: null },
+];

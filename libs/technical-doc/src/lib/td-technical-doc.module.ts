@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -70,6 +71,7 @@ import { TD_TECHNICAL_DOC_I18N } from './td-technical-doc.i18n';
 
     MatIconModule,
     MatChipsModule,
+    MatDialogModule,
     MatDividerModule,
     MatTooltipModule,
     MatButtonModule,

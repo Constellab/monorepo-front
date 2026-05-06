@@ -182,7 +182,6 @@ export class FlDynamicFieldConfigService {
   public generateGroupComponent(
     config: FlDynamicFormAbstractControl,
     control: AbstractControl,
-    configName: string,
     viewContainer: ViewContainerRef
   ): ComponentRef<FlDynamicAbstractFormDirective> {
     let viewComponentRef: ComponentRef<FlDynamicAbstractFormDirective>;
@@ -204,9 +203,6 @@ export class FlDynamicFieldConfigService {
 
     viewComponentRef.setInput('config', config);
     viewComponentRef.setInput('control', control);
-    if (viewComponentRef.instance.configName) {
-      viewComponentRef.setInput('configName', configName);
-    }
     return viewComponentRef;
   }
 }

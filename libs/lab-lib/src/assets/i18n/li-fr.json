@@ -637,6 +637,7 @@
     "form_archive_version_confirmation": "L'archivage de cette version la rendra en lecture seule. Continuer ?",
     "form_delete_version_confirmation": "Cette version brouillon sera définitivement supprimée.",
     "form_add_field": "Ajouter un champ",
+    "form_edit_field": "Modifier un champ",
     "form_template_fields_description": "Définir les champs de cette version du modèle de formulaire",
     "form_template_detail": "Détail du modèle de formulaire",
     "form_published_at": "Publié le",

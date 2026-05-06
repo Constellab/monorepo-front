@@ -28,8 +28,6 @@ export class FlDynamicAbstractFormComponent implements OnDestroy {
 
   control = input.required<AbstractControl>();
 
-  configName = input<string>();
-
   @ViewChild('viewContainer', { static: true, read: ViewContainerRef }) viewContainer: ViewContainerRef;
 
   private viewComponentRef: ComponentRef<FlDynamicAbstractFormDirective>;
@@ -42,7 +40,6 @@ export class FlDynamicAbstractFormComponent implements OnDestroy {
       this.viewComponentRef = this.configService.generateGroupComponent(
         this.config(),
         this.control(),
-        this.configName(),
         this.viewContainer
       );
     });

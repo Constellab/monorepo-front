@@ -4,12 +4,8 @@ import { ClHelpService, ClStringHelper } from '@monorepo/core-lib';
 import { FlArrayObs, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 
-import { TdParamSpecBase } from '../../model/td-config-spec.class';
+import { TdParamSpecEntry } from '../../model/td-config-spec.class';
 import { TdAbstractDynamicParamSpecState } from '../../service/td-abstract-dynamic-param-spec.state';
-
-export interface TdEditableParamSpec extends TdParamSpecBase {
-  name: string;
-}
 
 @Component({
   selector: 'td-editable-param-specs-table',
@@ -28,8 +24,8 @@ export class TdEditableParamSpecsTableComponent implements OnInit {
   private dynamicParamSpecState = inject(TdAbstractDynamicParamSpecState);
   private translateService = inject(FlTranslateService);
 
-  @Input() columns: FlTableColumnStatic<TdEditableParamSpec>[] = [
-    'name',
+  @Input() columns: FlTableColumnStatic<TdParamSpecEntry>[] = [
+    'key',
     'type',
     'optional',
     'default_value',
@@ -40,62 +36,56 @@ export class TdEditableParamSpecsTableComponent implements OnInit {
 
   @Input() displayWithExpand: boolean = true;
 
-  table: FlArrayObs<TdEditableParamSpec> = this.dynamicParamSpecState.paramSpecsTable;
+  table: FlArrayObs<TdParamSpecEntry> = this.dynamicParamSpecState.paramSpecsTable;
 
-  expandedElement: TdEditableParamSpec | null;
+  expandedElement: TdParamSpecEntry | null;
 
-  editElementClick = output<TdEditableParamSpec>();
+  editElementClick = output<TdParamSpecEntry>();
 
-  deleteElementClick = output<TdEditableParamSpec>();
+  deleteElementClick = output<TdParamSpecEntry>();
 
   ngOnInit(): void {
     if (!this.displayWithExpand) this.columnsToDisplayWithExpand = this.columns;
   }
 
-  edit(event: Event, element: TdEditableParamSpec): void {
+  edit(event: Event, element: TdParamSpecEntry): void {
     ClHelpService.stopEventPropagation(event);
     this.editElementClick.emit(element);
   }
 
-  delete(event: Event, element: TdEditableParamSpec): void {
+  delete(event: Event, element: TdParamSpecEntry): void {
     ClHelpService.stopEventPropagation(event);
     this.deleteElementClick.emit(element);
   }
 
-  getColumnValue(element: any, column: string): string {
-    if (!element[column] && column !== 'optional') {
+  getColumnValue(entry: TdParamSpecEntry, column: string): string {
+    if (column === 'key') return entry.key;
+
+    const value = (entry.spec as any)[column];
+
+    if (value == null && column !== 'optional') {
       if (column === 'human_name') {
-        return element['name'] ? ClStringHelper.capitalize(element['name']) : '';
+        return entry.key ? ClStringHelper.capitalize(entry.key) : '';
       }
       return '';
     }
 
     if (column === 'default_value') {
-      if (element[column].name) {
-        return element[column].name;
-      } else if (element[column].title) {
-        return element[column].title;
-      } else if (element[column].id) {
-        return element[column].id;
-      } else if (this.isObject(element[column])) {
-        return 'object';
-      } else {
-        const value: string = String(element[column]);
-        if (value.length > 20) {
-          return value.substring(0, 20) + '...';
-        }
-        return value;
-      }
-    } else if (column === 'type') {
-      return ClStringHelper.snakeCaseToSentence(element[column]);
-    } else if (this.isBoolean(element[column])) {
-      if (element[column] === true) {
-        return this.translateService.translate('td.yes');
-      } else {
-        return this.translateService.translate('td.no');
-      }
+      if (value?.name) return value.name;
+      if (value?.title) return value.title;
+      if (value?.id) return value.id;
+      if (this.isObject(value)) return 'object';
+      const str = String(value);
+      return str.length > 20 ? str.substring(0, 20) + '...' : str;
     }
-    return element[column];
+
+    if (column === 'type') return ClStringHelper.snakeCaseToSentence(value);
+
+    if (this.isBoolean(value)) {
+      return this.translateService.translate(value ? 'td.yes' : 'td.no');
+    }
+
+    return value;
   }
 
   private isBoolean(v: any): boolean {

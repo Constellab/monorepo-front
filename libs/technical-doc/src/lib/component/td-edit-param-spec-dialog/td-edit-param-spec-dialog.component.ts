@@ -1,52 +1,38 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { UntypedFormGroup } from '@angular/forms';
+import { Component, inject, OnDestroy, signal } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { ClStringHelper } from '@monorepo/core-lib';
+import { ClStringHelper, ClSubscriptionHandler } from '@monorepo/core-lib';
 import {
-  FlDynamicFieldConfigSelect,
   FlDynamicFieldSelectKeyNameOption,
   FlDynamicFormGroupConfig,
   FlDynamicFormHelper,
 } from '@monorepo/front-core-lib/fl-dynamic-field';
-import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
 import { Observable } from 'rxjs';
 
-import { TdConfigI } from '../../model/td-config.class';
 import {
   TdParamSpec,
+  TdParamSpecEntry,
   TdParamSpecSimple,
-  TdParamSpecString,
   TdParamSpecType,
 } from '../../model/td-config-spec.class';
 import { TdParamSpecConfig } from '../../model/td-param-spec-config.class';
 import { TdAbstractDynamicParamSpecState } from '../../service/td-abstract-dynamic-param-spec.state';
 
-/**
- * Object that describe the specs to configure a param spec
- * Contains common fields for all types of param specs
- * and additional fields for each type of param spec
- */
-export interface TdEditParamSpecDetail {
-  name: TdParamSpecSimple;
-  default_value: TdParamSpecSimple;
-  optional: TdParamSpecSimple;
-  short_description: TdParamSpecSimple;
-  human_name: TdParamSpecSimple;
-  additional_info: Record<string, TdParamSpecSimple>;
+export interface TdParamSpecInfo {
+  type: TdParamSpecType;
+  label: string;
+  category: string;
+  additional_info: Record<string, TdParamSpecSimple> | null;
 }
 
-/**
- * Type that contains all the possible param specs and their details to configure them (useful for agent)
- */
-export type TdEditParamSpecDict = Record<string, TdEditParamSpecDetail>;
-
-export type TdCompleteEditParamSpecDict = Record<string, TdEditParamSpecDict>;
-
 export interface TdEditParamSpecDialogInput {
-  configSpecName: string;
-  paramSpecFormInfoList$: Observable<TdCompleteEditParamSpecDict>;
-  spec?: TdParamSpec;
-  name?: string;
+  paramSpecFormInfoList$: Observable<TdParamSpecInfo[]>;
+  /**
+   * Provided if mode is update, null if create
+   */
+  paramSpec?: TdParamSpecEntry;
+  title: FlTranslatableText;
 }
 
 @Component({
@@ -55,206 +41,166 @@ export interface TdEditParamSpecDialogInput {
   styleUrl: './td-edit-param-spec-dialog.component.scss',
   standalone: false,
 })
-export class TdEditParamSpecDialogComponent implements OnInit {
-  private translateService = inject(FlTranslateService);
+export class TdEditParamSpecDialogComponent implements OnDestroy {
   private dialogRef = inject<MatDialogRef<TdEditParamSpecDialogComponent>>(MatDialogRef);
   private dynamicParamSpecState = inject(TdAbstractDynamicParamSpecState);
 
-  formGroupConfig: FlDynamicFormGroupConfig;
+  readonly isLoading = signal(true);
+  readonly isButtonLoading = signal(false);
+  readonly groupedTypes = signal<{ category: string; options: FlDynamicFieldSelectKeyNameOption[] }[]>([]);
 
-  formGroup: UntypedFormGroup;
+  formGroup: FormGroup;
+  additionalInfoFormGroupConfig = signal<FlDynamicFormGroupConfig | null>(null);
 
-  isEdit: boolean;
+  data = inject<TdEditParamSpecDialogInput>(MAT_DIALOG_DATA);
 
-  isLoading: boolean;
-
-  isButtonLoading: boolean = false;
-
-  private spec: TdParamSpec;
-
-  private name: string;
-
-  private possibleTypes: FlDynamicFieldSelectKeyNameOption[] = [];
-
-  private paramSpecFormInfoList$: Observable<TdCompleteEditParamSpecDict>;
-
-  private configSpecName: string;
+  private paramSpecInfoList: TdParamSpecInfo[] = [];
+  private labelManuallyEdited = false;
+  private subscriptions = new ClSubscriptionHandler();
 
   constructor() {
     const data = inject<TdEditParamSpecDialogInput>(MAT_DIALOG_DATA);
 
-    this.paramSpecFormInfoList$ = data.paramSpecFormInfoList$;
-    this.configSpecName = data.configSpecName;
-
-    if (!data.spec) {
-      this.isEdit = false;
-      // Set default values for the new param spec if it's create mode
-      this.spec = {
-        type: 'str',
-        optional: false,
-        visibility: 'public',
-      } as TdParamSpecString;
-    } else {
-      this.isEdit = true;
-      this.spec = data.spec;
-      this.name = data.name;
-    }
+    this.subscriptions.add(
+      data.paramSpecFormInfoList$.subscribe({
+        next: (list) => this.onParamSpecInfoLoaded(list),
+        error: () => this.isLoading.set(false),
+      })
+    );
   }
 
-  ngOnInit(): void {
-    this.isLoading = true;
-
-    // Subscribe to the paramSpecFormInfoList$ observable to get the possible types from the python backend
-    // Then init the form with the current type of the spec if it exists, otherwise the default type is 'str'
-    this.paramSpecFormInfoList$.subscribe({
-      next: (paramSpecFormInfoList: TdCompleteEditParamSpecDict) => {
-        const groups = Object.keys(paramSpecFormInfoList);
-        let specInfoList: TdEditParamSpecDict = {};
-        let typeExists = false;
-
-        for (const group of groups) {
-          for (const paramSpecInfo of Object.keys(paramSpecFormInfoList[group])) {
-            const humanName: string = ClStringHelper.snakeCaseToSentence(paramSpecInfo);
-            this.possibleTypes.push({
-              key: paramSpecInfo as TdParamSpecType,
-              humanName: humanName,
-              group: group,
-            });
-          }
-          specInfoList = Object.assign({}, specInfoList, paramSpecFormInfoList[group]);
-          if (Object.keys(paramSpecFormInfoList[group]).includes(this.spec.type)) {
-            typeExists = true;
-          }
-        }
-
-        if (typeExists) {
-          this.initForm(this.spec.type, specInfoList);
-        }
-
-        this.isLoading = false;
-      },
-      error: () => {
-        this.isLoading = false;
-      },
-    });
+  onTypeChange(type: TdParamSpecType): void {
+    this.formGroup.get('default_value').reset(null);
+    this.buildAdditionalInfoForm(type);
   }
 
   saveParamSpec(): void {
-    if (this.formGroup.valid) {
-      this.isButtonLoading = true;
-      if (this.isEdit) {
-        const oldName = this.name != this.formGroup.get('name').value ? this.name : null;
-        if (oldName) {
-          // Call rename and edit the param spec if the name field is changed and it's update mode
-          this.dynamicParamSpecState
-            .renameAndEditParamSpec(
-              this.configSpecName,
-              oldName,
-              this.formGroup.get('name').value,
-              this.formGroup.value
-            )
-            .subscribe({
-              next: (config: TdConfigI) => this.dialogRef.close(config),
-              error: () => {
-                this.isButtonLoading = false;
-              },
-            });
-        } else {
-          // Edit the param spec if the name field is not changed and it's update mode
-          this.dynamicParamSpecState
-            .editParamSpec(this.configSpecName, this.formGroup.get('name').value, this.formGroup.value)
-            .subscribe({
-              next: (config: TdConfigI) => this.dialogRef.close(config),
-              error: () => {
-                this.isButtonLoading = false;
-              },
-            });
-        }
-      } else {
-        // Create the param spec if it's create mode
-        this.dynamicParamSpecState
-          .addParamSpec(this.configSpecName, this.formGroup.get('name').value, this.formGroup.value)
-          .subscribe({
-            next: (config: TdConfigI) => this.dialogRef.close(config),
-            error: () => {
-              this.isButtonLoading = false;
-            },
-          });
-      }
-    }
-  }
+    if (this.formGroup.invalid) return;
 
-  // Create the form group config and add the type and
-  // name fields because they are always present and not in the specsInfoList
-  // Then call initCompleteForm to add the other fields based on the type selected
-  private initForm(type: string, specsInfoList: TdEditParamSpecDict): void {
-    this.formGroupConfig = {
-      controlType: 'formGroup',
-      subConfigs: {},
-    };
-    this.formGroupConfig.subConfigs['type'] = this.getTypeDynamicFieldConfigSelect();
+    this.isButtonLoading.set(true);
+    const paramSpec = this.buildParamSpecFromForm();
+    const key = this.formGroup.get('key').value;
 
-    this.initCompleteForm(type, specsInfoList);
-  }
-
-  // Add the fields based on the type selected and the info in the specsInfoList to the form group config
-  private initCompleteForm(type: string, specsInfoList: TdEditParamSpecDict): void {
-    this.formGroupConfig.subConfigs = Object.assign(
-      {},
-      this.formGroupConfig.subConfigs,
-      this.convertToFieldConfigsRecursive(specsInfoList[type]).subConfigs
-    );
-    this.formGroup = FlDynamicFormHelper.generateFormGroup(this.formGroupConfig, this.spec);
-    this.formGroup.patchValue(this.spec);
-    this.formGroup.get('name').patchValue(this.name ?? '');
-    this.formGroup.get('type').valueChanges.subscribe((type: TdParamSpecType) => {
-      this.spec.type = type as any;
-      this.spec.default_value = null;
-      this.initForm(type, specsInfoList);
+    const save$ = this.getSaveObservable(key, paramSpec);
+    save$.subscribe({
+      next: (result) => this.dialogRef.close(result),
+      error: () => this.isButtonLoading.set(false),
     });
   }
 
-  // Return the form control config for the type field with all possible types as options
-  private getTypeDynamicFieldConfigSelect(): FlDynamicFieldConfigSelect {
-    return {
-      type: 'select',
-      selectOptions: this.possibleTypes,
-      controlType: 'formControl',
-      placeholder: this.translateService.translate('td.type'),
-      required: true,
-    };
+  cancel(): void {
+    this.dialogRef.close();
   }
 
-  private convertToFieldConfigsRecursive(specs: TdEditParamSpecDetail): FlDynamicFormGroupConfig {
-    const configs: FlDynamicFormGroupConfig = {
-      controlType: 'formGroup',
-      subConfigs: {},
-    };
-    configs.subConfigs['name'] = TdParamSpecConfig.convertParamSpecToAbstractConfig(specs.name);
-    configs.subConfigs['optional'] = TdParamSpecConfig.convertParamSpecToAbstractConfig(specs.optional);
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
 
-    configs.subConfigs['short_description'] = TdParamSpecConfig.convertParamSpecToAbstractConfig(
-      specs.short_description
-    );
+  private onParamSpecInfoLoaded(list: TdParamSpecInfo[]): void {
+    this.paramSpecInfoList = list;
+    this.groupedTypes.set(this.buildGroupedTypes(list));
+    this.initForm();
+    this.isLoading.set(false);
+  }
 
-    specs.human_name.human_name = this.translateService.translate('td.label');
-    configs.subConfigs['human_name'] = TdParamSpecConfig.convertParamSpecToAbstractConfig(specs.human_name);
-
-    configs.subConfigs['default_value'] = TdParamSpecConfig.convertParamSpecToAbstractConfig(
-      specs.default_value
-    );
-
-    if (specs.additional_info) {
-      configs.subConfigs['additional_info'] = {
-        controlType: 'formGroup',
-        placeholder: this.translateService.translate('td.additional_info'),
-        subConfigs: {},
-      };
-      for (const specName of Object.keys(specs.additional_info)) {
-        configs.subConfigs['additional_info'].subConfigs[specName] =
-          TdParamSpecConfig.convertParamSpecToAbstractConfig(specs.additional_info[specName]);
+  /** Groups the flat param spec info list by category for the mat-optgroup type selector. */
+  private buildGroupedTypes(
+    list: TdParamSpecInfo[]
+  ): { category: string; options: FlDynamicFieldSelectKeyNameOption[] }[] {
+    const groupMap = new Map<string, FlDynamicFieldSelectKeyNameOption[]>();
+    for (const info of list) {
+      if (!groupMap.has(info.category)) {
+        groupMap.set(info.category, []);
       }
+      groupMap.get(info.category).push({ key: info.type, humanName: info.label, group: info.category });
     }
-    return configs;
+    return Array.from(groupMap.entries()).map(([category, options]) => ({ category, options }));
+  }
+
+  private initForm(): void {
+    this.formGroup = new FormGroup({
+      type: new FormControl('str', Validators.required),
+      key: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-Z_][a-zA-Z0-9_]*$/)]),
+      human_name: new FormControl(''),
+      optional: new FormControl(false),
+      default_value: new FormControl(null),
+      short_description: new FormControl(''),
+    });
+
+    if (this.data.paramSpec) {
+      this.formGroup.patchValue({
+        ...this.data.paramSpec.spec,
+        key: this.data.paramSpec.key,
+      });
+    }
+
+    // Auto-sync label from key until the user manually edits the label
+    this.subscriptions.add([
+      this.formGroup.get('human_name').valueChanges.subscribe(() => {
+        this.labelManuallyEdited = true;
+      }),
+      this.formGroup.get('key').valueChanges.subscribe((key: string) => {
+        if (!this.labelManuallyEdited) {
+          const label = ClStringHelper.snakeCaseToSentence(key);
+          this.formGroup.get('human_name').setValue(label, { emitEvent: false });
+        }
+      }),
+    ]);
+
+    this.buildAdditionalInfoForm(this.formGroup.get('type').value, this.data.paramSpec?.spec.additional_info);
+  }
+
+  /**
+   * Builds the dynamic form for type-specific fields (e.g. min/max for numbers, allowed_values for strings).
+   * Looks up the additional_info definition for the given type, converts each field to a dynamic form config,
+   * then generates and patches the form group with existing values from initialSpec.
+   */
+  private buildAdditionalInfoForm(type: TdParamSpecType, initialValue?: any): void {
+    // Remove previous additional_info sub-group if it exists
+    if (this.formGroup.contains('additional_info')) {
+      this.formGroup.removeControl('additional_info');
+    }
+
+    const info = this.paramSpecInfoList.find((i) => i.type === type);
+
+    if (!info?.additional_info || Object.keys(info.additional_info).length === 0) {
+      this.additionalInfoFormGroupConfig.set(null);
+      return;
+    }
+
+    const config: FlDynamicFormGroupConfig = { controlType: 'formGroup', subConfigs: {} };
+    for (const specName of Object.keys(info.additional_info)) {
+      config.subConfigs[specName] = TdParamSpecConfig.convertParamSpecToAbstractConfig(
+        info.additional_info[specName]
+      );
+    }
+
+    const subGroup = FlDynamicFormHelper.generateFormGroup(config, initialValue);
+    this.formGroup.addControl('additional_info', subGroup);
+    this.additionalInfoFormGroupConfig.set(config);
+  }
+
+  private buildParamSpecFromForm(): TdParamSpec {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { key: _key, ...specValue } = this.formGroup.value;
+    return {
+      ...specValue,
+      human_name: specValue.human_name || null,
+      short_description: specValue.short_description || null,
+    } as TdParamSpec;
+  }
+
+  /**
+   * Returns the correct save observable depending on create/edit mode and whether the key was renamed.
+   */
+  private getSaveObservable(key: string, paramSpec: TdParamSpec): Observable<any> {
+    if (!this.data.paramSpec) {
+      return this.dynamicParamSpecState.addParamSpec(key, paramSpec);
+    }
+
+    if (this.data.paramSpec?.key && key !== this.data.paramSpec.key) {
+      return this.dynamicParamSpecState.renameAndEditParamSpec(this.data.paramSpec.key, key, paramSpec);
+    }
+    return this.dynamicParamSpecState.editParamSpec(key, paramSpec);
   }
 }

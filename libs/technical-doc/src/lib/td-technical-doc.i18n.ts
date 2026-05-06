@@ -58,6 +58,10 @@ const tdTechnicalDocI18nFr: FlLangTranslation = {
     confirm_param_spec_deletion_content: 'Etes-vous sûr de vouloir supprimer ce paramètre ?',
     confirm_param_spec_deletion_success: 'Le paramètre a été supprimé avec succès',
     save: 'Enregistrer',
+    cancel: 'Annuler',
+    key: 'Clé',
+    section_identity: 'Identité',
+    section_behavior: 'Comportement',
     no_specs: 'Aucune spécifications',
     no_additional_info: 'Aucune information supplémentaire',
     no_description: 'Aucune description',
@@ -72,6 +76,8 @@ const tdTechnicalDocI18nFr: FlLangTranslation = {
     no: 'Non',
     additional_info: 'Information(s) additionnelle(s)',
     label: 'Label',
+    key_invalid_identifier:
+      'Doit commencer par une lettre ou un underscore, et ne contenir que des lettres, chiffres ou underscores',
   },
 };
 
@@ -130,6 +136,10 @@ const tdTechnicalDocI18nEn: FlLangTranslation = {
     confirm_param_spec_deletion_content: 'Are you sure you want to delete this parameter ?',
     confirm_param_spec_deletion_success: 'The parameter has been successfully deleted',
     save: 'Save',
+    cancel: 'Cancel',
+    key: 'Key',
+    section_identity: 'Identity',
+    section_behavior: 'Behavior',
     no_specs: 'No specs',
     no_additional_info: 'No additional information',
     no_description: 'No description',
@@ -144,6 +154,8 @@ const tdTechnicalDocI18nEn: FlLangTranslation = {
     no: 'No',
     additional_info: 'Additional information',
     label: 'Label',
+    key_invalid_identifier:
+      'Must start with a letter or underscore, and contain only letters, digits, or underscores',
   },
 };
 

@@ -148,7 +148,7 @@ export class LiTagDetailComponent implements OnInit {
   }
 
   openEditAdditionalInfoSpecDialog(): void {
-    this.tagAdditionalInfoSpecState.openEditConfigDialog();
+    this.tagAdditionalInfoSpecState.openConfigureParamSpecsTableDialog();
   }
 
   openDeleteTagKeyDialog(): void {
