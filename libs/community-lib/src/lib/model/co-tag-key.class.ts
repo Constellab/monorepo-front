@@ -1,4 +1,4 @@
-import { TdParamSpecInfo, TdParamSpecs } from '@monorepo/technical-doc';
+import { TdParamSpecCategory, TdParamSpecInfo, TdParamSpecs } from '@monorepo/technical-doc';
 import { TeRichText } from '@monorepo/text-editor';
 import { DateTime } from 'luxon';
 
@@ -108,9 +108,9 @@ function coAdditionalInfoForType(type: string): Record<string, any> | null {
 }
 
 export const CO_ADDITIONAL_INFO_DICT: TdParamSpecInfo[] = [
-  { type: 'str', label: 'String', category: 'simple', additional_info: coAdditionalInfoForType('str') },
-  { type: 'int', label: 'Integer', category: 'simple', additional_info: coAdditionalInfoForType('int') },
-  { type: 'float', label: 'Float', category: 'simple', additional_info: coAdditionalInfoForType('float') },
-  { type: 'bool', label: 'Boolean', category: 'simple', additional_info: null },
-  { type: 'dict', label: 'Dictionary', category: 'simple', additional_info: null },
+  { type: 'str', category: TdParamSpecCategory.SIMPLE, additional_info: coAdditionalInfoForType('str') },
+  { type: 'int', category: TdParamSpecCategory.SIMPLE, additional_info: coAdditionalInfoForType('int') },
+  { type: 'float', category: TdParamSpecCategory.SIMPLE, additional_info: coAdditionalInfoForType('float') },
+  { type: 'bool', category: TdParamSpecCategory.SIMPLE, additional_info: null },
+  { type: 'dict', category: TdParamSpecCategory.SIMPLE, additional_info: null },
 ];

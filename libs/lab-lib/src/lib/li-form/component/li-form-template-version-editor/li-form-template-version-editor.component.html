@@ -18,7 +18,7 @@
   <!-- Fields table -->
   @if (hasFields()) {
     <td-editable-param-specs-table
-      [columnsToDisplayWithExpand]="tableColumns()"
+      [columns]="tableColumns()"
       (editElementClick)="editField($event)"
       (deleteElementClick)="deleteField($event)" />
   } @else if (!readonly()) {

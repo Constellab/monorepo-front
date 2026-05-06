@@ -38,11 +38,12 @@ export class LiFormTemplateVersionEditorComponent {
 
   versionUpdated = output<LiFormTemplateVersion>();
 
-  private static readonly COLUMNS = ['key', 'type', 'optional', 'default_value', 'human_name'];
+  private static readonly COLUMNS = ['label', 'type', 'optional', 'default_value', 'additional_info'];
 
   tableColumns = computed(() => {
-    const cols = ['expand', ...LiFormTemplateVersionEditorComponent.COLUMNS];
-    return this.readonly() ? cols : [...cols, 'menu'];
+    return this.readonly()
+      ? LiFormTemplateVersionEditorComponent.COLUMNS
+      : [...LiFormTemplateVersionEditorComponent.COLUMNS, 'menu'];
   });
 
   hasFields = computed(() => {

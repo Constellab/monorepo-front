@@ -1,52 +1,57 @@
 @if (table?.array.length > 0) {
-  <table mat-table [dataSource]="table" multiTemplateDataRows>
-    <ng-container matColumnDef="expand">
-      <th mat-header-cell *matHeaderCellDef class="g-table-icon-button-cell" aria-label="row actions">
-        &nbsp;
-      </th>
-      <td mat-cell *matCellDef="let element" class="g-table-icon-button-cell">
-        <button
-          mat-icon-button
-          aria-label="expand row"
-          (click)="expandedElement = expandedElement === element ? null : element; $event.stopPropagation()">
-          @if (expandedElement === element) {
-            <mat-icon>keyboard_arrow_up</mat-icon>
-          } @else {
-            <mat-icon>keyboard_arrow_down</mat-icon>
+  <table mat-table [dataSource]="table">
+    <ng-container matColumnDef="label">
+      <th mat-header-cell *matHeaderCellDef>{{ 'td.label' | translate }}</th>
+      <td mat-cell *matCellDef="let entry">
+        <div class="label-cell">
+          <span>{{ getLabel(entry) }}</span>
+          @if (entry.spec.short_description) {
+            <span class="g-text-light g-text-small">{{ entry.spec.short_description }}</span>
           }
-        </button>
+        </div>
       </td>
     </ng-container>
 
-    @for (column of columns; track column) {
-      <ng-container matColumnDef="{{ column }}">
-        <th mat-header-cell *matHeaderCellDef>
-          <span>{{ 'td.' + column | translate }}</span>
-        </th>
-        <td mat-cell *matCellDef="let element">
-          {{ getColumnValue(element, column) }}
-        </td>
-      </ng-container>
-    }
+    <ng-container matColumnDef="type">
+      <th mat-header-cell *matHeaderCellDef>{{ 'td.type' | translate }}</th>
+      <td mat-cell *matCellDef="let entry">{{ 'td.param_type.' + entry.spec.type | translate }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="optional">
+      <th mat-header-cell *matHeaderCellDef>{{ 'td.optional' | translate }}</th>
+      <td mat-cell *matCellDef="let entry">{{ entry.spec.optional | flYesNo }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="default_value">
+      <th mat-header-cell *matHeaderCellDef>{{ 'td.default_value' | translate }}</th>
+      <td mat-cell *matCellDef="let entry">{{ formatDefaultValue(entry) }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="additional_info">
+      <th mat-header-cell *matHeaderCellDef>{{ 'td.additional_info' | translate }}</th>
+      <td mat-cell *matCellDef="let entry">
+        <div class="additional-info-cell">
+          @for (item of getAdditionalInfoItems(entry); track item.key) {
+            <span class="g-text-small">{{ item.label }}: {{ item.value }}</span>
+          }
+        </div>
+      </td>
+    </ng-container>
 
     <ng-container matColumnDef="menu">
       <th mat-header-cell *matHeaderCellDef class="g-table-icon-button-cell">
         {{ 'td.actions' | translate }}
       </th>
-      <td mat-cell *matCellDef="let element" class="g-table-icon-button-cell">
+      <td mat-cell *matCellDef="let entry" class="g-table-icon-button-cell">
         <button mat-icon-button [matMenuTriggerFor]="btsMenu" (click)="$event.stopPropagation()">
           <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #btsMenu="matMenu">
-          <button mat-menu-item aria-label="edit" (click)="edit($event, element)">
+          <button mat-menu-item aria-label="edit" (click)="edit($event, entry)">
             <mat-icon>edit</mat-icon>
             {{ 'td.edit' | translate }}
           </button>
-          <button
-            mat-menu-item
-            aria-label="delete"
-            class="button-warn warn"
-            (click)="delete($event, element)">
+          <button mat-menu-item aria-label="delete" class="button-warn warn" (click)="delete($event, entry)">
             <mat-icon>delete</mat-icon>
             {{ 'td.delete' | translate }}
           </button>
@@ -54,56 +59,8 @@
       </td>
     </ng-container>
 
-    <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
-    <ng-container matColumnDef="expandedDetail">
-      <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplayWithExpand.length">
-        <div class="element-detail" [@detailExpand]="element === expandedElement ? 'expanded' : 'collapsed'">
-          <div>
-            @if (element.spec.short_description?.length > 0) {
-              <fl-key-value>
-                <fl-key>
-                  <span>{{ 'td.short_description' | translate }}</span>
-                </fl-key>
-                {{ element.spec.short_description }}
-              </fl-key-value>
-            } @else {
-              <span class="g-text-light g-text-small">{{ 'td.no_description' | translate }}</span>
-            }
-          </div>
-          <div class="additional-infos-div">
-            @if (element.spec.additional_info && Object.keys(element.spec.additional_info).length > 0) {
-              @for (key of Object.keys(element.spec.additional_info); track key) {
-                @if (element.spec.additional_info[key]) {
-                  <fl-key-value>
-                    <fl-key
-                      ><span>{{ 'td.' + key | translate }}</span></fl-key
-                    >
-                    {{ element.spec.additional_info[key] }}
-                  </fl-key-value>
-                }
-              }
-            }
-          </div>
-          @if (
-            !(element.spec.short_description?.length > 0) &&
-            (!element.spec.additional_info || !(Object.keys(element.spec.additional_info).length > 0))
-          ) {
-            <div class="empty-table">
-              {{ 'td.no_additional_info' | translate }}
-            </div>
-          }
-        </div>
-      </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="columnsToDisplayWithExpand"></tr>
-    <tr
-      mat-row
-      *matRowDef="let element; columns: columnsToDisplayWithExpand"
-      class="element-row"
-      [class.expanded-row]="expandedElement === element"
-      (click)="expandedElement = expandedElement === element ? null : element"></tr>
-    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
+    <tr mat-header-row *matHeaderRowDef="columns"></tr>
+    <tr mat-row *matRowDef="let entry; columns: columns"></tr>
   </table>
 } @else {
   <div class="empty-table">

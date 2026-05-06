@@ -198,3 +198,10 @@ export interface TdParamSpecEntry {
   key: string;
   spec: TdParamSpec;
 }
+
+export enum TdParamSpecCategory {
+  SIMPLE = 'simple',
+  NESTED = 'nested',
+  LAB_SPECIFIC = 'lab_specific',
+  COMPUTED = 'computed',
+}

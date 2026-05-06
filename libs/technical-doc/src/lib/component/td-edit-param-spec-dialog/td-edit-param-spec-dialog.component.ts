@@ -7,11 +7,12 @@ import {
   FlDynamicFormGroupConfig,
   FlDynamicFormHelper,
 } from '@monorepo/front-core-lib/fl-dynamic-field';
-import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
+import { FlTranslatableText, FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import { Observable } from 'rxjs';
 
 import {
   TdParamSpec,
+  TdParamSpecCategory,
   TdParamSpecEntry,
   TdParamSpecSimple,
   TdParamSpecType,
@@ -21,8 +22,7 @@ import { TdAbstractDynamicParamSpecState } from '../../service/td-abstract-dynam
 
 export interface TdParamSpecInfo {
   type: TdParamSpecType;
-  label: string;
-  category: string;
+  category: TdParamSpecCategory;
   additional_info: Record<string, TdParamSpecSimple> | null;
 }
 
@@ -44,6 +44,7 @@ export interface TdEditParamSpecDialogInput {
 export class TdEditParamSpecDialogComponent implements OnDestroy {
   private dialogRef = inject<MatDialogRef<TdEditParamSpecDialogComponent>>(MatDialogRef);
   private dynamicParamSpecState = inject(TdAbstractDynamicParamSpecState);
+  private translateService = inject(FlTranslateService);
 
   readonly isLoading = signal(true);
   readonly isButtonLoading = signal(false);
@@ -112,9 +113,13 @@ export class TdEditParamSpecDialogComponent implements OnDestroy {
       if (!groupMap.has(info.category)) {
         groupMap.set(info.category, []);
       }
-      groupMap.get(info.category).push({ key: info.type, humanName: info.label, group: info.category });
+      const label = this.translateService.translate(`td.param_type.${info.type}`);
+      groupMap.get(info.category).push({ key: info.type, humanName: label, group: info.category });
     }
-    return Array.from(groupMap.entries()).map(([category, options]) => ({ category, options }));
+    return Array.from(groupMap.entries()).map(([category, options]) => ({
+      category: this.translateService.translate(`td.param_category.${category}`),
+      options,
+    }));
   }
 
   private initForm(): void {
