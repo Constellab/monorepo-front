@@ -610,6 +610,7 @@
     "form_status_changed": "Status changed",
     "form_missing_mandatory_fields": "Some mandatory fields are missing",
     "form_computed_error": "Computed field error",
+    "computed_expression": "Computed",
     "form_create_template": "Create form template",
     "form_template_created": "Form template created",
     "form_update_template": "Update form template",

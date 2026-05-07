@@ -27,7 +27,7 @@ export type TdParamSpecType =
   | 'lab_model_param'
   | 'dynamic'
   | 'dict'
-  | 'computed';
+  | 'computed_param';
 
 /**
  * Visibility of the param spec
@@ -182,7 +182,7 @@ export interface TdParamSpecDynamic extends TdParamSpecBase {
 }
 
 export interface TdParamSpecComputed extends TdParamSpecBase {
-  type: 'computed';
+  type: 'computed_param';
 
   additional_info: any;
 }

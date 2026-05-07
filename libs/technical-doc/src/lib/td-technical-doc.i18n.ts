@@ -75,6 +75,8 @@ const tdTechnicalDocI18nFr: FlLangTranslation = {
     yes: 'Oui',
     no: 'Non',
     additional_info: 'Information(s) additionnelle(s)',
+    expression: 'Expression',
+    result_type: 'Type de résultat',
     label: 'Label',
     key_invalid_identifier:
       'Doit commencer par une lettre ou un underscore, et ne contenir que des lettres, chiffres ou underscores',
@@ -187,6 +189,8 @@ const tdTechnicalDocI18nEn: FlLangTranslation = {
     yes: 'Yes',
     no: 'No',
     additional_info: 'Additional information',
+    expression: 'Expression',
+    result_type: 'Result type',
     label: 'Label',
     key_invalid_identifier:
       'Must start with a letter or underscore, and contain only letters, digits, or underscores',

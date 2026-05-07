@@ -1,7 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, computed, effect, inject, input, output, signal } from '@angular/core';
+import { Component, effect, inject, input, output, signal } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
+import { FlDynamicFieldConfigService } from '@monorepo/front-core-lib/fl-dynamic-field';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import {
@@ -14,7 +15,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 
 import { LiFormContent, LiSaveFormDTO } from '../../model/li-form.entity';
 import { LiFormService } from '../../service/li-form.service';
-import { liGetFieldDisplayName } from '../li-form-history/li-form-history.logic';
+import { LiFormDynamicFieldConfig } from '../../service/li-form-dynamic-field-config.service';
 import { liBuildSaveDTO, liExtractSavePayload } from './li-form-editor.logic';
 
 @Component({
@@ -22,6 +23,7 @@ import { liBuildSaveDTO, liExtractSavePayload } from './li-form-editor.logic';
   templateUrl: './li-form-editor.component.html',
   styleUrl: './li-form-editor.component.scss',
   imports: [TdTechnicalDocModule, ReactiveFormsModule, MatButton, TranslatePipe, FlIconModule],
+  providers: [{ provide: FlDynamicFieldConfigService, useClass: LiFormDynamicFieldConfig }],
 })
 export class LiFormEditorComponent {
   private formService = inject(LiFormService);
@@ -37,17 +39,6 @@ export class LiFormEditorComponent {
   isSaving = signal(false);
   configData = signal<TdConfig>(null);
   formGp: FormGroup<TdConfigureSpecsForm>;
-
-  computedErrorEntries = computed(() => {
-    const errors = this.content()?.errors;
-    if (!errors) return [];
-    const specs = this.content()?.specs;
-    return Object.entries(errors).map(([key, message]) => ({
-      key,
-      displayName: liGetFieldDisplayName(key, specs),
-      message,
-    }));
-  });
 
   constructor() {
     effect(() => {

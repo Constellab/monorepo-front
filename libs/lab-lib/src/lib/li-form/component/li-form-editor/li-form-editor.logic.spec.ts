@@ -17,7 +17,7 @@ describe('li-form-editor.logic', () => {
       additional_info: {},
     },
     total: {
-      type: 'computed',
+      type: 'computed_param',
       optional: true,
       visibility: 'public',
       additional_info: { expression: 'mass * 2', result_type: 'float' },

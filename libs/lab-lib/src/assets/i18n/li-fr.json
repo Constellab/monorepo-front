@@ -610,6 +610,7 @@
     "form_status_changed": "Statut modifié",
     "form_missing_mandatory_fields": "Certains champs obligatoires sont manquants",
     "form_computed_error": "Erreur du champ calculé",
+    "computed_expression": "Calculé",
     "form_create_template": "Créer un modèle de formulaire",
     "form_template_created": "Modèle de formulaire créé",
     "form_update_template": "Modifier le modèle de formulaire",

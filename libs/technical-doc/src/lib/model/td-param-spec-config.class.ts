@@ -20,14 +20,13 @@ export class TdParamSpecConfig {
   public static convertParamSpecToAbstractConfig(
     spec: TdParamSpecSimple | TdParamSpecBase
   ): FlDynamicFieldConfig {
-    if (spec.type === 'computed') {
-      const config: FlDynamicFieldConfigInput = TdParamSpecConfig.convertToBaseFieldConfig(spec) as any;
-      config.type = 'input';
-      config.inputType = 'text';
+    if (spec.type === 'computed_param') {
+      const config: FlDynamicFieldConfigUnknown = TdParamSpecConfig.convertToBaseFieldConfig(spec) as any;
+      config.type = 'computed';
       config.disabled = true;
-      config.hint = spec.additional_info?.expression
-        ? `Computed: ${spec.additional_info.expression}`
-        : spec.short_description;
+      config.additionalInfo = {
+        expression: spec.additional_info?.expression,
+      };
       return config;
     }
     if (spec.additional_info?.allowed_values && spec.additional_info?.allowed_values.length > 0) {

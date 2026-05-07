@@ -3,11 +3,11 @@ import { TdParamSpecs, TdParamSpecsValues, TdParamSpecType } from '@monorepo/tec
 import { LiSaveFormDTO } from '../../model/li-form.entity';
 
 /**
- * Check whether a spec key corresponds to a computed field that should not accept user input.
+ * Check whether a spec key corresponds to a computed field.
  */
 export function liIsFieldComputed(schema: TdParamSpecs, key: string): boolean {
   const spec = schema[key];
-  return (spec?.type as TdParamSpecType) === 'computed';
+  return (spec?.type as TdParamSpecType) === 'computed_param';
 }
 
 /**
@@ -36,7 +36,7 @@ export function liExtractSavePayload(
     const spec = schema[key];
 
     // Strip computed fields
-    if ((spec?.type as TdParamSpecType) === 'computed') {
+    if (liIsFieldComputed(schema, key)) {
       continue;
     }
 

@@ -43,14 +43,13 @@ export class LiForm extends LiBaseEntityWithUser {
 
 /**
  * Content returned by GET /form/{id}/content and POST /form/{id}/save.
- * Contains specs (schema), current values, and computed field errors.
+ * Contains specs (schema) and current values.
+ * Computed cells in values are wrapped as {value, errors}.
  */
 export class LiFormContent {
   values: Record<string, unknown> | null;
 
   specs: TdParamSpecs;
-
-  errors: Record<string, string>;
 }
 
 export interface LiCreateFormDTO {

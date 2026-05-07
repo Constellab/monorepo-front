@@ -3,18 +3,6 @@
     <td-configure-specs-form [formGp]="formGp" [configData]="configData()" />
   </form>
 
-  @if (computedErrorEntries().length > 0) {
-    <div class="computed-errors">
-      @for (entry of computedErrorEntries(); track entry.key) {
-        <div class="computed-error">
-          <span class="computed-error-field">{{ entry.displayName }}</span
-          >:
-          <span class="computed-error-message">{{ entry.message }}</span>
-        </div>
-      }
-    </div>
-  }
-
   <div class="form-editor-actions">
     @if (!readonly()) {
       <button mat-flat-button (click)="save()" [disabled]="isSaving()">
