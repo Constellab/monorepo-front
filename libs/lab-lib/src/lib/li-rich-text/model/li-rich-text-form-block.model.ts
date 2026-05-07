@@ -1,10 +1,12 @@
+export type LiRichTextFormDisplayMode = 'form' | 'json' | 'table';
+
 /**
  * Block data stored in the rich text JSON for a FORM block (Note context).
  */
 export interface LiRichTextFormBlockData {
   form_id: string;
   is_owner: boolean;
-  display_name: string;
+  display_mode?: LiRichTextFormDisplayMode;
 }
 
 /**

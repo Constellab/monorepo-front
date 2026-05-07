@@ -1,0 +1,15 @@
+<fl-dialog-header>
+  {{ 'li.form_fill' | translate }}
+</fl-dialog-header>
+
+<mat-dialog-content>
+  @if (isLoading()) {
+    <fl-loader></fl-loader>
+  } @else if (content()) {
+    <li-form-editor
+      [formId]="formId"
+      [content]="content()"
+      (contentSaved)="onContentSaved($event)"
+      (contentSubmitted)="onContentSubmitted($event)" />
+  }
+</mat-dialog-content>

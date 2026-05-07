@@ -30,3 +30,4 @@ export * from './component/li-create-form-dialog/li-create-form-dialog.component
 export * from './component/li-form-history-portal/li-form-history-portal.component';
 export * from './component/li-form-template-ref-inline/li-form-template-ref-inline.component';
 export * from './component/li-select-form-dialog/li-select-form-dialog.component';
+export * from './component/li-form-editor-dialog/li-form-editor-dialog.component';

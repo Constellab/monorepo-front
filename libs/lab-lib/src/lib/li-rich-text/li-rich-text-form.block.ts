@@ -1,4 +1,5 @@
 import { ApplicationRef, EnvironmentInjector, Type } from '@angular/core';
+import { MenuConfig } from '@editorjs/editorjs/types/tools';
 import { BlockToolConstructorOptions } from '@editorjs/editorjs/types/tools/block-tool';
 import { BlockToolData } from '@editorjs/editorjs/types/tools/block-tool-data';
 import { ToolboxConfigEntry } from '@editorjs/editorjs/types/tools/tool-settings';
@@ -9,6 +10,7 @@ import { LiRichTextFormComponent } from './component/li-rich-text-form/li-rich-t
 import {
   LiRichTextFormBlockAdditionalData,
   LiRichTextFormBlockData,
+  LiRichTextFormDisplayMode,
 } from './model/li-rich-text-form-block.model';
 
 export class LiRichTextFormBlock extends TeComponentBlock<LiRichTextFormComponent> {
@@ -49,7 +51,7 @@ export class LiRichTextFormBlock extends TeComponentBlock<LiRichTextFormComponen
   initInputs(data: LiRichTextFormBlockData): void {
     this.componentInstance.formId = data.form_id;
     this.componentInstance.isOwner = data.is_owner;
-    this.componentInstance.displayName = data.display_name;
+    this.componentInstance.displayMode.set(data.display_mode ?? 'form');
 
     if (data.form_id) {
       this.componentInstance.loadForm();
@@ -60,12 +62,44 @@ export class LiRichTextFormBlock extends TeComponentBlock<LiRichTextFormComponen
     return {
       form_id: this.componentInstance.formId,
       is_owner: this.componentInstance.isOwner,
-      display_name: this.componentInstance.displayName,
+      display_mode: this.componentInstance.displayMode(),
     };
   }
 
   validate(data: LiRichTextFormBlockData): boolean {
     return !!data.form_id;
+  }
+
+  renderSettings(): MenuConfig {
+    const t = TeHelper.getTranslateService();
+    const current = this.componentInstance.displayMode();
+    return [
+      {
+        icon: TeHelper.getMatIconElement('edit_note'),
+        title: t.translate('li.form_display_form'),
+        onActivate: () => this.setDisplayMode('form'),
+        closeOnActivate: true,
+        isActive: current === 'form',
+      },
+      {
+        icon: TeHelper.getMatIconElement('table_chart'),
+        title: t.translate('li.form_display_table'),
+        onActivate: () => this.setDisplayMode('table'),
+        closeOnActivate: true,
+        isActive: current === 'table',
+      },
+      {
+        icon: TeHelper.getMatIconElement('data_object'),
+        title: t.translate('li.form_display_json'),
+        onActivate: () => this.setDisplayMode('json'),
+        closeOnActivate: true,
+        isActive: current === 'json',
+      },
+    ];
+  }
+
+  private setDisplayMode(mode: LiRichTextFormDisplayMode): void {
+    this.componentInstance.displayMode.set(mode);
   }
 
   override appendCallback(): void {
@@ -103,11 +137,10 @@ export class LiRichTextFormBlock extends TeComponentBlock<LiRichTextFormComponen
       });
   }
 
-  private setFormData(form: { id: string; name: string }, isOwner: boolean): void {
+  private setFormData(form: { id: string }, isOwner: boolean): void {
     this.options.data = {
       form_id: form.id,
       is_owner: isOwner,
-      display_name: form.name,
     };
     this.initInputs(this.data);
   }
