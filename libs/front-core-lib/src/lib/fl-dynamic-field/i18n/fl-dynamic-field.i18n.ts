@@ -6,6 +6,8 @@ const flDynamicFieldI18nFr: FlLangTranslation = {
     min_error_validator: 'La valeur doit être supérieur ou égal à {{min}}',
     max_error_validator: 'La valeur doit être inférieur ou égale à {{max}}',
     integer_error_validator: 'The value doit être un entier',
+    min_length_error_validator: 'La valeur doit contenir au moins {{minLength}} caractère(s)',
+    max_length_error_validator: 'La valeur ne doit pas dépasser {{maxLength}} caractère(s)',
     multi_input_help: 'Renseigner une valeur par ligne',
     add_value_in_array: 'Ajouter une valeur',
     no_value_in_array: 'Aucune valeur pour cette config',
@@ -23,6 +25,8 @@ const flDynamicFieldI18nEn: FlLangTranslation = {
     min_error_validator: 'The value must be higher or equal than {{min}}',
     max_error_validator: 'The value must be lower or equal than {{max}}',
     integer_error_validator: 'The value must be an integer',
+    min_length_error_validator: 'The value must be at least {{minLength}} character(s) long',
+    max_length_error_validator: 'The value must not exceed {{maxLength}} character(s)',
     multi_input_help: 'Specify one value per line',
     add_value_in_array: 'Add a value',
     no_value_in_array: 'No value for this config',
@@ -34,7 +38,7 @@ const flDynamicFieldI18nEn: FlLangTranslation = {
   },
 };
 
-export const flDynamicFieldI18n: FlTranslateObject = {
+export const FL_DYNAMIC_FIELD_I18N: FlTranslateObject = {
   [ClSupportedLanguage.en]: flDynamicFieldI18nEn,
   [ClSupportedLanguage.fr]: flDynamicFieldI18nFr,
 };

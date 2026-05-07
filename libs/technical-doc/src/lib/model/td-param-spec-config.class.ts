@@ -103,17 +103,22 @@ export class TdParamSpecConfig {
       config.type = 'rich_text_param';
       config.fullWidth = true;
       return config;
-    } else if (['str', 'int', 'float'].includes(spec.type)) {
+    } else if (spec.type === 'str') {
       const config: FlDynamicFieldConfigInput = TdParamSpecConfig.convertToBaseFieldConfig(spec) as any;
       config.type = 'input';
-      config.inputType = spec.type === 'str' ? 'text' : 'number';
+      config.inputType = 'text';
       config.suffix = spec.unit;
-
-      if (spec.type === 'int' || spec.type === 'float') {
-        config.min = spec.additional_info.min_value;
-        config.max = spec.additional_info.max_value;
-        config.integer = spec.type === 'int';
-      }
+      config.minLength = spec.additional_info.min_length;
+      config.maxLength = spec.additional_info.max_length;
+      return config;
+    } else if (spec.type === 'int' || spec.type === 'float') {
+      const config: FlDynamicFieldConfigInput = TdParamSpecConfig.convertToBaseFieldConfig(spec) as any;
+      config.type = 'input';
+      config.inputType = 'number';
+      config.suffix = spec.unit;
+      config.min = spec.additional_info.min_value;
+      config.max = spec.additional_info.max_value;
+      config.integer = spec.type === 'int';
       return config;
     } else {
       // raise error for unknown type

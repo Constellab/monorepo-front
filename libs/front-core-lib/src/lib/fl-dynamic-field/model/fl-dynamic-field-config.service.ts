@@ -124,6 +124,8 @@ export class FlDynamicFieldConfigService {
     inputComponent.instance.min = config.min;
     inputComponent.instance.max = config.max;
     inputComponent.instance.integer = config.integer;
+    inputComponent.instance.minLength = config.minLength;
+    inputComponent.instance.maxLength = config.maxLength;
     return inputComponent;
   }
 

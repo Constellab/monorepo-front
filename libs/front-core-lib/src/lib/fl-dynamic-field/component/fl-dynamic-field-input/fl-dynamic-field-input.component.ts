@@ -20,4 +20,8 @@ export class FlDynamicFieldInputComponent extends FlDynamicFieldAbstractDirectiv
   @Input() max: number;
 
   @Input() integer: boolean;
+
+  @Input() minLength: number;
+
+  @Input() maxLength: number;
 }
