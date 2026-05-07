@@ -1,0 +1,26 @@
+@if (isLoading()) {
+  <div class="form-block-loading">
+    <fl-loader></fl-loader>
+  </div>
+} @else if (error()) {
+  <div class="form-block-error">
+    <mat-icon>error_outline</mat-icon>
+    <span>{{ error() | translate }}</span>
+  </div>
+} @else if (form() && formContent()) {
+  <div class="form-block">
+    <div class="form-block-header">
+      <div class="form-block-header-left">
+        <span class="form-block-name">{{ form().name }}</span>
+        <li-form-template-ref-inline [templateRef]="form().template" [showLink]="true" />
+      </div>
+      <fl-status-chip [status]="formStatus()" />
+    </div>
+    <li-form-editor
+      [formId]="formId"
+      [content]="formContent()"
+      [readonly]="disabled || isSubmitted()"
+      (contentSaved)="onContentSaved($event)"
+      (contentSubmitted)="onContentSubmitted($event)" />
+  </div>
+}

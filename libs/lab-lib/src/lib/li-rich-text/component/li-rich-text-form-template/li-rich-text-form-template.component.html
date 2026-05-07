@@ -1,0 +1,33 @@
+@if (!hasTemplate) {
+  <div class="form-template-empty">
+    <mat-icon>description</mat-icon>
+    <span>{{ 'li.form_template_no_selection' | translate }}</span>
+    @if (!disabled) {
+      <button mat-stroked-button (click)="onSelectTemplate()">
+        {{ 'li.form_template_select' | translate }}
+      </button>
+    }
+  </div>
+} @else if (isLoading()) {
+  <div class="form-template-placeholder">
+    <fl-loader></fl-loader>
+  </div>
+} @else if (hasError()) {
+  <div class="form-template-placeholder form-template-error">
+    <mat-icon>error_outline</mat-icon>
+    <span>{{ 'li.form_template_load_error' | translate }}</span>
+  </div>
+} @else {
+  <div class="form-template-placeholder">
+    <mat-icon>description</mat-icon>
+    <div class="form-template-info">
+      <span class="form-template-name">{{ templateName() }} (v{{ versionNumber() }})</span>
+      <span class="form-template-hint">{{ 'li.form_template_block_hint' | translate }}</span>
+    </div>
+    @if (!disabled) {
+      <button mat-stroked-button (click)="onSelectTemplate()">
+        {{ 'li.form_template_change' | translate }}
+      </button>
+    }
+  </div>
+}

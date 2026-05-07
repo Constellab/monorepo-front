@@ -8,6 +8,8 @@ import {
 } from '@monorepo/lab-lib/li-core';
 import {
   LiRichTextFileViewBlock,
+  LiRichTextFormBlock,
+  LiRichTextFormBlockAdditionalData,
   LiRichTextViewBlock,
   LiRichTextViewBlockAdditionalData,
 } from '@monorepo/lab-lib/li-rich-text';
@@ -88,6 +90,10 @@ export class LabNoteTextEditorConfig extends TeCompleteConfig {
       envInjector,
       applicationRef
     );
+
+    // add the form block (insert new form + reference existing form)
+    const formData: LiRichTextFormBlockAdditionalData = { noteId: this.noteId };
+    tools.form = teComponentBlockFactory(LiRichTextFormBlock, envInjector, applicationRef, formData);
 
     const insertDocTemplateData: LabNoteInsertTemplateBlockTuneConfig = { noteId: this.noteId };
     tools.insertDocTemplate = teBlockTuneFactory(

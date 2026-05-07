@@ -4,7 +4,6 @@ import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { ActivatedRoute } from '@angular/router';
-import { FlArticleModule } from '@monorepo/front-core-lib/fl-article';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
@@ -43,7 +42,6 @@ import { LabNoteTemplateTextEditorConfig } from '../lab-note-template-text-edito
     MatMenuTrigger,
     MatMenu,
     MatMenuItem,
-    FlArticleModule,
     LiTagListComponent,
     TeTextEditorModule,
     FlUserModule,
