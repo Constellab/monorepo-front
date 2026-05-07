@@ -36,7 +36,11 @@ export class LiFormTemplateDynamicParamSpecState
     throw new Error('Method not implemented. Use openParamSpecFormDialog instead.');
   }
 
-  openParamSpecFormDialog(entry?: TdParamSpecEntry): void {
+  getContent(): TdParamSpecs {
+    return this.content;
+  }
+
+  openParamSpecFormDialog(entry?: TdParamSpecEntry, onUpdated?: () => void): void {
     const input: TdEditParamSpecDialogInput = {
       paramSpecFormInfoList$: this.getParamSpecsInfos(),
       paramSpec: entry,
@@ -53,6 +57,7 @@ export class LiFormTemplateDynamicParamSpecState
         if (result) {
           this.content = result;
           this.setParamSpecs(this.content);
+          onUpdated?.();
         }
       });
   }

@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject, input, output } from '@angular/core';
+import { Component, computed, effect, inject, input, output, signal } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import {
@@ -46,10 +46,9 @@ export class LiFormTemplateVersionEditorComponent {
       : [...LiFormTemplateVersionEditorComponent.COLUMNS, 'menu'];
   });
 
-  hasFields = computed(() => {
-    const content = this.version()?.content;
-    return content && Object.keys(content).length > 0;
-  });
+  fieldCount = signal(0);
+
+  hasFields = computed(() => this.fieldCount() > 0);
 
   constructor() {
     effect(() => {
@@ -57,16 +56,17 @@ export class LiFormTemplateVersionEditorComponent {
       const tId = this.templateId();
       if (v && tId) {
         this.dynamicState.setVersionContent(tId, v.id, v.content);
+        this.fieldCount.set(Object.keys(v.content ?? {}).length);
       }
     });
   }
 
   addField(): void {
-    this.dynamicState.openParamSpecFormDialog();
+    this.dynamicState.openParamSpecFormDialog(undefined, () => this.updateFieldCount());
   }
 
   editField(entry: TdParamSpecEntry): void {
-    this.dynamicState.openParamSpecFormDialog(entry);
+    this.dynamicState.openParamSpecFormDialog(entry, () => this.updateFieldCount());
   }
 
   deleteField(entry: TdParamSpecEntry): void {
@@ -83,7 +83,12 @@ export class LiFormTemplateVersionEditorComponent {
       .subscribe((res: FlConfirmDialogResult<TdParamSpecs>) => {
         if (res?.choice) {
           this.dynamicState.setParamSpecs(res.result as TdParamSpecs);
+          this.updateFieldCount();
         }
       });
+  }
+
+  private updateFieldCount(): void {
+    this.fieldCount.set(Object.keys(this.dynamicState.getContent()).length);
   }
 }
