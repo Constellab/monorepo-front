@@ -1,0 +1,132 @@
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, computed, effect, inject, input, output, signal } from '@angular/core';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { MatButton } from '@angular/material/button';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import {
+  TdConfig,
+  TdConfigureSpecsForm,
+  TdConfigureSpecsFormComponent,
+  TdTechnicalDocModule,
+} from '@monorepo/technical-doc';
+import { TranslatePipe } from '@ngx-translate/core';
+
+import { LiFormContent, LiSaveFormDTO } from '../../model/li-form.entity';
+import { LiFormService } from '../../service/li-form.service';
+import { liGetFieldDisplayName } from '../li-form-history/li-form-history.logic';
+import { liBuildSaveDTO, liExtractSavePayload } from './li-form-editor.logic';
+
+@Component({
+  selector: 'li-form-editor',
+  templateUrl: './li-form-editor.component.html',
+  styleUrl: './li-form-editor.component.scss',
+  imports: [TdTechnicalDocModule, ReactiveFormsModule, MatButton, TranslatePipe, FlIconModule],
+})
+export class LiFormEditorComponent {
+  private formService = inject(LiFormService);
+  private snackBar = inject(FlSnackBarService);
+
+  formId = input.required<string>();
+  content = input.required<LiFormContent>();
+  readonly = input<boolean>(false);
+
+  contentSaved = output<LiFormContent>();
+  contentSubmitted = output<LiFormContent>();
+
+  isSaving = signal(false);
+  configData = signal<TdConfig>(null);
+  formGp: FormGroup<TdConfigureSpecsForm>;
+
+  computedErrorEntries = computed(() => {
+    const errors = this.content()?.errors;
+    if (!errors) return [];
+    const specs = this.content()?.specs;
+    return Object.entries(errors).map(([key, message]) => ({
+      key,
+      displayName: liGetFieldDisplayName(key, specs),
+      message,
+    }));
+  });
+
+  constructor() {
+    effect(() => {
+      const c = this.content();
+      if (c?.specs) {
+        this.initForm(c);
+      }
+    });
+
+    effect(() => {
+      if (this.readonly()) {
+        this.formGp?.disable({ emitEvent: false });
+      } else {
+        this.formGp?.enable({ emitEvent: false });
+      }
+    });
+  }
+
+  save(): void {
+    const values = this.getCleanValues();
+    const dto = liBuildSaveDTO(values);
+
+    this.isSaving.set(true);
+    this.formService.save(this.formId(), dto).subscribe({
+      next: (response) => {
+        this.isSaving.set(false);
+        this.snackBar.openSuccessMessage({ text: 'li.form_saved', translateText: true });
+        this.contentSaved.emit(response);
+      },
+      error: () => this.isSaving.set(false),
+    });
+  }
+
+  submit(): void {
+    const values = this.getCleanValues();
+    const dto: LiSaveFormDTO = { values, status_transition: 'SUBMITTED' };
+
+    this.isSaving.set(true);
+    this.formService.save(this.formId(), dto).subscribe({
+      next: (response) => {
+        this.isSaving.set(false);
+        this.snackBar.openSuccessMessage({ text: 'li.form_submitted', translateText: true });
+        this.contentSubmitted.emit(response);
+      },
+      error: (err: HttpErrorResponse) => {
+        this.isSaving.set(false);
+        if (err.status === 422 && err.error?.missing_mandatory_fields?.length) {
+          this.highlightMissingFields(err.error.missing_mandatory_fields);
+          this.snackBar.openErrorMessage({
+            text: 'li.form_missing_mandatory_fields',
+            translateText: true,
+          });
+        }
+      },
+    });
+  }
+
+  private initForm(content: LiFormContent): void {
+    const config = TdConfig.fromSpecs(content.specs, content.values ?? {});
+    this.configData.set(config);
+    this.formGp = TdConfigureSpecsFormComponent.buildFormGroup(config);
+
+    if (this.readonly()) {
+      this.formGp.disable({ emitEvent: false });
+    }
+  }
+
+  private getCleanValues(): Record<string, unknown> {
+    const rawValues = TdConfigureSpecsFormComponent.buildValues(this.formGp);
+    return liExtractSavePayload(rawValues, this.content().specs);
+  }
+
+  private highlightMissingFields(fields: string[]): void {
+    for (const fieldPath of fields) {
+      const control = this.formGp.get(['public', fieldPath]) ?? this.formGp.get(['protected', fieldPath]);
+      if (control) {
+        control.markAsTouched();
+        control.setErrors({ required: true });
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+<span class="template-ref">
+  <mat-icon flIcon="form_template" class="template-ref-icon"></mat-icon>
+  @if (showLink()) {
+    <a [routerLink]="getVersionRoute()" class="template-ref-link">
+      {{ templateRef().templateName }} (v{{ templateRef().versionNumber }})
+    </a>
+  } @else {
+    <span>{{ templateRef().templateName }} (v{{ templateRef().versionNumber }})</span>
+  }
+</span>

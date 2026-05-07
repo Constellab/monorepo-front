@@ -1,0 +1,19 @@
+.computed-errors {
+  margin-top: 8px;
+}
+
+.computed-error {
+  color: var(--warn-color);
+  font-size: 12px;
+  padding: 4px 0;
+}
+
+.computed-error-field {
+  font-weight: 500;
+}
+
+.form-editor-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}

@@ -1,0 +1,68 @@
+<fl-dialog-header>
+  {{ title | translate }}
+</fl-dialog-header>
+
+<mat-dialog-content>
+  <form (ngSubmit)="submit()" id="create-form-form" [formGroup]="formGp">
+    <!-- Template selector -->
+    <fl-form-field>
+      <li-select-form-template
+        formControlName="template"
+        [required]="true"
+        (templateChange)="onTemplateChanged($event)">
+      </li-select-form-template>
+      @if (templateControl.hasError('required')) {
+        <mat-error>{{ 'li.form_select_template' | flErrorRequired }}</mat-error>
+      }
+    </fl-form-field>
+
+    <!-- Version picker -->
+    @if (versions().length > 0) {
+      <mat-checkbox
+        class="version-checkbox"
+        [checked]="showVersionPicker()"
+        (change)="toggleVersionPicker($event.checked)">
+        {{ 'li.form_select_specific_version' | translate }}
+      </mat-checkbox>
+
+      @if (showVersionPicker()) {
+        <mat-form-field class="g-full version-select">
+          <mat-label>{{ 'li.form_version' | translate }}</mat-label>
+          <mat-select formControlName="versionId">
+            @for (version of versions(); track version.id) {
+              <mat-option [value]="version.id">
+                v{{ version.version }}
+                —
+                <fl-status-chip [status]="getVersionStatus(version)" mode="textOnly" size="small" />
+              </mat-option>
+            }
+          </mat-select>
+          @if (versionIdControl.hasError('required')) {
+            <mat-error>{{ 'li.form_version' | flErrorRequired }}</mat-error>
+          }
+        </mat-form-field>
+      }
+    }
+
+    <mat-divider class="name-separator" />
+
+    <!-- Name -->
+    <mat-form-field class="g-form-input name-field">
+      <mat-label>{{ 'li.name' | translate }}</mat-label>
+      <input
+        matInput
+        formControlName="name"
+        flInputMaxLength="255"
+        placeholder="{{ 'li.name' | translate }}" />
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<div mat-dialog-actions>
+  <button mat-flat-button type="submit" form="create-form-form" class="g-centered-forced primary">
+    {{ 'li.form_create' | translate }}
+    @if (isLoading) {
+      <fl-button-loader></fl-button-loader>
+    }
+  </button>
+</div>

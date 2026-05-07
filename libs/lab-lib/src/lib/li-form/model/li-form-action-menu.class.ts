@@ -5,10 +5,16 @@ import {
   FlDialogService,
 } from '@monorepo/front-core-lib/fl-dialog';
 import { FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
+import { FlPortalService } from '@monorepo/front-core-lib/fl-portal';
 import { LiTagDatasource } from '@monorepo/lab-lib/li-core';
 import { LiEntityActionMenu } from '@monorepo/lab-lib/li-entity';
+import { TdParamSpecs } from '@monorepo/technical-doc';
 import { Observable } from 'rxjs';
 
+import {
+  LiFormHistoryPortalComponent,
+  LiFormHistoryPortalData,
+} from '../component/li-form-history-portal/li-form-history-portal.component';
 import { LiFormService } from '../service/li-form.service';
 import { LiForm } from './li-form.entity';
 
@@ -21,7 +27,8 @@ export class LiFormActionMenu extends LiEntityActionMenu {
   constructor(
     injector: Injector,
     protected form: LiForm,
-    protected tags: LiTagDatasource
+    protected tags: LiTagDatasource,
+    protected specs?: TdParamSpecs
   ) {
     super(injector);
   }
@@ -29,11 +36,32 @@ export class LiFormActionMenu extends LiEntityActionMenu {
   public openActionMenuInTable(event: MouseEvent): Observable<LiFormActionEvent> {
     const menu = [
       this.getTagsButton('FORM', this.form.id, this.tags),
+      this.getHistoryButton(),
       this.getArchiveButton(),
       this.getDeleteButton(),
     ];
 
     return this.generateMenu(menu, event);
+  }
+
+  public openDetailActionMenu(event: MouseEvent): Observable<LiFormActionEvent> {
+    const menu = [
+      this.getTagsButton('FORM', this.form.id, this.tags),
+      this.getHistoryButton(),
+      this.getArchiveButton(),
+      this.getDeleteButton(),
+    ];
+
+    return this.generateMenu(menu, event);
+  }
+
+  protected getHistoryButton(): FlMenuDynamic {
+    return {
+      type: 'button',
+      text: 'li.form_history',
+      icon: 'history',
+      onClick: () => this.openHistoryPanel(),
+    };
   }
 
   protected getArchiveButton(): FlMenuDynamic {
@@ -78,6 +106,13 @@ export class LiFormActionMenu extends LiEntityActionMenu {
     };
   }
 
+  private openHistoryPanel(): void {
+    const portalService = this.injector.get(FlPortalService);
+    const data: LiFormHistoryPortalData = { formId: this.form.id, specs: this.specs };
+    portalService.createPortal(LiFormHistoryPortalComponent, portalService.getRightSidePortalConfig(), data);
+    this.subject.complete();
+  }
+
   private toggleArchive(dialogInput: FlConfirmDialogInput): void {
     this.injector
       .get(FlDialogService)
@@ -102,7 +137,7 @@ export class LiFormActionMenu extends LiEntityActionMenu {
       .get(FlDialogService)
       .openConfirmDialog({
         title: 'li.form_delete',
-        content: 'li.delete_form_confirmation',
+        content: 'li.form_delete_confirmation',
         observable: this.injector.get(LiFormService).delete(this.form.id),
         successMessage: 'li.form_deleted',
       })

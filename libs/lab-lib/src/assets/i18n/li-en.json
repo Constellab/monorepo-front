@@ -669,6 +669,13 @@
     "form_fields_updated": "{{count}} field(s) updated",
     "form_include_archived": "Include archived",
     "form_template_include_archived": "Include archived",
+    "form_load_more": "Load more",
+    "form_fields": "Fields",
+    "form_select_specific_version": "Select a specific version",
+    "form_create_from_version": "Create form from this version",
+    "form_actions": "Actions",
+    "archive_form_confirmation": "This will archive the form. Continue?",
+    "unarchive_form_confirmation": "This will unarchive the form. Continue?",
     "current_version": "Current version"
   }
 }

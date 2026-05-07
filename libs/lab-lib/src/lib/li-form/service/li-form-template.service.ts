@@ -9,12 +9,12 @@ import { Observable } from 'rxjs';
 import {
   LiCreateFormTemplateDTO,
   LiFormTemplate,
-  LiFormTemplateWithVersions,
   LiUpdateFormTemplateDTO,
 } from '../model/li-form-template.entity';
 import {
   LiCreateFormTemplateVersionDTO,
   LiFormTemplateVersion,
+  LiFormTemplateVersionSummary,
 } from '../model/li-form-template-version.entity';
 import { LiFormTemplateSearch, LiFormTemplateSearchFields } from './li-form-template-search';
 
@@ -28,12 +28,12 @@ export class LiFormTemplateService {
 
   private readonly route = 'form-template';
 
-  public create(dto: LiCreateFormTemplateDTO): Observable<LiFormTemplateWithVersions> {
-    return this.apiService.post(this.route, dto, LiFormTemplateWithVersions);
+  public create(dto: LiCreateFormTemplateDTO): Observable<LiFormTemplate> {
+    return this.apiService.post(this.route, dto, LiFormTemplate);
   }
 
-  public getById(id: string): Observable<LiFormTemplateWithVersions> {
-    return this.apiService.get(`${this.route}/${id}`, LiFormTemplateWithVersions);
+  public getById(id: string): Observable<LiFormTemplate> {
+    return this.apiService.get(`${this.route}/${id}`, LiFormTemplate);
   }
 
   public update(id: string, dto: LiUpdateFormTemplateDTO): Observable<LiFormTemplate> {
@@ -78,6 +78,10 @@ export class LiFormTemplateService {
   }
 
   // Version methods
+
+  public getVersions(templateId: string): Observable<LiFormTemplateVersionSummary[]> {
+    return this.apiService.get(`${this.route}/${templateId}/version`);
+  }
 
   public createVersion(
     templateId: string,

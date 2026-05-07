@@ -28,6 +28,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 
 import { LiForm } from '../../model/li-form.entity';
 import { LiFormActionEvent, LiFormActionMenu } from '../../model/li-form-action-menu.class';
+import { LiFormTemplateRefInlineComponent } from '../li-form-template-ref-inline/li-form-template-ref-inline.component';
 
 @Component({
   selector: 'li-form-table',
@@ -56,12 +57,13 @@ import { LiFormActionEvent, LiFormActionMenu } from '../../model/li-form-action-
     TranslatePipe,
     LiDetailRoutePipe,
     LiGetEntityTagsPipe,
+    LiFormTemplateRefInlineComponent,
   ],
 })
 export class LiFormTableComponent {
   @Input({ required: true }) datasource: FlArrayObs<LiForm>;
 
-  @Input() columns: FlTableColumnStatic<LiForm>[] = ['name', 'status', 'tags', 'lastModification'];
+  @Input() columns: FlTableColumnStatic<LiForm>[] = ['name', 'status', 'template', 'tags'];
 
   @Input() rowSelectable: boolean = false;
 

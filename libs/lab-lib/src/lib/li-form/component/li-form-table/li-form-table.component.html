@@ -41,16 +41,15 @@
     </mat-cell>
   </ng-container>
 
-  <!-- Last Modification -->
-  <ng-container matColumnDef="lastModification">
-    <mat-header-cell *matHeaderCellDef mat-sort-header>
-      <span>{{ 'li.last_modification_info' | translate }}</span>
+  <!-- Template -->
+  <ng-container matColumnDef="template">
+    <mat-header-cell *matHeaderCellDef>
+      <span>{{ 'li.form_template' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
-      <fl-user-with-date
-        [user]="row.lastModifiedBy"
-        [date]="row.lastModifiedAt"
-        class="over-link"></fl-user-with-date>
+      @if (row.template) {
+        <li-form-template-ref-inline [templateRef]="row.template" class="over-link" />
+      }
     </mat-cell>
   </ng-container>
 

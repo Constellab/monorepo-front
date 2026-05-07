@@ -1,0 +1,18 @@
+<fl-input-search
+  [selectedItem]="selectedTemplate"
+  (selectedItemChange)="setAndEmitValue($event)"
+  [datasource]="datasource"
+  [placeholder]="'li.form_select_template' | translate"
+  [required]="required"
+  [disabled]="disabled"
+  [minInputSearchLength]="0"
+  [initSearchOnFocus]="true"
+  [advancedButton]="advancedButton">
+  <div *flInputSearchPrefix="datasource as template">
+    <mat-icon>description</mat-icon>
+  </div>
+
+  <span *flInputSearchOption="datasource as template">
+    {{ template.name }}
+  </span>
+</fl-input-search>

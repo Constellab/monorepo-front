@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { of } from 'rxjs';
 
-import { LiFormTemplate, LiFormTemplateWithVersions } from '../model/li-form-template.entity';
+import { LiFormTemplate } from '../model/li-form-template.entity';
 import { LiFormTemplateVersion } from '../model/li-form-template-version.entity';
 import { LiFormTemplateService } from './li-form-template.service';
 
@@ -37,14 +37,14 @@ describe('LiFormTemplateService', () => {
     it('should POST to form-template', () => {
       const dto = { name: 'Test Template' };
       service.create(dto);
-      expect(apiServiceSpy.post).toHaveBeenCalledWith('form-template', dto, LiFormTemplateWithVersions);
+      expect(apiServiceSpy.post).toHaveBeenCalledWith('form-template', dto, LiFormTemplate);
     });
   });
 
   describe('getById', () => {
     it('should GET form-template/{id}', () => {
       service.getById('abc-123');
-      expect(apiServiceSpy.get).toHaveBeenCalledWith('form-template/abc-123', LiFormTemplateWithVersions);
+      expect(apiServiceSpy.get).toHaveBeenCalledWith('form-template/abc-123', LiFormTemplate);
     });
   });
 

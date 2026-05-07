@@ -2,8 +2,8 @@ import { TestBed } from '@angular/core/testing';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { of } from 'rxjs';
 
-import { LiForm, LiFormFull } from '../model/li-form.entity';
-import { LiFormSaveEvent } from '../model/li-form-save-event.dto';
+import { LiForm, LiFormContent } from '../model/li-form.entity';
+import { LiFormSaveEvent } from '../model/li-form-save-event.entity';
 import { LiFormService } from './li-form.service';
 
 describe('LiFormService', () => {
@@ -37,14 +37,21 @@ describe('LiFormService', () => {
     it('should POST to form', () => {
       const dto = { template_version_id: 'ver-1' };
       service.create(dto);
-      expect(apiServiceSpy.post).toHaveBeenCalledWith('form', dto, LiFormFull);
+      expect(apiServiceSpy.post).toHaveBeenCalledWith('form', dto, LiForm);
     });
   });
 
   describe('getById', () => {
     it('should GET form/{id}', () => {
       service.getById('form-1');
-      expect(apiServiceSpy.get).toHaveBeenCalledWith('form/form-1', LiFormFull);
+      expect(apiServiceSpy.get).toHaveBeenCalledWith('form/form-1', LiForm);
+    });
+  });
+
+  describe('getContent', () => {
+    it('should GET form/{id}/content', () => {
+      service.getContent('form-1');
+      expect(apiServiceSpy.get).toHaveBeenCalledWith('form/form-1/content', LiFormContent);
     });
   });
 
@@ -60,15 +67,7 @@ describe('LiFormService', () => {
     it('should POST to form/{id}/save', () => {
       const dto = { values: { mass: 1.5 } };
       service.save('form-1', dto);
-      expect(apiServiceSpy.post).toHaveBeenCalledWith('form/form-1/save', dto);
-    });
-  });
-
-  describe('submit', () => {
-    it('should POST to form/{id}/submit', () => {
-      const dto = { values: { mass: 1.5 }, status_transition: 'SUBMITTED' as const };
-      service.submit('form-1', dto);
-      expect(apiServiceSpy.post).toHaveBeenCalledWith('form/form-1/submit', dto);
+      expect(apiServiceSpy.post).toHaveBeenCalledWith('form/form-1/save', dto, LiFormContent);
     });
   });
 

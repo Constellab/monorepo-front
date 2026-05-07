@@ -669,6 +669,13 @@
     "form_fields_updated": "{{count}} champ(s) modifié(s)",
     "form_include_archived": "Inclure les archivés",
     "form_template_include_archived": "Inclure les archivés",
+    "form_load_more": "Charger plus",
+    "form_fields": "Champs",
+    "form_select_specific_version": "Sélectionner une version spécifique",
+    "form_create_from_version": "Créer un formulaire depuis cette version",
+    "form_actions": "Actions",
+    "archive_form_confirmation": "Cela archivera le formulaire. Continuer ?",
+    "unarchive_form_confirmation": "Cela désarchivera le formulaire. Continuer ?",
     "current_version": "Version actuelle"
   }
 }

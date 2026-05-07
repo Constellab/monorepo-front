@@ -1,0 +1,68 @@
+<div class="g-page page">
+  <fl-section class="g-flex-auto" [object]="form" [isLoading]="isLoading()">
+    <ng-container *flSectionBody>
+      <!-- Header -->
+      <div class="g-layout-row g-layout-start-center">
+        <fl-text-icon>
+          <mat-icon flIcon="form" class="g-icon-big"></mat-icon>
+          <h2>{{ 'li.form' | translate }} :</h2>
+        </fl-text-icon>
+        <div class="g-flex-auto g-flex">
+          <h2 flElementEditable (flElementValueChange)="updateName($event)">
+            {{ form().name }}
+          </h2>
+        </div>
+
+        @if (formStatus()) {
+          <fl-status-chip [status]="formStatus()" />
+        }
+
+        <div class="action-buttons">
+          <button mat-icon-button type="button" (click)="openActionMenu($event)">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <!-- Template ref -->
+      @if (form().template) {
+        <li-form-template-ref-inline class="separator" [templateRef]="form().template" [showLink]="true" />
+      }
+
+      <!-- Metadata section -->
+      <li-tag-list
+        class="separator"
+        [tags]="tags$()"
+        [showNoTagMessage]="true"
+        entityType="FORM"
+        [enableDetails]="true"
+        [entityId]="form().id"></li-tag-list>
+
+      <p class="g-text-small g-text-light separator">
+        <fl-creation-info [user]="form().createdBy" [date]="form().createdAt"></fl-creation-info>
+      </p>
+      <p class="g-text-small g-text-light">
+        <fl-last-modification-info
+          [user]="form().lastModifiedBy"
+          [date]="form().lastModifiedAt"></fl-last-modification-info>
+      </p>
+      @if (form().submittedBy) {
+        <p class="g-text-small g-text-light g-layout-row g-layout-start-center g-layout-gap-05em">
+          <span>{{ 'li.form_submitted' | translate }}:</span>
+          <fl-user-with-date [user]="form().submittedBy" [date]="form().submittedAt" />
+        </p>
+      }
+
+      <!-- Form section -->
+      @if (formContent()) {
+        <h3 class="section-title">{{ 'li.form_fields' | translate }}</h3>
+        <li-form-editor
+          [formId]="form().id"
+          [content]="formContent()"
+          [readonly]="isReadonly()"
+          (contentSaved)="onContentSaved($event)"
+          (contentSubmitted)="onContentSubmitted($event)" />
+      }
+    </ng-container>
+  </fl-section>
+</div>

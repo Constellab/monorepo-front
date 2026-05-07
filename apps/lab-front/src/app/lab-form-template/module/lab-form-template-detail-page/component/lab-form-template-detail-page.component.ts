@@ -17,6 +17,10 @@ import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { LiRouterService, LiTagDatasource, LiTagService } from '@monorepo/lab-lib/li-core';
 import {
+  LiCreateFormDialogComponent,
+  LiCreateFormDialogInput,
+  LiForm,
+  LiFormTemplate,
   LiFormTemplateActionEvent,
   LiFormTemplateActionMenu,
   LiFormTemplateService,
@@ -24,7 +28,6 @@ import {
   LiFormTemplateVersionEditorComponent,
   LiFormTemplateVersionStatus,
   LiFormTemplateVersionSummary,
-  LiFormTemplateWithVersions,
   liGetFormTemplateVersionStatus,
 } from '@monorepo/lab-lib/li-form';
 import { LiTagListComponent } from '@monorepo/lab-lib/li-tag';
@@ -62,7 +65,8 @@ export class LabFormTemplateDetailPageComponent implements OnInit {
   private dialogService = inject(FlDialogService);
   private tagService = inject(LiTagService);
 
-  template = signal<LiFormTemplateWithVersions>(null);
+  template = signal<LiFormTemplate>(null);
+  versions = signal<LiFormTemplateVersionSummary[]>([]);
   selectedVersion = signal<LiFormTemplateVersion>(null);
   tags$ = signal<LiTagDatasource>(null);
   isLoading = signal(false);
@@ -80,7 +84,7 @@ export class LabFormTemplateDetailPageComponent implements OnInit {
 
     // Same template already loaded — just switch version
     if (this.template()?.id === templateId) {
-      const targetVersionId = versionId || this.resolveDefaultVersionId(this.template());
+      const targetVersionId = versionId || this.resolveDefaultVersionId();
       if (targetVersionId) {
         this.loadVersion(templateId, targetVersionId);
       }
@@ -94,11 +98,7 @@ export class LabFormTemplateDetailPageComponent implements OnInit {
         this.tags$.set(this.tagService.getEntityTagsDatasource('FORM_TEMPLATE', template.id));
         this.isLoading.set(false);
 
-        const targetVersionId = versionId || this.resolveDefaultVersionId(template);
-
-        if (targetVersionId) {
-          this.loadVersion(template.id, targetVersionId);
-        }
+        this.loadVersions(template.id, versionId);
       },
       error: () => this.isLoading.set(false),
     });
@@ -155,7 +155,7 @@ export class LabFormTemplateDetailPageComponent implements OnInit {
         break;
       case 'archive':
       case 'unarchive':
-        this.template.set(action.template as LiFormTemplateWithVersions);
+        this.template.set(action.template);
         break;
     }
   }
@@ -221,6 +221,26 @@ export class LabFormTemplateDetailPageComponent implements OnInit {
       });
   }
 
+  createFormFromVersion(): void {
+    const data: LiCreateFormDialogInput = {
+      mode: 'create',
+      object: {
+        name: null,
+        template: this.template(),
+        versionId: this.selectedVersion().id,
+      },
+    };
+
+    this.dialogService
+      .openSmallDialog(LiCreateFormDialogComponent, { data })
+      .afterClosed()
+      .subscribe((form: LiForm) => {
+        if (form) {
+          this.routerService.navigateToFormDetail(form.id);
+        }
+      });
+  }
+
   createDraftFromVersion(): void {
     const dto = { copy_from_version_id: this.selectedVersion().id };
     this.formTemplateService.createVersion(this.template().id, dto).subscribe((version) => {
@@ -250,19 +270,33 @@ export class LabFormTemplateDetailPageComponent implements OnInit {
     this.selectedVersion.set(version);
   }
 
-  private resolveDefaultVersionId(template: LiFormTemplateWithVersions): string | null {
-    if (template.versions?.length > 0) return template.versions[0].id;
+  private resolveDefaultVersionId(): string | null {
+    const versions = this.versions();
+    if (versions.length > 0) return versions[0].id;
     return null;
+  }
+
+  private loadVersions(templateId: string, targetVersionId?: string): void {
+    this.formTemplateService.getVersions(templateId).subscribe((versions) => {
+      this.versions.set(versions);
+      const versionId = targetVersionId || (versions.length > 0 ? versions[0].id : null);
+      if (versionId) {
+        this.loadVersion(templateId, versionId);
+      }
+    });
   }
 
   private reloadTemplate(keepVersionId?: string): void {
     this.formTemplateService.getById(this.template().id).subscribe((template) => {
       this.template.set(template);
-      const targetVersionId = keepVersionId || this.resolveDefaultVersionId(template);
-      if (targetVersionId) {
-        this.loadVersion(template.id, targetVersionId);
-        this.routerService.navigateToFormTemplateVersion(template.id, targetVersionId);
-      }
+      this.formTemplateService.getVersions(template.id).subscribe((versions) => {
+        this.versions.set(versions);
+        const targetVersionId = keepVersionId || (versions.length > 0 ? versions[0].id : null);
+        if (targetVersionId) {
+          this.loadVersion(template.id, targetVersionId);
+          this.routerService.navigateToFormTemplateVersion(template.id, targetVersionId);
+        }
+      });
     });
   }
 }

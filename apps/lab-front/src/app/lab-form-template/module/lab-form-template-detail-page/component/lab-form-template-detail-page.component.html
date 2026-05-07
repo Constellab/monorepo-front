@@ -61,7 +61,7 @@
           <!-- Version chips nav bar -->
           <div class="version-nav">
             <div class="version-chips">
-              @for (v of template().versions; track v.id) {
+              @for (v of versions(); track v.id) {
                 <a
                   class="version-chip"
                   [class.version-chip-selected]="isSelectedVersion(v)"
@@ -104,6 +104,12 @@
                       <mat-icon>more_vert</mat-icon>
                     </button>
                     <mat-menu #versionMenu="matMenu" xPosition="before">
+                      @if (selectedVersion().status === 'PUBLISHED') {
+                        <button mat-menu-item (click)="createFormFromVersion()">
+                          <mat-icon flIcon="form"></mat-icon>
+                          <span>{{ 'li.form_create_from_version' | translate }}</span>
+                        </button>
+                      }
                       <button mat-menu-item (click)="createDraftFromVersion()">
                         <mat-icon>content_copy</mat-icon>
                         <span>{{ 'li.form_create_draft_from_version' | translate }}</span>
@@ -140,7 +146,7 @@
               </fl-section>
 
               <!-- No versions empty state -->
-              @if (template().versions?.length === 0) {
+              @if (versions().length === 0) {
                 <div class="empty-state">
                   <mat-icon class="empty-state-icon">description</mat-icon>
                   <p>{{ 'li.form_no_versions' | translate }}</p>

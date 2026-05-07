@@ -1,0 +1,54 @@
+@if (events().length === 0 && !isLoading()) {
+  <p class="g-text-light">{{ 'li.form_no_changes' | translate }}</p>
+}
+
+<div class="history-timeline">
+  @for (event of events(); track event.id) {
+    <div
+      class="history-event"
+      tabindex="0"
+      role="button"
+      (click)="toggleEvent(event.id)"
+      (keydown.enter)="toggleEvent(event.id)">
+      <div class="history-event-header">
+        <div class="history-event-info">
+          <fl-user-with-date [user]="event.user" [date]="event.createdAt" />
+        </div>
+        <span class="history-event-count">
+          {{ getChangeSummary(event) }} {{ 'li.form_changes' | translate }}
+        </span>
+        <mat-icon class="expand-icon" [class.expanded]="expandedEventId() === event.id">
+          expand_more
+        </mat-icon>
+      </div>
+
+      @if (expandedEventId() === event.id) {
+        <div class="history-event-details">
+          @for (change of getFormattedChanges(event); track change.fieldPath) {
+            <div class="history-change">
+              <span class="change-field">{{ change.displayName }}</span>
+              <span class="change-action g-text-light">{{ change.actionI18nKey | translate }}</span>
+              @if (change.oldValue !== null) {
+                <span class="change-value old">{{ change.oldValue }}</span>
+                <span class="change-arrow">&rarr;</span>
+              }
+              @if (change.newValue !== null) {
+                <span class="change-value new">{{ change.newValue }}</span>
+              }
+            </div>
+          }
+        </div>
+      }
+    </div>
+  }
+</div>
+
+@if (isLoading()) {
+  <fl-loader size="small" />
+}
+
+@if (hasMore() && !isLoading()) {
+  <button mat-stroked-button (click)="loadMore()" class="load-more">
+    {{ 'li.form_load_more' | translate }}
+  </button>
+}

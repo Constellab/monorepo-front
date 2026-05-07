@@ -1,18 +1,30 @@
 import { ClLuxonDateTimeTransform } from '@monorepo/core-lib';
+import { TdParamSpecs } from '@monorepo/technical-doc';
 import { Expose, Type } from 'class-transformer';
 import { DateTime } from 'luxon';
 
 import { LiBaseEntityWithUser, LiUser } from '../../li-core/model/entities/li-user.entity';
 import { LiFormStatus } from './li-form.enum';
 
+export class LiFormTemplateRef {
+  @Expose({ name: 'template_id' })
+  templateId: string;
+
+  @Expose({ name: 'template_name' })
+  templateName: string;
+
+  @Expose({ name: 'version_id' })
+  versionId: string;
+
+  @Expose({ name: 'version_number' })
+  versionNumber: number;
+}
+
 export class LiForm extends LiBaseEntityWithUser {
   name: string;
 
-  @Expose({ name: 'template_version_id' })
-  templateVersionId: string;
-
-  @Expose({ name: 'template_id' })
-  templateId: string;
+  @Type(() => LiFormTemplateRef)
+  template: LiFormTemplateRef;
 
   status: LiFormStatus;
 
@@ -29,13 +41,16 @@ export class LiForm extends LiBaseEntityWithUser {
   }
 }
 
-export class LiFormFull extends LiForm {
-  schema: any;
+/**
+ * Content returned by GET /form/{id}/content and POST /form/{id}/save.
+ * Contains specs (schema), current values, and computed field errors.
+ */
+export class LiFormContent {
+  values: Record<string, unknown> | null;
 
-  values: Record<string, unknown>;
+  specs: TdParamSpecs;
 
-  @Expose({ name: 'computed_errors' })
-  computedErrors: Record<string, string>;
+  errors: Record<string, string>;
 }
 
 export interface LiCreateFormDTO {
@@ -51,11 +66,4 @@ export interface LiUpdateFormDTO {
 export interface LiSaveFormDTO {
   values: Record<string, unknown>;
   status_transition?: 'SUBMITTED' | null;
-}
-
-export interface LiSaveFormResponseDTO {
-  form: LiForm;
-  values: Record<string, unknown>;
-  computed_errors: Record<string, string>;
-  missing_mandatory_fields?: string[];
 }

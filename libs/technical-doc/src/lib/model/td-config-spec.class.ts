@@ -84,7 +84,7 @@ export interface TdParamSpecBase {
 /**
  * All param set spec type including param set spec
  */
-export type TdParamSpec = TdParamSpecSimple | TdParamSpecParamSet | TdParamSpecDynamic;
+export type TdParamSpec = TdParamSpecSimple | TdParamSpecParamSet | TdParamSpecDynamic | TdParamSpecComputed;
 
 export type TdParamSpecs = Record<string, TdParamSpec>;
 /**
@@ -179,6 +179,12 @@ export interface TdParamSpecDynamic extends TdParamSpecBase {
     specs: TdParamSpecs;
     edition_mode: boolean;
   };
+}
+
+export interface TdParamSpecComputed extends TdParamSpecBase {
+  type: 'computed';
+
+  additional_info: any;
 }
 
 // list of param spec type that uses a code editor

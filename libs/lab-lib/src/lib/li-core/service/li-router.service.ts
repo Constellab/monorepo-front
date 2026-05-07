@@ -201,6 +201,10 @@ export class LiRouterService {
     return this.router.navigate([LiRouterService.getNoteSearchRoute()]);
   }
 
+  public navigateToFormSearch(): Promise<boolean> {
+    return this.router.navigate([LiRouterService.getFormSearchRoute()]);
+  }
+
   public navigateToFormDetail(id: string): Promise<boolean> {
     return this.router.navigate([LiRouterService.getFormDetailRoute(id)]);
   }

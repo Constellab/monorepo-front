@@ -5,11 +5,16 @@ import {
   FlDialogService,
 } from '@monorepo/front-core-lib/fl-dialog';
 import { FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
-import { LiTagDatasource } from '@monorepo/lab-lib/li-core';
+import { LiRouterService, LiTagDatasource } from '@monorepo/lab-lib/li-core';
 import { LiEntityActionMenu } from '@monorepo/lab-lib/li-entity';
 import { Observable } from 'rxjs';
 
+import {
+  LiCreateFormDialogComponent,
+  LiCreateFormDialogInput,
+} from '../component/li-create-form-dialog/li-create-form-dialog.component';
 import { LiFormTemplateService } from '../service/li-form-template.service';
+import { LiForm } from './li-form.entity';
 import { LiFormTemplate } from './li-form-template.entity';
 
 export type LiFormTemplateActionEvent = {
@@ -38,12 +43,22 @@ export class LiFormTemplateActionMenu extends LiEntityActionMenu {
 
   public openDetailActionMenu(event: MouseEvent): Observable<LiFormTemplateActionEvent> {
     const menu: FlMenuDynamic[] = [
+      this.getCreateFormButton(),
       this.getTagsButton('FORM_TEMPLATE', this.template.id, this.tags),
       this.getArchiveButton(),
       this.getDeleteButton(),
     ];
 
     return this.generateMenu(menu, event);
+  }
+
+  protected getCreateFormButton(): FlMenuDynamic {
+    return {
+      type: 'button',
+      text: 'li.form_create',
+      icon: 'form',
+      onClick: () => this.openCreateFormDialog(),
+    };
   }
 
   protected getArchiveButton(): FlMenuDynamic {
@@ -105,6 +120,28 @@ export class LiFormTemplateActionMenu extends LiEntityActionMenu {
     }
 
     this.subject.complete();
+  }
+
+  private openCreateFormDialog(): void {
+    const data: LiCreateFormDialogInput = {
+      mode: 'create',
+      object: {
+        name: null,
+        template: this.template,
+        versionId: null,
+      },
+    };
+
+    this.injector
+      .get(FlDialogService)
+      .openSmallDialog(LiCreateFormDialogComponent, { data })
+      .afterClosed()
+      .subscribe((form: LiForm) => {
+        if (form) {
+          this.injector.get(LiRouterService).navigateToFormDetail(form.id);
+        }
+        this.subject.complete();
+      });
   }
 
   private confirmDelete(): void {

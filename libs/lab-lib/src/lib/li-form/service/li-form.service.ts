@@ -8,9 +8,8 @@ import { Observable } from 'rxjs';
 import {
   LiCreateFormDTO,
   LiForm,
-  LiFormFull,
+  LiFormContent,
   LiSaveFormDTO,
-  LiSaveFormResponseDTO,
   LiUpdateFormDTO,
 } from '../model/li-form.entity';
 import { LiFormSaveEvent } from '../model/li-form-save-event.entity';
@@ -26,24 +25,24 @@ export class LiFormService {
 
   private readonly route = 'form';
 
-  public create(dto: LiCreateFormDTO): Observable<LiFormFull> {
-    return this.apiService.post(this.route, dto, LiFormFull);
+  public create(dto: LiCreateFormDTO): Observable<LiForm> {
+    return this.apiService.post(this.route, dto, LiForm);
   }
 
-  public getById(id: string): Observable<LiFormFull> {
-    return this.apiService.get(`${this.route}/${id}`, LiFormFull);
+  public getById(id: string): Observable<LiForm> {
+    return this.apiService.get(`${this.route}/${id}`, LiForm);
+  }
+
+  public getContent(id: string): Observable<LiFormContent> {
+    return this.apiService.get(`${this.route}/${id}/content`, LiFormContent);
   }
 
   public update(id: string, dto: LiUpdateFormDTO): Observable<LiForm> {
     return this.apiService.put(`${this.route}/${id}`, dto, LiForm);
   }
 
-  public save(id: string, dto: LiSaveFormDTO): Observable<LiSaveFormResponseDTO> {
-    return this.apiService.post(`${this.route}/${id}/save`, dto);
-  }
-
-  public submit(id: string, dto: LiSaveFormDTO): Observable<LiSaveFormResponseDTO> {
-    return this.apiService.post(`${this.route}/${id}/submit`, dto);
+  public save(id: string, dto: LiSaveFormDTO): Observable<LiFormContent> {
+    return this.apiService.post(`${this.route}/${id}/save`, dto, LiFormContent);
   }
 
   public delete(id: string): Observable<void> {
