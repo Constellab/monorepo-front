@@ -15,7 +15,17 @@
           <span class="li-form-content-name">{{ form().name }}</span>
           <li-form-template-ref-inline [templateRef]="form().template" [showLink]="true" />
         </div>
-        <fl-status-chip [status]="formStatus()" />
+        <div class="li-form-content-header-right">
+          @if (isDraft() && !readonly()) {
+            <fl-ai-menu-button
+              [onSubmit]="aiFillFromText"
+              [tooltip]="'li.form_ai_fill'"
+              [dialogTitle]="'li.form_ai_fill_title'"
+              [dialogPlaceholder]="'li.form_ai_fill_placeholder'"
+              (submitted)="onAiFillResult($event)" />
+          }
+          <fl-status-chip [status]="formStatus()" />
+        </div>
       </div>
     }
 

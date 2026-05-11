@@ -45,6 +45,18 @@ export class LiFormService {
     return this.apiService.post(`${this.route}/${id}/save`, dto, LiFormContent);
   }
 
+  public fillFromText(
+    id: string,
+    text: string,
+    currentValues?: Record<string, unknown>
+  ): Observable<LiFormContent> {
+    return this.apiService.post(
+      `${this.route}/${id}/fill-from-text`,
+      { text, current_values: currentValues ?? {} },
+      LiFormContent
+    );
+  }
+
   public delete(id: string): Observable<void> {
     return this.apiService.delete(`${this.route}/${id}`);
   }

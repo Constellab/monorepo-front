@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject, input, model, output, signal } from '@angular/core';
+import { Component, computed, effect, inject, input, model, output, signal, ViewChild } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import {
   MatCell,
@@ -12,11 +12,12 @@ import {
   MatRowDef,
   MatTable,
 } from '@angular/material/table';
+import { FlAiModule } from '@monorepo/front-core-lib/fl-ai';
 import { FlJsonEditorModule } from '@monorepo/front-core-lib/fl-json-editor';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { FlStatus, FlStatusModule } from '@monorepo/front-core-lib/fl-status';
 import { TranslatePipe } from '@ngx-translate/core';
-import { forkJoin } from 'rxjs';
+import { forkJoin, Observable } from 'rxjs';
 
 import { LiForm, LiFormContent } from '../../model/li-form.entity';
 import { LiFormDisplayMode, LiFormStatus } from '../../model/li-form.enum';
@@ -52,6 +53,7 @@ function liFormatTableValue(value: unknown): string {
   imports: [
     LiFormEditorComponent,
     LiFormTemplateRefInlineComponent,
+    FlAiModule,
     FlStatusModule,
     FlLoaderModule,
     FlJsonEditorModule,
@@ -71,6 +73,8 @@ function liFormatTableValue(value: unknown): string {
 })
 export class LiFormContentComponent {
   private formService = inject(LiFormService);
+
+  @ViewChild(LiFormEditorComponent) private editor: LiFormEditorComponent;
 
   formId = input.required<string>();
   readonly = input(false);
@@ -110,6 +114,15 @@ export class LiFormContentComponent {
   });
 
   isSubmitted = computed(() => this.form()?.status === 'SUBMITTED');
+  isDraft = computed(() => this.form()?.status === 'DRAFT');
+
+  aiFillFromText = (text: string): Observable<LiFormContent> => {
+    return this.editor.aiFillFromText(text);
+  };
+
+  onAiFillResult(result: unknown): void {
+    this.editor.onAiFillResult(result);
+  }
 
   constructor() {
     effect(() => {

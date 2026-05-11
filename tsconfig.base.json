@@ -27,6 +27,7 @@
       "@monorepo/chart": ["libs/chart/src/index.ts"],
       "@monorepo/community-lib": ["libs/community-lib/src/index.ts"],
       "@monorepo/core-lib": ["libs/core-lib/src/index.ts"],
+      "@monorepo/front-core-lib/fl-ai": ["libs/front-core-lib/src/lib/fl-ai/index.ts"],
       "@monorepo/front-core-lib/fl-api": ["libs/front-core-lib/src/lib/fl-api/index.ts"],
       "@monorepo/front-core-lib/fl-article": ["libs/front-core-lib/src/lib/fl-article/index.ts"],
       "@monorepo/front-core-lib/fl-auth": ["libs/front-core-lib/src/lib/fl-auth/index.ts"],

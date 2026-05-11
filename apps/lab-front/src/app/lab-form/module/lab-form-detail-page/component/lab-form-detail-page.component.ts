@@ -1,8 +1,9 @@
-import { Component, computed, inject, Injector, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, Injector, OnInit, signal, ViewChild } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatButtonToggle, MatButtonToggleGroup } from '@angular/material/button-toggle';
 import { MatIcon } from '@angular/material/icon';
 import { ActivatedRoute } from '@angular/router';
+import { FlAiModule } from '@monorepo/front-core-lib/fl-ai';
 import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { FlStatusModule } from '@monorepo/front-core-lib/fl-status';
@@ -23,12 +24,14 @@ import {
 } from '@monorepo/lab-lib/li-form';
 import { LiTagListComponent } from '@monorepo/lab-lib/li-tag';
 import { TranslatePipe } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'lab-form-detail-page',
   templateUrl: './lab-form-detail-page.component.html',
   styleUrl: './lab-form-detail-page.component.scss',
   imports: [
+    FlAiModule,
     FlSectionModule,
     FlTextIconModule,
     FlFormModule,
@@ -52,12 +55,24 @@ export class LabFormDetailPageComponent implements OnInit {
   private formService = inject(LiFormService);
   private tagService = inject(LiTagService);
 
+  @ViewChild(LiFormContentComponent) private formContentComponent: LiFormContentComponent;
+
   form = signal<LiForm>(null);
   formContent = signal<LiFormContent>(null);
   tags$ = signal<LiTagDatasource>(null);
   isLoading = signal(false);
   isReadonly = signal(false);
   displayMode = signal<LiFormDisplayMode>('form');
+
+  isDraft = computed(() => this.form()?.status === 'DRAFT');
+
+  aiFillFromText = (text: string): Observable<LiFormContent> => {
+    return this.formContentComponent.aiFillFromText(text);
+  };
+
+  onAiFillResult(result: unknown): void {
+    this.formContentComponent.onAiFillResult(result);
+  }
 
   formStatus = computed(() => {
     const status = this.form()?.status;

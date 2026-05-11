@@ -17,6 +17,7 @@ import { PreloadAllModules, provideRouter, withInMemoryScrolling, withPreloading
 import { BnBioNetworkModule } from '@monorepo/bio-network';
 import { CoCommunityLibModule } from '@monorepo/community-lib';
 import { ClHelpService, ClSupportedLanguage } from '@monorepo/core-lib';
+import { FlAiModule } from '@monorepo/front-core-lib/fl-ai';
 import { FlApiModule } from '@monorepo/front-core-lib/fl-api';
 import { FlAuthModule } from '@monorepo/front-core-lib/fl-auth';
 import { FL_CAPTCHA_MODULE_CONFIG, FlCaptchaModuleConfig } from '@monorepo/front-core-lib/fl-captcha';
@@ -39,6 +40,7 @@ import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import {
   LI_SVG_ICONS,
+  LiAiService,
   LiAuthService,
   LiBioNetworkService,
   LiConfig,
@@ -126,6 +128,7 @@ function bootstrapApp(): void {
         FlSnackBarModule.forRoot(),
         FlPortalModule.forRoot(),
         FlPortalActionsModule.forRoot(),
+        FlAiModule.forRoot(LiAiService),
         FlAuthModule.forRoot(LiAuthService),
         FlTagModule.forRoot(LiTagService),
         BnBioNetworkModule.forRoot(LiBioNetworkService),

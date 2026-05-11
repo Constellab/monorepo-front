@@ -1,14 +1,18 @@
 <div class="computed-field">
-  <div class="computed-field-header">
-    <span class="computed-field-label">{{ placeholder }}</span>
+  <span class="computed-field-label">{{ placeholder }} :&nbsp;</span>
+
+  <div class="computed-field-row">
+    <span class="computed-field-value">{{ displayValue }}</span>
     @if (expression) {
-      <mat-icon class="computed-field-info" [matTooltip]="expression">info_outline</mat-icon>
+      <mat-icon
+        class="computed-field-info"
+        [matTooltip]="('li.computed_expression_tooltip' | translate) + ': ' + expression"
+        >info_outline</mat-icon
+      >
     }
   </div>
-
-  <span class="computed-field-value">{{ formCtrl.value?.value ?? '-' }}</span>
-
-  @if (formCtrl.value?.errors) {
-    <span class="computed-field-error">{{ formCtrl.value.errors }}</span>
-  }
 </div>
+
+@if (formCtrl.value?.errors) {
+  <span class="computed-field-error">{{ formCtrl.value.errors }}</span>
+}

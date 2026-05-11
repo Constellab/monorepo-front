@@ -24,6 +24,12 @@
   padding-bottom: 8px;
 }
 
+.li-form-content-header-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .li-form-content-header-left {
   display: flex;
   flex-direction: column;

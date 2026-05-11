@@ -1,0 +1,32 @@
+@if (recorder.isRecording()) {
+  <button
+    mat-icon-button
+    class="fl-ai-menu-recording"
+    type="button"
+    (click)="recorder.stopRecording()"
+    [matTooltip]="'flAi.stop_recording' | translate">
+    <mat-icon>stop_circle</mat-icon>
+  </button>
+} @else if (isLoading()) {
+  <mat-spinner [diameter]="24"></mat-spinner>
+} @else {
+  <button
+    mat-icon-button
+    type="button"
+    [disabled]="isDisabled()"
+    [matMenuTriggerFor]="aiMenu"
+    [matTooltip]="tooltip() | translate">
+    <mat-icon>auto_awesome</mat-icon>
+  </button>
+}
+
+<mat-menu #aiMenu="matMenu">
+  <button mat-menu-item (click)="recorder.startRecording()">
+    <mat-icon>mic</mat-icon>
+    <span>{{ 'flAi.dictate' | translate }}</span>
+  </button>
+  <button mat-menu-item (click)="openDialog()">
+    <mat-icon>edit_note</mat-icon>
+    <span>{{ 'flAi.type_instruction' | translate }}</span>
+  </button>
+</mat-menu>

@@ -1,21 +1,22 @@
 .computed-field {
   display: flex;
-  flex-direction: column;
-  gap: 4px;
-  padding: 12px;
+  align-items: baseline;
+  padding: 8px 12px;
   border: 1px solid var(--hover-color);
   border-radius: 4px;
 }
 
-.computed-field-header {
+.computed-field-label {
+  white-space: nowrap;
+}
+
+.computed-field-row {
   display: flex;
   align-items: center;
   gap: 4px;
-}
-
-.computed-field-label {
-  font-size: 12px;
-  color: var(--light-color);
+  flex: 1;
+  min-width: 0;
+  justify-content: space-between;
 }
 
 .computed-field-info {
@@ -24,9 +25,11 @@
   height: 16px;
   color: var(--light-color);
   cursor: help;
+  margin-left: auto;
 }
 
 .computed-field-error {
   font-size: 12px;
   color: var(--warn-color);
+  padding: 2px 12px 0;
 }

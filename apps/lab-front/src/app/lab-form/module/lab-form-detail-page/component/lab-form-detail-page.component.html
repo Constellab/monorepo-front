@@ -3,14 +3,13 @@
     <ng-container *flSectionBody>
       <!-- Header -->
       <div class="g-layout-row g-layout-start-center">
-        <fl-text-icon>
-          <mat-icon flIcon="form" class="g-icon-big"></mat-icon>
-          <h2>{{ 'li.form' | translate }} :</h2>
-        </fl-text-icon>
         <div class="g-flex-auto g-flex">
-          <h2 flElementEditable (flElementValueChange)="updateName($event)">
-            {{ form().name }}
-          </h2>
+          <fl-text-icon>
+            <mat-icon flIcon="form" class="g-icon-big"></mat-icon>
+            <h1 flElementEditable (flElementValueChange)="updateName($event)" class="title">
+              {{ form().name }}
+            </h1>
+          </fl-text-icon>
         </div>
 
         @if (formStatus()) {
@@ -24,59 +23,77 @@
         </div>
       </div>
 
-      <!-- Template ref -->
-      @if (form().template) {
-        <li-form-template-ref-inline class="separator" [templateRef]="form().template" [showLink]="true" />
-      }
+      <!-- Two-column layout -->
+      <div class="container">
+        <!-- Left sidebar: metadata -->
+        <div class="left-section g-print-hide">
+          <!-- Template ref -->
+          @if (form().template) {
+            <li-form-template-ref-inline [templateRef]="form().template" [showLink]="true" />
+          }
 
-      <!-- Metadata section -->
-      <li-tag-list
-        class="separator"
-        [tags]="tags$()"
-        [showNoTagMessage]="true"
-        entityType="FORM"
-        [enableDetails]="true"
-        [entityId]="form().id"></li-tag-list>
+          <!-- Tags -->
+          <li-tag-list
+            class="separator"
+            [tags]="tags$()"
+            [showNoTagMessage]="true"
+            entityType="FORM"
+            [enableDetails]="true"
+            [entityId]="form().id"></li-tag-list>
 
-      <p class="g-text-small g-text-light separator">
-        <fl-creation-info [user]="form().createdBy" [date]="form().createdAt"></fl-creation-info>
-      </p>
-      <p class="g-text-small g-text-light">
-        <fl-last-modification-info
-          [user]="form().lastModifiedBy"
-          [date]="form().lastModifiedAt"></fl-last-modification-info>
-      </p>
-      @if (form().submittedBy) {
-        <p class="g-text-small g-text-light g-layout-row g-layout-start-center g-layout-gap-05em">
-          <span>{{ 'li.form_submitted' | translate }}:</span>
-          <fl-user-with-date [user]="form().submittedBy" [date]="form().submittedAt" />
-        </p>
-      }
-
-      <!-- Form section -->
-      @if (form()) {
-        <div class="g-layout-row g-layout-start-center">
-          <h3 class="section-title g-flex-auto">{{ 'li.form_fields' | translate }}</h3>
-          <mat-button-toggle-group [value]="displayMode()" (valueChange)="displayMode.set($event)">
-            <mat-button-toggle value="form">
-              {{ 'li.form_display_form' | translate }}
-            </mat-button-toggle>
-            <mat-button-toggle value="table">
-              {{ 'li.form_display_table' | translate }}
-            </mat-button-toggle>
-            <mat-button-toggle value="json">
-              {{ 'li.form_display_json' | translate }}
-            </mat-button-toggle>
-          </mat-button-toggle-group>
+          <!-- Created by & Last modified by -->
+          <p class="g-text-small g-text-light separator">
+            <fl-creation-info [user]="form().createdBy" [date]="form().createdAt"></fl-creation-info>
+          </p>
+          <p class="g-text-small g-text-light">
+            <fl-last-modification-info
+              [user]="form().lastModifiedBy"
+              [date]="form().lastModifiedAt"></fl-last-modification-info>
+          </p>
+          @if (form().submittedBy) {
+            <p class="g-text-small g-text-light g-layout-row g-layout-start-center g-layout-gap-05em">
+              <span>{{ 'li.form_submitted' | translate }}:</span>
+              <fl-user-with-date [user]="form().submittedBy" [date]="form().submittedAt" />
+            </p>
+          }
         </div>
-        <li-form-content
-          [formId]="form().id"
-          [readonly]="isReadonly()"
-          [showHeader]="false"
-          [displayMode]="displayMode()"
-          (contentSaved)="onContentChanged($event)"
-          (contentSubmitted)="onContentSubmitted($event)" />
-      }
+
+        <!-- Right: main content -->
+        <div class="right-section">
+          @if (form()) {
+            <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
+              <h3 class="section-title g-flex-auto">{{ 'li.form_fields' | translate }}</h3>
+              @if (isDraft()) {
+                <fl-ai-menu-button
+                  [onSubmit]="aiFillFromText"
+                  [tooltip]="'li.form_ai_fill'"
+                  [dialogTitle]="'li.form_ai_fill_title'"
+                  [dialogPlaceholder]="'li.form_ai_fill_placeholder'"
+                  (submitted)="onAiFillResult($event)" />
+              }
+              <mat-button-toggle-group [value]="displayMode()" (valueChange)="displayMode.set($event)">
+                <mat-button-toggle value="form">
+                  {{ 'li.form_display_form' | translate }}
+                </mat-button-toggle>
+                <mat-button-toggle value="table">
+                  {{ 'li.form_display_table' | translate }}
+                </mat-button-toggle>
+                <mat-button-toggle value="json">
+                  {{ 'li.form_display_json' | translate }}
+                </mat-button-toggle>
+              </mat-button-toggle-group>
+            </div>
+            <li-form-content
+              class="form-content"
+              [formId]="form().id"
+              [readonly]="isReadonly()"
+              [showHeader]="false"
+              [displayMode]="displayMode()"
+              (contentSaved)="onContentChanged($event)"
+              (contentSubmitted)="onContentSubmitted($event)" />
+          }
+        </div>
+      </div>
     </ng-container>
   </fl-section>
 </div>

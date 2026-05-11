@@ -1,0 +1,59 @@
+<fl-dialog-header>
+  {{ title | flTranslatableText | async }}
+
+  @if (!recorder.micDisabled()) {
+    <fl-dialog-header-actions>
+      @if (recorder.isRecording()) {
+        <button
+          mat-icon-button
+          class="fl-ai-input-mic-recording"
+          type="button"
+          (click)="recorder.stopRecording()"
+          [matTooltip]="'flAi.stop_recording' | translate">
+          <mat-icon>stop_circle</mat-icon>
+        </button>
+      } @else if (recorder.isTranscribing()) {
+        <mat-spinner [diameter]="24"></mat-spinner>
+      } @else {
+        <button
+          mat-icon-button
+          type="button"
+          (click)="recorder.startRecording()"
+          [disabled]="isSubmitting()"
+          [matTooltip]="'flAi.start_recording' | translate">
+          <mat-icon>mic</mat-icon>
+        </button>
+      }
+    </fl-dialog-header-actions>
+  }
+</fl-dialog-header>
+
+<mat-dialog-content>
+  @if (description) {
+    <div [innerHTML]="description"></div>
+  }
+
+  <mat-form-field class="fl-ai-input-textarea">
+    <textarea
+      matInput
+      rows="4"
+      [placeholder]="placeholder | flTranslatableText | async"
+      [disabled]="isLoading()"
+      [value]="textInput()"
+      (input)="onTextInput($event)"></textarea>
+  </mat-form-field>
+</mat-dialog-content>
+
+<div mat-dialog-actions>
+  <button
+    mat-flat-button
+    class="g-centered-forced primary"
+    type="button"
+    (click)="generate()"
+    [disabled]="!canGenerate()">
+    {{ placeholder | flTranslatableText | async }}
+    @if (isSubmitting()) {
+      <fl-button-loader></fl-button-loader>
+    }
+  </button>
+</div>

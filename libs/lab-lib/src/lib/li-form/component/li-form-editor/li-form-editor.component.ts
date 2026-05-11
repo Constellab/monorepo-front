@@ -12,6 +12,7 @@ import {
   TdTechnicalDocModule,
 } from '@monorepo/technical-doc';
 import { TranslatePipe } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
 
 import { LiFormContent, LiSaveFormDTO } from '../../model/li-form.entity';
 import { LiFormService } from '../../service/li-form.service';
@@ -94,6 +95,18 @@ export class LiFormEditorComponent {
         }
       },
     });
+  }
+
+  aiFillFromText = (text: string): Observable<LiFormContent> => {
+    const currentValues = this.getCleanValues();
+    return this.formService.fillFromText(this.formId(), text, currentValues);
+  };
+
+  onAiFillResult(result: unknown): void {
+    const content = result as LiFormContent;
+    this.initForm(content);
+    this.formGp.markAsDirty();
+    this.snackBar.openSuccessMessage({ text: 'li.form_ai_fill_applied', translateText: true });
   }
 
   private initForm(content: LiFormContent): void {
