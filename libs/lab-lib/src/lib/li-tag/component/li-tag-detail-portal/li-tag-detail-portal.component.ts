@@ -9,13 +9,7 @@ import { FL_PORTAL_DATA, FlPortalModule } from '@monorepo/front-core-lib/fl-port
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { FlTagModule } from '@monorepo/front-core-lib/fl-tag';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import {
-  LiEntityTag,
-  LiTagKeyModel,
-  LiTagOrigin,
-  LiTagService,
-  LiTagValueModel,
-} from '@monorepo/lab-lib/li-core';
+import { LiEntityTag, LiTagKeyModel, LiTagService, LiTagValueModel } from '@monorepo/lab-lib/li-core';
 import { TranslatePipe } from '@ngx-translate/core';
 
 import { LiTagOriginsComponent } from '../li-tag-origins/li-tag-origins.component';
