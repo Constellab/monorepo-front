@@ -54,13 +54,27 @@
       }
 
       <!-- Form section -->
-      @if (formContent()) {
-        <h3 class="section-title">{{ 'li.form_fields' | translate }}</h3>
-        <li-form-editor
+      @if (form()) {
+        <div class="g-layout-row g-layout-start-center">
+          <h3 class="section-title g-flex-auto">{{ 'li.form_fields' | translate }}</h3>
+          <mat-button-toggle-group [value]="displayMode()" (valueChange)="displayMode.set($event)">
+            <mat-button-toggle value="form">
+              {{ 'li.form_display_form' | translate }}
+            </mat-button-toggle>
+            <mat-button-toggle value="table">
+              {{ 'li.form_display_table' | translate }}
+            </mat-button-toggle>
+            <mat-button-toggle value="json">
+              {{ 'li.form_display_json' | translate }}
+            </mat-button-toggle>
+          </mat-button-toggle-group>
+        </div>
+        <li-form-content
           [formId]="form().id"
-          [content]="formContent()"
           [readonly]="isReadonly()"
-          (contentSaved)="onContentSaved($event)"
+          [showHeader]="false"
+          [displayMode]="displayMode()"
+          (contentSaved)="onContentChanged($event)"
           (contentSubmitted)="onContentSubmitted($event)" />
       }
     </ng-container>

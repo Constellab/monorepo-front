@@ -52,10 +52,6 @@ export class LiRichTextFormBlock extends TeComponentBlock<LiRichTextFormComponen
     this.componentInstance.formId = data.form_id;
     this.componentInstance.isOwner = data.is_owner;
     this.componentInstance.displayMode.set(data.display_mode ?? 'form');
-
-    if (data.form_id) {
-      this.componentInstance.loadForm();
-    }
   }
 
   save(): BlockToolData {

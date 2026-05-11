@@ -1,4 +1,6 @@
-export type LiRichTextFormDisplayMode = 'form' | 'json' | 'table';
+import { LiFormDisplayMode } from '@monorepo/lab-lib/li-form';
+
+export type LiRichTextFormDisplayMode = LiFormDisplayMode;
 
 /**
  * Block data stored in the rich text JSON for a FORM block (Note context).

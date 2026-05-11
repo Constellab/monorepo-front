@@ -1,10 +1,10 @@
 <mat-table mat-table [dataSource]="datasource" flSearchTableSort>
   <!-- Name -->
   <ng-container matColumnDef="name">
-    <mat-header-cell *matHeaderCellDef class="g-cell-header-with-left-border" mat-sort-header>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
       <span>{{ 'li.name' | translate }}</span>
     </mat-header-cell>
-    <mat-cell *matCellDef="let template" class="g-cell-with-left-border">
+    <mat-cell *matCellDef="let template">
       @if (!rowSelectable) {
         <a [routerLink]="template | liDetailRoute" class="g-row-link" aria-hidden="true"></a>
       }

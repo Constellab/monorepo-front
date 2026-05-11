@@ -7,7 +7,8 @@ import { FlDynamicAbstractFormDirective } from '../../model/fl-dynamic-abstract-
 import { FlDynamicFormArrayConfig } from '../../model/fl-dynamic-field-config.class';
 import { FlDynamicFormHelper } from '../../model/fl-dynamic-form-helper.class';
 
-// TODO: check if it's possible to replace getters by computed signals
+// Getters cannot be replaced by computed signals: control().length is reactive form state, not a signal,
+// so computed() would not re-evaluate when the form array changes.
 @Component({
   selector: 'fl-dynamic-form-array',
   templateUrl: './fl-dynamic-form-array.component.html',

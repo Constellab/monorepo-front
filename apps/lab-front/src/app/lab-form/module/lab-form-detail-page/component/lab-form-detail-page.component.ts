@@ -1,5 +1,6 @@
 import { Component, computed, inject, Injector, OnInit, signal } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
+import { MatButtonToggle, MatButtonToggleGroup } from '@angular/material/button-toggle';
 import { MatIcon } from '@angular/material/icon';
 import { ActivatedRoute } from '@angular/router';
 import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
@@ -14,14 +15,14 @@ import {
   LiFormActionEvent,
   LiFormActionMenu,
   LiFormContent,
-  LiFormEditorComponent,
+  LiFormContentComponent,
+  LiFormDisplayMode,
   LiFormService,
   LiFormTemplateRefInlineComponent,
   liGetFormStatus,
 } from '@monorepo/lab-lib/li-form';
 import { LiTagListComponent } from '@monorepo/lab-lib/li-tag';
 import { TranslatePipe } from '@ngx-translate/core';
-import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'lab-form-detail-page',
@@ -35,9 +36,11 @@ import { forkJoin } from 'rxjs';
     FlIconModule,
     FlUserModule,
     MatIconButton,
+    MatButtonToggleGroup,
+    MatButtonToggle,
     MatIcon,
     LiTagListComponent,
-    LiFormEditorComponent,
+    LiFormContentComponent,
     LiFormTemplateRefInlineComponent,
     TranslatePipe,
   ],
@@ -54,6 +57,7 @@ export class LabFormDetailPageComponent implements OnInit {
   tags$ = signal<LiTagDatasource>(null);
   isLoading = signal(false);
   isReadonly = signal(false);
+  displayMode = signal<LiFormDisplayMode>('form');
 
   formStatus = computed(() => {
     const status = this.form()?.status;
@@ -70,7 +74,7 @@ export class LabFormDetailPageComponent implements OnInit {
     actionMenu.openDetailActionMenu(event).subscribe((action) => this.onFormAction(action));
   }
 
-  onContentSaved(content: LiFormContent): void {
+  onContentChanged(content: LiFormContent): void {
     this.formContent.set(content);
   }
 
@@ -104,13 +108,9 @@ export class LabFormDetailPageComponent implements OnInit {
 
   private loadForm(id: string): void {
     this.isLoading.set(true);
-    forkJoin({
-      form: this.formService.getById(id),
-      content: this.formService.getContent(id),
-    }).subscribe({
-      next: ({ form, content }) => {
+    this.formService.getById(id).subscribe({
+      next: (form) => {
         this.form.set(form);
-        this.formContent.set(content);
         this.isReadonly.set(form.status === 'SUBMITTED');
         this.tags$.set(this.tagService.getEntityTagsDatasource('FORM', form.id));
         this.isLoading.set(false);
