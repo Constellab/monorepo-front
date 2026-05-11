@@ -1,4 +1,4 @@
-import { inject, Injectable, OnDestroy, ViewContainerRef } from '@angular/core';
+import { Injectable, OnDestroy, ViewContainerRef } from '@angular/core';
 import { FlArrayObs, FlEntityArrayObs } from '@monorepo/front-core-lib/fl-core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
@@ -15,9 +15,6 @@ import { TdParamSpec, TdParamSpecEntry, TdParamSpecs } from '../model/td-config-
 export abstract class TdAbstractDynamicParamSpecState implements OnDestroy {
   public paramSpecsTable: FlArrayObs<TdParamSpecEntry> = new FlEntityArrayObs([], true);
 
-  protected dialogService = inject(FlDialogService);
-  protected viewContainerRef = inject(ViewContainerRef);
-
   setParamSpecs(paramSpecs: TdParamSpecs): void {
     const entries: TdParamSpecEntry[] = Object.entries(paramSpecs).map(([key, spec]) => ({ key, spec }));
     this.paramSpecsTable.setData(entries);
@@ -25,14 +22,18 @@ export abstract class TdAbstractDynamicParamSpecState implements OnDestroy {
 
   abstract openConfigureParamSpecsTableDialog(): void;
 
-  protected openConfigureParamSpecsDialog(dynamicParamsDescription: FlTranslatableText): void {
+  protected openConfigureParamSpecsDialog(
+    dynamicParamsDescription: FlTranslatableText,
+    dialogService: FlDialogService,
+    viewContainerRef: ViewContainerRef
+  ): void {
     const input: TdConfigureParamSpecsTableDialogInput = {
       dynamicParamsDescription: dynamicParamsDescription,
     };
 
-    this.dialogService.openMediumDialog(TdConfigureParamSpecsTableDialogComponent, {
+    dialogService.openMediumDialog(TdConfigureParamSpecsTableDialogComponent, {
       data: input,
-      viewContainerRef: this.viewContainerRef,
+      viewContainerRef: viewContainerRef,
     });
   }
 

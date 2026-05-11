@@ -4,7 +4,13 @@ import {
   FlDynamicFormGroupConfig,
 } from '@monorepo/front-core-lib/fl-dynamic-field';
 
-import { TdParamSpec, TdParamSpecs, TdParamSpecsValues, TdParamSpecVisibility } from './td-config-spec.class';
+import {
+  TdParamSpec,
+  TdParamSpecs,
+  TdParamSpecsValues,
+  TdParamSpecTypeEnum,
+  TdParamSpecVisibility,
+} from './td-config-spec.class';
 import { TdParamSpecConfig } from './td-param-spec-config.class';
 
 export interface TdConfigI {
@@ -90,7 +96,7 @@ export class TdConfig implements TdConfigI {
   }
 
   private convertToAbstractConfig(spec: TdParamSpec): FlDynamicFormAbstractControl {
-    if (spec.type === 'param_set') {
+    if (spec.type === TdParamSpecTypeEnum.PARAM_SET) {
       const defaultValues = this.getConfigSpecDefaultValue(spec);
       return {
         controlType: 'formArray',
@@ -142,7 +148,7 @@ export class TdConfig implements TdConfigI {
     const defaultConfig: TdParamSpecsValues = {};
     for (const specName of Object.keys(this.specs)) {
       const spec: TdParamSpec = this.specs[specName];
-      if (spec.type === 'param_set' && spec.optional) {
+      if (spec.type === TdParamSpecTypeEnum.PARAM_SET && spec.optional) {
         defaultConfig[specName] = null;
       } else {
         defaultConfig[specName] = this.getConfigSpecDefaultValue(this.specs[specName]);
@@ -158,7 +164,7 @@ export class TdConfig implements TdConfigI {
    * @private
    */
   private getConfigSpecDefaultValue(spec: TdParamSpec): any {
-    if (spec.type === 'param_set') {
+    if (spec.type === TdParamSpecTypeEnum.PARAM_SET) {
       const defaultConfig: any = {};
       for (const subSpecName of Object.keys(spec.additional_info.param_set)) {
         const subSpec: TdParamSpec = spec.additional_info.param_set[subSpecName];

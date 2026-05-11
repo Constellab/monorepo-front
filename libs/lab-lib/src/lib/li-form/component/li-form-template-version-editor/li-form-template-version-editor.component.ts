@@ -46,6 +46,8 @@ export class LiFormTemplateVersionEditorComponent {
       : [...LiFormTemplateVersionEditorComponent.COLUMNS, 'menu'];
   });
 
+  table = this.dynamicState.paramSpecsTable;
+
   fieldCount = signal(0);
 
   hasFields = computed(() => this.fieldCount() > 0);

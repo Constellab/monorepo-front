@@ -1,10 +1,8 @@
-import { Component, inject, Input, output } from '@angular/core';
+import { Component, Input, input, output } from '@angular/core';
 import { ClHelpService, ClStringHelper } from '@monorepo/core-lib';
 import { FlArrayObs } from '@monorepo/front-core-lib/fl-core';
-import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 
-import { TdParamSpecEntry } from '../../model/td-config-spec.class';
-import { TdAbstractDynamicParamSpecState } from '../../service/td-abstract-dynamic-param-spec.state';
+import { TdParamSpecEntry, TdParamSpecTypeEnum } from '../../model/td-config-spec.class';
 
 @Component({
   selector: 'td-editable-param-specs-table',
@@ -13,12 +11,9 @@ import { TdAbstractDynamicParamSpecState } from '../../service/td-abstract-dynam
   standalone: false,
 })
 export class TdEditableParamSpecsTableComponent {
-  private dynamicParamSpecState = inject(TdAbstractDynamicParamSpecState);
-  private translateService = inject(FlTranslateService);
-
   @Input() columns: string[] = ['label', 'type', 'optional', 'default_value', 'additional_info', 'menu'];
 
-  table: FlArrayObs<TdParamSpecEntry> = this.dynamicParamSpecState.paramSpecsTable;
+  table = input.required<FlArrayObs<TdParamSpecEntry>>();
 
   editElementClick = output<TdParamSpecEntry>();
   deleteElementClick = output<TdParamSpecEntry>();
@@ -38,6 +33,7 @@ export class TdEditableParamSpecsTableComponent {
   }
 
   formatDefaultValue(entry: TdParamSpecEntry): string {
+    if (entry.spec.type === TdParamSpecTypeEnum.PARAM_SET) return '';
     const value = entry.spec.default_value;
     if (value == null) return '';
     if (value?.name) return value.name;
@@ -53,10 +49,10 @@ export class TdEditableParamSpecsTableComponent {
     if (!info || typeof info !== 'object') return [];
 
     return Object.keys(info)
-      .filter((key) => info[key] != null)
+      .filter((key) => info[key] != null && typeof info[key] !== 'object')
       .map((key) => ({
         key,
-        label: this.translateService.translate('td.' + key),
+        label: key,
         value: info[key],
       }));
   }

@@ -1,4 +1,5 @@
-import { inject, Injectable, OnDestroy } from '@angular/core';
+import { inject, Injectable, OnDestroy, ViewContainerRef } from '@angular/core';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import {
   TdAbstractDynamicParamSpecState,
   TdEditParamSpecDialogComponent,
@@ -20,6 +21,8 @@ export class LiFormTemplateDynamicParamSpecState
   implements OnDestroy
 {
   private formTemplateService = inject(LiFormTemplateService);
+  private dialogService = inject(FlDialogService);
+  private viewContainerRef = inject(ViewContainerRef);
 
   private templateId: string;
   private versionId: string;
@@ -43,6 +46,7 @@ export class LiFormTemplateDynamicParamSpecState
   openParamSpecFormDialog(entry?: TdParamSpecEntry, onUpdated?: () => void): void {
     const input: TdEditParamSpecDialogInput = {
       paramSpecFormInfoList$: this.getParamSpecsInfos(),
+      dynamicParamSpecState: this,
       paramSpec: entry,
       title: { text: entry ? 'li.form_edit_field' : 'li.form_add_field', translateText: true },
     };

@@ -1,7 +1,8 @@
-import { Component, inject, OnDestroy, signal } from '@angular/core';
+import { Component, inject, OnDestroy, signal, ViewContainerRef } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ClStringHelper, ClSubscriptionHandler } from '@monorepo/core-lib';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import {
   FlDynamicFieldSelectKeyNameOption,
   FlDynamicFormGroupConfig,
@@ -9,16 +10,20 @@ import {
 } from '@monorepo/front-core-lib/fl-dynamic-field';
 import { FlTranslatableText, FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import {
   TdParamSpec,
   TdParamSpecCategory,
   TdParamSpecEntry,
+  TdParamSpecs,
   TdParamSpecSimple,
   TdParamSpecType,
+  TdParamSpecTypeEnum,
 } from '../../model/td-config-spec.class';
 import { TdParamSpecConfig } from '../../model/td-param-spec-config.class';
 import { TdAbstractDynamicParamSpecState } from '../../service/td-abstract-dynamic-param-spec.state';
+import { TdLocalParamSpecState } from '../../service/td-local-param-spec.state';
 
 export interface TdParamSpecInfo {
   type: TdParamSpecType;
@@ -28,11 +33,13 @@ export interface TdParamSpecInfo {
 
 export interface TdEditParamSpecDialogInput {
   paramSpecFormInfoList$: Observable<TdParamSpecInfo[]>;
+  dynamicParamSpecState: TdAbstractDynamicParamSpecState;
   /**
    * Provided if mode is update, null if create
    */
   paramSpec?: TdParamSpecEntry;
   title: FlTranslatableText;
+  saveButtonText?: FlTranslatableText;
 }
 
 @Component({
@@ -43,15 +50,19 @@ export interface TdEditParamSpecDialogInput {
 })
 export class TdEditParamSpecDialogComponent implements OnDestroy {
   private dialogRef = inject<MatDialogRef<TdEditParamSpecDialogComponent>>(MatDialogRef);
-  private dynamicParamSpecState = inject(TdAbstractDynamicParamSpecState);
+  private dialogService = inject(FlDialogService);
+  private viewContainerRef = inject(ViewContainerRef);
   private translateService = inject(FlTranslateService);
 
   readonly isLoading = signal(true);
   readonly isButtonLoading = signal(false);
   readonly groupedTypes = signal<{ category: string; options: FlDynamicFieldSelectKeyNameOption[] }[]>([]);
+  readonly isParamSetType = signal(false);
 
   formGroup: FormGroup;
+  readonly formId = `paramSpecForm_${Math.random().toString(36).slice(2, 8)}`;
   additionalInfoFormGroupConfig = signal<FlDynamicFormGroupConfig | null>(null);
+  localParamSpecState: TdLocalParamSpecState | null = null;
 
   data = inject<TdEditParamSpecDialogInput>(MAT_DIALOG_DATA);
 
@@ -72,7 +83,14 @@ export class TdEditParamSpecDialogComponent implements OnDestroy {
 
   onTypeChange(type: TdParamSpecType): void {
     this.formGroup.get('default_value').reset(null);
+    this.isParamSetType.set(type === TdParamSpecTypeEnum.PARAM_SET);
     this.buildAdditionalInfoForm(type);
+
+    if (type === TdParamSpecTypeEnum.PARAM_SET) {
+      this.initLocalParamSpecState();
+    } else {
+      this.localParamSpecState = null;
+    }
   }
 
   saveParamSpec(): void {
@@ -93,8 +111,52 @@ export class TdEditParamSpecDialogComponent implements OnDestroy {
     this.dialogRef.close();
   }
 
+  openAddSubParamDialog(): void {
+    const input: TdEditParamSpecDialogInput = {
+      paramSpecFormInfoList$: this.data.paramSpecFormInfoList$.pipe(
+        map((list) => list.filter((i) => i.type !== TdParamSpecTypeEnum.PARAM_SET))
+      ),
+      dynamicParamSpecState: this.localParamSpecState,
+      title: { text: 'td.add_sub_field', translateText: true },
+      saveButtonText: { text: 'td.add_sub_field', translateText: true },
+    };
+
+    this.dialogService
+      .openMediumDialog(TdEditParamSpecDialogComponent, {
+        data: input,
+        viewContainerRef: this.viewContainerRef,
+      })
+      .afterClosed()
+      .subscribe();
+  }
+
+  openEditSubParamDialog(entry: TdParamSpecEntry): void {
+    const input: TdEditParamSpecDialogInput = {
+      paramSpecFormInfoList$: this.data.paramSpecFormInfoList$.pipe(
+        map((list) => list.filter((i) => i.type !== TdParamSpecTypeEnum.PARAM_SET))
+      ),
+      dynamicParamSpecState: this.localParamSpecState,
+      paramSpec: entry,
+      title: { text: 'td.update_sub_field', translateText: true },
+      saveButtonText: { text: 'td.update_sub_field', translateText: true },
+    };
+
+    this.dialogService
+      .openMediumDialog(TdEditParamSpecDialogComponent, {
+        data: input,
+        viewContainerRef: this.viewContainerRef,
+      })
+      .afterClosed()
+      .subscribe();
+  }
+
+  deleteSubParam(entry: TdParamSpecEntry): void {
+    this.localParamSpecState.deleteParamSpec(entry.key).subscribe();
+  }
+
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
+    this.localParamSpecState?.ngOnDestroy();
   }
 
   private onParamSpecInfoLoaded(list: TdParamSpecInfo[]): void {
@@ -139,6 +201,13 @@ export class TdEditParamSpecDialogComponent implements OnDestroy {
       });
     }
 
+    const currentType = this.formGroup.get('type').value;
+    this.isParamSetType.set(currentType === TdParamSpecTypeEnum.PARAM_SET);
+
+    if (currentType === TdParamSpecTypeEnum.PARAM_SET) {
+      this.initLocalParamSpecState(this.data.paramSpec?.spec.additional_info?.param_set);
+    }
+
     // Auto-sync label from key until the user manually edits the label
     this.subscriptions.add([
       this.formGroup.get('human_name').valueChanges.subscribe(() => {
@@ -175,9 +244,17 @@ export class TdEditParamSpecDialogComponent implements OnDestroy {
 
     const config: FlDynamicFormGroupConfig = { controlType: 'formGroup', subConfigs: {} };
     for (const specName of Object.keys(info.additional_info)) {
+      // Skip 'param_set' key — managed by the sub-params list UI
+      if (type === TdParamSpecTypeEnum.PARAM_SET && specName === TdParamSpecTypeEnum.PARAM_SET) continue;
+
       config.subConfigs[specName] = TdParamSpecConfig.convertParamSpecToAbstractConfig(
         info.additional_info[specName]
       );
+    }
+
+    if (Object.keys(config.subConfigs).length === 0) {
+      this.additionalInfoFormGroupConfig.set(null);
+      return;
     }
 
     const subGroup = FlDynamicFormHelper.generateFormGroup(config, initialValue);
@@ -188,6 +265,14 @@ export class TdEditParamSpecDialogComponent implements OnDestroy {
   private buildParamSpecFromForm(): TdParamSpec {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { key: _key, ...specValue } = this.formGroup.value;
+
+    if (specValue.type === TdParamSpecTypeEnum.PARAM_SET && this.localParamSpecState) {
+      specValue.additional_info = {
+        ...specValue.additional_info,
+        param_set: this.localParamSpecState.getCurrentSpecs(),
+      };
+    }
+
     return {
       ...specValue,
       human_name: specValue.human_name || null,
@@ -199,13 +284,23 @@ export class TdEditParamSpecDialogComponent implements OnDestroy {
    * Returns the correct save observable depending on create/edit mode and whether the key was renamed.
    */
   private getSaveObservable(key: string, paramSpec: TdParamSpec): Observable<any> {
+    const state = this.data.dynamicParamSpecState;
+
     if (!this.data.paramSpec) {
-      return this.dynamicParamSpecState.addParamSpec(key, paramSpec);
+      return state.addParamSpec(key, paramSpec);
     }
 
     if (this.data.paramSpec?.key && key !== this.data.paramSpec.key) {
-      return this.dynamicParamSpecState.renameAndEditParamSpec(this.data.paramSpec.key, key, paramSpec);
+      return state.renameAndEditParamSpec(this.data.paramSpec.key, key, paramSpec);
     }
-    return this.dynamicParamSpecState.editParamSpec(key, paramSpec);
+    return state.editParamSpec(key, paramSpec);
+  }
+
+  private initLocalParamSpecState(existingSpecs?: TdParamSpecs): void {
+    this.localParamSpecState?.ngOnDestroy();
+    this.localParamSpecState = new TdLocalParamSpecState(this.data.paramSpecFormInfoList$);
+    if (existingSpecs) {
+      this.localParamSpecState.setParamSpecs(existingSpecs);
+    }
   }
 }

@@ -29,6 +29,10 @@ export type TdParamSpecType =
   | 'dict'
   | 'computed_param';
 
+export enum TdParamSpecTypeEnum {
+  PARAM_SET = 'param_set',
+}
+
 /**
  * Visibility of the param spec
  * - public: basic param
@@ -207,7 +211,7 @@ export interface TdParamSpecEntry {
 
 export enum TdParamSpecCategory {
   SIMPLE = 'simple',
-  NESTED = 'nested',
   LAB_SPECIFIC = 'lab_specific',
   COMPUTED = 'computed',
+  PARAM_SET = 'param_set',
 }

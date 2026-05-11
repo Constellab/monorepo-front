@@ -1,5 +1,5 @@
-@if (table?.array.length > 0) {
-  <table mat-table [dataSource]="table">
+@if (table()?.array.length > 0) {
+  <table mat-table [dataSource]="table()">
     <ng-container matColumnDef="label">
       <th mat-header-cell *matHeaderCellDef>{{ 'td.label' | translate }}</th>
       <td mat-cell *matCellDef="let entry">
@@ -43,7 +43,11 @@
         {{ 'td.actions' | translate }}
       </th>
       <td mat-cell *matCellDef="let entry" class="g-table-icon-button-cell">
-        <button mat-icon-button [matMenuTriggerFor]="btsMenu" (click)="$event.stopPropagation()">
+        <button
+          mat-icon-button
+          [matMenuTriggerFor]="btsMenu"
+          (click)="$event.stopPropagation()"
+          type="button">
           <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #btsMenu="matMenu">

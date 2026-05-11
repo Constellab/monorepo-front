@@ -6,7 +6,7 @@
   @if (isLoading()) {
     <fl-loader class="loader"></fl-loader>
   } @else {
-    <form id="paramSpecForm" [formGroup]="formGroup" class="form-content" (ngSubmit)="saveParamSpec()">
+    <form [id]="formId" [formGroup]="formGroup" class="form-content" (ngSubmit)="saveParamSpec()">
       <div class="section">
         <h4 class="section-title">{{ 'td.section_identity' | translate }}</h4>
 
@@ -48,10 +48,12 @@
           </mat-checkbox>
         </div>
 
-        <mat-form-field class="full-width">
-          <mat-label>{{ 'td.default_value' | translate }}</mat-label>
-          <input matInput formControlName="default_value" />
-        </mat-form-field>
+        @if (!isParamSetType()) {
+          <mat-form-field class="full-width">
+            <mat-label>{{ 'td.default_value' | translate }}</mat-label>
+            <input matInput formControlName="default_value" />
+          </mat-form-field>
+        }
 
         <mat-form-field class="full-width">
           <mat-label>{{ 'td.short_description' | translate }}</mat-label>
@@ -72,6 +74,27 @@
           </fl-dynamic-form-group>
         </div>
       }
+
+      @if (isParamSetType() && localParamSpecState) {
+        <mat-divider></mat-divider>
+
+        <div class="section">
+          <div class="section-header">
+            <h4 class="section-title">{{ 'td.param_set' | translate }}</h4>
+            <button mat-stroked-button type="button" class="g-button-small" (click)="openAddSubParamDialog()">
+              <mat-icon>add</mat-icon>
+              {{ 'td.add_sub_field' | translate }}
+            </button>
+          </div>
+          <p class="g-text-small g-text-light">{{ 'td.param_set_description' | translate }}</p>
+
+          <td-editable-param-specs-table
+            [table]="localParamSpecState.paramSpecsTable"
+            [columns]="['label', 'type', 'menu']"
+            (editElementClick)="openEditSubParamDialog($event)"
+            (deleteElementClick)="deleteSubParam($event)" />
+        </div>
+      }
     </form>
   }
 </mat-dialog-content>
@@ -84,9 +107,13 @@
     mat-flat-button
     class="primary"
     type="submit"
-    form="paramSpecForm"
+    [attr.form]="formId"
     [disabled]="formGroup?.invalid || isButtonLoading()">
-    {{ 'td.save' | translate }}
+    @if (data.saveButtonText) {
+      {{ data.saveButtonText | flTranslatableText | async }}
+    } @else {
+      {{ 'td.save' | translate }}
+    }
     @if (isButtonLoading()) {
       <fl-button-loader></fl-button-loader>
     }

@@ -1,4 +1,4 @@
-import { TdParamSpecs } from '@monorepo/technical-doc';
+import { TdParamSpecs, TdParamSpecTypeEnum } from '@monorepo/technical-doc';
 
 import { LiFormChangeEntryDTO } from '../../model/li-form-save-event.entity';
 import {
@@ -134,7 +134,7 @@ describe('li-form-history.logic', () => {
         additional_info: {},
       },
       samples: {
-        type: 'param_set',
+        type: TdParamSpecTypeEnum.PARAM_SET,
         optional: true,
         visibility: 'public',
         human_name: 'Samples',

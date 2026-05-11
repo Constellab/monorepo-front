@@ -1,4 +1,5 @@
-import { inject, Injectable, OnDestroy } from '@angular/core';
+import { inject, Injectable, OnDestroy, ViewContainerRef } from '@angular/core';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { LiProcess, LiProtocolService, LiProtocolUpdateDTO } from '@monorepo/lab-lib/li-core';
 import {
   TdAbstractDynamicParamSpecState,
@@ -16,6 +17,8 @@ import { LabWorkflowEditConfig } from '../model/lab-workflow-edit-config.class';
 export class LabDynamicParamSpecState extends TdAbstractDynamicParamSpecState implements OnDestroy {
   private labProtocolService = inject(LiProtocolService);
   private editConfig = inject(LabWorkflowEditConfig);
+  private dialogService = inject(FlDialogService);
+  private viewContainerRef = inject(ViewContainerRef);
 
   private process: LiProcess = null;
 
@@ -40,10 +43,11 @@ export class LabDynamicParamSpecState extends TdAbstractDynamicParamSpecState im
   }
 
   openConfigureParamSpecsTableDialog(): void {
-    this.openConfigureParamSpecsDialog({
-      text: 'biox.agent_params_spec_description',
-      translateText: true,
-    });
+    this.openConfigureParamSpecsDialog(
+      { text: 'biox.agent_params_spec_description', translateText: true },
+      this.dialogService,
+      this.viewContainerRef
+    );
   }
 
   addParamSpec(paramName: string, paramSpec: TdParamSpec): Observable<TdParamSpecs> {

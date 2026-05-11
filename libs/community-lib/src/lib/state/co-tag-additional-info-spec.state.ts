@@ -1,4 +1,5 @@
-import { inject, Injectable, OnDestroy } from '@angular/core';
+import { inject, Injectable, OnDestroy, ViewContainerRef } from '@angular/core';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import {
   TdAbstractDynamicParamSpecState,
   TdParamSpec,
@@ -14,6 +15,8 @@ import { CoConfig } from '../service/co-service-config.config';
 @Injectable()
 export class CoTagAdditionalInfoSpecState extends TdAbstractDynamicParamSpecState implements OnDestroy {
   private coConfigService = inject(CoConfig);
+  private dialogService = inject(FlDialogService);
+  private viewContainerRef = inject(ViewContainerRef);
 
   onAdditionalInfoSpecsChanged$: Subject<TdParamSpecs> = new Subject<TdParamSpecs>();
 
@@ -27,10 +30,11 @@ export class CoTagAdditionalInfoSpecState extends TdAbstractDynamicParamSpecStat
   openConfigureParamSpecsTableDialog(): void {
     if (!this.tagKey) return;
 
-    this.openConfigureParamSpecsDialog({
-      text: 'coCommunityLib.tag_additional_info_spec_description',
-      translateText: true,
-    });
+    this.openConfigureParamSpecsDialog(
+      { text: 'coCommunityLib.tag_additional_info_spec_description', translateText: true },
+      this.dialogService,
+      this.viewContainerRef
+    );
   }
 
   addParamSpec(paramName: string, paramSpec: TdParamSpec): Observable<TdParamSpecs> {

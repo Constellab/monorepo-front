@@ -31,10 +31,12 @@ export class TdConfigureParamSpecsTableDialogComponent {
   private dynamicParamSpecState = inject(TdAbstractDynamicParamSpecState);
 
   description: FlTranslatableText = this.data.dynamicParamsDescription;
+  table = this.dynamicParamSpecState.paramSpecsTable;
 
   openEditParamSpecDialog(entry: TdParamSpecEntry = null): void {
     const input: TdEditParamSpecDialogInput = {
       paramSpecFormInfoList$: this.dynamicParamSpecState.getParamSpecsInfos(),
+      dynamicParamSpecState: this.dynamicParamSpecState,
       paramSpec: entry,
       title: entry
         ? { text: 'td.edit_param_spec', translateText: true }

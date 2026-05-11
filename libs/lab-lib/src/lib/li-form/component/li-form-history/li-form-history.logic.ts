@@ -1,4 +1,4 @@
-import { TdParamSpecs } from '@monorepo/technical-doc';
+import { TdParamSpecs, TdParamSpecTypeEnum } from '@monorepo/technical-doc';
 
 import { LiFormChangeAction } from '../../model/li-form.enum';
 import { LiFormChangeEntryDTO } from '../../model/li-form-save-event.entity';
@@ -32,7 +32,7 @@ export function liGetFieldDisplayName(fieldPath: string, specs?: TdParamSpecs): 
   if (parts.length > 1) {
     const rootKey = parts[0].replace(/\[\]$/, '');
     const rootSpec = specs[rootKey];
-    if (rootSpec?.type === 'param_set') {
+    if (rootSpec?.type === TdParamSpecTypeEnum.PARAM_SET) {
       const nestedKey = parts.slice(1).join('.');
       const nestedSpec = rootSpec.additional_info?.param_set?.[nestedKey];
       if (nestedSpec?.human_name) {

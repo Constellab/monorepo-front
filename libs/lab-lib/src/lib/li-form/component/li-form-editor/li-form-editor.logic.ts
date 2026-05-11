@@ -1,4 +1,9 @@
-import { TdParamSpecs, TdParamSpecsValues, TdParamSpecType } from '@monorepo/technical-doc';
+import {
+  TdParamSpecs,
+  TdParamSpecsValues,
+  TdParamSpecType,
+  TdParamSpecTypeEnum,
+} from '@monorepo/technical-doc';
 
 import { LiSaveFormDTO } from '../../model/li-form.entity';
 
@@ -43,7 +48,7 @@ export function liExtractSavePayload(
     const value = rawValues[key];
 
     // Process ParamSet items for __item_id handling
-    if (spec?.type === 'param_set' && Array.isArray(value)) {
+    if (spec?.type === TdParamSpecTypeEnum.PARAM_SET && Array.isArray(value)) {
       result[key] = liProcessParamSetItems(value as Record<string, unknown>[]);
     } else {
       result[key] = value;

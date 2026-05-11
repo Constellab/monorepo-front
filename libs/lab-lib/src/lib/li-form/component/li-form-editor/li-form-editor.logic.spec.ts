@@ -1,4 +1,4 @@
-import { TdParamSpecs } from '@monorepo/technical-doc';
+import { TdParamSpecs, TdParamSpecTypeEnum } from '@monorepo/technical-doc';
 
 import { liBuildSaveDTO, liExtractSavePayload, liIsFieldComputed } from './li-form-editor.logic';
 
@@ -23,7 +23,7 @@ describe('li-form-editor.logic', () => {
       additional_info: { expression: 'mass * 2', result_type: 'float' },
     },
     samples: {
-      type: 'param_set',
+      type: TdParamSpecTypeEnum.PARAM_SET,
       optional: true,
       visibility: 'public',
       additional_info: {

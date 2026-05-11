@@ -18,6 +18,7 @@
   <!-- Fields table -->
   @if (hasFields()) {
     <td-editable-param-specs-table
+      [table]="table"
       [columns]="tableColumns()"
       (editElementClick)="editField($event)"
       (deleteElementClick)="deleteField($event)" />
