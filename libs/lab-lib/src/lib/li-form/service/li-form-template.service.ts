@@ -3,7 +3,7 @@ import { ClPageI } from '@monorepo/core-lib';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { FlDatasourceGetPageData, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 import { FlSearchConverter } from '@monorepo/front-core-lib/fl-search';
-import { TdParamSpec, TdParamSpecInfo } from '@monorepo/technical-doc';
+import { TdParamSpec } from '@monorepo/technical-doc';
 import { Observable } from 'rxjs';
 
 import {
@@ -166,9 +166,5 @@ export class LiFormTemplateService {
   ): Observable<LiFormTemplateVersion> {
     const route = this.versionFieldRoute(templateId, versionId, fieldName);
     return this.apiService.delete(route, LiFormTemplateVersion);
-  }
-
-  public getParamSpecsInfos(): Observable<TdParamSpecInfo[]> {
-    return this.apiService.get(`${this.route}/config/get-param-spec-types`);
   }
 }

@@ -1,9 +1,4 @@
-import {
-  TdParamSpecs,
-  TdParamSpecsValues,
-  TdParamSpecType,
-  TdParamSpecTypeEnum,
-} from '@monorepo/technical-doc';
+import { TdParamSpecs, TdParamSpecsValues, TdParamSpecTypeEnum } from '@monorepo/technical-doc';
 
 import { LiSaveFormDTO } from '../../model/li-form.entity';
 
@@ -12,7 +7,7 @@ import { LiSaveFormDTO } from '../../model/li-form.entity';
  */
 export function liIsFieldComputed(schema: TdParamSpecs, key: string): boolean {
   const spec = schema[key];
-  return (spec?.type as TdParamSpecType) === 'computed_param';
+  return spec?.type === TdParamSpecTypeEnum.COMPUTED_PARAM;
 }
 
 /**

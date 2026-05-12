@@ -5,7 +5,6 @@ import {
   TdAbstractDynamicParamSpecState,
   TdConfig,
   TdParamSpec,
-  TdParamSpecInfo,
   TdParamSpecs,
 } from '@monorepo/technical-doc';
 import { Observable } from 'rxjs';
@@ -92,13 +91,6 @@ export class LabDynamicParamSpecState extends TdAbstractDynamicParamSpecState im
       paramSpec
     );
     return this.onPortalActionResult(obs);
-  }
-
-  getParamSpecsInfos(): Observable<TdParamSpecInfo[]> {
-    return this.labProtocolService.getParamSpecsInfos(
-      this.process.parentProtocolId,
-      this.process.instanceName
-    );
   }
 
   private onPortalActionResult(obs: Observable<LiProtocolUpdateDTO>): Observable<TdParamSpecs> {

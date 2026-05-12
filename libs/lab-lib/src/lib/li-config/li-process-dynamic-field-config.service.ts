@@ -10,7 +10,7 @@ import {
 import {
   TD_CODE_PARAM_SPEC_TYPE_LIST,
   TdDynamicEditableFormGroupComponent,
-  TdParamSpecType,
+  TdParamSpecTypeEnum,
 } from '@monorepo/technical-doc';
 
 /**
@@ -57,7 +57,7 @@ export class LiProcessDynamicFieldConfig extends FlDynamicFieldConfigService {
     const type =
       await import('./component/li-code-editor-dynamic-field/li-code-editor-dynamic-field.component');
     const component = viewContainer.createComponent(type.LiCodeEditorDynamicFieldComponent);
-    component.instance.specType = config.type as TdParamSpecType;
+    component.instance.specType = config.type as TdParamSpecTypeEnum;
     return component;
   }
 
@@ -114,10 +114,9 @@ export class LiProcessDynamicFieldConfig extends FlDynamicFieldConfigService {
   private async buildSelectScenarioField(
     viewContainer: ViewContainerRef
   ): Promise<ComponentRef<FlDynamicFieldAbstractDirective>> {
-    const type = await import(
-       
-      '../li-scenario/component/li-select-scenario-dynamic-field/li-select-scenario-dynamic-field.component'
-    );
+    const type =
+      // eslint-disable-next-line max-len
+      await import('../li-scenario/component/li-select-scenario-dynamic-field/li-select-scenario-dynamic-field.component');
     return viewContainer.createComponent(type.LiSelectScenarioDynamicFieldComponent);
   }
 

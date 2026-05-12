@@ -6,7 +6,6 @@ import {
   TdEditParamSpecDialogInput,
   TdParamSpec,
   TdParamSpecEntry,
-  TdParamSpecInfo,
   TdParamSpecs,
 } from '@monorepo/technical-doc';
 import { Observable } from 'rxjs';
@@ -45,7 +44,6 @@ export class LiFormTemplateDynamicParamSpecState
 
   openParamSpecFormDialog(entry?: TdParamSpecEntry, onUpdated?: () => void): void {
     const input: TdEditParamSpecDialogInput = {
-      paramSpecFormInfoList$: this.getParamSpecsInfos(),
       dynamicParamSpecState: this,
       paramSpec: entry,
       title: { text: entry ? 'li.form_edit_field' : 'li.form_add_field', translateText: true },
@@ -88,10 +86,6 @@ export class LiFormTemplateDynamicParamSpecState
     return this.formTemplateService
       .deleteField(this.templateId, this.versionId, paramName)
       .pipe(map((version) => this.refreshContent(version)));
-  }
-
-  getParamSpecsInfos(): Observable<TdParamSpecInfo[]> {
-    return this.formTemplateService.getParamSpecsInfos();
   }
 
   private refreshContent(version: LiFormTemplateVersion): TdParamSpecs {

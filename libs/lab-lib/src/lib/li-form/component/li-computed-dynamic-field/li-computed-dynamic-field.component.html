@@ -13,6 +13,10 @@
   </div>
 </div>
 
+@if (hint) {
+  <span class="computed-field-hint g-text-small">{{ hint }}</span>
+}
+
 @if (formCtrl.value?.errors) {
-  <span class="computed-field-error">{{ formCtrl.value.errors }}</span>
+  <span class="computed-field-error g-text-small">{{ formCtrl.value.errors }}</span>
 }

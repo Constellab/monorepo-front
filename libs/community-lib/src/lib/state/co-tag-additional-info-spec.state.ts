@@ -6,7 +6,7 @@ import {
   TdParamSpecInfo,
   TdParamSpecs,
 } from '@monorepo/technical-doc';
-import { Observable, of, Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { CO_ADDITIONAL_INFO_DICT, CoTagKey } from '../model/co-tag-key.class';
@@ -55,8 +55,8 @@ export class CoTagAdditionalInfoSpecState extends TdAbstractDynamicParamSpecStat
       .pipe(map((result: TdParamSpecs) => this.onPortalActionResult(result)));
   }
 
-  getParamSpecsInfos(): Observable<TdParamSpecInfo[]> {
-    return of(CO_ADDITIONAL_INFO_DICT);
+  getParamSpecsInfos(): TdParamSpecInfo[] {
+    return CO_ADDITIONAL_INFO_DICT;
   }
 
   renameAndEditParamSpec(oldName: string, newName: string, paramSpec: TdParamSpec): Observable<TdParamSpecs> {

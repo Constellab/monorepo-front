@@ -7,7 +7,6 @@ import { FlFileHelper } from '@monorepo/front-core-lib/fl-translate';
 import {
   TdIOSpec,
   TdParamSpec,
-  TdParamSpecInfo,
   TdParamSpecsValues,
   TdParamSpecVisibility,
   TdTypeStyle,
@@ -506,10 +505,6 @@ export class LiProtocolService {
   }
 
   ///////////////////////////////////////////////// PARAM SPEC /////////////////////////////////////////////
-
-  public getParamSpecsInfos(protocolId: string, processName: string): Observable<TdParamSpecInfo[]> {
-    return this.apiService.get(`${this.baseRoute}/${protocolId}/process/${processName}/get-param-spec-types`);
-  }
 
   public addDynamicParamSpec(
     protocolId: string,

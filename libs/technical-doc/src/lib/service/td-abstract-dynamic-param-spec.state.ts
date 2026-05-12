@@ -8,8 +8,13 @@ import {
   TdConfigureParamSpecsTableDialogComponent,
   TdConfigureParamSpecsTableDialogInput,
 } from '../component/td-configure-param-specs-table-dialog/td-configure-param-specs-table-dialog.component';
-import { TdParamSpecInfo } from '../component/td-edit-param-spec-dialog/td-edit-param-spec-dialog.component';
-import { TdParamSpec, TdParamSpecEntry, TdParamSpecs } from '../model/td-config-spec.class';
+import {
+  TD_PARAM_SPEC_INFO_LIST,
+  TdParamSpec,
+  TdParamSpecEntry,
+  TdParamSpecInfo,
+  TdParamSpecs,
+} from '../model/td-config-spec.class';
 
 @Injectable()
 export abstract class TdAbstractDynamicParamSpecState implements OnDestroy {
@@ -49,7 +54,9 @@ export abstract class TdAbstractDynamicParamSpecState implements OnDestroy {
 
   abstract deleteParamSpec(paramName: string): Observable<TdParamSpecs>;
 
-  abstract getParamSpecsInfos(): Observable<TdParamSpecInfo[]>;
+  getParamSpecsInfos(): TdParamSpecInfo[] {
+    return TD_PARAM_SPEC_INFO_LIST;
+  }
 
   ngOnDestroy(): void {
     this.paramSpecsTable?.disconnect();

@@ -3,100 +3,185 @@
 </fl-dialog-header>
 
 <mat-dialog-content>
-  @if (isLoading()) {
-    <fl-loader class="loader"></fl-loader>
-  } @else {
-    <form [id]="formId" [formGroup]="formGroup" class="form-content" (ngSubmit)="saveParamSpec()">
-      <div class="section">
-        <h4 class="section-title">{{ 'td.section_identity' | translate }}</h4>
+  <form [id]="formId" [formGroup]="formGroup" class="form-content" (ngSubmit)="saveParamSpec()">
+    <div class="section">
+      <h4 class="section-title">{{ 'td.section_identity' | translate }}</h4>
 
-        <mat-form-field class="full-width">
-          <mat-label>{{ 'td.type' | translate }}</mat-label>
-          <mat-select formControlName="type" (selectionChange)="onTypeChange($event.value)">
-            @for (group of groupedTypes(); track group.category) {
-              <mat-optgroup [label]="group.category">
-                @for (option of group.options; track option.key) {
-                  <mat-option [value]="option.key">{{ option.humanName }}</mat-option>
-                }
-              </mat-optgroup>
-            }
-          </mat-select>
-        </mat-form-field>
-
-        <mat-form-field class="full-width">
-          <mat-label>{{ 'td.key' | translate }}</mat-label>
-          <input matInput formControlName="key" />
-          @if (formGroup.get('key').hasError('pattern')) {
-            <mat-error>{{ 'td.key_invalid_identifier' | translate }}</mat-error>
+      <mat-form-field class="full-width">
+        <mat-label>{{ 'td.type' | translate }}</mat-label>
+        <mat-select formControlName="type" (selectionChange)="onTypeChange($event.value)">
+          @for (group of groupedTypes(); track group.category) {
+            <mat-optgroup [label]="'td.param_category.' + group.category | translate">
+              @for (type of group.types; track type) {
+                <mat-option [value]="type">{{ 'td.param_type.' + type | translate }}</mat-option>
+              }
+            </mat-optgroup>
           }
-        </mat-form-field>
+        </mat-select>
+      </mat-form-field>
 
-        <mat-form-field class="full-width">
-          <mat-label>{{ 'td.label' | translate }}</mat-label>
-          <input matInput formControlName="human_name" />
-        </mat-form-field>
+      <mat-form-field class="full-width">
+        <mat-label>{{ 'td.key' | translate }}</mat-label>
+        <input matInput formControlName="key" />
+        @if (formGroup.get('key').hasError('pattern')) {
+          <mat-error>{{ 'td.key_invalid_identifier' | translate }}</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <mat-label>{{ 'td.label' | translate }}</mat-label>
+        <input matInput formControlName="human_name" />
+      </mat-form-field>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div class="section">
+      <h4 class="section-title">{{ 'td.section_behavior' | translate }}</h4>
+
+      <div class="checkbox-row">
+        <mat-checkbox formControlName="optional">
+          {{ 'td.optional' | translate }}
+        </mat-checkbox>
       </div>
 
+      @if (defaultValueConfig()) {
+        <fl-dynamic-field [config]="defaultValueConfig()" [control]="$any(formGroup.get('default_value'))">
+        </fl-dynamic-field>
+      }
+
+      <mat-form-field class="full-width">
+        <mat-label>{{ 'td.short_description' | translate }}</mat-label>
+        <textarea matInput formControlName="short_description" rows="2"></textarea>
+      </mat-form-field>
+    </div>
+
+    @switch (selectedType()) {
+      @case ('str') {
+        <mat-divider></mat-divider>
+        <div class="section" formGroupName="additional_info">
+          <h4 class="section-title">{{ 'td.additional_info' | translate }}</h4>
+          <div class="row">
+            <mat-form-field class="half-width">
+              <mat-label>{{ 'td.min_length' | translate }}</mat-label>
+              <input matInput type="number" formControlName="min_length" />
+            </mat-form-field>
+            <mat-form-field class="half-width">
+              <mat-label>{{ 'td.max_length' | translate }}</mat-label>
+              <input matInput type="number" formControlName="max_length" />
+            </mat-form-field>
+          </div>
+          <mat-form-field class="full-width">
+            <mat-label>{{ 'td.allowed_values' | translate }}</mat-label>
+            <input matInput formControlName="allowed_values" />
+            <mat-hint>{{ 'td.allowed_values_hint' | translate }}</mat-hint>
+          </mat-form-field>
+        </div>
+      }
+      @case ('int') {
+        <mat-divider></mat-divider>
+        <div class="section" formGroupName="additional_info">
+          <h4 class="section-title">{{ 'td.additional_info' | translate }}</h4>
+          <div class="row">
+            <mat-form-field class="half-width">
+              <mat-label>{{ 'td.min_value' | translate }}</mat-label>
+              <input matInput type="number" formControlName="min_value" />
+            </mat-form-field>
+            <mat-form-field class="half-width">
+              <mat-label>{{ 'td.max_value' | translate }}</mat-label>
+              <input matInput type="number" formControlName="max_value" />
+            </mat-form-field>
+          </div>
+          <mat-form-field class="full-width">
+            <mat-label>{{ 'td.allowed_values' | translate }}</mat-label>
+            <input matInput formControlName="allowed_values" />
+            <mat-hint>{{ 'td.allowed_values_hint' | translate }}</mat-hint>
+          </mat-form-field>
+        </div>
+      }
+      @case ('float') {
+        <mat-divider></mat-divider>
+        <div class="section" formGroupName="additional_info">
+          <h4 class="section-title">{{ 'td.additional_info' | translate }}</h4>
+          <div class="row">
+            <mat-form-field class="half-width">
+              <mat-label>{{ 'td.min_value' | translate }}</mat-label>
+              <input matInput type="number" formControlName="min_value" />
+            </mat-form-field>
+            <mat-form-field class="half-width">
+              <mat-label>{{ 'td.max_value' | translate }}</mat-label>
+              <input matInput type="number" formControlName="max_value" />
+            </mat-form-field>
+          </div>
+          <mat-form-field class="full-width">
+            <mat-label>{{ 'td.allowed_values' | translate }}</mat-label>
+            <input matInput formControlName="allowed_values" />
+            <mat-hint>{{ 'td.allowed_values_hint' | translate }}</mat-hint>
+          </mat-form-field>
+        </div>
+      }
+      @case ('computed_param') {
+        <mat-divider></mat-divider>
+        <div class="section" formGroupName="additional_info">
+          <h4 class="section-title">{{ 'td.additional_info' | translate }}</h4>
+          <mat-form-field class="full-width">
+            <mat-label>{{ 'td.expression' | translate }}</mat-label>
+            <input matInput formControlName="expression" />
+            <mat-hint>{{ 'td.expression_hint' | translate }}</mat-hint>
+          </mat-form-field>
+          <mat-form-field class="full-width">
+            <mat-label>{{ 'td.result_type' | translate }}</mat-label>
+            <mat-select formControlName="result_type">
+              @for (t of resultTypeOptions; track t) {
+                <mat-option [value]="t">{{ 'td.param_type.' + t | translate }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </div>
+      }
+      @case ('param_set') {
+        <mat-divider></mat-divider>
+        <div class="section" formGroupName="additional_info">
+          <h4 class="section-title">{{ 'td.additional_info' | translate }}</h4>
+          <mat-form-field class="full-width">
+            <mat-label>{{ 'td.max_number_of_occurrences' | translate }}</mat-label>
+            <input matInput type="number" formControlName="max_number_of_occurrences" />
+          </mat-form-field>
+        </div>
+      }
+      @case ('credentials_param') {
+        <mat-divider></mat-divider>
+        <div class="section" formGroupName="additional_info">
+          <h4 class="section-title">{{ 'td.additional_info' | translate }}</h4>
+          <mat-form-field class="full-width">
+            <mat-label>{{ 'td.credentials_type' | translate }}</mat-label>
+            <input matInput formControlName="credentials_type" />
+          </mat-form-field>
+        </div>
+      }
+    }
+
+    @if (isParamSetType() && localParamSpecState) {
       <mat-divider></mat-divider>
 
       <div class="section">
-        <h4 class="section-title">{{ 'td.section_behavior' | translate }}</h4>
-
-        <div class="checkbox-row">
-          <mat-checkbox formControlName="optional">
-            {{ 'td.optional' | translate }}
-          </mat-checkbox>
+        <div class="section-header">
+          <h4 class="section-title">{{ 'td.param_set' | translate }}</h4>
+          <button mat-stroked-button type="button" class="g-button-small" (click)="openAddSubParamDialog()">
+            <mat-icon>add</mat-icon>
+            {{ 'td.add_sub_field' | translate }}
+          </button>
         </div>
+        <p class="g-text-small g-text-light">{{ 'td.param_set_description' | translate }}</p>
 
-        @if (!isParamSetType()) {
-          <mat-form-field class="full-width">
-            <mat-label>{{ 'td.default_value' | translate }}</mat-label>
-            <input matInput formControlName="default_value" />
-          </mat-form-field>
-        }
-
-        <mat-form-field class="full-width">
-          <mat-label>{{ 'td.short_description' | translate }}</mat-label>
-          <textarea matInput formControlName="short_description" rows="2"></textarea>
-        </mat-form-field>
+        <td-editable-param-specs-table
+          [table]="localParamSpecState.paramSpecsTable"
+          [columns]="['label', 'type', 'menu']"
+          (editElementClick)="openEditSubParamDialog($event)"
+          (deleteElementClick)="deleteSubParam($event)" />
       </div>
-
-      @if (additionalInfoFormGroupConfig()) {
-        <mat-divider></mat-divider>
-
-        <div class="section" formGroupName="additional_info">
-          <h4 class="section-title">{{ 'td.additional_info' | translate }}</h4>
-
-          <fl-dynamic-form-group
-            class="g-form-field-compact"
-            [control]="$any(formGroup.get('additional_info'))"
-            [config]="additionalInfoFormGroupConfig()">
-          </fl-dynamic-form-group>
-        </div>
-      }
-
-      @if (isParamSetType() && localParamSpecState) {
-        <mat-divider></mat-divider>
-
-        <div class="section">
-          <div class="section-header">
-            <h4 class="section-title">{{ 'td.param_set' | translate }}</h4>
-            <button mat-stroked-button type="button" class="g-button-small" (click)="openAddSubParamDialog()">
-              <mat-icon>add</mat-icon>
-              {{ 'td.add_sub_field' | translate }}
-            </button>
-          </div>
-          <p class="g-text-small g-text-light">{{ 'td.param_set_description' | translate }}</p>
-
-          <td-editable-param-specs-table
-            [table]="localParamSpecState.paramSpecsTable"
-            [columns]="['label', 'type', 'menu']"
-            (editElementClick)="openEditSubParamDialog($event)"
-            (deleteElementClick)="deleteSubParam($event)" />
-        </div>
-      }
-    </form>
-  }
+    }
+  </form>
 </mat-dialog-content>
 
 <mat-dialog-actions align="center">

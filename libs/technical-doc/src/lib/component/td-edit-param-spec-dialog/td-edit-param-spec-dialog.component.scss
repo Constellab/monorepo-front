@@ -24,6 +24,15 @@
   width: 100%;
 }
 
+.row {
+  display: flex;
+  gap: 8px;
+}
+
+.half-width {
+  flex: 1;
+}
+
 .checkbox-row {
   margin-bottom: 8px;
 }

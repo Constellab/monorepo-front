@@ -1,7 +1,12 @@
 import { Observable, of } from 'rxjs';
 
-import { TdParamSpecInfo } from '../component/td-edit-param-spec-dialog/td-edit-param-spec-dialog.component';
-import { TdParamSpec, TdParamSpecs } from '../model/td-config-spec.class';
+import {
+  TD_PARAM_SPEC_INFO_LIST,
+  TdParamSpec,
+  TdParamSpecInfo,
+  TdParamSpecs,
+  TdParamSpecTypeEnum,
+} from '../model/td-config-spec.class';
 import { TdAbstractDynamicParamSpecState } from './td-abstract-dynamic-param-spec.state';
 
 /**
@@ -9,13 +14,6 @@ import { TdAbstractDynamicParamSpecState } from './td-abstract-dynamic-param-spe
  * Used for managing sub-params of a param_set without backend calls.
  */
 export class TdLocalParamSpecState extends TdAbstractDynamicParamSpecState {
-  private paramSpecInfoList$: Observable<TdParamSpecInfo[]>;
-
-  constructor(paramSpecInfoList$: Observable<TdParamSpecInfo[]>) {
-    super();
-    this.paramSpecInfoList$ = paramSpecInfoList$;
-  }
-
   openConfigureParamSpecsTableDialog(): void {
     // noop — not used in local mode
   }
@@ -49,15 +47,20 @@ export class TdLocalParamSpecState extends TdAbstractDynamicParamSpecState {
     return of(specs);
   }
 
-  getParamSpecsInfos(): Observable<TdParamSpecInfo[]> {
-    return this.paramSpecInfoList$;
-  }
-
   getCurrentSpecs(): TdParamSpecs {
     const record: TdParamSpecs = {};
     for (const entry of this.paramSpecsTable.array) {
       record[entry.key] = entry.spec;
     }
     return record;
+  }
+
+  /**
+   * We can have param_set inside another param_set,
+   * so we remove the param_set type from the list.
+   * @returns
+   */
+  getParamSpecsInfos(): TdParamSpecInfo[] {
+    return TD_PARAM_SPEC_INFO_LIST.filter((info) => info.type !== TdParamSpecTypeEnum.PARAM_SET);
   }
 }

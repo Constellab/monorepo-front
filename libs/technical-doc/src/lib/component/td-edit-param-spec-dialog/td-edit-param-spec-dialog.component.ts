@@ -1,38 +1,27 @@
-import { Component, inject, OnDestroy, signal, ViewContainerRef } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, signal, ViewContainerRef } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ClStringHelper, ClSubscriptionHandler } from '@monorepo/core-lib';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import {
-  FlDynamicFieldSelectKeyNameOption,
-  FlDynamicFormGroupConfig,
-  FlDynamicFormHelper,
-} from '@monorepo/front-core-lib/fl-dynamic-field';
+import { FlDynamicFieldConfig } from '@monorepo/front-core-lib/fl-dynamic-field';
 import { FlTranslatableText, FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 import {
+  TD_TYPES_WITHOUT_DEFAULT_VALUE,
+  tdBuildGroupedTypes,
+  TdGroupedParamSpecTypes,
   TdParamSpec,
-  TdParamSpecCategory,
+  TdParamSpecBase,
   TdParamSpecEntry,
   TdParamSpecs,
-  TdParamSpecSimple,
-  TdParamSpecType,
   TdParamSpecTypeEnum,
 } from '../../model/td-config-spec.class';
 import { TdParamSpecConfig } from '../../model/td-param-spec-config.class';
 import { TdAbstractDynamicParamSpecState } from '../../service/td-abstract-dynamic-param-spec.state';
 import { TdLocalParamSpecState } from '../../service/td-local-param-spec.state';
 
-export interface TdParamSpecInfo {
-  type: TdParamSpecType;
-  category: TdParamSpecCategory;
-  additional_info: Record<string, TdParamSpecSimple> | null;
-}
-
 export interface TdEditParamSpecDialogInput {
-  paramSpecFormInfoList$: Observable<TdParamSpecInfo[]>;
   dynamicParamSpecState: TdAbstractDynamicParamSpecState;
   /**
    * Provided if mode is update, null if create
@@ -48,43 +37,48 @@ export interface TdEditParamSpecDialogInput {
   styleUrl: './td-edit-param-spec-dialog.component.scss',
   standalone: false,
 })
-export class TdEditParamSpecDialogComponent implements OnDestroy {
+export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
   private dialogRef = inject<MatDialogRef<TdEditParamSpecDialogComponent>>(MatDialogRef);
   private dialogService = inject(FlDialogService);
   private viewContainerRef = inject(ViewContainerRef);
   private translateService = inject(FlTranslateService);
 
-  readonly isLoading = signal(true);
   readonly isButtonLoading = signal(false);
-  readonly groupedTypes = signal<{ category: string; options: FlDynamicFieldSelectKeyNameOption[] }[]>([]);
+  readonly groupedTypes = signal<TdGroupedParamSpecTypes[]>([]);
   readonly isParamSetType = signal(false);
+  readonly hideDefaultValue = signal(false);
+  readonly selectedType = signal<TdParamSpecTypeEnum>(TdParamSpecTypeEnum.STR);
+  readonly defaultValueConfig = signal<FlDynamicFieldConfig | null>(null);
 
   formGroup: FormGroup;
   readonly formId = `paramSpecForm_${Math.random().toString(36).slice(2, 8)}`;
-  additionalInfoFormGroupConfig = signal<FlDynamicFormGroupConfig | null>(null);
   localParamSpecState: TdLocalParamSpecState | null = null;
 
   data = inject<TdEditParamSpecDialogInput>(MAT_DIALOG_DATA);
 
-  private paramSpecInfoList: TdParamSpecInfo[] = [];
+  readonly resultTypeOptions: TdParamSpecTypeEnum[] = [
+    TdParamSpecTypeEnum.INT,
+    TdParamSpecTypeEnum.FLOAT,
+    TdParamSpecTypeEnum.STR,
+    TdParamSpecTypeEnum.BOOL,
+  ];
+
   private labelManuallyEdited = false;
   private subscriptions = new ClSubscriptionHandler();
 
-  constructor() {
-    const data = inject<TdEditParamSpecDialogInput>(MAT_DIALOG_DATA);
-
-    this.subscriptions.add(
-      data.paramSpecFormInfoList$.subscribe({
-        next: (list) => this.onParamSpecInfoLoaded(list),
-        error: () => this.isLoading.set(false),
-      })
-    );
+  ngOnInit(): void {
+    const list = this.data.dynamicParamSpecState.getParamSpecsInfos();
+    this.groupedTypes.set(tdBuildGroupedTypes(list));
+    this.initForm();
   }
 
-  onTypeChange(type: TdParamSpecType): void {
+  onTypeChange(type: TdParamSpecTypeEnum): void {
     this.formGroup.get('default_value').reset(null);
     this.isParamSetType.set(type === TdParamSpecTypeEnum.PARAM_SET);
-    this.buildAdditionalInfoForm(type);
+    this.hideDefaultValue.set(TD_TYPES_WITHOUT_DEFAULT_VALUE.includes(type));
+    this.selectedType.set(type);
+    this.buildDefaultValueConfig(type);
+    this.buildAdditionalInfoControls(type);
 
     if (type === TdParamSpecTypeEnum.PARAM_SET) {
       this.initLocalParamSpecState();
@@ -113,9 +107,6 @@ export class TdEditParamSpecDialogComponent implements OnDestroy {
 
   openAddSubParamDialog(): void {
     const input: TdEditParamSpecDialogInput = {
-      paramSpecFormInfoList$: this.data.paramSpecFormInfoList$.pipe(
-        map((list) => list.filter((i) => i.type !== TdParamSpecTypeEnum.PARAM_SET))
-      ),
       dynamicParamSpecState: this.localParamSpecState,
       title: { text: 'td.add_sub_field', translateText: true },
       saveButtonText: { text: 'td.add_sub_field', translateText: true },
@@ -132,9 +123,6 @@ export class TdEditParamSpecDialogComponent implements OnDestroy {
 
   openEditSubParamDialog(entry: TdParamSpecEntry): void {
     const input: TdEditParamSpecDialogInput = {
-      paramSpecFormInfoList$: this.data.paramSpecFormInfoList$.pipe(
-        map((list) => list.filter((i) => i.type !== TdParamSpecTypeEnum.PARAM_SET))
-      ),
       dynamicParamSpecState: this.localParamSpecState,
       paramSpec: entry,
       title: { text: 'td.update_sub_field', translateText: true },
@@ -159,31 +147,6 @@ export class TdEditParamSpecDialogComponent implements OnDestroy {
     this.localParamSpecState?.ngOnDestroy();
   }
 
-  private onParamSpecInfoLoaded(list: TdParamSpecInfo[]): void {
-    this.paramSpecInfoList = list;
-    this.groupedTypes.set(this.buildGroupedTypes(list));
-    this.initForm();
-    this.isLoading.set(false);
-  }
-
-  /** Groups the flat param spec info list by category for the mat-optgroup type selector. */
-  private buildGroupedTypes(
-    list: TdParamSpecInfo[]
-  ): { category: string; options: FlDynamicFieldSelectKeyNameOption[] }[] {
-    const groupMap = new Map<string, FlDynamicFieldSelectKeyNameOption[]>();
-    for (const info of list) {
-      if (!groupMap.has(info.category)) {
-        groupMap.set(info.category, []);
-      }
-      const label = this.translateService.translate(`td.param_type.${info.type}`);
-      groupMap.get(info.category).push({ key: info.type, humanName: label, group: info.category });
-    }
-    return Array.from(groupMap.entries()).map(([category, options]) => ({
-      category: this.translateService.translate(`td.param_category.${category}`),
-      options,
-    }));
-  }
-
   private initForm(): void {
     this.formGroup = new FormGroup({
       type: new FormControl('str', Validators.required),
@@ -203,6 +166,8 @@ export class TdEditParamSpecDialogComponent implements OnDestroy {
 
     const currentType = this.formGroup.get('type').value;
     this.isParamSetType.set(currentType === TdParamSpecTypeEnum.PARAM_SET);
+    this.hideDefaultValue.set(TD_TYPES_WITHOUT_DEFAULT_VALUE.includes(currentType));
+    this.selectedType.set(currentType);
 
     if (currentType === TdParamSpecTypeEnum.PARAM_SET) {
       this.initLocalParamSpecState(this.data.paramSpec?.spec.additional_info?.param_set);
@@ -221,45 +186,76 @@ export class TdEditParamSpecDialogComponent implements OnDestroy {
       }),
     ]);
 
-    this.buildAdditionalInfoForm(this.formGroup.get('type').value, this.data.paramSpec?.spec.additional_info);
+    this.buildDefaultValueConfig(currentType);
+    this.buildAdditionalInfoControls(currentType, this.data.paramSpec?.spec.additional_info);
+  }
+
+  private buildDefaultValueConfig(type: TdParamSpecTypeEnum): void {
+    if (TD_TYPES_WITHOUT_DEFAULT_VALUE.includes(type)) {
+      this.defaultValueConfig.set(null);
+      return;
+    }
+
+    const spec: TdParamSpecBase = {
+      type,
+      optional: true,
+      visibility: 'public',
+      human_name: this.translateService.translate('td.default_value'),
+      short_description: null,
+      additional_info: {},
+    };
+
+    this.defaultValueConfig.set(TdParamSpecConfig.convertParamSpecToAbstractConfig(spec));
   }
 
   /**
-   * Builds the dynamic form for type-specific fields (e.g. min/max for numbers, allowed_values for strings).
-   * Looks up the additional_info definition for the given type, converts each field to a dynamic form config,
-   * then generates and patches the form group with existing values from initialSpec.
+   * Builds type-specific form controls for the additional_info section.
+   * Each type gets its own set of controls instead of using a generic dynamic form.
    */
-  private buildAdditionalInfoForm(type: TdParamSpecType, initialValue?: any): void {
-    // Remove previous additional_info sub-group if it exists
+  private buildAdditionalInfoControls(type: TdParamSpecTypeEnum, initialValue?: any): void {
     if (this.formGroup.contains('additional_info')) {
       this.formGroup.removeControl('additional_info');
     }
 
-    const info = this.paramSpecInfoList.find((i) => i.type === type);
+    let group: FormGroup | null = null;
 
-    if (!info?.additional_info || Object.keys(info.additional_info).length === 0) {
-      this.additionalInfoFormGroupConfig.set(null);
-      return;
+    switch (type) {
+      case 'str':
+        group = new FormGroup({
+          min_length: new FormControl(initialValue?.min_length ?? null),
+          max_length: new FormControl(initialValue?.max_length ?? null),
+          allowed_values: new FormControl(initialValue?.allowed_values ?? null),
+        });
+        break;
+      case 'int':
+      case 'float':
+        group = new FormGroup({
+          min_value: new FormControl(initialValue?.min_value ?? null),
+          max_value: new FormControl(initialValue?.max_value ?? null),
+          allowed_values: new FormControl(initialValue?.allowed_values ?? null),
+        });
+        break;
+      case 'computed_param':
+        group = new FormGroup({
+          expression: new FormControl(initialValue?.expression ?? null, Validators.required),
+          result_type: new FormControl(initialValue?.result_type ?? null, Validators.required),
+        });
+        break;
+      case 'param_set':
+        group = new FormGroup({
+          max_number_of_occurrences: new FormControl(initialValue?.max_number_of_occurrences ?? null),
+        });
+        break;
+      case 'credentials_param':
+        group = new FormGroup({
+          credentials_type: new FormControl(initialValue?.credentials_type ?? null),
+        });
+        break;
     }
 
-    const config: FlDynamicFormGroupConfig = { controlType: 'formGroup', subConfigs: {} };
-    for (const specName of Object.keys(info.additional_info)) {
-      // Skip 'param_set' key — managed by the sub-params list UI
-      if (type === TdParamSpecTypeEnum.PARAM_SET && specName === TdParamSpecTypeEnum.PARAM_SET) continue;
-
-      config.subConfigs[specName] = TdParamSpecConfig.convertParamSpecToAbstractConfig(
-        info.additional_info[specName]
-      );
+    if (group) {
+      this.formGroup.addControl('additional_info', group);
     }
-
-    if (Object.keys(config.subConfigs).length === 0) {
-      this.additionalInfoFormGroupConfig.set(null);
-      return;
-    }
-
-    const subGroup = FlDynamicFormHelper.generateFormGroup(config, initialValue);
-    this.formGroup.addControl('additional_info', subGroup);
-    this.additionalInfoFormGroupConfig.set(config);
   }
 
   private buildParamSpecFromForm(): TdParamSpec {
@@ -298,7 +294,7 @@ export class TdEditParamSpecDialogComponent implements OnDestroy {
 
   private initLocalParamSpecState(existingSpecs?: TdParamSpecs): void {
     this.localParamSpecState?.ngOnDestroy();
-    this.localParamSpecState = new TdLocalParamSpecState(this.data.paramSpecFormInfoList$);
+    this.localParamSpecState = new TdLocalParamSpecState();
     if (existingSpecs) {
       this.localParamSpecState.setParamSpecs(existingSpecs);
     }

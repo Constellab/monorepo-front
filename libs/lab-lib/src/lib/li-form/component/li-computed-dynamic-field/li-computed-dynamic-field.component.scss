@@ -28,8 +28,12 @@
   margin-left: auto;
 }
 
+.computed-field-hint {
+  color: var(--light-color);
+  padding: 2px 12px 0;
+}
+
 .computed-field-error {
-  font-size: 12px;
   color: var(--warn-color);
   padding: 2px 12px 0;
 }
