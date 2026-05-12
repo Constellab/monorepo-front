@@ -135,6 +135,7 @@ export class FlDynamicFieldConfigService {
   ): ComponentRef<FlDynamicFieldAbstractDirective> {
     const selectComponent = viewContainer.createComponent(FlDynamicFieldSelectComponent);
     selectComponent.instance.selectOptionsInput = config.selectOptions as any;
+    selectComponent.instance.multiple = !!config.multiple;
     selectComponent.instance.prefix = config.prefix;
     selectComponent.instance.suffix = config.suffix;
     return selectComponent;

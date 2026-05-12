@@ -13,13 +13,17 @@ import {
   TD_CODE_PARAM_SPEC_TYPE_LIST,
   TdParamSpec,
   TdParamSpecBase,
+  TdParamSpecSelect,
   TdParamSpecSimple,
 } from './td-config-spec.class';
 
 export class TdParamSpecConfig {
   public static convertParamSpecToAbstractConfig(
-    spec: TdParamSpecSimple | TdParamSpecBase
+    spec: TdParamSpecSimple | TdParamSpecSelect | TdParamSpecBase
   ): FlDynamicFieldConfig {
+    if (spec.type === 'select_param') {
+      return TdParamSpecConfig.convertSelectParam(spec as TdParamSpecSelect);
+    }
     if (spec.type === 'computed_param') {
       const config: FlDynamicFieldConfigUnknown = TdParamSpecConfig.convertToBaseFieldConfig(spec) as any;
       config.type = 'computed';
@@ -123,6 +127,29 @@ export class TdParamSpecConfig {
       // raise error for unknown type
       throw new Error('Unknown param spec type: ' + spec.type);
     }
+  }
+
+  private static convertSelectParam(spec: TdParamSpecSelect): FlDynamicFieldConfig {
+    const options = (spec.additional_info?.allowed_values ?? [])
+      .filter((opt) => opt.value != null && String(opt.value).length > 0)
+      .map((opt) => ({ key: String(opt.value), humanName: opt.label || String(opt.value) }));
+    const base = TdParamSpecConfig.convertToBaseFieldConfig(spec);
+    const noneOption: { key: string; humanName: string } = { key: null, humanName: '—' };
+
+    const isMultiple = !!spec.additional_info?.multiple;
+    // if there are more than 10 options and it's not multiple, use select-search
+    if (options.length > 10 && !isMultiple) {
+      const config: FlDynamicFieldConfigSelectSearch = base as any;
+      config.type = 'select-search';
+      config.selectOptions = options.map((o) => o.key);
+      return config;
+    }
+
+    const config: FlDynamicFieldConfigSelect = base as any;
+    config.type = 'select';
+    config.multiple = isMultiple;
+    config.selectOptions = isMultiple ? options : [noneOption, ...options];
+    return config;
   }
 
   public static convertToBaseFieldConfig(spec: TdParamSpec | TdParamSpecBase): FlDynamicFieldConfigBase {

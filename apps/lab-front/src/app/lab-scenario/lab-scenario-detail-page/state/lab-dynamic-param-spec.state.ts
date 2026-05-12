@@ -23,22 +23,25 @@ export class LabDynamicParamSpecState extends TdAbstractDynamicParamSpecState im
 
   setProcess(process: LiProcess): void {
     this.process = process;
-    const dynamicConfigSpec = this.getDynamicConfigSpecParamSpecs().additional_info.specs;
-    this.setParamSpecs(dynamicConfigSpec);
+    const dynamicConfigSpec = this.getDynamicConfigSpecParamSpecs();
+    if (dynamicConfigSpec) {
+      this.setParamSpecs(dynamicConfigSpec.additional_info.specs);
+    }
   }
 
-  getDynamicConfigSpecName(): string {
+  getDynamicConfigSpecName(): string | null {
     for (const spec of Object.keys(this.process.config.specs)) {
       if (this.process.config.specs[spec] && this.process.config.specs[spec].type == 'dynamic') {
         return spec;
       }
     }
-
-    throw new Error('No dynamic config spec found in process config');
+    return null;
   }
 
-  getDynamicConfigSpecParamSpecs(): TdParamSpec {
-    return this.process.config.specs[this.getDynamicConfigSpecName()];
+  getDynamicConfigSpecParamSpecs(): TdParamSpec | null {
+    const specName = this.getDynamicConfigSpecName();
+    if (!specName) return null;
+    return this.process.config.specs[specName];
   }
 
   openConfigureParamSpecsTableDialog(): void {

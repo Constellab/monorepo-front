@@ -3,7 +3,6 @@ import { MenuConfig } from '@editorjs/editorjs/types/tools';
 import { BlockToolConstructorOptions } from '@editorjs/editorjs/types/tools/block-tool';
 import { BlockToolData } from '@editorjs/editorjs/types/tools/block-tool-data';
 import { ToolboxConfigEntry } from '@editorjs/editorjs/types/tools/tool-settings';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { TeComponentBlock, TeHelper } from '@monorepo/text-editor';
 
 import { LiRichTextFormComponent } from './component/li-rich-text-form/li-rich-text-form.component';
@@ -101,43 +100,9 @@ export class LiRichTextFormBlock extends TeComponentBlock<LiRichTextFormComponen
   override appendCallback(): void {
     const insertMode = this.data?.insertMode;
     if (insertMode === 'reference') {
-      this.openSelectExistingForm();
+      this.componentInstance.openSelectExistingForm();
     } else {
-      this.openCreateNewForm();
+      this.componentInstance.openCreateNewForm();
     }
-  }
-
-  private async openCreateNewForm(): Promise<void> {
-    const { LiCreateFormDialogComponent } = await import('@monorepo/lab-lib/li-form');
-    const dialogService = this.envInjector.get(FlDialogService);
-    dialogService
-      .openSmallDialog(LiCreateFormDialogComponent, {
-        data: { mode: 'create' },
-      })
-      .afterClosed()
-      .subscribe((form) => {
-        if (form == null) return;
-        this.setFormData(form, true);
-      });
-  }
-
-  private async openSelectExistingForm(): Promise<void> {
-    const { LiSelectFormDialogComponent } = await import('@monorepo/lab-lib/li-form');
-    const dialogService = this.envInjector.get(FlDialogService);
-    dialogService
-      .openBigDialog(LiSelectFormDialogComponent)
-      .afterClosed()
-      .subscribe((form) => {
-        if (form == null) return;
-        this.setFormData(form, false);
-      });
-  }
-
-  private setFormData(form: { id: string }, isOwner: boolean): void {
-    this.options.data = {
-      form_id: form.id,
-      is_owner: isOwner,
-    };
-    this.initInputs(this.data);
   }
 }

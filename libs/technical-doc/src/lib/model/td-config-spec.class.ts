@@ -25,6 +25,7 @@ export enum TdParamSpecTypeEnum {
   SCENARIO_PARAM = 'scenario_param',
   COMPUTED_PARAM = 'computed_param',
   PARAM_SET = 'param_set',
+  SELECT_PARAM = 'select_param',
 }
 
 /**
@@ -82,7 +83,12 @@ export interface TdParamSpecBase {
 /**
  * All param set spec type including param set spec
  */
-export type TdParamSpec = TdParamSpecSimple | TdParamSpecParamSet | TdParamSpecDynamic | TdParamSpecComputed;
+export type TdParamSpec =
+  | TdParamSpecSimple
+  | TdParamSpecParamSet
+  | TdParamSpecDynamic
+  | TdParamSpecComputed
+  | TdParamSpecSelect;
 
 export type TdParamSpecs = Record<string, TdParamSpec>;
 /**
@@ -185,6 +191,22 @@ export interface TdParamSpecComputed extends TdParamSpecBase {
   additional_info: any;
 }
 
+export interface TdSelectParamOption {
+  label: string;
+  value: string | number | boolean | null;
+}
+
+export interface TdParamSpecSelect extends TdParamSpecBase {
+  type: TdParamSpecTypeEnum.SELECT_PARAM;
+
+  default_value: TdSelectParamOption['value'] | TdSelectParamOption['value'][] | null;
+
+  additional_info: {
+    allowed_values: TdSelectParamOption[];
+    multiple: boolean;
+  };
+}
+
 export type TdParamSpecsValues = Record<string, any>;
 
 export interface TdParamSpecEntry {
@@ -211,6 +233,7 @@ export const TD_PARAM_SPEC_INFO_LIST: TdParamSpecInfo[] = [
   { type: TdParamSpecTypeEnum.BOOL, category: TdParamSpecCategory.SIMPLE },
   { type: TdParamSpecTypeEnum.INT, category: TdParamSpecCategory.SIMPLE },
   { type: TdParamSpecTypeEnum.FLOAT, category: TdParamSpecCategory.SIMPLE },
+  { type: TdParamSpecTypeEnum.SELECT_PARAM, category: TdParamSpecCategory.SIMPLE },
 
   // Code params
   { type: TdParamSpecTypeEnum.JSON_CODE_PARAM, category: TdParamSpecCategory.CODE },

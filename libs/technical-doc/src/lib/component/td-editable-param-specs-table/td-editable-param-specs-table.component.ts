@@ -1,6 +1,7 @@
-import { Component, Input, input, output } from '@angular/core';
+import { Component, inject, Input, input, output } from '@angular/core';
 import { ClHelpService, ClStringHelper } from '@monorepo/core-lib';
 import { FlArrayObs } from '@monorepo/front-core-lib/fl-core';
+import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 
 import { TD_TYPES_WITHOUT_DEFAULT_VALUE, TdParamSpecEntry } from '../../model/td-config-spec.class';
 
@@ -11,6 +12,8 @@ import { TD_TYPES_WITHOUT_DEFAULT_VALUE, TdParamSpecEntry } from '../../model/td
   standalone: false,
 })
 export class TdEditableParamSpecsTableComponent {
+  private translateService = inject(FlTranslateService);
+
   @Input() columns: string[] = ['label', 'type', 'optional', 'default_value', 'additional_info', 'menu'];
 
   table = input.required<FlArrayObs<TdParamSpecEntry>>();
@@ -51,37 +54,45 @@ export class TdEditableParamSpecsTableComponent {
     switch (entry.spec.type) {
       case 'str':
         return this.buildItems(info, [
-          { key: 'min_length', label: 'Min length' },
-          { key: 'max_length', label: 'Max length' },
-          { key: 'allowed_values', label: 'Allowed', format: this.formatArray },
+          { key: 'min_length', label: this.t('td.min_length') },
+          { key: 'max_length', label: this.t('td.max_length') },
         ]);
 
       case 'int':
       case 'float':
         return this.buildItems(info, [
-          { key: 'min_value', label: 'Min' },
-          { key: 'max_value', label: 'Max' },
-          { key: 'allowed_values', label: 'Allowed', format: this.formatArray },
+          { key: 'min_value', label: this.t('td.min_value') },
+          { key: 'max_value', label: this.t('td.max_value') },
         ]);
 
       case 'computed_param':
         return this.buildItems(info, [
-          { key: 'expression', label: 'Expression' },
-          { key: 'result_type', label: 'Result type' },
+          { key: 'expression', label: this.t('td.expression') },
+          { key: 'result_type', label: this.t('td.result_type') },
         ]);
 
       case 'param_set':
         return this.buildItems(info, [
-          { key: 'max_number_of_occurrences', label: 'Max rows' },
+          { key: 'max_number_of_occurrences', label: this.t('td.max_number_of_occurrences') },
           {
             key: 'param_set',
-            label: 'Columns',
+            label: this.t('td.columns'),
             format: (v) => (typeof v === 'object' ? Object.keys(v).length + ' columns' : String(v)),
           },
         ]);
 
       case 'credentials_param':
-        return this.buildItems(info, [{ key: 'credentials_type', label: 'Credentials type' }]);
+        return this.buildItems(info, [{ key: 'credentials_type', label: this.t('td.credentials_type') }]);
+
+      case 'select_param':
+        return this.buildItems(info, [
+          {
+            key: 'allowed_values',
+            label: this.t('td.options'),
+            format: (v) => (Array.isArray(v) ? v.map((o: any) => o.label ?? o.value).join(', ') : String(v)),
+          },
+          { key: 'multiple', label: this.t('td.allow_multiple') },
+        ]);
 
       default:
         return Object.keys(info)
@@ -90,7 +101,9 @@ export class TdEditableParamSpecsTableComponent {
     }
   }
 
-  private formatArray = (v: any): string => (Array.isArray(v) ? v.join(', ') : String(v));
+  private t(key: string): string {
+    return this.translateService.translate(key);
+  }
 
   private buildItems(
     info: Record<string, any>,

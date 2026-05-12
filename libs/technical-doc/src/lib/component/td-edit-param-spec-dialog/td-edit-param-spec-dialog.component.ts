@@ -16,6 +16,7 @@ import {
   TdParamSpecEntry,
   TdParamSpecs,
   TdParamSpecTypeEnum,
+  TdSelectParamOption,
 } from '../../model/td-config-spec.class';
 import { TdParamSpecConfig } from '../../model/td-param-spec-config.class';
 import { TdAbstractDynamicParamSpecState } from '../../service/td-abstract-dynamic-param-spec.state';
@@ -77,8 +78,8 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
     this.isParamSetType.set(type === TdParamSpecTypeEnum.PARAM_SET);
     this.hideDefaultValue.set(TD_TYPES_WITHOUT_DEFAULT_VALUE.includes(type));
     this.selectedType.set(type);
-    this.buildDefaultValueConfig(type);
     this.buildAdditionalInfoControls(type);
+    this.buildDefaultValueConfig(type);
 
     if (type === TdParamSpecTypeEnum.PARAM_SET) {
       this.initLocalParamSpecState();
@@ -138,6 +139,27 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
       .subscribe();
   }
 
+  addSelectOption(): void {
+    const control = this.formGroup.get('additional_info.allowed_values');
+    const current: TdSelectParamOption[] = control.value ?? [];
+    control.setValue([...current, { label: null, value: null }]);
+  }
+
+  removeSelectOption(index: number): void {
+    const control = this.formGroup.get('additional_info.allowed_values');
+    const current: TdSelectParamOption[] = [...(control.value ?? [])];
+    if (current.length <= 1) return;
+    current.splice(index, 1);
+    control.setValue(current);
+  }
+
+  updateSelectOption(index: number, value: string): void {
+    const control = this.formGroup.get('additional_info.allowed_values');
+    const current: TdSelectParamOption[] = [...(control.value ?? [])];
+    current[index] = { label: value, value };
+    control.setValue(current);
+  }
+
   deleteSubParam(entry: TdParamSpecEntry): void {
     this.localParamSpecState.deleteParamSpec(entry.key).subscribe();
   }
@@ -186,11 +208,11 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
       }),
     ]);
 
-    this.buildDefaultValueConfig(currentType);
     this.buildAdditionalInfoControls(currentType, this.data.paramSpec?.spec.additional_info);
+    this.buildDefaultValueConfig(currentType, this.data.paramSpec?.spec.additional_info);
   }
 
-  private buildDefaultValueConfig(type: TdParamSpecTypeEnum): void {
+  private buildDefaultValueConfig(type: TdParamSpecTypeEnum, additionalInfo?: any): void {
     if (TD_TYPES_WITHOUT_DEFAULT_VALUE.includes(type)) {
       this.defaultValueConfig.set(null);
       return;
@@ -202,7 +224,7 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
       visibility: 'public',
       human_name: this.translateService.translate('td.default_value'),
       short_description: null,
-      additional_info: {},
+      additional_info: additionalInfo ?? {},
     };
 
     this.defaultValueConfig.set(TdParamSpecConfig.convertParamSpecToAbstractConfig(spec));
@@ -224,7 +246,6 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
         group = new FormGroup({
           min_length: new FormControl(initialValue?.min_length ?? null),
           max_length: new FormControl(initialValue?.max_length ?? null),
-          allowed_values: new FormControl(initialValue?.allowed_values ?? null),
         });
         break;
       case 'int':
@@ -232,7 +253,6 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
         group = new FormGroup({
           min_value: new FormControl(initialValue?.min_value ?? null),
           max_value: new FormControl(initialValue?.max_value ?? null),
-          allowed_values: new FormControl(initialValue?.allowed_values ?? null),
         });
         break;
       case 'computed_param':
@@ -251,10 +271,24 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
           credentials_type: new FormControl(initialValue?.credentials_type ?? null),
         });
         break;
+      case 'select_param':
+        group = new FormGroup({
+          allowed_values: new FormControl(
+            initialValue?.allowed_values ?? [{ label: null, value: null }],
+            Validators.required
+          ),
+          multiple: new FormControl(initialValue?.multiple ?? false),
+        });
+        break;
     }
 
     if (group) {
       this.formGroup.addControl('additional_info', group);
+      this.subscriptions.add([
+        group.valueChanges.subscribe((value) => {
+          this.buildDefaultValueConfig(type, value);
+        }),
+      ]);
     }
   }
 

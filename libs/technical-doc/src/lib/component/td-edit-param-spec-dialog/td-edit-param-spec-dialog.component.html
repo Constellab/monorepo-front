@@ -32,23 +32,6 @@
         <mat-label>{{ 'td.label' | translate }}</mat-label>
         <input matInput formControlName="human_name" />
       </mat-form-field>
-    </div>
-
-    <mat-divider></mat-divider>
-
-    <div class="section">
-      <h4 class="section-title">{{ 'td.section_behavior' | translate }}</h4>
-
-      <div class="checkbox-row">
-        <mat-checkbox formControlName="optional">
-          {{ 'td.optional' | translate }}
-        </mat-checkbox>
-      </div>
-
-      @if (defaultValueConfig()) {
-        <fl-dynamic-field [config]="defaultValueConfig()" [control]="$any(formGroup.get('default_value'))">
-        </fl-dynamic-field>
-      }
 
       <mat-form-field class="full-width">
         <mat-label>{{ 'td.short_description' | translate }}</mat-label>
@@ -71,11 +54,6 @@
               <input matInput type="number" formControlName="max_length" />
             </mat-form-field>
           </div>
-          <mat-form-field class="full-width">
-            <mat-label>{{ 'td.allowed_values' | translate }}</mat-label>
-            <input matInput formControlName="allowed_values" />
-            <mat-hint>{{ 'td.allowed_values_hint' | translate }}</mat-hint>
-          </mat-form-field>
         </div>
       }
       @case ('int') {
@@ -92,11 +70,6 @@
               <input matInput type="number" formControlName="max_value" />
             </mat-form-field>
           </div>
-          <mat-form-field class="full-width">
-            <mat-label>{{ 'td.allowed_values' | translate }}</mat-label>
-            <input matInput formControlName="allowed_values" />
-            <mat-hint>{{ 'td.allowed_values_hint' | translate }}</mat-hint>
-          </mat-form-field>
         </div>
       }
       @case ('float') {
@@ -113,11 +86,6 @@
               <input matInput type="number" formControlName="max_value" />
             </mat-form-field>
           </div>
-          <mat-form-field class="full-width">
-            <mat-label>{{ 'td.allowed_values' | translate }}</mat-label>
-            <input matInput formControlName="allowed_values" />
-            <mat-hint>{{ 'td.allowed_values_hint' | translate }}</mat-hint>
-          </mat-form-field>
         </div>
       }
       @case ('computed_param') {
@@ -159,7 +127,61 @@
           </mat-form-field>
         </div>
       }
+      @case ('select_param') {
+        <mat-divider></mat-divider>
+        <div class="section" formGroupName="additional_info">
+          <h4 class="section-title">{{ 'td.additional_info' | translate }}</h4>
+
+          <div class="checkbox-row">
+            <mat-checkbox formControlName="multiple">
+              {{ 'td.allow_multiple' | translate }}
+            </mat-checkbox>
+          </div>
+
+          <div class="section-header">
+            <h4 class="section-title">{{ 'td.allowed_values' | translate }}</h4>
+            <button mat-stroked-button type="button" class="g-button-small" (click)="addSelectOption()">
+              <mat-icon>add</mat-icon>
+              {{ 'td.add_option' | translate }}
+            </button>
+          </div>
+
+          @for (option of formGroup.get('additional_info.allowed_values').value; track $index) {
+            <div class="row">
+              <mat-form-field class="full-width">
+                <mat-label>{{ 'td.option_value' | translate }}</mat-label>
+                <input
+                  matInput
+                  [value]="option.value"
+                  (input)="updateSelectOption($index, $any($event.target).value)" />
+                @if (formGroup.get('additional_info.allowed_values').value.length > 1) {
+                  <button matSuffix mat-icon-button type="button" (click)="removeSelectOption($index)">
+                    <mat-icon>clear</mat-icon>
+                  </button>
+                }
+              </mat-form-field>
+            </div>
+          }
+        </div>
+      }
     }
+
+    <mat-divider></mat-divider>
+
+    <div class="section">
+      <h4 class="section-title">{{ 'td.section_behavior' | translate }}</h4>
+
+      <div class="checkbox-row">
+        <mat-checkbox formControlName="optional">
+          {{ 'td.optional' | translate }}
+        </mat-checkbox>
+      </div>
+
+      @if (defaultValueConfig()) {
+        <fl-dynamic-field [config]="defaultValueConfig()" [control]="$any(formGroup.get('default_value'))">
+        </fl-dynamic-field>
+      }
+    </div>
 
     @if (isParamSetType() && localParamSpecState) {
       <mat-divider></mat-divider>

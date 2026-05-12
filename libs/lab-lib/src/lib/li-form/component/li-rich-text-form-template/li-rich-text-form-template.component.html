@@ -1,9 +1,9 @@
 @if (!hasTemplate) {
   <div class="form-template-empty">
-    <mat-icon>description</mat-icon>
+    <mat-icon flIcon="form-template"></mat-icon>
     <span>{{ 'li.form_template_no_selection' | translate }}</span>
     @if (!disabled) {
-      <button mat-stroked-button (click)="onSelectTemplate()">
+      <button mat-stroked-button (click)="openSelectTemplate()">
         {{ 'li.form_template_select' | translate }}
       </button>
     }
@@ -25,7 +25,7 @@
       <span class="form-template-hint">{{ 'li.form_template_block_hint' | translate }}</span>
     </div>
     @if (!disabled) {
-      <button mat-stroked-button (click)="onSelectTemplate()">
+      <button mat-stroked-button (click)="openSelectTemplate()">
         {{ 'li.form_template_change' | translate }}
       </button>
     }

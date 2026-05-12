@@ -101,6 +101,7 @@ export interface FlDynamicFieldConfigSelect extends FlDynamicFieldConfigMaterial
   type: 'select';
 
   selectOptions: FlDynamicFieldSelectOptions;
+  multiple?: boolean;
 }
 
 export interface FlDynamicFieldConfigSelectSearch extends FlDynamicFieldConfigBase {

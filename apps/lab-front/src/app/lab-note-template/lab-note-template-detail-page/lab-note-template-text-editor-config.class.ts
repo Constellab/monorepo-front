@@ -6,11 +6,10 @@ import {
   LiRichTextObjectType,
 } from '@monorepo/lab-lib/li-core';
 import {
-  LiRichTextFileViewBlock,
   LiRichTextFormTemplateBlock,
   LiRichTextFormTemplateBlockAdditionalData,
-  LiRichTextViewBlockAdditionalData,
-} from '@monorepo/lab-lib/li-rich-text';
+} from '@monorepo/lab-lib/li-form';
+import { LiRichTextFileViewBlock, LiRichTextViewBlockAdditionalData } from '@monorepo/lab-lib/li-rich-text';
 import {
   TeCompleteConfig,
   teComponentBlockFactory,

@@ -9,10 +9,7 @@ import { LiRouterService, LiTagDatasource } from '@monorepo/lab-lib/li-core';
 import { LiEntityActionMenu } from '@monorepo/lab-lib/li-entity';
 import { Observable } from 'rxjs';
 
-import {
-  LiCreateFormDialogComponent,
-  LiCreateFormDialogInput,
-} from '../component/li-create-form-dialog/li-create-form-dialog.component';
+import type { LiCreateFormDialogInput } from '../component/li-create-form-dialog/li-create-form-dialog.component';
 import { LiFormTemplateService } from '../service/li-form-template.service';
 import { LiForm } from './li-form.entity';
 import { LiFormTemplate } from './li-form-template.entity';
@@ -122,7 +119,14 @@ export class LiFormTemplateActionMenu extends LiEntityActionMenu {
     this.subject.complete();
   }
 
-  private openCreateFormDialog(): void {
+  // Lazy import to break circular dependency:
+  // this file → LiCreateFormDialogComponent → LiSelectFormTemplateComponent
+  // → LiSelectFormTemplateDialogComponent → LiFormTemplateSearchComponent
+  // → LiFormTemplateTableComponent → this file
+  private async openCreateFormDialog(): Promise<void> {
+    const { LiCreateFormDialogComponent } =
+      await import('../component/li-create-form-dialog/li-create-form-dialog.component');
+
     const data: LiCreateFormDialogInput = {
       mode: 'create',
       object: {

@@ -6,10 +6,9 @@ import {
   LiRichTextImageConfig,
   LiRichTextObjectType,
 } from '@monorepo/lab-lib/li-core';
+import { LiRichTextFormBlock, LiRichTextFormBlockAdditionalData } from '@monorepo/lab-lib/li-form';
 import {
   LiRichTextFileViewBlock,
-  LiRichTextFormBlock,
-  LiRichTextFormBlockAdditionalData,
   LiRichTextViewBlock,
   LiRichTextViewBlockAdditionalData,
 } from '@monorepo/lab-lib/li-rich-text';

@@ -18,10 +18,10 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { Observable, switchMap } from 'rxjs';
 
 import { LiCreateFormDTO, LiForm } from '../../model/li-form.entity';
+import { LiFormTemplateVersionStatus } from '../../model/li-form.enum';
 import { LiFormTemplate } from '../../model/li-form-template.entity';
 import { LiFormTemplateVersionSummary } from '../../model/li-form-template-version.entity';
 import { liGetFormTemplateVersionStatus } from '../../model/li-form-template-version-status.helper';
-import { LiFormTemplateVersionStatus } from '../../public-api';
 import { LiFormService } from '../../service/li-form.service';
 import { LiFormTemplateService } from '../../service/li-form-template.service';
 import { LiSelectFormTemplateComponent } from '../li-select-form-template/li-select-form-template.component';

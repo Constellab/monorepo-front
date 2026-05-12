@@ -21,30 +21,33 @@ export class FlDynamicFieldSelectComponent extends FlDynamicFieldAbstractDirecti
 
   selectOptionsGroups: WritableSignal<FlGroupedSelectOption> = signal(null);
 
+  @Input() multiple = false;
+
   @Input() prefix: string;
 
   @Input() suffix: string;
 
   ngOnInit(): void {
-    if (this.selectOptionsInput?.length === 0) {
+    if (!this.selectOptionsInput?.length) {
       return;
     }
 
-    if (typeof this.selectOptionsInput[0] != 'string') {
-      this.selectOptions.set(this.selectOptionsInput as FlDynamicFieldSelectKeyNameOption[]);
-    }
-
     const groups: FlGroupedSelectOption = {};
+    const flat: FlDynamicFieldSelectKeyNameOption[] = [];
 
     for (const option of this.selectOptionsInput) {
-      if (typeof option === 'object' && option.group && option.group.length > 0) {
-        if (!groups[option.group]) groups[option.group] = [];
-        groups[option.group].push(option);
+      const normalized =
+        typeof option === 'object' && option != null ? option : { key: option, humanName: option };
+
+      if (normalized.group?.length > 0) {
+        if (!groups[normalized.group]) groups[normalized.group] = [];
+        groups[normalized.group].push(normalized);
       } else {
-        this.selectOptions.update((current) => [...current, { key: option, humanName: option }]);
+        flat.push(normalized);
       }
     }
 
+    this.selectOptions.set(flat);
     this.selectOptionsGroups.set(groups);
   }
 }

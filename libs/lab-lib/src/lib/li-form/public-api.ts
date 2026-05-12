@@ -32,3 +32,9 @@ export * from './component/li-form-template-ref-inline/li-form-template-ref-inli
 export * from './component/li-select-form-dialog/li-select-form-dialog.component';
 export * from './component/li-form-editor-dialog/li-form-editor-dialog.component';
 export * from './component/li-form-content/li-form-content.component';
+export * from './component/li-rich-text-form-template/li-rich-text-form-template.component';
+export * from './model/li-rich-text-form-template-block.model';
+export * from './li-rich-text-form-template.block';
+export * from './component/li-rich-text-form/li-rich-text-form.component';
+export * from './model/li-rich-text-form-block.model';
+export * from './li-rich-text-form.block';
