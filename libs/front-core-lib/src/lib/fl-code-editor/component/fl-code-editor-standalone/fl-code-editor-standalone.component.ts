@@ -1,4 +1,3 @@
-/* eslint-disable @nx/enforce-module-boundaries */
 import { isPlatformBrowser } from '@angular/common';
 import {
   Component,

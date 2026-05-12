@@ -48,7 +48,7 @@ const coCommunityLibI18nFr: FlLangTranslation = {
     description: 'Description',
     update: 'Mettre à jour',
     active: 'Actif',
-    // eslint-disable-next-line max-len
+
     tag_additional_info_spec_description:
       'Configurez les spécifications des informations supplémentaires du tag',
     imported_from_community: 'Importé depuis Community',
@@ -177,7 +177,7 @@ const coCommunityLibI18nEn: FlLangTranslation = {
     chatbot_welcome_message: 'Hello! I am Constellab Assistant. How can I help you?',
   },
 };
-export const coCommunityLibI18n: FlTranslateObject = {
+export const CO_COMMUNITY_LIB_I18N: FlTranslateObject = {
   [ClSupportedLanguage.en]: coCommunityLibI18nEn,
   [ClSupportedLanguage.fr]: coCommunityLibI18nFr,
 };

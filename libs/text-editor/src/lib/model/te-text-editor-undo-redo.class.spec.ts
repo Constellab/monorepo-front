@@ -1,4 +1,5 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
 import { TeBlockType } from './lib/te-block.class';
 import { TeRichText } from './lib/te-rich-text.class';
 import { TeRichTextAggregate } from './lib/te-rich-text-aggregate.class';
@@ -12,7 +13,7 @@ describe('TeTextEditorUndoRedo', () => {
   let mockEditor: any;
   let undoRedo: TeTextEditorUndoRedo;
 
-  function createMockEditor() {
+  function createMockEditor(): any {
     return {
       blocks: {
         delete: vi.fn(),
@@ -37,7 +38,8 @@ describe('TeTextEditorUndoRedo', () => {
     it('should do nothing when there are no modifications to undo', () => {
       const aggregate = new TeRichTextAggregate(
         new TeRichText({
-          version: V, editorVersion: EV,
+          version: V,
+          editorVersion: EV,
           blocks: [{ id: 'p1', type: TeBlockType.PARAGRAPH, data: { text: 'Hello' } }],
         })
       );
@@ -52,14 +54,16 @@ describe('TeTextEditorUndoRedo', () => {
     it('should delete block in editor when undoing CREATED modification', () => {
       const aggregate = new TeRichTextAggregate(
         new TeRichText({
-          version: V, editorVersion: EV,
+          version: V,
+          editorVersion: EV,
           blocks: [{ id: 'p1', type: TeBlockType.PARAGRAPH, data: { text: 'Hello' } }],
         })
       );
 
       aggregate.updateContent(
         new TeRichText({
-          version: V, editorVersion: EV,
+          version: V,
+          editorVersion: EV,
           blocks: [
             { id: 'p1', type: TeBlockType.PARAGRAPH, data: { text: 'Hello' } },
             { id: 'p2', type: TeBlockType.PARAGRAPH, data: { text: 'New block' } },
@@ -76,7 +80,8 @@ describe('TeTextEditorUndoRedo', () => {
     it('should insert block in editor when undoing DELETED modification', () => {
       const aggregate = new TeRichTextAggregate(
         new TeRichText({
-          version: V, editorVersion: EV,
+          version: V,
+          editorVersion: EV,
           blocks: [
             { id: 'p1', type: TeBlockType.PARAGRAPH, data: { text: 'Hello' } },
             { id: 'p2', type: TeBlockType.PARAGRAPH, data: { text: 'World' } },
@@ -86,7 +91,8 @@ describe('TeTextEditorUndoRedo', () => {
 
       aggregate.updateContent(
         new TeRichText({
-          version: V, editorVersion: EV,
+          version: V,
+          editorVersion: EV,
           blocks: [{ id: 'p1', type: TeBlockType.PARAGRAPH, data: { text: 'Hello' } }],
         }),
         USER_ID
@@ -103,14 +109,16 @@ describe('TeTextEditorUndoRedo', () => {
     it('should replace block in editor when undoing UPDATED modification', () => {
       const aggregate = new TeRichTextAggregate(
         new TeRichText({
-          version: V, editorVersion: EV,
+          version: V,
+          editorVersion: EV,
           blocks: [{ id: 'p1', type: TeBlockType.PARAGRAPH, data: { text: 'Original' } }],
         })
       );
 
       aggregate.updateContent(
         new TeRichText({
-          version: V, editorVersion: EV,
+          version: V,
+          editorVersion: EV,
           blocks: [{ id: 'p1', type: TeBlockType.PARAGRAPH, data: { text: 'Updated' } }],
         }),
         USER_ID
@@ -126,7 +134,8 @@ describe('TeTextEditorUndoRedo', () => {
     it('should move block in editor when undoing MOVED modification', () => {
       const aggregate = new TeRichTextAggregate(
         new TeRichText({
-          version: V, editorVersion: EV,
+          version: V,
+          editorVersion: EV,
           blocks: [
             { id: 'p1', type: TeBlockType.PARAGRAPH, data: { text: 'First' } },
             { id: 'p2', type: TeBlockType.PARAGRAPH, data: { text: 'Second' } },
@@ -138,7 +147,8 @@ describe('TeTextEditorUndoRedo', () => {
       // Move p3 to the beginning — produces MOVED modifications
       aggregate.updateContent(
         new TeRichText({
-          version: V, editorVersion: EV,
+          version: V,
+          editorVersion: EV,
           blocks: [
             { id: 'p3', type: TeBlockType.PARAGRAPH, data: { text: 'Third' } },
             { id: 'p1', type: TeBlockType.PARAGRAPH, data: { text: 'First' } },
@@ -156,7 +166,8 @@ describe('TeTextEditorUndoRedo', () => {
     it('should apply modifications in reverse order', () => {
       const aggregate = new TeRichTextAggregate(
         new TeRichText({
-          version: V, editorVersion: EV,
+          version: V,
+          editorVersion: EV,
           blocks: [
             { id: 'p1', type: TeBlockType.PARAGRAPH, data: { text: 'A' } },
             { id: 'p2', type: TeBlockType.PARAGRAPH, data: { text: 'B' } },
@@ -167,7 +178,8 @@ describe('TeTextEditorUndoRedo', () => {
       // Grouped action: update p1 + add p3
       aggregate.updateContent(
         new TeRichText({
-          version: V, editorVersion: EV,
+          version: V,
+          editorVersion: EV,
           blocks: [
             { id: 'p1', type: TeBlockType.PARAGRAPH, data: { text: 'A modified' } },
             { id: 'p2', type: TeBlockType.PARAGRAPH, data: { text: 'B' } },
@@ -191,14 +203,16 @@ describe('TeTextEditorUndoRedo', () => {
     it('should set caret to the last modification block', () => {
       const aggregate = new TeRichTextAggregate(
         new TeRichText({
-          version: V, editorVersion: EV,
+          version: V,
+          editorVersion: EV,
           blocks: [{ id: 'p1', type: TeBlockType.PARAGRAPH, data: { text: 'Hello' } }],
         })
       );
 
       aggregate.updateContent(
         new TeRichText({
-          version: V, editorVersion: EV,
+          version: V,
+          editorVersion: EV,
           blocks: [{ id: 'p1', type: TeBlockType.PARAGRAPH, data: { text: 'Updated' } }],
         }),
         USER_ID
@@ -214,14 +228,16 @@ describe('TeTextEditorUndoRedo', () => {
     it('should set caret by index when block is not found', () => {
       const aggregate = new TeRichTextAggregate(
         new TeRichText({
-          version: V, editorVersion: EV,
+          version: V,
+          editorVersion: EV,
           blocks: [{ id: 'p1', type: TeBlockType.PARAGRAPH, data: { text: 'Hello' } }],
         })
       );
 
       aggregate.updateContent(
         new TeRichText({
-          version: V, editorVersion: EV,
+          version: V,
+          editorVersion: EV,
           blocks: [{ id: 'p1', type: TeBlockType.PARAGRAPH, data: { text: 'Updated' } }],
         }),
         USER_ID
@@ -238,16 +254,16 @@ describe('TeTextEditorUndoRedo', () => {
     it('should clamp caret index to 0 when negative', () => {
       const aggregate = new TeRichTextAggregate(
         new TeRichText({
-          version: V, editorVersion: EV,
-          blocks: [
-            { id: 'p1', type: TeBlockType.PARAGRAPH, data: { text: 'Only' } },
-          ],
+          version: V,
+          editorVersion: EV,
+          blocks: [{ id: 'p1', type: TeBlockType.PARAGRAPH, data: { text: 'Only' } }],
         })
       );
 
       aggregate.updateContent(
         new TeRichText({
-          version: V, editorVersion: EV,
+          version: V,
+          editorVersion: EV,
           blocks: [],
         }),
         USER_ID
@@ -265,14 +281,16 @@ describe('TeTextEditorUndoRedo', () => {
     it('should clamp caret index to last block when out of bounds', () => {
       const aggregate = new TeRichTextAggregate(
         new TeRichText({
-          version: V, editorVersion: EV,
+          version: V,
+          editorVersion: EV,
           blocks: [{ id: 'p1', type: TeBlockType.PARAGRAPH, data: { text: 'A' } }],
         })
       );
 
       aggregate.updateContent(
         new TeRichText({
-          version: V, editorVersion: EV,
+          version: V,
+          editorVersion: EV,
           blocks: [
             { id: 'p1', type: TeBlockType.PARAGRAPH, data: { text: 'A' } },
             { id: 'p2', type: TeBlockType.PARAGRAPH, data: { text: 'B' } },
@@ -296,7 +314,8 @@ describe('TeTextEditorUndoRedo', () => {
     it('should do nothing when there are no modifications to redo', () => {
       const aggregate = new TeRichTextAggregate(
         new TeRichText({
-          version: V, editorVersion: EV,
+          version: V,
+          editorVersion: EV,
           blocks: [{ id: 'p1', type: TeBlockType.PARAGRAPH, data: { text: 'Hello' } }],
         })
       );
@@ -311,14 +330,16 @@ describe('TeTextEditorUndoRedo', () => {
     it('should insert block in editor when redoing CREATED modification', () => {
       const aggregate = new TeRichTextAggregate(
         new TeRichText({
-          version: V, editorVersion: EV,
+          version: V,
+          editorVersion: EV,
           blocks: [{ id: 'p1', type: TeBlockType.PARAGRAPH, data: { text: 'Hello' } }],
         })
       );
 
       aggregate.updateContent(
         new TeRichText({
-          version: V, editorVersion: EV,
+          version: V,
+          editorVersion: EV,
           blocks: [
             { id: 'p1', type: TeBlockType.PARAGRAPH, data: { text: 'Hello' } },
             { id: 'p2', type: TeBlockType.PARAGRAPH, data: { text: 'New' } },
@@ -343,7 +364,8 @@ describe('TeTextEditorUndoRedo', () => {
     it('should delete block in editor when redoing DELETED modification', () => {
       const aggregate = new TeRichTextAggregate(
         new TeRichText({
-          version: V, editorVersion: EV,
+          version: V,
+          editorVersion: EV,
           blocks: [
             { id: 'p1', type: TeBlockType.PARAGRAPH, data: { text: 'Hello' } },
             { id: 'p2', type: TeBlockType.PARAGRAPH, data: { text: 'World' } },
@@ -353,7 +375,8 @@ describe('TeTextEditorUndoRedo', () => {
 
       aggregate.updateContent(
         new TeRichText({
-          version: V, editorVersion: EV,
+          version: V,
+          editorVersion: EV,
           blocks: [{ id: 'p1', type: TeBlockType.PARAGRAPH, data: { text: 'Hello' } }],
         }),
         USER_ID
@@ -372,14 +395,16 @@ describe('TeTextEditorUndoRedo', () => {
     it('should replace block in editor when redoing UPDATED modification', () => {
       const aggregate = new TeRichTextAggregate(
         new TeRichText({
-          version: V, editorVersion: EV,
+          version: V,
+          editorVersion: EV,
           blocks: [{ id: 'p1', type: TeBlockType.PARAGRAPH, data: { text: 'Original' } }],
         })
       );
 
       aggregate.updateContent(
         new TeRichText({
-          version: V, editorVersion: EV,
+          version: V,
+          editorVersion: EV,
           blocks: [{ id: 'p1', type: TeBlockType.PARAGRAPH, data: { text: 'Updated' } }],
         }),
         USER_ID
@@ -399,7 +424,8 @@ describe('TeTextEditorUndoRedo', () => {
     it('should move block in editor when redoing MOVED modification', () => {
       const aggregate = new TeRichTextAggregate(
         new TeRichText({
-          version: V, editorVersion: EV,
+          version: V,
+          editorVersion: EV,
           blocks: [
             { id: 'p1', type: TeBlockType.PARAGRAPH, data: { text: 'First' } },
             { id: 'p2', type: TeBlockType.PARAGRAPH, data: { text: 'Second' } },
@@ -411,7 +437,8 @@ describe('TeTextEditorUndoRedo', () => {
       // Move p3 to the beginning
       aggregate.updateContent(
         new TeRichText({
-          version: V, editorVersion: EV,
+          version: V,
+          editorVersion: EV,
           blocks: [
             { id: 'p3', type: TeBlockType.PARAGRAPH, data: { text: 'Third' } },
             { id: 'p1', type: TeBlockType.PARAGRAPH, data: { text: 'First' } },
@@ -433,7 +460,8 @@ describe('TeTextEditorUndoRedo', () => {
     it('should apply redo modifications in forward order', () => {
       const aggregate = new TeRichTextAggregate(
         new TeRichText({
-          version: V, editorVersion: EV,
+          version: V,
+          editorVersion: EV,
           blocks: [
             { id: 'p1', type: TeBlockType.PARAGRAPH, data: { text: 'A' } },
             { id: 'p2', type: TeBlockType.PARAGRAPH, data: { text: 'B' } },
@@ -444,7 +472,8 @@ describe('TeTextEditorUndoRedo', () => {
       // Grouped: update p1 + add p3
       aggregate.updateContent(
         new TeRichText({
-          version: V, editorVersion: EV,
+          version: V,
+          editorVersion: EV,
           blocks: [
             { id: 'p1', type: TeBlockType.PARAGRAPH, data: { text: 'A modified' } },
             { id: 'p2', type: TeBlockType.PARAGRAPH, data: { text: 'B' } },
@@ -473,14 +502,16 @@ describe('TeTextEditorUndoRedo', () => {
     it('should set caret after redo', () => {
       const aggregate = new TeRichTextAggregate(
         new TeRichText({
-          version: V, editorVersion: EV,
+          version: V,
+          editorVersion: EV,
           blocks: [{ id: 'p1', type: TeBlockType.PARAGRAPH, data: { text: 'Hello' } }],
         })
       );
 
       aggregate.updateContent(
         new TeRichText({
-          version: V, editorVersion: EV,
+          version: V,
+          editorVersion: EV,
           blocks: [{ id: 'p1', type: TeBlockType.PARAGRAPH, data: { text: 'Updated' } }],
         }),
         USER_ID
@@ -500,14 +531,16 @@ describe('TeTextEditorUndoRedo', () => {
     it('should correctly undo then redo a CREATED block', () => {
       const aggregate = new TeRichTextAggregate(
         new TeRichText({
-          version: V, editorVersion: EV,
+          version: V,
+          editorVersion: EV,
           blocks: [{ id: 'p1', type: TeBlockType.PARAGRAPH, data: { text: 'First' } }],
         })
       );
 
       aggregate.updateContent(
         new TeRichText({
-          version: V, editorVersion: EV,
+          version: V,
+          editorVersion: EV,
           blocks: [
             { id: 'p1', type: TeBlockType.PARAGRAPH, data: { text: 'First' } },
             { id: 'p2', type: TeBlockType.PARAGRAPH, data: { text: 'Second' } },
@@ -533,7 +566,8 @@ describe('TeTextEditorUndoRedo', () => {
     it('should correctly undo then redo a DELETED block', () => {
       const aggregate = new TeRichTextAggregate(
         new TeRichText({
-          version: V, editorVersion: EV,
+          version: V,
+          editorVersion: EV,
           blocks: [
             { id: 'p1', type: TeBlockType.PARAGRAPH, data: { text: 'Keep' } },
             { id: 'p2', type: TeBlockType.PARAGRAPH, data: { text: 'Delete me' } },
@@ -543,7 +577,8 @@ describe('TeTextEditorUndoRedo', () => {
 
       aggregate.updateContent(
         new TeRichText({
-          version: V, editorVersion: EV,
+          version: V,
+          editorVersion: EV,
           blocks: [{ id: 'p1', type: TeBlockType.PARAGRAPH, data: { text: 'Keep' } }],
         }),
         USER_ID
@@ -566,14 +601,16 @@ describe('TeTextEditorUndoRedo', () => {
     it('should handle multiple undo/redo cycles correctly', () => {
       const aggregate = new TeRichTextAggregate(
         new TeRichText({
-          version: V, editorVersion: EV,
+          version: V,
+          editorVersion: EV,
           blocks: [{ id: 'p1', type: TeBlockType.PARAGRAPH, data: { text: 'V1' } }],
         })
       );
 
       aggregate.updateContent(
         new TeRichText({
-          version: V, editorVersion: EV,
+          version: V,
+          editorVersion: EV,
           blocks: [{ id: 'p1', type: TeBlockType.PARAGRAPH, data: { text: 'V2' } }],
         }),
         USER_ID
@@ -581,7 +618,8 @@ describe('TeTextEditorUndoRedo', () => {
 
       aggregate.updateContent(
         new TeRichText({
-          version: V, editorVersion: EV,
+          version: V,
+          editorVersion: EV,
           blocks: [{ id: 'p1', type: TeBlockType.PARAGRAPH, data: { text: 'V3' } }],
         }),
         USER_ID
@@ -605,7 +643,8 @@ describe('TeTextEditorUndoRedo', () => {
     it('should handle grouped modifications undo/redo correctly', () => {
       const aggregate = new TeRichTextAggregate(
         new TeRichText({
-          version: V, editorVersion: EV,
+          version: V,
+          editorVersion: EV,
           blocks: [
             { id: 'p1', type: TeBlockType.PARAGRAPH, data: { text: 'A' } },
             { id: 'p2', type: TeBlockType.PARAGRAPH, data: { text: 'B' } },
@@ -616,7 +655,8 @@ describe('TeTextEditorUndoRedo', () => {
       // Grouped: delete p2 + update p1
       aggregate.updateContent(
         new TeRichText({
-          version: V, editorVersion: EV,
+          version: V,
+          editorVersion: EV,
           blocks: [{ id: 'p1', type: TeBlockType.PARAGRAPH, data: { text: 'A modified' } }],
         }),
         USER_ID
@@ -641,7 +681,8 @@ describe('TeTextEditorUndoRedo', () => {
     it('should handle undo when editor has existing block with same id (DELETED case)', () => {
       const aggregate = new TeRichTextAggregate(
         new TeRichText({
-          version: V, editorVersion: EV,
+          version: V,
+          editorVersion: EV,
           blocks: [
             { id: 'p1', type: TeBlockType.PARAGRAPH, data: { text: 'Hello' } },
             { id: 'p2', type: TeBlockType.PARAGRAPH, data: { text: 'World' } },
@@ -651,7 +692,8 @@ describe('TeTextEditorUndoRedo', () => {
 
       aggregate.updateContent(
         new TeRichText({
-          version: V, editorVersion: EV,
+          version: V,
+          editorVersion: EV,
           blocks: [{ id: 'p1', type: TeBlockType.PARAGRAPH, data: { text: 'Hello' } }],
         }),
         USER_ID
@@ -671,14 +713,16 @@ describe('TeTextEditorUndoRedo', () => {
     it('should handle redo when editor has existing block with same id (CREATED case)', () => {
       const aggregate = new TeRichTextAggregate(
         new TeRichText({
-          version: V, editorVersion: EV,
+          version: V,
+          editorVersion: EV,
           blocks: [{ id: 'p1', type: TeBlockType.PARAGRAPH, data: { text: 'Hello' } }],
         })
       );
 
       aggregate.updateContent(
         new TeRichText({
-          version: V, editorVersion: EV,
+          version: V,
+          editorVersion: EV,
           blocks: [
             { id: 'p1', type: TeBlockType.PARAGRAPH, data: { text: 'Hello' } },
             { id: 'p2', type: TeBlockType.PARAGRAPH, data: { text: 'New' } },
@@ -705,14 +749,16 @@ describe('TeTextEditorUndoRedo', () => {
     it('should handle consecutive undos past the beginning gracefully', () => {
       const aggregate = new TeRichTextAggregate(
         new TeRichText({
-          version: V, editorVersion: EV,
+          version: V,
+          editorVersion: EV,
           blocks: [{ id: 'p1', type: TeBlockType.PARAGRAPH, data: { text: 'Hello' } }],
         })
       );
 
       aggregate.updateContent(
         new TeRichText({
-          version: V, editorVersion: EV,
+          version: V,
+          editorVersion: EV,
           blocks: [{ id: 'p1', type: TeBlockType.PARAGRAPH, data: { text: 'Updated' } }],
         }),
         USER_ID
@@ -733,14 +779,16 @@ describe('TeTextEditorUndoRedo', () => {
     it('should handle consecutive redos past the end gracefully', () => {
       const aggregate = new TeRichTextAggregate(
         new TeRichText({
-          version: V, editorVersion: EV,
+          version: V,
+          editorVersion: EV,
           blocks: [{ id: 'p1', type: TeBlockType.PARAGRAPH, data: { text: 'Hello' } }],
         })
       );
 
       aggregate.updateContent(
         new TeRichText({
-          version: V, editorVersion: EV,
+          version: V,
+          editorVersion: EV,
           blocks: [{ id: 'p1', type: TeBlockType.PARAGRAPH, data: { text: 'Updated' } }],
         }),
         USER_ID

@@ -1,4 +1,4 @@
-import { Component, inject, input, Input, OnInit } from '@angular/core';
+import { Component, inject, Input, input, OnInit } from '@angular/core';
 
 import { FlUser } from '../../model/fl-user.class';
 import { FlUserConfig } from '../../service/fl-user-config.config';

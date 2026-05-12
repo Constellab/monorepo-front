@@ -13,7 +13,7 @@ import { EnumChangefreq, SitemapItem, SitemapStream, streamToPromise } from 'sit
 import { HaMetadataNamesConfig } from './src/app/ha-core/ha-model/ha-config/ha-metadata-names.config';
 import { HaRouterService } from './src/app/ha-core/ha-service/ha-router.service';
 import { environment } from './src/environments/ha-environment';
-import bootstrap from './src/main.server';
+import { HA_BOOTSTRAP } from './src/main.server';
 
 environment.settings = {
   apiUrl: process?.env['API_URL'] || 'http://localhost:3333',
@@ -78,7 +78,9 @@ function app(): express.Express {
         "img-src 'self' blob: data: http: https: *.gencovery.com *.constellab.community http://www.w3.org";
       // https://cdn.jsdelivr.net/npm/@emoji-mart/data is used to allow the emoji-mart data
       const connectSrc =
-        "connect-src 'self' *.gencovery.com *.constellab-pre-prod.gencovery.com wss://*.constellab.community wss://*.constellab-pre-prod.gencovery.com *.constellab.community https://fonts.googleapis.com " +
+        "connect-src 'self' *.gencovery.com *.constellab-pre-prod.gencovery.com " +
+        'wss://*.constellab.community wss://*.constellab-pre-prod.gencovery.com ' +
+        '*.constellab.community https://fonts.googleapis.com ' +
         'https://fonts.gstatic.com *.google-analytics.com *.googletagmanager.com *.algolianet.com ' +
         '*.algolia.net https://cdn.jsdelivr.net/npm/@emoji-mart/data https://api.github.com ' +
         'https://www.google.com/recaptcha';
@@ -216,7 +218,7 @@ Sitemap: ${environment.settings.communityFrontUrl}/sitemap.xml`);
     const { protocol, originalUrl, baseUrl, headers } = req;
     commonEngine
       .render({
-        bootstrap: bootstrap,
+        bootstrap: HA_BOOTSTRAP,
         documentFilePath: indexHtml,
         url: `${protocol}://${headers.host}${originalUrl}`,
         publicPath: browserDistFolder,

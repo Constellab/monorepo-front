@@ -1,4 +1,4 @@
-import { Directive, ElementRef, inject,Input, OnDestroy, OnInit, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, inject, Input, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { ClHelpService } from '@monorepo/core-lib';
 import { FlTooltipService } from '@monorepo/front-core-lib/fl-portal';
 import { FlPortalDefaultPosition } from '@monorepo/front-core-lib/fl-portal';
@@ -8,7 +8,6 @@ import { FlPortalDefaultPosition } from '@monorepo/front-core-lib/fl-portal';
  * the limit, it display a quick tooltip to warn the user that the limit has been reached
  */
 @Directive({
-  // eslint-disable-next-line @angular-eslint/directive-selector
   selector: 'input[flInputMaxLength], textarea[flInputMaxLength]',
   providers: [FlTooltipService],
   standalone: false,
@@ -28,12 +27,12 @@ export class FlInputMaxLengthDirective implements OnInit, OnDestroy {
   /**
    * Duration for the tooltip that show the warnings
    */
-  @Input('flInputMaxLengthDuration') duration: number = 2000;
+  @Input() flInputMaxLengthDuration: number = 2000;
 
   /**
    * Position of the tooltip relative to the input
    */
-  @Input('flInputMaxLengthPosition') position: FlPortalDefaultPosition = 'right';
+  @Input() flInputMaxLengthPosition: FlPortalDefaultPosition = 'right';
 
   private keyUpListener: () => void;
 
@@ -68,9 +67,9 @@ export class FlInputMaxLengthDirective implements OnInit, OnDestroy {
     this.tooltipService.openTooltipWithTranslate(
       this.elementRef,
       'input_max_length',
-      [this.position],
+      [this.flInputMaxLengthPosition],
       'flInputMaxLength',
-      this.duration,
+      this.flInputMaxLengthDuration,
       { param: { count: this.elementRef.nativeElement.maxLength } }
     );
   }

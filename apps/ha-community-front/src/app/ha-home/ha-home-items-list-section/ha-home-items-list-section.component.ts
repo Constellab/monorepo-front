@@ -29,8 +29,8 @@ import { HaDetailRoutePipe } from '../../ha-core/ha-module/ha-core-pipe/ha-detai
 import { HaAgentService } from '../../ha-core/ha-service/ha-agent.service';
 import { HaBrickService } from '../../ha-core/ha-service/ha-brick.service';
 import { HaCommunityAppService } from '../../ha-core/ha-service/ha-community-app.service';
-import { HaStoryService } from '../../ha-core/ha-service/ha-story.service';
 import { HaRouterService } from '../../ha-core/ha-service/ha-router.service';
+import { HaStoryService } from '../../ha-core/ha-service/ha-story.service';
 
 export type HaHomeItemsListSectionType = 'stories' | 'apps' | 'agents' | 'bricks';
 

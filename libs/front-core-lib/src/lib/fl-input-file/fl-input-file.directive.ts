@@ -28,7 +28,6 @@ import { FlSnackBarService } from '../fl-snack-bar/fl-snack-bar.service';
  * Supports multiple
  */
 @Directive({
-  // eslint-disable-next-line @angular-eslint/directive-selector
   selector: 'input[flInputFile][type=file]',
   providers: [{ provide: FlFormFieldDirective, useExisting: FlInputFileDirective }],
   standalone: false,

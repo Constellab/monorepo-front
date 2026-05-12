@@ -13,14 +13,14 @@ import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
 import { FlPortalActionsModule } from '@monorepo/front-core-lib/fl-portal-actions';
 import { FlSnackBarModule } from '@monorepo/front-core-lib/fl-snack-bar';
-import { FlIconModule, flIconsDefault } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FL_ICONS_DEFAULT,FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 
 import { LmsApiServiceConfig } from './config/lms-api-module.config';
 import { lmsAppRoutes } from './lms-app.routes';
 import { LmsApiErrorService } from './service/lms-api-error.service';
 
-export const lmsAppConfig: ApplicationConfig = {
+export const LMS_APP_CONFIG: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     importProvidersFrom(BrowserAnimationsModule),
@@ -43,7 +43,7 @@ export const lmsAppConfig: ApplicationConfig = {
       // configuration of Front library
       FlIconModule.forRoot({
         iconFolder: 'assets/fl-mat-icons/',
-        iconsToRegister: flIconsDefault,
+        iconsToRegister: FL_ICONS_DEFAULT,
       })
     ),
 

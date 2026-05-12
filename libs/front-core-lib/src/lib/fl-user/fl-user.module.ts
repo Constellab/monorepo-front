@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { inject,ModuleWithProviders, NgModule, Provider, Type } from '@angular/core';
+import { inject, ModuleWithProviders, NgModule, Provider, Type } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
@@ -18,7 +18,7 @@ import { FlUserInlineComponent } from './component/fl-user-inline/fl-user-inline
 import { FlUserProfilePictureComponent } from './component/fl-user-profile-picture/fl-user-profile-picture.component';
 import { FlUserWithDateComponent } from './component/fl-user-with-date/fl-user-with-date.component';
 import { FlUserMouseHoverPortalDirective } from './directive/fl-user-mouse-hover-portal/fl-user-mouse-hover-portal.directive';
-import { flUserI18n } from './fl-user.i18n';
+import { FL_USER_I18N } from './fl-user.i18n';
 import { FlUserConfig } from './service/fl-user-config.config';
 
 @NgModule({
@@ -60,7 +60,7 @@ export class FlUserModule {
   constructor() {
     const translateService = inject(FlTranslateService);
 
-    translateService.addModuleTranslation('FlUserModule', flUserI18n);
+    translateService.addModuleTranslation('FlUserModule', FL_USER_I18N);
   }
 
   public static forRoot(apiServiceConfig: Type<FlUserConfig>): ModuleWithProviders<FlUserModule> {

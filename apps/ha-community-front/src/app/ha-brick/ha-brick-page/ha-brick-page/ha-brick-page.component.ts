@@ -5,12 +5,12 @@ import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { ActivatedRoute, NavigationEnd, Params, Router, RouterOutlet } from '@angular/router';
 import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
-import { TeHelper } from '@monorepo/text-editor';
 import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { TeHelper } from '@monorepo/text-editor';
 import { TranslatePipe } from '@ngx-translate/core';
 import { filter, map, Subscription } from 'rxjs';
 

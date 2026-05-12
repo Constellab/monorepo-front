@@ -3,10 +3,10 @@ import { CoConfig, CoSpace } from '@monorepo/community-lib';
 import { TdParamSpec, TdParamSpecs } from '@monorepo/technical-doc';
 import { Observable } from 'rxjs';
 
+import { HaSpaceService } from '../../ha-service/ha-space.service';
 import { HaTagService } from '../../ha-service/ha-tag.service';
 import { HaTagValue, HaTagValueEditDTO } from '../ha-entities/ha-tag-value.class';
 import { HaEnvironmentHelper } from './ha-environment.helper';
-import { HaSpaceService } from '../../ha-service/ha-space.service';
 
 @Injectable({
   providedIn: 'root',

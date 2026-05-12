@@ -29,67 +29,27 @@ import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlTranslateModule, FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 
 import { BnBioNetworkComponent } from './component/bn-bio-network/bn-bio-network.component';
-import {
-  BnBioNetworkActionBarComponent,
-} from './component/bn-bio-network-action-bar/bn-bio-network-action-bar.component';
-import {
-  BnBioNetworkClustersListComponent,
-} from './component/bn-bio-network-clusters-list/bn-bio-network-clusters-list.component';
-import {
-  BnBioNetworkCompartmentsComponent,
-} from './component/bn-bio-network-compartments/bn-bio-network-compartments.component';
-import {
-  BnBioNetworkConfigComponent,
-} from './component/bn-bio-network-config/bn-bio-network-config.component';
-import {
-  BnBioNetworkDrawerComponent,
-} from './component/bn-bio-network-drawer/bn-bio-network-drawer.component';
-import {
-  BnBioNetworkEngineConfigComponent,
-} from './component/bn-bio-network-engine-config/bn-bio-network-engine-config.component';
-import {
-  BnBioNetworkEngineProgressComponent
-} from './component/bn-bio-network-engine-progress/bn-bio-network-engine-progress.component';
-import {
-  BnBioNetworkLegendComponent,
-} from './component/bn-bio-network-legend/bn-bio-network-legend.component';
-import {
-  BnBioNetworkMetaboliteDetailComponent,
-} from './component/bn-bio-network-metabolite-detail/bn-bio-network-metabolite-detail.component';
-import {
-  BnBioNetworkNodeCofactorDetailComponent,
-} from './component/bn-bio-network-node-cofactor-detail/bn-bio-network-node-cofactor-detail.component';
-import {
-  BnBioNetworkNodeDetailComponent,
-} from './component/bn-bio-network-node-detail/bn-bio-network-node-detail.component';
-import {
-  BnBioNetworkNodeLayoutComponent,
-} from './component/bn-bio-network-node-layout/bn-bio-network-node-layout.component';
-import {
-  BnBioNetworkNodeLinksComponent,
-} from './component/bn-bio-network-node-links/bn-bio-network-node-links.component';
-import {
-  BnBioNetworkNodeMetaboliteDetailComponent,
-} from './component/bn-bio-network-node-metabolite-detail/bn-bio-network-node-metabolite-detail.component';
-import {
-  BnBioNetworkNodeReactionDetailComponent
-} from './component/bn-bio-network-node-reaction-detail/bn-bio-network-node-reaction-detail.component';
-import {
-  BnBioNetworkNodeSearchComponent,
-} from './component/bn-bio-network-node-search/bn-bio-network-node-search.component';
-import {
-  BnBioNetworkReactionContentComponent,
-} from './component/bn-bio-network-reaction-content/bn-bio-network-reaction-content.component';
-import {
-  BnBioNetworkReactionDetailComponent,
-} from './component/bn-bio-network-reaction-detail/bn-bio-network-reaction-detail.component';
-import {
-  BnBioNetworkReactionFluxComponent,
-} from './component/bn-bio-network-reaction-flux/bn-bio-network-reaction-flux.component';
-import {
-  BnBioNetworkSelectionInfoComponent,
-} from './component/bn-bio-network-selection-info/bn-bio-network-selection-info.component';
-import { bnBioNetworkI18n } from './i18n/bn-bio-network.i18n';
+import { BnBioNetworkActionBarComponent } from './component/bn-bio-network-action-bar/bn-bio-network-action-bar.component';
+import { BnBioNetworkClustersListComponent } from './component/bn-bio-network-clusters-list/bn-bio-network-clusters-list.component';
+import { BnBioNetworkCompartmentsComponent } from './component/bn-bio-network-compartments/bn-bio-network-compartments.component';
+import { BnBioNetworkConfigComponent } from './component/bn-bio-network-config/bn-bio-network-config.component';
+import { BnBioNetworkDrawerComponent } from './component/bn-bio-network-drawer/bn-bio-network-drawer.component';
+import { BnBioNetworkEngineConfigComponent } from './component/bn-bio-network-engine-config/bn-bio-network-engine-config.component';
+import { BnBioNetworkEngineProgressComponent } from './component/bn-bio-network-engine-progress/bn-bio-network-engine-progress.component';
+import { BnBioNetworkLegendComponent } from './component/bn-bio-network-legend/bn-bio-network-legend.component';
+import { BnBioNetworkMetaboliteDetailComponent } from './component/bn-bio-network-metabolite-detail/bn-bio-network-metabolite-detail.component';
+import { BnBioNetworkNodeCofactorDetailComponent } from './component/bn-bio-network-node-cofactor-detail/bn-bio-network-node-cofactor-detail.component';
+import { BnBioNetworkNodeDetailComponent } from './component/bn-bio-network-node-detail/bn-bio-network-node-detail.component';
+import { BnBioNetworkNodeLayoutComponent } from './component/bn-bio-network-node-layout/bn-bio-network-node-layout.component';
+import { BnBioNetworkNodeLinksComponent } from './component/bn-bio-network-node-links/bn-bio-network-node-links.component';
+import { BnBioNetworkNodeMetaboliteDetailComponent } from './component/bn-bio-network-node-metabolite-detail/bn-bio-network-node-metabolite-detail.component';
+import { BnBioNetworkNodeReactionDetailComponent } from './component/bn-bio-network-node-reaction-detail/bn-bio-network-node-reaction-detail.component';
+import { BnBioNetworkNodeSearchComponent } from './component/bn-bio-network-node-search/bn-bio-network-node-search.component';
+import { BnBioNetworkReactionContentComponent } from './component/bn-bio-network-reaction-content/bn-bio-network-reaction-content.component';
+import { BnBioNetworkReactionDetailComponent } from './component/bn-bio-network-reaction-detail/bn-bio-network-reaction-detail.component';
+import { BnBioNetworkReactionFluxComponent } from './component/bn-bio-network-reaction-flux/bn-bio-network-reaction-flux.component';
+import { BnBioNetworkSelectionInfoComponent } from './component/bn-bio-network-selection-info/bn-bio-network-selection-info.component';
+import { BN_BIO_NETWORK_I18N } from './i18n/bn-bio-network.i18n';
 import { BnBioNetworkLinkPipe } from './pipe/bn-bio-network-link.pipe';
 import { BnBioNetworkService } from './service/bn-bio-network.service';
 
@@ -160,7 +120,7 @@ export class BnBioNetworkModule {
   constructor() {
     const translateService = inject(FlTranslateService);
 
-    translateService.addModuleTranslation('BnBioNetworkModule', bnBioNetworkI18n);
+    translateService.addModuleTranslation('BnBioNetworkModule', BN_BIO_NETWORK_I18N);
   }
 
   public static forRoot(
