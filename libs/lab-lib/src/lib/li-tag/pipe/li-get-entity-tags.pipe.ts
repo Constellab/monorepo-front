@@ -12,8 +12,8 @@ import {
   LiViewConfig,
 } from '@monorepo/lab-lib/li-core';
 
-import { LiForm } from '../../li-form/model/li-form.entity';
-import { LiFormTemplate } from '../../li-form/model/li-form-template.entity';
+import { LiForm } from '../../li-core/model/entities/form/li-form.entity';
+import { LiFormTemplate } from '../../li-core/model/entities/form/li-form-template.entity';
 
 @Pipe({ name: 'labGetEntityTags' })
 export class LiGetEntityTagsPipe implements PipeTransform {

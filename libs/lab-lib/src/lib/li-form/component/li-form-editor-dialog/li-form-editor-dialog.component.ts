@@ -4,7 +4,7 @@ import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { TranslatePipe } from '@ngx-translate/core';
 
-import { LiFormContent } from '../../model/li-form.entity';
+import { LiFormContent } from '../../../li-core/model/entities/form/li-form.entity';
 import { LiFormService } from '../../service/li-form.service';
 import { LiFormEditorComponent } from '../li-form-editor/li-form-editor.component';
 

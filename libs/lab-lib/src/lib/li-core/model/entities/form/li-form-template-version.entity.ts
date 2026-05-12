@@ -2,7 +2,7 @@ import { ClLuxonDateTimeTransform } from '@monorepo/core-lib';
 import { Expose, Type } from 'class-transformer';
 import { DateTime } from 'luxon';
 
-import { LiBaseEntityWithUser, LiUser } from '../../li-core/model/entities/li-user.entity';
+import { LiBaseEntityWithUser, LiUser } from '../li-user.entity';
 import { LiFormTemplateVersionStatus } from './li-form.enum';
 
 export class LiFormTemplateVersionSummary extends LiBaseEntityWithUser {

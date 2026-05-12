@@ -26,7 +26,7 @@ import { LiDetailRoutePipe, LiTagService } from '@monorepo/lab-lib/li-core';
 import { LiGetEntityTagsPipe, LiTagListComponent } from '@monorepo/lab-lib/li-tag';
 import { TranslatePipe } from '@ngx-translate/core';
 
-import { LiFormTemplate } from '../../model/li-form-template.entity';
+import { LiFormTemplate } from '../../../li-core/model/entities/form/li-form-template.entity';
 import {
   LiFormTemplateActionEvent,
   LiFormTemplateActionMenu,
@@ -65,6 +65,8 @@ export class LiFormTemplateTableComponent {
   @Input({ required: true }) datasource: FlArrayObs<LiFormTemplate>;
 
   @Input() columns: FlTableColumnStatic<LiFormTemplate>[] = ['name', 'tags', 'lastModification'];
+
+  @Input() rowLinkTarget: '_self' | '_blank' = '_self';
 
   @Input() rowSelectable: boolean = false;
 

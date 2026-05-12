@@ -260,6 +260,10 @@ export const TD_PARAM_SPEC_INFO_LIST: TdParamSpecInfo[] = [
   { type: TdParamSpecTypeEnum.PARAM_SET, category: TdParamSpecCategory.OTHER },
 ];
 
+export function tdGetParamSpecInfo(categories: TdParamSpecCategory[]): TdParamSpecInfo[] {
+  return TD_PARAM_SPEC_INFO_LIST.filter((info) => categories.includes(info.category));
+}
+
 export interface TdGroupedParamSpecTypes {
   category: TdParamSpecCategory;
   types: TdParamSpecTypeEnum[];

@@ -19,8 +19,8 @@ import { FlStatus, FlStatusModule } from '@monorepo/front-core-lib/fl-status';
 import { TranslatePipe } from '@ngx-translate/core';
 import { forkJoin, Observable } from 'rxjs';
 
-import { LiForm, LiFormContent } from '../../model/li-form.entity';
-import { LiFormDisplayMode, LiFormStatus } from '../../model/li-form.enum';
+import { LiForm, LiFormContent } from '../../../li-core/model/entities/form/li-form.entity';
+import { LiFormDisplayMode, LiFormStatus } from '../../../li-core/model/entities/form/li-form.enum';
 import { liGetFormStatus } from '../../model/li-form-status.helper';
 import { LiFormService } from '../../service/li-form.service';
 import { LiFormEditorComponent } from '../li-form-editor/li-form-editor.component';

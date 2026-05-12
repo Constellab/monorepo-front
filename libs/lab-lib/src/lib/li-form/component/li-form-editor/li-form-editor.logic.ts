@@ -1,6 +1,6 @@
 import { TdParamSpecs, TdParamSpecsValues, TdParamSpecTypeEnum } from '@monorepo/technical-doc';
 
-import { LiSaveFormDTO } from '../../model/li-form.entity';
+import { LiSaveFormDTO } from '../../../li-core/model/entities/form/li-form.entity';
 
 /**
  * Check whether a spec key corresponds to a computed field.

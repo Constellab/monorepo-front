@@ -11,12 +11,12 @@ import { LiEntityActionMenu } from '@monorepo/lab-lib/li-entity';
 import { TdParamSpecs } from '@monorepo/technical-doc';
 import { Observable } from 'rxjs';
 
+import { LiForm } from '../../li-core/model/entities/form/li-form.entity';
 import {
   LiFormHistoryPortalComponent,
   LiFormHistoryPortalData,
 } from '../component/li-form-history-portal/li-form-history-portal.component';
 import { LiFormService } from '../service/li-form.service';
-import { LiForm } from './li-form.entity';
 
 export type LiFormActionEvent = {
   action: 'archive' | 'unarchive' | 'delete';

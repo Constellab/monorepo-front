@@ -11,8 +11,8 @@ import {
   LiFormContent,
   LiSaveFormDTO,
   LiUpdateFormDTO,
-} from '../model/li-form.entity';
-import { LiFormSaveEvent } from '../model/li-form-save-event.entity';
+} from '../../li-core/model/entities/form/li-form.entity';
+import { LiFormSaveEvent } from '../../li-core/model/entities/form/li-form-save-event.entity';
 import { LiFormSearch, LiFormSearchFields } from './li-form-search';
 
 export type LiFormDatasource<F = void> = FlEntityPaginatedDatasource<LiForm, F>;

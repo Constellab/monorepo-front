@@ -9,10 +9,10 @@ import { LiRouterService, LiTagDatasource } from '@monorepo/lab-lib/li-core';
 import { LiEntityActionMenu } from '@monorepo/lab-lib/li-entity';
 import { Observable } from 'rxjs';
 
+import { LiForm } from '../../li-core/model/entities/form/li-form.entity';
+import { LiFormTemplate } from '../../li-core/model/entities/form/li-form-template.entity';
 import type { LiCreateFormDialogInput } from '../component/li-create-form-dialog/li-create-form-dialog.component';
 import { LiFormTemplateService } from '../service/li-form-template.service';
-import { LiForm } from './li-form.entity';
-import { LiFormTemplate } from './li-form-template.entity';
 
 export type LiFormTemplateActionEvent = {
   action: 'archive' | 'unarchive' | 'delete';

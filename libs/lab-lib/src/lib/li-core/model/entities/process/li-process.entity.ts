@@ -139,6 +139,10 @@ export class LiProcess extends LiBaseEntityWithUser {
     return this.isProtocol ? 'PROTOCOL' : 'TASK';
   }
 
+  isVirtualEnvAgent(): boolean {
+    return this.isAgent && this.processTypingName !== TdTypingName.task.pyAgent;
+  }
+
   toPrProcess(): PrProcess {
     return {
       id: this.id,

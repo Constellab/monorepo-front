@@ -12,7 +12,10 @@ import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { TranslatePipe } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
-import { LiCreateFormTemplateDTO, LiFormTemplate } from '../../model/li-form-template.entity';
+import {
+  LiCreateFormTemplateDTO,
+  LiFormTemplate,
+} from '../../../li-core/model/entities/form/li-form-template.entity';
 import { LiFormTemplateService } from '../../service/li-form-template.service';
 
 export interface LiFormTemplateFormDialogInput extends FlFormDialogInput<LiCreateFormTemplateDTO> {

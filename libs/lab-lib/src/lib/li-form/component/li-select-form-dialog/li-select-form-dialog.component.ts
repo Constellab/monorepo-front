@@ -4,7 +4,7 @@ import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { TranslatePipe } from '@ngx-translate/core';
 
-import { LiForm } from '../../model/li-form.entity';
+import { LiForm } from '../../../li-core/model/entities/form/li-form.entity';
 import { LiFormSearchComponent } from '../li-form-search/li-form-search.component';
 
 @Component({

@@ -1,7 +1,7 @@
 import { TdParamSpecs, TdParamSpecTypeEnum } from '@monorepo/technical-doc';
 
-import { LiFormChangeAction } from '../../model/li-form.enum';
-import { LiFormChangeEntryDTO } from '../../model/li-form-save-event.entity';
+import { LiFormChangeAction } from '../../../li-core/model/entities/form/li-form.enum';
+import { LiFormChangeEntryDTO } from '../../../li-core/model/entities/form/li-form-save-event.entity';
 
 const LI_CHANGE_ACTION_I18N_MAP: Record<LiFormChangeAction, string> = {
   FIELD_CREATED: 'li.form_field_created',

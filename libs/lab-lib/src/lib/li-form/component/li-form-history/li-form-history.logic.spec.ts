@@ -1,6 +1,6 @@
 import { TdParamSpecs, TdParamSpecTypeEnum } from '@monorepo/technical-doc';
 
-import { LiFormChangeEntryDTO } from '../../model/li-form-save-event.entity';
+import { LiFormChangeEntryDTO } from '../../../li-core/model/entities/form/li-form-save-event.entity';
 import {
   liFormatChangeEntry,
   liGetChangeActionI18nKey,

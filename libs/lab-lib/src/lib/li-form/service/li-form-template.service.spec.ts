@@ -2,8 +2,8 @@ import { TestBed } from '@angular/core/testing';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { of } from 'rxjs';
 
-import { LiFormTemplate } from '../model/li-form-template.entity';
-import { LiFormTemplateVersion } from '../model/li-form-template-version.entity';
+import { LiFormTemplate } from '../../li-core/model/entities/form/li-form-template.entity';
+import { LiFormTemplateVersion } from '../../li-core/model/entities/form/li-form-template-version.entity';
 import { LiFormTemplateService } from './li-form-template.service';
 
 describe('LiFormTemplateService', () => {

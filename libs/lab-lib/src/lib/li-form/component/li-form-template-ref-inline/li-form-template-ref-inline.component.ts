@@ -4,7 +4,7 @@ import { RouterLink } from '@angular/router';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { LiRouterService } from '@monorepo/lab-lib/li-core';
 
-import { LiFormTemplateRef } from '../../model/li-form.entity';
+import { LiFormTemplateRef } from '../../../li-core/model/entities/form/li-form.entity';
 
 @Component({
   selector: 'li-form-template-ref-inline',

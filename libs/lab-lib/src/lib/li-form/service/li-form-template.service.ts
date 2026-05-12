@@ -10,12 +10,12 @@ import {
   LiCreateFormTemplateDTO,
   LiFormTemplate,
   LiUpdateFormTemplateDTO,
-} from '../model/li-form-template.entity';
+} from '../../li-core/model/entities/form/li-form-template.entity';
 import {
   LiCreateFormTemplateVersionDTO,
   LiFormTemplateVersion,
   LiFormTemplateVersionSummary,
-} from '../model/li-form-template-version.entity';
+} from '../../li-core/model/entities/form/li-form-template-version.entity';
 import { LiFormTemplateSearch, LiFormTemplateSearchFields } from './li-form-template-search';
 
 export type LiFormTemplateDatasource<F = void> = FlEntityPaginatedDatasource<LiFormTemplate, F>;

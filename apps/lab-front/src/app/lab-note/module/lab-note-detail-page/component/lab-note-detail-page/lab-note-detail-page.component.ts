@@ -23,9 +23,9 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { Observable, Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 
+import { LabNoteDetailActionMenu } from '../../lab-note-detail-action-menu.class';
 import { LabNoteDetailPageState } from '../../lab-note-detail-page-state.service';
 import { LabNoteTextEditorConfig } from '../../lab-note-text-editor-config.class';
-import { LabNoteDetailActionMenu } from '../../li-note-detail-action-menu.class';
 import { LabNoteLinkedScenariosComponent } from '../lab-note-linked-scenarios/lab-note-linked-scenarios.component';
 
 @Component({

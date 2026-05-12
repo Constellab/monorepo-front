@@ -1,4 +1,4 @@
-import { LiBaseEntityWithUser } from '../../li-core/model/entities/li-user.entity';
+import { LiBaseEntityWithUser } from '../li-user.entity';
 
 export class LiFormTemplate extends LiBaseEntityWithUser {
   name: string;

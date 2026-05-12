@@ -11,7 +11,7 @@ import { FlInputSearchAdvancedButton, FlInputSearchModule } from '@monorepo/fron
 import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 import { Observable } from 'rxjs';
 
-import { LiFormTemplate } from '../../model/li-form-template.entity';
+import { LiFormTemplate } from '../../../li-core/model/entities/form/li-form-template.entity';
 import { LiFormTemplateDatasource, LiFormTemplateService } from '../../service/li-form-template.service';
 import { LiFormTemplateSearchFields } from '../../service/li-form-template-search';
 import { LiSelectFormTemplateDialogComponent } from '../li-select-form-template-dialog/li-select-form-template-dialog.component';

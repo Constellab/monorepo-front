@@ -1,6 +1,8 @@
 import { Expose, Type } from 'class-transformer';
 import { TypeHelpOptions } from 'class-transformer/types/interfaces/type-help-options.interface';
 
+import { LiForm } from './form/li-form.entity';
+import { LiFormTemplate } from './form/li-form-template.entity';
 import { LiFolder } from './li-folder.class';
 import { LiNote } from './li-note.entity';
 import { LiNoteTemplate } from './li-note-template.entity';
@@ -78,6 +80,10 @@ const LabNavigableEntityGroupedFactory: any = (json: TypeHelpOptions) => {
       return LiFolder;
     case 'TAG':
       return LiTagKeyModel;
+    case 'FORM':
+      return LiForm;
+    case 'FORM_TEMPLATE':
+      return LiFormTemplate;
     default:
       throw new Error(`[LabNavigableEntityGroupedFactory] Type ${json.newObject.type} is not supported`);
   }

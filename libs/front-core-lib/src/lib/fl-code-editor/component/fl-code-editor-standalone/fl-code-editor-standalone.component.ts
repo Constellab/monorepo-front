@@ -125,6 +125,8 @@ export class FlCodeEditorStandaloneComponent implements OnInit, OnDestroy {
         return StreamLanguage.define(julia);
       case 'perl':
         return StreamLanguage.define(perl);
+      default:
+        throw new Error(`Language ${language} is not supported`);
     }
   }
 

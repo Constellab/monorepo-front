@@ -1,6 +1,6 @@
 import { FlStatus, FlStatusDict, FlStatusHelper } from '@monorepo/front-core-lib/fl-status';
 
-import { LiFormStatus } from './li-form.enum';
+import { LiFormStatus } from '../../li-core/model/entities/form/li-form.enum';
 
 export const LI_FORM_STATUS_DICT: FlStatusDict<LiFormStatus> = {
   DRAFT: FlStatusHelper.getDraftStatus('DRAFT', 'li.form_status_DRAFT'),

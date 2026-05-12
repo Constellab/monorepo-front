@@ -3,7 +3,7 @@ import { TdParamSpecs } from '@monorepo/technical-doc';
 import { Expose, Type } from 'class-transformer';
 import { DateTime } from 'luxon';
 
-import { LiBaseEntityWithUser, LiUser } from '../../li-core/model/entities/li-user.entity';
+import { LiBaseEntityWithUser, LiUser } from '../li-user.entity';
 import { LiFormStatus } from './li-form.enum';
 
 export class LiFormTemplateRef {

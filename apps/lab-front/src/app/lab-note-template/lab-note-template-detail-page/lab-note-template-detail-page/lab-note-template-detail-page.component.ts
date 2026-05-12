@@ -1,14 +1,8 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, Injector, OnInit } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
-import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { ActivatedRoute } from '@angular/router';
-import {
-  FlConfirmDialogInput,
-  FlConfirmDialogResult,
-  FlDialogService,
-} from '@monorepo/front-core-lib/fl-dialog';
 import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
@@ -21,6 +15,7 @@ import {
   LiTagDatasource,
   LiTagService,
 } from '@monorepo/lab-lib/li-core';
+import { LiNoteTemplateActionMenu } from '@monorepo/lab-lib/li-note-template';
 import { LiTagListComponent } from '@monorepo/lab-lib/li-tag';
 import { TeConfig, TeRichText, TeRichTextDTO, TeTextEditorModule } from '@monorepo/text-editor';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -39,9 +34,6 @@ import { LabNoteTemplateTextEditorConfig } from '../lab-note-template-text-edito
     FlIconModule,
     FlFormModule,
     MatIconButton,
-    MatMenuTrigger,
-    MatMenu,
-    MatMenuItem,
     LiTagListComponent,
     TeTextEditorModule,
     FlUserModule,
@@ -51,7 +43,7 @@ import { LabNoteTemplateTextEditorConfig } from '../lab-note-template-text-edito
 })
 export class LabNoteTemplateDetailPageComponent implements OnInit {
   private route = inject(ActivatedRoute);
-  private dialogService = inject(FlDialogService);
+  private injector = inject(Injector);
   private routerService = inject(LiRouterService);
   private noteTemplateService = inject(LiNoteTemplateService);
   private tagService = inject(LiTagService);
@@ -106,29 +98,13 @@ export class LabNoteTemplateDetailPageComponent implements OnInit {
       .subscribe((template) => (this.noteTemplate.title = template.title));
   }
 
-  delete(): void {
-    const input: FlConfirmDialogInput = {
-      title: 'biox.delete_note_template',
-      content: 'biox.delete_note_template_confirmation',
-      observable: this.noteTemplateService.delete(this.noteTemplateId),
-      successMessage: 'biox.note_template_deleted',
-    };
+  openActionMenu(event: MouseEvent): void {
+    const actionMenu = new LiNoteTemplateActionMenu(this.injector, this.noteTemplate, this.tags$);
 
-    this.dialogService
-      .openConfirmDialog(input)
-      .afterClosed()
-      .subscribe((result) => this.deletedClosed(result));
-  }
-
-  private deletedClosed(result: FlConfirmDialogResult<void>): void {
-    if (result.choice) {
-      this.routerService.navigateToDocumentSearch();
-    }
-  }
-
-  printDocument(): void {
-    if (window) {
-      window.print();
-    }
+    actionMenu.openDetailActionMenu(event).subscribe((action) => {
+      if (action.action === 'delete') {
+        this.routerService.navigateToDocumentSearch();
+      }
+    });
   }
 }

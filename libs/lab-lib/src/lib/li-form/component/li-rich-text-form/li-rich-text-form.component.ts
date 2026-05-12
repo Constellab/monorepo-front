@@ -2,8 +2,8 @@ import { Component, inject, Input, signal } from '@angular/core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { TeElementBlockDirective } from '@monorepo/text-editor';
 
-import { LiForm, LiFormContent } from '../../model/li-form.entity';
-import { LiFormDisplayMode } from '../../model/li-form.enum';
+import { LiForm, LiFormContent } from '../../../li-core/model/entities/form/li-form.entity';
+import { LiFormDisplayMode } from '../../../li-core/model/entities/form/li-form.enum';
 import { LiCreateFormDialogComponent } from '../li-create-form-dialog/li-create-form-dialog.component';
 import { LiFormContentComponent } from '../li-form-content/li-form-content.component';
 import { LiSelectFormDialogComponent } from '../li-select-form-dialog/li-select-form-dialog.component';

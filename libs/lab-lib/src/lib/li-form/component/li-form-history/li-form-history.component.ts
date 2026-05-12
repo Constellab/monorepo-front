@@ -6,7 +6,7 @@ import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { TdParamSpecs } from '@monorepo/technical-doc';
 import { TranslatePipe } from '@ngx-translate/core';
 
-import { LiFormSaveEvent } from '../../model/li-form-save-event.entity';
+import { LiFormSaveEvent } from '../../../li-core/model/entities/form/li-form-save-event.entity';
 import { LiFormService } from '../../service/li-form.service';
 import { liFormatChangeEntry, LiFormattedChangeEntry, liGetChangeSummary } from './li-form-history.logic';
 

@@ -16,7 +16,7 @@ import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
 import { LiRouterService } from '@monorepo/lab-lib/li-core';
 import { TranslatePipe } from '@ngx-translate/core';
 
-import { LiForm } from '../../model/li-form.entity';
+import { LiForm } from '../../../li-core/model/entities/form/li-form.entity';
 import { LiFormDatasource, LiFormService } from '../../service/li-form.service';
 import { LiFormSearch, LiFormSearchFields } from '../../service/li-form-search';
 import { LiCreateFormDialogComponent } from '../li-create-form-dialog/li-create-form-dialog.component';

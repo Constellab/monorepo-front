@@ -2,8 +2,8 @@ import { TestBed } from '@angular/core/testing';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { of } from 'rxjs';
 
-import { LiForm, LiFormContent } from '../model/li-form.entity';
-import { LiFormSaveEvent } from '../model/li-form-save-event.entity';
+import { LiForm, LiFormContent } from '../../li-core/model/entities/form/li-form.entity';
+import { LiFormSaveEvent } from '../../li-core/model/entities/form/li-form-save-event.entity';
 import { LiFormService } from './li-form.service';
 
 describe('LiFormService', () => {

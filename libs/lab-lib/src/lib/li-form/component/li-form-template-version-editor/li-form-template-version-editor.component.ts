@@ -15,7 +15,7 @@ import {
 } from '@monorepo/technical-doc';
 import { TranslatePipe } from '@ngx-translate/core';
 
-import { LiFormTemplateVersion } from '../../model/li-form-template-version.entity';
+import { LiFormTemplateVersion } from '../../../li-core/model/entities/form/li-form-template-version.entity';
 import { LiFormTemplateDynamicParamSpecState } from './li-form-template-dynamic-param-spec.state';
 
 @Component({

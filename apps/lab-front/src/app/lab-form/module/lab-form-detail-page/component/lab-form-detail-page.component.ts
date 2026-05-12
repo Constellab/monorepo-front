@@ -10,14 +10,18 @@ import { FlStatusModule } from '@monorepo/front-core-lib/fl-status';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import { LiRouterService, LiTagDatasource, LiTagService } from '@monorepo/lab-lib/li-core';
 import {
   LiForm,
+  LiFormContent,
+  LiFormDisplayMode,
+  LiRouterService,
+  LiTagDatasource,
+  LiTagService,
+} from '@monorepo/lab-lib/li-core';
+import {
   LiFormActionEvent,
   LiFormActionMenu,
-  LiFormContent,
   LiFormContentComponent,
-  LiFormDisplayMode,
   LiFormService,
   LiFormTemplateRefInlineComponent,
   liGetFormStatus,

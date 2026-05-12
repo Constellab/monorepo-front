@@ -9,9 +9,9 @@ import {
 import { FlTag } from '@monorepo/front-core-lib/fl-tag';
 import { Type } from 'class-transformer';
 
+import { LiFormStatus } from '../../li-core/model/entities/form/li-form.enum';
 import { LiUser } from '../../li-core/model/entities/li-user.entity';
 import { LiSearchConverter } from '../../li-core/model/global/li-search-converter.class';
-import { LiFormStatus } from '../model/li-form.enum';
 
 export class LiFormSearchFields {
   name: string;

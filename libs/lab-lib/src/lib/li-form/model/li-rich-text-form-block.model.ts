@@ -1,4 +1,4 @@
-import { LiFormDisplayMode } from './li-form.enum';
+import { LiFormDisplayMode } from '../../li-core/model/entities/form/li-form.enum';
 
 export type LiRichTextFormDisplayMode = LiFormDisplayMode;
 

@@ -6,7 +6,11 @@
     </mat-header-cell>
     <mat-cell *matCellDef="let template">
       @if (!rowSelectable) {
-        <a [routerLink]="template | liDetailRoute" class="g-row-link" aria-hidden="true"></a>
+        <a
+          [routerLink]="template | liDetailRoute"
+          [target]="rowLinkTarget"
+          class="g-row-link"
+          aria-hidden="true"></a>
       }
       @if (template.isArchived) {
         <mat-icon

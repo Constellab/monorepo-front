@@ -15,19 +15,23 @@ import { FlStatus, FlStatusModule } from '@monorepo/front-core-lib/fl-status';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import { LiRouterService, LiTagDatasource, LiTagService } from '@monorepo/lab-lib/li-core';
+import {
+  LiForm,
+  LiFormTemplate,
+  LiFormTemplateVersion,
+  LiFormTemplateVersionStatus,
+  LiFormTemplateVersionSummary,
+  LiRouterService,
+  LiTagDatasource,
+  LiTagService,
+} from '@monorepo/lab-lib/li-core';
 import {
   LiCreateFormDialogComponent,
   LiCreateFormDialogInput,
-  LiForm,
-  LiFormTemplate,
   LiFormTemplateActionEvent,
   LiFormTemplateActionMenu,
   LiFormTemplateService,
-  LiFormTemplateVersion,
   LiFormTemplateVersionEditorComponent,
-  LiFormTemplateVersionStatus,
-  LiFormTemplateVersionSummary,
   liGetFormTemplateVersionStatus,
 } from '@monorepo/lab-lib/li-form';
 import { LiTagListComponent } from '@monorepo/lab-lib/li-tag';

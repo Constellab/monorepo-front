@@ -13,20 +13,9 @@
         </div>
 
         <div class="g-print-hide action-buttons">
-          <button mat-icon-button [matMenuTriggerFor]="menu">
+          <button mat-icon-button (click)="openActionMenu($event)">
             <mat-icon>more_vert</mat-icon>
           </button>
-          <mat-menu #menu="matMenu" xPosition="before" class="g-print-hide">
-            <button mat-menu-item type="button" (click)="printDocument()">
-              <mat-icon>print</mat-icon>
-              <span>{{ 'biox.print_note_template' | translate }}</span>
-            </button>
-
-            <button mat-menu-item type="button" (click)="delete()" class="warn">
-              <mat-icon>delete</mat-icon>
-              <span>{{ 'biox.delete_note_template' | translate }}</span>
-            </button>
-          </mat-menu>
         </div>
       </div>
 

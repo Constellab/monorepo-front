@@ -14,7 +14,7 @@ import {
 import { TranslatePipe } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
-import { LiFormContent, LiSaveFormDTO } from '../../model/li-form.entity';
+import { LiFormContent, LiSaveFormDTO } from '../../../li-core/model/entities/form/li-form.entity';
 import { LiFormService } from '../../service/li-form.service';
 import { LiFormDynamicFieldConfig } from '../../service/li-form-dynamic-field-config.service';
 import { liBuildSaveDTO, liExtractSavePayload } from './li-form-editor.logic';

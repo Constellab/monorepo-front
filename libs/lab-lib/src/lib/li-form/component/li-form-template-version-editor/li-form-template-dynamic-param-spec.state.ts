@@ -11,7 +11,7 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { LiFormTemplateVersion } from '../../model/li-form-template-version.entity';
+import { LiFormTemplateVersion } from '../../../li-core/model/entities/form/li-form-template-version.entity';
 import { LiFormTemplateService } from '../../service/li-form-template.service';
 
 @Injectable()

@@ -2,10 +2,15 @@ import { inject, Injectable, OnDestroy, ViewContainerRef } from '@angular/core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { LiProcess, LiProtocolService, LiProtocolUpdateDTO } from '@monorepo/lab-lib/li-core';
 import {
+  TD_PARAM_SPEC_INFO_LIST,
   TdAbstractDynamicParamSpecState,
   TdConfig,
+  tdGetParamSpecInfo,
   TdParamSpec,
+  TdParamSpecCategory,
+  TdParamSpecInfo,
   TdParamSpecs,
+  TdParamSpecTypeEnum,
 } from '@monorepo/technical-doc';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -27,6 +32,20 @@ export class LabDynamicParamSpecState extends TdAbstractDynamicParamSpecState im
     if (dynamicConfigSpec) {
       this.setParamSpecs(dynamicConfigSpec.additional_info.specs);
     }
+  }
+
+  getParamSpecsInfos(): TdParamSpecInfo[] {
+    // if the process is a virtual agent, we only allow simple types
+    if (this.process.isVirtualEnvAgent()) {
+      const paramSetSpecInfo = TD_PARAM_SPEC_INFO_LIST.find(
+        (info) => info.type === TdParamSpecTypeEnum.PARAM_SET
+      );
+      return [
+        ...tdGetParamSpecInfo([TdParamSpecCategory.SIMPLE, TdParamSpecCategory.CODE]),
+        paramSetSpecInfo,
+      ];
+    }
+    return TD_PARAM_SPEC_INFO_LIST;
   }
 
   getDynamicConfigSpecName(): string | null {
