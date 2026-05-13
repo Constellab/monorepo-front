@@ -130,7 +130,7 @@ export class TdParamSpecConfig {
   }
 
   private static convertSelectParam(spec: TdParamSpecSelect): FlDynamicFieldConfig {
-    const options = (spec.additional_info?.allowed_values ?? [])
+    const options = (spec.additional_info?.options ?? [])
       .filter((opt) => opt.value != null && String(opt.value).length > 0)
       .map((opt) => ({ key: String(opt.value), humanName: opt.label || String(opt.value) }));
     const base = TdParamSpecConfig.convertToBaseFieldConfig(spec);

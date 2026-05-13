@@ -3,7 +3,7 @@
  */
 export interface LiRichTextFormTemplateBlockData {
   form_template_id: string;
-  form_template_version_id: string;
+  form_template_version_id?: string;
   display_name: string;
 }
 

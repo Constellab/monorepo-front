@@ -1,0 +1,21 @@
+<mat-table [dataSource]="tableData()" class="li-form-content-table">
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef>{{ 'li.form_field_name' | translate }}</mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <div class="li-form-content-table-name-cell">
+        <span>{{ row.name }}</span>
+        @if (row.shortDescription) {
+          <span class="g-text-small g-text-light">{{ row.shortDescription }}</span>
+        }
+      </div>
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="value">
+    <mat-header-cell *matHeaderCellDef>{{ 'li.form_field_value' | translate }}</mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <li-form-value [value]="row.rawValue" [spec]="row.spec" />
+    </mat-cell>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: tableColumns"></mat-row>
+</mat-table>

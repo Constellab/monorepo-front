@@ -1,9 +1,10 @@
-import { Component, inject, Input, signal } from '@angular/core';
+import { Component, inject, Input, OnInit, signal } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { LiFormTemplate } from '@monorepo/lab-lib/li-core';
 import { TeElementBlockDirective } from '@monorepo/text-editor';
 import { TranslatePipe } from '@ngx-translate/core';
 
@@ -16,10 +17,9 @@ import { LiSelectFormTemplateDialogComponent } from '../li-select-form-template-
   styleUrl: './li-rich-text-form-template.component.scss',
   imports: [MatIcon, MatButton, FlLoaderModule, TranslatePipe, FlIconModule],
 })
-export class LiRichTextFormTemplateComponent extends TeElementBlockDirective {
+export class LiRichTextFormTemplateComponent extends TeElementBlockDirective implements OnInit {
   @Input() formTemplateId: string;
   @Input() formTemplateVersionId: string;
-  @Input() displayName: string;
 
   isLoading = signal(false);
   templateName = signal<string>(null);
@@ -30,24 +30,13 @@ export class LiRichTextFormTemplateComponent extends TeElementBlockDirective {
   private formTemplateService = inject(LiFormTemplateService);
 
   get hasTemplate(): boolean {
-    return !!this.formTemplateId && !!this.formTemplateVersionId;
+    return !!this.formTemplateId;
   }
 
-  setVersionInfo(name: string, version: number): void {
-    this.templateName.set(name);
-    this.versionNumber.set(version);
-    this.isLoading.set(false);
-    this.hasError.set(false);
-  }
-
-  setLoading(): void {
-    this.isLoading.set(true);
-    this.hasError.set(false);
-  }
-
-  setError(): void {
-    this.hasError.set(true);
-    this.isLoading.set(false);
+  ngOnInit(): void {
+    if (this.formTemplateId) {
+      this.loadVersionInfo(this.formTemplateId, this.formTemplateVersionId);
+    }
   }
 
   async openSelectTemplate(): Promise<void> {
@@ -60,29 +49,41 @@ export class LiRichTextFormTemplateComponent extends TeElementBlockDirective {
       });
   }
 
-  loadVersionInfo(formTemplateId: string, formTemplateVersionId: string, displayName: string): void {
-    this.setLoading();
-    this.formTemplateService.getVersion(formTemplateId, formTemplateVersionId).subscribe({
-      next: (version) => {
-        this.setVersionInfo(displayName || formTemplateId, version.version);
+  loadVersionInfo(formTemplateId: string, formTemplateVersionId?: string): void {
+    this.isLoading.set(true);
+    this.hasError.set(false);
+
+    this.formTemplateService.getById(formTemplateId).subscribe({
+      next: (template) => {
+        this.templateName.set(template.name);
+        if (!this.isLoading()) return;
+        this.isLoading.set(false);
       },
       error: () => {
-        this.setError();
+        this.hasError.set(true);
+        this.isLoading.set(false);
       },
     });
+
+    if (formTemplateVersionId) {
+      this.formTemplateService.getVersion(formTemplateId, formTemplateVersionId).subscribe({
+        next: (version) => {
+          this.versionNumber.set(version.version);
+          if (!this.isLoading()) return;
+          this.isLoading.set(false);
+        },
+        error: () => {
+          this.hasError.set(true);
+          this.isLoading.set(false);
+        },
+      });
+    }
   }
 
-  private selectTemplateVersion(template: { id: string; name: string }): void {
-    this.setLoading();
-    this.formTemplateService.getVersions(template.id).subscribe((versions) => {
-      const published = versions.find((v) => v.status === 'PUBLISHED');
-      const version = published ?? versions[0];
-      if (!version) return;
-
-      this.formTemplateId = template.id;
-      this.formTemplateVersionId = version.id;
-      this.displayName = template.name;
-      this.setVersionInfo(template.name, version.version);
-    });
+  private selectTemplateVersion(template: LiFormTemplate): void {
+    this.formTemplateId = template.id;
+    this.formTemplateVersionId = null;
+    this.templateName.set(template.name);
+    this.versionNumber.set(null);
   }
 }

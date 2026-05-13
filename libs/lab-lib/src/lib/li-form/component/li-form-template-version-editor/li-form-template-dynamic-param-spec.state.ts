@@ -7,6 +7,7 @@ import {
   TdParamSpec,
   TdParamSpecEntry,
   TdParamSpecs,
+  TdValidateComputedParamResult,
 } from '@monorepo/technical-doc';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -86,6 +87,20 @@ export class LiFormTemplateDynamicParamSpecState
     return this.formTemplateService
       .deleteField(this.templateId, this.versionId, paramName)
       .pipe(map((version) => this.refreshContent(version)));
+  }
+
+  override validateComputedExpression(
+    expression: string,
+    key?: string,
+    paramSetKey?: string
+  ): Observable<TdValidateComputedParamResult> {
+    return this.formTemplateService.validateComputedParam(
+      this.templateId,
+      this.versionId,
+      expression,
+      key,
+      paramSetKey
+    );
   }
 
   private refreshContent(version: LiFormTemplateVersion): TdParamSpecs {

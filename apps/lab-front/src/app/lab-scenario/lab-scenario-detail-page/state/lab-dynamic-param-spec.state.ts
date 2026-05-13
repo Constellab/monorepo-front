@@ -11,6 +11,7 @@ import {
   TdParamSpecInfo,
   TdParamSpecs,
   TdParamSpecTypeEnum,
+  TdValidateComputedParamResult,
 } from '@monorepo/technical-doc';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -45,7 +46,8 @@ export class LabDynamicParamSpecState extends TdAbstractDynamicParamSpecState im
         paramSetSpecInfo,
       ];
     }
-    return TD_PARAM_SPEC_INFO_LIST;
+    // don't allow computed_param type
+    return TD_PARAM_SPEC_INFO_LIST.filter((info) => info.type !== TdParamSpecTypeEnum.COMPUTED_PARAM);
   }
 
   getDynamicConfigSpecName(): string | null {
@@ -128,5 +130,9 @@ export class LabDynamicParamSpecState extends TdAbstractDynamicParamSpecState im
 
   private updateProcessConfig(configSpecName: string, config: TdConfig): void {
     this.setParamSpecs(config.specs[configSpecName].additional_info.specs);
+  }
+
+  validateComputedExpression(): Observable<TdValidateComputedParamResult> | null {
+    throw new Error('Computed param validation not implemented for lab dynamic params');
   }
 }

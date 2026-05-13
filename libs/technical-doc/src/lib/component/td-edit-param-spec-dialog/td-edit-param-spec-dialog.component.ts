@@ -1,9 +1,20 @@
-import { Component, inject, OnDestroy, OnInit, signal, ViewContainerRef } from '@angular/core';
+import {
+  Component,
+  computed,
+  inject,
+  OnDestroy,
+  OnInit,
+  signal,
+  TemplateRef,
+  ViewChild,
+  ViewContainerRef,
+} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ClStringHelper, ClSubscriptionHandler } from '@monorepo/core-lib';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlDynamicFieldConfig } from '@monorepo/front-core-lib/fl-dynamic-field';
+import { FlOverlayRef, FlPortalService } from '@monorepo/front-core-lib/fl-portal';
 import { FlTranslatableText, FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import { Observable } from 'rxjs';
 
@@ -17,6 +28,7 @@ import {
   TdParamSpecs,
   TdParamSpecTypeEnum,
   TdSelectParamOption,
+  TdValidateComputedParamResult,
 } from '../../model/td-config-spec.class';
 import { TdParamSpecConfig } from '../../model/td-param-spec-config.class';
 import { TdAbstractDynamicParamSpecState } from '../../service/td-abstract-dynamic-param-spec.state';
@@ -41,8 +53,12 @@ export interface TdEditParamSpecDialogInput {
 export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
   private dialogRef = inject<MatDialogRef<TdEditParamSpecDialogComponent>>(MatDialogRef);
   private dialogService = inject(FlDialogService);
+  private portalService = inject(FlPortalService);
   private viewContainerRef = inject(ViewContainerRef);
   private translateService = inject(FlTranslateService);
+
+  @ViewChild('expressionHelpTemplate') expressionHelpTemplate: TemplateRef<any>;
+  private helpOverlayRef: FlOverlayRef | null = null;
 
   readonly isButtonLoading = signal(false);
   readonly groupedTypes = signal<TdGroupedParamSpecTypes[]>([]);
@@ -50,19 +66,20 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
   readonly hideDefaultValue = signal(false);
   readonly selectedType = signal<TdParamSpecTypeEnum>(TdParamSpecTypeEnum.STR);
   readonly defaultValueConfig = signal<FlDynamicFieldConfig | null>(null);
+  readonly isValidating = signal(false);
+  readonly validationResult = signal<TdValidateComputedParamResult | null>(null);
+  readonly siblingFieldNames = computed(() => {
+    const currentKey = this.formGroup?.get('key')?.value;
+    return this.data.dynamicParamSpecState.paramSpecsTable.array
+      .map((e) => e.key)
+      .filter((k) => k !== currentKey);
+  });
 
   formGroup: FormGroup;
   readonly formId = `paramSpecForm_${Math.random().toString(36).slice(2, 8)}`;
   localParamSpecState: TdLocalParamSpecState | null = null;
 
   data = inject<TdEditParamSpecDialogInput>(MAT_DIALOG_DATA);
-
-  readonly resultTypeOptions: TdParamSpecTypeEnum[] = [
-    TdParamSpecTypeEnum.INT,
-    TdParamSpecTypeEnum.FLOAT,
-    TdParamSpecTypeEnum.STR,
-    TdParamSpecTypeEnum.BOOL,
-  ];
 
   private labelManuallyEdited = false;
   private subscriptions = new ClSubscriptionHandler();
@@ -140,13 +157,13 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
   }
 
   addSelectOption(): void {
-    const control = this.formGroup.get('additional_info.allowed_values');
+    const control = this.formGroup.get('additional_info.options');
     const current: TdSelectParamOption[] = control.value ?? [];
     control.setValue([...current, { label: null, value: null }]);
   }
 
   removeSelectOption(index: number): void {
-    const control = this.formGroup.get('additional_info.allowed_values');
+    const control = this.formGroup.get('additional_info.options');
     const current: TdSelectParamOption[] = [...(control.value ?? [])];
     if (current.length <= 1) return;
     current.splice(index, 1);
@@ -154,7 +171,7 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
   }
 
   updateSelectOption(index: number, value: string): void {
-    const control = this.formGroup.get('additional_info.allowed_values');
+    const control = this.formGroup.get('additional_info.options');
     const current: TdSelectParamOption[] = [...(control.value ?? [])];
     current[index] = { label: value, value };
     control.setValue(current);
@@ -164,9 +181,57 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
     this.localParamSpecState.deleteParamSpec(entry.key).subscribe();
   }
 
+  validateExpression(): void {
+    const expression = this.formGroup.get('additional_info.expression')?.value;
+    if (!expression) return;
+
+    const validate$ = this.data.dynamicParamSpecState.validateComputedExpression(
+      expression,
+      this.formGroup.get('key')?.value || undefined
+    );
+    if (!validate$) return;
+
+    this.isValidating.set(true);
+    this.validationResult.set(null);
+
+    validate$.subscribe({
+      next: (result) => {
+        this.validationResult.set(result);
+        this.isValidating.set(false);
+      },
+      error: () => {
+        this.isValidating.set(false);
+      },
+    });
+  }
+
+  openExpressionHelp(event: MouseEvent): void {
+    if (this.helpOverlayRef) {
+      this.helpOverlayRef.dispose();
+      return;
+    }
+
+    const config = this.portalService.configureRelativePortal(
+      event.target as Element,
+      ['bottom', 'right', 'left', 'top'],
+      { disposeOnOutsideClick: true }
+    );
+
+    this.helpOverlayRef = this.portalService.createPortalTemplate(
+      this.expressionHelpTemplate,
+      config,
+      this.viewContainerRef
+    );
+
+    this.helpOverlayRef.detachments().subscribe(() => {
+      this.helpOverlayRef = null;
+    });
+  }
+
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
     this.localParamSpecState?.ngOnDestroy();
+    this.helpOverlayRef?.dispose();
   }
 
   private initForm(): void {
@@ -258,7 +323,6 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
       case 'computed_param':
         group = new FormGroup({
           expression: new FormControl(initialValue?.expression ?? null, Validators.required),
-          result_type: new FormControl(initialValue?.result_type ?? null, Validators.required),
         });
         break;
       case 'param_set':
@@ -273,8 +337,8 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
         break;
       case 'select_param':
         group = new FormGroup({
-          allowed_values: new FormControl(
-            initialValue?.allowed_values ?? [{ label: null, value: null }],
+          options: new FormControl(
+            initialValue?.options ?? [{ label: null, value: null }],
             Validators.required
           ),
           multiple: new FormControl(initialValue?.multiple ?? false),

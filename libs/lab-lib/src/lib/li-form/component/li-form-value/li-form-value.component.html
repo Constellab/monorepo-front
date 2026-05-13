@@ -1,0 +1,19 @@
+@if (isParamSet()) {
+  <button mat-stroked-button class="g-button-small" (click)="openParamSetDialog()">
+    {{ 'li.form_view_table' | translate: { count: paramSetRowCount() } }}
+  </button>
+} @else {
+  <div class="li-form-value-row">
+    <span>{{ displayValue() }}</span>
+    @if (expression()) {
+      <mat-icon
+        class="li-form-value-info"
+        [matTooltip]="('li.computed_expression_tooltip' | translate) + ': ' + expression()">
+        info_outline
+      </mat-icon>
+    }
+  </div>
+  @if (error()) {
+    <span class="li-form-value-error g-text-small">{{ error() }}</span>
+  }
+}

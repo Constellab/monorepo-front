@@ -38,6 +38,7 @@ import { TdDocIoComponent } from './component/td-doc-io/td-doc-io.component';
 import { TdDynamicEditableFormGroupComponent } from './component/td-dynamic-editable-form-group/td-dynamic-editable-form-group.component';
 import { TdEditParamSpecDialogComponent } from './component/td-edit-param-spec-dialog/td-edit-param-spec-dialog.component';
 import { TdEditableParamSpecsTableComponent } from './component/td-editable-param-specs-table/td-editable-param-specs-table.component';
+import { TdExpressionInputComponent } from './component/td-expression-input/td-expression-input.component';
 import { TdIoDocsComponent } from './component/td-io-docs/td-io-docs.component';
 import { TdIoResourceComponent } from './component/td-io-resource/td-io-resource.component';
 import { TdMainDocComponent } from './component/td-main-doc/td-main-doc.component';
@@ -122,6 +123,7 @@ import { TD_TECHNICAL_DOC_I18N } from './td-technical-doc.i18n';
     TdCleanTypePipe,
     TdEditableParamSpecsTableComponent,
     TdEditParamSpecDialogComponent,
+    TdExpressionInputComponent,
     TdConfigureParamSpecsTableDialogComponent,
     TdIconBackgroundColorPipe,
     TdIconColorPipe,
@@ -150,6 +152,7 @@ import { TD_TECHNICAL_DOC_I18N } from './td-technical-doc.i18n';
     TdCleanTypePipe,
     TdEditableParamSpecsTableComponent,
     TdEditParamSpecDialogComponent,
+    TdExpressionInputComponent,
     TdConfigureParamSpecsTableDialogComponent,
     TdIconBackgroundColorPipe,
     TdIconColorPipe,

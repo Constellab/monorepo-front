@@ -27,7 +27,7 @@
       <span>{{ 'li.status' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let form">
-      <span>{{ 'li.form_status_' + form.status | translate }}</span>
+      <fl-status-chip [status]="getFormStatus(form.status)" mode="textOnly" size="small" />
     </mat-cell>
   </ng-container>
 

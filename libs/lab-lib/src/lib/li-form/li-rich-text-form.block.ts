@@ -50,7 +50,7 @@ export class LiRichTextFormBlock extends TeComponentBlock<LiRichTextFormComponen
   initInputs(data: LiRichTextFormBlockData): void {
     this.componentInstance.formId = data.form_id;
     this.componentInstance.isOwner = data.is_owner;
-    this.componentInstance.displayMode.set(data.display_mode ?? 'form');
+    this.componentInstance.displayMode.set(data.display_mode ?? null);
   }
 
   save(): BlockToolData {
@@ -69,6 +69,20 @@ export class LiRichTextFormBlock extends TeComponentBlock<LiRichTextFormComponen
     const t = TeHelper.getTranslateService();
     const current = this.componentInstance.displayMode();
     return [
+      {
+        icon: TeHelper.getMatIconElement('tune'),
+        title: t.translate('li.form_display_default'),
+        onActivate: () => this.setDisplayMode(null),
+        closeOnActivate: true,
+        isActive: current === null,
+      },
+      {
+        icon: TeHelper.getMatIconElement('visibility'),
+        title: t.translate('li.form_display_preview'),
+        onActivate: () => this.setDisplayMode('preview'),
+        closeOnActivate: true,
+        isActive: current === 'preview',
+      },
       {
         icon: TeHelper.getMatIconElement('edit_note'),
         title: t.translate('li.form_display_form'),
@@ -93,7 +107,7 @@ export class LiRichTextFormBlock extends TeComponentBlock<LiRichTextFormComponen
     ];
   }
 
-  private setDisplayMode(mode: LiRichTextFormDisplayMode): void {
+  private setDisplayMode(mode: LiRichTextFormDisplayMode | null): void {
     this.componentInstance.displayMode.set(mode);
   }
 

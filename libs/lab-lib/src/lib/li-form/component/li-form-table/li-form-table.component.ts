@@ -19,6 +19,7 @@ import { RouterLink } from '@angular/router';
 import { ClHelpService } from '@monorepo/core-lib';
 import { FlArrayObs, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import { FlSearchModule } from '@monorepo/front-core-lib/fl-search';
+import { FlStatus, FlStatusModule } from '@monorepo/front-core-lib/fl-status';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
@@ -27,7 +28,9 @@ import { LiGetEntityTagsPipe, LiTagListComponent } from '@monorepo/lab-lib/li-ta
 import { TranslatePipe } from '@ngx-translate/core';
 
 import { LiForm } from '../../../li-core/model/entities/form/li-form.entity';
+import { LiFormStatus } from '../../../li-core/model/entities/form/li-form.enum';
 import { LiFormActionEvent, LiFormActionMenu } from '../../model/li-form-action-menu.class';
+import { liGetFormStatus } from '../../model/li-form-status.helper';
 import { LiFormTemplateRefInlineComponent } from '../li-form-template-ref-inline/li-form-template-ref-inline.component';
 
 @Component({
@@ -58,6 +61,7 @@ import { LiFormTemplateRefInlineComponent } from '../li-form-template-ref-inline
     LiDetailRoutePipe,
     LiGetEntityTagsPipe,
     LiFormTemplateRefInlineComponent,
+    FlStatusModule,
   ],
 })
 export class LiFormTableComponent {
@@ -73,6 +77,10 @@ export class LiFormTableComponent {
 
   private injector = inject(Injector);
   private tagService = inject(LiTagService);
+
+  getFormStatus(status: LiFormStatus): FlStatus<LiFormStatus> {
+    return liGetFormStatus(status);
+  }
 
   rowClicked(form: LiForm): void {
     if (this.rowSelectable) {

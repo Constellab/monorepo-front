@@ -14,6 +14,7 @@ import {
   TdParamSpecEntry,
   TdParamSpecInfo,
   TdParamSpecs,
+  TdValidateComputedParamResult,
 } from '../model/td-config-spec.class';
 
 @Injectable()
@@ -53,6 +54,12 @@ export abstract class TdAbstractDynamicParamSpecState implements OnDestroy {
   ): Observable<TdParamSpecs>;
 
   abstract deleteParamSpec(paramName: string): Observable<TdParamSpecs>;
+
+  abstract validateComputedExpression(
+    expression: string,
+    key?: string,
+    paramSetKey?: string
+  ): Observable<TdValidateComputedParamResult> | null;
 
   getParamSpecsInfos(): TdParamSpecInfo[] {
     return TD_PARAM_SPEC_INFO_LIST;

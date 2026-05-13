@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, effect, inject, input, output, signal } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
+import { FlFormHelper } from '@monorepo/front-core-lib/fl-core';
 import { FlDynamicFieldConfigService } from '@monorepo/front-core-lib/fl-dynamic-field';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
@@ -74,6 +75,7 @@ export class LiFormEditorComponent {
   }
 
   submit(): void {
+    FlFormHelper.markAllAsTouched(this.formGp);
     const values = this.getCleanValues();
     const dto: LiSaveFormDTO = { values, status_transition: 'SUBMITTED' };
 

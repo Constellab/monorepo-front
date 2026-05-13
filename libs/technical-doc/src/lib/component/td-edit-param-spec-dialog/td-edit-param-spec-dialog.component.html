@@ -91,20 +91,50 @@
       @case ('computed_param') {
         <mat-divider></mat-divider>
         <div class="section" formGroupName="additional_info">
-          <h4 class="section-title">{{ 'td.additional_info' | translate }}</h4>
-          <mat-form-field class="full-width">
-            <mat-label>{{ 'td.expression' | translate }}</mat-label>
-            <input matInput formControlName="expression" />
-            <mat-hint>{{ 'td.expression_hint' | translate }}</mat-hint>
-          </mat-form-field>
-          <mat-form-field class="full-width">
-            <mat-label>{{ 'td.result_type' | translate }}</mat-label>
-            <mat-select formControlName="result_type">
-              @for (t of resultTypeOptions; track t) {
-                <mat-option [value]="t">{{ 'td.param_type.' + t | translate }}</mat-option>
-              }
-            </mat-select>
-          </mat-form-field>
+          <div class="section-header">
+            <h4 class="section-title">{{ 'td.additional_info' | translate }}</h4>
+            <button
+              mat-icon-button
+              type="button"
+              class="g-button-small"
+              [matTooltip]="'td.expression_help' | translate"
+              (click)="openExpressionHelp($event)">
+              <mat-icon>help_outline</mat-icon>
+            </button>
+          </div>
+          <div class="full-width expression-field">
+            <div class="g-text-small">{{ 'td.expression' | translate }}</div>
+            <div class="expression-row">
+              <td-expression-input formControlName="expression" [fieldNames]="siblingFieldNames()">
+              </td-expression-input>
+              <button
+                mat-icon-button
+                type="button"
+                [matTooltip]="'td.validate_expression' | translate"
+                [disabled]="!formGroup.get('additional_info.expression')?.value || isValidating()"
+                (click)="validateExpression()">
+                @if (isValidating()) {
+                  <fl-button-loader></fl-button-loader>
+                } @else {
+                  <mat-icon>check_circle</mat-icon>
+                }
+              </button>
+            </div>
+            <p class="g-text-small g-text-light expression-hint">{{ 'td.expression_hint' | translate }}</p>
+          </div>
+
+          @if (validationResult(); as result) {
+            <div class="validation-result" [class.valid]="result.valid" [class.invalid]="!result.valid">
+              <mat-icon>{{ result.valid ? 'check_circle' : 'error' }}</mat-icon>
+              <span>
+                @if (result.valid) {
+                  {{ 'td.expression_valid' | translate }}
+                } @else {
+                  {{ result.error }}
+                }
+              </span>
+            </div>
+          }
         </div>
       }
       @case ('param_set') {
@@ -146,7 +176,7 @@
             </button>
           </div>
 
-          @for (option of formGroup.get('additional_info.allowed_values').value; track $index) {
+          @for (option of formGroup.get('additional_info.options').value; track $index) {
             <div class="row">
               <mat-form-field class="full-width">
                 <mat-label>{{ 'td.option_value' | translate }}</mat-label>
@@ -154,7 +184,7 @@
                   matInput
                   [value]="option.value"
                   (input)="updateSelectOption($index, $any($event.target).value)" />
-                @if (formGroup.get('additional_info.allowed_values').value.length > 1) {
+                @if (formGroup.get('additional_info.options').value.length > 1) {
                   <button matSuffix mat-icon-button type="button" (click)="removeSelectOption($index)">
                     <mat-icon>clear</mat-icon>
                   </button>
@@ -226,3 +256,118 @@
     }
   </button>
 </mat-dialog-actions>
+
+<ng-template #expressionHelpTemplate>
+  <div class="expression-help-portal">
+    <h4>{{ 'td.expression_help_title' | translate }}</h4>
+
+    <section>
+      <h5>{{ 'td.expression_help_references' | translate }}</h5>
+      <p>{{ 'td.expression_help_references_desc' | translate }}</p>
+      <code class="expression-example">&#64;weight / (&#64;height ** 2)</code>
+    </section>
+
+    <section>
+      <h5>{{ 'td.expression_help_arithmetic' | translate }}</h5>
+      <div class="operator-list">
+        <code>+</code>
+        <code>-</code>
+        <code>*</code>
+        <code>/</code>
+        <code>//</code>
+        <code>%</code>
+        <code>**</code>
+        <code>( )</code>
+      </div>
+    </section>
+
+    <section>
+      <h5>{{ 'td.expression_help_comparisons' | translate }}</h5>
+      <div class="operator-list">
+        <code>==</code>
+        <code>!=</code>
+        <code>&lt;</code>
+        <code>&lt;=</code>
+        <code>&gt;</code>
+        <code>&gt;=</code>
+        <code>and</code>
+        <code>or</code>
+        <code>not</code>
+      </div>
+    </section>
+
+    <section>
+      <h5>{{ 'td.expression_help_functions' | translate }}</h5>
+      <table class="help-table">
+        <tr>
+          <td><code>sum(...)</code></td>
+          <td>{{ 'td.fn_sum' | translate }}</td>
+        </tr>
+        <tr>
+          <td><code>mean(...)</code></td>
+          <td>{{ 'td.fn_mean' | translate }}</td>
+        </tr>
+        <tr>
+          <td><code>median(...)</code></td>
+          <td>{{ 'td.fn_median' | translate }}</td>
+        </tr>
+        <tr>
+          <td><code>min(...)</code></td>
+          <td>{{ 'td.fn_min' | translate }}</td>
+        </tr>
+        <tr>
+          <td><code>max(...)</code></td>
+          <td>{{ 'td.fn_max' | translate }}</td>
+        </tr>
+        <tr>
+          <td><code>count(...)</code></td>
+          <td>{{ 'td.fn_count' | translate }}</td>
+        </tr>
+        <tr>
+          <td><code>stddev(...)</code></td>
+          <td>{{ 'td.fn_stddev' | translate }}</td>
+        </tr>
+        <tr>
+          <td><code>abs(x)</code></td>
+          <td>{{ 'td.fn_abs' | translate }}</td>
+        </tr>
+        <tr>
+          <td><code>round(x, n)</code></td>
+          <td>{{ 'td.fn_round' | translate }}</td>
+        </tr>
+        <tr>
+          <td><code>sqrt(x)</code></td>
+          <td>{{ 'td.fn_sqrt' | translate }}</td>
+        </tr>
+        <tr>
+          <td><code>pow(x, n)</code></td>
+          <td>{{ 'td.fn_pow' | translate }}</td>
+        </tr>
+        <tr>
+          <td><code>if(cond, a, b)</code></td>
+          <td>{{ 'td.fn_if' | translate }}</td>
+        </tr>
+        <tr>
+          <td><code>concat(...)</code></td>
+          <td>{{ 'td.fn_concat' | translate }}</td>
+        </tr>
+      </table>
+    </section>
+
+    <section>
+      <h5>{{ 'td.expression_help_table_aggregate' | translate }}</h5>
+      <p>{{ 'td.expression_help_table_aggregate_desc' | translate }}</p>
+      <code class="expression-example">sum(&#64;samples[].mass)</code>
+    </section>
+
+    <section>
+      <h5>{{ 'td.expression_help_examples' | translate }}</h5>
+      <div class="help-examples">
+        <code class="expression-example">&#64;price * &#64;quantity</code>
+        <code class="expression-example">if(&#64;score >= 50, "pass", "fail")</code>
+        <code class="expression-example">round(&#64;total / &#64;count, 2)</code>
+        <code class="expression-example">concat(&#64;first_name, " ", &#64;last_name)</code>
+      </div>
+    </section>
+  </div>
+</ng-template>

@@ -1,6 +1,6 @@
 @if (!hasTemplate) {
   <div class="form-template-empty">
-    <mat-icon flIcon="form-template"></mat-icon>
+    <mat-icon flIcon="form_template"></mat-icon>
     <span>{{ 'li.form_template_no_selection' | translate }}</span>
     @if (!disabled) {
       <button mat-stroked-button (click)="openSelectTemplate()">
@@ -19,9 +19,16 @@
   </div>
 } @else {
   <div class="form-template-placeholder">
-    <mat-icon>description</mat-icon>
+    <mat-icon flIcon="form_template"></mat-icon>
     <div class="form-template-info">
-      <span class="form-template-name">{{ templateName() }} (v{{ versionNumber() }})</span>
+      <span class="form-template-name"
+        >{{ templateName() }}
+        @if (versionNumber()) {
+          (v{{ versionNumber() }})
+        } @else {
+          (latest)
+        }
+      </span>
       <span class="form-template-hint">{{ 'li.form_template_block_hint' | translate }}</span>
     </div>
     @if (!disabled) {

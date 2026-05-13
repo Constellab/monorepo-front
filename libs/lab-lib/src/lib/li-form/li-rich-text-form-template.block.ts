@@ -40,27 +40,17 @@ export class LiRichTextFormTemplateBlock extends TeComponentBlock<LiRichTextForm
   initInputs(data: LiRichTextFormTemplateBlockData): void {
     this.componentInstance.formTemplateId = data?.form_template_id;
     this.componentInstance.formTemplateVersionId = data?.form_template_version_id;
-    this.componentInstance.displayName = data?.display_name;
-
-    if (data?.form_template_id && data?.form_template_version_id) {
-      this.componentInstance.loadVersionInfo(
-        data.form_template_id,
-        data.form_template_version_id,
-        data.display_name
-      );
-    }
   }
 
   save(): BlockToolData {
     return {
       form_template_id: this.componentInstance.formTemplateId,
       form_template_version_id: this.componentInstance.formTemplateVersionId,
-      display_name: this.componentInstance.displayName,
     };
   }
 
   validate(data: LiRichTextFormTemplateBlockData): boolean {
-    return !!data.form_template_id && !!data.form_template_version_id;
+    return !!data.form_template_id;
   }
 
   override appendCallback(): void {

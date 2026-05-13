@@ -191,6 +191,15 @@ export interface TdParamSpecComputed extends TdParamSpecBase {
   additional_info: any;
 }
 
+/**
+ * Runtime value wrapper for computed param fields.
+ * Computed cells in form values are stored as {value, errors}.
+ */
+export interface TdComputedParamValue {
+  value: unknown;
+  errors: string;
+}
+
 export interface TdSelectParamOption {
   label: string;
   value: string | number | boolean | null;
@@ -202,7 +211,7 @@ export interface TdParamSpecSelect extends TdParamSpecBase {
   default_value: TdSelectParamOption['value'] | TdSelectParamOption['value'][] | null;
 
   additional_info: {
-    allowed_values: TdSelectParamOption[];
+    options: TdSelectParamOption[];
     multiple: boolean;
   };
 }
@@ -296,6 +305,12 @@ export const TD_CODE_PARAM_SPEC_TYPE_LIST: TdParamSpecTypeEnum[] = [
   TdParamSpecTypeEnum.YAML_CODE_PARAM,
   TdParamSpecTypeEnum.JSON_CODE_PARAM,
 ];
+
+export interface TdValidateComputedParamResult {
+  valid: boolean;
+  referenced_keys: string[];
+  error: string | null;
+}
 
 export const TD_TYPES_WITHOUT_DEFAULT_VALUE: TdParamSpecTypeEnum[] = [
   TdParamSpecTypeEnum.PARAM_SET,

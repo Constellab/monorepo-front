@@ -5,6 +5,7 @@ import {
   TdParamSpec,
   TdParamSpecInfo,
   TdParamSpecs,
+  TdValidateComputedParamResult,
 } from '@monorepo/technical-doc';
 import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -76,5 +77,9 @@ export class CoTagAdditionalInfoSpecState extends TdAbstractDynamicParamSpecStat
       this.onAdditionalInfoSpecsChanged$.next(result);
     }
     return result;
+  }
+
+  validateComputedExpression(): Observable<TdValidateComputedParamResult> | null {
+    throw new Error('Computed param validation not implemented for lab dynamic params');
   }
 }

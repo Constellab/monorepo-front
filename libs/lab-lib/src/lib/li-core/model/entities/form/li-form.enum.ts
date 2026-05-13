@@ -2,7 +2,7 @@ export type LiFormTemplateVersionStatus = 'DRAFT' | 'PUBLISHED' | 'ARCHIVED';
 
 export type LiFormStatus = 'DRAFT' | 'SUBMITTED';
 
-export type LiFormDisplayMode = 'form' | 'json' | 'table';
+export type LiFormDisplayMode = 'form' | 'json' | 'table' | 'preview';
 
 export type LiFormChangeAction =
   | 'FIELD_CREATED'

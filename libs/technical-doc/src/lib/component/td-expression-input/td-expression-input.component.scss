@@ -1,0 +1,63 @@
+:host {
+  display: block;
+}
+
+.td-expression-input {
+  min-height: 36px;
+  border: 1px solid var(--border-color, rgba(0, 0, 0, 0.12));
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-family: monospace;
+  line-height: 1.5;
+  cursor: text;
+  outline: none;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+
+  &:focus {
+    border-color: var(--primary-color);
+    border-width: 2px;
+    padding: 7px 11px;
+  }
+
+  &:empty::before {
+    content: attr(data-placeholder);
+    color: var(--hint-color, rgba(0, 0, 0, 0.38));
+    pointer-events: none;
+  }
+
+  ::ng-deep .td-field-token {
+    background-color: var(--primary-light-color, rgba(25, 118, 210, 0.12));
+    border-radius: 3px;
+    padding: 1px 3px;
+    color: var(--primary-color, #1565c0);
+    font-weight: 500;
+  }
+}
+
+.td-expression-suggestions {
+  background: var(--card-color, white);
+  border: 1px solid var(--border-color, rgba(0, 0, 0, 0.12));
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  max-height: 200px;
+  overflow-y: auto;
+  min-width: 150px;
+}
+
+.td-suggestion-item {
+  padding: 8px 12px;
+  cursor: pointer;
+  font-family: monospace;
+
+  &:hover,
+  &.hovered {
+    background-color: var(--hover-color, rgba(0, 0, 0, 0.04));
+  }
+}
+
+.td-suggestion-empty {
+  padding: 8px 12px;
+  color: var(--hint-color, rgba(0, 0, 0, 0.38));
+}

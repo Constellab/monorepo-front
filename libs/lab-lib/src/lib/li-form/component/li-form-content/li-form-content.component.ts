@@ -1,17 +1,5 @@
 import { Component, computed, effect, inject, input, model, output, signal, ViewChild } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
-import {
-  MatCell,
-  MatCellDef,
-  MatColumnDef,
-  MatHeaderCell,
-  MatHeaderCellDef,
-  MatHeaderRow,
-  MatHeaderRowDef,
-  MatRow,
-  MatRowDef,
-  MatTable,
-} from '@angular/material/table';
 import { FlAiModule } from '@monorepo/front-core-lib/fl-ai';
 import { FlJsonEditorModule } from '@monorepo/front-core-lib/fl-json-editor';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
@@ -23,28 +11,9 @@ import { LiForm, LiFormContent } from '../../../li-core/model/entities/form/li-f
 import { LiFormDisplayMode, LiFormStatus } from '../../../li-core/model/entities/form/li-form.enum';
 import { liGetFormStatus } from '../../model/li-form-status.helper';
 import { LiFormService } from '../../service/li-form.service';
+import { LiFormContentTableComponent } from '../li-form-content-table/li-form-content-table.component';
 import { LiFormEditorComponent } from '../li-form-editor/li-form-editor.component';
-import { liIsFieldComputed } from '../li-form-editor/li-form-editor.logic';
-import { liGetFieldDisplayName } from '../li-form-history/li-form-history.logic';
 import { LiFormTemplateRefInlineComponent } from '../li-form-template-ref-inline/li-form-template-ref-inline.component';
-
-export interface LiFormTableRow {
-  key: string;
-  name: string;
-  shortDescription: string;
-  value: string;
-}
-
-function liFormatTableValue(value: unknown): string {
-  if (value == null) return '';
-  if (Array.isArray(value)) {
-    return value.map((v) => String(v ?? '')).join(', ');
-  }
-  if (typeof value === 'object') {
-    return JSON.stringify(value);
-  }
-  return String(value);
-}
 
 @Component({
   selector: 'li-form-content',
@@ -53,21 +22,12 @@ function liFormatTableValue(value: unknown): string {
   imports: [
     LiFormEditorComponent,
     LiFormTemplateRefInlineComponent,
+    LiFormContentTableComponent,
     FlAiModule,
     FlStatusModule,
     FlLoaderModule,
     FlJsonEditorModule,
     MatIcon,
-    MatTable,
-    MatColumnDef,
-    MatHeaderCellDef,
-    MatHeaderCell,
-    MatCellDef,
-    MatCell,
-    MatHeaderRowDef,
-    MatHeaderRow,
-    MatRowDef,
-    MatRow,
     TranslatePipe,
   ],
 })
@@ -89,24 +49,6 @@ export class LiFormContentComponent {
   error = signal<string>(null);
   form = signal<LiForm>(null);
   formContent = signal<LiFormContent>(null);
-
-  tableData = computed<LiFormTableRow[]>(() => {
-    const content = this.formContent();
-    if (!content?.values) return [];
-
-    const specs = content.specs;
-    return Object.entries(content.values).map(([key, raw]) => {
-      const resolved = specs && liIsFieldComputed(specs, key) ? (raw as { value?: unknown })?.value : raw;
-      return {
-        key,
-        name: liGetFieldDisplayName(key, specs),
-        shortDescription: specs?.[key]?.short_description ?? '',
-        value: liFormatTableValue(resolved),
-      };
-    });
-  });
-
-  tableColumns = ['name', 'value'];
 
   formStatus = computed<FlStatus<LiFormStatus>>(() => {
     const f = this.form();

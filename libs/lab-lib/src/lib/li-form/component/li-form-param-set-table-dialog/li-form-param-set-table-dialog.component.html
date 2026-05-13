@@ -1,0 +1,18 @@
+<fl-dialog-header>
+  {{ data.title }}
+</fl-dialog-header>
+
+<mat-dialog-content>
+  <mat-table [dataSource]="data.data" class="li-form-param-set-table">
+    @for (col of displayedColumns; track col) {
+      <ng-container [matColumnDef]="col">
+        <mat-header-cell *matHeaderCellDef>{{ getColumnHeader(col) }}</mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <li-form-value [value]="row[col]" [spec]="data.specs[col]" />
+        </mat-cell>
+      </ng-container>
+    }
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  </mat-table>
+</mat-dialog-content>

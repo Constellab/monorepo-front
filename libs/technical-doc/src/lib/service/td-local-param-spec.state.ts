@@ -6,6 +6,7 @@ import {
   TdParamSpecInfo,
   TdParamSpecs,
   TdParamSpecTypeEnum,
+  TdValidateComputedParamResult,
 } from '../model/td-config-spec.class';
 import { TdAbstractDynamicParamSpecState } from './td-abstract-dynamic-param-spec.state';
 
@@ -62,5 +63,9 @@ export class TdLocalParamSpecState extends TdAbstractDynamicParamSpecState {
    */
   getParamSpecsInfos(): TdParamSpecInfo[] {
     return TD_PARAM_SPEC_INFO_LIST.filter((info) => info.type !== TdParamSpecTypeEnum.PARAM_SET);
+  }
+
+  validateComputedExpression(): Observable<TdValidateComputedParamResult> | null {
+    throw new Error('Computed param validation not implemented for lab dynamic params');
   }
 }
