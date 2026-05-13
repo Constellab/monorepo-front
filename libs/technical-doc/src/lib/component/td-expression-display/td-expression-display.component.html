@@ -1,0 +1,25 @@
+<span class="td-expression-display">
+  @for (seg of segments(); track $index) {
+    @if (seg.type === 'text') {
+      {{ seg.value }}
+    }
+    @if (seg.type === 'field') {
+      <span
+        class="td-field-token"
+        (mouseenter)="showTooltip($any($event.target), seg)"
+        (focus)="(null)"
+        (mouseleave)="hideTooltip()"
+        (blur)="hideTooltip()"
+        >@{{ seg.entry?.spec.human_name || seg.key }}</span
+      >
+    }
+  }
+</span>
+
+<ng-template #tooltipTemplate>
+  <div class="td-field-tooltip">
+    @if (tooltipSpec(); as entry) {
+      <td-param-spec-inline [entry]="entry"></td-param-spec-inline>
+    }
+  </div>
+</ng-template>

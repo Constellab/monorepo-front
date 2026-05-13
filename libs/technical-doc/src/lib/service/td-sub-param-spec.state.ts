@@ -16,6 +16,8 @@ import { TdAbstractDynamicParamSpecState } from './td-abstract-dynamic-param-spe
  * Delegates validation to the parent state when available.
  */
 export class TdSubParamSpecState extends TdAbstractDynamicParamSpecState {
+  override reorderEnabled = true;
+
   constructor(
     private parentState?: TdAbstractDynamicParamSpecState,
     private paramSetKey?: string
@@ -53,6 +55,16 @@ export class TdSubParamSpecState extends TdAbstractDynamicParamSpecState {
     delete specs[key];
     this.setParamSpecs(specs);
     return of(specs);
+  }
+
+  override reorderParamSpecs(paramNames: string[]): Observable<TdParamSpecs> {
+    const specs = this.getCurrentSpecs();
+    const reordered: TdParamSpecs = {};
+    for (const name of paramNames) {
+      reordered[name] = specs[name];
+    }
+    this.setParamSpecs(reordered);
+    return of(reordered);
   }
 
   getCurrentSpecs(): TdParamSpecs {

@@ -33,6 +33,7 @@
     padding: 1px 3px;
     color: var(--primary-color);
     font-weight: 500;
+    cursor: default;
   }
 }
 
@@ -41,15 +42,25 @@
   border: 1px solid var(--hover-color);
   border-radius: 4px;
   box-shadow: var(--mat-sys-level2);
-  max-height: 200px;
+  max-height: 250px;
   overflow-y: auto;
-  min-width: 150px;
+  min-width: 200px;
+}
+
+.td-suggestion-section-label {
+  padding: 4px 12px;
+  color: var(--light-color);
+  font-weight: 500;
+  border-bottom: 1px solid var(--hover-color);
+
+  &:not(:first-child) {
+    border-top: 1px solid var(--hover-color);
+  }
 }
 
 .td-suggestion-item {
-  padding: 8px 12px;
+  padding: 6px 12px;
   cursor: pointer;
-  font-family: monospace;
 
   &:hover,
   &.hovered {
@@ -57,7 +68,27 @@
   }
 }
 
+.td-suggestion-fn-name {
+  font-weight: 500;
+}
+
+.td-suggestion-fn-sig {
+  font-family: monospace;
+  color: var(--light-color);
+}
+
 .td-suggestion-empty {
   padding: 8px 12px;
   color: var(--light-color);
+}
+
+// -- Tooltip --
+
+.td-field-tooltip {
+  background: var(--card-background);
+  border: 1px solid var(--hover-color);
+  border-radius: 4px;
+  box-shadow: var(--mat-sys-level2);
+  padding: 8px 12px;
+  max-width: 300px;
 }

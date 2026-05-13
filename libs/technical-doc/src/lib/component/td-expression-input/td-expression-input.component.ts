@@ -13,8 +13,11 @@ import {
 import { NgControl } from '@angular/forms';
 import { FlFormFieldDirective } from '@monorepo/front-core-lib/fl-core';
 import { FlOverlayRef, FlPortalService } from '@monorepo/front-core-lib/fl-portal';
+import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 
-const FIELD_TOKEN_REGEX = /@([a-zA-Z_][a-zA-Z0-9_]*)/g;
+import { TdParamSpecEntry } from '../../model/td-config-spec.class';
+import { TdParsedExpression } from '../td-expression-display/td-expression-display.helper';
+import { TD_EXPRESSION_FUNCTIONS, TdExpressionFunction } from './td-expression-input.model';
 
 @Component({
   selector: 'td-expression-input',
@@ -25,24 +28,62 @@ const FIELD_TOKEN_REGEX = /@([a-zA-Z_][a-zA-Z0-9_]*)/g;
 export class TdExpressionInputComponent extends FlFormFieldDirective<string> implements OnDestroy {
   private portalService = inject(FlPortalService);
   private viewContainerRef = inject(ViewContainerRef);
+  private translateService = inject(FlTranslateService);
 
-  fieldNames = input<string[]>([]);
+  fieldSpecs = input<TdParamSpecEntry[]>([]);
 
   @ViewChild('editableDiv', { static: true }) editableDiv: ElementRef<HTMLDivElement>;
   @ViewChild('container', { static: true }) container: ElementRef<HTMLDivElement>;
   @ViewChild('suggestionsTemplate', { static: true }) suggestionsTemplate: TemplateRef<any>;
+  @ViewChild('tooltipTemplate', { static: true }) tooltipTemplate: TemplateRef<any>;
 
   readonly currentFilter = signal<string | null>(null);
   readonly hoveredIndex = signal(0);
+  readonly autocompleteMode = signal<'field' | 'function' | null>(null);
+  readonly tooltipSpec = signal<TdParamSpecEntry | null>(null);
 
-  readonly filteredSuggestions = computed(() => {
+  readonly fieldSpecMap = computed(() => new Map(this.fieldSpecs().map((s) => [s.key, s])));
+
+  readonly filteredFieldSuggestions = computed(() => {
     const filterText = this.currentFilter();
     if (filterText == null) return [];
+    if (filterText === '') return this.fieldSpecs();
     const lower = filterText.toLowerCase();
-    return this.fieldNames().filter((name) => name.toLowerCase().startsWith(lower));
+    return this.fieldSpecs().filter((s) => {
+      const keyMatch = s.key.toLowerCase().startsWith(lower);
+      const nameMatch = (s.spec.human_name || '').toLowerCase().startsWith(lower);
+      const descMatch = (s.spec.short_description || '').toLowerCase().includes(lower);
+      return keyMatch || nameMatch || descMatch;
+    });
   });
 
+  private readonly expressionFunctions = computed<TdExpressionFunction[]>(() => {
+    return TD_EXPRESSION_FUNCTIONS.map((f) => ({
+      name: f.name,
+      signature: f.signature,
+      description: this.translateService.translate(f.descriptionKey),
+    }));
+  });
+
+  readonly filteredFunctionSuggestions = computed(() => {
+    const filterText = this.currentFilter();
+    const fns = this.expressionFunctions();
+    if (filterText == null) return [];
+    if (filterText === '') return fns;
+    const lower = filterText.toLowerCase();
+    return fns.filter((f) => {
+      const nameMatch = f.name.toLowerCase().startsWith(lower);
+      const descMatch = f.description.toLowerCase().startsWith(lower);
+      return nameMatch || descMatch;
+    });
+  });
+
+  readonly totalSuggestionCount = computed(
+    () => this.filteredFieldSuggestions().length + this.filteredFunctionSuggestions().length
+  );
+
   private overlayRef: FlOverlayRef | null = null;
+  private tooltipOverlayRef: FlOverlayRef | null = null;
   private triggerCaretOffset: number | null = null;
 
   constructor() {
@@ -61,23 +102,40 @@ export class TdExpressionInputComponent extends FlFormFieldDirective<string> imp
   callChangeEvent(): void {}
 
   onInput(): void {
-    const text = this.getPlainText();
-    const caretOffset = this.getCaretOffset();
+    this.closeTooltip();
+    const { modelText, displayOffset } = this.getCaretInfo();
 
-    this._value = text;
+    this._value = modelText;
     this.emitCurrentValue();
     this.markAsTouched();
 
-    this.renderHighlighted(text);
+    this.renderHighlighted(modelText);
 
-    if (caretOffset != null) {
-      this.setCaretAtOffset(caretOffset);
+    if (displayOffset != null) {
+      const newDisplayOffset = this.modelOffsetToDisplayOffset(modelText, displayOffset);
+      this.setCaretAtOffset(newDisplayOffset);
     }
 
-    this.checkForTrigger(text, caretOffset);
+    this.checkForTrigger(modelText, displayOffset);
   }
 
   onKeydown(event: KeyboardEvent): void {
+    // Handle arrow keys to escape from inside field token spans
+    if ((event.key === 'ArrowLeft' || event.key === 'ArrowRight') && !this.overlayRef) {
+      const escaped = this.handleTokenEscape(event.key);
+      if (escaped) {
+        event.preventDefault();
+        return;
+      }
+    }
+
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      event.stopPropagation();
+      this.closeSuggestions();
+      return;
+    }
+
     if (event.key === 'Enter' && !this.overlayRef) {
       event.preventDefault();
       return;
@@ -85,27 +143,23 @@ export class TdExpressionInputComponent extends FlFormFieldDirective<string> imp
 
     if (!this.overlayRef) return;
 
-    const suggestions = this.filteredSuggestions();
+    const total = this.totalSuggestionCount();
     switch (event.key) {
       case 'ArrowDown':
         event.preventDefault();
-        this.hoveredIndex.set((this.hoveredIndex() + 1) % Math.max(suggestions.length, 1));
+        this.hoveredIndex.set((this.hoveredIndex() + 1) % Math.max(total, 1));
+        this.scrollToHovered();
         break;
       case 'ArrowUp':
         event.preventDefault();
-        this.hoveredIndex.set(
-          (this.hoveredIndex() - 1 + Math.max(suggestions.length, 1)) % Math.max(suggestions.length, 1)
-        );
+        this.hoveredIndex.set((this.hoveredIndex() - 1 + Math.max(total, 1)) % Math.max(total, 1));
+        this.scrollToHovered();
         break;
       case 'Enter':
         event.preventDefault();
-        if (suggestions.length > 0) {
-          this.selectSuggestion(suggestions[this.hoveredIndex()]);
+        if (total > 0) {
+          this.selectByGlobalIndex(this.hoveredIndex());
         }
-        break;
-      case 'Escape':
-        event.preventDefault();
-        this.closeSuggestions();
         break;
     }
   }
@@ -120,8 +174,8 @@ export class TdExpressionInputComponent extends FlFormFieldDirective<string> imp
     this.markAsTouched();
   }
 
-  selectSuggestion(fieldName: string): void {
-    const text = this.getPlainText();
+  selectFieldSuggestion(entry: TdParamSpecEntry): void {
+    const text = this._value;
 
     if (this.triggerCaretOffset == null) {
       this.closeSuggestions();
@@ -129,33 +183,284 @@ export class TdExpressionInputComponent extends FlFormFieldDirective<string> imp
     }
 
     const beforeTrigger = text.substring(0, this.triggerCaretOffset);
-    // Skip the '@' itself, then match the partial identifier after it
-    const afterAt = text.substring(this.triggerCaretOffset + 1);
-    const partialMatch = afterAt.match(/^([a-zA-Z0-9_]*)/);
-    const partialLength = partialMatch?.[0]?.length ?? 0;
 
-    const newText =
-      beforeTrigger + '@' + fieldName + text.substring(this.triggerCaretOffset + 1 + partialLength);
+    if (this.autocompleteMode() === 'field') {
+      // Replace @partial with @key + trailing space
+      const afterAt = text.substring(this.triggerCaretOffset + 1);
+      const partialMatch = afterAt.match(/^([a-zA-Z0-9_]*)/);
+      const partialLength = partialMatch?.[0]?.length ?? 0;
+      const rest = text.substring(this.triggerCaretOffset + 1 + partialLength);
+      const newText = beforeTrigger + '@' + entry.key + ' ' + rest;
 
-    this._value = newText;
-    this.emitCurrentValue();
-    this.renderHighlighted(newText);
+      this._value = newText;
+      this.emitCurrentValue();
+      this.renderHighlighted(newText);
 
-    const caretPos = beforeTrigger.length + 1 + fieldName.length;
-    this.setCaretAtOffset(caretPos);
+      const modelCaretPos = beforeTrigger.length + 1 + entry.key.length + 1;
+      const displayCaretPos = this.modelOffsetToDisplayOffset(newText, modelCaretPos);
+      this.setCaretAtOffset(displayCaretPos);
+    } else {
+      // Function mode context but user picked a field — insert @key + trailing space
+      const afterWord = text.substring(this.triggerCaretOffset);
+      const partialMatch = afterWord.match(/^([a-zA-Z_]\w*)/);
+      const partialLength = partialMatch?.[0]?.length ?? 0;
+      const rest = text.substring(this.triggerCaretOffset + partialLength);
+      const newText = beforeTrigger + '@' + entry.key + ' ' + rest;
+
+      this._value = newText;
+      this.emitCurrentValue();
+      this.renderHighlighted(newText);
+
+      const modelCaretPos = beforeTrigger.length + 1 + entry.key.length + 1;
+      const displayCaretPos = this.modelOffsetToDisplayOffset(newText, modelCaretPos);
+      this.setCaretAtOffset(displayCaretPos);
+    }
 
     this.closeSuggestions();
     this.editableDiv.nativeElement.focus();
   }
 
-  ngOnDestroy(): void {
+  selectFunctionSuggestion(fn: TdExpressionFunction): void {
+    const text = this._value;
+
+    if (this.triggerCaretOffset == null) {
+      this.closeSuggestions();
+      return;
+    }
+
+    const beforeTrigger = text.substring(0, this.triggerCaretOffset);
+
+    if (this.autocompleteMode() === 'field') {
+      // Field mode context but user picked a function — replace @partial with fn(
+      const afterAt = text.substring(this.triggerCaretOffset + 1);
+      const partialMatch = afterAt.match(/^([a-zA-Z0-9_]*)/);
+      const partialLength = partialMatch?.[0]?.length ?? 0;
+      // Remove the @ trigger too
+      const insertion = fn.name + '(';
+      const newText = beforeTrigger + insertion + text.substring(this.triggerCaretOffset + 1 + partialLength);
+
+      this._value = newText;
+      this.emitCurrentValue();
+      this.renderHighlighted(newText);
+
+      const caretPos = beforeTrigger.length + insertion.length;
+      this.setCaretAtOffset(caretPos);
+    } else {
+      // Function mode — replace partial word with fn(
+      const afterWord = text.substring(this.triggerCaretOffset);
+      const partialMatch = afterWord.match(/^([a-zA-Z_]\w*)/);
+      const partialLength = partialMatch?.[0]?.length ?? 0;
+
+      const insertion = fn.name + '(';
+      const newText = beforeTrigger + insertion + text.substring(this.triggerCaretOffset + partialLength);
+
+      this._value = newText;
+      this.emitCurrentValue();
+      this.renderHighlighted(newText);
+
+      const caretPos = beforeTrigger.length + insertion.length;
+      this.setCaretAtOffset(caretPos);
+    }
+
     this.closeSuggestions();
+    this.editableDiv.nativeElement.focus();
   }
 
-  // -- Plain text extraction --
+  onMouseOver(event: MouseEvent): void {
+    const target = event.target as HTMLElement;
+    if (!target.classList?.contains('td-field-token')) {
+      this.closeTooltip();
+      return;
+    }
+    const key = target.getAttribute('data-key');
+    if (!key) return;
+    const entry = this.fieldSpecMap().get(key);
+    if (!entry || this.tooltipOverlayRef) return;
+
+    this.tooltipSpec.set(entry);
+    const config = this.portalService.configureRelativePortal(target, ['top', 'bottom'], {
+      disposeOnOutsideClick: false,
+    });
+    this.tooltipOverlayRef = this.portalService.createPortalTemplate(
+      this.tooltipTemplate,
+      config,
+      this.viewContainerRef
+    );
+    this.tooltipOverlayRef.detachments().subscribe(() => {
+      this.tooltipOverlayRef = null;
+      this.tooltipSpec.set(null);
+    });
+  }
+
+  onMouseOut(event: MouseEvent): void {
+    const related = event.relatedTarget as HTMLElement;
+    if (related?.classList?.contains('td-field-token')) return;
+    this.closeTooltip();
+  }
+
+  ngOnDestroy(): void {
+    this.closeSuggestions();
+    this.closeTooltip();
+  }
+
+  // -- Arrow key token escape --
+
+  private handleTokenEscape(key: 'ArrowLeft' | 'ArrowRight'): boolean {
+    const sel = window.getSelection();
+    if (!sel || sel.rangeCount === 0) return false;
+
+    const range = sel.getRangeAt(0);
+    const container = range.startContainer;
+    const div = this.editableDiv.nativeElement;
+
+    // Check if cursor is inside a field token span
+    const tokenSpan =
+      container.nodeType === Node.TEXT_NODE ? container.parentElement : (container as HTMLElement);
+
+    if (!tokenSpan?.classList?.contains('td-field-token')) return false;
+    if (!div.contains(tokenSpan)) return false;
+
+    // Ensure there's a text node to land on outside the token
+    if (key === 'ArrowRight') {
+      if (!tokenSpan.nextSibling || tokenSpan.nextSibling.nodeType !== Node.TEXT_NODE) {
+        const textNode = document.createTextNode('\u200B');
+        tokenSpan.after(textNode);
+      }
+    } else {
+      if (!tokenSpan.previousSibling || tokenSpan.previousSibling.nodeType !== Node.TEXT_NODE) {
+        const textNode = document.createTextNode('\u200B');
+        tokenSpan.before(textNode);
+      }
+    }
+
+    // Move caret outside the token
+    const newRange = document.createRange();
+    if (key === 'ArrowRight') {
+      const next = tokenSpan.nextSibling as Text;
+      newRange.setStart(next, 1);
+    } else {
+      const prev = tokenSpan.previousSibling as Text;
+      newRange.setStart(prev, prev.textContent?.length ?? 0);
+    }
+    newRange.collapse(true);
+    sel.removeAllRanges();
+    sel.addRange(newRange);
+    return true;
+  }
+
+  // -- Plain text extraction (model-space: uses keys, not human names) --
 
   private getPlainText(): string {
-    return this.editableDiv.nativeElement.textContent ?? '';
+    const div = this.editableDiv.nativeElement;
+    let result = '';
+    for (const node of Array.from(div.childNodes)) {
+      if (node.nodeType === Node.TEXT_NODE) {
+        result += (node.textContent ?? '').replace(/\u200B/g, '');
+      } else if (node instanceof HTMLElement && node.classList.contains('td-field-token')) {
+        result += '@' + node.getAttribute('data-key');
+      } else {
+        result += (node.textContent ?? '').replace(/\u200B/g, '');
+      }
+    }
+    return result;
+  }
+
+  // -- Combined caret info extraction --
+
+  private getCaretInfo(): { modelText: string; displayOffset: number | null } {
+    const sel = window.getSelection();
+    const div = this.editableDiv.nativeElement;
+    const modelText = this.getPlainText();
+
+    if (!sel || sel.rangeCount === 0) {
+      return { modelText, displayOffset: null };
+    }
+
+    const range = sel.getRangeAt(0);
+    if (!div.contains(range.startContainer)) {
+      return { modelText, displayOffset: null };
+    }
+
+    // Compute display offset (in display-space characters)
+    let displayOffset = 0;
+    const walker = document.createTreeWalker(div, NodeFilter.SHOW_TEXT);
+    let node: Text | null;
+    while ((node = walker.nextNode() as Text | null)) {
+      if (node === range.startContainer) {
+        displayOffset += range.startOffset;
+        break;
+      }
+      displayOffset += node.textContent?.length ?? 0;
+    }
+
+    // Convert display offset to model offset by walking child nodes
+    let modelOffset = 0;
+    let displayConsumed = 0;
+    for (const child of Array.from(div.childNodes)) {
+      if (child.nodeType === Node.TEXT_NODE) {
+        const len = child.textContent?.length ?? 0;
+        if (displayConsumed + len >= displayOffset) {
+          modelOffset += displayOffset - displayConsumed;
+          return { modelText, displayOffset: modelOffset };
+        }
+        displayConsumed += len;
+        modelOffset += len;
+      } else if (child instanceof HTMLElement && child.classList.contains('td-field-token')) {
+        const displayLen = child.textContent?.length ?? 0;
+        const key = child.getAttribute('data-key') ?? '';
+        const modelLen = key.length + 1; // +1 for '@'
+        if (displayConsumed + displayLen >= displayOffset) {
+          modelOffset += modelLen;
+          return { modelText, displayOffset: modelOffset };
+        }
+        displayConsumed += displayLen;
+        modelOffset += modelLen;
+      } else {
+        const len = child.textContent?.length ?? 0;
+        if (displayConsumed + len >= displayOffset) {
+          modelOffset += displayOffset - displayConsumed;
+          return { modelText, displayOffset: modelOffset };
+        }
+        displayConsumed += len;
+        modelOffset += len;
+      }
+    }
+
+    return { modelText, displayOffset: modelOffset };
+  }
+
+  // -- Convert model offset to display offset for caret restoration --
+
+  private modelOffsetToDisplayOffset(modelText: string, modelOffset: number): number {
+    const specMap = this.fieldSpecMap();
+    let displayOffset = 0;
+    let i = 0;
+
+    while (i < modelOffset && i < modelText.length) {
+      if (modelText[i] === '@') {
+        const match = modelText.substring(i).match(/^@([a-zA-Z_][a-zA-Z0-9_]*)/);
+        if (match) {
+          const key = match[1];
+          const entry = specMap.get(key);
+          const displayName = entry?.spec.human_name || key;
+          const modelTokenLen = 1 + key.length;
+          const displayTokenLen = 1 + displayName.length;
+
+          if (i + modelTokenLen <= modelOffset) {
+            displayOffset += displayTokenLen;
+            i += modelTokenLen;
+          } else {
+            displayOffset += displayTokenLen;
+            i += modelTokenLen;
+          }
+          continue;
+        }
+      }
+      displayOffset++;
+      i++;
+    }
+
+    return displayOffset;
   }
 
   // -- Highlighting --
@@ -166,36 +471,10 @@ export class TdExpressionInputComponent extends FlFormFieldDirective<string> imp
       div.innerHTML = '';
       return;
     }
-    div.innerHTML = this.buildHighlightedHtml(text);
-  }
-
-  private buildHighlightedHtml(text: string): string {
-    const escaped = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-    return escaped.replace(FIELD_TOKEN_REGEX, '<span class="td-field-token">@$1</span>');
+    div.innerHTML = new TdParsedExpression(text, this.fieldSpecMap()).buildHtml();
   }
 
   // -- Caret utilities using TreeWalker --
-
-  private getCaretOffset(): number | null {
-    const sel = window.getSelection();
-    if (!sel || sel.rangeCount === 0) return null;
-
-    const range = sel.getRangeAt(0);
-    const div = this.editableDiv.nativeElement;
-    if (!div.contains(range.startContainer)) return null;
-
-    let offset = 0;
-    const walker = document.createTreeWalker(div, NodeFilter.SHOW_TEXT);
-    let node: Text | null;
-    while ((node = walker.nextNode() as Text | null)) {
-      if (node === range.startContainer) {
-        return offset + range.startOffset;
-      }
-      offset += node.textContent?.length ?? 0;
-    }
-
-    return offset;
-  }
 
   private setCaretAtOffset(targetOffset: number): void {
     const div = this.editableDiv.nativeElement;
@@ -219,7 +498,6 @@ export class TdExpressionInputComponent extends FlFormFieldDirective<string> imp
       remaining -= len;
     }
 
-    // If offset exceeds content, place caret at the end
     const range = document.createRange();
     range.selectNodeContents(div);
     range.collapse(false);
@@ -236,30 +514,64 @@ export class TdExpressionInputComponent extends FlFormFieldDirective<string> imp
     }
 
     const textBeforeCaret = text.substring(0, caretOffset);
-    const triggerIndex = this.findTriggerIndex(textBeforeCaret);
 
-    if (triggerIndex == null) {
-      this.closeSuggestions();
+    // Try field trigger (@)
+    const fieldTrigger = this.findFieldTriggerIndex(textBeforeCaret);
+    if (fieldTrigger != null) {
+      this.autocompleteMode.set('field');
+      this.triggerCaretOffset = fieldTrigger;
+      this.currentFilter.set(textBeforeCaret.substring(fieldTrigger + 1));
+      this.hoveredIndex.set(0);
+      if (!this.overlayRef) this.openSuggestions();
       return;
     }
 
-    const filterText = textBeforeCaret.substring(triggerIndex + 1);
-    this.triggerCaretOffset = triggerIndex;
-    this.currentFilter.set(filterText);
-    this.hoveredIndex.set(0);
-
-    if (!this.overlayRef) {
-      this.openSuggestions();
+    // Try function trigger (word prefix, including 0 chars)
+    const funcMatch = textBeforeCaret.match(/(?:^|[^@a-zA-Z_])([a-zA-Z_]\w*)$/);
+    if (funcMatch) {
+      const word = funcMatch[1];
+      this.autocompleteMode.set('function');
+      this.triggerCaretOffset = caretOffset - word.length;
+      this.currentFilter.set(word);
+      this.hoveredIndex.set(0);
+      if (!this.overlayRef) this.openSuggestions();
+      return;
     }
+
+    // No word being typed — show all suggestions (0 char trigger)
+    const charBefore = caretOffset > 0 ? text[caretOffset - 1] : null;
+    if (charBefore == null || /[\s(,+\-*/%=<>!&|]/.test(charBefore)) {
+      this.autocompleteMode.set('function');
+      this.triggerCaretOffset = caretOffset;
+      this.currentFilter.set('');
+      this.hoveredIndex.set(0);
+      if (!this.overlayRef) this.openSuggestions();
+      return;
+    }
+
+    this.closeSuggestions();
   }
 
-  private findTriggerIndex(textBeforeCaret: string): number | null {
+  private findFieldTriggerIndex(textBeforeCaret: string): number | null {
     for (let i = textBeforeCaret.length - 1; i >= 0; i--) {
       const ch = textBeforeCaret[i];
       if (ch === '@') return i;
       if (!/[a-zA-Z0-9_]/.test(ch)) return null;
     }
     return null;
+  }
+
+  private selectByGlobalIndex(globalIndex: number): void {
+    const fields = this.filteredFieldSuggestions();
+    if (globalIndex < fields.length) {
+      this.selectFieldSuggestion(fields[globalIndex]);
+    } else {
+      const fnIndex = globalIndex - fields.length;
+      const fns = this.filteredFunctionSuggestions();
+      if (fnIndex < fns.length) {
+        this.selectFunctionSuggestion(fns[fnIndex]);
+      }
+    }
   }
 
   private openSuggestions(): void {
@@ -278,11 +590,23 @@ export class TdExpressionInputComponent extends FlFormFieldDirective<string> imp
     this.overlayRef.detachments().subscribe(() => {
       this.overlayRef = null;
       this.currentFilter.set(null);
+      this.autocompleteMode.set(null);
       this.triggerCaretOffset = null;
     });
   }
 
+  private scrollToHovered(): void {
+    if (!this.overlayRef) return;
+    const panel = this.overlayRef.getPanelElement();
+    const item = panel?.querySelectorAll('.td-suggestion-item')[this.hoveredIndex()];
+    item?.scrollIntoView({ block: 'nearest' });
+  }
+
   private closeSuggestions(): void {
     this.overlayRef?.dispose();
+  }
+
+  private closeTooltip(): void {
+    this.tooltipOverlayRef?.dispose();
   }
 }

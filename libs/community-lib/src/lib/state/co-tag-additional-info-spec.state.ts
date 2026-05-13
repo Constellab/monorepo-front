@@ -79,6 +79,10 @@ export class CoTagAdditionalInfoSpecState extends TdAbstractDynamicParamSpecStat
     return result;
   }
 
+  reorderParamSpecs(): Observable<TdParamSpecs> | null {
+    throw new Error('Reorder not implemented for co tag additional info specs');
+  }
+
   validateComputedExpression(): Observable<TdValidateComputedParamResult> | null {
     throw new Error('Computed param validation not implemented for lab dynamic params');
   }

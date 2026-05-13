@@ -26,23 +26,17 @@ export class LiFormTemplateDynamicParamSpecState
 
   private templateId: string;
   private versionId: string;
-  private content: TdParamSpecs = {};
 
   override reorderEnabled = true;
 
   setVersionContent(templateId: string, versionId: string, content: TdParamSpecs): void {
     this.templateId = templateId;
     this.versionId = versionId;
-    this.content = content ?? {};
-    this.setParamSpecs(this.content);
+    this.setParamSpecs(content ?? {});
   }
 
   openConfigureParamSpecsTableDialog(): void {
     throw new Error('Method not implemented. Use openParamSpecFormDialog instead.');
-  }
-
-  getContent(): TdParamSpecs {
-    return this.content;
   }
 
   openParamSpecFormDialog(entry?: TdParamSpecEntry, onUpdated?: () => void): void {
@@ -60,8 +54,7 @@ export class LiFormTemplateDynamicParamSpecState
       .afterClosed()
       .subscribe((result: TdParamSpecs) => {
         if (result) {
-          this.content = result;
-          this.setParamSpecs(this.content);
+          this.setParamSpecs(result);
           onUpdated?.();
         }
       });
@@ -112,8 +105,8 @@ export class LiFormTemplateDynamicParamSpecState
   }
 
   private refreshContent(version: LiFormTemplateVersion): TdParamSpecs {
-    this.content = version.content ?? {};
-    this.setParamSpecs(this.content);
-    return this.content;
+    const specs = version.content ?? {};
+    this.setParamSpecs(specs);
+    return specs;
   }
 }

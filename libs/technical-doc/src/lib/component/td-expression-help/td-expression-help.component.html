@@ -1,0 +1,68 @@
+<div class="expression-help-portal">
+  <h4>{{ 'td.expression_help_title' | translate }}</h4>
+
+  <section>
+    <h5>{{ 'td.expression_help_references' | translate }}</h5>
+    <p>{{ 'td.expression_help_references_desc' | translate }}</p>
+    <code class="expression-example">&#64;weight / (&#64;height ** 2)</code>
+  </section>
+
+  <section>
+    <h5>{{ 'td.expression_help_arithmetic' | translate }}</h5>
+    <div class="operator-list">
+      <code>+</code>
+      <code>-</code>
+      <code>*</code>
+      <code>/</code>
+      <code>//</code>
+      <code>%</code>
+      <code>**</code>
+      <code>( )</code>
+    </div>
+  </section>
+
+  <section>
+    <h5>{{ 'td.expression_help_comparisons' | translate }}</h5>
+    <div class="operator-list">
+      <code>==</code>
+      <code>!=</code>
+      <code>&lt;</code>
+      <code>&lt;=</code>
+      <code>&gt;</code>
+      <code>&gt;=</code>
+      <code>and</code>
+      <code>or</code>
+      <code>not</code>
+    </div>
+  </section>
+
+  <section>
+    <h5>{{ 'td.expression_help_functions' | translate }}</h5>
+    <table class="help-table">
+      @for (fn of functions; track fn.name) {
+        <tr>
+          <td>
+            <code>{{ fn.signature }}</code>
+          </td>
+          <td>{{ fn.descriptionKey | translate }}</td>
+        </tr>
+      }
+    </table>
+  </section>
+
+  <section>
+    <h5>{{ 'td.expression_help_table_aggregate' | translate }}</h5>
+    <p>{{ 'td.expression_help_table_aggregate_desc' | translate }}</p>
+    <code class="expression-example">sum(&#64;samples[].mass)</code>
+  </section>
+
+  <section>
+    <h5>{{ 'td.expression_help_examples' | translate }}</h5>
+    <div class="help-examples">
+      <code class="expression-example">&#64;price * &#64;quantity</code>
+      <code class="expression-example">if(&#64;score >= 50, "pass", "fail")</code>
+      <code class="expression-example">round(&#64;total / &#64;count, 2)</code>
+      <code class="expression-example">concat(&#64;first_name, " ", &#64;last_name)</code>
+    </div>
+  </section>
+</div>

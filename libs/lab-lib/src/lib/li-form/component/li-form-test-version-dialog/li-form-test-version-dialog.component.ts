@@ -13,23 +13,22 @@ import {
   TdParamSpecs,
   TdTechnicalDocModule,
 } from '@monorepo/technical-doc';
-import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 
 import { LiFormContent } from '../../../li-core/model/entities/form/li-form.entity';
-import { LiFormTemplateVersion } from '../../../li-core/model/entities/form/li-form-template-version.entity';
 import { LiFormDynamicFieldConfig } from '../../service/li-form-dynamic-field-config.service';
 import { LiFormTemplateService } from '../../service/li-form-template.service';
 import { liExtractSavePayload } from '../li-form-editor/li-form-editor.logic';
 
 interface LiFormTestVersionResult {
   result: LiFormContent;
-  missing_mandatory_paths: string[];
-  computed_errors: string[];
+  errors: string[];
 }
 
 export interface LiFormTestVersionDialogInput {
   templateId: string;
-  version: LiFormTemplateVersion;
+  versionId: string;
+  specs: TdParamSpecs;
 }
 
 @Component({
@@ -49,11 +48,11 @@ export interface LiFormTestVersionDialogInput {
 })
 export class LiFormTestVersionDialogComponent {
   private formTemplateService = inject(LiFormTemplateService);
-  private translateService = inject(TranslateService);
   private dialogData: LiFormTestVersionDialogInput = inject(MAT_DIALOG_DATA);
 
-  templateId = this.dialogData.templateId;
-  version = this.dialogData.version;
+  private templateId = this.dialogData.templateId;
+  private versionId = this.dialogData.versionId;
+  private specs = this.dialogData.specs;
 
   isTesting = signal(false);
   testErrors = signal<string[]>([]);
@@ -62,7 +61,7 @@ export class LiFormTestVersionDialogComponent {
   formGp: FormGroup<TdConfigureSpecsForm>;
 
   constructor() {
-    this.initForm(this.version.content ?? {}, {});
+    this.initForm(this.specs, {});
   }
 
   private initForm(specs: TdParamSpecs, values: Record<string, unknown>): void {
@@ -74,12 +73,12 @@ export class LiFormTestVersionDialogComponent {
   test(): void {
     FlFormHelper.markAllAsTouched(this.formGp);
     const rawValues = TdConfigureSpecsFormComponent.buildValues(this.formGp);
-    const values = liExtractSavePayload(rawValues, this.version.content ?? {});
+    const values = liExtractSavePayload(rawValues, this.specs);
 
     this.isTesting.set(true);
     this.testValid.set(null);
     this.testErrors.set([]);
-    this.formTemplateService.testVersion(this.templateId, this.version.id, values).subscribe({
+    this.formTemplateService.testVersion(this.templateId, this.versionId, values).subscribe({
       next: (response: LiFormTestVersionResult) => {
         this.isTesting.set(false);
         this.patchValues(response.result.values ?? {});
@@ -92,20 +91,13 @@ export class LiFormTestVersionDialogComponent {
   }
 
   private patchValues(values: Record<string, unknown>): void {
-    const config = TdConfig.fromSpecs(this.version.content ?? {}, {});
+    const config = TdConfig.fromSpecs(this.specs, {});
     const split = config.splitValuesByVisibility(values);
     this.formGp.patchValue(split);
   }
 
   private applyTestResult(response: LiFormTestVersionResult): void {
-    const missingLabel = this.translateService.instant('li.form_test_missing_field');
-    const errors: string[] = [
-      ...response.missing_mandatory_paths.map((path) => `${missingLabel}: ${path}`),
-      ...response.computed_errors.map(
-        (err) => `${this.translateService.instant('li.form_test_formula_error')}: ${err}`
-      ),
-    ];
-    this.testValid.set(errors.length === 0);
-    this.testErrors.set(errors);
+    this.testValid.set(response.errors.length === 0);
+    this.testErrors.set(response.errors);
   }
 }

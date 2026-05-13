@@ -68,11 +68,9 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
   readonly defaultValueConfig = signal<FlDynamicFieldConfig | null>(null);
   readonly isValidating = signal(false);
   readonly validationResult = signal<TdValidateComputedParamResult | null>(null);
-  readonly siblingFieldNames = computed(() => {
+  readonly siblingFieldSpecs = computed(() => {
     const currentKey = this.formGroup?.get('key')?.value;
-    return this.data.dynamicParamSpecState.paramSpecsTable.array
-      .map((e) => e.key)
-      .filter((k) => k !== currentKey);
+    return this.data.dynamicParamSpecState.paramSpecsTable.array.filter((e) => e.key !== currentKey);
   });
 
   formGroup: FormGroup;
@@ -179,6 +177,10 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
 
   deleteSubParam(entry: TdParamSpecEntry): void {
     this.subParamSpecState.deleteParamSpec(entry.key).subscribe();
+  }
+
+  reorderSubParams(paramNames: string[]): void {
+    this.subParamSpecState.reorderParamSpecs(paramNames)?.subscribe();
   }
 
   validateExpression(): void {

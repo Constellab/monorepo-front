@@ -1,0 +1,25 @@
+:host {
+  display: inline;
+}
+
+.td-expression-display {
+  font-family: monospace;
+
+  ::ng-deep .td-field-token {
+    background-color: color-mix(in srgb, var(--mat-sys-primary) 12%, transparent);
+    border-radius: 3px;
+    padding: 1px 3px;
+    color: var(--primary-color);
+    font-weight: 500;
+    cursor: default;
+  }
+}
+
+.td-field-tooltip {
+  background: var(--card-background);
+  border: 1px solid var(--hover-color);
+  border-radius: 4px;
+  box-shadow: var(--mat-sys-level2);
+  padding: 8px 12px;
+  max-width: 300px;
+}

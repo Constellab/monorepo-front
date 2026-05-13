@@ -6,21 +6,49 @@
   (keydown)="onKeydown($event)"
   (blur)="onBlur()"
   (paste)="onPaste($event)"
+  (mouseover)="onMouseOver($event)"
+  (focus)="(null)"
+  (mouseout)="onMouseOut($event)"
   #editableDiv
   #container></div>
 
 <ng-template #suggestionsTemplate>
   <div class="td-expression-suggestions">
-    @for (name of filteredSuggestions(); track name; let i = $index) {
-      <div
-        class="td-suggestion-item"
-        [class.hovered]="i === hoveredIndex()"
-        (mousedown)="selectSuggestion(name)"
-        (mouseenter)="hoveredIndex.set(i)">
-        &#64;{{ name }}
-      </div>
-    } @empty {
+    @if (filteredFieldSuggestions().length > 0) {
+      <div class="td-suggestion-section-label">{{ 'td.variables' | translate }}</div>
+      @for (entry of filteredFieldSuggestions(); track entry.key; let i = $index) {
+        <div
+          class="td-suggestion-item"
+          [class.hovered]="i === hoveredIndex()"
+          (mousedown)="selectFieldSuggestion(entry)"
+          (mouseenter)="hoveredIndex.set(i)">
+          <td-param-spec-inline [entry]="entry"></td-param-spec-inline>
+        </div>
+      }
+    }
+    @if (filteredFunctionSuggestions().length > 0) {
+      <div class="td-suggestion-section-label">{{ 'td.functions' | translate }}</div>
+      @for (fn of filteredFunctionSuggestions(); track fn.name; let i = $index) {
+        <div
+          class="td-suggestion-item td-suggestion-function"
+          [class.hovered]="i + filteredFieldSuggestions().length === hoveredIndex()"
+          (mousedown)="selectFunctionSuggestion(fn)"
+          (mouseenter)="hoveredIndex.set(i + filteredFieldSuggestions().length)">
+          <div class="td-suggestion-fn-name">{{ fn.description }}</div>
+          <div class="td-suggestion-fn-sig">{{ fn.signature }}</div>
+        </div>
+      }
+    }
+    @if (filteredFieldSuggestions().length === 0 && filteredFunctionSuggestions().length === 0) {
       <div class="td-suggestion-empty">{{ 'td.no_matching_fields' | translate }}</div>
+    }
+  </div>
+</ng-template>
+
+<ng-template #tooltipTemplate>
+  <div class="td-field-tooltip">
+    @if (tooltipSpec(); as entry) {
+      <td-param-spec-inline [entry]="entry"></td-param-spec-inline>
     }
   </div>
 </ng-template>

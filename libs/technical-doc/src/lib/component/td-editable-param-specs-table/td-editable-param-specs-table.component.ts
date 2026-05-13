@@ -1,5 +1,5 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Component, computed, inject, Input, input, output } from '@angular/core';
+import { Component, computed, inject, input, output } from '@angular/core';
 import { ClStringHelper } from '@monorepo/core-lib';
 import { FlArrayObs } from '@monorepo/front-core-lib/fl-core';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
@@ -15,15 +15,16 @@ import { TD_TYPES_WITHOUT_DEFAULT_VALUE, TdParamSpecEntry } from '../../model/td
 export class TdEditableParamSpecsTableComponent {
   private translateService = inject(FlTranslateService);
 
-  @Input() columns: string[] = ['label', 'type', 'optional', 'default_value', 'additional_info', 'menu'];
+  columns = input<string[]>(['label', 'type', 'optional', 'default_value', 'additional_info', 'menu']);
 
   reorderEnabled = input<boolean>(false);
 
   displayedColumns = computed(() => {
-    if (this.reorderEnabled() && !this.columns.includes('drag')) {
-      return ['drag', ...this.columns];
+    const cols = this.columns();
+    if (this.reorderEnabled() && !cols.includes('drag')) {
+      return ['drag', ...cols];
     }
-    return this.columns;
+    return cols;
   });
 
   table = input.required<FlArrayObs<TdParamSpecEntry>>();

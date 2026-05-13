@@ -1,4 +1,5 @@
 import { ClLuxonDateTimeTransform } from '@monorepo/core-lib';
+import { TdParamSpecs } from '@monorepo/technical-doc';
 import { Expose, Type } from 'class-transformer';
 import { DateTime } from 'luxon';
 
@@ -23,7 +24,7 @@ export class LiFormTemplateVersionSummary extends LiBaseEntityWithUser {
 }
 
 export class LiFormTemplateVersion extends LiFormTemplateVersionSummary {
-  content: any;
+  content: TdParamSpecs;
 }
 
 export interface LiCreateFormTemplateVersionDTO {
@@ -31,5 +32,5 @@ export interface LiCreateFormTemplateVersionDTO {
 }
 
 export interface LiUpdateFormTemplateVersionDTO {
-  content: any;
+  content: TdParamSpecs;
 }

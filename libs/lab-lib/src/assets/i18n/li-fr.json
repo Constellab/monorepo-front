@@ -659,7 +659,7 @@
     "form_unarchive_version_confirmation": "Désarchiver cette version la republiera et la rendra disponible pour de nouveaux formulaires. Continuer ?",
     "form_version_unarchived": "Version désarchivée",
     "form_test_version": "Tester la version",
-    "form_test_version_title": "Tester la version v{{version}}",
+    "form_test_version_title": "Tester la version",
     "form_test_version_success": "Toutes les valeurs sont valides",
     "form_test_missing_field": "Champ obligatoire manquant",
     "form_test_formula_error": "Erreur de formule",

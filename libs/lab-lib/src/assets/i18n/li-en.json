@@ -659,7 +659,7 @@
     "form_unarchive_version_confirmation": "Unarchiving this version will republish it, making it available for new forms. Continue?",
     "form_version_unarchived": "Version unarchived",
     "form_test_version": "Test version",
-    "form_test_version_title": "Test version v{{version}}",
+    "form_test_version_title": "Test version",
     "form_test_version_success": "All values are valid",
     "form_test_missing_field": "Missing mandatory field",
     "form_test_formula_error": "Formula error",

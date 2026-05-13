@@ -22,6 +22,10 @@ export abstract class TdAbstractDynamicParamSpecState implements OnDestroy {
   public paramSpecsTable: FlArrayObs<TdParamSpecEntry> = new FlEntityArrayObs([], true);
   public reorderEnabled = false;
 
+  getParamSpecs(): TdParamSpecs {
+    return this.paramSpecsTable.array.reduce((specs, entry) => ({ ...specs, [entry.key]: entry.spec }), {});
+  }
+
   setParamSpecs(paramSpecs: TdParamSpecs): void {
     const entries: TdParamSpecEntry[] = Object.entries(paramSpecs).map(([key, spec]) => ({ key, spec }));
     this.paramSpecsTable.setData(entries);
@@ -56,9 +60,7 @@ export abstract class TdAbstractDynamicParamSpecState implements OnDestroy {
 
   abstract deleteParamSpec(paramName: string): Observable<TdParamSpecs>;
 
-  reorderParamSpecs(): Observable<TdParamSpecs> | null {
-    return null;
-  }
+  abstract reorderParamSpecs(_paramNames?: string[]): Observable<TdParamSpecs> | null;
 
   abstract validateComputedExpression(
     expression: string,
