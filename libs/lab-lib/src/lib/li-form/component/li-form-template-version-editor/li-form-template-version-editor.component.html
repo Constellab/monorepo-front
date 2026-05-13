@@ -21,7 +21,8 @@
       [table]="table"
       [columns]="tableColumns()"
       (editElementClick)="editField($event)"
-      (deleteElementClick)="deleteField($event)" />
+      (deleteElementClick)="deleteField($event)"
+      (reorderClick)="reorderFields($event)" />
   } @else if (!readonly()) {
     <!-- Empty state for drafts with no fields -->
     <div class="empty-fields">

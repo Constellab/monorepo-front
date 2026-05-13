@@ -41,9 +41,14 @@ export class LiFormTemplateVersionEditorComponent {
   private static readonly COLUMNS = ['label', 'type', 'optional', 'default_value', 'additional_info'];
 
   tableColumns = computed(() => {
-    return this.readonly()
-      ? LiFormTemplateVersionEditorComponent.COLUMNS
-      : [...LiFormTemplateVersionEditorComponent.COLUMNS, 'menu'];
+    if (this.readonly()) {
+      return LiFormTemplateVersionEditorComponent.COLUMNS;
+    }
+    const cols = [...LiFormTemplateVersionEditorComponent.COLUMNS, 'menu'];
+    if (this.dynamicState.reorderEnabled()) {
+      return ['drag', ...cols];
+    }
+    return cols;
   });
 
   table = this.dynamicState.paramSpecsTable;
@@ -88,6 +93,10 @@ export class LiFormTemplateVersionEditorComponent {
           this.updateFieldCount();
         }
       });
+  }
+
+  reorderFields(fieldNames: string[]): void {
+    this.dynamicState.reorderParamSpecs(fieldNames).subscribe();
   }
 
   private updateFieldCount(): void {

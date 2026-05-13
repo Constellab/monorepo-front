@@ -1,3 +1,4 @@
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, inject, Input, input, output } from '@angular/core';
 import { ClStringHelper } from '@monorepo/core-lib';
 import { FlArrayObs } from '@monorepo/front-core-lib/fl-core';
@@ -20,6 +21,7 @@ export class TdEditableParamSpecsTableComponent {
 
   editElementClick = output<TdParamSpecEntry>();
   deleteElementClick = output<TdParamSpecEntry>();
+  reorderClick = output<string[]>();
 
   edit(entry: TdParamSpecEntry): void {
     this.editElementClick.emit(entry);
@@ -27,6 +29,13 @@ export class TdEditableParamSpecsTableComponent {
 
   delete(entry: TdParamSpecEntry): void {
     this.deleteElementClick.emit(entry);
+  }
+
+  drop(event: CdkDragDrop<TdParamSpecEntry[]>): void {
+    const data = this.table().array;
+    moveItemInArray(data, event.previousIndex, event.currentIndex);
+    this.table().setData(data);
+    this.reorderClick.emit(data.map((entry) => entry.key));
   }
 
   getLabel(entry: TdParamSpecEntry): string {

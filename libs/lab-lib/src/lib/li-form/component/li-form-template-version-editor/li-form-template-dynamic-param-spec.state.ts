@@ -1,4 +1,4 @@
-import { inject, Injectable, OnDestroy, ViewContainerRef } from '@angular/core';
+import { inject, Injectable, OnDestroy, signal, ViewContainerRef } from '@angular/core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import {
   TdAbstractDynamicParamSpecState,
@@ -27,6 +27,8 @@ export class LiFormTemplateDynamicParamSpecState
   private templateId: string;
   private versionId: string;
   private content: TdParamSpecs = {};
+
+  reorderEnabled = signal(true);
 
   setVersionContent(templateId: string, versionId: string, content: TdParamSpecs): void {
     this.templateId = templateId;
@@ -101,6 +103,12 @@ export class LiFormTemplateDynamicParamSpecState
       key,
       paramSetKey
     );
+  }
+
+  reorderParamSpecs(fieldNames: string[]): Observable<TdParamSpecs> {
+    return this.formTemplateService
+      .reorderFields(this.templateId, this.versionId, fieldNames)
+      .pipe(map((version) => this.refreshContent(version)));
   }
 
   private refreshContent(version: LiFormTemplateVersion): TdParamSpecs {

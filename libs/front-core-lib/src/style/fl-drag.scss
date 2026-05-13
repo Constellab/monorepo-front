@@ -43,3 +43,17 @@
     0 8px 10px 1px rgba(0, 0, 0, 0.14),
     0 3px 14px 2px rgba(0, 0, 0, 0.12);
 }
+
+// When dragging a <tr> from a mat-table, the row is detached from the
+// <table> layout so cells collapse. Re-apply table layout on the preview.
+tr.cdk-drag-preview {
+  display: table;
+  table-layout: auto;
+  background: var(--card-background);
+
+  td {
+    display: table-cell;
+    vertical-align: middle;
+    padding: 0 16px;
+  }
+}

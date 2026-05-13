@@ -168,6 +168,17 @@ export class LiFormTemplateService {
     return this.apiService.delete(route, LiFormTemplateVersion);
   }
 
+  // Reorder fields
+
+  public reorderFields(
+    templateId: string,
+    versionId: string,
+    fieldNames: string[]
+  ): Observable<LiFormTemplateVersion> {
+    const route = `${this.route}/${templateId}/version/${versionId}/fields/reorder`;
+    return this.apiService.put(route, { field_names: fieldNames }, LiFormTemplateVersion);
+  }
+
   // Computed param validation
 
   public validateComputedParam(

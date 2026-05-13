@@ -1,3 +1,4 @@
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { inject, ModuleWithProviders, NgModule, Provider, Type } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -83,6 +84,7 @@ import { TD_TECHNICAL_DOC_I18N } from './td-technical-doc.i18n';
     MatFormFieldModule,
     MatSelectModule,
     MatCheckboxModule,
+    DragDropModule,
 
     FlCorePipeModule,
     FlCoreComponentModule,
