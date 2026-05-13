@@ -10,8 +10,10 @@
 
     <td-editable-param-specs-table
       [table]="table"
+      [reorderEnabled]="reorderEnabled"
       (editElementClick)="openEditParamSpecDialog($event)"
-      (deleteElementClick)="openDeleteParamDialog($event)"></td-editable-param-specs-table>
+      (deleteElementClick)="openDeleteParamDialog($event)"
+      (reorderClick)="reorderFields($event)"></td-editable-param-specs-table>
   </div>
 </mat-dialog-content>
 <mat-dialog-actions class="action-div">

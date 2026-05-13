@@ -213,7 +213,7 @@
       }
     </div>
 
-    @if (isParamSetType() && localParamSpecState) {
+    @if (isParamSetType() && subParamSpecState) {
       <mat-divider></mat-divider>
 
       <div class="section">
@@ -227,7 +227,7 @@
         <p class="g-text-small g-text-light">{{ 'td.param_set_description' | translate }}</p>
 
         <td-editable-param-specs-table
-          [table]="localParamSpecState.paramSpecsTable"
+          [table]="subParamSpecState.paramSpecsTable"
           [columns]="['label', 'type', 'menu']"
           (editElementClick)="openEditSubParamDialog($event)"
           (deleteElementClick)="deleteSubParam($event)" />

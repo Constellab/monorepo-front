@@ -179,6 +179,16 @@ export class LiFormTemplateService {
     return this.apiService.put(route, { field_names: fieldNames }, LiFormTemplateVersion);
   }
 
+  // Test version
+
+  public testVersion(
+    templateId: string,
+    versionId: string,
+    values: Record<string, unknown>
+  ): Observable<any> {
+    return this.apiService.post(`${this.route}/${templateId}/version/${versionId}/test`, { values });
+  }
+
   // Computed param validation
 
   public validateComputedParam(

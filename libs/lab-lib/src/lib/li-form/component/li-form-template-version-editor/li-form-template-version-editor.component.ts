@@ -41,15 +41,12 @@ export class LiFormTemplateVersionEditorComponent {
   private static readonly COLUMNS = ['label', 'type', 'optional', 'default_value', 'additional_info'];
 
   tableColumns = computed(() => {
-    if (this.readonly()) {
-      return LiFormTemplateVersionEditorComponent.COLUMNS;
-    }
-    const cols = [...LiFormTemplateVersionEditorComponent.COLUMNS, 'menu'];
-    if (this.dynamicState.reorderEnabled()) {
-      return ['drag', ...cols];
-    }
-    return cols;
+    return this.readonly()
+      ? LiFormTemplateVersionEditorComponent.COLUMNS
+      : [...LiFormTemplateVersionEditorComponent.COLUMNS, 'menu'];
   });
+
+  isReorderEnabled = computed(() => !this.readonly() && this.dynamicState.reorderEnabled);
 
   table = this.dynamicState.paramSpecsTable;
 

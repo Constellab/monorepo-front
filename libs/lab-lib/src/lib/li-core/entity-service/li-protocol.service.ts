@@ -562,6 +562,19 @@ export class LiProtocolService {
     );
   }
 
+  public reorderDynamicParamSpecs(
+    protocolId: string,
+    processName: string,
+    configSpecName: string,
+    paramNames: string[]
+  ): Observable<LiProtocolUpdateDTO> {
+    return this.apiService.put(
+      `${this.baseRoute}/${protocolId}/process/${processName}/${configSpecName}/dynamic-param-spec/reorder`,
+      { param_names: paramNames },
+      LiProtocolUpdateDTO
+    );
+  }
+
   ///////////////////////////////////////////////// PROTOCOL TEMPLATE ///////////////////////////////////////
   public createScenarioTemplate(
     protocolId: string,

@@ -1,4 +1,4 @@
-import { inject, Injectable, OnDestroy, signal, ViewContainerRef } from '@angular/core';
+import { inject, Injectable, OnDestroy, ViewContainerRef } from '@angular/core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import {
   TdAbstractDynamicParamSpecState,
@@ -28,7 +28,7 @@ export class LiFormTemplateDynamicParamSpecState
   private versionId: string;
   private content: TdParamSpecs = {};
 
-  reorderEnabled = signal(true);
+  override reorderEnabled = true;
 
   setVersionContent(templateId: string, versionId: string, content: TdParamSpecs): void {
     this.templateId = templateId;

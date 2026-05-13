@@ -20,6 +20,7 @@
     <td-editable-param-specs-table
       [table]="table"
       [columns]="tableColumns()"
+      [reorderEnabled]="isReorderEnabled()"
       (editElementClick)="editField($event)"
       (deleteElementClick)="deleteField($event)"
       (reorderClick)="reorderFields($event)" />

@@ -1,0 +1,31 @@
+.form-test-actions {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.validation-result {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  margin-top: 12px;
+
+  &.valid {
+    background-color: color-mix(in srgb, var(--success-color) 10%, transparent);
+    color: var(--success-color);
+  }
+
+  &.invalid {
+    background-color: color-mix(in srgb, var(--warn-color) 10%, transparent);
+    color: var(--warn-color);
+  }
+}
+
+.validation-errors {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}

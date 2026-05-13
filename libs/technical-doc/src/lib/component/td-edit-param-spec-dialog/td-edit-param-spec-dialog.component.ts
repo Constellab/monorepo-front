@@ -32,7 +32,7 @@ import {
 } from '../../model/td-config-spec.class';
 import { TdParamSpecConfig } from '../../model/td-param-spec-config.class';
 import { TdAbstractDynamicParamSpecState } from '../../service/td-abstract-dynamic-param-spec.state';
-import { TdLocalParamSpecState } from '../../service/td-local-param-spec.state';
+import { TdSubParamSpecState } from '../../service/td-sub-param-spec.state';
 
 export interface TdEditParamSpecDialogInput {
   dynamicParamSpecState: TdAbstractDynamicParamSpecState;
@@ -77,7 +77,7 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
 
   formGroup: FormGroup;
   readonly formId = `paramSpecForm_${Math.random().toString(36).slice(2, 8)}`;
-  localParamSpecState: TdLocalParamSpecState | null = null;
+  subParamSpecState: TdSubParamSpecState | null = null;
 
   data = inject<TdEditParamSpecDialogInput>(MAT_DIALOG_DATA);
 
@@ -101,7 +101,7 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
     if (type === TdParamSpecTypeEnum.PARAM_SET) {
       this.initLocalParamSpecState();
     } else {
-      this.localParamSpecState = null;
+      this.subParamSpecState = null;
     }
   }
 
@@ -125,7 +125,7 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
 
   openAddSubParamDialog(): void {
     const input: TdEditParamSpecDialogInput = {
-      dynamicParamSpecState: this.localParamSpecState,
+      dynamicParamSpecState: this.subParamSpecState,
       title: { text: 'td.add_sub_field', translateText: true },
       saveButtonText: { text: 'td.add_sub_field', translateText: true },
     };
@@ -141,7 +141,7 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
 
   openEditSubParamDialog(entry: TdParamSpecEntry): void {
     const input: TdEditParamSpecDialogInput = {
-      dynamicParamSpecState: this.localParamSpecState,
+      dynamicParamSpecState: this.subParamSpecState,
       paramSpec: entry,
       title: { text: 'td.update_sub_field', translateText: true },
       saveButtonText: { text: 'td.update_sub_field', translateText: true },
@@ -178,7 +178,7 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
   }
 
   deleteSubParam(entry: TdParamSpecEntry): void {
-    this.localParamSpecState.deleteParamSpec(entry.key).subscribe();
+    this.subParamSpecState.deleteParamSpec(entry.key).subscribe();
   }
 
   validateExpression(): void {
@@ -230,7 +230,7 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
-    this.localParamSpecState?.ngOnDestroy();
+    this.subParamSpecState?.ngOnDestroy();
     this.helpOverlayRef?.dispose();
   }
 
@@ -360,10 +360,10 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { key: _key, ...specValue } = this.formGroup.value;
 
-    if (specValue.type === TdParamSpecTypeEnum.PARAM_SET && this.localParamSpecState) {
+    if (specValue.type === TdParamSpecTypeEnum.PARAM_SET && this.subParamSpecState) {
       specValue.additional_info = {
         ...specValue.additional_info,
-        param_set: this.localParamSpecState.getCurrentSpecs(),
+        param_set: this.subParamSpecState.getCurrentSpecs(),
       };
     }
 
@@ -391,10 +391,13 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
   }
 
   private initLocalParamSpecState(existingSpecs?: TdParamSpecs): void {
-    this.localParamSpecState?.ngOnDestroy();
-    this.localParamSpecState = new TdLocalParamSpecState();
+    this.subParamSpecState?.ngOnDestroy();
+    this.subParamSpecState = new TdSubParamSpecState(
+      this.data.dynamicParamSpecState,
+      this.formGroup.get('key')?.value
+    );
     if (existingSpecs) {
-      this.localParamSpecState.setParamSpecs(existingSpecs);
+      this.subParamSpecState.setParamSpecs(existingSpecs);
     }
   }
 }

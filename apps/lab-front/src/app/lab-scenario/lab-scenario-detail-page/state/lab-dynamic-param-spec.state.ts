@@ -25,6 +25,8 @@ export class LabDynamicParamSpecState extends TdAbstractDynamicParamSpecState im
   private dialogService = inject(FlDialogService);
   private viewContainerRef = inject(ViewContainerRef);
 
+  override reorderEnabled = true;
+
   private process: LiProcess = null;
 
   setProcess(process: LiProcess): void {
@@ -113,6 +115,16 @@ export class LabDynamicParamSpecState extends TdAbstractDynamicParamSpecState im
       oldName,
       newName,
       paramSpec
+    );
+    return this.onPortalActionResult(obs);
+  }
+
+  reorderParamSpecs(paramNames: string[]): Observable<TdParamSpecs> {
+    const obs = this.labProtocolService.reorderDynamicParamSpecs(
+      this.process.parentProtocolId,
+      this.process.instanceName,
+      this.getDynamicConfigSpecName(),
+      paramNames
     );
     return this.onPortalActionResult(obs);
   }

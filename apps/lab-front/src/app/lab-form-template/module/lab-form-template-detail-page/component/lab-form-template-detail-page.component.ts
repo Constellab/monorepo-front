@@ -32,6 +32,8 @@ import {
   LiFormTemplateActionMenu,
   LiFormTemplateService,
   LiFormTemplateVersionEditorComponent,
+  LiFormTestVersionDialogComponent,
+  LiFormTestVersionDialogInput,
   liGetFormTemplateVersionStatus,
 } from '@monorepo/lab-lib/li-form';
 import { LiTagListComponent } from '@monorepo/lab-lib/li-tag';
@@ -223,6 +225,15 @@ export class LabFormTemplateDetailPageComponent implements OnInit {
           this.reloadTemplate(this.selectedVersion().id);
         }
       });
+  }
+
+  testVersion(): void {
+    const data: LiFormTestVersionDialogInput = {
+      templateId: this.template().id,
+      version: this.selectedVersion(),
+    };
+
+    this.dialogService.openMediumDialog(LiFormTestVersionDialogComponent, { data });
   }
 
   createFormFromVersion(): void {

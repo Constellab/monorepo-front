@@ -20,6 +20,7 @@ import {
 @Injectable()
 export abstract class TdAbstractDynamicParamSpecState implements OnDestroy {
   public paramSpecsTable: FlArrayObs<TdParamSpecEntry> = new FlEntityArrayObs([], true);
+  public reorderEnabled = false;
 
   setParamSpecs(paramSpecs: TdParamSpecs): void {
     const entries: TdParamSpecEntry[] = Object.entries(paramSpecs).map(([key, spec]) => ({ key, spec }));
@@ -54,6 +55,10 @@ export abstract class TdAbstractDynamicParamSpecState implements OnDestroy {
   ): Observable<TdParamSpecs>;
 
   abstract deleteParamSpec(paramName: string): Observable<TdParamSpecs>;
+
+  reorderParamSpecs(): Observable<TdParamSpecs> | null {
+    return null;
+  }
 
   abstract validateComputedExpression(
     expression: string,

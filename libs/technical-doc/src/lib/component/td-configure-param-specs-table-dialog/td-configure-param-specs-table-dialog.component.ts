@@ -32,6 +32,7 @@ export class TdConfigureParamSpecsTableDialogComponent {
 
   description: FlTranslatableText = this.data.dynamicParamsDescription;
   table = this.dynamicParamSpecState.paramSpecsTable;
+  reorderEnabled = this.dynamicParamSpecState.reorderEnabled;
 
   openEditParamSpecDialog(entry: TdParamSpecEntry = null): void {
     const input: TdEditParamSpecDialogInput = {
@@ -66,6 +67,10 @@ export class TdConfigureParamSpecsTableDialogComponent {
         if (!res || !res.choice || 'values' in res.result) return;
         this.dynamicParamSpecState.setParamSpecs(res.result as TdParamSpecs);
       });
+  }
+
+  reorderFields(paramNames: string[]): void {
+    this.dynamicParamSpecState.reorderParamSpecs(paramNames)?.subscribe();
   }
 
   private onEditClosed(output: TdParamSpecs): void {

@@ -8,7 +8,9 @@
     <ng-container matColumnDef="drag">
       <th mat-header-cell *matHeaderCellDef class="g-table-icon-button-cell"></th>
       <td mat-cell *matCellDef="let entry" class="g-table-icon-button-cell">
-        <mat-icon cdkDragHandle class="drag-handle">drag_handle</mat-icon>
+        <mat-icon cdkDragHandle class="drag-handle" [matTooltip]="'td.reorder' | translate"
+          >drag_handle</mat-icon
+        >
       </td>
     </ng-container>
 
@@ -80,8 +82,12 @@
       </td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="columns"></tr>
-    <tr mat-row *matRowDef="let entry; columns: columns" cdkDrag class="g-drag-hide-placeholder"></tr>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns()"></tr>
+    <tr
+      mat-row
+      *matRowDef="let entry; columns: displayedColumns()"
+      cdkDrag
+      class="g-drag-hide-placeholder"></tr>
   </table>
 } @else {
   <div class="empty-table">
