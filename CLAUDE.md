@@ -99,6 +99,7 @@ This granular import structure allows for better tree-shaking and build optimiza
 - **For layout, use Flexbox**: When layout is needed, use flex-based layouts
 - **Use utility classes**: For flex layouts, use pre-defined classes from `libs/front-core-lib/src/style/fl-flex.scss`
 - **No hardcoded font-size**: Never use hardcoded `font-size` values in component SCSS. Use global text size classes instead: `g-text-small` (0.8rem), `g-text-small-em` (0.8em), `g-text-tiny` (0.7rem), `g-text-normal` (1rem) — defined in `libs/front-core-lib/src/style/fl-global.scss`
+- **No hardcoded colors**: Never use hardcoded color values (hex, rgb, etc.) directly in component SCSS. Always use the CSS variables defined in the theme files (`libs/front-core-lib/src/style/theme/base/`). Available variables include: `--primary-color`, `--accent-color`, `--warn-color`, `--success-color`, `--warning-color`, `--color-foreground`, `--main-background`, `--card-background`, `--light-color`, `--hover-color`, `--card-radius`, and Material `--mat-sys-*` variables (e.g., `--mat-sys-primary`, `--mat-sys-on-surface`, `--mat-sys-surface`)
 - **Button colors**: Use CSS classes `"primary"`, `"warn"`, or `"accent"` on buttons — NOT the `color` attribute. Example: `<button mat-flat-button class="primary">` or `<button mat-stroked-button class="warn">`
 
 ## Angular Patterns & Good Practices

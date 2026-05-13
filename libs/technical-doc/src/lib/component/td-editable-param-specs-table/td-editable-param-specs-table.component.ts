@@ -1,5 +1,5 @@
 import { Component, inject, Input, input, output } from '@angular/core';
-import { ClHelpService, ClStringHelper } from '@monorepo/core-lib';
+import { ClStringHelper } from '@monorepo/core-lib';
 import { FlArrayObs } from '@monorepo/front-core-lib/fl-core';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 
@@ -21,13 +21,11 @@ export class TdEditableParamSpecsTableComponent {
   editElementClick = output<TdParamSpecEntry>();
   deleteElementClick = output<TdParamSpecEntry>();
 
-  edit(event: Event, entry: TdParamSpecEntry): void {
-    ClHelpService.stopEventPropagation(event);
+  edit(entry: TdParamSpecEntry): void {
     this.editElementClick.emit(entry);
   }
 
-  delete(event: Event, entry: TdParamSpecEntry): void {
-    ClHelpService.stopEventPropagation(event);
+  delete(entry: TdParamSpecEntry): void {
     this.deleteElementClick.emit(entry);
   }
 

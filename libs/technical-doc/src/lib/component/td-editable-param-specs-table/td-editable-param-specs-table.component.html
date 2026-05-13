@@ -51,11 +51,16 @@
           <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #btsMenu="matMenu">
-          <button mat-menu-item aria-label="edit" (click)="edit($event, entry)">
+          <button mat-menu-item aria-label="edit" (click)="edit(entry)" type="button">
             <mat-icon>edit</mat-icon>
             {{ 'td.edit' | translate }}
           </button>
-          <button mat-menu-item aria-label="delete" class="button-warn warn" (click)="delete($event, entry)">
+          <button
+            mat-menu-item
+            aria-label="delete"
+            class="button-warn warn"
+            (click)="delete(entry)"
+            type="button">
             <mat-icon>delete</mat-icon>
             {{ 'td.delete' | translate }}
           </button>

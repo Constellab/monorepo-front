@@ -4,7 +4,7 @@
 
 .td-expression-input {
   min-height: 36px;
-  border: 1px solid var(--border-color, rgba(0, 0, 0, 0.12));
+  border: 1px solid var(--hover-color);
   border-radius: 4px;
   padding: 8px 12px;
   font-family: monospace;
@@ -23,24 +23,24 @@
 
   &:empty::before {
     content: attr(data-placeholder);
-    color: var(--hint-color, rgba(0, 0, 0, 0.38));
+    color: var(--light-color);
     pointer-events: none;
   }
 
   ::ng-deep .td-field-token {
-    background-color: var(--primary-light-color, rgba(25, 118, 210, 0.12));
+    background-color: color-mix(in srgb, var(--mat-sys-primary) 12%, transparent);
     border-radius: 3px;
     padding: 1px 3px;
-    color: var(--primary-color, #1565c0);
+    color: var(--primary-color);
     font-weight: 500;
   }
 }
 
 .td-expression-suggestions {
-  background: var(--card-color, white);
-  border: 1px solid var(--border-color, rgba(0, 0, 0, 0.12));
+  background: var(--card-background);
+  border: 1px solid var(--hover-color);
   border-radius: 4px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--mat-sys-level2);
   max-height: 200px;
   overflow-y: auto;
   min-width: 150px;
@@ -53,11 +53,11 @@
 
   &:hover,
   &.hovered {
-    background-color: var(--hover-color, rgba(0, 0, 0, 0.04));
+    background-color: var(--hover-color);
   }
 }
 
 .td-suggestion-empty {
   padding: 8px 12px;
-  color: var(--hint-color, rgba(0, 0, 0, 0.38));
+  color: var(--light-color);
 }
