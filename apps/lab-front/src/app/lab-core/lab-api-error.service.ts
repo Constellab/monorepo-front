@@ -3,7 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { flAuthExpiredCookie, FlCleanerService, FlLoginSavedRoute } from '@monorepo/front-core-lib/fl-core';
 import { FlCookieService } from '@monorepo/front-core-lib/fl-dialog';
-import { LiApiErrorService, liConstLoginRoute } from '@monorepo/lab-lib/li-core';
+import { LI_CONST_LOGIN_ROUTE,LiApiErrorService } from '@monorepo/lab-lib/li-core';
 
 @Injectable()
 export class LabApiErrorService extends LiApiErrorService {
@@ -21,7 +21,7 @@ export class LabApiErrorService extends LiApiErrorService {
     // to assure the user is disconnected
     this.cookieService.removeCookie(flAuthExpiredCookie);
 
-    if (this.router.url.startsWith(liConstLoginRoute)) return;
+    if (this.router.url.startsWith(LI_CONST_LOGIN_ROUTE)) return;
 
     FlCleanerService.getInstance().cleanServices();
 
@@ -33,6 +33,6 @@ export class LabApiErrorService extends LiApiErrorService {
       FlLoginSavedRoute.route = currentRoute;
     }
     // redirect the user to the login page, with autoRedirect param to avoid infinite loop
-    this.router.navigate([liConstLoginRoute], { queryParams: { autoRedirect: false } });
+    this.router.navigate([LI_CONST_LOGIN_ROUTE], { queryParams: { autoRedirect: false } });
   }
 }

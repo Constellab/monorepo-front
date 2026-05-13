@@ -97,7 +97,6 @@ export class CaLabGlobalStatusComponent implements OnInit {
     }
 
     if (status.serverTaskStatus.value === 'ERROR') {
-      // eslint-disable-next-line max-len
       errors.push(
         `${this.translateService.translate('lab_server_last_task_error')} - ${status.serverTaskText}` +
           ` - ${ClDateHelper.fromNow(status.serverTaskDatetime)}`

@@ -9,8 +9,7 @@
       matInput
       placeholder="Search stories, agents, users..."
       (input)="search($event)"
-      [value]="query"
-      [autofocus]="true" />
+      [value]="query" />
   </mat-form-field>
 
   <div class="hits-div g-scrollable-element" cdkScrollable #hitsDiv>

@@ -2,15 +2,17 @@ import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
 import {
-  liConstBaseRoute,
-  liConstDocFullRoute,
-  liConstMonitoringFullRoute,
-  liConstNoteFullRoute,
-  liConstNoteTemplateFullRoute,
-  liConstResourceFullRoute,
-  liConstScenarioFullRoute,
-  liConstScenarioTemplateFullRoute,
-  liConstTagFullRoute,
+  LI_CONST_BASE_ROUTE,
+  LI_CONST_DOC_FULL_ROUTE,
+  LI_CONST_FORM_FULL_ROUTE,
+  LI_CONST_FORM_TEMPLATE_FULL_ROUTE,
+  LI_CONST_MONITORING_FULL_ROUTE,
+  LI_CONST_NOTE_FULL_ROUTE,
+  LI_CONST_NOTE_TEMPLATE_FULL_ROUTE,
+  LI_CONST_RESOURCE_FULL_ROUTE,
+  LI_CONST_SCENARIO_FULL_ROUTE,
+  LI_CONST_SCENARIO_TEMPLATE_FULL_ROUTE,
+  LI_CONST_TAG_FULL_ROUTE,
 } from '../utils/li-base-route';
 
 /**
@@ -24,31 +26,31 @@ export class LiRouterService {
 
   ////// Static function to get routes  //////
   public static getAppRoute(): string {
-    return `/${liConstBaseRoute}`;
+    return `/${LI_CONST_BASE_ROUTE}`;
   }
 
   public static getScenarioListRoute(): string {
-    return liConstScenarioFullRoute;
+    return LI_CONST_SCENARIO_FULL_ROUTE;
   }
 
   public static getDataboxRoute(): string {
-    return liConstResourceFullRoute;
+    return LI_CONST_RESOURCE_FULL_ROUTE;
   }
 
   public static getScenarioDetailRoute(id: string): string {
-    return `${liConstScenarioFullRoute}/${id}`;
+    return `${LI_CONST_SCENARIO_FULL_ROUTE}/${id}`;
   }
 
   public static getScenarioTemplatesRoute(): string {
-    return `${liConstScenarioTemplateFullRoute}`;
+    return `${LI_CONST_SCENARIO_TEMPLATE_FULL_ROUTE}`;
   }
 
   public static getScenarioTemplateDetailRoute(id: string): string {
-    return `${liConstScenarioTemplateFullRoute}/${id}`;
+    return `${LI_CONST_SCENARIO_TEMPLATE_FULL_ROUTE}/${id}`;
   }
 
   public static getResourceDetailRoute(id: string): string {
-    return `${liConstResourceFullRoute}/${id}`;
+    return `${LI_CONST_RESOURCE_FULL_ROUTE}/${id}`;
   }
 
   public static getViewConfigDetailRoute(
@@ -59,7 +61,7 @@ export class LiRouterService {
     queryParams: any;
   } {
     return {
-      route: `${liConstResourceFullRoute}/${resourceId}`,
+      route: `${LI_CONST_RESOURCE_FULL_ROUTE}/${resourceId}`,
       queryParams: { viewId: viewConfigId },
     };
   }
@@ -69,27 +71,43 @@ export class LiRouterService {
    * @param viewConfigId
    */
   public static getViewConfigRedirectRoute(viewConfigId: string): string {
-    return `${liConstResourceFullRoute}/view-redirect/${viewConfigId}`;
+    return `${LI_CONST_RESOURCE_FULL_ROUTE}/view-redirect/${viewConfigId}`;
   }
 
   public static getNoteSearchRoute(): string {
-    return liConstNoteFullRoute;
+    return LI_CONST_NOTE_FULL_ROUTE;
   }
 
   public static getNoteDetailRoute(id: string): string {
-    return `${liConstNoteFullRoute}/${id}`;
+    return `${LI_CONST_NOTE_FULL_ROUTE}/${id}`;
   }
 
   public static getNoteTemplateSearchRoute(): string {
-    return liConstNoteTemplateFullRoute;
+    return LI_CONST_NOTE_TEMPLATE_FULL_ROUTE;
   }
 
   public static getNoteTemplateDetailRoute(id: string): string {
-    return `${liConstNoteTemplateFullRoute}/${id}`;
+    return `${LI_CONST_NOTE_TEMPLATE_FULL_ROUTE}/${id}`;
+  }
+
+  public static getFormSearchRoute(): string {
+    return LI_CONST_FORM_FULL_ROUTE;
+  }
+
+  public static getFormDetailRoute(id: string): string {
+    return `${LI_CONST_FORM_FULL_ROUTE}/${id}`;
+  }
+
+  public static getFormTemplateDetailRoute(id: string): string {
+    return `${LI_CONST_FORM_TEMPLATE_FULL_ROUTE}/${id}`;
+  }
+
+  public static getFormTemplateVersionRoute(templateId: string, versionId: string): string {
+    return `${LI_CONST_FORM_TEMPLATE_FULL_ROUTE}/${templateId}/versions/${versionId}`;
   }
 
   public static getDocRoute(): string {
-    return liConstDocFullRoute;
+    return LI_CONST_DOC_FULL_ROUTE;
   }
 
   public static getTechnicalDocRoute(typingName: string): string {
@@ -102,16 +120,16 @@ export class LiRouterService {
   }
 
   public static getTagSearchRoute(): string {
-    return liConstTagFullRoute;
+    return LI_CONST_TAG_FULL_ROUTE;
   }
 
   public static getTagDetailRoute(key: string): string {
-    return `${liConstTagFullRoute}/${key}`;
+    return `${LI_CONST_TAG_FULL_ROUTE}/${key}`;
   }
 
   /////////////////// MONITORING ///////////////////
   public static getMonitoringRoute(): string {
-    return liConstMonitoringFullRoute;
+    return LI_CONST_MONITORING_FULL_ROUTE;
   }
 
   public static getMonitoringUsageRoute(): string {
@@ -181,6 +199,22 @@ export class LiRouterService {
 
   public navigateToNoteSearch(): Promise<boolean> {
     return this.router.navigate([LiRouterService.getNoteSearchRoute()]);
+  }
+
+  public navigateToFormSearch(): Promise<boolean> {
+    return this.router.navigate([LiRouterService.getFormSearchRoute()]);
+  }
+
+  public navigateToFormDetail(id: string): Promise<boolean> {
+    return this.router.navigate([LiRouterService.getFormDetailRoute(id)]);
+  }
+
+  public navigateToFormTemplateDetail(id: string): Promise<boolean> {
+    return this.router.navigate([LiRouterService.getFormTemplateDetailRoute(id)]);
+  }
+
+  public navigateToFormTemplateVersion(templateId: string, versionId: string): Promise<boolean> {
+    return this.router.navigate([LiRouterService.getFormTemplateVersionRoute(templateId, versionId)]);
   }
 
   public navigateToDocumentSearch(): Promise<boolean> {

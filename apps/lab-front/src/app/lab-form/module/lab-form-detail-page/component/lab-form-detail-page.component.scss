@@ -1,0 +1,61 @@
+.title {
+  margin: 0;
+}
+
+.action-buttons {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: 5px;
+}
+
+// Two-column layout (following template detail pattern)
+.container {
+  margin-top: 1em;
+  flex-direction: row;
+  box-sizing: border-box;
+  display: flex;
+  height: 100%;
+}
+
+.left-section {
+  flex: 0 0 20em;
+  max-width: 20em;
+  padding-bottom: 1em;
+}
+
+.right-section {
+  flex: 1 1 auto;
+  margin-left: 2em;
+}
+
+.separator {
+  margin-top: 1em;
+}
+
+.section-title {
+  margin-bottom: 8px;
+}
+
+.form-content {
+  margin-top: 1em;
+}
+
+// Responsive
+@media (max-width: 1280px) {
+  .left-section {
+    flex: 1;
+    max-width: var(--article-width);
+    width: 100%;
+  }
+
+  .right-section {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
+}

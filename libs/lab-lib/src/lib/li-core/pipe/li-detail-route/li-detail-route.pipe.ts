@@ -1,5 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
+import { LiForm } from '../../model/entities/form/li-form.entity';
+import { LiFormTemplate } from '../../model/entities/form/li-form-template.entity';
 import { LiEntityType } from '../../model/entities/li-navigable-entity.entity';
 import { LiNote } from '../../model/entities/li-note.entity';
 import { LiNoteTemplate } from '../../model/entities/li-note-template.entity';
@@ -47,6 +49,10 @@ export class LiDetailRoutePipe implements PipeTransform {
       case 'TAG':
         const key: string = (value as LiTagKeyModel).key;
         return LiRouterService.getTagDetailRoute(key);
+      case 'FORM_TEMPLATE':
+        return LiRouterService.getFormTemplateDetailRoute(id);
+      case 'FORM':
+        return LiRouterService.getFormDetailRoute(id);
       default:
         console.error(`[liDetailRoute] object type ${objectType} not supported`);
         return null;
@@ -68,6 +74,10 @@ export class LiDetailRoutePipe implements PipeTransform {
       return 'VIEW';
     } else if (obj instanceof LiTagKeyModel) {
       return 'TAG';
+    } else if (obj instanceof LiFormTemplate) {
+      return 'FORM_TEMPLATE';
+    } else if (obj instanceof LiForm) {
+      return 'FORM';
     } else {
       console.error('[liDetailRoute] The object is not supported');
       return null;

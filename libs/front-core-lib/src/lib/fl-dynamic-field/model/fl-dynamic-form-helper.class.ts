@@ -116,6 +116,12 @@ export class FlDynamicFormHelper {
       if (inputConfig.integer) {
         validators.push(FlGlobalValidators.isInteger());
       }
+      if (inputConfig.minLength != null) {
+        validators.push(Validators.minLength(inputConfig.minLength));
+      }
+      if (inputConfig.maxLength != null) {
+        validators.push(Validators.maxLength(inputConfig.maxLength));
+      }
     }
 
     return validators;

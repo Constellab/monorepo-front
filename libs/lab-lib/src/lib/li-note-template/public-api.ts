@@ -10,4 +10,5 @@ export * from './component/li-note-template-search/li-note-template-search.compo
 export * from './component/li-note-template-table/li-note-template-table.component';
 export * from './component/li-select-note-template-dialog/li-select-note-template-dialog.component';
 export * from './component/li-select-note-template/li-select-note-template.component';
+export * from './model/li-note-template-action-menu.class';
 export * from '../li-core/model/search/li-note-template-search.class';

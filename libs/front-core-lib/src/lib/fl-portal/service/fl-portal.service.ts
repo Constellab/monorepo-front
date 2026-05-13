@@ -401,7 +401,6 @@ export class FlPortalService {
     return connectedPosition;
   }
 
-  // eslint-disable-next-line @typescript-eslint/member-ordering
   public static getDefaultPosition(
     position: FlPortalDefaultPosition,
     offsetX: number = 0,

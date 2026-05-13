@@ -1,8 +1,6 @@
-// eslint-disable-next-line @nx/enforce-module-boundaries
 import { ClSupportedLanguage } from '@monorepo/core-lib';
 import { FlLangTranslation, FlTranslateObject } from '@monorepo/front-core-lib/fl-translate';
 
-/* eslint-disable max-len */
 /**
  * Translation file for the Spreadsheet module
  */
@@ -22,7 +20,7 @@ const flCoreComponentI18nEn: FlLangTranslation = {
   },
 };
 
-export const flUserI18n: FlTranslateObject = {
+export const FL_USER_I18N: FlTranslateObject = {
   [ClSupportedLanguage.en]: flCoreComponentI18nEn,
   [ClSupportedLanguage.fr]: flCoreComponentI18nFr,
 };

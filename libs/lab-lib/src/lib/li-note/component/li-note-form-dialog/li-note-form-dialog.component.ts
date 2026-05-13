@@ -1,4 +1,4 @@
-import { Component, inject,OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent } from '@angular/material/dialog';
@@ -20,6 +20,7 @@ export interface LiNoteFormDialogInput extends FlFormDialogInput<LiNoteForm> {
   noteId?: string;
   scenarioId?: string; // can be provided during create to link the note directly to a scenario
   folder?: LiEntity;
+  template?: LiNoteTemplate; // preselect a template during create
 }
 
 @Component({
@@ -66,12 +67,13 @@ export class LiNoteFormDialogComponent
   }
 
   buildForm(): UntypedFormGroup {
+    const template = this.dialogInput.template ?? null;
     return new FormBuilder().group({
-      title: [null, Validators.required],
+      title: [template?.title ?? null, Validators.required],
       folder: [
         { value: this.dialogInput.folder, disabled: this.isCreateMode() && this.dialogInput.folder != null },
       ],
-      template: [{ value: null, disabled: this.isUpdateMode() }],
+      template: [{ value: template, disabled: this.isUpdateMode() || template != null }],
     });
   }
 

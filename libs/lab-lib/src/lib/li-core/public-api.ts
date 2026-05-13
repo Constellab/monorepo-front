@@ -4,6 +4,7 @@
  */
 
 export * from './component/li-error-snack-bar/li-error-snack-bar.component';
+export * from './entity-service/li-ai.service';
 export * from './entity-service/li-bio-network.service';
 export * from './entity-service/li-brick.service';
 export * from './entity-service/li-file-resource.service';
@@ -36,6 +37,11 @@ export * from './model/entities/li-background-task.entity';
 export * from './model/entities/li-brick.entity';
 export * from './model/entities/li-community-space.entity';
 export * from './model/entities/li-credentials.entity';
+export * from './model/entities/form/li-form.enum';
+export * from './model/entities/form/li-form.entity';
+export * from './model/entities/form/li-form-save-event.entity';
+export * from './model/entities/form/li-form-template.entity';
+export * from './model/entities/form/li-form-template-version.entity';
 export * from './model/entities/li-folder.class';
 export * from './model/entities/li-lab.entity';
 export * from './model/entities/li-log.entity';

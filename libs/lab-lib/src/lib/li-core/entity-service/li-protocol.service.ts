@@ -5,7 +5,6 @@ import { FlApiWithCacheService } from '@monorepo/front-core-lib/fl-api';
 import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 import { FlFileHelper } from '@monorepo/front-core-lib/fl-translate';
 import {
-  TdCompleteEditParamSpecDict,
   TdIOSpec,
   TdParamSpec,
   TdParamSpecsValues,
@@ -506,13 +505,6 @@ export class LiProtocolService {
   }
 
   ///////////////////////////////////////////////// PARAM SPEC /////////////////////////////////////////////
-
-  public getParamSpecsInfos(
-    protocolId: string,
-    processName: string
-  ): Observable<TdCompleteEditParamSpecDict> {
-    return this.apiService.get(`${this.baseRoute}/${protocolId}/process/${processName}/get-param-spec-types`);
-  }
 
   public addDynamicParamSpec(
     protocolId: string,

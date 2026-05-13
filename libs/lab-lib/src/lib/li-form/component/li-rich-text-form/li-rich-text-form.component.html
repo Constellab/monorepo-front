@@ -1,0 +1,35 @@
+@if (formId) {
+  @if (effectiveDisplayMode() === 'preview') {
+    <div class="li-form-preview">
+      <mat-icon flIcon="form_template"></mat-icon>
+      <div class="li-form-preview-info">
+        <span class="li-form-preview-name">{{ form()?.name }}</span>
+        <span class="li-form-preview-template">
+          {{ form()?.template?.templateName }}
+          @if (form()?.template?.versionNumber) {
+            (v{{ form().template.versionNumber }})
+          }
+        </span>
+        @if (templateDescription()) {
+          <span class="li-form-preview-description">{{ templateDescription() }}</span>
+        }
+      </div>
+      @if (formStatus()) {
+        <fl-status-chip [status]="formStatus()" />
+      }
+      @if (isDraft() && !disabled) {
+        <button mat-stroked-button (click)="openFormDialog()">
+          {{ 'li.form_open_fill' | translate }}
+        </button>
+      }
+    </div>
+  } @else {
+    <li-form-content
+      [formId]="formId"
+      [readonly]="disabled"
+      [displayMode]="effectiveDisplayMode()"
+      (contentSaved)="onContentSaved($event)"
+      (contentSubmitted)="onContentSubmitted($event)"
+      (formLoaded)="onFormLoaded($event)" />
+  }
+}

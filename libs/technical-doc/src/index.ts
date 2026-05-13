@@ -41,6 +41,7 @@ export * from './lib/component/td-configure-specs-form/td-configure-specs-form.c
 //service
 export * from './lib/service/td-technical-doc-service-config.config';
 export * from './lib/service/td-abstract-dynamic-param-spec.state';
+export * from './lib/service/td-local-param-spec.state';
 
 //pipe
 export * from './lib/pipe/td-clean-type.pipe';

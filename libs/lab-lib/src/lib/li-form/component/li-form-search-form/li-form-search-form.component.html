@@ -1,0 +1,51 @@
+<div class="form g-layout-col" [formGroup]="formGp">
+  <div class="g-full main-fields">
+    <!-- Name -->
+    <mat-form-field class="g-full">
+      <mat-label>{{ 'li.name' | translate }}</mat-label>
+      <input matInput formControlName="name" [placeholder]="'li.name' | translate" autocomplete="off" />
+    </mat-form-field>
+  </div>
+
+  <!-- Tags -->
+  <li-tag-filters formControlName="tags"></li-tag-filters>
+
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <fl-text-icon>
+          <mat-icon>manage_search</mat-icon>
+          {{ 'li.advanced_search' | translate }}
+        </fl-text-icon>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="g-full g-form-field-compact g-layout-row-wrap g-layout-between-center">
+      <!-- Status -->
+      <mat-form-field class="g-search-field g-form-field-compact">
+        <mat-label>{{ 'li.status' | translate }}</mat-label>
+        <mat-select formControlName="status">
+          <mat-option [value]="null">-</mat-option>
+          <mat-option value="DRAFT">{{ 'li.form_status_DRAFT' | translate }}</mat-option>
+          <mat-option value="SUBMITTED">{{ 'li.form_status_SUBMITTED' | translate }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- Created by -->
+      <fl-form-field class="g-search-field g-form-field-compact">
+        <fl-select-user
+          formControlName="createdBy"
+          [placeholder]="'li.created_by' | translate"></fl-select-user>
+      </fl-form-field>
+
+      <!-- Creation date -->
+      <div class="g-form-field-no-hint g-full g-form-field-compact">
+        <p class="g-text-small subtitle">{{ 'li.creation_date' | translate }}</p>
+        <fl-search-date-interval formGroupName="createdAt"> </fl-search-date-interval>
+      </div>
+
+      <mat-checkbox formControlName="isArchived" class="checkbox g-full"
+        >{{ 'li.form_include_archived' | translate }}
+      </mat-checkbox>
+    </div>
+  </mat-expansion-panel>
+</div>

@@ -124,6 +124,8 @@ export class FlDynamicFieldConfigService {
     inputComponent.instance.min = config.min;
     inputComponent.instance.max = config.max;
     inputComponent.instance.integer = config.integer;
+    inputComponent.instance.minLength = config.minLength;
+    inputComponent.instance.maxLength = config.maxLength;
     return inputComponent;
   }
 
@@ -133,6 +135,7 @@ export class FlDynamicFieldConfigService {
   ): ComponentRef<FlDynamicFieldAbstractDirective> {
     const selectComponent = viewContainer.createComponent(FlDynamicFieldSelectComponent);
     selectComponent.instance.selectOptionsInput = config.selectOptions as any;
+    selectComponent.instance.multiple = !!config.multiple;
     selectComponent.instance.prefix = config.prefix;
     selectComponent.instance.suffix = config.suffix;
     return selectComponent;
@@ -182,7 +185,6 @@ export class FlDynamicFieldConfigService {
   public generateGroupComponent(
     config: FlDynamicFormAbstractControl,
     control: AbstractControl,
-    configName: string,
     viewContainer: ViewContainerRef
   ): ComponentRef<FlDynamicAbstractFormDirective> {
     let viewComponentRef: ComponentRef<FlDynamicAbstractFormDirective>;
@@ -204,9 +206,6 @@ export class FlDynamicFieldConfigService {
 
     viewComponentRef.setInput('config', config);
     viewComponentRef.setInput('control', control);
-    if (viewComponentRef.instance.configName) {
-      viewComponentRef.setInput('configName', configName);
-    }
     return viewComponentRef;
   }
 }

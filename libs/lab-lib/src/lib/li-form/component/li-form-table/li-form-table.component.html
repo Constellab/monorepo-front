@@ -1,0 +1,75 @@
+<mat-table mat-table [dataSource]="datasource" flSearchTableSort>
+  <!-- Name -->
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
+      <span>{{ 'li.name' | translate }}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let form">
+      @if (!rowSelectable) {
+        <a
+          [routerLink]="form | liDetailRoute"
+          [target]="rowLinkTarget"
+          class="g-row-link"
+          aria-hidden="true"></a>
+      }
+      <div class="g-text-dense-height text">{{ form.name }}</div>
+
+      @if (form.isArchived) {
+        <mat-icon class="status-icon over-link" [matTooltip]="'li.archived' | translate" flIcon="archive">
+        </mat-icon>
+      }
+    </mat-cell>
+  </ng-container>
+
+  <!-- Status -->
+  <ng-container matColumnDef="status">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
+      <span>{{ 'li.status' | translate }}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let form">
+      <fl-status-chip [status]="getFormStatus(form.status)" mode="textOnly" size="small" />
+    </mat-cell>
+  </ng-container>
+
+  <!-- Tags -->
+  <ng-container matColumnDef="tags">
+    <mat-header-cell *matHeaderCellDef class="g-column-width-2">
+      <span>{{ 'li.tags' | translate }}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let form" class="g-column-width-2">
+      @defer (on viewport) {
+        <li-tag-list [tags]="form | labGetEntityTags"></li-tag-list>
+      } @placeholder {
+        <div></div>
+      }
+    </mat-cell>
+  </ng-container>
+
+  <!-- Template -->
+  <ng-container matColumnDef="template">
+    <mat-header-cell *matHeaderCellDef>
+      <span>{{ 'li.form_template' | translate }}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      @if (row.template) {
+        <li-form-template-ref-inline [templateRef]="row.template" class="over-link" />
+      }
+    </mat-cell>
+  </ng-container>
+
+  <!-- Actions -->
+  <ng-container matColumnDef="actions">
+    <mat-header-cell *matHeaderCellDef class="g-table-icon-button-cell"> </mat-header-cell>
+    <mat-cell *matCellDef="let row" class="g-table-icon-button-cell">
+      <button mat-icon-button type="button" (click)="openActionMenu(row, $event)" class="g-row-button">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
+  <mat-row
+    *matRowDef="let row; columns: columns"
+    class="g-table-row-selectable g-row-link-container"
+    (click)="rowClicked(row)"></mat-row>
+</mat-table>

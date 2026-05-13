@@ -31,7 +31,7 @@ import { FlTagModule } from '@monorepo/front-core-lib/fl-tag';
 import { FlThemeModule, FlThemeService } from '@monorepo/front-core-lib/fl-theme';
 import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import { LiConfig, liSvgIcons, LiTagService, LiTdServiceConfig } from '@monorepo/lab-lib/li-core';
+import { LI_SVG_ICONS, LiConfig, LiTagService, LiTdServiceConfig } from '@monorepo/lab-lib/li-core';
 import { TdTechnicalDocModule } from '@monorepo/technical-doc';
 
 import { DcApiErrorService } from './dc-core/service/dc-api-error.service';
@@ -63,7 +63,7 @@ export function dcAppConfig(baseHref: string, routes: Routes = []): ApplicationC
         }),
         FlIconModule.forRoot({
           iconFolder: baseHref + '/assets/fl-mat-icons/',
-          iconsToRegister: liSvgIcons,
+          iconsToRegister: LI_SVG_ICONS,
         }),
         FlApiModule.forRoot(DcApiServiceConfig, DcApiErrorService),
         FlTranslateModule.forRoot({

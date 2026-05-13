@@ -1,5 +1,4 @@
 import { ClSupportedLanguage } from '@monorepo/core-lib';
-// eslint-disable-next-line @nx/enforce-module-boundaries
 import { FlLangTranslation, FlTranslateObject } from '@monorepo/front-core-lib/fl-translate';
 /* eslint-disable max-len */
 
@@ -184,7 +183,7 @@ const bnBioNetworkI18nEn: FlLangTranslation = {
   },
 };
 
-export const bnBioNetworkI18n: FlTranslateObject = {
+export const BN_BIO_NETWORK_I18N: FlTranslateObject = {
   [ClSupportedLanguage.en]: bnBioNetworkI18nEn,
   [ClSupportedLanguage.fr]: bnBioNetworkI18nFr,
 };

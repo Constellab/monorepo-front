@@ -1,0 +1,20 @@
+.template-ref {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.template-ref-icon {
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+}
+
+.template-ref-link {
+  color: var(--primary-color);
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

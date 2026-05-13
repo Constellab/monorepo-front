@@ -1,30 +1,36 @@
 /**
  * File that group all the base routes for the modules
  */
-export const liConstBaseRoute = 'app';
+export const LI_CONST_BASE_ROUTE = 'app';
 
-export const liConstScenarioRoute = 'scenario';
-export const liConstBiotaRoute = 'biota';
-export const liConstResourceRoute = 'resource';
-export const liConstAppRoute = 'app';
-export const liConstNoteRoute = 'note';
-export const liConstViewRoute = 'view';
-export const liConstMonitoringRoute = 'monitoring';
-export const liConstDocRoute = 'doc';
-export const liConstScenarioTemplateRoute = 'scenario-template';
-export const liConstNoteTemplateRoute = 'note-template';
-export const liConstOpenRoute = 'open';
-export const liConstTagRoute = 'tag';
-export const liConstLoginRoute = '/login';
+export const LI_CONST_SCENARIO_ROUTE = 'scenario';
+export const LI_CONST_BIOTA_ROUTE = 'biota';
+export const LI_CONST_RESOURCE_ROUTE = 'resource';
+export const LI_CONST_APP_ROUTE = 'app';
+export const LI_CONST_NOTE_ROUTE = 'note';
+export const LI_CONST_VIEW_ROUTE = 'view';
+export const LI_CONST_MONITORING_ROUTE = 'monitoring';
+export const LI_CONST_DOC_ROUTE = 'doc';
+export const LI_CONST_SCENARIO_TEMPLATE_ROUTE = 'scenario-template';
+export const LI_CONST_NOTE_TEMPLATE_ROUTE = 'note-template';
+export const LI_CONST_OPEN_ROUTE = 'open';
+export const LI_CONST_TAG_ROUTE = 'tag';
+export const LI_CONST_LOGIN_ROUTE = '/login';
 
-export const liConstScenarioFullRoute = `/${liConstBaseRoute}/${liConstScenarioRoute}`;
-export const liConstBiotaFullRoute = `/${liConstBaseRoute}/${liConstBiotaRoute}`;
-export const liConstResourceFullRoute = `/${liConstBaseRoute}/${liConstResourceRoute}`;
-export const liConstAppFullRoute = `/${liConstBaseRoute}/${liConstAppRoute}`;
-export const liConstNoteFullRoute = `/${liConstBaseRoute}/${liConstNoteRoute}`;
-export const liConstViewFullRoute = `/${liConstBaseRoute}/${liConstViewRoute}`;
-export const liConstMonitoringFullRoute = `/${liConstBaseRoute}/${liConstMonitoringRoute}`;
-export const liConstDocFullRoute = `/${liConstBaseRoute}/${liConstDocRoute}`;
-export const liConstScenarioTemplateFullRoute = `/${liConstBaseRoute}/${liConstScenarioTemplateRoute}`;
-export const liConstNoteTemplateFullRoute = `/${liConstBaseRoute}/${liConstNoteTemplateRoute}`;
-export const liConstTagFullRoute = `/${liConstBaseRoute}/${liConstTagRoute}`;
+export const LI_CONST_SCENARIO_FULL_ROUTE = `/${LI_CONST_BASE_ROUTE}/${LI_CONST_SCENARIO_ROUTE}`;
+export const LI_CONST_BIOTA_FULL_ROUTE = `/${LI_CONST_BASE_ROUTE}/${LI_CONST_BIOTA_ROUTE}`;
+export const LI_CONST_RESOURCE_FULL_ROUTE = `/${LI_CONST_BASE_ROUTE}/${LI_CONST_RESOURCE_ROUTE}`;
+export const LI_CONST_APP_FULL_ROUTE = `/${LI_CONST_BASE_ROUTE}/${LI_CONST_APP_ROUTE}`;
+export const LI_CONST_NOTE_FULL_ROUTE = `/${LI_CONST_BASE_ROUTE}/${LI_CONST_NOTE_ROUTE}`;
+export const LI_CONST_VIEW_FULL_ROUTE = `/${LI_CONST_BASE_ROUTE}/${LI_CONST_VIEW_ROUTE}`;
+export const LI_CONST_MONITORING_FULL_ROUTE = `/${LI_CONST_BASE_ROUTE}/${LI_CONST_MONITORING_ROUTE}`;
+export const LI_CONST_DOC_FULL_ROUTE = `/${LI_CONST_BASE_ROUTE}/${LI_CONST_DOC_ROUTE}`;
+export const LI_CONST_SCENARIO_TEMPLATE_FULL_ROUTE =
+  `/${LI_CONST_BASE_ROUTE}/` + LI_CONST_SCENARIO_TEMPLATE_ROUTE;
+export const LI_CONST_NOTE_TEMPLATE_FULL_ROUTE = `/${LI_CONST_BASE_ROUTE}/` + LI_CONST_NOTE_TEMPLATE_ROUTE;
+export const LI_CONST_TAG_FULL_ROUTE = `/${LI_CONST_BASE_ROUTE}/${LI_CONST_TAG_ROUTE}`;
+
+export const LI_CONST_FORM_ROUTE = 'form';
+export const LI_CONST_FORM_FULL_ROUTE = `/${LI_CONST_BASE_ROUTE}/${LI_CONST_FORM_ROUTE}`;
+export const LI_CONST_FORM_TEMPLATE_ROUTE = 'form-template';
+export const LI_CONST_FORM_TEMPLATE_FULL_ROUTE = `/${LI_CONST_BASE_ROUTE}/${LI_CONST_FORM_TEMPLATE_ROUTE}`;

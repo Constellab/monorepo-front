@@ -1,15 +1,17 @@
 import { inject, Injectable, OnDestroy, ViewContainerRef } from '@angular/core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { FlPortalActionResult } from '@monorepo/front-core-lib/fl-portal-actions';
 import { LiProcess, LiProtocolService, LiProtocolUpdateDTO } from '@monorepo/lab-lib/li-core';
 import {
+  TD_PARAM_SPEC_INFO_LIST,
   TdAbstractDynamicParamSpecState,
-  TdCompleteEditParamSpecDict,
   TdConfig,
-  TdConfigureParamSpecsTableDialogComponent,
-  TdConfigureParamSpecsTableDialogInput,
+  tdGetParamSpecInfo,
   TdParamSpec,
+  TdParamSpecCategory,
+  TdParamSpecInfo,
   TdParamSpecs,
+  TdParamSpecTypeEnum,
+  TdValidateComputedParamResult,
 } from '@monorepo/technical-doc';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -25,113 +27,112 @@ export class LabDynamicParamSpecState extends TdAbstractDynamicParamSpecState im
 
   private process: LiProcess = null;
 
-  constructor() {
-    super();
-  }
-
   setProcess(process: LiProcess): void {
     this.process = process;
-    for (const spec of Object.keys(process.config.specs)) {
-      if (process.config.specs[spec] && process.config.specs[spec].type == 'dynamic') {
-        this.setParamSpecs(process.config.specs[spec].additional_info.specs);
-      }
+    const dynamicConfigSpec = this.getDynamicConfigSpecParamSpecs();
+    if (dynamicConfigSpec) {
+      this.setParamSpecs(dynamicConfigSpec.additional_info.specs);
     }
   }
 
-  openEditConfigDialog(configName: string): void {
-    if (this.process.config.specs[configName]?.type != 'dynamic') return;
-
-    const paramsSpecs: TdParamSpecs = this.process.config.specs[configName].additional_info.specs;
-
-    const input: TdConfigureParamSpecsTableDialogInput = {
-      paramSpecs: paramsSpecs,
-      configSpecName: configName,
-      dynamicParamsDescription: {
-        text: 'biox.agent_params_spec_description',
-        translateText: true,
-      },
-    };
-
-    this.dialogService
-      .openMediumDialog(TdConfigureParamSpecsTableDialogComponent, {
-        data: input,
-        viewContainerRef: this.viewContainerRef,
-      })
-      .afterClosed()
-      .subscribe(() => {});
+  getParamSpecsInfos(): TdParamSpecInfo[] {
+    // if the process is a virtual agent, we only allow simple types
+    if (this.process.isVirtualEnvAgent()) {
+      const paramSetSpecInfo = TD_PARAM_SPEC_INFO_LIST.find(
+        (info) => info.type === TdParamSpecTypeEnum.PARAM_SET
+      );
+      return [
+        ...tdGetParamSpecInfo([TdParamSpecCategory.SIMPLE, TdParamSpecCategory.CODE]),
+        paramSetSpecInfo,
+      ];
+    }
+    // don't allow computed_param type
+    return TD_PARAM_SPEC_INFO_LIST.filter((info) => info.type !== TdParamSpecTypeEnum.COMPUTED_PARAM);
   }
 
-  addParamSpec(configSpecName: string, paramName: string, paramSpec: TdParamSpec): Observable<TdConfig> {
+  getDynamicConfigSpecName(): string | null {
+    for (const spec of Object.keys(this.process.config.specs)) {
+      if (this.process.config.specs[spec] && this.process.config.specs[spec].type == 'dynamic') {
+        return spec;
+      }
+    }
+    return null;
+  }
+
+  getDynamicConfigSpecParamSpecs(): TdParamSpec | null {
+    const specName = this.getDynamicConfigSpecName();
+    if (!specName) return null;
+    return this.process.config.specs[specName];
+  }
+
+  openConfigureParamSpecsTableDialog(): void {
+    this.openConfigureParamSpecsDialog(
+      { text: 'biox.agent_params_spec_description', translateText: true },
+      this.dialogService,
+      this.viewContainerRef
+    );
+  }
+
+  addParamSpec(paramName: string, paramSpec: TdParamSpec): Observable<TdParamSpecs> {
     const obs = this.labProtocolService.addDynamicParamSpec(
       this.process.parentProtocolId,
       this.process.instanceName,
-      configSpecName,
+      this.getDynamicConfigSpecName(),
       paramName,
       paramSpec
     );
-    return this.onPortalActionResult(obs, configSpecName);
+    return this.onPortalActionResult(obs);
   }
 
-  deleteParamSpec(configSpecName: string, paramName: string): Observable<TdConfig> {
+  deleteParamSpec(paramName: string): Observable<TdParamSpecs> {
     const obs = this.labProtocolService.deleteDynamicParamSpec(
       this.process.parentProtocolId,
       this.process.instanceName,
-      configSpecName,
+      this.getDynamicConfigSpecName(),
       paramName
     );
-    return this.onPortalActionResult(obs, configSpecName);
+    return this.onPortalActionResult(obs);
   }
 
-  editParamSpec(configSpecName: string, paramName: string, paramSpec: TdParamSpec): Observable<TdConfig> {
+  editParamSpec(paramName: string, paramSpec: TdParamSpec): Observable<TdParamSpecs> {
     const obs = this.labProtocolService.updateDynamicParamSpec(
       this.process.parentProtocolId,
       this.process.instanceName,
-      configSpecName,
+      this.getDynamicConfigSpecName(),
       paramName,
       paramSpec
     );
-    return this.onPortalActionResult(obs, configSpecName);
+    return this.onPortalActionResult(obs);
   }
 
-  renameAndEditParamSpec(
-    configSpecName: string,
-    oldName: string,
-    newName: string,
-    paramSpec: TdParamSpec
-  ): Observable<TdConfig> {
+  renameAndEditParamSpec(oldName: string, newName: string, paramSpec: TdParamSpec): Observable<TdParamSpecs> {
     const obs = this.labProtocolService.renameAndUpdateDynamicParamSpec(
       this.process.parentProtocolId,
       this.process.instanceName,
-      configSpecName,
+      this.getDynamicConfigSpecName(),
       oldName,
       newName,
       paramSpec
     );
-    return this.onPortalActionResult(obs, configSpecName);
+    return this.onPortalActionResult(obs);
   }
 
-  getParamSpecsInfos(): Observable<TdCompleteEditParamSpecDict> {
-    return this.labProtocolService.getParamSpecsInfos(
-      this.process.parentProtocolId,
-      this.process.instanceName
-    );
-  }
-
-  private onPortalActionResult(
-    obs: Observable<LiProtocolUpdateDTO>,
-    configSpecName: string
-  ): Observable<TdConfig> {
+  private onPortalActionResult(obs: Observable<LiProtocolUpdateDTO>): Observable<TdParamSpecs> {
     return obs.pipe(
-      map((result: LiProtocolUpdateDTO): TdConfig => {
+      map((result: LiProtocolUpdateDTO): TdParamSpecs => {
         const config = result.process.config as TdConfig;
-        this.updateProcessConfig(configSpecName, config);
+        this.updateProcessConfig(this.getDynamicConfigSpecName(), config);
         this.editConfig.updateProcessDynamicConfig(result);
-        return config;
+        return config.specs[this.getDynamicConfigSpecName()].additional_info.specs;
       })
     );
   }
 
   private updateProcessConfig(configSpecName: string, config: TdConfig): void {
     this.setParamSpecs(config.specs[configSpecName].additional_info.specs);
+  }
+
+  validateComputedExpression(): Observable<TdValidateComputedParamResult> | null {
+    throw new Error('Computed param validation not implemented for lab dynamic params');
   }
 }

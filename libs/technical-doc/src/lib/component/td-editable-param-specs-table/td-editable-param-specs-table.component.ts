@@ -1,110 +1,120 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, inject, Input, OnInit, output } from '@angular/core';
+import { Component, inject, Input, input, output } from '@angular/core';
 import { ClHelpService, ClStringHelper } from '@monorepo/core-lib';
-import { FlArrayObs, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
+import { FlArrayObs } from '@monorepo/front-core-lib/fl-core';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 
-import { TdParamSpecBase } from '../../model/td-config-spec.class';
-import { TdAbstractDynamicParamSpecState } from '../../service/td-abstract-dynamic-param-spec.state';
-
-export interface TdEditableParamSpec extends TdParamSpecBase {
-  name: string;
-}
+import { TD_TYPES_WITHOUT_DEFAULT_VALUE, TdParamSpecEntry } from '../../model/td-config-spec.class';
 
 @Component({
   selector: 'td-editable-param-specs-table',
   templateUrl: './td-editable-param-specs-table.component.html',
   styleUrl: './td-editable-param-specs-table.component.scss',
-  animations: [
-    trigger('detailExpand', [
-      state('collapsed,void', style({ height: '0px', minHeight: '0' })),
-      state('expanded', style({ height: '*' })),
-      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
-    ]),
-  ],
   standalone: false,
 })
-export class TdEditableParamSpecsTableComponent implements OnInit {
-  private dynamicParamSpecState = inject(TdAbstractDynamicParamSpecState);
+export class TdEditableParamSpecsTableComponent {
   private translateService = inject(FlTranslateService);
 
-  @Input() columns: FlTableColumnStatic<TdEditableParamSpec>[] = [
-    'name',
-    'type',
-    'optional',
-    'default_value',
-    'human_name',
-  ];
+  @Input() columns: string[] = ['label', 'type', 'optional', 'default_value', 'additional_info', 'menu'];
 
-  @Input() columnsToDisplayWithExpand = ['expand', ...this.columns, 'menu'];
+  table = input.required<FlArrayObs<TdParamSpecEntry>>();
 
-  @Input() displayWithExpand: boolean = true;
+  editElementClick = output<TdParamSpecEntry>();
+  deleteElementClick = output<TdParamSpecEntry>();
 
-  table: FlArrayObs<TdEditableParamSpec> = this.dynamicParamSpecState.paramSpecsTable;
-
-  expandedElement: TdEditableParamSpec | null;
-
-  editElementClick = output<TdEditableParamSpec>();
-
-  deleteElementClick = output<TdEditableParamSpec>();
-
-  ngOnInit(): void {
-    if (!this.displayWithExpand) this.columnsToDisplayWithExpand = this.columns;
-  }
-
-  edit(event: Event, element: TdEditableParamSpec): void {
+  edit(event: Event, entry: TdParamSpecEntry): void {
     ClHelpService.stopEventPropagation(event);
-    this.editElementClick.emit(element);
+    this.editElementClick.emit(entry);
   }
 
-  delete(event: Event, element: TdEditableParamSpec): void {
+  delete(event: Event, entry: TdParamSpecEntry): void {
     ClHelpService.stopEventPropagation(event);
-    this.deleteElementClick.emit(element);
+    this.deleteElementClick.emit(entry);
   }
 
-  getColumnValue(element: any, column: string): string {
-    if (!element[column] && column !== 'optional') {
-      if (column === 'human_name') {
-        return element['name'] ? ClStringHelper.capitalize(element['name']) : '';
-      }
-      return '';
+  getLabel(entry: TdParamSpecEntry): string {
+    return entry.spec.human_name || ClStringHelper.capitalize(entry.key);
+  }
+
+  formatDefaultValue(entry: TdParamSpecEntry): string {
+    if (TD_TYPES_WITHOUT_DEFAULT_VALUE.includes(entry.spec.type)) return '';
+    const value = entry.spec.default_value;
+    if (value == null) return '';
+    if (value?.name) return value.name;
+    if (value?.title) return value.title;
+    if (value?.id) return value.id;
+    if (typeof value === 'object' && !Array.isArray(value)) return 'object';
+    const str = String(value);
+    return str.length > 20 ? str.substring(0, 20) + '...' : str;
+  }
+
+  getAdditionalInfoItems(entry: TdParamSpecEntry): { key: string; label: string; value: string }[] {
+    const info = entry.spec.additional_info;
+    if (!info || typeof info !== 'object') return [];
+
+    switch (entry.spec.type) {
+      case 'str':
+        return this.buildItems(info, [
+          { key: 'min_length', label: this.t('td.min_length') },
+          { key: 'max_length', label: this.t('td.max_length') },
+        ]);
+
+      case 'int':
+      case 'float':
+        return this.buildItems(info, [
+          { key: 'min_value', label: this.t('td.min_value') },
+          { key: 'max_value', label: this.t('td.max_value') },
+        ]);
+
+      case 'computed_param':
+        return this.buildItems(info, [
+          { key: 'expression', label: this.t('td.expression') },
+          { key: 'result_type', label: this.t('td.result_type') },
+        ]);
+
+      case 'param_set':
+        return this.buildItems(info, [
+          { key: 'max_number_of_occurrences', label: this.t('td.max_number_of_occurrences') },
+          {
+            key: 'param_set',
+            label: this.t('td.columns'),
+            format: (v) => (typeof v === 'object' ? Object.keys(v).length + ' columns' : String(v)),
+          },
+        ]);
+
+      case 'credentials_param':
+        return this.buildItems(info, [{ key: 'credentials_type', label: this.t('td.credentials_type') }]);
+
+      case 'select_param':
+        return this.buildItems(info, [
+          {
+            key: 'allowed_values',
+            label: this.t('td.options'),
+            format: (v) => (Array.isArray(v) ? v.map((o: any) => o.label ?? o.value).join(', ') : String(v)),
+          },
+          { key: 'multiple', label: this.t('td.allow_multiple') },
+        ]);
+
+      default:
+        return Object.keys(info)
+          .filter((key) => info[key] != null && typeof info[key] !== 'object')
+          .map((key) => ({ key, label: key, value: String(info[key]) }));
     }
-
-    if (column === 'default_value') {
-      if (element[column].name) {
-        return element[column].name;
-      } else if (element[column].title) {
-        return element[column].title;
-      } else if (element[column].id) {
-        return element[column].id;
-      } else if (this.isObject(element[column])) {
-        return 'object';
-      } else {
-        const value: string = String(element[column]);
-        if (value.length > 20) {
-          return value.substring(0, 20) + '...';
-        }
-        return value;
-      }
-    } else if (column === 'type') {
-      return ClStringHelper.snakeCaseToSentence(element[column]);
-    } else if (this.isBoolean(element[column])) {
-      if (element[column] === true) {
-        return this.translateService.translate('td.yes');
-      } else {
-        return this.translateService.translate('td.no');
-      }
-    }
-    return element[column];
   }
 
-  private isBoolean(v: any): boolean {
-    return typeof v === 'boolean';
+  private t(key: string): string {
+    return this.translateService.translate(key);
   }
 
-  private isObject(v: any): boolean {
-    return typeof v === 'object' && !Array.isArray(v) && v !== null;
+  private buildItems(
+    info: Record<string, any>,
+    fields: { key: string; label: string; format?: (v: any) => string }[]
+  ): { key: string; label: string; value: string }[] {
+    return fields
+      .filter((f) => info[f.key] != null)
+      .map((f) => ({
+        key: f.key,
+        label: f.label,
+        value: f.format ? f.format(info[f.key]) : String(info[f.key]),
+      }));
   }
-
-  protected readonly Object = Object;
 }

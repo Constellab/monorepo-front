@@ -57,15 +57,17 @@
 
       <mat-divider class="divider"></mat-divider>
 
-      <fl-key-value>
-        <fl-key>{{ 'li.created_at' | translate }}</fl-key>
-        {{ entityTag.createdAt | flDate: 'DATE_TIME' }}
-      </fl-key-value>
+      @if (entityTag) {
+        <fl-key-value>
+          <fl-key>{{ 'li.created_at' | translate }}</fl-key>
+          {{ entityTag.createdAt | flDate: 'DATE_TIME' }}
+        </fl-key-value>
 
-      <fl-text-ok-nok
-        [value]="entityTag.isPropagable"
-        [okText]="'li.tag_is_propagable' | translate"
-        [nokText]="'li.tag_is_not_propagable' | translate"></fl-text-ok-nok>
+        <fl-text-ok-nok
+          [value]="entityTag.isPropagable"
+          [okText]="'li.tag_is_propagable' | translate"
+          [nokText]="'li.tag_is_not_propagable' | translate"></fl-text-ok-nok>
+      }
 
       <li-tag-origins [tagEntityId]="tagEntityId" class="origins"></li-tag-origins>
     }

@@ -1,0 +1,21 @@
+:host {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fl-ai-menu-recording {
+  color: var(--warn-color);
+  animation: fl-ai-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes fl-ai-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.4;
+  }
+}

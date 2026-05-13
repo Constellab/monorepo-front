@@ -12,6 +12,9 @@ import {
   LiViewConfig,
 } from '@monorepo/lab-lib/li-core';
 
+import { LiForm } from '../../li-core/model/entities/form/li-form.entity';
+import { LiFormTemplate } from '../../li-core/model/entities/form/li-form-template.entity';
+
 @Pipe({ name: 'labGetEntityTags' })
 export class LiGetEntityTagsPipe implements PipeTransform {
   private tagService = inject(LiTagService);
@@ -39,6 +42,10 @@ export class LiGetEntityTagsPipe implements PipeTransform {
       return 'SCENARIO_TEMPLATE';
     } else if (entity instanceof LiNoteTemplate) {
       return 'NOTE_TEMPLATE';
+    } else if (entity instanceof LiFormTemplate) {
+      return 'FORM_TEMPLATE';
+    } else if (entity instanceof LiForm) {
+      return 'FORM';
     } else {
       console.error('[labGetEntityTags] Entity type not supported', entity);
       return null;

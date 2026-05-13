@@ -5,6 +5,10 @@ import {
   LiRichTextImageConfig,
   LiRichTextObjectType,
 } from '@monorepo/lab-lib/li-core';
+import {
+  LiRichTextFormTemplateBlock,
+  LiRichTextFormTemplateBlockAdditionalData,
+} from '@monorepo/lab-lib/li-form';
 import { LiRichTextFileViewBlock, LiRichTextViewBlockAdditionalData } from '@monorepo/lab-lib/li-rich-text';
 import {
   TeCompleteConfig,
@@ -52,6 +56,17 @@ export class LabNoteTemplateTextEditorConfig extends TeCompleteConfig {
       envInjector,
       applicationRef,
       fileViewData
+    );
+
+    // add the form template block
+    const formTemplateData: LiRichTextFormTemplateBlockAdditionalData = {
+      noteTemplateId: this.noteTemplateId,
+    };
+    tools.formTemplate = teComponentBlockFactory(
+      LiRichTextFormTemplateBlock,
+      envInjector,
+      applicationRef,
+      formTemplateData
     );
 
     tools.audioTranscription = this.getAudioTranscriptionConfig(

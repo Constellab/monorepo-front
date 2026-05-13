@@ -80,11 +80,13 @@ export interface FlDynamicFieldConfigInput extends FlDynamicFieldConfigMaterialI
   type: 'input';
 
   inputType: 'text' | 'number';
-  // validators (only for numbers)
+  // validators for numbers
   min?: number;
   max?: number;
-  // if true the number must be an integer
   integer?: boolean;
+  // validators for text
+  minLength?: number;
+  maxLength?: number;
 }
 
 export interface FlDynamicFieldSelectKeyNameOption {
@@ -99,6 +101,7 @@ export interface FlDynamicFieldConfigSelect extends FlDynamicFieldConfigMaterial
   type: 'select';
 
   selectOptions: FlDynamicFieldSelectOptions;
+  multiple?: boolean;
 }
 
 export interface FlDynamicFieldConfigSelectSearch extends FlDynamicFieldConfigBase {

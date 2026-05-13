@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { inject,NgModule } from '@angular/core';
+import { inject, NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
@@ -14,7 +14,7 @@ import { FlTextIconModule } from '../fl-text-icon/fl-text-icon.module';
 import { FlTranslateModule } from '../fl-translate/fl-translate.module';
 import { FlPrettyJsonComponent } from './fl-pretty-json/fl-pretty-json.component';
 import { FlPrettyJsonDialogComponent } from './fl-pretty-json-dialog/fl-pretty-json-dialog.component';
-import { flJsonEditorI18n } from './i18n/fl-json-editor.i18n';
+import { FL_JSON_EDITOR_I18N } from './i18n/fl-json-editor.i18n';
 
 /**
  * Module containing a component to edit json in html
@@ -42,6 +42,6 @@ export class FlJsonEditorModule {
   constructor() {
     const translateService = inject(FlTranslateService);
 
-    translateService.addModuleTranslation('FlJsonEditorModule', flJsonEditorI18n);
+    translateService.addModuleTranslation('FlJsonEditorModule', FL_JSON_EDITOR_I18N);
   }
 }

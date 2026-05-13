@@ -1,7 +1,7 @@
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CommonModule } from '@angular/common';
-import { inject,NgModule } from '@angular/core';
+import { inject, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
@@ -47,7 +47,7 @@ import { SpSpreadsheetHeaderInfoComponent } from './component/sp-spreadsheet-hea
 import { SpSpreadsheetHeaderTagsComponent } from './component/sp-spreadsheet-header-tags/sp-spreadsheet-header-tags.component';
 import { SpSpreadsheetSelectionListenerComponent } from './component/sp-spreadsheet-selection-listener/sp-spreadsheet-selection-listener.component';
 import { SpSpreadsheetSheetSelectionComponent } from './component/sp-spreadsheet-sheet-selection/sp-spreadsheet-sheet-selection.component';
-import { spSpreadsheetI18n } from './i18n/sp-spreadsheet.i18n';
+import { SP_SPREADSHEET_I18N } from './i18n/sp-spreadsheet.i18n';
 import { SpCellHeaderPipe } from './pipe/sp-cell-header.pipe';
 
 @NgModule({
@@ -113,6 +113,6 @@ export class SpSpreadsheetModule {
   constructor() {
     const translateService = inject(FlTranslateService);
 
-    translateService.addModuleTranslation('SpSpreadsheetModule', spSpreadsheetI18n);
+    translateService.addModuleTranslation('SpSpreadsheetModule', SP_SPREADSHEET_I18N);
   }
 }

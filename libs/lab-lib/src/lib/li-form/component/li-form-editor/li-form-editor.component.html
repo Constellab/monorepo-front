@@ -1,0 +1,16 @@
+@if (configData()) {
+  <form [formGroup]="formGp">
+    <td-configure-specs-form [formGp]="formGp" [configData]="configData()" />
+  </form>
+
+  <div class="form-editor-actions">
+    @if (!readonly()) {
+      <button mat-flat-button (click)="save()" [disabled]="isSaving()">
+        {{ 'li.form_save' | translate }}
+      </button>
+      <button mat-flat-button class="primary" (click)="submit()" [disabled]="isSaving()">
+        {{ 'li.form_submit' | translate }}
+      </button>
+    }
+  </div>
+}

@@ -13,39 +13,25 @@
         </div>
 
         <div class="g-print-hide action-buttons">
-          <button mat-icon-button [matMenuTriggerFor]="menu">
+          <button mat-icon-button (click)="openActionMenu($event)">
             <mat-icon>more_vert</mat-icon>
           </button>
-          <mat-menu #menu="matMenu" xPosition="before" class="g-print-hide">
-            <button mat-menu-item type="button" (click)="printDocument()">
-              <mat-icon>print</mat-icon>
-              <span>{{ 'biox.print_note_template' | translate }}</span>
-            </button>
-
-            <button mat-menu-item type="button" (click)="delete()" class="warn">
-              <mat-icon>delete</mat-icon>
-              <span>{{ 'biox.delete_note_template' | translate }}</span>
-            </button>
-          </mat-menu>
         </div>
       </div>
 
       <!--   Content   -->
-      <fl-article-container>
-        <fl-article-left-side>
-          <te-text-editor-save
-            [textEditor]="textEditor"
-            [saveFunc]="saveContentFunc"
-            class="editor-save"></te-text-editor-save>
+      <div class="container">
+        <div class="left-section g-print-hide">
+          <te-text-editor-save [textEditor]="textEditor" [saveFunc]="saveContentFunc"></te-text-editor-save>
 
           <!--  Tags  -->
           <li-tag-list
-            class="g-flex-auto"
             [tags]="tags$"
             [showNoTagMessage]="true"
             entityType="NOTE_TEMPLATE"
             [enableDetails]="true"
-            [entityId]="noteTemplate.id"></li-tag-list>
+            [entityId]="noteTemplate.id"
+            class="separator"></li-tag-list>
 
           <!--  Created by & Last modified bt  -->
           <p class="g-text-small g-text-light separator">
@@ -58,16 +44,18 @@
               [user]="noteTemplate.lastModifiedBy"
               [date]="noteTemplate.lastModifiedAt"></fl-last-modification-info>
           </p>
-        </fl-article-left-side>
-        <fl-article>
+        </div>
+
+        <!--   Template content     -->
+        <div class="right-section g-max-article-width">
           <te-text-editor
             #textEditor
             [formControl]="formControl"
             class="g-full-height g-print-section"
             [config]="textEditorConfig"
             [placeholder]="'biox.note_placeholder' | translate"></te-text-editor>
-        </fl-article>
-      </fl-article-container>
+        </div>
+      </div>
     </ng-container>
   </fl-section>
 </div>

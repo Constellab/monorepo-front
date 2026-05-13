@@ -1,0 +1,26 @@
+<div
+  class="td-expression-input"
+  contenteditable="true"
+  spellcheck="false"
+  (input)="onInput()"
+  (keydown)="onKeydown($event)"
+  (blur)="onBlur()"
+  (paste)="onPaste($event)"
+  #editableDiv
+  #container></div>
+
+<ng-template #suggestionsTemplate>
+  <div class="td-expression-suggestions">
+    @for (name of filteredSuggestions(); track name; let i = $index) {
+      <div
+        class="td-suggestion-item"
+        [class.hovered]="i === hoveredIndex()"
+        (mousedown)="selectSuggestion(name)"
+        (mouseenter)="hoveredIndex.set(i)">
+        &#64;{{ name }}
+      </div>
+    } @empty {
+      <div class="td-suggestion-empty">{{ 'td.no_matching_fields' | translate }}</div>
+    }
+  </div>
+</ng-template>

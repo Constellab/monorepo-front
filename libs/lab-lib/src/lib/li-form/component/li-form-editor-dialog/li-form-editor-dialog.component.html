@@ -1,0 +1,12 @@
+<fl-dialog-header>
+  {{ formName() }}
+</fl-dialog-header>
+
+<mat-dialog-content>
+  <li-form-content
+    [formId]="formId"
+    displayMode="form"
+    (contentSaved)="onContentSaved($event)"
+    (contentSubmitted)="onContentSubmitted($event)"
+    (formLoaded)="onFormLoaded($event)" />
+</mat-dialog-content>

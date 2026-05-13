@@ -8,8 +8,8 @@ import { FlConfirmDialogInput, FlDialogService } from '@monorepo/front-core-lib/
 import { FlExpansionMenuModule } from '@monorepo/front-core-lib/fl-expansion-menu';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import {
+  LI_CONST_LOGIN_ROUTE,
   LiAuthService,
-  liConstLoginRoute,
   LiRouterService,
   LiSystemInfo,
   LiSystemService,
@@ -69,7 +69,7 @@ export class LabMainMenuSettingsComponent implements OnInit {
   }
 
   logout(): void {
-    this.authenticationService.logout().subscribe(() => this.router.navigate([liConstLoginRoute]));
+    this.authenticationService.logout().subscribe(() => this.router.navigate([LI_CONST_LOGIN_ROUTE]));
   }
 
   resetDevEnvironment(): void {

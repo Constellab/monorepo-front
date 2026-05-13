@@ -1,19 +1,154 @@
-.content {
-  display: flex;
-  flex-direction: column;
-}
-
 .loader {
   display: flex;
-  flex-direction: row;
   justify-content: center;
   align-items: center;
 }
 
-.text-area {
-  resize: none;
+.form-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
-.save-button {
-  margin: 1em auto 0 auto;
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.section-title {
+  margin-bottom: 4px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.row {
+  display: flex;
+  gap: 8px;
+}
+
+.half-width {
+  flex: 1;
+}
+
+.checkbox-row {
+  margin-bottom: 8px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.expression-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.expression-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  td-expression-input {
+    flex: 1;
+  }
+}
+
+.expression-hint {
+  margin: 0;
+}
+
+.validation-result {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 4px;
+
+  &.valid {
+    background-color: rgba(76, 175, 80, 0.1);
+    color: #2e7d32;
+  }
+
+  &.invalid {
+    background-color: rgba(244, 67, 54, 0.1);
+    color: #c62828;
+  }
+}
+
+::ng-deep .expression-help-portal {
+  background: var(--card-color, white);
+  border: 1px solid var(--border-color, rgba(0, 0, 0, 0.12));
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  padding: 16px 20px;
+  max-width: 420px;
+  max-height: 70vh;
+  overflow-y: auto;
+
+  h4 {
+    margin: 0 0 12px;
+  }
+
+  section {
+    margin-bottom: 12px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  h5 {
+    margin: 0 0 4px;
+  }
+
+  p {
+    margin: 0 0 4px;
+  }
+
+  code {
+    background: color-mix(in srgb, var(--primary-color) 15%, transparent);
+    color: var(--primary-color);
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-family: monospace;
+  }
+
+  .operator-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .expression-example {
+    display: inline-block;
+    padding: 4px 8px;
+    margin: 4px 0;
+  }
+
+  .help-table {
+    width: 100%;
+    border-collapse: collapse;
+
+    td {
+      padding: 2px 8px 2px 0;
+      vertical-align: top;
+
+      &:first-child {
+        white-space: nowrap;
+      }
+    }
+  }
+
+  .help-examples {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+  }
 }

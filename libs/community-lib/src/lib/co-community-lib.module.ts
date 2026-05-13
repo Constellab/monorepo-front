@@ -26,7 +26,7 @@ import { FlTranslateModule, FlTranslateService } from '@monorepo/front-core-lib/
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { TdTechnicalDocModule } from '@monorepo/technical-doc';
 
-import { coCommunityLibI18n } from './co-community-lib.i18n';
+import { CO_COMMUNITY_LIB_I18N } from './co-community-lib.i18n';
 import { CoAgentCreateDialogFormComponent } from './component/co-agent-create-dialog-form/co-agent-create-dialog-form.component';
 import { CoAgentListItemComponent } from './component/co-agent-list-item/co-agent-list-item.component';
 import { CoBrickListItemComponent } from './component/co-brick-list-item/co-brick-list-item.component';
@@ -100,7 +100,7 @@ export class CoCommunityLibModule {
   constructor() {
     const translateService = inject(FlTranslateService);
 
-    translateService.addModuleTranslation('CoCommunityLibModule', coCommunityLibI18n);
+    translateService.addModuleTranslation('CoCommunityLibModule', CO_COMMUNITY_LIB_I18N);
   }
 
   public static forRoot(apiServiceConfig: Type<CoConfig>): ModuleWithProviders<CoCommunityLibModule> {

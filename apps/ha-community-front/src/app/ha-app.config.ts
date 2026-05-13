@@ -62,7 +62,7 @@ import { HaUserConfig } from './ha-core/ha-model/ha-config/ha-user-config.config
 import { HaAuthService } from './ha-core/ha-service/ha-auth.service';
 import { HaAuthenticatedUserService } from './ha-core/ha-service/ha-authenticated-user.service';
 import { HaHttpInterceptorSsrService } from './ha-core/ha-service/ha-http-interceptor-ssr.service';
-import { haSvgIcons } from './ha-core/utils/ha-svg-icon-config';
+import { HA_SVG_ICONS } from './ha-core/utils/ha-svg-icon-config';
 
 function loadUserOnInit(authenticatedUserService: HaAuthenticatedUserService): () => void {
   return (): void => authenticatedUserService.init();
@@ -126,7 +126,7 @@ export const haAppConfig: ApplicationConfig = {
       FlPortalActionsModule.forRoot(),
       FlIconModule.forRoot({
         iconFolder: 'assets/fl-mat-icons/',
-        iconsToRegister: haSvgIcons,
+        iconsToRegister: HA_SVG_ICONS,
       }),
       FlUserModule.forRoot(HaUserConfig),
       TdTechnicalDocModule.forRoot(HaTdServiceConfig),

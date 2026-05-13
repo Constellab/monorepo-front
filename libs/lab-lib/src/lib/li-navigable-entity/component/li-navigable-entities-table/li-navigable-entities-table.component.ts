@@ -41,16 +41,23 @@ export class LiNavigableEntitiesTableComponent implements OnInit, OnDestroy {
       case 'NOTE':
         this.componentRef = await this.noteTable();
         break;
+      case 'FORM':
+        this.componentRef = await this.formTable();
+        break;
+      case 'FORM_TEMPLATE':
+        this.componentRef = await this.formTemplateTable();
+        break;
       default:
-        throw new Error(`[LiNavigableEntitiesTableComponent] Type ${this.type} is not supported`);
+        throw new Error(`[LiNavigableEntitiesTableComponent] Type '${this.type}' is not supported`);
     }
   }
 
   private async scenarioTable(): Promise<ComponentRef<any>> {
     // use lazy loading to avoid circular dependencies
-    const componentType = await import(
-      '../../../li-scenario/component/li-scenario-table/li-scenario-table.component'
-    ).then((c) => c.LiScenarioTableComponent);
+    const componentType =
+      await import('../../../li-scenario/component/li-scenario-table/li-scenario-table.component').then(
+        (c) => c.LiScenarioTableComponent
+      );
     const componentRef = this.viewContainer.createComponent(componentType);
     componentRef.instance.datasource = new FlEntityArrayObs(this.entities);
     componentRef.instance.columns = ['title', 'status', 'lastModification'];
@@ -60,9 +67,10 @@ export class LiNavigableEntitiesTableComponent implements OnInit, OnDestroy {
 
   private async resourceTable(): Promise<ComponentRef<any>> {
     // use lazy loading to avoid circular dependencies
-    const componentType = await import(
-      '../../../li-resource/component/li-resource-table/li-resource-table.component'
-    ).then((c) => c.LiResourceTableComponent);
+    const componentType =
+      await import('../../../li-resource/component/li-resource-table/li-resource-table.component').then(
+        (c) => c.LiResourceTableComponent
+      );
     const componentRef = this.viewContainer.createComponent(componentType);
     componentRef.instance.datasource = new FlEntityArrayObs(this.entities);
     componentRef.instance.columns = ['name', 'type', 'lastModification', 'viewResource'];
@@ -72,9 +80,11 @@ export class LiNavigableEntitiesTableComponent implements OnInit, OnDestroy {
 
   private async viewConfigTable(): Promise<ComponentRef<any>> {
     // use lazy loading to avoid circular dependencies
-    const componentType = await import(
-      '../../../li-view-config/component/li-view-config-table/li-view-config-table.component'
-    ).then((c) => c.LiViewConfigTableComponent);
+    const componentType =
+      // eslint-disable-next-line
+      await import('../../../li-view-config/component/li-view-config-table/li-view-config-table.component').then(
+        (c) => c.LiViewConfigTableComponent
+      );
     const componentRef = this.viewContainer.createComponent(componentType);
     componentRef.instance.datasource = new FlEntityArrayObs(this.entities);
     componentRef.instance.columns = ['title', 'resource', 'lastModifiedAt', 'preview'];
@@ -84,12 +94,39 @@ export class LiNavigableEntitiesTableComponent implements OnInit, OnDestroy {
 
   private async noteTable(): Promise<ComponentRef<any>> {
     // use lazy loading to avoid circular dependencies
-    const componentType = await import(
-      '../../../li-note/component/li-note-table/li-note-table.component'
-    ).then((c) => c.LiNoteTableComponent);
+    const componentType =
+      await import('../../../li-note/component/li-note-table/li-note-table.component').then(
+        (c) => c.LiNoteTableComponent
+      );
     const componentRef = this.viewContainer.createComponent(componentType);
     componentRef.instance.datasource = new FlEntityArrayObs(this.entities);
     componentRef.instance.columns = ['title', 'creation'];
+    componentRef.instance.rowLinkTarget = '_blank';
+    return componentRef;
+  }
+
+  private async formTable(): Promise<ComponentRef<any>> {
+    // use lazy loading to avoid circular dependencies
+    const componentType =
+      await import('../../../li-form/component/li-form-table/li-form-table.component').then(
+        (c) => c.LiFormTableComponent
+      );
+    const componentRef = this.viewContainer.createComponent(componentType);
+    componentRef.instance.datasource = new FlEntityArrayObs(this.entities);
+    componentRef.instance.columns = ['name', 'status', 'template', 'tags'];
+    componentRef.instance.rowLinkTarget = '_blank';
+    return componentRef;
+  }
+
+  private async formTemplateTable(): Promise<ComponentRef<any>> {
+    // use lazy loading to avoid circular dependencies
+    const componentType =
+      await import('../../../li-form/component/li-form-template-table/li-form-template-table.component').then(
+        (c) => c.LiFormTemplateTableComponent
+      );
+    const componentRef = this.viewContainer.createComponent(componentType);
+    componentRef.instance.datasource = new FlEntityArrayObs(this.entities);
+    componentRef.instance.columns = ['name', 'tags', 'lastModification'];
     componentRef.instance.rowLinkTarget = '_blank';
     return componentRef;
   }

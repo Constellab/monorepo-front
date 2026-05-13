@@ -35,18 +35,32 @@
     <mat-error>{{ placeholder | flErrorRequired: false }}</mat-error>
   }
   @if (formCtrl.hasError('min')) {
-    <mat-error>{{
-        'flDynamicField.min_error_validator' | translate: { min: formCtrl.getError('min').min }
-      }}
+    <mat-error
+      >{{ 'flDynamicField.min_error_validator' | translate: { min: formCtrl.getError('min').min } }}
     </mat-error>
   }
   @if (formCtrl.hasError('max')) {
-    <mat-error>{{
-        'flDynamicField.max_error_validator' | translate: { max: formCtrl.getError('max').max }
-      }}
+    <mat-error
+      >{{ 'flDynamicField.max_error_validator' | translate: { max: formCtrl.getError('max').max } }}
     </mat-error>
   }
   @if (formCtrl.hasError('notInteger')) {
     <mat-error>{{ 'flDynamicField.integer_error_validator' | translate }}</mat-error>
+  }
+  @if (formCtrl.hasError('minlength')) {
+    <mat-error
+      >{{
+        'flDynamicField.min_length_error_validator'
+          | translate: { minLength: formCtrl.getError('minlength').requiredLength }
+      }}
+    </mat-error>
+  }
+  @if (formCtrl.hasError('maxlength')) {
+    <mat-error
+      >{{
+        'flDynamicField.max_length_error_validator'
+          | translate: { maxLength: formCtrl.getError('maxlength').requiredLength }
+      }}
+    </mat-error>
   }
 </mat-form-field>

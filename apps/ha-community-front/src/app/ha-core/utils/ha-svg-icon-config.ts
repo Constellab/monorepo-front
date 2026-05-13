@@ -1,8 +1,8 @@
 import { FlIcon } from '@monorepo/front-core-lib/fl-svg-icon';
-import { flIconsDefault } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FL_ICONS_DEFAULT } from '@monorepo/front-core-lib/fl-svg-icon';
 
-export const haSvgIcons: FlIcon[] = [
-  ...flIconsDefault,
+export const HA_SVG_ICONS: FlIcon[] = [
+  ...FL_ICONS_DEFAULT,
 
   { name: 'heart', filename: 'heart.svg' },
   { name: 'heart-fill', filename: 'heart-fill.svg' },

@@ -1,0 +1,25 @@
+@if (recorder.micDisabled()) {
+  <button mat-icon-button type="button" disabled [matTooltip]="'flAi.mic_disabled' | translate">
+    <mat-icon>mic_off</mat-icon>
+  </button>
+} @else if (recorder.isRecording()) {
+  <button
+    mat-icon-button
+    class="fl-ai-voice-recording"
+    type="button"
+    (click)="recorder.toggleRecording()"
+    [matTooltip]="'flAi.stop_recording' | translate">
+    <mat-icon>stop_circle</mat-icon>
+  </button>
+} @else if (isLoading()) {
+  <mat-spinner [diameter]="24"></mat-spinner>
+} @else {
+  <button
+    mat-icon-button
+    type="button"
+    [disabled]="isDisabled()"
+    (click)="recorder.toggleRecording()"
+    [matTooltip]="tooltip() | translate">
+    <mat-icon>mic</mat-icon>
+  </button>
+}

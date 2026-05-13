@@ -1,6 +1,16 @@
 import { CdkDrag, CdkDragDrop, CdkDragHandle, CdkDropList } from '@angular/cdk/drag-drop';
 import { NgClass } from '@angular/common';
-import { Component, effect, inject, input, OnDestroy, output, Signal, untracked, viewChild } from '@angular/core';
+import {
+  Component,
+  effect,
+  inject,
+  input,
+  OnDestroy,
+  output,
+  Signal,
+  untracked,
+  viewChild,
+} from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import {
@@ -11,10 +21,10 @@ import {
   MatTreeNodeToggle,
 } from '@angular/material/tree';
 import { RouterLink } from '@angular/router';
-import { Subscription } from 'rxjs';
 import { FlTree } from '@monorepo/front-core-lib/fl-core';
 import { FlMenuDynamic, FlMenuDynamicService } from '@monorepo/front-core-lib/fl-menu-dynamic';
 import { FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
+import { Subscription } from 'rxjs';
 
 import { HaNode, HaNodeObjectsTreeDatasource } from '../../../ha-core/ha-model/ha-entities/ha-node.class';
 import { HaFolderService } from '../../../ha-core/ha-service/ha-folder.service';

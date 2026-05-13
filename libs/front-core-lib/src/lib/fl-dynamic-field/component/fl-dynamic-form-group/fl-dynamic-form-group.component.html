@@ -4,8 +4,7 @@
       <div [ngClass]="getControlClass(config().subConfigs[controlName])">
         <fl-dynamic-abstract-form
           [config]="config().subConfigs[controlName]"
-          [control]="control().get(controlName)"
-          [configName]="controlName">
+          [control]="control().get(controlName)">
         </fl-dynamic-abstract-form>
       </div>
     }

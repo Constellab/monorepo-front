@@ -1,0 +1,12 @@
+<fl-dialog-header>
+  {{ 'li.form_select' | translate }}
+</fl-dialog-header>
+
+<mat-dialog-content>
+  <li-form-search
+    [formSelectable]="true"
+    [fullPageSearch]="false"
+    [columns]="columns"
+    (formSelected)="onFormSelected($event)">
+  </li-form-search>
+</mat-dialog-content>

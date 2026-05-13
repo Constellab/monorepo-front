@@ -1,4 +1,3 @@
-/* eslint-disable @nx/enforce-module-boundaries */
 import { isPlatformBrowser } from '@angular/common';
 import {
   Component,
@@ -126,6 +125,8 @@ export class FlCodeEditorStandaloneComponent implements OnInit, OnDestroy {
         return StreamLanguage.define(julia);
       case 'perl':
         return StreamLanguage.define(perl);
+      default:
+        throw new Error(`Language ${language} is not supported`);
     }
   }
 

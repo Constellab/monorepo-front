@@ -19,8 +19,6 @@ export class TdDynamicEditableFormGroupComponent implements FlDynamicAbstractFor
 
   config = input<FlDynamicEditableFormGroupConfig>();
 
-  configName = input<string>();
-
   empty_text = input<string>('td.no_value_in_array');
 
   hasConfig = computed(() => Object.keys(this.config().subConfigs).length > 0);
@@ -28,6 +26,6 @@ export class TdDynamicEditableFormGroupComponent implements FlDynamicAbstractFor
   private dynamicParamSpecState = inject(TdAbstractDynamicParamSpecState);
 
   openEditConfigDialog(): void {
-    this.dynamicParamSpecState.openEditConfigDialog(this.configName());
+    this.dynamicParamSpecState.openConfigureParamSpecsTableDialog();
   }
 }

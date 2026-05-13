@@ -7,7 +7,7 @@ import { fileURLToPath } from 'url';
 
 import { environment } from '../environments/ha-environment';
 
-export class TranslateServerLoader implements TranslateLoader {
+export class HaTranslateServerLoader implements TranslateLoader {
   constructor(
     private transferState: TransferState,
     private filenames: string[] = [''],
@@ -26,20 +26,24 @@ export class TranslateServerLoader implements TranslateLoader {
             JSON.parse(
               environment.production
                 ? readFileSync(
-                  resolve(__dirname, `../browser/assets/i18n/${file}${lang}${this.suffix}`),
-                  'utf8'
-                )
+                    resolve(__dirname, `../browser/assets/i18n/${file}${lang}${this.suffix}`),
+                    'utf8'
+                  )
                 : readFileSync(
-                  resolve(__dirname, `../../../apps/ha-community-front/src/assets/i18n/${file}${lang}${this.suffix}`),
-                  'utf8'
-                )
+                    resolve(
+                      __dirname,
+                      `../../../apps/ha-community-front/src/assets/i18n/${file}${lang}${this.suffix}`
+                    ),
+                    'utf8'
+                  )
             )
           );
-          // eslint-disable-next-line max-len
+
           // Object.assign(
           //   jsonData,
           //   JSON.parse(
-          //     readFileSync(resolve(__dirname, `../browser/assets/i18n/${file}${lang}${this.suffix}`), 'utf8')
+          //     readFileSync(resolve(__dirname,
+          // `../browser/assets/i18n/${file}${lang}${this.suffix}`), 'utf8')
           //   )
           // );
         }

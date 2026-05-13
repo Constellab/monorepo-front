@@ -1,23 +1,27 @@
 import { Routes } from '@angular/router';
 import {
-  liConstAppRoute,
-  liConstBaseRoute,
-  liConstBiotaRoute,
-  liConstDocRoute,
-  liConstMonitoringRoute,
-  liConstNoteRoute,
-  liConstNoteTemplateRoute,
-  liConstOpenRoute,
-  liConstResourceRoute,
-  liConstScenarioRoute,
-  liConstScenarioTemplateRoute,
-  liConstTagRoute,
-  liConstViewRoute,
+  LI_CONST_APP_ROUTE,
+  LI_CONST_BASE_ROUTE,
+  LI_CONST_BIOTA_ROUTE,
+  LI_CONST_DOC_ROUTE,
+  LI_CONST_FORM_ROUTE,
+  LI_CONST_FORM_TEMPLATE_ROUTE,
+  LI_CONST_MONITORING_ROUTE,
+  LI_CONST_NOTE_ROUTE,
+  LI_CONST_NOTE_TEMPLATE_ROUTE,
+  LI_CONST_OPEN_ROUTE,
+  LI_CONST_RESOURCE_ROUTE,
+  LI_CONST_SCENARIO_ROUTE,
+  LI_CONST_SCENARIO_TEMPLATE_ROUTE,
+  LI_CONST_TAG_ROUTE,
+  LI_CONST_VIEW_ROUTE,
 } from '@monorepo/lab-lib/li-core';
 
 import { labAppRoutes } from '../lab-app/lab-app-routes';
 import { labBiotaRoutes } from '../lab-biota/lab-biota-routes';
 import { labDocumentationRoutes } from '../lab-documentation/lab-documentation-routes';
+import { LAB_FORM_ROUTES } from '../lab-form/lab-form-routes';
+import { LAB_FORM_TEMPLATE_ROUTES } from '../lab-form-template/lab-form-template-routes';
 import { LabLoginRoutes } from '../lab-login/lab-login-routes';
 import { LAB_MONITORING_ROUTES } from '../lab-monitoring/lab-monitoring-routes';
 import { labNoteRoutes } from '../lab-note/lab-note-routes';
@@ -44,73 +48,85 @@ export const LAB_MAIN_ROUTES: Routes = [
     children: [],
   },
   {
-    path: liConstBaseRoute,
+    path: LI_CONST_BASE_ROUTE,
     loadComponent: () =>
       import('./component/lab-main-app/lab-main-app.component').then((m) => m.LabMainAppComponent),
     children: [
       {
         path: '',
-        redirectTo: liConstScenarioRoute,
+        redirectTo: LI_CONST_SCENARIO_ROUTE,
         pathMatch: 'full',
       },
 
       ////////////////////////  BIOX  /////////////////////////
       {
-        path: liConstScenarioRoute,
+        path: LI_CONST_SCENARIO_ROUTE,
         children: labScenarioRoutes,
       },
 
       ////////////////////////  PROTOCOL TEMPLATE  /////////////////////////
       {
-        path: liConstScenarioTemplateRoute,
+        path: LI_CONST_SCENARIO_TEMPLATE_ROUTE,
         children: labScenarioTemplateRoutes,
       },
 
       ////////////////////////  NOTE TEMPLATE  /////////////////////////
       {
-        path: liConstNoteTemplateRoute,
+        path: LI_CONST_NOTE_TEMPLATE_ROUTE,
         children: labNoteTemplateRoutes,
+      },
+
+      ////////////////////////  FORM TEMPLATE  /////////////////////////
+      {
+        path: LI_CONST_FORM_TEMPLATE_ROUTE,
+        children: LAB_FORM_TEMPLATE_ROUTES,
+      },
+
+      ////////////////////////  FORM  /////////////////////////
+      {
+        path: LI_CONST_FORM_ROUTE,
+        children: LAB_FORM_ROUTES,
       },
 
       ////////////////////////  BIOTA  /////////////////////////
       {
-        path: liConstBiotaRoute,
+        path: LI_CONST_BIOTA_ROUTE,
         children: labBiotaRoutes,
       },
 
       ////////////////////////  RESOURCES  ///////////////////////
       {
-        path: liConstResourceRoute,
+        path: LI_CONST_RESOURCE_ROUTE,
         children: labResourceRoutes,
       },
       ////////////////////////  APP  /////////////////////////
       {
-        path: liConstAppRoute,
+        path: LI_CONST_APP_ROUTE,
         children: labAppRoutes,
       },
       ////////////////////////  NOTE  /////////////////////////
       {
-        path: liConstNoteRoute,
+        path: LI_CONST_NOTE_ROUTE,
         children: labNoteRoutes,
       },
       ////////////////////////  VIEW  /////////////////////////
       {
-        path: liConstViewRoute,
+        path: LI_CONST_VIEW_ROUTE,
         children: labViewRoutes,
       },
       ////////////////////////  DOC  /////////////////////////
       {
-        path: liConstDocRoute,
+        path: LI_CONST_DOC_ROUTE,
         children: labDocumentationRoutes,
       },
       //////////////////////// TAG ////////////////////////
       {
-        path: liConstTagRoute,
+        path: LI_CONST_TAG_ROUTE,
         children: labTagRoutes,
       },
       //////////////////////// MONITORING  /////////////////////////
       {
-        path: liConstMonitoringRoute,
+        path: LI_CONST_MONITORING_ROUTE,
         children: LAB_MONITORING_ROUTES,
       },
     ],
@@ -119,7 +135,7 @@ export const LAB_MAIN_ROUTES: Routes = [
   //////////////////////// OPEN  /////////////////////////
   ...LabLoginRoutes,
   {
-    path: liConstOpenRoute,
+    path: LI_CONST_OPEN_ROUTE,
     children: LAB_OPEN_ROUTES,
   },
 ];

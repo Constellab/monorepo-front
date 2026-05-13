@@ -13,13 +13,13 @@ import { TranslateLoader } from '@ngx-translate/core';
 
 import { HaAppComponent } from './app/ha-app.component';
 import { haAppConfig } from './app/ha-app.config';
-import { TranslateServerLoader } from './app/ha-translation-server-loader';
+import { HaTranslateServerLoader } from './app/ha-translation-server-loader';
 
 function translationServerLoader(
   transferState: TransferState,
   config: FlTranslateModuleConfig
-): TranslateServerLoader {
-  return new TranslateServerLoader(transferState, config.filenames, config.folder, config.fileSuffix);
+): HaTranslateServerLoader {
+  return new HaTranslateServerLoader(transferState, config.filenames, config.folder, config.fileSuffix);
 }
 
 const serverConfig: ApplicationConfig = {
@@ -33,13 +33,11 @@ const serverConfig: ApplicationConfig = {
   ],
 };
 
-export const config = mergeApplicationConfig(haAppConfig, serverConfig);
+const config = mergeApplicationConfig(haAppConfig, serverConfig);
 
-const bootstrap = (context: BootstrapContext): Promise<ApplicationRef> =>
+export const HA_BOOTSTRAP = (context: BootstrapContext): Promise<ApplicationRef> =>
   bootstrapApplication(
     HaAppComponent,
     { ...config, providers: [provideZoneChangeDetection(), ...config.providers] },
     context
   );
-
-export default bootstrap;

@@ -1,0 +1,39 @@
+:host {
+  display: block;
+}
+
+.form-template-placeholder,
+.form-template-empty {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  border: 1px dashed var(--border-color, #ccc);
+  border-radius: 8px;
+  background: var(--surface-variant, #f5f5f5);
+}
+
+.form-template-empty {
+  button {
+    margin-left: auto;
+  }
+}
+
+.form-template-error {
+  color: var(--error-color, #d32f2f);
+}
+
+.form-template-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.form-template-name {
+  font-weight: 500;
+}
+
+.form-template-hint {
+  font-size: 0.85em;
+  opacity: 0.7;
+}

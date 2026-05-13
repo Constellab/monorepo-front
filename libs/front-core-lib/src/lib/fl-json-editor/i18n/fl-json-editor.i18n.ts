@@ -1,5 +1,4 @@
 import { ClSupportedLanguage } from '@monorepo/core-lib';
-// eslint-disable-next-line @nx/enforce-module-boundaries
 import { FlLangTranslation, FlTranslateObject } from '@monorepo/front-core-lib/fl-translate';
 
 /**
@@ -21,7 +20,7 @@ const flJsonEditorI18nEn: FlLangTranslation = {
   },
 };
 
-export const flJsonEditorI18n: FlTranslateObject = {
+export const FL_JSON_EDITOR_I18N: FlTranslateObject = {
   [ClSupportedLanguage.en]: flJsonEditorI18nEn,
   [ClSupportedLanguage.fr]: flJsonEditorI18nFr,
 };
