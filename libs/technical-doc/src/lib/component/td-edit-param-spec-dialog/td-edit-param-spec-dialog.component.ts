@@ -60,6 +60,7 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
   @ViewChild('expressionHelpTemplate') expressionHelpTemplate: TemplateRef<any>;
   private helpOverlayRef: FlOverlayRef | null = null;
 
+  readonly keyEditing = signal(false);
   readonly isButtonLoading = signal(false);
   readonly groupedTypes = signal<TdGroupedParamSpecTypes[]>([]);
   readonly isParamSetType = signal(false);
@@ -79,7 +80,7 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
 
   data = inject<TdEditParamSpecDialogInput>(MAT_DIALOG_DATA);
 
-  private labelManuallyEdited = false;
+  private keyManuallyEdited = false;
   private subscriptions = new ClSubscriptionHandler();
 
   ngOnInit(): void {
@@ -115,6 +116,19 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
       next: (result) => this.dialogRef.close(result),
       error: () => this.isButtonLoading.set(false),
     });
+  }
+
+  enableKeyEditing(): void {
+    this.keyEditing.set(true);
+    this.keyManuallyEdited = true;
+  }
+
+  cancelKeyEditing(): void {
+    this.keyEditing.set(false);
+    this.keyManuallyEdited = false;
+    const label = this.formGroup.get('human_name').value || '';
+    const key = ClStringHelper.sentenceToSnakeCase(label).slice(0, 20);
+    this.formGroup.get('key').setValue(key, { emitEvent: false });
   }
 
   cancel(): void {
@@ -239,8 +253,12 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
   private initForm(): void {
     this.formGroup = new FormGroup({
       type: new FormControl('str', Validators.required),
-      key: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-Z_][a-zA-Z0-9_]*$/)]),
-      human_name: new FormControl(''),
+      key: new FormControl('', [
+        Validators.required,
+        Validators.pattern(/^[a-zA-Z_][a-zA-Z0-9_]*$/),
+        Validators.maxLength(20),
+      ]),
+      human_name: new FormControl('', Validators.required),
       optional: new FormControl(false),
       default_value: new FormControl(null),
       short_description: new FormControl(''),
@@ -262,15 +280,20 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
       this.initLocalParamSpecState(this.data.paramSpec?.spec.additional_info?.param_set);
     }
 
-    // Auto-sync label from key until the user manually edits the label
+    // In edit mode, key was already set — don't auto-sync
+    if (this.data.paramSpec) {
+      this.keyManuallyEdited = true;
+    }
+
+    // Auto-sync key from label until the user manually edits the key
     this.subscriptions.add([
-      this.formGroup.get('human_name').valueChanges.subscribe(() => {
-        this.labelManuallyEdited = true;
+      this.formGroup.get('key').valueChanges.subscribe(() => {
+        this.keyManuallyEdited = true;
       }),
-      this.formGroup.get('key').valueChanges.subscribe((key: string) => {
-        if (!this.labelManuallyEdited) {
-          const label = ClStringHelper.snakeCaseToSentence(key);
-          this.formGroup.get('human_name').setValue(label, { emitEvent: false });
+      this.formGroup.get('human_name').valueChanges.subscribe((label: string) => {
+        if (!this.keyManuallyEdited) {
+          const key = ClStringHelper.sentenceToSnakeCase(label).slice(0, 20);
+          this.formGroup.get('key').setValue(key, { emitEvent: false });
         }
       }),
     ]);

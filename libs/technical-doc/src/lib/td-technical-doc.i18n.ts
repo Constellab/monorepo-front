@@ -122,6 +122,7 @@ const tdTechnicalDocI18nFr: FlLangTranslation = {
     label: 'Label',
     key_invalid_identifier:
       'Doit commencer par une lettre ou un underscore, et ne contenir que des lettres, chiffres ou underscores',
+    key_max_length: 'La clé ne doit pas dépasser 20 caractères',
     param_type: {
       str: 'Texte court',
       text: 'Texte',
@@ -278,6 +279,7 @@ const tdTechnicalDocI18nEn: FlLangTranslation = {
     label: 'Label',
     key_invalid_identifier:
       'Must start with a letter or underscore, and contain only letters, digits, or underscores',
+    key_max_length: 'Key must not exceed 20 characters',
     param_type: {
       str: 'Short text',
       text: 'Text',

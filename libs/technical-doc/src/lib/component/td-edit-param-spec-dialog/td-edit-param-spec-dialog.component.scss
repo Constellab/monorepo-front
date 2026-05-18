@@ -33,6 +33,16 @@
   flex: 1;
 }
 
+.key-edit-link {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline;
+  color: var(--primary-color);
+  font: inherit;
+}
+
 .checkbox-row {
   margin-bottom: 8px;
 }

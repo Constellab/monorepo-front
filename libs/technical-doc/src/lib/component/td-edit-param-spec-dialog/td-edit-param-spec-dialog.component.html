@@ -20,18 +20,40 @@
         </mat-select>
       </mat-form-field>
 
-      <mat-form-field class="full-width">
-        <mat-label>{{ 'td.key' | translate }}</mat-label>
-        <input matInput formControlName="key" />
-        @if (formGroup.get('key').hasError('pattern')) {
-          <mat-error>{{ 'td.key_invalid_identifier' | translate }}</mat-error>
+      <mat-form-field class="full-width g-form-input">
+        <mat-label>{{ 'td.label' | translate }}</mat-label>
+        <input matInput formControlName="human_name" />
+        @if (formGroup.get('human_name').hasError('required')) {
+          <mat-error>{{ 'td.label' | flErrorRequired }}</mat-error>
+        }
+        @if (!keyEditing()) {
+          <mat-hint>
+            {{ 'td.key' | translate }}: {{ formGroup.get('key').value }}
+            <button type="button" class="key-edit-link" (click)="enableKeyEditing()">
+              {{ 'td.edit' | translate }}
+            </button>
+          </mat-hint>
         }
       </mat-form-field>
 
-      <mat-form-field class="full-width">
-        <mat-label>{{ 'td.label' | translate }}</mat-label>
-        <input matInput formControlName="human_name" />
-      </mat-form-field>
+      @if (keyEditing()) {
+        <mat-form-field class="full-width g-form-input">
+          <mat-label>{{ 'td.key' | translate }}</mat-label>
+          <input matInput formControlName="key" />
+          <button matSuffix mat-icon-button type="button" (click)="cancelKeyEditing()">
+            <mat-icon>close</mat-icon>
+          </button>
+          @if (formGroup.get('key').hasError('required')) {
+            <mat-error>{{ 'td.key' | flErrorRequired }}</mat-error>
+          }
+          @if (formGroup.get('key').hasError('pattern')) {
+            <mat-error>{{ 'td.key_invalid_identifier' | translate }}</mat-error>
+          }
+          @if (formGroup.get('key').hasError('maxlength')) {
+            <mat-error>{{ 'td.key_max_length' | translate }}</mat-error>
+          }
+        </mat-form-field>
+      }
 
       <mat-form-field class="full-width">
         <mat-label>{{ 'td.short_description' | translate }}</mat-label>
