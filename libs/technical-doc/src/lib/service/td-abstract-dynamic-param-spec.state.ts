@@ -4,10 +4,7 @@ import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
 import { Observable } from 'rxjs';
 
-import {
-  TdConfigureParamSpecsTableDialogComponent,
-  TdConfigureParamSpecsTableDialogInput,
-} from '../component/td-configure-param-specs-table-dialog/td-configure-param-specs-table-dialog.component';
+import type { TdConfigureParamSpecsTableDialogInput } from '../component/td-configure-param-specs-table-dialog/td-configure-param-specs-table-dialog.component';
 import {
   TD_PARAM_SPEC_INFO_LIST,
   TdParamSpec,
@@ -33,11 +30,15 @@ export abstract class TdAbstractDynamicParamSpecState implements OnDestroy {
 
   abstract openConfigureParamSpecsTableDialog(): void;
 
-  protected openConfigureParamSpecsDialog(
+  protected async openConfigureParamSpecsDialog(
     dynamicParamsDescription: FlTranslatableText,
     dialogService: FlDialogService,
     viewContainerRef: ViewContainerRef
-  ): void {
+  ): Promise<void> {
+    const { TdConfigureParamSpecsTableDialogComponent } =
+      // eslint-disable-next-line max-len
+      await import('../component/td-configure-param-specs-table-dialog/td-configure-param-specs-table-dialog.component');
+
     const input: TdConfigureParamSpecsTableDialogInput = {
       dynamicParamsDescription: dynamicParamsDescription,
     };
