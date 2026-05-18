@@ -4,6 +4,7 @@ import {
   TdAbstractDynamicParamSpecState,
   TdEditParamSpecDialogComponent,
   TdEditParamSpecDialogInput,
+  TdGenerateComputedParamResult,
   TdParamSpec,
   TdParamSpecEntry,
   TdParamSpecs,
@@ -103,6 +104,18 @@ export class LiFormTemplateDynamicParamSpecState
     return this.formTemplateService
       .reorderFields(this.templateId, this.versionId, fieldNames)
       .pipe(map((version) => this.refreshContent(version)));
+  }
+
+  override generateComputedExpression(
+    description: string,
+    paramSetKey?: string
+  ): Observable<TdGenerateComputedParamResult> {
+    return this.formTemplateService.generateComputedParam(
+      this.templateId,
+      this.versionId,
+      description,
+      paramSetKey
+    );
   }
 
   private refreshContent(version: LiFormTemplateVersion): TdParamSpecs {

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
+import { Component, inject, OnInit, output } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
 import {
@@ -8,6 +8,7 @@ import {
 } from '@monorepo/front-core-lib/fl-core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlInputSearchAdvancedButton, FlInputSearchModule } from '@monorepo/front-core-lib/fl-input-search';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 import { Observable } from 'rxjs';
 
@@ -25,13 +26,13 @@ import { LiSelectFormTemplateDialogComponent } from '../li-select-form-template-
       useExisting: LiSelectFormTemplateComponent,
     },
   ],
-  imports: [FlInputSearchModule, MatIcon, FlTranslateModule],
+  imports: [FlInputSearchModule, FlIconModule, FlTranslateModule, MatIcon],
 })
 export class LiSelectFormTemplateComponent extends FlFormFieldDirective<LiFormTemplate> implements OnInit {
   private formTemplateService = inject(LiFormTemplateService);
   private dialogService = inject(FlDialogService);
 
-  @Output() templateChange: EventEmitter<LiFormTemplate> = new EventEmitter();
+  templateChange = output<LiFormTemplate>();
 
   selectedTemplate: LiFormTemplate | Observable<LiFormTemplate>;
 
@@ -66,18 +67,24 @@ export class LiSelectFormTemplateComponent extends FlFormFieldDirective<LiFormTe
   }
 
   writeValue(obj: LiFormTemplate): void {
-    if (obj == null || (typeof obj !== 'string' && obj.name == null)) {
+    if (obj == null) {
       this.selectedTemplate = null;
       this.value = null;
       return;
     }
 
-    this.selectedTemplate = obj;
+    if (obj instanceof LiFormTemplate && obj.isLoaded()) {
+      this.selectedTemplate = obj;
+    } else if (typeof obj === 'string') {
+      this.selectedTemplate = this.formTemplateService.getById(obj);
+    } else if ((obj as any).id != null) {
+      this.selectedTemplate = this.formTemplateService.getById((obj as any).id);
+    }
     this.value = obj;
   }
 
   callChangeEvent(value: LiFormTemplate): void {
-    this.templateChange.next(value);
+    this.templateChange.emit(value);
     this.selectedTemplate = value;
   }
 

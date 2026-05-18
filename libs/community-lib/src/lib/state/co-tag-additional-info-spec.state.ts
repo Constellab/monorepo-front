@@ -2,6 +2,7 @@ import { inject, Injectable, OnDestroy, ViewContainerRef } from '@angular/core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import {
   TdAbstractDynamicParamSpecState,
+  TdGenerateComputedParamResult,
   TdParamSpec,
   TdParamSpecInfo,
   TdParamSpecs,
@@ -84,6 +85,10 @@ export class CoTagAdditionalInfoSpecState extends TdAbstractDynamicParamSpecStat
   }
 
   validateComputedExpression(): Observable<TdValidateComputedParamResult> | null {
-    throw new Error('Computed param validation not implemented for lab dynamic params');
+    throw new Error('Computed param validation not implemented for co tag additional info specs');
+  }
+
+  generateComputedExpression(): Observable<TdGenerateComputedParamResult> {
+    throw new Error('generateComputedExpression not implemented');
   }
 }

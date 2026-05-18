@@ -20,6 +20,11 @@
       </mat-panel-title>
     </mat-expansion-panel-header>
     <div class="g-full g-form-field-compact g-layout-row-wrap g-layout-between-center">
+      <!-- Template -->
+      <fl-form-field class="g-search-field g-form-field-compact">
+        <li-select-form-template formControlName="templateId"> </li-select-form-template>
+      </fl-form-field>
+
       <!-- Status -->
       <mat-form-field class="g-search-field g-form-field-compact">
         <mat-label>{{ 'li.status' | translate }}</mat-label>

@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import type { TdConfigureParamSpecsTableDialogInput } from '../component/td-configure-param-specs-table-dialog/td-configure-param-specs-table-dialog.component';
 import {
   TD_PARAM_SPEC_INFO_LIST,
+  TdGenerateComputedParamResult,
   TdParamSpec,
   TdParamSpecEntry,
   TdParamSpecInfo,
@@ -68,6 +69,11 @@ export abstract class TdAbstractDynamicParamSpecState implements OnDestroy {
     key?: string,
     paramSetKey?: string
   ): Observable<TdValidateComputedParamResult> | null;
+
+  abstract generateComputedExpression(
+    description: string,
+    paramSetKey?: string
+  ): Observable<TdGenerateComputedParamResult>;
 
   getParamSpecsInfos(): TdParamSpecInfo[] {
     return TD_PARAM_SPEC_INFO_LIST;

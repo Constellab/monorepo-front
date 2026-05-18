@@ -2,6 +2,7 @@ import { Observable, of } from 'rxjs';
 
 import {
   TD_PARAM_SPEC_INFO_LIST,
+  TdGenerateComputedParamResult,
   TdParamSpec,
   TdParamSpecInfo,
   TdParamSpecs,
@@ -90,5 +91,12 @@ export class TdSubParamSpecState extends TdAbstractDynamicParamSpecState {
   ): Observable<TdValidateComputedParamResult> | null {
     if (!this.parentState) return null;
     return this.parentState.validateComputedExpression(expression, key, this.paramSetKeyFn?.());
+  }
+
+  generateComputedExpression(description: string): Observable<TdGenerateComputedParamResult> {
+    if (!this.parentState) {
+      throw new Error('generateComputedExpression not implemented');
+    }
+    return this.parentState.generateComputedExpression(description, this.paramSetKeyFn?.());
   }
 }

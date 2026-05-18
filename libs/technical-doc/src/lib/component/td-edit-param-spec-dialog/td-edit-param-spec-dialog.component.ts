@@ -15,6 +15,7 @@ import { ClStringHelper, ClSubscriptionHandler } from '@monorepo/core-lib';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlDynamicFieldConfig } from '@monorepo/front-core-lib/fl-dynamic-field';
 import { FlOverlayRef, FlPortalService } from '@monorepo/front-core-lib/fl-portal';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { FlTranslatableText, FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import { DateTime } from 'luxon';
 import { Observable } from 'rxjs';
@@ -22,6 +23,7 @@ import { Observable } from 'rxjs';
 import {
   TD_TYPES_WITHOUT_DEFAULT_VALUE,
   tdBuildGroupedTypes,
+  TdGenerateComputedParamResult,
   TdGroupedParamSpecTypes,
   TdParamSpec,
   TdParamSpecBase,
@@ -57,6 +59,7 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
   private portalService = inject(FlPortalService);
   private viewContainerRef = inject(ViewContainerRef);
   private translateService = inject(FlTranslateService);
+  private snackBar = inject(FlSnackBarService);
 
   @ViewChild('expressionHelpTemplate') expressionHelpTemplate: TemplateRef<any>;
   private helpOverlayRef: FlOverlayRef | null = null;
@@ -260,6 +263,18 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
         this.isValidating.set(false);
       },
     });
+  }
+
+  aiGenerateExpression = (text: string): Observable<TdGenerateComputedParamResult> => {
+    return this.data.dynamicParamSpecState.generateComputedExpression(text);
+  };
+
+  onAiGenerateResult(result: unknown): void {
+    const generated = result as TdGenerateComputedParamResult;
+    this.formGroup.get('additional_info.expression')?.setValue(generated.expression);
+    this.formGroup.get('additional_info.expression')?.markAsDirty();
+    this.validationResult.set(generated.validation);
+    this.snackBar.openSuccessMessage({ text: 'td.ai_expression_generated_notice', translateText: true });
   }
 
   openExpressionHelp(event: MouseEvent): void {

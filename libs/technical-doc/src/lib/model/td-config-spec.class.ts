@@ -326,6 +326,11 @@ export interface TdValidateComputedParamResult {
   error: string | null;
 }
 
+export interface TdGenerateComputedParamResult {
+  expression: string;
+  validation: TdValidateComputedParamResult;
+}
+
 export const TD_TYPES_WITHOUT_DEFAULT_VALUE: TdParamSpecTypeEnum[] = [
   TdParamSpecTypeEnum.PARAM_SET,
   TdParamSpecTypeEnum.COMPUTED_PARAM,

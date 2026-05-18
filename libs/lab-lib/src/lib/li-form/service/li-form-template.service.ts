@@ -3,7 +3,11 @@ import { ClPageI } from '@monorepo/core-lib';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { FlDatasourceGetPageData, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 import { FlSearchConverter } from '@monorepo/front-core-lib/fl-search';
-import { TdParamSpec, TdValidateComputedParamResult } from '@monorepo/technical-doc';
+import {
+  TdGenerateComputedParamResult,
+  TdParamSpec,
+  TdValidateComputedParamResult,
+} from '@monorepo/technical-doc';
 import { Observable } from 'rxjs';
 
 import {
@@ -200,5 +204,15 @@ export class LiFormTemplateService {
   ): Observable<TdValidateComputedParamResult> {
     const route = `${this.route}/${templateId}/version/${versionId}/computed-param/validate`;
     return this.apiService.post(route, { expression, key, param_set_key: paramSetKey });
+  }
+
+  public generateComputedParam(
+    templateId: string,
+    versionId: string,
+    description: string,
+    paramSetKey?: string
+  ): Observable<TdGenerateComputedParamResult> {
+    const route = `${this.route}/${templateId}/version/${versionId}/computed-param/generate-with-ai`;
+    return this.apiService.post(route, { description, param_set_key: paramSetKey ?? null });
   }
 }

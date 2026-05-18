@@ -5,6 +5,10 @@ export class LiFormTemplate extends LiBaseEntityWithUser {
 
   description: string | null;
 
+  isLoaded(): boolean {
+    return this.name != null;
+  }
+
   public toString(): string {
     return this.name;
   }

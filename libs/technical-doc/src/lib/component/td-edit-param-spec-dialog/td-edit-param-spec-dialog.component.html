@@ -143,6 +143,12 @@
             <div class="expression-row">
               <td-expression-input formControlName="expression" [fieldSpecs]="siblingFieldSpecs()">
               </td-expression-input>
+              <fl-ai-menu-button
+                [onSubmit]="aiGenerateExpression"
+                [tooltip]="'td.ai_suggest_expression'"
+                [dialogTitle]="'td.ai_suggest_expression_title'"
+                [dialogPlaceholder]="'td.ai_suggest_expression_placeholder'"
+                (submitted)="onAiGenerateResult($event)" />
               <button
                 mat-icon-button
                 type="button"

@@ -5,6 +5,7 @@ import {
   TD_PARAM_SPEC_INFO_LIST,
   TdAbstractDynamicParamSpecState,
   TdConfig,
+  TdGenerateComputedParamResult,
   tdGetParamSpecInfo,
   TdParamSpec,
   TdParamSpecCategory,
@@ -146,5 +147,9 @@ export class LabDynamicParamSpecState extends TdAbstractDynamicParamSpecState im
 
   validateComputedExpression(): Observable<TdValidateComputedParamResult> | null {
     throw new Error('Computed param validation not implemented for lab dynamic params');
+  }
+
+  generateComputedExpression(): Observable<TdGenerateComputedParamResult> {
+    throw new Error('generateComputedExpression not implemented');
   }
 }

@@ -18,6 +18,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterModule } from '@angular/router';
+import { FlAiModule } from '@monorepo/front-core-lib/fl-ai';
 import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
 import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
@@ -109,6 +110,7 @@ import { TD_TECHNICAL_DOC_I18N } from './td-technical-doc.i18n';
     FlCoreDirectiveModule,
     FlUserModule,
     FlDynamicFieldModule,
+    FlAiModule,
     FlSectionModule,
     FlLoaderModule,
     FlMarkdownModule,

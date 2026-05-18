@@ -17,6 +17,8 @@ import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { LiTagFiltersComponent } from '@monorepo/lab-lib/li-tag';
 import { TranslatePipe } from '@ngx-translate/core';
 
+import { LiSelectFormTemplateComponent } from '../li-select-form-template/li-select-form-template.component';
+
 @Component({
   selector: 'li-form-search-form',
   templateUrl: './li-form-search-form.component.html',
@@ -39,6 +41,7 @@ import { TranslatePipe } from '@ngx-translate/core';
     FlSearchModule,
     MatCheckbox,
     TranslatePipe,
+    LiSelectFormTemplateComponent,
   ],
 })
 export class LiFormSearchFormComponent implements OnInit {

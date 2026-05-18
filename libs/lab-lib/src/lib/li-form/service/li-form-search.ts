@@ -10,6 +10,7 @@ import { FlTag } from '@monorepo/front-core-lib/fl-tag';
 import { Type } from 'class-transformer';
 
 import { LiFormStatus } from '../../li-core/model/entities/form/li-form.enum';
+import { LiFormTemplate } from '../../li-core/model/entities/form/li-form-template.entity';
 import { LiUser } from '../../li-core/model/entities/li-user.entity';
 import { LiSearchConverter } from '../../li-core/model/global/li-search-converter.class';
 
@@ -23,7 +24,8 @@ export class LiFormSearchFields {
   @Type(() => LiUser)
   createdBy: LiUser;
 
-  templateId: string;
+  @Type(() => LiFormTemplate)
+  templateId: LiFormTemplate;
 
   @Type(() => FlSearchDateInterval)
   createdAt: FlSearchDateInterval;
@@ -47,7 +49,11 @@ export class LiFormSearch {
     tags: { key: 'tags', operator: 'EQ' },
     status: { key: 'status', operator: 'EQ' },
     createdBy: { key: 'created_by', operator: 'EQ', convertValue: FlSearchConverter.getEntityId },
-    templateId: { key: 'template_id', operator: 'EQ' },
+    templateId: {
+      key: 'template_id',
+      operator: 'EQ',
+      convertValue: FlSearchConverter.getEntityId,
+    },
     createdAt: FlSearchConverter.dateInterval('created_at'),
     isArchived: { key: 'is_archived', operator: 'EQ', convertValue: LiSearchConverter.includeAllOnCheck },
   };

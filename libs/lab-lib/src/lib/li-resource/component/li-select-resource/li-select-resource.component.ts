@@ -107,8 +107,7 @@ export class LiSelectResourceComponent extends FlFormFieldDirective<LiResource> 
       return;
     }
 
-    // if the provided object is not an instance of LiResource, load it from the api
-    if (obj instanceof LiResource) {
+    if (obj instanceof LiResource && obj.isLoaded()) {
       this.selectedResource = obj;
     } else if (typeof obj == 'string') {
       this.selectedResource = this.resourceService.getById(obj);
