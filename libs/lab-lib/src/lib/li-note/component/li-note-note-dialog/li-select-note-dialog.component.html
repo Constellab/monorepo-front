@@ -6,5 +6,7 @@
   <li-note-search
     [noteSelectable]="true"
     [fullPageSearch]="false"
+    [defaultFilters]="defaultFilters"
+    [disabledFilters]="disabledFilters"
     (noteSelected)="onNoteSelected($event)"></li-note-search>
 </mat-dialog-content>

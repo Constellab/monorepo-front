@@ -36,6 +36,10 @@ export class LiForm extends LiBaseEntityWithUser {
   @Type(() => LiUser)
   submittedBy: LiUser | null;
 
+  isLoaded(): boolean {
+    return this.name != null;
+  }
+
   public toString(): string {
     return this.name;
   }

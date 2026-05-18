@@ -19,6 +19,7 @@ export * from './component/li-form-editor/li-form-editor.component';
 export * from './component/li-form-editor/li-form-editor.logic';
 export * from './component/li-form-history/li-form-history.component';
 export * from './component/li-form-history/li-form-history.logic';
+export * from './component/li-select-form/li-select-form.component';
 export * from './component/li-select-form-template/li-select-form-template.component';
 export * from './component/li-select-form-template-dialog/li-select-form-template-dialog.component';
 export * from './component/li-create-form-dialog/li-create-form-dialog.component';

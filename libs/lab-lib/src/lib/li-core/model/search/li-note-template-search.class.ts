@@ -9,6 +9,7 @@ import {
 import { FlTag } from '@monorepo/front-core-lib/fl-tag';
 import { Type } from 'class-transformer';
 
+import { LiFormTemplate } from '../entities/form/li-form-template.entity';
 import { LiUser } from '../entities/li-user.entity';
 
 export class LiNoteTemplateSearchFields {
@@ -28,8 +29,13 @@ export class LiNoteTemplateSearchFields {
   @Type(() => FlSearchDateInterval)
   lastModifiedAt: FlSearchDateInterval;
 
+  @Type(() => LiFormTemplate)
+  formTemplateId: LiFormTemplate;
+
   id: string;
 }
+
+export type LiNoteTemplateSearchFieldsDisabled = Partial<Record<keyof LiNoteTemplateSearchFields, boolean>>;
 
 export class LiNoteTemplateSearch {
   /**
@@ -43,6 +49,7 @@ export class LiNoteTemplateSearch {
     createdBy: 'li.created_by',
     lastModifiedAt: 'last_modified_date',
     lastModifiedBy: 'last_modified_by',
+    formTemplateId: 'li.form_template',
   };
 
   /**
@@ -55,6 +62,11 @@ export class LiNoteTemplateSearch {
     createdAt: FlSearchConverter.dateInterval('created_at'),
     lastModifiedAt: FlSearchConverter.dateInterval('last_modified_at'),
     lastModifiedBy: { key: 'last_modified_by', operator: 'EQ', convertValue: FlSearchConverter.getEntityId },
+    formTemplateId: {
+      key: 'form_template_id',
+      operator: 'EQ',
+      convertValue: FlSearchConverter.getEntityId,
+    },
     id: { key: 'id', operator: 'EQ' },
   };
 
@@ -78,6 +90,7 @@ export class LiNoteTemplateSearch {
         from: [null],
         to: [null],
       }),
+      formTemplateId: [null],
       id: [null],
     });
   }

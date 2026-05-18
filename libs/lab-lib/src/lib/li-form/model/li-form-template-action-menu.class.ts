@@ -30,6 +30,8 @@ export class LiFormTemplateActionMenu extends LiEntityActionMenu {
 
   public openActionMenuInTable(event: MouseEvent): Observable<LiFormTemplateActionEvent> {
     const menu = [
+      this.getViewNotesButton(),
+      this.getViewNoteTemplatesButton(),
       this.getTagsButton('FORM_TEMPLATE', this.template.id, this.tags),
       this.getArchiveButton(),
       this.getDeleteButton(),
@@ -41,6 +43,8 @@ export class LiFormTemplateActionMenu extends LiEntityActionMenu {
   public openDetailActionMenu(event: MouseEvent): Observable<LiFormTemplateActionEvent> {
     const menu: FlMenuDynamic[] = [
       this.getCreateFormButton(),
+      this.getViewNotesButton(),
+      this.getViewNoteTemplatesButton(),
       this.getTagsButton('FORM_TEMPLATE', this.template.id, this.tags),
       this.getArchiveButton(),
       this.getDeleteButton(),
@@ -56,6 +60,58 @@ export class LiFormTemplateActionMenu extends LiEntityActionMenu {
       icon: 'form',
       onClick: () => this.openCreateFormDialog(),
     };
+  }
+
+  protected getViewNotesButton(): FlMenuDynamic {
+    return {
+      type: 'button',
+      text: 'li.form_template_view_notes',
+      icon: 'note',
+      onClick: () => this.openViewNotesDialog(),
+    };
+  }
+
+  private async openViewNotesDialog(): Promise<void> {
+    const { LiSelectNoteDialogComponent } = await import('@monorepo/lab-lib/li-note');
+    type LiSelectNoteDialogInput = import('@monorepo/lab-lib/li-note').LiSelectNoteDialogInput;
+
+    const data: LiSelectNoteDialogInput = {
+      defaultFilters: { formTemplateId: this.template as any },
+      disabledFilters: { formTemplateId: true },
+    };
+
+    this.injector
+      .get(FlDialogService)
+      .openBigDialog(LiSelectNoteDialogComponent, { data })
+      .afterClosed()
+      .subscribe(() => this.subject.complete());
+  }
+
+  protected getViewNoteTemplatesButton(): FlMenuDynamic {
+    return {
+      type: 'button',
+      text: 'li.form_template_view_note_templates',
+      icon: 'note_template',
+      onClick: () => this.openViewNoteTemplatesDialog(),
+    };
+  }
+
+  private async openViewNoteTemplatesDialog(): Promise<void> {
+    const { LiSelectNoteTemplateDialogComponent } = await import('@monorepo/lab-lib/li-note-template');
+    type LiSelectNoteTemplateDialogInput =
+      import('@monorepo/lab-lib/li-note-template').LiSelectNoteTemplateDialogInput;
+
+    const data: LiSelectNoteTemplateDialogInput = {
+      mode: 'link',
+      defaultFilters: { formTemplateId: this.template as any },
+      disabledFilters: { formTemplateId: true },
+    };
+
+    this.injector
+      .get(FlDialogService)
+      .openBigDialog(LiSelectNoteTemplateDialogComponent, { data })
+      .afterClosed()
+      .subscribe(() => this.subject.complete());
   }
 
   protected getArchiveButton(): FlMenuDynamic {

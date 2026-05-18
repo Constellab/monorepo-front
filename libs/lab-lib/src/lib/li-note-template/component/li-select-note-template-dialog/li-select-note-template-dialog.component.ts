@@ -1,13 +1,19 @@
 import { Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
-import { LiNoteTemplate } from '@monorepo/lab-lib/li-core';
+import {
+  LiNoteTemplate,
+  LiNoteTemplateSearchFields,
+  LiNoteTemplateSearchFieldsDisabled,
+} from '@monorepo/lab-lib/li-core';
 import { TranslatePipe } from '@ngx-translate/core';
 
 import { LiNoteTemplateSearchComponent } from '../li-note-template-search/li-note-template-search.component';
 
 export interface LiSelectNoteTemplateDialogInput {
   mode: 'selection' | 'link';
+  defaultFilters?: Partial<LiNoteTemplateSearchFields>;
+  disabledFilters?: LiNoteTemplateSearchFieldsDisabled;
 }
 
 @Component({
@@ -20,11 +26,15 @@ export class LiSelectNoteTemplateDialogComponent {
   private dialogRef = inject<MatDialogRef<LiSelectNoteTemplateDialogComponent>>(MatDialogRef);
 
   rowSelectable: boolean;
+  defaultFilters: Partial<LiNoteTemplateSearchFields>;
+  disabledFilters: LiNoteTemplateSearchFieldsDisabled;
 
   constructor() {
     const input = inject<LiSelectNoteTemplateDialogInput>(MAT_DIALOG_DATA);
 
     this.rowSelectable = input.mode === 'selection';
+    this.defaultFilters = input?.defaultFilters;
+    this.disabledFilters = input?.disabledFilters;
   }
 
   onTemplateSelected(template: LiNoteTemplate): void {

@@ -35,6 +35,7 @@ export class LiFormActionMenu extends LiEntityActionMenu {
 
   public openActionMenuInTable(event: MouseEvent): Observable<LiFormActionEvent> {
     const menu = [
+      this.getViewNotesButton(),
       this.getTagsButton('FORM', this.form.id, this.tags),
       this.getHistoryButton(),
       this.getArchiveButton(),
@@ -46,6 +47,7 @@ export class LiFormActionMenu extends LiEntityActionMenu {
 
   public openDetailActionMenu(event: MouseEvent): Observable<LiFormActionEvent> {
     const menu = [
+      this.getViewNotesButton(),
       this.getTagsButton('FORM', this.form.id, this.tags),
       this.getHistoryButton(),
       this.getArchiveButton(),
@@ -104,6 +106,31 @@ export class LiFormActionMenu extends LiEntityActionMenu {
       color: 'warn',
       onClick: () => this.confirmDelete(),
     };
+  }
+
+  protected getViewNotesButton(): FlMenuDynamic {
+    return {
+      type: 'button',
+      text: 'li.form_view_notes',
+      icon: 'note',
+      onClick: () => this.openViewNotesDialog(),
+    };
+  }
+
+  private async openViewNotesDialog(): Promise<void> {
+    const { LiSelectNoteDialogComponent } = await import('@monorepo/lab-lib/li-note');
+    type LiSelectNoteDialogInput = import('@monorepo/lab-lib/li-note').LiSelectNoteDialogInput;
+
+    const data: LiSelectNoteDialogInput = {
+      defaultFilters: { formId: this.form as any },
+      disabledFilters: { formId: true },
+    };
+
+    this.injector
+      .get(FlDialogService)
+      .openBigDialog(LiSelectNoteDialogComponent, { data })
+      .afterClosed()
+      .subscribe(() => this.subject.complete());
   }
 
   private openHistoryPanel(): void {

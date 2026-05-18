@@ -9,6 +9,8 @@ import {
 import { FlTag } from '@monorepo/front-core-lib/fl-tag';
 import { Type } from 'class-transformer';
 
+import { LiForm } from '../entities/form/li-form.entity';
+import { LiFormTemplate } from '../entities/form/li-form-template.entity';
 import { LiFolder } from '../entities/li-folder.class';
 import { LiUser } from '../entities/li-user.entity';
 import { LiSearchConverter } from '../global/li-search-converter.class';
@@ -29,11 +31,19 @@ export class LiNoteSearchFields {
   @Type(() => FlSearchDateInterval)
   lastModifiedAt: FlSearchDateInterval;
 
+  @Type(() => LiForm)
+  formId: LiForm;
+
+  @Type(() => LiFormTemplate)
+  formTemplateId: LiFormTemplate;
+
   isNotValidated: boolean;
   isArchived: boolean;
 
   id: string;
 }
+
+export type LiNoteSearchFieldsDisabled = Partial<Record<keyof LiNoteSearchFields, boolean>>;
 
 export class LiNoteSearch {
   /**
@@ -47,6 +57,8 @@ export class LiNoteSearch {
     createdAt: 'li.creation_date',
     createdBy: 'li.created_by',
     lastModifiedAt: 'li.last_modified_date',
+    formId: 'li.form',
+    formTemplateId: 'li.form_template',
     isNotValidated: 'li.note_is_not_validated',
     isArchived: 'li.is_archived',
   };
@@ -62,6 +74,16 @@ export class LiNoteSearch {
     createdBy: { key: 'created_by', operator: 'EQ', convertValue: FlSearchConverter.getEntityId },
     createdAt: FlSearchConverter.dateInterval('created_at'),
     lastModifiedAt: FlSearchConverter.dateInterval('last_modified_at'),
+    formId: {
+      key: 'form_id',
+      operator: 'EQ',
+      convertValue: FlSearchConverter.getEntityId,
+    },
+    formTemplateId: {
+      key: 'form_template_id',
+      operator: 'EQ',
+      convertValue: FlSearchConverter.getEntityId,
+    },
     isNotValidated: {
       key: 'is_validated',
       operator: 'EQ',
@@ -92,6 +114,8 @@ export class LiNoteSearch {
         from: [null],
         to: [null],
       }),
+      formId: [null],
+      formTemplateId: [null],
       isArchived: [null],
       isNotValidated: [null],
       id: [null],

@@ -1,10 +1,15 @@
-import { Component, inject,OnInit } from '@angular/core';
-import { MatDialogContent, MatDialogRef } from '@angular/material/dialog';
+import { Component, inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
-import { LiNote } from '@monorepo/lab-lib/li-core';
+import { LiNote, LiNoteSearchFields, LiNoteSearchFieldsDisabled } from '@monorepo/lab-lib/li-core';
 import { TranslatePipe } from '@ngx-translate/core';
 
 import { LiNoteSearchComponent } from '../li-note-search/li-note-search.component';
+
+export interface LiSelectNoteDialogInput {
+  defaultFilters?: Partial<LiNoteSearchFields>;
+  disabledFilters?: LiNoteSearchFieldsDisabled;
+}
 
 /**
  * Dialog that used the note search to select a note
@@ -17,6 +22,15 @@ import { LiNoteSearchComponent } from '../li-note-search/li-note-search.componen
 })
 export class LiSelectNoteDialogComponent {
   private dialogRef = inject<MatDialogRef<LiSelectNoteDialogComponent>>(MatDialogRef);
+
+  defaultFilters: Partial<LiNoteSearchFields>;
+  disabledFilters: LiNoteSearchFieldsDisabled;
+
+  constructor() {
+    const data = inject<LiSelectNoteDialogInput>(MAT_DIALOG_DATA, { optional: true });
+    this.defaultFilters = data?.defaultFilters;
+    this.disabledFilters = data?.disabledFilters;
+  }
 
   onNoteSelected(note: LiNote): void {
     this.dialogRef.close(note);

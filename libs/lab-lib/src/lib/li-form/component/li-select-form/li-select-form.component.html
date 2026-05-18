@@ -1,5 +1,5 @@
 <fl-input-search
-  [selectedItem]="selectedTemplate"
+  [selectedItem]="selectedForm"
   (selectedItemChange)="setAndEmitValue($event)"
   [datasource]="datasource"
   [placeholder]="placeholder() | flTranslatableText | async"
@@ -8,11 +8,11 @@
   [minInputSearchLength]="0"
   [initSearchOnFocus]="true"
   [advancedButton]="advancedButton">
-  <div *flInputSearchPrefix="datasource as template">
-    <mat-icon flIcon="form_template"></mat-icon>
+  <div *flInputSearchPrefix="datasource as form">
+    <mat-icon flIcon="form"></mat-icon>
   </div>
 
-  <span *flInputSearchOption="datasource as template">
-    {{ template.name }}
+  <span *flInputSearchOption="datasource as form">
+    {{ form.name }}
   </span>
 </fl-input-search>

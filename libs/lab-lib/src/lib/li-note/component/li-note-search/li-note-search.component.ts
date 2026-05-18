@@ -18,6 +18,7 @@ import {
   LiNoteDatasource,
   LiNoteSearch,
   LiNoteSearchFields,
+  LiNoteSearchFieldsDisabled,
   LiNoteService,
   LiRouterService,
 } from '@monorepo/lab-lib/li-core';
@@ -60,6 +61,10 @@ export class LiNoteSearchComponent implements OnInit {
 
   @Input() columns: FlTableColumnStatic<LiNote>[] = ['title', 'tags', 'creation', 'lastModification'];
 
+  @Input() defaultFilters: Partial<LiNoteSearchFields> = null;
+
+  @Input() disabledFilters: LiNoteSearchFieldsDisabled = null;
+
   @Output() noteSelected: EventEmitter<LiNote> = new EventEmitter();
 
   datasource: LiNoteDatasource<LiNoteSearchFields>;
@@ -80,6 +85,17 @@ export class LiNoteSearchComponent implements OnInit {
 
     this.datasource = this.noteService.getSearchDatasource();
     this.searchState.init(config, this.datasource);
+
+    if (this.defaultFilters) {
+      this.searchState.advancedSearchFormGroup.patchValue(this.defaultFilters);
+    }
+    if (this.disabledFilters) {
+      Object.entries(this.disabledFilters).forEach(([key, value]) => {
+        if (value === true) {
+          this.searchState.advancedSearchFormGroup.controls[key]?.disable();
+        }
+      });
+    }
 
     if (this.fullPageSearch) {
       this.columns.push('actions');

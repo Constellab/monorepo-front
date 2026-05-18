@@ -36,7 +36,9 @@
     <div class="g-full g-form-field-compact g-layout-row-wrap g-layout-between-center">
       <!--  Created by  -->
       <fl-form-field class="g-search-field g-form-field-compact">
-        <fl-select-user formControlName="createdBy" [placeholder]="'li.created_by' | translate"></fl-select-user>
+        <fl-select-user
+          formControlName="createdBy"
+          [placeholder]="'li.created_by' | translate"></fl-select-user>
       </fl-form-field>
 
       <!--  Id -->
@@ -44,6 +46,17 @@
         <mat-label>{{ 'li.id' | translate }}</mat-label>
         <input matInput formControlName="id" [placeholder]="'li.id' | translate" autocomplete="off" />
       </mat-form-field>
+
+      <!-- Form -->
+      <fl-form-field class="g-search-field g-form-field-compact">
+        <li-select-form formControlName="formId" placeholder="li.note_uses_form"> </li-select-form>
+      </fl-form-field>
+
+      <!-- Form template -->
+      <fl-form-field class="g-search-field g-form-field-compact">
+        <li-select-form-template formControlName="formTemplateId" placeholder="li.note_uses_form_template">
+        </li-select-form-template>
+      </fl-form-field>
 
       <!--  Creation date  -->
       <div class="g-form-field-no-hint g-full g-form-field-compact">

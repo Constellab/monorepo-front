@@ -1,4 +1,4 @@
-import { Component, inject,OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { MatCheckbox } from '@angular/material/checkbox';
 import {
@@ -15,6 +15,7 @@ import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { LiFolderSelectComponent } from '@monorepo/lab-lib/li-folder';
+import { LiSelectFormComponent, LiSelectFormTemplateComponent } from '@monorepo/lab-lib/li-form';
 import { LiTagFiltersComponent } from '@monorepo/lab-lib/li-tag';
 import { TranslatePipe } from '@ngx-translate/core';
 
@@ -40,6 +41,8 @@ import { TranslatePipe } from '@ngx-translate/core';
     FlSearchModule,
     MatCheckbox,
     TranslatePipe,
+    LiSelectFormComponent,
+    LiSelectFormTemplateComponent,
   ],
 })
 export class LiNoteSearchFormComponent implements OnInit {

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject,Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -18,6 +18,7 @@ import {
   LiNoteTemplateDatasource,
   LiNoteTemplateSearch,
   LiNoteTemplateSearchFields,
+  LiNoteTemplateSearchFieldsDisabled,
   LiNoteTemplateService,
   LiRouterService,
 } from '@monorepo/lab-lib/li-core';
@@ -55,6 +56,10 @@ export class LiNoteTemplateSearchComponent implements OnInit {
 
   @Input() fullPageSearch: boolean = true;
 
+  @Input() defaultFilters: Partial<LiNoteTemplateSearchFields> = null;
+
+  @Input() disabledFilters: LiNoteTemplateSearchFieldsDisabled = null;
+
   @Output() noteTemplateSelected: EventEmitter<LiNoteTemplate> = new EventEmitter();
 
   datasource: LiNoteTemplateDatasource<LiNoteTemplateSearchFields>;
@@ -75,6 +80,17 @@ export class LiNoteTemplateSearchComponent implements OnInit {
 
     this.datasource = this.noteTemplateService.getSearchDatasource();
     this.searchState.init(config, this.datasource);
+
+    if (this.defaultFilters) {
+      this.searchState.advancedSearchFormGroup.patchValue(this.defaultFilters);
+    }
+    if (this.disabledFilters) {
+      Object.entries(this.disabledFilters).forEach(([key, value]) => {
+        if (value === true) {
+          this.searchState.advancedSearchFormGroup.controls[key]?.disable();
+        }
+      });
+    }
   }
 
   private getSavedSearch(): FlSavedSearch[] {
