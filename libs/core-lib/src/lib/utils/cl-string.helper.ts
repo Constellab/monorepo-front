@@ -314,7 +314,7 @@ export class ClStringHelper {
   public static sentenceToSnakeCase(str: string): string {
     if (str == null) return '';
 
-    return str
+    return this.removeAccentFromString(str)
       .trim()
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, '_')

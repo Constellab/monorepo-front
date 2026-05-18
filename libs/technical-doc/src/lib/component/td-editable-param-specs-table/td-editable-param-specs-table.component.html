@@ -2,6 +2,7 @@
   <table
     mat-table
     [dataSource]="table()"
+    [cdkDropListDisabled]="!reorderEnabled()"
     cdkDropList
     (cdkDropListDropped)="drop($event)"
     class="g-drag-anim-order">
@@ -97,6 +98,7 @@
       mat-row
       *matRowDef="let entry; columns: displayedColumns()"
       cdkDrag
+      [cdkDragDisabled]="!reorderEnabled()"
       class="g-drag-hide-placeholder"></tr>
   </table>
 } @else {

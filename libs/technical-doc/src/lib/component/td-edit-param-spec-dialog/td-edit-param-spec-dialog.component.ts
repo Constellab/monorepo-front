@@ -419,7 +419,7 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
     this.subParamSpecState?.ngOnDestroy();
     this.subParamSpecState = new TdSubParamSpecState(
       this.data.dynamicParamSpecState,
-      this.formGroup.get('key')?.value
+      () => this.formGroup.get('key')?.value
     );
     if (existingSpecs) {
       this.subParamSpecState.setParamSpecs(existingSpecs);

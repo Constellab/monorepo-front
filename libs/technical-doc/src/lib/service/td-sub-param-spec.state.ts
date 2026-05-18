@@ -20,7 +20,7 @@ export class TdSubParamSpecState extends TdAbstractDynamicParamSpecState {
 
   constructor(
     private parentState?: TdAbstractDynamicParamSpecState,
-    private paramSetKey?: string
+    private paramSetKeyFn?: () => string
   ) {
     super();
   }
@@ -89,6 +89,6 @@ export class TdSubParamSpecState extends TdAbstractDynamicParamSpecState {
     key?: string
   ): Observable<TdValidateComputedParamResult> | null {
     if (!this.parentState) return null;
-    return this.parentState.validateComputedExpression(expression, key, this.paramSetKey);
+    return this.parentState.validateComputedExpression(expression, key, this.paramSetKeyFn?.());
   }
 }

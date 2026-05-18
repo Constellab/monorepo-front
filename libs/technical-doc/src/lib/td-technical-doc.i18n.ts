@@ -104,8 +104,7 @@ const tdTechnicalDocI18nFr: FlLangTranslation = {
     expression_help_table_aggregate_desc:
       "Depuis le niveau parent, utilisez @table[].champ pour agréger les valeurs d'une colonne.",
     expression_help_examples: 'Exemples',
-    no_matching_fields: 'Aucun champ correspondant',
-    no_matching_functions: 'Aucune fonction correspondante',
+    no_matching_function_or_variable: 'Aucune fonction ou variable correspondante',
     result_type: 'Type de résultat',
     min_length: 'Longueur minimale',
     max_length: 'Longueur maximale',
@@ -261,8 +260,7 @@ const tdTechnicalDocI18nEn: FlLangTranslation = {
     expression_help_table_aggregate_desc:
       'From the parent level, use @table[].field to aggregate values from a column.',
     expression_help_examples: 'Examples',
-    no_matching_fields: 'No matching fields',
-    no_matching_functions: 'No matching functions',
+    no_matching_function_or_variable: 'No matching function or variable',
     result_type: 'Result type',
     min_length: 'Min length',
     max_length: 'Max length',
