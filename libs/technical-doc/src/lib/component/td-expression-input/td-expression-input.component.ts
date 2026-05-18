@@ -120,8 +120,17 @@ export class TdExpressionInputComponent extends FlFormFieldDirective<string> imp
   }
 
   onKeydown(event: KeyboardEvent): void {
+    // Handle Backspace/Delete on field token spans — delete the entire token
+    if (event.key === 'Backspace' || event.key === 'Delete') {
+      const handled = this.handleTokenDelete(event.key);
+      if (handled) {
+        event.preventDefault();
+        return;
+      }
+    }
+
     // Handle arrow keys to escape from inside field token spans
-    if ((event.key === 'ArrowLeft' || event.key === 'ArrowRight') && !this.overlayRef) {
+    if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
       const escaped = this.handleTokenEscape(event.key);
       if (escaped) {
         event.preventDefault();
@@ -301,6 +310,89 @@ export class TdExpressionInputComponent extends FlFormFieldDirective<string> imp
   ngOnDestroy(): void {
     this.closeSuggestions();
     this.closeTooltip();
+  }
+
+  // -- Backspace/Delete on token spans --
+
+  private handleTokenDelete(key: 'Backspace' | 'Delete'): boolean {
+    const sel = window.getSelection();
+    if (!sel || sel.rangeCount === 0) return false;
+
+    const range = sel.getRangeAt(0);
+    if (!range.collapsed) return false;
+
+    const container = range.startContainer;
+    const div = this.editableDiv.nativeElement;
+    if (!div.contains(container)) return false;
+
+    let tokenSpan: HTMLElement | null = null;
+
+    // Check if cursor is inside a token span
+    const parent =
+      container.nodeType === Node.TEXT_NODE ? container.parentElement : (container as HTMLElement);
+    if (parent?.classList?.contains('td-field-token') && div.contains(parent)) {
+      tokenSpan = parent;
+    }
+
+    // Check if cursor is right after (Backspace) or right before (Delete) a token
+    if (!tokenSpan && container.nodeType === Node.TEXT_NODE) {
+      if (key === 'Backspace' && range.startOffset === 0) {
+        const prev = container.previousSibling;
+        if (prev instanceof HTMLElement && prev.classList.contains('td-field-token')) {
+          tokenSpan = prev;
+        }
+      } else if (key === 'Delete' && range.startOffset === (container.textContent?.length ?? 0)) {
+        const next = container.nextSibling;
+        if (next instanceof HTMLElement && next.classList.contains('td-field-token')) {
+          tokenSpan = next;
+        }
+      }
+    }
+
+    // Also handle when cursor is at a direct child level of the div
+    if (!tokenSpan && container === div) {
+      const childIndex = range.startOffset;
+      if (key === 'Backspace' && childIndex > 0) {
+        const prev = div.childNodes[childIndex - 1];
+        if (prev instanceof HTMLElement && prev.classList.contains('td-field-token')) {
+          tokenSpan = prev;
+        }
+      } else if (key === 'Delete' && childIndex < div.childNodes.length) {
+        const next = div.childNodes[childIndex];
+        if (next instanceof HTMLElement && next.classList.contains('td-field-token')) {
+          tokenSpan = next;
+        }
+      }
+    }
+
+    if (!tokenSpan) return false;
+
+    // Find model-space position of this token and remove it
+    const tokenKey = tokenSpan.getAttribute('data-key') ?? '';
+    let modelOffset = 0;
+    for (const child of Array.from(div.childNodes)) {
+      if (child === tokenSpan) break;
+      if (child.nodeType === Node.TEXT_NODE) {
+        modelOffset += (child.textContent ?? '').replace(/\u200B/g, '').length;
+      } else if (child instanceof HTMLElement && child.classList.contains('td-field-token')) {
+        modelOffset += 1 + (child.getAttribute('data-key') ?? '').length;
+      } else {
+        modelOffset += (child.textContent ?? '').replace(/\u200B/g, '').length;
+      }
+    }
+
+    const modelTokenLen = 1 + tokenKey.length; // '@' + key
+    const modelText = this._value;
+    const newText = modelText.substring(0, modelOffset) + modelText.substring(modelOffset + modelTokenLen);
+
+    this._value = newText;
+    this.emitCurrentValue();
+    this.renderHighlighted(newText);
+
+    const displayOffset = this.modelOffsetToDisplayOffset(newText, modelOffset);
+    this.setCaretAtOffset(displayOffset);
+
+    return true;
   }
 
   // -- Arrow key token escape --
