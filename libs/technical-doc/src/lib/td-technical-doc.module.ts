@@ -1,3 +1,4 @@
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { inject, ModuleWithProviders, NgModule, Provider, Type } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -38,11 +39,14 @@ import { TdDocIoComponent } from './component/td-doc-io/td-doc-io.component';
 import { TdDynamicEditableFormGroupComponent } from './component/td-dynamic-editable-form-group/td-dynamic-editable-form-group.component';
 import { TdEditParamSpecDialogComponent } from './component/td-edit-param-spec-dialog/td-edit-param-spec-dialog.component';
 import { TdEditableParamSpecsTableComponent } from './component/td-editable-param-specs-table/td-editable-param-specs-table.component';
+import { TdExpressionDisplayComponent } from './component/td-expression-display/td-expression-display.component';
+import { TdExpressionHelpComponent } from './component/td-expression-help/td-expression-help.component';
 import { TdExpressionInputComponent } from './component/td-expression-input/td-expression-input.component';
 import { TdIoDocsComponent } from './component/td-io-docs/td-io-docs.component';
 import { TdIoResourceComponent } from './component/td-io-resource/td-io-resource.component';
 import { TdMainDocComponent } from './component/td-main-doc/td-main-doc.component';
 import { TdOtherClassDocComponent } from './component/td-other-class-doc/td-other-class-doc.component';
+import { TdParamSpecInlineComponent } from './component/td-param-spec-inline/td-param-spec-inline.component';
 import { TdProcessDocComponent } from './component/td-process-doc/td-process-doc.component';
 import { TdResourceDocComponent } from './component/td-resource-doc/td-resource-doc.component';
 import { TdResourceDocFuncInfoComponent } from './component/td-resource-doc-func-info/td-resource-doc-func-info.component';
@@ -83,6 +87,7 @@ import { TD_TECHNICAL_DOC_I18N } from './td-technical-doc.i18n';
     MatFormFieldModule,
     MatSelectModule,
     MatCheckboxModule,
+    DragDropModule,
 
     FlCorePipeModule,
     FlCoreComponentModule,
@@ -123,7 +128,10 @@ import { TD_TECHNICAL_DOC_I18N } from './td-technical-doc.i18n';
     TdCleanTypePipe,
     TdEditableParamSpecsTableComponent,
     TdEditParamSpecDialogComponent,
+    TdExpressionDisplayComponent,
     TdExpressionInputComponent,
+    TdExpressionHelpComponent,
+    TdParamSpecInlineComponent,
     TdConfigureParamSpecsTableDialogComponent,
     TdIconBackgroundColorPipe,
     TdIconColorPipe,
@@ -152,7 +160,10 @@ import { TD_TECHNICAL_DOC_I18N } from './td-technical-doc.i18n';
     TdCleanTypePipe,
     TdEditableParamSpecsTableComponent,
     TdEditParamSpecDialogComponent,
+    TdExpressionDisplayComponent,
     TdExpressionInputComponent,
+    TdExpressionHelpComponent,
+    TdParamSpecInlineComponent,
     TdConfigureParamSpecsTableDialogComponent,
     TdIconBackgroundColorPipe,
     TdIconColorPipe,

@@ -215,6 +215,26 @@ export class TdConfig implements TdConfigI {
     }
   }
 
+  /**
+   * Split flat values into { public, protected } based on spec visibility.
+   */
+  public splitValuesByVisibility(values: TdParamSpecsValues): {
+    public: TdParamSpecsValues;
+    protected: TdParamSpecsValues;
+  } {
+    const pub: TdParamSpecsValues = {};
+    const prot: TdParamSpecsValues = {};
+    for (const key of Object.keys(values)) {
+      const visibility = this.specs[key]?.visibility;
+      if (visibility === 'protected') {
+        prot[key] = values[key];
+      } else {
+        pub[key] = values[key];
+      }
+    }
+    return { public: pub, protected: prot };
+  }
+
   // get the config value with only null vales
   public getNullConfig(): Record<string, null> {
     const nullConfig: Record<string, null> = {};

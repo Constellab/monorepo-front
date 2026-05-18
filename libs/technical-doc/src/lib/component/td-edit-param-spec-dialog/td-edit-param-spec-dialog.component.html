@@ -20,18 +20,40 @@
         </mat-select>
       </mat-form-field>
 
-      <mat-form-field class="full-width">
-        <mat-label>{{ 'td.key' | translate }}</mat-label>
-        <input matInput formControlName="key" />
-        @if (formGroup.get('key').hasError('pattern')) {
-          <mat-error>{{ 'td.key_invalid_identifier' | translate }}</mat-error>
+      <mat-form-field class="full-width g-form-input">
+        <mat-label>{{ 'td.label' | translate }}</mat-label>
+        <input matInput formControlName="human_name" />
+        @if (formGroup.get('human_name').hasError('required')) {
+          <mat-error>{{ 'td.label' | flErrorRequired }}</mat-error>
+        }
+        @if (!keyEditing()) {
+          <mat-hint>
+            {{ 'td.key' | translate }}: {{ formGroup.get('key').value }}
+            <button type="button" class="key-edit-link" (click)="enableKeyEditing()">
+              {{ 'td.edit' | translate }}
+            </button>
+          </mat-hint>
         }
       </mat-form-field>
 
-      <mat-form-field class="full-width">
-        <mat-label>{{ 'td.label' | translate }}</mat-label>
-        <input matInput formControlName="human_name" />
-      </mat-form-field>
+      @if (keyEditing()) {
+        <mat-form-field class="full-width g-form-input">
+          <mat-label>{{ 'td.key' | translate }}</mat-label>
+          <input matInput formControlName="key" />
+          <button matSuffix mat-icon-button type="button" (click)="cancelKeyEditing()">
+            <mat-icon>close</mat-icon>
+          </button>
+          @if (formGroup.get('key').hasError('required')) {
+            <mat-error>{{ 'td.key' | flErrorRequired }}</mat-error>
+          }
+          @if (formGroup.get('key').hasError('pattern')) {
+            <mat-error>{{ 'td.key_invalid_identifier' | translate }}</mat-error>
+          }
+          @if (formGroup.get('key').hasError('maxlength')) {
+            <mat-error>{{ 'td.key_max_length' | translate }}</mat-error>
+          }
+        </mat-form-field>
+      }
 
       <mat-form-field class="full-width">
         <mat-label>{{ 'td.short_description' | translate }}</mat-label>
@@ -105,7 +127,7 @@
           <div class="full-width expression-field">
             <div class="g-text-small">{{ 'td.expression' | translate }}</div>
             <div class="expression-row">
-              <td-expression-input formControlName="expression" [fieldNames]="siblingFieldNames()">
+              <td-expression-input formControlName="expression" [fieldSpecs]="siblingFieldSpecs()">
               </td-expression-input>
               <button
                 mat-icon-button
@@ -213,7 +235,7 @@
       }
     </div>
 
-    @if (isParamSetType() && localParamSpecState) {
+    @if (isParamSetType() && subParamSpecState) {
       <mat-divider></mat-divider>
 
       <div class="section">
@@ -227,10 +249,12 @@
         <p class="g-text-small g-text-light">{{ 'td.param_set_description' | translate }}</p>
 
         <td-editable-param-specs-table
-          [table]="localParamSpecState.paramSpecsTable"
+          [table]="subParamSpecState.paramSpecsTable"
           [columns]="['label', 'type', 'menu']"
+          [reorderEnabled]="subParamSpecState.reorderEnabled"
           (editElementClick)="openEditSubParamDialog($event)"
-          (deleteElementClick)="deleteSubParam($event)" />
+          (deleteElementClick)="deleteSubParam($event)"
+          (reorderClick)="reorderSubParams($event)" />
       </div>
     }
   </form>
@@ -258,116 +282,5 @@
 </mat-dialog-actions>
 
 <ng-template #expressionHelpTemplate>
-  <div class="expression-help-portal">
-    <h4>{{ 'td.expression_help_title' | translate }}</h4>
-
-    <section>
-      <h5>{{ 'td.expression_help_references' | translate }}</h5>
-      <p>{{ 'td.expression_help_references_desc' | translate }}</p>
-      <code class="expression-example">&#64;weight / (&#64;height ** 2)</code>
-    </section>
-
-    <section>
-      <h5>{{ 'td.expression_help_arithmetic' | translate }}</h5>
-      <div class="operator-list">
-        <code>+</code>
-        <code>-</code>
-        <code>*</code>
-        <code>/</code>
-        <code>//</code>
-        <code>%</code>
-        <code>**</code>
-        <code>( )</code>
-      </div>
-    </section>
-
-    <section>
-      <h5>{{ 'td.expression_help_comparisons' | translate }}</h5>
-      <div class="operator-list">
-        <code>==</code>
-        <code>!=</code>
-        <code>&lt;</code>
-        <code>&lt;=</code>
-        <code>&gt;</code>
-        <code>&gt;=</code>
-        <code>and</code>
-        <code>or</code>
-        <code>not</code>
-      </div>
-    </section>
-
-    <section>
-      <h5>{{ 'td.expression_help_functions' | translate }}</h5>
-      <table class="help-table">
-        <tr>
-          <td><code>sum(...)</code></td>
-          <td>{{ 'td.fn_sum' | translate }}</td>
-        </tr>
-        <tr>
-          <td><code>mean(...)</code></td>
-          <td>{{ 'td.fn_mean' | translate }}</td>
-        </tr>
-        <tr>
-          <td><code>median(...)</code></td>
-          <td>{{ 'td.fn_median' | translate }}</td>
-        </tr>
-        <tr>
-          <td><code>min(...)</code></td>
-          <td>{{ 'td.fn_min' | translate }}</td>
-        </tr>
-        <tr>
-          <td><code>max(...)</code></td>
-          <td>{{ 'td.fn_max' | translate }}</td>
-        </tr>
-        <tr>
-          <td><code>count(...)</code></td>
-          <td>{{ 'td.fn_count' | translate }}</td>
-        </tr>
-        <tr>
-          <td><code>stddev(...)</code></td>
-          <td>{{ 'td.fn_stddev' | translate }}</td>
-        </tr>
-        <tr>
-          <td><code>abs(x)</code></td>
-          <td>{{ 'td.fn_abs' | translate }}</td>
-        </tr>
-        <tr>
-          <td><code>round(x, n)</code></td>
-          <td>{{ 'td.fn_round' | translate }}</td>
-        </tr>
-        <tr>
-          <td><code>sqrt(x)</code></td>
-          <td>{{ 'td.fn_sqrt' | translate }}</td>
-        </tr>
-        <tr>
-          <td><code>pow(x, n)</code></td>
-          <td>{{ 'td.fn_pow' | translate }}</td>
-        </tr>
-        <tr>
-          <td><code>if(cond, a, b)</code></td>
-          <td>{{ 'td.fn_if' | translate }}</td>
-        </tr>
-        <tr>
-          <td><code>concat(...)</code></td>
-          <td>{{ 'td.fn_concat' | translate }}</td>
-        </tr>
-      </table>
-    </section>
-
-    <section>
-      <h5>{{ 'td.expression_help_table_aggregate' | translate }}</h5>
-      <p>{{ 'td.expression_help_table_aggregate_desc' | translate }}</p>
-      <code class="expression-example">sum(&#64;samples[].mass)</code>
-    </section>
-
-    <section>
-      <h5>{{ 'td.expression_help_examples' | translate }}</h5>
-      <div class="help-examples">
-        <code class="expression-example">&#64;price * &#64;quantity</code>
-        <code class="expression-example">if(&#64;score >= 50, "pass", "fail")</code>
-        <code class="expression-example">round(&#64;total / &#64;count, 2)</code>
-        <code class="expression-example">concat(&#64;first_name, " ", &#64;last_name)</code>
-      </div>
-    </section>
-  </div>
+  <td-expression-help></td-expression-help>
 </ng-template>

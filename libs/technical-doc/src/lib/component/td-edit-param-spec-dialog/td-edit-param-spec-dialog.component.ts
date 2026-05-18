@@ -32,7 +32,7 @@ import {
 } from '../../model/td-config-spec.class';
 import { TdParamSpecConfig } from '../../model/td-param-spec-config.class';
 import { TdAbstractDynamicParamSpecState } from '../../service/td-abstract-dynamic-param-spec.state';
-import { TdLocalParamSpecState } from '../../service/td-local-param-spec.state';
+import { TdSubParamSpecState } from '../../service/td-sub-param-spec.state';
 
 export interface TdEditParamSpecDialogInput {
   dynamicParamSpecState: TdAbstractDynamicParamSpecState;
@@ -60,6 +60,7 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
   @ViewChild('expressionHelpTemplate') expressionHelpTemplate: TemplateRef<any>;
   private helpOverlayRef: FlOverlayRef | null = null;
 
+  readonly keyEditing = signal(false);
   readonly isButtonLoading = signal(false);
   readonly groupedTypes = signal<TdGroupedParamSpecTypes[]>([]);
   readonly isParamSetType = signal(false);
@@ -68,20 +69,18 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
   readonly defaultValueConfig = signal<FlDynamicFieldConfig | null>(null);
   readonly isValidating = signal(false);
   readonly validationResult = signal<TdValidateComputedParamResult | null>(null);
-  readonly siblingFieldNames = computed(() => {
+  readonly siblingFieldSpecs = computed(() => {
     const currentKey = this.formGroup?.get('key')?.value;
-    return this.data.dynamicParamSpecState.paramSpecsTable.array
-      .map((e) => e.key)
-      .filter((k) => k !== currentKey);
+    return this.data.dynamicParamSpecState.paramSpecsTable.array.filter((e) => e.key !== currentKey);
   });
 
   formGroup: FormGroup;
   readonly formId = `paramSpecForm_${Math.random().toString(36).slice(2, 8)}`;
-  localParamSpecState: TdLocalParamSpecState | null = null;
+  subParamSpecState: TdSubParamSpecState | null = null;
 
   data = inject<TdEditParamSpecDialogInput>(MAT_DIALOG_DATA);
 
-  private labelManuallyEdited = false;
+  private keyManuallyEdited = false;
   private subscriptions = new ClSubscriptionHandler();
 
   ngOnInit(): void {
@@ -101,7 +100,7 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
     if (type === TdParamSpecTypeEnum.PARAM_SET) {
       this.initLocalParamSpecState();
     } else {
-      this.localParamSpecState = null;
+      this.subParamSpecState = null;
     }
   }
 
@@ -119,13 +118,26 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
     });
   }
 
+  enableKeyEditing(): void {
+    this.keyEditing.set(true);
+    this.keyManuallyEdited = true;
+  }
+
+  cancelKeyEditing(): void {
+    this.keyEditing.set(false);
+    this.keyManuallyEdited = false;
+    const label = this.formGroup.get('human_name').value || '';
+    const key = ClStringHelper.sentenceToSnakeCase(label).slice(0, 20);
+    this.formGroup.get('key').setValue(key, { emitEvent: false });
+  }
+
   cancel(): void {
     this.dialogRef.close();
   }
 
   openAddSubParamDialog(): void {
     const input: TdEditParamSpecDialogInput = {
-      dynamicParamSpecState: this.localParamSpecState,
+      dynamicParamSpecState: this.subParamSpecState,
       title: { text: 'td.add_sub_field', translateText: true },
       saveButtonText: { text: 'td.add_sub_field', translateText: true },
     };
@@ -141,7 +153,7 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
 
   openEditSubParamDialog(entry: TdParamSpecEntry): void {
     const input: TdEditParamSpecDialogInput = {
-      dynamicParamSpecState: this.localParamSpecState,
+      dynamicParamSpecState: this.subParamSpecState,
       paramSpec: entry,
       title: { text: 'td.update_sub_field', translateText: true },
       saveButtonText: { text: 'td.update_sub_field', translateText: true },
@@ -178,7 +190,11 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
   }
 
   deleteSubParam(entry: TdParamSpecEntry): void {
-    this.localParamSpecState.deleteParamSpec(entry.key).subscribe();
+    this.subParamSpecState.deleteParamSpec(entry.key).subscribe();
+  }
+
+  reorderSubParams(paramNames: string[]): void {
+    this.subParamSpecState.reorderParamSpecs(paramNames)?.subscribe();
   }
 
   validateExpression(): void {
@@ -230,15 +246,19 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
-    this.localParamSpecState?.ngOnDestroy();
+    this.subParamSpecState?.ngOnDestroy();
     this.helpOverlayRef?.dispose();
   }
 
   private initForm(): void {
     this.formGroup = new FormGroup({
       type: new FormControl('str', Validators.required),
-      key: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-Z_][a-zA-Z0-9_]*$/)]),
-      human_name: new FormControl(''),
+      key: new FormControl('', [
+        Validators.required,
+        Validators.pattern(/^[a-zA-Z_][a-zA-Z0-9_]*$/),
+        Validators.maxLength(20),
+      ]),
+      human_name: new FormControl('', Validators.required),
       optional: new FormControl(false),
       default_value: new FormControl(null),
       short_description: new FormControl(''),
@@ -260,15 +280,20 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
       this.initLocalParamSpecState(this.data.paramSpec?.spec.additional_info?.param_set);
     }
 
-    // Auto-sync label from key until the user manually edits the label
+    // In edit mode, key was already set — don't auto-sync
+    if (this.data.paramSpec) {
+      this.keyManuallyEdited = true;
+    }
+
+    // Auto-sync key from label until the user manually edits the key
     this.subscriptions.add([
-      this.formGroup.get('human_name').valueChanges.subscribe(() => {
-        this.labelManuallyEdited = true;
+      this.formGroup.get('key').valueChanges.subscribe(() => {
+        this.keyManuallyEdited = true;
       }),
-      this.formGroup.get('key').valueChanges.subscribe((key: string) => {
-        if (!this.labelManuallyEdited) {
-          const label = ClStringHelper.snakeCaseToSentence(key);
-          this.formGroup.get('human_name').setValue(label, { emitEvent: false });
+      this.formGroup.get('human_name').valueChanges.subscribe((label: string) => {
+        if (!this.keyManuallyEdited) {
+          const key = ClStringHelper.sentenceToSnakeCase(label).slice(0, 20);
+          this.formGroup.get('key').setValue(key, { emitEvent: false });
         }
       }),
     ]);
@@ -360,10 +385,10 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { key: _key, ...specValue } = this.formGroup.value;
 
-    if (specValue.type === TdParamSpecTypeEnum.PARAM_SET && this.localParamSpecState) {
+    if (specValue.type === TdParamSpecTypeEnum.PARAM_SET && this.subParamSpecState) {
       specValue.additional_info = {
         ...specValue.additional_info,
-        param_set: this.localParamSpecState.getCurrentSpecs(),
+        param_set: this.subParamSpecState.getCurrentSpecs(),
       };
     }
 
@@ -391,10 +416,13 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
   }
 
   private initLocalParamSpecState(existingSpecs?: TdParamSpecs): void {
-    this.localParamSpecState?.ngOnDestroy();
-    this.localParamSpecState = new TdLocalParamSpecState();
+    this.subParamSpecState?.ngOnDestroy();
+    this.subParamSpecState = new TdSubParamSpecState(
+      this.data.dynamicParamSpecState,
+      () => this.formGroup.get('key')?.value
+    );
     if (existingSpecs) {
-      this.localParamSpecState.setParamSpecs(existingSpecs);
+      this.subParamSpecState.setParamSpecs(existingSpecs);
     }
   }
 }

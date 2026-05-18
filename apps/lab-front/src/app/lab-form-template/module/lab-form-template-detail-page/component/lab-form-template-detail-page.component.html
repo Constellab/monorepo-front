@@ -94,10 +94,19 @@
                       <mat-icon>publish</mat-icon>
                       {{ 'li.form_publish_version' | translate }}
                     </button>
-                    <button mat-stroked-button class="warn" (click)="deleteVersion()">
-                      <mat-icon>delete</mat-icon>
-                      {{ 'li.form_delete_version' | translate }}
+                    <button mat-icon-button [matMenuTriggerFor]="draftMenu">
+                      <mat-icon>more_vert</mat-icon>
                     </button>
+                    <mat-menu #draftMenu="matMenu" xPosition="before">
+                      <button mat-menu-item (click)="testVersion()">
+                        <mat-icon>play_arrow</mat-icon>
+                        <span>{{ 'li.form_test_version' | translate }}</span>
+                      </button>
+                      <button mat-menu-item (click)="deleteVersion()" class="warn">
+                        <mat-icon>delete</mat-icon>
+                        <span>{{ 'li.form_delete_version' | translate }}</span>
+                      </button>
+                    </mat-menu>
                   }
                   @if (selectedVersion().status === 'PUBLISHED' || selectedVersion().status === 'ARCHIVED') {
                     <button mat-icon-button [matMenuTriggerFor]="versionMenu">
@@ -105,6 +114,10 @@
                     </button>
                     <mat-menu #versionMenu="matMenu" xPosition="before">
                       @if (selectedVersion().status === 'PUBLISHED') {
+                        <button mat-menu-item (click)="testVersion()">
+                          <mat-icon>play_arrow</mat-icon>
+                          <span>{{ 'li.form_test_version' | translate }}</span>
+                        </button>
                         <button mat-menu-item (click)="createFormFromVersion()">
                           <mat-icon flIcon="form"></mat-icon>
                           <span>{{ 'li.form_create_from_version' | translate }}</span>

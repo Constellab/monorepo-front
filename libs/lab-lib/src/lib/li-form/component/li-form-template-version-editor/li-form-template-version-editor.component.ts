@@ -7,12 +7,7 @@ import {
   FlDialogService,
 } from '@monorepo/front-core-lib/fl-dialog';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import {
-  TdAbstractDynamicParamSpecState,
-  TdParamSpecEntry,
-  TdParamSpecs,
-  TdTechnicalDocModule,
-} from '@monorepo/technical-doc';
+import { TdParamSpecEntry, TdParamSpecs, TdTechnicalDocModule } from '@monorepo/technical-doc';
 import { TranslatePipe } from '@ngx-translate/core';
 
 import { LiFormTemplateVersion } from '../../../li-core/model/entities/form/li-form-template-version.entity';
@@ -23,10 +18,6 @@ import { LiFormTemplateDynamicParamSpecState } from './li-form-template-dynamic-
   templateUrl: './li-form-template-version-editor.component.html',
   styleUrl: './li-form-template-version-editor.component.scss',
   imports: [TdTechnicalDocModule, FlUserModule, MatButton, MatIcon, TranslatePipe],
-  providers: [
-    LiFormTemplateDynamicParamSpecState,
-    { provide: TdAbstractDynamicParamSpecState, useExisting: LiFormTemplateDynamicParamSpecState },
-  ],
 })
 export class LiFormTemplateVersionEditorComponent {
   private dynamicState = inject(LiFormTemplateDynamicParamSpecState);
@@ -45,6 +36,8 @@ export class LiFormTemplateVersionEditorComponent {
       ? LiFormTemplateVersionEditorComponent.COLUMNS
       : [...LiFormTemplateVersionEditorComponent.COLUMNS, 'menu'];
   });
+
+  isReorderEnabled = computed(() => !this.readonly() && this.dynamicState.reorderEnabled);
 
   table = this.dynamicState.paramSpecsTable;
 
@@ -90,7 +83,11 @@ export class LiFormTemplateVersionEditorComponent {
       });
   }
 
+  reorderFields(fieldNames: string[]): void {
+    this.dynamicState.reorderParamSpecs(fieldNames).subscribe();
+  }
+
   private updateFieldCount(): void {
-    this.fieldCount.set(Object.keys(this.dynamicState.getContent()).length);
+    this.fieldCount.set(Object.keys(this.dynamicState.getParamSpecs()).length);
   }
 }

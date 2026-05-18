@@ -1,0 +1,32 @@
+:host {
+  display: block;
+}
+
+.td-param-spec-inline-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.td-param-spec-inline-name {
+  font-weight: 500;
+}
+
+.td-param-spec-inline-badge {
+  background-color: color-mix(in srgb, var(--primary-color) 12%, transparent);
+  border-radius: 3px;
+  padding: 1px 6px;
+  color: var(--primary-color);
+}
+
+.td-param-spec-inline-key {
+  font-family: monospace;
+  color: var(--light-color);
+  margin-top: 2px;
+}
+
+.td-param-spec-inline-desc {
+  color: var(--light-color);
+  margin-top: 2px;
+}

@@ -30,11 +30,15 @@ import {
   LiCreateFormDialogInput,
   LiFormTemplateActionEvent,
   LiFormTemplateActionMenu,
+  LiFormTemplateDynamicParamSpecState,
   LiFormTemplateService,
   LiFormTemplateVersionEditorComponent,
+  LiFormTestVersionDialogComponent,
+  LiFormTestVersionDialogInput,
   liGetFormTemplateVersionStatus,
 } from '@monorepo/lab-lib/li-form';
 import { LiTagListComponent } from '@monorepo/lab-lib/li-tag';
+import { TdAbstractDynamicParamSpecState } from '@monorepo/technical-doc';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
@@ -60,6 +64,10 @@ import { TranslatePipe } from '@ngx-translate/core';
     LiFormTemplateVersionEditorComponent,
     TranslatePipe,
   ],
+  providers: [
+    LiFormTemplateDynamicParamSpecState,
+    { provide: TdAbstractDynamicParamSpecState, useExisting: LiFormTemplateDynamicParamSpecState },
+  ],
 })
 export class LabFormTemplateDetailPageComponent implements OnInit {
   private route = inject(ActivatedRoute);
@@ -68,6 +76,7 @@ export class LabFormTemplateDetailPageComponent implements OnInit {
   private formTemplateService = inject(LiFormTemplateService);
   private dialogService = inject(FlDialogService);
   private tagService = inject(LiTagService);
+  private dynamicState = inject(LiFormTemplateDynamicParamSpecState);
 
   template = signal<LiFormTemplate>(null);
   versions = signal<LiFormTemplateVersionSummary[]>([]);
@@ -223,6 +232,15 @@ export class LabFormTemplateDetailPageComponent implements OnInit {
           this.reloadTemplate(this.selectedVersion().id);
         }
       });
+  }
+
+  testVersion(): void {
+    const data: LiFormTestVersionDialogInput = {
+      templateId: this.template().id,
+      versionId: this.selectedVersion().id,
+      specs: this.dynamicState.getParamSpecs(),
+    };
+    this.dialogService.openMediumDialog(LiFormTestVersionDialogComponent, { data });
   }
 
   createFormFromVersion(): void {

@@ -11,10 +11,19 @@ import {
 import { TdAbstractDynamicParamSpecState } from './td-abstract-dynamic-param-spec.state';
 
 /**
- * Local (in-memory) implementation of TdAbstractDynamicParamSpecState.
+ * In-memory implementation of TdAbstractDynamicParamSpecState.
  * Used for managing sub-params of a param_set without backend calls.
+ * Delegates validation to the parent state when available.
  */
-export class TdLocalParamSpecState extends TdAbstractDynamicParamSpecState {
+export class TdSubParamSpecState extends TdAbstractDynamicParamSpecState {
+  override reorderEnabled = true;
+
+  constructor(
+    private parentState?: TdAbstractDynamicParamSpecState,
+    private paramSetKeyFn?: () => string
+  ) {
+    super();
+  }
   openConfigureParamSpecsTableDialog(): void {
     // noop — not used in local mode
   }
@@ -48,6 +57,16 @@ export class TdLocalParamSpecState extends TdAbstractDynamicParamSpecState {
     return of(specs);
   }
 
+  override reorderParamSpecs(paramNames: string[]): Observable<TdParamSpecs> {
+    const specs = this.getCurrentSpecs();
+    const reordered: TdParamSpecs = {};
+    for (const name of paramNames) {
+      reordered[name] = specs[name];
+    }
+    this.setParamSpecs(reordered);
+    return of(reordered);
+  }
+
   getCurrentSpecs(): TdParamSpecs {
     const record: TdParamSpecs = {};
     for (const entry of this.paramSpecsTable.array) {
@@ -65,7 +84,11 @@ export class TdLocalParamSpecState extends TdAbstractDynamicParamSpecState {
     return TD_PARAM_SPEC_INFO_LIST.filter((info) => info.type !== TdParamSpecTypeEnum.PARAM_SET);
   }
 
-  validateComputedExpression(): Observable<TdValidateComputedParamResult> | null {
-    throw new Error('Computed param validation not implemented for lab dynamic params');
+  validateComputedExpression(
+    expression: string,
+    key?: string
+  ): Observable<TdValidateComputedParamResult> | null {
+    if (!this.parentState) return null;
+    return this.parentState.validateComputedExpression(expression, key, this.paramSetKeyFn?.());
   }
 }

@@ -1,0 +1,35 @@
+<fl-dialog-header>
+  {{ 'li.form_test_version_title' | translate }}
+</fl-dialog-header>
+
+<mat-dialog-content>
+  @if (configData()) {
+    <form [formGroup]="formGp">
+      <td-configure-specs-form [formGp]="formGp" [configData]="configData()" />
+    </form>
+
+    <div class="form-test-actions">
+      <button mat-flat-button class="primary" (click)="test()" [disabled]="isTesting()">
+        {{ 'li.form_test_version' | translate }}
+      </button>
+    </div>
+
+    @if (testValid() !== null) {
+      @if (testValid()) {
+        <div class="validation-result valid">
+          <mat-icon>check_circle</mat-icon>
+          <span>{{ 'li.form_test_version_success' | translate }}</span>
+        </div>
+      } @else {
+        <div class="validation-result invalid">
+          <mat-icon>error</mat-icon>
+          <div class="validation-errors">
+            @for (err of testErrors(); track err) {
+              <div>{{ err }}</div>
+            }
+          </div>
+        </div>
+      }
+    }
+  }
+</mat-dialog-content>

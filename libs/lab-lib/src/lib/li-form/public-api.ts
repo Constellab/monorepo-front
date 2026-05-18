@@ -26,6 +26,7 @@ export * from './component/li-form-history-portal/li-form-history-portal.compone
 export * from './component/li-form-template-ref-inline/li-form-template-ref-inline.component';
 export * from './component/li-select-form-dialog/li-select-form-dialog.component';
 export * from './component/li-form-editor-dialog/li-form-editor-dialog.component';
+export * from './component/li-form-test-version-dialog/li-form-test-version-dialog.component';
 export * from './component/li-form-content/li-form-content.component';
 export * from './component/li-rich-text-form-template/li-rich-text-form-template.component';
 export * from './model/li-rich-text-form-template-block.model';

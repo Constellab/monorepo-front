@@ -1,5 +1,20 @@
 @if (table()?.array.length > 0) {
-  <table mat-table [dataSource]="table()">
+  <table
+    mat-table
+    [dataSource]="table()"
+    [cdkDropListDisabled]="!reorderEnabled()"
+    cdkDropList
+    (cdkDropListDropped)="drop($event)"
+    class="g-drag-anim-order">
+    <ng-container matColumnDef="drag">
+      <th mat-header-cell *matHeaderCellDef class="g-table-icon-button-cell"></th>
+      <td mat-cell *matCellDef="let entry" class="g-table-icon-button-cell">
+        <mat-icon cdkDragHandle class="drag-handle" [matTooltip]="'td.reorder' | translate"
+          >drag_handle</mat-icon
+        >
+      </td>
+    </ng-container>
+
     <ng-container matColumnDef="label">
       <th mat-header-cell *matHeaderCellDef>{{ 'td.label' | translate }}</th>
       <td mat-cell *matCellDef="let entry">
@@ -32,7 +47,17 @@
       <td mat-cell *matCellDef="let entry">
         <div class="additional-info-cell">
           @for (item of getAdditionalInfoItems(entry); track item.key) {
-            <span class="g-text-small">{{ item.label }}: {{ item.value }}</span>
+            @if (item.key === 'expression' && entry.spec.additional_info?.expression) {
+              <span class="g-text-small"
+                >{{ item.label }}:
+                <td-expression-display
+                  [expression]="entry.spec.additional_info.expression"
+                  [fieldSpecs]="table().array">
+                </td-expression-display>
+              </span>
+            } @else {
+              <span class="g-text-small">{{ item.label }}: {{ item.value }}</span>
+            }
           }
         </div>
       </td>
@@ -51,11 +76,16 @@
           <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #btsMenu="matMenu">
-          <button mat-menu-item aria-label="edit" (click)="edit($event, entry)">
+          <button mat-menu-item aria-label="edit" (click)="edit(entry)" type="button">
             <mat-icon>edit</mat-icon>
             {{ 'td.edit' | translate }}
           </button>
-          <button mat-menu-item aria-label="delete" class="button-warn warn" (click)="delete($event, entry)">
+          <button
+            mat-menu-item
+            aria-label="delete"
+            class="button-warn warn"
+            (click)="delete(entry)"
+            type="button">
             <mat-icon>delete</mat-icon>
             {{ 'td.delete' | translate }}
           </button>
@@ -63,8 +93,13 @@
       </td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="columns"></tr>
-    <tr mat-row *matRowDef="let entry; columns: columns"></tr>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns()"></tr>
+    <tr
+      mat-row
+      *matRowDef="let entry; columns: displayedColumns()"
+      cdkDrag
+      [cdkDragDisabled]="!reorderEnabled()"
+      class="g-drag-hide-placeholder"></tr>
   </table>
 } @else {
   <div class="empty-table">

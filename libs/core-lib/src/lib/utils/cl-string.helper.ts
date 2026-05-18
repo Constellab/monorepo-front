@@ -308,6 +308,21 @@ export class ClStringHelper {
   }
 
   /**
+   * Convert a human sentence to a snake_case identifier
+   * @param str
+   */
+  public static sentenceToSnakeCase(str: string): string {
+    if (str == null) return '';
+
+    return this.removeAccentFromString(str)
+      .trim()
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '_')
+      .replace(/^_|_$/g, '')
+      .replace(/^(\d)/, '_$1');
+  }
+
+  /**
    * Check if the string is an email
    * @param str
    * @returns boolean

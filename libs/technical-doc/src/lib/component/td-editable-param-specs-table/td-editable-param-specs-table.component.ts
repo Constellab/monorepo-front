@@ -1,5 +1,6 @@
-import { Component, inject, Input, input, output } from '@angular/core';
-import { ClHelpService, ClStringHelper } from '@monorepo/core-lib';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { Component, computed, inject, input, output } from '@angular/core';
+import { ClStringHelper } from '@monorepo/core-lib';
 import { FlArrayObs } from '@monorepo/front-core-lib/fl-core';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 
@@ -14,21 +15,37 @@ import { TD_TYPES_WITHOUT_DEFAULT_VALUE, TdParamSpecEntry } from '../../model/td
 export class TdEditableParamSpecsTableComponent {
   private translateService = inject(FlTranslateService);
 
-  @Input() columns: string[] = ['label', 'type', 'optional', 'default_value', 'additional_info', 'menu'];
+  columns = input<string[]>(['label', 'type', 'optional', 'default_value', 'additional_info', 'menu']);
+
+  reorderEnabled = input<boolean>(false);
+
+  displayedColumns = computed(() => {
+    const cols = this.columns();
+    if (this.reorderEnabled() && !cols.includes('drag')) {
+      return ['drag', ...cols];
+    }
+    return cols;
+  });
 
   table = input.required<FlArrayObs<TdParamSpecEntry>>();
 
   editElementClick = output<TdParamSpecEntry>();
   deleteElementClick = output<TdParamSpecEntry>();
+  reorderClick = output<string[]>();
 
-  edit(event: Event, entry: TdParamSpecEntry): void {
-    ClHelpService.stopEventPropagation(event);
+  edit(entry: TdParamSpecEntry): void {
     this.editElementClick.emit(entry);
   }
 
-  delete(event: Event, entry: TdParamSpecEntry): void {
-    ClHelpService.stopEventPropagation(event);
+  delete(entry: TdParamSpecEntry): void {
     this.deleteElementClick.emit(entry);
+  }
+
+  drop(event: CdkDragDrop<TdParamSpecEntry[]>): void {
+    const data = this.table().array;
+    moveItemInArray(data, event.previousIndex, event.currentIndex);
+    this.table().setData(data);
+    this.reorderClick.emit(data.map((entry) => entry.key));
   }
 
   getLabel(entry: TdParamSpecEntry): string {
