@@ -1,4 +1,16 @@
-import { Component, computed, effect, inject, input, model, output, signal, ViewChild } from '@angular/core';
+import {
+  Component,
+  computed,
+  DestroyRef,
+  effect,
+  inject,
+  input,
+  model,
+  output,
+  signal,
+  ViewChild,
+} from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatIcon } from '@angular/material/icon';
 import { FlAiModule } from '@monorepo/front-core-lib/fl-ai';
 import { FlJsonEditorModule } from '@monorepo/front-core-lib/fl-json-editor';
@@ -33,6 +45,7 @@ import { LiFormTemplateRefInlineComponent } from '../li-form-template-ref-inline
 })
 export class LiFormContentComponent {
   private formService = inject(LiFormService);
+  private destroyRef = inject(DestroyRef);
 
   @ViewChild(LiFormEditorComponent) private editor: LiFormEditorComponent;
 
@@ -87,10 +100,13 @@ export class LiFormContentComponent {
       this.form.set({ ...f, status: 'SUBMITTED' } as LiForm);
     }
     this.contentSubmitted.emit(content);
-    this.formService.getById(this.formId()).subscribe((form) => {
-      this.form.set(form);
-      this.formLoaded.emit(form);
-    });
+    this.formService
+      .getById(this.formId())
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((form) => {
+        this.form.set(form);
+        this.formLoaded.emit(form);
+      });
   }
 
   private loadForm(id: string): void {
@@ -100,17 +116,19 @@ export class LiFormContentComponent {
     forkJoin({
       form: this.formService.getById(id),
       content: this.formService.getContent(id),
-    }).subscribe({
-      next: ({ form, content }) => {
-        this.form.set(form);
-        this.formContent.set(content);
-        this.isLoading.set(false);
-        this.formLoaded.emit(form);
-      },
-      error: () => {
-        this.error.set('li.form_not_found');
-        this.isLoading.set(false);
-      },
-    });
+    })
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: ({ form, content }) => {
+          this.form.set(form);
+          this.formContent.set(content);
+          this.isLoading.set(false);
+          this.formLoaded.emit(form);
+        },
+        error: () => {
+          this.error.set('li.form_not_found');
+          this.isLoading.set(false);
+        },
+      });
   }
 }
