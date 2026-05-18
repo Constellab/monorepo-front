@@ -2,6 +2,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { inject, ModuleWithProviders, NgModule, Provider, Type } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
@@ -23,6 +24,7 @@ import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlDynamicFieldModule } from '@monorepo/front-core-lib/fl-dynamic-field';
 import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
+import { FlInputSearchModule } from '@monorepo/front-core-lib/fl-input-search';
 import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { FlMarkdownModule } from '@monorepo/front-core-lib/fl-markdown';
@@ -87,6 +89,7 @@ import { TD_TECHNICAL_DOC_I18N } from './td-technical-doc.i18n';
     MatInputModule,
     MatFormFieldModule,
     MatSelectModule,
+    MatAutocompleteModule,
     MatCheckboxModule,
     MatDatepickerModule,
     DragDropModule,
@@ -100,6 +103,7 @@ import { TD_TECHNICAL_DOC_I18N } from './td-technical-doc.i18n';
     FlThemeModule,
     FlDialogModule,
     FlFormModule,
+    FlInputSearchModule,
     FlCoreDirectiveModule,
     FlUserModule,
     FlDynamicFieldModule,

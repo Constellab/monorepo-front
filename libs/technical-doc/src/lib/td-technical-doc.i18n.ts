@@ -124,7 +124,7 @@ const tdTechnicalDocI18nFr: FlLangTranslation = {
     key_max_length: 'La clé ne doit pas dépasser 20 caractères',
     param_type: {
       str: 'Texte court',
-      text: 'Texte',
+      text: 'Paragraph',
       bool: 'Case à cocher',
       int: 'Entier',
       float: 'Décimal',
@@ -282,7 +282,7 @@ const tdTechnicalDocI18nEn: FlLangTranslation = {
     key_max_length: 'Key must not exceed 20 characters',
     param_type: {
       str: 'Short text',
-      text: 'Text',
+      text: 'Paragraph',
       bool: 'Checkbox',
       int: 'Integer',
       float: 'Decimal',

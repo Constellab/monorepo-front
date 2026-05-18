@@ -9,15 +9,29 @@
 
       <mat-form-field class="full-width">
         <mat-label>{{ 'td.type' | translate }}</mat-label>
-        <mat-select formControlName="type" (selectionChange)="onTypeChange($event.value)">
-          @for (group of groupedTypes(); track group.category) {
+        <input
+          matInput
+          required
+          [formControl]="typeSearchControl"
+          [matAutocomplete]="typeAuto"
+          [placeholder]="'td.type' | translate"
+          flAutocompleteForceSelection
+          [flAutocompleteForceSelectionControl]="typeSearchControl"
+          [flAutocompleteForceSelectionValue]="selectedType()"
+          [flAutocompleteForceSelectionIsValid]="isValidType" />
+        <mat-autocomplete
+          #typeAuto="matAutocomplete"
+          autoActiveFirstOption
+          [displayWith]="typeDisplayFn"
+          (optionSelected)="onTypeSelected($event.option.value)">
+          @for (group of filteredGroupedTypes(); track group.category) {
             <mat-optgroup [label]="'td.param_category.' + group.category | translate">
               @for (type of group.types; track type) {
                 <mat-option [value]="type">{{ 'td.param_type.' + type | translate }}</mat-option>
               }
             </mat-optgroup>
           }
-        </mat-select>
+        </mat-autocomplete>
       </mat-form-field>
 
       <mat-form-field class="full-width g-form-input">

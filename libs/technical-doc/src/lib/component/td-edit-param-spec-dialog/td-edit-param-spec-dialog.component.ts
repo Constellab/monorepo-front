@@ -64,6 +64,25 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
   readonly keyEditing = signal(false);
   readonly isButtonLoading = signal(false);
   readonly groupedTypes = signal<TdGroupedParamSpecTypes[]>([]);
+  readonly typeSearchControl = new FormControl('');
+  readonly typeSearchText = signal('');
+  readonly filteredGroupedTypes = computed(() => {
+    const search = this.typeSearchText().toLowerCase().trim();
+    const groups = this.groupedTypes();
+    if (!search) return groups;
+
+    return groups
+      .map((group) => ({
+        category: group.category,
+        types: group.types.filter((type) =>
+          this.translateService
+            .translate('td.param_type.' + type)
+            .toLowerCase()
+            .includes(search)
+        ),
+      }))
+      .filter((group) => group.types.length > 0);
+  });
   readonly isParamSetType = signal(false);
   readonly hideDefaultValue = signal(false);
   readonly selectedType = signal<TdParamSpecTypeEnum>(TdParamSpecTypeEnum.STR);
@@ -84,10 +103,29 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
   private keyManuallyEdited = false;
   private subscriptions = new ClSubscriptionHandler();
 
+  typeDisplayFn = (type: TdParamSpecTypeEnum): string => {
+    if (!type) return '';
+    return this.translateService.translate('td.param_type.' + type);
+  };
+
+  private allTypeValues = new Set(Object.values(TdParamSpecTypeEnum));
+  isValidType = (value: any): boolean => this.allTypeValues.has(value);
+
   ngOnInit(): void {
     const list = this.data.dynamicParamSpecState.getParamSpecsInfos();
     this.groupedTypes.set(tdBuildGroupedTypes(list));
     this.initForm();
+
+    this.typeSearchControl.valueChanges.subscribe((value) => {
+      this.typeSearchText.set(typeof value === 'string' ? value : '');
+    });
+  }
+
+  onTypeSelected(type: TdParamSpecTypeEnum): void {
+    this.formGroup.get('type').setValue(type);
+    this.typeSearchControl.setValue(type as any, { emitEvent: false });
+    this.typeSearchText.set('');
+    this.onTypeChange(type);
   }
 
   onTypeChange(type: TdParamSpecTypeEnum): void {
@@ -147,6 +185,7 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
       .openMediumDialog(TdEditParamSpecDialogComponent, {
         data: input,
         viewContainerRef: this.viewContainerRef,
+        autoFocus: false,
       })
       .afterClosed()
       .subscribe();
@@ -164,6 +203,7 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
       .openMediumDialog(TdEditParamSpecDialogComponent, {
         data: input,
         viewContainerRef: this.viewContainerRef,
+        autoFocus: false,
       })
       .afterClosed()
       .subscribe();
@@ -273,6 +313,7 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
     }
 
     const currentType = this.formGroup.get('type').value;
+    this.typeSearchControl.setValue(currentType, { emitEvent: false });
     this.isParamSetType.set(currentType === TdParamSpecTypeEnum.PARAM_SET);
     this.hideDefaultValue.set(TD_TYPES_WITHOUT_DEFAULT_VALUE.includes(currentType));
     this.selectedType.set(currentType);

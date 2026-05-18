@@ -50,6 +50,7 @@ export class LiFormTemplateDynamicParamSpecState
       .openMediumDialog(TdEditParamSpecDialogComponent, {
         data: input,
         viewContainerRef: this.viewContainerRef,
+        autoFocus: false,
       })
       .afterClosed()
       .subscribe((result: TdParamSpecs) => {

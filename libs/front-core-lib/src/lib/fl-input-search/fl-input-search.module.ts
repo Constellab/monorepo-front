@@ -10,11 +10,17 @@ import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scr
 
 import { FlLoaderModule } from '../fl-loader/fl-loader.module';
 import { FlInputSearchComponent } from './component/fl-input-search/fl-input-search.component';
+import { FlAutocompleteForceSelectionDirective } from './directive/fl-autocomplete-force-selection.directive';
 import { FlInputSearchOptionDirective } from './directive/fl-input-search-option.directive';
 import { FlInputSearchPrefixDirective } from './directive/fl-input-search-prefix.directive';
 
 @NgModule({
-  declarations: [FlInputSearchComponent, FlInputSearchOptionDirective, FlInputSearchPrefixDirective],
+  declarations: [
+    FlInputSearchComponent,
+    FlInputSearchOptionDirective,
+    FlInputSearchPrefixDirective,
+    FlAutocompleteForceSelectionDirective,
+  ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -28,6 +34,11 @@ import { FlInputSearchPrefixDirective } from './directive/fl-input-search-prefix
     FlInfiniteScrollModule,
     FlLoaderModule,
   ],
-  exports: [FlInputSearchComponent, FlInputSearchOptionDirective, FlInputSearchPrefixDirective],
+  exports: [
+    FlInputSearchComponent,
+    FlInputSearchOptionDirective,
+    FlInputSearchPrefixDirective,
+    FlAutocompleteForceSelectionDirective,
+  ],
 })
 export class FlInputSearchModule {}

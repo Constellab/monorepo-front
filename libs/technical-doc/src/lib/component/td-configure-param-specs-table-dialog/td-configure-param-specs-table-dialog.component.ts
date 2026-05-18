@@ -47,6 +47,7 @@ export class TdConfigureParamSpecsTableDialogComponent {
       .openMediumDialog(TdEditParamSpecDialogComponent, {
         data: input,
         viewContainerRef: this.viewContainerRef,
+        autoFocus: false,
       })
       .afterClosed()
       .subscribe((output: TdParamSpecs) => this.onEditClosed(output));
