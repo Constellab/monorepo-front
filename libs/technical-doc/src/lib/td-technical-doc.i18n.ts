@@ -150,6 +150,7 @@ const tdTechnicalDocI18nFr: FlLangTranslation = {
       lab_model_param: 'Modèle lab',
       computed_param: 'Formule',
       select_param: 'Liste de choix',
+      date_param: 'Date',
     },
     param_category: {
       simple: 'Simple',
@@ -157,6 +158,7 @@ const tdTechnicalDocI18nFr: FlLangTranslation = {
       lab_specific: 'Spécifique au lab',
       other: 'Autre',
     },
+    include_time: "Inclure l'heure",
   },
 };
 
@@ -306,6 +308,7 @@ const tdTechnicalDocI18nEn: FlLangTranslation = {
       lab_model_param: 'Lab model',
       computed_param: 'Formula',
       select_param: 'Select',
+      date_param: 'Date',
     },
     param_category: {
       simple: 'Simple',
@@ -313,6 +316,7 @@ const tdTechnicalDocI18nEn: FlLangTranslation = {
       lab_specific: 'Lab specific',
       other: 'Other',
     },
+    include_time: 'Include time',
   },
 };
 

@@ -4,7 +4,11 @@ import { ClStringHelper } from '@monorepo/core-lib';
 import { FlArrayObs } from '@monorepo/front-core-lib/fl-core';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 
-import { TD_TYPES_WITHOUT_DEFAULT_VALUE, TdParamSpecEntry } from '../../model/td-config-spec.class';
+import {
+  TD_TYPES_WITHOUT_DEFAULT_VALUE,
+  TdParamSpecEntry,
+  TdParamSpecTypeEnum,
+} from '../../model/td-config-spec.class';
 
 @Component({
   selector: 'td-editable-param-specs-table',
@@ -69,26 +73,26 @@ export class TdEditableParamSpecsTableComponent {
     if (!info || typeof info !== 'object') return [];
 
     switch (entry.spec.type) {
-      case 'str':
+      case TdParamSpecTypeEnum.STR:
         return this.buildItems(info, [
           { key: 'min_length', label: this.t('td.min_length') },
           { key: 'max_length', label: this.t('td.max_length') },
         ]);
 
-      case 'int':
-      case 'float':
+      case TdParamSpecTypeEnum.INT:
+      case TdParamSpecTypeEnum.FLOAT:
         return this.buildItems(info, [
           { key: 'min_value', label: this.t('td.min_value') },
           { key: 'max_value', label: this.t('td.max_value') },
         ]);
 
-      case 'computed_param':
+      case TdParamSpecTypeEnum.COMPUTED_PARAM:
         return this.buildItems(info, [
           { key: 'expression', label: this.t('td.expression') },
           { key: 'result_type', label: this.t('td.result_type') },
         ]);
 
-      case 'param_set':
+      case TdParamSpecTypeEnum.PARAM_SET:
         return this.buildItems(info, [
           { key: 'max_number_of_occurrences', label: this.t('td.max_number_of_occurrences') },
           {
@@ -98,10 +102,10 @@ export class TdEditableParamSpecsTableComponent {
           },
         ]);
 
-      case 'credentials_param':
+      case TdParamSpecTypeEnum.CREDENTIALS_PARAM:
         return this.buildItems(info, [{ key: 'credentials_type', label: this.t('td.credentials_type') }]);
 
-      case 'select_param':
+      case TdParamSpecTypeEnum.SELECT_PARAM:
         return this.buildItems(info, [
           {
             key: 'allowed_values',
@@ -109,6 +113,13 @@ export class TdEditableParamSpecsTableComponent {
             format: (v) => (Array.isArray(v) ? v.map((o: any) => o.label ?? o.value).join(', ') : String(v)),
           },
           { key: 'multiple', label: this.t('td.allow_multiple') },
+        ]);
+
+      case TdParamSpecTypeEnum.DATE_PARAM:
+        return this.buildItems(info, [
+          { key: 'include_time', label: this.t('td.include_time') },
+          { key: 'min_value', label: this.t('td.min_value') },
+          { key: 'max_value', label: this.t('td.max_value') },
         ]);
 
       default:

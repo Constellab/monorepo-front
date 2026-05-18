@@ -1,0 +1,21 @@
+<div class="fl-datetime-picker">
+  <mat-form-field>
+    @if (label()) {
+      <mat-label>{{ label() }}</mat-label>
+    }
+    <input matInput [matDatepicker]="datepicker" [formControl]="dateControl" [min]="min()" [max]="max()" />
+    <mat-datepicker-toggle matSuffix [for]="datepicker" />
+    <mat-datepicker #datepicker />
+    @if (hint()) {
+      <mat-hint>{{ hint() }}</mat-hint>
+    }
+  </mat-form-field>
+
+  @if (mode() === 'datetime') {
+    <mat-form-field>
+      <input matInput [matTimepicker]="timepicker" [formControl]="timeControl" />
+      <mat-timepicker-toggle matSuffix [for]="timepicker" />
+      <mat-timepicker #timepicker />
+    </mat-form-field>
+  }
+</div>

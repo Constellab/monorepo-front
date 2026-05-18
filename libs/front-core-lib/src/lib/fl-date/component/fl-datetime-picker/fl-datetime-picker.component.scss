@@ -1,0 +1,14 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.fl-datetime-picker {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+
+  mat-form-field {
+    flex: 1;
+  }
+}

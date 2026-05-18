@@ -26,6 +26,7 @@ export enum TdParamSpecTypeEnum {
   COMPUTED_PARAM = 'computed_param',
   PARAM_SET = 'param_set',
   SELECT_PARAM = 'select_param',
+  DATE_PARAM = 'date_param',
 }
 
 /**
@@ -88,7 +89,8 @@ export type TdParamSpec =
   | TdParamSpecParamSet
   | TdParamSpecDynamic
   | TdParamSpecComputed
-  | TdParamSpecSelect;
+  | TdParamSpecSelect
+  | TdParamSpecDate;
 
 export type TdParamSpecs = Record<string, TdParamSpec>;
 /**
@@ -99,7 +101,8 @@ export type TdParamSpecSimple =
   | TdParamSpecText
   | TdParamSpecFloat
   | TdParamSelectCredentials
-  | TdParamSpecBasic;
+  | TdParamSpecBasic
+  | TdParamSpecDate;
 
 /**
  * Param for short string
@@ -205,6 +208,16 @@ export interface TdSelectParamOption {
   value: string | number | boolean | null;
 }
 
+export interface TdParamSpecDate extends TdParamSpecBase {
+  type: TdParamSpecTypeEnum.DATE_PARAM;
+
+  additional_info: {
+    include_time: boolean;
+    min_value: string | null;
+    max_value: string | null;
+  };
+}
+
 export interface TdParamSpecSelect extends TdParamSpecBase {
   type: TdParamSpecTypeEnum.SELECT_PARAM;
 
@@ -243,6 +256,7 @@ export const TD_PARAM_SPEC_INFO_LIST: TdParamSpecInfo[] = [
   { type: TdParamSpecTypeEnum.INT, category: TdParamSpecCategory.SIMPLE },
   { type: TdParamSpecTypeEnum.FLOAT, category: TdParamSpecCategory.SIMPLE },
   { type: TdParamSpecTypeEnum.SELECT_PARAM, category: TdParamSpecCategory.SIMPLE },
+  { type: TdParamSpecTypeEnum.DATE_PARAM, category: TdParamSpecCategory.SIMPLE },
 
   // Code params
   { type: TdParamSpecTypeEnum.JSON_CODE_PARAM, category: TdParamSpecCategory.CODE },

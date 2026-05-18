@@ -26,19 +26,19 @@ export class LiCodeEditorDynamicFieldComponent extends FlDynamicFieldAbstractDir
 
   private getCodeEditorLanguage(): FlCodeEditorLanguage {
     switch (this.specType) {
-      case 'python_code_param':
+      case TdParamSpecTypeEnum.PYTHON_CODE_PARAM:
         return 'python';
-      case 'r_code_param':
+      case TdParamSpecTypeEnum.R_CODE_PARAM:
         return 'r';
-      case 'bash_code_param':
+      case TdParamSpecTypeEnum.BASH_CODE_PARAM:
         return 'shell';
-      case 'json_code_param':
+      case TdParamSpecTypeEnum.JSON_CODE_PARAM:
         return 'json';
-      case 'yaml_code_param':
+      case TdParamSpecTypeEnum.YAML_CODE_PARAM:
         return 'yaml';
-      case 'julia_code_param':
+      case TdParamSpecTypeEnum.JULIA_CODE_PARAM:
         return 'julia';
-      case 'perl_code_param':
+      case TdParamSpecTypeEnum.PERL_CODE_PARAM:
         return 'perl';
       default:
         throw new Error(`Unknown spec type ${this.specType}`);

@@ -7,7 +7,7 @@
 
 <mat-dialog-content>
   <form (ngSubmit)="submit()" id="timestamp-form" [formGroup]="formGp">
-    <div class="g-layout-row-wrap g-layout-between-center ">
+    <div class="g-layout-row-wrap g-layout-between-center">
       <!--  Timestamp  -->
       <mat-form-field class="field">
         <mat-label>{{ 'teTextEditor.timestamp_format_date' | translate }}</mat-label>
@@ -56,6 +56,6 @@
 
 <div mat-dialog-actions>
   <button mat-flat-button type="submit" form="timestamp-form" class="g-centered-forced primary">
-    {{ 'save' | translate }}
+    {{ 'teTextEditor.save' | translate }}
   </button>
 </div>

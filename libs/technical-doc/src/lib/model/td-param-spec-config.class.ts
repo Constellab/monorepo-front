@@ -2,6 +2,7 @@ import {
   FlDynamicFieldConfig,
   FlDynamicFieldConfigBase,
   FlDynamicFieldConfigBoolean,
+  FlDynamicFieldConfigDate,
   FlDynamicFieldConfigInput,
   FlDynamicFieldConfigList,
   FlDynamicFieldConfigSelect,
@@ -13,18 +14,23 @@ import {
   TD_CODE_PARAM_SPEC_TYPE_LIST,
   TdParamSpec,
   TdParamSpecBase,
+  TdParamSpecDate,
   TdParamSpecSelect,
   TdParamSpecSimple,
+  TdParamSpecTypeEnum,
 } from './td-config-spec.class';
 
 export class TdParamSpecConfig {
   public static convertParamSpecToAbstractConfig(
     spec: TdParamSpecSimple | TdParamSpecSelect | TdParamSpecBase
   ): FlDynamicFieldConfig {
-    if (spec.type === 'select_param') {
+    if (spec.type === TdParamSpecTypeEnum.SELECT_PARAM) {
       return TdParamSpecConfig.convertSelectParam(spec as TdParamSpecSelect);
     }
-    if (spec.type === 'computed_param') {
+    if (spec.type === TdParamSpecTypeEnum.DATE_PARAM) {
+      return TdParamSpecConfig.convertDateParam(spec as TdParamSpecDate);
+    }
+    if (spec.type === TdParamSpecTypeEnum.COMPUTED_PARAM) {
       const config: FlDynamicFieldConfigUnknown = TdParamSpecConfig.convertToBaseFieldConfig(spec) as any;
       config.type = 'computed';
       config.disabled = true;
@@ -49,50 +55,50 @@ export class TdParamSpecConfig {
         return config;
       }
     }
-    if (spec.type === 'bool') {
+    if (spec.type === TdParamSpecTypeEnum.BOOL) {
       const config: FlDynamicFieldConfigBoolean = TdParamSpecConfig.convertToBaseFieldConfig(spec) as any;
       config.type = 'boolean';
       return config;
-    } else if (spec.type === 'list') {
+    } else if (spec.type === TdParamSpecTypeEnum.LIST) {
       const config: FlDynamicFieldConfigList = TdParamSpecConfig.convertToBaseFieldConfig(spec) as any;
       config.type = 'list';
       return config;
-    } else if (spec.type === 'text' || spec.type === 'dict') {
+    } else if (spec.type === TdParamSpecTypeEnum.TEXT || spec.type === TdParamSpecTypeEnum.DICT) {
       const config: FlDynamicFieldConfig = TdParamSpecConfig.convertToBaseFieldConfig(spec) as any;
       config.type = 'textarea';
       config.fullWidth = true;
       return config;
-    } else if (spec.type === 'tags_param') {
+    } else if (spec.type === TdParamSpecTypeEnum.TAGS_PARAM) {
       const config: FlDynamicFieldConfig = TdParamSpecConfig.convertToBaseFieldConfig(spec) as any;
       config.type = 'tags_param';
       return config;
-    } else if (spec.type === 'open_ai_chat_param') {
+    } else if (spec.type === TdParamSpecTypeEnum.OPEN_AI_CHAT_PARAM) {
       const config: FlDynamicFieldConfig = TdParamSpecConfig.convertToBaseFieldConfig(spec) as any;
       config.type = 'open_ai_chat_param';
       config.fullWidth = true;
       return config;
-    } else if (spec.type === 'credentials_param') {
+    } else if (spec.type === TdParamSpecTypeEnum.CREDENTIALS_PARAM) {
       const config: FlDynamicFieldConfigUnknown = TdParamSpecConfig.convertToBaseFieldConfig(spec) as any;
       config.type = 'credentials_param';
       config.additionalInfo = { credentialsType: spec.additional_info.credentials_type };
       return config;
-    } else if (spec.type === 'lab_model_param') {
+    } else if (spec.type === TdParamSpecTypeEnum.LAB_MODEL_PARAM) {
       const config: FlDynamicFieldConfigUnknown = TdParamSpecConfig.convertToBaseFieldConfig(spec) as any;
       config.type = 'lab_model_param';
       return config;
-    } else if (spec.type === 'note_template_param') {
+    } else if (spec.type === TdParamSpecTypeEnum.NOTE_TEMPLATE_PARAM) {
       const config: FlDynamicFieldConfigUnknown = TdParamSpecConfig.convertToBaseFieldConfig(spec) as any;
       config.type = 'note_template_param';
       return config;
-    } else if (spec.type === 'note_param') {
+    } else if (spec.type === TdParamSpecTypeEnum.NOTE_PARAM) {
       const config: FlDynamicFieldConfigUnknown = TdParamSpecConfig.convertToBaseFieldConfig(spec) as any;
       config.type = 'note_param';
       return config;
-    } else if (spec.type === 'scenario_param') {
+    } else if (spec.type === TdParamSpecTypeEnum.SCENARIO_PARAM) {
       const config: FlDynamicFieldConfigUnknown = TdParamSpecConfig.convertToBaseFieldConfig(spec) as any;
       config.type = 'scenario_param';
       return config;
-    } else if (spec.type === 'space_folder_param') {
+    } else if (spec.type === TdParamSpecTypeEnum.SPACE_FOLDER_PARAM) {
       const config: FlDynamicFieldConfigUnknown = TdParamSpecConfig.convertToBaseFieldConfig(spec) as any;
       config.type = 'space_folder_param';
       return config;
@@ -101,12 +107,12 @@ export class TdParamSpecConfig {
       config.type = spec.type;
       config.fullWidth = true;
       return config;
-    } else if (spec.type === 'rich_text_param') {
+    } else if (spec.type === TdParamSpecTypeEnum.RICH_TEXT_PARAM) {
       const config: FlDynamicFieldConfig = TdParamSpecConfig.convertToBaseFieldConfig(spec) as any;
       config.type = 'rich_text_param';
       config.fullWidth = true;
       return config;
-    } else if (spec.type === 'str') {
+    } else if (spec.type === TdParamSpecTypeEnum.STR) {
       const config: FlDynamicFieldConfigInput = TdParamSpecConfig.convertToBaseFieldConfig(spec) as any;
       config.type = 'input';
       config.inputType = 'text';
@@ -114,14 +120,14 @@ export class TdParamSpecConfig {
       config.minLength = spec.additional_info.min_length;
       config.maxLength = spec.additional_info.max_length;
       return config;
-    } else if (spec.type === 'int' || spec.type === 'float') {
+    } else if (spec.type === TdParamSpecTypeEnum.INT || spec.type === TdParamSpecTypeEnum.FLOAT) {
       const config: FlDynamicFieldConfigInput = TdParamSpecConfig.convertToBaseFieldConfig(spec) as any;
       config.type = 'input';
       config.inputType = 'number';
       config.suffix = spec.unit;
       config.min = spec.additional_info.min_value;
       config.max = spec.additional_info.max_value;
-      config.integer = spec.type === 'int';
+      config.integer = spec.type === TdParamSpecTypeEnum.INT;
       return config;
     } else {
       // raise error for unknown type
@@ -149,6 +155,15 @@ export class TdParamSpecConfig {
     config.type = 'select';
     config.multiple = isMultiple;
     config.selectOptions = isMultiple ? options : [noneOption, ...options];
+    return config;
+  }
+
+  private static convertDateParam(spec: TdParamSpecDate): FlDynamicFieldConfig {
+    const config: FlDynamicFieldConfigDate = TdParamSpecConfig.convertToBaseFieldConfig(spec) as any;
+    config.type = 'date';
+    config.includeTime = !!spec.additional_info?.include_time;
+    config.minValue = spec.additional_info?.min_value ?? null;
+    config.maxValue = spec.additional_info?.max_value ?? null;
     return config;
   }
 

@@ -216,6 +216,31 @@
           }
         </div>
       }
+      @case ('date_param') {
+        <mat-divider></mat-divider>
+        <div class="section" formGroupName="additional_info">
+          <h4 class="section-title">{{ 'td.additional_info' | translate }}</h4>
+          <div class="checkbox-row">
+            <mat-checkbox formControlName="include_time">
+              {{ 'td.include_time' | translate }}
+            </mat-checkbox>
+          </div>
+          <div class="row">
+            <mat-form-field class="half-width">
+              <mat-label>{{ 'td.min_value' | translate }}</mat-label>
+              <input matInput [matDatepicker]="minDatepicker" formControlName="min_value" />
+              <mat-datepicker-toggle matSuffix [for]="minDatepicker" />
+              <mat-datepicker #minDatepicker />
+            </mat-form-field>
+            <mat-form-field class="half-width">
+              <mat-label>{{ 'td.max_value' | translate }}</mat-label>
+              <input matInput [matDatepicker]="maxDatepicker" formControlName="max_value" />
+              <mat-datepicker-toggle matSuffix [for]="maxDatepicker" />
+              <mat-datepicker #maxDatepicker />
+            </mat-form-field>
+          </div>
+        </div>
+      }
     }
 
     <mat-divider></mat-divider>

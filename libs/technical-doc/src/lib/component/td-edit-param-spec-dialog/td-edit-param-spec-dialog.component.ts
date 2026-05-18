@@ -16,6 +16,7 @@ import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlDynamicFieldConfig } from '@monorepo/front-core-lib/fl-dynamic-field';
 import { FlOverlayRef, FlPortalService } from '@monorepo/front-core-lib/fl-portal';
 import { FlTranslatableText, FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+import { DateTime } from 'luxon';
 import { Observable } from 'rxjs';
 
 import {
@@ -332,41 +333,52 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
     let group: FormGroup | null = null;
 
     switch (type) {
-      case 'str':
+      case TdParamSpecTypeEnum.STR:
         group = new FormGroup({
           min_length: new FormControl(initialValue?.min_length ?? null),
           max_length: new FormControl(initialValue?.max_length ?? null),
         });
         break;
-      case 'int':
-      case 'float':
+      case TdParamSpecTypeEnum.INT:
+      case TdParamSpecTypeEnum.FLOAT:
         group = new FormGroup({
           min_value: new FormControl(initialValue?.min_value ?? null),
           max_value: new FormControl(initialValue?.max_value ?? null),
         });
         break;
-      case 'computed_param':
+      case TdParamSpecTypeEnum.COMPUTED_PARAM:
         group = new FormGroup({
           expression: new FormControl(initialValue?.expression ?? null, Validators.required),
         });
         break;
-      case 'param_set':
+      case TdParamSpecTypeEnum.PARAM_SET:
         group = new FormGroup({
           max_number_of_occurrences: new FormControl(initialValue?.max_number_of_occurrences ?? null),
         });
         break;
-      case 'credentials_param':
+      case TdParamSpecTypeEnum.CREDENTIALS_PARAM:
         group = new FormGroup({
           credentials_type: new FormControl(initialValue?.credentials_type ?? null),
         });
         break;
-      case 'select_param':
+      case TdParamSpecTypeEnum.SELECT_PARAM:
         group = new FormGroup({
           options: new FormControl(
             initialValue?.options ?? [{ label: null, value: null }],
             Validators.required
           ),
           multiple: new FormControl(initialValue?.multiple ?? false),
+        });
+        break;
+      case TdParamSpecTypeEnum.DATE_PARAM:
+        group = new FormGroup({
+          include_time: new FormControl(initialValue?.include_time ?? false),
+          min_value: new FormControl(
+            initialValue?.min_value ? DateTime.fromISO(initialValue.min_value) : null
+          ),
+          max_value: new FormControl(
+            initialValue?.max_value ? DateTime.fromISO(initialValue.max_value) : null
+          ),
         });
         break;
     }
@@ -389,6 +401,17 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
       specValue.additional_info = {
         ...specValue.additional_info,
         param_set: this.subParamSpecState.getCurrentSpecs(),
+      };
+    }
+
+    if (specValue.type === TdParamSpecTypeEnum.DATE_PARAM && specValue.additional_info) {
+      const info = specValue.additional_info;
+      specValue.additional_info = {
+        ...info,
+        min_value:
+          info.min_value instanceof DateTime ? info.min_value.toFormat('yyyy-MM-dd') : info.min_value,
+        max_value:
+          info.max_value instanceof DateTime ? info.max_value.toFormat('yyyy-MM-dd') : info.max_value,
       };
     }
 

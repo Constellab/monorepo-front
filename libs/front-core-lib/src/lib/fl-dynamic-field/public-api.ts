@@ -5,6 +5,7 @@ export * from './fl-dynamic-field.module';
 export * from './component/fl-dynamic-abstract-form/fl-dynamic-abstract-form.component';
 export * from './component/fl-dynamic-field/fl-dynamic-field.component';
 export * from './component/fl-dynamic-field-boolean/fl-dynamic-field-boolean.component';
+export * from './component/fl-dynamic-field-date/fl-dynamic-field-date.component';
 export * from './component/fl-dynamic-field-form-dialog/fl-dynamic-field-form-dialog.component';
 export * from './component/fl-dynamic-field-input/fl-dynamic-field-input.component';
 export * from './component/fl-dynamic-field-select/fl-dynamic-field-select.component';

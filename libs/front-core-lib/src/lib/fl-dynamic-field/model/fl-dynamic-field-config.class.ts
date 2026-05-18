@@ -55,6 +55,7 @@ export type FlDynamicFieldConfig =
   | FlDynamicFieldConfigList
   | FlDynamicFieldConfigBoolean
   | FlDynamicFieldConfigTextArea
+  | FlDynamicFieldConfigDate
   | FlDynamicFieldConfigUnknown;
 
 export interface FlDynamicFieldConfigBase extends FlDynamicFormConfigBase {
@@ -120,6 +121,17 @@ export interface FlDynamicFieldConfigBoolean extends FlDynamicFieldConfigBase {
 
 export interface FlDynamicFieldConfigTextArea extends FlDynamicFieldConfigBase {
   type: 'textarea';
+}
+
+export interface FlDynamicFieldConfigDate extends FlDynamicFieldConfigBase {
+  type: 'date';
+
+  /** When true, show date + time picker; when false, date only */
+  includeTime: boolean;
+  /** Minimum allowed value as ISO 8601 string */
+  minValue?: string | null;
+  /** Maximum allowed value as ISO 8601 string */
+  maxValue?: string | null;
 }
 
 // use for additional type configured outside the library

@@ -17,6 +17,7 @@ import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 
 import { FlCardModule } from '../fl-card/fl-card.module';
 import { FlCorePipeModule } from '../fl-core-pipe/fl-core-pipe.module';
+import { FlDateModule } from '../fl-date/fl-date.module';
 import { FlFormModule } from '../fl-form/fl-form.module';
 import { FlSectionModule } from '../fl-section/fl-section.module';
 import { FlTranslateModule } from '../fl-translate/fl-translate.module';
@@ -24,6 +25,7 @@ import { FlUserModule } from '../fl-user/fl-user.module';
 import { FlDynamicAbstractFormComponent } from './component/fl-dynamic-abstract-form/fl-dynamic-abstract-form.component';
 import { FlDynamicFieldComponent } from './component/fl-dynamic-field/fl-dynamic-field.component';
 import { FlDynamicFieldBooleanComponent } from './component/fl-dynamic-field-boolean/fl-dynamic-field-boolean.component';
+import { FlDynamicFieldDateComponent } from './component/fl-dynamic-field-date/fl-dynamic-field-date.component';
 import { FlDynamicFieldFormDialogComponent } from './component/fl-dynamic-field-form-dialog/fl-dynamic-field-form-dialog.component';
 import { FlDynamicFieldInputComponent } from './component/fl-dynamic-field-input/fl-dynamic-field-input.component';
 import { FlDynamicFieldListComponent } from './component/fl-dynamic-field-list/fl-dynamic-field-list.component';
@@ -49,6 +51,7 @@ import { FL_DYNAMIC_FIELD_I18N } from './i18n/fl-dynamic-field.i18n';
     FlDynamicFieldInputComponent,
     FlDynamicFieldSelectComponent,
     FlDynamicFieldBooleanComponent,
+    FlDynamicFieldDateComponent,
     FlDynamicFieldListComponent,
     FlDynamicFieldTextareaComponent,
     FlDynamicFieldSelectSearchComponent,
@@ -82,6 +85,7 @@ import { FL_DYNAMIC_FIELD_I18N } from './i18n/fl-dynamic-field.i18n';
     FlFormModule,
     FlSectionModule,
     FlCardModule,
+    FlDateModule,
     FlInputSearchModule,
     FlUserModule,
     FlDialogModule,

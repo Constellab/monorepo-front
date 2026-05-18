@@ -1,8 +1,10 @@
 import { ComponentRef, Injectable, ViewContainerRef } from '@angular/core';
 import { AbstractControl, FormControl } from '@angular/forms';
+import { DateTime } from 'luxon';
 
 import { FlDynamicFieldComponent } from '../component/fl-dynamic-field/fl-dynamic-field.component';
 import { FlDynamicFieldBooleanComponent } from '../component/fl-dynamic-field-boolean/fl-dynamic-field-boolean.component';
+import { FlDynamicFieldDateComponent } from '../component/fl-dynamic-field-date/fl-dynamic-field-date.component';
 import { FlDynamicFieldInputComponent } from '../component/fl-dynamic-field-input/fl-dynamic-field-input.component';
 import { FlDynamicFieldListComponent } from '../component/fl-dynamic-field-list/fl-dynamic-field-list.component';
 import { FlDynamicFieldSelectComponent } from '../component/fl-dynamic-field-select/fl-dynamic-field-select.component';
@@ -15,6 +17,7 @@ import { FlDynamicFieldAbstractDirective } from './fl-dynamic-field-abstract.dir
 import {
   FlDynamicFieldConfig,
   FlDynamicFieldConfigBase,
+  FlDynamicFieldConfigDate,
   FlDynamicFieldConfigInput,
   FlDynamicFieldConfigList,
   FlDynamicFieldConfigSelect,
@@ -98,6 +101,9 @@ export class FlDynamicFieldConfigService {
         case 'textarea':
           viewComponentRef = this.createTextareaComponent(viewContainer);
           break;
+        case 'date':
+          viewComponentRef = this.createDateComponent(viewContainer, config as FlDynamicFieldConfigDate);
+          break;
         default:
           throw new Error('Unknown type: ' + config.type);
       }
@@ -170,6 +176,17 @@ export class FlDynamicFieldConfigService {
     viewContainer: ViewContainerRef
   ): ComponentRef<FlDynamicFieldAbstractDirective> {
     return viewContainer.createComponent(FlDynamicFieldTextareaComponent);
+  }
+
+  private createDateComponent(
+    viewContainer: ViewContainerRef,
+    config: FlDynamicFieldConfigDate
+  ): ComponentRef<FlDynamicFieldAbstractDirective> {
+    const component = viewContainer.createComponent(FlDynamicFieldDateComponent);
+    component.instance.includeTime = !!config.includeTime;
+    component.instance.minValue = config.minValue ? DateTime.fromISO(config.minValue) : null;
+    component.instance.maxValue = config.maxValue ? DateTime.fromISO(config.maxValue) : null;
+    return component;
   }
 
   ////////////////////////// GROUP //////////////////////////
