@@ -1,6 +1,27 @@
-import { TdParamSpecEntry } from '../../model/td-config-spec.class';
+import { TdParamSpecEntry, TdParamSpecParamSet, TdParamSpecTypeEnum } from '../../model/td-config-spec.class';
 
-const FIELD_TOKEN_REGEX = /@([a-zA-Z_][a-zA-Z0-9_]*)/g;
+const FIELD_TOKEN_REGEX = /@([a-zA-Z_][a-zA-Z0-9_]*(?:\[\]\.[a-zA-Z_][a-zA-Z0-9_]*)?)/g;
+
+export function tdBuildFieldSpecMap(specs: TdParamSpecEntry[]): Map<string, TdParamSpecEntry> {
+  const map = new Map<string, TdParamSpecEntry>();
+  for (const entry of specs) {
+    map.set(entry.key, entry);
+    if (entry.spec.type === TdParamSpecTypeEnum.PARAM_SET) {
+      const paramSet = (entry.spec as TdParamSpecParamSet).additional_info.param_set;
+      for (const [colKey, colSpec] of Object.entries(paramSet)) {
+        const compositeKey = `${entry.key}[].${colKey}`;
+        map.set(compositeKey, {
+          key: compositeKey,
+          spec: {
+            ...colSpec,
+            human_name: `${entry.spec.human_name || entry.key}[].${colSpec.human_name || colKey}`,
+          },
+        });
+      }
+    }
+  }
+  return map;
+}
 
 export interface TdExpressionTextSegment {
   type: 'text';

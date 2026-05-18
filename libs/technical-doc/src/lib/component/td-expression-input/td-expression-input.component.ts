@@ -15,8 +15,11 @@ import { FlFormFieldDirective } from '@monorepo/front-core-lib/fl-core';
 import { FlOverlayRef, FlPortalService } from '@monorepo/front-core-lib/fl-portal';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 
-import { TdParamSpecEntry } from '../../model/td-config-spec.class';
-import { TdParsedExpression } from '../td-expression-display/td-expression-display.helper';
+import { TdParamSpecEntry, TdParamSpecParamSet, TdParamSpecTypeEnum } from '../../model/td-config-spec.class';
+import {
+  tdBuildFieldSpecMap,
+  TdParsedExpression,
+} from '../td-expression-display/td-expression-display.helper';
 import { TD_EXPRESSION_FUNCTIONS, TdExpressionFunction } from './td-expression-input.model';
 
 @Component({
@@ -42,14 +45,35 @@ export class TdExpressionInputComponent extends FlFormFieldDirective<string> imp
   readonly autocompleteMode = signal<'field' | 'function' | null>(null);
   readonly tooltipSpec = signal<TdParamSpecEntry | null>(null);
 
-  readonly fieldSpecMap = computed(() => new Map(this.fieldSpecs().map((s) => [s.key, s])));
+  readonly fieldSpecMap = computed(() => tdBuildFieldSpecMap(this.fieldSpecs()));
+
+  private readonly flatFieldSuggestions = computed(() => {
+    const result: TdParamSpecEntry[] = [];
+    for (const entry of this.fieldSpecs()) {
+      if (entry.spec.type === TdParamSpecTypeEnum.PARAM_SET) {
+        const paramSet = (entry.spec as TdParamSpecParamSet).additional_info.param_set;
+        for (const [colKey, colSpec] of Object.entries(paramSet)) {
+          result.push({
+            key: `${entry.key}[].${colKey}`,
+            spec: {
+              ...colSpec,
+              human_name: `${entry.spec.human_name || entry.key}[].${colSpec.human_name || colKey}`,
+            },
+          });
+        }
+      } else {
+        result.push(entry);
+      }
+    }
+    return result;
+  });
 
   readonly filteredFieldSuggestions = computed(() => {
     const filterText = this.currentFilter();
     if (filterText == null) return [];
-    if (filterText === '') return this.fieldSpecs();
+    if (filterText === '') return this.flatFieldSuggestions();
     const lower = filterText.toLowerCase();
-    return this.fieldSpecs().filter((s) => {
+    return this.flatFieldSuggestions().filter((s) => {
       const keyMatch = s.key.toLowerCase().startsWith(lower);
       const nameMatch = (s.spec.human_name || '').toLowerCase().startsWith(lower);
       const descMatch = (s.spec.short_description || '').toLowerCase().includes(lower);
@@ -196,7 +220,7 @@ export class TdExpressionInputComponent extends FlFormFieldDirective<string> imp
     if (this.autocompleteMode() === 'field') {
       // Replace @partial with @key + trailing space
       const afterAt = text.substring(this.triggerCaretOffset + 1);
-      const partialMatch = afterAt.match(/^([a-zA-Z0-9_]*)/);
+      const partialMatch = afterAt.match(/^([a-zA-Z0-9_]*(?:\[\]\.[a-zA-Z0-9_]*)?)/);
       const partialLength = partialMatch?.[0]?.length ?? 0;
       const rest = text.substring(this.triggerCaretOffset + 1 + partialLength);
       const newText = beforeTrigger + '@' + entry.key + ' ' + rest;
@@ -211,7 +235,7 @@ export class TdExpressionInputComponent extends FlFormFieldDirective<string> imp
     } else {
       // Function mode context but user picked a field — insert @key + trailing space
       const afterWord = text.substring(this.triggerCaretOffset);
-      const partialMatch = afterWord.match(/^([a-zA-Z_]\w*)/);
+      const partialMatch = afterWord.match(/^([a-zA-Z_]\w*(?:\[\]\.\w*)?)/);
       const partialLength = partialMatch?.[0]?.length ?? 0;
       const rest = text.substring(this.triggerCaretOffset + partialLength);
       const newText = beforeTrigger + '@' + entry.key + ' ' + rest;
@@ -242,7 +266,7 @@ export class TdExpressionInputComponent extends FlFormFieldDirective<string> imp
     if (this.autocompleteMode() === 'field') {
       // Field mode context but user picked a function — replace @partial with fn(
       const afterAt = text.substring(this.triggerCaretOffset + 1);
-      const partialMatch = afterAt.match(/^([a-zA-Z0-9_]*)/);
+      const partialMatch = afterAt.match(/^([a-zA-Z0-9_]*(?:\[\]\.[a-zA-Z0-9_]*)?)/);
       const partialLength = partialMatch?.[0]?.length ?? 0;
       // Remove the @ trigger too
       const insertion = fn.name + '(';
@@ -257,7 +281,7 @@ export class TdExpressionInputComponent extends FlFormFieldDirective<string> imp
     } else {
       // Function mode — replace partial word with fn(
       const afterWord = text.substring(this.triggerCaretOffset);
-      const partialMatch = afterWord.match(/^([a-zA-Z_]\w*)/);
+      const partialMatch = afterWord.match(/^([a-zA-Z_]\w*(?:\[\]\.\w*)?)/);
       const partialLength = partialMatch?.[0]?.length ?? 0;
 
       const insertion = fn.name + '(';
@@ -530,7 +554,9 @@ export class TdExpressionInputComponent extends FlFormFieldDirective<string> imp
 
     while (i < modelOffset && i < modelText.length) {
       if (modelText[i] === '@') {
-        const match = modelText.substring(i).match(/^@([a-zA-Z_][a-zA-Z0-9_]*)/);
+        const match = modelText
+          .substring(i)
+          .match(/^@([a-zA-Z_][a-zA-Z0-9_]*(?:\[\]\.[a-zA-Z_][a-zA-Z0-9_]*)?)/);
         if (match) {
           const key = match[1];
           const entry = specMap.get(key);
@@ -648,7 +674,7 @@ export class TdExpressionInputComponent extends FlFormFieldDirective<string> imp
     for (let i = textBeforeCaret.length - 1; i >= 0; i--) {
       const ch = textBeforeCaret[i];
       if (ch === '@') return i;
-      if (!/[a-zA-Z0-9_]/.test(ch)) return null;
+      if (!/[a-zA-Z0-9_.[\]]/.test(ch)) return null;
     }
     return null;
   }

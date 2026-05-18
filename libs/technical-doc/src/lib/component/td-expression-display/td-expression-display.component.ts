@@ -12,7 +12,11 @@ import {
 import { FlOverlayRef, FlPortalService } from '@monorepo/front-core-lib/fl-portal';
 
 import { TdParamSpecEntry } from '../../model/td-config-spec.class';
-import { TdExpressionFieldSegment, TdParsedExpression } from './td-expression-display.helper';
+import {
+  tdBuildFieldSpecMap,
+  TdExpressionFieldSegment,
+  TdParsedExpression,
+} from './td-expression-display.helper';
 
 @Component({
   selector: 'td-expression-display',
@@ -31,7 +35,7 @@ export class TdExpressionDisplayComponent implements OnDestroy {
 
   readonly tooltipSpec = signal<TdParamSpecEntry | null>(null);
 
-  readonly fieldSpecMap = computed(() => new Map(this.fieldSpecs().map((s) => [s.key, s])));
+  readonly fieldSpecMap = computed(() => tdBuildFieldSpecMap(this.fieldSpecs()));
 
   readonly segments = computed(() => {
     const text = this.expression();
