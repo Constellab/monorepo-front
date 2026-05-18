@@ -159,6 +159,8 @@ const tdTechnicalDocI18nFr: FlLangTranslation = {
       other: 'Autre',
     },
     include_time: "Inclure l'heure",
+    form_view_table: 'Voir le tableau ({{count}} lignes)',
+    computed_expression_tooltip: 'Expression',
   },
 };
 
@@ -317,6 +319,8 @@ const tdTechnicalDocI18nEn: FlLangTranslation = {
       other: 'Other',
     },
     include_time: 'Include time',
+    form_view_table: 'View table ({{count}} rows)',
+    computed_expression_tooltip: 'Expression',
   },
 };
 

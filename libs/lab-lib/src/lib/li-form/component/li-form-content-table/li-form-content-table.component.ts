@@ -11,11 +11,10 @@ import {
   MatRowDef,
   MatTable,
 } from '@angular/material/table';
-import { TdParamSpec, TdParamSpecs } from '@monorepo/technical-doc';
+import { TdParamSpec, TdParamSpecs, TdParamValueComponent } from '@monorepo/technical-doc';
 import { TranslatePipe } from '@ngx-translate/core';
 
 import { liGetFieldDisplayName } from '../li-form-history/li-form-history.logic';
-import { LiFormValueComponent } from '../li-form-value/li-form-value.component';
 
 export interface LiFormContentTableRow {
   key: string;
@@ -41,7 +40,7 @@ export interface LiFormContentTableRow {
     MatRowDef,
     MatRow,
     TranslatePipe,
-    LiFormValueComponent,
+    TdParamValueComponent,
   ],
 })
 /**

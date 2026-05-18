@@ -1,0 +1,19 @@
+@if (isParamSet()) {
+  <button mat-stroked-button class="g-button-small" (click)="openParamSetDialog()">
+    {{ 'td.form_view_table' | translate: { count: paramSetRowCount() } }}
+  </button>
+} @else {
+  <div class="td-param-value-row">
+    <span>{{ displayValue() }}</span>
+    @if (expression()) {
+      <mat-icon
+        class="td-param-value-info"
+        [matTooltip]="('td.computed_expression_tooltip' | translate) + ': ' + expression()">
+        info_outline
+      </mat-icon>
+    }
+  </div>
+  @if (error()) {
+    <span class="td-param-value-error g-text-small">{{ error() }}</span>
+  }
+}

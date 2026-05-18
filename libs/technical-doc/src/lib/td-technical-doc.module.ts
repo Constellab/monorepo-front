@@ -49,7 +49,9 @@ import { TdIoDocsComponent } from './component/td-io-docs/td-io-docs.component';
 import { TdIoResourceComponent } from './component/td-io-resource/td-io-resource.component';
 import { TdMainDocComponent } from './component/td-main-doc/td-main-doc.component';
 import { TdOtherClassDocComponent } from './component/td-other-class-doc/td-other-class-doc.component';
+import { TdParamSetTableDialogComponent } from './component/td-param-set-table-dialog/td-param-set-table-dialog.component';
 import { TdParamSpecInlineComponent } from './component/td-param-spec-inline/td-param-spec-inline.component';
+import { TdParamValueComponent } from './component/td-param-value/td-param-value.component';
 import { TdProcessDocComponent } from './component/td-process-doc/td-process-doc.component';
 import { TdResourceDocComponent } from './component/td-resource-doc/td-resource-doc.component';
 import { TdResourceDocFuncInfoComponent } from './component/td-resource-doc-func-info/td-resource-doc-func-info.component';
@@ -110,6 +112,9 @@ import { TD_TECHNICAL_DOC_I18N } from './td-technical-doc.i18n';
     FlSectionModule,
     FlLoaderModule,
     FlMarkdownModule,
+
+    TdParamValueComponent,
+    TdParamSetTableDialogComponent,
   ],
   declarations: [
     TdResourceDocComponent,
@@ -176,6 +181,8 @@ import { TD_TECHNICAL_DOC_I18N } from './td-technical-doc.i18n';
     TdDynamicEditableFormGroupComponent,
     TdConfigureSpecsFormComponent,
     TdIconAutoColorPipe,
+    TdParamValueComponent,
+    TdParamSetTableDialogComponent,
   ],
 })
 export class TdTechnicalDocModule {

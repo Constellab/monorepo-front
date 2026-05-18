@@ -13,11 +13,11 @@ import {
   MatTable,
 } from '@angular/material/table';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
-import { TdParamSpecs } from '@monorepo/technical-doc';
 
-import { LiFormValueComponent } from '../li-form-value/li-form-value.component';
+import { TdParamSpecs } from '../../model/td-config-spec.class';
+import { TdParamValueComponent } from '../td-param-value/td-param-value.component';
 
-export interface LiFormParamSetTableDialogInput {
+export interface TdParamSetTableDialogInput {
   title: string;
   data: unknown[];
   specs: TdParamSpecs;
@@ -28,9 +28,9 @@ export interface LiFormParamSetTableDialogInput {
  * per spec key and one row per data entry.
  */
 @Component({
-  selector: 'li-form-param-set-table-dialog',
-  templateUrl: './li-form-param-set-table-dialog.component.html',
-  styleUrl: './li-form-param-set-table-dialog.component.scss',
+  selector: 'td-param-set-table-dialog',
+  templateUrl: './td-param-set-table-dialog.component.html',
+  styleUrl: './td-param-set-table-dialog.component.scss',
   imports: [
     FlDialogModule,
     MatDialogContent,
@@ -44,11 +44,11 @@ export interface LiFormParamSetTableDialogInput {
     MatHeaderRow,
     MatRowDef,
     MatRow,
-    LiFormValueComponent,
+    TdParamValueComponent,
   ],
 })
-export class LiFormParamSetTableDialogComponent {
-  data = inject<LiFormParamSetTableDialogInput>(MAT_DIALOG_DATA);
+export class TdParamSetTableDialogComponent {
+  data = inject<TdParamSetTableDialogInput>(MAT_DIALOG_DATA);
 
   get displayedColumns(): string[] {
     return Object.keys(this.data.specs);

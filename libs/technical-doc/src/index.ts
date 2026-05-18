@@ -37,6 +37,8 @@ export * from './lib/component/td-edit-param-spec-dialog/td-edit-param-spec-dial
 // eslint-disable-next-line max-len
 export * from './lib/component/td-configure-param-specs-table-dialog/td-configure-param-specs-table-dialog.component';
 export * from './lib/component/td-configure-specs-form/td-configure-specs-form.component';
+export * from './lib/component/td-param-value/td-param-value.component';
+export * from './lib/component/td-param-set-table-dialog/td-param-set-table-dialog.component';
 
 //service
 export * from './lib/service/td-technical-doc-service-config.config';

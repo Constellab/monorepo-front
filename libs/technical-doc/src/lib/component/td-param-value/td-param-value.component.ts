@@ -3,21 +3,22 @@ import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { TranslatePipe } from '@ngx-translate/core';
+
 import {
   TdComputedParamValue,
   TdParamSpec,
   TdParamSpecParamSet,
   TdParamSpecTypeEnum,
-} from '@monorepo/technical-doc';
-import { TranslatePipe } from '@ngx-translate/core';
+} from '../../model/td-config-spec.class';
 
 @Component({
-  selector: 'li-form-value',
-  templateUrl: './li-form-value.component.html',
-  styleUrl: './li-form-value.component.scss',
+  selector: 'td-param-value',
+  templateUrl: './td-param-value.component.html',
+  styleUrl: './td-param-value.component.scss',
   imports: [MatButton, MatIcon, MatTooltip, TranslatePipe],
 })
-export class LiFormValueComponent {
+export class TdParamValueComponent {
   private dialogService = inject(FlDialogService);
 
   value = input.required<unknown>();
@@ -52,9 +53,9 @@ export class LiFormValueComponent {
   openParamSetDialog(): void {
     const spec = this.spec() as TdParamSpecParamSet;
     const raw = this.value();
-    import('../li-form-param-set-table-dialog/li-form-param-set-table-dialog.component').then(
-      ({ LiFormParamSetTableDialogComponent }) => {
-        this.dialogService.openMediumDialog(LiFormParamSetTableDialogComponent, {
+    import('../td-param-set-table-dialog/td-param-set-table-dialog.component').then(
+      ({ TdParamSetTableDialogComponent }) => {
+        this.dialogService.openMediumDialog(TdParamSetTableDialogComponent, {
           data: {
             title: spec.human_name || '',
             data: Array.isArray(raw) ? raw : [],

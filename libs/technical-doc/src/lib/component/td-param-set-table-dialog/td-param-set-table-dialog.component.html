@@ -3,12 +3,12 @@
 </fl-dialog-header>
 
 <mat-dialog-content>
-  <mat-table [dataSource]="data.data" class="li-form-param-set-table">
+  <mat-table [dataSource]="data.data" class="td-param-set-table">
     @for (col of displayedColumns; track col) {
       <ng-container [matColumnDef]="col">
         <mat-header-cell *matHeaderCellDef>{{ getColumnHeader(col) }}</mat-header-cell>
         <mat-cell *matCellDef="let row">
-          <li-form-value [value]="row[col]" [spec]="data.specs[col]" />
+          <td-param-value [value]="row[col]" [spec]="data.specs[col]" />
         </mat-cell>
       </ng-container>
     }

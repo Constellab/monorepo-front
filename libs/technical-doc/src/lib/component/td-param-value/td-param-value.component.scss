@@ -1,16 +1,16 @@
 :host {
-  display: flex;
+  display: inline-flex;
   flex-direction: column;
   gap: 2px;
 }
 
-.li-form-value-row {
+.td-param-value-row {
   display: flex;
   align-items: center;
   gap: 4px;
 }
 
-.li-form-value-info {
+.td-param-value-info {
   font-size: 16px;
   width: 16px;
   height: 16px;
@@ -18,6 +18,6 @@
   cursor: help;
 }
 
-.li-form-value-error {
+.td-param-value-error {
   color: var(--warn-color);
 }

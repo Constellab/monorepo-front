@@ -4,11 +4,7 @@ import { ClStringHelper } from '@monorepo/core-lib';
 import { FlArrayObs } from '@monorepo/front-core-lib/fl-core';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 
-import {
-  TD_TYPES_WITHOUT_DEFAULT_VALUE,
-  TdParamSpecEntry,
-  TdParamSpecTypeEnum,
-} from '../../model/td-config-spec.class';
+import { TdParamSpecEntry, TdParamSpecTypeEnum } from '../../model/td-config-spec.class';
 
 @Component({
   selector: 'td-editable-param-specs-table',
@@ -17,6 +13,12 @@ import {
   standalone: false,
 })
 export class TdEditableParamSpecsTableComponent {
+  private static readonly TYPES_WITHOUT_OPTIONAL = [TdParamSpecTypeEnum.COMPUTED_PARAM];
+  private static readonly TYPES_WITHOUT_DEFAULT = [
+    TdParamSpecTypeEnum.COMPUTED_PARAM,
+    TdParamSpecTypeEnum.PARAM_SET,
+  ];
+
   private translateService = inject(FlTranslateService);
 
   columns = input<string[]>(['label', 'type', 'optional', 'default_value', 'additional_info', 'menu']);
@@ -52,20 +54,16 @@ export class TdEditableParamSpecsTableComponent {
     this.reorderClick.emit(data.map((entry) => entry.key));
   }
 
-  getLabel(entry: TdParamSpecEntry): string {
-    return entry.spec.human_name || ClStringHelper.capitalize(entry.key);
+  showOptional(entry: TdParamSpecEntry): boolean {
+    return !TdEditableParamSpecsTableComponent.TYPES_WITHOUT_OPTIONAL.includes(entry.spec.type);
   }
 
-  formatDefaultValue(entry: TdParamSpecEntry): string {
-    if (TD_TYPES_WITHOUT_DEFAULT_VALUE.includes(entry.spec.type)) return '';
-    const value = entry.spec.default_value;
-    if (value == null) return '';
-    if (value?.name) return value.name;
-    if (value?.title) return value.title;
-    if (value?.id) return value.id;
-    if (typeof value === 'object' && !Array.isArray(value)) return 'object';
-    const str = String(value);
-    return str.length > 20 ? str.substring(0, 20) + '...' : str;
+  showDefaultValue(entry: TdParamSpecEntry): boolean {
+    return !TdEditableParamSpecsTableComponent.TYPES_WITHOUT_DEFAULT.includes(entry.spec.type);
+  }
+
+  getLabel(entry: TdParamSpecEntry): string {
+    return entry.spec.human_name || ClStringHelper.capitalize(entry.key);
   }
 
   getAdditionalInfoItems(entry: TdParamSpecEntry): { key: string; label: string; value: string }[] {
