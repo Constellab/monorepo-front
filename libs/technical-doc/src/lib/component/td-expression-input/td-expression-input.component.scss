@@ -35,6 +35,11 @@
     font-weight: 500;
     cursor: default;
   }
+
+  ::ng-deep .td-field-token-outer {
+    background-color: color-mix(in srgb, var(--mat-sys-tertiary) 12%, transparent);
+    color: var(--accent-color);
+  }
 }
 
 .td-expression-suggestions {
@@ -80,6 +85,32 @@
 .td-suggestion-empty {
   padding: 8px 12px;
   color: var(--light-color);
+}
+
+.td-field-prefix {
+  font-family: monospace;
+  font-weight: 600;
+  color: var(--primary-color);
+  margin-right: 4px;
+}
+
+.td-outer-prefix {
+  font-family: monospace;
+  font-weight: 600;
+  color: var(--accent-color);
+  margin-right: 4px;
+}
+
+.td-suggestion-field {
+  display: flex;
+  align-items: center;
+  border-left: 3px solid var(--primary-color);
+}
+
+.td-suggestion-outer {
+  display: flex;
+  align-items: center;
+  border-left: 3px solid var(--accent-color);
 }
 
 // -- Tooltip --

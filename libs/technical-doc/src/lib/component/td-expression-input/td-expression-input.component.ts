@@ -34,6 +34,7 @@ export class TdExpressionInputComponent extends FlFormFieldDirective<string> imp
   private translateService = inject(FlTranslateService);
 
   fieldSpecs = input<TdParamSpecEntry[]>([]);
+  outerFieldSpecs = input<TdParamSpecEntry[]>([]);
 
   @ViewChild('editableDiv', { static: true }) editableDiv: ElementRef<HTMLDivElement>;
   @ViewChild('container', { static: true }) container: ElementRef<HTMLDivElement>;
@@ -42,10 +43,11 @@ export class TdExpressionInputComponent extends FlFormFieldDirective<string> imp
 
   readonly currentFilter = signal<string | null>(null);
   readonly hoveredIndex = signal(0);
-  readonly autocompleteMode = signal<'field' | 'function' | null>(null);
+  readonly autocompleteMode = signal<'field' | 'outerField' | 'function' | null>(null);
   readonly tooltipSpec = signal<TdParamSpecEntry | null>(null);
 
   readonly fieldSpecMap = computed(() => tdBuildFieldSpecMap(this.fieldSpecs()));
+  readonly outerFieldSpecMap = computed(() => tdBuildFieldSpecMap(this.outerFieldSpecs()));
 
   private readonly flatFieldSuggestions = computed(() => {
     const result: TdParamSpecEntry[] = [];
@@ -74,8 +76,23 @@ export class TdExpressionInputComponent extends FlFormFieldDirective<string> imp
     if (filterText === '') return this.flatFieldSuggestions();
     const lower = filterText.toLowerCase();
     return this.flatFieldSuggestions().filter((s) => {
-      const keyMatch = s.key.toLowerCase().startsWith(lower);
-      const nameMatch = (s.spec.human_name || '').toLowerCase().startsWith(lower);
+      const keyMatch = s.key.toLowerCase().includes(lower);
+      const nameMatch = (s.spec.human_name || '').toLowerCase().includes(lower);
+      const descMatch = (s.spec.short_description || '').toLowerCase().includes(lower);
+      return keyMatch || nameMatch || descMatch;
+    });
+  });
+
+  readonly filteredOuterFieldSuggestions = computed(() => {
+    const filterText = this.currentFilter();
+    if (filterText == null) return [];
+    const specs = this.outerFieldSpecs();
+    if (specs.length === 0) return [];
+    if (filterText === '') return specs;
+    const lower = filterText.toLowerCase();
+    return specs.filter((s) => {
+      const keyMatch = s.key.toLowerCase().includes(lower);
+      const nameMatch = (s.spec.human_name || '').toLowerCase().includes(lower);
       const descMatch = (s.spec.short_description || '').toLowerCase().includes(lower);
       return keyMatch || nameMatch || descMatch;
     });
@@ -103,7 +120,10 @@ export class TdExpressionInputComponent extends FlFormFieldDirective<string> imp
   });
 
   readonly totalSuggestionCount = computed(
-    () => this.filteredFieldSuggestions().length + this.filteredFunctionSuggestions().length
+    () =>
+      this.filteredOuterFieldSuggestions().length +
+      this.filteredFieldSuggestions().length +
+      this.filteredFunctionSuggestions().length
   );
 
   private overlayRef: FlOverlayRef | null = null;
@@ -253,6 +273,32 @@ export class TdExpressionInputComponent extends FlFormFieldDirective<string> imp
     this.editableDiv.nativeElement.focus();
   }
 
+  selectOuterFieldSuggestion(entry: TdParamSpecEntry): void {
+    const text = this._value;
+    if (this.triggerCaretOffset == null) {
+      this.closeSuggestions();
+      return;
+    }
+
+    const beforeTrigger = text.substring(0, this.triggerCaretOffset);
+    const afterDoubleAt = text.substring(this.triggerCaretOffset + 2);
+    const partialMatch = afterDoubleAt.match(/^([a-zA-Z0-9_]*)/);
+    const partialLength = partialMatch?.[0]?.length ?? 0;
+    const rest = text.substring(this.triggerCaretOffset + 2 + partialLength);
+    const newText = beforeTrigger + '@@' + entry.key + ' ' + rest;
+
+    this._value = newText;
+    this.emitCurrentValue();
+    this.renderHighlighted(newText);
+
+    const modelCaretPos = beforeTrigger.length + 2 + entry.key.length + 1;
+    const displayCaretPos = this.modelOffsetToDisplayOffset(newText, modelCaretPos);
+    this.setCaretAtOffset(displayCaretPos);
+
+    this.closeSuggestions();
+    this.editableDiv.nativeElement.focus();
+  }
+
   selectFunctionSuggestion(fn: TdExpressionFunction): void {
     const text = this._value;
 
@@ -307,7 +353,8 @@ export class TdExpressionInputComponent extends FlFormFieldDirective<string> imp
     }
     const key = target.getAttribute('data-key');
     if (!key) return;
-    const entry = this.fieldSpecMap().get(key);
+    const isOuter = target.hasAttribute('data-outer');
+    const entry = isOuter ? this.outerFieldSpecMap().get(key) : this.fieldSpecMap().get(key);
     if (!entry || this.tooltipOverlayRef) return;
 
     this.tooltipSpec.set(entry);
@@ -399,13 +446,15 @@ export class TdExpressionInputComponent extends FlFormFieldDirective<string> imp
       if (child.nodeType === Node.TEXT_NODE) {
         modelOffset += (child.textContent ?? '').replace(/\u200B/g, '').length;
       } else if (child instanceof HTMLElement && child.classList.contains('td-field-token')) {
-        modelOffset += 1 + (child.getAttribute('data-key') ?? '').length;
+        const childIsOuter = (child as HTMLElement).hasAttribute('data-outer');
+        modelOffset += (childIsOuter ? 2 : 1) + (child.getAttribute('data-key') ?? '').length;
       } else {
         modelOffset += (child.textContent ?? '').replace(/\u200B/g, '').length;
       }
     }
 
-    const modelTokenLen = 1 + tokenKey.length; // '@' + key
+    const isOuter = tokenSpan.hasAttribute('data-outer');
+    const modelTokenLen = (isOuter ? 2 : 1) + tokenKey.length;
     const modelText = this._value;
     const newText = modelText.substring(0, modelOffset) + modelText.substring(modelOffset + modelTokenLen);
 
@@ -473,7 +522,8 @@ export class TdExpressionInputComponent extends FlFormFieldDirective<string> imp
       if (node.nodeType === Node.TEXT_NODE) {
         result += (node.textContent ?? '').replace(/\u200B/g, '');
       } else if (node instanceof HTMLElement && node.classList.contains('td-field-token')) {
-        result += '@' + node.getAttribute('data-key');
+        const prefix = (node as HTMLElement).hasAttribute('data-outer') ? '@@' : '@';
+        result += prefix + node.getAttribute('data-key');
       } else {
         result += (node.textContent ?? '').replace(/\u200B/g, '');
       }
@@ -524,7 +574,8 @@ export class TdExpressionInputComponent extends FlFormFieldDirective<string> imp
       } else if (child instanceof HTMLElement && child.classList.contains('td-field-token')) {
         const displayLen = child.textContent?.length ?? 0;
         const key = child.getAttribute('data-key') ?? '';
-        const modelLen = key.length + 1; // +1 for '@'
+        const isOuter = child.hasAttribute('data-outer');
+        const modelLen = key.length + (isOuter ? 2 : 1);
         if (displayConsumed + displayLen >= displayOffset) {
           modelOffset += modelLen;
           return { modelText, displayOffset: modelOffset };
@@ -549,20 +600,23 @@ export class TdExpressionInputComponent extends FlFormFieldDirective<string> imp
 
   private modelOffsetToDisplayOffset(modelText: string, modelOffset: number): number {
     const specMap = this.fieldSpecMap();
+    const outerSpecMap = this.outerFieldSpecMap();
     let displayOffset = 0;
     let i = 0;
 
     while (i < modelOffset && i < modelText.length) {
       if (modelText[i] === '@') {
-        const match = modelText
-          .substring(i)
-          .match(/^@([a-zA-Z_][a-zA-Z0-9_]*(?:\[\]\.[a-zA-Z_][a-zA-Z0-9_]*)?)/);
+        const isOuter = modelText[i + 1] === '@';
+        const prefix = isOuter ? '@@' : '@';
+        const remainder = modelText.substring(i);
+        const match = remainder.match(/^@@?([a-zA-Z_][a-zA-Z0-9_]*(?:\[\]\.[a-zA-Z_][a-zA-Z0-9_]*)?)/);
         if (match) {
           const key = match[1];
-          const entry = specMap.get(key);
+          const lookupMap = isOuter ? outerSpecMap : specMap;
+          const entry = lookupMap.get(key);
           const displayName = entry?.spec.human_name || key;
-          const modelTokenLen = 1 + key.length;
-          const displayTokenLen = 1 + displayName.length;
+          const modelTokenLen = prefix.length + key.length;
+          const displayTokenLen = prefix.length + displayName.length;
 
           if (i + modelTokenLen <= modelOffset) {
             displayOffset += displayTokenLen;
@@ -589,7 +643,7 @@ export class TdExpressionInputComponent extends FlFormFieldDirective<string> imp
       div.innerHTML = '';
       return;
     }
-    div.innerHTML = new TdParsedExpression(text, this.fieldSpecMap()).buildHtml();
+    div.innerHTML = new TdParsedExpression(text, this.fieldSpecMap(), this.outerFieldSpecMap()).buildHtml();
   }
 
   // -- Caret utilities using TreeWalker --
@@ -633,12 +687,13 @@ export class TdExpressionInputComponent extends FlFormFieldDirective<string> imp
 
     const textBeforeCaret = text.substring(0, caretOffset);
 
-    // Try field trigger (@)
+    // Try field trigger (@ or @@)
     const fieldTrigger = this.findFieldTriggerIndex(textBeforeCaret);
     if (fieldTrigger != null) {
-      this.autocompleteMode.set('field');
-      this.triggerCaretOffset = fieldTrigger;
-      this.currentFilter.set(textBeforeCaret.substring(fieldTrigger + 1));
+      this.autocompleteMode.set(fieldTrigger.isOuter ? 'outerField' : 'field');
+      this.triggerCaretOffset = fieldTrigger.index;
+      const skipChars = fieldTrigger.isOuter ? 2 : 1;
+      this.currentFilter.set(textBeforeCaret.substring(fieldTrigger.index + skipChars));
       this.hoveredIndex.set(0);
       if (!this.overlayRef) this.openSuggestions();
       return;
@@ -670,10 +725,13 @@ export class TdExpressionInputComponent extends FlFormFieldDirective<string> imp
     this.closeSuggestions();
   }
 
-  private findFieldTriggerIndex(textBeforeCaret: string): number | null {
+  private findFieldTriggerIndex(textBeforeCaret: string): { index: number; isOuter: boolean } | null {
     for (let i = textBeforeCaret.length - 1; i >= 0; i--) {
       const ch = textBeforeCaret[i];
-      if (ch === '@') return i;
+      if (ch === '@') {
+        const isOuter = i > 0 && textBeforeCaret[i - 1] === '@';
+        return { index: isOuter ? i - 1 : i, isOuter };
+      }
       if (!/[a-zA-Z0-9_.[\]]/.test(ch)) return null;
     }
     return null;
@@ -683,12 +741,18 @@ export class TdExpressionInputComponent extends FlFormFieldDirective<string> imp
     const fields = this.filteredFieldSuggestions();
     if (globalIndex < fields.length) {
       this.selectFieldSuggestion(fields[globalIndex]);
-    } else {
-      const fnIndex = globalIndex - fields.length;
-      const fns = this.filteredFunctionSuggestions();
-      if (fnIndex < fns.length) {
-        this.selectFunctionSuggestion(fns[fnIndex]);
-      }
+      return;
+    }
+    let adjusted = globalIndex - fields.length;
+    const outerFields = this.filteredOuterFieldSuggestions();
+    if (adjusted < outerFields.length) {
+      this.selectOuterFieldSuggestion(outerFields[adjusted]);
+      return;
+    }
+    adjusted -= outerFields.length;
+    const fns = this.filteredFunctionSuggestions();
+    if (adjusted < fns.length) {
+      this.selectFunctionSuggestion(fns[adjusted]);
     }
   }
 

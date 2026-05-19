@@ -60,7 +60,8 @@
                 >{{ item.label }}:
                 <td-expression-display
                   [expression]="entry.spec.additional_info.expression"
-                  [fieldSpecs]="table().array">
+                  [fieldSpecs]="table().array"
+                  [outerFieldSpecs]="outerFieldSpecs()">
                 </td-expression-display>
               </span>
             } @else {

@@ -96,6 +96,13 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
     const currentKey = this.formGroup?.get('key')?.value;
     return this.data.dynamicParamSpecState.paramSpecsTable.array.filter((e) => e.key !== currentKey);
   });
+  readonly outerFieldSpecs = computed(() => {
+    const state = this.data.dynamicParamSpecState;
+    if (state instanceof TdSubParamSpecState && state.parentState) {
+      return state.parentState.paramSpecsTable.array;
+    }
+    return [];
+  });
 
   formGroup: FormGroup;
   readonly formId = `paramSpecForm_${Math.random().toString(36).slice(2, 8)}`;

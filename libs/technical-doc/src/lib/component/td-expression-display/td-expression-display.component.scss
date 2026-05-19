@@ -13,6 +13,11 @@
     font-weight: 500;
     cursor: default;
   }
+
+  ::ng-deep .td-field-token-outer {
+    background-color: color-mix(in srgb, var(--mat-sys-tertiary) 12%, transparent);
+    color: var(--accent-color);
+  }
 }
 
 .td-field-tooltip {
@@ -22,4 +27,10 @@
   box-shadow: var(--mat-sys-level2);
   padding: 8px 12px;
   max-width: 300px;
+}
+
+.td-tooltip-outer-badge {
+  color: var(--accent-color);
+  font-weight: 500;
+  margin-bottom: 4px;
 }
