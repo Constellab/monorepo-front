@@ -95,6 +95,8 @@
 }
 
 .td-suggestion-outer {
+  display: flex;
+  align-items: center;
   border-left: 3px solid var(--accent-color);
 }
 

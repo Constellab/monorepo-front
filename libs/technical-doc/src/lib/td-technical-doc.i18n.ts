@@ -43,6 +43,7 @@ const tdTechnicalDocI18nFr: FlLangTranslation = {
     functions: 'Fonctions',
     return_type: 'Type de retour',
     variables: 'Variables',
+    outer_variables: 'Variables externes',
     attributes: 'Attributs',
     edit_param_specs: 'Modifier les paramètres',
     add_param_spec: 'Ajouter un paramètre',
@@ -103,6 +104,9 @@ const tdTechnicalDocI18nFr: FlLangTranslation = {
     expression_help_table_aggregate: 'Agrégations sur une table',
     expression_help_table_aggregate_desc:
       "Depuis le niveau parent, utilisez @table[].champ pour agréger les valeurs d'une colonne.",
+    expression_help_outer_references: 'Références externes',
+    expression_help_outer_references_desc:
+      "Dans une formule à l'intérieur d'une table, utilisez @@ suivi du nom du champ pour référencer une valeur du niveau parent.",
     expression_help_examples: 'Exemples',
     no_matching_function_or_variable: 'Aucune fonction ou variable correspondante',
     result_type: 'Type de résultat',
@@ -208,6 +212,7 @@ const tdTechnicalDocI18nEn: FlLangTranslation = {
     functions: 'Functions',
     return_type: 'Return type',
     variables: 'Variables',
+    outer_variables: 'Outer variables',
     attributes: 'Attributes',
     edit_param_specs: 'Edit parameters',
     add_param_spec: 'Add a parameter',
@@ -268,6 +273,9 @@ const tdTechnicalDocI18nEn: FlLangTranslation = {
     expression_help_table_aggregate: 'Table aggregations',
     expression_help_table_aggregate_desc:
       'From the parent level, use @table[].field to aggregate values from a column.',
+    expression_help_outer_references: 'Outer references',
+    expression_help_outer_references_desc:
+      'Inside a table row formula, use @@ followed by the field name to reference a value from the parent scope.',
     expression_help_examples: 'Examples',
     no_matching_function_or_variable: 'No matching function or variable',
     result_type: 'Result type',
