@@ -14,7 +14,6 @@ import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { FlStatus, FlStatusModule } from '@monorepo/front-core-lib/fl-status';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import {
   LiForm,
   LiFormTemplate,
@@ -25,6 +24,7 @@ import {
   LiTagDatasource,
   LiTagService,
 } from '@monorepo/lab-lib/li-core';
+import { LiObjectCreationInfoComponent } from '@monorepo/lab-lib/li-entity';
 import {
   LiCreateFormDialogComponent,
   LiCreateFormDialogInput,
@@ -52,7 +52,6 @@ import { TranslatePipe } from '@ngx-translate/core';
     FlFormModule,
     FlIconModule,
     FlStatusModule,
-    FlUserModule,
     MatIconButton,
     MatButton,
     MatIcon,
@@ -61,6 +60,7 @@ import { TranslatePipe } from '@ngx-translate/core';
     MatMenuItem,
     RouterLink,
     LiTagListComponent,
+    LiObjectCreationInfoComponent,
     LiFormTemplateVersionEditorComponent,
     TranslatePipe,
   ],

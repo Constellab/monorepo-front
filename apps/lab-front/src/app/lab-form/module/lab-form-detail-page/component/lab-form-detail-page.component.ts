@@ -18,6 +18,7 @@ import {
   LiTagDatasource,
   LiTagService,
 } from '@monorepo/lab-lib/li-core';
+import { LiObjectCreationInfoComponent } from '@monorepo/lab-lib/li-entity';
 import {
   LiFormActionEvent,
   LiFormActionMenu,
@@ -47,6 +48,7 @@ import { Observable } from 'rxjs';
     MatButtonToggle,
     MatIcon,
     LiTagListComponent,
+    LiObjectCreationInfoComponent,
     LiFormContentComponent,
     LiFormTemplateRefInlineComponent,
     TranslatePipe,

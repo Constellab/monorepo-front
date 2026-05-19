@@ -1,17 +1,9 @@
-.container {
-  padding: 5px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.container:hover {
-  background-color: var(--hover-color);
-}
-
-.folder-color {
-  width: 15px;
-  height: 15px;
+.folder-icon {
+  padding: 4px;
   border-radius: 50%;
+  font-size: 15px;
+  height: 15px;
+  width: 15px;
   flex-shrink: 0;
 }
 

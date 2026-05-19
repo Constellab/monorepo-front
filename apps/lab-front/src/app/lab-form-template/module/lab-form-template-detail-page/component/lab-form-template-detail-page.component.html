@@ -37,23 +37,21 @@
           </p>
 
           <!-- Tags -->
-          <li-tag-list
-            class="separator"
-            [tags]="tags$()"
-            [showNoTagMessage]="true"
-            entityType="FORM_TEMPLATE"
-            [enableDetails]="true"
-            [entityId]="template().id"></li-tag-list>
+          <div class="sidebar-group">
+            <h4 class="g-sidebar-group-title g-text-small">{{ 'li.tags' | translate }}</h4>
+            <li-tag-list
+              [tags]="tags$()"
+              [showNoTagMessage]="true"
+              entityType="FORM_TEMPLATE"
+              [enableDetails]="true"
+              [entityId]="template().id"></li-tag-list>
+          </div>
 
-          <!-- Created by & Last modified by -->
-          <p class="g-text-small g-text-light separator">
-            <fl-creation-info [user]="template().createdBy" [date]="template().createdAt"></fl-creation-info>
-          </p>
-          <p class="g-text-small g-text-light">
-            <fl-last-modification-info
-              [user]="template().lastModifiedBy"
-              [date]="template().lastModifiedAt"></fl-last-modification-info>
-          </p>
+          <!-- Information -->
+          <div class="sidebar-group">
+            <h4 class="g-sidebar-group-title g-text-small">{{ 'li.information' | translate }}</h4>
+            <li-object-creation-info [object]="template()"></li-object-creation-info>
+          </div>
         </div>
 
         <!-- Right: main content -->

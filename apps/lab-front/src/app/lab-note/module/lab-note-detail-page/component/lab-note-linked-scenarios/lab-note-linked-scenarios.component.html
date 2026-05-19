@@ -1,9 +1,6 @@
 <fl-async-section [arrayObs]="scenarios" emptyText="biox.no_note_linked_scenario">
   <fl-section-header>
-    <fl-text-icon>
-      <mat-icon flIcon="scenario"></mat-icon>
-      <h3>{{ 'biox.note_linked_scenario' | translate }}</h3>
-    </fl-text-icon>
+    <h4 class="g-sidebar-group-title g-text-small">{{ 'biox.note_linked_scenario' | translate }}</h4>
 
     @if (canEdit) {
       <fl-section-actions>

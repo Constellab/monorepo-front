@@ -25,13 +25,7 @@
           }
 
           @if (resource().folder) {
-            <div class="g-layout-row g-layout-start-center subtitle">
-              <mat-icon flIcon="folder" class="g-icon-small separator"></mat-icon>
-              <div
-                class="circle-color separator"
-                [style.background-color]="resource().folder.id | flStringToRgb"></div>
-              <div>{{ resource().folder.name }}</div>
-            </div>
+            <li-folder-inline [folder]="resource().folder" class="subtitle"></li-folder-inline>
           }
         </div>
       }

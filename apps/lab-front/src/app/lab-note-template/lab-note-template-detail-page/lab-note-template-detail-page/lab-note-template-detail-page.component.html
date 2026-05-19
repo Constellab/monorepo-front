@@ -2,14 +2,13 @@
   <fl-section class="g-flex-auto" [object]="noteTemplate" [isLoading]="isLoading">
     <ng-container *flSectionBody>
       <div class="g-layout-row g-layout-start-center">
-        <fl-text-icon>
-          <mat-icon flIcon="note_template" class="g-icon-big"></mat-icon>
-          <h2>{{ 'biox.note_template' | translate }} :</h2>
-        </fl-text-icon>
         <div class="g-flex-auto g-flex">
-          <h2 flElementEditable (flElementValueChange)="updateTitle($event)">
-            {{ noteTemplate.title }}
-          </h2>
+          <fl-text-icon>
+            <mat-icon flIcon="note_template" class="g-icon-big"></mat-icon>
+            <h1 flElementEditable (flElementValueChange)="updateTitle($event)" class="title">
+              {{ noteTemplate.title }}
+            </h1>
+          </fl-text-icon>
         </div>
 
         <div class="g-print-hide action-buttons">
@@ -21,39 +20,36 @@
 
       <!--   Content   -->
       <div class="container">
-        <div class="left-section g-print-hide">
-          <te-text-editor-save [textEditor]="textEditor" [saveFunc]="saveContentFunc"></te-text-editor-save>
-
-          <!--  Tags  -->
-          <li-tag-list
-            [tags]="tags$"
-            [showNoTagMessage]="true"
-            entityType="NOTE_TEMPLATE"
-            [enableDetails]="true"
-            [entityId]="noteTemplate.id"
-            class="separator"></li-tag-list>
-
-          <!--  Created by & Last modified bt  -->
-          <p class="g-text-small g-text-light separator">
-            <fl-creation-info
-              [user]="noteTemplate.createdBy"
-              [date]="noteTemplate.createdAt"></fl-creation-info>
-          </p>
-          <p class="g-text-small g-text-light">
-            <fl-last-modification-info
-              [user]="noteTemplate.lastModifiedBy"
-              [date]="noteTemplate.lastModifiedAt"></fl-last-modification-info>
-          </p>
-        </div>
-
         <!--   Template content     -->
-        <div class="right-section g-max-article-width">
+        <div class="main-section g-max-article-width">
           <te-text-editor
             #textEditor
             [formControl]="formControl"
             class="g-full-height g-print-section"
             [config]="textEditorConfig"
             [placeholder]="'biox.note_placeholder' | translate"></te-text-editor>
+        </div>
+
+        <div class="right-section g-print-hide">
+          <!--    Save status        -->
+          <te-text-editor-save [textEditor]="textEditor" [saveFunc]="saveContentFunc"></te-text-editor-save>
+
+          <!--  Tags  -->
+          <div class="sidebar-group">
+            <h4 class="g-sidebar-group-title g-text-small">{{ 'li.tags' | translate }}</h4>
+            <li-tag-list
+              [tags]="tags$"
+              [showNoTagMessage]="true"
+              entityType="NOTE_TEMPLATE"
+              [enableDetails]="true"
+              [entityId]="noteTemplate.id"></li-tag-list>
+          </div>
+
+          <!--  Information  -->
+          <div class="sidebar-group">
+            <h4 class="g-sidebar-group-title g-text-small">{{ 'li.information' | translate }}</h4>
+            <li-object-creation-info [object]="noteTemplate"></li-object-creation-info>
+          </div>
         </div>
       </div>
     </ng-container>

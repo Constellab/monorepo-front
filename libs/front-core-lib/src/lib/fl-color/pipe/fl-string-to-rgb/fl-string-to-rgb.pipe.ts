@@ -9,7 +9,7 @@ import { FlColorHelper } from '@monorepo/front-core-lib/fl-core';
   standalone: false,
 })
 export class FlStringToRgbPipe implements PipeTransform {
-  transform(value: any, defaultColor: string = 'transparent'): unknown {
+  transform(value: any, defaultColor: string = 'transparent'): string {
     if (value == null) {
       return defaultColor;
     }

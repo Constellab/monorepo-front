@@ -1,71 +1,72 @@
 @if (scenario$ | async; as scenario) {
-  <fl-article-container class="g-full-height container">
-    <!-- Technical information -->
-    <fl-article-left-side>
-      <!--  Tags  -->
-      <li-tag-list
-        class="g-flex-auto"
-        [tags]="tags$"
-        [showNoTagMessage]="true"
-        entityType="SCENARIO"
-        [enableDetails]="true"
-        [entityId]="scenario.id"></li-tag-list>
-      <!--  Folder  -->
-      <li-folder-inline-select
-        class="separator"
-        [(ngModel)]="scenario.folder"
-        (selectionChange)="updateFolder($event)"
-        [disabled]="!scenario.isInfoEditable()"></li-folder-inline-select>
-      <!--  Type  -->
-      <fl-text-icon
-        class="separator"
-        (click)="openShareOrigin(scenario)"
-        [matTooltip]="'biox.scenario_creation_type_help_' + scenario.creationType | translate">
-        <mat-icon flIcon="scenario"></mat-icon>
-        <fl-key-value>
-          <fl-key>{{ 'biox.scenario_creation_type' | translate }}</fl-key>
-          <span [class.g-text-link]="scenario.creationType === 'IMPORTED'">
-            {{ 'biox.scenario_creation_type_' + scenario.creationType | translate }}
-          </span>
-        </fl-key-value>
-      </fl-text-icon>
-      <!--  Validated info  -->
-      @if (scenario.isValidated) {
-        <li-object-validation-info class="separator" [object]="scenario"></li-object-validation-info>
-      }
-      <!--  Sync info  -->
-      @if (scenario.isSynced) {
-        <li-object-sync-info class="separator" [object]="scenario"></li-object-sync-info>
-      }
-      <!--  Created by & Last modified bt  -->
-      <p class="g-text-small g-text-light separator">
-        <fl-creation-info [user]="scenario.createdBy" [date]="scenario.createdAt"></fl-creation-info>
-      </p>
-      <p class="g-text-small g-text-light">
-        <fl-last-modification-info
-          [user]="scenario.lastModifiedBy"
-          [date]="scenario.lastModifiedAt"></fl-last-modification-info>
-      </p>
-    </fl-article-left-side>
-    <fl-article>
-      <te-text-editor-save
-        [textEditor]="textEditor"
-        [saveFunc]="saveDescriptionFunc"
-        [debounceTime]="1000"
-        class="editor-save"></te-text-editor-save>
+  <div class="container">
+    <!--   Description editor     -->
+    <div class="main-section g-max-article-width">
       <te-text-editor
         #textEditor
         [config]="textEditorConfig"
         [formControl]="descriptionFormControl"
         class="text-editor"
         [placeholder]="'biox.scenario_description_placeholder' | translate"></te-text-editor>
-    </fl-article>
-    <fl-article-right-side>
-      <fl-card>
-        <fl-card-body>
-          <lab-scenario-linked-notes [scenarioId]="scenario.id"></lab-scenario-linked-notes>
-        </fl-card-body>
-      </fl-card>
-    </fl-article-right-side>
-  </fl-article-container>
+    </div>
+
+    <div class="right-section g-print-hide">
+      <te-text-editor-save
+        [textEditor]="textEditor"
+        [saveFunc]="saveDescriptionFunc"
+        [debounceTime]="1000"
+        class="editor-save"></te-text-editor-save>
+      <!--  Tags  -->
+      <div class="sidebar-group">
+        <h4 class="g-sidebar-group-title g-text-small">{{ 'li.tags' | translate }}</h4>
+        <li-tag-list
+          [tags]="tags$"
+          [showNoTagMessage]="true"
+          entityType="SCENARIO"
+          [enableDetails]="true"
+          [entityId]="scenario.id"></li-tag-list>
+      </div>
+
+      <!--  Folder  -->
+      <div class="sidebar-group">
+        <h4 class="g-sidebar-group-title g-text-small">{{ 'li.folder' | translate }}</h4>
+        <li-folder-inline-select
+          [(ngModel)]="scenario.folder"
+          (selectionChange)="updateFolder($event)"
+          [disabled]="!scenario.isInfoEditable()"></li-folder-inline-select>
+      </div>
+
+      <!--  Information  -->
+      <div class="sidebar-group">
+        <h4 class="g-sidebar-group-title g-text-small">{{ 'li.information' | translate }}</h4>
+
+        <!--  Type  -->
+        <div
+          class="info-row"
+          (click)="openShareOrigin(scenario)"
+          (keydown.enter)="openShareOrigin(scenario)"
+          tabindex="0"
+          role="button"
+          [matTooltip]="'biox.scenario_creation_type_help_' + scenario.creationType | translate">
+          <span class="g-text-light">{{ 'biox.scenario_creation_type' | translate }}</span>
+          <span [class.g-text-link]="scenario.creationType === 'IMPORTED'">
+            {{ 'biox.scenario_creation_type_' + scenario.creationType | translate }}
+          </span>
+        </div>
+
+        @if (scenario.isValidated) {
+          <li-object-validation-info class="separator" [object]="scenario"></li-object-validation-info>
+        }
+
+        @if (scenario.isSynced) {
+          <li-object-sync-info class="separator" [object]="scenario"></li-object-sync-info>
+        }
+
+        <li-object-creation-info class="separator" [object]="scenario"></li-object-creation-info>
+      </div>
+
+      <!--  Linked notes  -->
+      <lab-scenario-linked-notes class="sidebar-group" [scenarioId]="scenario.id"></lab-scenario-linked-notes>
+    </div>
+  </div>
 }

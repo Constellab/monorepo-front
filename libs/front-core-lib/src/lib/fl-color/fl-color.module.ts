@@ -12,6 +12,7 @@ import { FlColorSelectorComponent } from './component/fl-color-selector/fl-color
 import { FlColorSelectorPortalComponent } from './component/fl-color-selector-portal/fl-color-selector-portal.component';
 import { FlColorSelectorDirective } from './directive/fl-color-selector.directive';
 import { flColorI18n } from './i18n/fl-color.i18n';
+import { FlContrastColorPipe } from './pipe/fl-contrast-color/fl-contrast-color.pipe';
 import { FlStringToRgbPipe } from './pipe/fl-string-to-rgb/fl-string-to-rgb.pipe';
 
 @NgModule({
@@ -20,9 +21,16 @@ import { FlStringToRgbPipe } from './pipe/fl-string-to-rgb/fl-string-to-rgb.pipe
     FlColorSelectorPortalComponent,
     FlColorSelectorDirective,
     FlStringToRgbPipe,
+    FlContrastColorPipe,
     FlColorPickerComponent,
   ],
-  exports: [FlColorSelectorComponent, FlColorSelectorDirective, FlStringToRgbPipe, FlColorPickerComponent],
+  exports: [
+    FlColorSelectorComponent,
+    FlColorSelectorDirective,
+    FlStringToRgbPipe,
+    FlContrastColorPipe,
+    FlColorPickerComponent,
+  ],
   imports: [CommonModule, FormsModule, MatIconModule, FlPortalModule, FlTranslateModule, MatTooltip],
 })
 export class FlColorModule {

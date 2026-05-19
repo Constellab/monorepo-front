@@ -1,6 +1,6 @@
 <fl-async-section [arrayObs]="notes" emptyText="biox.no_scenario_linked_note">
   <fl-section-header>
-    <h3>{{ 'biox.scenario_linked_note' | translate }}</h3>
+    <h4 class="g-sidebar-group-title g-text-small">{{ 'biox.scenario_linked_note' | translate }}</h4>
 
     <fl-section-actions>
       <button
@@ -14,7 +14,11 @@
   </fl-section-header>
 
   <ng-container *flSectionBody>
-    <li-note-table [datasource]="notes" [columns]="columns" (noteUnlink)="unlinkNote($event)">
+    <li-note-table
+      [datasource]="notes"
+      [columns]="columns"
+      (noteUnlink)="unlinkNote($event)"
+      class="g-mat-table-main-background">
     </li-note-table>
   </ng-container>
 </fl-async-section>

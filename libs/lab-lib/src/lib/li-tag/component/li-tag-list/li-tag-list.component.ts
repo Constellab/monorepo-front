@@ -1,6 +1,6 @@
 import { AsyncPipe, NgClass } from '@angular/common';
-import { Component, EventEmitter, inject,Input, OnInit, Output } from '@angular/core';
-import { MatIconButton } from '@angular/material/button';
+import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { ClHelpService } from '@monorepo/core-lib';
@@ -28,6 +28,7 @@ import {
     FlCorePipeModule,
     AsyncPipe,
     MatIcon,
+    MatButton,
     MatIconButton,
     NgClass,
   ],
@@ -68,9 +69,10 @@ export class LiTagListComponent implements OnInit {
 
     // Lazy load the dialog component to avoid circular dependencies
     // because the dialog uses li-tag-list component
-    const componentType = await import(
-      '../li-manage-entity-tags-dialog/li-manage-entity-tags-dialog.component'
-    ).then((m) => m.LiManageEntityTagsDialogComponent);
+    const componentType =
+      await import('../li-manage-entity-tags-dialog/li-manage-entity-tags-dialog.component').then(
+        (m) => m.LiManageEntityTagsDialogComponent
+      );
 
     const data: LiManageEntityTagsDialogInput = {
       entityType: this.entityType,

@@ -1,12 +1,11 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, EventEmitter, inject, Input, input,Output } from '@angular/core';
+import { Component, inject, input, output } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { FlFormFieldDirective } from '@monorepo/front-core-lib/fl-core';
 import { FlPortalService } from '@monorepo/front-core-lib/fl-portal';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlTranslatableText, FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 import { LiFolder, LiFolderService } from '@monorepo/lab-lib/li-core';
 
@@ -25,25 +24,17 @@ import {
   templateUrl: './li-folder-inline-select.component.html',
   styleUrls: ['./li-folder-inline-select.component.scss'],
   providers: [{ provide: FlFormFieldDirective, useExisting: LiFolderInlineSelectComponent }],
-  imports: [
-    FlTextIconModule,
-    MatIcon,
-    FlIconModule,
-    LiFolderInlineComponent,
-    MatButton,
-    AsyncPipe,
-    FlTranslateModule,
-  ],
+  imports: [MatIcon, FlIconModule, LiFolderInlineComponent, MatButton, AsyncPipe, FlTranslateModule],
 })
 export class LiFolderInlineSelectComponent extends FlFormFieldDirective<LiFolder> {
   private portalService = inject(FlPortalService);
   private folderService = inject(LiFolderService);
 
-  @Input() updateFolderHelpText?: string;
+  updateFolderHelpText = input<string>();
 
   placeholder = input<FlTranslatableText>('li.select_folder');
 
-  @Output() selectionChange: EventEmitter<LiFolder | null> = new EventEmitter();
+  selectionChange = output<LiFolder | null>();
 
   constructor() {
     const ngControl = inject(NgControl, { optional: true, self: true });
@@ -74,17 +65,19 @@ export class LiFolderInlineSelectComponent extends FlFormFieldDirective<LiFolder
     }
   }
 
-  openPortal(event: MouseEvent): void {
+  openPortal(event: Event): void {
     if (this.disabled) return;
 
-    const config = this.portalService.configureRelativePortalFromMouseEvent(event, ['bottom'], {
+    const mouseEvent =
+      event instanceof MouseEvent ? event : new MouseEvent('click', { clientX: 0, clientY: 0 });
+    const config = this.portalService.configureRelativePortalFromMouseEvent(mouseEvent, ['bottom'], {
       disposeOnNavigation: true,
       disposeOnOutsideClick: true,
     });
 
     const data: LiFolderSelectPortalInput = {
       folder: this.value,
-      helpText: this.updateFolderHelpText,
+      helpText: this.updateFolderHelpText(),
     };
 
     this.portalService

@@ -1,4 +1,4 @@
-import { Component, inject,Input, Signal, ViewContainerRef } from '@angular/core';
+import { Component, inject, Input, Signal, ViewContainerRef } from '@angular/core';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatDialogClose } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
@@ -12,6 +12,7 @@ import { FlOverlayRef, FlPortalConfig, FlPortalService } from '@monorepo/front-c
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { LiDetailRoutePipe, LiResource, LiResourceService, LiRouterService } from '@monorepo/lab-lib/li-core';
 import { LiFlagButtonComponent } from '@monorepo/lab-lib/li-entity';
+import { LiFolderInlineComponent } from '@monorepo/lab-lib/li-folder';
 import {
   LiTransformResourcePortalComponent,
   LiTransformResourcePortalInput,
@@ -49,6 +50,7 @@ import {
     TranslatePipe,
     FlColorModule,
     LiDetailRoutePipe,
+    LiFolderInlineComponent,
   ],
 })
 export class LiResourceDetailHeaderComponent {

@@ -9,9 +9,9 @@ import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { LiFolder, LiNote, LiNoteService, LiTagDatasource, LiTagService } from '@monorepo/lab-lib/li-core';
 import {
+  LiObjectCreationInfoComponent,
   LiObjectSyncInfoComponent,
   LiObjectValidationInfoComponent,
   LiSyncObjectButtonComponent,
@@ -49,8 +49,8 @@ import { LabNoteLinkedScenariosComponent } from '../lab-note-linked-scenarios/la
     ReactiveFormsModule,
     FormsModule,
     LiObjectValidationInfoComponent,
+    LiObjectCreationInfoComponent,
     LiObjectSyncInfoComponent,
-    FlUserModule,
     LabNoteLinkedScenariosComponent,
     TranslatePipe,
   ],

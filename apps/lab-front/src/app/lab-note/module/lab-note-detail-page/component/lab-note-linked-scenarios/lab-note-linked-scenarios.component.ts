@@ -6,8 +6,6 @@ import { FlArrayObs, FlEntityArrayObs, FlTableColumnStatic } from '@monorepo/fro
 import { FlConfirmDialogResult, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlPortalActionResult, FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
-import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { LiNoteService, LiScenario } from '@monorepo/lab-lib/li-core';
 import { LiScenarioTableComponent, LiSelectScenarioDialogComponent } from '@monorepo/lab-lib/li-scenario';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -23,16 +21,7 @@ import { LabNoteDetailPageState } from '../../lab-note-detail-page-state.service
   selector: 'lab-note-linked-scenarios',
   templateUrl: './lab-note-linked-scenarios.component.html',
   styleUrls: ['./lab-note-linked-scenarios.component.scss'],
-  imports: [
-    FlSectionModule,
-    FlTextIconModule,
-    MatIcon,
-    FlIconModule,
-    MatIconButton,
-    MatTooltip,
-    LiScenarioTableComponent,
-    TranslatePipe,
-  ],
+  imports: [FlSectionModule, MatIconButton, MatIcon, MatTooltip, LiScenarioTableComponent, TranslatePipe],
 })
 export class LabNoteLinkedScenariosComponent implements OnInit, OnDestroy {
   private state = inject(LabNoteDetailPageState);

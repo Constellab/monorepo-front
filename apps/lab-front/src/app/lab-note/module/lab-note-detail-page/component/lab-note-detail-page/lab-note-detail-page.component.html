@@ -48,57 +48,67 @@
 
       <!--   Content   -->
       <div class="container">
-        <div class="left-section g-print-hide">
-          <!--    Save status        -->
-          <te-text-editor-save [textEditor]="textEditor" [saveFunc]="saveContentFunc"></te-text-editor-save>
-
-          <!-- Tags -->
-          <li-tag-list
-            [tags]="tags"
-            entityType="NOTE"
-            [entityId]="note.id"
-            [showNoTagMessage]="true"
-            [enableDetails]="true"
-            class="separator"></li-tag-list>
-
-          <!--  Folder  -->
-          <li-folder-inline-select
-            [(ngModel)]="note.folder"
-            (selectionChange)="updateFolder($event)"
-            [disabled]="!note.isEditable()"
-            class="separator"
-            updateFolderHelpText="biox.update_note_folder_help"></li-folder-inline-select>
-
-          <!--  Validated info  -->
-          @if (note.isValidated) {
-            <li-object-validation-info class="separator" [object]="note"></li-object-validation-info>
-          }
-
-          <!--  Sync info  -->
-          @if (note.isSynced) {
-            <li-object-sync-info class="separator" [object]="note"></li-object-sync-info>
-          }
-
-          <!--  Created by & Last modified bt  -->
-          <p class="g-text-small g-text-light separator">
-            <fl-creation-info [user]="note.createdBy" [date]="note.createdAt"></fl-creation-info>
-          </p>
-          <p class="g-text-small g-text-light">
-            <fl-last-modification-info
-              [user]="note.lastModifiedBy"
-              [date]="note.lastModifiedAt"></fl-last-modification-info>
-          </p>
-
-          <lab-note-linked-scenarios class="scenarios"></lab-note-linked-scenarios>
-        </div>
-
         <!--   Note content     -->
-        <div class="right-section g-max-article-width">
+        <div class="main-section g-max-article-width">
           <te-text-editor
             #textEditor
             class="g-full-height g-print-section"
             [config]="textEditorConfig"
             [formControl]="formControl"></te-text-editor>
+        </div>
+
+        <div class="right-section g-print-hide">
+          <!--    Save status        -->
+          <te-text-editor-save [textEditor]="textEditor" [saveFunc]="saveContentFunc"></te-text-editor-save>
+
+          <!--  Tags  -->
+          <div class="sidebar-group">
+            <h4 class="g-sidebar-group-title g-text-small">
+              {{ 'li.tags' | translate }}
+            </h4>
+
+            <li-tag-list
+              [tags]="tags"
+              entityType="NOTE"
+              [entityId]="note.id"
+              [showNoTagMessage]="true"
+              [enableDetails]="true"></li-tag-list>
+          </div>
+
+          <!--  Folder  -->
+          <div class="sidebar-group">
+            <h4 class="g-sidebar-group-title g-text-small">
+              {{ 'li.folder' | translate }}
+            </h4>
+
+            <li-folder-inline-select
+              [(ngModel)]="note.folder"
+              (selectionChange)="updateFolder($event)"
+              [disabled]="!note.isEditable()"
+              updateFolderHelpText="biox.update_note_folder_help"></li-folder-inline-select>
+          </div>
+
+          <!--  Information  -->
+          <div class="sidebar-group">
+            <h4 class="g-sidebar-group-title g-text-small">
+              {{ 'li.information' | translate }}
+            </h4>
+
+            @if (note.isValidated) {
+              <li-object-validation-info [object]="note"></li-object-validation-info>
+            }
+
+            @if (note.isSynced) {
+              <li-object-sync-info [object]="note" [class.separator]="note.isValidated"></li-object-sync-info>
+            }
+
+            <li-object-creation-info
+              [object]="note"
+              [class.separator]="note.isValidated || note.isSynced"></li-object-creation-info>
+          </div>
+
+          <!--  Linked scenarios  -->
+          <lab-note-linked-scenarios class="sidebar-group"></lab-note-linked-scenarios>
         </div>
       </div>
     </ng-container>

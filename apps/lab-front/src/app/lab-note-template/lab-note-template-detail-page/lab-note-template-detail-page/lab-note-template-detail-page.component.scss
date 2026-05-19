@@ -2,9 +2,8 @@
   padding-bottom: 1em;
 }
 
-.separator {
-  margin-top: 1em;
-  display: block;
+.title {
+  font-size: 2em;
 }
 
 .action-buttons {
@@ -13,33 +12,47 @@
 
 .container {
   margin-top: 1em;
-  flex-direction: row;
   box-sizing: border-box;
   display: flex;
+  flex-direction: row;
+  justify-content: center;
   height: 100%;
 }
 
-.left-section {
-  flex: 1 20 30em;
-  max-width: 30em;
-  padding-bottom: 1em;
-}
-
-.right-section {
-  flex: 1 1 var(--article-width);
-  margin-left: 2em;
+.main-section {
+  flex: 0 1 var(--article-width);
+  max-width: var(--article-width);
+  // offset half the sidebar + gap so the editor stays visually centered
+  margin-left: calc((25em + 2em) / 2);
+  margin-right: 2em;
   z-index: 999;
 }
 
+.right-section {
+  flex: 0 0 25em;
+  max-width: 25em;
+  padding-bottom: 1em;
+}
+
+.sidebar-group {
+  display: block;
+  margin-top: 1.5em;
+  padding-top: 1em;
+  border-top: 1px solid var(--hover-color);
+}
+
 @media (max-width: 1280px) {
-  .left-section {
+  .main-section {
     flex: 1;
     max-width: var(--article-width);
     width: 100%;
+    margin-left: 0;
+    margin-right: 0;
   }
 
   .right-section {
-    margin-left: 0;
+    flex: 1;
+    max-width: var(--article-width);
     width: 100%;
   }
 

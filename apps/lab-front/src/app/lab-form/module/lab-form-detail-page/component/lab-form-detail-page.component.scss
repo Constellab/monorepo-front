@@ -29,8 +29,18 @@
   margin-left: 2em;
 }
 
-.separator {
+.sidebar-group {
+  display: block;
   margin-top: 1em;
+  padding-top: 1em;
+  border-top: 1px solid var(--hover-color);
+}
+
+.info-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.5em;
 }
 
 .section-title {

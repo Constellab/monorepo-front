@@ -1,7 +1,12 @@
 <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
-  <div class="folder-color" [style.background-color]="folder.id | flStringToRgb"></div>
+  <mat-icon
+    flIcon="folder"
+    class="folder-icon"
+    [style.background-color]="folder().id | flStringToRgb"
+    [style.color]="folder().id | flStringToRgb | flContrastColor">
+  </mat-icon>
 
   <div class="text">
-    {{ folder.name }}
+    {{ folder().name }}
   </div>
 </div>

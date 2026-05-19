@@ -317,10 +317,17 @@ figure {
   display: none !important;
 }
 
+// Uppercase label for sidebar section headings (detail pages)
+.g-sidebar-group-title {
+  margin-bottom: 0.5em;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--light-color);
+}
+
 .g-badge {
   font-size: 0.9em;
   padding: 0.2em 0.8em;
   border-radius: 18px;
   width: fit-content;
 }
-

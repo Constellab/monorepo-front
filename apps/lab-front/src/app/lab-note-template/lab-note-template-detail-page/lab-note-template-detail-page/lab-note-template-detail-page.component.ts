@@ -7,7 +7,6 @@ import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import {
   LiNoteTemplate,
   LiNoteTemplateService,
@@ -15,6 +14,7 @@ import {
   LiTagDatasource,
   LiTagService,
 } from '@monorepo/lab-lib/li-core';
+import { LiObjectCreationInfoComponent } from '@monorepo/lab-lib/li-entity';
 import { LiNoteTemplateActionMenu } from '@monorepo/lab-lib/li-note-template';
 import { LiTagListComponent } from '@monorepo/lab-lib/li-tag';
 import { TeConfig, TeRichText, TeRichTextDTO, TeTextEditorModule } from '@monorepo/text-editor';
@@ -35,8 +35,8 @@ import { LabNoteTemplateTextEditorConfig } from '../lab-note-template-text-edito
     FlFormModule,
     MatIconButton,
     LiTagListComponent,
+    LiObjectCreationInfoComponent,
     TeTextEditorModule,
-    FlUserModule,
     ReactiveFormsModule,
     TranslatePipe,
   ],

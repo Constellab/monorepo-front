@@ -1,0 +1,9 @@
+<div class="info-row">
+  <span class="g-text-light">{{ 'flUser.creation' | translate }}</span>
+  <fl-user-with-date [user]="object().createdBy" [date]="object().createdAt"></fl-user-with-date>
+</div>
+<div class="info-row">
+  <span class="g-text-light">{{ 'flUser.last_modification' | translate }}</span>
+  <fl-user-with-date [user]="object().lastModifiedBy" [date]="object().lastModifiedAt"></fl-user-with-date>
+</div>
+<ng-content></ng-content>

@@ -1,5 +1,7 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, input } from '@angular/core';
+import { MatIcon } from '@angular/material/icon';
 import { FlColorModule } from '@monorepo/front-core-lib/fl-color';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { LiFolder } from '@monorepo/lab-lib/li-core';
 
 /**
@@ -9,10 +11,8 @@ import { LiFolder } from '@monorepo/lab-lib/li-core';
   selector: 'li-folder-inline',
   templateUrl: './li-folder-inline.component.html',
   styleUrls: ['./li-folder-inline.component.scss'],
-  imports: [FlColorModule],
+  imports: [FlColorModule, MatIcon, FlIconModule],
 })
 export class LiFolderInlineComponent {
-  @Input() folder: LiFolder;
-
-  @Output() selectionChange: EventEmitter<LiFolder | null> = new EventEmitter();
+  folder = input.required<LiFolder>();
 }

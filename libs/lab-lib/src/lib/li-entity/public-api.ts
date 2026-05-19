@@ -4,6 +4,7 @@
  */
 
 export * from './component/li-flag-button/li-flag-button.component';
+export * from './component/li-object-creation-info/li-object-creation-info.component';
 export * from './component/li-object-sync-info/li-object-sync-info.component';
 export * from './component/li-object-validation-info/li-object-validation-info.component';
 export * from './component/li-sync-object-button/li-sync-object-button.component';

@@ -33,29 +33,28 @@
           }
 
           <!-- Tags -->
-          <li-tag-list
-            class="separator"
-            [tags]="tags$()"
-            [showNoTagMessage]="true"
-            entityType="FORM"
-            [enableDetails]="true"
-            [entityId]="form().id"></li-tag-list>
+          <div class="sidebar-group">
+            <h4 class="g-sidebar-group-title g-text-small">{{ 'li.tags' | translate }}</h4>
+            <li-tag-list
+              [tags]="tags$()"
+              [showNoTagMessage]="true"
+              entityType="FORM"
+              [enableDetails]="true"
+              [entityId]="form().id"></li-tag-list>
+          </div>
 
-          <!-- Created by & Last modified by -->
-          <p class="g-text-small g-text-light separator">
-            <fl-creation-info [user]="form().createdBy" [date]="form().createdAt"></fl-creation-info>
-          </p>
-          <p class="g-text-small g-text-light">
-            <fl-last-modification-info
-              [user]="form().lastModifiedBy"
-              [date]="form().lastModifiedAt"></fl-last-modification-info>
-          </p>
-          @if (form().submittedBy) {
-            <p class="g-text-small g-text-light g-layout-row g-layout-start-center g-layout-gap-05em">
-              <span>{{ 'li.form_submitted' | translate }}:</span>
-              <fl-user-with-date [user]="form().submittedBy" [date]="form().submittedAt" />
-            </p>
-          }
+          <!-- Information -->
+          <div class="sidebar-group">
+            <h4 class="g-sidebar-group-title g-text-small">{{ 'li.information' | translate }}</h4>
+            <li-object-creation-info [object]="form()">
+              @if (form().submittedBy) {
+                <div class="info-row">
+                  <span class="g-text-light">{{ 'li.form_submitted' | translate }}</span>
+                  <fl-user-with-date [user]="form().submittedBy" [date]="form().submittedAt" />
+                </div>
+              }
+            </li-object-creation-info>
+          </div>
         </div>
 
         <!-- Right: main content -->

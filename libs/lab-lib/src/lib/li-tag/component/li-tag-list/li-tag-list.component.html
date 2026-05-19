@@ -11,16 +11,23 @@
       }
     }
 
-    @if (showNoTagMessage && tags.isEmpty()) {
-      <div class="g-full-height g-layout-col g-layout-center-start">
-        <div class="g-text-small g-text-light">
-          {{ 'li.no_tag' | translate }}
-        </div>
-      </div>
+    @if (showNoTagMessage && tags.isEmpty() && entityInformationProvided) {
+      <button
+        mat-stroked-button
+        type="button"
+        (click)="openManageEntityTagDialog()"
+        class="g-button-small g-button-grey-dashed">
+        <mat-icon>add</mat-icon>
+        {{ 'li.add_tag' | translate }}
+      </button>
+    }
+
+    @if (showNoTagMessage && tags.isEmpty() && !entityInformationProvided) {
+      <span class="g-text-small g-text-light">{{ 'li.no_tag' | translate }}</span>
     }
   </div>
 
-  @if (entityInformationProvided) {
+  @if (entityInformationProvided && !tags.isEmpty()) {
     <button
       mat-icon-button
       type="button"

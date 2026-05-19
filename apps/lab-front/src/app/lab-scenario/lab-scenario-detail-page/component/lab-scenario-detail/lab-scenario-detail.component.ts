@@ -1,16 +1,10 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { ClSubscriptionHandler } from '@monorepo/core-lib';
-import { FlArticleModule } from '@monorepo/front-core-lib/fl-article';
-import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import {
   LiFolder,
   LiScenario,
@@ -18,7 +12,11 @@ import {
   LiSharedEntityOriginDialogData,
   LiTagDatasource,
 } from '@monorepo/lab-lib/li-core';
-import { LiObjectSyncInfoComponent, LiObjectValidationInfoComponent } from '@monorepo/lab-lib/li-entity';
+import {
+  LiObjectCreationInfoComponent,
+  LiObjectSyncInfoComponent,
+  LiObjectValidationInfoComponent,
+} from '@monorepo/lab-lib/li-entity';
 import { LiFolderInlineSelectComponent } from '@monorepo/lab-lib/li-folder';
 import { LiSharedEntityOriginDialogComponent } from '@monorepo/lab-lib/li-share';
 import { LiTagListComponent } from '@monorepo/lab-lib/li-tag';
@@ -37,21 +35,16 @@ import { LabScenarioLinkedNotesComponent } from '../lab-scenario-linked-notes/la
   templateUrl: './lab-scenario-detail.component.html',
   styleUrls: ['./lab-scenario-detail.component.scss'],
   imports: [
-    FlArticleModule,
     LiTagListComponent,
     LiFolderInlineSelectComponent,
     ReactiveFormsModule,
     FormsModule,
-    FlTextIconModule,
     MatTooltip,
-    MatIcon,
     FlIconModule,
-    FlKeyValueModule,
+    LiObjectCreationInfoComponent,
     LiObjectValidationInfoComponent,
     LiObjectSyncInfoComponent,
-    FlUserModule,
     TeTextEditorModule,
-    FlCardModule,
     LabScenarioLinkedNotesComponent,
     AsyncPipe,
     TranslatePipe,

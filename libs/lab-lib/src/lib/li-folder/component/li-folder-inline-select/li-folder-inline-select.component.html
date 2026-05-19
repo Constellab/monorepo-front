@@ -1,18 +1,21 @@
-<fl-text-icon>
-  <mat-icon flIcon="folder"></mat-icon>
-
-  @if (value) {
-    <div class="container" (click)="openPortal($event)">
-      <li-folder-inline [folder]="value"></li-folder-inline>
-    </div>
-  } @else {
-    <button
-      mat-stroked-button
-      type="button"
-      [disabled]="disabled"
-      (click)="openPortal($event)"
-      class="g-button-small">
-      {{ placeholder() | flTranslatableText | async }}
-    </button>
-  }
-</fl-text-icon>
+@if (value) {
+  <div
+    class="container"
+    (click)="openPortal($event)"
+    (keydown.enter)="openPortal($event)"
+    tabindex="0"
+    role="button"
+    [class.disabled]="disabled">
+    <li-folder-inline [folder]="value"></li-folder-inline>
+  </div>
+} @else {
+  <button
+    mat-stroked-button
+    type="button"
+    [disabled]="disabled"
+    (click)="openPortal($event)"
+    class="g-button-small g-button-grey-dashed">
+    <mat-icon flIcon="folder"></mat-icon>
+    {{ placeholder() | flTranslatableText | async }}
+  </button>
+}
