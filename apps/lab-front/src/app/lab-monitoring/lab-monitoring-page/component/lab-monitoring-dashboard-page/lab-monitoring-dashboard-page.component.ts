@@ -4,7 +4,7 @@ import { LabBrickListStatusComponent } from '../lab-brick-list-status/lab-brick-
 import { LabInfoComponent } from '../lab-info/lab-info.component';
 
 @Component({
-  selector: 'lab-lab-monitoring-dashboard-page',
+  selector: 'lab-monitoring-dashboard-page',
   templateUrl: './lab-monitoring-dashboard-page.component.html',
   styleUrls: ['./lab-monitoring-dashboard-page.component.scss'],
   imports: [LabInfoComponent, LabBrickListStatusComponent],

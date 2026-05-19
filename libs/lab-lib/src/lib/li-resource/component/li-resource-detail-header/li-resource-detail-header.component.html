@@ -1,5 +1,7 @@
 @if (resource()) {
-  <div class="g-layout-row g-layout-start-center g-layout-gap-05em container">
+  <div
+    class="g-layout-row g-layout-start-center g-layout-gap-05em container"
+    [class.g-card-border]="displayMode !== 'fullPage'">
     <div class="g-flex-auto g-layout-col g-layout-start-start header-left">
       <!--  Resource,  scenario name & folder name  -->
       <h2
