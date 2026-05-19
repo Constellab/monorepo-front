@@ -141,7 +141,7 @@
           <div class="full-width expression-field">
             <div class="g-text-small">{{ 'td.expression' | translate }}</div>
             <div class="expression-row">
-              <td-expression-input formControlName="expression" [fieldSpecs]="siblingFieldSpecs()">
+              <td-expression-input formControlName="expression" [fieldSpecs]="siblingFieldSpecs()" [outerFieldSpecs]="outerFieldSpecs()">
               </td-expression-input>
               <fl-ai-menu-button
                 [onSubmit]="aiGenerateExpression"

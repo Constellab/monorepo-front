@@ -14,14 +14,27 @@
 
 <ng-template #suggestionsTemplate>
   <div class="td-expression-suggestions">
+    @if (filteredOuterFieldSuggestions().length > 0) {
+      <div class="td-suggestion-section-label">{{ 'td.outer_variables' | translate }}</div>
+      @for (entry of filteredOuterFieldSuggestions(); track entry.key; let i = $index) {
+        <div
+          class="td-suggestion-item td-suggestion-outer"
+          [class.hovered]="i === hoveredIndex()"
+          (mousedown)="selectOuterFieldSuggestion(entry)"
+          (mouseenter)="hoveredIndex.set(i)">
+          <span class="td-outer-prefix">@@</span>
+          <td-param-spec-inline [entry]="entry"></td-param-spec-inline>
+        </div>
+      }
+    }
     @if (filteredFieldSuggestions().length > 0) {
       <div class="td-suggestion-section-label">{{ 'td.variables' | translate }}</div>
       @for (entry of filteredFieldSuggestions(); track entry.key; let i = $index) {
         <div
           class="td-suggestion-item"
-          [class.hovered]="i === hoveredIndex()"
+          [class.hovered]="i + filteredOuterFieldSuggestions().length === hoveredIndex()"
           (mousedown)="selectFieldSuggestion(entry)"
-          (mouseenter)="hoveredIndex.set(i)">
+          (mouseenter)="hoveredIndex.set(i + filteredOuterFieldSuggestions().length)">
           <td-param-spec-inline [entry]="entry"></td-param-spec-inline>
         </div>
       }
@@ -31,15 +44,15 @@
       @for (fn of filteredFunctionSuggestions(); track fn.name; let i = $index) {
         <div
           class="td-suggestion-item td-suggestion-function"
-          [class.hovered]="i + filteredFieldSuggestions().length === hoveredIndex()"
+          [class.hovered]="i + filteredOuterFieldSuggestions().length + filteredFieldSuggestions().length === hoveredIndex()"
           (mousedown)="selectFunctionSuggestion(fn)"
-          (mouseenter)="hoveredIndex.set(i + filteredFieldSuggestions().length)">
+          (mouseenter)="hoveredIndex.set(i + filteredOuterFieldSuggestions().length + filteredFieldSuggestions().length)">
           <div class="td-suggestion-fn-name">{{ fn.description }}</div>
           <div class="td-suggestion-fn-sig">{{ fn.signature }}</div>
         </div>
       }
     }
-    @if (filteredFieldSuggestions().length === 0 && filteredFunctionSuggestions().length === 0) {
+    @if (filteredOuterFieldSuggestions().length === 0 && filteredFieldSuggestions().length === 0 && filteredFunctionSuggestions().length === 0) {
       <div class="td-suggestion-empty">{{ 'td.no_matching_function_or_variable' | translate }}</div>
     }
   </div>

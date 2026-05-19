@@ -1,6 +1,6 @@
 import { TdParamSpecEntry, TdParamSpecParamSet, TdParamSpecTypeEnum } from '../../model/td-config-spec.class';
 
-const FIELD_TOKEN_REGEX = /@([a-zA-Z_][a-zA-Z0-9_]*(?:\[\]\.[a-zA-Z_][a-zA-Z0-9_]*)?)/g;
+const FIELD_TOKEN_REGEX = /@(@?)([a-zA-Z_][a-zA-Z0-9_]*(?:\[\]\.[a-zA-Z_][a-zA-Z0-9_]*)?)/g;
 
 export function tdBuildFieldSpecMap(specs: TdParamSpecEntry[]): Map<string, TdParamSpecEntry> {
   const map = new Map<string, TdParamSpecEntry>();
@@ -32,6 +32,7 @@ export interface TdExpressionFieldSegment {
   type: 'field';
   key: string;
   entry: TdParamSpecEntry | null;
+  isOuter: boolean;
 }
 
 export type TdExpressionSegment = TdExpressionTextSegment | TdExpressionFieldSegment;
@@ -41,7 +42,8 @@ export class TdParsedExpression {
 
   constructor(
     private expression: string,
-    private specMap: Map<string, TdParamSpecEntry>
+    private specMap: Map<string, TdParamSpecEntry>,
+    private outerSpecMap?: Map<string, TdParamSpecEntry>
   ) {
     this.segments = this.parse();
   }
@@ -57,6 +59,9 @@ export class TdParsedExpression {
           return this.escapeHtml(seg.value);
         }
         const displayName = this.escapeHtml(seg.entry?.spec.human_name || seg.key);
+        if (seg.isOuter) {
+          return `<span class="td-field-token td-field-token-outer" data-key="${this.escapeHtml(seg.key)}" data-outer="true">@@${displayName}</span>`;
+        }
         return `<span class="td-field-token" data-key="${this.escapeHtml(seg.key)}">@${displayName}</span>`;
       })
       .join('');
@@ -73,8 +78,10 @@ export class TdParsedExpression {
       if (match.index > lastIndex) {
         segments.push({ type: 'text', value: this.expression.substring(lastIndex, match.index) });
       }
-      const key = match[1];
-      segments.push({ type: 'field', key, entry: this.specMap.get(key) ?? null });
+      const isOuter = match[1] === '@';
+      const key = match[2];
+      const lookupMap = isOuter ? this.outerSpecMap : this.specMap;
+      segments.push({ type: 'field', key, entry: lookupMap?.get(key) ?? null, isOuter });
       lastIndex = FIELD_TOKEN_REGEX.lastIndex;
     }
 

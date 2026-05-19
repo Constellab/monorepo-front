@@ -22,6 +22,7 @@ export class TdEditableParamSpecsTableComponent {
   private translateService = inject(FlTranslateService);
 
   columns = input<string[]>(['label', 'type', 'optional', 'default_value', 'additional_info', 'menu']);
+  outerFieldSpecs = input<TdParamSpecEntry[]>([]);
 
   reorderEnabled = input<boolean>(false);
 

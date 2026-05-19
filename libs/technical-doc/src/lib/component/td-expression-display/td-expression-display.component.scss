@@ -13,6 +13,11 @@
     font-weight: 500;
     cursor: default;
   }
+
+  ::ng-deep .td-field-token-outer {
+    background-color: color-mix(in srgb, var(--mat-sys-tertiary) 12%, transparent);
+    color: var(--accent-color);
+  }
 }
 
 .td-field-tooltip {

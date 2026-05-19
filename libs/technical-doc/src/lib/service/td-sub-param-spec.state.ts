@@ -20,7 +20,7 @@ export class TdSubParamSpecState extends TdAbstractDynamicParamSpecState {
   override reorderEnabled = true;
 
   constructor(
-    private parentState?: TdAbstractDynamicParamSpecState,
+    readonly parentState?: TdAbstractDynamicParamSpecState,
     private paramSetKeyFn?: () => string
   ) {
     super();

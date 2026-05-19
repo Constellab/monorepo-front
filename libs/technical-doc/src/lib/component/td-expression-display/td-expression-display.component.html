@@ -6,11 +6,12 @@
     @if (seg.type === 'field') {
       <span
         class="td-field-token"
+        [class.td-field-token-outer]="seg.isOuter"
         (mouseenter)="showTooltip($any($event.target), seg)"
         (focus)="(null)"
         (mouseleave)="hideTooltip()"
         (blur)="hideTooltip()"
-        >@{{ seg.entry?.spec.human_name || seg.key }}</span
+        >{{ seg.isOuter ? '@@' : '@' }}{{ seg.entry?.spec.human_name || seg.key }}</span
       >
     }
   }

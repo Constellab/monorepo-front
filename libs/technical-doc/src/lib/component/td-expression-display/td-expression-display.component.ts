@@ -30,17 +30,19 @@ export class TdExpressionDisplayComponent implements OnDestroy {
 
   expression = input.required<string>();
   fieldSpecs = input<TdParamSpecEntry[]>([]);
+  outerFieldSpecs = input<TdParamSpecEntry[]>([]);
 
   @ViewChild('tooltipTemplate', { static: true }) tooltipTemplate: TemplateRef<any>;
 
   readonly tooltipSpec = signal<TdParamSpecEntry | null>(null);
 
   readonly fieldSpecMap = computed(() => tdBuildFieldSpecMap(this.fieldSpecs()));
+  readonly outerFieldSpecMap = computed(() => tdBuildFieldSpecMap(this.outerFieldSpecs()));
 
   readonly segments = computed(() => {
     const text = this.expression();
     if (!text) return [];
-    return new TdParsedExpression(text, this.fieldSpecMap()).getSegments();
+    return new TdParsedExpression(text, this.fieldSpecMap(), this.outerFieldSpecMap()).getSegments();
   });
 
   private tooltipOverlayRef: FlOverlayRef | null = null;
