@@ -12,6 +12,7 @@ import { LiNoteTemplateSearchComponent } from '../li-note-template-search/li-not
 
 export interface LiSelectNoteTemplateDialogInput {
   mode: 'selection' | 'link';
+  title?: string;
   defaultFilters?: Partial<LiNoteTemplateSearchFields>;
   disabledFilters?: LiNoteTemplateSearchFieldsDisabled;
 }
@@ -25,6 +26,7 @@ export interface LiSelectNoteTemplateDialogInput {
 export class LiSelectNoteTemplateDialogComponent {
   private dialogRef = inject<MatDialogRef<LiSelectNoteTemplateDialogComponent>>(MatDialogRef);
 
+  title: string;
   rowSelectable: boolean;
   defaultFilters: Partial<LiNoteTemplateSearchFields>;
   disabledFilters: LiNoteTemplateSearchFieldsDisabled;
@@ -32,6 +34,7 @@ export class LiSelectNoteTemplateDialogComponent {
   constructor() {
     const input = inject<LiSelectNoteTemplateDialogInput>(MAT_DIALOG_DATA);
 
+    this.title = input?.title ?? 'li.select_note_template';
     this.rowSelectable = input.mode === 'selection';
     this.defaultFilters = input?.defaultFilters;
     this.disabledFilters = input?.disabledFilters;

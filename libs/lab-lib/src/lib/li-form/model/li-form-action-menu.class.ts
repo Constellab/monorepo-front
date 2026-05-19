@@ -35,9 +35,9 @@ export class LiFormActionMenu extends LiEntityActionMenu {
 
   public openActionMenuInTable(event: MouseEvent): Observable<LiFormActionEvent> {
     const menu = [
-      this.getViewNotesButton(),
       this.getTagsButton('FORM', this.form.id, this.tags),
       this.getHistoryButton(),
+      this.getViewNotesButton(),
       this.getArchiveButton(),
       this.getDeleteButton(),
     ];
@@ -47,9 +47,9 @@ export class LiFormActionMenu extends LiEntityActionMenu {
 
   public openDetailActionMenu(event: MouseEvent): Observable<LiFormActionEvent> {
     const menu = [
-      this.getViewNotesButton(),
       this.getTagsButton('FORM', this.form.id, this.tags),
       this.getHistoryButton(),
+      this.getViewNotesButton(),
       this.getArchiveButton(),
       this.getDeleteButton(),
     ];
@@ -111,8 +111,8 @@ export class LiFormActionMenu extends LiEntityActionMenu {
   protected getViewNotesButton(): FlMenuDynamic {
     return {
       type: 'button',
-      text: 'li.form_view_notes',
-      icon: 'note',
+      text: 'li.form_search_notes',
+      icon: 'search',
       onClick: () => this.openViewNotesDialog(),
     };
   }
@@ -122,6 +122,8 @@ export class LiFormActionMenu extends LiEntityActionMenu {
     type LiSelectNoteDialogInput = import('@monorepo/lab-lib/li-note').LiSelectNoteDialogInput;
 
     const data: LiSelectNoteDialogInput = {
+      mode: 'link',
+      title: 'li.form_dialog_notes_title',
       defaultFilters: { formId: this.form as any },
       disabledFilters: { formId: true },
     };

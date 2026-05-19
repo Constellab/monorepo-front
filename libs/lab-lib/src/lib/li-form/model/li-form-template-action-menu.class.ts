@@ -30,9 +30,8 @@ export class LiFormTemplateActionMenu extends LiEntityActionMenu {
 
   public openActionMenuInTable(event: MouseEvent): Observable<LiFormTemplateActionEvent> {
     const menu = [
-      this.getViewNotesButton(),
-      this.getViewNoteTemplatesButton(),
       this.getTagsButton('FORM_TEMPLATE', this.template.id, this.tags),
+      this.getViewUsageButton(),
       this.getArchiveButton(),
       this.getDeleteButton(),
     ];
@@ -43,9 +42,8 @@ export class LiFormTemplateActionMenu extends LiEntityActionMenu {
   public openDetailActionMenu(event: MouseEvent): Observable<LiFormTemplateActionEvent> {
     const menu: FlMenuDynamic[] = [
       this.getCreateFormButton(),
-      this.getViewNotesButton(),
-      this.getViewNoteTemplatesButton(),
       this.getTagsButton('FORM_TEMPLATE', this.template.id, this.tags),
+      this.getViewUsageButton(),
       this.getArchiveButton(),
       this.getDeleteButton(),
     ];
@@ -62,13 +60,52 @@ export class LiFormTemplateActionMenu extends LiEntityActionMenu {
     };
   }
 
-  protected getViewNotesButton(): FlMenuDynamic {
+  protected getViewUsageButton(): FlMenuDynamic {
     return {
       type: 'button',
-      text: 'li.form_template_view_notes',
-      icon: 'note',
-      onClick: () => this.openViewNotesDialog(),
+      text: 'li.form_template_search_usage',
+      icon: 'search',
+      children: [
+        {
+          type: 'button',
+          text: 'li.form_template_view_forms',
+          icon: 'form',
+          onClick: () => this.openViewFormsDialog(),
+        },
+        {
+          type: 'button',
+          text: 'li.form_template_view_notes',
+          icon: 'note',
+          onClick: () => this.openViewNotesDialog(),
+        },
+        {
+          type: 'button',
+          text: 'li.form_template_view_note_templates',
+          icon: 'note_template',
+          onClick: () => this.openViewNoteTemplatesDialog(),
+        },
+      ],
     };
+  }
+
+  private async openViewFormsDialog(): Promise<void> {
+    const { LiSelectFormDialogComponent } =
+      await import('../component/li-select-form-dialog/li-select-form-dialog.component');
+    type LiSelectFormDialogInput =
+      import('../component/li-select-form-dialog/li-select-form-dialog.component').LiSelectFormDialogInput;
+
+    const data: LiSelectFormDialogInput = {
+      mode: 'link',
+      title: 'li.form_template_dialog_forms_title',
+      defaultFilters: { templateId: this.template as any },
+      disabledFilters: { templateId: true },
+    };
+
+    this.injector
+      .get(FlDialogService)
+      .openBigDialog(LiSelectFormDialogComponent, { data })
+      .afterClosed()
+      .subscribe(() => this.subject.complete());
   }
 
   private async openViewNotesDialog(): Promise<void> {
@@ -76,6 +113,8 @@ export class LiFormTemplateActionMenu extends LiEntityActionMenu {
     type LiSelectNoteDialogInput = import('@monorepo/lab-lib/li-note').LiSelectNoteDialogInput;
 
     const data: LiSelectNoteDialogInput = {
+      mode: 'link',
+      title: 'li.form_template_dialog_notes_title',
       defaultFilters: { formTemplateId: this.template as any },
       disabledFilters: { formTemplateId: true },
     };
@@ -87,15 +126,6 @@ export class LiFormTemplateActionMenu extends LiEntityActionMenu {
       .subscribe(() => this.subject.complete());
   }
 
-  protected getViewNoteTemplatesButton(): FlMenuDynamic {
-    return {
-      type: 'button',
-      text: 'li.form_template_view_note_templates',
-      icon: 'note_template',
-      onClick: () => this.openViewNoteTemplatesDialog(),
-    };
-  }
-
   private async openViewNoteTemplatesDialog(): Promise<void> {
     const { LiSelectNoteTemplateDialogComponent } = await import('@monorepo/lab-lib/li-note-template');
     type LiSelectNoteTemplateDialogInput =
@@ -103,6 +133,7 @@ export class LiFormTemplateActionMenu extends LiEntityActionMenu {
 
     const data: LiSelectNoteTemplateDialogInput = {
       mode: 'link',
+      title: 'li.form_template_dialog_note_templates_title',
       defaultFilters: { formTemplateId: this.template as any },
       disabledFilters: { formTemplateId: true },
     };

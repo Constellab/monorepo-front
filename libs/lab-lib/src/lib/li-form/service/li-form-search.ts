@@ -33,6 +33,8 @@ export class LiFormSearchFields {
   isArchived: boolean;
 }
 
+export type LiFormSearchFieldsDisabled = Partial<Record<keyof LiFormSearchFields, boolean>>;
+
 export class LiFormSearch {
   public static searchManagerConfig: FlFormInputsManagerConfig<LiFormSearchFields> = {
     name: 'li.name',

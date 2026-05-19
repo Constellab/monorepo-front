@@ -1,10 +1,10 @@
 <fl-dialog-header>
-  {{ 'li.note_select' | translate }}
+  {{ title | translate }}
 </fl-dialog-header>
 
 <mat-dialog-content>
   <li-note-search
-    [noteSelectable]="true"
+    [noteSelectable]="noteSelectable"
     [fullPageSearch]="false"
     [defaultFilters]="defaultFilters"
     [disabledFilters]="disabledFilters"

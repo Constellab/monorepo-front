@@ -7,6 +7,8 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { LiNoteSearchComponent } from '../li-note-search/li-note-search.component';
 
 export interface LiSelectNoteDialogInput {
+  mode?: 'selection' | 'link';
+  title?: string;
   defaultFilters?: Partial<LiNoteSearchFields>;
   disabledFilters?: LiNoteSearchFieldsDisabled;
 }
@@ -23,11 +25,15 @@ export interface LiSelectNoteDialogInput {
 export class LiSelectNoteDialogComponent {
   private dialogRef = inject<MatDialogRef<LiSelectNoteDialogComponent>>(MatDialogRef);
 
+  title: string;
+  noteSelectable: boolean;
   defaultFilters: Partial<LiNoteSearchFields>;
   disabledFilters: LiNoteSearchFieldsDisabled;
 
   constructor() {
     const data = inject<LiSelectNoteDialogInput>(MAT_DIALOG_DATA, { optional: true });
+    this.title = data?.title ?? 'li.note_select';
+    this.noteSelectable = data?.mode !== 'link';
     this.defaultFilters = data?.defaultFilters;
     this.disabledFilters = data?.disabledFilters;
   }

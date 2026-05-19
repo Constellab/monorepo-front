@@ -1,12 +1,14 @@
 <fl-dialog-header>
-  {{ 'li.form_select' | translate }}
+  {{ title | translate }}
 </fl-dialog-header>
 
 <mat-dialog-content>
   <li-form-search
-    [formSelectable]="true"
+    [formSelectable]="formSelectable"
     [fullPageSearch]="false"
     [columns]="columns"
+    [defaultFilters]="defaultFilters"
+    [disabledFilters]="disabledFilters"
     (formSelected)="onFormSelected($event)">
   </li-form-search>
 </mat-dialog-content>

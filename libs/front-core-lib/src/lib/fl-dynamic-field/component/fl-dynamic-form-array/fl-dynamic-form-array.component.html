@@ -40,7 +40,9 @@
                   </div>
                 </div>
               </div>
-              <!--        <mat-divider *ngIf="!last"></mat-divider>-->
+              @if (!last) {
+                <mat-divider></mat-divider>
+              }
             </div>
           }
         </div>

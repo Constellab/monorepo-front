@@ -18,7 +18,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 
 import { LiForm } from '../../../li-core/model/entities/form/li-form.entity';
 import { LiFormDatasource, LiFormService } from '../../service/li-form.service';
-import { LiFormSearch, LiFormSearchFields } from '../../service/li-form-search';
+import { LiFormSearch, LiFormSearchFields, LiFormSearchFieldsDisabled } from '../../service/li-form-search';
 import { LiCreateFormDialogComponent } from '../li-create-form-dialog/li-create-form-dialog.component';
 import { LiFormSearchFormComponent } from '../li-form-search-form/li-form-search-form.component';
 import { LiFormTableComponent } from '../li-form-table/li-form-table.component';
@@ -52,6 +52,10 @@ export class LiFormSearchComponent implements OnInit {
 
   @Input() columns: FlTableColumnStatic<LiForm>[] = ['name', 'status', 'template', 'tags'];
 
+  @Input() defaultFilters: Partial<LiFormSearchFields> = null;
+
+  @Input() disabledFilters: LiFormSearchFieldsDisabled = null;
+
   @Output() formSelected: EventEmitter<LiForm> = new EventEmitter();
 
   datasource: LiFormDatasource<LiFormSearchFields>;
@@ -72,6 +76,17 @@ export class LiFormSearchComponent implements OnInit {
 
     this.datasource = this.formService.searchDatasource();
     this.searchState.init(config, this.datasource);
+
+    if (this.defaultFilters) {
+      this.searchState.advancedSearchFormGroup.patchValue(this.defaultFilters);
+    }
+    if (this.disabledFilters) {
+      Object.entries(this.disabledFilters).forEach(([key, value]) => {
+        if (value === true) {
+          this.searchState.advancedSearchFormGroup.controls[key]?.disable();
+        }
+      });
+    }
 
     if (this.fullPageSearch) {
       this.columns.push('actions');
