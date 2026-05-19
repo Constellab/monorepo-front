@@ -1,7 +1,10 @@
 .header {
   margin-top: 0.5em;
   display: block;
-  border-bottom: 1px solid var(--hover-color);
+
+  &.header-border {
+    border-bottom: 1px solid var(--hover-color);
+  }
 }
 
 .main-view {

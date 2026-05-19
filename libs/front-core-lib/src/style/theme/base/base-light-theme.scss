@@ -6,7 +6,7 @@
 @include base.define_theme(light);
 
 html {
-  --card-background: #ffffff;
+  --card-background: #eaeaea;
   // color for light text
   --light-color: #434546;
   // color to use for hover element or more contrast grey
@@ -16,7 +16,7 @@ html {
   // if override surface, it overrides the --mat-sys-surface variable
   @include mat.theme-overrides(
     (
-      surface: #f7fdfc,
+      surface: #ffffff,
       // for table row border
       outline: rgba(0, 0, 0, 0.12),
     )

@@ -7,7 +7,10 @@
     @if (hasChildren()) {
       <li-resource-children-tabs></li-resource-children-tabs>
     }
-    <li-resource-detail-header [displayMode]="displayMode" class="header"></li-resource-detail-header>
+    <li-resource-detail-header
+      [displayMode]="displayMode"
+      class="header"
+      [class.header-border]="displayMode === 'fullPage'"></li-resource-detail-header>
   }
 
   <!-- View -->

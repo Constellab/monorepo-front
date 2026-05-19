@@ -3,7 +3,7 @@
   overflow: hidden;
   background-color: var(--card-background);
   border-radius: var(--card-radius);
-  border: 1px solid var(--hover-color);
+  border: var(--card-border);
 }
 
 .card {

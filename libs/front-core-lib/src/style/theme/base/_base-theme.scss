@@ -96,6 +96,8 @@
     --main-background: var(--mat-sys-surface);
 
     --card-radius: 20px;
+    // override to define the card border for both theme
+    --card-border: none;
     --navbar-height: 4rem;
     --small-navbar-height: 48px;
 
@@ -303,7 +305,7 @@
     }
 
     .g-card-border {
-      border: 1px solid var(--hover-color);
+      border: var(--card-border);
     }
 
     /**
