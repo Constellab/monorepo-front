@@ -76,8 +76,8 @@ export class TdExpressionInputComponent extends FlFormFieldDirective<string> imp
     if (filterText === '') return this.flatFieldSuggestions();
     const lower = filterText.toLowerCase();
     return this.flatFieldSuggestions().filter((s) => {
-      const keyMatch = s.key.toLowerCase().startsWith(lower);
-      const nameMatch = (s.spec.human_name || '').toLowerCase().startsWith(lower);
+      const keyMatch = s.key.toLowerCase().includes(lower);
+      const nameMatch = (s.spec.human_name || '').toLowerCase().includes(lower);
       const descMatch = (s.spec.short_description || '').toLowerCase().includes(lower);
       return keyMatch || nameMatch || descMatch;
     });
@@ -91,8 +91,8 @@ export class TdExpressionInputComponent extends FlFormFieldDirective<string> imp
     if (filterText === '') return specs;
     const lower = filterText.toLowerCase();
     return specs.filter((s) => {
-      const keyMatch = s.key.toLowerCase().startsWith(lower);
-      const nameMatch = (s.spec.human_name || '').toLowerCase().startsWith(lower);
+      const keyMatch = s.key.toLowerCase().includes(lower);
+      const nameMatch = (s.spec.human_name || '').toLowerCase().includes(lower);
       const descMatch = (s.spec.short_description || '').toLowerCase().includes(lower);
       return keyMatch || nameMatch || descMatch;
     });
@@ -120,7 +120,10 @@ export class TdExpressionInputComponent extends FlFormFieldDirective<string> imp
   });
 
   readonly totalSuggestionCount = computed(
-    () => this.filteredOuterFieldSuggestions().length + this.filteredFieldSuggestions().length + this.filteredFunctionSuggestions().length
+    () =>
+      this.filteredOuterFieldSuggestions().length +
+      this.filteredFieldSuggestions().length +
+      this.filteredFunctionSuggestions().length
   );
 
   private overlayRef: FlOverlayRef | null = null;
@@ -735,18 +738,18 @@ export class TdExpressionInputComponent extends FlFormFieldDirective<string> imp
   }
 
   private selectByGlobalIndex(globalIndex: number): void {
-    const outerFields = this.filteredOuterFieldSuggestions();
-    if (globalIndex < outerFields.length) {
-      this.selectOuterFieldSuggestion(outerFields[globalIndex]);
-      return;
-    }
-    let adjusted = globalIndex - outerFields.length;
     const fields = this.filteredFieldSuggestions();
-    if (adjusted < fields.length) {
-      this.selectFieldSuggestion(fields[adjusted]);
+    if (globalIndex < fields.length) {
+      this.selectFieldSuggestion(fields[globalIndex]);
       return;
     }
-    adjusted -= fields.length;
+    let adjusted = globalIndex - fields.length;
+    const outerFields = this.filteredOuterFieldSuggestions();
+    if (adjusted < outerFields.length) {
+      this.selectOuterFieldSuggestion(outerFields[adjusted]);
+      return;
+    }
+    adjusted -= outerFields.length;
     const fns = this.filteredFunctionSuggestions();
     if (adjusted < fns.length) {
       this.selectFunctionSuggestion(fns[adjusted]);

@@ -87,11 +87,24 @@
   color: var(--light-color);
 }
 
+.td-field-prefix {
+  font-family: monospace;
+  font-weight: 600;
+  color: var(--primary-color);
+  margin-right: 4px;
+}
+
 .td-outer-prefix {
   font-family: monospace;
   font-weight: 600;
   color: var(--accent-color);
   margin-right: 4px;
+}
+
+.td-suggestion-field {
+  display: flex;
+  align-items: center;
+  border-left: 3px solid var(--primary-color);
 }
 
 .td-suggestion-outer {

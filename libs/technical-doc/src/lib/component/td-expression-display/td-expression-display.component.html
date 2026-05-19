@@ -20,6 +20,9 @@
 <ng-template #tooltipTemplate>
   <div class="td-field-tooltip">
     @if (tooltipSpec(); as entry) {
+      @if (tooltipIsOuter()) {
+        <div class="td-tooltip-outer-badge">{{ 'td.outer_variables' | translate }}</div>
+      }
       <td-param-spec-inline [entry]="entry"></td-param-spec-inline>
     }
   </div>
