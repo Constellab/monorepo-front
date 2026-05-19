@@ -52,7 +52,7 @@ import { caAppRoutes } from './app/ca-app-routes';
 import { CaSpaceInterceptor } from './app/ca-core/interceptor/ca-space-interceptor.service';
 import { CaApiServiceConfig } from './app/ca-core/model/config/ca-api-module.config';
 import { CaCommunityLibConfigService } from './app/ca-core/model/config/ca-community-lib-config.service';
-import { caSvgIcons } from './app/ca-core/model/config/ca-svg-icon-config';
+import { CA_SVG_ICONS } from './app/ca-core/model/config/ca-svg-icon-config';
 import { CaTdServiceConfig } from './app/ca-core/model/config/ca-td-service.config';
 import { CaUserConfig } from './app/ca-core/model/config/ca-user-config.service';
 import { CaApiErrorService } from './app/ca-core/service/ca-api-error.service';
@@ -102,7 +102,7 @@ function bootstrapApp(): void {
         // configuration of Front library
         FlIconModule.forRoot({
           iconFolder: 'assets/fl-mat-icons/',
-          iconsToRegister: caSvgIcons,
+          iconsToRegister: CA_SVG_ICONS,
         }),
         FlDialogModule.forRoot(),
         FlSnackBarModule.forRoot(),
