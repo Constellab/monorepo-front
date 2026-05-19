@@ -4,6 +4,7 @@ import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTooltip } from '@angular/material/tooltip';
 import { ClSubscriptionHandler } from '@monorepo/core-lib';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlDrawerModule } from '@monorepo/front-core-lib/fl-drawer';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import {
   LiFolder,
@@ -35,6 +36,7 @@ import { LabScenarioLinkedNotesComponent } from '../lab-scenario-linked-notes/la
   templateUrl: './lab-scenario-detail.component.html',
   styleUrls: ['./lab-scenario-detail.component.scss'],
   imports: [
+    FlDrawerModule,
     LiTagListComponent,
     LiFolderInlineSelectComponent,
     ReactiveFormsModule,

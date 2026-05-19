@@ -1,21 +1,23 @@
 @if (scenario$ | async; as scenario) {
-  <div class="container">
-    <!--   Description editor     -->
-    <div class="main-section g-max-article-width">
-      <te-text-editor
-        #textEditor
-        [config]="textEditorConfig"
-        [formControl]="descriptionFormControl"
-        class="text-editor"
-        [placeholder]="'biox.scenario_description_placeholder' | translate"></te-text-editor>
-    </div>
-
-    <div class="right-section g-print-hide">
+  <fl-sidebar-layout [hideOnPrint]="true">
+    <div class="main-content g-max-article-width">
+      <!--    Save status        -->
       <te-text-editor-save
         [textEditor]="textEditor"
         [saveFunc]="saveDescriptionFunc"
         [debounceTime]="1000"
-        class="editor-save"></te-text-editor-save>
+        class="save-status g-print-hide"></te-text-editor-save>
+
+      <!--   Description editor     -->
+      <te-text-editor
+        #textEditor
+        [config]="textEditorConfig"
+        [formControl]="descriptionFormControl"
+        class="text-editor g-print-section"
+        [placeholder]="'biox.scenario_description_placeholder' | translate"></te-text-editor>
+    </div>
+
+    <div sidebar>
       <!--  Tags  -->
       <div class="sidebar-group">
         <h4 class="g-sidebar-group-title g-text-small">{{ 'li.tags' | translate }}</h4>
@@ -68,5 +70,5 @@
       <!--  Linked notes  -->
       <lab-scenario-linked-notes class="sidebar-group" [scenarioId]="scenario.id"></lab-scenario-linked-notes>
     </div>
-  </div>
+  </fl-sidebar-layout>
 }

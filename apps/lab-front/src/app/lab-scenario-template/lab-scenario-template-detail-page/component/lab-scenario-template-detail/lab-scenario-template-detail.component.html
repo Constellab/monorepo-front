@@ -1,37 +1,36 @@
-<fl-article-container class="container">
-  <fl-article-left-side>
-    <!--  Tags  -->
-    <li-tag-list
-      class="g-flex-auto"
-      [tags]="tags$"
-      [showNoTagMessage]="true"
-      entityType="SCENARIO_TEMPLATE"
-      [enableDetails]="true"
-      [entityId]="template.id"></li-tag-list>
-
-    <!--  Created by & Last modified bt  -->
-    <p class="g-text-small g-text-light separator">
-      <fl-creation-info [user]="template.createdBy" [date]="template.createdAt"></fl-creation-info>
-    </p>
-    <p class="g-text-small g-text-light">
-      <fl-last-modification-info
-        [user]="template.lastModifiedBy"
-        [date]="template.lastModifiedAt"></fl-last-modification-info>
-    </p>
-  </fl-article-left-side>
-
-  <fl-article>
+<fl-sidebar-layout [hideOnPrint]="true">
+  <div class="main-content g-max-article-width">
+    <!--    Save status        -->
     <te-text-editor-save
       [textEditor]="textEditor"
       [saveFunc]="saveDescriptionFunc"
       [debounceTime]="1000"
-      class="editor-save"></te-text-editor-save>
+      class="save-status g-print-hide"></te-text-editor-save>
 
     <te-text-editor
       #textEditor
       [config]="textEditorConfig"
       [formControl]="formControl"
-      class="text-editor"
+      class="text-editor g-print-section"
       [placeholder]="'biox.protocol_description_placeholder' | translate"></te-text-editor>
-  </fl-article>
-</fl-article-container>
+  </div>
+
+  <div sidebar>
+    <!--  Tags  -->
+    <div class="sidebar-group">
+      <h4 class="g-sidebar-group-title g-text-small">{{ 'li.tags' | translate }}</h4>
+      <li-tag-list
+        [tags]="tags$"
+        [showNoTagMessage]="true"
+        entityType="SCENARIO_TEMPLATE"
+        [enableDetails]="true"
+        [entityId]="template.id"></li-tag-list>
+    </div>
+
+    <!--  Information  -->
+    <div class="sidebar-group">
+      <h4 class="g-sidebar-group-title g-text-small">{{ 'li.information' | translate }}</h4>
+      <li-object-creation-info [object]="template"></li-object-creation-info>
+    </div>
+  </div>
+</fl-sidebar-layout>

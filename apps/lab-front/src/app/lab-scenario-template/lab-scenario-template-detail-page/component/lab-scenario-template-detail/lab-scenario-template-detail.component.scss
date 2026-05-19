@@ -1,19 +1,40 @@
-.container {
-  padding-top: 1em;
-  padding-bottom: 1em;
+:host {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: var(--article-width);
+  margin: 0 auto;
+  padding: 1em;
   box-sizing: border-box;
 }
 
-.separator {
-  margin-top: 1em;
-}
-
-.editor-save {
-  margin-top: 0.5em;
-  margin-bottom: 0.5em;
+.save-status {
+  align-self: flex-end;
 }
 
 .text-editor {
   min-height: 10em;
-  margin-bottom: 1em;
+}
+
+.sidebar-group {
+  display: block;
+  margin-top: 1.5em;
+  padding-top: 1em;
+  border-top: 1px solid var(--hover-color);
+
+  &:first-child {
+    border-top: none;
+    margin-top: 0;
+    padding-top: 0;
+  }
+}
+
+.separator {
+  margin-top: 0.5em;
 }

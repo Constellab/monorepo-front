@@ -1,13 +1,13 @@
-import { Component, inject,Input, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { FlArticleModule } from '@monorepo/front-core-lib/fl-article';
-import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+import { FlDrawerModule } from '@monorepo/front-core-lib/fl-drawer';
 import {
   LiScenarioTemplate,
   LiScenarioTemplateService,
   LiTagDatasource,
   LiTagService,
 } from '@monorepo/lab-lib/li-core';
+import { LiObjectCreationInfoComponent } from '@monorepo/lab-lib/li-entity';
 import { LiTagListComponent } from '@monorepo/lab-lib/li-tag';
 import { TeBasicConfig, TeRichText, TeTextEditorModule } from '@monorepo/text-editor';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -18,9 +18,9 @@ import { Observable } from 'rxjs';
   templateUrl: './lab-scenario-template-detail.component.html',
   styleUrls: ['./lab-scenario-template-detail.component.scss'],
   imports: [
-    FlArticleModule,
+    FlDrawerModule,
     LiTagListComponent,
-    FlUserModule,
+    LiObjectCreationInfoComponent,
     TeTextEditorModule,
     ReactiveFormsModule,
     TranslatePipe,

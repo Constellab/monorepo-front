@@ -17,6 +17,7 @@ import {
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
 import { FlConfirmDialogResult, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlDrawerModule } from '@monorepo/front-core-lib/fl-drawer';
 import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
 import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
 import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
@@ -39,6 +40,7 @@ import {
 @Component({
   selector: 'li-tag-detail',
   imports: [
+    FlDrawerModule,
     FlSectionModule,
     TranslatePipe,
     TeTextEditorModule,

@@ -14,11 +14,7 @@
   </fl-section-header>
 
   <ng-container *flSectionBody>
-    <li-note-table
-      [datasource]="notes"
-      [columns]="columns"
-      (noteUnlink)="unlinkNote($event)"
-      class="g-mat-table-main-background">
+    <li-note-table [datasource]="notes" [columns]="columns" (noteUnlink)="unlinkNote($event)">
     </li-note-table>
   </ng-container>
 </fl-async-section>
