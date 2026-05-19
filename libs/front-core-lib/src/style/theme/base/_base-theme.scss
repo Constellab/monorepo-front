@@ -298,16 +298,12 @@
     }
 
     //////////////// OTHER /////////////////////
-    /**
-      Basic style of card
-    */
-    .g-card {
-      background-color: var(--card-background);
-      border-radius: var(--card-radius);
-    }
-
     .g-card-background {
       background-color: var(--card-background);
+    }
+
+    .g-card-border {
+      border: 1px solid var(--hover-color);
     }
 
     /**
