@@ -4,6 +4,7 @@ import { MatButtonToggle, MatButtonToggleGroup } from '@angular/material/button-
 import { MatIcon } from '@angular/material/icon';
 import { ActivatedRoute } from '@angular/router';
 import { FlAiModule } from '@monorepo/front-core-lib/fl-ai';
+import { FlDrawerModule } from '@monorepo/front-core-lib/fl-drawer';
 import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { FlStatusModule } from '@monorepo/front-core-lib/fl-status';
@@ -37,6 +38,7 @@ import { Observable } from 'rxjs';
   styleUrl: './lab-form-detail-page.component.scss',
   imports: [
     FlAiModule,
+    FlDrawerModule,
     FlSectionModule,
     FlTextIconModule,
     FlFormModule,

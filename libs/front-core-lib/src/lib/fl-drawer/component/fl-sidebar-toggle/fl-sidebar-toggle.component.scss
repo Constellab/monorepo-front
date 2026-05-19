@@ -1,0 +1,7 @@
+:host {
+  display: none;
+}
+
+:host-context(.fl-sidebar-small-screen) {
+  display: inline-flex;
+}

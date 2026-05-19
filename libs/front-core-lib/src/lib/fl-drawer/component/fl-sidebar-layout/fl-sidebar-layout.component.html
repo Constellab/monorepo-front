@@ -1,0 +1,20 @@
+<mat-drawer-container class="drawer-container">
+  <mat-drawer-content class="scroll-area">
+    <div class="main-section">
+      <ng-content></ng-content>
+    </div>
+  </mat-drawer-content>
+
+  <mat-drawer
+    #drawer
+    mode="side"
+    position="end"
+    [opened]="!isSmallScreen"
+    [flDrawerOver]="[breakpoint()]"
+    class="sidebar"
+    [class.g-print-hide]="hideOnPrint()">
+    <div class="sidebar-content">
+      <ng-content select="[sidebar]"></ng-content>
+    </div>
+  </mat-drawer>
+</mat-drawer-container>

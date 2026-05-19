@@ -3,6 +3,7 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { ActivatedRoute } from '@angular/router';
+import { FlDrawerModule } from '@monorepo/front-core-lib/fl-drawer';
 import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
@@ -30,6 +31,7 @@ import { LabNoteTemplateTextEditorConfig } from '../lab-note-template-text-edito
   imports: [
     FlSectionModule,
     FlTextIconModule,
+    FlDrawerModule,
     MatIcon,
     FlIconModule,
     FlFormModule,

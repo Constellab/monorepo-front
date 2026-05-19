@@ -1,3 +1,18 @@
+:host {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+}
+
+.async-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 2em 1em 1em;
+  box-sizing: border-box;
+}
+
 .title {
   margin: 0;
 }
@@ -12,26 +27,6 @@
 .description {
   margin-top: 0.5em;
   white-space: pre-wrap;
-}
-
-// Two-column layout (following note detail pattern)
-.container {
-  margin-top: 1em;
-  flex-direction: row;
-  box-sizing: border-box;
-  display: flex;
-  height: 100%;
-}
-
-.left-section {
-  flex: 0 0 20em;
-  max-width: 20em;
-  padding-bottom: 1em;
-}
-
-.right-section {
-  flex: 1 1 auto;
-  margin-left: 2em;
 }
 
 .sidebar-group {
@@ -120,24 +115,5 @@ fl-card-actions ::ng-deep .actions-container {
     width: 48px;
     height: 48px;
     margin-bottom: 16px;
-  }
-}
-
-// Responsive
-@media (max-width: 1280px) {
-  .left-section {
-    flex: 1;
-    max-width: var(--article-width);
-    width: 100%;
-  }
-
-  .right-section {
-    margin-left: 0;
-    width: 100%;
-  }
-
-  .container {
-    flex-direction: column;
-    align-items: center;
   }
 }

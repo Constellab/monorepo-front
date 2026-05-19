@@ -1,5 +1,5 @@
-<div class="g-page page">
-  <fl-section class="g-flex-auto" [object]="noteTemplate" [isLoading]="isLoading">
+<fl-sidebar-layout [hideOnPrint]="true">
+  <fl-section class="async-section g-print-section" [object]="noteTemplate" [isLoading]="isLoading">
     <ng-container *flSectionBody>
       <div class="g-layout-row g-layout-start-center">
         <div class="g-flex-auto g-flex">
@@ -15,43 +15,44 @@
           <button mat-icon-button (click)="openActionMenu($event)">
             <mat-icon>more_vert</mat-icon>
           </button>
+
+          <fl-sidebar-toggle></fl-sidebar-toggle>
         </div>
       </div>
 
-      <!--   Content   -->
-      <div class="container">
-        <!--   Template content     -->
-        <div class="main-section g-max-article-width">
-          <te-text-editor
-            #textEditor
-            [formControl]="formControl"
-            class="g-full-height g-print-section"
-            [config]="textEditorConfig"
-            [placeholder]="'biox.note_placeholder' | translate"></te-text-editor>
-        </div>
+      <!--    Save status        -->
+      <te-text-editor-save
+        [textEditor]="textEditor"
+        [saveFunc]="saveContentFunc"
+        class="g-print-hide"></te-text-editor-save>
 
-        <div class="right-section g-print-hide">
-          <!--    Save status        -->
-          <te-text-editor-save [textEditor]="textEditor" [saveFunc]="saveContentFunc"></te-text-editor-save>
-
-          <!--  Tags  -->
-          <div class="sidebar-group">
-            <h4 class="g-sidebar-group-title g-text-small">{{ 'li.tags' | translate }}</h4>
-            <li-tag-list
-              [tags]="tags$"
-              [showNoTagMessage]="true"
-              entityType="NOTE_TEMPLATE"
-              [enableDetails]="true"
-              [entityId]="noteTemplate.id"></li-tag-list>
-          </div>
-
-          <!--  Information  -->
-          <div class="sidebar-group">
-            <h4 class="g-sidebar-group-title g-text-small">{{ 'li.information' | translate }}</h4>
-            <li-object-creation-info [object]="noteTemplate"></li-object-creation-info>
-          </div>
-        </div>
-      </div>
+      <te-text-editor
+        #textEditor
+        [formControl]="formControl"
+        class="g-flex-auto g-print-section"
+        [config]="textEditorConfig"
+        [placeholder]="'biox.note_placeholder' | translate"></te-text-editor>
     </ng-container>
   </fl-section>
-</div>
+
+  <div sidebar>
+    @if (noteTemplate) {
+      <!--  Tags  -->
+      <div class="sidebar-group">
+        <h4 class="g-sidebar-group-title g-text-small">{{ 'li.tags' | translate }}</h4>
+        <li-tag-list
+          [tags]="tags$"
+          [showNoTagMessage]="true"
+          entityType="NOTE_TEMPLATE"
+          [enableDetails]="true"
+          [entityId]="noteTemplate.id"></li-tag-list>
+      </div>
+
+      <!--  Information  -->
+      <div class="sidebar-group">
+        <h4 class="g-sidebar-group-title g-text-small">{{ 'li.information' | translate }}</h4>
+        <li-object-creation-info [object]="noteTemplate"></li-object-creation-info>
+      </div>
+    }
+  </div>
+</fl-sidebar-layout>

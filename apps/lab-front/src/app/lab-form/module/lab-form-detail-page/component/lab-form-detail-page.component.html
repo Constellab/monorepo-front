@@ -1,5 +1,5 @@
-<div class="g-page page">
-  <fl-section class="g-flex-auto" [object]="form" [isLoading]="isLoading()">
+<fl-sidebar-layout>
+  <fl-section class="async-section" [object]="form()" [isLoading]="isLoading()">
     <ng-container *flSectionBody>
       <!-- Header -->
       <div class="g-layout-row g-layout-start-center">
@@ -20,79 +20,78 @@
           <button mat-icon-button type="button" (click)="openActionMenu($event)">
             <mat-icon>more_vert</mat-icon>
           </button>
+
+          <fl-sidebar-toggle></fl-sidebar-toggle>
         </div>
       </div>
 
-      <!-- Two-column layout -->
-      <div class="container">
-        <!-- Left sidebar: metadata -->
-        <div class="left-section g-print-hide">
-          <!-- Template ref -->
-          @if (form().template) {
-            <li-form-template-ref-inline [templateRef]="form().template" [showLink]="true" />
+      <!-- Main content -->
+      @if (form()) {
+        <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
+          <h3 class="section-title g-flex-auto">{{ 'li.form_fields' | translate }}</h3>
+          @if (isDraft()) {
+            <fl-ai-menu-button
+              [onSubmit]="aiFillFromText"
+              [tooltip]="'li.form_ai_fill'"
+              [dialogTitle]="'li.form_ai_fill_title'"
+              [dialogPlaceholder]="'li.form_ai_fill_placeholder'"
+              (submitted)="onAiFillResult($event)" />
           }
-
-          <!-- Tags -->
-          <div class="sidebar-group">
-            <h4 class="g-sidebar-group-title g-text-small">{{ 'li.tags' | translate }}</h4>
-            <li-tag-list
-              [tags]="tags$()"
-              [showNoTagMessage]="true"
-              entityType="FORM"
-              [enableDetails]="true"
-              [entityId]="form().id"></li-tag-list>
-          </div>
-
-          <!-- Information -->
-          <div class="sidebar-group">
-            <h4 class="g-sidebar-group-title g-text-small">{{ 'li.information' | translate }}</h4>
-            <li-object-creation-info [object]="form()">
-              @if (form().submittedBy) {
-                <div class="info-row">
-                  <span class="g-text-light">{{ 'li.form_submitted' | translate }}</span>
-                  <fl-user-with-date [user]="form().submittedBy" [date]="form().submittedAt" />
-                </div>
-              }
-            </li-object-creation-info>
-          </div>
+          <mat-button-toggle-group [value]="displayMode()" (valueChange)="displayMode.set($event)">
+            <mat-button-toggle value="form">
+              {{ 'li.form_display_form' | translate }}
+            </mat-button-toggle>
+            <mat-button-toggle value="table">
+              {{ 'li.form_display_table' | translate }}
+            </mat-button-toggle>
+            <mat-button-toggle value="json">
+              {{ 'li.form_display_json' | translate }}
+            </mat-button-toggle>
+          </mat-button-toggle-group>
         </div>
-
-        <!-- Right: main content -->
-        <div class="right-section">
-          @if (form()) {
-            <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
-              <h3 class="section-title g-flex-auto">{{ 'li.form_fields' | translate }}</h3>
-              @if (isDraft()) {
-                <fl-ai-menu-button
-                  [onSubmit]="aiFillFromText"
-                  [tooltip]="'li.form_ai_fill'"
-                  [dialogTitle]="'li.form_ai_fill_title'"
-                  [dialogPlaceholder]="'li.form_ai_fill_placeholder'"
-                  (submitted)="onAiFillResult($event)" />
-              }
-              <mat-button-toggle-group [value]="displayMode()" (valueChange)="displayMode.set($event)">
-                <mat-button-toggle value="form">
-                  {{ 'li.form_display_form' | translate }}
-                </mat-button-toggle>
-                <mat-button-toggle value="table">
-                  {{ 'li.form_display_table' | translate }}
-                </mat-button-toggle>
-                <mat-button-toggle value="json">
-                  {{ 'li.form_display_json' | translate }}
-                </mat-button-toggle>
-              </mat-button-toggle-group>
-            </div>
-            <li-form-content
-              class="form-content"
-              [formId]="form().id"
-              [readonly]="isReadonly()"
-              [showHeader]="false"
-              [displayMode]="displayMode()"
-              (contentSaved)="onContentChanged($event)"
-              (contentSubmitted)="onContentSubmitted($event)" />
-          }
-        </div>
-      </div>
+        <li-form-content
+          class="form-content g-flex-auto"
+          [formId]="form().id"
+          [readonly]="isReadonly()"
+          [showHeader]="false"
+          [displayMode]="displayMode()"
+          (contentSaved)="onContentChanged($event)"
+          (contentSubmitted)="onContentSubmitted($event)" />
+      }
     </ng-container>
   </fl-section>
-</div>
+
+  <div sidebar>
+    @if (form()) {
+      <!-- Template ref -->
+      @if (form().template) {
+        <h4 class="g-sidebar-group-title g-text-small">{{ 'li.form_template' | translate }}</h4>
+        <li-form-template-ref-inline [templateRef]="form().template" [showLink]="true" />
+      }
+
+      <!-- Tags -->
+      <div class="sidebar-group">
+        <h4 class="g-sidebar-group-title g-text-small">{{ 'li.tags' | translate }}</h4>
+        <li-tag-list
+          [tags]="tags$()"
+          [showNoTagMessage]="true"
+          entityType="FORM"
+          [enableDetails]="true"
+          [entityId]="form().id"></li-tag-list>
+      </div>
+
+      <!-- Information -->
+      <div class="sidebar-group">
+        <h4 class="g-sidebar-group-title g-text-small">{{ 'li.information' | translate }}</h4>
+        <li-object-creation-info [object]="form()">
+          @if (form().submittedBy) {
+            <div class="info-row">
+              <span class="g-text-light">{{ 'li.form_submitted' | translate }}</span>
+              <fl-user-with-date [user]="form().submittedBy" [date]="form().submittedAt" />
+            </div>
+          }
+        </li-object-creation-info>
+      </div>
+    }
+  </div>
+</fl-sidebar-layout>

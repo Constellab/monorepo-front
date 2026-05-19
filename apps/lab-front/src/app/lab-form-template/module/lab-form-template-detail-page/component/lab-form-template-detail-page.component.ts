@@ -9,6 +9,7 @@ import {
   FlConfirmDialogResult,
   FlDialogService,
 } from '@monorepo/front-core-lib/fl-dialog';
+import { FlDrawerModule } from '@monorepo/front-core-lib/fl-drawer';
 import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { FlStatus, FlStatusModule } from '@monorepo/front-core-lib/fl-status';
@@ -49,6 +50,7 @@ import { TranslatePipe } from '@ngx-translate/core';
     FlSectionModule,
     FlTextIconModule,
     FlCardModule,
+    FlDrawerModule,
     FlFormModule,
     FlIconModule,
     FlStatusModule,

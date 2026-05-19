@@ -4,6 +4,7 @@ import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { ActivatedRoute } from '@angular/router';
+import { FlDrawerModule } from '@monorepo/front-core-lib/fl-drawer';
 import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
@@ -39,6 +40,7 @@ import { LabNoteLinkedScenariosComponent } from '../lab-note-linked-scenarios/la
     FlIconModule,
     MatTooltip,
     FlTextIconModule,
+    FlDrawerModule,
     FlFormModule,
     LiSyncObjectButtonComponent,
     MatIconButton,

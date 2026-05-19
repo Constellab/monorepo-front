@@ -1,5 +1,5 @@
-<div class="g-page page">
-  <fl-async-section class="g-flex-auto" [object]="note$">
+<fl-sidebar-layout [hideOnPrint]="true">
+  <fl-async-section class="async-section g-print-section" [object]="note$">
     <ng-container *flSectionBody="note$ as note">
       <div class="g-layout-row g-layout-start-center">
         @if (note.isValidated) {
@@ -43,74 +43,77 @@
           <button mat-icon-button type="button" (click)="openActionMenu(note, $event)">
             <mat-icon>more_vert</mat-icon>
           </button>
+
+          <fl-sidebar-toggle></fl-sidebar-toggle>
         </div>
       </div>
 
-      <!--   Content   -->
-      <div class="container">
-        <!--   Note content     -->
-        <div class="main-section g-max-article-width">
-          <te-text-editor
-            #textEditor
-            class="g-full-height g-print-section"
-            [config]="textEditorConfig"
-            [formControl]="formControl"></te-text-editor>
-        </div>
+      <!--    Save status        -->
+      <te-text-editor-save
+        class="save-status g-print-hide"
+        [textEditor]="textEditor"
+        [saveFunc]="saveContentFunc"></te-text-editor-save>
 
-        <div class="right-section g-print-hide">
-          <!--    Save status        -->
-          <te-text-editor-save [textEditor]="textEditor" [saveFunc]="saveContentFunc"></te-text-editor-save>
-
-          <!--  Tags  -->
-          <div class="sidebar-group">
-            <h4 class="g-sidebar-group-title g-text-small">
-              {{ 'li.tags' | translate }}
-            </h4>
-
-            <li-tag-list
-              [tags]="tags"
-              entityType="NOTE"
-              [entityId]="note.id"
-              [showNoTagMessage]="true"
-              [enableDetails]="true"></li-tag-list>
-          </div>
-
-          <!--  Folder  -->
-          <div class="sidebar-group">
-            <h4 class="g-sidebar-group-title g-text-small">
-              {{ 'li.folder' | translate }}
-            </h4>
-
-            <li-folder-inline-select
-              [(ngModel)]="note.folder"
-              (selectionChange)="updateFolder($event)"
-              [disabled]="!note.isEditable()"
-              updateFolderHelpText="biox.update_note_folder_help"></li-folder-inline-select>
-          </div>
-
-          <!--  Information  -->
-          <div class="sidebar-group">
-            <h4 class="g-sidebar-group-title g-text-small">
-              {{ 'li.information' | translate }}
-            </h4>
-
-            @if (note.isValidated) {
-              <li-object-validation-info [object]="note"></li-object-validation-info>
-            }
-
-            @if (note.isSynced) {
-              <li-object-sync-info [object]="note" [class.separator]="note.isValidated"></li-object-sync-info>
-            }
-
-            <li-object-creation-info
-              [object]="note"
-              [class.separator]="note.isValidated || note.isSynced"></li-object-creation-info>
-          </div>
-
-          <!--  Linked scenarios  -->
-          <lab-note-linked-scenarios class="sidebar-group"></lab-note-linked-scenarios>
-        </div>
-      </div>
+      <te-text-editor
+        #textEditor
+        class="g-flex-auto g-print-section"
+        [config]="textEditorConfig"
+        [formControl]="formControl"></te-text-editor>
     </ng-container>
   </fl-async-section>
-</div>
+
+  <div sidebar>
+    <fl-async-section [object]="note$">
+      <ng-container *flSectionBody="note$ as note">
+        <!--  Tags  -->
+        <div class="sidebar-group">
+          <h4 class="g-sidebar-group-title g-text-small">
+            {{ 'li.tags' | translate }}
+          </h4>
+
+          <li-tag-list
+            [tags]="tags"
+            entityType="NOTE"
+            [entityId]="note.id"
+            [showNoTagMessage]="true"
+            [enableDetails]="true"></li-tag-list>
+        </div>
+
+        <!--  Folder  -->
+        <div class="sidebar-group">
+          <h4 class="g-sidebar-group-title g-text-small">
+            {{ 'li.folder' | translate }}
+          </h4>
+
+          <li-folder-inline-select
+            [(ngModel)]="note.folder"
+            (selectionChange)="updateFolder($event)"
+            [disabled]="!note.isEditable()"
+            updateFolderHelpText="biox.update_note_folder_help"></li-folder-inline-select>
+        </div>
+
+        <!--  Information  -->
+        <div class="sidebar-group">
+          <h4 class="g-sidebar-group-title g-text-small">
+            {{ 'li.information' | translate }}
+          </h4>
+
+          @if (note.isValidated) {
+            <li-object-validation-info [object]="note"></li-object-validation-info>
+          }
+
+          @if (note.isSynced) {
+            <li-object-sync-info [object]="note" [class.separator]="note.isValidated"></li-object-sync-info>
+          }
+
+          <li-object-creation-info
+            [object]="note"
+            [class.separator]="note.isValidated || note.isSynced"></li-object-creation-info>
+        </div>
+
+        <!--  Linked scenarios  -->
+        <lab-note-linked-scenarios class="sidebar-group"></lab-note-linked-scenarios>
+      </ng-container>
+    </fl-async-section>
+  </div>
+</fl-sidebar-layout>
