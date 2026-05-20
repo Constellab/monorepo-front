@@ -5,7 +5,12 @@
       "title": "Scenario overview",
       "remote_doc_id": "78873f58-3114-48dd-94a2-d3c9e42e2df2",
       "description": "Landing page for the Scenario section. Explains what a scenario is, key concepts, lifecycle, and types.",
-      "sections": ["What is a scenario?", "Key concepts", "Scenario types", "What's in this section?"],
+      "sections": [
+        "What is a scenario?",
+        "Key concepts",
+        "Scenario types",
+        "What's in this section?"
+      ],
       "source_files": [
         "libs/lab-lib/src/lib/li-core/model/entities/li-scenario.entity.ts",
         "libs/lab-lib/src/lib/li-core/model/entities/process/li-process.entity.ts",
@@ -21,8 +26,13 @@
       "title": "Scenarios page",
       "remote_doc_id": "6b381a59-988c-43f9-af12-c72cf342a701",
       "description": "The Scenarios list page: browsing, searching, and filtering scenarios.",
-      "sections": ["The Scenarios page", "How to search and filter scenarios"],
-      "source_files": ["apps/lab-front/src/app/lab-scenario/lab-scenarios-page/"]
+      "sections": [
+        "The Scenarios page",
+        "How to search and filter scenarios"
+      ],
+      "source_files": [
+        "apps/lab-front/src/app/lab-scenario/lab-scenarios-page/"
+      ]
     },
     {
       "folder": "scenario",
@@ -191,7 +201,10 @@
       "title": "Resource views",
       "remote_doc_id": "5267ec40-8800-4a18-8992-2b8557f09d34",
       "description": "How to visualize resource data using views: favorite views, native views, view actions.",
-      "sections": ["How to use resource views", "View actions"],
+      "sections": [
+        "How to use resource views",
+        "View actions"
+      ],
       "source_files": [
         "libs/lab-lib/src/lib/li-resource/component/li-resource-available-views-portal/",
         "libs/lab-lib/src/lib/li-resource/component/li-resource-view-detail/",
@@ -211,15 +224,22 @@
         "Share a resource with space folder",
         "How to expose a resource with a URL?"
       ],
-      "source_files": ["libs/lab-lib/src/lib/li-share/"]
+      "source_files": [
+        "libs/lab-lib/src/lib/li-share/"
+      ]
     },
     {
       "folder": "resource",
       "title": "Importing and exporting resources",
       "remote_doc_id": "a797737c-3e13-4efd-9038-311eccbc54da",
       "description": "Converting files to typed resources (import) and resources to files (export).",
-      "sections": ["How to import a resource?", "How to export a resource?"],
-      "source_files": ["libs/lab-lib/src/lib/li-resource/component/li-import-resource-dialog/"]
+      "sections": [
+        "How to import a resource?",
+        "How to export a resource?"
+      ],
+      "source_files": [
+        "libs/lab-lib/src/lib/li-resource/component/li-import-resource-dialog/"
+      ]
     },
     {
       "folder": "resource",
@@ -239,15 +259,24 @@
       "title": "View overview",
       "remote_doc_id": "",
       "description": "Landing page for the View section. Explains what a view is.",
-      "sections": ["What is a view?", "Browsing the Views gallery", "How to search views?"],
-      "source_files": ["apps/lab-front/src/app/lab-view/"]
+      "sections": [
+        "What is a view?",
+        "Browsing the Views gallery",
+        "How to search views?"
+      ],
+      "source_files": [
+        "apps/lab-front/src/app/lab-view/"
+      ]
     },
     {
       "folder": "scenario-template",
       "title": "Scenario templates page",
       "remote_doc_id": "",
       "description": "The scenario template list page: browsing, searching, and filtering scenario templates.",
-      "sections": ["The Scenario Templates page", "How to search and filter scenario templates"],
+      "sections": [
+        "The Scenario Templates page",
+        "How to search and filter scenario templates"
+      ],
       "source_files": [
         "apps/lab-front/src/app/lab-scenario-template/lab-scenario-templates-search-page/lab-scenario-templates-search-page/lab-scenario-templates-search-page.component.ts"
       ]
@@ -264,14 +293,20 @@
         "How to download a scenario template?",
         "How to delete a scenario template?"
       ],
-      "source_files": ["apps/lab-front/src/app/lab-scenario-template/lab-scenario-template-detail-page/"]
+      "source_files": [
+        "apps/lab-front/src/app/lab-scenario-template/lab-scenario-template-detail-page/"
+      ]
     },
     {
       "folder": "note",
       "title": "Note overview",
       "remote_doc_id": "",
       "description": "Landing page for the Note section. Explains what a note is and key concepts.",
-      "sections": ["What is a note?", "Key concepts", "What's in this section?"],
+      "sections": [
+        "What is a note?",
+        "Key concepts",
+        "What's in this section?"
+      ],
       "source_files": []
     },
     {
@@ -279,7 +314,10 @@
       "title": "Notes page",
       "remote_doc_id": "",
       "description": "The note list page: browsing, searching, and filtering notes.",
-      "sections": ["The Notes page", "How to search and filter notes"],
+      "sections": [
+        "The Notes page",
+        "How to search and filter notes"
+      ],
       "source_files": [
         "apps/lab-front/src/app/lab-note/module/lab-note-search-page/component/lab-note-search-page"
       ]
@@ -311,7 +349,11 @@
       "title": "Note content",
       "remote_doc_id": "",
       "description": "How to edit note content, use the editor",
-      "sections": ["The note editor", "How to insert a note template?", "How to insert a resource view?"],
+      "sections": [
+        "The note editor",
+        "How to insert a note template?",
+        "How to insert a resource view?"
+      ],
       "source_files": [
         "apps/lab-front/src/app/lab-note/module/lab-note-detail-page/",
         "libs/lab-lib/src/lib/li-note/"
@@ -337,7 +379,11 @@
       "title": "Note template overview",
       "remote_doc_id": "",
       "description": "Landing page for the Note Template section. Explains what a note template is and key concepts.",
-      "sections": ["What is a note template?", "Key concepts", "What's in this section?"],
+      "sections": [
+        "What is a note template?",
+        "Key concepts",
+        "What's in this section?"
+      ],
       "source_files": []
     },
     {
@@ -345,7 +391,10 @@
       "title": "Note template page",
       "remote_doc_id": "",
       "description": "The note template list page: browsing, searching, and filtering note templates.",
-      "sections": ["The Note Templates page", "How to search and filter note templates"],
+      "sections": [
+        "The Note Templates page",
+        "How to search and filter note templates"
+      ],
       "source_files": [
         "apps/lab-front/src/app/lab-note-template/lab-note-templates-search-page/lab-note-templates-search-page/lab-note-templates-search-page.component.ts"
       ]
@@ -379,14 +428,19 @@
         "How to share an application publicly?",
         "How to share an application with space?"
       ],
-      "source_files": ["apps/lab-front/src/app/lab-app/lab-app-search-page/lab-app-search-page.component.ts"]
+      "source_files": [
+        "apps/lab-front/src/app/lab-app/lab-app-search-page/lab-app-search-page.component.ts"
+      ]
     },
     {
       "folder": "tag",
       "title": "Tag overview",
       "remote_doc_id": "",
       "description": "Landing page for the Tag section. Explains what tags are and why to use them.",
-      "sections": ["What are tags?", "Why use tags?"],
+      "sections": [
+        "What are tags?",
+        "Why use tags?"
+      ],
       "source_files": []
     },
     {
@@ -394,15 +448,25 @@
       "title": "Tags",
       "remote_doc_id": "",
       "description": "Tags dashboard, tag detail page, and how to use tags to organize objects.",
-      "sections": ["Tags dashboard", "Tag detail", "Using tags"],
-      "source_files": ["apps/lab-front/src/app/lab-tag/"]
+      "sections": [
+        "Tags dashboard",
+        "Tag detail",
+        "Using tags"
+      ],
+      "source_files": [
+        "apps/lab-front/src/app/lab-tag/"
+      ]
     },
     {
       "folder": "monitoring",
       "title": "Dashboard and bricks",
       "remote_doc_id": "",
       "description": "Default monitoring tab: lab status, dashboard actions, and installed bricks information.",
-      "sections": ["Dashboard overview", "Dashboard actions", "Bricks information"],
+      "sections": [
+        "Dashboard overview",
+        "Dashboard actions",
+        "Bricks information"
+      ],
       "source_files": [
         "apps/lab-front/src/app/lab-monitoring/lab-monitoring-page/component/lab-monitoring-dashboard-page/",
         "apps/lab-front/src/app/lab-monitoring/lab-monitoring-page/component/lab-monitoring-current-info/",
@@ -416,7 +480,10 @@
       "title": "Usage and logs",
       "remote_doc_id": "",
       "description": "Monitoring usage metrics (CPU, RAM, GPU, disk) and server logs.",
-      "sections": ["Monitoring (Usage)", "Logs"],
+      "sections": [
+        "Monitoring (Usage)",
+        "Logs"
+      ],
       "source_files": [
         "apps/lab-front/src/app/lab-monitoring/lab-monitoring-page/component/lab-monitoring-usage-page/",
         "apps/lab-front/src/app/lab-monitoring/lab-monitoring-page/component/lab-monitoring-logs-page/"
@@ -427,7 +494,10 @@
       "title": "Credentials and apps",
       "remote_doc_id": "",
       "description": "Managing lab credentials for external connections and monitoring running apps.",
-      "sections": ["Credentials", "Apps"],
+      "sections": [
+        "Credentials",
+        "Apps"
+      ],
       "source_files": [
         "apps/lab-front/src/app/lab-monitoring/lab-monitoring-page/component/lab-monitoring-credentials-page/",
         "apps/lab-front/src/app/lab-monitoring/lab-monitoring-page/component/lab-monitoring-apps-status/",
@@ -439,7 +509,12 @@
       "title": "Activities and maintenance",
       "remote_doc_id": "",
       "description": "Activity log, virtual environments, share links cleanup, and bricks data management.",
-      "sections": ["Activities", "Virtual environments", "Share links", "Bricks data"],
+      "sections": [
+        "Activities",
+        "Virtual environments",
+        "Share links",
+        "Bricks data"
+      ],
       "source_files": [
         "apps/lab-front/src/app/lab-monitoring/lab-monitoring-page/component/lab-monitoring-activity-page/",
         "apps/lab-front/src/app/lab-monitoring/lab-monitoring-page/component/lab-monitoring-venvs-page/",
@@ -471,6 +546,155 @@
         "Key concepts",
         "When to use templates?",
         "What's in this section?"
+      ],
+      "source_files": []
+    },
+    {
+      "folder": "form",
+      "title": "Form overview",
+      "remote_doc_id": "da136408-8358-4646-acdf-f2c38cc5b6cf",
+      "description": "Landing page for the Form section. Explains what forms and form templates are, the relationship between them, versioning, and the form lifecycle.",
+      "sections": [
+        "What is a form?",
+        "What is a form template?",
+        "Key concepts",
+        "Form templates vs. forms",
+        "What's in this section?"
+      ],
+      "source_files": []
+    },
+    {
+      "folder": "form",
+      "title": "Form templates page",
+      "remote_doc_id": "ddbb827d-f533-4584-a468-f63bd35686a1",
+      "description": "The form template list page: browsing, searching, filtering, and creating form templates.",
+      "sections": [
+        "The Form Templates page",
+        "How to search and filter form templates"
+      ],
+      "source_files": [
+        "apps/lab-front/src/app/lab-form-template/module/lab-form-template-search-page/",
+        "libs/lab-lib/src/lib/li-form/component/li-form-template-search/",
+        "libs/lab-lib/src/lib/li-form/component/li-form-template-search-form/",
+        "libs/lab-lib/src/lib/li-form/component/li-form-template-table/",
+        "libs/lab-lib/src/lib/li-form/component/li-form-template-form-dialog/"
+      ]
+    },
+    {
+      "folder": "form",
+      "title": "Building and versioning a form template",
+      "remote_doc_id": "dbb351cc-6e75-4dc5-b1a8-b8a4b8b0e240",
+      "description": "Designing a form template's schema and managing its versions: editing the draft, adding fields, computed fields, publishing, archiving, and creating new draft versions.",
+      "sections": [
+        "How to create a form template?",
+        "The form template detail page",
+        "How to edit the template name and description?",
+        "How to design the form schema?",
+        "How to add a field?",
+        "How to add a table field?",
+        "How to add a computed field?",
+        "How to test a draft version?",
+        "How to publish a version?",
+        "How to create a new draft version?",
+        "How to search for usage of a form template?",
+        "How to archive or unarchive a version?",
+        "How to delete a version?"
+      ],
+      "source_files": [
+        "apps/lab-front/src/app/lab-form-template/module/lab-form-template-detail-page/",
+        "libs/lab-lib/src/lib/li-form/component/li-form-template-version-editor/",
+        "libs/lab-lib/src/lib/li-form/component/li-form-test-version-dialog/",
+        "libs/lab-lib/src/lib/li-form/component/li-computed-dynamic-field/"
+      ]
+    },
+    {
+      "folder": "form",
+      "title": "Forms page",
+      "remote_doc_id": "25844749-c83e-4d2d-ae59-7caa71a01773",
+      "description": "The form list page: browsing, searching, and filtering forms.",
+      "sections": [
+        "The Forms page",
+        "How to search and filter forms"
+      ],
+      "source_files": [
+        "apps/lab-front/src/app/lab-form/module/lab-form-search-page/",
+        "libs/lab-lib/src/lib/li-form/component/li-form-search/",
+        "libs/lab-lib/src/lib/li-form/component/li-form-search-form/",
+        "libs/lab-lib/src/lib/li-form/component/li-form-table/"
+      ]
+    },
+    {
+      "folder": "form",
+      "title": "Creating and filling a form",
+      "remote_doc_id": "0556d59b-895c-4237-83b6-d53806af51e3",
+      "description": "Creating a form from a published template version, filling in field values, computed fields, display modes, AI fill, submitting, and re-editing a submitted form.",
+      "sections": [
+        "How to create a form?",
+        "The form detail page",
+        "How to fill in a form?",
+        "Form, table, and JSON display modes",
+        "How to fill a form with AI?",
+        "How to submit a form?"
+      ],
+      "source_files": [
+        "apps/lab-front/src/app/lab-form/module/lab-form-detail-page/",
+        "libs/lab-lib/src/lib/li-form/component/li-create-form-dialog/",
+        "libs/lab-lib/src/lib/li-form/component/li-form-content/",
+        "libs/lab-lib/src/lib/li-form/component/li-form-content-table/",
+        "libs/lab-lib/src/lib/li-form/component/li-form-editor/",
+        "libs/lab-lib/src/lib/li-form/component/li-form-template-ref-inline/"
+      ]
+    },
+    {
+      "folder": "form",
+      "title": "Managing a form",
+      "remote_doc_id": "0c663371-2a7d-4abe-becc-c2858f43e074",
+      "description": "Day-to-day form operations: renaming, tagging, viewing the save history, archiving, and deleting forms.",
+      "sections": [
+        "The action menu",
+        "How to rename a form?",
+        "How to tag a form?",
+        "How to view a form's save history?",
+        "How to search for notes using a form?",
+        "How to archive or unarchive a form?",
+        "How to delete a form?"
+      ],
+      "source_files": [
+        "libs/lab-lib/src/lib/li-form/component/li-form-history/",
+        "libs/lab-lib/src/lib/li-form/component/li-form-history-portal/"
+      ]
+    },
+    {
+      "folder": "form",
+      "title": "Forms in notes",
+      "remote_doc_id": "02a6b23b-572d-4a38-9db5-bee1b857cd6e",
+      "description": "Embedding forms and form templates inside notes and note templates via rich text blocks, including owned vs. referenced forms.",
+      "sections": [
+        "Why use forms in notes?",
+        "How to insert a form template into a note template?",
+        "How to insert a new form into a note?",
+        "How to reference an existing form in a note?",
+        "What happens to forms when a note is created from a template?",
+        "What happens to forms when a note is deleted?"
+      ],
+      "source_files": [
+        "libs/lab-lib/src/lib/li-form/component/li-rich-text-form/",
+        "libs/lab-lib/src/lib/li-form/component/li-rich-text-form-template/",
+        "libs/lab-lib/src/lib/li-form/component/li-select-form/",
+        "libs/lab-lib/src/lib/li-form/component/li-select-form-dialog/",
+        "libs/lab-lib/src/lib/li-form/component/li-select-form-template/",
+        "libs/lab-lib/src/lib/li-form/component/li-select-form-template-dialog/"
+      ]
+    },
+    {
+      "folder": "form",
+      "title": "Form FAQ",
+      "remote_doc_id": "d2233da5-da91-4a35-800e-461f59a5be2c",
+      "description": "Common questions, troubleshooting, and edge cases related to forms and form templates.",
+      "sections": [
+        "Why can't I create a form from a template?",
+        "Can I change a form template after publishing it?",
+        "Can I fill a form template directly?"
       ],
       "source_files": []
     }
