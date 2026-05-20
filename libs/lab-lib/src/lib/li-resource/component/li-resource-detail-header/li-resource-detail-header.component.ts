@@ -10,13 +10,7 @@ import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
 import { FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
 import { FlOverlayRef, FlPortalConfig, FlPortalService } from '@monorepo/front-core-lib/fl-portal';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
-import {
-  LiDetailRoutePipe,
-  LiResource,
-  LiResourceService,
-  LiRouterService,
-  LiTagService,
-} from '@monorepo/lab-lib/li-core';
+import { LiDetailRoutePipe, LiResource, LiResourceService, LiRouterService } from '@monorepo/lab-lib/li-core';
 import { LiFlagButtonComponent } from '@monorepo/lab-lib/li-entity';
 import { LiFolderInlineComponent } from '@monorepo/lab-lib/li-folder';
 import {
@@ -65,7 +59,6 @@ export class LiResourceDetailHeaderComponent {
   private dialogService = inject(FlDialogService);
   private containerRef = inject(ViewContainerRef);
   private resourceService = inject(LiResourceService);
-  private tagService = inject(LiTagService);
 
   @Input() displayMode: 'fullPage' | 'fullDialog' | 'dense' = 'fullPage';
 

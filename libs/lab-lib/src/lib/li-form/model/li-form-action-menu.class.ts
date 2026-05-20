@@ -35,7 +35,7 @@ export class LiFormActionMenu extends LiEntityActionMenu {
 
   public openActionMenuInTable(event: MouseEvent): Observable<LiFormActionEvent> {
     const menu: FlMenuDynamicInput = [
-      this.getTagsButton('FORM', this.form.id),
+      this.getTagsButton('FORM', this.form.id, this.tags),
       this.getHistoryButton(),
       this.getViewNotesButton(),
       this.getArchiveButton(),
@@ -48,7 +48,7 @@ export class LiFormActionMenu extends LiEntityActionMenu {
 
   public openDetailActionMenu(event: MouseEvent): Observable<LiFormActionEvent> {
     const menu: FlMenuDynamicInput = [
-      this.getTagsButton('FORM', this.form.id),
+      this.getTagsButton('FORM', this.form.id, this.tags),
       this.getHistoryButton(),
       this.getViewNotesButton(),
       this.getArchiveButton(),

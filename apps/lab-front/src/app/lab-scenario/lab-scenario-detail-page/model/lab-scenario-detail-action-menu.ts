@@ -51,7 +51,7 @@ export class LabScenarioDetailActionMenu extends LiScenarioActionMenu {
 
   public openActionMenuDetail(event: MouseEvent): Observable<LiScenarioActionEvent> {
     const menu: FlMenuDynamicInput = [
-      this.getTagsButton('SCENARIO', this.scenario.id),
+      this.getTagsButton('SCENARIO', this.scenario.id, this.tags),
       this.getCreateNoteButton(),
       this.getProtocolMenuButton(),
     ];

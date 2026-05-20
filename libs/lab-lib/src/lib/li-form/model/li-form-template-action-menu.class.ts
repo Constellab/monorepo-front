@@ -30,7 +30,7 @@ export class LiFormTemplateActionMenu extends LiEntityActionMenu {
 
   public openActionMenuInTable(event: MouseEvent): Observable<LiFormTemplateActionEvent> {
     const menu: FlMenuDynamicInput = [
-      this.getTagsButton('FORM_TEMPLATE', this.template.id),
+      this.getTagsButton('FORM_TEMPLATE', this.template.id, this.tags),
       this.getViewUsageButton(),
       this.getArchiveButton(),
       this.getDeleteButton(),
@@ -43,7 +43,7 @@ export class LiFormTemplateActionMenu extends LiEntityActionMenu {
   public openDetailActionMenu(event: MouseEvent): Observable<LiFormTemplateActionEvent> {
     const menu: FlMenuDynamicInput = [
       this.getCreateFormButton(),
-      this.getTagsButton('FORM_TEMPLATE', this.template.id),
+      this.getTagsButton('FORM_TEMPLATE', this.template.id, this.tags),
       this.getViewUsageButton(),
       this.getArchiveButton(),
       this.getDeleteButton(),

@@ -25,7 +25,7 @@ export class LiNoteActionMenu extends LiEntityActionMenu {
 
   public openActionMenuInTable(event: MouseEvent): Observable<LiNoteActionEvent> {
     const menu: FlMenuDynamicInput = [
-      this.getTagsButton('NOTE', this.note.id),
+      this.getTagsButton('NOTE', this.note.id, this.tags),
       this.getArchiveButton(),
       this.getExtensionsButton('NOTE', this.note.id),
     ];

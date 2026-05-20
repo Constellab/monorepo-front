@@ -31,7 +31,7 @@ export class LiNoteTemplateActionMenu extends LiEntityActionMenu {
   public openActionMenuInTable(event: MouseEvent): Observable<LiNoteTemplateActionEvent> {
     const menu: FlMenuDynamicInput = [
       this.getCreateNoteButton(),
-      this.getTagsButton('NOTE_TEMPLATE', this.noteTemplate.id),
+      this.getTagsButton('NOTE_TEMPLATE', this.noteTemplate.id, this.tags),
       this.getDeleteButton(),
       this.getExtensionsButton('NOTE_TEMPLATE', this.noteTemplate.id),
     ];
@@ -43,7 +43,7 @@ export class LiNoteTemplateActionMenu extends LiEntityActionMenu {
     const menu: FlMenuDynamicInput = [
       this.getCreateNoteButton(),
       this.getPrintButton(),
-      this.getTagsButton('NOTE_TEMPLATE', this.noteTemplate.id),
+      this.getTagsButton('NOTE_TEMPLATE', this.noteTemplate.id, this.tags),
       this.getDeleteButton(),
       this.getExtensionsButton('NOTE_TEMPLATE', this.noteTemplate.id),
     ];

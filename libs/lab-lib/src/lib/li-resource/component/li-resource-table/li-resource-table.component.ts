@@ -50,7 +50,7 @@ import { TdTechnicalDocModule } from '@monorepo/technical-doc';
 import { TranslatePipe } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
-import { LiResourceActionEvent,LiResourceActionMenu } from '../../model/li-resource-action-menu';
+import { LiResourceActionEvent, LiResourceActionMenu } from '../../model/li-resource-action-menu';
 import { LiResourceDetailDialogComponent } from '../li-resource-detail-dialog/li-resource-detail-dialog.component';
 
 /**

@@ -129,7 +129,11 @@ export class LiEntityActionMenu extends FlBaseActionMenu {
     this.injector
       .get(LiEntityActionService)
       .callEntityAction(entityType, entityId, actionName)
-      .subscribe((result) => this.handleEntityActionResult(result));
+      .subscribe({
+        next: (result) => this.handleEntityActionResult(result),
+        error: () => this.subject.complete(),
+        complete: () => this.subject.complete(),
+      });
   }
 
   private handleEntityActionResult(result: LiEntityActionResult): void {
@@ -148,7 +152,7 @@ export class LiEntityActionMenu extends FlBaseActionMenu {
                 queryParams: result.navigate_query_params,
               })
             );
-        window.open(url, result.open_in_new_tab ? '_blank' : '_self');
+        window.open(url, result.open_in_new_tab ? '_blank' : '_self', 'noopener,noreferrer');
       }
     }
 
