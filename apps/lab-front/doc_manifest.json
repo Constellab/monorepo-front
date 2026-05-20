@@ -300,54 +300,72 @@
     {
       "folder": "note",
       "title": "Note overview",
-      "remote_doc_id": "",
-      "description": "Landing page for the Note section. Explains what a note is and key concepts.",
+      "remote_doc_id": "119e5aeb-11d9-4fb7-bf69-c08e39f49220",
+      "description": "Landing page for the Note section. Explains what notes and note templates are, the relationship between them, and the note lifecycle.",
       "sections": [
         "What is a note?",
+        "What is a note template?",
         "Key concepts",
+        "Note lifecycle",
+        "Note templates vs. notes",
         "What's in this section?"
       ],
-      "source_files": []
+      "source_files": [
+        "libs/lab-lib/src/lib/li-core/model/entities/li-note.entity.ts",
+        "libs/lab-lib/src/lib/li-core/model/entities/li-note-template.entity.ts",
+        "libs/lab-lib/src/lib/li-core/entity-service/li-note.service.ts",
+        "libs/lab-lib/src/lib/li-core/entity-service/li-note-template.service.ts",
+        "libs/lab-lib/src/lib/li-note/model/li-note-action-menu.class.ts",
+        "apps/lab-front/src/app/lab-note/module/lab-note-detail-page/lab-note-text-editor-config.class.ts"
+      ]
     },
     {
       "folder": "note",
       "title": "Notes page",
-      "remote_doc_id": "",
+      "remote_doc_id": "6f8f271e-2ea6-4801-97db-1f5b23b20edc",
       "description": "The note list page: browsing, searching, and filtering notes.",
       "sections": [
         "The Notes page",
         "How to search and filter notes"
       ],
       "source_files": [
-        "apps/lab-front/src/app/lab-note/module/lab-note-search-page/component/lab-note-search-page"
+        "apps/lab-front/src/app/lab-note/module/lab-note-search-page/component/lab-note-search-page/",
+        "libs/lab-lib/src/lib/li-note/component/li-note-search/",
+        "libs/lab-lib/src/lib/li-note/component/li-note-search-form/",
+        "libs/lab-lib/src/lib/li-note/component/li-note-table/",
+        "libs/lab-lib/src/lib/li-core/model/search/li-note-search.class.ts"
       ]
     },
     {
       "folder": "note",
       "title": "Creating and editing notes",
-      "remote_doc_id": "",
+      "remote_doc_id": "41a7c113-79f1-43a5-9ae7-d53e835e3722",
       "description": "How to create a note, link scenarios, and print.",
       "sections": [
         "How to create a note?",
-        "Note history",
+        "The note detail page",
         "How to link scenarios to a note?",
         "How to link a note to a folder?",
-        "How to print a note?",
         "How to synchronize a note?",
         "How to validate a note?",
+        "Note history",
+        "How to print a note?",
         "How to create a note template from a note?",
         "How to archive a note?",
         "How to delete a note?"
       ],
       "source_files": [
         "apps/lab-front/src/app/lab-note/module/lab-note-detail-page/",
-        "libs/lab-lib/src/lib/li-note/"
+        "libs/lab-lib/src/lib/li-note/component/li-note-form-dialog/",
+        "libs/lab-lib/src/lib/li-note/model/li-note-action-menu.class.ts",
+        "libs/lab-lib/src/lib/li-core/entity-service/li-note.service.ts",
+        "libs/lab-lib/src/lib/li-core/entity-service/li-note-template.service.ts"
       ]
     },
     {
       "folder": "note",
       "title": "Note content",
-      "remote_doc_id": "",
+      "remote_doc_id": "dda7385e-f583-4f9f-a539-8aceef732dc2",
       "description": "How to edit note content, use the editor",
       "sections": [
         "The note editor",
@@ -355,14 +373,51 @@
         "How to insert a resource view?"
       ],
       "source_files": [
-        "apps/lab-front/src/app/lab-note/module/lab-note-detail-page/",
-        "libs/lab-lib/src/lib/li-note/"
+        "apps/lab-front/src/app/lab-note/module/lab-note-detail-page/lab-note-text-editor-config.class.ts",
+        "apps/lab-front/src/app/lab-note/module/lab-note-detail-page/component/lab-note-insert-template-dialog/",
+        "apps/lab-front/src/app/lab-note/module/lab-note-detail-page/model/lab-note-insert-template-block-tune.class.ts"
+      ]
+    },
+    {
+      "folder": "note",
+      "title": "Note template page",
+      "remote_doc_id": "60256355-d359-4e12-a7b9-512912ad6807",
+      "description": "The note template list page: browsing, searching, and filtering note templates.",
+      "sections": [
+        "The Note Templates page",
+        "How to search and filter note templates"
+      ],
+      "source_files": [
+        "apps/lab-front/src/app/lab-note-template/lab-note-templates-search-page/lab-note-templates-search-page/lab-note-templates-search-page.component.ts",
+        "libs/lab-lib/src/lib/li-note-template/component/li-note-template-search/",
+        "libs/lab-lib/src/lib/li-note-template/component/li-note-template-search-form/",
+        "libs/lab-lib/src/lib/li-note-template/component/li-note-template-table/",
+        "libs/lab-lib/src/lib/li-core/model/search/li-note-template-search.class.ts"
+      ]
+    },
+    {
+      "folder": "note",
+      "title": "Creating and editing note templates",
+      "remote_doc_id": "a25b6e9a-f823-4216-b5be-3e50d417542d",
+      "description": "How to create a note template, link scenarios, and print.",
+      "sections": [
+        "How to create a note template?",
+        "The note template detail page",
+        "How to use a note template?",
+        "How to print a note template?",
+        "How to delete a note template?"
+      ],
+      "source_files": [
+        "apps/lab-front/src/app/lab-note-template/lab-note-template-detail-page/lab-note-template-detail-page/lab-note-template-detail-page.component.ts",
+        "libs/lab-lib/src/lib/li-note-template/component/li-note-template-form-dialog/",
+        "libs/lab-lib/src/lib/li-note-template/model/li-note-template-action-menu.class.ts",
+        "libs/lab-lib/src/lib/li-core/entity-service/li-note-template.service.ts"
       ]
     },
     {
       "folder": "note",
       "title": "Note FAQ",
-      "remote_doc_id": "",
+      "remote_doc_id": "d14d8c78-254e-47f3-b159-507630bbecc6",
       "description": "Common questions, troubleshooting, and edge cases related to notes.",
       "sections": [
         "Can I edit a validated note?",
@@ -372,46 +427,6 @@
       ],
       "source_files": [
         "apps/lab-front/src/app/lab-note/module/lab-note-detail-page/lab-note-text-editor-config.class.ts"
-      ]
-    },
-    {
-      "folder": "note template",
-      "title": "Note template overview",
-      "remote_doc_id": "",
-      "description": "Landing page for the Note Template section. Explains what a note template is and key concepts.",
-      "sections": [
-        "What is a note template?",
-        "Key concepts",
-        "What's in this section?"
-      ],
-      "source_files": []
-    },
-    {
-      "folder": "note template",
-      "title": "Note template page",
-      "remote_doc_id": "",
-      "description": "The note template list page: browsing, searching, and filtering note templates.",
-      "sections": [
-        "The Note Templates page",
-        "How to search and filter note templates"
-      ],
-      "source_files": [
-        "apps/lab-front/src/app/lab-note-template/lab-note-templates-search-page/lab-note-templates-search-page/lab-note-templates-search-page.component.ts"
-      ]
-    },
-    {
-      "folder": "note template",
-      "title": "Creating and editing note templates",
-      "remote_doc_id": "",
-      "description": "How to create a note template, link scenarios, and print.",
-      "sections": [
-        "How to create a note template?",
-        "How to use a note template?",
-        "How to print a note template?",
-        "How to delete a note template?"
-      ],
-      "source_files": [
-        "apps/lab-front/src/app/lab-note-template/lab-note-template-detail-page/lab-note-template-detail-page/lab-note-template-detail-page.component.ts"
       ]
     },
     {
