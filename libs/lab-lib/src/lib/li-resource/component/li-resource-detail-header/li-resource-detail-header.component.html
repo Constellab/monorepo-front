@@ -65,25 +65,9 @@
       </button>
     }
 
-    <li-resource-actions-menu
-      [readOnly]="displayMode !== 'fullPage'"
-      [resource]="resource()"
-      (update)="onUpdate($event)"
-      (delete)="onDelete()">
-      @if (displayMode === 'fullPage') {
-        <button mat-menu-item type="button" (click)="openTransformerResource()">
-          <mat-icon flIcon="transformer"></mat-icon>
-          {{ 'li.transformers' | translate }}
-        </button>
-      }
-
-      @if (displayMode === 'dense') {
-        <button mat-menu-item type="button" (click)="openResourceInfoDialog()">
-          <mat-icon>info</mat-icon>
-          {{ 'li.resource_info' | translate }}
-        </button>
-      }
-    </li-resource-actions-menu>
+    <button mat-icon-button type="button" (click)="openResourceMenu($event)">
+      <mat-icon>more_vert</mat-icon>
+    </button>
 
     @if (displayMode === 'fullDialog') {
       <button

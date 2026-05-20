@@ -4,7 +4,7 @@ import {
   FlConfirmDialogResult,
   FlDialogService,
 } from '@monorepo/front-core-lib/fl-dialog';
-import { FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
+import { FlMenuDynamic, FlMenuDynamicInput } from '@monorepo/front-core-lib/fl-menu-dynamic';
 import { FlPortalService } from '@monorepo/front-core-lib/fl-portal';
 import { LiTagDatasource } from '@monorepo/lab-lib/li-core';
 import { LiEntityActionMenu } from '@monorepo/lab-lib/li-entity';
@@ -27,31 +27,33 @@ export class LiFormActionMenu extends LiEntityActionMenu {
   constructor(
     injector: Injector,
     protected form: LiForm,
-    protected tags: LiTagDatasource,
+    protected tags?: LiTagDatasource,
     protected specs?: TdParamSpecs
   ) {
     super(injector);
   }
 
   public openActionMenuInTable(event: MouseEvent): Observable<LiFormActionEvent> {
-    const menu = [
+    const menu: FlMenuDynamicInput = [
       this.getTagsButton('FORM', this.form.id, this.tags),
       this.getHistoryButton(),
       this.getViewNotesButton(),
       this.getArchiveButton(),
       this.getDeleteButton(),
+      this.getExtensionsButton('FORM', this.form.id),
     ];
 
     return this.generateMenu(menu, event);
   }
 
   public openDetailActionMenu(event: MouseEvent): Observable<LiFormActionEvent> {
-    const menu = [
+    const menu: FlMenuDynamicInput = [
       this.getTagsButton('FORM', this.form.id, this.tags),
       this.getHistoryButton(),
       this.getViewNotesButton(),
       this.getArchiveButton(),
       this.getDeleteButton(),
+      this.getExtensionsButton('FORM', this.form.id),
     ];
 
     return this.generateMenu(menu, event);

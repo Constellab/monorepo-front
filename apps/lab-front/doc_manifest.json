@@ -5,12 +5,7 @@
       "title": "Scenario overview",
       "remote_doc_id": "78873f58-3114-48dd-94a2-d3c9e42e2df2",
       "description": "Landing page for the Scenario section. Explains what a scenario is, key concepts, lifecycle, and types.",
-      "sections": [
-        "What is a scenario?",
-        "Key concepts",
-        "Scenario types",
-        "What's in this section?"
-      ],
+      "sections": ["What is a scenario?", "Key concepts", "Scenario types", "What's in this section?"],
       "source_files": [
         "libs/lab-lib/src/lib/li-core/model/entities/li-scenario.entity.ts",
         "libs/lab-lib/src/lib/li-core/model/entities/process/li-process.entity.ts",
@@ -26,13 +21,8 @@
       "title": "Scenarios page",
       "remote_doc_id": "6b381a59-988c-43f9-af12-c72cf342a701",
       "description": "The Scenarios list page: browsing, searching, and filtering scenarios.",
-      "sections": [
-        "The Scenarios page",
-        "How to search and filter scenarios"
-      ],
-      "source_files": [
-        "apps/lab-front/src/app/lab-scenario/lab-scenarios-page/"
-      ]
+      "sections": ["The Scenarios page", "How to search and filter scenarios"],
+      "source_files": ["apps/lab-front/src/app/lab-scenario/lab-scenarios-page/"]
     },
     {
       "folder": "scenario",
@@ -190,7 +180,6 @@
       ],
       "source_files": [
         "apps/lab-front/src/app/lab-resource/lab-resource-detail-page/",
-        "libs/lab-lib/src/lib/li-resource/component/li-resource-actions-menu/",
         "libs/lab-lib/src/lib/li-resource/component/li-resource-detail-header/",
         "libs/lab-lib/src/lib/li-resource/component/li-resource-info-dialog/",
         "libs/lab-lib/src/lib/li-resource/component/li-resource-detail/"
@@ -201,10 +190,7 @@
       "title": "Resource views",
       "remote_doc_id": "5267ec40-8800-4a18-8992-2b8557f09d34",
       "description": "How to visualize resource data using views: favorite views, native views, view actions.",
-      "sections": [
-        "How to use resource views",
-        "View actions"
-      ],
+      "sections": ["How to use resource views", "View actions"],
       "source_files": [
         "libs/lab-lib/src/lib/li-resource/component/li-resource-available-views-portal/",
         "libs/lab-lib/src/lib/li-resource/component/li-resource-view-detail/",
@@ -224,22 +210,15 @@
         "Share a resource with space folder",
         "How to expose a resource with a URL?"
       ],
-      "source_files": [
-        "libs/lab-lib/src/lib/li-share/"
-      ]
+      "source_files": ["libs/lab-lib/src/lib/li-share/"]
     },
     {
       "folder": "resource",
       "title": "Importing and exporting resources",
       "remote_doc_id": "a797737c-3e13-4efd-9038-311eccbc54da",
       "description": "Converting files to typed resources (import) and resources to files (export).",
-      "sections": [
-        "How to import a resource?",
-        "How to export a resource?"
-      ],
-      "source_files": [
-        "libs/lab-lib/src/lib/li-resource/component/li-import-resource-dialog/"
-      ]
+      "sections": ["How to import a resource?", "How to export a resource?"],
+      "source_files": ["libs/lab-lib/src/lib/li-resource/component/li-import-resource-dialog/"]
     },
     {
       "folder": "resource",
@@ -259,24 +238,15 @@
       "title": "View overview",
       "remote_doc_id": "",
       "description": "Landing page for the View section. Explains what a view is.",
-      "sections": [
-        "What is a view?",
-        "Browsing the Views gallery",
-        "How to search views?"
-      ],
-      "source_files": [
-        "apps/lab-front/src/app/lab-view/"
-      ]
+      "sections": ["What is a view?", "Browsing the Views gallery", "How to search views?"],
+      "source_files": ["apps/lab-front/src/app/lab-view/"]
     },
     {
       "folder": "scenario-template",
       "title": "Scenario templates page",
       "remote_doc_id": "",
       "description": "The scenario template list page: browsing, searching, and filtering scenario templates.",
-      "sections": [
-        "The Scenario Templates page",
-        "How to search and filter scenario templates"
-      ],
+      "sections": ["The Scenario Templates page", "How to search and filter scenario templates"],
       "source_files": [
         "apps/lab-front/src/app/lab-scenario-template/lab-scenario-templates-search-page/lab-scenario-templates-search-page/lab-scenario-templates-search-page.component.ts"
       ]
@@ -293,9 +263,7 @@
         "How to download a scenario template?",
         "How to delete a scenario template?"
       ],
-      "source_files": [
-        "apps/lab-front/src/app/lab-scenario-template/lab-scenario-template-detail-page/"
-      ]
+      "source_files": ["apps/lab-front/src/app/lab-scenario-template/lab-scenario-template-detail-page/"]
     },
     {
       "folder": "note",
@@ -324,10 +292,7 @@
       "title": "Notes page",
       "remote_doc_id": "6f8f271e-2ea6-4801-97db-1f5b23b20edc",
       "description": "The note list page: browsing, searching, and filtering notes.",
-      "sections": [
-        "The Notes page",
-        "How to search and filter notes"
-      ],
+      "sections": ["The Notes page", "How to search and filter notes"],
       "source_files": [
         "apps/lab-front/src/app/lab-note/module/lab-note-search-page/component/lab-note-search-page/",
         "libs/lab-lib/src/lib/li-note/component/li-note-search/",
@@ -370,12 +335,14 @@
       "sections": [
         "The note editor",
         "How to insert a note template?",
+        "How to insert a form?",
         "How to insert a resource view?"
       ],
       "source_files": [
         "apps/lab-front/src/app/lab-note/module/lab-note-detail-page/lab-note-text-editor-config.class.ts",
         "apps/lab-front/src/app/lab-note/module/lab-note-detail-page/component/lab-note-insert-template-dialog/",
-        "apps/lab-front/src/app/lab-note/module/lab-note-detail-page/model/lab-note-insert-template-block-tune.class.ts"
+        "apps/lab-front/src/app/lab-note/module/lab-note-detail-page/model/lab-note-insert-template-block-tune.class.ts",
+        "libs/lab-lib/src/lib/li-form/component/li-rich-text-form/"
       ]
     },
     {
@@ -383,10 +350,7 @@
       "title": "Note template page",
       "remote_doc_id": "60256355-d359-4e12-a7b9-512912ad6807",
       "description": "The note template list page: browsing, searching, and filtering note templates.",
-      "sections": [
-        "The Note Templates page",
-        "How to search and filter note templates"
-      ],
+      "sections": ["The Note Templates page", "How to search and filter note templates"],
       "source_files": [
         "apps/lab-front/src/app/lab-note-template/lab-note-templates-search-page/lab-note-templates-search-page/lab-note-templates-search-page.component.ts",
         "libs/lab-lib/src/lib/li-note-template/component/li-note-template-search/",
@@ -443,19 +407,14 @@
         "How to share an application publicly?",
         "How to share an application with space?"
       ],
-      "source_files": [
-        "apps/lab-front/src/app/lab-app/lab-app-search-page/lab-app-search-page.component.ts"
-      ]
+      "source_files": ["apps/lab-front/src/app/lab-app/lab-app-search-page/lab-app-search-page.component.ts"]
     },
     {
       "folder": "tag",
       "title": "Tag overview",
       "remote_doc_id": "",
       "description": "Landing page for the Tag section. Explains what tags are and why to use them.",
-      "sections": [
-        "What are tags?",
-        "Why use tags?"
-      ],
+      "sections": ["What are tags?", "Why use tags?"],
       "source_files": []
     },
     {
@@ -463,25 +422,15 @@
       "title": "Tags",
       "remote_doc_id": "",
       "description": "Tags dashboard, tag detail page, and how to use tags to organize objects.",
-      "sections": [
-        "Tags dashboard",
-        "Tag detail",
-        "Using tags"
-      ],
-      "source_files": [
-        "apps/lab-front/src/app/lab-tag/"
-      ]
+      "sections": ["Tags dashboard", "Tag detail", "Using tags"],
+      "source_files": ["apps/lab-front/src/app/lab-tag/"]
     },
     {
       "folder": "monitoring",
       "title": "Dashboard and bricks",
       "remote_doc_id": "",
       "description": "Default monitoring tab: lab status, dashboard actions, and installed bricks information.",
-      "sections": [
-        "Dashboard overview",
-        "Dashboard actions",
-        "Bricks information"
-      ],
+      "sections": ["Dashboard overview", "Dashboard actions", "Bricks information"],
       "source_files": [
         "apps/lab-front/src/app/lab-monitoring/lab-monitoring-page/component/lab-monitoring-dashboard-page/",
         "apps/lab-front/src/app/lab-monitoring/lab-monitoring-page/component/lab-monitoring-current-info/",
@@ -495,10 +444,7 @@
       "title": "Usage and logs",
       "remote_doc_id": "",
       "description": "Monitoring usage metrics (CPU, RAM, GPU, disk) and server logs.",
-      "sections": [
-        "Monitoring (Usage)",
-        "Logs"
-      ],
+      "sections": ["Monitoring (Usage)", "Logs"],
       "source_files": [
         "apps/lab-front/src/app/lab-monitoring/lab-monitoring-page/component/lab-monitoring-usage-page/",
         "apps/lab-front/src/app/lab-monitoring/lab-monitoring-page/component/lab-monitoring-logs-page/"
@@ -509,10 +455,7 @@
       "title": "Credentials and apps",
       "remote_doc_id": "",
       "description": "Managing lab credentials for external connections and monitoring running apps.",
-      "sections": [
-        "Credentials",
-        "Apps"
-      ],
+      "sections": ["Credentials", "Apps"],
       "source_files": [
         "apps/lab-front/src/app/lab-monitoring/lab-monitoring-page/component/lab-monitoring-credentials-page/",
         "apps/lab-front/src/app/lab-monitoring/lab-monitoring-page/component/lab-monitoring-apps-status/",
@@ -524,12 +467,7 @@
       "title": "Activities and maintenance",
       "remote_doc_id": "",
       "description": "Activity log, virtual environments, share links cleanup, and bricks data management.",
-      "sections": [
-        "Activities",
-        "Virtual environments",
-        "Share links",
-        "Bricks data"
-      ],
+      "sections": ["Activities", "Virtual environments", "Share links", "Bricks data"],
       "source_files": [
         "apps/lab-front/src/app/lab-monitoring/lab-monitoring-page/component/lab-monitoring-activity-page/",
         "apps/lab-front/src/app/lab-monitoring/lab-monitoring-page/component/lab-monitoring-venvs-page/",
@@ -583,10 +521,7 @@
       "title": "Form templates page",
       "remote_doc_id": "ddbb827d-f533-4584-a468-f63bd35686a1",
       "description": "The form template list page: browsing, searching, filtering, and creating form templates.",
-      "sections": [
-        "The Form Templates page",
-        "How to search and filter form templates"
-      ],
+      "sections": ["The Form Templates page", "How to search and filter form templates"],
       "source_files": [
         "apps/lab-front/src/app/lab-form-template/module/lab-form-template-search-page/",
         "libs/lab-lib/src/lib/li-form/component/li-form-template-search/",
@@ -627,10 +562,7 @@
       "title": "Forms page",
       "remote_doc_id": "25844749-c83e-4d2d-ae59-7caa71a01773",
       "description": "The form list page: browsing, searching, and filtering forms.",
-      "sections": [
-        "The Forms page",
-        "How to search and filter forms"
-      ],
+      "sections": ["The Forms page", "How to search and filter forms"],
       "source_files": [
         "apps/lab-front/src/app/lab-form/module/lab-form-search-page/",
         "libs/lab-lib/src/lib/li-form/component/li-form-search/",

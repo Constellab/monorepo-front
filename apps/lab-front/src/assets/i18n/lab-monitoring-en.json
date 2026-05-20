@@ -78,6 +78,7 @@
     "app_stop_policy_MANUAL": "Keep alive",
     "app_stop_policy_tooltip": "Auto: the app is stopped when no connections are detected and will restart on next access. Manual: the app stays alive until explicitly stopped from this section.",
     "app_env_type": "Environment app type",
+    "app_env_info": "Environment information",
     "app_env_file_path": "Environment file path",
     "app_env_file_content": "Environment file content",
     "app_started": "Started",

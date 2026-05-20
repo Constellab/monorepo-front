@@ -191,4 +191,8 @@ export class LabResourceViewModuleConfig extends RvResourceViewModuleConfig {
   getTextViewConfig(): RvTextViewConfig {
     return this.textViewConfig;
   }
+
+  enableQueryParams(): boolean {
+    return true;
+  }
 }

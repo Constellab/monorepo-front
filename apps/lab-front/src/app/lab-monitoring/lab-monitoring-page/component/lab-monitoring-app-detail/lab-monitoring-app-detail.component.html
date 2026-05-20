@@ -1,5 +1,5 @@
 @if (appInstance().sourceIds.length > 0) {
-  <div>{{ 'monitoring.app_input_resources' | translate }}</div>
+  <h4 class="g-sidebar-group-title g-text-small">{{ 'monitoring.app_input_resources' | translate }}</h4>
 
   <ul>
     @for (inputResource of appInstance().sourceIds; track inputResource) {
@@ -10,6 +10,10 @@
       </li>
     }
   </ul>
+}
+
+@if (appInstance().envFilePath || appInstance().envFileContent) {
+  <h4 class="g-sidebar-group-title g-text-small">{{ 'monitoring.app_env_info' | translate }}</h4>
 }
 
 @if (appInstance().envFilePath) {

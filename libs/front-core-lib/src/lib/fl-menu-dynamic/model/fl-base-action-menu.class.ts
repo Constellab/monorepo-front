@@ -2,7 +2,7 @@ import { Injector } from '@angular/core';
 import { mergeMap, Observable, Subject } from 'rxjs';
 
 import { FlMenuDynamicService } from '../fl-menu-dynamic.service';
-import { FlMenuDynamic } from './fl-menu-dynamic.class';
+import { FlMenuDynamic, FlMenuDynamicInput } from './fl-menu-dynamic.class';
 
 /**
  * Base class to manage the action menu for an object
@@ -12,8 +12,8 @@ export class FlBaseActionMenu {
 
   constructor(protected injector: Injector) {}
 
-  protected generateMenu(menu: FlMenuDynamic[], event: MouseEvent): Observable<any> {
-    if (menu.length === 0) {
+  protected generateMenu(menu: FlMenuDynamicInput, event: MouseEvent): Observable<any> {
+    if (Array.isArray(menu) && menu.length === 0) {
       this.subject.complete();
       return this.subject.asObservable();
     }

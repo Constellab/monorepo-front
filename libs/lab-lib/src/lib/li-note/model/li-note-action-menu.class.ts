@@ -4,7 +4,7 @@ import {
   FlConfirmDialogResult,
   FlDialogService,
 } from '@monorepo/front-core-lib/fl-dialog';
-import { FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
+import { FlMenuDynamic, FlMenuDynamicInput } from '@monorepo/front-core-lib/fl-menu-dynamic';
 import { LiNote, LiNoteService, LiTagDatasource } from '@monorepo/lab-lib/li-core';
 import { LiEntityActionMenu } from '@monorepo/lab-lib/li-entity';
 import { Observable } from 'rxjs';
@@ -18,13 +18,17 @@ export class LiNoteActionMenu extends LiEntityActionMenu {
   constructor(
     injector: Injector,
     protected note: LiNote,
-    protected tags: LiTagDatasource
+    protected tags?: LiTagDatasource
   ) {
     super(injector);
   }
 
   public openActionMenuInTable(event: MouseEvent): Observable<LiNoteActionEvent> {
-    const menu = [this.getTagsButton('NOTE', this.note.id, this.tags), this.getArchiveButton()];
+    const menu: FlMenuDynamicInput = [
+      this.getTagsButton('NOTE', this.note.id, this.tags),
+      this.getArchiveButton(),
+      this.getExtensionsButton('NOTE', this.note.id),
+    ];
 
     return this.generateMenu(menu, event);
   }

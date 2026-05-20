@@ -8,7 +8,6 @@ export * from './component/li-configure-resource-view/li-configure-resource-view
 export * from './component/li-fs-node-types-selection-dialog/li-fs-node-types-selection-dialog.component';
 export * from './component/li-import-resource-dialog/li-import-resource-dialog.component';
 export * from './component/li-notes-using-resource/li-notes-using-resource.component';
-export * from './component/li-resource-actions-menu/li-resource-actions-menu.component';
 export * from './component/li-resource-available-views-portal/li-resource-available-views-portal.component';
 export * from './component/li-resource-children-tabs/li-resource-children-tabs.component';
 export * from './component/li-resource-detail-dialog/li-resource-detail-dialog.component';
@@ -37,6 +36,7 @@ export * from './component/li-select-resource/li-select-resource.component';
 export * from './component/li-update-resource-name-dialog/li-update-resource-name-dialog.component';
 export * from './component/li-update-resource-type/li-update-resource-type.component';
 export * from './model/li-note-resource-text-editor.config';
+export * from './model/li-resource-action-menu';
 export * from './model/li-resource-spreadsheet-page-loader.class';
 export * from './model/li-table-chart-config.class';
 export * from './service/li-resource-download.service';

@@ -90,11 +90,7 @@ export class LiFormTableComponent {
 
   openActionMenu(form: LiForm, event: MouseEvent): void {
     ClHelpService.stopEventPropagation(event);
-    const actionMenu = new LiFormActionMenu(
-      this.injector,
-      form,
-      this.tagService.getEntityTagsDatasource('FORM', form.id)
-    );
+    const actionMenu = new LiFormActionMenu(this.injector, form);
 
     actionMenu.openActionMenuInTable(event).subscribe((action) => this.onAction(action));
   }

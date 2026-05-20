@@ -4,7 +4,7 @@ import {
   FlConfirmDialogResult,
   FlDialogService,
 } from '@monorepo/front-core-lib/fl-dialog';
-import { FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
+import { FlMenuDynamic, FlMenuDynamicInput } from '@monorepo/front-core-lib/fl-menu-dynamic';
 import {
   LiNoteTemplate,
   LiNoteTemplateService,
@@ -23,27 +23,29 @@ export class LiNoteTemplateActionMenu extends LiEntityActionMenu {
   constructor(
     injector: Injector,
     protected noteTemplate: LiNoteTemplate,
-    protected tags: LiTagDatasource
+    protected tags?: LiTagDatasource
   ) {
     super(injector);
   }
 
   public openActionMenuInTable(event: MouseEvent): Observable<LiNoteTemplateActionEvent> {
-    const menu = [
+    const menu: FlMenuDynamicInput = [
       this.getCreateNoteButton(),
       this.getTagsButton('NOTE_TEMPLATE', this.noteTemplate.id, this.tags),
       this.getDeleteButton(),
+      this.getExtensionsButton('NOTE_TEMPLATE', this.noteTemplate.id),
     ];
 
     return this.generateMenu(menu, event);
   }
 
   public openDetailActionMenu(event: MouseEvent): Observable<LiNoteTemplateActionEvent> {
-    const menu: FlMenuDynamic[] = [
+    const menu: FlMenuDynamicInput = [
       this.getCreateNoteButton(),
       this.getPrintButton(),
       this.getTagsButton('NOTE_TEMPLATE', this.noteTemplate.id, this.tags),
       this.getDeleteButton(),
+      this.getExtensionsButton('NOTE_TEMPLATE', this.noteTemplate.id),
     ];
 
     return this.generateMenu(menu, event);

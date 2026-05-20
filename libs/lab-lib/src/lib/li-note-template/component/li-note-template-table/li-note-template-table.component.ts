@@ -82,11 +82,7 @@ export class LiNoteTemplateTableComponent {
 
   openActionMenu(noteTemplate: LiNoteTemplate, event: MouseEvent): void {
     ClHelpService.stopEventPropagation(event);
-    const actionMenu = new LiNoteTemplateActionMenu(
-      this.injector,
-      noteTemplate,
-      this.tagService.getEntityTagsDatasource('NOTE_TEMPLATE', noteTemplate.id)
-    );
+    const actionMenu = new LiNoteTemplateActionMenu(this.injector, noteTemplate);
 
     actionMenu.openActionMenuInTable(event).subscribe((action) => this.onAction(action));
   }

@@ -1,11 +1,11 @@
-import { ElementRef, inject,Injectable } from '@angular/core';
+import { ElementRef, inject, Injectable } from '@angular/core';
 import { FlPortalService } from '@monorepo/front-core-lib/fl-portal';
 import { FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
 import { FlPortalConfig } from '@monorepo/front-core-lib/fl-portal';
 
 import { FlOverlayConfig, FlPortalConnectedPosition } from '../fl-portal/model/fl-portal.class';
 import { FlMenuDynamicPortalComponent } from './component/fl-menu-dynamic-portal/fl-menu-dynamic-portal.component';
-import { FlMenuDynamic } from './model/fl-menu-dynamic.class';
+import { FlMenuDynamicInput } from './model/fl-menu-dynamic.class';
 
 @Injectable({
   providedIn: 'root',
@@ -29,7 +29,7 @@ export class FlMenuDynamicService {
    * Open the menu portal relative to the element
    */
   public openDynamicMenuRelative(
-    menu: FlMenuDynamic[],
+    menu: FlMenuDynamicInput,
     element: Element | ElementRef,
     position: FlPortalConnectedPosition[] = this.positions
   ): FlOverlayRef {
@@ -46,7 +46,7 @@ export class FlMenuDynamicService {
    * Open the menu portal relative to the element on mouse position
    */
   public openDynamicMenuFromMouseEvent(
-    menu: FlMenuDynamic[],
+    menu: FlMenuDynamicInput,
     mouseEvent: MouseEvent,
     position: FlPortalConnectedPosition[] = this.positions
   ): FlOverlayRef {
@@ -64,13 +64,13 @@ export class FlMenuDynamicService {
    * it can appear outside the screen. To use when openDynamicMenuFromMouseEvent
    * does not work correct
    */
-  public openDynamicMenuAbsolute(menu: FlMenuDynamic[], event: MouseEvent): FlOverlayRef {
+  public openDynamicMenuAbsolute(menu: FlMenuDynamicInput, event: MouseEvent): FlOverlayRef {
     const config: FlPortalConfig = this.portalService.configureAbsolutePortalFromMouseEvent(event);
 
     return this.createPortal(menu, config);
   }
 
-  private createPortal(menu: FlMenuDynamic[], config: FlPortalConfig): FlOverlayRef {
+  private createPortal(menu: FlMenuDynamicInput, config: FlPortalConfig): FlOverlayRef {
     return this.portalService.createPortal(FlMenuDynamicPortalComponent, config, menu);
   }
 }

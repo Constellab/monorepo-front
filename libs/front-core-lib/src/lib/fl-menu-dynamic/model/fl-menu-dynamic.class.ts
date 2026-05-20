@@ -1,7 +1,10 @@
 import { ThemePalette } from '@angular/material/core';
 import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
+import { Observable } from 'rxjs';
 
 export type FlMenuDynamic = FlMenuDynamicButton | FlMenuDynamicLink | FlMenuDynamicDownloadLink;
+
+export type FlMenuDynamicInput = (FlMenuDynamic | Observable<FlMenuDynamic | null>)[];
 
 export class FlMenuDynamicButton {
   type: 'button';
