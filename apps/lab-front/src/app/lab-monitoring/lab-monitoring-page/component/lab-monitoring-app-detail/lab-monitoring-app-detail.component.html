@@ -1,9 +1,3 @@
-<fl-key-value>
-  <fl-key>{{ 'monitoring.app_type' | translate }}</fl-key>
-  {{ appInstance().appType }}
-</fl-key-value>
-
-
 @if (appInstance().sourceIds.length > 0) {
   <div>{{ 'monitoring.app_input_resources' | translate }}</div>
 
@@ -18,11 +12,6 @@
   </ul>
 }
 
-<fl-key-value>
-  <fl-key>{{ 'monitoring.app_env_type' | translate }}</fl-key>
-  {{ appInstance().envType }}
-</fl-key-value>
-
 @if (appInstance().envFilePath) {
   <fl-key-value>
     <fl-key>{{ 'monitoring.app_env_file_path' | translate }}</fl-key>
@@ -36,16 +25,3 @@
     <pre class="env-content">{{ appInstance().envFileContent }}</pre>
   </fl-key-value>
 }
-
-<div class="actions">
-  <a
-    mat-stroked-button
-    [routerLink]="appInstance().appResourceId | liDetailRoute: 'RESOURCE'"
-    class="g-button-small app-link">
-    {{ 'monitoring.app_view_app' | translate }}
-  </a>
-
-  <button mat-stroked-button type="button" (click)="openAppLogs()" class="g-button-small">
-    {{ 'monitoring.app_view_logs' | translate }}
-  </button>
-</div>

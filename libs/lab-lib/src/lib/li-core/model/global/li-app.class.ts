@@ -4,6 +4,11 @@ import { DateTime } from 'luxon';
 
 import { LiUser } from '../entities/li-user.entity';
 
+export enum LiAppStopPolicy {
+  AUTO = 'AUTO',
+  MANUAL = 'MANUAL',
+}
+
 export class LiAppInstance {
   @Expose({ name: 'app_type' })
   appType: string;
@@ -24,8 +29,10 @@ export class LiAppInstance {
 
   @Expose({ name: 'env_file_content' })
   envFileContent?: string;
-}
 
+  @Expose({ name: 'stop_policy' })
+  stopPolicy: LiAppStopPolicy;
+}
 
 export class LiAppProcessStatus {
   id: string;

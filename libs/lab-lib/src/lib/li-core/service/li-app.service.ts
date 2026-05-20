@@ -5,7 +5,7 @@ import { DateTime } from 'luxon';
 import { Observable } from 'rxjs';
 
 import { LiLogsBetweenDates } from '../model/entities/li-log.entity';
-import { LiAppsStatus } from '../model/global/li-app.class';
+import { LiAppsStatus, LiAppStopPolicy } from '../model/global/li-app.class';
 
 @Injectable({
   providedIn: 'root',
@@ -25,6 +25,10 @@ export class LiAppService {
 
   public stopProcess(id: string): Observable<void> {
     return this.apiService.post(`${this.route}/stop/${id}`, null);
+  }
+
+  public setStopPolicy(id: string, stopPolicy: LiAppStopPolicy): Observable<void> {
+    return this.apiService.put(`${this.route}/${id}/stop-policy/${stopPolicy}`, null);
   }
 
   public getAppLogs(appId: string, fromPageDate?: DateTime): Observable<LiLogsBetweenDates> {
