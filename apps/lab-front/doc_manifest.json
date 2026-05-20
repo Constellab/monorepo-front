@@ -4,8 +4,16 @@
       "folder": "scenario",
       "title": "Scenario overview",
       "remote_doc_id": "78873f58-3114-48dd-94a2-d3c9e42e2df2",
-      "description": "Landing page for the Scenario section. Explains what a scenario is, key concepts, lifecycle, and types.",
-      "sections": ["What is a scenario?", "Key concepts", "Scenario types", "What's in this section?"],
+      "description": "Landing page for the Scenario section. Explains what a scenario is, what a scenario template is, key concepts, lifecycle, types, and when to use templates.",
+      "sections": [
+        "What is a scenario?",
+        "What is a scenario template?",
+        "Key concepts",
+        "Scenario types",
+        "When to use templates?",
+        "Scenario templates vs. scenario",
+        "What's in this section?"
+      ],
       "source_files": [
         "libs/lab-lib/src/lib/li-core/model/entities/li-scenario.entity.ts",
         "libs/lab-lib/src/lib/li-core/model/entities/process/li-process.entity.ts",
@@ -117,6 +125,30 @@
       "source_files": [
         "apps/lab-front/src/app/lab-scenario/lab-scenario-detail-page/component/lab-configure-task/"
       ]
+    },
+    {
+      "folder": "scenario",
+      "title": "Scenario templates page",
+      "remote_doc_id": "62ec464b-53a9-461f-b278-3a1b9618df0d",
+      "description": "The scenario template list page: browsing, searching, and filtering scenario templates.",
+      "sections": ["The Scenario Templates page", "How to search and filter scenario templates"],
+      "source_files": [
+        "apps/lab-front/src/app/lab-scenario-template/lab-scenario-templates-search-page/lab-scenario-templates-search-page/lab-scenario-templates-search-page.component.ts"
+      ]
+    },
+    {
+      "folder": "scenario",
+      "title": "Creating and editing scenario templates",
+      "remote_doc_id": "bb5b01bc-ec71-4966-8618-986dab7bbde4",
+      "description": "How to create a scenario template, use it, download it, and delete it.",
+      "sections": [
+        "How to create a scenario template?",
+        "How to update a scenario template?",
+        "How to use a scenario template?",
+        "How to download a scenario template?",
+        "How to delete a scenario template?"
+      ],
+      "source_files": ["apps/lab-front/src/app/lab-scenario-template/lab-scenario-template-detail-page/"]
     },
     {
       "folder": "scenario",
@@ -240,30 +272,6 @@
       "description": "Landing page for the View section. Explains what a view is.",
       "sections": ["What is a view?", "Browsing the Views gallery", "How to search views?"],
       "source_files": ["apps/lab-front/src/app/lab-view/"]
-    },
-    {
-      "folder": "scenario-template",
-      "title": "Scenario templates page",
-      "remote_doc_id": "",
-      "description": "The scenario template list page: browsing, searching, and filtering scenario templates.",
-      "sections": ["The Scenario Templates page", "How to search and filter scenario templates"],
-      "source_files": [
-        "apps/lab-front/src/app/lab-scenario-template/lab-scenario-templates-search-page/lab-scenario-templates-search-page/lab-scenario-templates-search-page.component.ts"
-      ]
-    },
-    {
-      "folder": "scenario-template",
-      "title": "Creating and editing scenario templates",
-      "remote_doc_id": "",
-      "description": "How to create a scenario template, use it, download it, and delete it.",
-      "sections": [
-        "How to create a scenario template?",
-        "How to update a scenario template?",
-        "How to use a scenario template?",
-        "How to download a scenario template?",
-        "How to delete a scenario template?"
-      ],
-      "source_files": ["apps/lab-front/src/app/lab-scenario-template/lab-scenario-template-detail-page/"]
     },
     {
       "folder": "note",
@@ -486,19 +494,6 @@
         "What are unavailable typings?",
         "How do I free up disk space?",
         "What is the Synchronize lab action?"
-      ],
-      "source_files": []
-    },
-    {
-      "folder": "scenario-template",
-      "title": "Scenario template overview",
-      "remote_doc_id": "",
-      "description": "Landing page for the Scenario template section. Explains what a scenario template is and when to use it.",
-      "sections": [
-        "What is a scenario template?",
-        "Key concepts",
-        "When to use templates?",
-        "What's in this section?"
       ],
       "source_files": []
     },
