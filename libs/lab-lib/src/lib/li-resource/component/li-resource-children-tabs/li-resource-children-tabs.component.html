@@ -6,7 +6,9 @@
     <div
       class="card g-text-small"
       matRipple
+      tabindex="0"
       (click)="selectResource(resource())"
+      (keyup.enter)="selectResource(resource())"
       [ngClass]="{ 'selected-card': resource()?.id === selectedResource()?.id }"
       [matTooltip]="resource().name"
       [matTooltipShowDelay]="500">
@@ -17,7 +19,9 @@
       <div
         class="card g-text-small"
         matRipple
+        tabindex="0"
         (click)="selectResource(child)"
+        (keyup.enter)="selectResource(child)"
         [matTooltip]="child.name"
         [matTooltipShowDelay]="500"
         [ngClass]="{ 'selected-card': child.id === selectedResource()?.id }">

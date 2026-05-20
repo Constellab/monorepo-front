@@ -133,23 +133,37 @@ export class LiEntityActionMenu extends FlBaseActionMenu {
   }
 
   private handleEntityActionResult(result: LiEntityActionResult): void {
-    const router = this.injector.get(Router);
-
     if (result?.navigate_to) {
-      if (result.open_in_new_tab) {
-        const urlTree = router.createUrlTree([result.navigate_to], {
+      const isExternalUrl = /^https?:\/\//.test(result.navigate_to);
+
+      if (!isExternalUrl && !result.open_in_new_tab) {
+        this.injector.get(Router).navigate([result.navigate_to], {
           queryParams: result.navigate_query_params,
         });
-        window.open(router.serializeUrl(urlTree), '_blank');
       } else {
-        router.navigate([result.navigate_to], {
-          queryParams: result.navigate_query_params,
-        });
+        const url = isExternalUrl
+          ? this.buildExternalUrl(result.navigate_to, result.navigate_query_params)
+          : this.injector.get(Router).serializeUrl(
+              this.injector.get(Router).createUrlTree([result.navigate_to], {
+                queryParams: result.navigate_query_params,
+              })
+            );
+        window.open(url, result.open_in_new_tab ? '_blank' : '_self');
       }
     }
 
     if (result?.message) {
       this.injector.get(FlSnackBarService).openSuccessMessage({ text: result.message, translateText: false });
     }
+  }
+
+  private buildExternalUrl(baseUrl: string, queryParams?: Record<string, string>): string {
+    const url = new URL(baseUrl);
+    if (queryParams) {
+      for (const [key, value] of Object.entries(queryParams)) {
+        url.searchParams.set(key, value);
+      }
+    }
+    return url.toString();
   }
 }
