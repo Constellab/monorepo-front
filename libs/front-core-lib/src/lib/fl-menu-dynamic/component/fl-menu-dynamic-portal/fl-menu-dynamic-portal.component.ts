@@ -3,7 +3,7 @@ import { MatMenuTrigger } from '@angular/material/menu';
 import { FlEventWrapper } from '@monorepo/front-core-lib/fl-core';
 import { FL_PORTAL_DATA, FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
 
-import { FlMenuDynamic } from '../../model/fl-menu-dynamic.class';
+import { FlMenuDynamic, FlMenuDynamicInput } from '../../model/fl-menu-dynamic.class';
 import { FlMenuDynamicComponent } from '../fl-menu-dynamic/fl-menu-dynamic.component';
 
 /**
@@ -21,7 +21,7 @@ export class FlMenuDynamicPortalComponent implements OnInit, AfterViewInit, OnDe
 
   @ViewChild(MatMenuTrigger, { static: true }) menuTrigger: MatMenuTrigger;
 
-  menu: FlMenuDynamic[]  = inject(FL_PORTAL_DATA);
+  menu: FlMenuDynamicInput = inject(FL_PORTAL_DATA);
 
   private listener: () => void;
 

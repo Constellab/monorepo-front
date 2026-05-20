@@ -1,16 +1,22 @@
-import { Component, inject, Input, Signal, ViewContainerRef } from '@angular/core';
+import { Component, inject, Injector, Input, Signal, ViewContainerRef } from '@angular/core';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatDialogClose } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
-import { MatMenuItem } from '@angular/material/menu';
 import { MatTooltip } from '@angular/material/tooltip';
 import { RouterLink } from '@angular/router';
 import { FlColorModule } from '@monorepo/front-core-lib/fl-color';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
+import { FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
 import { FlOverlayRef, FlPortalConfig, FlPortalService } from '@monorepo/front-core-lib/fl-portal';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
-import { LiDetailRoutePipe, LiResource, LiResourceService, LiRouterService } from '@monorepo/lab-lib/li-core';
+import {
+  LiDetailRoutePipe,
+  LiResource,
+  LiResourceService,
+  LiRouterService,
+  LiTagService,
+} from '@monorepo/lab-lib/li-core';
 import { LiFlagButtonComponent } from '@monorepo/lab-lib/li-entity';
 import { LiFolderInlineComponent } from '@monorepo/lab-lib/li-folder';
 import {
@@ -19,12 +25,12 @@ import {
 } from '@monorepo/lab-lib/li-transformer';
 import { TranslatePipe } from '@ngx-translate/core';
 
+import { LiResourceActionMenu } from '../../model/li-resource-action-menu';
 import { LiResourceDetailState } from '../../state/li-resource-detail.state';
 import {
   LiImportResourceDialogComponent,
   LiImportResourceDialogInput,
 } from '../li-import-resource-dialog/li-import-resource-dialog.component';
-import { LiResourceActionsMenuComponent } from '../li-resource-actions-menu/li-resource-actions-menu.component';
 import { LiResourceAvailableViewsPortalComponent } from '../li-resource-available-views-portal/li-resource-available-views-portal.component';
 import {
   LiResourceInfoDialogComponent,
@@ -42,8 +48,6 @@ import {
     FlIconModule,
     LiFlagButtonComponent,
     MatButton,
-    LiResourceActionsMenuComponent,
-    MatMenuItem,
     MatIconButton,
     MatTooltip,
     MatDialogClose,
@@ -54,12 +58,14 @@ import {
   ],
 })
 export class LiResourceDetailHeaderComponent {
+  private injector = inject(Injector);
   private state = inject(LiResourceDetailState);
   private routerService = inject(LiRouterService);
   private portalService = inject(FlPortalService);
   private dialogService = inject(FlDialogService);
   private containerRef = inject(ViewContainerRef);
   private resourceService = inject(LiResourceService);
+  private tagService = inject(LiTagService);
 
   @Input() displayMode: 'fullPage' | 'fullDialog' | 'dense' = 'fullPage';
 
@@ -91,6 +97,41 @@ export class LiResourceDetailHeaderComponent {
       panelClass: 'g-dialog-main-background',
       autoFocus: false,
     });
+  }
+
+  openResourceMenu(event: MouseEvent): void {
+    const resource = this.resource();
+
+    const extraItems: FlMenuDynamic[] = [];
+    if (this.displayMode === 'fullPage') {
+      extraItems.push({
+        type: 'button',
+        text: 'li.transformers',
+        icon: 'transformer',
+        onClick: () => this.openTransformerResource(),
+      });
+    }
+    if (this.displayMode === 'dense') {
+      extraItems.push({
+        type: 'button',
+        text: 'li.resource_info',
+        icon: 'info',
+        onClick: () => this.openResourceInfoDialog(),
+      });
+    }
+
+    new LiResourceActionMenu(this.injector, resource, {
+      readOnly: this.displayMode !== 'fullPage',
+      extraItems,
+    })
+      .openActionMenu(event)
+      .subscribe((result) => {
+        if (result.action === 'update') {
+          this.state.updateResource(result.resource);
+        } else if (result.action === 'delete') {
+          this.routerService.navigateToDatabox();
+        }
+      });
   }
 
   onUpdate(resource: LiResource): void {

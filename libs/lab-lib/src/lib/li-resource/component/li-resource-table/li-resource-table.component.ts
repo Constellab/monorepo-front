@@ -4,6 +4,7 @@ import {
   Component,
   EventEmitter,
   inject,
+  Injector,
   Input,
   OnInit,
   Output,
@@ -49,7 +50,7 @@ import { TdTechnicalDocModule } from '@monorepo/technical-doc';
 import { TranslatePipe } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
-import { LiResourceActionsMenuComponent } from '../li-resource-actions-menu/li-resource-actions-menu.component';
+import { LiResourceActionEvent,LiResourceActionMenu } from '../../model/li-resource-action-menu';
 import { LiResourceDetailDialogComponent } from '../li-resource-detail-dialog/li-resource-detail-dialog.component';
 
 /**
@@ -80,7 +81,6 @@ import { LiResourceDetailDialogComponent } from '../li-resource-detail-dialog/li
     TdTechnicalDocModule,
     LiTagListComponent,
     LiFlagButtonComponent,
-    LiResourceActionsMenuComponent,
     MatAnchor,
     FlLoaderModule,
     MatHeaderRowDef,
@@ -96,6 +96,7 @@ import { LiResourceDetailDialogComponent } from '../li-resource-detail-dialog/li
   ],
 })
 export class LiResourceTableComponent implements OnInit {
+  private injector = inject(Injector);
   private resourceService = inject(LiResourceService);
   private dialogService = inject(FlDialogService);
 
@@ -140,8 +141,23 @@ export class LiResourceTableComponent implements OnInit {
     this.resourceSelected.next(resource);
   }
 
+  openResourceMenu(resource: LiResource, event: MouseEvent): void {
+    ClHelpService.stopEventPropagation(event);
+    new LiResourceActionMenu(this.injector, resource)
+      .openActionMenu(event)
+      .subscribe((result) => this.onResourceAction(result));
+  }
+
   stopEventPropagation(event: MouseEvent): void {
     ClHelpService.stopEventPropagation(event);
+  }
+
+  private onResourceAction(result: LiResourceActionEvent): void {
+    if (result.action === 'update') {
+      this.onUpdate(result.resource);
+    } else if (result.action === 'delete') {
+      this.onDelete(result.resource);
+    }
   }
 
   onUpdate(resource: LiResource): void {

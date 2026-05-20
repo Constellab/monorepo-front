@@ -724,6 +724,7 @@
     "form_actions": "Actions",
     "archive_form_confirmation": "Cela archivera le formulaire. Continuer ?",
     "unarchive_form_confirmation": "Cela désarchivera le formulaire. Continuer ?",
-    "current_version": "Version actuelle"
+    "current_version": "Version actuelle",
+    "extensions": "Extensions"
   }
 }

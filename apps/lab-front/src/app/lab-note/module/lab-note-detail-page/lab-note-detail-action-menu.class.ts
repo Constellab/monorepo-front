@@ -4,7 +4,7 @@ import {
   FlConfirmDialogResult,
   FlDialogService,
 } from '@monorepo/front-core-lib/fl-dialog';
-import { FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
+import { FlMenuDynamic, FlMenuDynamicInput } from '@monorepo/front-core-lib/fl-menu-dynamic';
 import { FlPortalService } from '@monorepo/front-core-lib/fl-portal';
 import { FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
 import {
@@ -36,7 +36,7 @@ export class LabNoteDetailActionMenu extends LiNoteActionMenu {
   }
 
   public openDetailActionMenu(event: MouseEvent): Observable<LiNoteActionEvent> {
-    const menu = [this.getTagsButton('NOTE', this.note.id, this.tags)];
+    const menu: FlMenuDynamicInput = [this.getTagsButton('NOTE', this.note.id)];
 
     if (this.note.isEditable()) {
       menu.push(this.getValidateButton());
@@ -49,6 +49,8 @@ export class LabNoteDetailActionMenu extends LiNoteActionMenu {
     if (this.note.isEditable()) {
       menu.push(this.getDeleteButton());
     }
+
+    menu.push(this.getExtensionsButton('NOTE', this.note.id));
 
     return this.generateMenu(menu, event).pipe(
       tap((event) => this.injector.get(LabNoteDetailPageState).updateNote(event.note))

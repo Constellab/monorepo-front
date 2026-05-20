@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject,Injector, Input, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Injector, Input, Output } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatSortHeader } from '@angular/material/sort';
@@ -95,11 +95,7 @@ export class LiScenarioTableComponent {
   }
 
   openActionMenu(scenario: LiScenario, event: MouseEvent): void {
-    const scenarioActionMenu = new LiScenarioActionMenu(
-      this.injector,
-      scenario,
-      this.tagService.getEntityTagsDatasource('SCENARIO', scenario.id)
-    );
+    const scenarioActionMenu = new LiScenarioActionMenu(this.injector, scenario);
 
     scenarioActionMenu.openActionMenuInTable(event).subscribe((action) => this.onActionClosed(action));
   }

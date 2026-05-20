@@ -4,7 +4,7 @@ import {
   FlConfirmDialogResult,
   FlDialogService,
 } from '@monorepo/front-core-lib/fl-dialog';
-import { FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
+import { FlMenuDynamic, FlMenuDynamicInput } from '@monorepo/front-core-lib/fl-menu-dynamic';
 import { FlPortalActionResult, FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
@@ -50,8 +50,8 @@ export class LabScenarioDetailActionMenu extends LiScenarioActionMenu {
   }
 
   public openActionMenuDetail(event: MouseEvent): Observable<LiScenarioActionEvent> {
-    const menu = [
-      this.getTagsButton('SCENARIO', this.scenario.id, this.tags),
+    const menu: FlMenuDynamicInput = [
+      this.getTagsButton('SCENARIO', this.scenario.id),
       this.getCreateNoteButton(),
       this.getProtocolMenuButton(),
     ];
@@ -86,6 +86,8 @@ export class LabScenarioDetailActionMenu extends LiScenarioActionMenu {
     if (this.scenario.protocolIsEditable()) {
       menu.push(this.getDeleteButton());
     }
+
+    menu.push(this.getExtensionsButton('SCENARIO', this.scenario.id));
 
     return this.generateMenu(menu, event).pipe(
       tap((event: LiScenarioActionEvent) => {

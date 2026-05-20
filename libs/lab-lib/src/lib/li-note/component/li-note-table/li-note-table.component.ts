@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject,Injector, Input, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Injector, Input, Output } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatSortHeader } from '@angular/material/sort';
@@ -89,11 +89,7 @@ export class LiNoteTableComponent {
   }
 
   openActionMenu(note: LiNote, event: MouseEvent): void {
-    const actionMenu = new LiNoteActionMenu(
-      this.injector,
-      note,
-      this.tagService.getEntityTagsDatasource('NOTE', note.id)
-    );
+    const actionMenu = new LiNoteActionMenu(this.injector, note);
 
     actionMenu.openActionMenuInTable(event).subscribe((noteAction) => this.onAction(noteAction));
   }

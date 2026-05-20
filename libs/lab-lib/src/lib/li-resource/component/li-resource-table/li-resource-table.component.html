@@ -17,6 +17,7 @@
       class="g-cell-with-left-border g-column-width-2 name-cell"
       [style.border-left-color]="resource.scenario?.id | flStringToRgb">
       @if (!selectableRow) {
+        <!-- eslint-disable-next-line @angular-eslint/template/elements-content -->
         <a [routerLink]="resource | liDetailRoute" [target]="rowLinkTarget" class="g-row-link"></a>
       }
 
@@ -136,13 +137,9 @@
   <ng-container matColumnDef="action">
     <mat-header-cell *matHeaderCellDef class="g-table-icon-button-cell"> </mat-header-cell>
     <mat-cell *matCellDef="let resource" class="g-table-icon-button-cell">
-      <li-resource-actions-menu
-        [resource]="resource"
-        (update)="onUpdate($event)"
-        (delete)="onDelete(resource)"
-        class="over-link"
-        (click)="stopEventPropagation($event)">
-      </li-resource-actions-menu>
+      <button mat-icon-button type="button" (click)="openResourceMenu(resource, $event)" class="over-link">
+        <mat-icon>more_vert</mat-icon>
+      </button>
     </mat-cell>
   </ng-container>
 
