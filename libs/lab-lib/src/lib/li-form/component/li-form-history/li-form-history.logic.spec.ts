@@ -1,12 +1,7 @@
-import { TdParamSpecs, TdParamSpecTypeEnum } from '@monorepo/technical-doc';
+import { tdGetParamSpecDisplayName,TdParamSpecs, TdParamSpecTypeEnum } from '@monorepo/technical-doc';
 
 import { LiFormChangeEntryDTO } from '../../../li-core/model/entities/form/li-form-save-event.entity';
-import {
-  liFormatChangeEntry,
-  liGetChangeActionI18nKey,
-  liGetChangeSummary,
-  liGetFieldDisplayName,
-} from './li-form-history.logic';
+import { liFormatChangeEntry, liGetChangeActionI18nKey, liGetChangeSummary } from './li-form-history.logic';
 
 describe('li-form-history.logic', () => {
   describe('liGetChangeActionI18nKey', () => {
@@ -118,7 +113,7 @@ describe('li-form-history.logic', () => {
     });
   });
 
-  describe('liGetFieldDisplayName', () => {
+  describe('tdGetParamSpecDisplayName', () => {
     const specs: TdParamSpecs = {
       mass: {
         type: 'float',
@@ -154,23 +149,23 @@ describe('li-form-history.logic', () => {
     };
 
     it('should return human_name when available', () => {
-      expect(liGetFieldDisplayName('mass', specs)).toBe('Mass (kg)');
+      expect(tdGetParamSpecDisplayName('mass', specs)).toBe('Mass (kg)');
     });
 
     it('should fall back to key when no human_name', () => {
-      expect(liGetFieldDisplayName('name', specs)).toBe('name');
+      expect(tdGetParamSpecDisplayName('name', specs)).toBe('name');
     });
 
     it('should fall back to key when no specs', () => {
-      expect(liGetFieldDisplayName('mass')).toBe('mass');
+      expect(tdGetParamSpecDisplayName('mass')).toBe('mass');
     });
 
     it('should resolve nested param_set fields', () => {
-      expect(liGetFieldDisplayName('samples[].weight', specs)).toBe('Samples > Weight');
+      expect(tdGetParamSpecDisplayName('samples[].weight', specs)).toBe('Samples > Weight');
     });
 
     it('should fall back to path for unknown nested fields', () => {
-      expect(liGetFieldDisplayName('samples[].unknown', specs)).toBe('samples[].unknown');
+      expect(tdGetParamSpecDisplayName('samples[].unknown', specs)).toBe('samples[].unknown');
     });
   });
 

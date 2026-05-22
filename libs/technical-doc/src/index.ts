@@ -1,5 +1,8 @@
 export * from './lib/td-technical-doc.module';
 
+// logic
+export * from './lib/logic/td-param-spec.logic';
+
 // model
 export * from './lib/model/td-config.class';
 export * from './lib/model/td-config-spec.class';
@@ -39,6 +42,7 @@ export * from './lib/component/td-configure-param-specs-table-dialog/td-configur
 export * from './lib/component/td-configure-specs-form/td-configure-specs-form.component';
 export * from './lib/component/td-param-value/td-param-value.component';
 export * from './lib/component/td-param-set-table-dialog/td-param-set-table-dialog.component';
+export * from './lib/component/td-param-table/td-param-table.component';
 
 //service
 export * from './lib/service/td-technical-doc-service-config.config';

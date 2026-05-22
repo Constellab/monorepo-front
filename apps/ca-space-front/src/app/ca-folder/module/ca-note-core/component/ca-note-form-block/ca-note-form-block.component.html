@@ -1,0 +1,26 @@
+@if (isLoading()) {
+  <div class="ca-note-form-block-loading">
+    <fl-loader></fl-loader>
+  </div>
+} @else if (form() && values() && specs()) {
+  <div class="ca-note-form-block-header">
+    <div class="ca-note-form-block-header-left">
+      <span class="ca-note-form-block-name">{{ form().name }}</span>
+      @if (form().template) {
+        <span class="ca-note-form-block-template">
+          <mat-icon flIcon="form_template" class="ca-note-form-block-template-icon"></mat-icon>
+          {{ form().template.template_name }}
+          @if (form().template.version_number) {
+            (v{{ form().template.version_number }})
+          }
+        </span>
+      }
+    </div>
+    <div class="ca-note-form-block-header-right">
+      @if (formStatus()) {
+        <fl-status-chip [status]="formStatus()" />
+      }
+    </div>
+  </div>
+  <td-param-table [values]="values()" [specs]="specs()" />
+}

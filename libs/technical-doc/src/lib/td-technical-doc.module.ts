@@ -52,6 +52,7 @@ import { TdMainDocComponent } from './component/td-main-doc/td-main-doc.componen
 import { TdOtherClassDocComponent } from './component/td-other-class-doc/td-other-class-doc.component';
 import { TdParamSetTableDialogComponent } from './component/td-param-set-table-dialog/td-param-set-table-dialog.component';
 import { TdParamSpecInlineComponent } from './component/td-param-spec-inline/td-param-spec-inline.component';
+import { TdParamTableComponent } from './component/td-param-table/td-param-table.component';
 import { TdParamValueComponent } from './component/td-param-value/td-param-value.component';
 import { TdProcessDocComponent } from './component/td-process-doc/td-process-doc.component';
 import { TdResourceDocComponent } from './component/td-resource-doc/td-resource-doc.component';
@@ -117,6 +118,7 @@ import { TD_TECHNICAL_DOC_I18N } from './td-technical-doc.i18n';
 
     TdParamValueComponent,
     TdParamSetTableDialogComponent,
+    TdParamTableComponent,
   ],
   declarations: [
     TdResourceDocComponent,
@@ -185,6 +187,7 @@ import { TD_TECHNICAL_DOC_I18N } from './td-technical-doc.i18n';
     TdIconAutoColorPipe,
     TdParamValueComponent,
     TdParamSetTableDialogComponent,
+    TdParamTableComponent,
   ],
 })
 export class TdTechnicalDocModule {

@@ -3,7 +3,7 @@ import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { TeRichTextBlockModificationWithUser, TeRichTextDTO } from '@monorepo/text-editor';
 import { Observable } from 'rxjs';
 
-import { CaNote, CaResourceView } from '../model/entities/folder/ca-note.class';
+import { CaNote } from '../model/entities/folder/ca-note.class';
 import { CaLabMinimumDTO } from '../model/entities/lab/ca-lab.class';
 
 @Injectable({
@@ -40,8 +40,12 @@ export class CaNoteService {
     return url;
   }
 
-  getView(noteId: string, viewId: string): Observable<CaResourceView> {
-    return this.apiService.get(`${this.route}/${noteId}/view/${viewId}`, CaResourceView);
+  /**
+   * Return the content of a note's JSON file,
+   * which should be used for resource views and form in the note.
+   */
+  getNoteJsonFileContent(noteId: string, filename: string): Observable<any> {
+    return this.apiService.get(`${this.route}/${noteId}/json-file/${filename}`);
   }
 
   ////////////////////////////////////////// HISTORY //////////////////////////////////////////

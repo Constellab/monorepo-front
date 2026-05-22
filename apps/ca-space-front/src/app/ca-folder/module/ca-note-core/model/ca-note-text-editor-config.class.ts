@@ -14,6 +14,10 @@ import { Observable } from 'rxjs';
 
 import { CaNoteService } from '../../../../ca-core/service-api/ca-note.service';
 import {
+  CaNoteRichTextFormBlock,
+  CaNoteRichTextFormBlockAdditionalData,
+} from './ca-note-rich-text-form.block';
+import {
   CaNoteRichTextViewBlock,
   CaNoteRichTextViewBlockAdditionalData,
 } from './ca-note-rich-text-view.block';
@@ -95,6 +99,17 @@ export class CaNoteTextEditorConfig extends TeCompleteConfig {
       envInjector,
       applicationRef,
       additionalData2
+    );
+
+    // add the form block
+    const formAdditionalData: CaNoteRichTextFormBlockAdditionalData = {
+      noteId: this.noteId,
+    };
+    tools.form = teComponentBlockFactory(
+      CaNoteRichTextFormBlock,
+      envInjector,
+      applicationRef,
+      formAdditionalData
     );
 
     tools.variable = teInlineToolFactory(TeVariableInlineToolClass);

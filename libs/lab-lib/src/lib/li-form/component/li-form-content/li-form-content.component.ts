@@ -16,14 +16,14 @@ import { FlAiModule } from '@monorepo/front-core-lib/fl-ai';
 import { FlJsonEditorModule } from '@monorepo/front-core-lib/fl-json-editor';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { FlStatus, FlStatusModule } from '@monorepo/front-core-lib/fl-status';
+import { LiForm, LiFormContent } from '@monorepo/lab-lib/li-core';
+import { TdParamTableComponent } from '@monorepo/technical-doc';
 import { TranslatePipe } from '@ngx-translate/core';
 import { forkJoin, Observable } from 'rxjs';
 
-import { LiForm, LiFormContent } from '../../../li-core/model/entities/form/li-form.entity';
 import { LiFormDisplayMode, LiFormStatus } from '../../../li-core/model/entities/form/li-form.enum';
 import { liGetFormStatus } from '../../model/li-form-status.helper';
 import { LiFormService } from '../../service/li-form.service';
-import { LiFormContentTableComponent } from '../li-form-content-table/li-form-content-table.component';
 import { LiFormEditorComponent } from '../li-form-editor/li-form-editor.component';
 import { LiFormTemplateRefInlineComponent } from '../li-form-template-ref-inline/li-form-template-ref-inline.component';
 
@@ -34,7 +34,7 @@ import { LiFormTemplateRefInlineComponent } from '../li-form-template-ref-inline
   imports: [
     LiFormEditorComponent,
     LiFormTemplateRefInlineComponent,
-    LiFormContentTableComponent,
+    TdParamTableComponent,
     FlAiModule,
     FlStatusModule,
     FlLoaderModule,

@@ -33,7 +33,9 @@ export class CaNoteContentViewComponent extends TeElementBlockDirective {
     caption: string,
     resourceId?: string
   ): void {
-    this.view$ = this.noteService.getView(noteId, viewId).pipe(map((noteView) => noteView.view));
+    this.view$ = this.noteService
+      .getNoteJsonFileContent(noteId, viewId)
+      .pipe(map((noteView) => noteView.view));
 
     this.viewTitle = title;
     this.caption = caption;

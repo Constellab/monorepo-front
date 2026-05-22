@@ -293,5 +293,7 @@
   "free_lab_config": "Config Data Lab gratuit",
   "free_lab_config_uploaded": "Config Data Lab gratuit uploadée",
   "download": "Télécharger",
-  "upload": "Uploader"
+  "upload": "Uploader",
+  "form_status_DRAFT": "Brouillon",
+  "form_status_SUBMITTED": "Soumis"
 }

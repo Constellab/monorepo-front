@@ -1,0 +1,41 @@
+:host {
+  display: block;
+}
+
+.ca-note-form-block-loading {
+  display: flex;
+  justify-content: center;
+  padding: 24px;
+}
+
+.ca-note-form-block-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 8px;
+}
+
+.ca-note-form-block-header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ca-note-form-block-header-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ca-note-form-block-name {
+  font-weight: 500;
+  font-size: 1.1em;
+}
+
+.ca-note-form-block-template {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  opacity: 0.7;
+}

@@ -1,7 +1,6 @@
 import { ClLuxonDateTimeTransform } from '@monorepo/core-lib';
-import { RvResourceView } from '@monorepo/resource-view';
 import { TdTypeStyle } from '@monorepo/technical-doc';
-import { Expose, Type } from 'class-transformer';
+import { Type } from 'class-transformer';
 import { DateTime } from 'luxon';
 
 import { CaBaseEntity } from '../ca-base-entity.class';
@@ -29,14 +28,4 @@ export class CaNote extends CaBaseEntity implements CaFolderObject {
   get style(): TdTypeStyle {
     return caHierarchyObjectTypeInfos.NOTE.style;
   }
-}
-
-export class CaResourceView {
-  view: RvResourceView;
-
-  @Expose({ name: 'resource_id' })
-  resourceId: string;
-
-  @Expose({ name: 'view_config' })
-  viewConfig: any;
 }

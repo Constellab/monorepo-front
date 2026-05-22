@@ -11,12 +11,13 @@ import {
   MatRowDef,
   MatTable,
 } from '@angular/material/table';
-import { TdParamSpec, TdParamSpecs, TdParamValueComponent } from '@monorepo/technical-doc';
 import { TranslatePipe } from '@ngx-translate/core';
 
-import { liGetFieldDisplayName } from '../li-form-history/li-form-history.logic';
+import { tdGetParamSpecDisplayName } from '../../logic/td-param-spec.logic';
+import { TdParamSpec, TdParamSpecs } from '../../model/td-config-spec.class';
+import { TdParamValueComponent } from '../td-param-value/td-param-value.component';
 
-export interface LiFormContentTableRow {
+export interface TdParamTableRow {
   key: string;
   name: string;
   shortDescription: string;
@@ -25,9 +26,9 @@ export interface LiFormContentTableRow {
 }
 
 @Component({
-  selector: 'li-form-content-table',
-  templateUrl: './li-form-content-table.component.html',
-  styleUrl: './li-form-content-table.component.scss',
+  selector: 'td-param-table',
+  templateUrl: './td-param-table.component.html',
+  styleUrl: './td-param-table.component.scss',
   imports: [
     MatTable,
     MatColumnDef,
@@ -44,16 +45,16 @@ export interface LiFormContentTableRow {
   ],
 })
 /**
- * Displays a form's top-level fields as a vertical name/value table.
+ * Displays parameter specs and their values as a vertical name/value table.
  * Each row represents one field with its display name and formatted value.
  */
-export class LiFormContentTableComponent {
+export class TdParamTableComponent {
   values = input.required<Record<string, unknown>>();
   specs = input.required<TdParamSpecs>();
 
   tableColumns = ['name', 'value'];
 
-  tableData = computed<LiFormContentTableRow[]>(() => {
+  tableData = computed<TdParamTableRow[]>(() => {
     const values = this.values();
     const specs = this.specs();
     if (!values) return [];
@@ -62,7 +63,7 @@ export class LiFormContentTableComponent {
       const spec = specs?.[key];
       return {
         key,
-        name: liGetFieldDisplayName(key, specs),
+        name: tdGetParamSpecDisplayName(key, specs),
         shortDescription: spec?.short_description ?? '',
         rawValue: raw,
         spec,

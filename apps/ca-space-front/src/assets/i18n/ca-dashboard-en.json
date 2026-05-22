@@ -293,5 +293,7 @@
   "free_lab_config": "Free Data Lab Config",
   "free_lab_config_uploaded": "Free Data Lab Config uploaded",
   "download": "Download",
-  "upload": "Upload"
+  "upload": "Upload",
+  "form_status_DRAFT": "Draft",
+  "form_status_SUBMITTED": "Submitted"
 }
