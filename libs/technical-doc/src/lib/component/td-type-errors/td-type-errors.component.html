@@ -1,0 +1,16 @@
+<div class="error-container">
+  <div class="error-title">ERROR</div>
+  @if (objectTypeText) {
+    <p>{{ objectTypeText | translate }}</p>
+  }
+  @if (errors?.length) {
+    <ul>
+      @for (err of errors; track err.message) {
+        <li>
+          <strong>{{ err.source }}</strong
+          >: {{ err.message }}
+        </li>
+      }
+    </ul>
+  }
+</div>

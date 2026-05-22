@@ -46,10 +46,10 @@
         </mat-icon>
       }
 
-      @if (resource.typeStatus === 'UNAVAILABLE') {
+      @if (resource.typeStatus === 'ERROR') {
         <mat-icon
           class="type-unavailable over-link warn"
-          [matTooltip]="'li.resource_type_unavailable_error' | translate"
+          [matTooltip]="'li.resource_type_error' | translate"
           flHide.xs>
           error
         </mat-icon>

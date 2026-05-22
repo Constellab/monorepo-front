@@ -1,6 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { MatIcon } from '@angular/material/icon';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { MatSortHeader } from '@angular/material/sort';
 import {
   MatCell,
@@ -18,9 +17,14 @@ import { MatTooltip } from '@angular/material/tooltip';
 import { ClHelpService } from '@monorepo/core-lib';
 import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlSearchModule } from '@monorepo/front-core-lib/fl-search';
 import { LiTypeEntity, LiTypeEntityDatasource } from '@monorepo/lab-lib/li-core';
-import { TdTechnicalDocModule } from '@monorepo/technical-doc';
+import {
+  TdTechnicalDocModule,
+  TdTypeErrorsDialogComponent,
+  TdTypeErrorsDialogData,
+} from '@monorepo/technical-doc';
 import { TranslatePipe } from '@ngx-translate/core';
 
 import { LiTypeShowDetailButtonComponent } from '../li-type-show-detail-button/li-type-show-detail-button.component';
@@ -39,7 +43,6 @@ import { LiTypeShowDetailButtonComponent } from '../li-type-show-detail-button/l
     MatSortHeader,
     MatCellDef,
     MatCell,
-    MatIcon,
     MatTooltip,
     TdTechnicalDocModule,
     FlCoreComponentModule,
@@ -52,6 +55,8 @@ import { LiTypeShowDetailButtonComponent } from '../li-type-show-detail-button/l
   ],
 })
 export class LiProcessTypeTableComponent {
+  private dialogService = inject(FlDialogService);
+
   @Input({ required: true }) datasource: LiTypeEntityDatasource;
 
   @Input({ required: true }) columns: FlTableColumnStatic<LiTypeEntity>[];
@@ -65,6 +70,15 @@ export class LiProcessTypeTableComponent {
     if (this.rowSelectable) {
       this.typeSelected.next(type);
     }
+  }
+
+  openTypeErrors(event: MouseEvent, processType: LiTypeEntity): void {
+    ClHelpService.stopEventPropagation(event);
+    const data: TdTypeErrorsDialogData = {
+      typingName: processType.typingName,
+      errors: processType.errors,
+    };
+    this.dialogService.openSmallDialog(TdTypeErrorsDialogComponent, { data });
   }
 
   stopEventPropagation(event: MouseEvent): void {

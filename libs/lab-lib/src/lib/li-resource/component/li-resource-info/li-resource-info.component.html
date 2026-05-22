@@ -7,11 +7,19 @@
   </fl-card-header>
 
   <fl-card-body class="card-body">
-    @if (resource.typeStatus === 'UNAVAILABLE') {
+    @if (resource.typeStatus === 'ERROR') {
       <fl-text-icon class="line">
         <mat-icon class="warn">error</mat-icon>
-        <div class="g-warn-text">{{ 'li.resource_type_unavailable_error' | translate }}</div>
+        <div class="g-warn-text">{{ 'li.resource_type_error' | translate }}</div>
       </fl-text-icon>
+      @if (resource.typeErrors?.length) {
+        @for (err of resource.typeErrors; track err.message) {
+          <fl-text-icon class="line">
+            <mat-icon class="warn g-text-small">chevron_right</mat-icon>
+            <div class="g-warn-text g-text-small">{{ err.message }}</div>
+          </fl-text-icon>
+        }
+      }
     }
 
     <div class="line tags">
@@ -100,7 +108,14 @@
     <div class="line g-layout-row g-layout-start-center">
       <mat-icon>fingerprint</mat-icon>
       <div class="resource-type">{{ 'li.id' | translate }} :&nbsp;</div>
-      <div class="g-text-link" (click)="copyIdToClipboard()">{{ resource.id }}</div>
+      <div
+        class="g-text-link"
+        tabindex="0"
+        role="button"
+        (click)="copyIdToClipboard()"
+        (keydown.enter)="copyIdToClipboard()">
+        {{ resource.id }}
+      </div>
     </div>
   </fl-card-body>
 </fl-card>

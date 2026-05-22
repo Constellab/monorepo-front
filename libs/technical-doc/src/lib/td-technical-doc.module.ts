@@ -61,10 +61,11 @@ import { TdResourceDocFunctionSignatureComponent } from './component/td-resource
 import { TdTechDocLinkComponent } from './component/td-tech-doc-link/td-tech-doc-link.component';
 import { TdTechnicalDocComponent } from './component/td-technical-doc/td-technical-doc.component';
 import { TdTechnicalDocHeaderComponent } from './component/td-technical-doc-header/td-technical-doc-header.component';
+import { TdTypeErrorsComponent } from './component/td-type-errors/td-type-errors.component';
+import { TdTypeErrorsDialogComponent } from './component/td-type-errors-dialog/td-type-errors-dialog.component';
 import { TdTypeIconComponent } from './component/td-type-icon/td-type-icon.component';
 import { TdTypeIconBadgeComponent } from './component/td-type-icon-badge/td-type-icon-badge.component';
 import { TdTypeInlineComponent } from './component/td-type-inline/td-type-inline.component';
-import { TdTypeUnavailableComponent } from './component/td-type-unavailable/td-type-unavailable.component';
 import { TdVarsMethodsDocComponent } from './component/td-vars-methods-doc/td-vars-methods-doc.component';
 import { TdCleanTypePipe } from './pipe/td-clean-type.pipe';
 import { TdIconAutoColorPipe } from './pipe/td-icon-auto-color.pipe';
@@ -131,7 +132,8 @@ import { TD_TECHNICAL_DOC_I18N } from './td-technical-doc.i18n';
     TdConfigComponent,
     TdTechnicalDocHeaderComponent,
     TdDocIoComponent,
-    TdTypeUnavailableComponent,
+    TdTypeErrorsComponent,
+    TdTypeErrorsDialogComponent,
     TdTypingNamePipe,
     TdTypeIconComponent,
     TdTypeInlineComponent,
@@ -161,7 +163,7 @@ import { TD_TECHNICAL_DOC_I18N } from './td-technical-doc.i18n';
     TdTechnicalDocHeaderComponent,
     TdIoDocsComponent,
     TdDocIoComponent,
-    TdTypeUnavailableComponent,
+    TdTypeErrorsComponent,
     TdTypingNamePipe,
     TdIoResourceComponent,
     TdConfigComponent,

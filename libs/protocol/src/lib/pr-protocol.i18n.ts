@@ -7,8 +7,6 @@ import { FlLangTranslation, FlTranslateObject } from '@monorepo/front-core-lib/f
  */
 const prProtocolI18nFr: FlLangTranslation = {
   pr: {
-    type_unavailable_detail:
-      "Le type '<strong>{typingName}</strong>' de l'objet n'est pas disponible. Veuillez vérifiez que la brique '<strong>{brickName}</strong>' est correctement installé.",
     adding_process: "Ajout de '{{processName}}'",
     adding_source: "Ajout de '{{resourceName}}'",
     adding_output: "Ajout d'un output",
@@ -34,8 +32,8 @@ const prProtocolI18nFr: FlLangTranslation = {
     value: 'Valeur',
     partially_run: 'Partiellement exécuté',
     waiting_for_cli_process: 'En attente',
-    process_not_available:
-      "Attention, le process n'est pas disponible, est-ce que la brick associé est bien chargé ? Vous pouvez retrouver la liste des brick et leur status dans Paramètres > Monitoring. Le scénario ne peut pas être exécuté.",
+    process_type_error:
+      'Attention, le type du process est en erreur, est-ce que la brick associée est bien chargée ? Vous pouvez retrouver la liste des bricks et leur statut dans Paramètres > Monitoring. Le scénario ne peut pas être exécuté.',
     process_configuration: 'Configuration',
     adding_community_agent: "Ajout de l'agent de Community '{{processName}}'",
     duplicating_process: "Duplication du process '{{processName}}'",
@@ -73,8 +71,6 @@ const prProtocolI18nFr: FlLangTranslation = {
 
 const prProtocolI18nEn: FlLangTranslation = {
   pr: {
-    type_unavailable_detail:
-      "The type '<strong>{{typingName}}</strong>' of the object is not available. Please check if the brick '<strong>{{brickName}}</strong>' is correctly installed.",
     adding_process: "Adding '{{processName}}'",
     adding_source: "Adding '{{resourceName}}'",
     adding_output: 'Adding output',
@@ -100,8 +96,8 @@ const prProtocolI18nEn: FlLangTranslation = {
     value: 'Value',
     partially_run: 'Partially run',
     waiting_for_cli_process: 'Waiting',
-    process_not_available:
-      "Warning, the process is not available, is the associated brick correctly loaded? You can find the list of bricks and their status in Settings > Monitoring. The scenario can't be run.",
+    process_type_error:
+      "Warning, the process type has errors, is the associated brick correctly loaded? You can find the list of bricks and their status in Settings > Monitoring. The scenario can't be run.",
     process_configuration: 'Configuration',
     adding_community_agent: "Adding Community agent '{{processName}}'",
     duplicating_process: "Duplicating process '{{processName}}'",
@@ -137,7 +133,7 @@ const prProtocolI18nEn: FlLangTranslation = {
   },
 };
 
-export const prProtocolI18n: FlTranslateObject = {
+export const PR_PROTOCOL_I18N: FlTranslateObject = {
   [ClSupportedLanguage.en]: prProtocolI18nEn,
   [ClSupportedLanguage.fr]: prProtocolI18nFr,
 };

@@ -1,7 +1,7 @@
 import { NgZone } from '@angular/core';
 import { ClStringHelper } from '@monorepo/core-lib';
 import { FlCoord } from '@monorepo/front-core-lib/fl-core';
-import { tdTypeStyleDefault, TdTypingName } from '@monorepo/technical-doc';
+import { TD_TYPE_STYLE_DEFAULT, TdTypingName } from '@monorepo/technical-doc';
 import { Observable, of } from 'rxjs';
 
 import { PrWorkflowActionState } from '../../state/pr-workflow-action-state';
@@ -12,7 +12,7 @@ import { PrWorkflowNodeOutput } from '../node/pr-workflow-node-output.class';
 import { PrWorkflowNodeProcess } from '../node/pr-workflow-node-process.class';
 import { PrWorkflowNodeProtocol } from '../node/pr-workflow-node-protocol.class';
 import { PrWorkflowNodeViewer } from '../node/pr-workflow-node-viewer.class';
-import { PrProcess, prProcessStatusDict } from '../pr-process.class';
+import { PR_PROCESS_STATUS_DICT, PrProcess } from '../pr-process.class';
 import { PrProtocol, PrProtocolGraph, PrProtocolLayout } from '../pr-protocol.class';
 import { PrWorkflow } from './pr-workflow.class';
 import { PrWorkflowLayer } from './pr-workflow-layer.class';
@@ -149,11 +149,12 @@ export class PrWorkflowFactory {
       outputs: process.outputs,
       inputs: process.inputs,
       processTypingName: process.process_typing_name,
-      status: prProcessStatusDict[process.status],
+      status: PR_PROCESS_STATUS_DICT[process.status],
       typeStatus: null,
+      typeErrors: [],
       processType: process.process_type,
       isProtocol: process.graph != null,
-      style: process.style ?? tdTypeStyleDefault,
+      style: process.style ?? TD_TYPE_STYLE_DEFAULT,
     };
   }
 

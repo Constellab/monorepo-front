@@ -1,0 +1,14 @@
+.error-container {
+  background-color: color-mix(in srgb, var(--warn-color) 10%, transparent);
+  border-left: 3px solid var(--warn-color);
+  padding: 0.75em 1em;
+  border-radius: var(--card-radius);
+}
+
+.error-title {
+  color: var(--warn-color);
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5em;
+}

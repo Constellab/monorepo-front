@@ -7,6 +7,7 @@ import {
   TdTypeRefDTO,
   TdTypeStyle,
   TdTypeTypingEntity,
+  TdTypingErrorDTO,
 } from '@monorepo/technical-doc';
 import { Expose } from 'class-transformer';
 
@@ -52,6 +53,8 @@ export class LiTypeEntity extends LiBaseEntity implements FlSearchObjectToUrl {
 
   status: TdTypeObjectStatus;
 
+  errors: TdTypingErrorDTO[] | null;
+
   get name(): string {
     return this.humanName;
   }
@@ -94,6 +97,7 @@ export class LiTypeEntity extends LiBaseEntity implements FlSearchObjectToUrl {
       objectType: this.objectType,
       objectSubType: this.objectSubType,
       status: this.status,
+      errors: this.errors,
       deprecatedSince: this.deprecatedSince,
       deprecatedMessage: this.deprecatedMessage,
       style: this.style,

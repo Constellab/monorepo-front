@@ -98,14 +98,14 @@ export class PrWorkflowNodeProcess extends PrWorkflowNode<PrProcess> {
   }
 
   public getProcessIcon(process: PrProcess): PrWorkflowNodeIcon {
-    // if (process.typeStatus === 'UNAVAILABLE') {
-    //   return {
-    //     icon: 'error',
-    //     iconType: 'MATERIAL_ICON',
-    //     iconColor: process.style.icon_color,
-    //     iconTooltip: 'pr.process_not_available'
-    //   };
-    // }
+    if (process.typeStatus === 'ERROR') {
+      return {
+        icon: 'error',
+        iconType: 'MATERIAL_ICON',
+        iconColor: process.style.icon_color,
+        iconTooltip: 'pr.process_type_error',
+      };
+    }
 
     return {
       icon: process.style.icon_technical_name,

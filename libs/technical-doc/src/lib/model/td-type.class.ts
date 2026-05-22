@@ -2,7 +2,14 @@ export type TdTypeObjectType = 'TASK' | 'RESOURCE' | 'PROTOCOL' | 'OTHER_CLASS';
 
 export type TdTypeObjectSubType = 'TASK' | 'RESOURCE' | 'PROTOCOL' | 'TRANSFORMER' | 'IMPORTER' | 'EXPORTER';
 
-export type TdTypeObjectStatus = 'OK' | 'UNAVAILABLE';
+export type TdTypeObjectStatus = 'OK' | 'ERROR';
+
+export type TdTypingErrorSource = 'config' | 'input' | 'output' | 'type';
+
+export interface TdTypingErrorDTO {
+  source: TdTypingErrorSource;
+  message: string;
+}
 
 export type TdTypeStyleIconType = 'MATERIAL_ICON' | 'COMMUNITY_ICON' | 'COMMUNITY_IMAGE';
 
@@ -16,7 +23,7 @@ export interface TdTypeStyle {
   icon_color?: TdTypeStyleIconColor;
 }
 
-export const tdTypeStyleDefault: TdTypeStyle = {
+export const TD_TYPE_STYLE_DEFAULT: TdTypeStyle = {
   icon_technical_name: 'process',
   icon_type: 'MATERIAL_ICON',
   background_color: '#af3e01',
@@ -48,6 +55,8 @@ export interface TdTypeTypingEntity extends TdTypeEntity {
   objectSubType: TdTypeObjectSubType;
 
   status: TdTypeObjectStatus | undefined;
+
+  errors: TdTypingErrorDTO[] | null;
 
   deprecatedSince: string | undefined;
 

@@ -3,22 +3,18 @@
   padding-right: 1em;
 }
 
-.doc-info {
-  margin-top: 1em;
-  height: auto;
-  padding: 0;
+.section {
+  margin-top: 1.25em;
+}
+
+.section-item {
+  margin-top: 0.5em;
 }
 
 .deprecated-message-div {
   width: 98%;
   height: auto;
   margin: auto;
-}
-
-@media (max-width: 1279px) {
-  .doc-info {
-    padding: 0 5px;
-  }
 }
 
 @media (max-width: 850px) {

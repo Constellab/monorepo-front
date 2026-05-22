@@ -1,10 +1,10 @@
 import { ClLuxonDateTimeTransform } from '@monorepo/core-lib';
 import { FlStatus, FlStatusTransform } from '@monorepo/front-core-lib/fl-status';
 import {
+  PR_PROCESS_STATUS_DICT,
   PrOI,
   PrProcess,
   PrProcessStatus,
-  prProcessStatusDict,
   PrProcessStatusHelper,
 } from '@monorepo/protocol';
 import {
@@ -12,6 +12,7 @@ import {
   TdSimpleTypeEntity,
   TdTypeObjectStatus,
   TdTypeStyle,
+  TdTypingErrorDTO,
   TdTypingName,
 } from '@monorepo/technical-doc';
 import { Expose, Type } from 'class-transformer';
@@ -43,7 +44,7 @@ export class LiProcess extends LiBaseEntityWithUser {
   @Expose({ name: 'parent_protocol_id' })
   parentProtocolId: string;
 
-  @FlStatusTransform(prProcessStatusDict)
+  @FlStatusTransform(PR_PROCESS_STATUS_DICT)
   status: FlStatus<PrProcessStatus>;
 
   config: TdConfigI;
@@ -85,6 +86,9 @@ export class LiProcess extends LiBaseEntityWithUser {
 
   @Expose({ name: 'type_status' })
   typeStatus: TdTypeObjectStatus;
+
+  @Expose({ name: 'type_errors' })
+  typeErrors: TdTypingErrorDTO[] | null;
 
   @Expose({ name: 'error_info' })
   errorInfo: LiProcessErrorInfo;
@@ -155,6 +159,7 @@ export class LiProcess extends LiBaseEntityWithUser {
       outputs: this.outputs,
       parentProtocolId: this.parentProtocolId,
       typeStatus: this.typeStatus,
+      typeErrors: this.typeErrors,
       processType: this.processType,
       isProtocol: this.isProtocol,
       style: this.style,

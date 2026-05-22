@@ -184,10 +184,15 @@
           (keydown.enter)="openProgressDetails()">
           {{ process.errorInfo.detail }}
         </div>
-      } @else if (process.typeStatus === 'UNAVAILABLE') {
+      } @else if (process.typeStatus === 'ERROR') {
         <div class="process-error">
-          {{ 'pr.process_not_available' | translate }}
+          {{ 'pr.process_type_error' | translate }}
         </div>
+        @if (process.typeErrors?.length) {
+          @for (err of process.typeErrors; track err.message) {
+            <div class="process-error g-text-small">{{ err.message }}</div>
+          }
+        }
       }
     </div>
   }

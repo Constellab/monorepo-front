@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { TdTypeStyle, tdTypeStyleDefault } from '../../model/td-type.class';
+import { TD_TYPE_STYLE_DEFAULT,TdTypeStyle } from '../../model/td-type.class';
 
 /**
  * Simple component to show a chip for a type
@@ -19,6 +19,6 @@ export class TdTypeInlineComponent {
   @Input() subText: string;
 
   get styleWithDefault(): TdTypeStyle {
-    return this.style ?? tdTypeStyleDefault;
+    return this.style ?? TD_TYPE_STYLE_DEFAULT;
   }
 }

@@ -1,7 +1,7 @@
 import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 import { FlFileHelper } from '@monorepo/front-core-lib/fl-translate';
 import { PrResource } from '@monorepo/protocol';
-import { TdTypeObjectStatus, TdTypeRefDTO, TdTypeStyle } from '@monorepo/technical-doc';
+import { TdTypeObjectStatus, TdTypeRefDTO, TdTypeStyle,TdTypingErrorDTO } from '@monorepo/technical-doc';
 import { Expose, Type } from 'class-transformer';
 
 import { LiEntity } from '../../global/li-entity.entity';
@@ -51,6 +51,9 @@ export class LiResource extends LiBaseEntityWithUser implements LiFlaggedEntity 
 
   @Expose({ name: 'type_status' })
   typeStatus: TdTypeObjectStatus;
+
+  @Expose({ name: 'type_errors' })
+  typeErrors: TdTypingErrorDTO[] | null;
 
   flagged: boolean;
 

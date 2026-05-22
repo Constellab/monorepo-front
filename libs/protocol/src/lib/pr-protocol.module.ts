@@ -32,7 +32,7 @@ import { PrWorkflowNodeContentBottomComponent } from './component/pr-workflow-no
 import { PrWorkflowNodeProcessComponent } from './component/pr-workflow-node-process/pr-workflow-node-process.component';
 import { PrWorkflowNodeResourceComponent } from './component/pr-workflow-node-resource/pr-workflow-node-resource.component';
 import { PrWorkflowPortActionPortalComponent } from './component/pr-workflow-port-action-portal/pr-workflow-port-action-portal.component';
-import { prProtocolI18n } from './pr-protocol.i18n';
+import { PR_PROTOCOL_I18N } from './pr-protocol.i18n';
 import { PrWorkflowActionState } from './state/pr-workflow-action-state';
 import { PrWorkflowManagerState } from './state/pr-workflow-manager-state';
 import { PrWorkflowEmptyResourcesState, PrWorkflowResourcesState } from './state/pr-workflow-resources.state';
@@ -108,7 +108,7 @@ export class PrProtocolModule {
 
     PrProtocolModule.registered = true;
 
-    translateService.addModuleTranslation('PrProtocolModule', prProtocolI18n);
+    translateService.addModuleTranslation('PrProtocolModule', PR_PROTOCOL_I18N);
   }
 
   public static forRoot(

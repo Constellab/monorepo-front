@@ -1,5 +1,11 @@
 import { FlStatus, FlStatusDict, FlStatusHelper } from '@monorepo/front-core-lib/fl-status';
-import { TdConfigI, TdSimpleTypeEntity, TdTypeObjectStatus, TdTypeStyle } from '@monorepo/technical-doc';
+import {
+  TdConfigI,
+  TdSimpleTypeEntity,
+  TdTypeObjectStatus,
+  TdTypeStyle,
+  TdTypingErrorDTO,
+} from '@monorepo/technical-doc';
 
 import { PrOI } from './pr-io.class';
 
@@ -21,7 +27,7 @@ export class PrProcessStatusHelper {
   }
 }
 
-export const prProcessStatusDict: FlStatusDict<PrProcessStatus> = {
+export const PR_PROCESS_STATUS_DICT: FlStatusDict<PrProcessStatus> = {
   DRAFT: FlStatusHelper.getDraftStatus('DRAFT', 'pr.draft'),
   RUNNING: FlStatusHelper.getLoadingStatus('RUNNING', 'pr.running'),
   SUCCESS: FlStatusHelper.getSuccessStatus('SUCCESS', 'pr.success'),
@@ -56,6 +62,8 @@ export interface PrProcess {
   parentProtocolId: string;
 
   typeStatus: TdTypeObjectStatus | null;
+
+  typeErrors: TdTypingErrorDTO[] | null;
 
   processType: TdSimpleTypeEntity | null;
 

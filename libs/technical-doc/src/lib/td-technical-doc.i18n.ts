@@ -8,6 +8,7 @@ import { FlLangTranslation, FlTranslateObject } from '@monorepo/front-core-lib/f
 const tdTechnicalDocI18nFr: FlLangTranslation = {
   td: {
     name: 'Nom',
+    error: 'Erreur',
     input: 'Entrée',
     output: 'Sortie',
     configuration: 'Configuration',
@@ -26,12 +27,10 @@ const tdTechnicalDocI18nFr: FlLangTranslation = {
     optional: 'Optionnel',
     optional_tooltip: "La tâche sera exécutée même si cette entrée n'est pas connectée",
     advanced_parameter: 'Paramètre avancé',
-    type_unavailable_detail:
-      "Le type '<strong>{typingName}</strong>' de l'objet n'est pas disponible. Veuillez vérifiez que la brique '<strong>{brickName}</strong>' est correctement installé.",
-    type_unavailable_detail_resource:
-      'Tant que le type est indisponible, les ressources de ce type ne pourront pas être utilisées dans des processus ni visualisées via les vues.',
-    type_unavailable_detail_process:
-      'Tant que le type est indisponible, les processus de ce type ne pourront pas être utilisées dans des protocols.',
+    type_error_detail_resource:
+      'Tant que le type est en erreur, les ressources de ce type ne pourront pas être utilisées dans des processus ni visualisées via les vues.',
+    type_error_detail_process:
+      'Tant que le type est en erreur, les processus de ce type ne pourront pas être utilisés dans des protocoles.',
     dynamic_ports: 'Ports dynamiques',
     dynamic_port_help: 'Les ports dynamiques permettent de créer des ports à la volée.',
     add_port: 'Ajouter un port',
@@ -178,6 +177,7 @@ const tdTechnicalDocI18nFr: FlLangTranslation = {
 const tdTechnicalDocI18nEn: FlLangTranslation = {
   td: {
     name: 'Name',
+    error: 'Error',
     input: 'Input',
     output: 'Output',
     configuration: 'Configuration',
@@ -197,12 +197,10 @@ const tdTechnicalDocI18nEn: FlLangTranslation = {
     optional_tooltip: 'The task will be run even if this input is not connected',
     not_optional_tooltip: 'The task will not be run if this input is not connected',
     advanced_parameter: 'Advanced parameter',
-    type_unavailable_detail:
-      "The type '<strong>{{typingName}}</strong>' of the object is not available. Please check if the brick '<strong>{{brickName}}</strong>' is correctly installed.",
-    type_unavailable_detail_resource:
-      'As long as the type is not available, the resources of this type cannot be used in any process nor visualized with views.',
-    type_unavailable_detail_process:
-      'As long as the type is not available, the processes of this type cannot be used in protocols.',
+    type_error_detail_resource:
+      'While the type has errors, the resources of this type cannot be used in any process nor visualized with views.',
+    type_error_detail_process:
+      'While the type has errors, the processes of this type cannot be used in protocols.',
     dynamic_ports: 'Dynamic ports',
     dynamic_port_help: 'Dynamic ports allow to create ports on the fly.',
     add_port: 'Add port',

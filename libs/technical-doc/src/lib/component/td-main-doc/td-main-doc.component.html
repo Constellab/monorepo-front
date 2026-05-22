@@ -10,45 +10,54 @@
     </div>
   }
 
-  <!-- Type unavailable -->
-  @if (entity.status === 'UNAVAILABLE') {
-    <div class="doc-info">
-      <fl-key-value>
-        <fl-key>{{ 'td.status' | translate }}</fl-key>
-        {{ entity.status }}
+  <!-- Type error -->
+  @if (entity.status === 'ERROR') {
+    <div class="section">
+      <td-type-errors [typingName]="entity.typingName" [errors]="entity.errors"></td-type-errors>
+    </div>
+  }
+
+  <!-- Identity -->
+  <div class="section">
+    <h4 class="g-sidebar-group-title g-text-small">{{ 'td.section_identity' | translate }}</h4>
+
+    @if (entity.typingName) {
+      <fl-key-value class="section-item">
+        <fl-key>{{ 'td.typing_name' | translate }}</fl-key>
+        {{ entity.typingName }}
       </fl-key-value>
-      <td-type-unavailable [typingName]="entity.typingName"></td-type-unavailable>
-    </div>
-  }
+    }
 
-  <!-- Typing Name-->
-  @if (entity.typingName) {
-    <fl-key-value class="doc-info">
-      <fl-key>{{ 'td.typing_name' | translate }}</fl-key>
-      {{ entity.typingName }}
-    </fl-key-value>
-  }
+    @if (entity.typingName) {
+      <fl-key-value class="section-item">
+        <fl-key>{{ 'td.brick' | translate }}</fl-key>
+        {{ (entity.typingName | tdTypingName).brickName }}
+        @if (entity.brickVersion) {
+          v{{ entity.brickVersion }}
+        }
+      </fl-key-value>
+    }
 
-  <!-- Brick name and version -->
-  @if (entity.typingName) {
-    <fl-key-value class="doc-info">
-      <fl-key>{{ 'td.brick' | translate }}</fl-key>
-      {{ (entity.typingName | tdTypingName).brickName }}
-      @if (entity.brickVersion) {
-        v{{ entity.brickVersion }}
+    @if (entity.objectType === 'RESOURCE' && entity.parentTypingName) {
+      <div class="section-item g-layout-row g-layout-start-center g-layout-gap-05em">
+        <span>{{ 'td.parent' | translate }} :</span>
+        <td-io-resource [resource]="parentResourceRef"></td-io-resource>
+      </div>
+    }
+  </div>
+
+  <!-- Description -->
+  @if (entity.shortDescription || entity.doc) {
+    <div class="section">
+      <h4 class="g-sidebar-group-title g-text-small">{{ 'td.short_description' | translate }}</h4>
+
+      @if (entity.shortDescription) {
+        <p class="section-item">{{ entity.shortDescription }}</p>
       }
-    </fl-key-value>
-  }
 
-  <!-- Parent info -->
-  @if (entity.objectType === 'RESOURCE' && entity.parentTypingName) {
-    <div class="doc-info g-layout-row g-layout-start-center g-layout-gap-05em">
-      <span>{{ 'td.parent' | translate }} :</span>
-      <td-io-resource [resource]="parentResourceRef"></td-io-resource>
+      @if (entity.doc) {
+        <div class="section-item g-embedded-html" [innerHTML]="entity.doc | flMarkdown"></div>
+      }
     </div>
   }
-
-  <p class="doc-info">{{ entity.shortDescription }}</p>
-
-  <div class="doc-info g-embedded-html" [innerHTML]="entity.doc | flMarkdown"></div>
 </div>
