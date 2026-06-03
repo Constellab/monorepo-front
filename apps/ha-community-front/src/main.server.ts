@@ -41,3 +41,5 @@ export const HA_BOOTSTRAP = (context: BootstrapContext): Promise<ApplicationRef>
     { ...config, providers: [provideZoneChangeDetection(), ...config.providers] },
     context
   );
+
+export default HA_BOOTSTRAP;

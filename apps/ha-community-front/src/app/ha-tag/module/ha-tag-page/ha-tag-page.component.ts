@@ -212,7 +212,7 @@ export class HaTagPageComponent extends HaCommunityPageDirective implements OnIn
   }
 
   openEditAdditionalInfoSpecDialog(): void {
-    this.tagAdditionalInfoSpecState.openEditConfigDialog();
+    this.tagAdditionalInfoSpecState.openConfigureParamSpecsTableDialog();
   }
 
   openCreateTagValueDialog(): void {
