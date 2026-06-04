@@ -193,6 +193,16 @@ export class CaAuthenticatedUserService implements FlCleanableService {
     return this.isAdmin() || this.currentSpaceService.isSpaceAdmin();
   }
 
+  /**
+   * return true if the authenticated user is at least a user (not a viewer) of the current space
+   * or a G admin
+   */
+  public isCurrentSpaceUser(): boolean {
+    return (
+      this.isAdmin() || this.currentSpaceService.isSpaceAdmin() || this.currentSpaceService.isSpaceUser()
+    );
+  }
+
   public isCategory(...categories: ClUserCategory[]): boolean {
     return this.userAuthenticated?.isCategory(...categories) ?? false;
   }

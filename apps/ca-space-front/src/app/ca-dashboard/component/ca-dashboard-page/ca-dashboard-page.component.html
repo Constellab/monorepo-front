@@ -6,7 +6,10 @@
       }
     </div>
     <div class="g-flex-auto">
-      <ca-user-list-inline [userDatasource]="spaceUsers" [disabled]="true"></ca-user-list-inline>
+      <ca-user-list-inline
+        *caIsSpaceUser
+        [userDatasource]="spaceUsers"
+        [disabled]="true"></ca-user-list-inline>
     </div>
 
     <div class="header-right g-full g-layout-row g-layout-start-center g-layout-gap-1em">

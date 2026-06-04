@@ -1,11 +1,11 @@
 import { CdkScrollable } from '@angular/cdk/scrolling';
-import { Component, inject,OnInit } from '@angular/core';
-import { FormControl, FormsModule,ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, inject, OnInit } from '@angular/core';
+import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatOption } from '@angular/material/core';
-import { MAT_DIALOG_DATA, MatDialogActions,MatDialogContent, MatDialogRef } from '@angular/material/dialog';
-import { MatError,MatFormField, MatLabel } from '@angular/material/form-field';
-import { MatSelect } from '@angular/material/select';
+import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
+import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatSelect, MatSelectTrigger } from '@angular/material/select';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
@@ -37,6 +37,7 @@ export interface CaSpaceUserRoleDialogInput {
     MatFormField,
     MatLabel,
     MatSelect,
+    MatSelectTrigger,
     MatOption,
     MatError,
     MatDialogActions,

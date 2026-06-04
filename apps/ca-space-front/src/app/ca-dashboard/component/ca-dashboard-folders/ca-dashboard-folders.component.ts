@@ -8,7 +8,9 @@ import { CaFolderActionService } from '../../../ca-core/entity-module/ca-folder-
 import { CaHierarchyObjectCardComponent } from '../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-card/ca-hierarchy-object-card.component';
 import { CaFolder } from '../../../ca-core/model/entities/folder/ca-folder.class';
 import { CaHierarchyObjectDatasource } from '../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
+import { CaIsSpaceUserDirective } from '../../../ca-core/module/ca-core-directive/ca-is-space-user/ca-is-space-user.directive';
 import { CaRouterService } from '../../../ca-core/service/ca-router.service';
+import { CaAuthenticatedUserService } from '../../../ca-core/service-api/ca-authenticated-user.service';
 import { CaFolderService } from '../../../ca-core/service-api/ca-folder.service';
 import { CaDashboardEmptyListComponent } from '../ca-dashboard-empty-list/ca-dashboard-empty-list.component';
 import { CaDashboardListLayoutComponent } from '../ca-dashboard-list-layout/ca-dashboard-list-layout.component';
@@ -24,6 +26,7 @@ import { CaDashboardListLayoutComponent } from '../ca-dashboard-list-layout/ca-d
     CaDashboardListLayoutComponent,
     CaHierarchyObjectCardComponent,
     CaDashboardEmptyListComponent,
+    CaIsSpaceUserDirective,
     MatButtonModule,
     MatIcon,
     TranslatePipe,
@@ -33,6 +36,8 @@ export class CaDashboardFoldersComponent implements OnInit {
   private folderService = inject(CaFolderService);
   private folderActionService = inject(CaFolderActionService);
   private routerService = inject(CaRouterService);
+
+  isSpaceUser = inject(CaAuthenticatedUserService).isCurrentSpaceUser();
 
   foldersDatasource: CaHierarchyObjectDatasource;
 

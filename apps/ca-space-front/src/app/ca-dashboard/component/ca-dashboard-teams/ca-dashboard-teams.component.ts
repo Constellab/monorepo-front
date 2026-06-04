@@ -11,7 +11,9 @@ import {
   CaTeamFormDialogInput,
 } from '../../../ca-core/entity-module/ca-group-core/component/ca-team-form-dialog/ca-team-form-dialog.component';
 import { CaGroup, CaGroupDatasource } from '../../../ca-core/model/entities/ca-group.entity';
+import { CaIsSpaceUserDirective } from '../../../ca-core/module/ca-core-directive/ca-is-space-user/ca-is-space-user.directive';
 import { CaRouterService } from '../../../ca-core/service/ca-router.service';
+import { CaAuthenticatedUserService } from '../../../ca-core/service-api/ca-authenticated-user.service';
 import { CaGroupService } from '../../../ca-core/service-api/ca-group.service';
 import { CaDashboardEmptyListComponent } from '../ca-dashboard-empty-list/ca-dashboard-empty-list.component';
 import { CaDashboardListLayoutComponent } from '../ca-dashboard-list-layout/ca-dashboard-list-layout.component';
@@ -27,6 +29,7 @@ import { CaDashboardListLayoutComponent } from '../ca-dashboard-list-layout/ca-d
     CaDashboardListLayoutComponent,
     CaTeamCardComponent,
     CaDashboardEmptyListComponent,
+    CaIsSpaceUserDirective,
     MatButtonModule,
     MatIcon,
     TranslatePipe,
@@ -36,6 +39,8 @@ export class CaDashboardTeamsComponent implements OnInit {
   private groupService = inject(CaGroupService);
   private dialogService = inject(FlDialogService);
   private routerService = inject(CaRouterService);
+
+  isSpaceUser = inject(CaAuthenticatedUserService).isCurrentSpaceUser();
 
   teamsDatasource: CaGroupDatasource;
 

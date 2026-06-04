@@ -1,6 +1,6 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import {
   FlHorizontalNavBarItem,
   FlHorizontalNavBarModule,
@@ -19,26 +19,31 @@ import { CaCurrentSpaceService } from '../../../../ca-core/service-api/ca-curren
 })
 export class CaCurrentSpacePageComponent implements OnInit {
   private currentSpaceService = inject(CaCurrentSpaceService);
+  private router = inject(Router);
 
   space$: Observable<CaSpace> = this.currentSpaceService.getCurrentSpace$();
 
-  routes: FlHorizontalNavBarItem[] = [
-    {
-      label: { text: 'admin_dashboard_page', translateText: true },
-      icon: 'dashboard',
-      route: CaRouterService.getCurrentSpaceRoute(),
-      linkActiveExact: true,
-    },
-    {
+  routes: FlHorizontalNavBarItem[] = [];
+
+  ngOnInit(): void {
+    const isAdmin = this.currentSpaceService.isSpaceAdmin();
+
+    if (isAdmin) {
+      this.routes.push({
+        label: { text: 'admin_dashboard_page', translateText: true },
+        icon: 'dashboard',
+        route: CaRouterService.getCurrentSpaceRoute(),
+        linkActiveExact: true,
+      });
+    }
+
+    this.routes.push({
       label: { text: 'space_users', translateText: true },
       icon: 'people',
       route: CaRouterService.getCurrentSpaceUsersRoute(),
-    },
-  ];
+    });
 
-  ngOnInit(): void {
-    // add route for admin
-    if (this.currentSpaceService.isSpaceAdmin()) {
+    if (isAdmin) {
       this.routes.push(
         {
           label: { text: 'labs', translateText: true },
@@ -61,6 +66,9 @@ export class CaCurrentSpacePageComponent implements OnInit {
           route: CaRouterService.getCurrentSpaceOtherRoute(),
         }
       );
+    } else {
+      // non-admin users only see the users tab, redirect from dashboard
+      this.router.navigate([CaRouterService.getCurrentSpaceUsersRoute()], { replaceUrl: true });
     }
   }
 }

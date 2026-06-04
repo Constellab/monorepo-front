@@ -12,6 +12,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { CaLabCardComponent } from '../../../../ca-core/entity-module/ca-lab-core/component/ca-lab-card/ca-lab-card.component';
 import { CaLabFormDialogComponent } from '../../../../ca-core/entity-module/ca-lab-core/component/ca-lab-form-dialog/ca-lab-form-dialog.component';
 import { CaLab, CaLabDatasource } from '../../../../ca-core/model/entities/lab/ca-lab.class';
+import { CaIsSpaceUserDirective } from '../../../../ca-core/module/ca-core-directive/ca-is-space-user/ca-is-space-user.directive';
 import { CaDetailRoutePipe } from '../../../../ca-core/module/ca-core-pipe/ca-detail-route/ca-detail-route.pipe';
 import { CaRouterService } from '../../../../ca-core/service/ca-router.service';
 import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
@@ -30,6 +31,7 @@ import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
     CaLabCardComponent,
     FlInfiniteScrollModule,
     CaDetailRoutePipe,
+    CaIsSpaceUserDirective,
     TranslatePipe,
   ],
 })

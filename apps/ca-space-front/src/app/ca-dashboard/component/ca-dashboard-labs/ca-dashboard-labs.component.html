@@ -6,7 +6,7 @@
   [completeListRoute]="myLabsRoute"
   completeListText="all_labs"
   addText="add_new_lab"
-  [showAddButton]="true"
+  [showAddButton]="isSpaceUser"
   (addClick)="openCreateLabDialog()"
   addButtonColor="primary">
   <ng-template let-item>
@@ -19,7 +19,7 @@
     [emptyTitle]="'labs_empty_title' | translate"
     [emptyDescription]="'labs_empty_description' | translate"
     class="empty-list">
-    <button action mat-stroked-button class="primary" (click)="openCreateLabDialog()">
+    <button *caIsSpaceUser action mat-stroked-button class="primary" (click)="openCreateLabDialog()">
       <mat-icon>add</mat-icon>
       {{ 'add_new_lab' | translate }}
     </button>

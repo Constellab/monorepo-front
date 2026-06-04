@@ -30,9 +30,13 @@
       <mat-select formControlName="role" [placeholder]="'role' | translate">
         @for (role of availableRoles | flObjectKeys; track role) {
           <mat-option [value]="role">
-            {{ role }}
+            {{ 'space_role_' + role | translate }} -
+            <span class="g-text-small g-text-light">{{ 'space_role_help_' + role | translate }}</span>
           </mat-option>
         }
+        <mat-select-trigger>
+          {{ 'space_role_' + formGp.get('role').value | translate }}
+        </mat-select-trigger>
       </mat-select>
       @if (formGp.get('role').hasError('required')) {
         <mat-error>{{ 'role' | flErrorRequired }}</mat-error>

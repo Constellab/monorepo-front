@@ -15,17 +15,12 @@ import {
   CaSpaceFormDialogComponent,
   CaSpaceFormDialogInput,
 } from '../../../ca-core/entity-module/ca-space-core/component/ca-space-form-dialog/ca-space-form-dialog.component';
-import {
-  CaSpaceInlineComponent,
-} from '../../../ca-core/entity-module/ca-space-core/component/ca-space-inline/ca-space-inline.component';
-import {
-  CaSpacePhotoComponent,
-} from '../../../ca-core/entity-module/ca-space-core/component/ca-space-photo/ca-space-photo.component';
-import {
-  CaExternalSpaceLinkDirective,
-} from '../../../ca-core/entity-module/ca-space-core/pipe/ca-external-space-link.directive';
+import { CaSpaceInlineComponent } from '../../../ca-core/entity-module/ca-space-core/component/ca-space-inline/ca-space-inline.component';
+import { CaSpacePhotoComponent } from '../../../ca-core/entity-module/ca-space-core/component/ca-space-photo/ca-space-photo.component';
+import { CaExternalSpaceLinkDirective } from '../../../ca-core/entity-module/ca-space-core/pipe/ca-external-space-link.directive';
 import { CaSpace } from '../../../ca-core/model/entities/space/ca-space.class';
 import { CaSpaceSettingsDto } from '../../../ca-core/model/entities/space/ca-space.dto';
+import { CaIsSpaceUserDirective } from '../../../ca-core/module/ca-core-directive/ca-is-space-user/ca-is-space-user.directive';
 import { CaRouterService } from '../../../ca-core/service/ca-router.service';
 import { CaAuthenticatedUserService } from '../../../ca-core/service-api/ca-authenticated-user.service';
 import { CaCurrentSpaceService } from '../../../ca-core/service-api/ca-current-space.service';
@@ -49,6 +44,7 @@ import { CaEnvironmentHelper } from '../../../ca-core/utils/ca-environment.helpe
     FlSectionModule,
     CaExternalSpaceLinkDirective,
     CaSpaceInlineComponent,
+    CaIsSpaceUserDirective,
     AsyncPipe,
     TranslatePipe,
   ],
