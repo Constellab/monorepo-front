@@ -248,7 +248,7 @@
   "folder_user_role_VIEWER": "Visitor",
   "folder_user_role_help_OWNER": "Full access on the folder and its sub folders.",
   "folder_user_role_help_USER": "Full access on the sub folders but has limited modification access on the root folder.",
-  "folder_user_role_help_VIEWER": "Read only access on the folder and its sub folders.",
+  "folder_user_role_help_VIEWER": "Read only access on the folder and its sub folders. Has access to chat. Cannot see folder activities.",
   "folder_user_update_role": "Update user role",
   "folder_user_shared_info": "Shared information",
   "folder_users": "Folder users",

@@ -134,7 +134,7 @@
   "space_role_USER": "Utilisateur",
   "space_role_help_USER": "Peut créer et gérer des dossiers, des labs et des équipes.",
   "space_role_VIEWER": "Visiteur",
-  "space_role_help_VIEWER": "Accès en lecture seule aux dossiers, labs et équipes auxquels il a été invité.",
+  "space_role_help_VIEWER": "Accès en lecture seule aux dossiers, labs et équipes auxquels il a été invité. Ne peut pas voir les utilisateurs de l'espace ni accéder à l'espace dans la Communauté.",
   "space_upload_photo": "Charger une photo pour votre espace",
   "space_photo_uploaded": "Photo chargée",
   "space_delete_photo": "Supprimer la photo",

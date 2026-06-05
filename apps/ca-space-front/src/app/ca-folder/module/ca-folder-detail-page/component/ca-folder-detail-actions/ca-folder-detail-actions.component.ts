@@ -55,6 +55,7 @@ export class CaFolderDetailActionsComponent {
 
   folderId$: Observable<string> = this.state.getFolderId$();
   folder$: Observable<CaFolder> = this.state.getFolder$();
+  canEdit$: Observable<boolean> = this.hierarchyObjectState.canEditHierarchyObject$();
 
   async openFolderActionMenu(folder: CaFolder, event: MouseEvent): Promise<void> {
     const isRootFolder = await firstValueFrom(this.state.isRootFolder$());

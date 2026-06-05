@@ -134,7 +134,7 @@
   "space_role_USER": "User",
   "space_role_help_USER": "Can create and manage folders, labs and teams.",
   "space_role_VIEWER": "Visitor",
-  "space_role_help_VIEWER": "Read-only access to folders, labs and teams they have been invited to.",
+  "space_role_help_VIEWER": "Read-only access to folders, labs and teams they have been invited to. Cannot view space users or access the space in Community.",
   "space_upload_photo": "Upload photo for your space",
   "space_photo_uploaded": "Photo uploaded",
   "space_delete_photo": "Delete space photo",

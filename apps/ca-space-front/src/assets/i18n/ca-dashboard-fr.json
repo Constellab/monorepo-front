@@ -248,7 +248,7 @@
   "folder_user_role_VIEWER": "Visiteur",
   "folder_user_role_help_OWNER": "Accès complet au dossier et à ses sous dossiers",
   "folder_user_role_help_USER": "Accès complet sur les sous-dossiers mais accès de modification limité sur le dossier racine.",
-  "folder_user_role_help_VIEWER": "Accès en lecture seule sur le dossier et ses sous-dossiers.",
+  "folder_user_role_help_VIEWER": "Accès en lecture seule sur le dossier et ses sous-dossiers. A accès au chat. Ne peut pas voir les activités du dossier.",
   "folder_user_update_role": "Modifier le rôle de l'utilisateur",
   "folder_user_shared_info": "Information sur le partage",
   "folder_users": "Utilisateurs du dossier",

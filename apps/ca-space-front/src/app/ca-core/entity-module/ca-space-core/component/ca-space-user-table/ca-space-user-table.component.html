@@ -15,7 +15,9 @@
       {{ 'role' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
-      <div>{{ row.role }}</div>
+      <div [matTooltip]="'space_role_help_' + row.role | translate">
+        {{ 'space_role_' + row.role | translate }}
+      </div>
     </mat-cell>
   </ng-container>
 
