@@ -136,7 +136,7 @@
   "space_role_VIEWER": "Visitor",
   "space_role_help_VIEWER": "Read-only access to folders, labs and teams they have been invited to. Cannot view space users or access the space in Community. No active enterprise license required.",
   "space_downgrade_to_viewer_title": "Downgrade to Visitor",
-  "space_downgrade_to_viewer_confirmation": "Are you sure you want to downgrade this user to Visitor? The user will no longer be able to make modifications. They will be removed from all datalabs and their role will be switched to Viewer in all folders.",
+  "space_downgrade_to_viewer_confirmation": "Are you sure you want to downgrade this user to Visitor? The user will no longer be able to make modifications. They will be removed from all datalabs and their role will be switched to Visitor in all folders.",
   "space_upload_photo": "Upload photo for your space",
   "space_photo_uploaded": "Photo uploaded",
   "space_delete_photo": "Delete space photo",

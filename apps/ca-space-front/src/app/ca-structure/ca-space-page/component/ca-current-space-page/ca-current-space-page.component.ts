@@ -1,6 +1,6 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
 import {
   FlHorizontalNavBarItem,
   FlHorizontalNavBarModule,
@@ -19,7 +19,6 @@ import { CaCurrentSpaceService } from '../../../../ca-core/service-api/ca-curren
 })
 export class CaCurrentSpacePageComponent implements OnInit {
   private currentSpaceService = inject(CaCurrentSpaceService);
-  private router = inject(Router);
 
   space$: Observable<CaSpace> = this.currentSpaceService.getCurrentSpace$();
 
@@ -32,8 +31,7 @@ export class CaCurrentSpacePageComponent implements OnInit {
       this.routes.push({
         label: { text: 'admin_dashboard_page', translateText: true },
         icon: 'dashboard',
-        route: CaRouterService.getCurrentSpaceRoute(),
-        linkActiveExact: true,
+        route: CaRouterService.getCurrentSpaceDashboardRoute(),
       });
     }
 
@@ -66,9 +64,6 @@ export class CaCurrentSpacePageComponent implements OnInit {
           route: CaRouterService.getCurrentSpaceOtherRoute(),
         }
       );
-    } else {
-      // non-admin users only see the users tab, redirect from dashboard
-      this.router.navigate([CaRouterService.getCurrentSpaceUsersRoute()], { replaceUrl: true });
     }
   }
 }

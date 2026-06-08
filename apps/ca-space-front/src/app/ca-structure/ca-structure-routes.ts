@@ -14,6 +14,11 @@ export const CA_STRUCTURE_ROUTES: Route[] = [
     children: [
       {
         path: '',
+        redirectTo: 'users',
+        pathMatch: 'full',
+      },
+      {
+        path: 'dashboard',
         canActivate: [CaSpaceAdminGuard],
         loadComponent: () =>
           import(
