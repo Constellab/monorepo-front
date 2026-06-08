@@ -6,6 +6,7 @@
   addText="add_new_folder"
   [completeListRoute]="myFoldersRoute"
   completeListText="all_folders"
+  [showAddButton]="isSpaceUser"
   (addClick)="openCreateFolderDialog()"
   addButtonColor="accent">
   <ng-template let-item>
@@ -18,7 +19,7 @@
     [emptyTitle]="'folders_empty_title' | translate"
     [emptyDescription]="'folders_empty_description' | translate"
     class="empty-list">
-    <button action mat-stroked-button class="accent" (click)="openCreateFolderDialog()">
+    <button *caIsSpaceUser action mat-stroked-button class="accent" (click)="openCreateFolderDialog()">
       <mat-icon>add</mat-icon>
       {{ 'add_new_folder' | translate }}
     </button>

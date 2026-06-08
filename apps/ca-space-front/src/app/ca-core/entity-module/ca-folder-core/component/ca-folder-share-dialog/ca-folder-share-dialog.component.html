@@ -17,7 +17,7 @@
       <mat-label>{{ 'folder_user_role' | translate }}</mat-label>
       <mat-select formControlName="role" [placeholder]="'folder_user_role' | translate" required>
         @for (role of roles | flObjectKeys; track role) {
-          <mat-option [value]="role">
+          <mat-option [value]="role" class="g-mat-option-fit-height">
             {{ 'folder_user_role_' + role | translate }} -
             <span class="g-text-small g-text-light">{{ 'folder_user_role_help_' + role | translate }}</span>
           </mat-option>

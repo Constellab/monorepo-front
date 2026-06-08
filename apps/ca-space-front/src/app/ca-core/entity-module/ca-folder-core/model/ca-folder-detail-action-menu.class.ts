@@ -55,7 +55,9 @@ export class CaFolderDetailActionMenu extends CaFolderActionsMenu {
       menus.push(this.getUserConfigButton());
     }
 
-    menus.push(this.getActivitiesButton());
+    if (this.folderInfo.userRole.canEdit()) {
+      menus.push(this.getActivitiesButton());
+    }
 
     if (this.folderInfo.userRole.canEdit()) {
       menus.push(this.getObjectInTrash(), this.getOpenSettingsButton());

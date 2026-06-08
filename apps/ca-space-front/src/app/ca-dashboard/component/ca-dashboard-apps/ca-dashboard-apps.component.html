@@ -6,6 +6,7 @@
   [completeListRoute]="myAppsRoute"
   completeListText="all_applications"
   addText="add_app"
+  [showAddButton]="isSpaceUser"
   (addClick)="openConstellabSuiteDialog()"
   addButtonColor="warn">
   <ng-template let-item>
@@ -18,7 +19,7 @@
     [emptyTitle]="'apps_empty_title' | translate"
     [emptyDescription]="'apps_empty_description' | translate"
     class="empty-list">
-    <button action mat-stroked-button class="warn" (click)="openConstellabSuiteDialog()">
+    <button *caIsSpaceUser action mat-stroked-button class="warn" (click)="openConstellabSuiteDialog()">
       <mat-icon>add</mat-icon>
       {{ 'add_app' | translate }}
     </button>

@@ -6,6 +6,7 @@
   addText="add_new_team"
   [completeListRoute]="myTeamsRoute"
   completeListText="all_teams"
+  [showAddButton]="isSpaceUser"
   (addClick)="openCreateTeamDialog()">
   <ng-template let-item>
     <ca-team-card [team]="item"></ca-team-card>
@@ -17,7 +18,7 @@
     [emptyTitle]="'teams_empty_title' | translate"
     [emptyDescription]="'teams_empty_description' | translate"
     class="empty-list">
-    <button action mat-stroked-button class="accent" (click)="openCreateTeamDialog()">
+    <button *caIsSpaceUser action mat-stroked-button class="accent" (click)="openCreateTeamDialog()">
       <mat-icon>add</mat-icon>
       {{ 'add_new_team' | translate }}
     </button>

@@ -12,6 +12,8 @@ import { Observable } from 'rxjs';
 import { CaUserListInlineComponent } from '../../../ca-core/entity-module/ca-user-core/component/ca-user-list-inline/ca-user-list-inline.component';
 import { CaUserDatasourcePaginated } from '../../../ca-core/model/entities/ca-user.class';
 import { CaSpace } from '../../../ca-core/model/entities/space/ca-space.class';
+import { CaIsSpaceUserDirective } from '../../../ca-core/module/ca-core-directive/ca-is-space-user/ca-is-space-user.directive';
+import { CaAuthenticatedUserService } from '../../../ca-core/service-api/ca-authenticated-user.service';
 import { CaCurrentSpaceService } from '../../../ca-core/service-api/ca-current-space.service';
 import { CaEnvironmentHelper } from '../../../ca-core/utils/ca-environment.helper';
 import { CaDashboardAppsComponent } from '../ca-dashboard-apps/ca-dashboard-apps.component';
@@ -40,6 +42,7 @@ import { CaDashboardVideosComponent } from '../ca-dashboard-videos/ca-dashboard-
     MatIcon,
     CaDashboardConstellabSuiteComponent,
     CaDashboardVideosComponent,
+    CaIsSpaceUserDirective,
     AsyncPipe,
     TranslatePipe,
     FlCardModule,
@@ -48,18 +51,23 @@ import { CaDashboardVideosComponent } from '../ca-dashboard-videos/ca-dashboard-
 export class CaDashboardPageComponent implements OnInit, OnDestroy {
   private currentSpaceService = inject(CaCurrentSpaceService);
   private communityHelper = inject(CoCommunityHelperService);
+  private authenticatedUserService = inject(CaAuthenticatedUserService);
 
   communityLink: string;
   supportMail = CaEnvironmentHelper.getSupportMail();
 
+  isSpaceUser = this.authenticatedUserService.isCurrentSpaceUser();
+
   currentSpace$: Observable<CaSpace> = this.currentSpaceService.getCurrentSpace$();
-  spaceUsers: CaUserDatasourcePaginated = this.currentSpaceService.getCurrentSpaceUsersDatasource();
+  spaceUsers: CaUserDatasourcePaginated = this.isSpaceUser
+    ? this.currentSpaceService.getCurrentSpaceUsersDatasource()
+    : null;
 
   ngOnInit(): void {
     this.communityLink = this.communityHelper.getCommunityUrl();
   }
 
   ngOnDestroy(): void {
-    this.spaceUsers.disconnect();
+    this.spaceUsers?.disconnect();
   }
 }

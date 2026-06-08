@@ -13,7 +13,6 @@ import {
 } from '../utils/ca-base-route';
 import { CaEnvironmentHelper } from '../utils/ca-environment.helper';
 
- 
 /**
  * Class to get app route paths
  */
@@ -181,6 +180,10 @@ export class CaRouterService {
   ////////////////////////////// CURRENT SPACE ///////////////////////////
   public static getCurrentSpaceRoute(): string {
     return CaRouterService.getFullRoute(`${caConstStructureRoute}/current-space`);
+  }
+
+  public static getCurrentSpaceDashboardRoute(): string {
+    return `${CaRouterService.getCurrentSpaceRoute()}/dashboard`;
   }
 
   public static getCurrentSpaceUsersRoute(): string {

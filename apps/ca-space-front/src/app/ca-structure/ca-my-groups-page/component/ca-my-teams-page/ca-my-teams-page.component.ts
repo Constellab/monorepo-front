@@ -13,6 +13,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { CaTeamCardComponent } from '../../../../ca-core/entity-module/ca-group-core/component/ca-team-card/ca-team-card.component';
 import { CaTeamFormDialogComponent } from '../../../../ca-core/entity-module/ca-group-core/component/ca-team-form-dialog/ca-team-form-dialog.component';
 import { CaGroup, CaGroupDatasource } from '../../../../ca-core/model/entities/ca-group.entity';
+import { CaIsSpaceUserDirective } from '../../../../ca-core/module/ca-core-directive/ca-is-space-user/ca-is-space-user.directive';
 import { CaDetailRoutePipe } from '../../../../ca-core/module/ca-core-pipe/ca-detail-route/ca-detail-route.pipe';
 import { CaRouterService } from '../../../../ca-core/service/ca-router.service';
 import { CaGroupService } from '../../../../ca-core/service-api/ca-group.service';
@@ -31,6 +32,7 @@ import { CaGroupService } from '../../../../ca-core/service-api/ca-group.service
     CaTeamCardComponent,
     FlInfiniteScrollModule,
     CaDetailRoutePipe,
+    CaIsSpaceUserDirective,
     TranslatePipe,
   ],
 })

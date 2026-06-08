@@ -8,6 +8,7 @@ import { CaUser } from '../ca-user.class';
 export enum CaSpaceRole {
   ADMIN = 'ADMIN',
   USER = 'USER',
+  VIEWER = 'VIEWER',
 }
 
 export class CaSpaceUser {

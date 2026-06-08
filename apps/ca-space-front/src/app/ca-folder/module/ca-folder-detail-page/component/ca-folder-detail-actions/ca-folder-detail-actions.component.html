@@ -20,51 +20,53 @@
     <mat-icon>article</mat-icon>
   </button>
 
-  <button mat-icon-button [matMenuTriggerFor]="menu" [matTooltip]="'folder_add_object' | translate">
-    <mat-icon>add</mat-icon>
-  </button>
-  <mat-menu #menu="matMenu" xPosition="before">
-    <!--   hidden button upload files     -->
-    <input
-      flInputFile
-      [multiple]="true"
-      type="file"
-      (fileChange)="uploadFile($event)"
-      #fileInput
-      [autoClearHtmlInput]="true"
-      class="hidden-input" />
-
-    <input
-      flInputFile
-      [multiple]="true"
-      type="file"
-      webkitdirectory
-      mozdirectory
-      (fileChange)="uploadFolder($event)"
-      #folderInput
-      [autoClearHtmlInput]="true"
-      class="hidden-input" />
-
-    <button mat-menu-item type="button" (click)="createConstellabDocument(folder)">
-      <mat-icon flIcon="constellab_document"></mat-icon>
-      {{ 'create_constellab_document' | translate }}
+  @if (canEdit$ | async) {
+    <button mat-icon-button [matMenuTriggerFor]="menu" [matTooltip]="'folder_add_object' | translate">
+      <mat-icon>add</mat-icon>
     </button>
+    <mat-menu #menu="matMenu" xPosition="before">
+      <!--   hidden button upload files     -->
+      <input
+        flInputFile
+        [multiple]="true"
+        type="file"
+        (fileChange)="uploadFile($event)"
+        #fileInput
+        [autoClearHtmlInput]="true"
+        class="hidden-input" />
 
-    <button mat-menu-item type="button" (click)="openChildCreation(folder)">
-      <mat-icon flIcon="folder"></mat-icon>
-      {{ 'create_sub_folder' | translate }}
-    </button>
+      <input
+        flInputFile
+        [multiple]="true"
+        type="file"
+        webkitdirectory
+        mozdirectory
+        (fileChange)="uploadFolder($event)"
+        #folderInput
+        [autoClearHtmlInput]="true"
+        class="hidden-input" />
 
-    <button mat-menu-item (click)="fileInput.click()" type="button">
-      <mat-icon>cloud_upload</mat-icon>
-      {{ 'upload_document' | translate }}
-    </button>
+      <button mat-menu-item type="button" (click)="createConstellabDocument(folder)">
+        <mat-icon flIcon="constellab_document"></mat-icon>
+        {{ 'create_constellab_document' | translate }}
+      </button>
 
-    <button mat-menu-item (click)="folderInput.click()" type="button">
-      <mat-icon>drive_folder_upload</mat-icon>
-      {{ 'upload_folder' | translate }}
-    </button>
-  </mat-menu>
+      <button mat-menu-item type="button" (click)="openChildCreation(folder)">
+        <mat-icon flIcon="folder"></mat-icon>
+        {{ 'create_sub_folder' | translate }}
+      </button>
+
+      <button mat-menu-item (click)="fileInput.click()" type="button">
+        <mat-icon>cloud_upload</mat-icon>
+        {{ 'upload_document' | translate }}
+      </button>
+
+      <button mat-menu-item (click)="folderInput.click()" type="button">
+        <mat-icon>drive_folder_upload</mat-icon>
+        {{ 'upload_folder' | translate }}
+      </button>
+    </mat-menu>
+  }
 
   <button mat-icon-button type="button" (click)="openFolderActionMenu(folder, $event)">
     <mat-icon>more_vert</mat-icon>

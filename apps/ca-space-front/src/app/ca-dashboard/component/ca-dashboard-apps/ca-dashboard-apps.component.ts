@@ -11,7 +11,9 @@ import {
   CaHierarchyObject,
   CaHierarchyObjectDatasource,
 } from '../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
+import { CaIsSpaceUserDirective } from '../../../ca-core/module/ca-core-directive/ca-is-space-user/ca-is-space-user.directive';
 import { CaRouterService } from '../../../ca-core/service/ca-router.service';
+import { CaAuthenticatedUserService } from '../../../ca-core/service-api/ca-authenticated-user.service';
 import { CaHierarchyObjectService } from '../../../ca-core/service-api/ca-hierarchy-object.service';
 import { CaConstellabSuiteListDialogComponent } from '../ca-constellab-suite-list-dialog/ca-constellab-suite-list-dialog.component';
 import { CaDashboardEmptyListComponent } from '../ca-dashboard-empty-list/ca-dashboard-empty-list.component';
@@ -28,6 +30,7 @@ import { CaDashboardListLayoutComponent } from '../ca-dashboard-list-layout/ca-d
     CaDashboardListLayoutComponent,
     CaAppCardComponent,
     CaDashboardEmptyListComponent,
+    CaIsSpaceUserDirective,
     MatButtonModule,
     MatIcon,
     TranslatePipe,
@@ -36,6 +39,8 @@ import { CaDashboardListLayoutComponent } from '../ca-dashboard-list-layout/ca-d
 export class CaDashboardAppsComponent implements OnInit {
   private hierarchyObjectService = inject(CaHierarchyObjectService);
   private dialogService = inject(FlDialogService);
+
+  isSpaceUser = inject(CaAuthenticatedUserService).isCurrentSpaceUser();
 
   appsDatasource: CaHierarchyObjectDatasource;
 

@@ -96,6 +96,14 @@ export class CaCurrentSpaceService implements FlCleanableService {
     return this.currentUserRoleInSpace === CaSpaceRole.ADMIN;
   }
 
+  public isSpaceUser(): boolean {
+    return this.currentUserRoleInSpace === CaSpaceRole.USER;
+  }
+
+  public isSpaceViewer(): boolean {
+    return this.currentUserRoleInSpace === CaSpaceRole.VIEWER;
+  }
+
   //////////////////////////// API METHODS ////////////////////////////
 
   public getCurrentSpaceUsersDatasource(): CaUserDatasourcePaginated {

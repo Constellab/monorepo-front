@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
-import { MatMenu, MatMenuItem,MatMenuTrigger } from '@angular/material/menu';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { MatSort, MatSortHeader } from '@angular/material/sort';
 import {
   MatCell,
@@ -15,6 +15,7 @@ import {
   MatRowDef,
   MatTable,
 } from '@angular/material/table';
+import { MatTooltip } from '@angular/material/tooltip';
 import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
@@ -50,6 +51,7 @@ import { CaSpaceUser, CaSpaceUserDatasource } from '../../../../model/entities/s
     MatIcon,
     MatMenu,
     MatMenuItem,
+    MatTooltip,
     MatHeaderRowDef,
     MatHeaderRow,
     MatRowDef,

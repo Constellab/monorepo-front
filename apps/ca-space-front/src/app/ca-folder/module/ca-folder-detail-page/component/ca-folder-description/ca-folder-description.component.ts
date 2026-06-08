@@ -6,7 +6,7 @@ import { MatIcon } from '@angular/material/icon';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { TeRichText, TeTextEditorComponent, TeTextEditorModule } from '@monorepo/text-editor';
 import { TranslatePipe } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
+import { firstValueFrom, Observable } from 'rxjs';
 
 import { CaHierarchyObjectIconComponent } from '../../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-icon/ca-hierarchy-object-icon.component';
 import { CaGetFolderDescriptionDTO } from '../../../../../ca-core/model/entities/folder/ca-folder.class';
@@ -63,10 +63,11 @@ export class CaFolderDescriptionComponent implements OnInit {
     this.folder$ = this.state.getFolder$(this.folderId);
   }
 
-  private descriptionLoaded(description: CaGetFolderDescriptionDTO): void {
+  private async descriptionLoaded(description: CaGetFolderDescriptionDTO): Promise<void> {
     // patch the value without emitting an event
     this.formControl.patchValue(description.description, { emitEvent: false });
-    this.canEdit = description.canEdit;
+    const canEditRole = await firstValueFrom(this.state.canEditHierarchyObject$());
+    this.canEdit = description.canEdit && canEditRole;
     this.getIsLoading = false;
   }
 

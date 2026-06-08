@@ -23,6 +23,7 @@ import {
   CaHierarchyObject,
   CaHierarchyObjectDatasource,
 } from '../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
+import { CaIsSpaceUserDirective } from '../../../../ca-core/module/ca-core-directive/ca-is-space-user/ca-is-space-user.directive';
 import { CaHierarchyObjectBreadcrumbComponent } from '../../ca-folder-hierarchy-core/component/ca-hierarchy-object-breadcrumb/ca-hierarchy-object-breadcrumb.component';
 import { CaHierarchyObjectDetailState } from '../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
 import { CaHierarchyObjectSearchState } from '../../ca-folder-hierarchy-core/state/ca-hierarchy-object-search.state';
@@ -46,6 +47,7 @@ import {
     MatIcon,
     MatIconButton,
     CaHierarchyObjectSearchFormComponent,
+    CaIsSpaceUserDirective,
     AsyncPipe,
   ],
   templateUrl: './ca-root-folders-page.component.html',

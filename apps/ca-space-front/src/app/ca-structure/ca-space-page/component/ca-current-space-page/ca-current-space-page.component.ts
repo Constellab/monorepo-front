@@ -22,23 +22,26 @@ export class CaCurrentSpacePageComponent implements OnInit {
 
   space$: Observable<CaSpace> = this.currentSpaceService.getCurrentSpace$();
 
-  routes: FlHorizontalNavBarItem[] = [
-    {
-      label: { text: 'admin_dashboard_page', translateText: true },
-      icon: 'dashboard',
-      route: CaRouterService.getCurrentSpaceRoute(),
-      linkActiveExact: true,
-    },
-    {
+  routes: FlHorizontalNavBarItem[] = [];
+
+  ngOnInit(): void {
+    const isAdmin = this.currentSpaceService.isSpaceAdmin();
+
+    if (isAdmin) {
+      this.routes.push({
+        label: { text: 'admin_dashboard_page', translateText: true },
+        icon: 'dashboard',
+        route: CaRouterService.getCurrentSpaceDashboardRoute(),
+      });
+    }
+
+    this.routes.push({
       label: { text: 'space_users', translateText: true },
       icon: 'people',
       route: CaRouterService.getCurrentSpaceUsersRoute(),
-    },
-  ];
+    });
 
-  ngOnInit(): void {
-    // add route for admin
-    if (this.currentSpaceService.isSpaceAdmin()) {
+    if (isAdmin) {
       this.routes.push(
         {
           label: { text: 'labs', translateText: true },

@@ -1,8 +1,12 @@
 import { Route } from '@angular/router';
 
-export const caStructureRoutes: Route[] = [
+import { CaSpaceAdminGuard } from '../ca-core/guard/ca-space-admin-guard.service';
+import { CaSpaceUserGuard } from '../ca-core/guard/ca-space-user-guard.service';
+
+export const CA_STRUCTURE_ROUTES: Route[] = [
   {
     path: 'current-space',
+    canActivate: [CaSpaceUserGuard],
     loadComponent: () =>
       import('./ca-space-page/component/ca-current-space-page/ca-current-space-page.component').then(
         (m) => m.CaCurrentSpacePageComponent
@@ -10,6 +14,12 @@ export const caStructureRoutes: Route[] = [
     children: [
       {
         path: '',
+        redirectTo: 'users',
+        pathMatch: 'full',
+      },
+      {
+        path: 'dashboard',
+        canActivate: [CaSpaceAdminGuard],
         loadComponent: () =>
           import(
             // eslint-disable-next-line max-len
@@ -19,19 +29,23 @@ export const caStructureRoutes: Route[] = [
       {
         path: 'users',
         loadComponent: () =>
-          import(
-            './ca-space-page/component/ca-current-space-users-page/ca-current-space-users-page.component'
-          ).then((m) => m.CaCurrentSpaceUsersPageComponent),
+          // eslint-disable-next-line max-len
+          import('./ca-space-page/component/ca-current-space-users-page/ca-current-space-users-page.component').then(
+            (m) => m.CaCurrentSpaceUsersPageComponent
+          ),
       },
       {
         path: 'labs',
+        canActivate: [CaSpaceAdminGuard],
         loadComponent: () =>
-          import(
-            './ca-space-page/component/ca-current-space-labs-page/ca-current-space-labs-page.component'
-          ).then((m) => m.CaCurrentSpaceLabsPageComponent),
+          // eslint-disable-next-line max-len
+          import('./ca-space-page/component/ca-current-space-labs-page/ca-current-space-labs-page.component').then(
+            (m) => m.CaCurrentSpaceLabsPageComponent
+          ),
       },
       {
         path: 'folders',
+        canActivate: [CaSpaceAdminGuard],
         loadComponent: () =>
           import(
             // eslint-disable-next-line max-len
@@ -40,17 +54,21 @@ export const caStructureRoutes: Route[] = [
       },
       {
         path: 'teams',
+        canActivate: [CaSpaceAdminGuard],
         loadComponent: () =>
-          import(
-            './ca-space-page/component/ca-current-space-teams-page/ca-current-space-teams-page.component'
-          ).then((m) => m.CaCurrentSpaceTeamsPageComponent),
+          // eslint-disable-next-line max-len
+          import('./ca-space-page/component/ca-current-space-teams-page/ca-current-space-teams-page.component').then(
+            (m) => m.CaCurrentSpaceTeamsPageComponent
+          ),
       },
       {
         path: 'other',
+        canActivate: [CaSpaceAdminGuard],
         loadComponent: () =>
-          import(
-            './ca-space-page/component/ca-current-space-other-page/ca-current-space-other-page.component'
-          ).then((m) => m.CaCurrentSpaceOtherPageComponent),
+          // eslint-disable-next-line max-len
+          import('./ca-space-page/component/ca-current-space-other-page/ca-current-space-other-page.component').then(
+            (m) => m.CaCurrentSpaceOtherPageComponent
+          ),
       },
     ],
   },

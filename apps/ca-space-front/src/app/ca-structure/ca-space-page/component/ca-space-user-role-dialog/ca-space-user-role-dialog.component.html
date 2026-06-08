@@ -8,10 +8,14 @@
       <mat-label>{{ 'role' | translate }}</mat-label>
       <mat-select [formControl]="formControl" [placeholder]="'role' | translate">
         @for (role of availableRoles | flObjectKeys; track role) {
-          <mat-option [value]="role">
-            {{ role }}
+          <mat-option [value]="role" class="g-mat-option-fit-height">
+            {{ 'space_role_' + role | translate }} -
+            <span class="g-text-small g-text-light">{{ 'space_role_help_' + role | translate }}</span>
           </mat-option>
         }
+        <mat-select-trigger>
+          {{ 'space_role_' + formControl.value | translate }}
+        </mat-select-trigger>
       </mat-select>
       @if (formControl.hasError('required')) {
         <mat-error>{{ 'role' | flErrorRequired }}</mat-error>

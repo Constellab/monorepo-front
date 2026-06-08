@@ -12,7 +12,12 @@
     </fl-text-icon>
 
     <fl-card-actions>
-      <button mat-stroked-button type="button" (click)="openCreateFolderDialog()" class="g-button-small">
+      <button
+        *caIsSpaceUser
+        mat-stroked-button
+        type="button"
+        (click)="openCreateFolderDialog()"
+        class="g-button-small">
         <mat-icon>add</mat-icon>
         <span>{{ 'new_folder' | translate }}</span>
       </button>

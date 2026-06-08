@@ -18,11 +18,11 @@ import { caDashboardRoutes } from '../ca-dashboard/ca-dashboard-routes';
 import { caHierarchyObjectRoutes } from '../ca-folder/module/ca-hierarchy-object-detail-page/ca-hierarchy-object-detail-page-routes';
 import { caLabRoutes } from '../ca-lab/ca-lab-routes';
 import { CA_PUBLIC_ROUTES } from '../ca-public-route/ca-public-routes';
-import { caStructureRoutes } from '../ca-structure/ca-structure-routes';
+import { CA_STRUCTURE_ROUTES } from '../ca-structure/ca-structure-routes';
 import { caUserRoutes } from '../ca-user-detail-page/ca-user-detail-page-routes';
 import { CaLoadUserGuard } from './guard/ca-load-user.guard';
 
-export const caMainRoutes: Route[] = [
+export const CA_MAIN_ROUTES: Route[] = [
   {
     path: '',
     redirectTo: caConstBaseRoute,
@@ -66,7 +66,7 @@ export const caMainRoutes: Route[] = [
       //////////////////////// STRUCTURE /////////////////////////
       {
         path: caConstStructureRoute,
-        children: caStructureRoutes,
+        children: CA_STRUCTURE_ROUTES,
       },
       //////////////////////// CHAT /////////////////////////
       {

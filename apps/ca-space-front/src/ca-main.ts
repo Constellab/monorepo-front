@@ -48,7 +48,7 @@ import { TeFixInit } from '@monorepo/text-editor';
 import { CookieService } from 'ngx-cookie-service';
 
 import { CaAppComponent } from './app/ca-app.component';
-import { caAppRoutes } from './app/ca-app-routes';
+import { CA_APP_ROUTES } from './app/ca-app-routes';
 import { CaSpaceInterceptor } from './app/ca-core/interceptor/ca-space-interceptor.service';
 import { CaApiServiceConfig } from './app/ca-core/model/config/ca-api-module.config';
 import { CaCommunityLibConfigService } from './app/ca-core/model/config/ca-community-lib-config.service';
@@ -82,7 +82,7 @@ function bootstrapApp(): void {
     providers: [
       provideZoneChangeDetection(),
       provideRouter(
-        caAppRoutes,
+        CA_APP_ROUTES,
         withPreloading(PreloadAllModules),
         withInMemoryScrolling({ scrollPositionRestoration: 'enabled', anchorScrolling: 'enabled' }),
         withRouterConfig({ paramsInheritanceStrategy: 'always' })
