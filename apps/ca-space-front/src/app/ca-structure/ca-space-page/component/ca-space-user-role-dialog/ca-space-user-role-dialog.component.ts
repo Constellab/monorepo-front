@@ -7,7 +7,7 @@ import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } fro
 import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatSelect, MatSelectTrigger } from '@angular/material/select';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
-import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
+import { FlConfirmDialogInput, FlDialogModule, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -52,6 +52,7 @@ export class CaSpaceUserRoleDialogComponent implements OnInit {
   private dialogRef = inject<MatDialogRef<CaSpaceUserRoleDialogComponent>>(MatDialogRef);
   private spaceService = inject(CaSpaceService);
   private snackBarService = inject(FlSnackBarService);
+  private dialogService = inject(FlDialogService);
 
   formControl: FormControl;
 
@@ -65,8 +66,29 @@ export class CaSpaceUserRoleDialogComponent implements OnInit {
 
   submit(): void {
     if (this.formControl.valid && !this.isLoading) {
-      this.updateRole(this.formControl.value);
+      const role = this.formControl.value;
+      if (role === CaSpaceRole.VIEWER && this.input.currentRole !== CaSpaceRole.VIEWER) {
+        this.confirmDowngradeToViewer(role);
+      } else {
+        this.updateRole(role);
+      }
     }
+  }
+
+  private confirmDowngradeToViewer(role: CaSpaceRole): void {
+    const confirmInput: FlConfirmDialogInput = {
+      title: 'space_downgrade_to_viewer_title',
+      content: 'space_downgrade_to_viewer_confirmation',
+    };
+
+    this.dialogService
+      .openConfirmDialog(confirmInput)
+      .afterClosed()
+      .subscribe((result) => {
+        if (result?.choice) {
+          this.updateRole(role);
+        }
+      });
   }
 
   private updateRole(role: CaSpaceRole): void {
