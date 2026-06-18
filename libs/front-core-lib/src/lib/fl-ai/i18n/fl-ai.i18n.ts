@@ -16,6 +16,7 @@ const flAiEn: FlLangTranslation = {
     ai_assistant: 'AI assistant',
     dictate: 'Dictate',
     type_instruction: 'Type instruction',
+    generate: 'Generate',
   },
 };
 
@@ -34,6 +35,7 @@ const flAiFr: FlLangTranslation = {
     ai_assistant: 'Assistant IA',
     dictate: 'Dicter',
     type_instruction: 'Saisir une instruction',
+    generate: 'Générer',
   },
 };
 

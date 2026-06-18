@@ -51,7 +51,7 @@
     type="button"
     (click)="generate()"
     [disabled]="!canGenerate()">
-    {{ placeholder | flTranslatableText | async }}
+    {{ 'flAi.generate' | translate }}
     @if (isSubmitting()) {
       <fl-button-loader></fl-button-loader>
     }
