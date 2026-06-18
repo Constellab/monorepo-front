@@ -1,4 +1,5 @@
 import { NgClass } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 import { Component, inject, OnInit } from '@angular/core';
 import { MatAnchor, MatButton } from '@angular/material/button';
 import { MatDivider } from '@angular/material/divider';
@@ -6,6 +7,7 @@ import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { Title } from '@angular/platform-browser';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { CoRagflowChatbotBubbleComponent } from '@monorepo/community-lib';
 import { ClBrick } from '@monorepo/core-lib';
 import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
 import { FlExpansionMenuModule } from '@monorepo/front-core-lib/fl-expansion-menu';
@@ -44,6 +46,7 @@ import { LabMainMenuSettingsComponent } from '../lab-main-menu-settings/lab-main
     LabMainMenuSettingsComponent,
     RouterOutlet,
     TranslatePipe,
+    CoRagflowChatbotBubbleComponent,
   ],
 })
 export class LabMainAppComponent implements OnInit {
@@ -52,8 +55,11 @@ export class LabMainAppComponent implements OnInit {
   private systemService = inject(LiSystemService);
   private titleService = inject(Title);
   private brickService = inject(LiBrickService);
+  private http = inject(HttpClient);
 
   accessibleLinks: LabMainMenuLink[] = labGetMainMenuLinks();
+
+  isChatbotActive = false;
 
   spaceAppUrl: string = LabEnvironmentHelper.getSpaceFrontAppUrl();
 
@@ -74,8 +80,18 @@ export class LabMainAppComponent implements OnInit {
     this.setLabName('Lab');
     this.getLabInfo();
     this.checkBiota();
+    this.checkChatbotActive();
 
     this.toolbarColorClass = this.labEnvManager.isDev() ? 'g-accent-background' : 'g-card-background';
+  }
+
+  private checkChatbotActive(): void {
+    this.http
+      .get<{ active: boolean }>(`${LabEnvironmentHelper.getCommunityApiUrl()}/ragflow-chatbot/status`)
+      .subscribe({
+        next: (res) => (this.isChatbotActive = res.active),
+        error: () => (this.isChatbotActive = false),
+      });
   }
 
   private checkBiota(): void {
