@@ -5,7 +5,7 @@ import { RouterLink } from '@angular/router';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { FlDynamicFieldAbstractDirective } from '@monorepo/front-core-lib/fl-dynamic-field';
 import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
-import { LiCredentialsType, LiRouterService } from '@monorepo/lab-lib/li-core';
+import { LiRouterService } from '@monorepo/lab-lib/li-core';
 import { TranslatePipe } from '@ngx-translate/core';
 
 import { LiSelectCredentialsComponent } from '../li-select-credentials/li-select-credentials.component';
@@ -29,7 +29,7 @@ import { LiSelectCredentialsComponent } from '../li-select-credentials/li-select
   ],
 })
 export class LiSelectCredentialsDynamicFieldComponent extends FlDynamicFieldAbstractDirective {
-  @Input() type?: LiCredentialsType;
+  @Input() type?: string;
 
   credentialsRoute = LiRouterService.getMonitoringCredentialsRoute();
 }

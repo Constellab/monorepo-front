@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject,OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -12,7 +12,7 @@ import { MatOption } from '@angular/material/core';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { MatError, MatFormField, MatHint, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
-import { MatSelect, MatSelectChange } from '@angular/material/select';
+import { MatSelect, MatSelectChange, MatSelectTrigger } from '@angular/material/select';
 import { ClHelpService } from '@monorepo/core-lib';
 import { FlFormDialogInput, FlFormHelper } from '@monorepo/front-core-lib/fl-core';
 import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
@@ -30,7 +30,6 @@ import {
   LiCredentials,
   LiCredentialsDataSpecs,
   LiCredentialsDataTypeSpec,
-  LiCredentialsType,
   LiSaveCredentialsDTO,
 } from '@monorepo/lab-lib/li-core';
 import { TdConfig } from '@monorepo/technical-doc';
@@ -59,6 +58,7 @@ export interface LiCredentialsFormDialogInput extends FlFormDialogInput<LiSaveCr
     MatError,
     MatHint,
     MatSelect,
+    MatSelectTrigger,
     MatOption,
     FlDynamicFieldModule,
     MatDialogActions,
@@ -74,7 +74,7 @@ export class LiCredentialsFormDialogComponent implements OnInit {
 
   sameNameExist$: Observable<boolean>;
 
-  credentialsTypes: any = LiCredentialsType;
+  dataSpecs: LiCredentialsDataTypeSpec[] = [];
 
   isLoading: boolean = false;
 
@@ -116,9 +116,14 @@ export class LiCredentialsFormDialogComponent implements OnInit {
 
   private getSpecsSuccess(specs: LiCredentialsDataSpecs): void {
     this.specs = specs;
+    this.dataSpecs = specs.dataSpecs;
     if (this.formGp.get('type').value) {
       this.buildDataForm(specs, this.formGp.get('type').value, this.dialogInput.object?.data);
     }
+  }
+
+  getTypeHumanName(type: string): string {
+    return this.dataSpecs.find((s) => s.type === type)?.humanName ?? type;
   }
 
   onTypeChange(event: MatSelectChange): void {
@@ -127,7 +132,7 @@ export class LiCredentialsFormDialogComponent implements OnInit {
     }
   }
 
-  private buildDataForm(specs: LiCredentialsDataSpecs, type: LiCredentialsType, defaultValue: any): void {
+  private buildDataForm(specs: LiCredentialsDataSpecs, type: string, defaultValue: any): void {
     this.dataConfig = null;
 
     if (!type) return;

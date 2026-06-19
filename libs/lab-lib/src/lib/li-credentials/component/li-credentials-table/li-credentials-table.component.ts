@@ -104,7 +104,7 @@ export class LiCredentialsTableComponent {
       id: credentials.id,
       object: {
         name: credentials.name,
-        type: credentials.type,
+        type: credentials.type.type,
         description: credentials.description,
         data: credentialsData,
       },

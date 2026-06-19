@@ -4,17 +4,27 @@ import { Expose, Type } from 'class-transformer';
 
 import { LiBaseEntityWithUser } from './li-user.entity';
 
-export enum LiCredentialsType {
-  BASIC = 'BASIC',
-  S3 = 'S3',
-  S3_LAB_SERVER = 'S3_LAB_SERVER',
-  LAB = 'LAB',
-  OTHER = 'OTHER',
+export class LiCredentialsType {
+  type: string;
+
+  @Expose({ name: 'brick_name' })
+  brickName: string;
+
+  @Expose({ name: 'human_name' })
+  humanName: string;
+
+  @Expose({ name: 'short_description' })
+  shortDescription: string | null;
+
+  toString(): string {
+    return this.humanName;
+  }
 }
 
 export class LiCredentials extends LiBaseEntityWithUser {
   name: string;
 
+  @Type(() => LiCredentialsType)
   type: LiCredentialsType;
 
   description: string;
@@ -31,15 +41,14 @@ export type LiCredentialsData = Record<string, string>;
 export interface LiSaveCredentialsDTO {
   name: string;
 
-  type: LiCredentialsType;
+  type: string;
 
   description: string;
 
   data: LiCredentialsData;
 }
 
-export class LiCredentialsDataTypeSpec {
-  type: LiCredentialsType;
+export class LiCredentialsDataTypeSpec extends LiCredentialsType {
   specs: TdParamSpecs;
 }
 

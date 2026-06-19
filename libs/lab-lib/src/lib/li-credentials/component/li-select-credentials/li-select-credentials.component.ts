@@ -12,7 +12,7 @@ import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlInputSearchAdvancedButton, FlInputSearchModule } from '@monorepo/front-core-lib/fl-input-search';
 import { FlTranslatableText, FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import { LiCredentials, LiCredentialsDatasource, LiCredentialsType } from '@monorepo/lab-lib/li-core';
+import { LiCredentials, LiCredentialsDatasource } from '@monorepo/lab-lib/li-core';
 import { Observable } from 'rxjs';
 
 import { LiCredentialsService } from '../../service/li-credentials.service';
@@ -40,7 +40,7 @@ export class LiSelectCredentialsComponent extends FlFormFieldDirective<LiCredent
 
   @Input() placeholder: FlTranslatableText = { text: 'li.select_credentials', translateText: true };
 
-  @Input() type: LiCredentialsType;
+  @Input() type: string;
 
   @Output() credentialsChange: EventEmitter<LiCredentials> = new EventEmitter();
 

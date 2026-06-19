@@ -4,12 +4,11 @@ import {
   FlSearchFilterCriteriaConverter,
   FlSearchSortCriteriaConverter,
 } from '@monorepo/front-core-lib/fl-search';
-import { LiCredentialsType } from '@monorepo/lab-lib/li-core';
 
 export class LiCredentialsSearchFields {
   name: string;
 
-  type: LiCredentialsType;
+  type: string;
 }
 
 export class LiCredentialsSearch {
