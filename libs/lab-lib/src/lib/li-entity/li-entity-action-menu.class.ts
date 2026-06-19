@@ -4,6 +4,7 @@ import { FlBaseActionMenu, FlMenuDynamic } from '@monorepo/front-core-lib/fl-men
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import {
   LiEntityActionButton,
+  LiEntityActionConfigParams,
   LiEntityActionMenu as LiEntityActionMenuDto,
   LiEntityActionResult,
   LiEntityActionService,
@@ -12,6 +13,10 @@ import {
   LiTagDatasource,
   LiTagService,
 } from '@monorepo/lab-lib/li-core';
+import {
+  LiQuickConfigureProcessDialogComponent,
+  LiQuickConfigureProcessDialogInput,
+} from '@monorepo/lab-lib/li-process';
 import { catchError, map, Observable, of } from 'rxjs';
 
 import { LiManageEntityTagsDialogComponent, LiManageEntityTagsDialogInput } from '../li-tag';
@@ -120,15 +125,65 @@ export class LiEntityActionMenu extends FlBaseActionMenu {
       disabled: button.disabled,
       color: button.color,
       children: button.children?.map((child) => this.mapEntityAction(entityType, entityId, child)),
-      onClick: () => this.callEntityAction(entityType, entityId, button.action_name),
+      onClick: () => this.onButtonClick(entityType, entityId, button),
     };
   }
 
+  /**
+   * Handles a plugin button click. When the button declares `config_specs`, it
+   * opens a config form, collects the values and forwards them as the request
+   * body; otherwise it executes immediately with no body.
+   */
+  private onButtonClick(
+    entityType: LiEntityActionType,
+    entityId: string,
+    button: LiEntityActionButton
+  ): void {
+    if (button.config_specs && Object.keys(button.config_specs).length > 0) {
+      this.openConfigFormAndCallAction(entityType, entityId, button);
+    } else {
+      this.callEntityAction(entityType, entityId, button.action_name);
+    }
+  }
+
+  /**
+   * Opens the config form dialog for a button with `config_specs`, then executes
+   * the action with the collected values. Cancel (closed without values) = no request.
+   */
+  private openConfigFormAndCallAction(
+    entityType: LiEntityActionType,
+    entityId: string,
+    button: LiEntityActionButton
+  ): void {
+    const input: LiQuickConfigureProcessDialogInput = {
+      specs$: of(button.config_specs),
+      title: { text: button.text, translateText: false },
+    };
+
+    this.injector
+      .get(FlDialogService)
+      .openMediumDialog(LiQuickConfigureProcessDialogComponent, { data: input })
+      .afterClosed()
+      .subscribe((configParams: LiEntityActionConfigParams | undefined) => {
+        // dialog cancelled → no request
+        if (configParams == null) {
+          this.subject.complete();
+          return;
+        }
+        this.callEntityAction(entityType, entityId, button.action_name, configParams);
+      });
+  }
+
   /** Executes a named plugin action and handles the result (navigation, snackbar). */
-  private callEntityAction(entityType: LiEntityActionType, entityId: string, actionName: string): void {
+  private callEntityAction(
+    entityType: LiEntityActionType,
+    entityId: string,
+    actionName: string,
+    configParams?: LiEntityActionConfigParams
+  ): void {
     this.injector
       .get(LiEntityActionService)
-      .callEntityAction(entityType, entityId, actionName)
+      .callEntityAction(entityType, entityId, actionName, configParams)
       .subscribe({
         next: (result) => this.handleEntityActionResult(result),
         error: () => this.subject.complete(),

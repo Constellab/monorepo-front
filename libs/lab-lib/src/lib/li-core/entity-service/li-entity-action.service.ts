@@ -3,6 +3,7 @@ import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { Observable } from 'rxjs';
 
 import {
+  LiEntityActionConfigParams,
   LiEntityActionMenu,
   LiEntityActionResult,
   LiEntityActionType,
@@ -28,12 +29,22 @@ export class LiEntityActionService {
     return this.apiService.get(`${this.route}/${entityType}/${entityId}`);
   }
 
-  /** Execute a named action on an entity; returns an optional navigation result. */
+  /**
+   * Execute a named action on an entity; returns an optional navigation result.
+   *
+   * @param configParams optional dict of config form values, sent as the JSON
+   *   request body for buttons that declare `config_specs`. Omit (or pass null)
+   *   for buttons without a form.
+   */
   public callEntityAction(
     entityType: LiEntityActionType,
     entityId: string,
-    actionName: string
+    actionName: string,
+    configParams?: LiEntityActionConfigParams | null
   ): Observable<LiEntityActionResult> {
-    return this.apiService.post(`${this.route}/${entityType}/${entityId}/${actionName}`, null);
+    return this.apiService.post(
+      `${this.route}/${entityType}/${entityId}/${actionName}`,
+      configParams ?? null
+    );
   }
 }

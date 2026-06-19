@@ -1,3 +1,5 @@
+import { TdParamSpecs, TdParamSpecsValues } from '@monorepo/technical-doc';
+
 /**
  * Models for the generic entity action plugin system.
  *
@@ -33,6 +35,15 @@ export interface LiEntityActionButton {
   disabled?: boolean;
   color?: LiEntityActionColor;
   children?: LiEntityActionMenu[];
+  /**
+   * Optional config form spec. When present (non-null), clicking the button
+   * opens a config form built from these specs; the collected values dict is
+   * sent as the request body to `callEntityAction`. Mirrors the backend
+   * `EntityActionButtonDTO.config_specs` (same `ParamSpecDTO` shape as the
+   * credentials / process config forms). Null/absent → click executes
+   * immediately with no body.
+   */
+  config_specs?: TdParamSpecs | null;
 }
 
 export interface LiEntityActionLink {
@@ -45,6 +56,12 @@ export interface LiEntityActionLink {
 }
 
 export type LiEntityActionMenu = LiEntityActionButton | LiEntityActionLink;
+
+/**
+ * Raw dict of config form values sent as the body when executing an action
+ * that declares `config_specs`.
+ */
+export type LiEntityActionConfigParams = TdParamSpecsValues;
 
 /** Result returned after executing an action. */
 export interface LiEntityActionResult {
