@@ -173,7 +173,7 @@ export class CaHierarchyObjectDetailState implements OnDestroy {
 
     // set default query params for application objects
     this.getHierarchyContext$().subscribe((hierarchyObject) => {
-      if (hierarchyObject.hierarchyObject.objectType === CaHierarchyObjectType.APPLICATION) {
+      if (hierarchyObject.hierarchyObject?.objectType === CaHierarchyObjectType.APPLICATION) {
         this.initForApplicationObject();
       }
     });
