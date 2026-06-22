@@ -31,6 +31,22 @@ export class LiAppService {
     return this.apiService.put(`${this.route}/${id}/stop-policy/${stopPolicy}`, null);
   }
 
+  /**
+   * Set a readable, stable custom subdomain for an app.
+   * The value is validated as a DNS label and must be unique across all apps in the lab.
+   * The new host takes effect on the next start of the app.
+   */
+  public setCustomSubdomain(id: string, subdomain: string): Observable<void> {
+    return this.apiService.put(`${this.route}/${id}/custom-subdomain/${encodeURIComponent(subdomain)}`, null);
+  }
+
+  /**
+   * Clear the custom subdomain of an app, restoring the default id-based host.
+   */
+  public clearCustomSubdomain(id: string): Observable<void> {
+    return this.apiService.delete(`${this.route}/${id}/custom-subdomain`);
+  }
+
   public getAppLogs(appId: string, fromPageDate?: DateTime): Observable<LiLogsBetweenDates> {
     const params = fromPageDate ? { from_page_date: ClDateHelper.serializeDateTime(fromPageDate) } : null;
     return this.apiService.get(`${this.route}/${appId}/logs`, LiLogsBetweenDates, { params });

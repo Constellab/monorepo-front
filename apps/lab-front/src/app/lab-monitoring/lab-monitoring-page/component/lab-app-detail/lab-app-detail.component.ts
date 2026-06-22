@@ -12,6 +12,7 @@ import {
   FlDialogService,
 } from '@monorepo/front-core-lib/fl-dialog';
 import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import {
   LiAppProcessStatus,
@@ -23,6 +24,11 @@ import { LiLogBetweenDatesDialogInput, LiLogsBetweenDatesDialogComponent } from 
 import { TranslatePipe } from '@ngx-translate/core';
 import { DateTime } from 'luxon';
 
+import {
+  LabAppSubdomainDialogComponent,
+  LabAppSubdomainDialogInput,
+  LabAppSubdomainDialogResult,
+} from '../lab-app-subdomain-dialog/lab-app-subdomain-dialog.component';
 import { LabMonitoringAppDetailComponent } from '../lab-monitoring-app-detail/lab-monitoring-app-detail.component';
 
 @Component({
@@ -49,6 +55,7 @@ import { LabMonitoringAppDetailComponent } from '../lab-monitoring-app-detail/la
 export class LabAppDetailComponent {
   private appService = inject(LiAppService);
   private dialogService = inject(FlDialogService);
+  private snackbarService = inject(FlSnackBarService);
 
   process = input.required<LiAppProcessStatus>();
   stopped = output<void>();
@@ -70,6 +77,49 @@ export class LabAppDetailComponent {
     };
 
     this.dialogService.openBigDialog(LiLogsBetweenDatesDialogComponent, { data: input });
+  }
+
+  openCustomSubdomainDialog(): void {
+    const appInstance = this.process().app;
+    const input: LabAppSubdomainDialogInput = {
+      appName: appInstance.name || appInstance.appType,
+      currentSubdomain: appInstance.customSubdomain,
+    };
+
+    this.dialogService
+      .openSmallDialog(LabAppSubdomainDialogComponent, { data: input })
+      .afterClosed()
+      .subscribe((result: LabAppSubdomainDialogResult) => {
+        if (!result) {
+          return;
+        }
+
+        if (result.clear) {
+          this.clearCustomSubdomain();
+        } else if (result.subdomain) {
+          this.setCustomSubdomain(result.subdomain);
+        }
+      });
+  }
+
+  private setCustomSubdomain(subdomain: string): void {
+    this.appService.setCustomSubdomain(this.process().id, subdomain).subscribe(() => {
+      this.process().app.customSubdomain = subdomain;
+      this.snackbarService.openSuccessMessage({
+        text: 'monitoring.app_custom_subdomain_set',
+        translateText: true,
+      });
+    });
+  }
+
+  private clearCustomSubdomain(): void {
+    this.appService.clearCustomSubdomain(this.process().id).subscribe(() => {
+      this.process().app.customSubdomain = undefined;
+      this.snackbarService.openSuccessMessage({
+        text: 'monitoring.app_custom_subdomain_cleared',
+        translateText: true,
+      });
+    });
   }
 
   stopProcess(): void {

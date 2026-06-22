@@ -28,6 +28,10 @@
           <mat-icon>article</mat-icon>
           {{ 'monitoring.app_view_logs' | translate }}
         </button>
+        <button mat-menu-item (click)="openCustomSubdomainDialog()">
+          <mat-icon>dns</mat-icon>
+          {{ 'monitoring.app_custom_subdomain_menu' | translate }}
+        </button>
         <button mat-menu-item (click)="stopProcess()" class="warn">
           <mat-icon>stop</mat-icon>
           {{ 'monitoring.app_stop_process' | translate }}
@@ -75,6 +79,22 @@
         <fl-key>{{ 'monitoring.app_config_path' | translate }}</fl-key>
         {{ process().configFilePath }}
       </fl-key-value>
+
+      @if (process().app.customSubdomain) {
+        <fl-key-value>
+          <fl-key>{{ 'monitoring.app_custom_subdomain' | translate }}</fl-key>
+          {{ process().app.customSubdomain }}
+        </fl-key-value>
+      }
+
+      @if (process().customSubdomainUrl) {
+        <fl-key-value>
+          <fl-key>{{ 'monitoring.app_custom_subdomain_url' | translate }}</fl-key>
+          <a [href]="process().customSubdomainUrl" target="_blank" rel="noopener">{{
+            process().customSubdomainUrl
+          }}</a>
+        </fl-key-value>
+      }
     </div>
 
     <lab-monitoring-app-detail [appInstance]="process().app"></lab-monitoring-app-detail>
