@@ -86,6 +86,15 @@
           {{ process().app.customSubdomain }}
         </fl-key-value>
       }
+
+      @if (process().customSubdomainUrl) {
+        <fl-key-value>
+          <fl-key>{{ 'monitoring.app_custom_subdomain_url' | translate }}</fl-key>
+          <a [href]="process().customSubdomainUrl" target="_blank" rel="noopener">{{
+            process().customSubdomainUrl
+          }}</a>
+        </fl-key-value>
+      }
     </div>
 
     <lab-monitoring-app-detail [appInstance]="process().app"></lab-monitoring-app-detail>

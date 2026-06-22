@@ -61,6 +61,11 @@ export class LiAppProcessStatus {
   @Expose({ name: 'started_by' })
   @Type(() => LiUser)
   startedBy: LiUser;
+
+  // Bare host URL (scheme + host + port, no auth token) reachable via the app's custom
+  // subdomain alias. Null when the app has no custom subdomain (or in dev mode).
+  @Expose({ name: 'custom_subdomain_url' })
+  customSubdomainUrl?: string;
 }
 
 export class LiAppsStatus {

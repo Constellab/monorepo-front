@@ -83,6 +83,7 @@
     "app_env_file_content": "Environment file content",
     "app_started": "Started",
     "app_custom_subdomain": "Custom subdomain",
+    "app_custom_subdomain_url": "Custom subdomain URL",
     "app_custom_subdomain_menu": "Set custom subdomain",
     "app_custom_subdomain_title": "Custom subdomain - {{name}}",
     "app_custom_subdomain_help": "Set a readable, stable subdomain for this app. It must be unique across all apps in the lab. The new host takes effect on the next start of the app.",

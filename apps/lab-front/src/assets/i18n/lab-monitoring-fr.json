@@ -83,6 +83,7 @@
     "app_env_file_content": "Contenu du fichier d'environnement",
     "app_started": "Démarré",
     "app_custom_subdomain": "Sous-domaine personnalisé",
+    "app_custom_subdomain_url": "URL du sous-domaine personnalisé",
     "app_custom_subdomain_menu": "Définir le sous-domaine personnalisé",
     "app_custom_subdomain_title": "Sous-domaine personnalisé - {{name}}",
     "app_custom_subdomain_help": "Définissez un sous-domaine lisible et stable pour cette application. Il doit être unique parmi toutes les applications du lab. Le nouvel hôte prendra effet au prochain démarrage de l'application.",
