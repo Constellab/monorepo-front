@@ -14,6 +14,12 @@ const flPortalActionFr: FlLangTranslation = {
     cancelActionConfirmation: 'Voulez-vous vraiment annuler cette tâche ?',
     reduce: 'Réduire',
     expand: 'Développer',
+    bulkResultTitle: "Résultat de l'opération",
+    total: 'Total',
+    succeeded: 'Réussis',
+    failed: 'Échoués',
+    errorName: 'Nom',
+    errorMessage: "Message d'erreur",
   },
 };
 
@@ -27,10 +33,16 @@ const flPortalActionEn: FlLangTranslation = {
     cancelActionConfirmation: 'Do you really want to cancel this task?',
     reduce: 'Reduce',
     expand: 'Expand',
+    bulkResultTitle: 'Operation result',
+    total: 'Total',
+    succeeded: 'Succeeded',
+    failed: 'Failed',
+    errorName: 'Name',
+    errorMessage: 'Error message',
   },
 };
 
-export const flPortalActionI18n: FlTranslateObject = {
+export const FL_PORTAL_ACTION_I18N: FlTranslateObject = {
   [ClSupportedLanguage.en]: flPortalActionEn,
   [ClSupportedLanguage.fr]: flPortalActionFr,
 };

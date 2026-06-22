@@ -1,0 +1,7 @@
+<button
+  mat-icon-button
+  (click)="toggle()"
+  [class.fl-bulk-toggle-active]="state.selectionMode()"
+  [matTooltip]="'flBulkSelection.multipleSelection' | flTranslatableText | async">
+  <mat-icon>checklist</mat-icon>
+</button>

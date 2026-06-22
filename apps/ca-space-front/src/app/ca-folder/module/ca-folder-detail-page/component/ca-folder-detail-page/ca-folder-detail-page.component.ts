@@ -1,12 +1,15 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject, Injector, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, Injector, OnInit } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatIcon } from '@angular/material/icon';
 import { ActivatedRoute } from '@angular/router';
 import { ClHelpService } from '@monorepo/core-lib';
+import { FlBulkActionButton, FlBulkSelectionModule } from '@monorepo/front-core-lib/fl-bulk-selection';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { FlQueryParamHandler, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import { FlDragModule, FlDropEvent } from '@monorepo/front-core-lib/fl-drag';
 import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
+import { FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { TranslatePipe } from '@ngx-translate/core';
 import { firstValueFrom, Observable } from 'rxjs';
@@ -28,6 +31,7 @@ import {
   CaHierarchyObject,
   CaHierarchyObjectDatasource,
 } from '../../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
+import { CaBulkActionService } from '../../../../../ca-core/service/ca-bulk-action.service';
 import { CaRouterService } from '../../../../../ca-core/service/ca-router.service';
 import { CaHierarchyObjectActionsMenuComponent } from '../../../ca-folder-hierarchy-core/component/ca-hierarchy-object-actions-menu/ca-hierarchy-object-actions-menu.component';
 import { CaHierarchyObjectBreadcrumbComponent } from '../../../ca-folder-hierarchy-core/component/ca-hierarchy-object-breadcrumb/ca-hierarchy-object-breadcrumb.component';
@@ -52,6 +56,7 @@ import { CaFolderDetailActionsComponent } from '../ca-folder-detail-actions/ca-f
     CaHierarchyObjectBreadcrumbComponent,
     FlDragModule,
     FlCardModule,
+    FlBulkSelectionModule,
     CaFolderDetailComponent,
     CaFolderDetailActionsComponent,
     CaHierarchyObjectSearchFormComponent,
@@ -78,8 +83,33 @@ export class CaFolderDetailPageComponent implements OnInit {
     'customAction',
   ];
 
+  bulkActions: FlBulkActionButton[] = [
+    {
+      type: 'tag',
+      text: { text: 'tags', translateText: true },
+      icon: 'tag',
+      onClick: (ctx) => this.bulkActionService.bulkAddTags(ctx, this.state.getCurrentFolder()?.id),
+    },
+    {
+      type: 'moveToFolder',
+      text: { text: 'move_to_folder', translateText: true },
+      icon: 'drive_file_move',
+      onClick: (ctx) => this.bulkActionService.bulkMoveToFolder(ctx),
+    },
+    {
+      type: 'moveToTrash',
+      text: { text: 'move_object_to_trash', translateText: true },
+      icon: 'clear',
+      color: 'warn',
+      onClick: (ctx) => this.bulkActionService.bulkMoveToTrash(ctx),
+    },
+  ];
+
   private route = inject(ActivatedRoute);
   private state = inject(CaFolderDetailState);
+  private destroyRef = inject(DestroyRef);
+  private actionService = inject(FlPortalActionsService);
+  private bulkActionService = inject(CaBulkActionService);
   private rightPanelState = inject(CaFolderRightPanelState);
   private folderActionService = inject(CaFolderActionService);
   private snackBarService = inject(FlSnackBarService);
@@ -103,6 +133,15 @@ export class CaFolderDetailPageComponent implements OnInit {
     this.folder$ = this.state.getFolder$();
 
     this.children = this.state.childrenDatasource;
+
+    this.actionService
+      .getResult$(['bulkMoveToTrash', 'bulkMoveToFolder'])
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((result) => {
+        if (result.status === 'success') {
+          this.state.refreshChildren();
+        }
+      });
   }
 
   onHierarchyObjectRowEvent(event: CaHierarchyObjectTableEvent): void {

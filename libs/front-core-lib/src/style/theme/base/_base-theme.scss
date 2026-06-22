@@ -7,7 +7,7 @@
     Mixin to overrides some component style to support custom theme
    */
 @mixin _color_overrides() {
-  // set the color of the button and icon when using a theme
+  // set the color of the menu item and icon when using a theme
   @include mat.menu-overrides(
     (
       item-label-text-color: var(--mat-sys-primary),

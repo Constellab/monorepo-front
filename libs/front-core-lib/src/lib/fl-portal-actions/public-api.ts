@@ -11,3 +11,6 @@ export * from './service/fl-portal-actions.service';
 
 // Model
 export * from './model/fl-portal-actions.class';
+
+// Bulk Action Result Dialog
+export * from './component/fl-bulk-action-result-dialog/fl-bulk-action-result-dialog.component';

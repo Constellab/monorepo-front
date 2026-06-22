@@ -158,4 +158,26 @@ export default defineConfig([
   getSubConfigs('spreadsheet', 'sp', true, false),
   getSubConfigs('technical-doc', 'td', true, false),
   getSubConfigs('text-editor', 'te', true, false),
+
+  // Enforce that fl-* modules within front-core-lib import from each other
+  // via @monorepo/front-core-lib/fl-* paths, not relative paths.
+  // This catches relative imports that traverse up and into another fl-* folder.
+  {
+    files: ['libs/front-core-lib/src/lib/fl-*/**/*.ts'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              group: ['../../fl-*', '../../fl-*/**', '../../../fl-*', '../../../fl-*/**'],
+              message:
+                'Cross-module imports within front-core-lib must use ' +
+                '@monorepo/front-core-lib/fl-<module> instead of relative paths.',
+            },
+          ],
+        },
+      ],
+    },
+  },
 ]);
