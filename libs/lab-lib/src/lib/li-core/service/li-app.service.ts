@@ -37,7 +37,7 @@ export class LiAppService {
    * The new host takes effect on the next start of the app.
    */
   public setCustomSubdomain(id: string, subdomain: string): Observable<void> {
-    return this.apiService.put(`${this.route}/${id}/custom-subdomain/${subdomain}`, null);
+    return this.apiService.put(`${this.route}/${id}/custom-subdomain/${encodeURIComponent(subdomain)}`, null);
   }
 
   /**
