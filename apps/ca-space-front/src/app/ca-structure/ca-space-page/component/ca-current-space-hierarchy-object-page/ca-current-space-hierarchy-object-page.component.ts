@@ -7,6 +7,7 @@ import { FlEntityPaginatedDatasource, FlTableColumnStatic } from '@monorepo/fron
 import {
   FlSavedSearch,
   FlSearchConfig,
+  FlSearchDatasourcePageProvider,
   FlSearchModule,
   FlSearchState,
 } from '@monorepo/front-core-lib/fl-search';
@@ -85,11 +86,17 @@ export class CaCurrentSpaceHierarchyObjectPageComponent implements OnInit {
       defaultSort: { key: 'name', direction: 'ASC' },
     };
 
-    this.datasource = new FlEntityPaginatedDatasource(
-      (page, size, data) => this.hierarchyObjectService.searchInCurrentSpace(page, size, data),
-      20,
-      { initFirstPage: false }
+    const pageProvider = new FlSearchDatasourcePageProvider<
+      CaHierarchyObject,
+      CaHierarchyObjectAdminSearchFields
+    >(
+      CaHierarchyObjectSearch.filterConverterAdmin,
+      CaHierarchyObjectSearch.sortConverter,
+      (page, size, data) => this.hierarchyObjectService.searchInCurrentSpace(page, size, data)
     );
+    this.datasource = new FlEntityPaginatedDatasource(pageProvider, 20, {
+      initFirstPage: false,
+    });
     this.searchState.init(config, this.datasource);
   }
 

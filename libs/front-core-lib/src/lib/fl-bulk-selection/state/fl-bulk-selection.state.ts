@@ -16,7 +16,7 @@ export class FlBulkSelectionState {
   readonly isEntireSearchSelected = signal(false);
 
   /** When false, the "Select entire search" mode (targeting the whole search result set) is disabled */
-  readonly allowSelectEntireSearch = signal(false);
+  readonly allowSelectEntireSearch = signal(true);
 
   // --- Configuration (set by the directive) ---
   actions: FlBulkActionButton[] = [];
@@ -73,6 +73,7 @@ export class FlBulkSelectionState {
     return {
       selectedIds: Array.from(this.selectedIds()),
       isEntireSearchSelected: this.isEntireSearchSelected(),
+      searchInput: this.datasource.buildConvertedRequestData(),
     };
   }
 

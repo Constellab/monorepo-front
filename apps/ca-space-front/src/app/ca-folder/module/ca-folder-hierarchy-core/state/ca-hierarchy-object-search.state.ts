@@ -2,7 +2,11 @@ import { inject, Injectable, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ClCoreJsonConvert, clGetEmptyPage, ClSubscriptionHandler } from '@monorepo/core-lib';
 import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
-import { FlSearchConfig, FlSearchState } from '@monorepo/front-core-lib/fl-search';
+import {
+  FlSearchConfig,
+  FlSearchDatasourcePageProvider,
+  FlSearchState,
+} from '@monorepo/front-core-lib/fl-search';
 import { of } from 'rxjs';
 
 import {
@@ -37,10 +41,18 @@ export class CaHierarchyObjectSearchState implements OnDestroy {
   private isInitialized = false;
 
   public init(): FormGroup {
+    const pageProvider = new FlSearchDatasourcePageProvider<CaHierarchyObject, CaHierarchyObjectSearchFields>(
+      CaHierarchyObjectSearch.filterConverter,
+      CaHierarchyObjectSearch.sortConverter,
+      () => of(clGetEmptyPage())
+    );
     this.childrenDatasource = new FlEntityPaginatedDatasource<
       CaHierarchyObject,
       CaHierarchyObjectSearchFields
-    >(() => of(clGetEmptyPage()), 25, { initFirstPage: false, disableAutoDisconnect: true });
+    >(pageProvider, 25, {
+      initFirstPage: false,
+      disableAutoDisconnect: true,
+    });
 
     // init the children search state
     const config: FlSearchConfig = {
@@ -63,18 +75,18 @@ export class CaHierarchyObjectSearchState implements OnDestroy {
         // search for root folders
         if (context.type === 'rootFolders') {
           this.searchState.disabled = false;
-          this.childrenDatasource.setPageFunction((page, pageSize, requestData) =>
+          pageProvider.setFetchFn((page, pageSize, requestData) =>
             this.folderService.searchRootFolders(page, pageSize, requestData)
           );
           // search for children of a folder
         } else if (context.type === 'globalSearch') {
           this.searchState.disabled = false;
-          this.childrenDatasource.setPageFunction((page, pageSize, requestData) =>
+          pageProvider.setFetchFn((page, pageSize, requestData) =>
             this.hierarchyObjectService.searchInRootFoldersAndChildren(page, pageSize, requestData)
           );
         } else if (context.type === CaHierarchyObjectType.FOLDER) {
           this.searchState.disabled = false;
-          this.childrenDatasource.setPageFunction((page, pageSize, requestData) =>
+          pageProvider.setFetchFn((page, pageSize, requestData) =>
             this.hierarchyObjectService.searchChildren(
               context.hierarchyObject.id,
               page,

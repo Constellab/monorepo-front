@@ -4,6 +4,7 @@ import { filter } from 'rxjs/operators';
 
 import { FlSortDirection } from '../fl-sort.class';
 import { FlArrayObs } from './fl-array-obs.class';
+import { FlDatasourcePageProvider } from './fl-datasource-page-provider.class';
 
 export interface FlDatasourceSortCriteria {
   key: string;
@@ -82,12 +83,20 @@ export abstract class FlDatasourcePaginated<T, F = void> extends FlArrayObs<T> {
 
   private readonly throwError: boolean = false;
 
+  private pageProvider: FlDatasourcePageProvider<T, F>;
+
   constructor(
-    private getPageFunction: FlDatasourceGetPageFunction<T, F>,
+    getPageFunctionOrProvider: FlDatasourceGetPageFunction<T, F> | FlDatasourcePageProvider<T, F>,
     private pageSize: number,
     options: FlDatasourcePaginatedOptions = defaultOptions
   ) {
     super(null, options.disableAutoDisconnect);
+
+    if (getPageFunctionOrProvider instanceof FlDatasourcePageProvider) {
+      this.pageProvider = getPageFunctionOrProvider;
+    } else {
+      this.pageProvider = new FlDatasourcePageProvider(getPageFunctionOrProvider);
+    }
 
     const fullOptions = { ...defaultOptions, ...options };
     if (fullOptions.initFirstPage) {
@@ -143,11 +152,11 @@ export abstract class FlDatasourcePaginated<T, F = void> extends FlArrayObs<T> {
 
   private callGetPageFunction(pageNumber: number): void {
     this.isLoading = true;
-    const requestData: FlDatasourceGetPageData = {
+    const requestData: FlDatasourceGetPageData<F> = {
       filtersCriteria: this.filtersCriteria,
       sortsCriteria: this.sortsCriteria,
     };
-    this.getPageFunction(pageNumber, this.pageSize, requestData).subscribe({
+    this.pageProvider.getPage(pageNumber, this.pageSize, requestData).subscribe({
       next: (result) => this.onSuccess(result),
       error: (error) => this.onError(error),
     });
@@ -237,6 +246,18 @@ export abstract class FlDatasourcePaginated<T, F = void> extends FlArrayObs<T> {
   }
 
   public setPageFunction(getPageFunction: FlDatasourceGetPageFunction<T, F>): void {
-    this.getPageFunction = getPageFunction;
+    this.pageProvider.setGetPageFn(getPageFunction);
+  }
+
+  public setPageProvider(provider: FlDatasourcePageProvider<T, F>): void {
+    this.pageProvider = provider;
+  }
+
+  public buildConvertedRequestData(): any {
+    const rawData: FlDatasourceGetPageData<F> = {
+      filtersCriteria: this.filtersCriteria,
+      sortsCriteria: this.sortsCriteria,
+    };
+    return this.pageProvider.convertRequestData(rawData);
   }
 }

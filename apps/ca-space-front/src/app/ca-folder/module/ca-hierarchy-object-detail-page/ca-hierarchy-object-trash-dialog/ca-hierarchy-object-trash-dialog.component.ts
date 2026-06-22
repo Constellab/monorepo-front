@@ -6,11 +6,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { ClHelpService } from '@monorepo/core-lib';
-import {
-  FlDatasourceGetPageFunction,
-  FlEntityPaginatedDatasource,
-  FlTableColumnStatic,
-} from '@monorepo/front-core-lib/fl-core';
+import { FlEntityPaginatedDatasource, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
@@ -18,7 +14,11 @@ import {
   FlDialogService,
 } from '@monorepo/front-core-lib/fl-dialog';
 import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
-import { FlSearchConfig, FlSearchState } from '@monorepo/front-core-lib/fl-search';
+import {
+  FlSearchConfig,
+  FlSearchDatasourcePageProvider,
+  FlSearchState,
+} from '@monorepo/front-core-lib/fl-search';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -26,6 +26,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 import {
   CaHierarchyObjectSearch,
   CaHierarchyObjectSearchFields,
+  CaHierarchyObjectSearchTrashField,
 } from '../../../../ca-core/entity-module/ca-hierarchy-object-core/ca-hierarchy-object-search.class';
 import { CaHierarchyObjectTableComponent } from '../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-table/ca-hierarchy-object-table.component';
 import {
@@ -88,7 +89,7 @@ export class CaHierarchyObjectTrashDialogComponent implements OnInit {
   formGp: UntypedFormGroup;
 
   title: string;
-  hierarchyObjects: CaHierarchyObjectDatasource<CaHierarchyObjectSearchFields>;
+  hierarchyObjects: CaHierarchyObjectDatasource<CaHierarchyObjectSearchTrashField>;
 
   columns: FlTableColumnStatic<CaHierarchyObject>[] = [
     'name',
@@ -103,26 +104,33 @@ export class CaHierarchyObjectTrashDialogComponent implements OnInit {
   restoredObject: CaHierarchyObject[] = [];
 
   ngOnInit(): void {
-    let getPageFunction: FlDatasourceGetPageFunction<CaHierarchyObject, CaHierarchyObjectSearchFields>;
+    let pageProvider: FlSearchDatasourcePageProvider<CaHierarchyObject, CaHierarchyObjectSearchTrashField>;
     const input = this.input;
     if (input.mode === 'all') {
       this.title = this.translateService.translate('all_folder_trash');
-      getPageFunction = (page, pageSize, requestData) => {
-        return this.hierarchyObjectService.searchTrashInRootFoldersAndChildren(page, pageSize, requestData);
-      };
+      pageProvider = new FlSearchDatasourcePageProvider(
+        CaHierarchyObjectSearch.getTrashFilterConverter(true),
+        CaHierarchyObjectSearch.sortConverter,
+        (page, pageSize, requestData) =>
+          this.hierarchyObjectService.searchTrashInRootFoldersAndChildren(page, pageSize, requestData)
+      );
     } else {
       this.title = this.translateService.translate('folder_trash', {
         param: { name: input.folderName },
       });
-      getPageFunction = (page, pageSize, requestData) => {
-        return this.hierarchyObjectService.searchTrashChildren(input.folderId, page, pageSize, requestData);
-      };
+      pageProvider = new FlSearchDatasourcePageProvider(
+        CaHierarchyObjectSearch.getTrashFilterConverter(false),
+        CaHierarchyObjectSearch.sortConverter,
+        (page, pageSize, requestData) =>
+          this.hierarchyObjectService.searchTrashChildren(input.folderId, page, pageSize, requestData)
+      );
     }
-    this.hierarchyObjects = new FlEntityPaginatedDatasource<CaHierarchyObject, CaHierarchyObjectSearchFields>(
-      getPageFunction,
-      25,
-      { initFirstPage: false }
-    );
+    this.hierarchyObjects = new FlEntityPaginatedDatasource<
+      CaHierarchyObject,
+      CaHierarchyObjectSearchTrashField
+    >(pageProvider, 25, {
+      initFirstPage: false,
+    });
 
     // init the children search state
     const config: FlSearchConfig = {
