@@ -8,6 +8,16 @@
     }
   </span>
 
+  <div class="fl-bulk-selection-separator"></div>
+
+  <!-- Select all visible rows -->
+  <button mat-button class="g-button-small" (click)="state.selectAllVisible()">
+    <mat-icon>done_all</mat-icon>
+    {{ 'flBulkSelection.selectAllVisible' | flTranslatableText | async }}
+  </button>
+
+  <div class="fl-bulk-selection-separator"></div>
+
   <!-- Select entire search / Deselect all -->
   @if (state.allowSelectEntireSearch()) {
     @if (state.isEntireSearchSelected()) {

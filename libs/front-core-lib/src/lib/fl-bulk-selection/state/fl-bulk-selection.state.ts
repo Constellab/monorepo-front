@@ -30,6 +30,12 @@ export class FlBulkSelectionState {
   setSelectionMode(active: boolean): void {
     if (active === this.selectionMode()) return;
     this.selectionMode.set(active);
+
+    // Leaving selection mode clears any pending selection so it does not persist
+    // the next time selection mode is enabled.
+    if (!active) {
+      this.clearSelection();
+    }
   }
 
   toggleItem(id: string): void {
@@ -52,6 +58,15 @@ export class FlBulkSelectionState {
     if (!this.allowSelectEntireSearch()) return;
     this.isEntireSearchSelected.set(true);
     this.selectedIds.set(new Set());
+  }
+
+  /** Selects every item currently loaded in the datasource (the visible rows) */
+  selectAllVisible(): void {
+    const items = this.datasource?.array ?? [];
+    const ids = items.map((item) => item?.id).filter((id): id is string => !!id);
+
+    this.isEntireSearchSelected.set(false);
+    this.selectedIds.set(new Set(ids));
   }
 
   deselectAll(): void {

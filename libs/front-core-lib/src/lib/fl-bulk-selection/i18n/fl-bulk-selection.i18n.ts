@@ -4,7 +4,9 @@ import { FlLangTranslation, FlTranslateObject } from '@monorepo/front-core-lib/f
 const flBulkSelectionFr: FlLangTranslation = {
   flBulkSelection: {
     multipleSelection: 'Sélection multiple',
+    ctrlClickHint: 'Ctrl/⌘ + clic sur une ligne pour activer',
     selected: 'sélectionnés',
+    selectAllVisible: 'Tout sélectionner',
     selectEntireSearch: 'Sélectionner toute la recherche',
     deselectAll: 'Tout désélectionner',
     entireSearchSelected: 'Toute la recherche sélectionnée',
@@ -21,7 +23,9 @@ const flBulkSelectionFr: FlLangTranslation = {
 const flBulkSelectionEn: FlLangTranslation = {
   flBulkSelection: {
     multipleSelection: 'Multiple selection',
+    ctrlClickHint: 'Ctrl/⌘ + click a row to activate',
     selected: 'selected',
+    selectAllVisible: 'Select all',
     selectEntireSearch: 'Select entire search',
     deselectAll: 'Deselect all',
     entireSearchSelected: 'Entire search selected',

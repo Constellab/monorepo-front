@@ -3,6 +3,7 @@ import {
   Directive,
   effect,
   ElementRef,
+  HostListener,
   inject,
   input,
   OnDestroy,
@@ -81,6 +82,15 @@ export class FlBulkSelectionDirective implements AfterViewInit, OnDestroy {
         this.removeAllSelectedClasses();
       }
     });
+
+    // Reflect programmatic selection changes (e.g. "select all visible") on the rows
+    effect(() => {
+      this.state.selectedIds();
+      this.state.isEntireSearchSelected();
+      if (this.state.selectionMode()) {
+        this.refreshRowClasses();
+      }
+    });
   }
 
   ngAfterViewInit(): void {
@@ -91,6 +101,22 @@ export class FlBulkSelectionDirective implements AfterViewInit, OnDestroy {
     this.detachClickListener();
     this.closePortal();
     this.unsubscribeFromDatasource();
+  }
+
+  /** Escape cancels the bulk selection (exits selection mode) */
+  @HostListener('document:keydown.escape')
+  onEscape(): void {
+    if (this.state.selectionMode()) {
+      this.state.setSelectionMode(false);
+    }
+  }
+
+  /**
+   * Resets the bulk selection: clears the selected items and exits selection mode.
+   * Call this after a bulk action completes (e.g. move to trash / move to folder).
+   */
+  reset(): void {
+    this.state.setSelectionMode(false);
   }
 
   // --- Click interception ---
@@ -108,12 +134,18 @@ export class FlBulkSelectionDirective implements AfterViewInit, OnDestroy {
   }
 
   private onHostClick(event: MouseEvent): void {
-    if (!this.state.selectionMode()) return;
-
     const target = event.target as HTMLElement;
     const rowSelector = this.rowSelector();
     const row = target.closest(rowSelector);
     if (!row) return;
+
+    // Ctrl/Cmd+click on a row activates selection mode (then selects that row).
+    // Outside selection mode, a plain click is ignored.
+    if (!this.state.selectionMode()) {
+      const isModifierClick = event.ctrlKey || event.metaKey;
+      if (!isModifierClick) return;
+      this.state.setSelectionMode(true);
+    }
 
     event.stopImmediatePropagation();
     event.preventDefault();
@@ -166,9 +198,18 @@ export class FlBulkSelectionDirective implements AfterViewInit, OnDestroy {
   // --- Datasource subscription ---
 
   private subscribeToDatasource(): void {
+    // Skip the initial emission (the page already loaded when entering selection
+    // mode) so we only reset on a subsequent first-page load (e.g. a new search).
+    let isInitialEmission = true;
+
     this.datasourceSub = this.datasource()
       .connect()
       .subscribe(() => {
+        if (!isInitialEmission && this.datasource().page?.first) {
+          this.state.clearSelection();
+        }
+        isInitialEmission = false;
+
         setTimeout(() => this.refreshRowClasses(), 0);
       });
   }
