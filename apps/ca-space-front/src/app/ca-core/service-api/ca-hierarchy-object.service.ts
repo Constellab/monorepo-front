@@ -1,6 +1,7 @@
 import { inject, Injectable } from '@angular/core';
-import { ClPageI } from '@monorepo/core-lib';
+import { ClBulkActionResult, ClPageI } from '@monorepo/core-lib';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
+import { FlBulkActionContext } from '@monorepo/front-core-lib/fl-bulk-selection';
 import { FlDatasourceGetPageData, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 import { FlSearchConverter } from '@monorepo/front-core-lib/fl-search';
 import { FlTag, FlTagDatasource } from '@monorepo/front-core-lib/fl-tag';
@@ -183,7 +184,7 @@ export class CaHierarchyObjectService {
       null,
       CaHierarchyObject
     );
-}
+  }
 
   public deleteHierarchyObject(hierarchyObjectId: string): Observable<void> {
     return this.apiService.delete(`${this.route}/${hierarchyObjectId}`);
@@ -191,6 +192,27 @@ export class CaHierarchyObjectService {
 
   public emptyTrash(folderId: string): Observable<void> {
     return this.apiService.put(`${this.route}/${folderId}/empty-trash`, null);
+  }
+
+  /////////////////////////// BULK ////////////////////////////////////////////
+
+  public bulkMoveToTrash(context: FlBulkActionContext): Observable<ClBulkActionResult> {
+    return this.apiService.put(`${this.route}/bulk/move-to-trash`, context, ClBulkActionResult);
+  }
+
+  public bulkMoveToFolder(
+    context: FlBulkActionContext,
+    targetFolderId: string
+  ): Observable<ClBulkActionResult> {
+    return this.apiService.put(
+      `${this.route}/bulk/move-to-folder`,
+      { context, targetFolderId },
+      ClBulkActionResult
+    );
+  }
+
+  public bulkCreateTags(context: FlBulkActionContext, tags: FlTag[]): Observable<ClBulkActionResult> {
+    return this.apiService.post(`${this.route}/bulk/tags/multiple`, { context, tags }, ClBulkActionResult);
   }
 
   //////////////////////////////// TAGS /////////////////////////////////////

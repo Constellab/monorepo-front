@@ -30,7 +30,7 @@ const flPortalActionEn: FlLangTranslation = {
   },
 };
 
-export const flPortalActionI18n: FlTranslateObject = {
+export const FL_PORTAL_ACTION_I18N: FlTranslateObject = {
   [ClSupportedLanguage.en]: flPortalActionEn,
   [ClSupportedLanguage.fr]: flPortalActionFr,
 };

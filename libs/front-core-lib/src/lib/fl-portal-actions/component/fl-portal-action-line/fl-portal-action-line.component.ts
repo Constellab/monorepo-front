@@ -1,17 +1,18 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
 } from '@monorepo/front-core-lib/fl-dialog';
 import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { FlPortalActionDetail } from '../../model/fl-portal-action-detail.class';
 import {
   FlPortalActionDetailStatusEvent,
   FlPortalActionProcessing,
+  FlPortalActionSuccess,
 } from '../../model/fl-portal-actions.class';
 
 /**
@@ -24,28 +25,49 @@ import {
   styleUrls: ['./fl-portal-action-line.component.scss'],
   standalone: false,
 })
-export class FlPortalActionLineComponent implements OnInit {
+export class FlPortalActionLineComponent implements OnInit, OnDestroy {
   @Input() action: FlPortalActionDetail;
 
   statusEvent$: Observable<FlPortalActionDetailStatusEvent>;
   link$: Observable<string | null>;
   displayedText$: Observable<FlTranslatableText>;
+  currentOnSuccessClick: (() => void) | null = null;
 
   private dialogService = inject(FlDialogService);
+  private resultSubscription: Subscription;
 
   ngOnInit(): void {
     this.statusEvent$ = this.action.getStatusEvent$();
     this.link$ = this.action
       .getResult$()
       .pipe(map((result) => (result.status === 'success' ? result.link : null)));
+    this.resultSubscription = this.action.getResult$().subscribe((result) => {
+      if (result.status === 'success') {
+        const success = result as FlPortalActionSuccess;
+        this.currentOnSuccessClick = success.onSuccessClick ?? null;
+      }
+    });
     this.displayedText$ = this.statusEvent$.pipe(
       map((event) => {
         if (event.status === 'processing' && (event as FlPortalActionProcessing).message) {
           return (event as FlPortalActionProcessing).message;
         }
+        if (event.status === 'success' && (event as FlPortalActionSuccess).successMessage) {
+          return (event as FlPortalActionSuccess).successMessage;
+        }
         return this.action.text;
       })
     );
+  }
+
+  onLineClick(): void {
+    if (this.currentOnSuccessClick) {
+      this.currentOnSuccessClick();
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.resultSubscription?.unsubscribe();
   }
 
   cancelAction(): void {

@@ -13,7 +13,7 @@ import { FlPortalModule } from '../fl-portal/fl-portal.module';
 import { FlTranslateModule } from '../fl-translate/fl-translate.module';
 import { FlPortalActionLineComponent } from './component/fl-portal-action-line/fl-portal-action-line.component';
 import { FlPortalActionsComponent } from './component/fl-portal-actions/fl-portal-actions.component';
-import { flPortalActionI18n } from './i18n/fl-portal-action.i18n';
+import { FL_PORTAL_ACTION_I18N } from './i18n/fl-portal-action.i18n';
 import { FlPortalActionsService } from './service/fl-portal-actions.service';
 import { FlPortalActionsState } from './service/fl-portal-actions.state';
 
@@ -39,7 +39,7 @@ export class FlPortalActionsModule {
   constructor() {
     const translateService = inject(FlTranslateService);
 
-    translateService.addModuleTranslation('FlPortalActionsModule', flPortalActionI18n);
+    translateService.addModuleTranslation('FlPortalActionsModule', FL_PORTAL_ACTION_I18N);
   }
 
   public static forRoot(): ModuleWithProviders<FlPortalActionsModule> {

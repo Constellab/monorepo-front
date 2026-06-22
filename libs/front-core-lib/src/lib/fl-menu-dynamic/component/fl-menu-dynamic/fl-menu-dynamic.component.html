@@ -25,27 +25,31 @@
           <!-- Handle leaf node menu items, provide item directly not in a component otherwise it doesn't work well with sub menu -->
           @if (item.type === 'link') {
             <!--    Link    -->
-            <a mat-menu-item [routerLink]="$any(item).link">
+            <a mat-menu-item [routerLink]="$any(item).link" [class]="item.color">
               @if (item.icon) {
-                <mat-icon [flIcon]="item.icon" [ngClass]="item.color"></mat-icon>
+                <mat-icon [flIcon]="item.icon"></mat-icon>
               }
-              <div [ngClass]="getTextClass(item)">{{ item.text | flTranslatableText | async }}</div>
+              {{ item.text | flTranslatableText | async }}
             </a>
           } @else if (item.type === 'downloadLink') {
             <!--    Link    -->
-            <a mat-menu-item [href]="$any(item).href" download>
+            <a mat-menu-item [href]="$any(item).href" download [class]="item.color">
               @if (item.icon) {
-                <mat-icon [flIcon]="item.icon" [ngClass]="item.color"></mat-icon>
+                <mat-icon [flIcon]="item.icon"></mat-icon>
               }
-              <div [ngClass]="getTextClass(item)">{{ item.text | flTranslatableText | async }}</div>
+              {{ item.text | flTranslatableText | async }}
             </a>
           } @else {
             <!--    Button    -->
-            <button mat-menu-item (click)="callItem($any(item), $event)" [disabled]="$any(item).disabled">
+            <button
+              mat-menu-item
+              (click)="callItem($any(item), $event)"
+              [disabled]="$any(item).disabled"
+              [class]="$any(item).disabled ? null : item.color">
               @if (item.icon) {
-                <mat-icon [flIcon]="item.icon" [ngClass]="item.color"></mat-icon>
+                <mat-icon [flIcon]="item.icon"></mat-icon>
               }
-              <div [ngClass]="getTextClass(item)">{{ item.text | flTranslatableText | async }}</div>
+              {{ item.text | flTranslatableText | async }}
             </button>
           }
         }
