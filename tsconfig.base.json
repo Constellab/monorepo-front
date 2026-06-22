@@ -34,6 +34,9 @@
       "@monorepo/front-core-lib/fl-autocomplete-multiple": [
         "libs/front-core-lib/src/lib/fl-autocomplete-multiple/index.ts"
       ],
+      "@monorepo/front-core-lib/fl-bulk-selection": [
+        "libs/front-core-lib/src/lib/fl-bulk-selection/index.ts"
+      ],
       "@monorepo/front-core-lib/fl-captcha": ["libs/front-core-lib/src/lib/fl-captcha/index.ts"],
       "@monorepo/front-core-lib/fl-card": ["libs/front-core-lib/src/lib/fl-card/index.ts"],
       "@monorepo/front-core-lib/fl-code-editor": ["libs/front-core-lib/src/lib/fl-code-editor/index.ts"],

@@ -1,7 +1,12 @@
 <div
   class="g-layout-row g-layout-between-center"
+  tabindex="0"
+  role="button"
   [routerLink]="link$ | async"
-  [ngClass]="{ link: link$ | async }">
+  [ngClass]="{ link: (link$ | async) || currentOnSuccessClick }"
+  (click)="onLineClick()"
+  (keydown.enter)="onLineKeydown($event)"
+  (keydown.space)="onLineKeydown($event)">
   <div
     class="text"
     [matTooltip]="displayedText$ | async | flTranslatableText | async"

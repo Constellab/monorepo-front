@@ -1,0 +1,61 @@
+<div class="fl-bulk-selection-bar g-layout-row g-layout-center-center">
+  <!-- Count -->
+  <span class="fl-bulk-selection-count">
+    @if (state.isEntireSearchSelected()) {
+      {{ 'flBulkSelection.entireSearchSelected' | flTranslatableText | async }}
+    } @else {
+      {{ state.selectedCount() }} {{ 'flBulkSelection.selected' | flTranslatableText | async }}
+    }
+  </span>
+
+  <div class="fl-bulk-selection-separator"></div>
+
+  <!-- Select all visible rows -->
+  <button mat-button class="g-button-small" (click)="state.selectAllVisible()">
+    <mat-icon>done_all</mat-icon>
+    {{ 'flBulkSelection.selectAllVisible' | flTranslatableText | async }}
+  </button>
+
+  <div class="fl-bulk-selection-separator"></div>
+
+  <!-- Select entire search / Deselect all -->
+  @if (state.allowSelectEntireSearch()) {
+    @if (state.isEntireSearchSelected()) {
+      <button mat-button class="g-button-small" (click)="state.deselectAll()">
+        <mat-icon>deselect</mat-icon>
+        {{ 'flBulkSelection.deselectAll' | flTranslatableText | async }}
+      </button>
+    } @else {
+      <button mat-button class="g-button-small" (click)="state.selectEntireSearch()">
+        <mat-icon>select_all</mat-icon>
+        {{ 'flBulkSelection.selectEntireSearch' | flTranslatableText | async }}
+      </button>
+    }
+
+    <div class="fl-bulk-selection-separator"></div>
+  }
+
+  <!-- Action buttons with icon + text -->
+  @for (action of state.actions; track action.type) {
+    <button
+      mat-button
+      class="g-button-small"
+      [class]="action.color"
+      [disabled]="action.disabled || (state.selectedCount() === 0 && !state.isEntireSearchSelected())"
+      (click)="onAction(action)">
+      <mat-icon [flIcon]="action.icon"></mat-icon>
+      <span>{{ action.text | flTranslatableText | async }}</span>
+    </button>
+  }
+
+  <div class="fl-bulk-selection-separator"></div>
+
+  <!-- Close -->
+  <button
+    mat-icon-button
+    class="g-button-small"
+    (click)="close()"
+    [matTooltip]="'flBulkSelection.close' | flTranslatableText | async">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>

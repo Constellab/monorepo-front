@@ -28,6 +28,12 @@ export interface FlPortalAction<T = any> {
   trackHttpEvents?: boolean;
 
   /**
+   * Message to display when upload is complete and server is processing.
+   * Only used when trackHttpEvents is true.
+   */
+  processingMessage?: FlTranslatableText;
+
+  /**
    * Additional information to return to the result
    */
   additionalInformation?: any;
@@ -40,10 +46,17 @@ export interface FlPortalAction<T = any> {
   successLink?: (result: T) => string;
 
   /**
-   * Message to display when upload is complete and server is processing.
-   * Only used when trackHttpEvents is true.
+   * Callback called when the user clicks the action line after success.
+   * Makes the line clickable (like successLink) but triggers a callback
+   * instead of navigating. Receives the result of the action.
    */
-  processingMessage?: FlTranslatableText;
+  onSuccessClick?: (result: T) => void;
+
+  /**
+   * Callback to build a dynamic text from the result on success.
+   * e.g. "3/5 moved to folder"
+   */
+  successMessage?: (result: T) => FlTranslatableText;
 
   /**
    * If true, the portal will auto-close after this action finishes.
@@ -113,6 +126,8 @@ export interface FlPortalActionSuccess<T = any> {
   action: FlPortalAction;
   additionalInformation?: any;
   link?: string;
+  onSuccessClick?: () => void;
+  successMessage?: FlTranslatableText;
 }
 
 /**

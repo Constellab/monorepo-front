@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { MatMenu, MatMenuTrigger, MenuPositionX, MenuPositionY } from '@angular/material/menu';
-import { FlThemeHelper } from '@monorepo/front-core-lib/fl-theme';
 import { combineLatest, map, Observable, of, startWith } from 'rxjs';
 
 import { FlMenuDynamic, FlMenuDynamicButton, FlMenuDynamicInput } from '../../model/fl-menu-dynamic.class';
@@ -57,10 +56,5 @@ export class FlMenuDynamicComponent {
       menuItem.onClick(event);
       this.buttonClick.next(menuItem);
     }
-  }
-
-  getTextClass(menuItem: FlMenuDynamic): string {
-    if (!menuItem.color) return null;
-    return FlThemeHelper.paletteToTextCssClass(menuItem.color);
   }
 }

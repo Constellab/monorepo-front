@@ -1,0 +1,32 @@
+<fl-dialog-header>
+  {{ 'flBulkSelection.bulkResultTitle' | translate }}
+</fl-dialog-header>
+
+<div mat-dialog-content>
+  <div class="summary">
+    <div>{{ 'flBulkSelection.total' | translate }}: {{ result.total }}</div>
+    <div class="g-success-text">{{ 'flBulkSelection.succeeded' | translate }}: {{ result.successCount }}</div>
+    @if (result.errorCount > 0) {
+      <div class="g-error-text">{{ 'flBulkSelection.failed' | translate }}: {{ result.errorCount }}</div>
+    }
+  </div>
+
+  @if (result.errors?.length > 0) {
+    <table class="error-table">
+      <thead>
+        <tr>
+          <th>{{ 'flBulkSelection.errorName' | translate }}</th>
+          <th>{{ 'flBulkSelection.errorMessage' | translate }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (error of result.errors; track error.id) {
+          <tr>
+            <td>{{ error.name }}</td>
+            <td>{{ error.message }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</div>
