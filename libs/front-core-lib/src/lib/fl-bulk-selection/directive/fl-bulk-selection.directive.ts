@@ -36,6 +36,11 @@ export class FlBulkSelectionDirective implements AfterViewInit, OnDestroy {
   /** CSS selector for row elements within the host (default: 'mat-row') */
   readonly rowSelector = input<string>('mat-row', { alias: 'flBulkSelectionRowSelector' });
 
+  /** When false, disables the "Select entire search" mode that targets the whole search result set */
+  readonly allowSelectEntireSearch = input<boolean>(true, {
+    alias: 'flBulkSelectionAllowSelectEntireSearch',
+  });
+
   readonly state = inject(FlBulkSelectionState);
 
   private portalService = inject(FlPortalService);
@@ -49,6 +54,10 @@ export class FlBulkSelectionDirective implements AfterViewInit, OnDestroy {
     // Sync actions and datasource to state
     effect(() => {
       this.state.actions = this.actions();
+    });
+
+    effect(() => {
+      this.state.allowSelectEntireSearch.set(this.allowSelectEntireSearch());
     });
 
     effect(() => {

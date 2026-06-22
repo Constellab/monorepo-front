@@ -32,9 +32,9 @@ export interface FlBulkActionContext {
   /** IDs of manually selected items */
   selectedIds: string[];
 
-  /** True if "Select all" mode is active (back will use searchInput to target all results) */
-  isAllSelected: boolean;
+  /** True if "Select entire search" mode is active (back will use searchInput to target all results) */
+  isEntireSearchSelected: boolean;
 
-  /** Current search filters — used by the back in "select all" mode */
+  /** Current search filters — used by the back in "isEntireSearchSelected" mode */
   searchInput?: FlAdvancedSearchInput;
 }

@@ -1,27 +1,29 @@
 <div class="fl-bulk-selection-bar g-layout-row g-layout-center-center">
   <!-- Count -->
   <span class="fl-bulk-selection-count">
-    @if (state.isAllSelected()) {
-      {{ 'flBulkSelection.allSelected' | flTranslatableText | async }}
+    @if (state.isEntireSearchSelected()) {
+      {{ 'flBulkSelection.entireSearchSelected' | flTranslatableText | async }}
     } @else {
       {{ state.selectedCount() }} {{ 'flBulkSelection.selected' | flTranslatableText | async }}
     }
   </span>
 
-  <!-- Select all / Deselect all -->
-  @if (state.isAllSelected()) {
-    <button mat-button class="g-button-small" (click)="state.deselectAll()">
-      <mat-icon>deselect</mat-icon>
-      {{ 'flBulkSelection.deselectAll' | flTranslatableText | async }}
-    </button>
-  } @else {
-    <button mat-button class="g-button-small" (click)="state.selectAll()">
-      <mat-icon>select_all</mat-icon>
-      {{ 'flBulkSelection.selectAll' | flTranslatableText | async }}
-    </button>
-  }
+  <!-- Select entire search / Deselect all -->
+  @if (state.allowSelectEntireSearch()) {
+    @if (state.isEntireSearchSelected()) {
+      <button mat-button class="g-button-small" (click)="state.deselectAll()">
+        <mat-icon>deselect</mat-icon>
+        {{ 'flBulkSelection.deselectAll' | flTranslatableText | async }}
+      </button>
+    } @else {
+      <button mat-button class="g-button-small" (click)="state.selectEntireSearch()">
+        <mat-icon>select_all</mat-icon>
+        {{ 'flBulkSelection.selectEntireSearch' | flTranslatableText | async }}
+      </button>
+    }
 
-  <div class="fl-bulk-selection-separator"></div>
+    <div class="fl-bulk-selection-separator"></div>
+  }
 
   <!-- Action buttons with icon + text -->
   @for (action of state.actions; track action.type) {
@@ -29,7 +31,7 @@
       mat-button
       class="g-button-small"
       [class]="action.color"
-      [disabled]="state.selectedCount() === 0 && !state.isAllSelected()"
+      [disabled]="state.selectedCount() === 0 && !state.isEntireSearchSelected()"
       (click)="onAction(action)">
       <mat-icon [flIcon]="action.icon"></mat-icon>
       <span>{{ action.text | flTranslatableText | async }}</span>

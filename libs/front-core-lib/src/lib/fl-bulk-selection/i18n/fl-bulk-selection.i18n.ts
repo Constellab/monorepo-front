@@ -5,9 +5,9 @@ const flBulkSelectionFr: FlLangTranslation = {
   flBulkSelection: {
     multipleSelection: 'Sélection multiple',
     selected: 'sélectionnés',
-    selectAll: 'Tout sélectionner',
+    selectEntireSearch: 'Sélectionner toute la recherche',
     deselectAll: 'Tout désélectionner',
-    allSelected: 'Tout sélectionné',
+    entireSearchSelected: 'Toute la recherche sélectionnée',
     close: 'Fermer',
   },
 };
@@ -16,9 +16,9 @@ const flBulkSelectionEn: FlLangTranslation = {
   flBulkSelection: {
     multipleSelection: 'Multiple selection',
     selected: 'selected',
-    selectAll: 'Select all',
+    selectEntireSearch: 'Select entire search',
     deselectAll: 'Deselect all',
-    allSelected: 'All selected',
+    entireSearchSelected: 'Entire search selected',
     close: 'Close',
   },
 };

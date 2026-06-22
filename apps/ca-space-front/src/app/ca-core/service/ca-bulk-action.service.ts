@@ -106,7 +106,7 @@ export class CaBulkActionService {
   }
 
   private getSelectionCount(context: FlBulkActionContext): string {
-    return context.isAllSelected ? 'all' : String(context.selectedIds.length);
+    return context.isEntireSearchSelected ? 'all' : String(context.selectedIds.length);
   }
 
   private openBulkResultDialog(result: ClBulkActionResult): void {

@@ -13,7 +13,10 @@ export class FlBulkSelectionState {
   readonly selectionMode = signal(false);
   readonly selectedIds = signal<Set<string>>(new Set());
   readonly selectedCount = computed(() => this.selectedIds().size);
-  readonly isAllSelected = signal(false);
+  readonly isEntireSearchSelected = signal(false);
+
+  /** When false, the "Select entire search" mode (targeting the whole search result set) is disabled */
+  readonly allowSelectEntireSearch = signal(true);
 
   // --- Configuration (set by the directive) ---
   actions: FlBulkActionButton[] = [];
@@ -40,13 +43,14 @@ export class FlBulkSelectionState {
 
     this.selectedIds.set(current);
 
-    if (this.isAllSelected()) {
-      this.isAllSelected.set(false);
+    if (this.isEntireSearchSelected()) {
+      this.isEntireSearchSelected.set(false);
     }
   }
 
-  selectAll(): void {
-    this.isAllSelected.set(true);
+  selectEntireSearch(): void {
+    if (!this.allowSelectEntireSearch()) return;
+    this.isEntireSearchSelected.set(true);
     this.selectedIds.set(new Set());
   }
 
@@ -55,7 +59,7 @@ export class FlBulkSelectionState {
   }
 
   clearSelection(): void {
-    this.isAllSelected.set(false);
+    this.isEntireSearchSelected.set(false);
     this.selectedIds.set(new Set());
   }
 
@@ -68,12 +72,12 @@ export class FlBulkSelectionState {
   buildContext(): FlBulkActionContext {
     return {
       selectedIds: Array.from(this.selectedIds()),
-      isAllSelected: this.isAllSelected(),
+      isEntireSearchSelected: this.isEntireSearchSelected(),
       searchInput: this.datasource.buildConvertedRequestData(),
     };
   }
 
   isItemSelected(id: string): boolean {
-    return this.isAllSelected() || this.selectedIds().has(id);
+    return this.isEntireSearchSelected() || this.selectedIds().has(id);
   }
 }
