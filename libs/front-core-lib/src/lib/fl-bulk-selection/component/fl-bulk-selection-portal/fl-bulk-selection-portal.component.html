@@ -41,7 +41,7 @@
       mat-button
       class="g-button-small"
       [class]="action.color"
-      [disabled]="state.selectedCount() === 0 && !state.isEntireSearchSelected()"
+      [disabled]="action.disabled || (state.selectedCount() === 0 && !state.isEntireSearchSelected())"
       (click)="onAction(action)">
       <mat-icon [flIcon]="action.icon"></mat-icon>
       <span>{{ action.text | flTranslatableText | async }}</span>

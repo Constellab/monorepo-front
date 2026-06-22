@@ -66,6 +66,16 @@ export class FlPortalActionLineComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * Keyboard activation for the button-role line. Dispatches a real click so that
+   * both onLineClick() and the routerLink navigation run, exactly like a mouse click.
+   * Space also prevents the default page scroll.
+   */
+  onLineKeydown(event: Event): void {
+    event.preventDefault();
+    (event.currentTarget as HTMLElement).click();
+  }
+
   ngOnDestroy(): void {
     this.resultSubscription?.unsubscribe();
   }

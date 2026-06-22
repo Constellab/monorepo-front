@@ -198,6 +198,11 @@ export class FlBulkSelectionDirective implements AfterViewInit, OnDestroy {
   // --- Datasource subscription ---
 
   private subscribeToDatasource(): void {
+    // Idempotent: callable from both the selectionMode and datasource-sync effects.
+    // Bail out if already subscribed to avoid duplicate subscriptions (the
+    // datasource-sync effect unsubscribes first when the datasource changes).
+    if (this.datasourceSub) return;
+
     // Skip the initial emission (the page already loaded when entering selection
     // mode) so we only reset on a subsequent first-page load (e.g. a new search).
     let isInitialEmission = true;

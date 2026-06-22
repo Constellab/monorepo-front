@@ -5,8 +5,8 @@
   [routerLink]="link$ | async"
   [ngClass]="{ link: (link$ | async) || currentOnSuccessClick }"
   (click)="onLineClick()"
-  (keydown.enter)="onLineClick()"
-  (keydown.space)="onLineClick()">
+  (keydown.enter)="onLineKeydown($event)"
+  (keydown.space)="onLineKeydown($event)">
   <div
     class="text"
     [matTooltip]="displayedText$ | async | flTranslatableText | async"
