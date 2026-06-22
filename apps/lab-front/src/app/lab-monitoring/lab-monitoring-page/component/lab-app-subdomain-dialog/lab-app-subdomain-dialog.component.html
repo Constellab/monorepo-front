@@ -1,0 +1,37 @@
+<fl-dialog-header>
+  {{ 'monitoring.app_custom_subdomain_title' | translate: { name: data.appName } }}
+</fl-dialog-header>
+
+<mat-dialog-content>
+  <form (ngSubmit)="submit()" id="app-subdomain-form" [formGroup]="formGp">
+    <p class="g-text-light">{{ 'monitoring.app_custom_subdomain_help' | translate }}</p>
+
+    <mat-form-field class="g-form-input">
+      <mat-label>{{ 'monitoring.app_custom_subdomain' | translate }}</mat-label>
+      <input
+        matInput
+        formControlName="subdomain"
+        [placeholder]="'monitoring.app_custom_subdomain_placeholder' | translate" />
+      <mat-hint>{{ 'monitoring.app_custom_subdomain_hint' | translate }}</mat-hint>
+      @if (formGp.get('subdomain').hasError('required')) {
+        <mat-error>{{ 'monitoring.app_custom_subdomain_required' | translate }}</mat-error>
+      } @else if (formGp.get('subdomain').hasError('pattern')) {
+        <mat-error>{{ 'monitoring.app_custom_subdomain_invalid' | translate }}</mat-error>
+      }
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<div mat-dialog-actions class="g-layout-row g-layout-between-center">
+  @if (canClear) {
+    <button mat-stroked-button type="button" class="warn" (click)="clear()">
+      {{ 'monitoring.app_custom_subdomain_clear' | translate }}
+    </button>
+  } @else {
+    <span></span>
+  }
+
+  <button mat-flat-button type="submit" form="app-subdomain-form" class="primary">
+    {{ 'g.save' | translate }}
+  </button>
+</div>

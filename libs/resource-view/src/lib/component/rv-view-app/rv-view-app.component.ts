@@ -94,7 +94,7 @@ export class RvViewAppComponent
   private buildIframeUrl(urlsParams: any): void {
     let url = this.view.data.app_url.host_url;
 
-    const params: Record<string, string> = this.view.data.app_url.params;
+    const params: Record<string, string> = this.view.data.app_url.params ?? {};
 
     if (this.moduleConfig.enableQueryParams()) {
       // merge the front url params with the url params of the app

@@ -32,6 +32,9 @@ export class LiAppInstance {
 
   @Expose({ name: 'stop_policy' })
   stopPolicy: LiAppStopPolicy;
+
+  @Expose({ name: 'custom_subdomain' })
+  customSubdomain?: string;
 }
 
 export class LiAppProcessStatus {
