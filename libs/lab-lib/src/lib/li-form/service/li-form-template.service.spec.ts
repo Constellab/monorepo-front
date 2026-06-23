@@ -154,30 +154,42 @@ describe('LiFormTemplateService', () => {
   });
 
   describe('generateSpecsWithAi', () => {
-    it('should POST to form-template/{templateId}/version/{versionId}/generate-specs-with-ai', () => {
+    it('should POST to .../generate-specs-with-ai and return the proposed specs (no persist)', () => {
       service.generateSpecsWithAi('tmpl-1', 'ver-1', 'a name and a date');
       expect(apiServiceSpy.post).toHaveBeenCalledWith(
         'form-template/tmpl-1/version/ver-1/generate-specs-with-ai',
-        { description: 'a name and a date' },
+        { description: 'a name and a date' }
+      );
+    });
+  });
+
+  describe('overrideSpecs', () => {
+    it('should PUT { specs } to form-template/{templateId}/version/{versionId}/specs', () => {
+      const specs = { name: { type: 'str' } } as any;
+      service.overrideSpecs('tmpl-1', 'ver-1', specs);
+      expect(apiServiceSpy.put).toHaveBeenCalledWith(
+        'form-template/tmpl-1/version/ver-1/specs',
+        { specs },
         LiFormTemplateVersion
       );
     });
   });
 
   describe('generateFieldWithAi', () => {
-    it('should POST with field_key null when creating a new field', () => {
+    it('should POST with field_key/current_field null when creating a new field', () => {
       service.generateFieldWithAi('tmpl-1', 'ver-1', 'mass in grams');
       expect(apiServiceSpy.post).toHaveBeenCalledWith(
         'form-template/tmpl-1/version/ver-1/generate-field-with-ai',
-        { description: 'mass in grams', field_key: null }
+        { description: 'mass in grams', field_key: null, current_field: null }
       );
     });
 
-    it('should POST with the field_key when editing an existing field', () => {
-      service.generateFieldWithAi('tmpl-1', 'ver-1', 'mass in grams', 'mass');
+    it('should POST with the field_key and current_field when editing an existing field', () => {
+      const currentField = { type: 'float' } as any;
+      service.generateFieldWithAi('tmpl-1', 'ver-1', 'mass in grams', 'mass', currentField);
       expect(apiServiceSpy.post).toHaveBeenCalledWith(
         'form-template/tmpl-1/version/ver-1/generate-field-with-ai',
-        { description: 'mass in grams', field_key: 'mass' }
+        { description: 'mass in grams', field_key: 'mass', current_field: currentField }
       );
     });
   });

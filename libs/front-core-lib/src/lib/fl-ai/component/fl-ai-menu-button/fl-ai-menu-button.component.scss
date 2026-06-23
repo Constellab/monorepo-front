@@ -19,3 +19,16 @@
     opacity: 0.4;
   }
 }
+
+// mat-menu content renders in an overlay outside this component's view, so the
+// description block is targeted via the panel class with ::ng-deep.
+::ng-deep .fl-ai-menu .fl-ai-menu-title {
+  padding: 8px 16px 0;
+  font-weight: 500;
+}
+
+::ng-deep .fl-ai-menu .fl-ai-menu-description {
+  max-width: 280px;
+  padding: 8px 16px;
+  white-space: normal;
+}

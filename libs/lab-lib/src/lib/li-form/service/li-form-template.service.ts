@@ -7,9 +7,11 @@ import {
   TdGenerateComputedParamResult,
   TdGenerateFieldResult,
   TdParamSpec,
+  TdParamSpecs,
   TdValidateComputedParamResult,
 } from '@monorepo/technical-doc';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import {
   LiCreateFormTemplateDTO,
@@ -219,13 +221,31 @@ export class LiFormTemplateService {
 
   // AI-assisted specs generation
 
+  /**
+   * Generates a proposed full field specification from a description (preview only —
+   * nothing is persisted). Apply the reviewed result with {@link overrideSpecs}.
+   */
   public generateSpecsWithAi(
     templateId: string,
     versionId: string,
     description: string
-  ): Observable<LiFormTemplateVersion> {
+  ): Observable<TdParamSpecs> {
     const route = `${this.route}/${templateId}/version/${versionId}/generate-specs-with-ai`;
-    return this.apiService.post(route, { description }, LiFormTemplateVersion);
+    return this.apiService
+      .post(route, { description })
+      .pipe(map((result: { specs: TdParamSpecs }) => result.specs));
+  }
+
+  /**
+   * Fully replaces the draft version's field set with the given specs.
+   */
+  public overrideSpecs(
+    templateId: string,
+    versionId: string,
+    specs: TdParamSpecs
+  ): Observable<LiFormTemplateVersion> {
+    const route = `${this.route}/${templateId}/version/${versionId}/specs`;
+    return this.apiService.put(route, { specs }, LiFormTemplateVersion);
   }
 
   public generateFieldWithAi(

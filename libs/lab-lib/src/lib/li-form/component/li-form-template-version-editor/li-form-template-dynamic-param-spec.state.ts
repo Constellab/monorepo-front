@@ -12,7 +12,7 @@ import {
   TdValidateComputedParamResult,
 } from '@monorepo/technical-doc';
 import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 import { LiFormTemplateVersion } from '../../../li-core/model/entities/form/li-form-template-version.entity';
 import { LiFormTemplateService } from '../../service/li-form-template.service';
@@ -137,10 +137,12 @@ export class LiFormTemplateDynamicParamSpecState
     );
   }
 
-  generateSpecsWithAi(description: string): Observable<LiFormTemplateVersion> {
-    return this.formTemplateService
-      .generateSpecsWithAi(this.templateId, this.versionId, description)
-      .pipe(tap((version) => this.refreshContent(version)));
+  /**
+   * Generates a proposed full field set from a description (preview only — not persisted).
+   * Apply the reviewed result through {@link LiFormTemplateService.setAllFields}.
+   */
+  generateSpecsWithAi(description: string): Observable<TdParamSpecs> {
+    return this.formTemplateService.generateSpecsWithAi(this.templateId, this.versionId, description);
   }
 
   private refreshContent(version: LiFormTemplateVersion): TdParamSpecs {

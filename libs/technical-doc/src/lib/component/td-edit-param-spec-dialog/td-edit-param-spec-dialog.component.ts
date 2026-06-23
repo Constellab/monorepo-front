@@ -55,6 +55,8 @@ export interface TdEditParamSpecDialogInput {
   standalone: false,
 })
 export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
+  private static readonly KEY_MAX_LENGTH = 20;
+
   private dialogRef = inject<MatDialogRef<TdEditParamSpecDialogComponent>>(MatDialogRef);
   private dialogService = inject(FlDialogService);
   private portalService = inject(FlPortalService);
@@ -182,7 +184,10 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
     this.keyEditing.set(false);
     this.keyManuallyEdited = false;
     const label = this.formGroup.get('human_name').value || '';
-    const key = ClStringHelper.sentenceToSnakeCase(label).slice(0, 20);
+    const key = ClStringHelper.sentenceToSnakeCase(label).slice(
+      0,
+      TdEditParamSpecDialogComponent.KEY_MAX_LENGTH
+    );
     this.formGroup.get('key').setValue(key, { emitEvent: false });
   }
 
@@ -304,7 +309,9 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
     const generated = result as TdGenerateFieldResult;
     // Populates the form from an AI-proposed field (preview). The user reviews and saves
     // to apply it via the normal create/update/rename routes; cancelling discards it.
-    this.loadSpecIntoForm(generated.field_key, generated.spec);
+    // Truncate the AI-proposed key to the allowed max length so it passes validation.
+    const key = (generated.field_key ?? '').slice(0, TdEditParamSpecDialogComponent.KEY_MAX_LENGTH);
+    this.loadSpecIntoForm(key, generated.spec);
     this.formGroup.markAsDirty();
     this.snackBar.openSuccessMessage({ text: 'td.ai_field_generated_notice', translateText: true });
   }
@@ -344,7 +351,7 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
       key: new FormControl('', [
         Validators.required,
         Validators.pattern(/^[a-zA-Z_][a-zA-Z0-9_]*$/),
-        Validators.maxLength(20),
+        Validators.maxLength(TdEditParamSpecDialogComponent.KEY_MAX_LENGTH),
       ]),
       human_name: new FormControl('', Validators.required),
       optional: new FormControl(false),
@@ -370,7 +377,10 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
       }),
       this.formGroup.get('human_name').valueChanges.subscribe((label: string) => {
         if (!this.keyManuallyEdited) {
-          const key = ClStringHelper.sentenceToSnakeCase(label).slice(0, 20);
+          const key = ClStringHelper.sentenceToSnakeCase(label).slice(
+            0,
+            TdEditParamSpecDialogComponent.KEY_MAX_LENGTH
+          );
           this.formGroup.get('key').setValue(key, { emitEvent: false });
         }
       }),

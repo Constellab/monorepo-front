@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 export * from './model/li-form-template-version-status.helper';
 export * from './model/li-form-template-action-menu.class';
 export * from './model/li-form-action-menu.class';
@@ -14,6 +15,7 @@ export * from './component/li-form-table/li-form-table.component';
 export * from './component/li-form-template-form-dialog/li-form-template-form-dialog.component';
 export * from './component/li-form-template-version-editor/li-form-template-version-editor.component';
 export * from './component/li-form-template-version-editor/li-form-template-dynamic-param-spec.state';
+export * from './component/li-form-template-ai-specs-review-dialog/li-form-template-ai-specs-review-dialog.component';
 export * from './model/li-form-status.helper';
 export * from './component/li-form-editor/li-form-editor.component';
 export * from './component/li-form-editor/li-form-editor.logic';

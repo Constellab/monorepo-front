@@ -1,0 +1,38 @@
+<fl-dialog-header>
+  {{ 'li.form_ai_specs_review_title' | translate }}
+</fl-dialog-header>
+
+<mat-dialog-content>
+  <p class="g-text-small g-text-light">{{ 'li.form_ai_specs_review_hint' | translate }}</p>
+
+  @if (hasFields()) {
+    <td-editable-param-specs-table
+      [table]="state.paramSpecsTable"
+      [reorderEnabled]="state.reorderEnabled"
+      (editElementClick)="editField($event)"
+      (deleteElementClick)="deleteField($event)"
+      (reorderClick)="reorderFields($event)" />
+  } @else {
+    <div class="empty-fields">
+      <mat-icon class="empty-fields-icon">playlist_add</mat-icon>
+      <p>{{ 'li.form_no_fields_yet' | translate }}</p>
+    </div>
+  }
+</mat-dialog-content>
+
+<div mat-dialog-actions align="center">
+  <button mat-stroked-button type="button" (click)="cancel()">
+    {{ 'li.cancel' | translate }}
+  </button>
+  <button
+    mat-flat-button
+    type="button"
+    class="primary"
+    [disabled]="!hasFields() || isApplying()"
+    (click)="apply()">
+    {{ 'li.form_ai_specs_apply' | translate }}
+    @if (isApplying()) {
+      <fl-button-loader></fl-button-loader>
+    }
+  </button>
+</div>

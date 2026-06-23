@@ -4,7 +4,7 @@
     class="fl-ai-menu-recording"
     type="button"
     (click)="recorder.stopRecording()"
-    [matTooltip]="'flAi.stop_recording' | translate">
+    [matTooltip]="'flAi.stop_recording_hint' | translate">
     <mat-icon>stop_circle</mat-icon>
   </button>
 } @else if (isLoading()) {
@@ -20,7 +20,11 @@
   </button>
 }
 
-<mat-menu #aiMenu="matMenu">
+<mat-menu #aiMenu="matMenu" class="fl-ai-menu">
+  <div class="fl-ai-menu-title">{{ tooltip() | translate }}</div>
+  @if (dialogDescription()) {
+    <div class="fl-ai-menu-description g-text-small g-text-light" [innerHTML]="dialogDescription()"></div>
+  }
   <button mat-menu-item (click)="recorder.startRecording()">
     <mat-icon>mic</mat-icon>
     <span>{{ 'flAi.dictate' | translate }}</span>

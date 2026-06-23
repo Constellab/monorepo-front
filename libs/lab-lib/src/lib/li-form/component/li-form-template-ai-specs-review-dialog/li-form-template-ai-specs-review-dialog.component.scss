@@ -1,0 +1,14 @@
+.empty-fields {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 24px;
+  color: var(--color-foreground);
+}
+
+.empty-fields-icon {
+  font-size: 32px;
+  width: 32px;
+  height: 32px;
+}

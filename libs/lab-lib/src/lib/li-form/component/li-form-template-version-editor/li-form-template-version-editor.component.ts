@@ -14,6 +14,10 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
 import { LiFormTemplateVersion } from '../../../li-core/model/entities/form/li-form-template-version.entity';
+import {
+  LiFormTemplateAiSpecsReviewDialogComponent,
+  LiFormTemplateAiSpecsReviewDialogInput,
+} from '../li-form-template-ai-specs-review-dialog/li-form-template-ai-specs-review-dialog.component';
 import { LiFormTemplateDynamicParamSpecState } from './li-form-template-dynamic-param-spec.state';
 
 @Component({
@@ -91,13 +95,28 @@ export class LiFormTemplateVersionEditorComponent {
     this.dynamicState.reorderParamSpecs(fieldNames).subscribe();
   }
 
-  aiGenerateSpecs = (text: string): Observable<LiFormTemplateVersion> =>
-    this.dynamicState.generateSpecsWithAi(text);
+  aiGenerateSpecs = (text: string): Observable<TdParamSpecs> => this.dynamicState.generateSpecsWithAi(text);
 
-  onAiGenerateResult(version: unknown): void {
-    this.updateFieldCount();
-    this.versionUpdated.emit(version as LiFormTemplateVersion);
-    this.snackBar.openSuccessMessage({ text: 'li.form_ai_specs_applied', translateText: true });
+  onAiGenerateResult(specs: unknown): void {
+    // The AI returns a proposed full field set (preview only). Open the review dialog so
+    // the user can tweak it locally before applying — the dialog persists on apply and
+    // returns the updated version.
+    const input: LiFormTemplateAiSpecsReviewDialogInput = {
+      templateId: this.templateId(),
+      versionId: this.version().id,
+      proposedSpecs: specs as TdParamSpecs,
+    };
+
+    this.dialogService
+      .openMediumDialog(LiFormTemplateAiSpecsReviewDialogComponent, { data: input })
+      .afterClosed()
+      .subscribe((version: LiFormTemplateVersion | undefined) => {
+        if (version) {
+          this.dynamicState.setParamSpecs(version.content ?? {});
+          this.updateFieldCount();
+          this.versionUpdated.emit(version);
+        }
+      });
   }
 
   private updateFieldCount(): void {
