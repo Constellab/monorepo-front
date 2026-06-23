@@ -1,6 +1,7 @@
 <button
   mat-icon-button
   (click)="toggle()"
+  [disabled]="state.disabled()"
   [class.fl-bulk-toggle-active]="state.selectionMode()"
   [matTooltip]="
     ('flBulkSelection.multipleSelection' | flTranslatableText | async) +

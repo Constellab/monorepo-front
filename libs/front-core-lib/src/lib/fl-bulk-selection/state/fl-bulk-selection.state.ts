@@ -18,6 +18,9 @@ export class FlBulkSelectionState {
   /** When false, the "Select entire search" mode (targeting the whole search result set) is disabled */
   readonly allowSelectEntireSearch = signal(false);
 
+  /** When true, the bulk selection is disabled: selection mode cannot be entered, toggle is disabled */
+  readonly disabled = signal(false);
+
   // --- Configuration (set by the directive) ---
   actions: FlBulkActionButton[] = [];
   datasource: FlDatasourcePaginated<any, any>;
@@ -28,6 +31,8 @@ export class FlBulkSelectionState {
   // --- Public API ---
 
   setSelectionMode(active: boolean): void {
+    // Never allow entering selection mode while disabled
+    if (active && this.disabled()) return;
     if (active === this.selectionMode()) return;
     this.selectionMode.set(active);
 

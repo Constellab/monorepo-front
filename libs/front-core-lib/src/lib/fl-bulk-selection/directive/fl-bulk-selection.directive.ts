@@ -42,6 +42,9 @@ export class FlBulkSelectionDirective implements AfterViewInit, OnDestroy {
     alias: 'flBulkSelectionAllowSelectEntireSearch',
   });
 
+  /** When true, the bulk selection is disabled: selection mode cannot be entered, the toggle is disabled */
+  readonly disabled = input<boolean>(false, { alias: 'flBulkSelectionDisabled' });
+
   readonly state = inject(FlBulkSelectionState);
 
   private portalService = inject(FlPortalService);
@@ -59,6 +62,15 @@ export class FlBulkSelectionDirective implements AfterViewInit, OnDestroy {
 
     effect(() => {
       this.state.allowSelectEntireSearch.set(this.allowSelectEntireSearch());
+    });
+
+    effect(() => {
+      const disabled = this.disabled();
+      this.state.disabled.set(disabled);
+      // Leaving the directive disabled while selection mode is active exits it
+      if (disabled && this.state.selectionMode()) {
+        this.state.setSelectionMode(false);
+      }
     });
 
     effect(() => {
@@ -134,6 +146,8 @@ export class FlBulkSelectionDirective implements AfterViewInit, OnDestroy {
   }
 
   private onHostClick(event: MouseEvent): void {
+    if (this.state.disabled()) return;
+
     const target = event.target as HTMLElement;
     const rowSelector = this.rowSelector();
     const row = target.closest(rowSelector);

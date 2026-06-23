@@ -4,6 +4,11 @@ import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { ClCoreJsonConvert, ClHelpService } from '@monorepo/core-lib';
 import {
+  FlBulkActionButton,
+  FlBulkActionContext,
+  FlBulkSelectionModule,
+} from '@monorepo/front-core-lib/fl-bulk-selection';
+import {
   FlDatasourcePaginated,
   FlEntityPaginatedDatasource,
   FlTableColumnStatic,
@@ -36,6 +41,10 @@ import {
   LiQuickConfigureProcessDialogComponent,
   LiQuickConfigureProcessDialogInput,
 } from '@monorepo/lab-lib/li-process';
+import {
+  LiBulkManageEntityTagsDialogComponent,
+  LiBulkManageEntityTagsDialogInput,
+} from '@monorepo/lab-lib/li-tag';
 import { TdParamSpecsValues } from '@monorepo/technical-doc';
 import { TranslatePipe } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
@@ -71,6 +80,7 @@ export const LI_RESOURCE_SEARCH_NAME: string = 'li-resource';
     MatIconButton,
     LiResourceTableComponent,
     TranslatePipe,
+    FlBulkSelectionModule,
   ],
 })
 export class LiResourceSearchComponent implements OnInit, OnDestroy {
@@ -100,6 +110,18 @@ export class LiResourceSearchComponent implements OnInit, OnDestroy {
 
   columns: FlTableColumnStatic<LiResource>[];
 
+  // when true, the bulk selection (e.g. bulk add tags) is available
+  bulkEnabled: boolean = false;
+
+  bulkActions: FlBulkActionButton[] = [
+    {
+      type: 'tag',
+      text: { text: 'li.tags', translateText: true },
+      icon: 'tag',
+      onClick: (context) => this.openBulkTagsDialog(context),
+    },
+  ];
+
   files: File[];
 
   private actionSubscription: Subscription;
@@ -120,6 +142,9 @@ export class LiResourceSearchComponent implements OnInit, OnDestroy {
     if (!this.resourceSelectable) {
       this.columns.push('action');
     }
+
+    // bulk operations (e.g. bulk add tags) are only relevant on the full page resource list
+    this.bulkEnabled = this.fullPageSearch && !this.resourceSelectable;
 
     const searchConfig: FlSearchConfig = {
       version: 1,
@@ -154,6 +179,15 @@ export class LiResourceSearchComponent implements OnInit, OnDestroy {
 
   selectResource(resource: LiResource): void {
     this.resourceSelected.next(resource);
+  }
+
+  private openBulkTagsDialog(context: FlBulkActionContext): void {
+    if (!context.selectedIds.length) return;
+    const data: LiBulkManageEntityTagsDialogInput = {
+      entityType: 'RESOURCE',
+      entityIds: context.selectedIds,
+    };
+    this.dialogService.openMediumDialog(LiBulkManageEntityTagsDialogComponent, { data: data });
   }
 
   searchOnTag(tag: FlTag): void {

@@ -273,6 +273,23 @@ export class LiTagService extends FlTagService {
     return this.apiService.post(`${this.route}/entity/${entityType}/${entityId}/${propagate}`, tags, LiTag);
   }
 
+  /**
+   * Add tags to several entities at once.
+   * Returns a map of entity id to the tags created on that entity.
+   */
+  addEntityTagsBulk(
+    entityType: LiEntityTagType,
+    entityIds: string[],
+    tags: LiTag[],
+    propagate: boolean
+  ): Observable<Record<string, LiTag[]>> {
+    return this.apiService.post(`${this.route}/entities/${entityType}`, {
+      entity_ids: entityIds,
+      tags: tags,
+      propagate: propagate,
+    });
+  }
+
   deleteEntityTag(entityType: string, entityId: string, tag: FlTag): Observable<void> {
     return this.apiService.delete(`${this.route}/entity/${entityType}/${entityId}/${tag.key}/${tag.value}`);
   }
@@ -296,24 +313,24 @@ export class LiTagService extends FlTagService {
   //////////////////////////////// PROPAGATION ////////////////////////////////////////////
   public checkPropagationAddTags(
     entityType: LiEntityTagType,
-    entityId: string,
+    entityIds: string[],
     tags: FlTag[]
   ): Observable<LiTagPropagationImpactDTO> {
     return this.apiService.post(
-      `${this.route}/check-propagation-add/${entityType}/${entityId}`,
-      tags,
+      `${this.route}/check-propagation-add/${entityType}`,
+      { entity_ids: entityIds, tags: tags },
       LiTagPropagationImpactDTO
     );
   }
 
   public checkPropagationDeleteTags(
     entityType: LiEntityTagType,
-    entityId: string,
+    entityIds: string[],
     tag: FlTag
   ): Observable<LiTagPropagationImpactDTO> {
     return this.apiService.post(
-      `${this.route}/check-propagation-delete/${entityType}/${entityId}`,
-      tag,
+      `${this.route}/check-propagation-delete/${entityType}`,
+      { entity_ids: entityIds, tag: tag },
       LiTagPropagationImpactDTO
     );
   }

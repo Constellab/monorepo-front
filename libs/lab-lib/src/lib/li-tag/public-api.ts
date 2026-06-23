@@ -3,6 +3,7 @@
  * Exports all TypeScript files from li-tag
  */
 
+export * from './component/li-bulk-manage-entity-tags-dialog/li-bulk-manage-entity-tags-dialog.component';
 export * from './component/li-manage-entity-tags-dialog/li-manage-entity-tags-dialog.component';
 export * from './component/li-table-columns-tag-filter/li-table-columns-tag-filter.component';
 export * from './component/li-tag-check-propagation/li-tag-check-propagation.component';

@@ -1,4 +1,13 @@
-<fl-search class="g-full-height drop-zone" flDragHover="drag-file-hover" (flDrop)="onFileDrop($event)">
+<fl-search
+  class="g-full-height drop-zone"
+  flDragHover="drag-file-hover"
+  (flDrop)="onFileDrop($event)"
+  flBulkSelection
+  [flBulkSelectionDatasource]="datasource"
+  [flBulkSelectionActions]="bulkActions"
+  [flBulkSelectionAllowSelectEntireSearch]="false"
+  [flBulkSelectionDisabled]="!bulkEnabled"
+  flBulkSelectionRowSelector="mat-row.g-row-link-container">
   <!-- Advanced section in the right in a drawer -->
   <fl-search-advanced-form>
     <li-resource-search-form></li-resource-search-form>
@@ -12,6 +21,10 @@
     </fl-text-icon>
 
     <fl-search-header-actions class="g-layout-row">
+      @if (bulkEnabled) {
+        <fl-bulk-selection-toggle></fl-bulk-selection-toggle>
+      }
+
       <!--   Upload files     -->
       <fl-input-file-icon-container
         [matTooltip]="'li.upload_file' | translate"

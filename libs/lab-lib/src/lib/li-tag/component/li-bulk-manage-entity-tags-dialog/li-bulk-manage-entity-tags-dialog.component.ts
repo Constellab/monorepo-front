@@ -2,8 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatCheckbox } from '@angular/material/checkbox';
-import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
-import { MatDivider } from '@angular/material/divider';
+import { MAT_DIALOG_DATA, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
 import { FlConfirmDialogResult, FlDialogModule, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlPortalActionResult, FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
@@ -26,26 +25,24 @@ import {
 } from '../li-tag-check-propagation/li-tag-check-propagation.component';
 import { LiTagListComponent } from '../li-tag-list/li-tag-list.component';
 
-export interface LiManageEntityTagsDialogInput {
+export interface LiBulkManageEntityTagsDialogInput {
   entityType: LiEntityTagType;
-  entityId: string;
-  tags: LiTagDatasource;
+  entityIds: string[];
 }
 
 /**
- * Dialog to manage the tags of an entity
+ * Dialog to add tags to several entities at once.
  */
 @Component({
-  selector: 'li-manage-entity-tags-dialog',
-  templateUrl: './li-manage-entity-tags-dialog.component.html',
-  styleUrls: ['./li-manage-entity-tags-dialog.component.scss'],
+  selector: 'li-bulk-manage-entity-tags-dialog',
+  templateUrl: './li-bulk-manage-entity-tags-dialog.component.html',
+  styleUrls: ['./li-bulk-manage-entity-tags-dialog.component.scss'],
   imports: [
     FlDialogModule,
     FlTextIconModule,
     MatIcon,
     MatDialogContent,
     LiTagListComponent,
-    MatDivider,
     FlTagModule,
     MatCheckbox,
     ReactiveFormsModule,
@@ -55,25 +52,17 @@ export interface LiManageEntityTagsDialogInput {
     FlIconModule,
   ],
 })
-export class LiManageEntityTagsDialogComponent {
-  private input = inject<LiManageEntityTagsDialogInput>(MAT_DIALOG_DATA);
+export class LiBulkManageEntityTagsDialogComponent {
+  private input = inject<LiBulkManageEntityTagsDialogInput>(MAT_DIALOG_DATA);
   private tagService = inject(LiTagService);
   private dialogService = inject(FlDialogService);
   private portalActionService = inject(FlPortalActionsService);
   private snackBarService = inject(FlSnackBarService);
+  private dialogRef = inject<MatDialogRef<LiBulkManageEntityTagsDialogComponent>>(MatDialogRef);
 
-  currentTags: LiTagDatasource;
   newTags: LiTagDatasource = new LiTagDatasource();
 
   isPropagable: boolean = false;
-
-  isLoading: boolean = false;
-
-  constructor() {
-    const input = this.input;
-
-    this.currentTags = input.tags;
-  }
 
   addTag(tagEvent: FlAddTagEvent<LiTagKeyModel>): void {
     const tag = LiTag.newUserOriginTag(
@@ -82,16 +71,15 @@ export class LiManageEntityTagsDialogComponent {
       tagEvent.key.entity,
       tagEvent.value.entity
     );
-    if (this.currentTags.findItem(tag)) {
-      this.snackBarService.openErrorMessage({ text: 'li.tag_already_exists', translateText: true });
-      return;
-    }
     // init the propagable value with the first tag
     if (this.newTags.isEmpty()) {
       this.isPropagable = tagEvent.key.entity?.isPropagable ?? false;
     }
 
-    if (this.newTags.findItem(tag)) return;
+    if (this.newTags.findItem(tag)) {
+      this.snackBarService.openErrorMessage({ text: 'li.tag_already_exists', translateText: true });
+      return;
+    }
     this.newTags.addItem(tag);
   }
 
@@ -105,7 +93,7 @@ export class LiManageEntityTagsDialogComponent {
     if (this.isPropagable) {
       this.checkPropagation();
     } else {
-      this.addTagsToEntity();
+      this.addTagsToEntities();
     }
   }
 
@@ -113,7 +101,7 @@ export class LiManageEntityTagsDialogComponent {
     const data: LiTagCheckPropagationInput = {
       impactDTO$: this.tagService.checkPropagationAddTags(
         this.input.entityType,
-        [this.input.entityId],
+        this.input.entityIds,
         this.newTags.array
       ),
       mode: 'ADD',
@@ -122,68 +110,32 @@ export class LiManageEntityTagsDialogComponent {
       .openMediumDialog(LiTagCheckPropagationComponent, { data: data })
       .afterClosed()
       .subscribe({
-        next: (result) => this.addCheckPropagationDialogResult(result),
+        next: (result: FlConfirmDialogResult) => {
+          if (result?.choice) {
+            this.addTagsToEntities();
+          }
+        },
       });
   }
 
-  private addCheckPropagationDialogResult(result?: FlConfirmDialogResult): void {
-    if (result?.choice) {
-      this.addTagsToEntity();
-    }
-  }
-
-  private addTagsToEntity(): void {
+  private addTagsToEntities(): void {
     this.portalActionService
       .addAction({
         type: 'add-tag',
         text: { text: 'li.adding_tag', translateText: true },
-        action: this.tagService.addEntityTags(
+        action: this.tagService.addEntityTagsBulk(
           this.input.entityType,
-          this.input.entityId,
+          this.input.entityIds,
           this.newTags.array,
           this.isPropagable
         ),
         autoClose: true,
       })
-      .subscribe((result: FlPortalActionResult<LiTag[]>) => {
+      .subscribe((result: FlPortalActionResult<Record<string, LiTag[]>>) => {
         if (result.status === 'success') {
-          this.currentTags.addItem(result.result);
+          this.dialogRef.close();
         }
       });
     this.newTags.clear();
-  }
-
-  deleteExistingTag(tag: LiTag): void {
-    const data: LiTagCheckPropagationInput = {
-      impactDTO$: this.tagService.checkPropagationDeleteTags(
-        this.input.entityType,
-        [this.input.entityId],
-        tag
-      ),
-      mode: 'REMOVE',
-    };
-    this.dialogService
-      .openMediumDialog(LiTagCheckPropagationComponent, { data: data })
-      .afterClosed()
-      .subscribe({
-        next: (result) => this.removeCheckPropagationDialogResult(tag, result),
-      });
-  }
-
-  private removeCheckPropagationDialogResult(tag: LiTag, result?: FlConfirmDialogResult): void {
-    if (result?.choice) {
-      this.portalActionService
-        .addAction({
-          type: 'delete-tag',
-          text: { text: 'li.deleting_tag', translateText: true },
-          action: this.tagService.deleteEntityTag(this.input.entityType, this.input.entityId, tag),
-          autoClose: true,
-        })
-        .subscribe((result: FlPortalActionResult<void>) => {
-          if (result.status === 'success') {
-            this.currentTags.removeItem(tag);
-          }
-        });
-    }
   }
 }

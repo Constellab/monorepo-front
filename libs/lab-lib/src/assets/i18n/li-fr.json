@@ -380,6 +380,7 @@
     "python_version": "Version de Python",
     "existing_tags": "Tags existants",
     "add_tags_to_entity": "Ajouter des tags",
+    "add_tags_to_selected": "Ajouter des tags aux ressources sélectionnées",
     "propagate_tags": "Propager les tags",
     "tag_already_exists": "Le tag existe déjà sur l'objet",
     "adding_tag": "Ajout du tag",

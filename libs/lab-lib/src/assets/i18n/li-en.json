@@ -380,6 +380,7 @@
     "python_version": "Python version",
     "existing_tags": "Existing tags",
     "add_tags_to_entity": "Add tags",
+    "add_tags_to_selected": "Add tags to selected resources",
     "propagate_tags": "Propagate tags",
     "tag_already_exists": "This tag already exists on the object",
     "adding_tag": "Adding tag",

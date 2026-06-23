@@ -1,0 +1,26 @@
+<fl-dialog-header>
+  <fl-text-icon>
+    <mat-icon flIcon="tag"></mat-icon>
+    {{ 'li.tags' | translate }}
+  </fl-text-icon>
+</fl-dialog-header>
+
+<mat-dialog-content>
+  <h2>{{ 'li.add_tags_to_selected' | translate }}</h2>
+
+  <fl-add-tag-input class="section" (addTag)="addTag($event)" [searchCommunityTags]="true"></fl-add-tag-input>
+
+  <li-tag-list
+    [tags]="newTags"
+    class="tag-list"
+    mode="edit"
+    (tagDeleted)="removeNewTag($event)"></li-tag-list>
+
+  <mat-checkbox [(ngModel)]="isPropagable" class="section">
+    {{ 'li.propagate_tags' | translate }}
+  </mat-checkbox>
+
+  <button mat-flat-button type="button" (click)="saveTags()" class="g-centered-forced add-button primary">
+    {{ 'li.add_tags_to_selected' | translate }}
+  </button>
+</mat-dialog-content>
