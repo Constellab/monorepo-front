@@ -12,7 +12,7 @@ Special app to build component for streamlit.
 To dev a component, start the dc-components app:
 
 ```bash
-npm run dc-components:serve
+bun run dc-components:serve
 ```
 
 Open the http://localhost:4201. This mode is standalone and does not require streamlit or reflex app.
@@ -20,7 +20,7 @@ Open the http://localhost:4201. This mode is standalone and does not require str
 To run in dev mode in streamlit app, execute the following command:
 
 ```bash
-npm run dc-streamlit-components:serve-iframe
+bun run dc-streamlit-components:serve-iframe
 ```
 
 Then in python back, mark the StreamlitComponentLoader a not release `IS_RELEASE=False`, this will use
@@ -30,8 +30,8 @@ the local running component.
 
 To test a component in reflex app, follow these steps:
 
-1. Build the dc-reflex-components app in dev mode: `npm run dc-reflex-components:build-dev`
-2. Copy the built files from `dist/dc-dashboard-components/reflex-components/gws_plugin` to the reflex app static folder `my_reflex_app/assets/external/`
+1. Build the dc-reflex-components app in dev mode: `bun run dc-reflex-components:build-dev`
+2. Copy the built files from `dist/apps/dc-dashboard-components/reflex-components/gws_plugin` to the reflex app static folder `my_reflex_app/assets/external/`
 3. Disable relase mode in **AppPluginDownloader** by setting `IS_RELEASE=False` to use the local files instead of downloading from github release.
 
 ## Dev the iframe-message
@@ -39,7 +39,7 @@ To test a component in reflex app, follow these steps:
 To dev the iframe-message, start the dc-iframe-message app:
 
 ```bash
-npm run dc-streamlit-iframe-message:serve
+bun run dc-streamlit-iframe-message:serve
 ```
 
 Then in python back, mark the StreamlitComponentLoader a not release `IS_RELEASE=False`, this will use
