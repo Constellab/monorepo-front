@@ -2,7 +2,6 @@ import { ComponentType } from '@angular/cdk/overlay';
 import { ApplicationRef } from '@angular/core';
 import { createCustomElement } from '@angular/elements';
 import { createApplication } from '@angular/platform-browser';
-import { flLoadEnvironmentFromAssets } from '@monorepo/front-core-lib/fl-core';
 
 import { dcAppConfig } from './dc-app.config';
 import { DcInputSearchComponent } from './dc-components/dc-input-search/dc-input-search.component';
@@ -18,17 +17,18 @@ let initialized = false;
  * Call this function to enable the web components.
  * Safe to call multiple times - will only initialize once.
  *
- * We set the basePath to './external/gws_plugin' because once downloaded to reflex app,
- * all the assets are available in the 'external/gws_plugin' folder.
+ * The default base path is root-absolute ('/external/gws_plugin'), i.e. resolved from the origin
+ * root regardless of the current route. The host reflex app is served at the origin root.
+ *
+ * @param basePath optional override; pass an absolute path if the app is mounted on a sub-path.
  */
-export async function dcInitComponents(basePath: string = './external/gws_plugin'): Promise<void> {
+export async function dcInitComponents(basePath: string = '/external/gws_plugin'): Promise<void> {
   if (initialized) {
     return;
   }
   initialized = true;
 
-  const envPath = 'external/gws_plugin/assets/environment.json';
-  const env: DcEnvironmentSettings = await flLoadEnvironmentFromAssets(envPath);
+  const env: DcEnvironmentSettings = await loadEnvironment(`${basePath}/assets/environment.json`);
   environment.settings = env;
 
   const app = await createApplication(dcAppConfig(basePath));
@@ -36,6 +36,17 @@ export async function dcInitComponents(basePath: string = './external/gws_plugin
   createCustomElements(DcTextEditorComponent, 'dc-text-editor', app);
   createCustomElements(DcInputSearchComponent, 'dc-input-search', app);
   createCustomElements(DcSelectResourceComponent, 'dc-select-resource', app);
+}
+
+/**
+ * Load the environment settings from the given URL.
+ */
+async function loadEnvironment(url: string): Promise<DcEnvironmentSettings> {
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error(`Failed to load dc-reflex environment from ${url} (status ${response.status})`);
+  }
+  return response.json();
 }
 
 function createCustomElements(componentType: ComponentType<any>, tagName: string, app: ApplicationRef): void {
