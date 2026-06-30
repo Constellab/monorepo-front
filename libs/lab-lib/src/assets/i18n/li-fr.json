@@ -236,6 +236,7 @@
     "upload_file_drop": "Déposer des fichiers ici pour les uploader dans le lab",
     "drop_folder_error": "Impossible de déposer des dossier, veuillez utiliser le bouton 'Uploader un dossier'.",
     "upload_folder_too_many_file_error": "Vous ne pouvez pas uploader un dossier contenant plus de {{maxFiles}} fichiers, veuillez compresser votre dossier avant de l'uploader.",
+    "upload_not_enough_space_error": "Espace disque insuffisant pour uploader {{fileSize}} : {{requiredSpace}} d'espace libre sont nécessaires mais seulement {{diskUsageFree}} est disponible. Veuillez libérer de l'espace et réessayer.",
     "uploading_folder": "Envoie du dossier",
     "processing_folder": "Traitement du dossier",
     "uploading_file": "Envoie de {{name}}",

@@ -8,6 +8,7 @@ import {
   LiCurrentMonitorDTO,
   LiDiskFolderSizesDTO,
   LiMonitorGraphicsBetweenDates,
+  LiUploadSpaceCheckDTO,
 } from '../model/entities/li-monitor.entity';
 
 @Injectable({
@@ -40,5 +41,15 @@ export class LiMonitorService {
 
   public getFolderSizes(): Observable<LiDiskFolderSizesDTO> {
     return this.apiService.get(`${this.route}/folder-sizes`, LiDiskFolderSizesDTO);
+  }
+
+  /**
+   * Check whether the disk has enough free space to upload a file (or folder) of the given size.
+   * @param fileSize the total size in bytes (for a folder, sum of all files' sizes)
+   */
+  public checkUploadSpace(fileSize: number): Observable<LiUploadSpaceCheckDTO> {
+    return this.apiService.get(`${this.route}/check-upload-space`, LiUploadSpaceCheckDTO, {
+      params: { file_size: String(fileSize) },
+    });
   }
 }

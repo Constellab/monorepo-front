@@ -236,6 +236,7 @@
     "upload_file_drop": "Drop files here to upload them in the lab",
     "drop_folder_error": "Can't drop folder, please use the 'Upload folder' button.",
     "upload_folder_too_many_file_error": "You can't upload a folder containing more than {{maxFiles}} files, please compress your folder before uploading it.",
+    "upload_not_enough_space_error": "Not enough disk space to upload {{fileSize}}: {{requiredSpace}} of free space is required but only {{diskUsageFree}} is available. Please free up some space and try again.",
     "uploading_folder": "Uploading folder",
     "processing_folder": "Processing folder",
     "uploading_file": "Uploading {{name}}",

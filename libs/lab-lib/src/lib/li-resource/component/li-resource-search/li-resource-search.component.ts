@@ -28,8 +28,10 @@ import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlTag } from '@monorepo/front-core-lib/fl-tag';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
+import { FlFileHelper } from '@monorepo/front-core-lib/fl-translate';
 import {
   LiFileResourceService,
+  LiMonitorService,
   LiResource,
   LiResourceSearch,
   LiResourceSearchFields,
@@ -130,6 +132,7 @@ export class LiResourceSearchComponent implements OnInit, OnDestroy {
   private dialogService = inject(FlDialogService);
   private actionsService = inject(FlPortalActionsService);
   private fileResourceService = inject(LiFileResourceService);
+  private monitorService = inject(LiMonitorService);
   private resourceService = inject(LiResourceService);
   private themeService = inject(FlThemeService);
   private snackBarService = inject(FlSnackBarService);
@@ -249,11 +252,33 @@ export class LiResourceSearchComponent implements OnInit, OnDestroy {
 
   private onUploadFsNodeClosed(result: LiFsNodeTypesSelectionDialogResult, files: File[]): void {
     if (result == null) return;
-    if (result.uploadMode === 'files') {
-      this.uploadFiles(result.fileTypingNames, files);
-    } else {
-      this.uploadFolder(result.folderTypingName, files);
-    }
+
+    // check there is enough disk space before starting the upload. This is a snapshot,
+    // the disk can still fill up between the check and the end of the upload, so the
+    // backend upload error handling remains the fallback.
+    const totalSize: number = files.reduce((sum, file) => sum + file.size, 0);
+    this.monitorService.checkUploadSpace(totalSize).subscribe((check) => {
+      if (!check.hasEnoughSpace) {
+        this.snackBarService.openErrorMessage({
+          text: 'li.upload_not_enough_space_error',
+          translateText: true,
+          translateParam: {
+            param: {
+              fileSize: FlFileHelper.getFileSizeText(check.fileSize),
+              requiredSpace: FlFileHelper.getFileSizeText(check.requiredDiskFreeSpace),
+              diskUsageFree: FlFileHelper.getFileSizeText(check.diskUsageFree),
+            },
+          },
+        });
+        return;
+      }
+
+      if (result.uploadMode === 'files') {
+        this.uploadFiles(result.fileTypingNames, files);
+      } else {
+        this.uploadFolder(result.folderTypingName, files);
+      }
+    });
   }
 
   private uploadFiles(fileTypingNames: string[], files: File[]): void {

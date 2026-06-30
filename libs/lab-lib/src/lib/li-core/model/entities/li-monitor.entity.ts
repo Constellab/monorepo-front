@@ -152,3 +152,20 @@ export class LiDiskFolderSizesDTO {
   @Expose({ name: 'total_size' })
   totalSize: number;
 }
+
+export class LiUploadSpaceCheckDTO {
+  @Expose({ name: 'has_enough_space' })
+  hasEnoughSpace: boolean;
+
+  @Expose({ name: 'file_size' })
+  fileSize: number;
+
+  @Expose({ name: 'required_disk_free_space' })
+  requiredDiskFreeSpace: number;
+
+  @Expose({ name: 'disk_usage_free' })
+  diskUsageFree: number;
+
+  @Expose({ name: 'remaining_space_after_file' })
+  remainingSpaceAfterFile: number;
+}
