@@ -39,11 +39,18 @@
 
   <!-- Actions -->
   @if (!readonly()) {
-    <div class="version-editor-actions">
+    <div class="version-editor-actions g-layout-row g-layout-start-center g-layout-gap-05em">
       <button mat-stroked-button (click)="addField()">
         <mat-icon>add</mat-icon>
         {{ 'li.form_add_field' | translate }}
       </button>
+      <fl-ai-menu-button
+        [onSubmit]="aiGenerateSpecs"
+        [tooltip]="'li.form_ai_specs'"
+        [dialogTitle]="'li.form_ai_specs_title'"
+        [dialogDescription]="'li.form_ai_specs_warning' | translate"
+        [dialogPlaceholder]="'li.form_ai_specs_placeholder'"
+        (submitted)="onAiGenerateResult($event)" />
     </div>
   }
 </div>

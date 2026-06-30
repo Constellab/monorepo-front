@@ -24,6 +24,7 @@ import {
   TD_TYPES_WITHOUT_DEFAULT_VALUE,
   tdBuildGroupedTypes,
   TdGenerateComputedParamResult,
+  TdGenerateFieldResult,
   TdGroupedParamSpecTypes,
   TdParamSpec,
   TdParamSpecBase,
@@ -104,6 +105,10 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
     return [];
   });
 
+  // Whole-field AI generation is available only when the state supports it
+  // (returns null for sub-param states). Probed once on init.
+  readonly aiFieldAvailable = signal(false);
+
   formGroup: FormGroup;
   readonly formId = `paramSpecForm_${Math.random().toString(36).slice(2, 8)}`;
   subParamSpecState: TdSubParamSpecState | null = null;
@@ -124,6 +129,7 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     const list = this.data.dynamicParamSpecState.getParamSpecsInfos();
     this.groupedTypes.set(tdBuildGroupedTypes(list));
+    this.aiFieldAvailable.set(this.data.dynamicParamSpecState.supportsFieldGeneration());
     this.initForm();
 
     this.typeSearchControl.valueChanges.subscribe((value) => {
@@ -284,6 +290,25 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
     this.snackBar.openSuccessMessage({ text: 'td.ai_expression_generated_notice', translateText: true });
   }
 
+  aiGenerateField = (text: string): Observable<TdGenerateFieldResult> => {
+    // Always send the field's CURRENT FORM value (including unsaved tweaks) and key as
+    // context so the AI builds on exactly what the user sees on screen.
+    return this.data.dynamicParamSpecState.generateField(
+      text,
+      this.formGroup.get('key')?.value || undefined,
+      this.buildParamSpecFromForm()
+    );
+  };
+
+  onAiFieldResult(result: unknown): void {
+    const generated = result as TdGenerateFieldResult;
+    // Populates the form from an AI-proposed field (preview). The user reviews and saves
+    // to apply it via the normal create/update/rename routes; cancelling discards it.
+    this.loadSpecIntoForm(generated.field_key, generated.spec);
+    this.formGroup.markAsDirty();
+    this.snackBar.openSuccessMessage({ text: 'td.ai_field_generated_notice', translateText: true });
+  }
+
   openExpressionHelp(event: MouseEvent): void {
     if (this.helpOverlayRef) {
       this.helpOverlayRef.dispose();
@@ -327,26 +352,15 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
       short_description: new FormControl(''),
     });
 
+    // In update mode, load the existing spec into the form (and disable label->key
+    // auto-sync, since the key is already set). In create mode, build the
+    // type-specific controls for the default type.
     if (this.data.paramSpec) {
-      this.formGroup.patchValue({
-        ...this.data.paramSpec.spec,
-        key: this.data.paramSpec.key,
-      });
-    }
-
-    const currentType = this.formGroup.get('type').value;
-    this.typeSearchControl.setValue(currentType, { emitEvent: false });
-    this.isParamSetType.set(currentType === TdParamSpecTypeEnum.PARAM_SET);
-    this.hideDefaultValue.set(TD_TYPES_WITHOUT_DEFAULT_VALUE.includes(currentType));
-    this.selectedType.set(currentType);
-
-    if (currentType === TdParamSpecTypeEnum.PARAM_SET) {
-      this.initLocalParamSpecState(this.data.paramSpec?.spec.additional_info?.param_set);
-    }
-
-    // In edit mode, key was already set — don't auto-sync
-    if (this.data.paramSpec) {
-      this.keyManuallyEdited = true;
+      this.loadSpecIntoForm(this.data.paramSpec.key, this.data.paramSpec.spec);
+    } else {
+      const defaultType = this.formGroup.get('type').value;
+      this.buildAdditionalInfoControls(defaultType);
+      this.buildDefaultValueConfig(defaultType);
     }
 
     // Auto-sync key from label until the user manually edits the key
@@ -361,9 +375,43 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
         }
       }),
     ]);
+  }
 
-    this.buildAdditionalInfoControls(currentType, this.data.paramSpec?.spec.additional_info);
-    this.buildDefaultValueConfig(currentType, this.data.paramSpec?.spec.additional_info);
+  /**
+   * Loads a (key, spec) pair into the form: patches identity/behaviour controls,
+   * switches the type and its dependent UI signals, and rebuilds the type-specific
+   * controls. Used both to seed the form in update mode and to apply an AI-proposed
+   * field. Marks the key as manually set so the label->key auto-sync does not
+   * overwrite it.
+   */
+  private loadSpecIntoForm(key: string, spec: TdParamSpec): void {
+    const type = spec.type;
+
+    this.keyManuallyEdited = true;
+    this.formGroup.patchValue({
+      key,
+      type,
+      human_name: spec.human_name ?? '',
+      optional: spec.optional ?? false,
+      short_description: spec.short_description ?? '',
+      default_value: spec.default_value ?? null,
+    });
+
+    // Reflect the type in the autocomplete and the dependent UI signals.
+    this.typeSearchControl.setValue(type as any, { emitEvent: false });
+    this.isParamSetType.set(type === TdParamSpecTypeEnum.PARAM_SET);
+    this.hideDefaultValue.set(TD_TYPES_WITHOUT_DEFAULT_VALUE.includes(type));
+    this.selectedType.set(type);
+
+    // Rebuild type-specific controls, seeded with the spec's values.
+    this.buildAdditionalInfoControls(type, spec.additional_info);
+    this.buildDefaultValueConfig(type, spec.additional_info);
+
+    if (type === TdParamSpecTypeEnum.PARAM_SET) {
+      this.initLocalParamSpecState(spec.additional_info?.param_set);
+    } else {
+      this.subParamSpecState = null;
+    }
   }
 
   private buildDefaultValueConfig(type: TdParamSpecTypeEnum, additionalInfo?: any): void {

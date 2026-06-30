@@ -5,6 +5,7 @@ import { FlDatasourceGetPageData, FlEntityPaginatedDatasource } from '@monorepo/
 import { FlSearchConverter } from '@monorepo/front-core-lib/fl-search';
 import {
   TdGenerateComputedParamResult,
+  TdGenerateFieldResult,
   TdParamSpec,
   TdValidateComputedParamResult,
 } from '@monorepo/technical-doc';
@@ -214,5 +215,31 @@ export class LiFormTemplateService {
   ): Observable<TdGenerateComputedParamResult> {
     const route = `${this.route}/${templateId}/version/${versionId}/computed-param/generate-with-ai`;
     return this.apiService.post(route, { description, param_set_key: paramSetKey ?? null });
+  }
+
+  // AI-assisted specs generation
+
+  public generateSpecsWithAi(
+    templateId: string,
+    versionId: string,
+    description: string
+  ): Observable<LiFormTemplateVersion> {
+    const route = `${this.route}/${templateId}/version/${versionId}/generate-specs-with-ai`;
+    return this.apiService.post(route, { description }, LiFormTemplateVersion);
+  }
+
+  public generateFieldWithAi(
+    templateId: string,
+    versionId: string,
+    description: string,
+    fieldKey?: string,
+    currentField?: TdParamSpec
+  ): Observable<TdGenerateFieldResult> {
+    const route = `${this.route}/${templateId}/version/${versionId}/generate-field-with-ai`;
+    return this.apiService.post(route, {
+      description,
+      field_key: fieldKey ?? null,
+      current_field: currentField ?? null,
+    });
   }
 }

@@ -1,5 +1,17 @@
 <fl-dialog-header>
   {{ data.title | flTranslatableText | async }}
+
+  @if (aiFieldAvailable()) {
+    <fl-dialog-header-actions>
+      <fl-ai-menu-button
+        [onSubmit]="aiGenerateField"
+        [tooltip]="'td.ai_generate_field'"
+        [dialogTitle]="'td.ai_generate_field_title'"
+        [dialogDescription]="'td.ai_generate_field_description' | translate"
+        [dialogPlaceholder]="'td.ai_generate_field_placeholder'"
+        (submitted)="onAiFieldResult($event)" />
+    </fl-dialog-header-actions>
+  }
 </fl-dialog-header>
 
 <mat-dialog-content>

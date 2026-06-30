@@ -8,6 +8,7 @@ import type { TdConfigureParamSpecsTableDialogInput } from '../component/td-conf
 import {
   TD_PARAM_SPEC_INFO_LIST,
   TdGenerateComputedParamResult,
+  TdGenerateFieldResult,
   TdParamSpec,
   TdParamSpecEntry,
   TdParamSpecInfo,
@@ -74,6 +75,32 @@ export abstract class TdAbstractDynamicParamSpecState implements OnDestroy {
     description: string,
     paramSetKey?: string
   ): Observable<TdGenerateComputedParamResult>;
+
+  /**
+   * Whether this state supports whole-field AI generation (generateField).
+   * False by default (e.g. sub-param states), so the AI button is hidden.
+   */
+  supportsFieldGeneration(): boolean {
+    return false;
+  }
+
+  /**
+   * Generate or edit a single field from a free-text description (preview only).
+   * Returns null when the implementation does not support whole-field AI generation
+   * (e.g. sub-param states), in which case the AI button is hidden.
+   * @param fieldKey key of the field being edited; omit/undefined when creating a new field.
+   * @param currentField current spec of the field being edited; omit/undefined for a new field.
+   */
+  generateField(
+    description: string,
+    fieldKey?: string,
+    currentField?: TdParamSpec
+  ): Observable<TdGenerateFieldResult> | null {
+    void description;
+    void fieldKey;
+    void currentField;
+    return null;
+  }
 
   getParamSpecsInfos(): TdParamSpecInfo[] {
     return TD_PARAM_SPEC_INFO_LIST;

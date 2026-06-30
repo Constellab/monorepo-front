@@ -5,13 +5,14 @@ import {
   TdEditParamSpecDialogComponent,
   TdEditParamSpecDialogInput,
   TdGenerateComputedParamResult,
+  TdGenerateFieldResult,
   TdParamSpec,
   TdParamSpecEntry,
   TdParamSpecs,
   TdValidateComputedParamResult,
 } from '@monorepo/technical-doc';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
 import { LiFormTemplateVersion } from '../../../li-core/model/entities/form/li-form-template-version.entity';
 import { LiFormTemplateService } from '../../service/li-form-template.service';
@@ -116,6 +117,30 @@ export class LiFormTemplateDynamicParamSpecState
       description,
       paramSetKey
     );
+  }
+
+  override supportsFieldGeneration(): boolean {
+    return true;
+  }
+
+  override generateField(
+    description: string,
+    fieldKey?: string,
+    currentField?: TdParamSpec
+  ): Observable<TdGenerateFieldResult> {
+    return this.formTemplateService.generateFieldWithAi(
+      this.templateId,
+      this.versionId,
+      description,
+      fieldKey,
+      currentField
+    );
+  }
+
+  generateSpecsWithAi(description: string): Observable<LiFormTemplateVersion> {
+    return this.formTemplateService
+      .generateSpecsWithAi(this.templateId, this.versionId, description)
+      .pipe(tap((version) => this.refreshContent(version)));
   }
 
   private refreshContent(version: LiFormTemplateVersion): TdParamSpecs {

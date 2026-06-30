@@ -39,6 +39,20 @@ export class FlAiInputDialogComponent implements OnDestroy {
 
   constructor() {
     this.recorder.onTranscriptionSuccess = (text) => this.textInput.set(text);
+
+    // Take over Escape handling: while dictating, Escape cancels the recording and
+    // keeps the dialog open; otherwise it closes the dialog as usual.
+    this.dialogRef.disableClose = true;
+    this.dialogRef.keydownEvents().subscribe((event) => {
+      if (event.key !== 'Escape') return;
+      if (this.recorder.isRecording()) {
+        this.recorder.cancelRecording();
+      } else {
+        this.dialogRef.close();
+      }
+    });
+    // Preserve the default backdrop-click-to-close behaviour disabled above.
+    this.dialogRef.backdropClick().subscribe(() => this.dialogRef.close());
   }
 
   generate(): void {

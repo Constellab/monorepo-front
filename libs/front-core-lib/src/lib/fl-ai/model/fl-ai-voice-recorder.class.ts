@@ -16,6 +16,7 @@ export class FlAiVoiceRecorder {
 
   private mediaRecorder: MediaRecorder | null = null;
   private audioChunks: Blob[] = [];
+  private cancelled = false;
 
   constructor(
     private aiService: FlAiService,
@@ -34,6 +35,7 @@ export class FlAiVoiceRecorder {
 
     this.mediaRecorder = new MediaRecorder(stream);
     this.audioChunks = [];
+    this.cancelled = false;
 
     this.mediaRecorder.ondataavailable = (event: BlobEvent) => {
       if (event.data.size > 0) {
@@ -43,6 +45,12 @@ export class FlAiVoiceRecorder {
 
     this.mediaRecorder.onstop = () => {
       this.isRecording.set(false);
+      // Stop the mic stream now that recording has ended.
+      this.mediaRecorder?.stream?.getTracks().forEach((track) => track.stop());
+      if (this.cancelled) {
+        this.audioChunks = [];
+        return;
+      }
       this.transcribe();
     };
 
@@ -52,6 +60,16 @@ export class FlAiVoiceRecorder {
 
   stopRecording(): void {
     if (this.mediaRecorder?.state === 'recording') {
+      this.mediaRecorder.stop();
+    }
+  }
+
+  /**
+   * Stops recording without transcribing — discards the captured audio.
+   */
+  cancelRecording(): void {
+    if (this.mediaRecorder?.state === 'recording') {
+      this.cancelled = true;
       this.mediaRecorder.stop();
     }
   }

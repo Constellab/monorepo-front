@@ -1,14 +1,17 @@
 import { Component, computed, effect, inject, input, output, signal } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
+import { FlAiModule } from '@monorepo/front-core-lib/fl-ai';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
 } from '@monorepo/front-core-lib/fl-dialog';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { TdParamSpecEntry, TdParamSpecs, TdTechnicalDocModule } from '@monorepo/technical-doc';
 import { TranslatePipe } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
 
 import { LiFormTemplateVersion } from '../../../li-core/model/entities/form/li-form-template-version.entity';
 import { LiFormTemplateDynamicParamSpecState } from './li-form-template-dynamic-param-spec.state';
@@ -17,11 +20,12 @@ import { LiFormTemplateDynamicParamSpecState } from './li-form-template-dynamic-
   selector: 'li-form-template-version-editor',
   templateUrl: './li-form-template-version-editor.component.html',
   styleUrl: './li-form-template-version-editor.component.scss',
-  imports: [TdTechnicalDocModule, FlUserModule, MatButton, MatIcon, TranslatePipe],
+  imports: [TdTechnicalDocModule, FlUserModule, FlAiModule, MatButton, MatIcon, TranslatePipe],
 })
 export class LiFormTemplateVersionEditorComponent {
   private dynamicState = inject(LiFormTemplateDynamicParamSpecState);
   private dialogService = inject(FlDialogService);
+  private snackBar = inject(FlSnackBarService);
 
   templateId = input.required<string>();
   version = input.required<LiFormTemplateVersion>();
@@ -85,6 +89,15 @@ export class LiFormTemplateVersionEditorComponent {
 
   reorderFields(fieldNames: string[]): void {
     this.dynamicState.reorderParamSpecs(fieldNames).subscribe();
+  }
+
+  aiGenerateSpecs = (text: string): Observable<LiFormTemplateVersion> =>
+    this.dynamicState.generateSpecsWithAi(text);
+
+  onAiGenerateResult(version: unknown): void {
+    this.updateFieldCount();
+    this.versionUpdated.emit(version as LiFormTemplateVersion);
+    this.snackBar.openSuccessMessage({ text: 'li.form_ai_specs_applied', translateText: true });
   }
 
   private updateFieldCount(): void {

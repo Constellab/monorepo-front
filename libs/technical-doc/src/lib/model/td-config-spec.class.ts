@@ -331,6 +331,15 @@ export interface TdGenerateComputedParamResult {
   validation: TdValidateComputedParamResult;
 }
 
+/**
+ * Result of the single-field AI generation (preview only, nothing persisted).
+ * field_key may differ from the requested key when the AI names/renames the field.
+ */
+export interface TdGenerateFieldResult {
+  field_key: string;
+  spec: TdParamSpec;
+}
+
 export const TD_TYPES_WITHOUT_DEFAULT_VALUE: TdParamSpecTypeEnum[] = [
   TdParamSpecTypeEnum.PARAM_SET,
   TdParamSpecTypeEnum.COMPUTED_PARAM,

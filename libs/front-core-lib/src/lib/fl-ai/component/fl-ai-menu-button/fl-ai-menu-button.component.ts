@@ -1,4 +1,4 @@
-import { Component, computed, inject, input, OnDestroy, output, signal } from '@angular/core';
+import { Component, computed, inject, input, NgZone, OnDestroy, output, signal } from '@angular/core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
@@ -36,14 +36,27 @@ export class FlAiMenuButtonComponent implements OnDestroy {
 
   submitted = output<unknown>();
 
+  private zone = inject(NgZone);
+
   recorder = new FlAiVoiceRecorder(inject(FlAiService), this.snackBar);
   isSubmitting = signal(false);
 
   isLoading = computed(() => this.recorder.isTranscribing() || this.isSubmitting());
   isDisabled = computed(() => this.disabled() || this.isLoading());
 
+  // Capture-phase Escape handler: runs before the CDK overlay's bubble-phase handler,
+  // so while dictating we can cancel the recording and stop the event before it closes
+  // a surrounding dialog.
+  private readonly onEscapeCapture = (event: KeyboardEvent): void => {
+    if (event.key !== 'Escape' || !this.recorder.isRecording()) return;
+    event.preventDefault();
+    event.stopPropagation();
+    this.zone.run(() => this.recorder.cancelRecording());
+  };
+
   constructor() {
     this.recorder.onTranscriptionSuccess = (text) => this.callOnSubmit(text);
+    document.addEventListener('keydown', this.onEscapeCapture, { capture: true });
   }
 
   openDialog(): void {
@@ -65,6 +78,7 @@ export class FlAiMenuButtonComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
+    document.removeEventListener('keydown', this.onEscapeCapture, { capture: true });
     this.recorder.destroy();
   }
 

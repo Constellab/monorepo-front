@@ -152,4 +152,33 @@ describe('LiFormTemplateService', () => {
       );
     });
   });
+
+  describe('generateSpecsWithAi', () => {
+    it('should POST to form-template/{templateId}/version/{versionId}/generate-specs-with-ai', () => {
+      service.generateSpecsWithAi('tmpl-1', 'ver-1', 'a name and a date');
+      expect(apiServiceSpy.post).toHaveBeenCalledWith(
+        'form-template/tmpl-1/version/ver-1/generate-specs-with-ai',
+        { description: 'a name and a date' },
+        LiFormTemplateVersion
+      );
+    });
+  });
+
+  describe('generateFieldWithAi', () => {
+    it('should POST with field_key null when creating a new field', () => {
+      service.generateFieldWithAi('tmpl-1', 'ver-1', 'mass in grams');
+      expect(apiServiceSpy.post).toHaveBeenCalledWith(
+        'form-template/tmpl-1/version/ver-1/generate-field-with-ai',
+        { description: 'mass in grams', field_key: null }
+      );
+    });
+
+    it('should POST with the field_key when editing an existing field', () => {
+      service.generateFieldWithAi('tmpl-1', 'ver-1', 'mass in grams', 'mass');
+      expect(apiServiceSpy.post).toHaveBeenCalledWith(
+        'form-template/tmpl-1/version/ver-1/generate-field-with-ai',
+        { description: 'mass in grams', field_key: 'mass' }
+      );
+    });
+  });
 });
