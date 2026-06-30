@@ -1,6 +1,7 @@
 import { Component, DestroyRef, inject, input, OnInit, output } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
 import { DateTime } from 'luxon';
 
 @Component({
@@ -45,12 +46,43 @@ export class FlDatetimePickerComponent implements ControlValueAccessor, OnInit {
   max = input<DateTime | null>(null);
 
   /**
+   * Compact layout: removes the gap between the date and time inputs so they
+   * sit flush against each other (used inside dense table cells).
+   */
+  dense = input<boolean>(false);
+
+  /**
+   * Marks the field as required (shows the asterisk on the label).
+   */
+  required = input<boolean>(false);
+
+  /**
+   * Whether the field should render in the error (warn) state. The validators
+   * live on the outer form control, so the invalid state has to be passed in
+   * explicitly: the inner date/time controls carry no validators of their own.
+   */
+  errorState = input<boolean>(false);
+
+  /**
+   * Error message shown below the date field while {@link errorState} is true.
+   * Empty string renders no message (e.g. dense mode surfaces errors via a
+   * tooltip instead).
+   */
+  errorMessage = input<string>('');
+
+  /**
    * Emitted when the value changes
    */
   valueChange = output<DateTime | null>();
 
   dateControl = new FormControl<DateTime | null>(null);
   timeControl = new FormControl<DateTime | null>(null);
+
+  // Drives the warn color on the inner mat-form-field from the injected
+  // errorState input rather than the inner control's own validity.
+  errorStateMatcher: ErrorStateMatcher = {
+    isErrorState: () => this.errorState(),
+  };
 
   disabled = false;
 

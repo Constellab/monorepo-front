@@ -1,21 +1,42 @@
-<div class="fl-datetime-picker">
-  <mat-form-field>
-    @if (label()) {
-      <mat-label>{{ label() }}</mat-label>
-    }
-    <input matInput [matDatepicker]="datepicker" [formControl]="dateControl" [min]="min()" [max]="max()" />
-    <mat-datepicker-toggle matSuffix [for]="datepicker" />
-    <mat-datepicker #datepicker />
-    @if (hint()) {
-      <mat-hint>{{ hint() }}</mat-hint>
-    }
-  </mat-form-field>
-
-  @if (mode() === 'datetime') {
-    <mat-form-field>
-      <input matInput [matTimepicker]="timepicker" [formControl]="timeControl" />
-      <mat-timepicker-toggle matSuffix [for]="timepicker" />
-      <mat-timepicker #timepicker />
+<div class="fl-datetime-picker" [class.dense]="dense()">
+  <div class="fl-datetime-picker-inputs">
+    <mat-form-field subscriptSizing="dynamic">
+      @if (label()) {
+        <mat-label>{{ label() }}</mat-label>
+      }
+      <input
+        matInput
+        [matDatepicker]="datepicker"
+        [formControl]="dateControl"
+        [min]="min()"
+        [max]="max()"
+        [required]="required()"
+        [errorStateMatcher]="errorStateMatcher" />
+      <mat-datepicker-toggle matSuffix [for]="datepicker" />
+      <mat-datepicker #datepicker />
     </mat-form-field>
+
+    @if (mode() === 'datetime') {
+      <mat-form-field subscriptSizing="dynamic">
+        @if (!dense()) {
+          <mat-label>{{ 'flDate.time' | translate }}</mat-label>
+        }
+        <input
+          matInput
+          [matTimepicker]="timepicker"
+          [formControl]="timeControl"
+          [errorStateMatcher]="errorStateMatcher" />
+        <mat-timepicker-toggle matSuffix [for]="timepicker" />
+        <mat-timepicker #timepicker />
+      </mat-form-field>
+    }
+  </div>
+
+  <!-- Hint/error always rendered full width below the input(s), for both
+       date-only and datetime modes. -->
+  @if (errorState() && errorMessage()) {
+    <div class="fl-datetime-picker-error">{{ errorMessage() }}</div>
+  } @else if (hint()) {
+    <div class="fl-datetime-picker-hint">{{ hint() }}</div>
   }
 </div>

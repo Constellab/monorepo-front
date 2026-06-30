@@ -4,11 +4,41 @@
 }
 
 .fl-datetime-picker {
-  display: flex;
-  gap: 8px;
-  align-items: baseline;
+  .fl-datetime-picker-inputs {
+    display: flex;
+    gap: 8px;
+    align-items: baseline;
 
-  mat-form-field {
-    flex: 1;
+    mat-form-field {
+      flex: 1;
+    }
+  }
+
+  // Full-width hint/error below both inputs (datetime mode). Mirror the look of
+  // mat-hint / mat-error, which can only span a single mat-form-field.
+  .fl-datetime-picker-hint,
+  .fl-datetime-picker-error {
+    font: var(--mat-sys-body-small);
+  }
+
+  .fl-datetime-picker-hint {
+    color: var(--mat-sys-on-surface-variant);
+  }
+
+  .fl-datetime-picker-error {
+    color: var(--mat-sys-error);
+  }
+
+  // Simulate real mat-hint / mat-error spacing, which is done with a pseudo-element.
+  .fl-datetime-picker-hint::before,
+  .fl-datetime-picker-error::before {
+    content: '';
+    display: inline-block;
+    height: 16px;
+  }
+
+  // Compact layout: date and time inputs flush against each other.
+  &.dense .fl-datetime-picker-inputs {
+    gap: 0;
   }
 }

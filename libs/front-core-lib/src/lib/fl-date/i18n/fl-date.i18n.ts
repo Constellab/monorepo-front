@@ -16,6 +16,7 @@ const flDateI18nFr: FlLangTranslation = {
     between_the_to: 'et le',
     from_the: 'Du',
     until_the: "Jusqu'au",
+    time: 'Heure',
   },
 };
 
@@ -31,10 +32,11 @@ const flDateI18nEn: FlLangTranslation = {
     between_the_to: 'to the',
     from_the: 'From the',
     until_the: "Jusqu'au",
+    time: 'Time',
   },
 };
 
-export const flDateI18n: FlTranslateObject = {
+export const FL_DATE_I18N: FlTranslateObject = {
   [ClSupportedLanguage.en]: flDateI18nEn,
   [ClSupportedLanguage.fr]: flDateI18nFr,
 };

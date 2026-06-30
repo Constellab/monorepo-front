@@ -13,7 +13,7 @@ import { FlDateRangeComponent } from './component/fl-date-range/fl-date-range.co
 import { FlDatetimePickerComponent } from './component/fl-datetime-picker/fl-datetime-picker.component';
 import { FlFromNowComponent } from './component/fl-from-now/fl-from-now.component';
 import { FlLastSyncInfoComponent } from './component/fl-last-sync-info/fl-last-sync-info.component';
-import { flDateI18n } from './i18n/fl-date.i18n';
+import { FL_DATE_I18N } from './i18n/fl-date.i18n';
 import { FlDatePipe } from './pipe/fl-date/fl-date.pipe';
 import { FlDurationPipe } from './pipe/fl-duration/fl-duration.pipe';
 import { FlFromNowPipe } from './pipe/fl-from-now/fl-from-now.pipe';
@@ -55,6 +55,6 @@ export class FlDateModule {
   constructor() {
     const translateService = inject(FlTranslateService);
 
-    translateService.addModuleTranslation('FlDateModule', flDateI18n);
+    translateService.addModuleTranslation('FlDateModule', FL_DATE_I18N);
   }
 }
