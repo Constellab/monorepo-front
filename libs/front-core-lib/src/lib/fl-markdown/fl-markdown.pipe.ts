@@ -1,7 +1,7 @@
 import { inject, Pipe, PipeTransform, SecurityContext } from '@angular/core';
 import { DomSanitizer, SafeHtml, SafeResourceUrl } from '@angular/platform-browser';
 import { ClStringHelper, ClYoutubeHelper } from '@monorepo/core-lib';
-import { marked } from 'marked';
+import { marked, Tokens } from 'marked';
 import { markedHighlight } from 'marked-highlight';
 
 import { FlHighlight } from './fl-highlight.class';
@@ -30,12 +30,12 @@ export class FlMarkdownPipe implements PipeTransform {
 
     // Open all links in a new tab, with rel="noopener noreferrer" to avoid
     // exposing window.opener to the target page.
-    renderer.link = (href: string, title: string, text: string) => {
+    renderer.link = ({ href, title, text }: Tokens.Link) => {
       const titleAttr = title ? ` title="${title}"` : '';
       return `<a href="${href}"${titleAttr} target="_blank" rel="noopener noreferrer">${text}</a>`;
     };
 
-    renderer.image = (href: string, title: string, text: string) => {
+    renderer.image = ({ href, title, text }: Tokens.Image) => {
       if (href === null) {
         return text;
       }
@@ -65,8 +65,7 @@ export class FlMarkdownPipe implements PipeTransform {
       return out;
     };
 
-    //return this.domSanitizer.sanitize(SecurityContext.NONE, marked.parse(value, {renderer: renderer}));
-    const parsedDoc: string = marked.parse(value, { renderer: renderer, mangle: false, headerIds: false });
+    const parsedDoc: string = marked.parse(value, { renderer: renderer, async: false });
     let safeDoc: string = this.domSanitizer.sanitize(SecurityContext.HTML, parsedDoc);
     for (const key of Object.keys(iframes)) {
       safeDoc = safeDoc.replace(

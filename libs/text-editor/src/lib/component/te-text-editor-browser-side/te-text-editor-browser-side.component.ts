@@ -20,7 +20,7 @@ import { EditorConfig } from '@editorjs/editorjs/types/configs/editor-config';
 import { ClHelpService, ClStringHelper } from '@monorepo/core-lib';
 import { FlHtmlHelper, FlKeyboardHelper, FlKeyboardKey } from '@monorepo/front-core-lib/fl-core';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
-import { marked } from 'marked';
+import { marked, Tokens } from 'marked';
 import { Subject, Subscription, take } from 'rxjs';
 
 import { TeHTMLEditorJSON, TeRichText, TeRichTextAggregate, TeRichTextModifications } from '../../model/lib';
@@ -446,12 +446,12 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
 
     const renderer = new marked.Renderer();
     // Render code blocks with language class so TeCodeBlock.onPaste can detect the language
-    renderer.code = (code: string, language: string): string => {
-      const langClass = language ? ` class="language-${language}"` : '';
+    renderer.code = ({ text: code, lang }: Tokens.Code): string => {
+      const langClass = lang ? ` class="language-${lang}"` : '';
       return `<pre${langClass}>${code}</pre>`;
     };
 
-    const convertedHtml = marked.parse(text, { renderer }) as string;
+    const convertedHtml = marked.parse(text, { renderer, async: false });
 
     const dt = new DataTransfer();
     dt.setData('text/html', convertedHtml);
