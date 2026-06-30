@@ -2,21 +2,14 @@ import {
   TdGenerateComputedParamResult,
   TdGenerateFieldResult,
   TdParamSpec,
-  TdParamSpecCategory,
   TdParamSpecInfo,
   TdSubParamSpecState,
   TdValidateComputedParamResult,
 } from '@monorepo/technical-doc';
 import { Observable } from 'rxjs';
 
+import { liFilterAndOrderFormTemplateParamSpecsInfos } from '../../../li-core/model/entities/form/li-form-template.entity';
 import { LiFormTemplateService } from '../../service/li-form-template.service';
-
-// Category display order in the form type list: advanced fields before lab-data fields.
-const FORM_CATEGORY_ORDER: TdParamSpecCategory[] = [
-  TdParamSpecCategory.SIMPLE,
-  TdParamSpecCategory.OTHER,
-  TdParamSpecCategory.LAB_SPECIFIC,
-];
 
 /**
  * In-memory specs state for the AI specs review dialog.
@@ -63,12 +56,7 @@ export class LiFormTemplateAiReviewSpecsState extends TdSubParamSpecState {
   }
 
   override getParamSpecsInfos(): TdParamSpecInfo[] {
-    // super already excludes param_set (no nesting). Additionally hide code params and
-    // order categories so "Advanced" (other) comes before "Lab data" (lab_specific).
-    return super
-      .getParamSpecsInfos()
-      .filter((info) => info.category !== TdParamSpecCategory.CODE)
-      .sort((a, b) => FORM_CATEGORY_ORDER.indexOf(a.category) - FORM_CATEGORY_ORDER.indexOf(b.category));
+    return liFilterAndOrderFormTemplateParamSpecsInfos();
   }
 
   override supportsFieldGeneration(): boolean {

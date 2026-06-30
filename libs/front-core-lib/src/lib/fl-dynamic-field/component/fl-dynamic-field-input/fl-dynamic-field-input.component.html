@@ -1,5 +1,11 @@
-<mat-form-field class="g-full" subscriptSizing="dynamic">
-  <mat-label>{{ placeholder }}</mat-label>
+<mat-form-field
+  class="g-full"
+  subscriptSizing="dynamic"
+  [matTooltip]="cellRendering ? errorMessage : ''"
+  [matTooltipDisabled]="!cellRendering || !formCtrl.invalid">
+  @if (!cellRendering) {
+    <mat-label>{{ placeholder }}</mat-label>
+  }
 
   <!--    Can't directly bind input type : https://github.com/angular/angular/issues/13243-->
   @switch (inputType) {
@@ -8,7 +14,7 @@
         matInput
         type="text"
         [formControl]="formCtrl"
-        [placeholder]="placeholder"
+        [placeholder]="cellRendering ? '' : placeholder"
         [required]="required" />
     }
     @case ('number') {
@@ -16,7 +22,7 @@
         matInput
         type="number"
         [formControl]="formCtrl"
-        [placeholder]="placeholder"
+        [placeholder]="cellRendering ? '' : placeholder"
         [required]="required" />
     }
   }
@@ -27,43 +33,11 @@
   @if (suffix) {
     <span matSuffix>{{ suffix }}</span>
   }
-  @if (hint) {
+  @if (hint && !cellRendering) {
     <mat-hint>{{ hint }}</mat-hint>
   }
 
-  @if (formCtrl.hasError('required')) {
-    <mat-error>{{ placeholder | flErrorRequired: false }}</mat-error>
-  }
-  @if (formCtrl.hasError('min')) {
-    <mat-error
-      >{{ 'flDynamicField.min_error_validator' | translate: { min: formCtrl.getError('min').min } }}
-    </mat-error>
-  }
-  @if (formCtrl.hasError('max')) {
-    <mat-error
-      >{{ 'flDynamicField.max_error_validator' | translate: { max: formCtrl.getError('max').max } }}
-    </mat-error>
-  }
-  @if (formCtrl.hasError('notInteger')) {
-    <mat-error>{{ 'flDynamicField.integer_error_validator' | translate }}</mat-error>
-  }
-  @if (formCtrl.hasError('minlength')) {
-    <mat-error
-      >{{
-        'flDynamicField.min_length_error_validator'
-          | translate: { minLength: formCtrl.getError('minlength').requiredLength }
-      }}
-    </mat-error>
-  }
-  @if (formCtrl.hasError('maxlength')) {
-    <mat-error
-      >{{
-        'flDynamicField.max_length_error_validator'
-          | translate: { maxLength: formCtrl.getError('maxlength').requiredLength }
-      }}
-    </mat-error>
-  }
-  @if (formCtrl.hasError('pattern')) {
-    <mat-error>{{ regexDescription || ('flDynamicField.pattern_error_validator' | translate) }}</mat-error>
+  @if (!cellRendering && formCtrl.invalid) {
+    <mat-error>{{ errorMessage }}</mat-error>
   }
 </mat-form-field>

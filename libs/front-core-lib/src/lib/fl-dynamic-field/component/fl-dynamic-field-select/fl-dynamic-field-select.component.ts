@@ -13,6 +13,7 @@ type FlGroupedSelectOption = Record<string, FlDynamicFieldSelectKeyNameOption[]>
   templateUrl: './fl-dynamic-field-select.component.html',
   styleUrls: ['./fl-dynamic-field-select.component.scss'],
   standalone: false,
+  host: { '[class.cell-rendering]': 'cellRendering' },
 })
 export class FlDynamicFieldSelectComponent extends FlDynamicFieldAbstractDirective implements OnInit {
   @Input() selectOptionsInput: FlDynamicFieldSelectOptions;

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { FlDynamicFieldAbstractDirective } from '../../model/fl-dynamic-field-abstract.directive';
 
@@ -7,5 +7,6 @@ import { FlDynamicFieldAbstractDirective } from '../../model/fl-dynamic-field-ab
   templateUrl: './fl-dynamic-field-boolean.component.html',
   styleUrls: ['./fl-dynamic-field-boolean.component.scss'],
   standalone: false,
+  host: { '[class.cell-rendering]': 'cellRendering' },
 })
 export class FlDynamicFieldBooleanComponent extends FlDynamicFieldAbstractDirective {}

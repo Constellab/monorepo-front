@@ -1,6 +1,10 @@
-<mat-checkbox [formControl]="formCtrl" class="primary">
-  {{ placeholder }}
-</mat-checkbox>
-@if (hint) {
-  <p class="g-text-light g-text-small">{{ hint }}</p>
+@if (cellRendering) {
+  <mat-checkbox [formControl]="formCtrl" class="primary" [matTooltip]="hint"></mat-checkbox>
+} @else {
+  <mat-checkbox [formControl]="formCtrl" class="primary">
+    {{ placeholder }}
+  </mat-checkbox>
+  @if (hint) {
+    <p class="g-text-light g-text-small">{{ hint }}</p>
+  }
 }

@@ -26,3 +26,64 @@ mat-divider {
   padding: 5px;
   border-radius: 5px;
 }
+
+// Horizontal scroll container: when the columns' min-widths add up to more
+// than the available space, the grid overflows and this wrapper scrolls.
+.dynamic-array-grid-scroll {
+  overflow-x: auto;
+}
+
+.dynamic-array-grid {
+  // grid-template-columns is set inline from the component: one minmax(150px, 1fr)
+  // track per field plus a fixed action track. Every column is therefore the
+  // same width (1fr) and never narrower than the min; when the minimums don't
+  // fit, the grid overflows and the wrapper scrolls.
+  display: grid;
+  width: 100%;
+  min-width: min-content;
+
+  // Single, never-doubled borders: a 1px gap shows the grid's background as the
+  // gridlines, each cell paints over it with the card background, and a border
+  // closes the outer frame.
+  gap: 1px;
+  background: var(--hover-color);
+  border: 1px solid var(--hover-color);
+  box-sizing: border-box;
+
+  .header-cell,
+  .cell {
+    background: var(--card-background);
+    // Let the cell shrink to its track instead of its content forcing it wider
+    // (e.g. the datetime field with its two inputs).
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .header-cell {
+    // Stretch to the full row height (grid default) and bottom-align the label
+    // so an empty header — e.g. the action column — still paints its background
+    // instead of showing the grey gridline through.
+    display: flex;
+    align-items: flex-end;
+    padding: 2px 6px;
+    font-weight: bold;
+  }
+
+  .cell {
+    display: flex;
+    align-items: center;
+  }
+
+  // The field fills its cell; the flattening of the nested Material control is
+  // done globally in fl-material-override.scss (scoped under .cell-rendering),
+  // since those rules must pierce the field's own view encapsulation.
+  .cell fl-dynamic-field {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .action-cell {
+    justify-content: center;
+  }
+}

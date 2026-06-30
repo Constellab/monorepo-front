@@ -612,4 +612,65 @@ body {
       )
     );
   }
+
+  /************************************* DYNAMIC FIELD CELL RENDERING ***********************************/
+  // A dynamic field flattens its Material control when rendered as a table cell
+  // (fl-dynamic-form-array table layout). The field component sets the
+  // .cell-rendering host class; these rules pierce its view from the global
+  // scope (so the field component itself keeps default encapsulation).
+  .cell-rendering {
+    // The field host elements are inline by default; make them fill the cell so
+    // the form field stretches and the error frame (below) has a box to sit on.
+    display: block;
+    width: 100%;
+    height: 100%;
+
+    .mat-mdc-form-field {
+      width: 100%;
+    }
+
+    // Hide the error subscript: cell fields surface errors via a tooltip.
+    .mat-mdc-form-field-subscript-wrapper {
+      display: none;
+    }
+
+    .mat-mdc-text-field-wrapper {
+      background: transparent;
+      border-radius: 0;
+      padding: 0 6px;
+    }
+
+    // Remove the outline box drawn by the outline appearance.
+    .mdc-notched-outline > * {
+      border: none;
+    }
+
+    // Tighten the vertical space taken by the input row.
+    .mat-mdc-form-field-infix {
+      padding-top: 6px;
+      padding-bottom: 6px;
+      min-height: unset;
+    }
+
+    // Invalid field: keep the input area readable with a light warn tint over
+    // the card background (the tooltip carries the message).
+    .mat-mdc-form-field-invalid .mat-mdc-text-field-wrapper {
+      background: color-mix(in srgb, var(--warn-color) 12%, var(--card-background));
+    }
+  }
+
+  // Warn frame around a cell field in error. Drawn here (global) rather than on
+  // the grid cell so :has() resolves across the field's view boundary.
+  .cell-rendering:has(.mat-form-field-invalid) {
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: 1px solid var(--warn-color);
+      pointer-events: none;
+      z-index: 1;
+    }
+  }
 }

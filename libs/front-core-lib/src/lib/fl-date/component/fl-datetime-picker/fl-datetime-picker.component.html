@@ -1,4 +1,4 @@
-<div class="fl-datetime-picker" [class.dense]="dense()">
+<div class="fl-datetime-picker" [class.cell-rendering]="cellRendering()">
   <div class="fl-datetime-picker-inputs">
     <mat-form-field subscriptSizing="dynamic">
       @if (label()) {
@@ -18,7 +18,7 @@
 
     @if (mode() === 'datetime') {
       <mat-form-field subscriptSizing="dynamic">
-        @if (!dense()) {
+        @if (!cellRendering()) {
           <mat-label>{{ 'flDate.time' | translate }}</mat-label>
         }
         <input

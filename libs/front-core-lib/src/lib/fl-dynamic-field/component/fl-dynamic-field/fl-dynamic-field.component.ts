@@ -34,6 +34,8 @@ export class FlDynamicFieldComponent implements OnInit, OnDestroy, FlDynamicAbst
 
   control = input<UntypedFormControl>();
 
+  cellRendering = input<boolean>(false);
+
   @ViewChild('viewContainer', { static: true, read: ViewContainerRef }) viewContainer: ViewContainerRef;
 
   private viewComponentRef: ComponentRef<FlDynamicFieldAbstractDirective>;
@@ -43,7 +45,7 @@ export class FlDynamicFieldComponent implements OnInit, OnDestroy, FlDynamicAbst
       () => {
         this.destroy();
         this.fieldConfig
-          .generateFieldComponent(this.config(), this.viewContainer, this.control())
+          .generateFieldComponent(this.config(), this.viewContainer, this.control(), this.cellRendering())
           .then((componentRef) => (this.viewComponentRef = componentRef));
       },
       { injector: this.injector }

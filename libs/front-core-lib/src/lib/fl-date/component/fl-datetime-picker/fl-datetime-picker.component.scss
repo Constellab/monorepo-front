@@ -38,7 +38,7 @@
   }
 
   // Compact layout: date and time inputs flush against each other.
-  &.dense .fl-datetime-picker-inputs {
+  &.cell-rendering .fl-datetime-picker-inputs {
     gap: 0;
   }
 }

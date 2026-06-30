@@ -11,6 +11,7 @@ import { FlDynamicFieldAbstractDirective } from '../../model/fl-dynamic-field-ab
   templateUrl: './fl-dynamic-field-select-search.component.html',
   styleUrl: './fl-dynamic-field-select-search.component.scss',
   standalone: false,
+  host: { '[class.cell-rendering]': 'cellRendering' },
 })
 export class FlDynamicFieldSelectSearchComponent extends FlDynamicFieldAbstractDirective implements OnInit {
   @Input() selectOptions: string[];

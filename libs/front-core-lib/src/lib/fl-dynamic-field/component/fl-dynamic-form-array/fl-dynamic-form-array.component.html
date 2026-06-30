@@ -23,29 +23,72 @@
 
     <ng-container *flSectionBody>
       @if (hasValue()) {
-        <div>
-          @for (formGp of control().controls; track formGp; let i = $index; let last = $last) {
-            <div class="group">
-              <div class="g-layout-row">
-                <fl-dynamic-abstract-form
-                  [control]="formGp"
-                  [config]="config().formGpConfig"
-                  class="g-flex-auto">
-                </fl-dynamic-abstract-form>
-                <div>
+        @if (isTableMode) {
+          <div class="dynamic-array-grid-scroll">
+            <div
+              class="dynamic-array-grid"
+              [style.grid-template-columns]="'repeat(' + columns.length + ', minmax(150px, 1fr)) 40px'">
+              <!-- Header row -->
+              @for (col of columns; track col.key) {
+                <div class="header-cell g-text-small g-text-light">
+                  {{ col.config.placeholder }}
+                  @if (col.config.required) {
+                    <span> *</span>
+                  }
+                </div>
+              }
+              <div class="header-cell action-cell"></div>
+
+              <!-- Data rows -->
+              @for (formGp of control().controls; track formGp; let i = $index) {
+                @for (col of columns; track col.key) {
+                  <div class="cell">
+                    <fl-dynamic-field
+                      [config]="col.config"
+                      [control]="$any(formGp.get(col.key))"
+                      [cellRendering]="true">
+                    </fl-dynamic-field>
+                  </div>
+                }
+                <div class="cell action-cell">
                   <div [matTooltip]="removeTooltip">
                     <button mat-icon-button type="button" (click)="removeGroup(i)" [disabled]="disableRemove">
                       <mat-icon>clear</mat-icon>
                     </button>
                   </div>
                 </div>
-              </div>
-              @if (!last) {
-                <mat-divider></mat-divider>
               }
             </div>
-          }
-        </div>
+          </div>
+        } @else {
+          <div>
+            @for (formGp of control().controls; track formGp; let i = $index; let last = $last) {
+              <div class="group">
+                <div class="g-layout-row">
+                  <fl-dynamic-abstract-form
+                    [control]="formGp"
+                    [config]="config().formGpConfig"
+                    class="g-flex-auto">
+                  </fl-dynamic-abstract-form>
+                  <div>
+                    <div [matTooltip]="removeTooltip">
+                      <button
+                        mat-icon-button
+                        type="button"
+                        (click)="removeGroup(i)"
+                        [disabled]="disableRemove">
+                        <mat-icon>clear</mat-icon>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                @if (!last) {
+                  <mat-divider></mat-divider>
+                }
+              </div>
+            }
+          </div>
+        }
       } @else {
         <div class="g-text-centered">
           <p class="g-text-light">{{ 'flDynamicField.no_value_in_array' | translate }}</p>

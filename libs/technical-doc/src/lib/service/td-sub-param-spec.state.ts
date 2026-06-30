@@ -77,12 +77,13 @@ export class TdSubParamSpecState extends TdAbstractDynamicParamSpecState {
   }
 
   /**
-   * We can have param_set inside another param_set,
+   * We cannot have param_set inside another param_set,
    * so we remove the param_set type from the list.
    * @returns
    */
   getParamSpecsInfos(): TdParamSpecInfo[] {
-    return TD_PARAM_SPEC_INFO_LIST.filter((info) => info.type !== TdParamSpecTypeEnum.PARAM_SET);
+    const infos = this.parentState ? this.parentState.getParamSpecsInfos() : TD_PARAM_SPEC_INFO_LIST;
+    return infos.filter((info) => info.type !== TdParamSpecTypeEnum.PARAM_SET);
   }
 
   validateComputedExpression(

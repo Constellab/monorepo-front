@@ -10,6 +10,7 @@ import { FlDynamicFieldAbstractDirective } from '../../model/fl-dynamic-field-ab
   templateUrl: './fl-dynamic-field-date.component.html',
   styleUrl: './fl-dynamic-field-date.component.scss',
   standalone: false,
+  host: { '[class.cell-rendering]': 'cellRendering' },
 })
 export class FlDynamicFieldDateComponent extends FlDynamicFieldAbstractDirective implements OnInit {
   private destroyRef = inject(DestroyRef);

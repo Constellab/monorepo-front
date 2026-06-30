@@ -17,12 +17,18 @@ import { tdGetParamSpecDisplayName } from '../../logic/td-param-spec.logic';
 import { TdParamSpec, TdParamSpecs } from '../../model/td-config-spec.class';
 import { TdParamValueComponent } from '../td-param-value/td-param-value.component';
 
-export interface TdParamTableRow {
+export interface TdParamTableCell {
   key: string;
   name: string;
   shortDescription: string;
   rawValue: unknown;
   spec: TdParamSpec;
+}
+
+/** A table row holding two field/value pairs (left and right). */
+export interface TdParamTableRow {
+  left: TdParamTableCell;
+  right: TdParamTableCell | null;
 }
 
 @Component({
@@ -45,16 +51,17 @@ export interface TdParamTableRow {
   ],
 })
 /**
- * Displays parameter specs and their values as a vertical name/value table.
- * Each row represents one field with its display name and formatted value.
+ * Displays parameter specs and their values as a name/value table.
+ * Fields are laid out two pairs per row (4 columns: name, value, name, value)
+ * to use the full width and reduce vertical height on large forms.
  */
 export class TdParamTableComponent {
   values = input.required<Record<string, unknown>>();
   specs = input.required<TdParamSpecs>();
 
-  tableColumns = ['name', 'value'];
+  tableColumns = ['name1', 'value1', 'name2', 'value2'];
 
-  tableData = computed<TdParamTableRow[]>(() => {
+  private cells = computed<TdParamTableCell[]>(() => {
     const values = this.values();
     const specs = this.specs();
     if (!values) return [];
@@ -69,5 +76,15 @@ export class TdParamTableComponent {
         spec,
       };
     });
+  });
+
+  /** Group fields into rows of two so each table row shows two name/value pairs. */
+  tableData = computed<TdParamTableRow[]>(() => {
+    const cells = this.cells();
+    const rows: TdParamTableRow[] = [];
+    for (let i = 0; i < cells.length; i += 2) {
+      rows.push({ left: cells[i], right: cells[i + 1] ?? null });
+    }
+    return rows;
   });
 }

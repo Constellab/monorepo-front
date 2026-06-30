@@ -1,6 +1,5 @@
 import { Component, computed, inject, input } from '@angular/core';
 import { MatButton } from '@angular/material/button';
-import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -16,7 +15,7 @@ import {
   selector: 'td-param-value',
   templateUrl: './td-param-value.component.html',
   styleUrl: './td-param-value.component.scss',
-  imports: [MatButton, MatIcon, MatTooltip, TranslatePipe],
+  imports: [MatButton, MatTooltip, TranslatePipe],
 })
 export class TdParamValueComponent {
   private dialogService = inject(FlDialogService);

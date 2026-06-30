@@ -295,11 +295,13 @@
       <div class="section">
         <h4 class="section-title">{{ 'td.section_behavior' | translate }}</h4>
 
-        <div class="checkbox-row">
-          <mat-checkbox formControlName="optional">
-            {{ 'td.optional' | translate }}
-          </mat-checkbox>
-        </div>
+        @if (selectedType() !== 'bool') {
+          <div class="checkbox-row">
+            <mat-checkbox formControlName="optional">
+              {{ 'td.optional' | translate }}
+            </mat-checkbox>
+          </div>
+        }
 
         @if (defaultValueConfig()) {
           <fl-dynamic-field [config]="defaultValueConfig()" [control]="$any(formGroup.get('default_value'))">

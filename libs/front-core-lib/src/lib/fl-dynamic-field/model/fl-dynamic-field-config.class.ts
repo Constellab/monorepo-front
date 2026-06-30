@@ -53,6 +53,14 @@ export interface FlDynamicFormArrayConfig extends FlDynamicFormConfigBase {
 }
 
 /**
+ * Field types ({@link FlDynamicFieldConfigBase.type}) that can be rendered inside
+ * a cell of the form-array table (Excel-like) layout. A form array renders as a
+ * table automatically when every field in its group is one of these; otherwise
+ * it falls back to the default list rendering.
+ */
+export const FL_TABLE_SUPPORTED_FIELD_TYPES = ['input', 'select', 'select-search', 'date', 'boolean'];
+
+/**
  * Configuration for a FormControl
  */
 export type FlDynamicFieldConfig =

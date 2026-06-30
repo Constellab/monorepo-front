@@ -1,16 +1,20 @@
-<fl-input-search
-  [selectedItem]="formCtrl.value"
-  (selectedItemChange)="selectOption($event)"
-  [datasource]="datasource"
-  [placeholder]="placeholder"
-  [required]="required"
-  [disabled]="disabled"
-  [minInputSearchLength]="0">
-  <div *flInputSearchOption="datasource as option">
-    {{ option }}
-  </div>
-</fl-input-search>
+<div
+  [matTooltip]="cellRendering ? errorMessage : ''"
+  [matTooltipDisabled]="!cellRendering || !formCtrl.invalid">
+  <fl-input-search
+    [selectedItem]="formCtrl.value"
+    (selectedItemChange)="selectOption($event)"
+    [datasource]="datasource"
+    [placeholder]="cellRendering ? '' : placeholder"
+    [required]="required"
+    [disabled]="disabled"
+    [minInputSearchLength]="0">
+    <div *flInputSearchOption="datasource as option">
+      {{ option }}
+    </div>
+  </fl-input-search>
+</div>
 
-@if (hint) {
+@if (hint && !cellRendering) {
   <p class="g-text-light g-text-small">{{ hint }}</p>
 }

@@ -7,7 +7,6 @@ import {
   TdGenerateComputedParamResult,
   TdGenerateFieldResult,
   TdParamSpec,
-  TdParamSpecCategory,
   TdParamSpecEntry,
   TdParamSpecInfo,
   TdParamSpecs,
@@ -16,6 +15,7 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { liFilterAndOrderFormTemplateParamSpecsInfos } from '../../../li-core/model/entities/form/li-form-template.entity';
 import { LiFormTemplateVersion } from '../../../li-core/model/entities/form/li-form-template-version.entity';
 import { LiFormTemplateService } from '../../service/li-form-template.service';
 
@@ -121,21 +121,8 @@ export class LiFormTemplateDynamicParamSpecState
     );
   }
 
-  // Category display order in the form type list: advanced fields before lab-data fields.
-  private static readonly CATEGORY_ORDER: TdParamSpecCategory[] = [
-    TdParamSpecCategory.SIMPLE,
-    TdParamSpecCategory.OTHER,
-    TdParamSpecCategory.LAB_SPECIFIC,
-  ];
-
   override getParamSpecsInfos(): TdParamSpecInfo[] {
-    const order = LiFormTemplateDynamicParamSpecState.CATEGORY_ORDER;
-    // Hide code params (not relevant for form templates) and order the remaining
-    // categories so "Advanced" (other) comes before "Lab data" (lab_specific).
-    return super
-      .getParamSpecsInfos()
-      .filter((info) => info.category !== TdParamSpecCategory.CODE)
-      .sort((a, b) => order.indexOf(a.category) - order.indexOf(b.category));
+    return liFilterAndOrderFormTemplateParamSpecsInfos();
   }
 
   override supportsFieldGeneration(): boolean {

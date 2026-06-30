@@ -1,0 +1,8 @@
+// Cell rendering: used inside the table layout of fl-dynamic-form-array.
+// Center the checkbox in its cell; the column header carries the label.
+:host(.cell-rendering) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4px 0;
+}

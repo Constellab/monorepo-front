@@ -1,8 +1,14 @@
 <fl-datetime-picker
   [formControl]="dateTimeControl"
   [mode]="includeTime ? 'datetime' : 'date'"
-  [label]="placeholder"
-  [hint]="hint"
+  [label]="cellRendering ? '' : placeholder"
+  [hint]="cellRendering ? '' : hint"
   [min]="minValue"
-  [max]="maxValue">
+  [max]="maxValue"
+  [cellRendering]="cellRendering"
+  [required]="required"
+  [errorState]="formCtrl.invalid && (formCtrl.touched || formCtrl.dirty)"
+  [errorMessage]="cellRendering ? '' : errorMessage"
+  [matTooltip]="cellRendering ? errorMessage : ''"
+  [matTooltipDisabled]="!cellRendering || !formCtrl.invalid || (!formCtrl.touched && !formCtrl.dirty)">
 </fl-datetime-picker>

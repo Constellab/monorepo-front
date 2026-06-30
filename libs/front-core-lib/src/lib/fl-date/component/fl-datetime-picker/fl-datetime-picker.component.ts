@@ -47,9 +47,9 @@ export class FlDatetimePickerComponent implements ControlValueAccessor, OnInit {
 
   /**
    * Compact layout: removes the gap between the date and time inputs so they
-   * sit flush against each other (used inside dense table cells).
+   * sit flush against each other (used inside table cells).
    */
-  dense = input<boolean>(false);
+  cellRendering = input<boolean>(false);
 
   /**
    * Marks the field as required (shows the asterisk on the label).
@@ -65,7 +65,7 @@ export class FlDatetimePickerComponent implements ControlValueAccessor, OnInit {
 
   /**
    * Error message shown below the date field while {@link errorState} is true.
-   * Empty string renders no message (e.g. dense mode surfaces errors via a
+   * Empty string renders no message (e.g. cell rendering surfaces errors via a
    * tooltip instead).
    */
   errorMessage = input<string>('');

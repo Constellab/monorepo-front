@@ -1,21 +1,46 @@
 <mat-table [dataSource]="tableData()" class="td-param-table">
-  <ng-container matColumnDef="name">
+  <ng-container matColumnDef="name1">
     <mat-header-cell *matHeaderCellDef>{{ 'td.param_table_field_name' | translate }}</mat-header-cell>
     <mat-cell *matCellDef="let row">
       <div class="td-param-table-name-cell">
-        <span>{{ row.name }}</span>
-        @if (row.shortDescription) {
-          <span class="g-text-small g-text-light">{{ row.shortDescription }}</span>
+        <span>{{ row.left.name }}</span>
+        @if (row.left.shortDescription) {
+          <span class="g-text-small g-text-light">{{ row.left.shortDescription }}</span>
         }
       </div>
     </mat-cell>
   </ng-container>
-  <ng-container matColumnDef="value">
+
+  <ng-container matColumnDef="value1">
     <mat-header-cell *matHeaderCellDef>{{ 'td.param_table_field_value' | translate }}</mat-header-cell>
     <mat-cell *matCellDef="let row">
-      <td-param-value [value]="row.rawValue" [spec]="row.spec" />
+      <td-param-value [value]="row.left.rawValue" [spec]="row.left.spec" />
     </mat-cell>
   </ng-container>
+
+  <ng-container matColumnDef="name2">
+    <mat-header-cell *matHeaderCellDef>{{ 'td.param_table_field_name' | translate }}</mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      @if (row.right) {
+        <div class="td-param-table-name-cell">
+          <span>{{ row.right.name }}</span>
+          @if (row.right.shortDescription) {
+            <span class="g-text-small g-text-light">{{ row.right.shortDescription }}</span>
+          }
+        </div>
+      }
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="value2">
+    <mat-header-cell *matHeaderCellDef>{{ 'td.param_table_field_value' | translate }}</mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      @if (row.right) {
+        <td-param-value [value]="row.right.rawValue" [spec]="row.right.spec" />
+      }
+    </mat-cell>
+  </ng-container>
+
   <mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
   <mat-row *matRowDef="let row; columns: tableColumns"></mat-row>
 </mat-table>

@@ -71,7 +71,8 @@ export class FlDynamicFieldConfigService {
   public async generateFieldComponent(
     config: FlDynamicFieldConfig,
     viewContainer: ViewContainerRef,
-    formCtrl: FormControl
+    formCtrl: FormControl,
+    cellRendering = false
   ): Promise<ComponentRef<FlDynamicFieldAbstractDirective>> {
     let viewComponentRef: ComponentRef<FlDynamicFieldAbstractDirective>;
     // if the type is supported by the module config, use it
@@ -115,6 +116,7 @@ export class FlDynamicFieldConfigService {
     viewComponentRef.instance.hint = config.hint;
     viewComponentRef.instance.disabled = !!config.disabled;
     viewComponentRef.instance.required = !!config.required;
+    viewComponentRef.instance.cellRendering = cellRendering;
 
     return viewComponentRef;
   }
