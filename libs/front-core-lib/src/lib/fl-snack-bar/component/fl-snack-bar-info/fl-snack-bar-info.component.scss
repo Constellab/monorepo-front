@@ -1,3 +1,8 @@
+// allow the message column to shrink so it never pushes the "ok" button out
+.message-container {
+  min-width: 0;
+}
+
 // limit message to 6 lines
 .message {
   display: -webkit-box;
@@ -5,7 +10,7 @@
   overflow: hidden;
   -webkit-line-clamp: 6;
   word-break: break-word;
-  white-space: pre;
+  white-space: pre-wrap;
 }
 
 .button {
