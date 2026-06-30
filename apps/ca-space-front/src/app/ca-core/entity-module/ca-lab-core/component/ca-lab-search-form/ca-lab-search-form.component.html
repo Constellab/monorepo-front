@@ -127,5 +127,10 @@
       <p class="g-text-small">{{ 'creation_date' | translate }}</p>
       <fl-search-date-interval formGroupName="createdAt"> </fl-search-date-interval>
     </div>
+
+    <!--  Has active backup  -->
+    <mat-checkbox formControlName="hasActiveBackup" class="checkbox g-full">{{
+      'lab_has_active_backup' | translate
+    }}</mat-checkbox>
   </div>
 </div>

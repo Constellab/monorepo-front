@@ -52,6 +52,8 @@ export class CaLabSearchFields {
 
   serverTaskStatus: CaLabServerTaskStatus;
 
+  hasActiveBackup: boolean;
+
   id: string;
 }
 
@@ -70,7 +72,16 @@ export class CaLabSearch {
     cloudProvider: 'cloud_provider',
     cloudName: 'lab_cloud_name',
     serverTaskStatus: 'lab_server_task_status',
+    hasActiveBackup: 'lab_has_active_backup',
   };
+
+  /**
+   * Convert the hasActiveBackup checkbox: only filter when it is checked,
+   * a false (unchecked) value is converted to null so the criterion is dropped.
+   */
+  private static convertHasActiveBackupValue(hasActiveBackup: boolean): any {
+    return hasActiveBackup ? true : null;
+  }
 
   public static filterConverter: FlSearchFilterCriteriaConverter<CaLabSearchFields> = {
     name: { key: 'name', operator: 'CONTAINS' },
@@ -95,6 +106,11 @@ export class CaLabSearch {
     isFreeLab: { key: 'isFreeLab', operator: 'EQ' },
     cloudName: { key: 'cloudName', operator: 'CONTAINS' },
     serverTaskStatus: { key: 'serverTaskStatus', operator: 'EQ' },
+    hasActiveBackup: {
+      key: 'hasActiveBackup',
+      operator: 'EQ',
+      convertValue: CaLabSearch.convertHasActiveBackupValue,
+    },
     id: { key: 'id', operator: 'EQ' },
   };
 
@@ -126,6 +142,7 @@ export class CaLabSearch {
       isFreeLab: null,
       cloudName: null,
       serverTaskStatus: null,
+      hasActiveBackup: null,
       id: null,
     });
   }
