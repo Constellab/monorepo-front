@@ -103,7 +103,7 @@ export class LiResourceActionMenu extends LiEntityActionMenu {
     return {
       type: 'button',
       text: 'li.import_resource',
-      icon: 'system_update_alt',
+      icon: 'file_download',
       color: 'primary',
       onClick: () => this.openImportResource(),
     };
