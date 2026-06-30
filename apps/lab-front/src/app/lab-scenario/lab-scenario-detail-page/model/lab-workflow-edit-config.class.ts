@@ -415,7 +415,21 @@ export class LabWorkflowEditConfig implements OnDestroy {
         protocolId: protocolId,
       } as LabWorkflowEventBasicAdditionalInfo,
     };
-    return this.addIoFace(action, protocolId, processInstanceName);
+
+    if (this.workflow.currentLayer.isRootLayer()) {
+      console.error('Cannot add IOFace to root layer');
+      return of(null);
+    }
+    const labProcess = this.getAndCheckProcessNodeObject(protocolId, processInstanceName);
+    if (labProcess == null) return of(null);
+
+    // find the PrProcess object corresponding to current protocol using parent
+    // to reset the protocol
+    const protocolNode = this.getAndCheckProcessNodeObject(
+      this.workflow.currentLayer.parentLayer.id,
+      this.workflow.currentLayer.instanceName
+    );
+    return this.executeUpdateAction(action, protocolNode);
   }
 
   public addOuterface(
@@ -433,28 +447,14 @@ export class LabWorkflowEditConfig implements OnDestroy {
       } as LabWorkflowEventBasicAdditionalInfo,
     };
 
-    return this.addIoFace(action, protocolId, processInstanceName);
-  }
-
-  private addIoFace(
-    action: FlPortalAction,
-    protocolId: string,
-    processInstanceName: string
-  ): Observable<FlPortalActionResult | null> {
     if (this.workflow.currentLayer.isRootLayer()) {
       console.error('Cannot add IOFace to root layer');
       return of(null);
     }
-    const labProcess = this.getAndCheckProcessNodeObject(protocolId, processInstanceName);
-    if (labProcess == null) return of(null);
 
-    // find the PrProcess object corresponding to current protocol using parent
-    // to reset the protocol
-    const protocolNode = this.getAndCheckProcessNodeObject(
-      this.workflow.currentLayer.parentLayer.id,
-      this.workflow.currentLayer.instanceName
-    );
-    return this.executeUpdateAction(action, protocolNode);
+    // no need to reset the sub protocol before adding an outerface,
+    // similar to the add output route
+    return this.executeUpdateAction(action, null);
   }
 
   private getAndCheckProcessNodeObject(protocolId: string, processInstanceName: string): PrProcess {
