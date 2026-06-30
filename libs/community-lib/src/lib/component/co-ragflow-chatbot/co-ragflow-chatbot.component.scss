@@ -15,8 +15,18 @@
 }
 
 .co-chatbot-input {
-  padding: 8px 16px 16px;
-  border-top: 1px solid var(--border-color, rgba(0, 0, 0, 0.12));
+  padding: 10px 16px 14px;
+  border-top: 1px solid var(--card-border);
+
+  // Color the send button primary so it reads as the main action.
+  .co-chatbot-send {
+    color: var(--primary-color);
+
+    &:disabled {
+      color: var(--light-color);
+      opacity: 0.5;
+    }
+  }
 }
 
 .co-chatbot-error,
@@ -32,10 +42,7 @@
 }
 
 .co-chatbot-error mat-icon {
-  font-size: 48px;
-  width: 48px;
-  height: 48px;
-  color: var(--warn-color, #ff93d0);
+  color: var(--warn-color);
 }
 
 .co-chatbot-typing {
@@ -52,7 +59,7 @@
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background-color: var(--light-color, #4f6769);
+    background-color: var(--light-color);
     animation: typing-bounce 1.4s infinite ease-in-out both;
 
     &:nth-child(1) {

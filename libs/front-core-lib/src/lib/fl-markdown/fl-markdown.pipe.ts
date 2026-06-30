@@ -28,6 +28,13 @@ export class FlMarkdownPipe implements PipeTransform {
 
     const iframes: Record<string, string> = {};
 
+    // Open all links in a new tab, with rel="noopener noreferrer" to avoid
+    // exposing window.opener to the target page.
+    renderer.link = (href: string, title: string, text: string) => {
+      const titleAttr = title ? ` title="${title}"` : '';
+      return `<a href="${href}"${titleAttr} target="_blank" rel="noopener noreferrer">${text}</a>`;
+    };
+
     renderer.image = (href: string, title: string, text: string) => {
       if (href === null) {
         return text;

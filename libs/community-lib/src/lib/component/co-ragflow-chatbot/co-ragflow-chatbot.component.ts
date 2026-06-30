@@ -3,6 +3,7 @@ import {
   AfterViewChecked,
   ChangeDetectionStrategy,
   Component,
+  effect,
   ElementRef,
   inject,
   input,
@@ -66,6 +67,20 @@ export class CoRagflowChatbotComponent implements OnInit, AfterViewChecked {
   readonly displayMessages = this.state.displayMessages;
 
   private shouldScrollToBottom = false;
+
+  constructor() {
+    // Keep the input control's enabled state in sync with the connection/typing
+    // state. Driving disabled through the reactive form API (rather than the
+    // template [disabled] binding) avoids the ReactiveForms disabled-attribute warning.
+    effect(() => {
+      const shouldDisable = !this.isConnected() || this.isTyping();
+      if (shouldDisable && this.messageCtrl.enabled) {
+        this.messageCtrl.disable({ emitEvent: false });
+      } else if (!shouldDisable && this.messageCtrl.disabled) {
+        this.messageCtrl.enable({ emitEvent: false });
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.state.connect({

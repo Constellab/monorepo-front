@@ -1,12 +1,15 @@
 <div class="co-chatbot-panel-container">
   <div class="co-chatbot-panel-header">
-    <span>{{ 'coCommunityLib.chatbot_title' | translate }}</span>
+    <div class="co-chatbot-panel-title">
+      <mat-icon class="g-icon-small">smart_toy</mat-icon>
+      <span>{{ 'coCommunityLib.chatbot_title' | translate }}</span>
+    </div>
     <div class="co-chatbot-panel-actions">
       <button
         mat-icon-button
         (click)="startNewConversation()"
         [matTooltip]="'coCommunityLib.chatbot_new_conversation' | translate">
-        <mat-icon>add_comment</mat-icon>
+        <mat-icon>add</mat-icon>
       </button>
       <button mat-icon-button (click)="close()" [matTooltip]="'coCommunityLib.chatbot_close' | translate">
         <mat-icon>close</mat-icon>
@@ -14,8 +17,5 @@
     </div>
   </div>
 
-  <co-ragflow-chatbot
-    [userId]="config.userId"
-    [conversationId]="config.conversationId">
-  </co-ragflow-chatbot>
+  <co-ragflow-chatbot [userId]="config.userId" [conversationId]="config.conversationId"> </co-ragflow-chatbot>
 </div>

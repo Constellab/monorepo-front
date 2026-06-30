@@ -6,12 +6,25 @@
 }
 
 .co-chatbot-bubble {
-  transition: transform 0.2s ease;
-  background-color: var(--primary-color, #25b49c) !important;
-  color: var(--primary-color-contrast, #e9f7f5) !important;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+  background-color: var(--main-background) !important;
+  color: var(--primary-color) !important;
+  border: 1px solid var(--hover-color);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.22);
+
+  mat-icon {
+    transition: transform 0.2s ease;
+  }
 
   &:hover {
-    transform: scale(1.05);
+    transform: scale(1.06);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.28);
+  }
+
+  &--open mat-icon {
+    transform: rotate(90deg);
   }
 
   @media (max-width: 480px) {

@@ -4,16 +4,18 @@
   [class.co-chat-message--assistant]="isAssistant()">
   <div class="co-chat-message-avatar">
     @if (isUser()) {
-      <mat-icon>person</mat-icon>
+      <mat-icon class="g-icon-small">person</mat-icon>
     } @else {
-      <mat-icon>smart_toy</mat-icon>
+      <mat-icon class="g-icon-small">smart_toy</mat-icon>
     }
   </div>
   <div class="co-chat-message-body">
     @if (isUser()) {
       <div class="co-chat-message-content">{{ formattedContent() }}</div>
     } @else {
-      <div class="co-chat-message-content" [innerHTML]="formattedContent() | flMarkdown"></div>
+      <div
+        class="co-chat-message-content g-embedded-html"
+        [innerHTML]="formattedContent() | flMarkdown"></div>
     }
     <!-- Sources section temporarily hidden
     @if (hasReferences()) {

@@ -1,7 +1,7 @@
 <div class="co-chatbot-container">
   @if (hasError()) {
     <div class="co-chatbot-error">
-      <mat-icon>error_outline</mat-icon>
+      <mat-icon class="g-icon-huge">error_outline</mat-icon>
       <span>{{ 'coCommunityLib.chatbot_connection_error' | translate }}</span>
       <button mat-stroked-button (click)="reconnect()">
         {{ 'coCommunityLib.chatbot_retry' | translate }}
@@ -39,13 +39,13 @@
           #messageInput
           [formControl]="messageCtrl"
           [placeholder]="placeholder() | translate"
-          (keydown)="onKeydown($event)"
-          [disabled]="!isConnected() || isTyping()">
+          (keydown)="onKeydown($event)">
         </textarea>
         <button
           mat-icon-button
           matSuffix
           type="button"
+          class="co-chatbot-send"
           (click)="sendMessage()"
           [disabled]="!isConnected() || isTyping() || !messageCtrl.value?.trim()">
           <mat-icon>send</mat-icon>

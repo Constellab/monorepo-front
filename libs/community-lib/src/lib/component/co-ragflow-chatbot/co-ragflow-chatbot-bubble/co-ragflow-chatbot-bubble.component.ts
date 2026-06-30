@@ -65,9 +65,8 @@ export class CoRagflowChatbotBubbleComponent implements OnDestroy {
       portalConfig = this.portalService.configureAbsolutePortal(
         { bottom: '90px', right: '24px' },
         {
-          hasBackdrop: true,
-          disposeOnBackdropClick: true,
-          backdropClass: 'co-chatbot-backdrop',
+          hasBackdrop: false,
+          disposeOnOutsideClick: true,
           panelClass: 'co-chatbot-panel',
         }
       );
