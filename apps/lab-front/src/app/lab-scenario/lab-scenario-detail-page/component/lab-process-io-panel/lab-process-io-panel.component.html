@@ -1,10 +1,29 @@
 <div [ngClass]="layoutClass" class="g-full-height">
   <div class="port-list-container g-layout-col g-styled-scrollbar">
+    <div class="g-text-centered add-container">
+      @if ((isDynamicPorts$ | async) && showAddPortButton()) {
+        <button
+          mat-icon-button
+          type="button"
+          class="g-button-icon-tiny"
+          [matTooltip]="addPortTooltip | translate"
+          [matTooltipPosition]="tooltipPosition"
+          [disabled]="(isEditable$ | async) === false"
+          (click)="addPort()">
+          <mat-icon>add</mat-icon>
+        </button>
+      }
+    </div>
+
     @for (port$ of ports; track port$) {
       @if (port$ | async; as port) {
         <div
           class="port-container g-layout-col"
+          role="button"
+          tabindex="0"
           (click)="onPortClick(port.port.name)"
+          (keydown.enter)="onPortClick(port.port.name)"
+          (keydown.space)="onPortClick(port.port.name)"
           [ngClass]="{
             'selected-port': (portIsSelected(port.port.name) | async),
             'port-input': mode === 'input',
@@ -43,21 +62,6 @@
         </div>
       }
     }
-
-    <div class="g-text-centered add-container">
-      @if ((isDynamicPorts$ | async) && showAddPortButton()) {
-        <button
-          mat-icon-button
-          type="button"
-          class="g-button-icon-tiny"
-          [matTooltip]="addPortTooltip | translate"
-          [matTooltipPosition]="tooltipPosition"
-          [disabled]="(isEditable$ | async) === false"
-          (click)="addPort()">
-          <mat-icon>add</mat-icon>
-        </button>
-      }
-    </div>
   </div>
 
   @if (isOpened) {
