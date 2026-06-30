@@ -46,7 +46,14 @@ export class LiLabSearchComponent implements OnInit {
 
   @Output() labSelected: EventEmitter<LiLab> = new EventEmitter();
 
-  columns: FlTableColumnStatic<LiLab>[] = ['name', 'spaceName', 'environment', 'domain', 'hasCredentials'];
+  columns: FlTableColumnStatic<LiLab>[] = [
+    'name',
+    'spaceName',
+    'environment',
+    'domain',
+    'hasCredentials',
+    'actions',
+  ];
 
   datasource: LiLabDatasource<LiLabSearchFields>;
 

@@ -20,6 +20,18 @@ export class LiLabService {
     return this.apiService.get(`${this.route}/${id}`, LiLab);
   }
 
+  public delete(id: string): Observable<void> {
+    return this.apiService.delete(`${this.route}/${id}`);
+  }
+
+  public refreshExternalLab(id: string): Observable<LiLab> {
+    return this.apiService.put(`${this.route}/${id}/refresh`, null, LiLab);
+  }
+
+  public updateDomain(id: string, domain: string): Observable<LiLab> {
+    return this.apiService.put(`${this.route}/${id}/domain`, { domain }, LiLab);
+  }
+
   public searchDatasource(): LiLabDatasource<LiLabSearchFields> {
     return new FlEntityPaginatedDatasource(
       (page: number, pageSize: number, data) => this.search(page, pageSize, data),

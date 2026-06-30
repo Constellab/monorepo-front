@@ -59,6 +59,33 @@
     </mat-cell>
   </ng-container>
 
+  <!-- Action -->
+  <ng-container matColumnDef="actions">
+    <mat-header-cell *matHeaderCellDef class="g-table-icon-button-cell"> </mat-header-cell>
+    <mat-cell *matCellDef="let row" class="g-table-icon-button-cell">
+      <!--   Mat menu containing action buttons   -->
+      <button mat-icon-button [matMenuTriggerFor]="menu" (click)="$event.stopPropagation()">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu" xPosition="before">
+        <button mat-menu-item type="button" (click)="refreshLab(row)">
+          <mat-icon>refresh</mat-icon>
+          <span>{{ 'li.refresh_lab' | translate }}</span>
+        </button>
+
+        <button mat-menu-item type="button" (click)="updateDomain(row)">
+          <mat-icon>edit</mat-icon>
+          <span>{{ 'li.update_lab_domain' | translate }}</span>
+        </button>
+
+        <button mat-menu-item type="button" (click)="deleteLab(row)" class="warn">
+          <mat-icon>delete</mat-icon>
+          <span>{{ 'li.delete_lab' | translate }}</span>
+        </button>
+      </mat-menu>
+    </mat-cell>
+  </ng-container>
+
   <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
 
   <mat-row

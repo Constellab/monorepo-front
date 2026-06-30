@@ -1,0 +1,26 @@
+<fl-dialog-header>
+  {{ 'li.update_lab_domain' | translate }}
+</fl-dialog-header>
+
+<mat-dialog-content>
+  <p class="g-text-light description">{{ 'li.update_lab_domain_description' | translate }}</p>
+
+  <form (ngSubmit)="submit()" id="lab-domain-form">
+    <mat-form-field class="g-form-input">
+      <mat-label>{{ 'li.lab_domain' | translate }}</mat-label>
+      <input matInput [formControl]="formCtrl" required placeholder="{{ 'li.lab_domain' | translate }}" />
+      @if (formCtrl.hasError('required')) {
+        <mat-error>{{ 'li.lab_domain' | flErrorRequired }}</mat-error>
+      }
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<div mat-dialog-actions>
+  <button mat-flat-button type="submit" form="lab-domain-form" class="g-centered-forced primary">
+    {{ 'li.save' | translate }}
+    @if (isLoading) {
+      <fl-button-loader></fl-button-loader>
+    }
+  </button>
+</div>
