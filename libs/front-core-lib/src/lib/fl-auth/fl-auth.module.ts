@@ -19,24 +19,18 @@ import { FlDialogModule } from '../fl-dialog/fl-dialog.module';
 import { FlLoaderModule } from '../fl-loader/fl-loader.module';
 import { FlSnackBarModule } from '../fl-snack-bar/fl-snack-bar.module';
 import { FlTranslateModule } from '../fl-translate/fl-translate.module';
-import {
-  FlCheckCredentialsDialogComponent
-} from './component/fl-check-credentials-dialog/fl-check-credentials-dialog.component';
+import { FlCheckCredentialsDialogComponent } from './component/fl-check-credentials-dialog/fl-check-credentials-dialog.component';
 import { FlCompleteLoginComponent } from './component/fl-complete-login/fl-complete-login.component';
 import { FlLoginComponent } from './component/fl-login/fl-login.component';
 import { FlLoginFooterComponent } from './component/fl-login-footer/fl-login-footer.component';
 import { FlLoginFormComponent } from './component/fl-login-form/fl-login-form.component';
 import { FlLoginPageComponent } from './component/fl-login-page/fl-login-page.component';
 import { FlLoginTwoFAComponent } from './component/fl-login-two-f-a/fl-login-two-f-a.component';
-import {
-  FlPasswordForgottenComponent,
-} from './component/fl-password-forgotten/fl-password-forgotten.component';
-import {
-  FlResetPasswordPageComponent,
-} from './component/fl-reset-password-page/fl-reset-password-page.component';
+import { FlPasswordForgottenComponent } from './component/fl-password-forgotten/fl-password-forgotten.component';
+import { FlResetPasswordPageComponent } from './component/fl-reset-password-page/fl-reset-password-page.component';
 import { FlSignupFormComponent } from './component/fl-signup-form/fl-signup-form.component';
 import { FlSignupPageComponent } from './component/fl-signup-page/fl-signup-page.component';
-import { flAuthI18n } from './i18n/fl-auth.i18n';
+import { FL_AUTH_I18N } from './i18n/fl-auth.i18n';
 import { FlAuthService } from './service/fl-auth.service';
 import { FlUserAccountService } from './service/fl-user-account.service';
 
@@ -94,7 +88,7 @@ export class FlAuthModule {
   constructor() {
     const translateService = inject(FlTranslateService);
 
-    translateService.addModuleTranslation('FlAuthModule', flAuthI18n);
+    translateService.addModuleTranslation('FlAuthModule', FL_AUTH_I18N);
   }
 
   /**

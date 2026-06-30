@@ -29,7 +29,7 @@ const flAuthI18nFr: FlLangTranslation = {
     signup_link: "Vous n'avez pas de compte? Inscrivez-vous",
     sign_in_link: 'Vous avez déjà un compte? Connectez-vous',
     account_created: "Compte créé, nous vous avons envoyé un mail pour l'activer",
-    accept_cgu_cgv_text: `J'accepte les <a href="https://gencovery.com/legal/terms-of-use" target="_blank">Conditions générales d'utilisation</a> et la <a href="https://gencovery.com/legal/privacy-policy" target="_blank">politique de confidentialité</a>`,
+    accept_cgu_cgv_text: `J'accepte les <a href="https://gencovery.com/fr-fr/conditions-generales" target="_blank">Conditions générales d'utilisation</a> et la <a href="https://gencovery.com/fr-fr/politique-de-confidentialite" target="_blank">politique de confidentialité</a>`,
     accept_cgu_cgv_error: 'Vous devez accepter les conditions pour créer un compte',
     two_fa_code: 'Code de sécurité',
     two_fa: 'Authentification à deux facteurs',
@@ -40,7 +40,7 @@ const flAuthI18nFr: FlLangTranslation = {
     captcha_protection: `Ce site est protégé par reCAPTCHA et la <a href="https://policies.google.com/privacy" target="_blank">Politique de confidentialité</a> et les <a href="https://policies.google.com/terms" target="_blank">Conditions d'utilisation</a> de Google s'appliquent.`,
     please_enter_you_credentials: 'Veuillez entrer vos identifiants',
     validate: 'Valider',
-    error_required: 'Le champ \'{{field}}\' est obligatoire',
+    error_required: "Le champ '{{field}}' est obligatoire",
   },
 };
 
@@ -67,7 +67,7 @@ const flAuthI18nEn: FlLangTranslation = {
     signup_link: "Don't have an account? Sign up",
     sign_in_link: 'Already have an account? Sign in',
     account_created: 'Account created, we sent you an email to activate your account',
-    accept_cgu_cgv_text: `I agree to the website <a href="https://gencovery.com/legal/terms-of-use" target="_blank">Terms of Use</a> and <a href="https://gencovery.com/legal/privacy-policy" target="_blank">Privacy Policy</a>`,
+    accept_cgu_cgv_text: `I agree to the website <a href="https://gencovery.com/en-us/terms" target="_blank">Terms of Use</a> and <a href="https://gencovery.com/en-us/privacy-policy" target="_blank">Privacy Policy</a>`,
     accept_cgu_cgv_error: 'You must agree to the conditions to create an account',
     two_fa_code: 'Security code',
     two_fa: 'Two factor authentication',
@@ -78,11 +78,11 @@ const flAuthI18nEn: FlLangTranslation = {
     captcha_protection: `This site is protected by reCAPTCHA and the <a href="https://policies.google.com/privacy">Google Privacy Policy</a> and <a href="https://policies.google.com/terms">Terms of Service</a> apply.`,
     please_enter_you_credentials: 'Please enter your credentials',
     validate: 'Validate',
-    error_required: 'The field \'{{field}}\' is mandatory',
+    error_required: "The field '{{field}}' is mandatory",
   },
 };
 
-export const flAuthI18n: FlTranslateObject = {
+export const FL_AUTH_I18N: FlTranslateObject = {
   [ClSupportedLanguage.en]: flAuthI18nEn,
   [ClSupportedLanguage.fr]: flAuthI18nFr,
 };
