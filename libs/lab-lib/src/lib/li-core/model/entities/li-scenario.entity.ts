@@ -145,7 +145,7 @@ export class LiScenario extends LiBaseEntityWithUser implements LiFolderObject {
   }
 
   isResettable(): boolean {
-    return this.isRunningOrWaiting() || this.isFinished();
+    return this.isRunningOrWaiting() || this.isFinished() || this.isPartiallyRun();
   }
 
   isRunning(): boolean {
@@ -166,6 +166,10 @@ export class LiScenario extends LiBaseEntityWithUser implements LiFolderObject {
 
   isWaiting(): boolean {
     return this.status === 'IN_QUEUE';
+  }
+
+  isPartiallyRun(): boolean {
+    return this.status === 'PARTIALLY_RUN';
   }
 
   isImported(): boolean {
