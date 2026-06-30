@@ -113,6 +113,8 @@ export interface TdParamSpecString extends TdParamSpecBase {
   additional_info: {
     min_length?: number;
     max_length?: number;
+    regex?: string;
+    regex_description?: string;
     allowed_values?: string[];
   };
 }

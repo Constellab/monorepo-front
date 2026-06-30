@@ -111,6 +111,11 @@ const tdTechnicalDocI18nFr: FlLangTranslation = {
     result_type: 'Type de résultat',
     min_length: 'Longueur minimale',
     max_length: 'Longueur maximale',
+    regex: 'Expression régulière',
+    regex_hint: 'Motif que la valeur doit respecter',
+    regex_description: 'Explication de l’expression régulière',
+    regex_description_hint:
+      'Message affiché lorsque la valeur ne respecte pas le motif (ex : « Les caractères spéciaux sont interdits »)',
     min_value: 'Valeur minimale',
     max_value: 'Valeur maximale',
     max_number_of_occurrences: 'Nombre maximum de lignes',
@@ -290,6 +295,11 @@ const tdTechnicalDocI18nEn: FlLangTranslation = {
     result_type: 'Result type',
     min_length: 'Min length',
     max_length: 'Max length',
+    regex: 'Regular expression',
+    regex_hint: 'Pattern the value must match',
+    regex_description: 'Regular expression explanation',
+    regex_description_hint:
+      'Message shown when the value does not match the pattern (e.g. "Special characters are forbidden")',
     min_value: 'Min value',
     max_value: 'Max value',
     max_number_of_occurrences: 'Max rows',

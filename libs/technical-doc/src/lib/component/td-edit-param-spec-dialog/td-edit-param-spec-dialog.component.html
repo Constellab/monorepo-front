@@ -102,6 +102,16 @@
               <input matInput type="number" formControlName="max_length" />
             </mat-form-field>
           </div>
+          <mat-form-field class="full-width">
+            <mat-label>{{ 'td.regex' | translate }}</mat-label>
+            <input matInput formControlName="regex" />
+            <mat-hint>{{ 'td.regex_hint' | translate }}</mat-hint>
+          </mat-form-field>
+          <mat-form-field class="full-width">
+            <mat-label>{{ 'td.regex_description' | translate }}</mat-label>
+            <input matInput formControlName="regex_description" />
+            <mat-hint>{{ 'td.regex_description_hint' | translate }}</mat-hint>
+          </mat-form-field>
         </div>
       }
       @case ('int') {

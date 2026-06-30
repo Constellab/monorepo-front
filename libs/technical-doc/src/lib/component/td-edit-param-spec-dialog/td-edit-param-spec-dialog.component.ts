@@ -458,6 +458,8 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
         group = new FormGroup({
           min_length: new FormControl(initialValue?.min_length ?? null),
           max_length: new FormControl(initialValue?.max_length ?? null),
+          regex: new FormControl(initialValue?.regex ?? null),
+          regex_description: new FormControl(initialValue?.regex_description ?? null),
         });
         break;
       case TdParamSpecTypeEnum.INT:

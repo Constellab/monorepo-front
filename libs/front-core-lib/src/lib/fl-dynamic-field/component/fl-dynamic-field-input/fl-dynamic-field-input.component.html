@@ -63,4 +63,7 @@
       }}
     </mat-error>
   }
+  @if (formCtrl.hasError('pattern')) {
+    <mat-error>{{ regexDescription || ('flDynamicField.pattern_error_validator' | translate) }}</mat-error>
+  }
 </mat-form-field>

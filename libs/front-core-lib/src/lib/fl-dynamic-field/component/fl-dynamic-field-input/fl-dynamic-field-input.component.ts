@@ -24,4 +24,8 @@ export class FlDynamicFieldInputComponent extends FlDynamicFieldAbstractDirectiv
   @Input() minLength: number;
 
   @Input() maxLength: number;
+
+  @Input() regex: string;
+
+  @Input() regexDescription: string;
 }

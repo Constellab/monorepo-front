@@ -119,6 +119,8 @@ export class TdParamSpecConfig {
       config.suffix = spec.unit;
       config.minLength = spec.additional_info.min_length;
       config.maxLength = spec.additional_info.max_length;
+      config.regex = spec.additional_info.regex;
+      config.regexDescription = spec.additional_info.regex_description;
       return config;
     } else if (spec.type === TdParamSpecTypeEnum.INT || spec.type === TdParamSpecTypeEnum.FLOAT) {
       const config: FlDynamicFieldConfigInput = TdParamSpecConfig.convertToBaseFieldConfig(spec) as any;

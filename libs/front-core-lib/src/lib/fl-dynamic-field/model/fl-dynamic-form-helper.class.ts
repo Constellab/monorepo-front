@@ -122,6 +122,9 @@ export class FlDynamicFormHelper {
       if (inputConfig.maxLength != null) {
         validators.push(Validators.maxLength(inputConfig.maxLength));
       }
+      if (inputConfig.regex) {
+        validators.push(Validators.pattern(inputConfig.regex));
+      }
     }
 
     return validators;

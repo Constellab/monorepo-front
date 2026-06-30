@@ -88,6 +88,10 @@ export interface FlDynamicFieldConfigInput extends FlDynamicFieldConfigMaterialI
   // validators for text
   minLength?: number;
   maxLength?: number;
+  regex?: string;
+  // optional human-readable explanation of the regex,
+  // shown as the error message when the value does not match
+  regexDescription?: string;
 }
 
 export interface FlDynamicFieldSelectKeyNameOption {
