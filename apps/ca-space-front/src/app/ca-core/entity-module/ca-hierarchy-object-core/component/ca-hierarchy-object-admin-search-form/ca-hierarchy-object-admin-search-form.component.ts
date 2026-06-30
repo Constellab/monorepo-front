@@ -12,8 +12,8 @@ import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { TranslatePipe } from '@ngx-translate/core';
 
 import {
+  CA_HIERARCHY_OBJECT_TYPE_INFO,
   CaHierarchyObjectInfo,
-  caHierarchyObjectTypeInfos,
 } from '../../../../model/entities/folder/ca-hierarchy-object.class';
 import { CaHierarchyObjectIconComponent } from '../ca-hierarchy-object-icon/ca-hierarchy-object-icon.component';
 
@@ -42,7 +42,7 @@ export class CaHierarchyObjectAdminSearchFormComponent implements OnInit {
   private searchState = inject<FlSearchState<any>>(FlSearchState);
 
   formGp: UntypedFormGroup;
-  objectTypes = caHierarchyObjectTypeInfos;
+  objectTypes = CA_HIERARCHY_OBJECT_TYPE_INFO;
 
   ngOnInit(): void {
     this.formGp = this.searchState.advancedSearchFormGroup;

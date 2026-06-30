@@ -25,7 +25,7 @@ export interface CaHierarchyObjectInfo {
   style: TdTypeStyle;
 }
 
-export const caHierarchyObjectTypeInfos: Record<CaHierarchyObjectType, CaHierarchyObjectInfo> = {
+export const CA_HIERARCHY_OBJECT_TYPE_INFO: Record<CaHierarchyObjectType, CaHierarchyObjectInfo> = {
   [CaHierarchyObjectType.FOLDER]: {
     label: 'folder',
     style: {
@@ -70,10 +70,10 @@ export const caHierarchyObjectTypeInfos: Record<CaHierarchyObjectType, CaHierarc
     },
   },
   [CaHierarchyObjectType.APPLICATION]: {
-    label: 'resource',
+    label: 'application',
     style: {
       icon_type: 'MATERIAL_ICON',
-      icon_technical_name: 'apps',
+      icon_technical_name: 'app',
     },
   },
 };

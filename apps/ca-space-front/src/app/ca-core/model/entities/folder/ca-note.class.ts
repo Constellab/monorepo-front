@@ -6,7 +6,7 @@ import { DateTime } from 'luxon';
 import { CaBaseEntity } from '../ca-base-entity.class';
 import { CaUser } from '../ca-user.class';
 import { CaFolderObject } from './ca-folder.class';
-import { caHierarchyObjectTypeInfos } from './ca-hierarchy-object.class';
+import { CA_HIERARCHY_OBJECT_TYPE_INFO } from './ca-hierarchy-object.class';
 
 export class CaNote extends CaBaseEntity implements CaFolderObject {
   title: string;
@@ -26,6 +26,6 @@ export class CaNote extends CaBaseEntity implements CaFolderObject {
   lastSyncBy?: CaUser;
 
   get style(): TdTypeStyle {
-    return caHierarchyObjectTypeInfos.NOTE.style;
+    return CA_HIERARCHY_OBJECT_TYPE_INFO.NOTE.style;
   }
 }

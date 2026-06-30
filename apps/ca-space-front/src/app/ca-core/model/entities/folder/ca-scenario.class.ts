@@ -14,11 +14,11 @@ import { CaBaseEntity } from '../ca-base-entity.class';
 import { CaUser } from '../ca-user.class';
 import { CaLab } from '../lab/ca-lab.class';
 import { CaFolderObject } from './ca-folder.class';
-import { caHierarchyObjectTypeInfos } from './ca-hierarchy-object.class';
+import { CA_HIERARCHY_OBJECT_TYPE_INFO } from './ca-hierarchy-object.class';
 
 export type CaScenarioStatus = 'DRAFT' | 'SUCCESS' | 'ERROR' | 'ARCHIVED' | 'PARTIALLY_RUN';
 
-export const caScenarioStatusDict: FlStatusDict<CaScenarioStatus> = {
+const CA_SCENARIO_STATUS_DICT: FlStatusDict<CaScenarioStatus> = {
   DRAFT: FlStatusHelper.getDraftStatus('DRAFT', 'draft'),
   ARCHIVED: FlStatusHelper.getInfoStatus('ARCHIVED', 'archived'),
   SUCCESS: FlStatusHelper.getSuccessStatus('SUCCESS', 'success'),
@@ -35,7 +35,7 @@ export class CaScenario extends CaBaseEntity implements CaFolderObject {
   @Type(() => CaLab)
   lab: CaLab;
 
-  @FlStatusTransform(caScenarioStatusDict)
+  @FlStatusTransform(CA_SCENARIO_STATUS_DICT)
   status: FlStatus<CaScenarioStatus>;
 
   isValidated: boolean;
@@ -53,6 +53,6 @@ export class CaScenario extends CaBaseEntity implements CaFolderObject {
   lastSyncBy?: CaUser;
 
   get style(): TdTypeStyle {
-    return caHierarchyObjectTypeInfos.SCENARIO.style;
+    return CA_HIERARCHY_OBJECT_TYPE_INFO.SCENARIO.style;
   }
 }

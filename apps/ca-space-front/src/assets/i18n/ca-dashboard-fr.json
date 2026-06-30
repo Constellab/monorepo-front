@@ -42,6 +42,7 @@
   "note_associated_scenarios": "Scénarios associés",
   "scenario_associated_notes": "Lab notes associées",
   "resource": "Ressource",
+  "application": "Application",
   "url": "URL",
   "print_note": "Imprimer",
   "note_information": "Info de la note",

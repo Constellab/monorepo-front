@@ -15,8 +15,8 @@ import { CaHierarchyObjectIconComponent } from '../../../../ca-core/entity-modul
 import { CaUserListInlineComponent } from '../../../../ca-core/entity-module/ca-user-core/component/ca-user-list-inline/ca-user-list-inline.component';
 import { CaUser } from '../../../../ca-core/model/entities/ca-user.class';
 import {
+  CA_HIERARCHY_OBJECT_TYPE_INFO,
   CaHierarchyObjectInfo,
-  caHierarchyObjectTypeInfos,
 } from '../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
 import { CaRouterService } from '../../../../ca-core/service/ca-router.service';
 import { CaHierarchyObjectContext } from '../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
@@ -76,7 +76,7 @@ export class CaHierarchyObjectSearchFormComponent implements OnInit, OnDestroy {
   private searchState = inject(FlSearchState);
   formGp: UntypedFormGroup;
 
-  objectTypes = caHierarchyObjectTypeInfos;
+  objectTypes = CA_HIERARCHY_OBJECT_TYPE_INFO;
 
   private subscription: Subscription;
 
