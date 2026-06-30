@@ -2,16 +2,16 @@
 <mat-form-field
   class="g-full"
   subscriptSizing="dynamic"
-  [matTooltip]="cellRendering ? errorMessage : ''"
-  [matTooltipDisabled]="!cellRendering || !formCtrl.invalid">
-  @if (!cellRendering) {
-    <mat-label>{{ placeholder }}</mat-label>
+  [matTooltip]="tooltipError"
+  [matTooltipDisabled]="!cellRendering() || !formCtrl().invalid">
+  @if (!cellRendering()) {
+    <mat-label>{{ placeholder() }}</mat-label>
   }
   <mat-select
-    [placeholder]="cellRendering ? '' : placeholder"
-    [formControl]="formCtrl"
-    [required]="required"
-    [multiple]="multiple">
+    [placeholder]="visibleLabel"
+    [formControl]="formCtrl()"
+    [required]="required()"
+    [multiple]="multiple()">
     @if (selectOptionsGroups() && (selectOptionsGroups() | flObjectKeys).length > 0) {
       @for (selectOptionsGroupKey of selectOptionsGroups() | flObjectKeys; track selectOptionsGroupKey) {
         <mat-optgroup [label]="selectOptionsGroupKey" class="opt-group">
@@ -31,17 +31,17 @@
     }
   </mat-select>
 
-  @if (prefix) {
-    <span matPrefix>{{ prefix }}</span>
+  @if (prefix()) {
+    <span matPrefix>{{ prefix() }}</span>
   }
-  @if (suffix) {
-    <span matSuffix>{{ suffix }}</span>
+  @if (suffix()) {
+    <span matSuffix>{{ suffix() }}</span>
   }
-  @if (hint && !cellRendering) {
-    <mat-hint>{{ hint }}</mat-hint>
+  @if (hint() && !cellRendering()) {
+    <mat-hint>{{ hint() }}</mat-hint>
   }
 
-  @if (!cellRendering && formCtrl.invalid) {
+  @if (!cellRendering() && formCtrl().invalid) {
     <mat-error>{{ errorMessage }}</mat-error>
   }
 </mat-form-field>

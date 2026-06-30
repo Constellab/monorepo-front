@@ -57,7 +57,7 @@ export class LiProcessDynamicFieldConfig extends FlDynamicFieldConfigService {
     const type =
       await import('./component/li-code-editor-dynamic-field/li-code-editor-dynamic-field.component');
     const component = viewContainer.createComponent(type.LiCodeEditorDynamicFieldComponent);
-    component.instance.specType = config.type as TdParamSpecTypeEnum;
+    component.setInput('specType', config.type as TdParamSpecTypeEnum);
     return component;
   }
 
@@ -79,8 +79,8 @@ export class LiProcessDynamicFieldConfig extends FlDynamicFieldConfigService {
       '../li-credentials/component/li-select-credentials-dynamic-field/li-select-credentials-dynamic-field.component'
     );
     const component = viewContainer.createComponent(type.LiSelectCredentialsDynamicFieldComponent);
-    // the additional info is the type of credentials to select (can be null)
-    component.instance.type = config.additionalInfo?.credentialsType ?? null;
+    // the additional info is the type of credentials to select (can be absent)
+    component.setInput('type', config.additionalInfo?.credentialsType ?? undefined);
     return component;
   }
 

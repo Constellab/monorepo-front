@@ -1,19 +1,19 @@
 <mat-form-field class="g-full" subscriptSizing="dynamic">
-  <mat-label>{{ placeholder }}</mat-label>
+  <mat-label>{{ placeholder() }}</mat-label>
 
   <textarea
     matInput
     type="number"
-    [formControl]="formCtrl"
-    [placeholder]="placeholder"
-    [required]="required"
+    [formControl]="formCtrl()"
+    [placeholder]="placeholder()"
+    [required]="required()"
     rows="4">
   </textarea>
-  @if (hint) {
-    <mat-hint>{{ hint }}</mat-hint>
+  @if (hint()) {
+    <mat-hint>{{ hint() }}</mat-hint>
   }
 
-  @if (formCtrl.hasError('required')) {
-    <mat-error>{{ placeholder | flErrorRequired: false }}</mat-error>
+  @if (formCtrl().hasError('required')) {
+    <mat-error>{{ placeholder() | flErrorRequired: false }}</mat-error>
   }
 </mat-form-field>

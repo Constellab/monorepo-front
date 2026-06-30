@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatError, MatHint } from '@angular/material/form-field';
 import { RouterLink } from '@angular/router';
@@ -29,7 +29,7 @@ import { LiSelectCredentialsComponent } from '../li-select-credentials/li-select
   ],
 })
 export class LiSelectCredentialsDynamicFieldComponent extends FlDynamicFieldAbstractDirective {
-  @Input() type?: string;
+  type = input<string>();
 
   credentialsRoute = LiRouterService.getMonitoringCredentialsRoute();
 }

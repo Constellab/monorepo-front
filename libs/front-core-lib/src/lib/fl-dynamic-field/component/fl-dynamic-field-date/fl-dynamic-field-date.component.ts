@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject, Input, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, input, OnInit } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl } from '@angular/forms';
 import { DateTime } from 'luxon';
@@ -10,22 +10,24 @@ import { FlDynamicFieldAbstractDirective } from '../../model/fl-dynamic-field-ab
   templateUrl: './fl-dynamic-field-date.component.html',
   styleUrl: './fl-dynamic-field-date.component.scss',
   standalone: false,
-  host: { '[class.cell-rendering]': 'cellRendering' },
+  host: { '[class.cell-rendering]': 'cellRendering()' },
 })
 export class FlDynamicFieldDateComponent extends FlDynamicFieldAbstractDirective implements OnInit {
   private destroyRef = inject(DestroyRef);
 
-  @Input() includeTime = false;
-  @Input() minValue: DateTime | null = null;
-  @Input() maxValue: DateTime | null = null;
+  includeTime = input<boolean>(false);
+  minValue = input<DateTime | null>(null);
+  maxValue = input<DateTime | null>(null);
 
   dateTimeControl = new FormControl<DateTime | null>(null);
 
   private syncing = false;
 
   ngOnInit(): void {
+    const formCtrl = this.formCtrl();
+
     // Seed the internal DateTime control from the string form control
-    const initial = this.formCtrl.value;
+    const initial = formCtrl.value;
     if (initial) {
       this.dateTimeControl.setValue(DateTime.fromISO(initial), { emitEvent: false });
     }
@@ -34,12 +36,12 @@ export class FlDynamicFieldDateComponent extends FlDynamicFieldAbstractDirective
     this.dateTimeControl.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((dt) => {
       if (this.syncing) return;
       this.syncing = true;
-      this.formCtrl.setValue(dt ? (this.includeTime ? dt.toISO() : dt.toFormat('yyyy-MM-dd')) : null);
+      formCtrl.setValue(dt ? (this.includeTime() ? dt.toISO() : dt.toFormat('yyyy-MM-dd')) : null);
       this.syncing = false;
     });
 
     // string -> DateTime (external form control changed)
-    this.formCtrl.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((value) => {
+    formCtrl.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((value) => {
       if (this.syncing) return;
       this.syncing = true;
       this.dateTimeControl.setValue(value ? DateTime.fromISO(value) : null, { emitEvent: false });

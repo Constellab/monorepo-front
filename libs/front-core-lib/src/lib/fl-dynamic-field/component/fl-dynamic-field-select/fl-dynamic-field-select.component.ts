@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, signal, WritableSignal } from '@angular/core';
+import { Component, input, OnInit, signal, WritableSignal } from '@angular/core';
 
 import { FlDynamicFieldAbstractDirective } from '../../model/fl-dynamic-field-abstract.directive';
 import {
@@ -13,30 +13,31 @@ type FlGroupedSelectOption = Record<string, FlDynamicFieldSelectKeyNameOption[]>
   templateUrl: './fl-dynamic-field-select.component.html',
   styleUrls: ['./fl-dynamic-field-select.component.scss'],
   standalone: false,
-  host: { '[class.cell-rendering]': 'cellRendering' },
+  host: { '[class.cell-rendering]': 'cellRendering()' },
 })
 export class FlDynamicFieldSelectComponent extends FlDynamicFieldAbstractDirective implements OnInit {
-  @Input() selectOptionsInput: FlDynamicFieldSelectOptions;
+  selectOptionsInput = input<FlDynamicFieldSelectOptions>();
 
   selectOptions: WritableSignal<FlDynamicFieldSelectKeyNameOption[]> = signal([]);
 
   selectOptionsGroups: WritableSignal<FlGroupedSelectOption> = signal(null);
 
-  @Input() multiple = false;
+  multiple = input<boolean>(false);
 
-  @Input() prefix: string;
+  prefix = input<string>();
 
-  @Input() suffix: string;
+  suffix = input<string>();
 
   ngOnInit(): void {
-    if (!this.selectOptionsInput?.length) {
+    const selectOptionsInput = this.selectOptionsInput();
+    if (!selectOptionsInput?.length) {
       return;
     }
 
     const groups: FlGroupedSelectOption = {};
     const flat: FlDynamicFieldSelectKeyNameOption[] = [];
 
-    for (const option of this.selectOptionsInput) {
+    for (const option of selectOptionsInput) {
       const normalized =
         typeof option === 'object' && option != null ? option : { key: option, humanName: option };
 

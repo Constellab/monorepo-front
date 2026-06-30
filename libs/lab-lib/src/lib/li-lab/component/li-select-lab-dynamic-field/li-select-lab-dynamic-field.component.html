@@ -1,14 +1,14 @@
 <fl-form-field>
   <li-select-lab
-    [formControl]="formCtrl"
-    [placeholder]="{ text: placeholder, translateText: false }"
-    [required]="required"></li-select-lab>
+    [formControl]="formCtrl()"
+    [placeholder]="{ text: placeholder(), translateText: false }"
+    [required]="required()"></li-select-lab>
 
-  @if (formCtrl.hasError('required')) {
-    <mat-error class="g-mat-error">{{ placeholder | flErrorRequired: false }} </mat-error>
+  @if (formCtrl().hasError('required')) {
+    <mat-error class="g-mat-error">{{ placeholder() | flErrorRequired: false }} </mat-error>
   }
 
-  @if (hint) {
-    <mat-hint class="g-text-small">{{ hint }}</mat-hint>
+  @if (hint()) {
+    <mat-hint class="g-text-small">{{ hint() }}</mat-hint>
   }
 </fl-form-field>

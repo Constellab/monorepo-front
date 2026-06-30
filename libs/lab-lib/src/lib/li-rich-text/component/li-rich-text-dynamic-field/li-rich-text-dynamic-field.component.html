@@ -1,7 +1,7 @@
 <div class="g-max-article-width text-editor">
-  <te-text-editor [formControl]="formCtrl" [placeholder]="placeholder" [config]="config"></te-text-editor>
+  <te-text-editor [formControl]="formCtrl()" [placeholder]="placeholder()" [config]="config"></te-text-editor>
 
-  @if (hint) {
-    <div class="g-text-light g-text-small">{{ hint }}</div>
+  @if (hint()) {
+    <div class="g-text-light g-text-small">{{ hint() }}</div>
   }
 </div>

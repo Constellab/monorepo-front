@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { Component } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatError } from '@angular/material/form-field';
 import { FlDynamicFieldAbstractDirective } from '@monorepo/front-core-lib/fl-dynamic-field';
 import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
@@ -17,6 +17,4 @@ import { LiOpenAiChatComponent } from '../li-open-ai-chat/li-open-ai-chat.compon
   styleUrls: ['./li-open-ai-chat-dynamic-field.component.scss'],
   imports: [FlFormModule, LiOpenAiChatComponent, ReactiveFormsModule, MatError, TranslatePipe],
 })
-export class LiOpenAiChatDynamicFieldComponent extends FlDynamicFieldAbstractDirective {
-  @Input() formCtrl: FormControl<LiOpenAiChat>;
-}
+export class LiOpenAiChatDynamicFieldComponent extends FlDynamicFieldAbstractDirective<LiOpenAiChat> {}

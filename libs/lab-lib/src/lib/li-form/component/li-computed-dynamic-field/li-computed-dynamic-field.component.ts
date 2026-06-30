@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { FlDynamicFieldAbstractDirective } from '@monorepo/front-core-lib/fl-dynamic-field';
@@ -11,10 +11,10 @@ import { TranslatePipe } from '@ngx-translate/core';
   imports: [MatIconModule, MatTooltipModule, TranslatePipe],
 })
 export class LiComputedDynamicFieldComponent extends FlDynamicFieldAbstractDirective {
-  @Input() expression: string;
+  expression = input<string>();
 
   get displayValue(): string {
-    const value = this.formCtrl.value?.value;
+    const value = this.formCtrl().value?.value;
     if (value == null) return '-';
     const num = Number(value);
     if (!isNaN(num) && typeof value !== 'boolean') {

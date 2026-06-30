@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, input, OnInit } from '@angular/core';
 import { MatError } from '@angular/material/form-field';
 import { FlCodeEditorLanguage, FlCodeEditorModule } from '@monorepo/front-core-lib/fl-code-editor';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
@@ -16,7 +16,7 @@ import { TdParamSpecTypeEnum } from '@monorepo/technical-doc';
   imports: [FlCodeEditorModule, FlCorePipeModule, MatError],
 })
 export class LiCodeEditorDynamicFieldComponent extends FlDynamicFieldAbstractDirective implements OnInit {
-  @Input() specType: TdParamSpecTypeEnum;
+  specType = input<TdParamSpecTypeEnum>();
 
   language: FlCodeEditorLanguage;
 
@@ -25,7 +25,7 @@ export class LiCodeEditorDynamicFieldComponent extends FlDynamicFieldAbstractDir
   }
 
   private getCodeEditorLanguage(): FlCodeEditorLanguage {
-    switch (this.specType) {
+    switch (this.specType()) {
       case TdParamSpecTypeEnum.PYTHON_CODE_PARAM:
         return 'python';
       case TdParamSpecTypeEnum.R_CODE_PARAM:
@@ -41,7 +41,7 @@ export class LiCodeEditorDynamicFieldComponent extends FlDynamicFieldAbstractDir
       case TdParamSpecTypeEnum.PERL_CODE_PARAM:
         return 'perl';
       default:
-        throw new Error(`Unknown spec type ${this.specType}`);
+        throw new Error(`Unknown spec type ${this.specType()}`);
     }
   }
 }

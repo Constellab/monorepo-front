@@ -1,43 +1,43 @@
 <mat-form-field
   class="g-full"
   subscriptSizing="dynamic"
-  [matTooltip]="cellRendering ? errorMessage : ''"
-  [matTooltipDisabled]="!cellRendering || !formCtrl.invalid">
-  @if (!cellRendering) {
-    <mat-label>{{ placeholder }}</mat-label>
+  [matTooltip]="tooltipError"
+  [matTooltipDisabled]="!cellRendering() || !formCtrl().invalid">
+  @if (!cellRendering()) {
+    <mat-label>{{ placeholder() }}</mat-label>
   }
 
   <!--    Can't directly bind input type : https://github.com/angular/angular/issues/13243-->
-  @switch (inputType) {
+  @switch (inputType()) {
     @case ('text') {
       <input
         matInput
         type="text"
-        [formControl]="formCtrl"
-        [placeholder]="cellRendering ? '' : placeholder"
-        [required]="required" />
+        [formControl]="formCtrl()"
+        [placeholder]="visibleLabel"
+        [required]="required()" />
     }
     @case ('number') {
       <input
         matInput
         type="number"
-        [formControl]="formCtrl"
-        [placeholder]="cellRendering ? '' : placeholder"
-        [required]="required" />
+        [formControl]="formCtrl()"
+        [placeholder]="visibleLabel"
+        [required]="required()" />
     }
   }
 
-  @if (prefix) {
-    <span matPrefix>{{ prefix }}</span>
+  @if (prefix()) {
+    <span matPrefix>{{ prefix() }}</span>
   }
-  @if (suffix) {
-    <span matSuffix>{{ suffix }}</span>
+  @if (suffix()) {
+    <span matSuffix>{{ suffix() }}</span>
   }
-  @if (hint && !cellRendering) {
-    <mat-hint>{{ hint }}</mat-hint>
+  @if (hint() && !cellRendering()) {
+    <mat-hint>{{ hint() }}</mat-hint>
   }
 
-  @if (!cellRendering && formCtrl.invalid) {
+  @if (!cellRendering() && formCtrl().invalid) {
     <mat-error>{{ errorMessage }}</mat-error>
   }
 </mat-form-field>

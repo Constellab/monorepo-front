@@ -1,6 +1,6 @@
 <fl-form-field>
-  <fl-tag-input [formControl]="formCtrl" mode="record"></fl-tag-input>
-  @if (hint) {
-    <p class="g-text-light g-text-small">{{ hint }}</p>
+  <fl-tag-input [formControl]="formCtrl()" mode="record"></fl-tag-input>
+  @if (hint()) {
+    <p class="g-text-light g-text-small">{{ hint() }}</p>
   }
 </fl-form-field>

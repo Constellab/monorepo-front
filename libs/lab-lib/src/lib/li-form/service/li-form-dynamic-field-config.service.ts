@@ -20,7 +20,7 @@ export class LiFormDynamicFieldConfig extends FlDynamicFieldConfigService {
   ): Promise<ComponentRef<FlDynamicFieldAbstractDirective>> {
     const type = await import('../component/li-computed-dynamic-field/li-computed-dynamic-field.component');
     const component = viewContainer.createComponent(type.LiComputedDynamicFieldComponent);
-    component.instance.expression = config.additionalInfo?.expression ?? '';
+    component.setInput('expression', config.additionalInfo?.expression ?? '');
     return component;
   }
 }

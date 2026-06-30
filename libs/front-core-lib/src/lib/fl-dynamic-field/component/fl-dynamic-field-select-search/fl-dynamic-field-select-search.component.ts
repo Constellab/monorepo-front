@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, input, OnInit } from '@angular/core';
 import { FlBasicDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
 
 import { FlDynamicFieldAbstractDirective } from '../../model/fl-dynamic-field-abstract.directive';
@@ -11,18 +11,18 @@ import { FlDynamicFieldAbstractDirective } from '../../model/fl-dynamic-field-ab
   templateUrl: './fl-dynamic-field-select-search.component.html',
   styleUrl: './fl-dynamic-field-select-search.component.scss',
   standalone: false,
-  host: { '[class.cell-rendering]': 'cellRendering' },
+  host: { '[class.cell-rendering]': 'cellRendering()' },
 })
 export class FlDynamicFieldSelectSearchComponent extends FlDynamicFieldAbstractDirective implements OnInit {
-  @Input() selectOptions: string[];
+  selectOptions = input<string[]>([]);
 
   datasource: FlBasicDatasourcePaginated<string>;
 
   ngOnInit(): void {
-    this.datasource = FlBasicDatasourcePaginated.fromStringArray(this.selectOptions);
+    this.datasource = FlBasicDatasourcePaginated.fromStringArray(this.selectOptions());
   }
 
   selectOption(option: string): void {
-    this.formCtrl.setValue(option);
+    this.formCtrl().setValue(option);
   }
 }

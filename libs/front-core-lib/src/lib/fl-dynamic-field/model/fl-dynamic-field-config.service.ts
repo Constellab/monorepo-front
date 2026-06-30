@@ -110,13 +110,13 @@ export class FlDynamicFieldConfigService {
       }
     }
 
-    // add generic properties
-    viewComponentRef.instance.formCtrl = formCtrl;
-    viewComponentRef.instance.placeholder = config.placeholder;
-    viewComponentRef.instance.hint = config.hint;
-    viewComponentRef.instance.disabled = !!config.disabled;
-    viewComponentRef.instance.required = !!config.required;
-    viewComponentRef.instance.cellRendering = cellRendering;
+    // add generic properties (signal inputs -> must use setInput)
+    viewComponentRef.setInput('formCtrl', formCtrl);
+    viewComponentRef.setInput('placeholder', config.placeholder);
+    viewComponentRef.setInput('hint', config.hint);
+    viewComponentRef.setInput('disabled', !!config.disabled);
+    viewComponentRef.setInput('required', !!config.required);
+    viewComponentRef.setInput('cellRendering', cellRendering);
 
     return viewComponentRef;
   }
@@ -126,16 +126,16 @@ export class FlDynamicFieldConfigService {
     config: FlDynamicFieldConfigInput
   ): ComponentRef<FlDynamicFieldAbstractDirective> {
     const inputComponent = viewContainer.createComponent(FlDynamicFieldInputComponent);
-    inputComponent.instance.prefix = config.prefix;
-    inputComponent.instance.suffix = config.suffix;
-    inputComponent.instance.inputType = config.inputType;
-    inputComponent.instance.min = config.min;
-    inputComponent.instance.max = config.max;
-    inputComponent.instance.integer = config.integer;
-    inputComponent.instance.minLength = config.minLength;
-    inputComponent.instance.maxLength = config.maxLength;
-    inputComponent.instance.regex = config.regex;
-    inputComponent.instance.regexDescription = config.regexDescription;
+    inputComponent.setInput('prefix', config.prefix);
+    inputComponent.setInput('suffix', config.suffix);
+    inputComponent.setInput('inputType', config.inputType);
+    inputComponent.setInput('min', config.min);
+    inputComponent.setInput('max', config.max);
+    inputComponent.setInput('integer', config.integer);
+    inputComponent.setInput('minLength', config.minLength);
+    inputComponent.setInput('maxLength', config.maxLength);
+    inputComponent.setInput('regex', config.regex);
+    inputComponent.setInput('regexDescription', config.regexDescription);
     return inputComponent;
   }
 
@@ -144,10 +144,10 @@ export class FlDynamicFieldConfigService {
     config: FlDynamicFieldConfigSelect
   ): ComponentRef<FlDynamicFieldAbstractDirective> {
     const selectComponent = viewContainer.createComponent(FlDynamicFieldSelectComponent);
-    selectComponent.instance.selectOptionsInput = config.selectOptions as any;
-    selectComponent.instance.multiple = !!config.multiple;
-    selectComponent.instance.prefix = config.prefix;
-    selectComponent.instance.suffix = config.suffix;
+    selectComponent.setInput('selectOptionsInput', config.selectOptions);
+    selectComponent.setInput('multiple', !!config.multiple);
+    selectComponent.setInput('prefix', config.prefix);
+    selectComponent.setInput('suffix', config.suffix);
     return selectComponent;
   }
 
@@ -156,7 +156,7 @@ export class FlDynamicFieldConfigService {
     config: FlDynamicFieldConfigSelectSearch
   ): ComponentRef<FlDynamicFieldAbstractDirective> {
     const selectComponent = viewContainer.createComponent(FlDynamicFieldSelectSearchComponent);
-    selectComponent.instance.selectOptions = config.selectOptions;
+    selectComponent.setInput('selectOptions', config.selectOptions);
     return selectComponent;
   }
 
@@ -165,8 +165,8 @@ export class FlDynamicFieldConfigService {
     config: FlDynamicFieldConfigList
   ): ComponentRef<FlDynamicFieldAbstractDirective> {
     const listComponent = viewContainer.createComponent(FlDynamicFieldListComponent);
-    listComponent.instance.prefix = config.prefix;
-    listComponent.instance.suffix = config.suffix;
+    listComponent.setInput('prefix', config.prefix);
+    listComponent.setInput('suffix', config.suffix);
     return listComponent;
   }
 
@@ -187,9 +187,9 @@ export class FlDynamicFieldConfigService {
     config: FlDynamicFieldConfigDate
   ): ComponentRef<FlDynamicFieldAbstractDirective> {
     const component = viewContainer.createComponent(FlDynamicFieldDateComponent);
-    component.instance.includeTime = !!config.includeTime;
-    component.instance.minValue = config.minValue ? DateTime.fromISO(config.minValue) : null;
-    component.instance.maxValue = config.maxValue ? DateTime.fromISO(config.maxValue) : null;
+    component.setInput('includeTime', !!config.includeTime);
+    component.setInput('minValue', config.minValue ? DateTime.fromISO(config.minValue) : null);
+    component.setInput('maxValue', config.maxValue ? DateTime.fromISO(config.maxValue) : null);
     return component;
   }
 

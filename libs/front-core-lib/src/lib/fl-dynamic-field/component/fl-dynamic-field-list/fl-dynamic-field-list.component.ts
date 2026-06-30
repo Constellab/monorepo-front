@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 import { FlDynamicFieldAbstractDirective } from '../../model/fl-dynamic-field-abstract.directive';
 
@@ -9,7 +9,7 @@ import { FlDynamicFieldAbstractDirective } from '../../model/fl-dynamic-field-ab
   standalone: false,
 })
 export class FlDynamicFieldListComponent extends FlDynamicFieldAbstractDirective {
-  @Input() prefix: string;
+  prefix = input<string>();
 
-  @Input() suffix: string;
+  suffix = input<string>();
 }

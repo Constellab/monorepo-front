@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 import { FlDynamicFieldAbstractDirective } from '../../model/fl-dynamic-field-abstract.directive';
 
@@ -7,31 +7,31 @@ import { FlDynamicFieldAbstractDirective } from '../../model/fl-dynamic-field-ab
   templateUrl: './fl-dynamic-field-input.component.html',
   styleUrls: ['./fl-dynamic-field-input.component.scss'],
   standalone: false,
-  host: { '[class.cell-rendering]': 'cellRendering' },
+  host: { '[class.cell-rendering]': 'cellRendering()' },
 })
 export class FlDynamicFieldInputComponent extends FlDynamicFieldAbstractDirective {
-  @Input() prefix: string;
+  prefix = input<string>();
 
-  @Input() suffix: string;
+  suffix = input<string>();
 
-  @Input() inputType: 'text' | 'number';
+  inputType = input<'text' | 'number'>();
 
-  @Input() min: number;
+  min = input<number>();
 
-  @Input() max: number;
+  max = input<number>();
 
-  @Input() integer: boolean;
+  integer = input<boolean>();
 
-  @Input() minLength: number;
+  minLength = input<number>();
 
-  @Input() maxLength: number;
+  maxLength = input<number>();
 
-  @Input() regex: string;
+  regex = input<string>();
 
-  @Input() regexDescription: string;
+  regexDescription = input<string>();
 
   override get errorMessage(): string {
-    const ctrl = this.formCtrl;
+    const ctrl = this.formCtrl();
     if (!ctrl) {
       return '';
     }
@@ -60,7 +60,7 @@ export class FlDynamicFieldInputComponent extends FlDynamicFieldAbstractDirectiv
     }
     if (ctrl.hasError('pattern')) {
       return (
-        this.regexDescription || this.translateService.translate('flDynamicField.pattern_error_validator')
+        this.regexDescription() || this.translateService.translate('flDynamicField.pattern_error_validator')
       );
     }
     return super.errorMessage;
