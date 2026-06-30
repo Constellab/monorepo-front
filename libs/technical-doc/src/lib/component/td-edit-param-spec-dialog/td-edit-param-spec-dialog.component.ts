@@ -26,6 +26,7 @@ import {
   TdGenerateComputedParamResult,
   TdGenerateFieldResult,
   TdGroupedParamSpecTypes,
+  TdParamSetDefaultRowsMode,
   TdParamSpec,
   TdParamSpecBase,
   TdParamSpecEntry,
@@ -37,6 +38,10 @@ import {
 import { TdParamSpecConfig } from '../../model/td-param-spec-config.class';
 import { TdAbstractDynamicParamSpecState } from '../../service/td-abstract-dynamic-param-spec.state';
 import { TdSubParamSpecState } from '../../service/td-sub-param-spec.state';
+import {
+  TdEditDefaultRowsDialogComponent,
+  TdEditDefaultRowsDialogInput,
+} from '../td-edit-default-rows-dialog/td-edit-default-rows-dialog.component';
 
 export interface TdEditParamSpecDialogInput {
   dynamicParamSpecState: TdAbstractDynamicParamSpecState;
@@ -110,6 +115,20 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
   // Whole-field AI generation is available only when the state supports it
   // (returns null for sub-param states). Probed once on init.
   readonly aiFieldAvailable = signal(false);
+
+  // Default rows behaviour modes, shown in a select with a label + description.
+  readonly defaultRowsModes: { value: TdParamSetDefaultRowsMode; label: string; description: string }[] = [
+    {
+      value: TdParamSetDefaultRowsMode.EDITABLE,
+      label: 'td.default_rows_mode_editable',
+      description: 'td.default_rows_mode_editable_description',
+    },
+    {
+      value: TdParamSetDefaultRowsMode.LOCK_PROVIDED,
+      label: 'td.default_rows_mode_lock_provided',
+      description: 'td.default_rows_mode_lock_provided_description',
+    },
+  ];
 
   formGroup: FormGroup;
   readonly formId = `paramSpecForm_${Math.random().toString(36).slice(2, 8)}`;
@@ -228,6 +247,53 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
       })
       .afterClosed()
       .subscribe();
+  }
+
+  /**
+   * i18n label key of the currently selected default rows mode (used by the
+   * select trigger to show only the mode name, not its description).
+   */
+  selectedDefaultRowsModeLabel(): string {
+    const value = this.formGroup?.get('additional_info.default_rows_mode')?.value;
+    return this.defaultRowsModes.find((mode) => mode.value === value)?.label ?? '';
+  }
+
+  /**
+   * Number of preset default rows currently configured for a param set.
+   */
+  defaultRowsCount(): number {
+    const rows = this.formGroup?.get('additional_info.default_rows')?.value;
+    return Array.isArray(rows) ? rows.length : 0;
+  }
+
+  /**
+   * Opens a dialog to define the param set's preset (default) rows, using the
+   * param set's own sub-specs as the row form. On close, writes the result back
+   * into the default_rows control.
+   */
+  openEditDefaultRowsDialog(): void {
+    if (!this.subParamSpecState) return;
+
+    const control = this.formGroup.get('additional_info.default_rows');
+    const input: TdEditDefaultRowsDialogInput = {
+      title: this.translateService.translate('td.default_rows'),
+      specs: this.subParamSpecState.getCurrentSpecs(),
+      rows: control?.value ?? [],
+    };
+
+    this.dialogService
+      .openMediumDialog(TdEditDefaultRowsDialogComponent, {
+        data: input,
+        viewContainerRef: this.viewContainerRef,
+        autoFocus: false,
+      })
+      .afterClosed()
+      .subscribe((rows) => {
+        if (rows) {
+          control?.setValue(rows);
+          control?.markAsDirty();
+        }
+      });
   }
 
   addSelectOption(): void {
@@ -477,6 +543,11 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
       case TdParamSpecTypeEnum.PARAM_SET:
         group = new FormGroup({
           max_number_of_occurrences: new FormControl(initialValue?.max_number_of_occurrences ?? null),
+          min_number_of_occurrences: new FormControl(initialValue?.min_number_of_occurrences ?? 1),
+          default_rows: new FormControl(initialValue?.default_rows ?? []),
+          default_rows_mode: new FormControl(
+            initialValue?.default_rows_mode ?? TdParamSetDefaultRowsMode.EDITABLE
+          ),
         });
         break;
       case TdParamSpecTypeEnum.CREDENTIALS_PARAM:
@@ -521,10 +592,21 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
     const { key: _key, ...specValue } = this.formGroup.value;
 
     if (specValue.type === TdParamSpecTypeEnum.PARAM_SET && this.subParamSpecState) {
+      const info = specValue.additional_info ?? {};
+      const toNumber = (v: any): number | null =>
+        v === null || v === undefined || v === '' ? null : Number(v);
+      const minOccurrences = toNumber(info.min_number_of_occurrences) ?? 0;
       specValue.additional_info = {
-        ...specValue.additional_info,
+        ...info,
         param_set: this.subParamSpecState.getCurrentSpecs(),
+        max_number_of_occurrences: toNumber(info.max_number_of_occurrences),
+        min_number_of_occurrences: minOccurrences,
+        default_rows: Array.isArray(info.default_rows) ? info.default_rows : [],
+        default_rows_mode: info.default_rows_mode ?? TdParamSetDefaultRowsMode.EDITABLE,
       };
+      // The optional checkbox is hidden for param sets; derive it from the
+      // minimum number of rows (0 rows allowed => optional).
+      specValue.optional = minOccurrences === 0;
     }
 
     if (specValue.type === TdParamSpecTypeEnum.DATE_PARAM && specValue.additional_info) {

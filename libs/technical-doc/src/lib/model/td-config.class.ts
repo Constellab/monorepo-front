@@ -1,3 +1,4 @@
+import { ClHelpService } from '@monorepo/core-lib';
 import {
   FlDynamicEditableFormGroupConfig,
   FlDynamicFormAbstractControl,
@@ -5,6 +6,7 @@ import {
 } from '@monorepo/front-core-lib/fl-dynamic-field';
 
 import {
+  TdParamSetDefaultRowsMode,
   TdParamSpec,
   TdParamSpecs,
   TdParamSpecsValues,
@@ -97,17 +99,19 @@ export class TdConfig implements TdConfigI {
 
   private convertToAbstractConfig(spec: TdParamSpec): FlDynamicFormAbstractControl {
     if (spec.type === TdParamSpecTypeEnum.PARAM_SET) {
+      const info = spec.additional_info;
       const defaultValues = this.getConfigSpecDefaultValue(spec);
+      const lockProvided = info.default_rows_mode === TdParamSetDefaultRowsMode.LOCK_PROVIDED;
       return {
         controlType: 'formArray',
-        formGpConfig: this.convertRecordToFieldConfigs(spec.additional_info.param_set),
+        formGpConfig: this.convertRecordToFieldConfigs(info.param_set),
         placeholder: spec.human_name,
         hint: spec.short_description,
-        minSize: spec.optional ? 0 : 1,
-        maxSize:
-          spec.additional_info.max_number_of_occurrences > 0
-            ? spec.additional_info.max_number_of_occurrences
-            : null,
+        minSize: info.min_number_of_occurrences ?? (spec.optional ? 0 : 1),
+        maxSize: info.max_number_of_occurrences > 0 ? info.max_number_of_occurrences : null,
+        // In LOCK_PROVIDED mode, the preset cells that hold a value are read-only;
+        // empty cells stay editable. Rows can still be added/removed in both modes.
+        lockedRowsKeys: lockProvided ? this.getLockedRowsKeys(info.default_rows) : null,
         newElementDefaultValue: defaultValues != null ? defaultValues[0] : null,
       };
     } else if (spec.type == 'dynamic') {
@@ -148,13 +152,36 @@ export class TdConfig implements TdConfigI {
     const defaultConfig: TdParamSpecsValues = {};
     for (const specName of Object.keys(this.specs)) {
       const spec: TdParamSpec = this.specs[specName];
-      if (spec.type === TdParamSpecTypeEnum.PARAM_SET && spec.optional) {
+      // An optional param set defaults to null only when it has no preset rows.
+      // If default rows are configured, they must appear in the form (with the
+      // editability defined by default_rows_mode).
+      const hasDefaultRows =
+        spec.type === TdParamSpecTypeEnum.PARAM_SET &&
+        Array.isArray(spec.additional_info?.default_rows) &&
+        spec.additional_info.default_rows.length > 0;
+      if (spec.type === TdParamSpecTypeEnum.PARAM_SET && spec.optional && !hasDefaultRows) {
         defaultConfig[specName] = null;
       } else {
         defaultConfig[specName] = this.getConfigSpecDefaultValue(this.specs[specName]);
       }
     }
     return defaultConfig;
+  }
+
+  /**
+   * For a param set with locked default rows, returns the list of cell keys to
+   * lock per row: a cell is locked when the preset (partial) row provides a
+   * non-empty value for it. Empty cells are left editable so the user can fill
+   * the missing values.
+   */
+  private getLockedRowsKeys(defaultRows: TdParamSpecsValues[]): string[][] {
+    if (!Array.isArray(defaultRows)) return [];
+    return defaultRows.map((row) =>
+      Object.keys(row ?? {}).filter((key) => {
+        const value = row[key];
+        return value !== null && value !== undefined && value !== '';
+      })
+    );
   }
 
   /**
@@ -165,14 +192,31 @@ export class TdConfig implements TdConfigI {
    */
   private getConfigSpecDefaultValue(spec: TdParamSpec): any {
     if (spec.type === TdParamSpecTypeEnum.PARAM_SET) {
-      const defaultConfig: any = {};
-      for (const subSpecName of Object.keys(spec.additional_info.param_set)) {
-        const subSpec: TdParamSpec = spec.additional_info.param_set[subSpecName];
-        defaultConfig[subSpecName] = this.getConfigSpecDefaultValue(subSpec);
+      const info = spec.additional_info;
+
+      // Build the per-column default row (recursively).
+      const columnDefaults: any = {};
+      for (const subSpecName of Object.keys(info.param_set)) {
+        const subSpec: TdParamSpec = info.param_set[subSpecName];
+        columnDefaults[subSpecName] = this.getConfigSpecDefaultValue(subSpec);
       }
 
-      // return an array of 1 element with the default value
-      return [defaultConfig];
+      // If preset rows are configured, merge each partial row over the column
+      // defaults (partial values win, missing keys fall back to defaults).
+      if (Array.isArray(info.default_rows) && info.default_rows.length > 0) {
+        return info.default_rows.map((row) => ({
+          ...ClHelpService.deepClone(columnDefaults),
+          ...(row ?? {}),
+        }));
+      }
+
+      // Otherwise start with a single default row, padded to min_number_of_occurrences.
+      const minRows = Math.max(info.min_number_of_occurrences ?? 0, 1);
+      const rows: any[] = [];
+      for (let i = 0; i < minRows; i++) {
+        rows.push(ClHelpService.deepClone(columnDefaults));
+      }
+      return rows;
     } else if (spec.type === 'dynamic') {
       const defaultConfig: any = {};
       for (const subSpecName of Object.keys(spec.additional_info.specs)) {

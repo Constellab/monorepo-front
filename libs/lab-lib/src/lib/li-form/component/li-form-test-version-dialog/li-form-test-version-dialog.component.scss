@@ -14,8 +14,8 @@
   margin-top: 12px;
 
   &.valid {
-    background-color: color-mix(in srgb, var(--success-color) 10%, transparent);
-    color: var(--success-color);
+    background-color: color-mix(in srgb, var(--primary-color) 10%, transparent);
+    color: var(--primary-color);
   }
 
   &.invalid {

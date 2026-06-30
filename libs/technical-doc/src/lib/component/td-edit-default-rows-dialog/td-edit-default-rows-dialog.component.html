@@ -1,0 +1,18 @@
+<fl-dialog-header>
+  {{ data.title }}
+</fl-dialog-header>
+
+<mat-dialog-content>
+  @if (arrayConfig() && formArray) {
+    <fl-dynamic-form-array [control]="formArray" [config]="arrayConfig()" />
+  }
+</mat-dialog-content>
+
+<mat-dialog-actions align="center">
+  <button mat-stroked-button type="button" (click)="cancel()">
+    {{ 'td.cancel' | translate }}
+  </button>
+  <button mat-flat-button class="primary" type="button" (click)="save()">
+    {{ 'td.save' | translate }}
+  </button>
+</mat-dialog-actions>

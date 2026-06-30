@@ -41,6 +41,7 @@ import { TdConfigureParamSpecsTableDialogComponent } from './component/td-config
 import { TdConfigureSpecsFormComponent } from './component/td-configure-specs-form/td-configure-specs-form.component';
 import { TdDocIoComponent } from './component/td-doc-io/td-doc-io.component';
 import { TdDynamicEditableFormGroupComponent } from './component/td-dynamic-editable-form-group/td-dynamic-editable-form-group.component';
+import { TdEditDefaultRowsDialogComponent } from './component/td-edit-default-rows-dialog/td-edit-default-rows-dialog.component';
 import { TdEditParamSpecDialogComponent } from './component/td-edit-param-spec-dialog/td-edit-param-spec-dialog.component';
 import { TdEditableParamSpecsTableComponent } from './component/td-editable-param-specs-table/td-editable-param-specs-table.component';
 import { TdExpressionDisplayComponent } from './component/td-expression-display/td-expression-display.component';
@@ -145,6 +146,7 @@ import { TD_TECHNICAL_DOC_I18N } from './td-technical-doc.i18n';
     TdCleanTypePipe,
     TdEditableParamSpecsTableComponent,
     TdEditParamSpecDialogComponent,
+    TdEditDefaultRowsDialogComponent,
     TdExpressionDisplayComponent,
     TdExpressionInputComponent,
     TdExpressionHelpComponent,

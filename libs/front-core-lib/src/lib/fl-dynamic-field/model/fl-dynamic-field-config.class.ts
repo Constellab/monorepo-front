@@ -43,6 +43,13 @@ export interface FlDynamicFormArrayConfig extends FlDynamicFormConfigBase {
   minSize?: number; // if set the formArray must contain at least minSize number
   maxSize?: number; // if set the formArray can't contain more than maxSize values
   newElementDefaultValue?: any; // value used to initialize a new element in the array
+  /**
+   * Per-row list of control keys to disable (read-only). Index matches the
+   * element index in the array. Cells not listed stay editable so the user can
+   * fill the missing values. Only the first lockedRowsKeys.length rows are
+   * affected; rows added by the user are fully editable.
+   */
+  lockedRowsKeys?: string[][];
 }
 
 /**

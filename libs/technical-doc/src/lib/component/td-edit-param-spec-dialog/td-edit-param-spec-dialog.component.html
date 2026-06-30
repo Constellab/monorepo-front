@@ -209,10 +209,16 @@
         <mat-divider></mat-divider>
         <div class="section" formGroupName="additional_info">
           <h4 class="section-title">{{ 'td.additional_info' | translate }}</h4>
-          <mat-form-field class="full-width">
-            <mat-label>{{ 'td.max_number_of_occurrences' | translate }}</mat-label>
-            <input matInput type="number" formControlName="max_number_of_occurrences" />
-          </mat-form-field>
+          <div class="row">
+            <mat-form-field class="half-width">
+              <mat-label>{{ 'td.min_number_of_occurrences' | translate }}</mat-label>
+              <input matInput type="number" min="0" formControlName="min_number_of_occurrences" />
+            </mat-form-field>
+            <mat-form-field class="half-width">
+              <mat-label>{{ 'td.max_number_of_occurrences' | translate }}</mat-label>
+              <input matInput type="number" formControlName="max_number_of_occurrences" />
+            </mat-form-field>
+          </div>
         </div>
       }
       @case ('credentials_param') {
@@ -289,22 +295,24 @@
       }
     }
 
-    <mat-divider></mat-divider>
+    @if (!isParamSetType()) {
+      <mat-divider></mat-divider>
 
-    <div class="section">
-      <h4 class="section-title">{{ 'td.section_behavior' | translate }}</h4>
+      <div class="section">
+        <h4 class="section-title">{{ 'td.section_behavior' | translate }}</h4>
 
-      <div class="checkbox-row">
-        <mat-checkbox formControlName="optional">
-          {{ 'td.optional' | translate }}
-        </mat-checkbox>
+        <div class="checkbox-row">
+          <mat-checkbox formControlName="optional">
+            {{ 'td.optional' | translate }}
+          </mat-checkbox>
+        </div>
+
+        @if (defaultValueConfig()) {
+          <fl-dynamic-field [config]="defaultValueConfig()" [control]="$any(formGroup.get('default_value'))">
+          </fl-dynamic-field>
+        }
       </div>
-
-      @if (defaultValueConfig()) {
-        <fl-dynamic-field [config]="defaultValueConfig()" [control]="$any(formGroup.get('default_value'))">
-        </fl-dynamic-field>
-      }
-    </div>
+    }
 
     @if (isParamSetType() && subParamSpecState) {
       <mat-divider></mat-divider>
@@ -326,6 +334,46 @@
           (editElementClick)="openEditSubParamDialog($event)"
           (deleteElementClick)="deleteSubParam($event)"
           (reorderClick)="reorderSubParams($event)" />
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <div class="section" formGroupName="additional_info">
+        <div class="section-header">
+          <h4 class="section-title">{{ 'td.default_rows' | translate }}</h4>
+          <button
+            mat-stroked-button
+            type="button"
+            class="g-button-small"
+            [disabled]="subParamSpecState.paramSpecsTable.array.length === 0"
+            (click)="openEditDefaultRowsDialog()">
+            <mat-icon>edit</mat-icon>
+            {{ 'td.edit_default_rows' | translate }}
+          </button>
+        </div>
+        <p class="g-text-small g-text-light">
+          {{ 'td.default_rows_description' | translate }}
+          {{ 'td.default_rows_count' | translate: { value: defaultRowsCount() } }}
+        </p>
+
+        @if (defaultRowsCount() > 0) {
+          <mat-form-field class="full-width default-rows-mode-field">
+            <mat-label>{{ 'td.default_rows_mode' | translate }}</mat-label>
+            <mat-select formControlName="default_rows_mode" panelClass="default-rows-mode-panel">
+              <mat-select-trigger>
+                {{ selectedDefaultRowsModeLabel() | translate }}
+              </mat-select-trigger>
+              @for (mode of defaultRowsModes; track mode.value) {
+                <mat-option [value]="mode.value">
+                  <span class="select-option-label">{{ mode.label | translate }}</span>
+                  <span class="select-option-description g-text-small g-text-light">
+                    {{ mode.description | translate }}
+                  </span>
+                </mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        }
       </div>
     }
   </form>

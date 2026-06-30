@@ -77,6 +77,20 @@ export class FlDynamicFormHelper {
       }
     }
 
+    // When locked rows keys are provided, disable only the listed cells of the
+    // matching preset rows (the ones that already have a value), leaving the
+    // empty cells editable so the user can fill the missing values.
+    // getRawValue() still returns disabled controls, so the pinned values are submitted.
+    if (config.lockedRowsKeys) {
+      config.lockedRowsKeys.forEach((keys, rowIndex) => {
+        const row = formArray.at(rowIndex);
+        if (!row) return;
+        for (const key of keys) {
+          row.get(key)?.disable();
+        }
+      });
+    }
+
     return formArray;
   }
 

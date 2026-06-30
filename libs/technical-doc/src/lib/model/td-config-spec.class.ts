@@ -175,7 +175,35 @@ export interface TdParamSpecParamSet extends TdParamSpecBase {
   additional_info: {
     param_set: TdParamSpecs;
     max_number_of_occurrences: number;
+    min_number_of_occurrences: number;
+    /**
+     * Preset rows used as the initial value of the param set.
+     * Each entry is a partial row keyed by inner-spec key; missing keys
+     * fall back to each inner spec's own default_value.
+     */
+    default_rows: TdParamSpecsValues[];
+    /**
+     * How the default_rows behave for the user. Only meaningful with default_rows.
+     */
+    default_rows_mode: TdParamSetDefaultRowsMode;
   };
+}
+
+/**
+ * How the default_rows of a param set behave for the user.
+ * Mirrors the backend ParamSetDefaultRowsMode enum.
+ */
+export enum TdParamSetDefaultRowsMode {
+  /**
+   * Presets are only a pre-fill: every cell stays editable, no row is pinned.
+   */
+  EDITABLE = 'editable',
+  /**
+   * Each non-null cell explicitly provided in a preset is locked (not editable)
+   * on the row at the same position; cells left out or set to null stay editable
+   * for the user to fill.
+   */
+  LOCK_PROVIDED = 'lock_provided',
 }
 
 /**

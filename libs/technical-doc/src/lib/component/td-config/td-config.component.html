@@ -60,10 +60,29 @@
           <code>{{ 'td.param_set' | translate }}</code>
         </fl-key-value>
       }
+      @if (configSpecs()[configSpec].additional_info?.min_number_of_occurrences) {
+        <fl-key-value class="code1-v2">
+          <fl-key>{{ 'td.min_number_of_occurrences' | translate }}</fl-key>
+          <code>{{ configSpecs()[configSpec].additional_info?.min_number_of_occurrences }}</code>
+        </fl-key-value>
+      }
       @if (naxParamSetOccurrences()[configSpec]) {
         <fl-key-value class="code1-v2">
-          <fl-key>{{ 'td.max_occurrence_number' | translate }}</fl-key>
+          <fl-key>{{ 'td.max_number_of_occurrences' | translate }}</fl-key>
           <code>{{ naxParamSetOccurrences()[configSpec] }}</code>
+        </fl-key-value>
+      }
+      @if (configSpecs()[configSpec].additional_info?.default_rows?.length) {
+        <fl-key-value class="code1-v2">
+          <fl-key>{{ 'td.default_rows' | translate }}</fl-key>
+          <code>{{ configSpecs()[configSpec].additional_info?.default_rows?.length }}</code>
+        </fl-key-value>
+        <fl-key-value class="code1-v2">
+          <fl-key>{{ 'td.default_rows_mode' | translate }}</fl-key>
+          <code>{{
+            'td.default_rows_mode_' +
+              (configSpecs()[configSpec].additional_info?.default_rows_mode ?? 'editable') | translate
+          }}</code>
         </fl-key-value>
       }
       @if (paramSet()[configSpec] | flIsNotEmpty) {
