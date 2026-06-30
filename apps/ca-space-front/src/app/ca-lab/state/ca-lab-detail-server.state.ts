@@ -60,6 +60,15 @@ export class CaLabDetailServerState {
     this.openDialog(input, this.labService.configureServer(this.state.getLabId()));
   }
 
+  restartInstance(): void {
+    const input: FlConfirmDialogInput = {
+      title: 'lab_restart_instance',
+      content: 'lab_restart_instance_confirmation',
+    };
+
+    this.openDialog(input, this.labService.restartInstance(this.state.getLabId()));
+  }
+
   updateLabManager(migrationPlan: LmlLabManagerMigrationPlanDTO): void {
     const input: CaLabManagerUpdateDialogInput = {
       labId: this.state.getLabId(),

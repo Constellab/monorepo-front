@@ -55,6 +55,10 @@ export class CaLabServerComponent {
     this.serverState.configureServer();
   }
 
+  restartInstance(): void {
+    this.serverState.restartInstance();
+  }
+
   updateLabConfigurerRepo(): void {
     this.serverState.updateLabConfigurerRepo();
   }

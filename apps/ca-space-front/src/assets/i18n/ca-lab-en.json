@@ -121,6 +121,8 @@
   "lab_create_server_confirmation": "This will create a server instance and a volume (if they do not exist). The server will be billed. This can take several minutes, once done the server will be available and it will have to be configured.",
   "lab_configure_server": "Configure server",
   "lab_configure_server_confirmation": "The server and the volume already exist, this will configure the server and start the lab manager. This can take several minutes, once finished the data lab can be configured.",
+  "lab_restart_instance": "Restart instance",
+  "lab_restart_instance_confirmation": "Are you sure you want to soft restart the server's cloud instance ? The lab will be temporarily unavailable while the instance reboots.",
   "lab_update_lab_manager": "Update lab manager",
   "lab_update_lab_manager_confirmation": "Are you sure you want to update the lab manager ? This can take several minutes.",
   "lab_update_lab_configurer_repo": "Pull data lab configurer repo",

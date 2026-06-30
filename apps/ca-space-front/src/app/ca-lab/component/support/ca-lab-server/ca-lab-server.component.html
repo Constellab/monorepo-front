@@ -51,6 +51,16 @@
         {{ 'lab_configure_server' | translate }}
       </button>
 
+      @if (isCloud$ | async) {
+        <button
+          mat-stroked-button
+          type="button"
+          class="g-button-small actions-button"
+          (click)="restartInstance()">
+          {{ 'lab_restart_instance' | translate }}
+        </button>
+      }
+
       <button
         mat-stroked-button
         type="button"
