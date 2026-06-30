@@ -320,6 +320,17 @@
               flInputMaxLength="255"
               [placeholder]="'codelab_token' | translate" />
           </mat-form-field>
+          <!--  Lab ip override (on premise only)  -->
+          @if (isOnPremise()) {
+            <mat-form-field>
+              <mat-label>{{ 'lab_ip_override' | translate }}</mat-label>
+              <input
+                matInput
+                formControlName="labIpOverride"
+                flInputMaxLength="255"
+                [placeholder]="'lab_ip_override' | translate" />
+            </mat-form-field>
+          }
         }
 
         @if (isCreateMode()) {
