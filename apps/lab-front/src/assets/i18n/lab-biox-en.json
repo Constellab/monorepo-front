@@ -161,6 +161,9 @@
     "apps": "Apps",
     "update_scenario_from_external_lab": "Update from external lab",
     "update_scenario_from_external_lab_confirm": "The current scenario will be overridden by the remote scenario.",
-    "update_scenario_from_external_lab_success": "Scenario updated from external lab."
+    "update_scenario_from_external_lab_success": "Scenario updated from external lab.",
+    "waiting_for_external_scenario": "Waiting for scenario run in external lab",
+    "external_scenario_finished": "Scenario run in external lab finished.",
+    "external_scenario_error": "Scenario run in external lab ended in error."
   }
 }

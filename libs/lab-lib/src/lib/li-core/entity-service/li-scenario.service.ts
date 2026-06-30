@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { ClHelpService, ClPageI } from '@monorepo/core-lib';
+import { ClHelpService, ClPageI, clRxjsPollUntil } from '@monorepo/core-lib';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import {
   FlDatasourceGetPageData,
@@ -20,6 +20,7 @@ import {
   LiScenarioDatasource,
   LiScenarioSentToLabResponse,
   LiScenarioSimpleForm,
+  LiScenarioWithOutputResource,
 } from '../model/entities/li-scenario.entity';
 import { LiScenarioSearch, LiScenarioSearchFields } from '../model/search/li-scenario-search.class';
 
@@ -33,6 +34,60 @@ export class LiScenarioService {
 
   public getScenario(id: string): Observable<LiScenario> {
     return this.apiService.get(`${this.route}/${id}`, LiScenario);
+  }
+
+  /**
+   * Poll the scenario until it reaches a terminal state (SUCCESS or ERROR).
+   *
+   * Emits the finished scenario on SUCCESS and errors on ERROR, so it can be
+   * used directly as a portal action observable (the action stays loading
+   * while polling). Unsubscribing stops the polling.
+   *
+   * @param id scenario id
+   * @param intervalMs delay between each get (default 15000)
+   */
+  public pollScenarioUntilFinished(id: string, intervalMs: number = 15000): Observable<LiScenario> {
+    return clRxjsPollUntil<LiScenario>({
+      fetch: () => this.getScenario(id),
+      isDone: (scenario) => scenario.isFinished(),
+      isError: (scenario) => scenario.status === 'ERROR',
+      intervalMs,
+    });
+  }
+
+  /**
+   * Get a scenario together with the resource of its single output.
+   *
+   * The `outputResource` is null when the scenario is still running, ended in
+   * error, or does not expose exactly one output resource.
+   *
+   * @param id scenario id
+   */
+  public getScenarioWithOutputResource(id: string): Observable<LiScenarioWithOutputResource> {
+    return this.apiService.get(`${this.route}/${id}/output-resource`, LiScenarioWithOutputResource);
+  }
+
+  /**
+   * Poll the scenario until it finishes, then emit it with its single output
+   * resource.
+   *
+   * Emits on SUCCESS (with the output resource) and errors on ERROR, so it can
+   * be used directly as a portal action observable. Unsubscribing stops the
+   * polling.
+   *
+   * @param id scenario id
+   * @param intervalMs delay between each get (default 15000)
+   */
+  public pollScenarioOutputResource(
+    id: string,
+    intervalMs: number = 15000
+  ): Observable<LiScenarioWithOutputResource> {
+    return clRxjsPollUntil<LiScenarioWithOutputResource>({
+      fetch: () => this.getScenarioWithOutputResource(id),
+      isDone: (result) => result.scenario.isFinished(),
+      isError: (result) => result.scenario.status === 'ERROR',
+      intervalMs,
+    });
   }
 
   public create(scenario: LiScenarioSimpleForm): Observable<LiScenario> {
@@ -194,7 +249,11 @@ export class LiScenarioService {
   }
 
   public importScenarioFromLab(configValues: TdParamSpecsValues): Observable<LiScenario> {
-    return this.apiService.post(`${this.route}/import-from-lab`, configValues, LiScenario);
+    // the route now returns the created import scenario immediately, then runs
+    // asynchronously: poll it until the import scenario finishes
+    return this.apiService
+      .post(`${this.route}/import-from-lab`, configValues, LiScenario)
+      .pipe(switchMap((scenario: LiScenario) => this.pollScenarioUntilFinished(scenario.id)));
   }
 
   public getImportScenarioConfigSpecs(): Observable<TdParamSpecs> {

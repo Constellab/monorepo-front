@@ -2,7 +2,7 @@
   {{ input.title | flTranslatableText | async }}
 </fl-dialog-header>
 
-<mat-dialog-content>
+<mat-dialog-content class="content">
   @if (input.helpText) {
     <p class="help-text">{{ input.helpText | flTranslatableText | async }}</p>
   }

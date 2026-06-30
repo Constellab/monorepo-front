@@ -5,7 +5,7 @@
   @if (!reachedFirstPage) {
     <div class="g-text-centered button">
       <button mat-stroked-button type="button" (click)="loadPreviousPage()" class="g-button-small">
-        {{ 'biox.resource_previous_text_load' | translate }}
+        {{ 'rvResourceView.resource_previous_text_load' | translate }}
         @if (isLoading) {
           <fl-button-loader size="small"></fl-button-loader>
         }
@@ -18,7 +18,7 @@
   @if (!reachedLastPage) {
     <div class="g-text-centered button">
       <button mat-stroked-button type="button" (click)="loadNextPage()" class="g-button-small">
-        {{ 'biox.resource_next_text_load' | translate }}
+        {{ 'rvResourceView.resource_next_text_load' | translate }}
         @if (isLoading) {
           <fl-button-loader size="small"></fl-button-loader>
         }

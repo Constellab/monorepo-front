@@ -9,6 +9,7 @@ import { LiEntity } from '../global/li-entity.entity';
 import { LiFolder, LiFolderObject } from './li-folder.class';
 import { LiBaseEntityWithUser, LiUser } from './li-user.entity';
 import { LiRunningProcessInfo } from './process/li-process.entity';
+import { LiResource } from './resource/li-resource.entity';
 
 export type LiScenarioStatus =
   | 'DRAFT'
@@ -210,6 +211,21 @@ export class LiRunningScenarioInfo extends LiEntity {
     id: string;
     title: string;
   };
+}
+
+/**
+ * Response holding a scenario and the resource of its single output.
+ *
+ * `outputResource` is null when the scenario is still running, ended in error,
+ * or does not expose exactly one output resource.
+ */
+export class LiScenarioWithOutputResource {
+  @Type(() => LiScenario)
+  scenario: LiScenario;
+
+  @Expose({ name: 'output_resource' })
+  @Type(() => LiResource)
+  outputResource: LiResource | null;
 }
 
 export class LiScenarioSentToLabResponse {

@@ -5,7 +5,11 @@ import {
   FlDialogService,
 } from '@monorepo/front-core-lib/fl-dialog';
 import { FlMenuDynamic, FlMenuDynamicInput } from '@monorepo/front-core-lib/fl-menu-dynamic';
-import { FlPortalActionResult, FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
+import {
+  FlPortalAction,
+  FlPortalActionResult,
+  FlPortalActionsService,
+} from '@monorepo/front-core-lib/fl-portal-actions';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import {
@@ -435,5 +439,40 @@ export class LabScenarioDetailActionMenu extends LiScenarioActionMenu {
     // Not ideal, but wait 5 seconds for the current scenario to be update before refreshing it
     // because it then can have a running status (if run in external lab)
     this.scenarioState.updateScenario(result.exportedScenario);
+
+    // poll the exported scenario until the external lab run finishes, displaying
+    // progress in the portal action and refreshing the local scenario on each update
+    this.pollExportedScenario(result.exportedScenario.id);
+  }
+
+  /**
+   * Register a portal action that polls the exported scenario until the
+   * external lab run reaches a terminal state. The action stays loading while
+   * running, shows as error if the run fails, and refreshes the local scenario
+   * with the final state.
+   */
+  private pollExportedScenario(scenarioId: string): void {
+    const action: FlPortalAction<LiScenario> = {
+      type: 'wait-external-scenario',
+      text: 'biox.waiting_for_external_scenario',
+      action: this.injector
+        .get(LiScenarioService)
+        .pollScenarioUntilFinished(scenarioId)
+        .pipe(tap((scenario) => this.scenarioState.updateScenario(scenario, true))),
+      successMessage: () => 'biox.external_scenario_finished',
+    };
+
+    this.injector
+      .get(FlPortalActionsService)
+      .addAction(action)
+      ?.subscribe((result: FlPortalActionResult<LiScenario>) => this.onExternalScenarioPolled(result));
+  }
+
+  private onExternalScenarioPolled(result: FlPortalActionResult<LiScenario>): void {
+    // on error the poll observable threw, but the local scenario still needs to
+    // reflect the final (errored) state, so refresh it from the server
+    if (result.status === 'error') {
+      this.scenarioState.refreshScenario();
+    }
   }
 }

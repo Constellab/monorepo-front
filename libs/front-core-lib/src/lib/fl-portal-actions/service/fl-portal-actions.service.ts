@@ -84,7 +84,7 @@ export class FlPortalActionsService {
 
     // set portal on bottom right
     const portalConfig: FlPortalConfig = this.portalService.configureAbsolutePortal(
-      { right: '75px', bottom: '10px' },
+      { right: '80px', bottom: '10px' },
       { panelClass: 'g-print-hide' }
     );
 

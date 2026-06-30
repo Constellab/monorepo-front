@@ -8,3 +8,4 @@ export * from './operator/cl-rxjs-elastic-search';
 export * from './operator/cl-rxjs-filter-non-null';
 export * from './operator/cl-rxjs-optional-debounce';
 export * from './operator/cl-rxjs-filter-string-length';
+export * from './operator/cl-rxjs-poll-until';

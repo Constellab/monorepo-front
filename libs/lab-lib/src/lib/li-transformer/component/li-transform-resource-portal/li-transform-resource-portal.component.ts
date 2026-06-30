@@ -77,7 +77,7 @@ export class LiTransformResourcePortalComponent {
     const transformers: LiTransformerParams[] = labConvertTransformFormToParams(formValue);
     this.isLoading = true;
     this.resourceService.transformResource(transformers, this.input.resourceId).subscribe({
-      next: (scenario) => this.onTransformSuccess(scenario),
+      next: (resource) => this.onTransformSuccess(resource),
       error: () => (this.isLoading = false),
     });
   }

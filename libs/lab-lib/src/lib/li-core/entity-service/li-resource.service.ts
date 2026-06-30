@@ -6,10 +6,11 @@ import { FlSearchConverter, FlSearchFunction } from '@monorepo/front-core-lib/fl
 import { TdParamSpecs, TdParamSpecsValues } from '@monorepo/technical-doc';
 import { DateTime } from 'luxon';
 import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 
 import { LiFolder } from '../model/entities/li-folder.class';
 import { LiNavigableEntityImpact } from '../model/entities/li-navigable-entity.entity';
+import { LiScenario, LiScenarioWithOutputResource } from '../model/entities/li-scenario.entity';
 import { LiShareLink } from '../model/entities/li-share.entity';
 import { LiProcessType } from '../model/entities/li-type/li-process-type.entity';
 import { LiResource } from '../model/entities/resource/li-resource.entity';
@@ -20,16 +21,21 @@ import {
 } from '../model/entities/resource/li-resource-view.entity';
 import { LiTransformerParams } from '../model/global/li-transformer.class';
 import { LiResourceSearch, LiResourceSearchFields } from '../model/search/li-resource-search.class';
+import { LiScenarioService } from './li-scenario.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LiResourceService {
   private apiService = inject(FlApiService);
+  private scenarioService = inject(LiScenarioService);
 
   public static readonly defaultViewName: string = 'default-view';
   private readonly route: string = 'resource';
   private readonly resourceTypeRoute: string = 'resource-type';
+
+  // transformers, importers and exporters are usually quick, poll with a shorter interval
+  private static readonly fastPollIntervalMs: number = 3000;
 
   //////////////////////////////////////// RESOURCE ///////////////////////////////////////
 
@@ -214,7 +220,10 @@ export class LiResourceService {
    * @param resourceId
    */
   public transformResource(transformers: LiTransformerParams[], resourceId: string): Observable<LiResource> {
-    return this.apiService.post(`${this.route}/${resourceId}/transform`, transformers, LiResource);
+    return this.pollResourceFromScenario(
+      this.apiService.post(`${this.route}/${resourceId}/transform`, transformers, LiScenario),
+      LiResourceService.fastPollIntervalMs
+    );
   }
 
   //////////////////////////////////////// IMPORTER  ///////////////////////////////////////
@@ -224,7 +233,10 @@ export class LiResourceService {
     importerType: string,
     config: TdParamSpecsValues
   ): Observable<LiResource> {
-    return this.apiService.post(`${this.route}/${resourceId}/import/${importerType}`, config, LiResource);
+    return this.pollResourceFromScenario(
+      this.apiService.post(`${this.route}/${resourceId}/import/${importerType}`, config, LiScenario),
+      LiResourceService.fastPollIntervalMs
+    );
   }
 
   //////////////////////////////////////// EXPORTER  ///////////////////////////////////////
@@ -238,23 +250,45 @@ export class LiResourceService {
     exporterTypingName: string,
     config: TdParamSpecsValues
   ): Observable<LiResource> {
-    return this.apiService.post(
-      `${this.route}/${resourceId}/export/${exporterTypingName}`,
-      config,
-      LiResource
+    return this.pollResourceFromScenario(
+      this.apiService.post(`${this.route}/${resourceId}/export/${exporterTypingName}`, config, LiScenario),
+      LiResourceService.fastPollIntervalMs
     );
   }
 
   //////////////////////////////////////// DOWNLOAD CONTENT ///////////////////////////////////////
 
   public downloadContent(id: string): Observable<LiResource> {
-    return this.apiService.post(`${this.route}/${id}/download-content`, null, LiResource);
+    return this.pollResourceFromScenario(
+      this.apiService.post(`${this.route}/${id}/download-content`, null, LiScenario)
+    );
+  }
+
+  /**
+   * Handle an async resource operation: the request returns the created
+   * scenario immediately, then runs asynchronously. Poll it until it finishes
+   * and emit its single output resource. Errors if the scenario ends in error.
+   * @param scenario$ the request emitting the created scenario
+   * @param intervalMs delay between each poll (defaults to the scenario service default)
+   */
+  private pollResourceFromScenario(
+    scenario$: Observable<LiScenario>,
+    intervalMs?: number
+  ): Observable<LiResource> {
+    return scenario$.pipe(
+      switchMap((scenario: LiScenario) =>
+        this.scenarioService.pollScenarioOutputResource(scenario.id, intervalMs)
+      ),
+      map((result: LiScenarioWithOutputResource) => result.outputResource)
+    );
   }
 
   //////////////////////////////////////// SHARED RESOURCE ///////////////////////////////////////
 
   public importResourceFromLink(configValues: TdParamSpecsValues): Observable<LiResource> {
-    return this.apiService.post(`${this.route}/import-from-link`, configValues, LiResource);
+    return this.pollResourceFromScenario(
+      this.apiService.post(`${this.route}/import-from-link`, configValues, LiScenario)
+    );
   }
 
   public getImportResourceConfigSpecs(): Observable<TdParamSpecs> {
@@ -262,7 +296,9 @@ export class LiResourceService {
   }
 
   public exportResourceToLab(id: string, configValues: TdParamSpecsValues): Observable<LiResource> {
-    return this.apiService.post(`${this.route}/${id}/export-to-lab`, configValues, LiResource);
+    return this.pollResourceFromScenario(
+      this.apiService.post(`${this.route}/${id}/export-to-lab`, configValues, LiScenario)
+    );
   }
 
   public getExportToLabConfigSpecs(): Observable<TdParamSpecs> {

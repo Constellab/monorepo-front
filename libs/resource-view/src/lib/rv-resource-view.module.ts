@@ -38,7 +38,7 @@ import { RvViewNetworkComponent } from './component/rv-view-network/rv-view-netw
 import { RvViewPlotlyComponent } from './component/rv-view-plotly/rv-view-plotly.component';
 import { RvViewSpreadsheetComponent } from './component/rv-view-spreadsheet/rv-view-spreadsheet.component';
 import { RvViewTextComponent } from './component/rv-view-text/rv-view-text.component';
-import { rvResourceViewI18n } from './rv-resource-view.i18n';
+import { RV_RESOURCE_VIEW_I18N } from './rv-resource-view.i18n';
 
 /**
  * When imported a RV_MODULE_CONFIG must be provided, which is an instance of RvResourceViewModuleConfig.
@@ -114,6 +114,6 @@ export class RvResourceViewModule {
   constructor() {
     const translateService = inject(FlTranslateService);
 
-    translateService.addModuleTranslation('RvResourceViewModule', rvResourceViewI18n);
+    translateService.addModuleTranslation('RvResourceViewModule', RV_RESOURCE_VIEW_I18N);
   }
 }

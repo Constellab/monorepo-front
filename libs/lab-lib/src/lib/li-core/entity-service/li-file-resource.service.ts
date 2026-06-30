@@ -1,20 +1,27 @@
 import { HttpEvent } from '@angular/common/http';
-import { inject,Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { FlFileHelper } from '@monorepo/front-core-lib/fl-translate';
 import { Observable, tap } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 
+import { LiScenario, LiScenarioWithOutputResource } from '../model/entities/li-scenario.entity';
 import { LiTypeEntity } from '../model/entities/li-type/li-type.entity';
 import { LiResource } from '../model/entities/resource/li-resource.entity';
 import { LiResourceView } from '../model/entities/resource/li-resource-view.entity';
+import { LiScenarioService } from './li-scenario.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LiFileResourceService {
   private apiService = inject(FlApiService);
+  private scenarioService = inject(LiScenarioService);
 
   public static readonly uploadFileActon = 'uploadFile';
+
+  // extraction is usually quick, poll with a shorter interval
+  private static readonly fastPollIntervalMs: number = 3000;
 
   private readonly route: string = 'fs-node';
 
@@ -57,14 +64,26 @@ export class LiFileResourceService {
   //////////////////////////// FOLDER ROUTES ///////////////////////////////////////
 
   public extractNode(id: string, subPath: string, typingName: string): Observable<LiResource> {
-    return this.apiService.put(
-      `${this.route}/${id}/folder/extract-node`,
-      {
-        path: subPath,
-        fs_node_typing_name: typingName,
-      },
-      LiResource
-    );
+    // the route returns the created scenario immediately, then runs
+    // asynchronously: poll it until it produces its output resource
+    return this.apiService
+      .put(
+        `${this.route}/${id}/folder/extract-node`,
+        {
+          path: subPath,
+          fs_node_typing_name: typingName,
+        },
+        LiScenario
+      )
+      .pipe(
+        switchMap((scenario: LiScenario) =>
+          this.scenarioService.pollScenarioOutputResource(
+            scenario.id,
+            LiFileResourceService.fastPollIntervalMs
+          )
+        ),
+        map((result: LiScenarioWithOutputResource) => result.outputResource)
+      );
   }
 
   public callFolderSubFileView(id: string, subFilePath: string): Observable<LiResourceView> {

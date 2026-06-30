@@ -161,6 +161,9 @@
     "apps": "Apps",
     "update_scenario_from_external_lab": "Mettre à jour depuis le lab externe",
     "update_scenario_from_external_lab_confirm": "Le scénario actuel sera remplacé par le scénario distant.",
-    "update_scenario_from_external_lab_success": "Scénario mis à jour depuis le lab externe."
+    "update_scenario_from_external_lab_success": "Scénario mis à jour depuis le lab externe.",
+    "waiting_for_external_scenario": "En attente de l'exécution du scénario dans le lab externe",
+    "external_scenario_finished": "L'exécution du scénario dans le lab externe est terminée.",
+    "external_scenario_error": "L'exécution du scénario dans le lab externe s'est terminée en erreur."
   }
 }
