@@ -10,8 +10,8 @@
   }
 
   <form (ngSubmit)="submit()" id="file-type-form" [formGroup]="formGp">
-    <!--     When uploading a folder, we show 2 options  -->
-    @if (selectedNodes === 'filesOrFolder') {
+    <!--     When uploading a folder, we show 2 options, unless there are too many files  -->
+    @if (selectedNodes === 'filesOrFolder' && !folderModeOnly) {
       <div class="folder-mode">
         <mat-radio-group formControlName="nodeMode" (change)="onNodeModeChange($event.value)">
           <mat-radio-button value="folder" class="radio-button">{{
@@ -21,6 +21,13 @@
             'li.folder_upload_files_options' | translate
           }}</mat-radio-button>
         </mat-radio-group>
+      </div>
+    }
+
+    <!--     Too many files for the per-file type selection: only folder upload is offered  -->
+    @if (folderModeOnly) {
+      <div class="help-text g-text-light">
+        {{ 'li.folder_upload_too_many_files_for_files_mode' | translate: { maxFiles: maxFilesForFilesMode } }}
       </div>
     }
 

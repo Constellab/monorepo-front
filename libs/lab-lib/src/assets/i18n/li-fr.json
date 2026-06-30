@@ -186,6 +186,7 @@
     "process_run_by": "Exécuté par",
     "folder_upload_folder_options": "Uploader le dossier en tant que ressource. Cela va créer 1 ressource dossier avec la même architecture que le dossier sélectionné.",
     "folder_upload_files_options": "Uploader indépendamment tous les fichiers du dossier. Cela va générer 1 ressource fichier par fichier du dossier.",
+    "folder_upload_too_many_files_for_files_mode": "Ce dossier contient plus de {{maxFiles}} fichiers, il ne peut donc être uploadé qu'en tant qu'unique ressource dossier conservant la même structure.",
     "upload_file": "Uploader des fichiers",
     "select_file_types": "Sélectionner le type des fichiers",
     "upload_folder": "Uploader un dossier",

@@ -1,4 +1,4 @@
-import { Component, inject,OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import {
   FormArray,
   FormBuilder,
@@ -44,14 +44,16 @@ interface LabFsNodeWithType {
 }
 
 // object used in the form
-export type LiFsNodeTypesSelectionDialogResult = LiFsNodeTypesFileDialogResult | UploadFsNodeTypeFolderResult;
+export type LiFsNodeTypesSelectionDialogResult =
+  | LiFsNodeTypesFileDialogResult
+  | LiUploadFsNodeTypeFolderResult;
 
 export interface LiFsNodeTypesFileDialogResult {
   uploadMode: 'files';
   fileTypingNames: string[];
 }
 
-export interface UploadFsNodeTypeFolderResult {
+export interface LiUploadFsNodeTypeFolderResult {
   uploadMode: 'folder';
   folderTypingName: string;
 }
@@ -89,7 +91,14 @@ export class LiFsNodeTypesSelectionDialogComponent implements OnInit {
   private fileResourceService = inject(LiFileResourceService);
   private dialogRef = inject<MatDialogRef<LiFsNodeTypesSelectionDialogComponent>>(MatDialogRef);
 
+  // above this number of files, the per-file type selection ('files' mode) is impractical,
+  // so we only offer the folder upload mode.
+  private static readonly maxFilesForFilesMode: number = 10;
+
   selectedNodes: LiFsNodeTypesSelectionDialogMode;
+
+  // when true, only the folder upload mode is available (too many files for per-file typing)
+  folderModeOnly: boolean = false;
 
   formArray: UntypedFormArray;
   formGp: UntypedFormGroup;
@@ -105,6 +114,11 @@ export class LiFsNodeTypesSelectionDialogComponent implements OnInit {
     const input = this.input;
 
     this.selectedNodes = input.dialogMode;
+
+    // if the folder has too many files, force the folder upload mode and hide the per-file choice
+    this.folderModeOnly =
+      input.dialogMode === 'filesOrFolder' &&
+      input.filenames.length > LiFsNodeTypesSelectionDialogComponent.maxFilesForFilesMode;
   }
 
   ngOnInit(): void {
@@ -197,6 +211,10 @@ export class LiFsNodeTypesSelectionDialogComponent implements OnInit {
 
   get typePlaceholder(): string {
     return this.formGp.value.nodeMode === 'files' ? 'li.select_file_type' : 'li.select_folder_type';
+  }
+
+  get maxFilesForFilesMode(): number {
+    return LiFsNodeTypesSelectionDialogComponent.maxFilesForFilesMode;
   }
 
   private getFileDefaultTyping(filename: string, typeEntities: LiTypeEntity[]): string {

@@ -186,6 +186,7 @@
     "process_run_by": "Run by",
     "folder_upload_folder_options": "Upload folder as a resource. This will create only 1 folder resource with the same structure as the folder selected",
     "folder_upload_files_options": "Upload independently all the files of the folder. This will generated 1 file resource for each file of the folder",
+    "folder_upload_too_many_files_for_files_mode": "This folder contains more than {{maxFiles}} files, so it can only be uploaded as a single folder resource keeping the same structure.",
     "upload_file": "Upload files",
     "select_file_types": "Select file types",
     "upload_folder": "Upload folder",
