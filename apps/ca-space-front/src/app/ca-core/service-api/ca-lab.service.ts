@@ -533,6 +533,10 @@ export class CaLabService {
     return this.apiService.post(`${this.route}/${id}/server/configure`, null, CaLabStatusDTO);
   }
 
+  public restartInstance(id: string): Observable<CaLab> {
+    return this.apiService.put(`${this.route}/${id}/restart`, null, CaLab);
+  }
+
   public deleteServer(id: string): Observable<void> {
     return this.apiService.delete(`${this.route}/${id}/server`);
   }
