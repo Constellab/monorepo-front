@@ -55,7 +55,7 @@ export interface TdEditParamSpecDialogInput {
   standalone: false,
 })
 export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
-  private static readonly KEY_MAX_LENGTH = 20;
+  private static readonly KEY_MAX_LENGTH = 40;
 
   private dialogRef = inject<MatDialogRef<TdEditParamSpecDialogComponent>>(MatDialogRef);
   private dialogService = inject(FlDialogService);
