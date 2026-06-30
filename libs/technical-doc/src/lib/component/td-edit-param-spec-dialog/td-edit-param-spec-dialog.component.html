@@ -34,12 +34,18 @@
         <mat-autocomplete
           #typeAuto="matAutocomplete"
           autoActiveFirstOption
+          class="type-autocomplete-panel"
           [displayWith]="typeDisplayFn"
           (optionSelected)="onTypeSelected($event.option.value)">
           @for (group of filteredGroupedTypes(); track group.category) {
             <mat-optgroup [label]="'td.param_category.' + group.category | translate">
               @for (type of group.types; track type) {
-                <mat-option [value]="type">{{ 'td.param_type.' + type | translate }}</mat-option>
+                <mat-option [value]="type" class="g-mat-option-fit-height">
+                  <span class="select-option-label">{{ 'td.param_type.' + type | translate }}</span>
+                  <span class="select-option-description g-text-small g-text-light">
+                    {{ 'td.param_type_description.' + type | translate }}
+                  </span>
+                </mat-option>
               }
             </mat-optgroup>
           }
@@ -52,34 +58,8 @@
         @if (formGroup.get('human_name').hasError('required')) {
           <mat-error>{{ 'td.label' | flErrorRequired }}</mat-error>
         }
-        @if (!keyEditing()) {
-          <mat-hint>
-            {{ 'td.key' | translate }}: {{ formGroup.get('key').value }}
-            <button type="button" class="key-edit-link" (click)="enableKeyEditing()">
-              {{ 'td.edit' | translate }}
-            </button>
-          </mat-hint>
-        }
+        <mat-hint> {{ 'td.key' | translate }}: {{ formGroup.get('key').value }} </mat-hint>
       </mat-form-field>
-
-      @if (keyEditing()) {
-        <mat-form-field class="full-width g-form-input">
-          <mat-label>{{ 'td.key' | translate }}</mat-label>
-          <input matInput formControlName="key" />
-          <button matSuffix mat-icon-button type="button" (click)="cancelKeyEditing()">
-            <mat-icon>close</mat-icon>
-          </button>
-          @if (formGroup.get('key').hasError('required')) {
-            <mat-error>{{ 'td.key' | flErrorRequired }}</mat-error>
-          }
-          @if (formGroup.get('key').hasError('pattern')) {
-            <mat-error>{{ 'td.key_invalid_identifier' | translate }}</mat-error>
-          }
-          @if (formGroup.get('key').hasError('maxlength')) {
-            <mat-error>{{ 'td.key_max_length' | translate }}</mat-error>
-          }
-        </mat-form-field>
-      }
 
       <mat-form-field class="full-width">
         <mat-label>{{ 'td.short_description' | translate }}</mat-label>
@@ -95,11 +75,17 @@
           <div class="row">
             <mat-form-field class="half-width">
               <mat-label>{{ 'td.min_length' | translate }}</mat-label>
-              <input matInput type="number" formControlName="min_length" />
+              <input matInput type="number" min="0" formControlName="min_length" />
+              @if (formGroup.get('additional_info.min_length').hasError('min')) {
+                <mat-error>{{ 'td.value_must_be_positive' | translate }}</mat-error>
+              }
             </mat-form-field>
             <mat-form-field class="half-width">
               <mat-label>{{ 'td.max_length' | translate }}</mat-label>
-              <input matInput type="number" formControlName="max_length" />
+              <input matInput type="number" min="0" formControlName="max_length" />
+              @if (formGroup.get('additional_info.max_length').hasError('min')) {
+                <mat-error>{{ 'td.value_must_be_positive' | translate }}</mat-error>
+              }
             </mat-form-field>
           </div>
           <div class="row regex-row">
@@ -215,10 +201,16 @@
             <mat-form-field class="half-width">
               <mat-label>{{ 'td.min_number_of_occurrences' | translate }}</mat-label>
               <input matInput type="number" min="0" formControlName="min_number_of_occurrences" />
+              @if (formGroup.get('additional_info.min_number_of_occurrences').hasError('min')) {
+                <mat-error>{{ 'td.value_must_be_positive' | translate }}</mat-error>
+              }
             </mat-form-field>
             <mat-form-field class="half-width">
               <mat-label>{{ 'td.max_number_of_occurrences' | translate }}</mat-label>
-              <input matInput type="number" formControlName="max_number_of_occurrences" />
+              <input matInput type="number" min="1" formControlName="max_number_of_occurrences" />
+              @if (formGroup.get('additional_info.max_number_of_occurrences').hasError('min')) {
+                <mat-error>{{ 'td.value_must_be_at_least_one' | translate }}</mat-error>
+              }
             </mat-form-field>
           </div>
         </div>
@@ -385,12 +377,7 @@
   <button mat-stroked-button type="button" (click)="cancel()">
     {{ 'td.cancel' | translate }}
   </button>
-  <button
-    mat-flat-button
-    class="primary"
-    type="submit"
-    [attr.form]="formId"
-    [disabled]="formGroup?.invalid || isButtonLoading()">
+  <button mat-flat-button class="primary" type="submit" [attr.form]="formId">
     @if (data.saveButtonText) {
       {{ data.saveButtonText | flTranslatableText | async }}
     } @else {

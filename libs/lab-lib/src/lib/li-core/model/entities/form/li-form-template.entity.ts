@@ -24,3 +24,8 @@ export interface LiUpdateFormTemplateDTO {
   name?: string;
   description?: string | null;
 }
+
+export interface LiDuplicateFormTemplateDTO {
+  name?: string;
+  description?: string | null;
+}

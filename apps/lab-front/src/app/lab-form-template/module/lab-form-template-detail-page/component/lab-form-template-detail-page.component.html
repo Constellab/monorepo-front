@@ -70,6 +70,10 @@
                     <mat-icon>play_arrow</mat-icon>
                     <span>{{ 'li.form_test_version' | translate }}</span>
                   </button>
+                  <button mat-menu-item (click)="duplicateFromVersion()">
+                    <mat-icon>file_copy</mat-icon>
+                    <span>{{ 'li.form_duplicate_from_version' | translate }}</span>
+                  </button>
                   <button mat-menu-item (click)="deleteVersion()" class="warn">
                     <mat-icon>delete</mat-icon>
                     <span>{{ 'li.form_delete_version' | translate }}</span>
@@ -92,8 +96,12 @@
                     </button>
                   }
                   <button mat-menu-item (click)="createDraftFromVersion()">
-                    <mat-icon>content_copy</mat-icon>
+                    <mat-icon>call_split</mat-icon>
                     <span>{{ 'li.form_create_draft_from_version' | translate }}</span>
+                  </button>
+                  <button mat-menu-item (click)="duplicateFromVersion()">
+                    <mat-icon>file_copy</mat-icon>
+                    <span>{{ 'li.form_duplicate_from_version' | translate }}</span>
                   </button>
 
                   @if (selectedVersion().status === 'PUBLISHED') {

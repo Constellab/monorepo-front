@@ -48,14 +48,6 @@
   line-height: 1.3;
 }
 
-// The mode options span two lines (label + description), so let the option grow.
-::ng-deep .default-rows-mode-panel .mat-mdc-option {
-  height: auto;
-  min-height: 48px;
-  padding-top: 8px;
-  padding-bottom: 8px;
-}
-
 .half-width {
   flex: 1;
 }

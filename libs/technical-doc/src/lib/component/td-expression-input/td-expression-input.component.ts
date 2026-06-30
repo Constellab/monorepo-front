@@ -227,7 +227,9 @@ export class TdExpressionInputComponent extends FlFormFieldDirective<string> imp
     this.markAsTouched();
   }
 
-  selectFieldSuggestion(entry: TdParamSpecEntry): void {
+  selectFieldSuggestion(entry: TdParamSpecEntry, event?: MouseEvent): void {
+    // Prevent the mousedown from stealing focus from the editable div
+    event?.preventDefault();
     const text = this._value;
 
     if (this.triggerCaretOffset == null) {
@@ -273,7 +275,9 @@ export class TdExpressionInputComponent extends FlFormFieldDirective<string> imp
     this.editableDiv.nativeElement.focus();
   }
 
-  selectOuterFieldSuggestion(entry: TdParamSpecEntry): void {
+  selectOuterFieldSuggestion(entry: TdParamSpecEntry, event?: MouseEvent): void {
+    // Prevent the mousedown from stealing focus from the editable div
+    event?.preventDefault();
     const text = this._value;
     if (this.triggerCaretOffset == null) {
       this.closeSuggestions();
@@ -299,7 +303,9 @@ export class TdExpressionInputComponent extends FlFormFieldDirective<string> imp
     this.editableDiv.nativeElement.focus();
   }
 
-  selectFunctionSuggestion(fn: TdExpressionFunction): void {
+  selectFunctionSuggestion(fn: TdExpressionFunction, event?: MouseEvent): void {
+    // Prevent the mousedown from stealing focus from the editable div
+    event?.preventDefault();
     const text = this._value;
 
     if (this.triggerCaretOffset == null) {

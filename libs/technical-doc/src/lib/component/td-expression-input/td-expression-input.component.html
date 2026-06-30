@@ -20,7 +20,7 @@
         <div
           class="td-suggestion-item td-suggestion-field"
           [class.hovered]="i === hoveredIndex()"
-          (mousedown)="selectFieldSuggestion(entry)"
+          (mousedown)="selectFieldSuggestion(entry, $event)"
           (mouseenter)="hoveredIndex.set(i)">
           <span class="td-field-prefix">@</span>
           <td-param-spec-inline [entry]="entry"></td-param-spec-inline>
@@ -33,7 +33,7 @@
         <div
           class="td-suggestion-item td-suggestion-outer"
           [class.hovered]="i + filteredFieldSuggestions().length === hoveredIndex()"
-          (mousedown)="selectOuterFieldSuggestion(entry)"
+          (mousedown)="selectOuterFieldSuggestion(entry, $event)"
           (mouseenter)="hoveredIndex.set(i + filteredFieldSuggestions().length)">
           <span class="td-outer-prefix">@@</span>
           <td-param-spec-inline [entry]="entry"></td-param-spec-inline>
@@ -48,7 +48,7 @@
           [class.hovered]="
             i + filteredFieldSuggestions().length + filteredOuterFieldSuggestions().length === hoveredIndex()
           "
-          (mousedown)="selectFunctionSuggestion(fn)"
+          (mousedown)="selectFunctionSuggestion(fn, $event)"
           (mouseenter)="
             hoveredIndex.set(i + filteredFieldSuggestions().length + filteredOuterFieldSuggestions().length)
           ">

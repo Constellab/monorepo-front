@@ -10,11 +10,13 @@
   gap: 4px;
 }
 
-.td-param-value-info {
-  font-size: 16px;
-  width: 16px;
-  height: 16px;
-  color: var(--light-color);
+.td-param-value-computed-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 10px;
+  background: var(--mat-sys-primary-container);
+  color: var(--mat-sys-on-primary-container);
   cursor: help;
 }
 

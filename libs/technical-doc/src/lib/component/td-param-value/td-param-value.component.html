@@ -4,13 +4,18 @@
   </button>
 } @else {
   <div class="td-param-value-row">
-    <span>{{ displayValue() }}</span>
-    @if (expression()) {
-      <mat-icon
-        class="td-param-value-info"
-        [matTooltip]="('td.computed_expression_tooltip' | translate) + ': ' + expression()">
-        info_outline
-      </mat-icon>
+    @if (isComputed()) {
+      <span
+        class="td-param-value-computed-chip"
+        [matTooltip]="
+          expression()
+            ? ('td.computed_expression_tooltip' | translate) + ': ' + expression()
+            : ('td.computed_value_tooltip' | translate)
+        ">
+        {{ displayValue() }}
+      </span>
+    } @else {
+      <span>{{ displayValue() }}</span>
     }
   </div>
   @if (error()) {

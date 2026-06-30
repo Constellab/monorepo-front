@@ -31,6 +31,8 @@ import {
   LiCreateFormDialogInput,
   LiFormTemplateActionEvent,
   LiFormTemplateActionMenu,
+  LiFormTemplateDuplicateDialogComponent,
+  LiFormTemplateDuplicateDialogInput,
   LiFormTemplateDynamicParamSpecState,
   LiFormTemplateService,
   LiFormTemplateVersionEditorComponent,
@@ -270,6 +272,24 @@ export class LabFormTemplateDetailPageComponent implements OnInit {
     this.formTemplateService.createVersion(this.template().id, dto).subscribe((version) => {
       this.reloadTemplate(version.id);
     });
+  }
+
+  duplicateFromVersion(): void {
+    const data: LiFormTemplateDuplicateDialogInput = {
+      mode: 'create',
+      object: null,
+      template: this.template(),
+      version: this.selectedVersion(),
+    };
+
+    this.dialogService
+      .openSmallDialog(LiFormTemplateDuplicateDialogComponent, { data })
+      .afterClosed()
+      .subscribe((newTemplate: LiFormTemplate) => {
+        if (newTemplate) {
+          this.routerService.navigateToFormTemplateDetail(newTemplate.id);
+        }
+      });
   }
 
   deleteVersion(): void {

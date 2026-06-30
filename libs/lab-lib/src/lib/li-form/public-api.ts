@@ -13,6 +13,7 @@ export * from './component/li-form-search/li-form-search.component';
 export * from './component/li-form-search-form/li-form-search-form.component';
 export * from './component/li-form-table/li-form-table.component';
 export * from './component/li-form-template-form-dialog/li-form-template-form-dialog.component';
+export * from './component/li-form-template-duplicate-dialog/li-form-template-duplicate-dialog.component';
 export * from './component/li-form-template-version-editor/li-form-template-version-editor.component';
 export * from './component/li-form-template-version-editor/li-form-template-dynamic-param-spec.state';
 export * from './component/li-form-template-ai-specs-review-dialog/li-form-template-ai-specs-review-dialog.component';

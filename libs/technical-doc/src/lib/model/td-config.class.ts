@@ -100,7 +100,6 @@ export class TdConfig implements TdConfigI {
   private convertToAbstractConfig(spec: TdParamSpec): FlDynamicFormAbstractControl {
     if (spec.type === TdParamSpecTypeEnum.PARAM_SET) {
       const info = spec.additional_info;
-      const defaultValues = this.getConfigSpecDefaultValue(spec);
       const lockProvided = info.default_rows_mode === TdParamSetDefaultRowsMode.LOCK_PROVIDED;
       return {
         controlType: 'formArray',
@@ -112,7 +111,8 @@ export class TdConfig implements TdConfigI {
         // In LOCK_PROVIDED mode, the preset cells that hold a value are read-only;
         // empty cells stay editable. Rows can still be added/removed in both modes.
         lockedRowsKeys: lockProvided ? this.getLockedRowsKeys(info.default_rows) : null,
-        newElementDefaultValue: defaultValues != null ? defaultValues[0] : null,
+        // A newly added row is a blank (column-default) row, not a copy of a preset row.
+        newElementDefaultValue: this.getParamSetColumnDefaults(spec),
       };
     } else if (spec.type == 'dynamic') {
       return this.convertRecordToEditableFieldConfigs(
@@ -190,32 +190,44 @@ export class TdConfig implements TdConfigI {
    * @param spec
    * @private
    */
+  /**
+   * Build a single empty row for a param set: each column set to its own default
+   * value (recursively). Used as the initial value of a fresh/added row.
+   */
+  private getParamSetColumnDefaults(spec: TdParamSpec): any {
+    if (spec.type !== TdParamSpecTypeEnum.PARAM_SET) return null;
+    const columnDefaults: any = {};
+    for (const subSpecName of Object.keys(spec.additional_info.param_set)) {
+      const subSpec: TdParamSpec = spec.additional_info.param_set[subSpecName];
+      columnDefaults[subSpecName] = this.getConfigSpecDefaultValue(subSpec);
+    }
+    return columnDefaults;
+  }
+
   private getConfigSpecDefaultValue(spec: TdParamSpec): any {
     if (spec.type === TdParamSpecTypeEnum.PARAM_SET) {
       const info = spec.additional_info;
 
       // Build the per-column default row (recursively).
-      const columnDefaults: any = {};
-      for (const subSpecName of Object.keys(info.param_set)) {
-        const subSpec: TdParamSpec = info.param_set[subSpecName];
-        columnDefaults[subSpecName] = this.getConfigSpecDefaultValue(subSpec);
-      }
+      const columnDefaults = this.getParamSetColumnDefaults(spec);
 
-      // If preset rows are configured, merge each partial row over the column
-      // defaults (partial values win, missing keys fall back to defaults).
-      if (Array.isArray(info.default_rows) && info.default_rows.length > 0) {
-        return info.default_rows.map((row) => ({
-          ...ClHelpService.deepClone(columnDefaults),
-          ...(row ?? {}),
-        }));
-      }
-
-      // Otherwise start with a single default row, padded to min_number_of_occurrences.
-      const minRows = Math.max(info.min_number_of_occurrences ?? 0, 1);
       const rows: any[] = [];
-      for (let i = 0; i < minRows; i++) {
+
+      // First, the configured preset rows: merge each partial row over the
+      // column defaults (partial values win, missing keys fall back to defaults).
+      if (Array.isArray(info.default_rows) && info.default_rows.length > 0) {
+        for (const row of info.default_rows) {
+          rows.push({ ...ClHelpService.deepClone(columnDefaults), ...(row ?? {}) });
+        }
+      }
+
+      // Then pad with empty (column-default) rows to reach the minimum number of
+      // occurrences. At least one row when there is no preset row at all.
+      const minRows = Math.max(info.min_number_of_occurrences ?? 0, rows.length > 0 ? 0 : 1);
+      while (rows.length < minRows) {
         rows.push(ClHelpService.deepClone(columnDefaults));
       }
+
       return rows;
     } else if (spec.type === 'dynamic') {
       const defaultConfig: any = {};

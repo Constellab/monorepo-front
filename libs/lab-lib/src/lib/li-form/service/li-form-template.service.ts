@@ -15,6 +15,7 @@ import { map } from 'rxjs/operators';
 
 import {
   LiCreateFormTemplateDTO,
+  LiDuplicateFormTemplateDTO,
   LiFormTemplate,
   LiUpdateFormTemplateDTO,
 } from '../../li-core/model/entities/form/li-form-template.entity';
@@ -99,6 +100,23 @@ export class LiFormTemplateService {
 
   public getVersion(templateId: string, versionId: string): Observable<LiFormTemplateVersion> {
     return this.apiService.get(`${this.route}/${templateId}/version/${versionId}`, LiFormTemplateVersion);
+  }
+
+  /**
+   * Duplicates a version of a template into a brand-new template family. The new template
+   * starts with a single editable DRAFT v1 whose content mirrors the source version. Nothing
+   * about the source template is modified. Returns the new {@link LiFormTemplate} family record.
+   */
+  public duplicateFromVersion(
+    templateId: string,
+    versionId: string,
+    dto: LiDuplicateFormTemplateDTO
+  ): Observable<LiFormTemplate> {
+    return this.apiService.post(
+      `${this.route}/${templateId}/version/${versionId}/duplicate`,
+      dto,
+      LiFormTemplate
+    );
   }
 
   public deleteVersion(templateId: string, versionId: string): Observable<void> {

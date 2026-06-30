@@ -101,6 +101,7 @@ This granular import structure allows for better tree-shaking and build optimiza
 - **No hardcoded font-size**: Never use hardcoded `font-size` values in component SCSS. Use global text size classes instead: `g-text-small` (0.8rem), `g-text-small-em` (0.8em), `g-text-tiny` (0.7rem), `g-text-normal` (1rem) — defined in `libs/front-core-lib/src/style/fl-global.scss`
 - **No hardcoded colors**: Never use hardcoded color values (hex, rgb, etc.) directly in component SCSS. Always use the CSS variables defined in the theme files (`libs/front-core-lib/src/style/theme/base/`). Available variables include: `--primary-color`, `--accent-color`, `--warn-color`, `--success-color`, `--warning-color`, `--color-foreground`, `--main-background`, `--card-background`, `--light-color`, `--hover-color`, `--card-radius`, and Material `--mat-sys-*` variables (e.g., `--mat-sys-primary`, `--mat-sys-on-surface`, `--mat-sys-surface`)
 - **Button colors**: Use CSS classes `"primary"`, `"warn"`, or `"accent"` on buttons — NOT the `color` attribute. Example: `<button mat-flat-button class="primary">` or `<button mat-stroked-button class="warn">`
+- **Dialog intro text spacing**: When a dialog has intro/hint text (e.g. a `<p>`) above a form or input, ALWAYS add vertical space between the text and the first input (e.g. `margin-bottom: 1.5em` on the text). Without it the text sits flush against the input and looks cramped.
 
 ## Angular Patterns & Good Practices
 

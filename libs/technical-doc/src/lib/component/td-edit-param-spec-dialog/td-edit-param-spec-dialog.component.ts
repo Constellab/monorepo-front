@@ -522,8 +522,8 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
     switch (type) {
       case TdParamSpecTypeEnum.STR:
         group = new FormGroup({
-          min_length: new FormControl(initialValue?.min_length ?? null),
-          max_length: new FormControl(initialValue?.max_length ?? null),
+          min_length: new FormControl(initialValue?.min_length ?? null, Validators.min(0)),
+          max_length: new FormControl(initialValue?.max_length ?? null, Validators.min(0)),
           regex: new FormControl(initialValue?.regex ?? null),
           regex_description: new FormControl(initialValue?.regex_description ?? null),
         });
@@ -542,8 +542,14 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
         break;
       case TdParamSpecTypeEnum.PARAM_SET:
         group = new FormGroup({
-          max_number_of_occurrences: new FormControl(initialValue?.max_number_of_occurrences ?? null),
-          min_number_of_occurrences: new FormControl(initialValue?.min_number_of_occurrences ?? 1),
+          max_number_of_occurrences: new FormControl(
+            initialValue?.max_number_of_occurrences ?? null,
+            Validators.min(1)
+          ),
+          min_number_of_occurrences: new FormControl(
+            initialValue?.min_number_of_occurrences ?? 1,
+            Validators.min(0)
+          ),
           default_rows: new FormControl(initialValue?.default_rows ?? []),
           default_rows_mode: new FormControl(
             initialValue?.default_rows_mode ?? TdParamSetDefaultRowsMode.EDITABLE
