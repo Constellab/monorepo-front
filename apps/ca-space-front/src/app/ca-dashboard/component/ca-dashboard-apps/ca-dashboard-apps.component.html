@@ -8,7 +8,8 @@
   addText="add_app"
   [showAddButton]="isSpaceUser"
   (addClick)="openConstellabSuiteDialog()"
-  addButtonColor="warn">
+  addButtonColor="warn"
+  [itemHref]="getAppHref">
   <ng-template let-item>
     <ca-app-card [app]="item"></ca-app-card>
   </ng-template>
