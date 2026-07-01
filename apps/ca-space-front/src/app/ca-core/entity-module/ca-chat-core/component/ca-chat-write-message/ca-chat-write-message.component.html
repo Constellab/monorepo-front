@@ -2,6 +2,7 @@
   <te-text-editor
     [(ngModel)]="messageContent"
     [config]="textEditorConfig"
+    [event]="textEditorConfig.event"
     [placeholder]="'write_a_message' | translate"
     class="editor"
     (keydown.control.enter)="enterEvent($event)"
