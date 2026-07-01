@@ -30,12 +30,21 @@ body {
     padding-top: 5px;
   }
 
+  // Shrink an icon button. state-layer-size drives the button box, touch area and
+  // padding (theme derives padding = (state-layer - icon) / 2), so no hardcoded
+  // width/height/padding. NOTE: the icon-size token exists but Material does not yet
+  // wire --mat-icon-button-icon-size to the glyph (see _icon-button-theme.scss TODO),
+  // so the mat-icon glyph must still be sized directly.
+  // See https://material.angular.dev/components/button/styling
   @mixin g-button-icon-small {
     &.mdc-icon-button.mat-mdc-button-base,
     & .mdc-icon-button.mat-mdc-button-base {
-      width: 30px;
-      height: 30px;
-      padding: 6px;
+      @include mat.icon-button-overrides(
+        (
+          state-layer-size: 30px,
+        )
+      );
+      padding: 2px;
 
       mat-icon {
         height: 18px;
@@ -62,6 +71,8 @@ body {
       // reduce size of the icon button
       button {
         @include g-button-icon-small;
+        // more padding than the standalone small button to fit the input height nicely
+        padding: 6px !important;
       }
     }
 
@@ -217,10 +228,11 @@ body {
   .g-button-icon-tiny {
     &.mdc-icon-button.mat-mdc-button-base,
     & .mdc-icon-button.mat-mdc-button-base {
-      width: 20px;
-      height: 20px;
-      padding: 0;
-      line-height: 20px;
+      @include mat.icon-button-overrides(
+        (
+          state-layer-size: 20px,
+        )
+      );
 
       mat-icon {
         height: 16px;
