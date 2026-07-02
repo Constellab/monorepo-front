@@ -339,6 +339,23 @@ export function tdBuildGroupedTypes(list: TdParamSpecInfo[]): TdGroupedParamSpec
   }));
 }
 
+/**
+ * Param spec types that cannot be used as a sub-param (ie. inside a param_set).
+ * Includes:
+ * - param_set itself (no nesting of param sets)
+ * - text (long text not supported in the sub-param table layout)
+ * - rich_text_param (not supported in the sub-param table layout)
+ * - all lab-specific types
+ */
+export const TD_EXCLUDED_SUB_PARAM_SPEC_TYPE_LIST: TdParamSpecTypeEnum[] = [
+  TdParamSpecTypeEnum.PARAM_SET,
+  TdParamSpecTypeEnum.TEXT,
+  TdParamSpecTypeEnum.RICH_TEXT_PARAM,
+  ...TD_PARAM_SPEC_INFO_LIST.filter((info) => info.category === TdParamSpecCategory.LAB_SPECIFIC).map(
+    (info) => info.type
+  ),
+];
+
 // list of param spec type that uses a code editor
 export const TD_CODE_PARAM_SPEC_TYPE_LIST: TdParamSpecTypeEnum[] = [
   TdParamSpecTypeEnum.PYTHON_CODE_PARAM,

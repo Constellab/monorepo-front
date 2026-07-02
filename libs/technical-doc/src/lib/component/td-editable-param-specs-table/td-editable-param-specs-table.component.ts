@@ -93,6 +93,11 @@ export class TdEditableParamSpecsTableComponent {
 
       case TdParamSpecTypeEnum.PARAM_SET:
         return this.buildItems(info, [
+          {
+            key: 'param_set',
+            label: this.t('td.columns'),
+            format: (v) => (typeof v === 'object' ? Object.keys(v).length + ' columns' : String(v)),
+          },
           { key: 'min_number_of_occurrences', label: this.t('td.min_number_of_occurrences') },
           { key: 'max_number_of_occurrences', label: this.t('td.max_number_of_occurrences') },
           {
@@ -104,11 +109,6 @@ export class TdEditableParamSpecsTableComponent {
             key: 'default_rows_mode',
             label: this.t('td.default_rows_mode'),
             format: (v) => this.t('td.default_rows_mode_' + (v ?? 'editable')),
-          },
-          {
-            key: 'param_set',
-            label: this.t('td.columns'),
-            format: (v) => (typeof v === 'object' ? Object.keys(v).length + ' columns' : String(v)),
           },
         ]);
 

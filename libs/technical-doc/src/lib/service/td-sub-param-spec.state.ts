@@ -1,12 +1,12 @@
 import { Observable, of } from 'rxjs';
 
 import {
+  TD_EXCLUDED_SUB_PARAM_SPEC_TYPE_LIST,
   TD_PARAM_SPEC_INFO_LIST,
   TdGenerateComputedParamResult,
   TdParamSpec,
   TdParamSpecInfo,
   TdParamSpecs,
-  TdParamSpecTypeEnum,
   TdValidateComputedParamResult,
 } from '../model/td-config-spec.class';
 import { TdAbstractDynamicParamSpecState } from './td-abstract-dynamic-param-spec.state';
@@ -77,13 +77,13 @@ export class TdSubParamSpecState extends TdAbstractDynamicParamSpecState {
   }
 
   /**
-   * We cannot have param_set inside another param_set,
-   * so we remove the param_set type from the list.
-   * @returns
+   * Some types cannot be used as a sub-param (param_set, text and lab-specific
+   * types), so we remove them from the list.
+   * @see TD_EXCLUDED_SUB_PARAM_SPEC_TYPE_LIST
    */
   getParamSpecsInfos(): TdParamSpecInfo[] {
     const infos = this.parentState ? this.parentState.getParamSpecsInfos() : TD_PARAM_SPEC_INFO_LIST;
-    return infos.filter((info) => info.type !== TdParamSpecTypeEnum.PARAM_SET);
+    return infos.filter((info) => !TD_EXCLUDED_SUB_PARAM_SPEC_TYPE_LIST.includes(info.type));
   }
 
   validateComputedExpression(

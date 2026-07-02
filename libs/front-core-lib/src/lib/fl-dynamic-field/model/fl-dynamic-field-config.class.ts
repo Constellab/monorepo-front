@@ -58,7 +58,14 @@ export interface FlDynamicFormArrayConfig extends FlDynamicFormConfigBase {
  * table automatically when every field in its group is one of these; otherwise
  * it falls back to the default list rendering.
  */
-export const FL_TABLE_SUPPORTED_FIELD_TYPES = ['input', 'select', 'select-search', 'date', 'boolean'];
+export const FL_TABLE_SUPPORTED_FIELD_TYPES = [
+  'input',
+  'select',
+  'select-search',
+  'date',
+  'boolean',
+  'computed',
+];
 
 /**
  * Configuration for a FormControl
