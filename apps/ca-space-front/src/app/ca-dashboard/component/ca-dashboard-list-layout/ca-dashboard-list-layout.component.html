@@ -27,19 +27,11 @@
     @if (items.length > 0) {
       <div class="grid-4-cols">
         @for (item of items; track item) {
-          @if (itemHref) {
-            <a [href]="itemHref(item)" target="_blank">
-              <ng-template
-                [ngTemplateOutlet]="templateRef"
-                [ngTemplateOutletContext]="{ $implicit: item }"></ng-template>
-            </a>
-          } @else {
-            <a [routerLink]="item | caDetailRoute">
-              <ng-template
-                [ngTemplateOutlet]="templateRef"
-                [ngTemplateOutletContext]="{ $implicit: item }"></ng-template>
-            </a>
-          }
+          <a [routerLink]="item | caDetailRoute">
+            <ng-template
+              [ngTemplateOutlet]="templateRef"
+              [ngTemplateOutletContext]="{ $implicit: item }"></ng-template>
+          </a>
         }
       </div>
     } @else {

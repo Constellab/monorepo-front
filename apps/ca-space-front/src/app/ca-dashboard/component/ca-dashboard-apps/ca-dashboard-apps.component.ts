@@ -15,7 +15,6 @@ import { CaIsSpaceUserDirective } from '../../../ca-core/module/ca-core-directiv
 import { CaRouterService } from '../../../ca-core/service/ca-router.service';
 import { CaAuthenticatedUserService } from '../../../ca-core/service-api/ca-authenticated-user.service';
 import { CaHierarchyObjectService } from '../../../ca-core/service-api/ca-hierarchy-object.service';
-import { CaResourceService } from '../../../ca-core/service-api/ca-resource.service';
 import { CaConstellabSuiteListDialogComponent } from '../ca-constellab-suite-list-dialog/ca-constellab-suite-list-dialog.component';
 import { CaDashboardEmptyListComponent } from '../ca-dashboard-empty-list/ca-dashboard-empty-list.component';
 import { CaDashboardListLayoutComponent } from '../ca-dashboard-list-layout/ca-dashboard-list-layout.component';
@@ -39,7 +38,6 @@ import { CaDashboardListLayoutComponent } from '../ca-dashboard-list-layout/ca-d
 })
 export class CaDashboardAppsComponent implements OnInit {
   private hierarchyObjectService = inject(CaHierarchyObjectService);
-  private resourceService = inject(CaResourceService);
   private dialogService = inject(FlDialogService);
 
   isSpaceUser = inject(CaAuthenticatedUserService).isCurrentSpaceUser();
@@ -64,6 +62,4 @@ export class CaDashboardAppsComponent implements OnInit {
   openConstellabSuiteDialog(): void {
     this.dialogService.openMediumDialog(CaConstellabSuiteListDialogComponent);
   }
-
-  getAppHref = (app: CaHierarchyObject): string => this.resourceService.getRedirectUrl(app.id);
 }
