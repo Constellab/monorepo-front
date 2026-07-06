@@ -38,20 +38,21 @@ export class LiAppService {
    * Resolves the user from the lab session cookie or the optional one-time `code`.
    * The backend returns 401 when the caller is not authenticated (the front then redirects to login).
    */
-  public gatewayStart(
-    appKey: string,
-    code?: string,
-    options?: FlHttpOption
-  ): Observable<LiAppGatewayStart> {
+  public gatewayStart(appKey: string, code?: string, options?: FlHttpOption): Observable<LiAppGatewayStart> {
     return this.apiService.post(`${this.route}/gateway/start`, { app_key: appKey, code }, null, options);
   }
 
   /**
    * App-link gateway: mint the one-time handoff code once the app is RUNNING.
-   * Returns the app host URL carrying `?gws_code=…` for the front to navigate to.
+   * Sends back the `authorize_grant` from the `start` response verbatim (string for an
+   * AUTHENTICATED app, null for a PUBLIC one) — the lab session cookie is not relied upon,
+   * since a space visitor has none. Returns the app host URL for the front to navigate to.
    */
-  public gatewayHandoff(appKey: string): Observable<LiAppGatewayHandoff> {
-    return this.apiService.post(`${this.route}/gateway/handoff`, { app_key: appKey });
+  public gatewayHandoff(appKey: string, authorizeGrant: string | null): Observable<LiAppGatewayHandoff> {
+    return this.apiService.post(`${this.route}/gateway/handoff`, {
+      app_key: appKey,
+      authorize_grant: authorizeGrant,
+    });
   }
 
   public stopAllApps(): Observable<void> {

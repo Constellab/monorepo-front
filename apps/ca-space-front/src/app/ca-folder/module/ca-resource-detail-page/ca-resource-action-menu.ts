@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 import { CaResourceBasicInfo } from '../../../ca-core/model/entities/folder/ca-resource.class';
 import { CaRouterService } from '../../../ca-core/service/ca-router.service';
+import { CaResourceService } from '../../../ca-core/service-api/ca-resource.service';
 import {
   CaHierarchyObjectActionTags,
   CaHierarchyObjectBaseActionMenu,
@@ -29,7 +30,7 @@ export class CaResourceActionMenu extends CaHierarchyObjectBaseActionMenu {
     const menu = [];
 
     if (addOpenResourceButton) {
-      menu.push(this.getOpenResourceButton());
+      menu.push(this.getOpenResourceButton(), this.getOpenResourceInNewTabButton());
     }
 
     if (this.resourceInfo.userRole.canEdit()) {
@@ -44,6 +45,18 @@ export class CaResourceActionMenu extends CaHierarchyObjectBaseActionMenu {
       text: { text: 'open_resource', translateText: true },
       icon: 'resource',
       link: CaRouterService.getResourceDetailRoute(this.hierarchyObjectId),
+    };
+  }
+
+  protected getOpenResourceInNewTabButton(): FlMenuDynamic {
+    return {
+      type: 'button',
+      text: { text: 'open_resource_in_new_tab', translateText: true },
+      icon: 'open_in_new',
+      onClick: () => {
+        const url = this.injector.get(CaResourceService).getRedirectUrl(this.hierarchyObjectId);
+        window.open(url, '_blank');
+      },
     };
   }
 }

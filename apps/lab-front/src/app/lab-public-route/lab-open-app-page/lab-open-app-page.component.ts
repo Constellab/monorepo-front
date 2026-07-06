@@ -21,10 +21,12 @@ import { interval, Subscription, switchMap, takeWhile } from 'rxjs';
  *
  * Flow:
  *  1. On load, `POST /apps/gateway/start {app_key, code?}`.
- *     - 200 → keep `status_token`, poll `/apps/process/{status_token}/status` ~1s, show progress.
+ *     - 200 → keep `status_token` AND `authorize_grant`, poll `/apps/process/{status_token}/status`
+ *       ~1s, show progress.
  *     - 401 → not authenticated → redirect to `/login?redirect_uri={this front URL}` (front→front).
- *  2. On `status === 'RUNNING'` → `POST /apps/gateway/handoff {app_key}` → navigate the browser to
- *     the returned `app_url` (carries `?gws_code=…`, which the app exchanges + scrubs).
+ *  2. On `status === 'RUNNING'` → `POST /apps/gateway/handoff {app_key, authorize_grant}` → navigate
+ *     the browser to the returned `app_url` (carries `?gws_code=…`, which the app exchanges + scrubs).
+ *     `authorize_grant` is single-use, so handoff is called exactly once per open.
  *  3. On `status === 'STOPPED'`/error → show `status_text` + Retry (re-calls start).
  *
  * Must be reachable directly (bookmark) and NOT behind an auth guard that discards the redirect_uri:
@@ -55,6 +57,9 @@ export class LabOpenAppPageComponent implements OnInit, OnDestroy {
   private appKey: string;
   // One-time code for space/external opens (absent for from-lab opens which use the session cookie).
   private code?: string;
+  // Grant returned by `start`, kept in page state and sent back verbatim to `handoff`.
+  // String for an AUTHENTICATED app, null for a PUBLIC one. Single-use (10 min lifetime).
+  private authorizeGrant: string | null = null;
 
   private pollSubscription?: Subscription;
 
@@ -72,11 +77,16 @@ export class LabOpenAppPageComponent implements OnInit, OnDestroy {
   private start(): void {
     this.status.set('STARTING');
     this.statusText.set(undefined);
+    this.authorizeGrant = null;
     this.pollSubscription?.unsubscribe();
 
     // Suppress the default error snackbar: 401 is an expected control-flow signal (→ login).
     this.appService.gatewayStart(this.appKey, this.code, { hideSnackBarError: true }).subscribe({
-      next: (result) => this.startPolling(result.status_token),
+      next: (result) => {
+        // Keep the grant for handoff (string for AUTHENTICATED apps, null for PUBLIC ones).
+        this.authorizeGrant = result.authorize_grant;
+        this.startPolling(result.status_token);
+      },
       error: (error: FlServerError) => this.onStartError(error),
     });
   }
@@ -119,7 +129,7 @@ export class LabOpenAppPageComponent implements OnInit, OnDestroy {
   }
 
   private handoff(): void {
-    this.appService.gatewayHandoff(this.appKey).subscribe({
+    this.appService.gatewayHandoff(this.appKey, this.authorizeGrant).subscribe({
       next: (result) => {
         // Full-page navigation into the app host (carries ?gws_code=…, exchanged + scrubbed by the app).
         window.location.href = result.app_url;
