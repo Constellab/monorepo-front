@@ -330,6 +330,15 @@
                 flInputMaxLength="255"
                 [placeholder]="'lab_ip_override' | translate" />
             </mat-form-field>
+            <!--  Lab port override  -->
+            <mat-form-field>
+              <mat-label>{{ 'lab_port_override' | translate }}</mat-label>
+              <input
+                matInput
+                formControlName="labPortOverride"
+                flInputMaxLength="255"
+                [placeholder]="'lab_port_override' | translate" />
+            </mat-form-field>
           }
         }
 

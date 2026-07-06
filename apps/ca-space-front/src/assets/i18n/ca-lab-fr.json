@@ -111,6 +111,7 @@
   "lab_server_volume_id": "Id du volume",
   "lab_server_ip_address_id": "Id de l'adresse IP statique",
   "lab_ip_override": "Surcharge de l'IP du lab",
+  "lab_port_override": "Surcharge du port du lab",
   "lab_server_ip_address": "Adresse IP statique",
   "no_lab_server_ip_address": "Aucune adresse IP statique",
   "lab_configuration": "Configuration",

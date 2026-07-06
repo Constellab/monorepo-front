@@ -111,6 +111,7 @@
   "lab_server_volume_id": "Volume id",
   "lab_server_ip_address_id": "Static ip address id",
   "lab_ip_override": "Lab ip override",
+  "lab_port_override": "Lab port override",
   "lab_server_ip_address": "Server id address",
   "no_lab_server_ip_address": "No static ip address",
   "lab_configuration": "Configuration",

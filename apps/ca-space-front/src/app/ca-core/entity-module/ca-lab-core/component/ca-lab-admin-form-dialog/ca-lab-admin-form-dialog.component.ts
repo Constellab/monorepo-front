@@ -127,6 +127,7 @@ export class CaLabAdminFormDialogComponent
       serverVolumeId: [null],
       serverIpAddressId: [null],
       labIpOverride: [null],
+      labPortOverride: [null],
       cloudName: [null],
       gwsCoreProdDbPassword: [null],
       gwsCoreDevDbPassword: [null],
@@ -168,6 +169,7 @@ export class CaLabAdminFormDialogComponent
         this.formGp.get('region').enable();
 
         this.formGp.get('labIpOverride').disable();
+        this.formGp.get('labPortOverride').disable();
         this.formGp.get('desktopPlatform').disable();
         this.formGp
           .get('virtualHost')
@@ -186,6 +188,7 @@ export class CaLabAdminFormDialogComponent
         this.formGp.get('codelabToken').enable();
 
         this.formGp.get('labIpOverride').enable();
+        this.formGp.get('labPortOverride').enable();
 
         this.formGp.get('serverCloud').disable();
         this.formGp.get('billingMode').disable();
@@ -215,6 +218,7 @@ export class CaLabAdminFormDialogComponent
         this.formGp.get('serverVolumeId').disable();
         this.formGp.get('serverIpAddressId').disable();
         this.formGp.get('labIpOverride').disable();
+        this.formGp.get('labPortOverride').disable();
         this.formGp.get('region').disable();
         this.formGp.get('volumeSize').disable();
         this.formGp.get('volumeType').disable();

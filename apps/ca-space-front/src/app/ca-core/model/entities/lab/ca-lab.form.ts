@@ -28,6 +28,7 @@ export class CaLabAdminForm {
   serverVolumeId?: string;
   serverIpAddressId?: string;
   labIpOverride?: string;
+  labPortOverride?: string;
   gwsCoreProdDbPassword?: string;
   gwsCoreDevDbPassword?: string;
 
