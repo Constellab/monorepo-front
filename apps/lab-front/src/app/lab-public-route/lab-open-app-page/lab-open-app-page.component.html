@@ -1,0 +1,9 @@
+<div class="container">
+  <rv-app-progress [status]="displayStatus()" [statusText]="statusText()"></rv-app-progress>
+
+  @if (status() === 'STOPPED') {
+    <button mat-flat-button type="button" class="primary retry" (click)="retry()">
+      {{ 'g.open_app_retry' | translate }}
+    </button>
+  }
+</div>

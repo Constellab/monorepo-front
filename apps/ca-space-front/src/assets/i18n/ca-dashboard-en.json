@@ -294,6 +294,7 @@
   "app_request_success": "Request sent, we will contact you shortly",
   "hide_header": "Hide header",
   "show_header": "Show header",
+  "opening_app": "Opening app…",
   "folder_upload_max_files_error": "The folder contains too many files ({{nbFiles}}), the upload is limited to {{maxFiles}} files.",
   "admin_configurations": "Configurations",
   "free_lab_config": "Free Data Lab Config",

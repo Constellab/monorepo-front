@@ -1,0 +1,15 @@
+@if (status() === 'STARTING') {
+  <div class="container">
+    <div class="g-text-centered">
+      <fl-loader></fl-loader>
+      <div>{{ statusText() }}</div>
+    </div>
+  </div>
+} @else {
+  <div class="container">
+    <div class="g-text-centered">
+      <div>{{ 'rvResourceView.error_app_starting' | translate }}</div>
+      <div>{{ statusText() }}</div>
+    </div>
+  </div>
+}

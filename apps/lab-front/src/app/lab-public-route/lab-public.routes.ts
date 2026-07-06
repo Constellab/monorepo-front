@@ -11,6 +11,15 @@ export const LAB_OPEN_ROUTES: Routes = [
             (m) => m.LabPublicRouteResourcePageComponent
           ),
       },
+      {
+        // Front-owned app-link gateway: the stable, bookmarkable entrypoint + progress screen.
+        // Optionally carries ?code=<one-time> for space/external opens.
+        path: 'app/:appKey',
+        loadComponent: () =>
+          import('./lab-open-app-page/lab-open-app-page.component').then(
+            (m) => m.LabOpenAppPageComponent
+          ),
+      },
     ],
   },
 ];

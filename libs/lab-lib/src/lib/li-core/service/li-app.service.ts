@@ -1,11 +1,17 @@
 import { inject, Injectable } from '@angular/core';
 import { ClDateHelper } from '@monorepo/core-lib';
-import { FlApiService } from '@monorepo/front-core-lib/fl-api';
+import { FlApiService, FlHttpOption } from '@monorepo/front-core-lib/fl-api';
 import { DateTime } from 'luxon';
 import { Observable } from 'rxjs';
 
 import { LiLogsBetweenDates } from '../model/entities/li-log.entity';
-import { LiAppsStatus, LiAppStopPolicy } from '../model/global/li-app.class';
+import {
+  LiAppGatewayHandoff,
+  LiAppGatewayStart,
+  LiAppProcessStartingStatus,
+  LiAppsStatus,
+  LiAppStopPolicy,
+} from '../model/global/li-app.class';
 
 @Injectable({
   providedIn: 'root',
@@ -17,6 +23,35 @@ export class LiAppService {
 
   public getStatus(): Observable<LiAppsStatus> {
     return this.apiService.get(`${this.route}/status`, LiAppsStatus);
+  }
+
+  /**
+   * Poll the status of an app process being started, by the status token returned by the
+   * gateway `start` call. Used by the open-app gateway page.
+   */
+  public getProcessStatus(statusToken: string): Observable<LiAppProcessStartingStatus> {
+    return this.apiService.get(`${this.route}/process/${statusToken}/status`);
+  }
+
+  /**
+   * App-link gateway: cold-start the app and get a status token to poll.
+   * Resolves the user from the lab session cookie or the optional one-time `code`.
+   * The backend returns 401 when the caller is not authenticated (the front then redirects to login).
+   */
+  public gatewayStart(
+    appKey: string,
+    code?: string,
+    options?: FlHttpOption
+  ): Observable<LiAppGatewayStart> {
+    return this.apiService.post(`${this.route}/gateway/start`, { app_key: appKey, code }, null, options);
+  }
+
+  /**
+   * App-link gateway: mint the one-time handoff code once the app is RUNNING.
+   * Returns the app host URL carrying `?gws_code=…` for the front to navigate to.
+   */
+  public gatewayHandoff(appKey: string): Observable<LiAppGatewayHandoff> {
+    return this.apiService.post(`${this.route}/gateway/handoff`, { app_key: appKey });
   }
 
   public stopAllApps(): Observable<void> {

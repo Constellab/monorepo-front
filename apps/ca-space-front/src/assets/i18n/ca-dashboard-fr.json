@@ -294,6 +294,7 @@
   "app_request_success": "Demande envoyée, nous vous contacterons bientôt",
   "hide_header": "Cacher l'en-tête",
   "show_header": "Afficher l'en-tête",
+  "opening_app": "Ouverture de l'application…",
   "folder_upload_max_files_error": "Le dossier contient trop de fichiers ({{nbFiles}}), l'upload est limitée à {{maxFiles}}.",
   "admin_configurations": "Configurations",
   "free_lab_config": "Config Data Lab gratuit",

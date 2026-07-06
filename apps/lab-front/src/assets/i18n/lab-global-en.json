@@ -5,6 +5,7 @@
     "name": "Name",
     "type": "Type",
     "created": "Created",
+    "open_app_retry": "Retry",
     "login_dev_env": "Warning, this is the lab dev environment",
     "login_switch_to_prod": "Switch to prod environment",
     "dev_env_toggle": "Dev environment",

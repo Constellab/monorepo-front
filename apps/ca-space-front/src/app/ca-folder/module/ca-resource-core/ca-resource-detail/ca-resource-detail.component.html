@@ -38,6 +38,13 @@
       }
     }
 
-    <iframe [src]="url" class="iframe"></iframe>
+    @if (resource.isApplication) {
+      <div class="opening-app">
+        <fl-loader></fl-loader>
+        <div>{{ 'opening_app' | translate }}</div>
+      </div>
+    } @else {
+      <iframe [src]="url" class="iframe"></iframe>
+    }
   </ng-container>
 </fl-async-section>
