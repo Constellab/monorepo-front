@@ -6,7 +6,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
 import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
-import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlTagModule } from '@monorepo/front-core-lib/fl-tag';
@@ -31,7 +30,6 @@ import {
     FlSectionModule,
     CaHierarchyObjectIconComponent,
     FlIconModule,
-    FlLoaderModule,
     FlTranslateModule,
     MatIconButton,
     MatIcon,
@@ -60,39 +58,17 @@ export class CaResourceDetailComponent {
   // don't use an observable because it breaks the safe url
   url: SafeUrl;
 
-  // True once we have triggered the top-level open for an app resource (drives the "Opening app…"
-  // placeholder instead of the iframe).
-  appOpened = signal(false);
-
-  // Guard against opening the same app twice on re-emits of resource$.
-  private openedAccessUrl?: string;
-
   resource$: Observable<CaResource> = toObservable(this.resourceId).pipe(
     switchMap((id) => this.resourceService.findById(id)),
     tap((resource) => {
-      if (resource.isApplication) {
-        // Apps are opened via the lab gateway URL (auth + cold-start + handoff happen there).
-        // Navigate top-level in a new tab instead of iframing, so iframe-blocking clients can open
-        // apps. The accessUrl carries a single-use code and is already fetched fresh per open
-        // (no cache) — never reuse it.
-        this.openApp(resource.accessUrl);
-      } else {
-        // provide the user in iframe url to authenticate the user
-        // useful to authenticate the user for dashboard resource
-        // this is not the perfect solution, but it works
-        this.url = this.sanitizer.bypassSecurityTrustResourceUrl(resource.accessUrl);
-      }
+      // Apps are opened via the lab gateway URL (auth + cold-start + handoff happen there).
+      // The gateway URL is a normal page that also renders inside an iframe, so embed it like any
+      // other resource. NOTE: if the app server sends X-Frame-Options/CSP frame-ancestors, the
+      // browser will refuse to render it here — that case needs the top-level/new-tab open instead.
+      // The accessUrl carries a single-use code and is fetched fresh per open (no cache).
+      this.url = this.sanitizer.bypassSecurityTrustResourceUrl(resource.accessUrl);
     })
   );
-
-  private openApp(accessUrl: string): void {
-    if (this.openedAccessUrl === accessUrl) {
-      return;
-    }
-    this.openedAccessUrl = accessUrl;
-    this.appOpened.set(true);
-    window.open(accessUrl, '_blank');
-  }
 
   openMenu(resource: CaResource, event: MouseEvent): void {
     const resourceMenu = new CaResourceActionMenu(
