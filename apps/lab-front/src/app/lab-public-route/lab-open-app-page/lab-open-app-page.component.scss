@@ -1,0 +1,14 @@
+.container {
+  width: 100%;
+  // Fill the viewport so the loader is centered vertically regardless of ancestor heights.
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+}
+
+.retry {
+  flex: none;
+}

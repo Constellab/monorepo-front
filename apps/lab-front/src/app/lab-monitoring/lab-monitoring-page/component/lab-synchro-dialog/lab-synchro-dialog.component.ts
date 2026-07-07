@@ -35,6 +35,7 @@ export class LabSynchroDialogComponent {
     syncFolders: true,
     syncScenarios: true,
     syncNotes: true,
+    syncLabConfig: true,
   });
 
   submit(): void {
@@ -43,6 +44,7 @@ export class LabSynchroDialogComponent {
       sync_folders: this.formGp.value.syncFolders,
       sync_scenarios: this.formGp.value.syncScenarios,
       sync_notes: this.formGp.value.syncNotes,
+      sync_lab_config: this.formGp.value.syncLabConfig,
     });
 
     this.actionService.addAction({

@@ -21,6 +21,8 @@
 
 @if (data.url) {
   <div class="g-text-centered">
-    <a [href]="data.url" target="_blank">{{ 'teTextEditor.open_in_another_window' | translate }}</a>
+    <a [href]="data.url" target="_blank" rel="noopener noreferrer">{{
+      'teTextEditor.open_in_another_window' | translate
+    }}</a>
   </div>
 }

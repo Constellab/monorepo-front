@@ -2,7 +2,7 @@
 
 <mat-nav-list dense>
   @for (link of links; track link) {
-    <a mat-list-item [href]="link.link" target="_blank">
+    <a mat-list-item [href]="link.link" target="_blank" rel="noopener noreferrer">
       {{ link.name }}
       <mat-icon class="g-icon-small">open_in_new</mat-icon>
     </a>

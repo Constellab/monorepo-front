@@ -15,14 +15,20 @@
       <mat-divider class="divider"></mat-divider>
       <div class="g-layout-row">
         <span>{{ 'most_recent' | translate }}</span>
-        <span class="g-text-link read-all-text" (click)="markAllNotificationsAsRead()">{{
-          'mark_all_as_read' | translate
-        }}</span>
+        <span
+          class="g-text-link read-all-text"
+          role="button"
+          tabindex="0"
+          (click)="markAllNotificationsAsRead()"
+          (keydown.enter)="markAllNotificationsAsRead()"
+          (keydown.space)="markAllNotificationsAsRead()"
+          >{{ 'mark_all_as_read' | translate }}</span
+        >
       </div>
 
       @for (notif of notifications | flDatasourceConnect | async; track notif.id) {
         @if (notif.isHttpLink()) {
-          <a [href]="notif.link" target="_blank" (click)="markAsRead(notif)">
+          <a [href]="notif.link" target="_blank" rel="noopener noreferrer" (click)="markAsRead(notif)">
             <ca-notification-info [notification]="notif"></ca-notification-info>
           </a>
         } @else {

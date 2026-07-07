@@ -15,7 +15,11 @@
         </button>
 
         <!--    Initial image size : 320 - 180 , here we apply a 3/5 ratio     -->
-        <a [href]="selectedVideo.youtubeLink" target="_blank" class="thumbnail-container">
+        <a
+          [href]="selectedVideo.youtubeLink"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="thumbnail-container">
           <img [ngSrc]="selectedVideo.thumbnailUrl" [width]="192" [height]="108" alt="thumbnail" />
         </a>
 
@@ -24,7 +28,11 @@
         </button>
       </div>
 
-      <a [href]="selectedVideo.youtubeLink" target="_blank" class="title g-text-small g-text-link">
+      <a
+        [href]="selectedVideo.youtubeLink"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="title g-text-small g-text-link">
         {{ selectedVideo.title }}
       </a>
 
@@ -32,8 +40,13 @@
         @for (video of youtubeVideos; track video.videoId) {
           <div
             class="circle"
+            role="button"
+            tabindex="0"
+            [attr.aria-label]="video.title"
             [ngClass]="{ 'selected-circle': selectedVideo === video }"
-            (click)="selectVideo(video)"></div>
+            (click)="selectVideo(video)"
+            (keydown.enter)="selectVideo(video)"
+            (keydown.space)="selectVideo(video)"></div>
         }
       </div>
     }

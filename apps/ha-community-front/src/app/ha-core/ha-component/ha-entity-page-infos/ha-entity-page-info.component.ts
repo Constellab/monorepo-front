@@ -143,16 +143,16 @@ export class HaEntityPageInfoComponent implements OnInit {
 
   shareOnFacebook(metadataService: HaMetadataService): void {
     const facebookUrl = metadataService.getFacebookShareUrl();
-    window.open(facebookUrl, '_blank');
+    window.open(facebookUrl, '_blank', 'noopener,noreferrer');
   }
 
   shareOnX(metadataService: HaMetadataService): void {
     const twitterUrl = metadataService.getTwitterShareUrl();
-    window.open(twitterUrl, '_blank');
+    window.open(twitterUrl, '_blank', 'noopener,noreferrer');
   }
 
   shareOnLinkedIn(metadataService: HaMetadataService): void {
     const linkedInUrl = metadataService.getLinkedInShareUrl();
-    window.open(linkedInUrl, '_blank');
+    window.open(linkedInUrl, '_blank', 'noopener,noreferrer');
   }
 }

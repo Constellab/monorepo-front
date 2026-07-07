@@ -1,6 +1,7 @@
 export * from './lib/rv-resource-view.module';
 
 // Component
+export * from './lib/component/rv-app-progress/rv-app-progress.component';
 export * from './lib/component/rv-resource-view-dialog/rv-resource-view-dialog.component';
 export * from './lib/component/rv-resource-view/rv-resource-view.component';
 export * from './lib/component/rv-rich-text-resource-view/rv-rich-text-resource-view.component';

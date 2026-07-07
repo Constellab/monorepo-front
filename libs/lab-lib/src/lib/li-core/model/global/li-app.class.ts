@@ -73,6 +73,36 @@ export class LiAppsStatus {
   processes: LiAppProcessStatus[];
 }
 
+/**
+ * Lightweight status of an app process being started, as returned verbatim by the backend
+ * `apps/process/{token}/status` route. Used by the open-app gateway page to show progress.
+ */
+export interface LiAppProcessStartingStatus {
+  id: string;
+
+  status: 'RUNNING' | 'STOPPED' | 'STARTING';
+
+  status_text?: string;
+}
+
+/**
+ * Response of the app-link gateway `start` call: the token to poll for status, plus the
+ * `authorize_grant` the front must keep in page state and send back to `handoff`.
+ * `authorize_grant` is null for a PUBLIC app (no auth), a string for an AUTHENTICATED app.
+ */
+export interface LiAppGatewayStart {
+  status_token: string;
+
+  authorize_grant: string | null;
+}
+
+/**
+ * Response of the app-link gateway `handoff` call: the app host URL carrying `?gws_code=…`.
+ */
+export interface LiAppGatewayHandoff {
+  app_url: string;
+}
+
 // App detail
 export class LiAppInstanceUrl {
   @Expose({ name: 'host_url' })

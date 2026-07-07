@@ -38,7 +38,11 @@
       <a [routerLink]="partnerListRoute" [attr.aria-label]="'go_to_partners' | translate">{{
         'partners' | translate
       }}</a>
-      <a [href]="constellabRoute" target="_blank" [attr.aria-label]="'go_to_constellab_external' | translate"
+      <a
+        [href]="constellabRoute"
+        target="_blank"
+        rel="noopener noreferrer"
+        [attr.aria-label]="'go_to_constellab_external' | translate"
         >Space</a
       >
       <span
@@ -171,6 +175,7 @@
     mat-menu-item
     [href]="constellabRoute"
     target="_blank"
+    rel="noopener noreferrer"
     [attr.aria-label]="'go_to_constellab_external' | translate"
     >Space</a
   >

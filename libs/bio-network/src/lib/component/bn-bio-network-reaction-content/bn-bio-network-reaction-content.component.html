@@ -7,13 +7,20 @@
   <ul>
     @for (substrate of reactionSubstrate$ | async; track substrate) {
       <li>
-        <span class="g-text-link" (click)="selectNode(substrate, 'substrat')">
+        <span
+          class="g-text-link"
+          role="button"
+          tabindex="0"
+          (click)="selectNode(substrate, 'substrat')"
+          (keydown.enter)="selectNode(substrate, 'substrat')"
+          (keydown.space)="selectNode(substrate, 'substrat')">
           {{ substrate.name }}
         </span>
         @if (substrate.chebi_id) {
           <a
             class="chebi-id g-text-small g-text-light g-text-link"
             target="_blank"
+            rel="noopener noreferrer"
             [href]="substrate.chebi_id | bnBioNetworkLink: 'chebi'">
             <fl-text-icon gap="0" iconPosition="end">
               <mat-icon class="g-icon-tiny">open_in_new</mat-icon>
@@ -35,13 +42,20 @@
   <ul>
     @for (product of reactionProducts$ | async; track product) {
       <li>
-        <span class="g-text-link" (click)="selectNode(product, 'product')">
+        <span
+          class="g-text-link"
+          role="button"
+          tabindex="0"
+          (click)="selectNode(product, 'product')"
+          (keydown.enter)="selectNode(product, 'product')"
+          (keydown.space)="selectNode(product, 'product')">
           {{ product.name }}
         </span>
         @if (product.chebi_id) {
           <a
             class="chebi-id g-text-small g-text-light g-text-link"
             target="_blank"
+            rel="noopener noreferrer"
             [href]="product.chebi_id | bnBioNetworkLink: 'chebi'">
             <fl-text-icon gap="0" iconPosition="end">
               <mat-icon class="g-icon-tiny">open_in_new</mat-icon>

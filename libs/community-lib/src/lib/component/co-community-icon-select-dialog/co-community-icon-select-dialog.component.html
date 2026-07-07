@@ -10,6 +10,7 @@
         class="material-icons-link"
         href="https://fonts.google.com/icons?icon.set=Material+Icons"
         target="_blank"
+        rel="noopener noreferrer"
         >{{ 'coCommunityLib.here' | translate }}</a
       >
     </span>
@@ -30,7 +31,7 @@
         mat-stroked-button
         (click)="selectMaterialIcon()"
         class="g-button-tiny"
-        [disabled]="!matIconName || matIconName.length == 0">
+        [disabled]="!matIconName || matIconName.length === 0">
         {{ 'coCommunityLib.save' | translate }}
       </button>
     </div>

@@ -6,7 +6,12 @@
   <form (ngSubmit)="submit()" id="link-form">
     <p class="help-text">
       {{ 'flFormula.formula_help_text' | translate }} :
-      <a href="https://katex.org/docs/supported.html" target="_blank" class="g-text-link" tabindex="-1">
+      <a
+        href="https://katex.org/docs/supported.html"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="g-text-link"
+        tabindex="-1">
         https://katex.org/docs/supported.html
       </a>
     </p>

@@ -15,7 +15,8 @@
       <a
         [href]="metabolite.chebi_id | bnBioNetworkLink: 'chebi'"
         class="g-text-link chebi-id"
-        target="_blank">
+        target="_blank"
+        rel="noopener noreferrer">
         <fl-text-icon gap="0" iconPosition="end">
           <mat-icon class="g-icon-tiny">open_in_new</mat-icon>
           {{ metabolite.chebi_id }}

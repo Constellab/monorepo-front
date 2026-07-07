@@ -58,6 +58,7 @@ export class LiSystemService {
     sync_folders: boolean;
     sync_scenarios: boolean;
     sync_notes: boolean;
+    sync_lab_config: boolean;
   }): Observable<void> {
     return this.apiService.post(`${this.route}/synchronize`, syncOptions);
   }

@@ -50,9 +50,14 @@
                 }
 
                 @if (communityApp().appUrl) {
-                  <a type="button" mat-flat-button [href]="communityApp().appUrl" target="_blank">{{
-                    'open_app' | translate
-                  }}</a>
+                  <a
+                    type="button"
+                    mat-flat-button
+                    [href]="communityApp().appUrl"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >{{ 'open_app' | translate }}</a
+                  >
                 }
               </div>
             </div>

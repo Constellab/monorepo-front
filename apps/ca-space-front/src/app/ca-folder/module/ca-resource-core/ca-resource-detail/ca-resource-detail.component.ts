@@ -61,9 +61,11 @@ export class CaResourceDetailComponent {
   resource$: Observable<CaResource> = toObservable(this.resourceId).pipe(
     switchMap((id) => this.resourceService.findById(id)),
     tap((resource) => {
-      // provide the user in iframe url to authenticate the user
-      // useful to authenticate the user for dashboard resource
-      // this is not the perfect solution, but it works
+      // Apps are opened via the lab gateway URL (auth + cold-start + handoff happen there).
+      // The gateway URL is a normal page that also renders inside an iframe, so embed it like any
+      // other resource. NOTE: if the app server sends X-Frame-Options/CSP frame-ancestors, the
+      // browser will refuse to render it here — that case needs the top-level/new-tab open instead.
+      // The accessUrl carries a single-use code and is fetched fresh per open (no cache).
       this.url = this.sanitizer.bypassSecurityTrustResourceUrl(resource.accessUrl);
     })
   );

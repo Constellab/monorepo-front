@@ -9,7 +9,9 @@
     <ng-container *flSectionBody="adminerInfo$ as adminerInfo">
       <fl-key-value class="url">
         <fl-key>{{ 'lml.adminer_url' | translate }}</fl-key>
-        <a [href]="adminerInfo.url" target="_blank" class="g-text-link">{{ adminerInfo.url }}</a>
+        <a [href]="adminerInfo.url" target="_blank" rel="noopener noreferrer" class="g-text-link">{{
+          adminerInfo.url
+        }}</a>
       </fl-key-value>
 
       <div class="section">

@@ -5,6 +5,7 @@
     "name": "Nom",
     "type": "Type",
     "created": "Créé",
+    "open_app_retry": "Réessayer",
     "login_dev_env": "Attention, c'est l'environnement de dev du lab",
     "login_switch_to_prod": "Basculer vers l'environnement de prod",
     "dev_env_toggle": "Environment de dev",

@@ -10,6 +10,13 @@ export class FlLoginSavedRoute {
   public static route: string = null;
 
   /**
+   * Save a route (path, optionally with query params) to redirect to after login.
+   */
+  public static setRoute(route: string): void {
+    FlLoginSavedRoute.route = route;
+  }
+
+  /**
    * return true if a route has been saved
    */
   public static hasRoute(): boolean {

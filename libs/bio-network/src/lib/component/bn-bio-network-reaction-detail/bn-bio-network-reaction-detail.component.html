@@ -12,7 +12,11 @@
   @if (reaction.rhea_id) {
     <fl-key-value>
       <fl-key>{{ 'bnBioNetwork.rhea_id' | translate }}</fl-key>
-      <a [href]="reaction.rhea_id | bnBioNetworkLink: 'rhea'" class="g-text-link link" target="_blank">
+      <a
+        [href]="reaction.rhea_id | bnBioNetworkLink: 'rhea'"
+        class="g-text-link link"
+        target="_blank"
+        rel="noopener noreferrer">
         <fl-text-icon gap="0" iconPosition="end">
           <mat-icon class="g-icon-tiny">open_in_new</mat-icon>
           {{ reaction.rhea_id }}
@@ -32,7 +36,8 @@
               <a
                 [href]="enzyme.ec_number | bnBioNetworkLink: 'brenda'"
                 class="g-text-link link g-text-light g-text-small"
-                target="_blank">
+                target="_blank"
+                rel="noopener noreferrer">
                 <fl-text-icon gap="0" iconPosition="end">
                   <mat-icon class="g-icon-tiny">open_in_new</mat-icon>
                   ({{ enzyme.ec_number }})

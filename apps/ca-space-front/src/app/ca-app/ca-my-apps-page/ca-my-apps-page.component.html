@@ -10,7 +10,7 @@
     <ng-container *flSectionBodyDatasource="appsDatasource as apps">
       <div class="g-grid-5-cols">
         @for (app of apps; track app) {
-          <a [routerLink]="app | caDetailRoute">
+          <a [href]="getAppHref(app)" target="_blank" rel="noopener noreferrer">
             <ca-app-card [app]="app"></ca-app-card>
           </a>
         }

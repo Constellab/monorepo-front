@@ -21,6 +21,7 @@ import { FlTranslateModule, FlTranslateService } from '@monorepo/front-core-lib/
 import { SpSpreadsheetModule } from '@monorepo/spreadsheet';
 import { TeTextEditorModule } from '@monorepo/text-editor';
 
+import { RvAppProgressComponent } from './component/rv-app-progress/rv-app-progress.component';
 import { RvResourceViewComponent } from './component/rv-resource-view/rv-resource-view.component';
 import { RvResourceViewDialogComponent } from './component/rv-resource-view-dialog/rv-resource-view-dialog.component';
 import { RvRichTextResourceViewComponent } from './component/rv-rich-text-resource-view/rv-rich-text-resource-view.component';
@@ -72,6 +73,7 @@ import { RV_RESOURCE_VIEW_I18N } from './rv-resource-view.i18n';
     SpSpreadsheetModule,
   ],
   declarations: [
+    RvAppProgressComponent,
     RvResourceViewComponent,
     RvViewJsonComponent,
     RvViewChart2dComponent,
@@ -108,6 +110,8 @@ import { RV_RESOURCE_VIEW_I18N } from './rv-resource-view.i18n';
     RvViewMarkdownComponent,
     RvViewIframeComponent,
     RvResourceViewDialogComponent,
+
+    RvAppProgressComponent,
   ],
 })
 export class RvResourceViewModule {

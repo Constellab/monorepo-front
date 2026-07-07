@@ -14,7 +14,8 @@
           type="button"
           class="g-button-small detail-link"
           [routerLink]="detailRoute"
-          target="_blank">
+          target="_blank"
+          rel="noopener noreferrer">
           {{ 'li.open_type_in_page' | translate }}
           <mat-icon>chevron_right</mat-icon>
         </a>
@@ -25,7 +26,8 @@
             type="button"
             class="g-button-small detail-link"
             [href]="technicalDocUrl$ | async"
-            target="_blank">
+            target="_blank"
+            rel="noopener noreferrer">
             {{ 'li.open_in_community' | translate }}
             <mat-icon>open_in_new</mat-icon>
           </a>
