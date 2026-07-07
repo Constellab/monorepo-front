@@ -7,6 +7,7 @@
     <mat-cell *matCellDef="let template">
       <!--    Invisible link  -->
       @if (!rowSelectable) {
+        <!-- eslint-disable-next-line @angular-eslint/template/elements-content -->
         <a [routerLink]="template | liDetailRoute" [target]="rowLinkTarget" class="g-row-link"></a>
       }
       <div class="text g-text-dense-height">{{ template.name }}</div>
@@ -57,6 +58,7 @@
         mat-stroked-button
         [routerLink]="template | liDetailRoute"
         target="_blank"
+        rel="noopener noreferrer"
         class="g-button-small"
         (click)="openInNewTab($event)">
         {{ 'li.open_in_new_tab' | translate }}

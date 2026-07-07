@@ -59,6 +59,7 @@
         mat-stroked-button
         class="primary"
         target="_blank"
+        rel="noopener noreferrer"
         [href]="labStatus().labManagerStatus?.labFrontUrl"
         [disabled]="!labIsRunning() || !labStatus().labManagerStatus">
         <mat-icon>arrow_forward_ios</mat-icon>
@@ -68,6 +69,7 @@
       @if (labStatus().labManagerStatus?.codelabFullUrl) {
         <a
           target="_blank"
+          rel="noopener noreferrer"
           mat-stroked-button
           type="button"
           [href]="labStatus().labManagerStatus.codelabFullUrl"

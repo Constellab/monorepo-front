@@ -1,9 +1,9 @@
 @if (docUrl.isAbsolute) {
-  <a class="resource-link" [href]="docUrl.url" target="_blank">
+  <a class="resource-link" [href]="docUrl.url" target="_blank" rel="noopener noreferrer">
     <ng-content></ng-content>
   </a>
 } @else {
-  <a class="resource-link" [routerLink]="docUrl.url" target="_blank">
+  <a class="resource-link" [routerLink]="docUrl.url" target="_blank" rel="noopener noreferrer">
     <ng-content></ng-content>
   </a>
 }

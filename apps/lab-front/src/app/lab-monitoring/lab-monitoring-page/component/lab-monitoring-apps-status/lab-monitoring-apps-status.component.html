@@ -10,13 +10,13 @@
         Nginx
       </button>
       <mat-menu #nginxMenu="matMenu">
-        <a mat-menu-item [href]="nginxConfigUrl" target="_blank">
+        <a mat-menu-item [href]="nginxConfigUrl" target="_blank" rel="noopener noreferrer">
           {{ 'monitoring.nginx_config' | translate }}
         </a>
-        <a mat-menu-item [href]="nginxAccessLogUrl" target="_blank">
+        <a mat-menu-item [href]="nginxAccessLogUrl" target="_blank" rel="noopener noreferrer">
           {{ 'monitoring.nginx_access_log' | translate }}
         </a>
-        <a mat-menu-item [href]="nginxErrorLogUrl" target="_blank">
+        <a mat-menu-item [href]="nginxErrorLogUrl" target="_blank" rel="noopener noreferrer">
           {{ 'monitoring.nginx_error_log' | translate }}
         </a>
       </mat-menu>

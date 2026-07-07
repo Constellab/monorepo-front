@@ -11,7 +11,7 @@
   </button>
   <mat-menu #menu="matMenu" xPosition="before">
     @if (docUrl) {
-      <a mat-menu-item [href]="docUrl" target="_blank">
+      <a mat-menu-item [href]="docUrl" target="_blank" rel="noopener noreferrer">
         <mat-icon>info</mat-icon>
         {{ 'documentation' | translate }}
       </a>

@@ -209,7 +209,7 @@
   @if (!user()) {
     <div class="section-buttons-div">
       <a type="button" mat-flat-button [href]="signUpRoute">{{ 'join_the_community' | translate }}</a>
-      <a mat-raised-button [href]="discordUrl" target="_blank">
+      <a mat-raised-button [href]="discordUrl" target="_blank" rel="noopener noreferrer">
         <mat-icon flIcon="discord"></mat-icon>
         {{ 'join_the_community_discord' | translate }}
       </a>

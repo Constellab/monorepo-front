@@ -7,7 +7,8 @@
     <fl-card-body>
       <div class="help-text">
         {{ 'data_lab_price_simulator_help' | translate }}
-        <a [href]="contactUsUrl" target="_blank" class="link"> {{ 'contact_us' | translate }}</a
+        <a [href]="contactUsUrl" target="_blank" rel="noopener noreferrer" class="link">
+          {{ 'contact_us' | translate }}</a
         >.
       </div>
       <mat-stepper orientation="vertical" [linear]="true" class="stepper">
@@ -56,11 +57,21 @@
             <ca-lab-create-summary [server]="serverForm" [storage]="storageForm"></ca-lab-create-summary>
           </div>
 
-          <a mat-flat-button [routerLink]="signupRoute" target="_blank" class="next-button button primary">
+          <a
+            mat-flat-button
+            [routerLink]="signupRoute"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="next-button button primary">
             {{ 'flAuth.signup' | translate }}
           </a>
 
-          <a mat-flat-button [href]="contactUsUrl" target="_blank" class="next-button button primary">
+          <a
+            mat-flat-button
+            [href]="contactUsUrl"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="next-button button primary">
             {{ 'contact_us' | translate }}
           </a>
 

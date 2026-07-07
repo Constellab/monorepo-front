@@ -54,7 +54,7 @@ export class TeFileComponent extends TeElementBlockDirective implements OnInit {
   }
 
   public openDocumentPreview(): void {
-    window.open(this.fileUrl, '_blank');
+    window.open(this.fileUrl, '_blank', 'noopener,noreferrer');
   }
 
   private onUploadSuccess(data: TeBlockFileUploadResponse): void {

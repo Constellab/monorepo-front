@@ -13,7 +13,12 @@
 
       <div class="g-layout-row g-layout-start-center g-layout-gap-1em">
         <!-- Link to community -->
-        <a mat-stroked-button [href]="getBrickLink(brickVersion)" class="g-button-small" target="_blank">
+        <a
+          mat-stroked-button
+          [href]="getBrickLink(brickVersion)"
+          class="g-button-small"
+          target="_blank"
+          rel="noopener noreferrer">
           {{ 'view_in_community' | translate }}
         </a>
 

@@ -28,7 +28,7 @@
       <div class="grid-4-cols">
         @for (item of items; track item) {
           @if (itemHref) {
-            <a [href]="itemHref(item)" target="_blank">
+            <a [href]="itemHref(item)" target="_blank" rel="noopener noreferrer">
               <ng-template
                 [ngTemplateOutlet]="templateRef"
                 [ngTemplateOutletContext]="{ $implicit: item }"></ng-template>

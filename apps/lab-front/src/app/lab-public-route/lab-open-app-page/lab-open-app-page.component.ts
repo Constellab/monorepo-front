@@ -54,7 +54,7 @@ export class LabOpenAppPageComponent implements OnInit, OnDestroy {
   // which rv-app-progress renders for any non-STARTING status.
   displayStatus = computed<RvAppStatus>(() => (this.status() === 'STOPPED' ? 'STOPPED' : 'STARTING'));
 
-  private appKey: string;
+  private appKey: string | null = null;
   // One-time code for space/external opens (absent for from-lab opens which use the session cookie).
   private code?: string;
   // Grant returned by `start`, kept in page state and sent back verbatim to `handoff`.
@@ -75,6 +75,12 @@ export class LabOpenAppPageComponent implements OnInit, OnDestroy {
   }
 
   private start(): void {
+    // Missing/misconfigured route param: nothing to open, so fail fast instead of firing an invalid request.
+    if (!this.appKey) {
+      this.onError();
+      return;
+    }
+
     this.status.set('STARTING');
     this.statusText.set(undefined);
     this.authorizeGrant = null;

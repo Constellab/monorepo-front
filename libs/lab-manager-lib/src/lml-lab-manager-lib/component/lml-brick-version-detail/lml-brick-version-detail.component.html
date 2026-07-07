@@ -20,7 +20,9 @@
 
 <fl-key-value>
   <fl-key>{{ 'lml.brick_version_info' | translate }}</fl-key>
-  <a [href]="communityLink()" target="_blank" class="g-text-link">{{ communityLink() }}</a>
+  <a [href]="communityLink()" target="_blank" rel="noopener noreferrer" class="g-text-link">{{
+    communityLink()
+  }}</a>
 </fl-key-value>
 
 <!-- Technical infos-->

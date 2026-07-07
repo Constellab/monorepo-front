@@ -13,7 +13,7 @@
       <fl-key-value>
         <fl-key>{{ 'codelab_link' | translate }}</fl-key>
         <span class="g-text-link">
-          <a [href]="codelabInfo.url" target="_blank">{{ codelabInfo.url }}</a>
+          <a [href]="codelabInfo.url" target="_blank" rel="noopener noreferrer">{{ codelabInfo.url }}</a>
         </span>
       </fl-key-value>
 
@@ -28,7 +28,9 @@
       <fl-key-value>
         <fl-key>{{ 'codelab_more_info' | translate }}</fl-key>
         <span class="g-text-link"
-          ><a [href]="communityHelpUrl" target="_blank">{{ communityHelpUrl }}</a></span
+          ><a [href]="communityHelpUrl" target="_blank" rel="noopener noreferrer">{{
+            communityHelpUrl
+          }}</a></span
         >
       </fl-key-value>
     </ng-container>

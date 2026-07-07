@@ -9,7 +9,13 @@
       <p>{{ 'bnBioNetwork.metabolite_exists_in_multiple_pathways' | translate }} :</p>
       <ul>
         @for (metaboliteNode of duplicateMetabolites$ | async; track metaboliteNode) {
-          <li class="g-text-link" (click)="selectNode(metaboliteNode)">
+          <li
+            class="g-text-link"
+            role="button"
+            tabindex="0"
+            (click)="selectNode(metaboliteNode)"
+            (keydown.enter)="selectNode(metaboliteNode)"
+            (keydown.space)="selectNode(metaboliteNode)">
             {{ metaboliteNode.cluster.clusterId }}
           </li>
         }
@@ -21,13 +27,20 @@
     <ul>
       @for (connectedReaction of connectedReaction$ | async; track connectedReaction) {
         <li>
-          <span class="g-text-link" (click)="selectNode(connectedReaction)">
+          <span
+            class="g-text-link"
+            role="button"
+            tabindex="0"
+            (click)="selectNode(connectedReaction)"
+            (keydown.enter)="selectNode(connectedReaction)"
+            (keydown.space)="selectNode(connectedReaction)">
             {{ connectedReaction.name }}
           </span>
           @if (connectedReaction.getRheaId(); as id) {
             <a
               class="rhea-id g-text-small g-text-light g-text-link"
               target="_blank"
+              rel="noopener noreferrer"
               [href]="connectedReaction.getReadIdLink()">
               <fl-text-icon gap="0" iconPosition="end">
                 <mat-icon class="g-icon-tiny">open_in_new</mat-icon>

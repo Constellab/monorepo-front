@@ -17,7 +17,7 @@ export class CaHierarchyObjectRouterService {
   public navigateToHierarchyObject(hierarchyObject: CaHierarchyObject): void {
     // applications redirect to their access url in a new tab instead of a detail page
     if (this.isApplication(hierarchyObject)) {
-      window.open(this.resourceService.getRedirectUrl(hierarchyObject.id), '_blank');
+      window.open(this.resourceService.getRedirectUrl(hierarchyObject.id), '_blank', 'noopener,noreferrer');
       return;
     }
 
@@ -30,14 +30,14 @@ export class CaHierarchyObjectRouterService {
   public openHierarchyObjectInNewTab(hierarchyObject: CaHierarchyObject): void {
     // applications redirect to their access url instead of a detail page
     if (this.isApplication(hierarchyObject)) {
-      window.open(this.resourceService.getRedirectUrl(hierarchyObject.id), '_blank');
+      window.open(this.resourceService.getRedirectUrl(hierarchyObject.id), '_blank', 'noopener,noreferrer');
       return;
     }
 
     const route = this.getHierarchyObjectRoute(hierarchyObject);
     if (route) {
       const url = this.router.createUrlTree([route]).toString();
-      window.open(url, '_blank');
+      window.open(url, '_blank', 'noopener,noreferrer');
     }
   }
 

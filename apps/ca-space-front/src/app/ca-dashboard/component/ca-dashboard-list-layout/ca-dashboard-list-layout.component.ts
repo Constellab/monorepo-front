@@ -57,7 +57,7 @@ export class CaDashboardListLayoutComponent {
    * When provided, items are rendered as external links (opened in a new tab) using the
    * returned url instead of the internal caDetailRoute.
    */
-  @Input() itemHref: (item: any) => string;
+  @Input() itemHref?: (item: any) => string;
 
   @Output() addClick: EventEmitter<MouseEvent> = new EventEmitter();
 

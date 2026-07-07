@@ -63,6 +63,7 @@
             <a
               [href]="lab.frontUrl"
               target="_blank"
+              rel="noopener noreferrer"
               class="g-text-link"
               [matTooltip]="'open_lab_in_new_tab' | translate">
               {{ lab.frontUrl }}
@@ -113,7 +114,7 @@
       @if (lab.typeObj.isDesktop) {
         <fl-text-icon>
           <mat-icon>help</mat-icon>
-          <a [href]="desktopDocUrl" target="_blank" class="g-text-link">
+          <a [href]="desktopDocUrl" target="_blank" rel="noopener noreferrer" class="g-text-link">
             {{ 'lab_desktop_how_to_link' | translate }}
           </a>
         </fl-text-icon>

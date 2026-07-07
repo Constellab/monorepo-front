@@ -105,16 +105,16 @@
     <a routerLink="." fragment="how-to-contribute">{{ 'how_to_contribute' | translate }}</a>
   </div>
   <div class="footer-link">
-    <a href="https://github.com/Constellab" target="_blank">GitHub</a>
+    <a href="https://github.com/Constellab" target="_blank" rel="noopener noreferrer">GitHub</a>
   </div>
   <div class="footer-link">
-    <a [href]="discordUrl" target="_blank">Discord</a>
+    <a [href]="discordUrl" target="_blank" rel="noopener noreferrer">Discord</a>
   </div>
   <div class="footer-link">
-    <a href="https://www.gencovery.com" target="_blank">Gencovery</a>
+    <a href="https://www.gencovery.com" target="_blank" rel="noopener noreferrer">Gencovery</a>
   </div>
   <div class="footer-link">
-    <a [href]="constellabUrl" target="_blank">Constellab</a>
+    <a [href]="constellabUrl" target="_blank" rel="noopener noreferrer">Constellab</a>
   </div>
   <div class="footer-link">
     <a href="mailto:contact@gencovery.com">{{ 'contact' | translate }}</a>
@@ -123,15 +123,18 @@
 
 <ng-template #navResource2Links>
   <div class="footer-link">
-    <a href="https://www.gencovery.com/en-us/politique-de-confidentialite" target="_blank">{{
-      'confidentiality_policy' | translate
-    }}</a>
+    <a
+      href="https://www.gencovery.com/en-us/politique-de-confidentialite"
+      target="_blank"
+      rel="noopener noreferrer"
+      >{{ 'confidentiality_policy' | translate }}</a
+    >
   </div>
   <!--  <div class="footer-link">-->
   <!--    <a href="#">Politique de cookies</a>-->
   <!--  </div>-->
   <div class="footer-link">
-    <a href="https://www.gencovery.com/en-us/mentions-legales" target="_blank">{{
+    <a href="https://www.gencovery.com/en-us/mentions-legales" target="_blank" rel="noopener noreferrer">{{
       'legal_information' | translate
     }}</a>
   </div>

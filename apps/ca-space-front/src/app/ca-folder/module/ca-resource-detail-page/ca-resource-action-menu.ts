@@ -55,7 +55,7 @@ export class CaResourceActionMenu extends CaHierarchyObjectBaseActionMenu {
       icon: 'open_in_new',
       onClick: () => {
         const url = this.injector.get(CaResourceService).getRedirectUrl(this.hierarchyObjectId);
-        window.open(url, '_blank');
+        window.open(url, '_blank', 'noopener,noreferrer');
       },
     };
   }

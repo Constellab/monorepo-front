@@ -273,7 +273,11 @@ export class LabProcessDashboardComponent implements OnInit, OnDestroy {
 
   private onShareAgentRes(res: LiCreateCommunityAgentVersionResDto): void {
     if (res) {
-      window.open(this.communityHelper.getAgentVersionUrl(res.id, res.title, res.agent_version), '_blank');
+      window.open(
+        this.communityHelper.getAgentVersionUrl(res.id, res.title, res.agent_version),
+        '_blank',
+        'noopener,noreferrer'
+      );
     }
   }
 
