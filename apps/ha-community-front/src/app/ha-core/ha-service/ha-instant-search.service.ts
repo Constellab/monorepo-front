@@ -5,7 +5,7 @@ import { IndexWidget, Widget } from 'instantsearch.js';
 import InstantSearch from 'instantsearch.js/es/lib/InstantSearch';
 import history from 'instantsearch.js/es/lib/routers/history';
 
-import { HA_ENVIRONMENT } from '../../../HA_ENVIRONMENTs/ha-HA_ENVIRONMENT';
+import { HA_ENVIRONMENT } from '../../../environments/ha-environment';
 
 @Injectable({
   providedIn: 'root',

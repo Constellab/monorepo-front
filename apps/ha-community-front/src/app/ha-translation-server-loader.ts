@@ -5,7 +5,7 @@ import { dirname, resolve } from 'path';
 import { Observable } from 'rxjs';
 import { fileURLToPath } from 'url';
 
-import { HA_ENVIRONMENT } from '../HA_ENVIRONMENTs/ha-HA_ENVIRONMENT';
+import { HA_ENVIRONMENT } from '../environments/ha-environment';
 
 export class HaTranslateServerLoader implements TranslateLoader {
   constructor(
