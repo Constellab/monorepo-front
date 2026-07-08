@@ -14,8 +14,10 @@ export * from './lib/component/bn-bio-network-legend/bn-bio-network-legend.compo
 export * from './lib/component/bn-bio-network-metabolite-detail/bn-bio-network-metabolite-detail.component';
 export * from './lib/component/bn-bio-network-node-detail/bn-bio-network-node-detail.component';
 export * from './lib/component/bn-bio-network-node-links/bn-bio-network-node-links.component';
-export * from './lib/component/bn-bio-network-node-metabolite-detail/bn-bio-network-node-metabolite-detail.component';
-export * from './lib/component/bn-bio-network-node-reaction-detail/bn-bio-network-node-reaction-detail.component';
+export * from
+'./lib/component/bn-bio-network-node-metabolite-detail/bn-bio-network-node-metabolite-detail.component';
+export * from
+'./lib/component/bn-bio-network-node-reaction-detail/bn-bio-network-node-reaction-detail.component';
 export * from './lib/component/bn-bio-network-node-layout/bn-bio-network-node-layout.component';
 export * from './lib/component/bn-bio-network-node-search/bn-bio-network-node-search.component';
 export * from './lib/component/bn-bio-network-reaction-content/bn-bio-network-reaction-content.component';

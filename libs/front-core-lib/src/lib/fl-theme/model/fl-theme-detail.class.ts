@@ -21,7 +21,7 @@ export interface FlThemeDetail {
 /**
  * Light theme detail
  */
-export const flThemeDetailLight: FlThemeDetail = {
+export const FL_THEME_DETAIL_LIGHT: FlThemeDetail = {
   primary: '#25b49c',
   accent: '#c5bbee',
   warn: '#ff93d0',
@@ -39,7 +39,7 @@ export const flThemeDetailLight: FlThemeDetail = {
 /**
  * Dark theme detail
  */
-export const flThemeDetailDark: FlThemeDetail = {
+export const FL_THEME_DETAIL_DARK: FlThemeDetail = {
   primary: '#25b49c',
   accent: '#c5bbee',
   warn: '#ff93d0',
@@ -57,7 +57,7 @@ export const flThemeDetailDark: FlThemeDetail = {
 /**
  * Object containing class name of the theme
  */
-export const flThemeClass = {
+export const FL_THEME_CLASS = {
   primaryText: 'g-primary-text',
   accentText: 'g-accent-text',
   warnText: 'g-warn-text',
@@ -73,11 +73,11 @@ export class FlThemeHelper {
   public static paletteToTextCssClass(color: ThemePalette): string | null {
     switch (color) {
       case 'primary':
-        return flThemeClass.primaryText;
+        return FL_THEME_CLASS.primaryText;
       case 'accent':
-        return flThemeClass.accentText;
+        return FL_THEME_CLASS.accentText;
       case 'warn':
-        return flThemeClass.warnText;
+        return FL_THEME_CLASS.warnText;
       default:
         return null;
     }

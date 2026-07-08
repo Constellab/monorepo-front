@@ -1,6 +1,6 @@
 import { BlockTool, BlockToolConstructorOptions } from '@editorjs/editorjs/types/tools/block-tool';
 import { ToolboxConfig } from '@editorjs/editorjs/types/tools/tool-settings';
-import { flRootInjector } from '@monorepo/front-core-lib/fl-core';
+import { FL_ROOT_INJECTOR } from '@monorepo/front-core-lib/fl-core';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 
 import { TeHelper } from '../model/te.helper';
@@ -30,7 +30,7 @@ export class TeHintBlock implements BlockTool {
   }
 
   static get toolbox(): ToolboxConfig {
-    const translateService = flRootInjector.get(FlTranslateService);
+    const translateService = FL_ROOT_INJECTOR.get(FlTranslateService);
     return [
       {
         icon: TeHelper.getMatIconElement('info'),

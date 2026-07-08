@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject,OnInit } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
-import { flCdkOverlayContainerClass } from '@monorepo/front-core-lib/fl-core';
+import { FL_CDK_OVERLAY_CONTAINER_CLASS } from '@monorepo/front-core-lib/fl-core';
 import { FlTagColorer } from '@monorepo/front-core-lib/fl-tag';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -27,7 +27,7 @@ export class SpSpreadsheetDrawerComponent implements OnInit {
   rowTagsColorer$: Observable<FlTagColorer>;
 
   // use to ignore the mouse event on the CDK to keep the drawer open if an overlay is opened
-  cdkContainerClass: string = flCdkOverlayContainerClass;
+  cdkContainerClass: string = FL_CDK_OVERLAY_CONTAINER_CLASS;
 
   ngOnInit(): void {
     this.currentSheet$ = this.state.currentSheet$;

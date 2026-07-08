@@ -36,7 +36,8 @@ export class BnBioNetworkParticleColor {
     if (max === 0) {
       max = 1;
     }
-    return scaleLinear<string>().domain([0, max]).range(range).clamp(true); // value outside domain are clamped to the edges
+    // value outside domain are clamped to the edges
+    return scaleLinear<string>().domain([0, max]).range(range).clamp(true);
   }
 
   /**

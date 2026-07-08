@@ -60,7 +60,7 @@ export class FlUpdateImageContainerComponent {
 
   @ViewChild('input', { static: true, read: ElementRef }) inputImage: ElementRef<HTMLInputElement>;
 
-  onClick(event: MouseEvent): void {
+  onClick(event: Event): void {
     if (this.disabled) return;
 
     const menu: FlMenuDynamic[] = [
@@ -87,7 +87,13 @@ export class FlUpdateImageContainerComponent {
       menu.push(...this.additionalActions);
     }
 
-    this.menuDynamic.openDynamicMenuFromMouseEvent(menu, event);
+    // Position the menu at the mouse pointer for clicks, or relative to the
+    // triggering element when opened via keyboard (no pointer coordinates).
+    if (event instanceof MouseEvent) {
+      this.menuDynamic.openDynamicMenuFromMouseEvent(menu, event);
+    } else {
+      this.menuDynamic.openDynamicMenuRelative(menu, event.currentTarget as Element);
+    }
   }
 
   private openFileSelector(): void {

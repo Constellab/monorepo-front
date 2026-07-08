@@ -26,7 +26,7 @@ const flFormulaI18nEn: FlLangTranslation = {
   },
 };
 
-export const flFormulaI18n: FlTranslateObject = {
+export const FL_FORMULA_I18N: FlTranslateObject = {
   [ClSupportedLanguage.en]: flFormulaI18nEn,
   [ClSupportedLanguage.fr]: flFormulaI18nFr,
 };

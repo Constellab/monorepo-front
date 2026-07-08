@@ -5,7 +5,6 @@ import {
   EventEmitter,
   inject,
   Input,
-  OnInit,
   Output,
 } from '@angular/core';
 import { NgControl } from '@angular/forms';

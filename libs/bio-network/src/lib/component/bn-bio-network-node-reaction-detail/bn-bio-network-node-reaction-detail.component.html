@@ -11,8 +11,11 @@
       <ul>
         @for (reaction of duplicateReactions$ | async; track reaction) {
           <li
+            role="button"
+            tabindex="0"
             class="g-text-link"
             (click)="selectNode(reaction)"
+            (keydown.enter)="selectNode(reaction)"
             [ngClass]="{ 'selected-pathway': reaction.cluster.clusterId === node.cluster.clusterId }">
             {{ reaction.cluster.clusterId }}
           </li>

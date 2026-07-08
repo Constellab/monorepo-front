@@ -1,6 +1,6 @@
 import { InlineTool, SanitizerConfig } from '@editorjs/editorjs';
 import { InlineToolConstructorOptions } from '@editorjs/editorjs/types/tools/inline-tool';
-import { flRootInjector } from '@monorepo/front-core-lib/fl-core';
+import { FL_ROOT_INJECTOR } from '@monorepo/front-core-lib/fl-core';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 
 import { TeHelper } from '../model/te.helper';
@@ -17,7 +17,7 @@ export class TeCleanStyleInlineTool implements InlineTool {
    * Title for hover-tooltip
    */
   static get title(): string {
-    return flRootInjector.get(FlTranslateService).translate('teTextEditor.clean_style');
+    return FL_ROOT_INJECTOR.get(FlTranslateService).translate('teTextEditor.clean_style');
   }
 
   constructor(protected options: InlineToolConstructorOptions) {}

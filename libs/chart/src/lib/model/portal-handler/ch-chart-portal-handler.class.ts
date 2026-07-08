@@ -1,6 +1,6 @@
 import { ComponentType, ConnectedPosition } from '@angular/cdk/overlay';
 import { NgZone } from '@angular/core';
-import { flRootInjector } from '@monorepo/front-core-lib/fl-core';
+import { FL_ROOT_INJECTOR } from '@monorepo/front-core-lib/fl-core';
 import {
   FlOverlayRef,
   FlPortalConfig,
@@ -35,8 +35,8 @@ export class ChChartPortalHandler {
     if (this.currentHoverOverlay != null) return;
     this.portalFixed = fixPortal;
 
-    const portalService: FlPortalService = flRootInjector.get(FlPortalService);
-    const ngZone: NgZone = flRootInjector.get(NgZone);
+    const portalService: FlPortalService = FL_ROOT_INJECTOR.get(FlPortalService);
+    const ngZone: NgZone = FL_ROOT_INJECTOR.get(NgZone);
 
     // get the overlay config form config or the default one
     const overlayConfig: FlRelativeOverlayConfig = {

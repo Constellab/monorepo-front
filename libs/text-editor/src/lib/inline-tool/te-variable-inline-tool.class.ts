@@ -1,26 +1,26 @@
 import { SanitizerConfig } from '@editorjs/editorjs';
-import { flRootInjector } from '@monorepo/front-core-lib/fl-core';
+import { FL_ROOT_INJECTOR } from '@monorepo/front-core-lib/fl-core';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 
 import { TeHelper } from '../model/te.helper';
-import { TeVariableFormInfo, teVariableTagName } from '../model/te-variable.class';
+import { TE_VARIABLE_TAG_NAME,TeVariableFormInfo } from '../model/te-variable.class';
 import { TeComponentInlineTool } from './te-component-inline-tool.class';
 
 export class TeVariableInlineToolClass extends TeComponentInlineTool<TeVariableFormInfo> {
   static override get title(): string {
-    return flRootInjector.get(FlTranslateService).translate('teTextEditor.variable');
+    return FL_ROOT_INJECTOR.get(FlTranslateService).translate('teTextEditor.variable');
   }
 
   public static get sanitize(): SanitizerConfig {
     return {
-      [teVariableTagName]: {
+      [TE_VARIABLE_TAG_NAME]: {
         'data-jsondata': true,
       },
     } as SanitizerConfig;
   }
 
   getInlineElementTag(): string {
-    return teVariableTagName;
+    return TE_VARIABLE_TAG_NAME;
   }
 
   renderInlineButton(): HTMLElement {
@@ -53,7 +53,7 @@ export class TeVariableInlineToolClass extends TeComponentInlineTool<TeVariableF
   getWrapper(): HTMLElement | undefined {
     // only allow the variable in a paragraph
     if (!this.selectionIsInParagraph()) return undefined;
-    return document.createElement(teVariableTagName);
+    return document.createElement(TE_VARIABLE_TAG_NAME);
   }
 
   private selectionIsInParagraph(): boolean {

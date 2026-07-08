@@ -1,6 +1,6 @@
 import { CoCommunityApp } from '@monorepo/community-lib';
 import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
-import { TeRichText, TeRichTextTransform } from '@monorepo/text-editor';
+import { TeRichText, teRichTextTransform } from '@monorepo/text-editor';
 import { Type } from 'class-transformer';
 
 import { HaEntity } from './ha-entity.class';
@@ -9,7 +9,7 @@ import { HaSpace } from './ha-space.class';
 export class HaCommunityApp extends HaEntity implements CoCommunityApp {
   title: string;
   appUrl: string;
-  @TeRichTextTransform()
+  @teRichTextTransform()
   description: TeRichText;
   contactMail?: string;
   likes: number;

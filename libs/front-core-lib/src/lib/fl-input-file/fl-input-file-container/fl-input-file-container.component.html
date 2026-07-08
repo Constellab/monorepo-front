@@ -1,8 +1,8 @@
 <div class="input-container" flDragHover="input-container-drop-hover" (flDrop)="onDropFile($event)">
   <ng-content select="input"></ng-content>
 
-  <!-- Label and clear button -->
-  <label class="input-file-trigger" tabindex="0">
+  <!-- Trigger and clear button -->
+  <div class="input-file-trigger" tabindex="0">
     <div class="g-layout-row g-layout-start-center">
       @if (icon) {
         <mat-icon [flIcon]="icon" class="icon"></mat-icon>
@@ -23,5 +23,5 @@
         }
       </div>
     </div>
-  </label>
+  </div>
 </div>

@@ -7,7 +7,8 @@ import { ClHelpService } from '@monorepo/core-lib';
  *
  * It provides simplification for NgModel methods, required and disable inputs
  *
- * This can work with {@link FlFormFieldComponent} is the LibFormFieldDirective is provided by the extend class
+ * This can work with {@link FlFormFieldComponent} is the LibFormFieldDirective is provided by the
+ * extend class
  * Example --> providers: [{provide: LibFormFieldDirective, useExisting: LibColorSelectorComponent}]
  * If the provider is set the error attribute will be filled
  *
@@ -82,6 +83,7 @@ export abstract class FlFormFieldDirective<INNER, OUTER = INNER> implements Cont
    * @param ngControl control for ControlValueAccessor
    * @protected
    */
+  // eslint-disable-next-line @angular-eslint/prefer-inject
   protected constructor(ngControl: NgControl) {
     // Replace the provider from above with this.
     if (ngControl != null) {
@@ -128,7 +130,8 @@ export abstract class FlFormFieldDirective<INNER, OUTER = INNER> implements Cont
 
   /**
    * Set the component error state. This is automatically call by the {@link FlFormFieldComponent}
-   * if this component is wrap in a LibFormFieldComponent and the LibFormFieldDirective is provided in this component
+   * if this component is wrap in a LibFormFieldComponent and the LibFormFieldDirective is provided in
+   * this component
    * @param isError bool
    */
   setErrorState(isError: boolean): void {

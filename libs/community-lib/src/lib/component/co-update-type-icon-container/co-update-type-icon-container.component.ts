@@ -16,9 +16,9 @@ export class CoUpdateTypeIconContainerComponent {
   @Input()
   disabled: boolean = false;
 
-  @Output() onClickEvent: EventEmitter<void> = new EventEmitter<void>();
+  @Output() clickEvent: EventEmitter<void> = new EventEmitter<void>();
 
-  onClick() {
-    if (!this.disabled) this.onClickEvent.emit();
+  onClick(): void {
+    if (!this.disabled) this.clickEvent.emit();
   }
 }

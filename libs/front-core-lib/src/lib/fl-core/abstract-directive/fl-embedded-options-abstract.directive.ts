@@ -18,6 +18,7 @@ import { ClHelpService } from '@monorepo/core-lib';
 export abstract class FlEmbeddedOptionsAbstractDirective implements AfterViewInit {
   @ViewChildren(MatOption) protected options: QueryList<MatOption>;
 
+  // eslint-disable-next-line @angular-eslint/prefer-inject
   protected constructor(private optionParent: MatSelect | MatAutocomplete) {
     if (optionParent == null) {
       console.error('The component must be a child of a mat-select or a mat-autocomplete');

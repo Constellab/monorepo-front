@@ -26,7 +26,7 @@ const flFileInputEn: FlLangTranslation = {
   },
 };
 
-export const flFileInputI18n: FlTranslateObject = {
+export const FL_FILE_INPUT_I18N: FlTranslateObject = {
   [ClSupportedLanguage.en]: flFileInputFr,
   [ClSupportedLanguage.fr]: flFileInputEn,
 };

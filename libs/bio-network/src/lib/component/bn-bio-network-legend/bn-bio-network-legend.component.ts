@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { bnBioNetworkCofactorColor } from '../../model/bn-bio-network-node-cofactor.class';
+import { BN_BIO_NETWORK_COFACTOR_COLOR } from '../../model/bn-bio-network-node-cofactor.class';
 
 /**
  * Component to show the legend of the bio network
@@ -12,5 +12,5 @@ import { bnBioNetworkCofactorColor } from '../../model/bn-bio-network-node-cofac
   standalone: false,
 })
 export class BnBioNetworkLegendComponent {
-  cofactorColor = bnBioNetworkCofactorColor;
+  cofactorColor = BN_BIO_NETWORK_COFACTOR_COLOR;
 }

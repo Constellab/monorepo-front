@@ -1,6 +1,5 @@
-import { Component, ElementRef, inject,OnDestroy, OnInit, Renderer2 } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ClHelpService } from '@monorepo/core-lib';
-import { FlPortalService } from '@monorepo/front-core-lib/fl-portal';
 import { FlStatus } from '@monorepo/front-core-lib/fl-status';
 import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
 import { Observable } from 'rxjs';
@@ -8,7 +7,6 @@ import { Observable } from 'rxjs';
 import { PrWorkflowNodeDirective } from '../../directive/pr-workflow-node.directive';
 import { PrWorkflowNodeProcess } from '../../model/node/pr-workflow-node-process.class';
 import { PrWorkflowNodeProtocol } from '../../model/node/pr-workflow-node-protocol.class';
-import { PrWorkflowManagerState } from '../../state/pr-workflow-manager-state';
 import { PrWorkflowNodeIcon } from '../pr-workflow-node-content/pr-workflow-node-content.component';
 
 /**
@@ -31,15 +29,6 @@ export class PrWorkflowNodeProcessComponent extends PrWorkflowNodeDirective impl
   icon$: Observable<PrWorkflowNodeIcon>;
 
   status$: Observable<FlStatus>;
-
-  constructor() {
-    const workflowManager = inject(PrWorkflowManagerState);
-    const elementRef = inject(ElementRef);
-    const renderer = inject(Renderer2);
-    const portalService = inject(FlPortalService);
-
-    super(workflowManager, elementRef, renderer, portalService);
-  }
 
   ngOnInit(): void {
     this.initNode();

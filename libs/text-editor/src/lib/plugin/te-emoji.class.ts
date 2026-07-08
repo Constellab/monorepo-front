@@ -1,6 +1,6 @@
 import { FlHtmlHelper } from '@monorepo/front-core-lib/fl-core';
 import { FlKeyboardKey } from '@monorepo/front-core-lib/fl-core';
-import { flRootInjector } from '@monorepo/front-core-lib/fl-core';
+import { FL_ROOT_INJECTOR } from '@monorepo/front-core-lib/fl-core';
 import { FlEmojiPickerPortalComponent } from '@monorepo/front-core-lib/fl-emoji-picker';
 import { FlEmojiPickerPortalInput } from '@monorepo/front-core-lib/fl-emoji-picker';
 import { FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
@@ -64,7 +64,7 @@ export class TeEmoji extends TePortalPlugin {
     };
 
     // open portal
-    const portalService = flRootInjector.get(FlPortalService);
+    const portalService = FL_ROOT_INJECTOR.get(FlPortalService);
     const portalPosition = TeHelper.getPortalPositionForCursor(
       FlEmojiPickerPortalComponent.PORTAL_MAX_WIDTH,
       FlEmojiPickerPortalComponent.PORTAL_MAX_HEIGHT

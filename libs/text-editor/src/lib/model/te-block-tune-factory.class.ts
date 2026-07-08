@@ -44,7 +44,8 @@ export function teBlockTuneFactory(
   applicationRef: ApplicationRef,
   additionalData?: any
 ): any {
-  // this class implement the BlockToolConstructable interface (but because of constructor it is not recognized as such)
+  // this class implement the BlockToolConstructable interface (but because of constructor it is not
+  // recognized as such)
   return class TeClass {
     static isTune = (blockType as unknown as BlockTuneConstructable).isTune;
     static sanitize = (blockType as unknown as BlockTuneConstructable).sanitize;

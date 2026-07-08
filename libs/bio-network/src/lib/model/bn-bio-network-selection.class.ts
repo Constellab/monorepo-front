@@ -24,7 +24,8 @@ export interface BnBioNetworkSelectionEventBase {
 }
 
 export interface BnBioNetworkSelectionEventSingleNode extends BnBioNetworkSelectionEventBase {
-  mode: 'singleNode' | 'singleNodeByClick'; // to distinguish single node selection by click and by other selection
+  // to distinguish single node selection by click and by other selection
+  mode: 'singleNode' | 'singleNodeByClick';
   selectedNode: BnBioNetworkNode;
 }
 

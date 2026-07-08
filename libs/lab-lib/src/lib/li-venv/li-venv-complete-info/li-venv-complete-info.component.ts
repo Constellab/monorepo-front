@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
 import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';

@@ -20,7 +20,7 @@ const flImageEn: FlLangTranslation = {
   },
 };
 
-export const flImageI18n: FlTranslateObject = {
+export const FL_IMAGE_I18N: FlTranslateObject = {
   [ClSupportedLanguage.en]: flImageEn,
   [ClSupportedLanguage.fr]: flImageFr,
 };

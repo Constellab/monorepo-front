@@ -20,7 +20,7 @@ export class FlColorPickerComponent extends FlFormFieldDirective<string> {
 
   size = input<string>('40px');
 
-  callChangeEvent(value: string): void {}
+  callChangeEvent(): void {}
 
   onDisableChange(disable: boolean): void {
     this.disabled = disable;

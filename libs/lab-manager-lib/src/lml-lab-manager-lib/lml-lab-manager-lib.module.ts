@@ -50,7 +50,7 @@ import { LmlManagerAdvancedComponent } from './component/lml-manager-advanced/lm
 import { LmlManagerConfigComponent } from './component/lml-manager-config/lml-manager-config.component';
 import { LmlManagerStatusComponent } from './component/lml-manager-status/lml-manager-status.component';
 import { LmlMigrationPlanComponent } from './component/lml-migration-plan/lml-migration-plan.component';
-import { lmlLabManagerI18n } from './lml-lab-manager.i18n';
+import { LML_LAB_MANAGER_I18N } from './lml-lab-manager.i18n';
 import { LmlCommunityBrickImagePipe } from './pipe/lml-community-brick-image.pipe';
 
 @NgModule({
@@ -124,6 +124,6 @@ export class LmlLabManagerLibModule {
   constructor() {
     const translateService = inject(FlTranslateService);
 
-    translateService.addModuleTranslation('LmlLabManagerLibModule', lmlLabManagerI18n);
+    translateService.addModuleTranslation('LmlLabManagerLibModule', LML_LAB_MANAGER_I18N);
   }
 }

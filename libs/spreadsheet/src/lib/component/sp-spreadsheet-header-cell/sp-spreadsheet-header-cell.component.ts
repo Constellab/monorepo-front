@@ -16,9 +16,9 @@ import { Observable, Subscription } from 'rxjs';
 
 import { SpSheetSingleSelection } from '../../model/selection/sp-sheet-single-selection.class';
 import {
-  FlHeaderCellType,
-  headerIndexAttributeName,
-  headerTypeAttributeName,
+  SP_HEADER_INDEX_ATTRIBUTE_NAME,
+  SP_HEADER_TYPE_ATTRIBUTE_NAME,
+  SpHeaderCellType,
 } from '../../model/sp-cell.class';
 import { SpSheetHeader, SpSheetHeaderInfo } from '../../model/sp-sheet-headers.class';
 import { SpSpreadsheetState } from '../../state/sp-spreadsheet.state';
@@ -39,16 +39,16 @@ export class SpSpreadsheetHeaderCellComponent implements OnInit, OnDestroy {
   private elementRef = inject(ElementRef);
   private portalService = inject(FlPortalService);
 
-  @HostBinding('attr.' + headerIndexAttributeName)
+  @HostBinding('attr.' + SP_HEADER_INDEX_ATTRIBUTE_NAME)
   @Input()
   index: number;
 
   @Input() header: SpSheetHeader;
 
   // if the header cell is a row or a column
-  @HostBinding('attr.' + headerTypeAttributeName)
+  @HostBinding('attr.' + SP_HEADER_TYPE_ATTRIBUTE_NAME)
   @Input()
-  type: FlHeaderCellType;
+  type: SpHeaderCellType;
 
   colors$: Observable<string[]>;
 

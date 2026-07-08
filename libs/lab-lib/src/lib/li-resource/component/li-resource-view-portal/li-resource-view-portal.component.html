@@ -7,7 +7,7 @@
         class="title g-flex-auto"
         [(flElementEditable)]="editTitle"
         [flElementIgnoreDrag]="true"
-        [flElementDisabled]="labView.viewConfig == null"
+        [flElementDisabled]="labView.viewConfig === null"
         (flElementValueChange)="updateTitle($event)">
         {{ labView.title }}
       </div>

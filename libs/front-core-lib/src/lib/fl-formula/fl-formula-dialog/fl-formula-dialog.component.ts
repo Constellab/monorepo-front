@@ -5,7 +5,7 @@ import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
 import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
 import { debounceTime, Observable, startWith } from 'rxjs';
 
-export interface TeFormulaDialogInput extends FlFormDialogInput<string> {
+export interface FlFormulaDialogInput extends FlFormDialogInput<string> {
   helpText?: FlTranslatableText;
 }
 
@@ -23,7 +23,7 @@ export class FlFormulaDialogComponent implements OnInit {
   formulaControl: FormControl<string>;
 
   formula$: Observable<string>;
-  input: TeFormulaDialogInput = inject(MAT_DIALOG_DATA);
+  input: FlFormulaDialogInput = inject(MAT_DIALOG_DATA);
 
   async ngOnInit(): Promise<void> {
     this.formulaControl = new FormControl(this.input.object, [Validators.required]);

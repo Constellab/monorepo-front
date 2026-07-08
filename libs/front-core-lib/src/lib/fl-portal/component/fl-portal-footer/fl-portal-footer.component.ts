@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 /**
  * To put on fl-portal, this is at this end and this is not a part of the content so this is not scrollable

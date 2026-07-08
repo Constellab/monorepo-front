@@ -1,6 +1,6 @@
 <div class="g-text-light g-layout-row-wrap g-layout-start-center g-layout-gap-1em">
   @for (layer of layers$ | async; track layer; let last = $last) {
-    <div [ngClass]="{ 'g-text-link': hasMultipleLayers$ | async }" (click)="selectLayer(layer.id)">
+    <div role="button" tabindex="0" [ngClass]="{ 'g-text-link': hasMultipleLayers$ | async }" (click)="selectLayer(layer.id)" (keydown.enter)="selectLayer(layer.id)">
       {{ layer.title }}
     </div>
     @if (!last) {

@@ -7,4 +7,4 @@ export interface TeVariableFormInfo {
   type?: TeVariableFormType;
 }
 
-export const teVariableTagName = 'te-variable-inline';
+export const TE_VARIABLE_TAG_NAME = 'te-variable-inline';

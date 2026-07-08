@@ -3,7 +3,7 @@ import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import { RECAPTCHA_V3_SITE_KEY, RecaptchaV3Module } from 'ng-recaptcha-2';
 
 import { FL_CAPTCHA_MODULE_CONFIG, FlCaptchaModuleConfig } from './fl-captcha.class';
-import { flCaptchaI18n } from './fl-captcha.i18n';
+import { FL_CAPTCHA_I18N } from './fl-captcha.i18n';
 
 function configureReCaptcha(config: FlCaptchaModuleConfig): string {
   return config.siteKey;
@@ -22,6 +22,6 @@ export class FlCaptchaModule {
   constructor() {
     const translateService = inject(FlTranslateService);
 
-    translateService.addModuleTranslation('FlCaptchaModule', flCaptchaI18n);
+    translateService.addModuleTranslation('FlCaptchaModule', FL_CAPTCHA_I18N);
   }
 }

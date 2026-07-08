@@ -15,7 +15,7 @@ import { ChChart2dDatum } from '../data/ch-chart-data.class';
 import { ChChart2dMultiSerie } from '../data/ch-chart-multi-serie.class';
 import { ChChartDataWithSerie } from '../data/ch-chart-serie.class';
 import { ChChartSVGLegend } from '../legend/ch-chart-legend.class';
-import { ChChartColorFunction, chChartTransparentColorOpacity } from '../scale/ch-chart-scale-color.class';
+import { CH_CHART_TRANSPARENT_COLOR_OPACITY,ChChartColorFunction } from '../scale/ch-chart-scale-color.class';
 import { ChChartLinear2d } from './ch-chart-linear-2d.class';
 
 export class ChChartVulcanoPlot extends ChChartLinear2d {
@@ -71,7 +71,7 @@ export class ChChartVulcanoPlot extends ChChartLinear2d {
   }
 
   private getColorFunction(): ChChartColorFunction<ChChartDataWithSerie<unknown>> {
-    const colors = FlColorHelper.getColorList(chChartTransparentColorOpacity);
+    const colors = FlColorHelper.getColorList(CH_CHART_TRANSPARENT_COLOR_OPACITY);
     const xThreshold = Math.abs(this.xThreshold);
     return (d: ChChartDataWithSerie<ChChart2dDatum>) => {
       if (d.data.getX() < -xThreshold && d.data.getY() > this.yThreshold) {

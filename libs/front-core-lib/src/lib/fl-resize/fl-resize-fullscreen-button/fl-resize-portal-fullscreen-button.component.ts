@@ -1,5 +1,5 @@
-import { Component, ElementRef, inject,OnInit, Renderer2 } from '@angular/core';
-import { flCdkOverlayPanelClass, FlHtmlHelper } from '@monorepo/front-core-lib/fl-core';
+import { Component, ElementRef, inject, Renderer2 } from '@angular/core';
+import { FL_CDK_OVERLAY_PANEL_CLASS, FlHtmlHelper } from '@monorepo/front-core-lib/fl-core';
 import { FlPortalHeaderComponent } from '@monorepo/front-core-lib/fl-portal';
 
 import { FlResizeDirective } from '../fl-resize/fl-resize.directive';
@@ -70,7 +70,7 @@ export class FlResizePortalFullscreenButtonComponent {
   }
 
   private getParent(): HTMLElement {
-    return FlHtmlHelper.getParent(this.elementRef.nativeElement, { className: flCdkOverlayPanelClass });
+    return FlHtmlHelper.getParent(this.elementRef.nativeElement, { className: FL_CDK_OVERLAY_PANEL_CLASS });
   }
 
   get icon(): string {

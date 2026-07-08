@@ -10,10 +10,10 @@ import {
   REQUEST,
 } from '@angular/core';
 import { clDefaultTheme, ClTheme, clThemeIsSupported } from '@monorepo/core-lib';
-import { flRootInjector } from '@monorepo/front-core-lib/fl-core';
+import { FL_ROOT_INJECTOR } from '@monorepo/front-core-lib/fl-core';
 import { FlCookieService } from '@monorepo/front-core-lib/fl-dialog';
 
-import { FlThemeDetail, flThemeDetailDark, flThemeDetailLight } from './model/fl-theme-detail.class';
+import { FL_THEME_DETAIL_DARK, FL_THEME_DETAIL_LIGHT,FlThemeDetail } from './model/fl-theme-detail.class';
 
 export interface FlThemeServiceConfig {
   // if not provided, default to ''
@@ -50,7 +50,7 @@ export class FlThemeService {
   }
 
   public static getInstance(): FlThemeService {
-    return flRootInjector.get(FlThemeService);
+    return FL_ROOT_INJECTOR.get(FlThemeService);
   }
 
   public init(): void {
@@ -156,7 +156,7 @@ export class FlThemeService {
   public getCurrentThemeDetail(): FlThemeDetail {
     const theme: ClTheme = this.getCurrentTheme();
 
-    return theme === ClTheme.LIGHT_THEME ? flThemeDetailLight : flThemeDetailDark;
+    return theme === ClTheme.LIGHT_THEME ? FL_THEME_DETAIL_LIGHT : FL_THEME_DETAIL_DARK;
   }
 
   //////////////////////// OTHERS ////////////////////////

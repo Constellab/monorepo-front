@@ -1,6 +1,6 @@
 import { FlThemeDetail } from '@monorepo/front-core-lib/fl-theme';
 
-import { bnBioNetworkCompartmentBiomassId } from '../model/bn-bio-network-compartment.class';
+import { BN_BIO_NETWORK_COMPARTMENT_BIOMASS_ID } from '../model/bn-bio-network-compartment.class';
 import { BnBioNetworkNodeMetabolite } from '../model/bn-bio-network-node-metabolite.class';
 import { BnBioNetworkCanvasHelper } from '../utils/bn-bio-network-canvas.helper';
 import { BnBioNetworkObjectColorFunction } from './bn-bio-network-object.renderer';
@@ -98,7 +98,7 @@ export class BnBioNetworkMetaboliteRenderer {
   }
 
   private static getRadius(metabolite: BnBioNetworkNodeMetabolite): number {
-    if (metabolite.data.compartment === bnBioNetworkCompartmentBiomassId)
+    if (metabolite.data.compartment === BN_BIO_NETWORK_COMPARTMENT_BIOMASS_ID)
       return BnBioNetworkMetaboliteRenderer.biomassMetaboliteRadius;
     return metabolite.isMajor()
       ? BnBioNetworkMetaboliteRenderer.majorMetaboliteRadius

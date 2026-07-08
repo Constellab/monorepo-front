@@ -16,7 +16,7 @@ const flCaptchaI18nEn: FlLangTranslation = {
   },
 };
 
-export const flCaptchaI18n: FlTranslateObject = {
+export const FL_CAPTCHA_I18N: FlTranslateObject = {
   [ClSupportedLanguage.en]: flCaptchaI18nEn,
   [ClSupportedLanguage.fr]: flCaptchaI18nFr,
 };

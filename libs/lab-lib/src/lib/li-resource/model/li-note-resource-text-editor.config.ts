@@ -1,5 +1,5 @@
 import { ApplicationRef, EnvironmentInjector } from '@angular/core';
-import { flRootInjector } from '@monorepo/front-core-lib/fl-core';
+import { FL_ROOT_INJECTOR } from '@monorepo/front-core-lib/fl-core';
 import { LiNoteResourceService, LiRichTextAudioTranscriptionConfig } from '@monorepo/lab-lib/li-core';
 import { LiRichTextFileViewBlock, LiRichTextViewBlockAdditionalData } from '@monorepo/lab-lib/li-rich-text';
 import {
@@ -19,7 +19,7 @@ export class LiNoteResourceTextEditorImageConfig implements TeFigureBlockConfig 
   private noteResourceService: LiNoteResourceService;
 
   constructor(private noteResourceId: string) {
-    this.noteResourceService = flRootInjector.get(LiNoteResourceService);
+    this.noteResourceService = FL_ROOT_INJECTOR.get(LiNoteResourceService);
   }
 
   imageUploader(): Observable<TeBlockFigureUploadedResponse> {
@@ -35,7 +35,7 @@ export class LiNoteResourceTextEditorFileConfig implements TeFileBlockConfig {
   private noteResourceService: LiNoteResourceService;
 
   constructor(private noteResourceId: string) {
-    this.noteResourceService = flRootInjector.get(LiNoteResourceService);
+    this.noteResourceService = FL_ROOT_INJECTOR.get(LiNoteResourceService);
   }
 
   fileUploader(): Observable<TeBlockFileUploadResponse> {

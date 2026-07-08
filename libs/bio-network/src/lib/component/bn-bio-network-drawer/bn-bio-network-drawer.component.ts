@@ -8,7 +8,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { MatTabGroup } from '@angular/material/tabs';
-import { flCdkOverlayContainerClass } from '@monorepo/front-core-lib/fl-core';
+import { FL_CDK_OVERLAY_CONTAINER_CLASS } from '@monorepo/front-core-lib/fl-core';
 import { Subscription } from 'rxjs';
 
 import { BnBioNetworkDrawerActionName } from '../../model/bn-bio-network-drawer-action.class';
@@ -32,7 +32,7 @@ export class BnBioNetworkDrawerComponent implements OnInit, OnDestroy {
   pinnedDrawer: boolean = false;
 
   // use to ignore the mouse event on the CDK to keep the drawer open if an overlay is opened
-  cdkContainerClass: string = flCdkOverlayContainerClass;
+  cdkContainerClass: string = FL_CDK_OVERLAY_CONTAINER_CLASS;
 
   private subscription: Subscription;
 

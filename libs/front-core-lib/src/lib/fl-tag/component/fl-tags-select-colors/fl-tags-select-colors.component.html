@@ -17,17 +17,23 @@
           @for (tagValue of tagGroup.tags; track tagValue.value) {
             <fl-chip
               size="small"
+              role="button"
+              tabindex="0"
               class="tag g-layout-row g-layout-between-center g-layout-gap-05em"
               (click)="toggleTagColor(tagValue)"
+              (keydown.enter)="toggleTagColor(tagValue)"
               [matTooltip]="tagValue.value | flTagValueToString"
               matTooltipPosition="below"
               [matTooltipShowDelay]="1000">
               <div class="tag-value">{{ tagValue.value }}</div>
               @if (tagValue.activeColor) {
                 <div
+                  role="button"
+                  tabindex="0"
                   [style.background-color]="tagValue.color"
                   class="color"
                   (click)="openColorSelector(tagValue, $event)"
+                  (keydown.enter)="openColorSelector(tagValue, $event)"
                   [(flColorSelector)]="tagValue.color"
                   (flColorSelectorChange)="emitColors()"></div>
               } @else {

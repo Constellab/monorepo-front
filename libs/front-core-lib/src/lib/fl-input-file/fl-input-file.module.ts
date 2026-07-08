@@ -13,7 +13,7 @@ import { FlTranslateModule } from '../fl-translate/fl-translate.module';
 import { FlInputFileDirective } from './fl-input-file.directive';
 import { FlInputFileContainerComponent } from './fl-input-file-container/fl-input-file-container.component';
 import { FlInputFileIconContainerComponent } from './fl-input-file-icon-container/fl-input-file-icon-container.component';
-import { flFileInputI18n } from './i18n/fl-input-file.i18n';
+import { FL_FILE_INPUT_I18N } from './i18n/fl-input-file.i18n';
 
 /**
  * Form input to manage file
@@ -39,6 +39,6 @@ export class FlInputFileModule {
   constructor() {
     const translateServie = inject(FlTranslateService);
 
-    translateServie.addModuleTranslation('FlInputFileModule', flFileInputI18n);
+    translateServie.addModuleTranslation('FlInputFileModule', FL_FILE_INPUT_I18N);
   }
 }

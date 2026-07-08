@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { FlFormHelper } from '@monorepo/front-core-lib/fl-core';
 import { FlPortalActionResult } from '@monorepo/front-core-lib/fl-portal-actions';
 import { LiProcess } from '@monorepo/lab-lib/li-core';
-import { prConfigValueAreEqual } from '@monorepo/protocol';
+import { PR_CONFIG_VALUE_ARE_EQUAL } from '@monorepo/protocol';
 import {
   TdConfig,
   TdConfigI,
@@ -77,8 +77,8 @@ export class LabProcessDashboardConfigState {
       !this.parentProtocolId ||
       this.taskInstanceName !== process.instanceName ||
       this.parentProtocolId !== process.parentProtocolId ||
-      !prConfigValueAreEqual(this.config.specs, process.config.specs) ||
-      !prConfigValueAreEqual(this.config.values, process.config.values)
+      !PR_CONFIG_VALUE_ARE_EQUAL(this.config.specs, process.config.specs) ||
+      !PR_CONFIG_VALUE_ARE_EQUAL(this.config.values, process.config.values)
     );
   }
 

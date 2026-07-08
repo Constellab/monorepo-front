@@ -3,7 +3,7 @@ import {
   FlStatus,
   FlStatusDict,
   FlStatusHelper,
-  FlStatusTransform,
+  flStatusTransform,
 } from '@monorepo/front-core-lib/fl-status';
 import { Expose, Type } from 'class-transformer';
 
@@ -21,7 +21,7 @@ const labBrickMessageStatusDict: FlStatusDict<LiBrickMessageStatus> = {
 export class LiBrickMessage {
   message: string;
 
-  @FlStatusTransform(labBrickMessageStatusDict)
+  @flStatusTransform(labBrickMessageStatusDict)
   status: FlStatus<LiBrickMessageStatus>;
 }
 
@@ -37,7 +37,7 @@ const labBrickStatusDict: FlStatusDict<LiBrickStatus> = {
 export class LiBrickEntity extends LiEntity {
   name: string;
 
-  @FlStatusTransform(labBrickStatusDict)
+  @flStatusTransform(labBrickStatusDict)
   status: FlStatus<LiBrickStatus>;
 
   @Type(() => LiBrickMessage)

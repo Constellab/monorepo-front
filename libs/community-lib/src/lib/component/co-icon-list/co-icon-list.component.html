@@ -20,7 +20,7 @@
     [flInfiniteDisabled]="icons?.isLoading || icons?.page?.last"
     [flInfiniteMode]="'auto'">
     @for (icon of icons | flDatasourceConnect | async; track icon) {
-      <div class="icon-div" (click)="onIconClick($event, icon)">
+      <div class="icon-div" role="button" tabindex="0" (click)="onIconClick($event, icon)" (keydown.enter)="onIconClick($event, icon)">
         <div class="icon-file-div">
           <td-type-icon
             [iconSize]="75"

@@ -120,7 +120,8 @@ export class SpSpreadsheetMouseManagerState implements OnDestroy {
       return;
     }
 
-    // if the mouse is in the scroll zone, we lock the row selection because it is automatically done by the scroll zone
+    // if the mouse is in the scroll zone, we lock the row selection because it is automatically done by
+    // the scroll zone
     const shift: number = this.getYScrollZoneFromMousePosition(event.clientY);
     const lockRow = shift !== 0;
     this.expandSelection(cellEvent, lockRow);
@@ -201,11 +202,13 @@ export class SpSpreadsheetMouseManagerState implements OnDestroy {
     if (cellEvent.headerType === 'row') {
       return {
         row: cellEvent.index,
-        column: currentSelection.endColumn, // use the last column selection to prevent changing column when hovering a row
+        // use the last column selection to prevent changing column when hovering a row
+        column: currentSelection.endColumn,
       };
     } else {
       return {
-        row: currentSelection.endRow, // use the last row selection to prevent changing row when hovering a column
+        // use the last row selection to prevent changing row when hovering a column
+        row: currentSelection.endRow,
         column: cellEvent.index,
       };
     }

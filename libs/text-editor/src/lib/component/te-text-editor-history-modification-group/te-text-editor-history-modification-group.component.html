@@ -1,5 +1,5 @@
 <div class="modification-group">
-  <div class="group-header" (click)="openGroupModificationVisualizer()">
+  <div class="group-header" role="button" tabindex="0" (click)="openGroupModificationVisualizer()" (keydown.enter)="openGroupModificationVisualizer()">
     <div class="group-title">
       <div class="group-title-icon-div">
         <button mat-icon-button (click)="toggleGroup($event)">
@@ -23,7 +23,7 @@
   @if (groupOpened) {
     <div class="group-body">
       @for (modification of group.modifications; track modification.id) {
-        <div class="group-body-modification" (click)="openModificationVisualizer(modification)">
+        <div class="group-body-modification" role="button" tabindex="0" (click)="openModificationVisualizer(modification)" (keydown.enter)="openModificationVisualizer(modification)">
           <te-text-editor-history-modification
             [modification]="modification"></te-text-editor-history-modification>
         </div>

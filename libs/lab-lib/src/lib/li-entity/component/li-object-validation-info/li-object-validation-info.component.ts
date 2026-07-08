@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';

@@ -1,7 +1,10 @@
 @if (fileUrl) {
   <div
+    role="button"
+    tabindex="0"
     class="g-layout-row g-layout-start-center g-layout-gap-05em file-container"
-    (click)="openDocumentPreview()">
+    (click)="openDocumentPreview()"
+    (keydown.enter)="openDocumentPreview()">
     <fl-file-text-icon [filename]="data.name"></fl-file-text-icon>
     <div class="g-text-light">{{ data.size | flByteText }}</div>
   </div>

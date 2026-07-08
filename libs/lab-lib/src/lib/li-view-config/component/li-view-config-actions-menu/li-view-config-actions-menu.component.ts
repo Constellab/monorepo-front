@@ -14,7 +14,7 @@ import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import {
-  excludedViewInNote,
+  LI_EXCLUDED_VIEW_IN_NOTE,
   LiNote,
   LiNoteService,
   LiResourceService,
@@ -69,7 +69,7 @@ export class LiViewConfigActionsMenuComponent implements OnInit {
 
   addToNoteIsLoading: boolean = false;
 
-  excludedViewInNote = excludedViewInNote;
+  LI_EXCLUDED_VIEW_IN_NOTE = LI_EXCLUDED_VIEW_IN_NOTE;
 
   ngOnInit(): void {
     this.tags = this.tagService.getEntityTagsDatasource('VIEW', this.viewConfig.id);

@@ -16,7 +16,7 @@ import { FlMissingTranslationLogService } from './service/fl-missing-translation
 import { FlTranslateService } from './service/fl-translate.service';
 
 // init the translation
-export function initTranslateService(service: FlTranslateService): void {
+export function flInitTranslateService(service: FlTranslateService): void {
   service.init();
 }
 
@@ -48,7 +48,7 @@ export class FlTranslateModule {
         FlTranslateService,
         FlMissingTranslationLogService,
         // Init the translateService
-        provideAppInitializer(() => initTranslateService(inject(FlTranslateService))),
+        provideAppInitializer(() => flInitTranslateService(inject(FlTranslateService))),
       ],
     };
   }

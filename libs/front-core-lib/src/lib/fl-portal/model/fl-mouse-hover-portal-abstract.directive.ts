@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, OnDestroy, Renderer2 } from '@angular/core';
+import { Directive, inject, Input, OnDestroy, Renderer2 } from '@angular/core';
 import { FlMouseHoverAbstractDirective } from '@monorepo/front-core-lib/fl-core';
 
 import { FlPortalService } from '../service/fl-portal.service';
@@ -26,12 +26,11 @@ export abstract class FlMouseHoverPortalAbstractDirective
 
   private listener: () => void;
 
-  constructor(
-    elementRef: ElementRef,
-    protected portalService: FlPortalService,
-    private render: Renderer2
-  ) {
-    super(elementRef);
+  protected portalService = inject(FlPortalService);
+  private render = inject(Renderer2);
+
+  constructor() {
+    super();
   }
 
   /**

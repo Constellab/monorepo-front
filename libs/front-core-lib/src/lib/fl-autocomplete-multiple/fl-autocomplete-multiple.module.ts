@@ -11,7 +11,8 @@ import {
 } from './fl-autocomplete-multiple/fl-autocomplete-multiple.component';
 
 /**
- * Module for the {@link FlAutocompleteMultipleComponent}. It is an autocomplete that supported multiple selected choices
+ * Module for the {@link FlAutocompleteMultipleComponent}. It is an autocomplete that supported
+ * multiple selected choices
  */
 @NgModule({
   declarations: [FlAutocompleteMultipleComponent],

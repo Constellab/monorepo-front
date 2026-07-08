@@ -1,7 +1,7 @@
 import { ApplicationRef, EnvironmentInjector } from '@angular/core';
 import { ToolConstructable, ToolSettings } from '@editorjs/editorjs/types/tools';
 import { BlockToolData } from '@editorjs/editorjs/types/tools/block-tool-data';
-import { flRootInjector } from '@monorepo/front-core-lib/fl-core';
+import { FL_ROOT_INJECTOR } from '@monorepo/front-core-lib/fl-core';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import { Observable } from 'rxjs';
 
@@ -136,7 +136,7 @@ export abstract class TeConfig {
   }
 
   getListConfig(): ToolSettings {
-    const translateService = flRootInjector.get(FlTranslateService);
+    const translateService = FL_ROOT_INJECTOR.get(FlTranslateService);
     return {
       class: TeNestedListBlock,
       inlineToolbar: true,

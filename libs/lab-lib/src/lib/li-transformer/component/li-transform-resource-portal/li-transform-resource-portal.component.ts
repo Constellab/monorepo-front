@@ -6,7 +6,7 @@ import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { FL_PORTAL_DATA, FlOverlayRef, FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
 import { FlResizeModule } from '@monorepo/front-core-lib/fl-resize';
 import {
-  labConvertTransformFormToParams,
+  liConvertTransformFormToParams,
   LiResource,
   LiResourceService,
   LiRouterService,
@@ -74,7 +74,7 @@ export class LiTransformResourcePortalComponent {
   }
 
   private callTransformer(formValue: LiTransformForm[]): void {
-    const transformers: LiTransformerParams[] = labConvertTransformFormToParams(formValue);
+    const transformers: LiTransformerParams[] = liConvertTransformFormToParams(formValue);
     this.isLoading = true;
     this.resourceService.transformResource(transformers, this.input.resourceId).subscribe({
       next: (resource) => this.onTransformSuccess(resource),

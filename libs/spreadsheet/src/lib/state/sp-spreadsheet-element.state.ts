@@ -2,12 +2,12 @@ import { inject,Injectable } from '@angular/core';
 import { FlHtmlHelper } from '@monorepo/front-core-lib/fl-core';
 
 import {
-  columnIdAttributeName,
-  FlHeaderCellType,
-  headerIndexAttributeName,
-  headerTypeAttributeName,
-  rowIdAttributeName,
+  SP_COLUMN_ID_ATTRIBUTE_NAME,
+  SP_HEADER_INDEX_ATTRIBUTE_NAME,
+  SP_HEADER_TYPE_ATTRIBUTE_NAME,
+  SP_ROW_ID_ATTRIBUTE_NAME,
   SpCell,
+  SpHeaderCellType,
 } from '../model/sp-cell.class';
 import { SpCellCoord } from '../model/sp-cell-coord.class';
 import { SpSpreadsheetState } from './sp-spreadsheet.state';
@@ -23,7 +23,7 @@ interface CellEvent {
 
 interface HeaderCellEvent {
   type: 'header';
-  headerType: FlHeaderCellType;
+  headerType: SpHeaderCellType;
   index: number;
   element: HTMLElement;
 }
@@ -47,7 +47,7 @@ export class SpSpreadsheetElementState {
    */
   public getColumnHeaderCellElement(columnId: number): HTMLElement {
     return this.tableContainer.querySelector(
-      `[${headerTypeAttributeName}="column"][${headerIndexAttributeName}="${columnId}"]`
+      `[${SP_HEADER_TYPE_ATTRIBUTE_NAME}="column"][${SP_HEADER_INDEX_ATTRIBUTE_NAME}="${columnId}"]`
     );
   }
 
@@ -69,8 +69,8 @@ export class SpSpreadsheetElementState {
 
   // returns cell based on a html element : SP-SPREADSHEET-CELL
   private getNormalCellFromHTMLElement(element: HTMLElement): CellEvent {
-    const row: number = parseInt(element.getAttribute(rowIdAttributeName));
-    const column: number = parseInt(element.getAttribute(columnIdAttributeName));
+    const row: number = parseInt(element.getAttribute(SP_ROW_ID_ATTRIBUTE_NAME));
+    const column: number = parseInt(element.getAttribute(SP_COLUMN_ID_ATTRIBUTE_NAME));
 
     return {
       type: 'cell',
@@ -85,8 +85,8 @@ export class SpSpreadsheetElementState {
 
   // returns header cell info based on a html element : SP-SPREADSHEET-HEADER-CELL
   private getHeaderCellFromHTMLElement(element: HTMLElement): HeaderCellEvent {
-    const index: number = parseInt(element.getAttribute(headerIndexAttributeName));
-    const type: FlHeaderCellType = element.getAttribute(headerTypeAttributeName) as FlHeaderCellType;
+    const index: number = parseInt(element.getAttribute(SP_HEADER_INDEX_ATTRIBUTE_NAME));
+    const type: SpHeaderCellType = element.getAttribute(SP_HEADER_TYPE_ATTRIBUTE_NAME) as SpHeaderCellType;
 
     return {
       type: 'header',

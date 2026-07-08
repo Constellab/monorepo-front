@@ -12,7 +12,7 @@ import { FlCorePipeModule } from '../fl-core-pipe/fl-core-pipe.module';
 import { FlDialogModule } from '../fl-dialog/fl-dialog.module';
 import { FlTextIconModule } from '../fl-text-icon/fl-text-icon.module';
 import { FlTranslateModule } from '../fl-translate/fl-translate.module';
-import { flFormulaI18n } from './fl-formula.i18n';
+import { FL_FORMULA_I18N } from './fl-formula.i18n';
 import { FlFormulaComponent } from './fl-formula/fl-formula.component';
 import { FlFormulaDialogComponent } from './fl-formula-dialog/fl-formula-dialog.component';
 
@@ -40,6 +40,6 @@ export class FlFormulaModule {
   constructor() {
     const translateService = inject(FlTranslateService);
 
-    translateService.addModuleTranslation('FlFormulaModule', flFormulaI18n);
+    translateService.addModuleTranslation('FlFormulaModule', FL_FORMULA_I18N);
   }
 }

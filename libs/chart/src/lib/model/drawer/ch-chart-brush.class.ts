@@ -25,7 +25,8 @@ export abstract class ChChartBrush {
    */
   public initBrush(chart: ChChartContainer2Axis<any>): void {
     this.chart = chart;
-    // initialise the brush area: start at 0,0 and finishes at width,height: it means I select the whole graph area
+    // initialise the brush area: start at 0,0 and finishes at width,height: it means I select the whole
+    // graph area
     this.brush
       .extent([
         [0, 0],

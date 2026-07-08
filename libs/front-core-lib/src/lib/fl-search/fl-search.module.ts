@@ -23,7 +23,7 @@ import { FlSearchResultComponent } from './component/fl-search-result/fl-search-
 import { FlSearchSavedListComponent } from './component/fl-search-saved-list/fl-search-saved-list.component';
 import { FlSearchDrawerToggleDirective } from './directive/fl-search-drawer-toggle/fl-search-drawer-toggle.directive';
 import { FlSearchTableSortDirective } from './directive/fl-search-table-sort/fl-search-table-sort.directive';
-import { flSearchI18n } from './i18n/fl-search.i18n';
+import { FL_SEARCH_I18N } from './i18n/fl-search.i18n';
 
 @NgModule({
   declarations: [
@@ -71,6 +71,6 @@ export class FlSearchModule {
   constructor() {
     const translateService = inject(FlTranslateService);
 
-    translateService.addModuleTranslation('FlSearchModule', flSearchI18n);
+    translateService.addModuleTranslation('FlSearchModule', FL_SEARCH_I18N);
   }
 }

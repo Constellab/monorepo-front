@@ -1,6 +1,6 @@
 import { FlEntity } from '@monorepo/front-core-lib/fl-core';
 import { TdConfigI, TdIOSpecs, TdParamSpecs, TdTypeStyle } from '@monorepo/technical-doc';
-import { TeRichText, TeRichTextTransform } from '@monorepo/text-editor';
+import { TeRichText, teRichTextTransform } from '@monorepo/text-editor';
 import { Type } from 'class-transformer';
 import { DateTime } from 'luxon';
 
@@ -28,7 +28,7 @@ export class HaAgentVersion implements FlEntity {
   agent: HaAgent;
   versionState: HaAgentVersionState;
 
-  @TeRichTextTransform()
+  @teRichTextTransform()
   versionInfos?: TeRichText;
   environment: string;
   type: HaAgentVersionType;

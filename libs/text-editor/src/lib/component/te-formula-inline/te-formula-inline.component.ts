@@ -1,6 +1,6 @@
 import { Component, HostBinding, HostListener, inject, OnInit } from '@angular/core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { FlFormulaDialogComponent, TeFormulaDialogInput } from '@monorepo/front-core-lib/fl-formula';
+import { FlFormulaDialogComponent, FlFormulaDialogInput } from '@monorepo/front-core-lib/fl-formula';
 
 import { TeElementInlineDirective } from '../../model/te-element.directive';
 
@@ -33,7 +33,7 @@ export class TeFormulaInlineComponent
   }
 
   public openFormDialog(): void {
-    const input: TeFormulaDialogInput = {
+    const input: FlFormulaDialogInput = {
       mode: 'update',
       object: this.data.formula,
       helpText: 'teTextEditor.formula_help',

@@ -11,7 +11,7 @@ import { FlInfiniteLoadMoreResultComponent } from './component/fl-infinite-load-
 import { FlInfiniteScrollComponent } from './component/fl-infinite-scroll/fl-infinite-scroll.component';
 import { FlInfiniteTableContainerComponent } from './component/fl-infinite-table-container/fl-infinite-table-container.component';
 import { FlInfiniteScrollDirective } from './directive/fl-infinite-scroll/fl-infinite-scroll.directive';
-import { flInfiniteScrollI18n } from './fl-infinite-scroll.i18n';
+import { FL_INFINITE_SCROLL_I18N } from './fl-infinite-scroll.i18n';
 
 @NgModule({
   declarations: [
@@ -32,6 +32,6 @@ export class FlInfiniteScrollModule {
   constructor() {
     const translateService = inject(FlTranslateService);
 
-    translateService.addModuleTranslation('FlInfiniteScrollModule', flInfiniteScrollI18n);
+    translateService.addModuleTranslation('FlInfiniteScrollModule', FL_INFINITE_SCROLL_I18N);
   }
 }

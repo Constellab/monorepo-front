@@ -3,7 +3,10 @@
   <div class="g-layout-col-wrap grow">
     @for (compartment of compartments$ | async; track compartment) {
       <div
+        role="button"
+        tabindex="0"
         (click)="toggleCompartment(compartment.id)"
+        (keydown.enter)="toggleCompartment(compartment.id)"
         [style.opacity]="getCompartmentOpacity(compartment.id)"
         class="element g-text-not-selectable g-layout-row g-layout-start-center g-layout-gap-1em">
         <div class="round" [style.background-color]="compartment.color"></div>

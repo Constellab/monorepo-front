@@ -15,7 +15,8 @@ import { TeElementBlockDirective } from './te-element.directive';
  * @param additionalData
  */
 export function teSimpleBlockFactory(blockType: Type<BlockTool>, additionalData?: any): any {
-  // this class implement the BlockToolConstructable interface (but because of constructor it is not recognized as such)
+  // this class implement the BlockToolConstructable interface (but because of constructor it is not
+  // recognized as such)
   return class TeClass {
     static toolbox = (blockType as BlockToolConstructable).toolbox;
     static pasteConfig = (blockType as BlockToolConstructable).pasteConfig;
@@ -42,7 +43,8 @@ export function teComponentBlockFactory<T extends TeElementBlockDirective = TeEl
   applicationRef: ApplicationRef,
   additionalData?: any
 ): any {
-  // this class implement the BlockToolConstructable interface (but because of constructor it is not recognized as such)
+  // this class implement the BlockToolConstructable interface (but because of constructor it is not
+  // recognized as such)
   return class TeClass {
     static toolbox = (blockType as BlockToolConstructable).toolbox;
     static pasteConfig = (blockType as BlockToolConstructable).pasteConfig;

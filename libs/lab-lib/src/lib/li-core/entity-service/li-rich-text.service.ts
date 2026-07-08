@@ -1,6 +1,6 @@
 import { inject,Injectable } from '@angular/core';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
-import { flRootInjector } from '@monorepo/front-core-lib/fl-core';
+import { FL_ROOT_INJECTOR } from '@monorepo/front-core-lib/fl-core';
 import {
   TeAudioTranscriptionConfig,
   TeBlockFigureUploadedResponse,
@@ -80,7 +80,7 @@ export class LiRichTextImageConfig implements TeFigureBlockConfig {
     private objectType: LiRichTextObjectType,
     private objectId: string
   ) {
-    this.richTextService = flRootInjector.get(LiRichTextService);
+    this.richTextService = FL_ROOT_INJECTOR.get(LiRichTextService);
   }
 
   imageUploader(file: File): Observable<TeBlockFigureUploadedResponse> {
@@ -99,7 +99,7 @@ export class LiRichTextFileConfig implements TeFileBlockConfig {
     private objectType: LiRichTextObjectType,
     private objectId: string
   ) {
-    this.richTextService = flRootInjector.get(LiRichTextService);
+    this.richTextService = FL_ROOT_INJECTOR.get(LiRichTextService);
   }
 
   fileUploader(file: File): Observable<TeBlockFileUploadResponse> {
@@ -115,7 +115,7 @@ export class LiRichTextAudioTranscriptionConfig implements TeAudioTranscriptionC
   private richTextService: LiRichTextService;
 
   constructor() {
-    this.richTextService = flRootInjector.get(LiRichTextService);
+    this.richTextService = FL_ROOT_INJECTOR.get(LiRichTextService);
   }
 
   transcribeAudio(audio: Blob): Observable<TeRichText> {

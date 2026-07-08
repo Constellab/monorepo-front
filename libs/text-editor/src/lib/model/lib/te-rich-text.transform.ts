@@ -8,7 +8,7 @@ import { TeRichText, TeRichTextInput } from './te-rich-text.class';
  * Deserialization --> create TeRichText from TeRichTextInput
  * Serialization --> create TeRichTextInput from TeRichText
  */
-export function TeRichTextTransform(): PropertyDecorator {
+export function teRichTextTransform(): PropertyDecorator {
   // convert dateTime to ISI
   const transformToPlain = Transform(
     (params: ClTransformFnParams<TeRichText>): TeRichTextInput => {

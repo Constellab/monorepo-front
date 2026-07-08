@@ -34,4 +34,4 @@ export interface ChD3DragEvent<T = any> extends DragEvent {
   subject: T;
 }
 
-export const chD3DefaultTransitionDuration = 250;
+export const CH_D3_DEFAULT_TRANSITION_DURATION = 250;

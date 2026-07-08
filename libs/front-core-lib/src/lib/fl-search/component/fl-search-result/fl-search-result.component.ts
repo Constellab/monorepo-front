@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 /**
  * Component to place under the {@link FlSearchComponent} and this contains result object for the search

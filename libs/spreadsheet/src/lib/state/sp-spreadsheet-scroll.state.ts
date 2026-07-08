@@ -13,7 +13,7 @@ import { SpSpreadsheetElementState } from './sp-spreadsheet-element.state';
 import { SpSpreadsheetPaginationState } from './sp-spreadsheet-pagination.state';
 import { SpSpreadsheetSelectionState } from './sp-spreadsheet-selection.state';
 
-export interface Interval {
+export interface SpInterval {
   from: number;
   to: number;
 }
@@ -195,7 +195,7 @@ export class SpSpreadsheetScrollState {
       return;
     }
 
-    const interval: Interval = this.getVisibleInterval();
+    const interval: SpInterval = this.getVisibleInterval();
     // if we have to scroll to the top
     if (rowId < interval.from) {
       this.triggerScrollY(-this.cellHeight * (interval.from - rowId));
@@ -214,7 +214,7 @@ export class SpSpreadsheetScrollState {
   }
 
   public rowIsVisible(rowId: number): boolean {
-    const interval: Interval = this.getVisibleInterval();
+    const interval: SpInterval = this.getVisibleInterval();
 
     // if the rows is already visible
     return rowId >= interval.from && rowId <= interval.to;
@@ -240,7 +240,7 @@ export class SpSpreadsheetScrollState {
     return this.rowsToDisplay$.value;
   }
 
-  private getVisibleInterval(): Interval {
+  private getVisibleInterval(): SpInterval {
     const rows: SpSheetRow[] = this.rowsToDisplay;
 
     return {

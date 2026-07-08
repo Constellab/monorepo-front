@@ -26,7 +26,7 @@ const flSearchEn: FlLangTranslation = {
   },
 };
 
-export const flSearchI18n: FlTranslateObject = {
+export const FL_SEARCH_I18N: FlTranslateObject = {
   [ClSupportedLanguage.en]: flSearchEn,
   [ClSupportedLanguage.fr]: flSearchFr,
 };

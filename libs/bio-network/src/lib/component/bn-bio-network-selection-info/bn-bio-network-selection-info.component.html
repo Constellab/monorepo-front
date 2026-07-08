@@ -2,22 +2,22 @@
 
 @if (info$ | async; as info) {
   <div class="g-text-small g-text-light">
-    @if (info.metabolites != null) {
+    @if (info.metabolites !== null) {
       <div>
         {{ 'bnBioNetwork.metabolites_count' | translate: { count: info.metabolites } }}
       </div>
     }
-    @if (info.cofactors != null) {
+    @if (info.cofactors !== null) {
       <div>
         {{ 'bnBioNetwork.cofactors_count' | translate: { count: info.cofactors } }}
       </div>
     }
-    @if (info.reactions != null) {
+    @if (info.reactions !== null) {
       <div>
         {{ 'bnBioNetwork.reactions_count' | translate: { count: info.reactions } }}
       </div>
     }
-    @if (info.links != null) {
+    @if (info.links !== null) {
       <div>
         {{ 'bnBioNetwork.links_count' | translate: { count: info.links } }}
       </div>

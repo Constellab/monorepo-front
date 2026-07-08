@@ -4,7 +4,7 @@ import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { ClApiError } from '@monorepo/core-lib';
 import { FlApiErrorService, FlServerError } from '@monorepo/front-core-lib/fl-api';
-import { flAuthExpiredCookie, FlCleanerService, FlLoginSavedRoute } from '@monorepo/front-core-lib/fl-core';
+import { FL_AUTH_EXPIRED_COOKIE, FlCleanerService, FlLoginSavedRoute } from '@monorepo/front-core-lib/fl-core';
 import { FlCookieService } from '@monorepo/front-core-lib/fl-dialog';
 import { Observable, throwError } from 'rxjs';
 
@@ -88,7 +88,7 @@ export class CaApiErrorService extends FlApiErrorService {
   private sessionExpired(serverError: FlServerError, snackBarDuration: number): Observable<never> {
     // for security clear the authentication expiration cookie
     // to assure the user is disconnected
-    this.cookieService.removeCookie(flAuthExpiredCookie, {
+    this.cookieService.removeCookie(FL_AUTH_EXPIRED_COOKIE, {
       sameSite: 'Strict',
       path: '/',
       secure: false,

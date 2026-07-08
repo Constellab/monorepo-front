@@ -35,7 +35,6 @@ export class TeParagraphBlock extends Paragraph implements BlockTool {
       this.node.addEventListener('keyup', (event: KeyboardEvent) => this.handleKeyUp(event));
       this.node.addEventListener('keydown', (event: KeyboardEvent) => this.handleKeyDown(event));
     }
-    this.options.api;
 
     return this.node;
   }

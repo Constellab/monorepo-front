@@ -3,7 +3,7 @@ import { ErrorHandler, inject, ModuleWithProviders, NgModule, Provider, Type } f
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 
 import { FlTranslateModule } from '../fl-translate/fl-translate.module';
-import { flApiI18n } from './i18n/fl-api.i18n';
+import { FL_API_I18N } from './i18n/fl-api.i18n';
 import { FlApiService } from './service/fl-api.service';
 import { FlApiErrorService } from './service/fl-api-error.service';
 import { FlApiServiceConfig } from './service/fl-api-service.config';
@@ -57,6 +57,6 @@ export class FlApiModule {
   constructor() {
     const translateService = inject(FlTranslateService);
 
-    translateService.addModuleTranslation('FlApiModule', flApiI18n);
+    translateService.addModuleTranslation('FlApiModule', FL_API_I18N);
   }
 }

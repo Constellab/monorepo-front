@@ -1,4 +1,4 @@
-import { chD3DefaultTransitionDuration } from '../model/ch-d3.class';
+import { CH_D3_DEFAULT_TRANSITION_DURATION } from '../model/ch-d3.class';
 import { ChChart2AxisRenderer } from './ch-chart-renderer.class';
 
 export interface ChChartLine {
@@ -32,7 +32,7 @@ export class ChChartRendererStraightLines extends ChChart2AxisRenderer<any> {
       .join('line')
       .attr('class', this.lineClassName)
       .transition()
-      .duration(withTransition ? chD3DefaultTransitionDuration : 0)
+      .duration(withTransition ? CH_D3_DEFAULT_TRANSITION_DURATION : 0)
       .attr('x1', (d) => (d.orientation === 'vertical' ? this.data.xAxis.scale.scale(d.position) : 0))
       .attr('y1', (d) => (d.orientation === 'horizontal' ? this.data.yAxis.scale.scale(d.position) : 0))
       .attr('x2', (d) =>

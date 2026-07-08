@@ -1,4 +1,4 @@
-<div (click)="onClick()" class="container">
+<div role="button" tabindex="0" (click)="onClick()" (keydown.enter)="onClick()" class="container">
   @if (!disabled) {
     <div class="background"></div>
     <mat-icon class="icon g-icon-big">edit</mat-icon>

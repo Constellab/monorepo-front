@@ -11,7 +11,7 @@ import { FlColorPickerComponent } from './component/fl-color-picker/fl-color-pic
 import { FlColorSelectorComponent } from './component/fl-color-selector/fl-color-selector.component';
 import { FlColorSelectorPortalComponent } from './component/fl-color-selector-portal/fl-color-selector-portal.component';
 import { FlColorSelectorDirective } from './directive/fl-color-selector.directive';
-import { flColorI18n } from './i18n/fl-color.i18n';
+import { FL_COLOR_I18N } from './i18n/fl-color.i18n';
 import { FlContrastColorPipe } from './pipe/fl-contrast-color/fl-contrast-color.pipe';
 import { FlStringToRgbPipe } from './pipe/fl-string-to-rgb/fl-string-to-rgb.pipe';
 
@@ -37,6 +37,6 @@ export class FlColorModule {
   constructor() {
     const translateService = inject(FlTranslateService);
 
-    translateService.addModuleTranslation('FlColorModule', flColorI18n);
+    translateService.addModuleTranslation('FlColorModule', FL_COLOR_I18N);
   }
 }

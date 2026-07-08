@@ -4,7 +4,7 @@ import { ClDateFormat } from '@monorepo/core-lib';
 /**
  * Default format to use to the MatDataPicker
  */
-export const flLuxonDateFormat: MatDateFormats = {
+export const FL_LUXON_DATE_FORMAT: MatDateFormats = {
   parse: {
     // input supported by the date picker (like 04/09/1986 in local format)
     dateInput: 'd/L/y',

@@ -19,7 +19,7 @@ import {
   FlImageFullscreenDirective,
   FlImageFullscreenTestComponent,
 } from './directive/fl-image-fullscreen/fl-image-fullscreen.directive';
-import { flImageI18n } from './fl-image.i18n';
+import { FL_IMAGE_I18N } from './fl-image.i18n';
 
 @NgModule({
   declarations: [
@@ -55,6 +55,6 @@ export class FlImageModule {
   constructor() {
     const translateService = inject(FlTranslateService);
 
-    translateService.addModuleTranslation('FlImageModule', flImageI18n);
+    translateService.addModuleTranslation('FlImageModule', FL_IMAGE_I18N);
   }
 }

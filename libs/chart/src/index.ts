@@ -7,16 +7,25 @@ export * from './lib/component/ch-chart-portal/ch-chart-portal.component';
 export * from './lib/component/ch-chart-serie-inline/ch-chart-serie-inline.component';
 export * from './lib/component/ch-chart-type-select-options/ch-chart-type-select-options.component';
 // ChChartDataPortal
-export * from './lib/component/ch-chart-data-portal/ch-chart-bin-data-portal/ch-chart-bin-data-portal.component';
-export * from './lib/component/ch-chart-data-portal/ch-chart-box-plot-data-portal/ch-chart-box-plot-data-portal.component';
+export * from
+'./lib/component/ch-chart-data-portal/ch-chart-bin-data-portal/ch-chart-bin-data-portal.component';
+export * from
+'./lib/component/ch-chart-data-portal/ch-chart-box-plot-data-portal/ch-chart-box-plot-data-portal.component';
+// eslint-disable-next-line max-len -- unbreakable barrel export path
 export * from './lib/component/ch-chart-data-portal/ch-chart-data-with-serie-portal/ch-chart-data-with-serie-portal.component';
-export * from './lib/component/ch-chart-data-portal/ch-chart-heat-map-data-portal/ch-chart-heat-map-data-portal.component';
+export * from
+'./lib/component/ch-chart-data-portal/ch-chart-heat-map-data-portal/ch-chart-heat-map-data-portal.component';
+// eslint-disable-next-line max-len -- unbreakable barrel export path
 export * from './lib/component/ch-chart-data-portal/ch-chart-stacked-bar-data-portal/ch-chart-stacked-bar-data-portal.component';
 export * from './lib/component/ch-chart-data-portal/ch-chart-value/ch-chart-value.component';
-export * from './lib/component/ch-chart-data-portal/ch-chart-venn-data-portal/ch-chart-venn-data-portal.component';
+export * from
+'./lib/component/ch-chart-data-portal/ch-chart-venn-data-portal/ch-chart-venn-data-portal.component';
 // Right section
-export * from './lib/component/ch-chart-right-section/ch-chart-legend-heat-map/ch-chart-legend-heat-map.component';
-export * from './lib/component/ch-chart-right-section/ch-chart-legend-multi-series/ch-chart-legend-multi-series.component';
+export * from
+'./lib/component/ch-chart-right-section/ch-chart-legend-heat-map/ch-chart-legend-heat-map.component';
+export * from
+'./lib/component/ch-chart-right-section/ch-chart-legend-multi-series/ch-chart-legend-multi-series.component';
+// eslint-disable-next-line max-len -- unbreakable barrel export path
 export * from './lib/component/ch-chart-right-section/ch-chart-legend-series-with-tags/ch-chart-legend-series-with-tags.component';
 
 // Pipes

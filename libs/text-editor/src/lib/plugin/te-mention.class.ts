@@ -3,7 +3,7 @@ import { ClPageI } from '@monorepo/core-lib';
 import { FlDatasourceGetPageData } from '@monorepo/front-core-lib/fl-core';
 import { FlHtmlHelper } from '@monorepo/front-core-lib/fl-core';
 import { FlKeyboardKey } from '@monorepo/front-core-lib/fl-core';
-import { flRootInjector } from '@monorepo/front-core-lib/fl-core';
+import { FL_ROOT_INJECTOR } from '@monorepo/front-core-lib/fl-core';
 import { FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
 import { FlPortalService } from '@monorepo/front-core-lib/fl-portal';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
@@ -31,9 +31,9 @@ export interface TeMentionConfig {
   ) => Observable<ClPageI<FlUser>>;
 }
 
-export const teMentionTagName = 'te-mention-inline';
+export const TE_MENTION_TAG_NAME = 'te-mention-inline';
 
-export interface FlMentionUser {
+export interface TeMentionUser {
   id: string;
   firstname: string;
   lastname: string;
@@ -79,7 +79,7 @@ export class TeMention extends TePortalPlugin {
       caretCoordinates: FlHtmlHelper.getCaretCoordinates(),
     };
 
-    const portalService = flRootInjector.get(FlPortalService);
+    const portalService = FL_ROOT_INJECTOR.get(FlPortalService);
 
     const portalPosition = TeHelper.getPortalPositionForCursor(
       TeMentionPortalComponent.PORTAL_MAX_WIDTH,
@@ -96,8 +96,8 @@ export class TeMention extends TePortalPlugin {
   }
 
   private createMentionElement(user: FlUser): HTMLElement {
-    const mentionUser: FlMentionUser = { id: user.id, firstname: user.firstname, lastname: user.lastname };
-    const mentionElement = document.createElement(teMentionTagName);
+    const mentionUser: TeMentionUser = { id: user.id, firstname: user.firstname, lastname: user.lastname };
+    const mentionElement = document.createElement(TE_MENTION_TAG_NAME);
     mentionElement.setAttribute(TeElementInlineDirective.dataAttribute, JSON.stringify(mentionUser));
     return mentionElement;
   }
@@ -108,7 +108,7 @@ export class TeMention extends TePortalPlugin {
  */
 export class TeMentionInlineTool implements InlineTool {
   static get title(): string {
-    return flRootInjector.get(FlTranslateService).translate('teTextEditor.variable');
+    return FL_ROOT_INJECTOR.get(FlTranslateService).translate('teTextEditor.variable');
   }
 
   static get isInline(): boolean {
@@ -117,7 +117,7 @@ export class TeMentionInlineTool implements InlineTool {
 
   public static get sanitize(): SanitizerConfig {
     return {
-      [teMentionTagName]: {
+      [TE_MENTION_TAG_NAME]: {
         'data-jsondata': true,
       },
     } as SanitizerConfig;

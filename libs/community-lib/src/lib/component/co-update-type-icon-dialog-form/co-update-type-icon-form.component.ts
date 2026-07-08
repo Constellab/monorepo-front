@@ -62,7 +62,7 @@ export class CoUpdateTypeIconFormComponent extends FlFormFieldDirective<TdTypeSt
     );
   }
 
-  callChangeEvent(value: TdTypeStyle): void {}
+  callChangeEvent(): void {}
 
   onDisableChange(disable: boolean): void {
     this.disabled = disable;

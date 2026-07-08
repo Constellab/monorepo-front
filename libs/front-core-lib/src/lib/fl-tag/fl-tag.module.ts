@@ -26,7 +26,7 @@ import { FlTagInputComponent } from './component/fl-tag-input/fl-tag-input.compo
 import { FlTagListComponent } from './component/fl-tag-list/fl-tag-list.component';
 import { FlTagsSelectColorsComponent } from './component/fl-tags-select-colors/fl-tags-select-colors.component';
 import { FlTagService } from './fl-tag.class';
-import { flTagI18n } from './fl-tag.i18n';
+import { FL_TAG_I18N } from './fl-tag.i18n';
 import { FlTagColorPipe } from './pipe/fl-tag-color.pipe';
 import { FlTagValueToStringPipe } from './pipe/fl-tag-value-to-string.pipe';
 import { FlTagsToListPipe } from './pipe/fl-tags-to-list.pipe';
@@ -81,7 +81,7 @@ export class FlTagModule {
   constructor() {
     const translateService = inject(FlTranslateService);
 
-    translateService.addModuleTranslation('FlTagModule', flTagI18n);
+    translateService.addModuleTranslation('FlTagModule', FL_TAG_I18N);
   }
 
   /**

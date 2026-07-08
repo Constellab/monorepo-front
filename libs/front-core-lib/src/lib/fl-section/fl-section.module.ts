@@ -8,7 +8,7 @@ import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import { FlLoaderModule } from '../fl-loader/fl-loader.module';
 import { FlTranslateModule } from '../fl-translate/fl-translate.module';
 import { FlAsyncSectionComponent } from './fl-async-section/fl-async-section.component';
-import { flSectionI18n } from './fl-section.i18n';
+import { FL_SECTION_I18N } from './fl-section.i18n';
 import { FlSectionComponent } from './fl-section/fl-section.component';
 import { FlSectionActionsComponent } from './fl-section-actions/fl-section-actions.component';
 import { FlSectionBodyDirective } from './fl-section-body';
@@ -47,6 +47,6 @@ export class FlSectionModule {
   constructor() {
     const translateService = inject(FlTranslateService);
 
-    translateService.addModuleTranslation('FlSectionModule', flSectionI18n);
+    translateService.addModuleTranslation('FlSectionModule', FL_SECTION_I18N);
   }
 }

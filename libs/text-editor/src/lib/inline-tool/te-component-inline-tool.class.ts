@@ -4,7 +4,8 @@ import { TeElementInlineDirective } from '../model/te-element.directive';
 
 /**
  * Custom abstract class for editor js inline tool to support angular component
- * The component must be a custom element because on the init of the editor js, this class is not called, it is pure HTML
+ * The component must be a custom element because on the init of the editor js, this class is not
+ * called, it is pure HTML
  *
  */
 export abstract class TeComponentInlineTool<T> implements InlineTool {
@@ -49,7 +50,6 @@ export abstract class TeComponentInlineTool<T> implements InlineTool {
   surround(range: Range): void {
     if (!range) return;
 
-    range.cloneContents().parentNode;
     const termWrapper = this.getSelectionInlineElement();
 
     /**

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { RvResourceViewMulti } from '../../model/rv-resource-view.class';
 import { RvResourceViewDirective } from '../../model/rv-resource-view.directive';

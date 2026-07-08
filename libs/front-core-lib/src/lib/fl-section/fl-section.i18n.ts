@@ -13,7 +13,7 @@ const flTradEn: FlLangTranslation = {
   },
 };
 
-export const flSectionI18n: FlTranslateObject = {
+export const FL_SECTION_I18N: FlTranslateObject = {
   [ClSupportedLanguage.en]: flTradEn,
   [ClSupportedLanguage.fr]: flTradFr,
 };

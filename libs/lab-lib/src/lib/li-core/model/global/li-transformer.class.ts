@@ -20,7 +20,7 @@ export interface LiTransformerParams {
   config_values: TdParamSpecsValues;
 }
 
-export function labConvertTransformFormToParams(formValue: LiTransformForm[]): LiTransformerParams[] {
+export function liConvertTransformFormToParams(formValue: LiTransformForm[]): LiTransformerParams[] {
   const transformers: LiTransformerParams[] = [];
   for (const form of formValue) {
     transformers.push({

@@ -2,7 +2,7 @@ import { Router } from '@angular/router';
 import { BlockTool, BlockToolConstructorOptions, BlockToolData, ToolboxConfig } from '@editorjs/editorjs';
 import { MenuConfig } from '@editorjs/editorjs/types/tools';
 import Header from '@editorjs/header';
-import { flRootInjector } from '@monorepo/front-core-lib/fl-core';
+import { FL_ROOT_INJECTOR } from '@monorepo/front-core-lib/fl-core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlClipboardService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
@@ -54,7 +54,7 @@ export class TeHeaderWithIdBlock extends Header implements TeBlockWithMetadata, 
 
   static get toolbox(): ToolboxConfig {
     // split the toolbox config into 3 individual buttons
-    const translateService = flRootInjector.get(FlTranslateService);
+    const translateService = FL_ROOT_INJECTOR.get(FlTranslateService);
     return [
       // shift 1 header level up because we don't allow h1 in the editor (for SEO purpose)
       {
@@ -105,7 +105,7 @@ export class TeHeaderWithIdBlock extends Header implements TeBlockWithMetadata, 
   }
 
   private addCopyLinkButton(headerId: string): void {
-    const clipboardService = flRootInjector.get(FlClipboardService);
+    const clipboardService = FL_ROOT_INJECTOR.get(FlClipboardService);
 
     const button = this.node.ownerDocument.createElement('button');
     button.className = 'te-header-copy-link-btn';
@@ -169,8 +169,8 @@ export class TeHeaderWithIdBlock extends Header implements TeBlockWithMetadata, 
   renderSettings(): HTMLElement | MenuConfig {
     // const settings: TunesMenuConfigItem[] = super.renderSettings() as TunesMenuConfigItem[];
     // if (!this.config.showCopyLinkButton) return settings;
-    const translateService = flRootInjector.get(FlTranslateService);
-    const clipboardService = flRootInjector.get(FlClipboardService);
+    const translateService = FL_ROOT_INJECTOR.get(FlTranslateService);
+    const clipboardService = FL_ROOT_INJECTOR.get(FlClipboardService);
 
     // using code from original header : https://github.com/editor-js/header/blob/master/src/index.js
     const config: MenuConfig = [
@@ -226,7 +226,7 @@ export class TeHeaderWithIdBlock extends Header implements TeBlockWithMetadata, 
   }
 
   openMetadataDialog(): void {
-    const dialogService = flRootInjector.get(FlDialogService);
+    const dialogService = FL_ROOT_INJECTOR.get(FlDialogService);
     dialogService
       .openSmallDialog(TeEditBlockMetadataDialogComponent, { data: this.metadata })
       .afterClosed()
@@ -241,7 +241,7 @@ export class TeHeaderWithIdBlock extends Header implements TeBlockWithMetadata, 
   private scrollToHeader(): void {
     const id = this.node.getAttribute('id');
     if (id) {
-      const router = flRootInjector.get(Router);
+      const router = FL_ROOT_INJECTOR.get(Router);
       router.navigate([], { fragment: id, replaceUrl: true });
     }
     this.node.scrollIntoView({ behavior: 'smooth', block: 'start' });

@@ -6,7 +6,7 @@ import { InjectionToken } from '@angular/core';
  *
  * Used to know if the user is logged on
  */
-export const flAuthExpiredCookie: string = 'Auth_Expiration';
+export const FL_AUTH_EXPIRED_COOKIE: string = 'Auth_Expiration';
 
 /**
  * Object containing default options to pass when setting cookies.
@@ -92,4 +92,4 @@ export interface FlAcceptanceCookie {
   choice?: boolean;
 }
 
-export const COOKIE_MODULE_CONFIG = new InjectionToken<FlAcceptanceCookiesConfig>('COOKIE_CONFIG');
+export const FL_COOKIE_MODULE_CONFIG = new InjectionToken<FlAcceptanceCookiesConfig>('COOKIE_CONFIG');

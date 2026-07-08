@@ -44,7 +44,7 @@ const en: FlLangTranslation = {
   },
 };
 
-export const maMailI18n: FlTranslateObject = {
+export const MA_MAIL_I18N: FlTranslateObject = {
   [ClSupportedLanguage.en]: en,
   [ClSupportedLanguage.fr]: fr,
 };

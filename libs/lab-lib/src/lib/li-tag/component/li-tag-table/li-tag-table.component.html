@@ -9,7 +9,11 @@
       class="g-cell-with-left-border"
       [style.border-left-color]="tag | flTagColor | async">
       @if (!rowSelectable) {
-        <a [routerLink]="tag | liDetailRoute" [target]="rowLinkTarget" class="g-row-link"></a>
+        <a
+          [routerLink]="tag | liDetailRoute"
+          [target]="rowLinkTarget"
+          [attr.aria-label]="tag.label"
+          class="g-row-link"></a>
       }
 
       <div>

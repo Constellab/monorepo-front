@@ -33,7 +33,8 @@ export function rvHeatMapToChart(view: RvResourceViewHeatMap): ChChartConfig {
     const columnInfo: RvResourceViewHeaderMapHeader = view.data.columns
       ? view.data.columns[column]
       : { name: column.toString(), tags: {} };
-    // convert all the column data into a 3d datum, where x = columnIndex, y = index of value and z = value as number
+    // convert all the column data into a 3d datum, where x = columnIndex, y = index of value and
+    // z = value as number
     const data: ChChart3dDatum[] = [];
 
     for (let row = 0; row < viewData[column].length; row++) {

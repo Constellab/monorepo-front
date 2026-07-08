@@ -67,7 +67,7 @@ export class LiTypedTree<T> {
  * Function to instantiate the view model and instantiate the model under it
  * @param modelClassReference class reference of the model under the view model
  */
-export function labCreateTypedTree<T extends LiBaseEntity>(
+export function liCreateTypedTree<T extends LiBaseEntity>(
   modelClassReference: ClClassReference<T>
 ): ClConstructorFunction<LiTypedTree<T> | LiTypedTree<T>[]> {
   return (json: any): LiTypedTree<T> | LiTypedTree<T>[] => {

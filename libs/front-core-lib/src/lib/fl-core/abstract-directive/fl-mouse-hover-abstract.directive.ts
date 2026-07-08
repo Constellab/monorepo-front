@@ -1,4 +1,4 @@
-import { Directive, ElementRef, EventEmitter, HostListener, Input, OnDestroy, Output } from '@angular/core';
+import { Directive, ElementRef, EventEmitter, HostListener, inject, Input, OnDestroy, Output } from '@angular/core';
 import { ClOnChange } from '@monorepo/core-lib';
 
 import { FlHtmlHelper } from '../utils/fl-html.helper';
@@ -122,7 +122,7 @@ export abstract class FlMouseHoverAbstractDirective implements OnDestroy {
     }
   }
 
-  protected constructor(protected elementRef: ElementRef) {}
+  protected elementRef = inject(ElementRef);
 
   /**
    * Method to override call when the hover entered (after delay)

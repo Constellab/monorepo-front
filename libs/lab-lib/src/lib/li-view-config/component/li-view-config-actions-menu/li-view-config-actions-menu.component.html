@@ -43,7 +43,7 @@
     <span>{{ 'li.show_view_config' | translate }}</span>
   </button>
 
-  @if (!excludedViewInNote.includes(viewConfig.viewType)) {
+  @if (!LI_EXCLUDED_VIEW_IN_NOTE.includes(viewConfig.viewType)) {
     <button mat-menu-item type="button" (click)="downloadViewJsonFile()">
       <mat-icon>cloud_download</mat-icon>
       <span>{{ 'li.download_view_json_file' | translate }}</span>

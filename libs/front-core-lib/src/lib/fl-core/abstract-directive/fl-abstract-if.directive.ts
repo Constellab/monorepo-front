@@ -25,7 +25,9 @@ export abstract class FlAbstractIfDirective implements OnInit, OnDestroy {
   private subscription: Subscription;
 
   protected constructor(
+    // eslint-disable-next-line @angular-eslint/prefer-inject
     protected templateRef: TemplateRef<any>,
+    // eslint-disable-next-line @angular-eslint/prefer-inject
     protected viewContainer: ViewContainerRef
   ) {}
 

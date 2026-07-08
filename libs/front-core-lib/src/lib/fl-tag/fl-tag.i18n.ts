@@ -28,7 +28,7 @@ const flTagI18nEn: FlLangTranslation = {
   },
 };
 
-export const flTagI18n: FlTranslateObject = {
+export const FL_TAG_I18N: FlTranslateObject = {
   [ClSupportedLanguage.en]: flTagI18nEn,
   [ClSupportedLanguage.fr]: flTagI18nFr,
 };

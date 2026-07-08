@@ -4,7 +4,7 @@ import { BnBioNetworkMetabolite, BnBioNetworkMetaboliteLevel } from './bn-bio-ne
 import { BnBioNetworkNode } from './bn-bio-network-node.class';
 import { BnBioNetworkNodeReaction } from './bn-bio-network-node-reaction.class';
 
-export const bnBioNetworkCofactorColor = '#ffaa33';
+export const BN_BIO_NETWORK_COFACTOR_COLOR = '#ffaa33';
 
 export class BnBioNetworkNodeCofactor extends BnBioNetworkNode {
   public type: 'cofactor';
@@ -14,7 +14,7 @@ export class BnBioNetworkNodeCofactor extends BnBioNetworkNode {
   public parentNode: BnBioNetworkNodeReaction;
 
   constructor(name: string, defaultColor: string, data: BnBioNetworkMetabolite) {
-    super(name, 'cofactor', bnBioNetworkCofactorColor, defaultColor, data);
+    super(name, 'cofactor', BN_BIO_NETWORK_COFACTOR_COLOR, defaultColor, data);
   }
 
   protected _getLevel(): BnBioNetworkMetaboliteLevel {

@@ -60,7 +60,10 @@ export class TdParsedExpression {
         }
         const displayName = this.escapeHtml(seg.entry?.spec.human_name || seg.key);
         if (seg.isOuter) {
-          return `<span class="td-field-token td-field-token-outer" data-key="${this.escapeHtml(seg.key)}" data-outer="true">@@${displayName}</span>`;
+          return (
+            `<span class="td-field-token td-field-token-outer" ` +
+            `data-key="${this.escapeHtml(seg.key)}" data-outer="true">@@${displayName}</span>`
+          );
         }
         return `<span class="td-field-token" data-key="${this.escapeHtml(seg.key)}">@${displayName}</span>`;
       })

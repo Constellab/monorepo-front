@@ -18,7 +18,9 @@ export interface ChChartLegendMultiSeriesInput {
   styleUrls: ['./ch-chart-legend-multi-series.component.scss'],
   standalone: false,
 })
-export class ChChartLegendMultiSeriesComponent extends ChChartRightSectionDirective<ChChartLegendMultiSeriesInput> {
+export class ChChartLegendMultiSeriesComponent extends ChChartRightSectionDirective<
+  ChChartLegendMultiSeriesInput
+> {
   // when disable the color is replace with a grey color
   @Input() disableLegends: boolean = false;
 }

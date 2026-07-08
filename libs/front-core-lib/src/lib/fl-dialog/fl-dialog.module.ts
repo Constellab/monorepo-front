@@ -17,7 +17,7 @@ import { FlConfirmDialogComponent } from './component/fl-confirm-dialog/fl-confi
 import { FlDialogHeaderComponent } from './component/fl-dialog-header/fl-dialog-header.component';
 import { FlDialogHeaderActionsComponent } from './component/fl-dialog-header-actions/fl-dialog-header-actions.component';
 import { FlWarningDialogComponent } from './component/fl-warning-dialog/fl-warning-dialog.component';
-import { flDialogI18n } from './fl-dialog.i18n';
+import { FL_DIALOG_I18N } from './fl-dialog.i18n';
 import { FlDialogService } from './fl-dialog.service';
 
 /**
@@ -60,6 +60,6 @@ export class FlDialogModule {
   constructor() {
     const translateServie = inject(FlTranslateService);
 
-    translateServie.addModuleTranslation('flDialog', flDialogI18n);
+    translateServie.addModuleTranslation('flDialog', FL_DIALOG_I18N);
   }
 }

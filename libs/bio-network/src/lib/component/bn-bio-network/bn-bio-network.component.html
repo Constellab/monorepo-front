@@ -3,7 +3,13 @@
   <mat-drawer-content>
     <div class="container g-layout-row">
       <div class="g-full-height g-layout-col g-flex-auto">
-        <div #networkContainer class="svg-container g-flex-auto" (click)="closeDrawer()"></div>
+        <div
+          #networkContainer
+          role="button"
+          tabindex="0"
+          class="svg-container g-flex-auto"
+          (click)="closeDrawer()"
+          (keydown.enter)="closeDrawer()"></div>
       </div>
 
       <!--   Drawer opener   -->

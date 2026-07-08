@@ -34,7 +34,9 @@ export class FlPrettyJsonBuilder {
       if ((firstCarac === '{' || firstCarac === '[') && (lastCarac === '}' || lastCarac === ']')) {
         try {
           return JSON.parse(object);
-        } catch (e) {}
+        } catch {
+          /* ignore */
+        }
       }
 
       return object.split('\n');
@@ -53,7 +55,8 @@ export class FlPrettyJsonBuilder {
    * The return value is the list of `ObjectNode`.
    * @param obj object to convert to ObjectNode
    * @param level level of the hierarchy
-   * @param keyOffset used when object is an array to set an offset for the array index (use for big array split)
+   * @param keyOffset used when object is an array to set an offset for the array index (use for big
+   *   array split)
    * @private
    */
   private buildObjectNodeRecur(obj: any, level: number, keyOffset: number = 0): FlObjectNode[] {

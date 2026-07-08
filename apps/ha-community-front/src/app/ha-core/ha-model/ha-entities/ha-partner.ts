@@ -1,6 +1,6 @@
 import { CoPartner } from '@monorepo/community-lib';
 import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
-import { TeRichText, TeRichTextTransform } from '@monorepo/text-editor';
+import { TeRichText, teRichTextTransform } from '@monorepo/text-editor';
 import { Type } from 'class-transformer';
 
 import { HaEntity } from './ha-entity.class';
@@ -22,7 +22,7 @@ export class HaPartner extends HaEntity implements CoPartner {
 }
 
 export class HaPartnerDetail extends HaPartner {
-  @TeRichTextTransform()
+  @teRichTextTransform()
   info: TeRichText;
 }
 

@@ -33,7 +33,8 @@ export class ChChartLabelFormatter {
 
   /**
    * Convert a number to a string using scientific notation for number > 10000 or < 0.0001
-   * With this the max label length is 7 because the number are displayed with 4 digits after the commas (ex: 1.2345)
+   * With this the max label length is 7 because the number are displayed with 4 digits after the
+   * commas (ex: 1.2345)
    *  or in scientific notation with 2 digit after the commas (ex: 1.23e+5)
    */
   public static getDefaultTickLabel(): ChChartLabelFormatter {
@@ -46,7 +47,8 @@ export class ChChartLabelFormatter {
 
   /**
    * Convert a number to a string using scientific notation for number > 10000 or < 0.0001
-   * With this the max label length is 7 because the number are displayed with 4 digits after the commas (ex: 1.2345)
+   * With this the max label length is 7 because the number are displayed with 4 digits after the
+   * commas (ex: 1.2345)
    *  or in scientific notation with 2 digit after the commas (ex: 1.23e+5)
    */
   public static formatNumberShort(num: number): string {

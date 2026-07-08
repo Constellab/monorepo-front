@@ -7,7 +7,7 @@ import { ChChartDataWithSerie } from '../data/ch-chart-serie.class';
 import { ChChartScaleI } from './ch-chart-scale.class';
 
 export type ChChartColorFunction<T = any> = (d: T) => string;
-export const chChartTransparentColorOpacity = 0.8;
+export const CH_CHART_TRANSPARENT_COLOR_OPACITY = 0.8;
 
 /**
  * Specific scale to return a color based on a value

@@ -17,7 +17,7 @@ const flTradEn: FlLangTranslation = {
   },
 };
 
-export const flInfiniteScrollI18n: FlTranslateObject = {
+export const FL_INFINITE_SCROLL_I18N: FlTranslateObject = {
   [ClSupportedLanguage.en]: flTradEn,
   [ClSupportedLanguage.fr]: flTradFr,
 };

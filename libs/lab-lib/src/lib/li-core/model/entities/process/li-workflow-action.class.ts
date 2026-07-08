@@ -2,11 +2,11 @@ import { PrProtocolIntOut, PrProtocolLink } from '@monorepo/protocol';
 import { Expose, Type } from 'class-transformer';
 
 import { LiProcess } from './li-process.entity';
-import { LiProcessTransform } from './li-process.transform';
+import { liProcessTransform } from './li-process.transform';
 import { LiProtocol } from './li-protocol.entity';
 
 export class LiProtocolUpdateDTO {
-  @LiProcessTransform()
+  @liProcessTransform()
   process?: LiProcess;
 
   link: PrProtocolLink;

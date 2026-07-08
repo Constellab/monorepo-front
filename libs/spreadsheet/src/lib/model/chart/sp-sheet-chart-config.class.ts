@@ -103,7 +103,8 @@ export abstract class SpSheetChartConfig {
   }
 
   /**
-   * Create multiple series from a selection range. If there is series, it takes the first one as x for other series
+   * Create multiple series from a selection range. If there is series, it takes the first one as x for
+   * other series
    * @protected
    */
   protected createMultipleSeriesForXAndY(

@@ -50,7 +50,8 @@ export abstract class BnBioNetworkObjectRenderer {
       selectedNodes = (selection as BnBioNetworkSelectionEventSingleNode).selectedNode;
     }
 
-    // when showing related cofactor, firstly we reset the cofactor position (useful for the live drawing mode)
+    // when showing related cofactor, firstly we reset the cofactor position
+    // (useful for the live drawing mode)
     if (showRelatedCofactors) {
       for (const node of selection.nodes) {
         if (node instanceof BnBioNetworkNodeReaction) {

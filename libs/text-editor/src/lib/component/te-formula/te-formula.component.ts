@@ -1,6 +1,6 @@
 import { Component, inject, Input } from '@angular/core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { FlFormulaDialogComponent, TeFormulaDialogInput } from '@monorepo/front-core-lib/fl-formula';
+import { FlFormulaDialogComponent, FlFormulaDialogInput } from '@monorepo/front-core-lib/fl-formula';
 import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
 
 import { TeElementBlockDirective } from '../../model/te-element.directive';
@@ -25,7 +25,7 @@ export class TeFormulaComponent extends TeElementBlockDirective {
   public openInitFormulaDialog(): void {
     // on init, we check if we need to show formula dialog
     if (!this.disabled) {
-      const input: TeFormulaDialogInput = {
+      const input: FlFormulaDialogInput = {
         mode: 'create',
         helpText: this.helpText,
       };
@@ -37,7 +37,7 @@ export class TeFormulaComponent extends TeElementBlockDirective {
   }
 
   public updateFormula(): void {
-    const input: TeFormulaDialogInput = {
+    const input: FlFormulaDialogInput = {
       mode: 'update',
       object: this.formula,
       helpText: this.helpText,

@@ -45,6 +45,7 @@ export class ChChartRendererLinePlot extends ChChart2AxisRenderer<ChChart2dMulti
     return (d: ChChartSerie<ChChart2dDatum>) =>
       line<ChChart2dDatum>()
         .x((d: ChChart2dDatum) => xScale.scale(d.getX()))
-        .y((d: ChChart2dDatum) => yScale.scale(d.getY()))(d.getValidData()); // use to loop through serie's data
+        // use to loop through serie's data
+        .y((d: ChChart2dDatum) => yScale.scale(d.getY()))(d.getValidData());
   }
 }

@@ -1,6 +1,6 @@
 import { ScrollDispatcher } from '@angular/cdk/overlay';
 
-import { flRootInjector } from './fl-root-injector';
+import { FL_ROOT_INJECTOR } from './fl-root-injector';
 
 export interface FlHtmlFindParentOptions {
   className?: string;
@@ -64,7 +64,7 @@ export class FlHtmlHelper {
    */
   public static getAncestorScrollContainer(element: HTMLElement): HTMLElement | null {
     // retrieve scrollable parents
-    const scrollDispatcher = flRootInjector.get(ScrollDispatcher);
+    const scrollDispatcher = FL_ROOT_INJECTOR.get(ScrollDispatcher);
     const scrollableElements = scrollDispatcher.getAncestorScrollContainers(element);
 
     // if there are some scrollable parent, use the first one

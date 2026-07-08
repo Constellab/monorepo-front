@@ -16,7 +16,7 @@ const flColorI18nEn: FlLangTranslation = {
   },
 };
 
-export const flColorI18n: FlTranslateObject = {
+export const FL_COLOR_I18N: FlTranslateObject = {
   [ClSupportedLanguage.en]: flColorI18nEn,
   [ClSupportedLanguage.fr]: flColorI18nFr,
 };

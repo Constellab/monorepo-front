@@ -39,7 +39,7 @@ export class TeAudioTranscriptionDialogComponent implements OnInit, OnDestroy {
     try {
       // Request permission to access the user's microphone
       stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    } catch (error) {
+    } catch {
       this.micDisabled = true;
       return;
     }

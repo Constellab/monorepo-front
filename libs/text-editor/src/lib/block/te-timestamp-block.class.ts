@@ -1,13 +1,13 @@
 import { Type } from '@angular/core';
 import { ToolboxConfig } from '@editorjs/editorjs/types/tools/tool-settings';
 import { ClDateHelper } from '@monorepo/core-lib';
-import { ClDateFormatKey } from '@monorepo/front-core-lib/fl-date';
+import { FlDateFormatKey } from '@monorepo/front-core-lib/fl-date';
 
 import { TeTimestampComponent } from '../component/te-timestamp/te-timestamp.component';
 import { TeHelper } from '../model/te.helper';
 import { TeComponentBlock } from './te-component-block.class';
 
-export type TeTimestampFormat = ClDateFormatKey | 'FROM_NOW';
+export type TeTimestampFormat = FlDateFormatKey | 'FROM_NOW';
 
 export interface TeTimestampBlockData {
   timestamp: string;

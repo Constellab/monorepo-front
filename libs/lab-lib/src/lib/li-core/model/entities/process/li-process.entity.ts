@@ -1,5 +1,5 @@
 import { ClLuxonDateTimeTransform } from '@monorepo/core-lib';
-import { FlStatus, FlStatusTransform } from '@monorepo/front-core-lib/fl-status';
+import { FlStatus, flStatusTransform } from '@monorepo/front-core-lib/fl-status';
 import {
   PR_PROCESS_STATUS_DICT,
   PrOI,
@@ -44,7 +44,7 @@ export class LiProcess extends LiBaseEntityWithUser {
   @Expose({ name: 'parent_protocol_id' })
   parentProtocolId: string;
 
-  @FlStatusTransform(PR_PROCESS_STATUS_DICT)
+  @flStatusTransform(PR_PROCESS_STATUS_DICT)
   status: FlStatus<PrProcessStatus>;
 
   config: TdConfigI;

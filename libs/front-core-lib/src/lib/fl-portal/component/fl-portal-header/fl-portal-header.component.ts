@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject,Input, OnInit } from '@angular/core';
-import { flCdkOverlayPanelClass } from '@monorepo/front-core-lib/fl-core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject,Input } from '@angular/core';
+import { FL_CDK_OVERLAY_PANEL_CLASS } from '@monorepo/front-core-lib/fl-core';
 
 /**
  * Header of the portal with a ng-content for the title. Contain a close button and
@@ -22,7 +22,7 @@ export class FlPortalHeaderComponent {
    */
   @Input() enableDrag: boolean = false;
 
-  dragRootElement = '.' + flCdkOverlayPanelClass;
+  dragRootElement = '.' + FL_CDK_OVERLAY_PANEL_CLASS;
 
   // call by another component to disable the drag
   public setEnableDrag(enableDrag: boolean): void {

@@ -3,7 +3,7 @@ import { BlockToolConstructorOptions } from '@editorjs/editorjs/types/tools/bloc
 import { ClHelpService, ClStringHelper } from '@monorepo/core-lib';
 import { FlHtmlHelper } from '@monorepo/front-core-lib/fl-core';
 import { FlKeyboardKey } from '@monorepo/front-core-lib/fl-core';
-import { flRootInjector } from '@monorepo/front-core-lib/fl-core';
+import { FL_ROOT_INJECTOR } from '@monorepo/front-core-lib/fl-core';
 import { FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
 import { FlPortalAbsolutePosition } from '@monorepo/front-core-lib/fl-portal';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
@@ -63,7 +63,7 @@ export class TeHelper {
   }
 
   public static getTranslateService(): FlTranslateService {
-    return flRootInjector.get(FlTranslateService);
+    return FL_ROOT_INJECTOR.get(FlTranslateService);
   }
 
   /**

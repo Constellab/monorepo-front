@@ -4,7 +4,7 @@ import {
   FlStatus,
   FlStatusDict,
   FlStatusHelper,
-  FlStatusTransform,
+  flStatusTransform,
 } from '@monorepo/front-core-lib/fl-status';
 import { Type } from 'class-transformer';
 import { DateTime } from 'luxon';
@@ -27,7 +27,7 @@ export class CnLabBackupHistoryDetail extends CaBaseEntity {
   type: 'DATA' | 'DB';
 
   // Data info
-  @FlStatusTransform(caLabBackupStatus)
+  @flStatusTransform(caLabBackupStatus)
   status: FlStatus<CaLabBackupStatus>;
 
   message: string;
@@ -67,7 +67,7 @@ export class CaLabBackupHistory extends CaBaseEntity {
 
   backupId: string;
 
-  @FlStatusTransform(caLabBackupStatus)
+  @flStatusTransform(caLabBackupStatus)
   status: FlStatus<CaLabBackupStatus>;
 
   @Type(() => CnLabBackupHistoryDetail)
@@ -93,7 +93,7 @@ export class CaLabBackupStatusDTO {
   @Type(() => CaCloudProviderRegion)
   region: CaCloudProviderRegion;
 
-  @FlStatusTransform(caLabBackupGlobalStatus)
+  @flStatusTransform(caLabBackupGlobalStatus)
   status: FlStatus<CaLabBackupGlobalStatus>;
 
   @ClLuxonDateTimeTransform()

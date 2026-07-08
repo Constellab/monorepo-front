@@ -28,7 +28,8 @@ export const clCSVLineSeparator: string = '\n';
  */
 export class ClCSVHelper {
   /**
-   * Automatically detect the delimiter of a csv by counting possible delimiter from the first 10000 characters
+   * Automatically detect the delimiter of a csv by counting possible delimiter from the first 10000
+   * characters
    * @param csv
    */
   public static detectDelimiter(csv: string): ClCSVDelimiter {

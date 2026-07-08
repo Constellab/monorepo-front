@@ -132,7 +132,7 @@ export class FlTagsSelectColorsComponent implements OnInit, OnDestroy {
     return group.tags.every((tag) => tag.activeColor);
   }
 
-  openColorSelector(tag: FlTagColor, event: MouseEvent): void {
+  openColorSelector(tag: FlTagColor, event: Event): void {
     ClHelpService.stopEventPropagation(event);
   }
 

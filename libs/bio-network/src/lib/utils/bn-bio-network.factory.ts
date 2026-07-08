@@ -206,7 +206,8 @@ export class BnBioNetworkFactory {
         }
 
         if (metaboliteNode == null) {
-          // console.error(`Could find metabolite with id ${metaboliteId} and cluster ${reactionNode.clusterId}
+          // console.error(`Could find metabolite with id ${metaboliteId}
+          //       and cluster ${reactionNode.clusterId}
           //       used in reaction ${reactionNode.name}`);
           continue;
         }

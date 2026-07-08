@@ -4,13 +4,13 @@ import {
   FlStatus,
   FlStatusDict,
   FlStatusHelper,
-  FlStatusTransform,
+  flStatusTransform,
 } from '@monorepo/front-core-lib/fl-status';
 import { DateTime } from 'luxon';
 
 export type MaMailStatus = 'PENDING' | 'SENT' | 'ERROR';
 
-export const maMailStatusDict: FlStatusDict<MaMailStatus> = {
+export const MA_MAIL_STATUS_DICT: FlStatusDict<MaMailStatus> = {
   PENDING: FlStatusHelper.getInfoStatus('PENDING', 'maMail.status_PENDING'),
   SENT: FlStatusHelper.getSuccessStatus('SENT', 'maMail.status_SENT'),
   ERROR: FlStatusHelper.getErrorStatus('ERROR', 'maMail.status_ERROR'),
@@ -25,7 +25,7 @@ export class MaMailEntity implements FlEntity {
 
   mail: string;
 
-  @FlStatusTransform(maMailStatusDict)
+  @flStatusTransform(MA_MAIL_STATUS_DICT)
   status: FlStatus<MaMailStatus>;
 
   @ClLuxonDateTimeTransform()

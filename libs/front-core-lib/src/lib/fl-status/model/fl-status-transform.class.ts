@@ -8,7 +8,7 @@ import { FlStatus, FlStatusDict } from './fl-status.class';
  * @param statusList
  * @constructor
  */
-export function FlStatusTransform(statusList: FlStatusDict): PropertyDecorator {
+export function flStatusTransform(statusList: FlStatusDict): PropertyDecorator {
   const transformToPlain = Transform((params: ClTransformFnParams<FlStatus>) => params.value?.value ?? null, {
     toPlainOnly: true,
   });

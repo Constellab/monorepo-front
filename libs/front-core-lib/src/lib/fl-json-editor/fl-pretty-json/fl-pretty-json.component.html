@@ -7,7 +7,7 @@
     (flOutsideClick)="unselectNode()"
     #container>
     {{ startChar }}
-    @if (dataSource != null) {
+    @if (dataSource !== null) {
       <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
         <mat-tree-node
           *matTreeNodeDef="let node"
@@ -16,8 +16,11 @@
           [matTreeNodePaddingIndent]="paddingIndent"
           [ngClass]="node.className">
           <div
+            role="button"
+            tabindex="0"
             [ngClass]="{ 'selected-node': selectedNode === node }"
             (click)="selectNode(node)"
+            (keydown.enter)="selectNode(node)"
             class="leaf-container node-selectable">
             <span>{{ node.key }}</span
             >&nbsp;:
@@ -33,9 +36,12 @@
           [ngClass]="node.className">
           <div
             matTreeNodeToggle
+            role="button"
+            tabindex="0"
             class="clickable tree-container node-selectable g-layout-row g-layout-start-center"
             [ngClass]="{ 'selected-node': selectedNode === node }"
-            (click)="selectNode(node)">
+            (click)="selectNode(node)"
+            (keydown.enter)="selectNode(node)">
             <div class="text-icon">
               <!--      Arrow icon      -->
               <mat-icon class="icon">{{

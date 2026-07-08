@@ -29,7 +29,7 @@ import { Subscription } from 'rxjs';
 import { LiResourceSearchFormComponent } from '../li-resource-search-form/li-resource-search-form.component';
 import { LiResourceTableComponent } from '../li-resource-table/li-resource-table.component';
 
-export const labAppSearchName: string = 'li-app';
+export const LI_APP_SEARCH_NAME: string = 'li-app';
 
 @Component({
   selector: 'li-app-search',
@@ -105,7 +105,7 @@ export class LiAppSearchComponent implements OnInit, OnDestroy {
     // list of predefined search of the resources
     return [
       {
-        searchName: labAppSearchName,
+        searchName: LI_APP_SEARCH_NAME,
         id: 'flagged-apps',
         label: 'Flagged apps',
         color: this.themeService.getCurrentThemeDetail().primary,
@@ -114,7 +114,7 @@ export class LiAppSearchComponent implements OnInit, OnDestroy {
         filtersCriteria: {} as Partial<LiResourceSearchFields>,
       },
       {
-        searchName: labAppSearchName,
+        searchName: LI_APP_SEARCH_NAME,
         id: 'all-apps',
         label: 'All apps',
         color: this.themeService.getCurrentThemeDetail().primary,

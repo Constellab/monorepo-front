@@ -14,6 +14,7 @@ export class RvViewAudioComponent extends RvResourceViewDirective<RvResourceView
 
   ngOnInit(): void {
     // Set the source of the audio element
-    this.audioRef.nativeElement.src = `data:${this.view.data.mime_type};base64,${this.view.data.base_64_audio}`;
+    this.audioRef.nativeElement.src =
+      `data:${this.view.data.mime_type};base64,${this.view.data.base_64_audio}`;
   }
 }

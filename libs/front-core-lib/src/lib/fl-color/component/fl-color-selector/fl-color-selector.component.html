@@ -11,8 +11,11 @@
   <div class="g-layout-row-wrap">
     @for (color of availableColor; track color) {
       <div
+        role="button"
+        tabindex="0"
         class="color-square g-text-not-selectable"
         (click)="selectColor(color)"
+        (keydown.enter)="selectColor(color)"
         [style.background-color]="color"
         [style.border-color]="boxBorderColor"
         [ngClass]="{ disable: disabled }">

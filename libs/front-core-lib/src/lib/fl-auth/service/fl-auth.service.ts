@@ -1,5 +1,5 @@
 import { ClCredentials, ClCredentials2Fa } from '@monorepo/core-lib';
-import { flAuthExpiredCookie } from '@monorepo/front-core-lib/fl-core';
+import { FL_AUTH_EXPIRED_COOKIE } from '@monorepo/front-core-lib/fl-core';
 import { FlCookieService } from '@monorepo/front-core-lib/fl-dialog';
 import { Observable } from 'rxjs';
 
@@ -50,7 +50,7 @@ export abstract class FlAuthService {
     const date = new Date(new Date().getTime() + expiresIn);
     // clear the millisecond to get closer to real expiration
     date.setMilliseconds(0);
-    this.cookieService.setCookie(flAuthExpiredCookie, date.getTime(), {
+    this.cookieService.setCookie(FL_AUTH_EXPIRED_COOKIE, date.getTime(), {
       expires: date,
       sameSite: sameSite,
       path: '/',
@@ -60,7 +60,7 @@ export abstract class FlAuthService {
   }
 
   protected clearAuthExpirationCookie(domain?: string, sameSite: 'Strict' | 'Lax' = 'Strict'): void {
-    this.cookieService.removeCookie(flAuthExpiredCookie, {
+    this.cookieService.removeCookie(FL_AUTH_EXPIRED_COOKIE, {
       sameSite: sameSite,
       path: '/',
       secure: false,
@@ -72,6 +72,6 @@ export abstract class FlAuthService {
    * Return true if the cookie 'Auth_Expiration' exists
    */
   public hasAuthorizationCookie(): boolean {
-    return this.cookieService.check(flAuthExpiredCookie);
+    return this.cookieService.check(FL_AUTH_EXPIRED_COOKIE);
   }
 }

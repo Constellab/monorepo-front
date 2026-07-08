@@ -41,7 +41,7 @@ export class FlAutocompleteMultipleComponent<T = any> extends FlFormFieldDirecti
     this.valueChange.next(value);
   }
 
-  onDisableChange(disable: boolean): void {}
+  onDisableChange(): void {}
 
   writeValue(obj: T[]): void {
     if (!obj) {

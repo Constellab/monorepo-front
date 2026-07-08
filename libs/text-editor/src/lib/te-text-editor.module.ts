@@ -63,9 +63,9 @@ import { TeVariableFormDialogComponent } from './component/te-variable-form-dial
 import { TeVariableInlineComponent } from './component/te-variable-inline/te-variable-inline.component';
 import { TeVideoComponent } from './component/te-video/te-video.component';
 import { TeFormulaInlineToolClass } from './inline-tool/te-formula-inline-tool.class';
-import { teVariableTagName } from './model/te-variable.class';
+import { TE_VARIABLE_TAG_NAME } from './model/te-variable.class';
 import { TeRichTextIsEmptyPipe } from './pipe/te-rich-text-is-empty/te-rich-text-is-empty.pipe';
-import { teMentionTagName } from './plugin/te-mention.class';
+import { TE_MENTION_TAG_NAME } from './plugin/te-mention.class';
 import { TE_TEXT_EDITOR_I18N } from './te-text-editor.i18n';
 
 @NgModule({
@@ -167,12 +167,12 @@ export class TeTextEditorModule {
     if (!TeTextEditorModule.init) {
       if (isPlatformBrowser(platformId)) {
         customElements.define(
-          teVariableTagName,
+          TE_VARIABLE_TAG_NAME,
           createCustomElement(TeVariableInlineComponent, { injector: injector })
         );
 
         customElements.define(
-          teMentionTagName,
+          TE_MENTION_TAG_NAME,
           createCustomElement(TeMentionInlineComponent, { injector: injector })
         );
 

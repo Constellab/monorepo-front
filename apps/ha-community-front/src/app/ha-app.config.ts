@@ -36,10 +36,10 @@ import { FlApiModule } from '@monorepo/front-core-lib/fl-api';
 import { FlAuthModule } from '@monorepo/front-core-lib/fl-auth';
 import { FL_CAPTCHA_MODULE_CONFIG, FlCaptchaModuleConfig } from '@monorepo/front-core-lib/fl-captcha';
 import {
-  flLuxonDateFormat,
-  flMatFormFieldConfig,
+  FL_LUXON_DATE_FORMAT,
+  FL_MAT_FORM_FIELD_CONFIG,
   flSetRootInjector,
-  flTooltipConfig,
+  FL_TOOLTIP_CONFIG,
 } from '@monorepo/front-core-lib/fl-core';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
@@ -163,10 +163,10 @@ export const haAppConfig: ApplicationConfig = {
 
     provideHttpClient(withFetch(), withInterceptorsFromDi()),
     // form field default config
-    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: flMatFormFieldConfig },
-    { provide: MAT_TOOLTIP_DEFAULT_OPTIONS, useValue: flTooltipConfig },
+    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: FL_MAT_FORM_FIELD_CONFIG },
+    { provide: MAT_TOOLTIP_DEFAULT_OPTIONS, useValue: FL_TOOLTIP_CONFIG },
     // configure the date picker to work with luxon
     { provide: DateAdapter, useClass: LuxonDateAdapter },
-    { provide: MAT_DATE_FORMATS, useValue: flLuxonDateFormat },
+    { provide: MAT_DATE_FORMATS, useValue: FL_LUXON_DATE_FORMAT },
   ],
 };

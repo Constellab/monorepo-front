@@ -4,7 +4,6 @@ import {
   ElementRef,
   inject,
   Input,
-  OnInit,
   Renderer2,
   ViewChild,
 } from '@angular/core';

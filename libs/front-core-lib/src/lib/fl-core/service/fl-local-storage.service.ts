@@ -52,7 +52,7 @@ export class FlLocalStorageService {
 
     try {
       return JSON.parse(this.getItem(key)) ?? defaultValue;
-    } catch (e) {
+    } catch {
       if (removeItemOnParseError) {
         this.removeItem(key);
       }
@@ -77,7 +77,7 @@ export class FlLocalStorageService {
       } else {
         localStorage.setItem(key, JSON.stringify(obj));
       }
-    } catch (e) {
+    } catch {
       console.error('The local storage is not available');
     }
   }
@@ -93,7 +93,7 @@ export class FlLocalStorageService {
 
     try {
       localStorage.removeItem(key);
-    } catch (e) {
+    } catch {
       console.error('The local storage is not available');
     }
   }
@@ -114,7 +114,7 @@ export class FlLocalStorageService {
           this.removeItem(items[key]);
         }
       }
-    } catch (e) {
+    } catch {
       console.error('The local storage is not available');
     }
   }

@@ -36,7 +36,9 @@ export class ChChartDataBin extends ChChart2dDatum {
   }
 
   public getIntervalShortText(): string {
-    return `[${ChChartLabelFormatter.formatNumberShort(this.min)},${ChChartLabelFormatter.formatNumberShort(this.max)}]`;
+    const min = ChChartLabelFormatter.formatNumberShort(this.min);
+    const max = ChChartLabelFormatter.formatNumberShort(this.max);
+    return `[${min},${max}]`;
   }
 
   public getIntervalLongText(): string {

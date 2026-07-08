@@ -31,7 +31,7 @@ export class BnBioNetworkLinksRenderer extends BnBioNetworkObjectRenderer {
   }
 
   public render(): void {
-    this.graphRenderer.graph;
+    // nothing to render for links
   }
 
   protected updateObjectColors(options: BnBioNetworkOptions): void {
@@ -90,8 +90,10 @@ export class BnBioNetworkLinksRenderer extends BnBioNetworkObjectRenderer {
       });
 
       // speed of the particles based on the link value
-      // the speed of the lib is the time the particles take to travel through the link (whatever the length of the link)
-      // So we use the link in the calculation to have a speed of the particles that does not depend on the link length
+      // the speed of the lib is the time the particles take to travel through the link (whatever the
+      // length of the link)
+      // So we use the link in the calculation to have a speed of the particles that does not depend on
+      // the link length
       this.graphRenderer.graph.linkDirectionalParticleSpeed((link: BnBioNetworkLink) => {
         const linkValue = linkColor.transformValue(link.absValue);
         // calculate the speed of the particles based on link length
@@ -134,9 +136,11 @@ export class BnBioNetworkLinksRenderer extends BnBioNetworkObjectRenderer {
             link.source.id === selectedNode.id
           );
           // show the cross cluster link for the selected node
-          // if (selectedNode && (link.target.id === selectedNode.id || link.source.id === selectedNode.id)) return true;
+          // if (selectedNode && (link.target.id === selectedNode.id ||
+          //   link.source.id === selectedNode.id)) return true;
           // show the cross cluster of the connected reactions
-          // return (link.target.selected && link.target.type === 'reaction') || (link.source.selected && link.source.type === 'reaction');
+          // return (link.target.selected && link.target.type === 'reaction') ||
+          //   (link.source.selected && link.source.type === 'reaction');
         }
         return link.isVisible && link.type === 'link' && levelVisibility(link);
       };

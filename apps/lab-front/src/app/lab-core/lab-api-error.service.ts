@@ -1,7 +1,7 @@
 import { PlatformLocation } from '@angular/common';
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { flAuthExpiredCookie, FlCleanerService, FlLoginSavedRoute } from '@monorepo/front-core-lib/fl-core';
+import { FL_AUTH_EXPIRED_COOKIE, FlCleanerService, FlLoginSavedRoute } from '@monorepo/front-core-lib/fl-core';
 import { FlCookieService } from '@monorepo/front-core-lib/fl-dialog';
 import { LI_CONST_LOGIN_ROUTE,LiApiErrorService } from '@monorepo/lab-lib/li-core';
 
@@ -19,7 +19,7 @@ export class LabApiErrorService extends LiApiErrorService {
   logoutUser(): void {
     // for security clear the authentication expiration cookie
     // to assure the user is disconnected
-    this.cookieService.removeCookie(flAuthExpiredCookie);
+    this.cookieService.removeCookie(FL_AUTH_EXPIRED_COOKIE);
 
     if (this.router.url.startsWith(LI_CONST_LOGIN_ROUTE)) return;
 

@@ -1,12 +1,12 @@
 import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
-import { TeRichText, TeRichTextTransform } from '@monorepo/text-editor';
+import { TeRichText, teRichTextTransform } from '@monorepo/text-editor';
 
 import { LiBaseEntityWithUser } from './li-user.entity';
 
 export class LiNoteTemplate extends LiBaseEntityWithUser {
   title: string;
 
-  @TeRichTextTransform()
+  @teRichTextTransform()
   content: TeRichText;
 
   toString(): string {

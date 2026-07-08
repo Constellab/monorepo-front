@@ -1,4 +1,4 @@
-import { Directive, ElementRef, inject,Input, Renderer2 } from '@angular/core';
+import { Directive, inject, Input, Renderer2 } from '@angular/core';
 import { ClHelpService } from '@monorepo/core-lib';
 import { FlMouseHoverAbstractDirective } from '@monorepo/front-core-lib/fl-core';
 
@@ -29,12 +29,6 @@ export class FlMouseHoverDirective extends FlMouseHoverAbstractDirective {
    * If filled the class or classes are added during hover (with the delay) and remove after.
    */
   @Input() flMouseHoverClass: string | string[];
-
-  constructor() {
-    const elementRef = inject(ElementRef);
-
-    super(elementRef);
-  }
 
   onTriggerHoverEnter(): void {
     // set the style if filled

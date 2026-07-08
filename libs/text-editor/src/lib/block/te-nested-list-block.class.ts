@@ -29,7 +29,7 @@ export class TeNestedListBlock extends List implements BlockTool {
         }
       }, true);
 
-      node.addEventListener('keydown', (event: KeyboardEvent) => this.handleKeyDown(event, node));
+      node.addEventListener('keydown', (event: KeyboardEvent) => this.handleKeyDown(event));
     }
 
     return node;
@@ -92,7 +92,7 @@ export class TeNestedListBlock extends List implements BlockTool {
     this.convertSingleItemListToParagraph(event, node);
   }
 
-  private handleKeyDown(event: KeyboardEvent, node: HTMLElement): void {
+  private handleKeyDown(event: KeyboardEvent): void {
     if (event.key === FlKeyboardKey.ARROW_RIGHT) {
       TeHelper.handleRightArrow(event);
     }

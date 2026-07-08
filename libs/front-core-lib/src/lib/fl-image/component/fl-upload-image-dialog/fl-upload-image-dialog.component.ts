@@ -74,7 +74,7 @@ export class FlUploadImageDialogComponent implements OnInit {
         this.compressImage = file;
       }
       this.compressImageSrc = URL.createObjectURL(this.compressImage);
-    } catch (e) {
+    } catch {
       this.snackBarService.openErrorMessage({ text: 'flImage.file_is_not_image', translateText: true });
     }
     this.compressIsLoading = false;

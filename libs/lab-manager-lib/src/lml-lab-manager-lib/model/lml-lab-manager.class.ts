@@ -4,7 +4,7 @@ import {
   FlStatus,
   FlStatusDict,
   FlStatusHelper,
-  FlStatusTransform,
+  flStatusTransform,
 } from '@monorepo/front-core-lib/fl-status';
 import { Type } from 'class-transformer';
 import { DateTime } from 'luxon';
@@ -20,7 +20,7 @@ const lmlLabContainersStatusDict: FlStatusDict<LmlLabContainersStatus> = {
 };
 
 export class LmlLabContainerStatusInfo {
-  @FlStatusTransform(lmlLabContainersStatusDict)
+  @flStatusTransform(lmlLabContainersStatusDict)
   status: FlStatus<LmlLabContainersStatus>;
 
   info?: string;
@@ -38,7 +38,7 @@ const lmlLabDockerStatusDict: FlStatusDict<LmlLabDockerStatus> = {
 export class LmlDockerInspect {
   names: string;
 
-  @FlStatusTransform(lmlLabDockerStatusDict)
+  @flStatusTransform(lmlLabDockerStatusDict)
   status: FlStatus<LmlLabDockerStatus>;
 
   get containerExists(): boolean {
@@ -88,7 +88,7 @@ const lmlTaskStatusDict: FlStatusDict<LmlTaskStatus> = {
 export class LmlTaskStatusInfo {
   name: string;
 
-  @FlStatusTransform(lmlTaskStatusDict)
+  @flStatusTransform(lmlTaskStatusDict)
   status: FlStatus<LmlTaskStatus>;
   info?: string;
 }
@@ -209,7 +209,7 @@ export interface LmlComposeList {
 export class LmlSubComposeProcessInfo {
   processType: 'REGISTER' | 'UNREGISTER';
 
-  @FlStatusTransform(lmlTaskStatusDict)
+  @flStatusTransform(lmlTaskStatusDict)
   status: FlStatus<LmlTaskStatus>;
 
   message: string;

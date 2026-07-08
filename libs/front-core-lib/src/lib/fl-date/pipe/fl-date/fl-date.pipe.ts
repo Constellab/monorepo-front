@@ -3,7 +3,7 @@ import { ClDateFormat, ClDateHelper, ClDateInput } from '@monorepo/core-lib';
 
 // create a type where the possible values are the keys of the enum
 // this is to simplify the use of the pipe in the template
-export type ClDateFormatKey = keyof typeof ClDateFormat | string;
+export type FlDateFormatKey = keyof typeof ClDateFormat | string;
 
 /**
  * Simple date pipe that supports luxon dates
@@ -15,7 +15,7 @@ export type ClDateFormatKey = keyof typeof ClDateFormat | string;
   standalone: false,
 })
 export class FlDatePipe implements PipeTransform {
-  transform(value: ClDateInput, format: ClDateFormatKey = 'DATE'): string {
+  transform(value: ClDateInput, format: FlDateFormatKey = 'DATE'): string {
     if (value == null) {
       return '';
     }

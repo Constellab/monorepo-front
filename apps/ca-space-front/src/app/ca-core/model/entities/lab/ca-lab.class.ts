@@ -4,7 +4,7 @@ import {
   FlStatus,
   FlStatusDict,
   FlStatusHelper,
-  FlStatusTransform,
+  flStatusTransform,
 } from '@monorepo/front-core-lib/fl-status';
 import { Type } from 'class-transformer';
 import { DateTime } from 'luxon';
@@ -53,7 +53,7 @@ export const caLabServerTaskStatusDict: FlStatusDict<CaLabServerTaskStatus> = {
 };
 
 export class CaLabStatusHistory extends CaStatusHistory<CaLabStatus> {
-  @FlStatusTransform(caLabStatusDict)
+  @flStatusTransform(caLabStatusDict)
   status: FlStatus<CaLabStatus>;
 }
 
@@ -173,7 +173,7 @@ export class CaLabFindOneDto {
 }
 
 export class CaLabSimpleStatusDTO {
-  @FlStatusTransform(caLabStatusDict)
+  @flStatusTransform(caLabStatusDict)
   labStatus: FlStatus<CaLabStatus>;
 
   constructor(labStatus: FlStatus<CaLabStatus>) {
@@ -196,7 +196,7 @@ export class CaLabSimpleStatusDTO {
 }
 
 export class CaLabStatusDTO {
-  @FlStatusTransform(caLabStatusDict)
+  @flStatusTransform(caLabStatusDict)
   labStatus: FlStatus<CaLabStatus>;
   labManagerIsRunning: boolean;
 
@@ -207,7 +207,7 @@ export class CaLabStatusDTO {
   dnsConfigured: boolean;
   serverTaskText: string;
 
-  @FlStatusTransform(caLabServerTaskStatusDict)
+  @flStatusTransform(caLabServerTaskStatusDict)
   serverTaskStatus: FlStatus<CaLabServerTaskStatus>;
 
   @ClLuxonDateTimeTransform()
@@ -229,7 +229,7 @@ export class CaLabBusyStatusDTO {
 
   isBusy: boolean;
 
-  @FlStatusTransform(caLabStatusDict)
+  @flStatusTransform(caLabStatusDict)
   labStatus: FlStatus<CaLabStatus>;
 
   mainText?: string;

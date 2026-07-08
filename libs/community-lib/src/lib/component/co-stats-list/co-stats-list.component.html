@@ -6,7 +6,7 @@
     </div>
   }
 
-  <div class="stat" (click)="onLikeClicked()" [ngClass]="isClickable() ? 'g-clickable' : ''"
+  <div class="stat" role="button" tabindex="0" (click)="onLikeClicked()" (keydown.enter)="onLikeClicked()" [ngClass]="isClickable() ? 'g-clickable' : ''"
        [matTooltip]="'coCommunityLib.like' | translate" [matTooltipDisabled]="dense()">
     <mat-icon
       class="stat-icon"
@@ -16,7 +16,7 @@
   </div>
 
   @if (comments() !== undefined) {
-    <div class="stat" (click)="onCommentClicked()" [ngClass]="isClickable() ? 'g-clickable' : ''"
+    <div class="stat" role="button" tabindex="0" (click)="onCommentClicked()" (keydown.enter)="onCommentClicked()" [ngClass]="isClickable() ? 'g-clickable' : ''"
          [matTooltip]="'coCommunityLib.comment' | translate" [matTooltipDisabled]="dense()">
       <mat-icon class="stat-icon" flIcon="comment"></mat-icon>
       <span>{{ comments() }}</span>

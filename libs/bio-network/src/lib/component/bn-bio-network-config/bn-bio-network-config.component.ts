@@ -23,8 +23,8 @@ export class BnBioNetworkConfigComponent implements OnInit {
   networks: BnBioNetwork[] | null;
   networkName: string;
 
-  // database: FlPathwayDatabase;
-  // pathwayDatabases: FlPathwayDatabase[] = flPathwayDatabases;
+  // database: BnPathwayDatabase;
+  // pathwayDatabases: BnPathwayDatabase[] = flPathwayDatabases;
 
   ngOnInit(): void {
     // if there is multiple network we set the list to add a mat-select

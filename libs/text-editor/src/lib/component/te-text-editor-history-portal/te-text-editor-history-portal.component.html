@@ -17,8 +17,11 @@
                 (openVisualizerWithData)="openVisualizer($event)"></te-text-editor-history-modification-group>
             } @else {
               <div
+                role="button"
+                tabindex="0"
                 class="group-single-modification"
-                (click)="openSingleModificationVisualizer(modificationGroup.modifications[0])">
+                (click)="openSingleModificationVisualizer(modificationGroup.modifications[0])"
+                (keydown.enter)="openSingleModificationVisualizer(modificationGroup.modifications[0])">
                 <te-text-editor-history-modification
                   [modification]="modificationGroup.modifications[0]"></te-text-editor-history-modification>
               </div>

@@ -54,10 +54,12 @@ export class ChChartRendererStackedBarPlot extends ChChart2AxisRenderer<ChChart2
   }
 
   private drawBars(group: SVGElement): void {
-    const selection: ChD3SelectionSimple<SeriesPoint<ChChartDataWithSerie<ChChart2dDatum>[]>> = select(group);
+    const selection: ChD3SelectionSimple<SeriesPoint<ChChartDataWithSerie<ChChart2dDatum>[]>> =
+      select(group);
 
     selection
-      // use the x from the first data because there have the same X, if return undefined, set to chartWidth to hide it
+      // use the x from the first data because there have the same X, if return undefined, set to
+      // chartWidth to hide it
       .attr('x', (d) => this.data.xAxis.scale.scale(d.data[0].data.getX(), this.data.chartWidth))
       .attr('y', (d) => this.data.yAxis.scale.scale(d[1]))
       .attr('height', (d) =>

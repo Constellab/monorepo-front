@@ -62,6 +62,11 @@ function getSubConfigs(folder, prefix, isLib, disableModuleBoundary) {
     rules['@angular-eslint/prefer-standalone'] = 'off';
   }
 
+  // Some directives (e.g. fl-class, fl-hide) alias inputs with dotted names
+  // (e.g. `flClass.xs`) that are part of their public template API and cannot
+  // be expressed as property names, so aliasing is required here.
+  rules['@angular-eslint/no-input-rename'] = 'off';
+
   return {
     files: filesPattern,
     rules: rules,

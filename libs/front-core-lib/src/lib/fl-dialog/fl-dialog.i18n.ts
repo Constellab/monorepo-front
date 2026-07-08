@@ -30,7 +30,7 @@ const flDialogFr: FlLangTranslation = {
   },
 };
 
-export const flDialogI18n: FlTranslateObject = {
+export const FL_DIALOG_I18N: FlTranslateObject = {
   [ClSupportedLanguage.en]: flDialogEn,
   [ClSupportedLanguage.fr]: flDialogFr,
 };

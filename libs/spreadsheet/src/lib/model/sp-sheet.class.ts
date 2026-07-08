@@ -2,7 +2,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { debounceTime, map } from 'rxjs/operators';
 
 import { SpSpreadsheetHelper } from '../utils/sp-spreadsheet.helper';
-import { FlBasicCell, SpCell } from './sp-cell.class';
+import { SpBasicCell, SpCell } from './sp-cell.class';
 import { SpCellCoord } from './sp-cell-coord.class';
 import {
   SpSheetColumnSortDirection,
@@ -62,8 +62,8 @@ export class SpSheet {
   /**
    * Append columns at the end of the sheet
    * @param count
-   * @param updateTotalCount if true the column are considered as new and the total column count is incremented
-   * otherwise is it considered as a lazy loaded column( included in the total count)
+   * @param updateTotalCount if true the column are considered as new and the total column count is
+   * incremented otherwise is it considered as a lazy loaded column( included in the total count)
    */
   public appendMultipleColumns(count: number, updateTotalCount: boolean = true): void {
     for (let i = 0; i < count; i++) {
@@ -78,8 +78,8 @@ export class SpSheet {
    * Insert multiple column columns at the end of the sheet
    * @param from
    * @param to inclusive
-   * @param updateTotalCount if true the column are considered as new and the total column count is incremented
-   * otherwise is it considered as a lazy loaded column( included in the total count)
+   * @param updateTotalCount if true the column are considered as new and the total column count is
+   * incremented otherwise is it considered as a lazy loaded column( included in the total count)
    */
   public insertMultipleColumns(from: number, to: number, updateTotalCount: boolean = true): void {
     for (let i = from; i <= to; i++) {
@@ -92,8 +92,8 @@ export class SpSheet {
   /**
    * Insert a column at the given position
    * @param position
-   * @param updateTotalCount if true the column are considered as new and the total column count is incremented
-   * otherwise is it considered as a lazy loaded column( included in the total count)
+   * @param updateTotalCount if true the column are considered as new and the total column count is
+   * incremented otherwise is it considered as a lazy loaded column( included in the total count)
    */
   public insertColumn(position?: number, updateTotalCount: boolean = true): void {
     if (position == null || position > this.loadedColumnsCount) {
@@ -218,8 +218,8 @@ export class SpSheet {
   /**
    * Append multiple rows at the end of the sheet
    * @param count
-   * @param updateTotalCount if true the column are considered as new and the total column count is incremented
-   * otherwise is it considered as a lazy loaded column( included in the total count)
+   * @param updateTotalCount if true the column are considered as new and the total column count is
+   * incremented otherwise is it considered as a lazy loaded column( included in the total count)
    */
   public appendMultipleRows(count: number, updateTotalCount: boolean = true): void {
     for (let i = 0; i < count; i++) {
@@ -234,8 +234,8 @@ export class SpSheet {
    * Insert multiple rows at a given position
    * @param from
    * @param to inclusive
-   * @param updateTotalCount if true the column are considered as new and the total column count is incremented
-   * otherwise is it considered as a lazy loaded column( included in the total count)
+   * @param updateTotalCount if true the column are considered as new and the total column count is
+   * incremented otherwise is it considered as a lazy loaded column( included in the total count)
    */
   public insertMultipleRows(from: number, to: number, updateTotalCount: boolean = true): void {
     for (let i = from; i <= to; i++) {
@@ -248,8 +248,8 @@ export class SpSheet {
   /**
    * Insert a column at the given position
    * @param position
-   * @param updateTotalCount if true the column are considered as new and the total column count is incremented
-   * otherwise is it considered as a lazy loaded column( included in the total count)
+   * @param updateTotalCount if true the column are considered as new and the total column count is
+   * incremented otherwise is it considered as a lazy loaded column( included in the total count)
    */
   public insertRow(position?: number, updateTotalCount: boolean = true): void {
     if (position == null || position > this.loadedRowsCount) {
@@ -413,7 +413,7 @@ export class SpSheet {
   ////////////////////////////// CELL ///////////////////////////////
 
   private insertCell(rowIndex: number, columnIndex: number): void {
-    this.cells[rowIndex].splice(columnIndex, 0, new FlBasicCell());
+    this.cells[rowIndex].splice(columnIndex, 0, new SpBasicCell());
   }
 
   public getCells$(): Observable<SpCell[][]> {

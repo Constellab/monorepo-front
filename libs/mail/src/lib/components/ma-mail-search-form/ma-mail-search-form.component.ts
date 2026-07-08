@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import { FlSearchState } from '@monorepo/front-core-lib/fl-search';
 
-import { maMailStatusDict } from '../../models/ma-mail.entity';
+import { MA_MAIL_STATUS_DICT } from '../../models/ma-mail.entity';
 
 @Component({
   selector: 'ma-mail-search-form',
@@ -15,7 +15,7 @@ export class MaMailSearchFormComponent implements OnInit {
 
   formGp: UntypedFormGroup;
 
-  statuses = maMailStatusDict;
+  statuses = MA_MAIL_STATUS_DICT;
 
   ngOnInit(): void {
     this.formGp = this.searchState.advancedSearchFormGroup;

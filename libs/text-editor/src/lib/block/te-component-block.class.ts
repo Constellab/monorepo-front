@@ -97,7 +97,8 @@ export abstract class TeComponentBlock<T extends TeElementBlockDirective> implem
     this.componentRef?.destroy();
   }
 
-  // call by editorjs when the block is added manually (not called when the editor is initialized with this block)
+  // call by editorjs when the block is added manually (not called when the editor is initialized with
+  // this block)
   appendCallback(): void {
     this.componentInstance.newElement = true;
   }

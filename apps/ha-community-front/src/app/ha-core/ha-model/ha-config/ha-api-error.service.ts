@@ -3,7 +3,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { ClApiError } from '@monorepo/core-lib';
 import { FlApiErrorService, FlServerError } from '@monorepo/front-core-lib/fl-api';
-import { flAuthExpiredCookie } from '@monorepo/front-core-lib/fl-core';
+import { FL_AUTH_EXPIRED_COOKIE } from '@monorepo/front-core-lib/fl-core';
 import { FlCookieService } from '@monorepo/front-core-lib/fl-dialog';
 import { Observable, throwError } from 'rxjs';
 
@@ -90,7 +90,7 @@ export class HaApiErrorService extends FlApiErrorService {
   private sessionExpired(serverError: FlServerError, snackBarDuration: number): Observable<never> {
     // for security clear the authentication expiration cookie
     // to assure the user is disconnected
-    this.cookieService.removeCookie(flAuthExpiredCookie);
+    this.cookieService.removeCookie(FL_AUTH_EXPIRED_COOKIE);
 
     if (isPlatformBrowser(this.platformId)) window.location.reload();
 

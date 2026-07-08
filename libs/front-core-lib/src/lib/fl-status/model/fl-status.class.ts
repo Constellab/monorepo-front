@@ -1,4 +1,4 @@
-import { flThemeClass } from '@monorepo/front-core-lib/fl-theme';
+import { FL_THEME_CLASS } from '@monorepo/front-core-lib/fl-theme';
 
 /**
  * Status interface to describe it with detail
@@ -32,15 +32,15 @@ export class FlStatusHelper {
   public static stoppedIcon: string = 'stop';
   public static debugIcon: string = 'bug_report';
 
-  public static successBackgroundClass: string = flThemeClass.primaryBackground;
-  public static errorBackgroundClass: string = flThemeClass.warnBackground;
-  public static warningBackgroundClass: string = flThemeClass.accentBackground;
-  public static infoBackgroundClass: string = flThemeClass.greyBackground;
+  public static successBackgroundClass: string = FL_THEME_CLASS.primaryBackground;
+  public static errorBackgroundClass: string = FL_THEME_CLASS.warnBackground;
+  public static warningBackgroundClass: string = FL_THEME_CLASS.accentBackground;
+  public static infoBackgroundClass: string = FL_THEME_CLASS.greyBackground;
 
-  public static successTextClass: string = flThemeClass.primaryText;
-  public static errorTextClass: string = flThemeClass.warnText;
-  public static warningTextClass: string = flThemeClass.accentText;
-  public static infoTextClass: string = flThemeClass.greyText;
+  public static successTextClass: string = FL_THEME_CLASS.primaryText;
+  public static errorTextClass: string = FL_THEME_CLASS.warnText;
+  public static warningTextClass: string = FL_THEME_CLASS.accentText;
+  public static infoTextClass: string = FL_THEME_CLASS.greyText;
 
   public static getSuccessStatus<STATUS = string>(
     value: STATUS,

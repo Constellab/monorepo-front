@@ -145,7 +145,7 @@ export class FlPrettyJsonComponent implements OnInit, OnDestroy {
       this.dataSource = new MatTreeFlatDataSource(this.treeControl, treeFlattener);
       this.dataSource.data = data;
       this.error = false;
-    } catch (e) {
+    } catch {
       this.error = true;
     }
 

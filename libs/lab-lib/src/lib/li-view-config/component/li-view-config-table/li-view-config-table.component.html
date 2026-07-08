@@ -7,7 +7,11 @@
     <mat-cell *matCellDef="let viewConfig" class="g-column-width-2">
       <!--    Invisible link  -->
       @if (!selectableRow) {
-        <a [routerLink]="viewConfig | liDetailRoute" [target]="rowLinkTarget" class="g-row-link"></a>
+        <a
+          [routerLink]="viewConfig | liDetailRoute"
+          [target]="rowLinkTarget"
+          [attr.aria-label]="viewConfig.title"
+          class="g-row-link"></a>
       }
 
       <div class="g-layout-row g-layout-start-center">

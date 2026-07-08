@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 /**
  * To use in <fl-portal> this is the scrollable content of the portal

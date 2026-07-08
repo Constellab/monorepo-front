@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, OnDestroy, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, inject, Input, OnDestroy, Renderer2 } from '@angular/core';
 import { ClSubscriptionHandler } from '@monorepo/core-lib';
 import { FlCoord } from '@monorepo/front-core-lib/fl-core';
 import { FlHtmlHelper } from '@monorepo/front-core-lib/fl-core';
@@ -33,12 +33,10 @@ export abstract class PrWorkflowNodeDirective implements OnDestroy {
   private mouseDownListener: () => void;
   private mouseDownCoords: FlCoord;
 
-  protected constructor(
-    protected workflowManager: PrWorkflowManagerState,
-    protected elementRef: ElementRef,
-    protected renderer: Renderer2,
-    protected portalService: FlPortalService
-  ) {}
+  protected workflowManager = inject(PrWorkflowManagerState);
+  protected elementRef = inject(ElementRef);
+  protected renderer = inject(Renderer2);
+  protected portalService = inject(FlPortalService);
 
   protected initNode(): void {
     this.node = this.workflowManager.findNodeWithNameInCurrentLayer(this.name);

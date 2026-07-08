@@ -24,7 +24,8 @@ export type LiTypeSearchConfig =
   // Mode to suggest a list of process based on a list of resource types
   | {
       mode: 'processSuggestion';
-      suggestBy: 'inputs' | 'outputs'; //whether to compare the resource typings with process inputs or outputs
+      //whether to compare the resource typings with process inputs or outputs
+      suggestBy: 'inputs' | 'outputs';
       resourceTypingNames: string[];
     }
 

@@ -7,7 +7,7 @@ import { FlCorePipeModule } from '../fl-core-pipe/fl-core-pipe.module';
 import { FlPortalModule } from '../fl-portal/fl-portal.module';
 import { FlTranslateModule } from '../fl-translate/fl-translate.module';
 import { FlEmojiPickerPortalComponent } from './component/fl-emoji-picker-portal/fl-emoji-picker-portal.component';
-import { flEmojiI18n } from './fl-emoji-picker.i18n';
+import { FL_EMOJI_I18N } from './fl-emoji-picker.i18n';
 
 @NgModule({
   imports: [CommonModule, FlPortalModule, FlInfiniteScrollModule, FlCorePipeModule, FlTranslateModule],
@@ -18,6 +18,6 @@ export class FlEmojiPickerModule {
   constructor() {
     const translateService = inject(FlTranslateService);
 
-    translateService.addModuleTranslation('FlEmojiPickerModule', flEmojiI18n);
+    translateService.addModuleTranslation('FlEmojiPickerModule', FL_EMOJI_I18N);
   }
 }

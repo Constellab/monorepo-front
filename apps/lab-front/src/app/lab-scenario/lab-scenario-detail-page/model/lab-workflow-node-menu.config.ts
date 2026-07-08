@@ -2,7 +2,7 @@ import { ClHelpService } from '@monorepo/core-lib';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlMenuDynamicButton } from '@monorepo/front-core-lib/fl-menu-dynamic';
 import { FlSavedSearch } from '@monorepo/front-core-lib/fl-search';
-import { flThemeDetailLight } from '@monorepo/front-core-lib/fl-theme';
+import { FL_THEME_DETAIL_LIGHT } from '@monorepo/front-core-lib/fl-theme';
 import { LiResource, LiResourceSearchFields, LiTypeEntity } from '@monorepo/lab-lib/li-core';
 import {
   LI_RESOURCE_SEARCH_NAME,
@@ -112,7 +112,7 @@ export class LabWorkflowNodeMenuConfig extends PrWorkflowNodeMenuConfig {
       searchName: LI_RESOURCE_SEARCH_NAME,
       id: null,
       label: 'Compatible resources',
-      color: flThemeDetailLight.primary,
+      color: FL_THEME_DETAIL_LIGHT.primary,
       version: 1,
       default: true,
       filtersCriteria: filter,

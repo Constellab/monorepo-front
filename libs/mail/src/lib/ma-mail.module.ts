@@ -23,7 +23,7 @@ import { MaMailErrorDialogComponent } from './components/ma-mail-error-dialog/ma
 import { MaMailSearchComponent } from './components/ma-mail-search/ma-mail-search.component';
 import { MaMailSearchFormComponent } from './components/ma-mail-search-form/ma-mail-search-form.component';
 import { MaMailTableComponent } from './components/ma-mail-table/ma-mail-table.component';
-import { maMailI18n } from './ma-mail.i18n';
+import { MA_MAIL_I18N } from './ma-mail.i18n';
 
 @NgModule({
   declarations: [
@@ -61,6 +61,6 @@ export class MaMailModule {
   constructor() {
     const translateService = inject(FlTranslateService);
 
-    translateService.addModuleTranslation('MaMailModule', maMailI18n);
+    translateService.addModuleTranslation('MaMailModule', MA_MAIL_I18N);
   }
 }

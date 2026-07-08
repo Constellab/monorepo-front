@@ -21,7 +21,7 @@
       (captionChange)="onCaptionChange($event)"
       [editable]="editable"></te-title-caption>
     @if (view) {
-      <span class="open-in-dialog-text g-text-small" (click)="openViewInDialog()">
+      <span class="open-in-dialog-text g-text-small" role="button" tabindex="0" (click)="openViewInDialog()" (keydown.enter)="openViewInDialog()">
         ({{ 'rvResourceView.open_in_full_screen' | translate }})
       </span>
     }

@@ -1,4 +1,4 @@
-import { Component, inject,OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';

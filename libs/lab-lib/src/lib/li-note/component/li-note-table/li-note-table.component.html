@@ -10,7 +10,11 @@
       [style.border-left-color]="note.folder?.id | flStringToRgb">
       <!--    Invisible link  -->
       @if (!rowSelectable) {
-        <a [routerLink]="note | liDetailRoute" [target]="rowLinkTarget" class="g-row-link"></a>
+        <a
+          [routerLink]="note | liDetailRoute"
+          [target]="rowLinkTarget"
+          [attr.aria-label]="note.title"
+          class="g-row-link"></a>
       }
 
       <div>

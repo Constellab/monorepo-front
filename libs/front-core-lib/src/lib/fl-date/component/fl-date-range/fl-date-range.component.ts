@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ClOnChange } from '@monorepo/core-lib';
 import { DateTime } from 'luxon';
 
-import { ClDateFormatKey } from '../../pipe/fl-date/fl-date.pipe';
+import { FlDateFormatKey } from '../../pipe/fl-date/fl-date.pipe';
 
 /**
  * Display a date range with text,
@@ -27,7 +27,7 @@ export class FlDateRangeComponent implements OnInit {
   @Input()
   endingDate?: DateTime;
 
-  @Input() dateFormat: ClDateFormatKey = 'DATE';
+  @Input() dateFormat: FlDateFormatKey = 'DATE';
 
   mode: 'between' | 'from' | 'to';
 

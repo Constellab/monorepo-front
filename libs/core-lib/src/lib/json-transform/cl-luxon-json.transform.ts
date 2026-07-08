@@ -20,7 +20,8 @@ import { ClTransformFnParams } from './cl-json.converter';
 //
 //   // create date from string
 //   const transformToClass = Transform(
-//     (params: ClTransformFnParams<string | null>) => params.value == null ? null : ClDateHelper.getDate(params.value),
+//     (params: ClTransformFnParams<string | null>) =>
+//       params.value == null ? null : ClDateHelper.getDate(params.value),
 //     {toClassOnly: true});
 //
 //   return (target: any, key: string): void => {

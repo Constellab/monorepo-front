@@ -1,6 +1,6 @@
 import { BehaviorSubject, Observable } from 'rxjs';
 
-export type FlHeaderCellType = 'row' | 'column';
+export type SpHeaderCellType = 'row' | 'column';
 
 export type SpCellEditChange = { edit: false; value: void } | { edit: true; value: string };
 
@@ -69,7 +69,7 @@ export abstract class SpCell {
   }
 }
 
-export class FlBasicCell extends SpCell {
+export class SpBasicCell extends SpCell {
   public editable = true;
 
   constructor() {
@@ -78,7 +78,7 @@ export class FlBasicCell extends SpCell {
   }
 }
 
-export class FlColumnHeaderCell extends SpCell {
+export class SpColumnHeaderCell extends SpCell {
   public editable = false;
 
   constructor(index: number) {
@@ -92,7 +92,7 @@ export class FlColumnHeaderCell extends SpCell {
   }
 }
 
-export class FlRowHeaderCell extends SpCell {
+export class SpRowHeaderCell extends SpCell {
   public editable = false;
 
   constructor(index: number) {
@@ -101,8 +101,8 @@ export class FlRowHeaderCell extends SpCell {
   }
 }
 
-export const rowIdAttributeName: string = 'row-id';
-export const columnIdAttributeName: string = 'column-id';
+export const SP_ROW_ID_ATTRIBUTE_NAME: string = 'row-id';
+export const SP_COLUMN_ID_ATTRIBUTE_NAME: string = 'column-id';
 
-export const headerIndexAttributeName: string = 'header-index';
-export const headerTypeAttributeName: string = 'header-type';
+export const SP_HEADER_INDEX_ATTRIBUTE_NAME: string = 'header-index';
+export const SP_HEADER_TYPE_ATTRIBUTE_NAME: string = 'header-type';

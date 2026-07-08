@@ -95,7 +95,7 @@ export type LiResourceViewData =
   | LiResourceViewFolder
   | LiResourceViewRichText;
 
-export const excludedViewInNote: string[] = [
+export const LI_EXCLUDED_VIEW_IN_NOTE: string[] = [
   'view',
   'folder-view',
   'resources-list-view',

@@ -6,14 +6,14 @@ import { Injector } from '@angular/core';
  * of the service).
  * See : https://stackoverflow.com/questions/39409328/storing-injector-instance-for-use-in-components
  */
-export let flRootInjector: Injector;
+export let FL_ROOT_INJECTOR: Injector;
 
 /**
- * Helper to set the exported {@link flRootInjector}, needed as ES6 modules export
+ * Helper to set the exported {@link FL_ROOT_INJECTOR}, needed as ES6 modules export
  * immutable bindings (see http://2ality.com/2015/07/es6-module-exports.html) for
  * which trying to make changes after using `import {AppInjector}` would throw:
  * "TS2539: Cannot assign to 'AppInjector' because it is not a variable".
  */
 export function flSetRootInjector(injector: Injector): void {
-  flRootInjector = injector;
+  FL_ROOT_INJECTOR = injector;
 }

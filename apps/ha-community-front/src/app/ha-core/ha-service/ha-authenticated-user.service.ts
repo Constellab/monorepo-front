@@ -2,7 +2,7 @@ import { isPlatformBrowser, isPlatformServer } from '@angular/common';
 import { DestroyRef, inject, Injectable, Injector, PLATFORM_ID, REQUEST } from '@angular/core';
 import { ClSupportedLanguage, ClTheme } from '@monorepo/core-lib';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
-import { flAuthExpiredCookie, FlCleanableService, FlCleanerService } from '@monorepo/front-core-lib/fl-core';
+import { FL_AUTH_EXPIRED_COOKIE, FlCleanableService, FlCleanerService } from '@monorepo/front-core-lib/fl-core';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -78,7 +78,7 @@ export class HaAuthenticatedUserService implements FlCleanableService {
   private hasAuthCookie(): boolean {
     if (isPlatformBrowser(this.platformId)) return this.authService.hasAuthorizationCookie();
 
-    if (this.request?.cookies) return this.request?.cookies[flAuthExpiredCookie] != null;
+    if (this.request?.cookies) return this.request?.cookies[FL_AUTH_EXPIRED_COOKIE] != null;
 
     return false;
   }

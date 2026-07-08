@@ -1,5 +1,5 @@
 import { SanitizerConfig } from '@editorjs/editorjs';
-import { flRootInjector } from '@monorepo/front-core-lib/fl-core';
+import { FL_ROOT_INJECTOR } from '@monorepo/front-core-lib/fl-core';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 
 import { TeFormulaInlineToolData } from '../component/te-formula-inline/te-formula-inline.component';
@@ -10,7 +10,7 @@ export class TeFormulaInlineToolClass extends TeComponentInlineTool<TeFormulaInl
   public static TAG = 'te-formula-inline';
 
   static override get title(): string {
-    return flRootInjector.get(FlTranslateService).translate('teTextEditor.formula');
+    return FL_ROOT_INJECTOR.get(FlTranslateService).translate('teTextEditor.formula');
   }
 
   public static get sanitize(): SanitizerConfig {

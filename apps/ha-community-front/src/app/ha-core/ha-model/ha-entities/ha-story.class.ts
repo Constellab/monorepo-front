@@ -1,6 +1,6 @@
 import { CoListStoryDto, CoStoryCategory } from '@monorepo/community-lib';
 import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
-import { TeRichText, TeRichTextTransform } from '@monorepo/text-editor';
+import { TeRichText, teRichTextTransform } from '@monorepo/text-editor';
 import { DateTime } from 'luxon';
 
 import { HaFile } from '../../entity-module/ha-file-core/model/ha-file';
@@ -24,10 +24,10 @@ export class HaStory {
   id: string;
   title: string;
 
-  @TeRichTextTransform()
+  @teRichTextTransform()
   content: TeRichText;
 
-  @TeRichTextTransform()
+  @teRichTextTransform()
   contentEdition: TeRichText;
 
   status: HaStoryStatus;

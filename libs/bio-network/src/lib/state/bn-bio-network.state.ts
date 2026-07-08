@@ -10,7 +10,7 @@ import {
   BnBioNetwork,
   BnBioNetworkClusterSelection,
   BnBioNetworkCompartment,
-  FlPathwayDatabase,
+  BnPathwayDatabase,
 } from '../model/bn-bio-network.class';
 import { BnBioNetworkGraph } from '../model/bn-bio-network-graph.class';
 import { BnBioNetworkFactory } from '../utils/bn-bio-network.factory';
@@ -29,13 +29,13 @@ export class BnBioNetworkState implements OnDestroy {
   public networks: BnBioNetwork[];
   private selectedNetwork$: BehaviorSubject<BnBioNetwork | null>;
   private chartData$: BehaviorSubject<BnBioNetworkGraph | null>;
-  // private database$: BehaviorSubject<FlPathwayDatabase | null>;
+  // private database$: BehaviorSubject<BnPathwayDatabase | null>;
 
   private clusters$: BehaviorSubject<BnBioNetworkClusterSelection[]>;
   private clustersSelectionChange$: BehaviorSubject<void>;
 
   // used to cache the list of pathway
-  private pathwayListCache: Record<FlPathwayDatabase | string, BnBioNetworkClusterSelection[]>;
+  private pathwayListCache: Record<BnPathwayDatabase | string, BnBioNetworkClusterSelection[]>;
 
   public init(networks: BnBioNetwork | BnBioNetwork[]): void {
     this.initNetworks(networks);
@@ -102,11 +102,11 @@ export class BnBioNetworkState implements OnDestroy {
   }
 
   //
-  // public getDatabase$(): Observable<FlPathwayDatabase> {
+  // public getDatabase$(): Observable<BnPathwayDatabase> {
   //   return this.database$.asObservable();
   // }
 
-  public getDatabase(): FlPathwayDatabase {
+  public getDatabase(): BnPathwayDatabase {
     return 'kegg';
     // return this.database$.value;
   }

@@ -32,7 +32,7 @@ const flEmojiI18nEn: FlLangTranslation = {
   },
 };
 
-export const flEmojiI18n: FlTranslateObject = {
+export const FL_EMOJI_I18N: FlTranslateObject = {
   [ClSupportedLanguage.en]: flEmojiI18nEn,
   [ClSupportedLanguage.fr]: flEmojiI18nFr,
 };

@@ -57,7 +57,8 @@ export abstract class ChChartContainer<
       .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
 
     const clipId = `clip${new Date().getTime()}`;
-    this.chartContainer = this.group.append('g').attr('clip-path', `url(#${clipId})`) as any; // prevent elements to overflow
+    // prevent elements to overflow
+    this.chartContainer = this.group.append('g').attr('clip-path', `url(#${clipId})`) as any;
 
     // Add a clipPath: everything out of this area won't be drawn.
     this.group

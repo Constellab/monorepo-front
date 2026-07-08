@@ -9,7 +9,7 @@ import { LiTask } from './li-task.entity';
  * Method to instantiate the correct process object when getting it from DB
  * @param json
  */
-export function labInstantiateProcess(json: any): LiProcess {
+export function liInstantiateProcess(json: any): LiProcess {
   if (json === null) return null;
   // if this is a resource file
   if (json.is_protocol) {
@@ -19,13 +19,13 @@ export function labInstantiateProcess(json: any): LiProcess {
   }
 }
 
-export function LiProcessTransform(): PropertyDecorator {
+export function liProcessTransform(): PropertyDecorator {
   const transformToPlain = Transform(
     (params: ClTransformFnParams) => ClCoreJsonConvert.instanceToPlain(params.value),
     { toPlainOnly: true }
   );
 
-  const transformToClass = Transform((params: ClTransformFnParams) => labInstantiateProcess(params.value), {
+  const transformToClass = Transform((params: ClTransformFnParams) => liInstantiateProcess(params.value), {
     toClassOnly: true,
   });
 

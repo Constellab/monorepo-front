@@ -2,7 +2,6 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  DoCheck,
   ElementRef,
   HostBinding,
   inject,
@@ -25,8 +24,8 @@ import {
   SpSheetSingleSelection,
 } from '../../model/selection/sp-sheet-single-selection.class';
 import {
-  columnIdAttributeName,
-  rowIdAttributeName,
+  SP_COLUMN_ID_ATTRIBUTE_NAME,
+  SP_ROW_ID_ATTRIBUTE_NAME,
   SpCell,
   SpCellEditChange,
 } from '../../model/sp-cell.class';
@@ -43,7 +42,7 @@ import { SpSpreadsheetCellInfoComponent } from '../sp-spreadsheet-cell-info/sp-s
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: false,
 })
-export class SpSpreadsheetCellComponent implements OnInit, OnDestroy, DoCheck {
+export class SpSpreadsheetCellComponent implements OnInit, OnDestroy {
   private renderer = inject(Renderer2);
   private elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
   private state = inject(SpSpreadsheetState);
@@ -60,11 +59,11 @@ export class SpSpreadsheetCellComponent implements OnInit, OnDestroy, DoCheck {
   @Input() cell: SpCell;
 
   // theses attributes are used to retrieve the cell coords from html element
-  @HostBinding('attr.' + columnIdAttributeName)
+  @HostBinding('attr.' + SP_COLUMN_ID_ATTRIBUTE_NAME)
   @Input()
   column: number;
 
-  @HostBinding('attr.' + rowIdAttributeName)
+  @HostBinding('attr.' + SP_ROW_ID_ATTRIBUTE_NAME)
   @Input()
   row: number;
 
@@ -93,12 +92,6 @@ export class SpSpreadsheetCellComponent implements OnInit, OnDestroy, DoCheck {
     this.subscribeToValue();
     this.subscribeToEdit();
     this.subscribeToSelection();
-  }
-
-  ngDoCheck(): void {
-    // if (this.id === 0) {
-    //   console.log('Check');
-    // }
   }
 
   /////////////////////////////// VALUE ///////////////////////////////

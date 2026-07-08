@@ -17,7 +17,8 @@ export abstract class BnBioNetworkNode extends BnBioNetworkGraphObject implement
   public readonly id: number;
 
   // the following properties are set by d3
-  // Node’s zero-based index into nodes array. This property is set during the initialization process of a simulation.
+  // Node’s zero-based index into nodes array. This property is set during the initialization process
+  // of a simulation.
   index?: number;
   // Node’s current x-position
   x?: number;

@@ -1,4 +1,10 @@
-<div class="container" (click)="onClick($event)" [ngClass]="{ round: uploadConfig.roundImage }">
+<div
+  class="container"
+  role="button"
+  tabindex="0"
+  (click)="onClick($event)"
+  (keydown.enter)="onClick($event)"
+  [ngClass]="{ round: uploadConfig.roundImage }">
   @if (!disabled) {
     <div class="background"></div>
   }

@@ -87,7 +87,7 @@ export interface BnBioNetworkEnzyme {
 }
 
 // list of database ref for a pathway
-export type FlPathwayDatabase = keyof BnBioNetworkPathways;
+export type BnPathwayDatabase = keyof BnBioNetworkPathways;
 
 // info of which pathway the reaction is
 // It define the pathway name based for known DB (EU, US, Japan)

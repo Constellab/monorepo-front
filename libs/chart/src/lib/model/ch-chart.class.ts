@@ -20,7 +20,7 @@ export enum ChChartType {
   VENN_DIAGRAM = 'VENN_DIAGRAM',
 }
 
-export const chChartTypeIcons: Record<ChChartType, string> = {
+export const CH_CHART_TYPE_ICONS: Record<ChChartType, string> = {
   LINE: 'show_chart',
   SCATTER_PLOT: 'scatter_plot',
   VULCANO_PLOT: 'scatter_plot',

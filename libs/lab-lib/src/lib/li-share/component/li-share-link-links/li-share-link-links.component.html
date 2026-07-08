@@ -2,8 +2,11 @@
   <strong>{{ 'li.share_link_download' | translate }}</strong> -
   <span>{{ 'li.share_link_download_help' | translate }}</span> :
   <div
+    role="button"
+    tabindex="0"
     class="g-text-link g-text-light"
     (click)="copyDownloadLink()"
+    (keydown.enter)="copyDownloadLink()"
     [matTooltip]="'li.share_link_click_to_copy' | translate">
     {{ shareLink().downloadLink }}
   </div>
@@ -14,8 +17,11 @@
     <strong>{{ 'li.share_link_preview' | translate }}</strong> -
     <span>{{ 'li.share_link_preview_help' | translate }}</span> :
     <div
+      role="button"
+      tabindex="0"
       class="g-text-link g-text-light"
       (click)="copyPreviewLink()"
+      (keydown.enter)="copyPreviewLink()"
       [matTooltip]="'li.share_link_click_to_copy' | translate">
       {{ shareLink().previewLink }}
     </div>

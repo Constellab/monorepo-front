@@ -341,7 +341,7 @@ const lmlLabManagerI18nEn: FlLangTranslation = {
   },
 };
 
-export const lmlLabManagerI18n: FlTranslateObject = {
+export const LML_LAB_MANAGER_I18N: FlTranslateObject = {
   [ClSupportedLanguage.en]: lmlLabManagerI18nEn,
   [ClSupportedLanguage.fr]: lmlLabManagerI18nFr,
 };

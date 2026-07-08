@@ -4,7 +4,7 @@ import {
   FlStatus,
   FlStatusDict,
   FlStatusHelper,
-  FlStatusTransform,
+  flStatusTransform,
 } from '@monorepo/front-core-lib/fl-status';
 import { Expose, Type } from 'class-transformer';
 import { DateTime } from 'luxon';
@@ -31,7 +31,7 @@ export class LiProgressMessage {
 
   text: string;
 
-  @FlStatusTransform(labProgressBarMessageTypeDict)
+  @flStatusTransform(labProgressBarMessageTypeDict)
   type: FlStatus<LiProgressBarMessageType>;
 
   progress?: number;
