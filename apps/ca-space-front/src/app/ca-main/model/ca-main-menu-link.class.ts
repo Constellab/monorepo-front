@@ -13,7 +13,7 @@ export interface CaMainMenuLink {
 }
 
 // list of the main menu links buttons
-export const caMainMenuLinks: CaMainMenuLink[] = [
+export const CA_MAIN_MENU_LINKS: CaMainMenuLink[] = [
   {
     label: 'home',
     icon: 'home',

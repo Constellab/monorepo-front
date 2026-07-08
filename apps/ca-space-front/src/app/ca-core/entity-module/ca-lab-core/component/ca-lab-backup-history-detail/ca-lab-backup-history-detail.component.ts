@@ -4,7 +4,7 @@ import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
 import { FlStatusModule } from '@monorepo/front-core-lib/fl-status';
 import { TranslatePipe } from '@ngx-translate/core';
 
-import { CnLabBackupHistoryDetail } from '../../../../model/entities/lab/ca-lab-backup.class';
+import { CaLabBackupHistoryDetail } from '../../../../model/entities/lab/ca-lab-backup.class';
 import {
   CaLabBackupHistoryDetailPortalDirective,
 } from '../../directive/ca-lab-backup-history-detail-portal.directive';
@@ -26,5 +26,5 @@ import {
   ],
 })
 export class CaLabBackupHistoryDetailComponent {
-  @Input({ required: true }) detail: CnLabBackupHistoryDetail;
+  @Input({ required: true }) detail: CaLabBackupHistoryDetail;
 }

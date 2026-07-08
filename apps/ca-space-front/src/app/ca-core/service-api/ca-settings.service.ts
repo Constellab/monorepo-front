@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { Observable } from 'rxjs';
 
-import { CnConstellabSuiteDTO, CnRequestAppDTO } from '../model/entities/ca-constellab-suite.class';
+import { CaConstellabSuiteDTO, CaRequestAppDTO } from '../model/entities/ca-constellab-suite.class';
 import { CaServerDecisionTreeDTO, CaYoutubeVideo } from '../model/entities/server/ca-server-standard.class';
 
 @Injectable({ providedIn: 'root' })
@@ -25,8 +25,8 @@ export class CaSettingsService {
     return this.apiService.get(`${this.route}/tutorial-videos`, CaYoutubeVideo);
   }
 
-  public getConstellabSuite(): Observable<CnConstellabSuiteDTO> {
-    return this.apiService.get(`${this.route}/constellab-suite`, CnConstellabSuiteDTO);
+  public getConstellabSuite(): Observable<CaConstellabSuiteDTO> {
+    return this.apiService.get(`${this.route}/constellab-suite`, CaConstellabSuiteDTO);
   }
 
   public uploadConstellabSuite(constellabSuite: File): Observable<void> {
@@ -35,7 +35,7 @@ export class CaSettingsService {
     return this.apiService.put(`${this.route}/constellab-suite`, formData);
   }
 
-  public requestApp(requestAppDto: CnRequestAppDTO): Observable<void> {
+  public requestApp(requestAppDto: CaRequestAppDTO): Observable<void> {
     return this.apiService.post(`${this.route}/request-app`, requestAppDto);
   }
 

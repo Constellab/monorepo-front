@@ -23,7 +23,7 @@ import {
   CaFolderStorageDTO,
   CaFolderWithHierarchy,
   CaGetFolderDescriptionDTO,
-  CnSaveFolderDTO,
+  CaSaveFolderDTO,
 } from '../model/entities/folder/ca-folder.class';
 import {
   CaFolderUser,
@@ -47,25 +47,25 @@ export class CaFolderService {
 
   private readonly route: string = 'folders';
 
-  public createFolder(folder: CnSaveFolderDTO): Observable<CaFolderWithHierarchy> {
+  public createFolder(folder: CaSaveFolderDTO): Observable<CaFolderWithHierarchy> {
     return this.apiService.post(this.route, folder, CaFolderWithHierarchy, { serialization: CaFolder });
   }
 
   public createSubFolder(
-    subFolder: CnSaveFolderDTO,
+    subFolder: CaSaveFolderDTO,
     parentFolderId: string
   ): Observable<CaFolderWithHierarchy> {
     return this.apiService.post(
       `${this.route}/${parentFolderId}/sub-folder`,
       subFolder,
       CaFolderWithHierarchy,
-      { serialization: CnSaveFolderDTO }
+      { serialization: CaSaveFolderDTO }
     );
   }
 
-  public update(id: string, object: CnSaveFolderDTO): Observable<CaFolderWithHierarchy> {
+  public update(id: string, object: CaSaveFolderDTO): Observable<CaFolderWithHierarchy> {
     return this.apiService.put(`${this.route}/${id}`, object, CaFolderWithHierarchy, {
-      serialization: CnSaveFolderDTO,
+      serialization: CaSaveFolderDTO,
     });
   }
 

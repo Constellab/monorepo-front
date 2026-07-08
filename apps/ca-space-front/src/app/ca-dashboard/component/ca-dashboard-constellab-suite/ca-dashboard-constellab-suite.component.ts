@@ -8,8 +8,8 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
 import {
-  CnConstellabSuiteAppDTO,
-  CnConstellabSuiteDTO,
+  CaConstellabSuiteAppDTO,
+  CaConstellabSuiteDTO,
 } from '../../../ca-core/model/entities/ca-constellab-suite.class';
 import { CaIconContainerComponent } from '../../../ca-core/module/ca-core-component/ca-icon-container/ca-icon-container.component';
 import { CaSettingsService } from '../../../ca-core/service-api/ca-settings.service';
@@ -24,9 +24,9 @@ import { CaConstellabSuiteDetailDialogComponent } from '../ca-constellab-suite-d
 export class CaDashboardConstellabSuiteComponent {
   private dialogService = inject(FlDialogService);
 
-  constellabSuite$: Observable<CnConstellabSuiteDTO> = inject(CaSettingsService).getConstellabSuite();
+  constellabSuite$: Observable<CaConstellabSuiteDTO> = inject(CaSettingsService).getConstellabSuite();
 
-  openAppDetail(app: CnConstellabSuiteAppDTO): void {
+  openAppDetail(app: CaConstellabSuiteAppDTO): void {
     this.dialogService.openMediumDialog(CaConstellabSuiteDetailDialogComponent, {
       data: { app },
     });

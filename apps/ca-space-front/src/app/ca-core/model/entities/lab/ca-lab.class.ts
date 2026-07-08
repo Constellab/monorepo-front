@@ -31,7 +31,7 @@ export type CaLabStatus =
   | 'NO_SERVER'
   | 'ERROR';
 
-export const caLabStatusDict: FlStatusDict<CaLabStatus> = {
+export const CA_LAB_STATUS_DICT: FlStatusDict<CaLabStatus> = {
   LAB_RUNNING: FlStatusHelper.getRunningStatus('LAB_RUNNING', 'running'),
   SERVER_STOPPED: FlStatusHelper.getStoppedStatus('SERVER_STOPPED', 'stopped'),
   SERVER_STARTING: FlStatusHelper.getLoadingStatus('SERVER_STARTING', 'lab_starting'),
@@ -42,10 +42,10 @@ export const caLabStatusDict: FlStatusDict<CaLabStatus> = {
   ERROR: FlStatusHelper.getErrorStatus('ERROR', 'error'),
 };
 
-export const caLabStatusTemp: CaLabStatus[] = ['SERVER_STARTING', 'SERVER_STOPPING', 'SERVER_RUNNING'];
+export const CA_LAB_STATUS_TEMP: CaLabStatus[] = ['SERVER_STARTING', 'SERVER_STOPPING', 'SERVER_RUNNING'];
 
 export type CaLabServerTaskStatus = 'RUNNING' | 'SUCCESS' | 'ERROR' | 'NONE';
-export const caLabServerTaskStatusDict: FlStatusDict<CaLabServerTaskStatus> = {
+export const CA_LAB_SERVER_TASK_STATUS_DICT: FlStatusDict<CaLabServerTaskStatus> = {
   RUNNING: FlStatusHelper.getRunningStatus('RUNNING', 'running'),
   SUCCESS: FlStatusHelper.getSuccessStatus('SUCCESS', 'success'),
   ERROR: FlStatusHelper.getErrorStatus('ERROR', 'error'),
@@ -53,7 +53,7 @@ export const caLabServerTaskStatusDict: FlStatusDict<CaLabServerTaskStatus> = {
 };
 
 export class CaLabStatusHistory extends CaStatusHistory<CaLabStatus> {
-  @flStatusTransform(caLabStatusDict)
+  @flStatusTransform(CA_LAB_STATUS_DICT)
   status: FlStatus<CaLabStatus>;
 }
 
@@ -173,7 +173,7 @@ export class CaLabFindOneDto {
 }
 
 export class CaLabSimpleStatusDTO {
-  @flStatusTransform(caLabStatusDict)
+  @flStatusTransform(CA_LAB_STATUS_DICT)
   labStatus: FlStatus<CaLabStatus>;
 
   constructor(labStatus: FlStatus<CaLabStatus>) {
@@ -196,7 +196,7 @@ export class CaLabSimpleStatusDTO {
 }
 
 export class CaLabStatusDTO {
-  @flStatusTransform(caLabStatusDict)
+  @flStatusTransform(CA_LAB_STATUS_DICT)
   labStatus: FlStatus<CaLabStatus>;
   labManagerIsRunning: boolean;
 
@@ -207,7 +207,7 @@ export class CaLabStatusDTO {
   dnsConfigured: boolean;
   serverTaskText: string;
 
-  @flStatusTransform(caLabServerTaskStatusDict)
+  @flStatusTransform(CA_LAB_SERVER_TASK_STATUS_DICT)
   serverTaskStatus: FlStatus<CaLabServerTaskStatus>;
 
   @ClLuxonDateTimeTransform()
@@ -229,7 +229,7 @@ export class CaLabBusyStatusDTO {
 
   isBusy: boolean;
 
-  @flStatusTransform(caLabStatusDict)
+  @flStatusTransform(CA_LAB_STATUS_DICT)
   labStatus: FlStatus<CaLabStatus>;
 
   mainText?: string;

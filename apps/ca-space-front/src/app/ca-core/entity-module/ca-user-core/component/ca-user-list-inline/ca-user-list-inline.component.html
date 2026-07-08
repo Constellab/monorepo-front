@@ -5,6 +5,9 @@
       <div
         class="additional-user-count-externe"
         (click)="openAdditionalUsersPortal($event)"
+        (keydown.enter)="openAdditionalUsersPortal($event)"
+        role="button"
+        tabindex="0"
         [ngClass]="{ selected: selectionAdditionalUser() }">
         <div class="additional-user-count-interne g-text-not-selectable">+{{ additionalUserLength }}</div>
       </div>
@@ -16,7 +19,10 @@
         [matTooltip]="userSelection.user.alias"
         matTooltipPosition="below"
         matTooltipShowDelay="0"
-        (click)="selectUser(userSelection)">
+        (click)="selectUser(userSelection)"
+        (keydown.enter)="selectUser(userSelection)"
+        role="button"
+        tabindex="0">
         <div class="user-preview" [ngClass]="{ selected: userSelection.selected }">
           <fl-user-profile-picture [user]="userSelection.user" size="small"></fl-user-profile-picture>
         </div>

@@ -132,8 +132,9 @@ export class CaUserListInlineComponent
       .map((userSelection) => userSelection.user);
   }
 
-  openAdditionalUsersPortal(event: MouseEvent): void {
+  openAdditionalUsersPortal(event: Event): void {
     if (this.additionalOverlay) return;
+    if (!(event instanceof MouseEvent)) return;
 
     const position: FlPortalConnectedPosition[] = [
       {

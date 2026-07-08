@@ -11,7 +11,10 @@
         <div
           class="align-container logo-div"
           [ngClass]="{ 'align-container-center': menuExpanded }"
-          (click)="openMySpacesPortal()">
+          (click)="openMySpacesPortal()"
+          (keydown.enter)="openMySpacesPortal()"
+          role="button"
+          tabindex="0">
           <div class="g-layout-row g-layout-start-center" [ngClass]="{ 'logo-expanded': menuExpanded }">
             <div
               [matBadge]="otherSpaceNotificationsNumber$ | async"

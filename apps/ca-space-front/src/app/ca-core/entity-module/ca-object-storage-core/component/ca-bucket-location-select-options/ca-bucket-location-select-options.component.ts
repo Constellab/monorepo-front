@@ -10,10 +10,10 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import {
+CA_CLOUD_BUCKET_TYPES,
   CaBucketLocationDatasource,
   CaBucketLocationDTO,
-  CaBucketType, caCloudBucketTypes,
-} from '../../../../model/entities/ca-object-storage.class';
+  CaBucketType, } from '../../../../model/entities/ca-object-storage.class';
 import { CaFolderService } from '../../../../service-api/ca-folder.service';
 import { CaCloudProviderRegionInlineComponent } from '../../../ca-cloud-provider-core/component/ca-cloud-provider-region-inline/ca-cloud-provider-region-inline.component';
 import { CaBucketLocationInlineComponent } from '../ca-bucket-location-inline/ca-bucket-location-inline.component';
@@ -75,7 +75,7 @@ export class CaBucketLocationSelectOptionsComponent
   private sortLocations(locations: CaBucketLocationDTO[]): CaBucketLocationList {
     return {
       cloud: locations
-        .filter((location) => caCloudBucketTypes.includes(location.bucketType))
+        .filter((location) => CA_CLOUD_BUCKET_TYPES.includes(location.bucketType))
         .sort((a, b) => a.locationName.localeCompare(b.locationName)),
       lab: locations
         .filter((location) => location.bucketType === CaBucketType.LAB)

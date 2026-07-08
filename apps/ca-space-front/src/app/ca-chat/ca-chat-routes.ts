@@ -1,6 +1,6 @@
 import { Route } from '@angular/router';
 
-export const caChatRoutes: Route[] = [
+export const CA_CHAT_ROUTES: Route[] = [
   {
     path: '',
     loadComponent: () =>

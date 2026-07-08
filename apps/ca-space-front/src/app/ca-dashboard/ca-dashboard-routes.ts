@@ -1,6 +1,6 @@
 import { Route } from '@angular/router';
 
-export const caDashboardRoutes: Route[] = [
+export const CA_DASHBOARD_ROUTES: Route[] = [
   {
     path: '',
     loadComponent: () =>

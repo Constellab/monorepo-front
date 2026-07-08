@@ -12,7 +12,7 @@ import { FlSearchModule, FlSearchState } from '@monorepo/front-core-lib/fl-searc
 import { FlUserConfigSearchNameMode, FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { TranslatePipe } from '@ngx-translate/core';
 
-import { caLabServerTaskStatusDict, caLabStatusDict } from '../../../../model/entities/lab/ca-lab.class';
+import { CA_LAB_SERVER_TASK_STATUS_DICT, CA_LAB_STATUS_DICT } from '../../../../model/entities/lab/ca-lab.class';
 import { CaSelectCloudProviderOptionsComponent } from '../../../ca-cloud-provider-core/component/ca-select-cloud-provider-options/ca-select-cloud-provider-options.component';
 import { CaSelectOptionsCityComponent } from '../../../ca-config-core/component/ca-select-city-options/ca-select-options-city.component';
 import { CaSelectServerCloudOptionsComponent } from '../../../ca-server-core/component/ca-select-server-cloud-options/ca-select-server-cloud-options.component';
@@ -53,8 +53,8 @@ export class CaLabSearchFormComponent implements OnInit {
 
   formGp: UntypedFormGroup;
 
-  status = caLabStatusDict;
-  serverTaskStatus = caLabServerTaskStatusDict;
+  status = CA_LAB_STATUS_DICT;
+  serverTaskStatus = CA_LAB_SERVER_TASK_STATUS_DICT;
 
   selectUserMode: FlUserConfigSearchNameMode;
 

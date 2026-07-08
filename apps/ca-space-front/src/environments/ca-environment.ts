@@ -10,7 +10,7 @@ import { CaEnvironment } from './ca-environment.class';
  *
  * NEVER IMPORT ENVIRONMENT DIRECTLY FORM HERE, USE ENVIRONMENT HELPER INSTEAD
  */
-export const environment: CaEnvironment = {
+export const CA_ENVIRONMENT: CaEnvironment = {
   production: false,
   settings: {
     apiUrl: '',

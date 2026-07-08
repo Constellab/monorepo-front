@@ -1,9 +1,9 @@
-import { environment } from '../../../environments/ca-environment';
+import { CA_ENVIRONMENT } from '../../../environments/ca-environment';
 import { CaEnvironment } from '../../../environments/ca-environment.class';
 
 export class CaEnvironmentHelper {
   public static getEnv(): CaEnvironment {
-    return environment;
+    return CA_ENVIRONMENT;
   }
 
   public static isProduction(): boolean {

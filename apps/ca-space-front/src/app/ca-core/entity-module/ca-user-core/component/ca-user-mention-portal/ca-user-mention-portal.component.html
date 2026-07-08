@@ -1,6 +1,14 @@
 <div class="container">
   @if (showEveryoneButton) {
-    <div class="item" (click)="selectEveryone()" [ngClass]="{ selected: userIsSelected(0) }">Everyone</div>
+    <div
+      class="item"
+      (click)="selectEveryone()"
+      (keydown.enter)="selectEveryone()"
+      role="button"
+      tabindex="0"
+      [ngClass]="{ selected: userIsSelected(0) }">
+      Everyone
+    </div>
   }
 
   @for (user of users; track user; let i = $index) {

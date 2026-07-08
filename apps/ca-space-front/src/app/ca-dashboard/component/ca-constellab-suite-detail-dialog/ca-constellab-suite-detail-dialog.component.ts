@@ -8,12 +8,12 @@ import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { TranslatePipe } from '@ngx-translate/core';
 
-import { CnConstellabSuiteAppDTO } from '../../../ca-core/model/entities/ca-constellab-suite.class';
+import { CaConstellabSuiteAppDTO } from '../../../ca-core/model/entities/ca-constellab-suite.class';
 import { CaIconContainerComponent } from '../../../ca-core/module/ca-core-component/ca-icon-container/ca-icon-container.component';
 import { CaSettingsService } from '../../../ca-core/service-api/ca-settings.service';
 
 export interface CaConstellabSuiteDetailDialogInput {
-  app: CnConstellabSuiteAppDTO;
+  app: CaConstellabSuiteAppDTO;
 }
 
 @Component({

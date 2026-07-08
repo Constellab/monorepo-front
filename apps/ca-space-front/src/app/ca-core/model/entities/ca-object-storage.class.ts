@@ -50,7 +50,11 @@ export enum CaBucketType {
   GCP = 'GCP', // bucket hosted on GCP
 }
 
-export const caCloudBucketTypes: CaBucketType[] = [CaBucketType.NORMAL, CaBucketType.AZURE, CaBucketType.GCP];
+export const CA_CLOUD_BUCKET_TYPES: CaBucketType[] = [
+  CaBucketType.NORMAL,
+  CaBucketType.AZURE,
+  CaBucketType.GCP,
+];
 
 
 export class CaBucket extends CaBaseEntity {
@@ -95,7 +99,7 @@ export class CaBucketLocationDTO {
   cloudRegion?: CaCloudProviderRegion;
 
   get isCloudBucket(): boolean {
-    return caCloudBucketTypes.includes(this.bucketType)
+    return CA_CLOUD_BUCKET_TYPES.includes(this.bucketType)
   }
 }
 

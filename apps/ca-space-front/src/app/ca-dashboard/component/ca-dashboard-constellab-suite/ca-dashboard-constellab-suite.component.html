@@ -4,7 +4,12 @@
   <div>
     @if (constellabSuite.apps) {
       @for (app of constellabSuite.apps; track app.name) {
-        <div class="app-item" (click)="openAppDetail(app)">
+        <div
+          class="app-item"
+          (click)="openAppDetail(app)"
+          (keydown.enter)="openAppDetail(app)"
+          role="button"
+          tabindex="0">
           <div class="app-content">
             <ca-icon-container [emoji]="app.emoji" [backgroundColor]="app.background" class="app-icon">
             </ca-icon-container>

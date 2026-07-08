@@ -7,7 +7,7 @@
     <mat-cell *matCellDef="let note">
       @if (!rowSelectable) {
         <!--    Invisible link  -->
-        <a [routerLink]="note | caDetailRoute" class="g-row-link"></a>
+        <a [routerLink]="note | caDetailRoute" class="g-row-link" [attr.aria-label]="note.title"></a>
       }
 
       <div [caNotificationMark]="note.id" caNotificationObjectType="NOTE">{{ note.title }}</div>

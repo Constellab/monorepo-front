@@ -1,89 +1,89 @@
 import { Route } from '@angular/router';
 
-import { caAdminRoutes } from '../ca-admin/ca-admin-routes';
-import { caChatRoutes } from '../ca-chat/ca-chat-routes';
+import { CA_ADMIN_ROUTES } from '../ca-admin/ca-admin-routes';
+import { CA_CHAT_ROUTES } from '../ca-chat/ca-chat-routes';
 import { CaAdminGuard } from '../ca-core/guard/ca-admin-guard.service';
 import {
-  caConstAdminRoute,
-  caConstBaseRoute,
-  caConstChatRoute,
-  caConstFolderRoute,
-  caConstHomeRoute,
-  caConstLabsRoute,
-  caConstPublicRoute,
-  caConstStructureRoute,
-  caConstUserPageRoute,
+  CA_CONST_ADMIN_ROUTE,
+  CA_CONST_BASE_ROUTE,
+  CA_CONST_CHAT_ROUTE,
+  CA_CONST_FOLDER_ROUTE,
+  CA_CONST_HOME_ROUTE,
+  CA_CONST_LABS_ROUTE,
+  CA_CONST_PUBLIC_ROUTE,
+  CA_CONST_STRUCTURE_ROUTE,
+  CA_CONST_USER_PAGE_ROUTE,
 } from '../ca-core/utils/ca-base-route';
-import { caDashboardRoutes } from '../ca-dashboard/ca-dashboard-routes';
-import { caHierarchyObjectRoutes } from '../ca-folder/module/ca-hierarchy-object-detail-page/ca-hierarchy-object-detail-page-routes';
-import { caLabRoutes } from '../ca-lab/ca-lab-routes';
+import { CA_DASHBOARD_ROUTES } from '../ca-dashboard/ca-dashboard-routes';
+import { CA_HIERARCHY_OBJECT_ROUTES } from '../ca-folder/module/ca-hierarchy-object-detail-page/ca-hierarchy-object-detail-page-routes';
+import { CA_LAB_ROUTES } from '../ca-lab/ca-lab-routes';
 import { CA_PUBLIC_ROUTES } from '../ca-public-route/ca-public-routes';
 import { CA_STRUCTURE_ROUTES } from '../ca-structure/ca-structure-routes';
-import { caUserRoutes } from '../ca-user-detail-page/ca-user-detail-page-routes';
+import { CA_USER_ROUTES } from '../ca-user-detail-page/ca-user-detail-page-routes';
 import { CaLoadUserGuard } from './guard/ca-load-user.guard';
 
 export const CA_MAIN_ROUTES: Route[] = [
   {
     path: '',
-    redirectTo: caConstBaseRoute,
+    redirectTo: CA_CONST_BASE_ROUTE,
     pathMatch: 'full',
   },
   {
-    path: caConstBaseRoute,
+    path: CA_CONST_BASE_ROUTE,
     loadComponent: () =>
       import('./component/ca-main-app/ca-main-app.component').then((m) => m.CaMainAppComponent),
     canActivate: [CaLoadUserGuard],
     children: [
       {
         path: '',
-        redirectTo: caConstHomeRoute,
+        redirectTo: CA_CONST_HOME_ROUTE,
         pathMatch: 'full',
       },
       //////////////////////// DASHBOARD /////////////////////////
       {
-        path: caConstHomeRoute,
-        children: caDashboardRoutes,
+        path: CA_CONST_HOME_ROUTE,
+        children: CA_DASHBOARD_ROUTES,
       },
 
       //////////////////////// LAB /////////////////////////
       {
-        path: caConstLabsRoute,
-        children: caLabRoutes,
+        path: CA_CONST_LABS_ROUTE,
+        children: CA_LAB_ROUTES,
       },
 
       //////////////////////// FOLDER DETAIL /////////////////////////
       {
-        path: caConstFolderRoute,
-        children: caHierarchyObjectRoutes,
+        path: CA_CONST_FOLDER_ROUTE,
+        children: CA_HIERARCHY_OBJECT_ROUTES,
       },
 
       //////////////////////// Admin /////////////////////////
       {
-        path: caConstAdminRoute,
-        children: caAdminRoutes,
+        path: CA_CONST_ADMIN_ROUTE,
+        children: CA_ADMIN_ROUTES,
         canActivate: [CaAdminGuard],
       },
       //////////////////////// STRUCTURE /////////////////////////
       {
-        path: caConstStructureRoute,
+        path: CA_CONST_STRUCTURE_ROUTE,
         children: CA_STRUCTURE_ROUTES,
       },
       //////////////////////// CHAT /////////////////////////
       {
-        path: caConstChatRoute,
-        children: caChatRoutes,
+        path: CA_CONST_CHAT_ROUTE,
+        children: CA_CHAT_ROUTES,
       },
 
       //////////////////////// USER PAGE /////////////////////////
       {
-        path: caConstUserPageRoute,
-        children: caUserRoutes,
+        path: CA_CONST_USER_PAGE_ROUTE,
+        children: CA_USER_ROUTES,
       },
     ],
   },
   //////////////////////// OPEN  /////////////////////////
   {
-    path: caConstPublicRoute,
+    path: CA_CONST_PUBLIC_ROUTE,
     children: CA_PUBLIC_ROUTES,
   },
 ];

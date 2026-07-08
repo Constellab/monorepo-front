@@ -8,7 +8,7 @@ import { FL_AUTH_EXPIRED_COOKIE, FlCleanerService, FlLoginSavedRoute } from '@mo
 import { FlCookieService } from '@monorepo/front-core-lib/fl-dialog';
 import { Observable, throwError } from 'rxjs';
 
-import { caConstLoginRoute } from '../utils/ca-base-route';
+import { CA_CONST_LOGIN_ROUTE } from '../utils/ca-base-route';
 import { CaEnvironmentHelper } from '../utils/ca-environment.helper';
 
 /**
@@ -95,7 +95,7 @@ export class CaApiErrorService extends FlApiErrorService {
       domain: CaEnvironmentHelper.getFrontDomain(),
     });
 
-    if (!this.router.url.startsWith(caConstLoginRoute)) {
+    if (!this.router.url.startsWith(CA_CONST_LOGIN_ROUTE)) {
       FlCleanerService.getInstance().cleanServices();
 
       // save the current url for rerouting after login
@@ -107,7 +107,7 @@ export class CaApiErrorService extends FlApiErrorService {
       }
 
       // redirect the user to the login page, with autoRedirect param to avoid infinite loop
-      this.router.navigate([caConstLoginRoute], { queryParams: { autoRedirect: false } });
+      this.router.navigate([CA_CONST_LOGIN_ROUTE], { queryParams: { autoRedirect: false } });
     }
 
     serverError.message = this.translateService.translate('session_expired');

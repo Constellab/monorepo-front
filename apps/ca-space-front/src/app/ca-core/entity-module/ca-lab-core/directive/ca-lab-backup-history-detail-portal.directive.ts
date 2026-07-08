@@ -4,7 +4,7 @@ import {
   FlMouseHoverPortalConfig,
 } from '@monorepo/front-core-lib/fl-portal';
 
-import { CnLabBackupHistoryDetail } from '../../../model/entities/lab/ca-lab-backup.class';
+import { CaLabBackupHistoryDetail } from '../../../model/entities/lab/ca-lab-backup.class';
 import {
   CaLabBackupHistoryDetailPortalComponent,
 } from '../component/ca-lab-backup-history-detail-portal/ca-lab-backup-history-detail-portal.component';
@@ -14,7 +14,7 @@ import {
  */
 @Directive({ selector: '[caLabBackupHistoryDetailPortal]' })
 export class CaLabBackupHistoryDetailPortalDirective extends FlMouseHoverPortalAbstractDirective {
-  @Input() caLabBackupHistoryDetailPortal: CnLabBackupHistoryDetail;
+  @Input() caLabBackupHistoryDetailPortal: CaLabBackupHistoryDetail;
 
   getConfig(): FlMouseHoverPortalConfig | null {
     return {

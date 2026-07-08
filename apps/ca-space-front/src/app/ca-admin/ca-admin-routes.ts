@@ -1,6 +1,6 @@
 import { Route } from '@angular/router';
 
-export const caAdminRoutes: Route[] = [
+export const CA_ADMIN_ROUTES: Route[] = [
   {
     path: '',
     loadComponent: () =>

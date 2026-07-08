@@ -28,7 +28,7 @@ import { CaLabUser, CaLabUserDatasource } from '../../../../ca-core/model/entiti
 import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
 import {
   CaLabUserFormDialogComponent,
-  LabUserFormDialogInput,
+  CaLabUserFormDialogInput,
 } from '../ca-lab-user-form-dialog/ca-lab-user-form-dialog.component';
 
 @Component({
@@ -67,7 +67,7 @@ export class CaLabUsersTableComponent {
   @Input() columns: FlTableColumnStatic<CaLabUser>[] = ['user', 'role', 'createdBy', 'createdAt'];
 
   openUpdateUserRoleDialog(labUSer: CaLabUser): void {
-    const input: LabUserFormDialogInput = {
+    const input: CaLabUserFormDialogInput = {
       mode: 'update',
       object: labUSer,
       labId: this.labId,

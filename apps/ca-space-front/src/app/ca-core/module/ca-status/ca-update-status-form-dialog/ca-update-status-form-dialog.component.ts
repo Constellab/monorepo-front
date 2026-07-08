@@ -14,7 +14,7 @@ import { FlStatus, FlStatusDict } from '@monorepo/front-core-lib/fl-status';
 import { TranslatePipe } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
-export interface UpdateStatusFormDialogInput<S extends string> {
+export interface CaUpdateStatusFormDialogInput<S extends string> {
   statusDict: FlStatusDict<S>;
   currentStatus: FlStatus<S>;
   title?: string;
@@ -48,7 +48,7 @@ export interface UpdateStatusFormDialogInput<S extends string> {
 })
 export class CaUpdateStatusFormDialogComponent implements OnInit {
   private dialogRef = inject<MatDialogRef<CaUpdateStatusFormDialogComponent>>(MatDialogRef);
-  private dialogInput = inject<UpdateStatusFormDialogInput<any>>(MAT_DIALOG_DATA);
+  private dialogInput = inject<CaUpdateStatusFormDialogInput<any>>(MAT_DIALOG_DATA);
   private snackBarService = inject(FlSnackBarService);
 
   formControl: FormControl;

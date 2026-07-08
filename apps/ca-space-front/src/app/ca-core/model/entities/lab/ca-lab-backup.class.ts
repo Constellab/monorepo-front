@@ -23,7 +23,7 @@ const caLabBackupStatus: FlStatusDict<CaLabBackupStatus> = {
   DELETED: FlStatusHelper.getInfoStatus('DELETED', 'lab_backup_status_deleted', 'delete'),
 };
 
-export class CnLabBackupHistoryDetail extends CaBaseEntity {
+export class CaLabBackupHistoryDetail extends CaBaseEntity {
   type: 'DATA' | 'DB';
 
   // Data info
@@ -70,11 +70,11 @@ export class CaLabBackupHistory extends CaBaseEntity {
   @flStatusTransform(caLabBackupStatus)
   status: FlStatus<CaLabBackupStatus>;
 
-  @Type(() => CnLabBackupHistoryDetail)
-  dataDetails?: CnLabBackupHistoryDetail;
+  @Type(() => CaLabBackupHistoryDetail)
+  dataDetails?: CaLabBackupHistoryDetail;
 
-  @Type(() => CnLabBackupHistoryDetail)
-  dbDetails?: CnLabBackupHistoryDetail;
+  @Type(() => CaLabBackupHistoryDetail)
+  dbDetails?: CaLabBackupHistoryDetail;
 }
 
 export type CaLabBackupHistoryDatasource = FlEntityPaginatedDatasource<CaLabBackupHistory>;

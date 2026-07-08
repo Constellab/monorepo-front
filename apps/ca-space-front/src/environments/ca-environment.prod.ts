@@ -7,7 +7,7 @@ import { CaEnvironment } from './ca-environment.class';
  *
  * NEVER IMPORT THIS FILE FROM ANOTHER FILE
  */
-export const environment: CaEnvironment = {
+export const CA_ENVIRONMENT: CaEnvironment = {
   production: true,
   settings: {
     apiUrl: '',

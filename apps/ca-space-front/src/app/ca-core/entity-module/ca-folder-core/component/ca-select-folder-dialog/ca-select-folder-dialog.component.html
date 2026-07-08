@@ -4,10 +4,24 @@
 
 <mat-dialog-content>
   <div class="g-layout-row-wrap g-layout-start-center g-text-not-selectable">
-    <div class="parent-folder" (click)="moveToRoot()">{{ 'my_folders' | translate }}</div>
+    <div
+      class="parent-folder"
+      (click)="moveToRoot()"
+      (keydown.enter)="moveToRoot()"
+      role="button"
+      tabindex="0">
+      {{ 'my_folders' | translate }}
+    </div>
     @for (folder of parentFolders; track folder.id) {
       <div class="parent-separator">></div>
-      <div class="parent-folder" (click)="selectParentFolder(folder)">{{ folder.name }}</div>
+      <div
+        class="parent-folder"
+        (click)="selectParentFolder(folder)"
+        (keydown.enter)="selectParentFolder(folder)"
+        role="button"
+        tabindex="0">
+        {{ folder.name }}
+      </div>
     }
   </div>
 

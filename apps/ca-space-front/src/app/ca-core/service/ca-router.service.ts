@@ -2,15 +2,15 @@ import { inject, Injectable } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 
 import {
-  caConstAdminRoute,
-  caConstBaseRoute,
-  caConstChatRoute,
-  caConstFolderRoute,
-  caConstHomeRoute,
-  caConstLabsRoute,
-  caConstRedirectRoute,
-  caConstStructureRoute,
-  caConstUserPageRoute,
+  CA_CONST_ADMIN_ROUTE,
+  CA_CONST_BASE_ROUTE,
+  CA_CONST_CHAT_ROUTE,
+  CA_CONST_FOLDER_ROUTE,
+  CA_CONST_HOME_ROUTE,
+  CA_CONST_LABS_ROUTE,
+  CA_CONST_REDIRECT_ROUTE,
+  CA_CONST_STRUCTURE_ROUTE,
+  CA_CONST_USER_PAGE_ROUTE,
 } from '../utils/ca-base-route';
 import { CaEnvironmentHelper } from '../utils/ca-environment.helper';
 
@@ -45,11 +45,11 @@ export class CaRouterService {
 
   //////////////////////////////////// ROUTES IN /APP ///////////////////////////////////////
   public static getAppRoute(): string {
-    return `/${caConstBaseRoute}`;
+    return `/${CA_CONST_BASE_ROUTE}`;
   }
 
   public static getHomeRoute(): string {
-    return CaRouterService.getFullRoute(caConstHomeRoute);
+    return CaRouterService.getFullRoute(CA_CONST_HOME_ROUTE);
   }
 
   public navigateToDashboard(): void {
@@ -59,7 +59,7 @@ export class CaRouterService {
   //////////////////////////// FOLDER //////////////////////////////
 
   public static getFolderDetailRoute(folderId: string): string {
-    return CaRouterService.getFullRoute(`${caConstFolderRoute}/${folderId}`);
+    return CaRouterService.getFullRoute(`${CA_CONST_FOLDER_ROUTE}/${folderId}`);
   }
 
   public navigateToFolderDetail(folderId: string): void {
@@ -67,7 +67,7 @@ export class CaRouterService {
   }
 
   public static getFolderAllSearchRoute(): string {
-    return CaRouterService.getFullRoute(`${caConstFolderRoute}/all/search`);
+    return CaRouterService.getFullRoute(`${CA_CONST_FOLDER_ROUTE}/all/search`);
   }
 
   public navigateToFolderSearch(): Promise<any> {
@@ -75,23 +75,23 @@ export class CaRouterService {
   }
 
   public static getMyFoldersRoute(): string {
-    return CaRouterService.getFullRoute(caConstFolderRoute);
+    return CaRouterService.getFullRoute(CA_CONST_FOLDER_ROUTE);
   }
 
   public static getScenarioDetailRoute(scenarioId: string): string {
-    return CaRouterService.getFullRoute(`${caConstFolderRoute}/scenario/${scenarioId}`);
+    return CaRouterService.getFullRoute(`${CA_CONST_FOLDER_ROUTE}/scenario/${scenarioId}`);
   }
 
   public static getNoteDetailRoute(noteId: string): string {
-    return CaRouterService.getFullRoute(`${caConstFolderRoute}/note/${noteId}`);
+    return CaRouterService.getFullRoute(`${CA_CONST_FOLDER_ROUTE}/note/${noteId}`);
   }
 
   public static getDocumentDetailRoute(documentId: string): string {
-    return CaRouterService.getFullRoute(`${caConstFolderRoute}/document/${documentId}`);
+    return CaRouterService.getFullRoute(`${CA_CONST_FOLDER_ROUTE}/document/${documentId}`);
   }
 
   public static getDocumentPreviewRoute(documentId: string): string {
-    return CaRouterService.getFullRoute(`${caConstFolderRoute}/document/${documentId}/preview`);
+    return CaRouterService.getFullRoute(`${CA_CONST_FOLDER_ROUTE}/document/${documentId}/preview`);
   }
 
   public static getFolderActivityRoute(folderId: string): string {
@@ -99,7 +99,7 @@ export class CaRouterService {
   }
 
   public static getResourceDetailRoute(resourceId: string): string {
-    return CaRouterService.getFullRoute(`${caConstFolderRoute}/resource/${resourceId}`);
+    return CaRouterService.getFullRoute(`${CA_CONST_FOLDER_ROUTE}/resource/${resourceId}`);
   }
 
   /**
@@ -107,7 +107,7 @@ export class CaRouterService {
    * app url. Meant to be opened in a new tab for applications.
    */
   public static getResourceRedirectRoute(resourceId: string): string {
-    return `/${caConstRedirectRoute}/resource/${resourceId}`;
+    return `/${CA_CONST_REDIRECT_ROUTE}/resource/${resourceId}`;
   }
 
   public navigateToDocumentDetail(documentId: string): void {
@@ -121,11 +121,11 @@ export class CaRouterService {
   //////////////////////////// Lab //////////////////////////////
 
   public static getMyLabsRoute(): string {
-    return CaRouterService.getFullRoute(caConstLabsRoute);
+    return CaRouterService.getFullRoute(CA_CONST_LABS_ROUTE);
   }
 
   public static getLabDetailRoute(labId: string): string {
-    return CaRouterService.getFullRoute(`${caConstLabsRoute}/${labId}`);
+    return CaRouterService.getFullRoute(`${CA_CONST_LABS_ROUTE}/${labId}`);
   }
 
   public navigateToLabDetail(labId: string): void {
@@ -153,7 +153,7 @@ export class CaRouterService {
   }
 
   public static getCreateLabRoute(): string {
-    return CaRouterService.getFullRoute(`${caConstLabsRoute}/create`);
+    return CaRouterService.getFullRoute(`${CA_CONST_LABS_ROUTE}/create`);
   }
 
   public navigateToLabConfigRoute(labId: string): void {
@@ -163,11 +163,11 @@ export class CaRouterService {
   ////////////////////////// STRUCTURE MODULE ///////////////////////
 
   public static getTeamRoute(teamId: string): string {
-    return CaRouterService.getFullRoute(`${caConstStructureRoute}/team/${teamId}`);
+    return CaRouterService.getFullRoute(`${CA_CONST_STRUCTURE_ROUTE}/team/${teamId}`);
   }
 
   public static getMyTeamsRoute(): string {
-    return CaRouterService.getFullRoute(`${caConstStructureRoute}/my-teams`);
+    return CaRouterService.getFullRoute(`${CA_CONST_STRUCTURE_ROUTE}/my-teams`);
   }
 
   public navigateToMyTeams(): void {
@@ -175,7 +175,7 @@ export class CaRouterService {
   }
 
   public static getMyAppsRoute(): string {
-    return CaRouterService.getFullRoute(`${caConstStructureRoute}/my-apps`);
+    return CaRouterService.getFullRoute(`${CA_CONST_STRUCTURE_ROUTE}/my-apps`);
   }
 
   public navigateToMyApps(): void {
@@ -188,7 +188,7 @@ export class CaRouterService {
 
   ////////////////////////////// CURRENT SPACE ///////////////////////////
   public static getCurrentSpaceRoute(): string {
-    return CaRouterService.getFullRoute(`${caConstStructureRoute}/current-space`);
+    return CaRouterService.getFullRoute(`${CA_CONST_STRUCTURE_ROUTE}/current-space`);
   }
 
   public static getCurrentSpaceDashboardRoute(): string {
@@ -218,7 +218,7 @@ export class CaRouterService {
   ////////////////////////// CHAT ///////////////////////
 
   public static getChatRoute(): string {
-    return CaRouterService.getFullRoute(caConstChatRoute);
+    return CaRouterService.getFullRoute(CA_CONST_CHAT_ROUTE);
   }
 
   public static getChatFolderRoute(folderId: string): string {
@@ -232,7 +232,7 @@ export class CaRouterService {
   ////////////////////////// ADMIN ///////////////////////
 
   public static getAdminRoute(): string {
-    return CaRouterService.getFullRoute(caConstAdminRoute);
+    return CaRouterService.getFullRoute(CA_CONST_ADMIN_ROUTE);
   }
 
   public static getAdminSpacesRoute(): string {
@@ -269,11 +269,11 @@ export class CaRouterService {
 
   ////////////////////////// SETTINGS ///////////////////////
   public static getUserDetailRoute(userId: string): string {
-    return CaRouterService.getFullRoute(caConstUserPageRoute + '/' + userId);
+    return CaRouterService.getFullRoute(CA_CONST_USER_PAGE_ROUTE + '/' + userId);
   }
 
   private static getFullRoute(route: string): string {
-    return `/${caConstBaseRoute}/${route}`;
+    return `/${CA_CONST_BASE_ROUTE}/${route}`;
   }
 
   ////////////////////////// OTHER SPACE URLS ///////////////////////

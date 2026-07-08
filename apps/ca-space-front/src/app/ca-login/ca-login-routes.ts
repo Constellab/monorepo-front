@@ -3,7 +3,7 @@ import { FlResetPasswordPageComponent } from '@monorepo/front-core-lib/fl-auth';
 
 import { CaLoginGuard } from './guard/ca-login.guard';
 
-export const caLoginRoutes: Routes = [
+export const CA_LOGIN_ROUTES: Routes = [
   {
     path: 'login',
     loadComponent: () =>

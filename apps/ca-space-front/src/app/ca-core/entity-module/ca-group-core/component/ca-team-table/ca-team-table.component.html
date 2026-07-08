@@ -5,7 +5,7 @@
       {{ 'label' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
-      <a [routerLink]="row | caDetailRoute" class="g-row-link"></a>
+      <a [routerLink]="row | caDetailRoute" class="g-row-link" [attr.aria-label]="row.label"></a>
 
       {{ row.label }}
     </mat-cell>

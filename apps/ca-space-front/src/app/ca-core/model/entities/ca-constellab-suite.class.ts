@@ -1,4 +1,4 @@
-export class CnConstellabSuiteAppDTO {
+export class CaConstellabSuiteAppDTO {
   name: string;
   emoji: string;
   background: string;
@@ -6,10 +6,10 @@ export class CnConstellabSuiteAppDTO {
   communityAppLink: string;
 }
 
-export class CnConstellabSuiteDTO {
-  apps: CnConstellabSuiteAppDTO[];
+export class CaConstellabSuiteDTO {
+  apps: CaConstellabSuiteAppDTO[];
 }
 
-export interface CnRequestAppDTO {
+export interface CaRequestAppDTO {
   appName: string;
 }

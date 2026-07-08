@@ -59,8 +59,8 @@ import { CaApiErrorService } from './app/ca-core/service/ca-api-error.service';
 import { CaUserAccountsService } from './app/ca-core/service-api/ca-user-accounts.service';
 import { CaEnvironmentHelper } from './app/ca-core/utils/ca-environment.helper';
 import { CaAuthService } from './app/ca-login/service/ca-auth.service';
-import { environment } from './environments/ca-environment';
-import { caEnvironmentPath, CaEnvironmentSettings } from './environments/ca-environment.class';
+import { CA_ENVIRONMENT } from './environments/ca-environment';
+import { CA_ENVIRONMENT_PATH, CaEnvironmentSettings } from './environments/ca-environment.class';
 
 function loadThemeOnInit(themeService: FlThemeService): void {
   themeService.init();
@@ -146,18 +146,18 @@ function bootstrapApp(): void {
   }).catch((err) => console.error(err));
 }
 
-if (environment.production) {
+if (CA_ENVIRONMENT.production) {
   enableProdMode();
 
-  flLoadEnvironmentFromAssets(caEnvironmentPath).then((env: CaEnvironmentSettings) => {
+  flLoadEnvironmentFromAssets(CA_ENVIRONMENT_PATH).then((env: CaEnvironmentSettings) => {
     // set the environment setting from the json file
-    environment.settings = env;
+    CA_ENVIRONMENT.settings = env;
     bootstrapApp();
   });
 } else {
   // set the environment here to simulate the production mode
   // (environment is not loaded before bootstraping the app)
-  environment.settings = {
+  CA_ENVIRONMENT.settings = {
     apiUrl: 'http://localhost:3001',
     communityApiUrl: 'https://community-api-pre-prod.constellab-pre-prod.gencovery.com',
     communityFrontUrl: 'http://localhost:4200',

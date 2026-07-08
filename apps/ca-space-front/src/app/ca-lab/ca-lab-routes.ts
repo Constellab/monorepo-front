@@ -1,6 +1,6 @@
 import { Route } from '@angular/router';
 
-export const caLabRoutes: Route[] = [
+export const CA_LAB_ROUTES: Route[] = [
   {
     path: '',
     loadComponent: () =>

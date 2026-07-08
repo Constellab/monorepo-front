@@ -23,7 +23,7 @@ import { CaNotificationState } from '../../../ca-core/state/ca-notification.stat
 import {
   CaNotificationsPortalComponent,
 } from '../../../ca-notifications/ca-notifications-portal/ca-notifications-portal.component';
-import { CaMainMenuLink, caMainMenuLinks } from '../../model/ca-main-menu-link.class';
+import { CA_MAIN_MENU_LINKS,CaMainMenuLink } from '../../model/ca-main-menu-link.class';
 import { CaMySpacesPortalComponent } from '../ca-my-spaces-portal/ca-my-spaces-portal.component';
 
 /**
@@ -90,7 +90,7 @@ export class CaMainAppComponent implements OnInit {
 
   private initAccessibleLinks(): void {
     const accessibleLinks: CaMainMenuLink[] = [];
-    for (const link of caMainMenuLinks) {
+    for (const link of CA_MAIN_MENU_LINKS) {
       // if the user doesn't have access to the link
       if (
         link.authorizedCategories &&

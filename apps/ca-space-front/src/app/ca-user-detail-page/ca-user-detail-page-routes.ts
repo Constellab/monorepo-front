@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 
-export const caUserRoutes: Routes = [
+export const CA_USER_ROUTES: Routes = [
   {
     path: ':id',
     loadComponent: () =>

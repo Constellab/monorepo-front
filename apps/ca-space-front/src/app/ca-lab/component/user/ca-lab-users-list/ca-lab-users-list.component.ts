@@ -17,7 +17,7 @@ import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
 import { CaLabDetailPageState } from '../../../state/ca-lab-detail-page.state';
 import {
   CaLabUserFormDialogComponent,
-  LabUserFormDialogInput,
+  CaLabUserFormDialogInput,
 } from '../ca-lab-user-form-dialog/ca-lab-user-form-dialog.component';
 import { CaLabUsersTableComponent } from '../ca-lab-users-table/ca-lab-users-table.component';
 
@@ -64,7 +64,7 @@ export class CaLabUsersListComponent implements OnInit {
   }
 
   openAddUserDialog(): void {
-    const input: LabUserFormDialogInput = {
+    const input: CaLabUserFormDialogInput = {
       labId: this.labId,
       mode: 'create',
     };

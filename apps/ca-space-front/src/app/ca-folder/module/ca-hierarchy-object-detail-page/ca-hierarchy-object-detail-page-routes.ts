@@ -1,6 +1,6 @@
 import { Route } from '@angular/router';
 
-export const caHierarchyObjectRoutes: Route[] = [
+export const CA_HIERARCHY_OBJECT_ROUTES: Route[] = [
   {
     path: '',
     loadComponent: () =>

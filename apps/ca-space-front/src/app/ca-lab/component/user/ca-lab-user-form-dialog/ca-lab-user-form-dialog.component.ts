@@ -18,7 +18,7 @@ import { CaUser } from '../../../../ca-core/model/entities/ca-user.class';
 import { CaLabUser, CaLabUserRole } from '../../../../ca-core/model/entities/lab/ca-lab-user.class';
 import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
 
-export interface LabUserFormDialogInput extends FlFormDialogInput<CaLabUserForm> {
+export interface CaLabUserFormDialogInput extends FlFormDialogInput<CaLabUserForm> {
   labId: string;
 }
 
@@ -55,7 +55,7 @@ export class CaLabUserFormDialogComponent
 {
   private labService = inject(CaLabService);
 
-  dialogInput: LabUserFormDialogInput = inject(MAT_DIALOG_DATA);
+  dialogInput: CaLabUserFormDialogInput = inject(MAT_DIALOG_DATA);
 
   constructor() {
     super();

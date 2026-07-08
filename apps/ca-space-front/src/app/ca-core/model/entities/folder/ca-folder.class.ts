@@ -38,7 +38,7 @@ export class CaFolderWithHierarchy extends CaFolder {
   hierarchyRepresentation: CaHierarchyObject;
 }
 
-export class CnSaveFolderDTO {
+export class CaSaveFolderDTO {
   code: string;
   name: string;
   @ClLuxonDateTransform()

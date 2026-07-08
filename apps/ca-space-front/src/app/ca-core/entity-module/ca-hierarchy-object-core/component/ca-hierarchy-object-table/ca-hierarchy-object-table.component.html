@@ -7,7 +7,10 @@
     <mat-cell *matCellDef="let hierarchyObject" class="g-column-width-4">
       <!--    Invisible link  -->
       @if (!rowSelectable) {
-        <a [routerLink]="hierarchyObject | caDetailRoute" class="g-row-link"></a>
+        <a
+          [routerLink]="hierarchyObject | caDetailRoute"
+          class="g-row-link"
+          [attr.aria-label]="hierarchyObject.name"></a>
       }
 
       <ca-hierarchy-object-inline [hierarchyObject]="hierarchyObject"></ca-hierarchy-object-inline>

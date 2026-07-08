@@ -34,6 +34,9 @@
       <div
         class="g-text-link g-text-tiny"
         (click)="copyUrl(row)"
+        (keydown.enter)="copyUrl(row)"
+        role="button"
+        tabindex="0"
         [matTooltip]="'hierarchy_object_token_copy_link' | translate">
         {{ row.url }}
       </div>

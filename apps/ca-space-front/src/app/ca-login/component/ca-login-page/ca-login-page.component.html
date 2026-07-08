@@ -1,7 +1,12 @@
 <fl-login-page [redirectionRoute]="appRoute" class="g-dashboard-background login">
   <fl-login-footer>
     <div class="footer g-layout-row-wrap g-layout-between">
-      <span class="g-text-light g-text-small g-text-link" (click)="openPasswordForgotten()">
+      <span
+        class="g-text-light g-text-small g-text-link"
+        (click)="openPasswordForgotten()"
+        (keydown.enter)="openPasswordForgotten()"
+        role="button"
+        tabindex="0">
         {{ 'flAuth.forgot_password' | translate }}
       </span>
       <a class="g-primary-text g-text-small g-text-link" [routerLink]="signupRoute">

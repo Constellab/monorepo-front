@@ -14,7 +14,7 @@ import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { TranslatePipe } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
-import { CaFolder, CnSaveFolderDTO } from '../../../../model/entities/folder/ca-folder.class';
+import { CaFolder, CaSaveFolderDTO } from '../../../../model/entities/folder/ca-folder.class';
 import { CaFolderService } from '../../../../service-api/ca-folder.service';
 import { CaSpaceService } from '../../../../service-api/ca-space.service';
 import { CaBucketLocationInlineComponent } from '../../../ca-object-storage-core/component/ca-bucket-location-inline/ca-bucket-location-inline.component';
@@ -58,7 +58,7 @@ export interface CaFolderFormDialogInput {
   ],
 })
 export class CaFolderFormDialogComponent
-  extends FlFormDialogAbstractDirective<CnSaveFolderDTO, CaFolder>
+  extends FlFormDialogAbstractDirective<CaSaveFolderDTO, CaFolder>
   implements OnInit
 {
   private folderService = inject(CaFolderService);
@@ -120,7 +120,7 @@ export class CaFolderFormDialogComponent
     );
   }
 
-  create(formValue: CnSaveFolderDTO): Observable<CaFolder> {
+  create(formValue: CaSaveFolderDTO): Observable<CaFolder> {
     if (this.dialogInput.parentId) {
       return this.folderService.createSubFolder(formValue, this.dialogInput.parentId);
     } else {
@@ -128,7 +128,7 @@ export class CaFolderFormDialogComponent
     }
   }
 
-  update(formValue: CnSaveFolderDTO): Observable<CaFolder> {
+  update(formValue: CaSaveFolderDTO): Observable<CaFolder> {
     return this.folderService.update(this.dialogInput.folderId, formValue);
   }
 
@@ -142,7 +142,7 @@ export class CaFolderFormDialogComponent
 
   private differentStorageValidator(): ValidatorFn {
     return (control: UntypedFormGroup): { [key: string]: any } => {
-      const value: CnSaveFolderDTO = control.value;
+      const value: CaSaveFolderDTO = control.value;
       if (value.mainStorage == null || value.backupStorage == null) return null;
 
       if (value.mainStorage.bucketId === value.backupStorage.bucketId) {

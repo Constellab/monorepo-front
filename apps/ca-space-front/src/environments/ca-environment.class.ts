@@ -30,4 +30,4 @@ export interface CaEnvironmentSettings {
 }
 
 // Path of the environment json file created during the docker run (used in production)
-export const caEnvironmentPath: string = 'assets/environment.json';
+export const CA_ENVIRONMENT_PATH: string = 'assets/environment.json';
