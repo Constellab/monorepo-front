@@ -27,11 +27,11 @@ import { FlApiModule } from '@monorepo/front-core-lib/fl-api';
 import { FlAuthModule } from '@monorepo/front-core-lib/fl-auth';
 import { FL_CAPTCHA_MODULE_CONFIG, FlCaptchaModuleConfig } from '@monorepo/front-core-lib/fl-captcha';
 import {
-  flLoadEnvironmentFromAssets,
   FL_LUXON_DATE_FORMAT,
   FL_MAT_FORM_FIELD_CONFIG,
-  flSetRootInjector,
   FL_TOOLTIP_CONFIG,
+  flLoadEnvironmentFromAssets,
+  flSetRootInjector,
 } from '@monorepo/front-core-lib/fl-core';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
