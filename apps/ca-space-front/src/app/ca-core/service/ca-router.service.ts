@@ -8,6 +8,7 @@ import {
   caConstFolderRoute,
   caConstHomeRoute,
   caConstLabsRoute,
+  caConstRedirectRoute,
   caConstStructureRoute,
   caConstUserPageRoute,
 } from '../utils/ca-base-route';
@@ -99,6 +100,14 @@ export class CaRouterService {
 
   public static getResourceDetailRoute(resourceId: string): string {
     return CaRouterService.getFullRoute(`${caConstFolderRoute}/resource/${resourceId}`);
+  }
+
+  /**
+   * Light page (outside /app) that loads the resource, shows a loader/error, then redirects to the
+   * app url. Meant to be opened in a new tab for applications.
+   */
+  public static getResourceRedirectRoute(resourceId: string): string {
+    return `/${caConstRedirectRoute}/resource/${resourceId}`;
   }
 
   public navigateToDocumentDetail(documentId: string): void {

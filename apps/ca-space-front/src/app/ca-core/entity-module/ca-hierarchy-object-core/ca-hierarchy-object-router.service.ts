@@ -6,18 +6,18 @@ import {
   CaHierarchyObjectType,
 } from '../../model/entities/folder/ca-hierarchy-object.class';
 import { CaRouterService } from '../../service/ca-router.service';
-import { CaResourceService } from '../../service-api/ca-resource.service';
 
 @Injectable({ providedIn: 'root' })
 export class CaHierarchyObjectRouterService {
   private routerService = inject(CaRouterService);
-  private resourceService = inject(CaResourceService);
   private router = inject(Router);
 
   public navigateToHierarchyObject(hierarchyObject: CaHierarchyObject): void {
-    // applications redirect to their access url in a new tab instead of a detail page
+    // Applications open the light resource-redirect page in a NEW tab. That page fetches the access
+    // url via XHR (proper auth/space context) and redirects itself to the app — so the app ends up
+    // in the new tab and the current page stays put.
     if (this.isApplication(hierarchyObject)) {
-      window.open(this.resourceService.getRedirectUrl(hierarchyObject.id), '_blank', 'noopener,noreferrer');
+      this.openApplicationInNewTab(hierarchyObject);
       return;
     }
 
@@ -28,9 +28,9 @@ export class CaHierarchyObjectRouterService {
   }
 
   public openHierarchyObjectInNewTab(hierarchyObject: CaHierarchyObject): void {
-    // applications redirect to their access url instead of a detail page
+    // Applications go through the light resource-redirect page (see navigateToHierarchyObject).
     if (this.isApplication(hierarchyObject)) {
-      window.open(this.resourceService.getRedirectUrl(hierarchyObject.id), '_blank', 'noopener,noreferrer');
+      this.openApplicationInNewTab(hierarchyObject);
       return;
     }
 
@@ -39,6 +39,14 @@ export class CaHierarchyObjectRouterService {
       const url = this.router.createUrlTree([route]).toString();
       window.open(url, '_blank', 'noopener,noreferrer');
     }
+  }
+
+  private openApplicationInNewTab(hierarchyObject: CaHierarchyObject): void {
+    window.open(
+      CaRouterService.getResourceRedirectRoute(hierarchyObject.id),
+      '_blank',
+      'noopener,noreferrer'
+    );
   }
 
   public getHierarchyObjectRoute(hierarchyObject: CaHierarchyObject): string {

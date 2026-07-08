@@ -1,0 +1,7 @@
+<div class="center">
+  @if (error()) {
+    <fl-error-text [errorMessage]="error()"></fl-error-text>
+  } @else {
+    <fl-loader></fl-loader>
+  }
+</div>

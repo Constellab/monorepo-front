@@ -10,8 +10,8 @@ import {
   CaHierarchyObject,
   CaHierarchyObjectDatasource,
 } from '../../ca-core/model/entities/folder/ca-hierarchy-object.class';
+import { CaRouterService } from '../../ca-core/service/ca-router.service';
 import { CaHierarchyObjectService } from '../../ca-core/service-api/ca-hierarchy-object.service';
-import { CaResourceService } from '../../ca-core/service-api/ca-resource.service';
 import { CaAppCardComponent } from '../ca-app-core/ca-app-card/ca-app-card.component';
 
 @Component({
@@ -30,7 +30,6 @@ import { CaAppCardComponent } from '../ca-app-core/ca-app-card/ca-app-card.compo
 })
 export class CaMyAppsPageComponent implements OnInit {
   private hierarchyObjectService = inject(CaHierarchyObjectService);
-  private resourceService = inject(CaResourceService);
 
   appsDatasource: CaHierarchyObjectDatasource;
 
@@ -38,5 +37,6 @@ export class CaMyAppsPageComponent implements OnInit {
     this.appsDatasource = this.hierarchyObjectService.getApplicationsDatasource();
   }
 
-  getAppHref = (app: CaHierarchyObject): string => this.resourceService.getRedirectUrl(app.id);
+  // Apps open the light redirect page in a new tab, which fetches the access url and redirects to the app.
+  getAppHref = (app: CaHierarchyObject): string => CaRouterService.getResourceRedirectRoute(app.id);
 }

@@ -65,8 +65,8 @@ export class CaResourceDetailComponent {
       // The gateway URL is a normal page that also renders inside an iframe, so embed it like any
       // other resource. NOTE: if the app server sends X-Frame-Options/CSP frame-ancestors, the
       // browser will refuse to render it here — that case needs the top-level/new-tab open instead.
-      // The accessUrl carries a single-use code and is fetched fresh per open (no cache).
-      this.url = this.sanitizer.bypassSecurityTrustResourceUrl(resource.accessUrl);
+      // The embeddedUrl carries a single-use code and is fetched fresh per open (no cache).
+      this.url = this.sanitizer.bypassSecurityTrustResourceUrl(resource.embeddedUrl);
     })
   );
 

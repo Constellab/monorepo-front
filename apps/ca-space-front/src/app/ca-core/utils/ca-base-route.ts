@@ -12,3 +12,4 @@ export const caConstStructureRoute = 'structure';
 export const caConstChatRoute = 'chat';
 export const caConstLoginRoute = '/login';
 export const caConstPublicRoute = 'public';
+export const caConstRedirectRoute = 'redirect';

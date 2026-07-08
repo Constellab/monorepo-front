@@ -17,7 +17,11 @@ export class CaResource implements FlEntity {
 
   style: TdTypeStyle;
 
-  accessUrl: string;
+  // Url to embed the resource in an iframe in place.
+  embeddedUrl: string;
+
+  // Url to open the resource standalone (new tab), for apps through the launcher gateway.
+  standaloneUrl: string;
 
   @ClLuxonDateTimeTransform()
   validUntil: DateTime;

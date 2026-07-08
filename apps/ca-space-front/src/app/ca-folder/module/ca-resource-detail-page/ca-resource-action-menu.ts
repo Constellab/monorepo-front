@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 
 import { CaResourceBasicInfo } from '../../../ca-core/model/entities/folder/ca-resource.class';
 import { CaRouterService } from '../../../ca-core/service/ca-router.service';
-import { CaResourceService } from '../../../ca-core/service-api/ca-resource.service';
 import {
   CaHierarchyObjectActionTags,
   CaHierarchyObjectBaseActionMenu,
@@ -30,8 +29,10 @@ export class CaResourceActionMenu extends CaHierarchyObjectBaseActionMenu {
     const menu = [];
 
     if (addOpenResourceButton) {
-      menu.push(this.getOpenResourceButton(), this.getOpenResourceInNewTabButton());
+      menu.push(this.getOpenResourceButton());
     }
+    // Always available: opening the resource in a new tab is useful even from the detail page itself.
+    menu.push(this.getOpenResourceInNewTabButton());
 
     if (this.resourceInfo.userRole.canEdit()) {
       menu.push(this.getManageTagsButton(), this.getMoveToFolderButton(), this.getMoveToTrashButton());
@@ -44,6 +45,7 @@ export class CaResourceActionMenu extends CaHierarchyObjectBaseActionMenu {
       type: 'link',
       text: { text: 'open_resource', translateText: true },
       icon: 'resource',
+      // Always open the resource detail page (even for apps), not the redirect page.
       link: CaRouterService.getResourceDetailRoute(this.hierarchyObjectId),
     };
   }
@@ -54,8 +56,12 @@ export class CaResourceActionMenu extends CaHierarchyObjectBaseActionMenu {
       text: { text: 'open_resource_in_new_tab', translateText: true },
       icon: 'open_in_new',
       onClick: () => {
-        const url = this.injector.get(CaResourceService).getRedirectUrl(this.hierarchyObjectId);
-        window.open(url, '_blank', 'noopener,noreferrer');
+        // New-tab redirect page: fetches the access url and redirects to the app.
+        window.open(
+          CaRouterService.getResourceRedirectRoute(this.hierarchyObjectId),
+          '_blank',
+          'noopener,noreferrer'
+        );
       },
     };
   }
