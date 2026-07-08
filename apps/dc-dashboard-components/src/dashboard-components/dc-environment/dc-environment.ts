@@ -10,7 +10,7 @@ import { DcEnvironment } from './dc-environment.class';
  *
  * NEVER IMPORT ENVIRONMENT DIRECTLY FORM HERE, USE ENVIRONMENT HELPER INSTEAD
  */
-export const environment: DcEnvironment = {
+export const DC_ENVIRONMENT: DcEnvironment = {
   production: false,
   settings: {
     apiBaseUrl: 'http://localhost:3000',

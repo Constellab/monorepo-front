@@ -82,7 +82,10 @@
             @for (sectionType of sectionsTypes; track sectionType; let idx = $index) {
               <div
                 class="item-type-div"
+                role="button"
+                tabindex="0"
                 (click)="changeCurrentType(sectionType)"
+                (keydown.enter)="changeCurrentType(sectionType)"
                 [ngClass]="sectionType === currentType ? 'active-item-type-div' : ''">
                 {{ sectionType | translate }}
               </div>

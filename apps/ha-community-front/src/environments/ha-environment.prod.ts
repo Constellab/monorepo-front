@@ -7,7 +7,7 @@ import { HaEnvironment } from './ha-environment.class';
  *
  * NEVER IMPORT THIS FILE FROM ANOTHER FILE
  */
-export const environment: HaEnvironment = {
+export const HA_ENVIRONMENT: HaEnvironment = {
   production: true,
   settings: {
     apiUrl: 'http://localhost:3333',

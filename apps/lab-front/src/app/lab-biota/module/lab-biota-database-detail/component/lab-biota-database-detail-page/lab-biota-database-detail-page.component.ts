@@ -6,7 +6,7 @@ import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { TranslatePipe } from '@ngx-translate/core';
 
 import { LabBiotaDataDatasource } from '../../../../model/lab-biota-data.class';
-import { LabBiotaDatabase, labBiotaDatabaseGroups } from '../../../../model/lab-biota-database.class';
+import { LAB_BIOTA_DATABASE_GROUPS,LabBiotaDatabase } from '../../../../model/lab-biota-database.class';
 import { LabBiotaDatabaseService } from '../../../../service/lab-biota-database.service';
 import { LabBiotaDatabaseTableComponent } from '../../../lab-biota-core/lab-biota-database-table/lab-biota-database-table.component';
 
@@ -40,7 +40,7 @@ export class LabBiotaDatabaseDetailPageComponent implements OnInit {
 
   // find the DB with the type
   private findDBFromType(type: string): LabBiotaDatabase {
-    for (const group of labBiotaDatabaseGroups) {
+    for (const group of LAB_BIOTA_DATABASE_GROUPS) {
       const database: LabBiotaDatabase = group.databases.find((d) => d.typingName === type);
       if (database != null) {
         return database;

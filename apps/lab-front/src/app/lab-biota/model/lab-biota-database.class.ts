@@ -85,7 +85,10 @@ const biotaMolecularDbGroup: LabBiotaDatabaseGroup = {
   ],
 };
 
-export const labBiotaDatabaseGroups: LabBiotaDatabaseGroup[] = [biotaOntologyDbGroup, biotaMolecularDbGroup];
+export const LAB_BIOTA_DATABASE_GROUPS: LabBiotaDatabaseGroup[] = [
+  biotaOntologyDbGroup,
+  biotaMolecularDbGroup,
+];
 
 export interface LabBiotaDatabaseSearch {
   typingName: string;

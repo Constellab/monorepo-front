@@ -19,8 +19,8 @@ import { FlApiModule } from '@monorepo/front-core-lib/fl-api';
 import {
   FL_LUXON_DATE_FORMAT,
   FL_MAT_FORM_FIELD_CONFIG,
-  flSetRootInjector,
   FL_TOOLTIP_CONFIG,
+  flSetRootInjector,
 } from '@monorepo/front-core-lib/fl-core';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlPortalModule } from '@monorepo/front-core-lib/fl-portal';

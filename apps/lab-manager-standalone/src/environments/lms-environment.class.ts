@@ -24,4 +24,4 @@ export interface LmsEnvironmentSettings {
 }
 
 // Path of the environment json file created during the docker run (used in production)
-export const lmsEnvironmentPath: string = 'assets/environment.json';
+export const LMS_ENVIRONMENT_PATH: string = 'assets/environment.json';

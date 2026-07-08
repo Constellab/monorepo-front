@@ -3,7 +3,7 @@ import { Route } from '@angular/router';
 import { HaLoginGuard } from '../ha-core/ha-guard/ha-login.guard';
 import { HaStoryGuard } from '../ha-core/ha-guard/ha-story.guard';
 
-export const haStoryRoutes: Route[] = [
+export const HA_STORY_ROUTES: Route[] = [
   {
     path: '',
     loadComponent: () =>

@@ -30,7 +30,7 @@ export class LabViewRouteRedirectGuard {
   }
 }
 
-export const labResourceRoutes: Routes = [
+export const LAB_RESOURCE_ROUTES: Routes = [
   {
     path: '',
     loadComponent: () =>

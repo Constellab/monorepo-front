@@ -7,7 +7,7 @@ import { dcAppConfig } from './dc-app.config';
 import { DcInputSearchComponent } from './dc-components/dc-input-search/dc-input-search.component';
 import { DcSelectResourceComponent } from './dc-components/dc-select-resource/dc-select-resource.component';
 import { DcTextEditorComponent } from './dc-components/dc-text-editor/dc-text-editor.component';
-import { environment } from './dc-environment/dc-environment';
+import { DC_ENVIRONMENT } from './dc-environment/dc-environment';
 import { DcEnvironmentSettings } from './dc-environment/dc-environment.class';
 
 let initialized = false;
@@ -29,7 +29,7 @@ export async function dcInitComponents(basePath: string = '/external/gws_plugin'
   initialized = true;
 
   const env: DcEnvironmentSettings = await loadEnvironment(`${basePath}/assets/environment.json`);
-  environment.settings = env;
+  DC_ENVIRONMENT.settings = env;
 
   const app = await createApplication(dcAppConfig(basePath));
 

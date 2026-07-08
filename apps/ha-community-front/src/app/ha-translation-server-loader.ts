@@ -5,7 +5,7 @@ import { dirname, resolve } from 'path';
 import { Observable } from 'rxjs';
 import { fileURLToPath } from 'url';
 
-import { environment } from '../environments/ha-environment';
+import { HA_ENVIRONMENT } from '../HA_ENVIRONMENTs/ha-HA_ENVIRONMENT';
 
 export class HaTranslateServerLoader implements TranslateLoader {
   constructor(
@@ -24,7 +24,7 @@ export class HaTranslateServerLoader implements TranslateLoader {
           Object.assign(
             jsonData,
             JSON.parse(
-              environment.production
+              HA_ENVIRONMENT.production
                 ? readFileSync(
                     resolve(__dirname, `../browser/assets/i18n/${file}${lang}${this.suffix}`),
                     'utf8'

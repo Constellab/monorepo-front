@@ -17,14 +17,14 @@ import { FL_ICONS_DEFAULT,FlIconModule } from '@monorepo/front-core-lib/fl-svg-i
 import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 
 import { LmsApiServiceConfig } from './config/lms-api-module.config';
-import { lmsAppRoutes } from './lms-app.routes';
+import { LMS_APP_ROUTES } from './lms-app.routes';
 import { LmsApiErrorService } from './service/lms-api-error.service';
 
 export const LMS_APP_CONFIG: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     importProvidersFrom(BrowserAnimationsModule),
-    provideRouter(lmsAppRoutes),
+    provideRouter(LMS_APP_ROUTES),
     provideHttpClient(withInterceptorsFromDi()),
     importProvidersFrom(
       FlTranslateModule.forRoot({

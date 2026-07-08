@@ -1,13 +1,13 @@
 import { Routes } from '@angular/router';
 
-import { haAdminRoutes } from '../ha-admin/ha-admin-routes';
-import { haAgentRoutes } from '../ha-agent/ha-agent-routes';
-import { haBrickRoutes } from '../ha-brick/ha-brick-routes';
-import { haCommunityAppRoutes } from '../ha-community-app/ha-community-app-routes';
-import { haPartnerRoutes } from '../ha-partner/ha-partner-routes';
-import { haProfileRoutes } from '../ha-profile/ha-profile-routes';
-import { haStoryRoutes } from '../ha-story/ha-story-routes';
-import { haTagRoutes } from '../ha-tag/ha-tag-routes';
+import { HA_ADMIN_ROUTES } from '../ha-admin/ha-admin-routes';
+import { HA_AGENT_ROUTES } from '../ha-agent/ha-agent-routes';
+import { HA_BRICK_ROUTES } from '../ha-brick/ha-brick-routes';
+import { HA_COMMUNITY_APP_ROUTES } from '../ha-community-app/ha-community-app-routes';
+import { HA_PARTNER_ROUTES } from '../ha-partner/ha-partner-routes';
+import { HA_PROFILE_ROUTES } from '../ha-profile/ha-profile-routes';
+import { HA_STORY_ROUTES } from '../ha-story/ha-story-routes';
+import { HA_TAG_ROUTES } from '../ha-tag/ha-tag-routes';
 
 /**
  * Main application routes.
@@ -24,17 +24,17 @@ export const haMainRoutes: Routes = [
   {
     path: 'admin',
     loadComponent: () => import('./ha-main/ha-main.component').then((m) => m.HaMainComponent),
-    children: haAdminRoutes,
+    children: HA_ADMIN_ROUTES,
   },
   {
     path: 'bricks',
     loadComponent: () => import('./ha-main/ha-main.component').then((m) => m.HaMainComponent),
-    children: haBrickRoutes,
+    children: HA_BRICK_ROUTES,
   },
   {
     path: 'stories',
     loadComponent: () => import('./ha-main/ha-main.component').then((m) => m.HaMainComponent),
-    children: haStoryRoutes,
+    children: HA_STORY_ROUTES,
   },
   {
     path: 'live-tasks',
@@ -43,22 +43,22 @@ export const haMainRoutes: Routes = [
   {
     path: 'agents',
     loadComponent: () => import('./ha-main/ha-main.component').then((m) => m.HaMainComponent),
-    children: haAgentRoutes,
+    children: HA_AGENT_ROUTES,
   },
   {
     path: 'partners',
     loadComponent: () => import('./ha-main/ha-main.component').then((m) => m.HaMainComponent),
-    children: haPartnerRoutes,
+    children: HA_PARTNER_ROUTES,
   },
   {
     path: 'profile',
     loadComponent: () => import('./ha-main/ha-main.component').then((m) => m.HaMainComponent),
-    children: haProfileRoutes,
+    children: HA_PROFILE_ROUTES,
   },
   {
     path: 'apps',
     loadComponent: () => import('./ha-main/ha-main.component').then((m) => m.HaMainComponent),
-    children: haCommunityAppRoutes,
+    children: HA_COMMUNITY_APP_ROUTES,
   },
   {
     path: 'icons',
@@ -76,7 +76,7 @@ export const haMainRoutes: Routes = [
   {
     path: 'tags',
     loadComponent: () => import('./ha-main/ha-main.component').then((m) => m.HaMainComponent),
-    children: haTagRoutes,
+    children: HA_TAG_ROUTES,
   },
   {
     path: 'login',

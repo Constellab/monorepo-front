@@ -30,7 +30,10 @@
               <div class="entity-page-info-div-content table-of-contents">
                 @for (title of titles(); track title.text) {
                   <a
+                    role="button"
+                    tabindex="0"
                     (click)="scrollToHeader(title.text)"
+                    (keydown.enter)="scrollToHeader(title.text)"
                     [ngClass]="title.level === 2 ? 'g-weight-600' : ''">
                     {{ title.text }}
                   </a>

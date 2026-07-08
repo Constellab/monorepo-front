@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 
-export const labTagRoutes: Routes = [
+export const LAB_TAG_ROUTES: Routes = [
   {
     path: '',
     loadComponent: () =>

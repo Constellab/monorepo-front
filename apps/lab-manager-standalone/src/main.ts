@@ -17,11 +17,11 @@ import { CoCommunityLibModule } from '@monorepo/community-lib';
 import { ClSupportedLanguage } from '@monorepo/core-lib';
 import { FlApiModule } from '@monorepo/front-core-lib/fl-api';
 import {
-  flLoadEnvironmentFromAssets,
   FL_LUXON_DATE_FORMAT,
   FL_MAT_FORM_FIELD_CONFIG,
-  flSetRootInjector,
   FL_TOOLTIP_CONFIG,
+  flLoadEnvironmentFromAssets,
+  flSetRootInjector,
 } from '@monorepo/front-core-lib/fl-core';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
@@ -37,11 +37,11 @@ import { LmsApiServiceConfig } from './app/config/lms-api-module.config';
 import { LmsCoServiceConfig } from './app/config/lms-co-service.config';
 import { LmsUserConfig } from './app/config/lms-user.config';
 import { LmsAppComponent } from './app/lms-app.component';
-import { lmsAppRoutes } from './app/lms-app.routes';
+import { LMS_APP_ROUTES } from './app/lms-app.routes';
 import { LmsApiErrorService } from './app/service/lms-api-error.service';
 import { LmsLabManagerBrickService } from './app/service/lms-lab-manager-brick.service';
-import { environment } from './environments/lms-environment';
-import { lmsEnvironmentPath, LmsEnvironmentSettings } from './environments/lms-environment.class';
+import { LMS_ENVIRONMENT } from './environments/lms-environment';
+import { LMS_ENVIRONMENT_PATH, LmsEnvironmentSettings } from './environments/lms-environment.class';
 
 function loadThemeOnInit(themeService: FlThemeService): () => void {
   return (): void => themeService.init();
@@ -98,7 +98,7 @@ function bootstrapApp(): void {
       provideHttpClient(withInterceptorsFromDi()),
       provideAnimations(),
       provideRouter(
-        lmsAppRoutes,
+        LMS_APP_ROUTES,
         withPreloading(PreloadAllModules),
         withInMemoryScrolling({
           scrollPositionRestoration: 'enabled',
@@ -109,17 +109,17 @@ function bootstrapApp(): void {
   }).catch((err) => console.error(err));
 }
 
-if (environment.production) {
-  flLoadEnvironmentFromAssets(lmsEnvironmentPath).then((env: LmsEnvironmentSettings) => {
+if (LMS_ENVIRONMENT.production) {
+  flLoadEnvironmentFromAssets(LMS_ENVIRONMENT_PATH).then((env: LmsEnvironmentSettings) => {
     // set the environment setting from the json file
-    environment.settings = env;
+    LMS_ENVIRONMENT.settings = env;
 
     bootstrapApp();
   });
 } else {
   // set the environment here to simulate the production mode
   // (environment is not loaded before bootstraping the app)
-  environment.settings = {
+  LMS_ENVIRONMENT.settings = {
     apiUrl: 'http://localhost:3080',
     communityApiUrl: 'https://community-api-pre-prod.constellab-pre-prod.gencovery.com',
     communityFrontUrl: 'http://localhost:4200',

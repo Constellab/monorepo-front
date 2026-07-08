@@ -27,7 +27,10 @@
         'g-text-link': !node.object.disabled,
         'tree-node-padding': !node.children || node.children.length === 0
         }"
-        (click)="onItemClick(node)">
+        role="button"
+        tabindex="0"
+        (click)="onItemClick(node)"
+        (keydown.enter)="onItemClick(node)">
         {{ node.object.label }}
       </div>
     </div>

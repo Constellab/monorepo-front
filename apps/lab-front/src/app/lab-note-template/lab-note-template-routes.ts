@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 
-export const labNoteTemplateRoutes: Routes = [
+export const LAB_NOTE_TEMPLATE_ROUTES: Routes = [
   {
     path: '',
     loadComponent: () =>

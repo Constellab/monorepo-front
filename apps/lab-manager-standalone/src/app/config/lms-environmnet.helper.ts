@@ -1,9 +1,9 @@
-import { environment } from '../../environments/lms-environment';
+import { LMS_ENVIRONMENT } from '../../environments/lms-environment';
 import { LmsEnvironment } from '../../environments/lms-environment.class';
 
 export class LmsEnvironmentHelper {
   public static getEnv(): LmsEnvironment {
-    return environment;
+    return LMS_ENVIRONMENT;
   }
 
   public static isProduction(): boolean {

@@ -5,7 +5,7 @@ import { IndexWidget, Widget } from 'instantsearch.js';
 import InstantSearch from 'instantsearch.js/es/lib/InstantSearch';
 import history from 'instantsearch.js/es/lib/routers/history';
 
-import { environment } from '../../../environments/ha-environment';
+import { HA_ENVIRONMENT } from '../../../HA_ENVIRONMENTs/ha-HA_ENVIRONMENT';
 
 @Injectable({
   providedIn: 'root',
@@ -17,12 +17,12 @@ export class HaInstantSearchService {
     const router = inject(Router);
 
     const searchClient = algoliasearch(
-      environment.settings.algoliaAppId,
-      environment.settings.algoliaSearchKey
+      HA_ENVIRONMENT.settings.algoliaAppId,
+      HA_ENVIRONMENT.settings.algoliaSearchKey
     );
     this.instantSearchInstance = new InstantSearch({
       searchClient,
-      indexName: environment.settings.algoliaIndexName,
+      indexName: HA_ENVIRONMENT.settings.algoliaIndexName,
       future: { preserveSharedStateOnUnmount: true },
       routing: {
         router: history({

@@ -1,6 +1,6 @@
 import { ClHelpService } from '@monorepo/core-lib';
 
-import { environment } from '../../environments/lab-environment';
+import { LAB_ENVIRONMENT } from '../../environments/lab-environment';
 import { LabEnvironment } from '../../environments/lab-environment.class';
 
 /**
@@ -12,7 +12,7 @@ export class LabEnvironmentHelper {
   public static readonly coreApiRoute: string = 'core-api';
 
   public static getEnv(): LabEnvironment {
-    return environment;
+    return LAB_ENVIRONMENT;
   }
 
   public static isProduction(): boolean {

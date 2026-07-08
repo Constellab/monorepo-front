@@ -7,7 +7,7 @@ import { DcEnvironment } from './dc-environment.class';
  *
  * NEVER IMPORT THIS FILE FROM ANOTHER FILE
  */
-export const environment: DcEnvironment = {
+export const DC_ENVIRONMENT: DcEnvironment = {
   production: true,
   settings: {
     apiBaseUrl: '',

@@ -1,6 +1,6 @@
 import { Route } from '@angular/router';
 
-export const haPartnerRoutes: Route[] = [
+export const HA_PARTNER_ROUTES: Route[] = [
   {
     path: '',
     loadComponent: () =>

@@ -45,4 +45,4 @@ export interface HaEnvironmentSettings {
 }
 
 // Path of the environment json file created during the docker run (used in production)
-export const haEnvironmentPath: string = 'assets/environment.json';
+export const HA_ENVIRONMENT_PATH: string = 'assets/environment.json';

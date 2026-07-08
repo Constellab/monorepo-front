@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 
-export const labDocumentationRoutes: Routes = [
+export const LAB_DOCUMENTATION_ROUTES: Routes = [
   {
     path: 'technical-doc/:typingName',
     loadComponent: () =>

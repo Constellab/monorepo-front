@@ -1,4 +1,4 @@
-import { environment } from '../dc-environment/dc-environment';
+import { DC_ENVIRONMENT } from '../dc-environment/dc-environment';
 import { DcEnvironment } from '../dc-environment/dc-environment.class';
 
 /**
@@ -10,7 +10,7 @@ export class DcEnvironmentHelper {
   public static readonly coreApiRoute: string = 'core-api';
 
   public static getEnv(): DcEnvironment {
-    return environment;
+    return DC_ENVIRONMENT;
   }
 
   public static isProduction(): boolean {

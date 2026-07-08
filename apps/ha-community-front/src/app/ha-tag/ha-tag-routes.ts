@@ -1,6 +1,6 @@
 import { Route } from '@angular/router';
 
-export const haTagRoutes: Route[] = [
+export const HA_TAG_ROUTES: Route[] = [
   {
     path: '',
     loadComponent: () =>

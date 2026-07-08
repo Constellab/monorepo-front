@@ -1,6 +1,6 @@
 import { Route } from '@angular/router';
 
-export const haProfileRoutes: Route[] = [
+export const HA_PROFILE_ROUTES: Route[] = [
   {
     path: '404',
     loadComponent: () =>

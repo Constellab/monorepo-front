@@ -10,7 +10,7 @@ import { LmsEnvironment } from './lms-environment.class';
  *
  * NEVER IMPORT ENVIRONMENT DIRECTLY FORM HERE, USE ENVIRONMENT HELPER INSTEAD
  */
-export const environment: LmsEnvironment = {
+export const LMS_ENVIRONMENT: LmsEnvironment = {
   production: false,
   settings: {
     apiUrl: '',

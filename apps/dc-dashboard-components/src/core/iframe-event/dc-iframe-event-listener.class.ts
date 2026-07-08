@@ -2,8 +2,8 @@ import { Renderer2 } from '@angular/core';
 import { filter, map, Observable, Subject } from 'rxjs';
 
 import {
+  DC_IFRAME_EVENT_TYPE,
   DcIframeEventAction,
-  dcIframeEventType,
   DcIframeToMainEvent,
   DcMainToIframeEvent,
 } from './dc-iframe-event.class';
@@ -35,7 +35,7 @@ export class DcIframeEventListener {
   }
 
   private checkEvent(origin: string, type: string): boolean {
-    if (type !== dcIframeEventType) return false;
+    if (type !== DC_IFRAME_EVENT_TYPE) return false;
 
     // Verify the origin of the message
     if (this.expectedOrigin !== '*' && !origin.startsWith(this.expectedOrigin)) {

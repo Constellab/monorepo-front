@@ -7,7 +7,7 @@ import { HaBrickPageComponent } from './ha-brick-page/ha-brick-page/ha-brick-pag
 import { HaBrickTechDocComponent } from './ha-brick-page/ha-brick-tech-doc/ha-brick-tech-doc.component';
 import { HaBrickVersionsComponent } from './ha-brick-page/ha-brick-versions/ha-brick-versions.component';
 
-export const haBrickRoutes: Route[] = [
+export const HA_BRICK_ROUTES: Route[] = [
   {
     path: '',
     loadComponent: () =>

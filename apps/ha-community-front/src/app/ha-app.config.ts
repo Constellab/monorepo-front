@@ -38,8 +38,8 @@ import { FL_CAPTCHA_MODULE_CONFIG, FlCaptchaModuleConfig } from '@monorepo/front
 import {
   FL_LUXON_DATE_FORMAT,
   FL_MAT_FORM_FIELD_CONFIG,
-  flSetRootInjector,
   FL_TOOLTIP_CONFIG,
+  flSetRootInjector,
 } from '@monorepo/front-core-lib/fl-core';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
@@ -52,7 +52,7 @@ import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { RV_MODULE_CONFIG, RvResourceViewModuleBasicConfig } from '@monorepo/resource-view';
 import { TdTechnicalDocModule } from '@monorepo/technical-doc';
 
-import { haAppRoutes } from './ha-app-routes';
+import { HA_APP_ROUTES } from './ha-app-routes';
 import { HaApiErrorService } from './ha-core/ha-model/ha-config/ha-api-error.service';
 import { HaApiServiceConfig } from './ha-core/ha-model/ha-config/ha-api-module.config';
 import { HaCoServiceConfig } from './ha-core/ha-model/ha-config/ha-co-service.config';
@@ -99,7 +99,7 @@ function initRootInjector(injector: Injector): void {
 export const haAppConfig: ApplicationConfig = {
   providers: [
     provideRouter(
-      haAppRoutes,
+      HA_APP_ROUTES,
       withPreloading(PreloadAllModules),
       withInMemoryScrolling({ scrollPositionRestoration: 'enabled', anchorScrolling: 'enabled' }),
       withRouterConfig({ paramsInheritanceStrategy: 'always', onSameUrlNavigation: 'reload' })

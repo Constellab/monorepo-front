@@ -4,7 +4,7 @@ import { MatSelect } from '@angular/material/select';
 import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib/fl-core';
 import { TranslatePipe } from '@ngx-translate/core';
 
-import { labBiotaDatabaseGroups } from '../../../model/lab-biota-database.class';
+import { LAB_BIOTA_DATABASE_GROUPS } from '../../../model/lab-biota-database.class';
 
 /**
  * Component to be placed under a select or autocomplete to list biota database options
@@ -21,7 +21,7 @@ export class LabBiotaDatabaseSelectOptionsComponent
 {
   private select: MatSelect;
 
-  databaseGroups = labBiotaDatabaseGroups;
+  databaseGroups = LAB_BIOTA_DATABASE_GROUPS;
 
   constructor() {
     const select = inject(MatSelect, { host: true });

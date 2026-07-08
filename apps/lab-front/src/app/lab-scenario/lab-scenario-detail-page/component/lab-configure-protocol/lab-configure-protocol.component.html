@@ -6,7 +6,10 @@
           <div
             class="process"
             matRipple
+            role="button"
+            tabindex="0"
             (click)="selectProcess(process.id)"
+            (keydown.enter)="selectProcess(process.id)"
             [ngClass]="{ 'process-selected': process.id === (selectedProcess$ | async)?.id }">
             <div>{{ process.name }}</div>
             <div class="g-text-small g-text-light">{{ process.instanceName }}</div>

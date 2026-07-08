@@ -2,7 +2,7 @@ import { Route } from '@angular/router';
 
 import { HaLoginGuard } from '../ha-core/ha-guard/ha-login.guard';
 
-export const haCommunityAppRoutes: Route[] = [
+export const HA_COMMUNITY_APP_ROUTES: Route[] = [
   {
     path: '',
     loadComponent: () =>

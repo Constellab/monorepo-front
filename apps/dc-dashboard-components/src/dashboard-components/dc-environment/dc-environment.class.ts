@@ -28,4 +28,4 @@ export interface DcEnvironmentSettings {
 }
 
 // Path of the environment json file created during the docker run (used in production)
-export const dcEnvironmentPath: string = 'static/gws_plugin/assets/environment.json';
+export const DC_ENVIRONMENT_PATH: string = 'static/gws_plugin/assets/environment.json';

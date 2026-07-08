@@ -1,3 +1,3 @@
 import { Route } from '@angular/router';
 
-export const lmsAppRoutes: Route[] = [];
+export const LMS_APP_ROUTES: Route[] = [];

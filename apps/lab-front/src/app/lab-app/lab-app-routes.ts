@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 
-export const labAppRoutes: Routes = [
+export const LAB_APP_ROUTES: Routes = [
   {
     path: '',
     loadComponent: () =>

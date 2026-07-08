@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 
 import { LabLoginGuard } from './guard/lab-login.guard';
 
-export const LabLoginRoutes: Routes = [
+export const LAB_LOGIN_ROUTES: Routes = [
   {
     path: 'login',
     loadComponent: () =>

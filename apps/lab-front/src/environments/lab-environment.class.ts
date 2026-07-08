@@ -48,4 +48,4 @@ export interface LabEnvironmentSettings {
 }
 
 // Path of the environment json file created during the docker run (used in production)
-export const labEnvironmentPath: string = 'assets/environment.json';
+export const LAB_ENVIRONMENT_PATH: string = 'assets/environment.json';

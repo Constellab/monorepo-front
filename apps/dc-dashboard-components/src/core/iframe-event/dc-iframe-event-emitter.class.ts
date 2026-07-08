@@ -1,8 +1,8 @@
 import { DcDynamicComponentEvent } from '../model/dc-dynamic-component.class';
 import {
+  DC_IFRAME_EVENT_TYPE,
   DcIframeEventAction,
   DcIframeEventInitData,
-  dcIframeEventType,
   DcIframeToMainEvent,
   DcMainToIframeEvent,
 } from './dc-iframe-event.class';
@@ -16,7 +16,7 @@ export class DcIframeToMainEventEmitter {
   public initComponent(data: DcIframeEventInitData): void {
     // Send the message to the parent
     const event: DcIframeToMainEvent = {
-      type: dcIframeEventType,
+      type: DC_IFRAME_EVENT_TYPE,
       action: DcIframeEventAction.INIT,
       data: data,
     };
@@ -38,7 +38,7 @@ export class DcMainToIframeEventEmitter implements DcDynamicComponentEvent {
     const iframeElement = this.getIframeElement();
     // Send the message to the iframe
     const event: DcMainToIframeEvent = {
-      type: dcIframeEventType,
+      type: DC_IFRAME_EVENT_TYPE,
       action: DcIframeEventAction.SET_COMPONENT_VALUE,
       data: jsonData,
     };

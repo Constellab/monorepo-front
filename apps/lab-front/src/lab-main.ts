@@ -22,12 +22,12 @@ import { FlApiModule } from '@monorepo/front-core-lib/fl-api';
 import { FlAuthModule } from '@monorepo/front-core-lib/fl-auth';
 import { FL_CAPTCHA_MODULE_CONFIG, FlCaptchaModuleConfig } from '@monorepo/front-core-lib/fl-captcha';
 import {
-  flLoadEnvironmentFromAssets,
-  FlLocalStorageService,
   FL_LUXON_DATE_FORMAT,
   FL_MAT_FORM_FIELD_CONFIG,
-  flSetRootInjector,
   FL_TOOLTIP_CONFIG,
+  flLoadEnvironmentFromAssets,
+  FlLocalStorageService,
+  flSetRootInjector,
 } from '@monorepo/front-core-lib/fl-core';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
@@ -64,8 +64,8 @@ import { LabResourceViewModuleConfig } from './app/lab-core/lab-resource-view.co
 import { LabUserConfig } from './app/lab-core/lab-user-config.service';
 import { LAB_MAIN_ROUTES } from './app/lab-main/lab-main-routes';
 import { LabWorkflowResourcesState } from './app/lab-scenario/lab-scenario-detail-page/state/lab-workflow-resources.state';
-import { environment } from './environments/lab-environment';
-import { labEnvironmentPath, LabEnvironmentSettings } from './environments/lab-environment.class';
+import { LAB_ENVIRONMENT } from './environments/lab-environment';
+import { LAB_ENVIRONMENT_PATH, LabEnvironmentSettings } from './environments/lab-environment.class';
 
 function loadThemeOnInit(themeService: FlThemeService): void {
   themeService.init();
@@ -162,18 +162,18 @@ function bootstrapApp(): void {
   }).catch((err) => console.error(err));
 }
 
-if (environment.production) {
+if (LAB_ENVIRONMENT.production) {
   enableProdMode();
 
-  flLoadEnvironmentFromAssets(labEnvironmentPath).then((env: LabEnvironmentSettings) => {
+  flLoadEnvironmentFromAssets(LAB_ENVIRONMENT_PATH).then((env: LabEnvironmentSettings) => {
     // set the environment setting from the json file
-    environment.settings = env;
+    LAB_ENVIRONMENT.settings = env;
     bootstrapApp();
   });
 } else {
   // set the environment here to simulate the production mode
   // (environment is not loaded before bootstraping the app)
-  environment.settings = {
+  LAB_ENVIRONMENT.settings = {
     apiBaseUrl: 'http://localhost:3000',
     devApiBaseUrl: 'http://localhost:3000',
     codelabUrl: 'http://localhost:80',

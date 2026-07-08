@@ -32,7 +32,7 @@
           [additionalActions]="getReorderActions(i)"
           [matTooltip]="'replace_delete_image' | translate">
           <div class="figure-div">
-            <img [src]="figure | haAppPicture" class="figure" />
+            <img [src]="figure | haAppPicture" class="figure" [alt]="(app().title ?? '') + ' media preview'" />
           </div>
         </fl-update-image-container>
       }

@@ -12,10 +12,10 @@ import { EnumChangefreq, SitemapItem, SitemapStream, streamToPromise } from 'sit
 
 import { HaMetadataNamesConfig } from './src/app/ha-core/ha-model/ha-config/ha-metadata-names.config';
 import { HaRouterService } from './src/app/ha-core/ha-service/ha-router.service';
-import { environment } from './src/environments/ha-environment';
+import { HA_ENVIRONMENT } from './src/environments/ha-environment';
 import { HA_BOOTSTRAP } from './src/main.server';
 
-environment.settings = {
+HA_ENVIRONMENT.settings = {
   apiUrl: process?.env['API_URL'] || 'http://localhost:3333',
   constellabApiUrl: process?.env['CONSTELLAB_API_URL'] || 'https://api.preconstellab.com',
   constellabFrontUrl: process?.env['CONSTELLAB_FRONT_URL'] || 'https://preconstellab.com',
@@ -49,7 +49,7 @@ function app(): express.Express {
     res: express.Response,
     next: express.NextFunction
   ): void => {
-    if (environment.production) {
+    if (HA_ENVIRONMENT.production) {
       res.setHeader('X-Frame-Options', 'SAMEORIGIN');
       res.setHeader('X-Content-Type-Options', 'nosniff');
       res.setHeader('X-Xss-Protection', '1; mode=block');
@@ -113,7 +113,7 @@ function app(): express.Express {
     res.type('text/plain');
     res.send(`User-agent: *
 Disallow:
-Sitemap: ${environment.settings.communityFrontUrl}/sitemap.xml`);
+Sitemap: ${HA_ENVIRONMENT.settings.communityFrontUrl}/sitemap.xml`);
   });
   let lastSiteMapUpdate: Date = null;
   let siteMap: string = null;
@@ -126,7 +126,7 @@ Sitemap: ${environment.settings.communityFrontUrl}/sitemap.xml`);
       const oneDayInMs = 24 * 60 * 60 * 1000; // 1 day in milliseconds
 
       if (lastSiteMapUpdate === null || now.getTime() - lastSiteMapUpdate.getTime() > oneDayInMs) {
-        const smStream = new SitemapStream({ hostname: environment.settings.communityFrontUrl });
+        const smStream = new SitemapStream({ hostname: HA_ENVIRONMENT.settings.communityFrontUrl });
 
         const urls = [
           { url: '', changefreq: EnumChangefreq.MONTHLY, priority: 1 },
@@ -259,7 +259,7 @@ Sitemap: ${environment.settings.communityFrontUrl}/sitemap.xml`);
 // Method to get dynamically bricks part sitemap
 async function fetchBricksMap(): Promise<SitemapItem[]> {
   try {
-    const response = await axios.get(`${environment.settings.apiUrl}/brick/all-map`);
+    const response = await axios.get(`${HA_ENVIRONMENT.settings.apiUrl}/brick/all-map`);
     return response.data;
   } catch (error) {
     console.error('Error fetching bricks URLs:', error);
@@ -269,7 +269,7 @@ async function fetchBricksMap(): Promise<SitemapItem[]> {
 
 async function fetchStoriesMap(): Promise<SitemapItem[]> {
   try {
-    const response = await axios.get(`${environment.settings.apiUrl}/story/all-map`);
+    const response = await axios.get(`${HA_ENVIRONMENT.settings.apiUrl}/story/all-map`);
     return response.data;
   } catch (error) {
     console.error('Error fetching stories URLs:', error);
@@ -279,7 +279,7 @@ async function fetchStoriesMap(): Promise<SitemapItem[]> {
 
 async function fetchAgentsMap(): Promise<SitemapItem[]> {
   try {
-    const response = await axios.get(`${environment.settings.apiUrl}/agent/all-map`);
+    const response = await axios.get(`${HA_ENVIRONMENT.settings.apiUrl}/agent/all-map`);
     return response.data;
   } catch (error) {
     console.error('Error fetching agents URLs:', error);
@@ -289,7 +289,7 @@ async function fetchAgentsMap(): Promise<SitemapItem[]> {
 
 async function fetchAppsMap(): Promise<SitemapItem[]> {
   try {
-    const response = await axios.get(`${environment.settings.apiUrl}/app/all-map`);
+    const response = await axios.get(`${HA_ENVIRONMENT.settings.apiUrl}/app/all-map`);
     return response.data;
   } catch (error) {
     console.error('Error fetching agents URLs:', error);
@@ -299,7 +299,7 @@ async function fetchAppsMap(): Promise<SitemapItem[]> {
 
 async function fetchPartnersMap(): Promise<SitemapItem[]> {
   try {
-    const response = await axios.get(`${environment.settings.apiUrl}/partner/all-map`);
+    const response = await axios.get(`${HA_ENVIRONMENT.settings.apiUrl}/partner/all-map`);
     return response.data;
   } catch (error) {
     console.error('Error fetching partners URLs:', error);
@@ -309,7 +309,7 @@ async function fetchPartnersMap(): Promise<SitemapItem[]> {
 
 async function fetchTagsMap(): Promise<SitemapItem[]> {
   try {
-    const response = await axios.get(`${environment.settings.apiUrl}/tag/all-map`);
+    const response = await axios.get(`${HA_ENVIRONMENT.settings.apiUrl}/tag/all-map`);
     return response.data;
   } catch (error) {
     console.error('Error fetching tags URLs:', error);
@@ -319,7 +319,7 @@ async function fetchTagsMap(): Promise<SitemapItem[]> {
 
 async function fetchProfilesMap(): Promise<SitemapItem[]> {
   try {
-    const response = await axios.get(`${environment.settings.apiUrl}/user/all-map`);
+    const response = await axios.get(`${HA_ENVIRONMENT.settings.apiUrl}/user/all-map`);
     return response.data;
   } catch (error) {
     console.error('Error fetching profiles URLs:', error);

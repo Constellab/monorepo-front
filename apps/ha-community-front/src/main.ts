@@ -18,8 +18,8 @@ import { TranslateLoader } from '@ngx-translate/core';
 
 import { HaAppComponent } from './app/ha-app.component';
 import { haAppConfig } from './app/ha-app.config';
-import { environment } from './environments/ha-environment';
-import { haEnvironmentPath, HaEnvironmentSettings } from './environments/ha-environment.class';
+import { HA_ENVIRONMENT } from './environments/ha-environment';
+import { HA_ENVIRONMENT_PATH, HaEnvironmentSettings } from './environments/ha-environment.class';
 
 function translationLoaderFactory(http: HttpClient, config: FlTranslateModuleConfig): FlTranslationLoader {
   return new FlTranslationLoader(http, config.filenames, config.folder, config.fileSuffix);
@@ -45,17 +45,17 @@ function bootstrapApp(): void {
   }).catch((err) => console.error(err));
 }
 
-if (environment.production) {
+if (HA_ENVIRONMENT.production) {
   enableProdMode();
-  flLoadEnvironmentFromAssets(haEnvironmentPath).then((env: HaEnvironmentSettings) => {
+  flLoadEnvironmentFromAssets(HA_ENVIRONMENT_PATH).then((env: HaEnvironmentSettings) => {
     // set the environment setting from the json file
-    environment.settings = env;
+    HA_ENVIRONMENT.settings = env;
     bootstrapApp();
   });
 } else {
   // set the environment here to simulate the production mode
   // (environment is not loaded before bootstraping the app)
-  environment.settings = {
+  HA_ENVIRONMENT.settings = {
     apiUrl: 'http://localhost:3333',
     constellabApiUrl: 'https://api.preconstellab.com',
     constellabFrontUrl: 'https://preconstellab.com',

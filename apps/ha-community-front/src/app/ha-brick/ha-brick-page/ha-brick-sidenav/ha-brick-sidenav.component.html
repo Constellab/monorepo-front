@@ -45,7 +45,10 @@
           <div
             class="g-text-small tree-node g-layout-row g-layout-start-center"
             matTreeNodeToggle
-            (click)="node.object.isExpanded ? collapseTechNode(node) : expandTechNode(node)">
+            role="button"
+            tabindex="0"
+            (click)="node.object.isExpanded ? collapseTechNode(node) : expandTechNode(node)"
+            (keydown.enter)="node.object.isExpanded ? collapseTechNode(node) : expandTechNode(node)">
             <div class="tree-node-div">
               {{ node.object.name }}
             </div>

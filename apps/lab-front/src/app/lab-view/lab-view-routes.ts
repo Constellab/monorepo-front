@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 
-export const labViewRoutes: Routes = [
+export const LAB_VIEW_ROUTES: Routes = [
   {
     path: '',
     loadComponent: () =>

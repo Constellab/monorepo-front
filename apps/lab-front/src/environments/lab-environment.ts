@@ -6,7 +6,7 @@ import { LabEnvironment } from './lab-environment.class';
  *
  * NEVER IMPORT ENVIRONMENT DIRECTLY FORM HERE, USE ENVIRONMENT HELPER INSTEAD
  */
-export const environment: LabEnvironment = {
+export const LAB_ENVIRONMENT: LabEnvironment = {
   production: false,
   settings: {
     apiBaseUrl: '',

@@ -5,7 +5,7 @@ import { DcComponentData } from '../model/dc-dynamic-component.class';
 /**
  * Every message between iframe and parent must use this type to filter them
  */
-export const dcIframeEventType = 'gws-streamlit-component-message';
+export const DC_IFRAME_EVENT_TYPE = 'gws-streamlit-component-message';
 
 export enum DcIframeEventAction {
   /**
@@ -34,7 +34,7 @@ export interface DcIframeEventInitData {
  * Object that represent the messages sent from the iframe to the parent
  */
 export type DcIframeToMainEvent = {
-  type: typeof dcIframeEventType;
+  type: typeof DC_IFRAME_EVENT_TYPE;
   action: DcIframeEventAction.INIT;
   data: DcIframeEventInitData;
 };
@@ -43,7 +43,7 @@ export type DcIframeToMainEvent = {
  * Object that represent the messages sent from the parent to the iframe
  */
 export type DcMainToIframeEvent = {
-  type: typeof dcIframeEventType;
+  type: typeof DC_IFRAME_EVENT_TYPE;
   action: DcIframeEventAction.SET_COMPONENT_VALUE;
   data: any;
 };

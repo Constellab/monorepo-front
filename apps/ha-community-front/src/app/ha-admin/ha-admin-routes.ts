@@ -2,7 +2,7 @@ import { Route } from '@angular/router';
 
 import { HaAdminGuard } from '../ha-core/ha-guard/ha-admin.guard';
 
-export const haAdminRoutes: Route[] = [
+export const HA_ADMIN_ROUTES: Route[] = [
   {
     path: '',
     loadComponent: () =>

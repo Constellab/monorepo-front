@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 
-export const labBiotaRoutes: Routes = [
+export const LAB_BIOTA_ROUTES: Routes = [
   {
     path: '',
     loadComponent: () =>

@@ -3,7 +3,10 @@
     @for (itemType of itemTypes; track itemType; let idx = $index) {
       <div
         class="item-type-div"
+        role="button"
+        tabindex="0"
         (click)="changeCurrentType(itemType)"
+        (keydown.enter)="changeCurrentType(itemType)"
         [ngClass]="itemType === currentType ? 'active-item-type-div' : ''">
         {{ itemType | translate }}
       </div>

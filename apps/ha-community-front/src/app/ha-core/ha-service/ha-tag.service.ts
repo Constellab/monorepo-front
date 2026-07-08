@@ -148,25 +148,25 @@ export class HaTagService implements HaCoAuthorService {
     return this.apiService.get(`${this.route}/${tagKeyId}/value/count`, Number);
   }
 
-  getCoAuthors(id: string): Observable<HaUser[]> {
+  getCoAuthors(): Observable<HaUser[]> {
     throw new Error('Method not implemented.');
   }
-  getCoAuthorsPendingInvites(id: string): Observable<HaCoAuthorInvite[]> {
+  getCoAuthorsPendingInvites(): Observable<HaCoAuthorInvite[]> {
     throw new Error('Method not implemented.');
   }
-  removeCoAuthor(id: string, coAuthorId: string): Observable<any> {
+  removeCoAuthor(): Observable<any> {
     throw new Error('Method not implemented.');
   }
-  deleteCoAuthorInvite(inviteId: string): Observable<void> {
+  deleteCoAuthorInvite(): Observable<void> {
     throw new Error('Method not implemented.');
   }
-  inviteCoAuthor(id: string, emailOrId: string): Observable<boolean> {
+  inviteCoAuthor(): Observable<boolean> {
     throw new Error('Method not implemented.');
   }
-  isCoAuthorInviteValid(token: string): Observable<HaCoAuthorInvite> {
+  isCoAuthorInviteValid(): Observable<HaCoAuthorInvite> {
     throw new Error('Method not implemented.');
   }
-  acceptInvite(token: string): Observable<any> {
+  acceptInvite(): Observable<any> {
     throw new Error('Method not implemented.');
   }
 }
