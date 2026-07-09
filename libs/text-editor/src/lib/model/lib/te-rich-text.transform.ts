@@ -8,10 +8,11 @@ import { TeRichText, TeRichTextInput } from './te-rich-text.class';
  * Deserialization --> create TeRichText from TeRichTextInput
  * Serialization --> create TeRichTextInput from TeRichText
  */
-export function teRichTextTransform(): PropertyDecorator {
+// eslint-disable-next-line @typescript-eslint/naming-convention
+export function TeRichTextTransform(): PropertyDecorator {
   // convert dateTime to ISI
   const transformToPlain = Transform(
-    (params: ClTransformFnParams<TeRichText>): TeRichTextInput => {
+    (params: ClTransformFnParams<TeRichText>): TeRichTextInput | null => {
       if (params.value == null) return null;
       return params.value.toJson();
     },
@@ -24,7 +25,7 @@ export function teRichTextTransform(): PropertyDecorator {
     { toClassOnly: true }
   );
 
-  return (target: any, key: string): void => {
+  return (target: any, key: string | symbol): void => {
     transformToPlain(target, key);
     transformToClass(target, key);
   };
