@@ -2,7 +2,7 @@ import { CoTagKey, CoTagKeyType, CoTagValue, CoTagValueEditDTO } from '@monorepo
 import { FlDatasourcePaginated, FlEntity } from '@monorepo/front-core-lib/fl-core';
 import { FlTag, FlTagDatasource, FlTagValue } from '@monorepo/front-core-lib/fl-tag';
 import { TdParamSpecs } from '@monorepo/technical-doc';
-import { TeRichText, teRichTextTransform } from '@monorepo/text-editor';
+import { TeRichText, TeRichTextTransform } from '@monorepo/text-editor';
 import { Expose, Type } from 'class-transformer';
 import { TypeHelpOptions } from 'class-transformer/types/interfaces/type-help-options.interface';
 import { DateTime } from 'luxon';
@@ -180,7 +180,7 @@ export class LiTagKeyModel extends LiBaseEntity {
   @Expose({ name: 'is_propagable' })
   isPropagable: boolean;
 
-  @teRichTextTransform()
+  @TeRichTextTransform()
   description: TeRichText;
 
   deprecated: boolean;

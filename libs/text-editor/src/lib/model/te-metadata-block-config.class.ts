@@ -1,4 +1,4 @@
-export interface TeBlockWithMetadata {
+export interface TeBlockWithMetadataFront {
   metadata: TeMetadataBlockConfig;
 
   openMetadataDialog(): void;

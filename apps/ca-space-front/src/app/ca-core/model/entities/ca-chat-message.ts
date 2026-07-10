@@ -1,10 +1,10 @@
 import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
-import { TeRichText, teRichTextTransform } from '@monorepo/text-editor';
+import { TeRichText, TeRichTextTransform } from '@monorepo/text-editor';
 
 import { CaBaseEntity } from './ca-base-entity.class';
 
 export class CaChatMessage extends CaBaseEntity {
-  @teRichTextTransform()
+  @TeRichTextTransform()
   content: TeRichText;
 }
 

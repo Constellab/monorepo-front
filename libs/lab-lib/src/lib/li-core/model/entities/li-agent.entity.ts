@@ -1,7 +1,7 @@
 import { CoAgent, CoUser } from '@monorepo/community-lib';
 import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
 import { TdTypeStyle } from '@monorepo/technical-doc';
-import { TeRichText, teRichTextTransform } from '@monorepo/text-editor';
+import { TeRichText, TeRichTextTransform } from '@monorepo/text-editor';
 import { DateTime } from 'luxon';
 
 import { LiEntity } from '../global/li-entity.entity';
@@ -13,7 +13,7 @@ export class LiAgent extends LiEntity {
   last_modified_at?: string;
   created_by?: CoUser;
 
-  @teRichTextTransform()
+  @TeRichTextTransform()
   description?: TeRichText;
   latest_publish_version: number;
   latest_style?: TdTypeStyle;

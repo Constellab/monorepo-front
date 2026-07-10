@@ -9,7 +9,7 @@ import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 
 import { TeEditBlockMetadataDialogComponent } from '../component/te-edit-block-metadata-dialog/te-edit-block-metadata-dialog.component';
 import { TeHelper } from '../model/te.helper';
-import { TeBlockWithMetadata, TeMetadataBlockConfig } from '../model/te-metadata-block-config.class';
+import { TeBlockWithMetadataFront, TeMetadataBlockConfig } from '../model/te-metadata-block-config.class';
 
 export interface TeHeaderWithIdBlockData {
   text: string;
@@ -42,7 +42,7 @@ export function teGetHeaderWithIdBlockDefaultConfig(): TeHeaderWithIdBlockConfig
 /**
  * Override header block to add an id attribute based on the text
  */
-export class TeHeaderWithIdBlock extends Header implements TeBlockWithMetadata, BlockTool {
+export class TeHeaderWithIdBlock extends Header implements TeBlockWithMetadataFront, BlockTool {
   node: HTMLElement;
 
   metadata: TeMetadataBlockConfig;

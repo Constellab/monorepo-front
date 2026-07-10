@@ -2,7 +2,7 @@ import { ClRecordTransform } from '@monorepo/core-lib';
 import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
 import { FlFileHelper } from '@monorepo/front-core-lib/fl-translate';
 import { TdTypeStyle } from '@monorepo/technical-doc';
-import { TeRichText, teRichTextTransform } from '@monorepo/text-editor';
+import { TeRichText, TeRichTextTransform } from '@monorepo/text-editor';
 import { Type } from 'class-transformer';
 
 import { CaBaseEntity } from '../ca-base-entity.class';
@@ -48,7 +48,7 @@ export class CaConstellabDocument {
   @Type(() => CaDocument)
   document: CaDocument;
 
-  @teRichTextTransform()
+  @TeRichTextTransform()
   content: TeRichText;
 }
 

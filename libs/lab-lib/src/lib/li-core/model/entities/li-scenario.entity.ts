@@ -1,7 +1,7 @@
 import { ClLuxonDateTimeTransform } from '@monorepo/core-lib';
 import { FlEntity, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 import { FlStatus, FlStatusDict, FlStatusHelper } from '@monorepo/front-core-lib/fl-status';
-import { TeRichText, teRichTextTransform } from '@monorepo/text-editor';
+import { TeRichText, TeRichTextTransform } from '@monorepo/text-editor';
 import { Expose, Type } from 'class-transformer';
 import { DateTime } from 'luxon';
 
@@ -78,7 +78,7 @@ export const LI_SCENARIO_CREATION_TYPES: FlStatusDict<LiScenarioCreationType> = 
 export class LiScenario extends LiBaseEntityWithUser implements LiFolderObject {
   title: string;
 
-  @teRichTextTransform()
+  @TeRichTextTransform()
   description: TeRichText;
 
   data: void;

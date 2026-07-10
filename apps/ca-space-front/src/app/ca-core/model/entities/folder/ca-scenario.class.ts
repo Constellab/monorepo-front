@@ -6,7 +6,7 @@ import {
   flStatusTransform,
 } from '@monorepo/front-core-lib/fl-status';
 import { TdTypeStyle } from '@monorepo/technical-doc';
-import { TeRichText, teRichTextTransform } from '@monorepo/text-editor';
+import { TeRichText, TeRichTextTransform } from '@monorepo/text-editor';
 import { Type } from 'class-transformer';
 import { DateTime } from 'luxon';
 
@@ -29,7 +29,7 @@ const CA_SCENARIO_STATUS_DICT: FlStatusDict<CaScenarioStatus> = {
 export class CaScenario extends CaBaseEntity implements CaFolderObject {
   title: string;
 
-  @teRichTextTransform()
+  @TeRichTextTransform()
   description: TeRichText;
 
   @Type(() => CaLab)
