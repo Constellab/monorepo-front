@@ -1,0 +1,11 @@
+<div class="ds-example">
+  <div class="ds-example-caption">
+    <span class="ds-example-label">{{ label() }}</span>
+    @if (code()) {
+      <code class="ds-example-code g-text-small">{{ code() }}</code>
+    }
+  </div>
+  <div class="ds-example-preview">
+    <ng-content></ng-content>
+  </div>
+</div>

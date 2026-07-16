@@ -30,6 +30,14 @@ The community app.
 
 Prefix : Ha
 
+### Design system (ds-design-system) : Ds
+
+Showcase app for the custom components and the design system.
+
+Prefix : Ds
+
+To serve the app, run the npm script `ds-design-system:serve`.
+
 ## Libraries
 
 ### core-lib : Cl

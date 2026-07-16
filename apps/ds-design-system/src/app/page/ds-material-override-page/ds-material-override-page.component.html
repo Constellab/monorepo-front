@@ -1,0 +1,252 @@
+<div class="ds-page">
+  <header class="ds-page-header">
+    <div>
+      <h1>Design system — Material overrides</h1>
+      <p class="ds-page-subtitle">
+        Showcase of the custom Material styles defined in
+        <code>fl-material-override.scss</code>.
+      </p>
+    </div>
+    <button mat-stroked-button class="primary" (click)="toggleTheme()">
+      <mat-icon>{{ isDark() ? 'light_mode' : 'dark_mode' }}</mat-icon>
+      {{ isDark() ? 'Light theme' : 'Dark theme' }}
+    </button>
+  </header>
+
+  <div class="ds-page-sections">
+    <!-- ============================ BUTTONS ============================ -->
+    <ds-section
+      title="Buttons"
+      description="Buttons are pill-shaped and uppercased. Sizes, greyed and dashed variants come from override classes.">
+      <ds-example label="Variants" code="mat-*-button">
+        <button mat-button>Basic</button>
+        <button mat-flat-button class="primary">Flat</button>
+        <button mat-raised-button class="primary">Raised</button>
+        <button mat-stroked-button class="primary">Stroked</button>
+        <button mat-flat-button class="warn">Warn</button>
+        <button mat-flat-button class="accent">Accent</button>
+        <button mat-flat-button class="primary" disabled>Disabled</button>
+      </ds-example>
+
+      <ds-example label="With icons" code=".mdc-button > mat-icon">
+        <button mat-flat-button class="primary">
+          <mat-icon>add</mat-icon>
+          Create
+        </button>
+        <button mat-stroked-button class="primary">
+          Next
+          <mat-icon class="right-button-icon">arrow_forward</mat-icon>
+        </button>
+      </ds-example>
+
+      <ds-example label="Sizes" code=".g-button-big / -small / -tiny">
+        <button mat-flat-button class="primary g-button-big">Big</button>
+        <button mat-flat-button class="primary">Default</button>
+        <button mat-flat-button class="primary g-button-small">
+          <mat-icon>bolt</mat-icon>
+          Small
+        </button>
+        <button mat-flat-button class="primary g-button-tiny">Tiny</button>
+      </ds-example>
+
+      <ds-example label="Grey & dashed" code=".g-button-grey / .g-button-grey-dashed">
+        <button mat-flat-button class="g-button-grey">Grey</button>
+        <button mat-stroked-button class="g-button-grey-dashed">
+          <mat-icon>add</mat-icon>
+          Add item
+        </button>
+      </ds-example>
+
+      <ds-example label="Icon buttons" code=".g-button-icon-small / -tiny">
+        <button mat-icon-button aria-label="Default"><mat-icon>settings</mat-icon></button>
+        <button mat-icon-button class="g-button-icon-small" aria-label="Small">
+          <mat-icon>settings</mat-icon>
+        </button>
+        <button mat-icon-button class="g-button-icon-tiny" aria-label="Tiny">
+          <mat-icon>settings</mat-icon>
+        </button>
+      </ds-example>
+    </ds-section>
+
+    <!-- ============================ FORM FIELDS ============================ -->
+    <ds-section
+      title="Form fields"
+      description="Form fields use the outline appearance at reduced density. Compact and no-hint variants come from override classes.">
+      <ds-example label="Default" code="appearance='outline'">
+        <mat-form-field>
+          <mat-label>Label</mat-label>
+          <input matInput [formControl]="textControl" placeholder="Placeholder" />
+          <mat-hint>A hint below the field</mat-hint>
+        </mat-form-field>
+      </ds-example>
+
+      <ds-example label="No hint" code=".g-form-field-no-hint">
+        <mat-form-field class="g-form-field-no-hint">
+          <mat-label>Name</mat-label>
+          <input matInput placeholder="No subscript wrapper" />
+        </mat-form-field>
+      </ds-example>
+
+      <ds-example label="With icons" code="matPrefix / matSuffix">
+        <mat-form-field class="g-form-field-no-hint">
+          <mat-label>Search</mat-label>
+          <mat-icon matPrefix>search</mat-icon>
+          <input matInput placeholder="Search…" />
+          <button mat-icon-button matSuffix aria-label="Clear"><mat-icon>close</mat-icon></button>
+        </mat-form-field>
+      </ds-example>
+
+      <ds-example label="Compact" code=".g-form-field-compact">
+        <div class="g-form-field-compact">
+          <mat-form-field class="g-form-field-no-hint">
+            <mat-label>Compact</mat-label>
+            <input matInput placeholder="Reduced height & width" />
+          </mat-form-field>
+        </div>
+      </ds-example>
+
+      <ds-example label="Standalone error" code=".g-mat-error">
+        <span class="g-mat-error">This field is required</span>
+      </ds-example>
+    </ds-section>
+
+    <!-- ============================ SELECT ============================ -->
+    <ds-section title="Select" description="mat-select with the capitalize override on the selected value.">
+      <ds-example label="Select" code="mat-select">
+        <mat-form-field class="g-form-field-no-hint">
+          <mat-label>Option</mat-label>
+          <mat-select [formControl]="selectControl">
+            <mat-option value="option-one">option one</mat-option>
+            <mat-option value="option-two">option two</mat-option>
+            <mat-option value="option-three">option three</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </ds-example>
+    </ds-section>
+
+    <!-- ============================ CHECKBOX / RADIO / TOGGLE ============================ -->
+    <ds-section
+      title="Checkbox, radio & toggle"
+      description="Reduced-density checkbox and radio. The big radio variant turns a radio into a bordered card.">
+      <ds-example label="Checkbox" code="checkbox-density(-3)">
+        <mat-checkbox [checked]="true">Enabled</mat-checkbox>
+        <mat-checkbox>Disabled option</mat-checkbox>
+      </ds-example>
+
+      <ds-example label="Radio" code="radio-density(-3)">
+        <mat-radio-group [formControl]="radioControl" class="ds-inline-group">
+          <mat-radio-button value="a">First</mat-radio-button>
+          <mat-radio-button value="b">Second</mat-radio-button>
+          <mat-radio-button value="c">Third</mat-radio-button>
+        </mat-radio-group>
+      </ds-example>
+
+      <ds-example label="Big radio" code=".g-mat-radio-button-big">
+        <mat-radio-group [formControl]="radioControl" class="ds-inline-group">
+          <mat-radio-button value="a" class="g-mat-radio-button-big">Card option A</mat-radio-button>
+          <mat-radio-button value="b" class="g-mat-radio-button-big">Card option B</mat-radio-button>
+        </mat-radio-group>
+      </ds-example>
+
+      <ds-example label="Slide toggle" code="mat-slide-toggle">
+        <mat-slide-toggle [checked]="true">Active</mat-slide-toggle>
+      </ds-example>
+
+      <ds-example label="Button toggle" code=".g-mat-button-toggle-small">
+        <mat-button-toggle-group class="g-mat-button-toggle-small" value="list">
+          <mat-button-toggle value="list"><mat-icon>list</mat-icon></mat-button-toggle>
+          <mat-button-toggle value="grid"><mat-icon>grid_view</mat-icon></mat-button-toggle>
+        </mat-button-toggle-group>
+      </ds-example>
+    </ds-section>
+
+    <!-- ============================ TABLE ============================ -->
+    <ds-section
+      title="Table"
+      description="Flex mat-table with tightened rows, column-width helpers, selectable and hover rows.">
+      <ds-example label="Flex table" code="mat-table + .g-table-row-selectable">
+        <mat-table [dataSource]="tableData" class="ds-table">
+          <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef class="g-column-width-3">Name</mat-header-cell>
+            <mat-cell *matCellDef="let row" class="g-column-width-3">{{ row.name }}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="type">
+            <mat-header-cell *matHeaderCellDef class="g-column-width-2">Type</mat-header-cell>
+            <mat-cell *matCellDef="let row" class="g-column-width-2">{{ row.type }}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="size">
+            <mat-header-cell *matHeaderCellDef class="g-column-width-1">Size</mat-header-cell>
+            <mat-cell *matCellDef="let row" class="g-column-width-1">{{ row.size }}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="status">
+            <mat-header-cell *matHeaderCellDef class="g-column-width-1">Status</mat-header-cell>
+            <mat-cell *matCellDef="let row" class="g-column-width-1">
+              <mat-chip class="g-chips-grey-round">{{ row.status }}</mat-chip>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns" class="g-table-row-selectable"></mat-row>
+        </mat-table>
+      </ds-example>
+    </ds-section>
+
+    <!-- ============================ CHIPS ============================ -->
+    <ds-section title="Chips" description="Grey rounded chips via the override mixin.">
+      <ds-example label="Default & grey round" code=".g-chips-grey-round">
+        <mat-chip-set>
+          <mat-chip>Default</mat-chip>
+          <mat-chip class="g-chips-grey-round">Grey round</mat-chip>
+          <mat-chip class="g-chips-grey-round">
+            <mat-icon matChipAvatar>label</mat-icon>
+            With icon
+          </mat-chip>
+        </mat-chip-set>
+      </ds-example>
+    </ds-section>
+
+    <!-- ============================ TABS ============================ -->
+    <ds-section title="Tabs" description="Tab group with the dense and card-background header overrides.">
+      <ds-example label="Dense tabs" code=".g-mat-tab-dense / -header-card-background">
+        <mat-tab-group class="g-mat-tab-dense g-mat-tab-header-card-background">
+          <mat-tab label="Overview">
+            <p class="ds-tab-content">Overview content</p>
+          </mat-tab>
+          <mat-tab label="Details">
+            <p class="ds-tab-content">Details content</p>
+          </mat-tab>
+          <mat-tab label="History">
+            <p class="ds-tab-content">History content</p>
+          </mat-tab>
+        </mat-tab-group>
+      </ds-example>
+    </ds-section>
+
+    <!-- ============================ TOOLTIP ============================ -->
+    <ds-section title="Tooltip" description="Tooltip with multiline support override.">
+      <ds-example label="Single & multiline" code=".g-tooltip-multiline">
+        <button mat-flat-button class="primary" matTooltip="A simple tooltip">Hover me</button>
+        <button
+          mat-stroked-button
+          class="primary"
+          matTooltip="Line one&#10;Line two&#10;Line three"
+          matTooltipClass="g-tooltip-multiline">
+          Multiline tooltip
+        </button>
+      </ds-example>
+    </ds-section>
+
+    <!-- ============================ SNACKBAR ============================ -->
+    <ds-section title="Snackbar" description="Snackbar container color variants.">
+      <ds-example label="Variants" code=".g-snackbar-primary / -warn / -card">
+        <button mat-flat-button class="primary" (click)="openSnackbar('g-snackbar-primary')">Primary</button>
+        <button mat-flat-button class="warn" (click)="openSnackbar('g-snackbar-warn')">Warn</button>
+        <button mat-stroked-button class="primary" (click)="openSnackbar('g-snackbar-card')">Card</button>
+        <button mat-button (click)="openSnackbar('')">Default</button>
+      </ds-example>
+    </ds-section>
+  </div>
+</div>

@@ -1,0 +1,30 @@
+.ds-example {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75em;
+}
+
+.ds-example-caption {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75em;
+  flex-wrap: wrap;
+}
+
+.ds-example-label {
+  font-weight: 600;
+}
+
+.ds-example-code {
+  color: var(--light-color);
+  background-color: var(--hover-color);
+  padding: 0.1em 0.4em;
+  border-radius: 4px;
+}
+
+.ds-example-preview {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1em;
+}

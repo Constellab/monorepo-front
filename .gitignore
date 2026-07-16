@@ -59,3 +59,4 @@ vitest.config.*.timestamp*
 .nx/polygraph
 .claude/worktrees
 .nx/self-healing
+__screenshots__/

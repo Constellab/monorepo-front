@@ -1,0 +1,108 @@
+{
+  "name": "ds-design-system",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "ds",
+  "sourceRoot": "apps/ds-design-system/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@angular/build:application",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/ds-design-system",
+        "browser": "apps/ds-design-system/src/main.ts",
+        "tsConfig": "apps/ds-design-system/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "apps/ds-design-system/public"
+          },
+          {
+            "glob": "**/*",
+            "input": "libs/front-core-lib/src/assets/mat-icons",
+            "output": "assets/fl-mat-icons"
+          },
+          {
+            "glob": "**/*",
+            "input": "libs/front-core-lib/src/assets/logo",
+            "output": "assets/fl-logo"
+          },
+          {
+            "glob": "**/*",
+            "input": "libs/front-core-lib/src/assets/font",
+            "output": "assets/fl-font"
+          }
+        ],
+        "externalDependencies": ["assets/fl-font/*"],
+        "styles": [
+          "apps/ds-design-system/src/ds-styles.scss",
+          {
+            "input": "apps/ds-design-system/src/theme/ds-light-theme.scss",
+            "bundleName": "light-theme",
+            "inject": false
+          },
+          {
+            "input": "apps/ds-design-system/src/theme/ds-dark-theme.scss",
+            "bundleName": "dark-theme",
+            "inject": false
+          }
+        ]
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "4kb",
+              "maximumError": "8kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "continuous": true,
+      "executor": "@angular/build:dev-server",
+      "configurations": {
+        "production": {
+          "buildTarget": "ds-design-system:build:production"
+        },
+        "development": {
+          "buildTarget": "ds-design-system:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@angular/build:unit-test",
+      "options": {}
+    },
+    "serve-static": {
+      "continuous": true,
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "ds-design-system:build",
+        "port": 4200,
+        "staticFilePath": "dist/apps/ds-design-system/browser",
+        "spa": true
+      }
+    }
+  }
+}

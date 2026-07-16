@@ -230,16 +230,17 @@ body {
     & .mdc-icon-button.mat-mdc-button-base {
       @include mat.icon-button-overrides(
         (
-          state-layer-size: 20px,
+          state-layer-size: 21px,
         )
       );
+      padding: 0px;
 
       mat-icon {
-        height: 16px;
-        width: 16px;
+        height: 20px;
+        width: 20px;
         font-size: 16px;
-        line-height: 16px;
-        margin-left: -1px;
+        line-height: 20px;
+        margin-left: 1px;
       }
     }
   }
@@ -478,16 +479,6 @@ body {
   }
 
   /************************************* MAT SELECT ***********************************/
-  // capitalize selected value
-  .g-mat-select-capitalize .mat-select-value-text {
-    span {
-      display: inline-block; // to make the capitalize works
-    }
-
-    span::first-letter {
-      text-transform: uppercase;
-    }
-  }
 
   .g-mat-select-panel-no-max-height.mat-mdc-select-panel {
     max-height: none;

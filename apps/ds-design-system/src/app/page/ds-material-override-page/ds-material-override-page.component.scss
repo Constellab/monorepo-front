@@ -1,0 +1,41 @@
+.ds-page {
+  display: block;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2em 1.5em 4em;
+}
+
+.ds-page-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1em;
+  margin-bottom: 2em;
+}
+
+.ds-page-subtitle {
+  margin-top: 0.5em;
+  color: var(--light-color);
+}
+
+.ds-page-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
+}
+
+// Lay inline groups (radios) out horizontally with spacing
+.ds-inline-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+  align-items: center;
+}
+
+.ds-table {
+  width: 100%;
+}
+
+.ds-tab-content {
+  padding: 1em 0.5em;
+}

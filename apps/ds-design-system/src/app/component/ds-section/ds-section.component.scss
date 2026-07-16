@@ -1,0 +1,21 @@
+.ds-section {
+  display: block;
+  padding: 1.5em;
+  border-radius: var(--card-radius);
+  background-color: var(--card-background);
+}
+
+.ds-section-header {
+  margin-bottom: 1.5em;
+}
+
+.ds-section-description {
+  margin-top: 0.25em;
+  color: var(--light-color);
+}
+
+.ds-section-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+}

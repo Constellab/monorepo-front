@@ -1,0 +1,13 @@
+/* Global styles for the design-system showcase app.
+   Imports the shared front-core-lib styles so the Material overrides
+   showcased on the page are actually applied. */
+
+// Shared library base styles
+@use '../../../libs/front-core-lib/src/style/fl-global';
+@use '../../../libs/front-core-lib/src/style/fl-media-query';
+@use '../../../libs/front-core-lib/src/style/fl-flex';
+
+// Material overrides (the subject of this showcase) + related styles
+@use '../../../libs/front-core-lib/src/style/fl-material-override';
+@use '../../../libs/front-core-lib/src/style/fl-icon';
+@use '../../../libs/front-core-lib/src/style/fl-dialog';
