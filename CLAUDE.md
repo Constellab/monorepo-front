@@ -82,6 +82,29 @@ All libraries are imported via the `@monorepo/` namespace defined in `tsconfig.b
 
 This granular import structure allows for better tree-shaking and build optimization.
 
+## Product Concepts
+
+High-level product model for the Constellab platform (objects, roles, access), shared across the
+three front apps (`ca-space-front`, `lab-front`, `ha-community-front`) and the `gws_*` bricks. Read
+these before working on product features or documentation; keep them in sync when the model changes.
+
+- [`docs/concepts/domain-objects.md`](docs/concepts/domain-objects.md) — the object model: the
+  three environments (Data lab, Space, Community), the object relationship table, and every object
+  (folder, note, scenario, resource, application, view, brick, task, process, protocol, agent,
+  form, …) with definition / where used / links.
+- [`docs/concepts/roles-and-access.md`](docs/concepts/roles-and-access.md) — space / folder / lab
+  roles, teams, space types & licences, Community access, where roles are assigned.
+- [`docs/concepts/space.md`](docs/concepts/space.md) — Space-specific behaviour (`ca-space-front`):
+  folders & hierarchy (root vs sub), sharing, chat, notifications, space management, labs.
+
+The three environments at a glance:
+- **Data lab** — where data and pipelines are managed (cloud or on-premise, managed by the Space);
+  generates scenarios, resources, notes, applications. A **Datahub** is a special always-running
+  lab for long-term storage / hosting apps / S3 storage of space documents.
+- **Space** — project management, sharing and organisation; *organise / consult / share / govern*
+  objects from the Data lab. Every space object (including its labs) belongs to exactly one space.
+- **Community** — a public website to *publish / discover* (bricks, stories, agents, partners).
+
 ## Code Style
 
 ### Import Style
