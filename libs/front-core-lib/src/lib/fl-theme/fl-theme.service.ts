@@ -13,7 +13,7 @@ import { clDefaultTheme, ClTheme, clThemeIsSupported } from '@monorepo/core-lib'
 import { FL_ROOT_INJECTOR } from '@monorepo/front-core-lib/fl-core';
 import { FlCookieService } from '@monorepo/front-core-lib/fl-dialog';
 
-import { FL_THEME_DETAIL_DARK, FL_THEME_DETAIL_LIGHT,FlThemeDetail } from './model/fl-theme-detail.class';
+import { FL_THEME_DETAIL_DARK, FL_THEME_DETAIL_LIGHT, FlThemeDetail } from './model/fl-theme-detail.class';
 
 export interface FlThemeServiceConfig {
   // if not provided, default to ''
@@ -112,7 +112,7 @@ export class FlThemeService {
 
   // change the app theme by changing the css file
   private loadTheme(theme: ClTheme): void {
-    const link = this.document.getElementById('app-theme') as HTMLLinkElement;
+    const link = this.getOrCreateThemeLink();
 
     if (link) {
       let path: string = '';
@@ -122,10 +122,42 @@ export class FlThemeService {
       this.renderer.setAttribute(link, 'href', `${path}${theme}.css`);
     }
 
-    // remove all class
-    this.document.body.className = '';
+    // remove only the theme classes, so classes set by the host page are preserved
+    // (the app is embedded in non-Angular pages, e.g. Reflex, which own the body element)
+    Object.values(ClTheme).forEach((supportedTheme) =>
+      this.renderer.removeClass(this.document.body, 'g-' + supportedTheme)
+    );
     // set the class theme in the body element to be able to use it in the css
     this.renderer.addClass(this.document.body, 'g-' + theme);
+  }
+
+  /**
+   * Return the `<link id="app-theme">` element holding the theme stylesheet, creating it when it
+   * is missing.
+   *
+   * The Angular apps declare it in their index.html. When the components are used as custom
+   * elements inside a non-Angular page (e.g. a Reflex app), that page owns the document and has no
+   * such element, so it is created here instead — otherwise the theme stylesheet is never loaded
+   * and the components render with the light theme's fallback values.
+   */
+  private getOrCreateThemeLink(): HTMLLinkElement | null {
+    const existingLink = this.document.getElementById('app-theme') as HTMLLinkElement | null;
+
+    if (existingLink) {
+      return existingLink;
+    }
+
+    const head = this.document.head;
+    if (!head) {
+      return null;
+    }
+
+    const link: HTMLLinkElement = this.renderer.createElement('link');
+    this.renderer.setAttribute(link, 'id', 'app-theme');
+    this.renderer.setAttribute(link, 'rel', 'stylesheet');
+    this.renderer.appendChild(head, link);
+
+    return link;
   }
 
   private storeTheme(theme: ClTheme): void {
