@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import {
   booleanAttribute,
   Component,
@@ -16,7 +17,7 @@ import { Observable, of } from 'rxjs';
 
 import { DcDynamicComponent, dcParseJsonInput } from '../../../core/model/dc-dynamic-component.class';
 import { DcCoreMainDirective } from '../../dc-core/directive/dc-core-main-prod/dc-core-main.directive';
-import { DcTextEditorConfig } from './dc-text-editor.config';
+import { DcRichTextImageObject, DcTextEditorConfig } from './dc-text-editor.config';
 
 export interface DcRichTextConfig {
   placeholder?: string;
@@ -26,10 +27,10 @@ export interface DcRichTextConfig {
   minHeight?: string;
   maxHeight?: string;
   changeEventDebounceTime?: number;
-  // config: {
-  //   api_url: string;
-  //   image_folder: string;
-  // };
+  /**
+   * Object owning the images of the rich text. The image block is only enabled when it is set.
+   */
+  imageConfig?: DcRichTextImageObject;
 }
 
 @Component({
@@ -64,23 +65,36 @@ export class DcTextEditorComponent implements DcDynamicComponent<DcRichTextConfi
   formCtrl = signal(new FormControl<TeRichText>(null));
 
   private mainDirective = inject(DcCoreMainDirective);
+  private httpClient = inject(HttpClient);
 
   changeEventDebounceTime = computed(() => {
     const dt = this.inputData().changeEventDebounceTime;
     return dt != null && dt >= 0 ? dt : 2500;
   });
 
+  // Object owning the images, extracted from the input data. Computed (and not read directly in
+  // the effect) so the config is only rebuilt when the object actually changes: the input data
+  // gets a new identity on every content change.
+  private imageConfig = computed<DcRichTextImageObject | undefined>(() => this.inputData().imageConfig, {
+    equal: (a: DcRichTextImageObject | undefined, b: DcRichTextImageObject | undefined) =>
+      a?.objectType === b?.objectType && a?.objectId === b?.objectId,
+  });
+
   constructor() {
     // Effect to initialize text editor config
     effect(() => {
+      // read here so the config is rebuilt once the object is known: the input data is set
+      // asynchronously, otherwise the image block would stay disabled
+      const imageConfig = this.imageConfig();
+
       if (this.useCustomTools()) {
         // When custom tools are enabled, create config and once tools is provided
         if (this.customTools()) {
-          const textEditorConfig = new DcTextEditorConfig(this.customTools());
+          const textEditorConfig = new DcTextEditorConfig(this.httpClient, this.customTools(), imageConfig);
           this.textEditorConfig.set(textEditorConfig);
         }
       } else {
-        this.textEditorConfig.set(new DcTextEditorConfig());
+        this.textEditorConfig.set(new DcTextEditorConfig(this.httpClient, undefined, imageConfig));
       }
     });
 

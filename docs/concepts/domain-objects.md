@@ -93,7 +93,7 @@ single space. (Community-native objects are the exception, being platform-public
 
 ---
 
-## Objects
+## Glossary
 
 > **Terminology:** the **protocol** concept is hidden from normal users. In the product, a protocol
 > is a **scenario** and a sub-protocol is a **sub scenario**. Likewise a **process** is just a block

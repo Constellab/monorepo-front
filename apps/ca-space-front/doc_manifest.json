@@ -3,6 +3,14 @@
   "community_folder_id": "b4a8dbc8-72f8-4626-b06f-7931993519dd",
   "docs": [
     {
+      "title": "Getting started",
+      "note": "Global product-concepts page. Lives OUTSIDE the Constellab space folder (root-level 'Getting started' node); sourced from the shared concepts docs, not app code.",
+      "remote_doc_id": "b38e4929-2e4f-469c-b47b-f9921a3d4c74",
+      "source_files": [
+        "../../docs/concepts/domain-objects.md"
+      ]
+    },
+    {
       "title": "Constellab space",
       "remote_doc_id": "cc8f17a9-4f78-43fa-baab-2eab8f1e4a78",
       "source_files": [
@@ -19,16 +27,14 @@
         "src/app/ca-dashboard/component/ca-dashboard-page/ca-dashboard-page.component.ts"
       ]
     },
-
     {
       "title": "Notifications",
-      "remote_doc_id": "",
+      "remote_doc_id": "d3be1a3d-d31e-4c90-ac64-023d3aa08eff",
       "source_files": [
         "src/app/ca-notifications/ca-notifications-portal/ca-notifications-portal.component.ts",
         "src/app/ca-notifications/ca-notification-info/ca-notification-info.component.ts"
       ]
     },
-
     {
       "title": "Folder",
       "remote_doc_id": "25ca7650-469d-403b-840f-217926523818",
@@ -39,7 +45,7 @@
     },
     {
       "title": "Folders and content - Folder detail",
-      "remote_doc_id": "",
+      "remote_doc_id": "5b3afba1-7d64-4739-8648-efb1f9e7346f",
       "source_files": [
         "src/app/ca-folder/module/ca-folder-detail-page/component/ca-folder-detail-page/ca-folder-detail-page.component.ts",
         "src/app/ca-core/entity-module/ca-folder-core/model/ca-folder-detail-action-menu.class.ts",
@@ -48,28 +54,28 @@
     },
     {
       "title": "Folders and content - Global search",
-      "remote_doc_id": "",
+      "remote_doc_id": "b63662f3-ccee-4c1c-abf5-26bff1341a9f",
       "source_files": [
         "src/app/ca-folder/module/ca-folder-global-search/ca-folder-global-search-page/ca-folder-global-search-page.component.ts"
       ]
     },
     {
       "title": "Folders and content - Scenario in a folder",
-      "remote_doc_id": "",
+      "remote_doc_id": "421cd446-4cfb-4836-84ca-d858c804bc0d",
       "source_files": [
         "src/app/ca-folder/module/ca-scenario-detail-page/ca-scenario-detail-page/ca-scenario-detail-page.component.ts"
       ]
     },
     {
       "title": "Folders and content - Note in a folder",
-      "remote_doc_id": "",
+      "remote_doc_id": "e363349d-c2f9-4fd8-a2a5-f2fe7542e4af",
       "source_files": [
         "src/app/ca-folder/module/ca-note-detail-page/component/ca-note-detail-page/ca-note-detail-page.component.ts"
       ]
     },
     {
       "title": "Folders and content - Document in a folder",
-      "remote_doc_id": "",
+      "remote_doc_id": "a692c11a-3fb2-43c4-8c76-f3c612eb0a3c",
       "source_files": [
         "src/app/ca-folder/module/ca-document-detail-page/component/ca-constellab-document-detail-page/ca-constellab-document-detail-page.component.ts",
         "src/app/ca-folder/module/ca-document-detail-page/component/ca-document-preview-page/ca-document-preview-page.component.ts"
@@ -77,7 +83,7 @@
     },
     {
       "title": "Folders and content - Resource in a folder",
-      "remote_doc_id": "",
+      "remote_doc_id": "964842ec-ff6e-4149-a40a-d1bae9547505",
       "source_files": [
         "src/app/ca-folder/module/ca-resource-detail-page/ca-resource-detail-page/ca-resource-detail-page.component.ts",
         "src/app/ca-folder/module/ca-resource-detail-page/ca-resource-action-menu.ts"
@@ -85,7 +91,7 @@
     },
     {
       "title": "Folders and content - App in a folder",
-      "remote_doc_id": "",
+      "remote_doc_id": "dbdcc70e-ccba-4790-917b-f9076065e300",
       "source_files": [
         "src/app/ca-folder/module/ca-folder-detail-page/ca-hierarchy-object-action-menu.ts",
         "src/app/ca-folder/module/ca-resource-detail-page/ca-resource-action-menu.ts",
@@ -95,7 +101,7 @@
     },
     {
       "title": "Folders and content - Sharing",
-      "remote_doc_id": "",
+      "remote_doc_id": "0c7216bf-da88-4933-8caf-68d9aa4ec7bd",
       "source_files": [
         "src/app/ca-folder/module/ca-folder-detail-page/component/ca-folder-users-dialog/ca-folder-users-dialog.component.ts",
         "src/app/ca-core/entity-module/ca-folder-core/component/ca-folder-share-dialog/ca-folder-share-dialog.component.ts",
@@ -105,7 +111,7 @@
     },
     {
       "title": "Folders and content - Trash",
-      "remote_doc_id": "",
+      "remote_doc_id": "9b3ada97-1ac6-4da0-896f-2465580a6301",
       "source_files": [
         "src/app/ca-folder/module/ca-hierarchy-object-detail-page/ca-hierarchy-object-trash-dialog/ca-hierarchy-object-trash-dialog.component.ts",
         "src/app/ca-folder/module/ca-folder-detail-page/ca-hierarchy-object-base-action-menu.ts"
@@ -113,29 +119,28 @@
     },
     {
       "title": "Folders and content - Folder activity",
-      "remote_doc_id": "",
+      "remote_doc_id": "a4221be7-acb5-444f-ba7d-3fb249f39629",
       "source_files": [
         "src/app/ca-folder/module/ca-folder-activity-page/component/ca-folder-activity-page/ca-folder-activity-page.component.ts"
       ]
     },
-
     {
       "title": "Labs - Overview",
-      "remote_doc_id": "",
+      "remote_doc_id": "fb932f3b-4984-4cd5-b3d8-e79033e411c1",
       "source_files": [
         "src/app/ca-lab/ca-lab-routes.ts"
       ]
     },
     {
       "title": "Labs - My labs",
-      "remote_doc_id": "",
+      "remote_doc_id": "49bc83bf-c9d9-470b-af02-dabc6fced27f",
       "source_files": [
         "src/app/ca-lab/component/lab/ca-my-labs-page/ca-my-labs-page.component.ts"
       ]
     },
     {
       "title": "Labs - Creating a lab",
-      "remote_doc_id": "",
+      "remote_doc_id": "c439b63d-758e-4c61-bca4-0230b18237c9",
       "source_files": [
         "src/app/ca-lab/component/lab/ca-my-labs-page/ca-my-labs-page.component.ts",
         "src/app/ca-dashboard/component/ca-dashboard-labs/ca-dashboard-labs.component.ts"
@@ -143,7 +148,7 @@
     },
     {
       "title": "Labs - Lab dashboard",
-      "remote_doc_id": "",
+      "remote_doc_id": "7a8eeb7d-0b1e-4b08-bf42-1508f7a7183c",
       "source_files": [
         "src/app/ca-lab/component/lab/ca-lab-detail-page/ca-lab-detail-page.component.ts",
         "src/app/ca-lab/component/lab/ca-lab-dashboard-page/ca-lab-dashboard-page.component.ts",
@@ -153,7 +158,7 @@
     },
     {
       "title": "Labs - Lab configuration",
-      "remote_doc_id": "",
+      "remote_doc_id": "a0759d12-856a-4060-bed7-67b1692eded1",
       "source_files": [
         "src/app/ca-lab/component/lab/ca-lab-config-page/ca-lab-config-page.component.ts",
         "src/app/ca-lab/component/user/ca-lab-users-list"
@@ -161,7 +166,7 @@
     },
     {
       "title": "Labs - Usage and KPIs",
-      "remote_doc_id": "",
+      "remote_doc_id": "cdc41bc1-69f3-4043-bbd3-bd7af9501771",
       "source_files": [
         "src/app/ca-lab/component/kpi/ca-lab-usage-page/ca-lab-usage-page.component.ts",
         "src/app/ca-lab/component/kpi/ca-lab-usage",
@@ -170,7 +175,7 @@
     },
     {
       "title": "Labs - Backups",
-      "remote_doc_id": "",
+      "remote_doc_id": "d4a5df83-6b26-4753-943e-4aee9f9e5575",
       "source_files": [
         "src/app/ca-lab/component/backup/ca-lab-backup-detail-page/ca-lab-backup-detail-page.component.ts",
         "src/app/ca-lab/component/backup/ca-lab-backup-history",
@@ -179,15 +184,14 @@
     },
     {
       "title": "Labs - Status history",
-      "remote_doc_id": "",
+      "remote_doc_id": "43e506ad-7cd1-453e-bef9-fb74c5b58fd5",
       "source_files": [
         "src/app/ca-lab/component/lab/ca-lab-status-history-page/ca-lab-status-history-page.component.ts"
       ]
     },
-
     {
       "title": "Chat - Overview",
-      "remote_doc_id": "",
+      "remote_doc_id": "7fdf32ad-6816-434e-93f9-4fd43ede842d",
       "source_files": [
         "src/app/ca-chat/ca-chat-routes.ts",
         "src/app/ca-chat/component/ca-chat-page/ca-chat-page.component.ts"
@@ -195,25 +199,23 @@
     },
     {
       "title": "Chat - Using folder chat",
-      "remote_doc_id": "",
+      "remote_doc_id": "19bb66b1-9693-4e51-a02e-01a87e24a88a",
       "source_files": [
         "src/app/ca-chat/component/ca-chat-detail-page/ca-chat-detail-page.component.ts"
       ]
     },
-
     {
       "title": "Apps",
-      "remote_doc_id": "",
+      "remote_doc_id": "13c9ae22-b257-4f61-b5d8-42d16e8c082a",
       "source_files": [
         "src/app/ca-app/ca-my-apps-page/ca-my-apps-page.component.ts",
         "src/app/ca-app/ca-app-core/ca-app-card/ca-app-card.component.ts",
         "src/app/ca-dashboard/component/ca-dashboard-apps/ca-dashboard-apps.component.ts"
       ]
     },
-
     {
       "title": "Teams",
-      "remote_doc_id": "",
+      "remote_doc_id": "c2374c54-7792-4b82-a122-7c7208d0210f",
       "source_files": [
         "src/app/ca-structure/ca-space-page/component/ca-current-space-teams-page/ca-current-space-teams-page.component.ts",
         "src/app/ca-structure/ca-team-page/component/ca-team-page/ca-team-page.component.ts",
@@ -221,10 +223,9 @@
         "src/app/ca-structure/ca-my-groups-page/component/ca-my-teams-page/ca-my-teams-page.component.ts"
       ]
     },
-
     {
       "title": "Space management - Overview",
-      "remote_doc_id": "",
+      "remote_doc_id": "0e17d12d-b447-4d56-bcbe-75ec7b747d1c",
       "source_files": [
         "src/app/ca-structure/ca-structure-routes.ts",
         "src/app/ca-structure/ca-space-page/component/ca-current-space-page/ca-current-space-page.component.ts"
@@ -232,7 +233,7 @@
     },
     {
       "title": "Space management - Users",
-      "remote_doc_id": "",
+      "remote_doc_id": "fa7c48f8-329f-47bc-ae83-58a977335e37",
       "source_files": [
         "src/app/ca-structure/ca-space-page/component/ca-current-space-users-page/ca-current-space-users-page.component.ts",
         "src/app/ca-structure/ca-space-page/component/ca-space-invit-form-dialog",
@@ -241,21 +242,21 @@
     },
     {
       "title": "Space management - Labs",
-      "remote_doc_id": "",
+      "remote_doc_id": "62233662-0b5c-45de-b721-01ef2b88c018",
       "source_files": [
         "src/app/ca-structure/ca-space-page/component/ca-current-space-labs-page/ca-current-space-labs-page.component.ts"
       ]
     },
     {
       "title": "Space management - Folders",
-      "remote_doc_id": "",
+      "remote_doc_id": "0b4644de-6833-46ed-b0b4-9472a03e30fd",
       "source_files": [
         "src/app/ca-structure/ca-space-page/component/ca-current-space-hierarchy-object-page/ca-current-space-hierarchy-object-page.component.ts"
       ]
     },
     {
       "title": "Space management - Space dashboard",
-      "remote_doc_id": "",
+      "remote_doc_id": "5de83316-63e8-4c6a-b350-6a243ef385c3",
       "source_files": [
         "src/app/ca-structure/ca-space-page/component/ca-current-space-dashboard-page/ca-current-space-dashboard-page.component.ts",
         "src/app/ca-structure/ca-space-page/component/ca-current-space-storage",
