@@ -3,51 +3,53 @@ import { MatButton } from '@angular/material/button';
 import { ActivatedRoute } from '@angular/router';
 import { FlServerError } from '@monorepo/front-core-lib/fl-api';
 import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
-import { LiAuthenticatedUserService, LiAuthService, LiSystemService } from '@monorepo/lab-lib/li-core';
+import { LiAuthService } from '@monorepo/lab-lib/li-core';
 
 import { LabEnvStore } from '../../lab-core/lab-env.store';
 import { LabEnvironmentHelper } from '../../lab-core/lab-environment.helper';
-import { LabMcpConsentService } from '../service/lab-mcp-consent.service';
+import { LabOAuthConsentDetails } from '../model/lab-oauth-consent-details.class';
+import { LabOAuthConsentService } from '../service/lab-oauth-consent.service';
 
 /**
- * MCP OAuth consent page — the single human gate in the lab-driven OAuth flow that lets an external
- * MCP client (Claude Code on a developer's machine) act as the user against this lab's data.
+ * OAuth consent page — the single human gate in the lab-driven OAuth flow that lets an external
+ * client (Claude Code today, others later) act as the user against this lab's data.
  *
  * Where it sits in the flow: the lab API redirects the browser here with an opaque `login_state`.
- * This page requires a lab session, shows what "Claude Code" will be able to do, and on Allow fetches
- * a single-use code then full-page-navigates to `{API_URL}/mcp-auth/consent?login_state=…&code=…`,
- * which the backend validates and 302s back to Claude. The page's job ends at that redirect.
+ * This page requires a lab session, asks the backend what is being authorized
+ * (`GET user/oauth-consent-details`), renders that truth, and on Allow fetches a single-use code then
+ * full-page-navigates to `{API_URL}/oauth-auth/consent?login_state=…&code=…`, which the backend
+ * validates and 302s back to the client. The page's job ends at that redirect.
  *
- * Hard rules (see the spec):
- *  - `login_state` is passed through VERBATIM and sent nowhere except the consent URL above. Missing
- *    `login_state` → error, no API call.
+ * Hard rules (see the v2 spec):
+ *  - NOTHING about the client or its access is hardcoded — it all comes from the details response.
+ *  - `client_name` is ATTACKER-CONTROLLED: framed as an unverified claim, escaped (Angular `{{}}`
+ *    escapes), never rendered as HTML or allowed to influence styling. No client logo/homepage.
+ *  - `login_state` is passed through VERBATIM and sent nowhere except the consent URL. Missing
+ *    `login_state`, or details 404 (expired/used) → error, NO consent screen.
  *  - The one-time code is fetched INSIDE the Allow handler (it expires in 60s) and is never stored,
  *    logged, or persisted. Fetch, redirect, forget.
- *  - No auto-submit: consent requires a real click, and Deny is as reachable as Allow.
+ *  - No auto-submit: consent requires a real click, and Deny is as reachable/prominent as Allow.
  *  - We never follow any URL from the query string; the only navigation target is the API_URL one.
  */
-type LabMcpConsentStatus = 'INVALID_LINK' | 'READY' | 'AUTHORIZING' | 'ERROR';
+type LabOAuthConsentStatus = 'LOADING' | 'READY' | 'AUTHORIZING' | 'INVALID_LINK' | 'EXPIRED' | 'ERROR';
 
 @Component({
-  selector: 'lab-mcp-consent-page',
-  templateUrl: './lab-mcp-consent-page.component.html',
-  styleUrl: './lab-mcp-consent-page.component.scss',
+  selector: 'lab-oauth-consent-page',
+  templateUrl: './lab-oauth-consent-page.component.html',
+  styleUrl: './lab-oauth-consent-page.component.scss',
   imports: [MatButton, FlTranslateModule],
 })
-export class LabMcpConsentPageComponent implements OnInit {
+export class LabOAuthConsentPageComponent implements OnInit {
   private activatedRoute = inject(ActivatedRoute);
   private authService = inject(LiAuthService);
-  private authenticatedUserService = inject(LiAuthenticatedUserService);
-  private systemService = inject(LiSystemService);
-  private consentService = inject(LabMcpConsentService);
+  private consentService = inject(LabOAuthConsentService);
   private labEnvStore = inject(LabEnvStore);
 
-  // The client asking for access. Hard-coded: this flow only ever serves Claude Code.
-  readonly clientName = 'Claude Code';
+  status = signal<LabOAuthConsentStatus>('LOADING');
+  details = signal<LabOAuthConsentDetails | undefined>(undefined);
 
-  status = signal<LabMcpConsentStatus>('READY');
-  labName = signal<string | undefined>(undefined);
-  userEmail = signal<string | undefined>(undefined);
+  // Set when a code fetch failed (non-401) so the READY view can surface a retryable inline error.
+  codeError = signal<boolean>(false);
 
   // Opaque pending-authorization identifier from the backend redirect. Kept verbatim, never parsed.
   private loginState: string | null = null;
@@ -62,37 +64,44 @@ export class LabMcpConsentPageComponent implements OnInit {
     }
 
     // Require a lab session. If absent, bounce through login and come back here with login_state
-    // intact (the login page whitelists /mcp-consent and preserves the return URL).
+    // intact (the login page whitelists /oauth-consent and preserves the return URL).
     if (!this.authService.hasAuthorizationCookie()) {
       this.redirectToLogin();
       return;
     }
 
-    this.loadContext();
+    this.loadDetails();
   }
 
   /**
-   * Load the info the user needs to make the decision: which lab, and as whom. Both are read-only
-   * context — NOT the consent code (that is fetched only on Allow, per the 60s expiry).
+   * Fetch what is being authorized. Safe on load: the response is a description, not a credential.
+   * This is what drives every piece of copy on the page — nothing is hardcoded.
    */
-  private loadContext(): void {
-    this.systemService.getSystemInfo().subscribe({
-      next: (systemInfo) => this.labName.set(systemInfo.lab.name),
-      // Non-fatal: the consent decision can still be made without the lab name shown.
+  private loadDetails(): void {
+    this.status.set('LOADING');
+    this.consentService.getConsentDetails(this.loginState).subscribe({
+      next: (details) => {
+        this.details.set(details);
+        this.status.set('READY');
+      },
+      error: (error: FlServerError) => this.onDetailsError(error),
     });
+  }
 
-    // The authenticated user is loaded lazily by the main shell, which this standalone page bypasses.
-    const currentUser = this.authenticatedUserService.getCurrentUser();
-    if (currentUser) {
-      this.userEmail.set(currentUser.email);
-    } else {
-      this.authenticatedUserService.getUser$().subscribe((user) => {
-        if (user) {
-          this.userEmail.set(user.email);
-        }
-      });
-      this.authenticatedUserService.loadAuthenticatedUser();
+  private onDetailsError(error: FlServerError): void {
+    const httpStatus = error?.response?.status;
+    if (httpStatus === 401) {
+      // Session expired between the cookie check and this call → re-authenticate and return here.
+      this.redirectToLogin();
+      return;
     }
+    if (httpStatus === 404) {
+      // The pending authorization is unknown/expired/already used: there is nothing valid to consent
+      // to, so we must NOT render a consent screen.
+      this.status.set('EXPIRED');
+      return;
+    }
+    this.status.set('ERROR');
   }
 
   /**
@@ -107,6 +116,7 @@ export class LabMcpConsentPageComponent implements OnInit {
     }
 
     this.status.set('AUTHORIZING');
+    this.codeError.set(false);
 
     this.consentService.getConsentCode().subscribe({
       next: (code) => this.redirectToConsent(code),
@@ -116,15 +126,15 @@ export class LabMcpConsentPageComponent implements OnInit {
 
   /**
    * Deny: never call the backend. Leave the page; the pending authorization expires on its own and
-   * Claude reports that the login did not complete.
+   * the client reports that the login did not complete.
    */
   deny(): void {
     window.location.href = '/';
   }
 
-  retry(): void {
-    // Re-run the Allow handler: fetch a fresh code and redirect. The previous code (if any) expired.
-    this.allow();
+  /** Retry the failed details load (from the ERROR state). */
+  retryLoad(): void {
+    this.loadDetails();
   }
 
   private onConsentCodeError(error: FlServerError): void {
@@ -133,21 +143,23 @@ export class LabMcpConsentPageComponent implements OnInit {
       this.redirectToLogin();
       return;
     }
-    this.status.set('ERROR');
+    // Any other error: back to READY so the user can retry the Allow click with a fresh code.
+    this.status.set('READY');
+    this.codeError.set(true);
   }
 
   private redirectToConsent(code: string): void {
     // Full-page navigation (NOT XHR): the backend answers with a 302 the browser must follow.
     // login_state and code are the only things sent, and only to this API_URL endpoint.
     const url =
-      `${this.getApiBaseUrl()}/mcp-auth/consent` +
+      `${this.getApiBaseUrl()}/oauth-auth/consent` +
       `?login_state=${encodeURIComponent(this.loginState)}` +
       `&code=${encodeURIComponent(code)}`;
     window.location.href = url;
   }
 
   private redirectToLogin(): void {
-    const returnUrl = `/mcp-consent?login_state=${encodeURIComponent(this.loginState)}`;
+    const returnUrl = `/oauth-consent?login_state=${encodeURIComponent(this.loginState)}`;
     window.location.href = `/login?redirect_uri=${encodeURIComponent(returnUrl)}`;
   }
 
