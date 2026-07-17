@@ -23,10 +23,10 @@ import { LAB_DOCUMENTATION_ROUTES } from '../lab-documentation/lab-documentation
 import { LAB_FORM_ROUTES } from '../lab-form/lab-form-routes';
 import { LAB_FORM_TEMPLATE_ROUTES } from '../lab-form-template/lab-form-template-routes';
 import { LAB_LOGIN_ROUTES } from '../lab-login/lab-login-routes';
-import { LAB_MCP_CONSENT_ROUTES } from '../lab-mcp-consent/lab-mcp-consent-routes';
 import { LAB_MONITORING_ROUTES } from '../lab-monitoring/lab-monitoring-routes';
 import { LAB_NOTE_ROUTES } from '../lab-note/lab-note-routes';
 import { LAB_NOTE_TEMPLATE_ROUTES } from '../lab-note-template/lab-note-template-routes';
+import { LAB_OAUTH_CONSENT_ROUTES } from '../lab-oauth-consent/lab-oauth-consent-routes';
 import { LAB_OPEN_ROUTES } from '../lab-public-route/lab-public.routes';
 import { LAB_RESOURCE_ROUTES } from '../lab-resource/lab-resource-routes';
 import { LAB_SCENARIO_ROUTES } from '../lab-scenario/lab-scenario-routes';
@@ -140,10 +140,10 @@ export const LAB_MAIN_ROUTES: Routes = [
     children: LAB_OPEN_ROUTES,
   },
 
-  //////////////////////// MCP CONSENT  /////////////////////////
+  //////////////////////// OAUTH CONSENT  /////////////////////////
   // Top-level (like login): the page owns its own auth bounce and must keep login_state intact.
   {
-    path: 'mcp-consent',
-    children: LAB_MCP_CONSENT_ROUTES,
+    path: 'oauth-consent',
+    children: LAB_OAUTH_CONSENT_ROUTES,
   },
 ];

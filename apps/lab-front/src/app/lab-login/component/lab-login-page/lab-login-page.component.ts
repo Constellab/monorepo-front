@@ -36,11 +36,11 @@ export class LabLoginPageComponent implements OnInit {
    * Open-redirect guard. With the front-driven gateway design the redirect is entirely front-side
    * (the backend no longer issues it), so the front owns this guard. Only allow a same-origin,
    * path-only URL targeting a known front-owned auth-bounce entrypoint: the app gateway
-   * (`/open/app/...`) or the MCP consent page (`/mcp-consent`). Reject absolute URLs, other origins,
-   * protocol-relative (`//`), and backslash tricks.
+   * (`/open/app/...`) or the OAuth consent page (`/oauth-consent`). Reject absolute URLs, other
+   * origins, protocol-relative (`//`), and backslash tricks.
    */
   private static isSafeRedirectUri(uri: string): boolean {
-    const isAllowedPath = /^\/open\/app\//.test(uri) || /^\/mcp-consent(?:[/?]|$)/.test(uri);
+    const isAllowedPath = /^\/open\/app\//.test(uri) || /^\/oauth-consent(?:[/?]|$)/.test(uri);
     return isAllowedPath && !uri.startsWith('//') && !uri.includes('\\');
   }
 

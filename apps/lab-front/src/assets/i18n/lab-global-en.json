@@ -52,22 +52,24 @@
     "public": "Public",
     "error": "Error"
   },
-  "mcpConsent": {
-    "title": "Allow {{client}} to access this lab?",
-    "intro": "{{client}} is requesting access to this lab. It will be able to act as you against this lab's data. Review the details below before deciding.",
-    "detail_client": "Application",
+  "oauthConsent": {
+    "loading": "Loading authorization request…",
+    "title": "Authorize access to this lab?",
+    "client_claim": "A client calling itself “{{client}}” is requesting access.",
+    "client_id": "Client ID",
     "detail_lab": "Lab",
     "detail_access": "Access",
     "detail_as": "Acting as",
-    "access_value": "Run read-only SQL queries against this lab's databases.",
-    "this_lab": "This lab",
-    "allow": "Allow {{client}}",
+    "allow": "Allow",
     "deny": "Deny",
     "cancel": "Cancel",
     "retry": "Try again",
     "invalid_title": "Invalid authorization link",
-    "invalid_message": "This authorization link is invalid. Please start again from Claude Code.",
-    "error_title": "Authorization failed",
-    "error_message": "Could not authorize Claude Code right now. Please try again."
+    "invalid_message": "This authorization link is invalid. Please start again from your client.",
+    "expired_title": "Authorization request expired",
+    "expired_message": "This authorization request has expired. Please start again from your client.",
+    "load_error_title": "Could not load this authorization request",
+    "load_error_message": "Something went wrong loading this authorization request. Please try again.",
+    "code_error_message": "Could not authorize the client right now. Please try again."
   }
 }

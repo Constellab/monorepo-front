@@ -1,0 +1,99 @@
+<div class="container">
+  <div class="panel g-card-background">
+    @switch (status()) {
+      @case ('LOADING') {
+        <p>{{ 'oauthConsent.loading' | translate }}</p>
+      }
+
+      @case ('INVALID_LINK') {
+        <h1>{{ 'oauthConsent.invalid_title' | translate }}</h1>
+        <p>{{ 'oauthConsent.invalid_message' | translate }}</p>
+      }
+
+      @case ('EXPIRED') {
+        <h1>{{ 'oauthConsent.expired_title' | translate }}</h1>
+        <p>{{ 'oauthConsent.expired_message' | translate }}</p>
+      }
+
+      @case ('ERROR') {
+        <h1>{{ 'oauthConsent.load_error_title' | translate }}</h1>
+        <p>{{ 'oauthConsent.load_error_message' | translate }}</p>
+        <div class="actions">
+          <button mat-stroked-button type="button" (click)="deny()">
+            {{ 'oauthConsent.cancel' | translate }}
+          </button>
+          <button mat-flat-button type="button" class="primary" (click)="retryLoad()">
+            {{ 'oauthConsent.retry' | translate }}
+          </button>
+        </div>
+      }
+
+      @default {
+        <!-- READY / AUTHORIZING: the consent decision. All copy comes from details(), never hardcoded. -->
+        @if (details(); as d) {
+          <h1>{{ 'oauthConsent.title' | translate }}</h1>
+
+          <!--
+            client_name is ATTACKER-CONTROLLED: framed as an unverified claim and rendered via
+            interpolation (Angular escapes it). client_id is the only non-forgeable identifier.
+          -->
+          <p class="client-claim">
+            {{ 'oauthConsent.client_claim' | translate: { client: d.clientName } }}
+          </p>
+          <p class="client-id g-text-small">{{ 'oauthConsent.client_id' | translate }}: {{ d.clientId }}</p>
+
+          @if (d.warning) {
+            <div class="warning" role="alert">
+              {{ d.warning }}
+            </div>
+          }
+
+          <dl class="details">
+            <dt>{{ 'oauthConsent.detail_lab' | translate }}</dt>
+            <dd>{{ d.labUrl }}</dd>
+
+            <dt>{{ 'oauthConsent.detail_as' | translate }}</dt>
+            <dd>{{ d.userEmail }}</dd>
+
+            <dt>{{ 'oauthConsent.detail_access' | translate }}</dt>
+            <dd>
+              <div>{{ d.accessSummary }}</div>
+              @if (d.accessDetails?.length) {
+                <ul class="access-details">
+                  @for (item of d.accessDetails; track item) {
+                    <li>{{ item }}</li>
+                  }
+                </ul>
+              }
+            </dd>
+          </dl>
+
+          @if (codeError()) {
+            <p class="code-error warn-text" role="alert">
+              {{ 'oauthConsent.code_error_message' | translate }}
+            </p>
+          }
+
+          <div class="actions">
+            <button
+              mat-stroked-button
+              type="button"
+              class="warn"
+              [disabled]="status() === 'AUTHORIZING'"
+              (click)="deny()">
+              {{ 'oauthConsent.deny' | translate }}
+            </button>
+            <button
+              mat-flat-button
+              type="button"
+              class="primary"
+              [disabled]="status() === 'AUTHORIZING'"
+              (click)="allow()">
+              {{ 'oauthConsent.allow' | translate }}
+            </button>
+          </div>
+        }
+      }
+    }
+  </div>
+</div>
