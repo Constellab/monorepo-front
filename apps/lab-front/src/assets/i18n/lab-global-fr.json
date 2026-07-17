@@ -51,5 +51,23 @@
     "resource_type": "Type",
     "public": "Public",
     "error": "Erreur"
+  },
+  "mcpConsent": {
+    "title": "Autoriser {{client}} à accéder à ce lab ?",
+    "intro": "{{client}} demande l'accès à ce lab. L'application pourra agir en votre nom sur les données de ce lab. Vérifiez les détails ci-dessous avant de décider.",
+    "detail_client": "Application",
+    "detail_lab": "Lab",
+    "detail_access": "Accès",
+    "detail_as": "Agit en tant que",
+    "access_value": "Exécuter des requêtes SQL en lecture seule sur les bases de données de ce lab.",
+    "this_lab": "Ce lab",
+    "allow": "Autoriser {{client}}",
+    "deny": "Refuser",
+    "cancel": "Annuler",
+    "retry": "Réessayer",
+    "invalid_title": "Lien d'autorisation invalide",
+    "invalid_message": "Ce lien d'autorisation est invalide. Veuillez recommencer depuis Claude Code.",
+    "error_title": "Échec de l'autorisation",
+    "error_message": "Impossible d'autoriser Claude Code pour le moment. Veuillez réessayer."
   }
 }
