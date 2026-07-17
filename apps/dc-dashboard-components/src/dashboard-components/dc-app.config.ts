@@ -14,7 +14,7 @@ import { LuxonDateAdapter } from '@angular/material-luxon-adapter';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { provideRouter, Routes } from '@angular/router';
 import { CoCommunityLibModule } from '@monorepo/community-lib';
-import { ClSupportedLanguage } from '@monorepo/core-lib';
+import { ClSupportedLanguage, ClTheme } from '@monorepo/core-lib';
 import { FlApiModule } from '@monorepo/front-core-lib/fl-api';
 import {
   FL_LUXON_DATE_FORMAT,
@@ -60,6 +60,8 @@ export function dcAppConfig(baseHref: string, routes: Routes = []): ApplicationC
         BrowserAnimationsModule,
         FlThemeModule.forRoot({
           cssThemeFileLocation: baseHref,
+          // the DC app is embedded in Streamlit and always renders in the light theme
+          forcedTheme: ClTheme.LIGHT_THEME,
         }),
         FlIconModule.forRoot({
           iconFolder: baseHref + '/assets/fl-mat-icons/',

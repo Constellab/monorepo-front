@@ -18,6 +18,9 @@ import { FL_THEME_DETAIL_DARK, FL_THEME_DETAIL_LIGHT, FlThemeDetail } from './mo
 export interface FlThemeServiceConfig {
   // if not provided, default to ''
   cssThemeFileLocation: string;
+  // when set, the app always uses this theme and ignores the cookie / browser / caller values
+  // (e.g. the DC app embedded in Streamlit always renders light)
+  forcedTheme?: ClTheme;
 }
 
 export const FL_THEME_SERVICE_CONFIG = new InjectionToken<string>('FL_THEME_SERVICE_CONFIG');
@@ -58,9 +61,22 @@ export class FlThemeService {
   }
 
   /**
+   * Return the theme forced by the config, or null when the theme is left to the user.
+   */
+  private getForcedTheme(): ClTheme | null {
+    const forced = this.themeServiceConfig?.forcedTheme;
+    return forced && this.checkTheme(forced) ? forced : null;
+  }
+
+  /**
    * Return the current theme or the default
    */
   public getCurrentTheme(): ClTheme {
+    const forced = this.getForcedTheme();
+    if (forced) {
+      return forced;
+    }
+
     let theme = this.getCookieTheme();
 
     if (!this.checkTheme(theme)) {
@@ -101,6 +117,14 @@ export class FlThemeService {
    * change the current app theme and save it in the local storage
    */
   public changeTheme(theme: ClTheme): void {
+    // when a theme is forced by the config, ignore the requested theme and never persist it
+    // (so the forced app does not overwrite the user's theme cookie shared with other apps)
+    const forced = this.getForcedTheme();
+    if (forced) {
+      this.loadTheme(forced);
+      return;
+    }
+
     if (
       this.checkTheme(theme) &&
       (this.cookieService.getStringCookie(this.themeKey) != theme || theme !== this.getCurrentTheme())
