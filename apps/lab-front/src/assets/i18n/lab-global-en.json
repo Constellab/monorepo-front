@@ -51,5 +51,23 @@
     "resource_type": "Resource type",
     "public": "Public",
     "error": "Error"
+  },
+  "mcpConsent": {
+    "title": "Allow {{client}} to access this lab?",
+    "intro": "{{client}} is requesting access to this lab. It will be able to act as you against this lab's data. Review the details below before deciding.",
+    "detail_client": "Application",
+    "detail_lab": "Lab",
+    "detail_access": "Access",
+    "detail_as": "Acting as",
+    "access_value": "Run read-only SQL queries against this lab's databases.",
+    "this_lab": "This lab",
+    "allow": "Allow {{client}}",
+    "deny": "Deny",
+    "cancel": "Cancel",
+    "retry": "Try again",
+    "invalid_title": "Invalid authorization link",
+    "invalid_message": "This authorization link is invalid. Please start again from Claude Code.",
+    "error_title": "Authorization failed",
+    "error_message": "Could not authorize Claude Code right now. Please try again."
   }
 }
