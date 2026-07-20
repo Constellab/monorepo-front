@@ -4,38 +4,50 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Commands
 
+### Package Management
+
+This workspace uses **bun** (see `bun.lock`). Do NOT use `npm`, `yarn` or `pnpm`.
+
+- `bun install` - Install all dependencies
+- `bun add <pkg>` / `bun add -d <pkg>` - Add a runtime / dev dependency
+- `bun remove <pkg>` - Remove a dependency
+- `bunx nx add @nx/<plugin>` - Add an Nx plugin (installs **and** runs its init/config — never plain `bun add` for a plugin)
+
+There is a single `package.json` at the root: always install from the workspace root, never from `apps/*` or `libs/*`.
+
 ### Development
 
-- `nx serve <app>` - Serve application (development mode with hot reload)
-- `nx build <app>` - Build application for development
-- `nx build <app> --prod` - Build application for production
-- `npm run <app>:serve` - Pre-configured serve command for specific apps
-- `npm run <app>:build-prod` - Pre-configured production build for specific apps
+- `bunx nx serve <app>` - Serve application (development mode with hot reload)
+- `bunx nx build <app>` - Build application for development
+- `bunx nx build <app> --prod` - Build application for production
+- `bun run <app>:serve` - Pre-configured serve command for specific apps
+- `bun run <app>:build-prod` - Pre-configured production build for specific apps
 
 Common apps: `ca-space-front`, `lab-front`, `ha-community-front`, `lab-manager-standalone`, `dc-dashboard-components`
 
 ### Testing
 
-- `nx test <project>` - Run tests for a specific project
-- `nx test <project> --watch` - Run tests in watch mode
-- `nx affected:test` - Run tests for all affected projects
-- `nx e2e <app>-e2e` - Run end-to-end tests for an app
+- `bunx nx test <project>` - Run tests for a specific project
+- `bunx nx test <project> --watch` - Run tests in watch mode
+- `bunx nx affected:test` - Run tests for all affected projects
+- `bunx nx e2e <app>-e2e` - Run end-to-end tests for an app
 
 ### Code Quality
 
-- `nx lint` - Run linting across the workspace
-- `nx lint <project>` - Lint a specific project
-- `nx affected:lint` - Lint all affected projects
-- `npm run format` - Format all files with Prettier
-- `npm run format:check` - Check formatting without writing changes
+- `bunx nx lint` - Run linting across the workspace
+- `bunx nx lint <project>` - Lint a specific project
+- `bunx nx affected:lint` - Lint all affected projects
+- `bun run format` - Format all files with Prettier
+- `bun run format:check` - Check formatting without writing changes
 
 Pre-commit hooks automatically run `lint-staged`, which formats and lints staged files.
 
 ### NX Utilities
 
-- `nx dep-graph` - View the dependency graph of the monorepo
-- `nx affected:apps` - Show affected applications
-- `nx affected:libs` - Show affected libraries
+- `bunx nx dep-graph` - View the dependency graph of the monorepo
+- `bunx nx affected:apps` - Show affected applications
+- `bunx nx affected:libs` - Show affected libraries
+- `bunx nx reset` - Clear the Nx cache and daemon state (use when the project graph looks stale)
 
 ## Architecture
 
@@ -98,12 +110,13 @@ these before working on product features or documentation; keep them in sync whe
   folders & hierarchy (root vs sub), sharing, chat, notifications, space management, labs.
 
 The three environments at a glance:
+
 - **Data lab** — where data and pipelines are managed (cloud or on-premise, managed by the Space);
   generates scenarios, resources, notes, applications. A **Datahub** is a special always-running
   lab for long-term storage / hosting apps / S3 storage of space documents.
-- **Space** — project management, sharing and organisation; *organise / consult / share / govern*
+- **Space** — project management, sharing and organisation; _organise / consult / share / govern_
   objects from the Data lab. Every space object (including its labs) belongs to exactly one space.
-- **Community** — a public website to *publish / discover* (bricks, stories, agents, partners).
+- **Community** — a public website to _publish / discover_ (bricks, stories, agents, partners).
 
 ## Code Style
 
@@ -159,7 +172,7 @@ The three environments at a glance:
 
 - For navigating/exploring the workspace, invoke the `nx-workspace` skill first - it has patterns for querying projects, targets, and dependencies
 - When running tasks (for example build, lint, test, e2e, etc.), always prefer running the task through `nx` (i.e. `nx run`, `nx run-many`, `nx affected`) instead of using the underlying tooling directly
-- Prefix nx commands with the workspace's package manager (e.g., `pnpm nx build`, `npm exec nx test`) - avoids using globally installed CLI
+- Prefix nx commands with the workspace's package manager (`bunx nx build`, `bunx nx test`) - avoids using globally installed CLI
 - You have access to the Nx MCP server and its tools, use them to help the user
 - For Nx plugin best practices, check `node_modules/@nx/<plugin>/PLUGIN.md`. Not all plugins have this file - proceed without it if unavailable.
 - NEVER guess CLI flags - always check nx_docs or `--help` first when unsure
