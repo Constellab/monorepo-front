@@ -134,64 +134,6 @@
     "test": {
       "executor": "@angular/build:unit-test",
       "options": {}
-    },
-    "server": {
-      "executor": "@angular-devkit/build-angular:server",
-      "options": {
-        "outputPath": "dist/apps/ha-community-front/server",
-        "main": "apps/ha-community-front/server.ts",
-        "tsConfig": "apps/ha-community-front/tsconfig.server.json"
-      },
-      "configurations": {
-        "production": {
-          "outputHashing": "media",
-          "fileReplacements": [
-            {
-              "replace": "apps/ha-community-front/src/environments/ha-environment.ts",
-              "with": "apps/ha-community-front/src/environments/ha-environment.prod.ts"
-            }
-          ]
-        },
-        "development": {
-          "optimization": false,
-          "sourceMap": true,
-          "extractLicenses": false,
-          "buildOptimizer": false
-        }
-      },
-      "defaultConfiguration": "production"
-    },
-    "serve-ssr": {
-      "executor": "@angular-devkit/build-angular:ssr-dev-server",
-      "configurations": {
-        "development": {
-          "browserTarget": "ha-community-front:build:development",
-          "serverTarget": "ha-community-front:server:development"
-        },
-        "production": {
-          "browserTarget": "ha-community-front:build:production",
-          "serverTarget": "ha-community-front:server:production"
-        }
-      },
-      "defaultConfiguration": "development",
-      "continuous": true
-    },
-    "prerender": {
-      "executor": "@angular-devkit/build-angular:prerender",
-      "options": {
-        "routes": ["/"]
-      },
-      "configurations": {
-        "development": {
-          "browserTarget": "ha-community-front:build:development",
-          "serverTarget": "ha-community-front:server:development"
-        },
-        "production": {
-          "browserTarget": "ha-community-front:build:production",
-          "serverTarget": "ha-community-front:server:production"
-        }
-      },
-      "defaultConfiguration": "production"
     }
   }
 }

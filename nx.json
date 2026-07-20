@@ -14,14 +14,6 @@
       "inputs": ["default", "^production"],
       "cache": true
     },
-    "server": {
-      "cache": true
-    },
-    "@angular-devkit/build-angular:application": {
-      "cache": true,
-      "dependsOn": ["^build"],
-      "inputs": ["production", "^production"]
-    },
     "@angular/build:unit-test": {
       "cache": true,
       "inputs": ["default", "^production"]
