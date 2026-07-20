@@ -4,24 +4,14 @@
   "projectType": "library",
   "sourceRoot": "libs/front-core-lib/src",
   "prefix": "fl",
-  "tags": [
-    "front"
-  ],
+  "tags": ["front"],
   "targets": {
     "lint": {
-      "executor": "@nrwl/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/front-core-lib/src/**/*.ts",
-          "libs/front-core-lib/src/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     },
     "test": {
       "executor": "@nx/vitest:test",
-      "outputs": [
-        "{options.reportsDirectory}"
-      ],
+      "outputs": ["{options.reportsDirectory}"],
       "options": {
         "reportsDirectory": "{projectRoot}/../../coverage/libs/front-core-lib"
       }

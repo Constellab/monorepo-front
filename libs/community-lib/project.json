@@ -4,27 +4,17 @@
   "projectType": "library",
   "sourceRoot": "libs/community-lib/src",
   "prefix": "co",
-  "tags": [
-    "front"
-  ],
+  "tags": ["front"],
   "targets": {
     "test": {
       "executor": "@nx/vitest:test",
-      "outputs": [
-        "{options.reportsDirectory}"
-      ],
+      "outputs": ["{options.reportsDirectory}"],
       "options": {
         "reportsDirectory": "{projectRoot}/../../coverage/libs/community-lib"
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/community-lib/src/**/*.ts",
-          "libs/community-lib/src/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   }
 }
