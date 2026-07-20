@@ -1,4 +1,4 @@
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi, withXhr } from '@angular/common/http';
 import {
   importProvidersFrom,
   inject,
@@ -27,7 +27,7 @@ import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
 import { FlPortalActionsModule } from '@monorepo/front-core-lib/fl-portal-actions';
 import { FlSnackBarModule } from '@monorepo/front-core-lib/fl-snack-bar';
-import { FL_ICONS_DEFAULT,FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FL_ICONS_DEFAULT, FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
 import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
@@ -95,7 +95,7 @@ function bootstrapApp(): void {
       { provide: DateAdapter, useClass: LuxonDateAdapter },
       { provide: MAT_DATE_FORMATS, useValue: FL_LUXON_DATE_FORMAT },
       { provide: LmlBrickService, useClass: LmsLabManagerBrickService },
-      provideHttpClient(withInterceptorsFromDi()),
+      provideHttpClient(withXhr(), withInterceptorsFromDi()),
       provideAnimations(),
       provideRouter(
         LMS_APP_ROUTES,

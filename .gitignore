@@ -60,3 +60,5 @@ vitest.config.*.timestamp*
 .claude/worktrees
 .nx/self-healing
 __screenshots__/
+
+.nx/migrate-runs

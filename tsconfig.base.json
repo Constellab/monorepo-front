@@ -136,7 +136,11 @@
       "@monorepo/spreadsheet": ["./libs/spreadsheet/src/index.ts"],
       "@monorepo/technical-doc": ["./libs/technical-doc/src/index.ts"],
       "@monorepo/text-editor": ["./libs/text-editor/src/index.ts"]
-    }
+    },
+    "noUncheckedSideEffectImports": false,
+    "types": ["*"],
+    "esModuleInterop": false,
+    "ignoreDeprecations": "6.0"
   },
   "exclude": ["node_modules", "tmp", "dist", ".angular", ".nx", ".idea", ".vscode", ".claude", ".github"]
 }

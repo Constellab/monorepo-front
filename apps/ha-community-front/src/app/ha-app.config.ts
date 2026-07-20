@@ -21,6 +21,7 @@ import {
   BrowserModule,
   provideClientHydration,
   withHttpTransferCacheOptions,
+  withNoIncrementalHydration,
 } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import {
@@ -107,7 +108,8 @@ export const haAppConfig: ApplicationConfig = {
     provideClientHydration(
       withHttpTransferCacheOptions({
         includePostRequests: true,
-      })
+      }),
+      withNoIncrementalHydration()
     ),
     importProvidersFrom(
       BrowserModule,

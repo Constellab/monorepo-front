@@ -1,4 +1,4 @@
-import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi, withXhr } from '@angular/common/http';
 import {
   ApplicationConfig,
   importProvidersFrom,
@@ -84,7 +84,7 @@ export function dcAppConfig(baseHref: string, routes: Routes = []): ApplicationC
         TdTechnicalDocModule.forRoot(LiTdServiceConfig),
         CoCommunityLibModule.forRoot(DcCoServiceConfig)
       ),
-      provideHttpClient(withInterceptorsFromDi()),
+      provideHttpClient(withXhr(), withInterceptorsFromDi()),
       provideRouter(routes),
       provideAppInitializer(() => loadThemeOnInit(inject(FlThemeService))),
       provideAppInitializer(() => initRootInjector(inject(Injector))),
