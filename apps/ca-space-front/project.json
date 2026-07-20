@@ -7,7 +7,7 @@
   "tags": ["front"],
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:application",
+      "executor": "@angular/build:application",
       "options": {
         "outputPath": "dist/apps/ca-space-front",
         "index": "apps/ca-space-front/src/index.html",
@@ -105,7 +105,7 @@
       }
     },
     "serve": {
-      "executor": "@angular-devkit/build-angular:dev-server",
+      "executor": "@angular/build:dev-server",
       "options": {
         "buildTarget": "ca-space-front:build"
       },
@@ -121,7 +121,7 @@
       "continuous": true
     },
     "extract-i18n": {
-      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "executor": "@angular/build:extract-i18n",
       "options": {
         "buildTarget": "ca-space-front:build"
       }
