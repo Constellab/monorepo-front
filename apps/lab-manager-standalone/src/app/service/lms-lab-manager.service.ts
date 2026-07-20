@@ -8,6 +8,7 @@ import {
   LmlComposeRestartOptions,
   LmlComposeUniqueId,
   LmlComposeUpOptions,
+  LmlCustomEnvVariablesDTO,
   LmlDockerContainerSize,
   LmlDockerErrorLogs,
   LmlDockerInspect,
@@ -17,6 +18,7 @@ import {
   LmlLabManagerMigrationPlanDTO,
   LmlLabManagerService,
   LmlLabManagerStatus,
+  LmlMcpConfigDTO,
   LmlSubComposeStatus,
 } from '@monorepo/lab-manager-lib';
 import { Observable, tap } from 'rxjs';
@@ -69,6 +71,22 @@ export class LmsLabManagerService extends LmlLabManagerService {
 
   updateConfig(config: LmlLabManagerConfig): Observable<void> {
     return this.labService.updateConfig(config);
+  }
+
+  getMcpConfig(): Observable<LmlMcpConfigDTO> {
+    return this.labService.getMcpConfig();
+  }
+
+  updateMcpConfig(config: LmlMcpConfigDTO): Observable<void> {
+    return this.labService.updateMcpConfig(config);
+  }
+
+  getCustomEnvVariables(): Observable<LmlCustomEnvVariablesDTO> {
+    return this.labService.getCustomEnvVariables();
+  }
+
+  updateCustomEnvVariables(dto: LmlCustomEnvVariablesDTO): Observable<void> {
+    return this.labService.updateCustomEnvVariables(dto);
   }
 
   updateLabManager(migrationPlan: LmlLabManagerMigrationPlanDTO): void {

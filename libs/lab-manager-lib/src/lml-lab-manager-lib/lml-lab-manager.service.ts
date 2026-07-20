@@ -7,6 +7,7 @@ import {
   LmlComposeRestartOptions,
   LmlComposeUniqueId,
   LmlComposeUpOptions,
+  LmlCustomEnvVariablesDTO,
   LmlDockerContainerSize,
   LmlDockerErrorLogs,
   LmlDockerInspect,
@@ -14,6 +15,7 @@ import {
   LmlDockerPsFull,
   LmlLabManagerConfig,
   LmlLabManagerStatus,
+  LmlMcpConfigDTO,
   LmlSubComposeStatus,
 } from './model/lml-lab-manager.class';
 import { LmlLabManagerMigrationPlanDTO } from './model/lml-migration.class';
@@ -49,6 +51,16 @@ export abstract class LmlLabManagerService {
   abstract updateConfig(config: LmlLabManagerConfig): Observable<void>;
 
   abstract updateLabManager(migrationPlan: LmlLabManagerMigrationPlanDTO): void;
+
+  ////////////////////////////////////// MCP / CUSTOM ENV //////////////////////////////////////
+
+  abstract getMcpConfig(): Observable<LmlMcpConfigDTO>;
+
+  abstract updateMcpConfig(config: LmlMcpConfigDTO): Observable<void>;
+
+  abstract getCustomEnvVariables(): Observable<LmlCustomEnvVariablesDTO>;
+
+  abstract updateCustomEnvVariables(dto: LmlCustomEnvVariablesDTO): Observable<void>;
 
   ////////////////////////////////////// COMPOSE //////////////////////////////////////
 

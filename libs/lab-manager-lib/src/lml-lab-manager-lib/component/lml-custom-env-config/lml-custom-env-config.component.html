@@ -1,0 +1,85 @@
+<fl-card>
+  <fl-card-header>
+    <fl-text-icon>
+      <mat-icon>data_object</mat-icon>
+      <h2>{{ 'lml.custom_env' | translate }}</h2>
+    </fl-text-icon>
+
+    <fl-card-actions>
+      <button mat-stroked-button type="button" class="g-button-small" (click)="openEnvVarForm()">
+        <mat-icon>add</mat-icon>
+        {{ 'lml.custom_env_add' | translate }}
+      </button>
+    </fl-card-actions>
+  </fl-card-header>
+
+  <fl-card-body>
+    <p class="help-text g-text-light">{{ 'lml.custom_env_help' | translate }}</p>
+
+    @if (!getIsLoading) {
+      @if (variables.isEmpty()) {
+        <p class="g-text-light">{{ 'lml.custom_env_empty' | translate }}</p>
+      } @else {
+        <mat-table [dataSource]="variables">
+          <!-- Key -->
+          <ng-container matColumnDef="key">
+            <mat-header-cell *matHeaderCellDef>{{ 'lml.custom_env_key' | translate }}</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{ row.key }}</mat-cell>
+          </ng-container>
+
+          <!-- Value -->
+          <ng-container matColumnDef="value">
+            <mat-header-cell *matHeaderCellDef>{{ 'lml.custom_env_value' | translate }}</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{ row.value }}</mat-cell>
+          </ng-container>
+
+          <!-- Actions -->
+          <ng-container matColumnDef="actions">
+            <mat-header-cell *matHeaderCellDef></mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <div class="g-layout-row g-layout-end-center actions">
+                <button
+                  mat-icon-button
+                  type="button"
+                  class="g-button-icon-small"
+                  (click)="openEnvVarForm(row)"
+                  [matTooltip]="'lml.custom_env_edit' | translate">
+                  <mat-icon>edit</mat-icon>
+                </button>
+
+                <button
+                  mat-icon-button
+                  type="button"
+                  class="g-button-icon-small"
+                  (click)="openDeleteConfirmDialog(row)"
+                  [matTooltip]="'lml.custom_env_remove' | translate">
+                  <mat-icon>clear</mat-icon>
+                </button>
+              </div>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: columns"></mat-row>
+        </mat-table>
+      }
+
+      @if (configHasChanged) {
+        <p class="help-text g-warn-text">{{ 'lml.custom_env_changed' | translate }}</p>
+      }
+
+      <button
+        mat-flat-button
+        type="button"
+        (click)="saveConfig()"
+        [disabled]="!configHasChanged"
+        class="g-centered-forced save-button primary">
+        <mat-icon>save</mat-icon>
+        {{ 'lml.save' | translate }}
+        @if (saveIsLoading) {
+          <fl-button-loader></fl-button-loader>
+        }
+      </button>
+    }
+  </fl-card-body>
+</fl-card>

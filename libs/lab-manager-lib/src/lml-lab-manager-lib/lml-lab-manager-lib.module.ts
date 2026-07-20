@@ -12,6 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSortHeader } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -39,6 +40,8 @@ import { LmlBricksConfigFormComponent } from './component/lml-bricks-config-form
 import { LmlCleanLabManagerFormDialogComponent } from './component/lml-clean-lab-manager-form-dialog/lml-clean-lab-manager-form-dialog.component';
 import { LmlComposeDetailDialogComponent } from './component/lml-compose-detail-dialog/lml-compose-detail-dialog.component';
 import { LmlConfigureBrickComponent } from './component/lml-configure-brick/lml-configure-brick.component';
+import { LmlConfigureEnvVarDialogComponent } from './component/lml-configure-env-var-dialog/lml-configure-env-var-dialog.component';
+import { LmlCustomEnvConfigComponent } from './component/lml-custom-env-config/lml-custom-env-config.component';
 import { LmlDockerContainerDetailsComponent } from './component/lml-docker-container-details/lml-docker-container-details.component';
 import { LmlDockerContainerErrorDialogComponent } from './component/lml-docker-container-error-dialog/lml-docker-container-error-dialog.component';
 import { LmlDockerContainerLogsDialogComponent } from './component/lml-docker-container-logs-dialog/lml-docker-container-logs-dialog.component';
@@ -49,6 +52,7 @@ import { LmlManagerComponent } from './component/lml-manager/lml-manager.compone
 import { LmlManagerAdvancedComponent } from './component/lml-manager-advanced/lml-manager-advanced.component';
 import { LmlManagerConfigComponent } from './component/lml-manager-config/lml-manager-config.component';
 import { LmlManagerStatusComponent } from './component/lml-manager-status/lml-manager-status.component';
+import { LmlMcpConfigComponent } from './component/lml-mcp-config/lml-mcp-config.component';
 import { LmlMigrationPlanComponent } from './component/lml-migration-plan/lml-migration-plan.component';
 import { LML_LAB_MANAGER_I18N } from './lml-lab-manager.i18n';
 import { LmlCommunityBrickImagePipe } from './pipe/lml-community-brick-image.pipe';
@@ -65,6 +69,9 @@ import { LmlCommunityBrickImagePipe } from './pipe/lml-community-brick-image.pip
     LmlManagerStatusComponent,
     LmlManagerComponent,
     LmlManagerConfigComponent,
+    LmlMcpConfigComponent,
+    LmlCustomEnvConfigComponent,
+    LmlConfigureEnvVarDialogComponent,
     LmlBricksConfigFormComponent,
     LmlBrickVersionDetailComponent,
     LmlBrickVersionDetailDialogComponent,
@@ -100,6 +107,7 @@ import { LmlCommunityBrickImagePipe } from './pipe/lml-community-brick-image.pip
     MatInputModule,
     MatChipsModule,
     MatSelectModule,
+    MatSlideToggleModule,
     MatTableModule,
 
     FlDialogModule,

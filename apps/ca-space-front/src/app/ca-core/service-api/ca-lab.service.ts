@@ -11,6 +11,7 @@ import {
   LmlComposeList,
   LmlComposeRestartOptions,
   LmlComposeUpOptions,
+  LmlCustomEnvVariablesDTO,
   LmlDockerContainerSize,
   LmlDockerErrorLogs,
   LmlDockerInspect,
@@ -19,6 +20,7 @@ import {
   LmlLabManagerConfig,
   LmlLabManagerMigrationPlanDTO,
   LmlLabManagerStatus,
+  LmlMcpConfigDTO,
   LmlSubComposeStatus,
 } from '@monorepo/lab-manager-lib';
 import { Observable, tap } from 'rxjs';
@@ -280,6 +282,24 @@ export class CaLabService {
       `${this.route}/${id}/lab-manager/migration-plan/${targetVersion}`,
       LmlLabManagerMigrationPlanDTO
     );
+  }
+
+  ////////////////////////////////////// MCP / CUSTOM ENV //////////////////////////////////////
+
+  public getMcpConfig(id: string): Observable<LmlMcpConfigDTO> {
+    return this.apiService.get(`${this.route}/${id}/mcp-config`, LmlMcpConfigDTO);
+  }
+
+  public setMcpConfig(id: string, config: LmlMcpConfigDTO): Observable<void> {
+    return this.apiService.put(`${this.route}/${id}/mcp-config`, config);
+  }
+
+  public getCustomEnvVariables(id: string): Observable<LmlCustomEnvVariablesDTO> {
+    return this.apiService.get(`${this.route}/${id}/custom-env-variable`, LmlCustomEnvVariablesDTO);
+  }
+
+  public setCustomEnvVariables(id: string, dto: LmlCustomEnvVariablesDTO): Observable<void> {
+    return this.apiService.put(`${this.route}/${id}/custom-env-variable`, dto);
   }
 
   ////////////////////////////////////// COMPOSE //////////////////////////////////////

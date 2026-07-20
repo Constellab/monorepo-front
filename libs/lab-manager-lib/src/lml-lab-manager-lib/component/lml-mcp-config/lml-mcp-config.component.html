@@ -1,0 +1,32 @@
+<fl-card>
+  <fl-card-header>
+    <fl-text-icon>
+      <mat-icon>hub</mat-icon>
+      <h2>{{ 'lml.mcp_server' | translate }}</h2>
+    </fl-text-icon>
+  </fl-card-header>
+
+  <fl-card-body>
+    <p class="help-text g-text-light">{{ 'lml.mcp_server_help' | translate }}</p>
+
+    @if (!getIsLoading()) {
+      <div class="g-layout-row g-layout-start-center g-layout-gap-1em">
+        <mat-slide-toggle
+          [ngModel]="enabled()"
+          (ngModelChange)="onToggle($event)"
+          [disabled]="saveIsLoading()">
+          {{ 'lml.mcp_server_enable' | translate }}
+        </mat-slide-toggle>
+
+        @if (saveIsLoading()) {
+          <fl-button-loader size="small"></fl-button-loader>
+        }
+      </div>
+
+      <p class="g-text-small g-text-light restart-hint">
+        <mat-icon class="g-text-small">info</mat-icon>
+        {{ 'lml.mcp_server_restart_hint' | translate }}
+      </p>
+    }
+  </fl-card-body>
+</fl-card>

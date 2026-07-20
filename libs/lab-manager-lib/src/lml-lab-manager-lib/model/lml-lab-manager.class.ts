@@ -150,6 +150,54 @@ export class LmlLabManagerConfig {
   brickVersions: LmlLabManagerBrickVersionDTO[];
 }
 
+///////////////////////////// MCP / CUSTOM ENV /////////////////////////////
+
+export class LmlMcpConfigDTO {
+  enabled: boolean;
+}
+
+export class LmlCustomEnvVariablesDTO {
+  variables: Record<string, string>;
+}
+
+/**
+ * One editable custom env var row (the map is edited as a list of key/value pairs,
+ * the same way bricks are edited as a list -- see LmlBrickVersionDTODatasource).
+ */
+export class LmlCustomEnvVariableDTO {
+  key: string;
+  value: string;
+}
+
+export class LmlCustomEnvVarDatasource extends FlArrayObs<LmlCustomEnvVariableDTO> {
+  protected equals(a: LmlCustomEnvVariableDTO, b: LmlCustomEnvVariableDTO): boolean {
+    return a.key === b.key;
+  }
+
+  /**
+   * Build the editable list from the raw map, dropping the MCP flag (edited by its
+   * own toggle) so it never appears as a raw, doubly-editable row.
+   */
+  public static fromDto(dto: LmlCustomEnvVariablesDTO): LmlCustomEnvVariableDTO[] {
+    return Object.entries(dto?.variables ?? {}).map(([key, value]) => ({ key, value }));
+  }
+
+  /**
+   * Convert the edited list back to the map. Sends the full current list: the backend
+   * replaces the whole namespace, so a row removed here is removed there. The MCP flag
+   * is never in this list (dropped in fromDto) and is preserved by the backend.
+   */
+  public toDto(): LmlCustomEnvVariablesDTO {
+    const variables: Record<string, string> = {};
+    for (const item of this.array) {
+      if (item.key) {
+        variables[item.key] = item.value ?? '';
+      }
+    }
+    return { variables };
+  }
+}
+
 export interface LmlAdminerDbInfo {
   host: string;
   username: string;

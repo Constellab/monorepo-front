@@ -79,6 +79,30 @@ const lmlLabManagerI18nFr: FlLangTranslation = {
     adminer_password: 'Password',
     lab_cloud_config_updated:
       'Configuration sauvegardée. Vous devez redémarrer le lab pour que les changements soient appliqués',
+    mcp_server: 'Serveur MCP',
+    mcp_server_help:
+      'Le serveur MCP expose les fonctionnalités du data lab à des clients externes (comme Claude). Désactivé par défaut.',
+    mcp_server_enable: 'Activer le serveur MCP',
+    mcp_server_restart_hint: 'Redémarrez le data lab pour appliquer ce changement.',
+    mcp_config_updated:
+      'Configuration MCP sauvegardée. Redémarrez le data lab pour appliquer les changements.',
+    custom_env: "Variables d'environnement personnalisées",
+    custom_env_help:
+      "Variables d'environnement supplémentaires transmises au data lab. Redémarrez le data lab pour appliquer les changements.",
+    custom_env_empty: "Aucune variable d'environnement personnalisée.",
+    custom_env_add: 'Ajouter une variable',
+    custom_env_edit: 'Modifier la variable',
+    custom_env_remove: 'Supprimer la variable',
+    custom_env_remove_confirmation: 'Voulez-vous vraiment supprimer cette variable ?',
+    custom_env_key: 'Clé',
+    custom_env_value: 'Valeur',
+    custom_env_key_invalid:
+      'La clé doit commencer par une lettre ou un underscore et ne contenir que lettres, chiffres et underscores.',
+    custom_env_already_exists: 'La variable "{{key}}" existe déjà.',
+    custom_env_changed:
+      'Variables modifiées, veuillez cliquer sur "Sauvegarder" pour enregistrer les changements.',
+    custom_env_updated:
+      "Variables d'environnement sauvegardées. Redémarrez le data lab pour appliquer les changements.",
     brick: 'Brique',
     brick_version: 'Version de la brique',
     brick_repo_type: 'Type de repository',
@@ -246,6 +270,27 @@ const lmlLabManagerI18nEn: FlLangTranslation = {
     adminer_user: 'User name',
     adminer_password: 'Password',
     lab_cloud_config_updated: 'Config saved. You need to restart the lab to apply changes',
+    mcp_server: 'MCP server',
+    mcp_server_help:
+      'The MCP server exposes the data lab to external clients (such as Claude). Disabled by default.',
+    mcp_server_enable: 'Enable MCP server',
+    mcp_server_restart_hint: 'Restart the data lab to apply this change.',
+    mcp_config_updated: 'MCP config saved. Restart the data lab to apply the changes.',
+    custom_env: 'Custom environment variables',
+    custom_env_help:
+      'Extra environment variables passed to the data lab. Restart the data lab to apply the changes.',
+    custom_env_empty: 'No custom environment variables.',
+    custom_env_add: 'Add variable',
+    custom_env_edit: 'Edit variable',
+    custom_env_remove: 'Remove variable',
+    custom_env_remove_confirmation: 'Are you sure you want to remove this variable?',
+    custom_env_key: 'Key',
+    custom_env_value: 'Value',
+    custom_env_key_invalid:
+      'The key must start with a letter or underscore and contain only letters, digits and underscores.',
+    custom_env_already_exists: 'The variable "{{key}}" already exists.',
+    custom_env_changed: 'Variables changed, please click "Save" to persist the changes.',
+    custom_env_updated: 'Environment variables saved. Restart the data lab to apply the changes.',
     brick: 'Brick',
     brick_version: 'Brick version',
     brick_repo_type: 'Repo type',

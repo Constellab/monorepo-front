@@ -7,6 +7,7 @@ import {
   LmlComposeList,
   LmlComposeRestartOptions,
   LmlComposeUpOptions,
+  LmlCustomEnvVariablesDTO,
   LmlDockerContainerSize,
   LmlDockerErrorLogs,
   LmlDockerInspect,
@@ -15,6 +16,7 @@ import {
   LmlLabManagerConfig,
   LmlLabManagerMigrationPlanDTO,
   LmlLabManagerStatus,
+  LmlMcpConfigDTO,
   LmlSubComposeStatus,
 } from '@monorepo/lab-manager-lib';
 import { map, Observable } from 'rxjs';
@@ -70,6 +72,22 @@ export class LmsLabService {
 
   updateConfig(config: LmlLabManagerConfig): Observable<void> {
     return this.apiService.put(`${this.labRoute}/bricks-config`, config);
+  }
+
+  getMcpConfig(): Observable<LmlMcpConfigDTO> {
+    return this.apiService.get(`${this.labRoute}/mcp-config`, LmlMcpConfigDTO);
+  }
+
+  updateMcpConfig(config: LmlMcpConfigDTO): Observable<void> {
+    return this.apiService.put(`${this.labRoute}/mcp-config`, config);
+  }
+
+  getCustomEnvVariables(): Observable<LmlCustomEnvVariablesDTO> {
+    return this.apiService.get(`${this.labRoute}/custom-env-variable`, LmlCustomEnvVariablesDTO);
+  }
+
+  updateCustomEnvVariables(dto: LmlCustomEnvVariablesDTO): Observable<void> {
+    return this.apiService.put(`${this.labRoute}/custom-env-variable`, dto);
   }
 
   getVersionUpgradeInfo(): Observable<LmlLabManagerMigrationPlanDTO> {
