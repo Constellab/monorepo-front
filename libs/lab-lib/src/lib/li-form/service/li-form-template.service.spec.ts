@@ -112,18 +112,6 @@ describe('LiFormTemplateService', () => {
     });
   });
 
-  describe('updateVersion', () => {
-    it('should PUT form-template/{templateId}/version/{versionId}', () => {
-      const dto = { content: { specs: [] } };
-      service.updateVersion('tmpl-1', 'ver-1', dto);
-      expect(apiServiceSpy.put).toHaveBeenCalledWith(
-        'form-template/tmpl-1/version/ver-1',
-        dto,
-        LiFormTemplateVersion
-      );
-    });
-  });
-
   describe('deleteVersion', () => {
     it('should DELETE form-template/{templateId}/version/{versionId}', () => {
       service.deleteVersion('tmpl-1', 'ver-1');

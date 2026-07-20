@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { TeBlockType } from './te-block.class';
 import { TeHTMLEditorJSON, TeRichText } from './te-rich-text.class';
 import {
@@ -29,7 +30,7 @@ describe('TeRichTextAggregate', () => {
   let mockGetUser: TeRichTextGetUserFunction;
 
   beforeEach(() => {
-    mockGetUser = jest.fn().mockResolvedValue(mockUser);
+    mockGetUser = vi.fn().mockResolvedValue(mockUser);
   });
 
   describe('constructor', () => {
