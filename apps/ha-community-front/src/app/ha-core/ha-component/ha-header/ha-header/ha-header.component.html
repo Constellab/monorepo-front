@@ -123,13 +123,15 @@
 </mat-menu>
 
 <mat-menu #loggedInMenu>
-  <a
-    mat-menu-item
-    [routerLink]="profileRoute + '/' + currentUser().id"
-    [attr.aria-label]="'go_to_profile' | translate">
-    <mat-icon>person</mat-icon>
-    {{ 'profile' | translate }}
-  </a>
+  @if (currentUser(); as user) {
+    <a
+      mat-menu-item
+      [routerLink]="profileRoute + '/' + user.id"
+      [attr.aria-label]="'go_to_profile' | translate">
+      <mat-icon>person</mat-icon>
+      {{ 'profile' | translate }}
+    </a>
+  }
   <a
     mat-menu-item
     [routerLink]="adminRoute"
