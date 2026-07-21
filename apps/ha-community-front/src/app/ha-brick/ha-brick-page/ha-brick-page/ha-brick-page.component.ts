@@ -1,5 +1,15 @@
 import { NgClass } from '@angular/common';
-import { ChangeDetectionStrategy,Component, computed, DOCUMENT, effect, inject, OnDestroy, OnInit, Signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  DOCUMENT,
+  effect,
+  inject,
+  OnDestroy,
+  OnInit,
+  Signal,
+} from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
@@ -131,7 +141,7 @@ export class HaBrickPageComponent implements OnInit, OnDestroy {
     node.pipRepo = this.brick().pipRepo;
     node.visibility = this.brick().visibility;
     node.credentialUsername = this.brick().credentialUsername;
-    node.credentialPassword = this.brick().credentialPassword;
+    node.hasCredentialPassword = this.brick().hasCredentialPassword;
     node.space = this.brick().space;
     node.imageLink = this.brick().imageLink;
 

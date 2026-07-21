@@ -42,10 +42,7 @@
           {{ 'public' | translate }}
         </mat-radio-button>
         @for (space of spaces; track space.id) {
-          <mat-radio-button
-            [value]="space"
-            class="radio-bt"
-            [checked]="formGp.value.space?.id === space?.id">
+          <mat-radio-button [value]="space" class="radio-bt" [checked]="formGp.value.space?.id === space?.id">
             {{ space.name }}
           </mat-radio-button>
         }
@@ -76,14 +73,16 @@
         placeholder="{{ 'repo_credentials_username' | translate }}" />
     </mat-form-field>
 
-    <!--  Repo credentials password  -->
+    <!--  Repo credentials Personal Access Token (PAT)  -->
     <mat-form-field class="g-form-input no-margin-bottom" appearance="outline">
-      <mat-label>{{ 'repo_credentials_password' | translate }}</mat-label>
+      <mat-label>{{ 'repo_credentials_pat' | translate }}</mat-label>
       <input
         matInput
         type="text"
         formControlName="credentialPassword"
-        placeholder="{{ 'repo_credentials_password' | translate }}" />
+        [placeholder]="
+          (hasCredentialPassword ? 'repo_credentials_pat_set' : 'repo_credentials_pat_not_set') | translate
+        " />
     </mat-form-field>
 
     @if (repoError) {

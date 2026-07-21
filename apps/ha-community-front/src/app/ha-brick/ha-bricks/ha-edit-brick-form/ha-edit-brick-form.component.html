@@ -12,9 +12,8 @@
         accept="application/json"
         (fileChange)="onFileSelected($any($event))" />
     </fl-input-file-container>
-    <span>{{fileName}}</span>
+    <span>{{ fileName }}</span>
   </div>
-
 </div>
 
 @if (inputFile && !(errorInput | flIsNotEmpty)) {
@@ -81,16 +80,16 @@
         matInput
         type="text"
         formControlName="credentialUsername"
-        placeholder="{{ 'repo_credentials_username' | translate }}" />
+        [placeholder]="'repo_credentials_username' | translate" />
     </mat-form-field>
-    <!--  Repo credentials password  -->
+    <!--  Repo credentials Personal Access Token (PAT)  -->
     <mat-form-field class="g-form-input no-margin-bottom" appearance="outline">
-      <mat-label>{{ 'repo_credentials_password' | translate }}</mat-label>
+      <mat-label>{{ 'repo_credentials_pat' | translate }}</mat-label>
       <input
         matInput
         type="text"
         formControlName="credentialPassword"
-        placeholder="{{ 'repo_credentials_password' | translate }}" />
+        [placeholder]="'repo_credentials_pat' | translate" />
     </mat-form-field>
     @if (repoError) {
       <p class="error-repo">

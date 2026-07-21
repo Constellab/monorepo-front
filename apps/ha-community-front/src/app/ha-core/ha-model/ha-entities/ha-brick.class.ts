@@ -29,7 +29,10 @@ export class HaBrick extends HaEntity implements CoBrick {
 
   credentialUsername?: string;
 
-  credentialPassword?: string;
+  /**
+   * Whether a Personal Access Token (PAT) is already stored on the backend.
+   */
+  hasCredentialPassword?: boolean;
 
   @Type(() => HaSpace)
   space: HaSpace;
@@ -63,6 +66,7 @@ export class HaEditBrickDTO {
   visibility: HaBrickVisibility;
   credentialUsername?: string;
   credentialPassword?: string;
+  hasCredentialPassword?: boolean;
   space?: HaSpace;
   imageLink?: string;
 }

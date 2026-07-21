@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatDialogActions, MatDialogContent } from '@angular/material/dialog';
@@ -20,7 +20,11 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { HaBrick, HaBrickVisibility, HaEditBrickDTO } from '../../../ha-core/ha-model/ha-entities/ha-brick.class';
+import {
+  HaBrick,
+  HaBrickVisibility,
+  HaEditBrickDTO,
+} from '../../../ha-core/ha-model/ha-entities/ha-brick.class';
 import { HaSpace } from '../../../ha-core/ha-model/ha-entities/ha-space.class';
 import { HaBrickImagePipe } from '../../../ha-core/ha-module/ha-core-pipe/ha-brick-image/ha-brick-image.pipe';
 import { HaBrickService } from '../../../ha-core/ha-service/ha-brick.service';
@@ -60,10 +64,11 @@ export class HaEditBrickDialogComponent
   private spaceService = inject(HaSpaceService);
   private brickService = inject(HaBrickService);
 
-  isLoading: boolean = false;
+  isLoading = false;
   repoError: boolean;
   spaces: HaSpace[];
   isPhotoLoading = false;
+  hasCredentialPassword = false;
 
   imageConfig: FlUploadImageDialogConfig;
   deleteImageConfig: FlConfirmDialogInput;
@@ -75,6 +80,7 @@ export class HaEditBrickDialogComponent
   ngOnInit(): void {
     this.init();
     this.formGp.value.id = this.dialogInput.object.id;
+    this.hasCredentialPassword = !!this.dialogInput.object.hasCredentialPassword;
     this.spaceService.getSpacesOfCurrentUser().subscribe((spaces: HaSpace[]) => {
       this.spaces = spaces;
     });
@@ -143,6 +149,9 @@ export class HaEditBrickDialogComponent
           ...this.formGp.value,
           visibility: this.formGp.value.space ? HaBrickVisibility.PRIVATE : HaBrickVisibility.PUBLIC,
         };
+        if (!this.formGp.value.credentialPassword) {
+          delete formValue.credentialPassword;
+        }
         this.update(formValue).subscribe({
           next: (newEntity) => this.onSaveSuccess(newEntity, this.getUpdateSuccessMessage()),
           error: () => (this.isLoading = false),
