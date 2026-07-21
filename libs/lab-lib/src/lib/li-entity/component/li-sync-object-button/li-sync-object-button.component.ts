@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject,Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -20,6 +20,7 @@ import { Observable } from 'rxjs';
   selector: 'li-sync-object-button',
   templateUrl: './li-sync-object-button.component.html',
   styleUrls: ['./li-sync-object-button.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatTooltip, MatButton, MatIcon, FlLoaderModule, TranslatePipe],
 })
 export class LiSyncObjectButtonComponent<T extends LiFolderObject> {

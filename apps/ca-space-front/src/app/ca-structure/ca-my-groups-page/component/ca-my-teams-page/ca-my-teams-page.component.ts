@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
@@ -22,6 +22,7 @@ import { CaGroupService } from '../../../../ca-core/service-api/ca-group.service
   selector: 'ca-my-teams-page',
   templateUrl: './ca-my-teams-page.component.html',
   styleUrls: ['./ca-my-teams-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlSectionModule,
     FlTextIconModule,

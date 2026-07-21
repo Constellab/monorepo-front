@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -39,6 +39,7 @@ export interface CaHierarchyObjectTokenFormDialogInput
     MatInputModule,
   ],
   templateUrl: './ca-hierarchy-object-token-form-dialog.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './ca-hierarchy-object-token-form-dialog.component.scss',
 })
 export class CaHierarchyObjectTokenFormDialogComponent

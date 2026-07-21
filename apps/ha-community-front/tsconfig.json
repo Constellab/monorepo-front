@@ -19,6 +19,7 @@
     "outDir": "./dist/out-tsc",
     "esModuleInterop": true,
     "module": "preserve",
-    "moduleResolution": "bundler"
+    "moduleResolution": "bundler",
+    "ignoreDeprecations": "6.0"
   }
 }

@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   computed,
   inject,
@@ -7,8 +8,7 @@ import {
   signal,
   TemplateRef,
   ViewChild,
-  ViewContainerRef,
-} from '@angular/core';
+  ViewContainerRef} from '@angular/core';
 import { FlOverlayRef, FlPortalService } from '@monorepo/front-core-lib/fl-portal';
 
 import { TdParamSpecEntry } from '../../model/td-config-spec.class';
@@ -22,6 +22,7 @@ import {
   selector: 'td-expression-display',
   templateUrl: './td-expression-display.component.html',
   styleUrl: './td-expression-display.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class TdExpressionDisplayComponent implements OnDestroy {

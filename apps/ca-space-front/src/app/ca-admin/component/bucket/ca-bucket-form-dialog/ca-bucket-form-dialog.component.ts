@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatOption } from '@angular/material/core';
@@ -35,6 +35,7 @@ export type CaBucketFormDialogInput = FlFormDialogInput<CaBucketFull>;
   selector: 'ca-bucket-form-dialog',
   templateUrl: './ca-bucket-form-dialog.component.html',
   styleUrls: ['./ca-bucket-form-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlDialogModule,
     MatDialogContent,

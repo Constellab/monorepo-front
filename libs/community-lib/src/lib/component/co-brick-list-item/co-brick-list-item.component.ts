@@ -1,4 +1,4 @@
-import { Component, Input, input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Input, input } from '@angular/core';
 
 import { CoBrick } from '../../model/co-brick.class';
 import { CoListItemType } from '../../model/co-list-item-type.enum';
@@ -7,6 +7,7 @@ import { CoListItemType } from '../../model/co-list-item-type.enum';
   selector: 'co-brick-list-item',
   templateUrl: './co-brick-list-item.component.html',
   styleUrls: ['./co-brick-list-item.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class CoBrickListItemComponent {

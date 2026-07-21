@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FlUser } from '@monorepo/front-core-lib/fl-user';
 
 import { TeRichTextBlockModificationWithUser } from '../../model/lib';
@@ -13,6 +13,7 @@ export interface TeTextEditorHistoryClickEventData {
   selector: 'te-text-editor-history-modification-group',
   templateUrl: './te-text-editor-history-modification-group.component.html',
   styleUrl: './te-text-editor-history-modification-group.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class TeTextEditorHistoryModificationGroupComponent implements OnInit {

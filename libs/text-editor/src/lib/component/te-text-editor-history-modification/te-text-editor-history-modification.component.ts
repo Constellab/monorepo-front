@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Input } from '@angular/core';
 
 import { TeRichTextBlockModificationWithUser } from '../../model/lib';
 
@@ -6,6 +6,7 @@ import { TeRichTextBlockModificationWithUser } from '../../model/lib';
   selector: 'te-text-editor-history-modification',
   templateUrl: './te-text-editor-history-modification.component.html',
   styleUrl: './te-text-editor-history-modification.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class TeTextEditorHistoryModificationComponent {

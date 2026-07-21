@@ -1,4 +1,4 @@
-import { Component, computed, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, computed, inject, input } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
@@ -15,6 +15,7 @@ export interface CoTagCommunityTagInput {
   selector: 'co-tag-community-tag',
   imports: [FlIconModule, MatIcon, MatTooltip, TranslatePipe],
   templateUrl: './co-tag-community-icon.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './co-tag-community-icon.component.scss',
 })
 export class CoTagCommunityIconComponent {

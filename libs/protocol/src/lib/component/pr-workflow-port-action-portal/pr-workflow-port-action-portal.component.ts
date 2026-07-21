@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
 import { FL_PORTAL_DATA, FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
 
@@ -21,6 +21,7 @@ export interface PrWorkflowPortActionPortalInput {
   selector: 'pr-workflow-port-action-portal',
   templateUrl: './pr-workflow-port-action-portal.component.html',
   styleUrls: ['./pr-workflow-port-action-portal.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class PrWorkflowPortActionPortalComponent {

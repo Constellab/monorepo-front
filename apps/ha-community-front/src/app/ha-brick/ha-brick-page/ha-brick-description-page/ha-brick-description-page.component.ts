@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnDestroy, Signal } from '@angular/core';
+import { ChangeDetectionStrategy,Component, computed, inject, OnDestroy, Signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { CoCommunityLibModule } from '@monorepo/community-lib';
 import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
@@ -20,6 +20,7 @@ import { HaBrickPageState } from '../../state/ha-brick-page.state';
   selector: 'ha-brick-description-page',
   templateUrl: './ha-brick-description-page.component.html',
   styleUrls: ['./ha-brick-description-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     CoCommunityLibModule,
     HaRunStatAggregatePanelComponent,

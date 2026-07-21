@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy,Component } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { RouterOutlet } from '@angular/router';
 import {
@@ -15,6 +15,7 @@ import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
   selector: 'ha-admin-panel-page',
   templateUrl: './ha-admin-panel-page.component.html',
   styleUrls: ['./ha-admin-panel-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlLoaderModule, FlHorizontalNavBarModule, FlTextIconModule, MatIcon, RouterOutlet, TranslatePipe],
 })
 export class HaAdminPanelPageComponent {

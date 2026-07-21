@@ -1,4 +1,4 @@
-import { Component, inject, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input } from '@angular/core';
 import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import { FlConfirmDialogInput, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 
@@ -11,6 +11,7 @@ import { MaMailErrorDialogComponent } from '../ma-mail-error-dialog/ma-mail-erro
   selector: 'ma-mail-table',
   templateUrl: './ma-mail-table.component.html',
   styleUrl: './ma-mail-table.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class MaMailTableComponent {

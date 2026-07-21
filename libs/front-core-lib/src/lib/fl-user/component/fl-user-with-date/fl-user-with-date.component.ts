@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Input } from '@angular/core';
 import { DateTime } from 'luxon';
 
 import { FlUser } from '../../model/fl-user.class';
@@ -11,6 +11,7 @@ import { FlUser } from '../../model/fl-user.class';
   selector: 'fl-user-with-date',
   templateUrl: './fl-user-with-date.component.html',
   styleUrls: ['./fl-user-with-date.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlUserWithDateComponent {

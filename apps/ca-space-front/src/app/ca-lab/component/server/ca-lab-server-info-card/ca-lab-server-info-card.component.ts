@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input, OnInit } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -19,6 +19,7 @@ import { CaLabVolumeHistoryDialogComponent } from '../../volume/ca-lab-volume-hi
   selector: 'ca-lab-server-info-card',
   templateUrl: './ca-lab-server-info-card.component.html',
   styleUrls: ['./ca-lab-server-info-card.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlCardModule,
     FlTextIconModule,

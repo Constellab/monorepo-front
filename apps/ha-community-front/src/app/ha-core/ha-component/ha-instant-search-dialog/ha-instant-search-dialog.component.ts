@@ -2,14 +2,14 @@ import { CdkScrollable } from '@angular/cdk/overlay';
 import { NgClass } from '@angular/common';
 import {
   AfterContentInit,
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
   HostListener,
   inject,
   OnDestroy,
   ViewChild,
-  ViewEncapsulation,
-} from '@angular/core';
+  ViewEncapsulation} from '@angular/core';
 import { MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
 import { MatFormField, MatInput, MatPrefix, MatSuffix } from '@angular/material/input';
@@ -38,6 +38,7 @@ import { HaInstantSearchService } from '../../ha-service/ha-instant-search.servi
   ],
   templateUrl: './ha-instant-search-dialog.component.html',
   styleUrl: './ha-instant-search-dialog.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   encapsulation: ViewEncapsulation.None,
 })
 export class HaInstantSearchDialogComponent implements AfterContentInit, OnDestroy {
@@ -91,7 +92,7 @@ export class HaInstantSearchDialogComponent implements AfterContentInit, OnDestr
   }
 
   search(event: Event): void {
-    this.refine!((event.target as HTMLInputElement).value);
+    this.refine((event.target as HTMLInputElement).value);
   }
 
   isLink(str: string): boolean {

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Input } from '@angular/core';
 import { MatRipple } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
@@ -14,6 +14,7 @@ import { CaIconContainerComponent } from '../../../../module/ca-core-component/c
   selector: 'ca-team-card',
   templateUrl: './ca-team-card.component.html',
   styleUrls: ['./ca-team-card.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlCardModule,
     MatRipple,

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Input } from '@angular/core';
 import { MatAnchor } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatSortHeader } from '@angular/material/sort';
@@ -28,6 +28,7 @@ import { CaSpaceInlineComponent } from '../ca-space-inline/ca-space-inline.compo
   selector: 'ca-space-table',
   templateUrl: './ca-space-table.component.html',
   styleUrls: ['./ca-space-table.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     MatTable,
     FlSearchModule,

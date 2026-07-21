@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatDialogActions, MatDialogContent } from '@angular/material/dialog';
@@ -52,6 +52,7 @@ interface LiCronPreset {
     TranslatePipe,
     FlCorePipeModule,
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   providers: [LiCronHumanPipe],
 })
 export class LiTriggeredJobFormDialogComponent

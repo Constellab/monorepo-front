@@ -1,4 +1,4 @@
-import { Component, inject, Input, signal } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input, signal } from '@angular/core';
 import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { LiResourceView, LiViewConfig, LiViewConfigService } from '@monorepo/lab-lib/li-core';
@@ -15,6 +15,7 @@ import { LiResourceDetailState } from '../../state/li-resource-detail.state';
   selector: 'li-resource-view-detail',
   templateUrl: './li-resource-view-detail.component.html',
   styleUrls: ['./li-resource-view-detail.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlSectionModule,
     TdTechnicalDocModule,

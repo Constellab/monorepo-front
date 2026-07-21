@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, computed, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, computed, inject, input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRipple } from '@angular/material/core';
 import { MatIcon } from '@angular/material/icon';
@@ -25,6 +25,7 @@ import { CaLabLoginButtonComponent } from '../ca-lab-login-button/ca-lab-login-b
   selector: 'ca-lab-card',
   templateUrl: './ca-lab-card.component.html',
   styleUrls: ['./ca-lab-card.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlCardModule,
     MatRipple,

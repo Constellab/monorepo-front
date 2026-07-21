@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy,Component } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatError, MatHint } from '@angular/material/form-field';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
@@ -11,6 +11,7 @@ import { LiSelectNoteTemplateComponent } from '../li-select-note-template/li-sel
   selector: 'li-select-note-template-dynamic-field',
   templateUrl: './li-select-note-template-dynamic-field.component.html',
   styleUrls: ['./li-select-note-template-dynamic-field.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlFormModule,
     LiSelectNoteTemplateComponent,

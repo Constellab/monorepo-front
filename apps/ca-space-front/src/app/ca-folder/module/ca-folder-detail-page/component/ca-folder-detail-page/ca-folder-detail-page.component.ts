@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, DestroyRef, inject, Injector, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, DestroyRef, inject, Injector, OnInit } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatIcon } from '@angular/material/icon';
 import { ActivatedRoute } from '@angular/router';
@@ -52,6 +52,7 @@ import { CaFolderDetailActionsComponent } from '../ca-folder-detail-actions/ca-f
   templateUrl: './ca-folder-detail-page.component.html',
   styleUrls: ['./ca-folder-detail-page.component.scss'],
   providers: [CaFolderDetailState, FlQueryParamHandler],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     CaHierarchyObjectBreadcrumbComponent,
     FlDragModule,

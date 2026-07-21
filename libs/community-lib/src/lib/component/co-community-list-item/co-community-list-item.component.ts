@@ -1,5 +1,5 @@
 import { NgOptimizedImage } from '@angular/common';
-import { Component, computed, input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, computed, input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -17,6 +17,7 @@ import { CoVisibilityBadgeComponent } from '../co-visibility-badge/co-visibility
   selector: 'co-community-list-item',
   templateUrl: './co-community-list-item.component.html',
   styleUrls: ['./co-community-list-item.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     MatIconModule,
     FlIconModule,

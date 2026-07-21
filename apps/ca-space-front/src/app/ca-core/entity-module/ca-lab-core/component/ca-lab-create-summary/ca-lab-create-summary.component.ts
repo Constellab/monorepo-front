@@ -1,5 +1,5 @@
 import { AsyncPipe, DecimalPipe } from '@angular/common';
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatDivider } from '@angular/material/divider';
 import { MatIcon } from '@angular/material/icon';
@@ -29,6 +29,7 @@ interface CaLabServerPriceEstimation {
   selector: 'ca-lab-create-summary',
   templateUrl: './ca-lab-create-summary.component.html',
   styleUrl: './ca-lab-create-summary.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlKeyValueModule,
     CaCloudProviderRegionInlineComponent,

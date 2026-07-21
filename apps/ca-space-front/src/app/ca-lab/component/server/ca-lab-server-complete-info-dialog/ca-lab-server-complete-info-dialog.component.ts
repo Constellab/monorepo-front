@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
@@ -13,6 +13,7 @@ import { CaLabServerCompleteInfoComponent } from '../ca-lab-server-complete-info
   selector: 'ca-lab-server-complete-info-dialog',
   templateUrl: './ca-lab-server-complete-info-dialog.component.html',
   styleUrls: ['./ca-lab-server-complete-info-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlDialogModule,
     MatDialogContent,

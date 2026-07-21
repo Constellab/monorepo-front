@@ -1,5 +1,5 @@
 import { CdkScrollable } from '@angular/cdk/scrolling';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy,Component } from '@angular/core';
 import { MatDialogContent } from '@angular/material/dialog';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -11,6 +11,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   selector: 'li-tag-help-dialog',
   templateUrl: './li-tag-help-dialog.component.html',
   styleUrls: ['./li-tag-help-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlDialogModule, CdkScrollable, MatDialogContent, TranslatePipe],
 })
 export class LiTagHelpDialogComponent {}

@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { map } from 'rxjs/operators';
@@ -12,6 +12,7 @@ import { CaNoteDetailComponent } from '../ca-note-detail/ca-note-detail.componen
   selector: 'ca-note-detail-page',
   templateUrl: './ca-note-detail-page.component.html',
   styleUrls: ['./ca-note-detail-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [CaHierarchyObjectBreadcrumbComponent, FlSectionModule, CaNoteDetailComponent, AsyncPipe],
 })
 export class CaNoteDetailPageComponent {

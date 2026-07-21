@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
@@ -31,6 +31,7 @@ import { LiScenarioTemplateTableComponent } from '../li-scenario-template-table/
   templateUrl: './li-scenario-template-search.component.html',
   styleUrls: ['./li-scenario-template-search.component.scss'],
   providers: [FlSearchState],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlSearchModule,
     LiScenarioTemplateSearchFormComponent,

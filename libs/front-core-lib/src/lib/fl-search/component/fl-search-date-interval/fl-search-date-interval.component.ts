@@ -1,4 +1,4 @@
-import { Component, inject,OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { ControlContainer, UntypedFormGroup } from '@angular/forms';
 
 /**
@@ -8,6 +8,7 @@ import { ControlContainer, UntypedFormGroup } from '@angular/forms';
   selector: 'fl-search-date-interval',
   templateUrl: './fl-search-date-interval.component.html',
   styleUrls: ['./fl-search-date-interval.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlSearchDateIntervalComponent implements OnInit {

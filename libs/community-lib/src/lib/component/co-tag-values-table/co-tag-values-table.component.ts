@@ -1,4 +1,4 @@
-import { Component, input, OnInit, output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, input, OnInit, output } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
@@ -55,6 +55,7 @@ import {
     CoTagCommunityIconComponent,
   ],
   templateUrl: './co-tag-values-table.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './co-tag-values-table.component.scss',
 })
 export class CoTagValuesTableComponent implements OnInit {

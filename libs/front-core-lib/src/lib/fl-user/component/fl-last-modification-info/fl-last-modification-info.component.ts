@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Input } from '@angular/core';
 import { DateTime } from 'luxon';
 
 import { FlUser } from '../../model/fl-user.class';
@@ -10,6 +10,7 @@ import { FlUser } from '../../model/fl-user.class';
   selector: 'fl-last-modification-info',
   templateUrl: './fl-last-modification-info.component.html',
   styleUrls: ['./fl-last-modification-info.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlLastModificationInfoComponent {

@@ -1,4 +1,4 @@
-import { Component, inject,Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input, OnInit } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { MatOption } from '@angular/material/core';
@@ -14,6 +14,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   selector: 'li-type-search-form',
   templateUrl: './li-type-search-form.component.html',
   styleUrls: ['./li-type-search-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     ReactiveFormsModule,
     MatFormField,

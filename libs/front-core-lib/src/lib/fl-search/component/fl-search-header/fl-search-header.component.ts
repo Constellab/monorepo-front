@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy,Component } from '@angular/core';
 
 /**
  * Component to place under the {@link FlSearchComponent} and this is the header of the search component
@@ -7,6 +7,7 @@ import { Component } from '@angular/core';
   selector: 'fl-search-header',
   templateUrl: './fl-search-header.component.html',
   styleUrls: ['./fl-search-header.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlSearchHeaderComponent {}

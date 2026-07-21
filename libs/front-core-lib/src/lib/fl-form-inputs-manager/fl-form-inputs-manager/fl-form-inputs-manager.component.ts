@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, EventEmitter, inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormGroupDirective, NgForm, UntypedFormGroup } from '@angular/forms';
 import { FlFormHelper } from '@monorepo/front-core-lib/fl-core';
 import { FlMouseButton } from '@monorepo/front-core-lib/fl-core';
@@ -20,6 +20,7 @@ import { FlFormFilledInput, FlFormInputsManagerConfig } from '../fl-form-inputs-
   selector: 'fl-form-inputs-manager',
   templateUrl: './fl-form-inputs-manager.component.html',
   styleUrls: ['./fl-form-inputs-manager.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlFormInputsManagerComponent implements OnInit, OnDestroy {

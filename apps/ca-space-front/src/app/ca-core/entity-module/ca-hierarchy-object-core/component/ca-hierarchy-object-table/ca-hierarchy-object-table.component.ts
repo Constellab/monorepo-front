@@ -1,5 +1,5 @@
 import { NgClass, NgTemplateOutlet } from '@angular/common';
-import { Component, ContentChild, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy,Component, ContentChild, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatSortHeader } from '@angular/material/sort';
@@ -47,6 +47,7 @@ export interface CaHierarchyObjectTableEvent {
   selector: 'ca-hierarchy-object-table',
   templateUrl: './ca-hierarchy-object-table.component.html',
   styleUrl: './ca-hierarchy-object-table.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     MatTable,
     FlSearchModule,

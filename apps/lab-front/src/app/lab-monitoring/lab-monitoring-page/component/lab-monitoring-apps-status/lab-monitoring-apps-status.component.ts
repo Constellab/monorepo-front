@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MatAnchor, MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
@@ -25,6 +25,7 @@ import { LabAppDetailComponent } from '../lab-app-detail/lab-app-detail.componen
   selector: 'lab-monitoring-apps-status',
   templateUrl: './lab-monitoring-apps-status.component.html',
   styleUrl: './lab-monitoring-apps-status.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlCardModule,
     FlTextIconModule,

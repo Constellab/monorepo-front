@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy,Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 
 import { RvResourceViewAudio } from '../../model/rv-resource-view.class';
 import { RvResourceViewDirective } from '../../model/rv-resource-view.directive';
@@ -7,6 +7,7 @@ import { RvResourceViewDirective } from '../../model/rv-resource-view.directive'
   selector: 'rv-view-audio',
   templateUrl: './rv-view-audio.component.html',
   styleUrl: './rv-view-audio.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class RvViewAudioComponent extends RvResourceViewDirective<RvResourceViewAudio> implements OnInit {

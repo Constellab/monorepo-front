@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
@@ -13,6 +13,7 @@ import { CaScenarioDetailComponent } from '../../ca-scenario-core/component/ca-s
   selector: 'ca-scenario-detail-page',
   templateUrl: './ca-scenario-detail-page.component.html',
   styleUrls: ['./ca-scenario-detail-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     CaHierarchyObjectBreadcrumbComponent,
     FlSectionModule,

@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
 
@@ -14,6 +14,7 @@ import { CaHierarchyObjectDetailState } from '../../../ca-folder-hierarchy-core/
   selector: 'ca-document-preview-page',
   templateUrl: './ca-document-preview-page.component.html',
   styleUrl: './ca-document-preview-page.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [CaHierarchyObjectBreadcrumbComponent, CaDocumentPreviewComponent, AsyncPipe],
 })
 export class CaDocumentPreviewPageComponent {

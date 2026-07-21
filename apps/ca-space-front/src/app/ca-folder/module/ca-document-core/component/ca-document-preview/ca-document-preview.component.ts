@@ -1,4 +1,4 @@
-import { Component, inject, Injector, input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Injector, input } from '@angular/core';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -33,6 +33,7 @@ import { CaDocumentActionDetailMenu, CaDocumentActionEvent } from '../../ca-docu
     FlTagModule,
   ],
   templateUrl: './ca-document-preview.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './ca-document-preview.component.scss',
 })
 export class CaDocumentPreviewComponent {

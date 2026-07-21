@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy,Component, computed, inject, signal } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { FlStatus, FlStatusHelper, FlStatusModule } from '@monorepo/front-core-lib/fl-status';
@@ -21,6 +21,7 @@ export interface CaNoteFormData {
   selector: 'ca-note-form-block',
   templateUrl: './ca-note-form-block.component.html',
   styleUrl: './ca-note-form-block.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [TdParamTableComponent, MatIcon, FlIconModule, FlLoaderModule, FlStatusModule],
 })
 export class CaNoteFormBlockComponent extends TeElementBlockDirective {

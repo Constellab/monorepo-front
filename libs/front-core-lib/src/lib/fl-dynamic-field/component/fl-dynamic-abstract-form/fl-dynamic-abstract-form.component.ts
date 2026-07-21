@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   ComponentRef,
   effect,
@@ -6,8 +7,7 @@ import {
   input,
   OnDestroy,
   ViewChild,
-  ViewContainerRef,
-} from '@angular/core';
+  ViewContainerRef} from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 
 import { FlDynamicAbstractFormDirective } from '../../model/fl-dynamic-abstract-form.directive';
@@ -21,6 +21,7 @@ import { FlDynamicFieldConfigService } from '../../model/fl-dynamic-field-config
   selector: 'fl-dynamic-abstract-form',
   templateUrl: './fl-dynamic-abstract-form.component.html',
   styleUrls: ['./fl-dynamic-abstract-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlDynamicAbstractFormComponent implements OnDestroy {

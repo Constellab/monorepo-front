@@ -1,4 +1,4 @@
-import { Component, computed, inject, Injector, input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, computed, inject, Injector, input } from '@angular/core';
 import { MatAnchor, MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
@@ -22,6 +22,7 @@ import { CaScenarioInfoComponent } from '../ca-scenario-info/ca-scenario-info.co
   selector: 'ca-scenario-card-detail',
   templateUrl: './ca-scenario-card-detail.component.html',
   styleUrls: ['./ca-scenario-card-detail.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlCardModule,
     CaHierarchyObjectIconComponent,

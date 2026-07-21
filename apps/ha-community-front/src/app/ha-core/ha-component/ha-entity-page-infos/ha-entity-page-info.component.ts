@@ -1,5 +1,5 @@
 import { ViewportScroller } from '@angular/common';
-import { Component, computed, inject, input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, computed, inject, input, OnInit } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
@@ -44,6 +44,7 @@ import { HaEntityLikeState } from '../../ha-state/ha-entity-like.state';
     FlIconModule,
     RouterLink,
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   providers: [HaEntityLikeState],
 })
 export class HaEntityPageInfoComponent implements OnInit {

@@ -1,5 +1,5 @@
 import { NgOptimizedImage } from '@angular/common';
-import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import {
   FlEntityPaginatedDatasource,
@@ -24,6 +24,7 @@ import { CaServerCloudInlineComponent } from '../ca-server-cloud-inline/ca-serve
   templateUrl: './ca-select-server-cloud.component.html',
   styleUrl: './ca-select-server-cloud.component.scss',
   providers: [{ provide: FlFormFieldDirective, useExisting: CaSelectServerCloudComponent }],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlInputSearchModule, NgOptimizedImage, CaServerCloudInlineComponent, TranslatePipe],
 })
 export class CaSelectServerCloudComponent extends FlFormFieldDirective<CaServerCloud> implements OnInit {

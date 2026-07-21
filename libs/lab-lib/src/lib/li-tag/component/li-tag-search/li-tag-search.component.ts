@@ -1,4 +1,4 @@
-import { Component, inject, Input, input, OnInit, output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input, input, OnInit, output } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -46,6 +46,7 @@ import { LiTagTableComponent } from '../li-tag-table/li-tag-table.component';
   ],
   templateUrl: './li-tag-search.component.html',
   styleUrl: './li-tag-search.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   providers: [FlSearchState],
 })
 export class LiTagSearchComponent implements OnInit {

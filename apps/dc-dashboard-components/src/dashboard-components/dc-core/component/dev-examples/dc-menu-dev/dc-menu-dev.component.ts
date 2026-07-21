@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy,Component, signal } from '@angular/core';
 
 import { DcMenuComponent, DcMenuConfig } from '../../../../dc-components/dc-menu/dc-menu.component';
 
@@ -6,6 +6,7 @@ import { DcMenuComponent, DcMenuConfig } from '../../../../dc-components/dc-menu
   selector: 'dc-menu-dev',
   imports: [DcMenuComponent],
   templateUrl: './dc-menu-dev.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: '../dc-dev-examples.scss',
 })
 export class DcMenuDevComponent {

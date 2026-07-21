@@ -1,4 +1,4 @@
-import { ApplicationRef, Component, EnvironmentInjector } from '@angular/core';
+import { ApplicationRef, ChangeDetectionStrategy,Component, EnvironmentInjector } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FlDynamicFieldAbstractDirective } from '@monorepo/front-core-lib/fl-dynamic-field';
 import { LiRichTextAudioTranscriptionConfig } from '@monorepo/lab-lib/li-core';
@@ -54,6 +54,7 @@ class LabDynamicFieldRichTextConfig extends TeCompleteConfig {
   selector: 'li-rich-text-dynamic-field',
   templateUrl: './li-rich-text-dynamic-field.component.html',
   styleUrl: './li-rich-text-dynamic-field.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [TeTextEditorModule, ReactiveFormsModule],
 })
 export class LiRichTextDynamicFieldComponent extends FlDynamicFieldAbstractDirective {

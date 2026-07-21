@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FL_PORTAL_DATA, FlOverlayRef, FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
 import { LiFolder } from '@monorepo/lab-lib/li-core';
@@ -19,6 +19,7 @@ export interface LiFolderSelectPortalResult {
   selector: 'li-folder-select-portal',
   templateUrl: './li-folder-select-portal.component.html',
   styleUrls: ['./li-folder-select-portal.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlPortalModule, LiFolderSelectComponent, ReactiveFormsModule, FormsModule, TranslatePipe],
 })
 export class LiFolderSelectPortalComponent {

@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 
@@ -12,6 +12,7 @@ import { TeRichText } from '../../model/lib';
   selector: 'te-audio-transcription-dialog',
   templateUrl: './te-audio-transcription-dialog.component.html',
   styleUrl: './te-audio-transcription-dialog.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class TeAudioTranscriptionDialogComponent implements OnInit, OnDestroy {

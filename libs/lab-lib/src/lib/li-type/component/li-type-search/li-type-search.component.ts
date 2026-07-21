@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { ClBrick } from '@monorepo/core-lib';
 import { FlEntityPaginatedDatasource, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import {
@@ -26,6 +26,7 @@ import { LiTypeSearchFormComponent } from '../li-type-search-form/li-type-search
   templateUrl: './li-type-search.component.html',
   styleUrls: ['./li-type-search.component.scss'],
   providers: [FlSearchState],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlSearchModule, LiTypeSearchFormComponent, LiProcessTypeTableComponent],
 })
 export class LiTypeSearchComponent implements OnInit {

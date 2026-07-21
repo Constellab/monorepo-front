@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ActivatedRoute } from '@angular/router';
@@ -14,6 +14,7 @@ import { CaResourceDetailComponent } from '../../ca-resource-core/ca-resource-de
   selector: 'ca-resource-detail-page',
   templateUrl: './ca-resource-detail-page.component.html',
   styleUrl: './ca-resource-detail-page.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     CaHierarchyObjectBreadcrumbComponent,
     AsyncPipe,

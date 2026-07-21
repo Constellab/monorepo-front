@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Input } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
@@ -15,6 +15,7 @@ import { CaFolderStorageLocationUsageComponent } from '../ca-folder-storage-loca
   selector: 'ca-folder-storage-usage',
   templateUrl: './ca-folder-storage-usage.component.html',
   styleUrl: './ca-folder-storage-usage.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlSectionModule,
     FlKeyValueModule,

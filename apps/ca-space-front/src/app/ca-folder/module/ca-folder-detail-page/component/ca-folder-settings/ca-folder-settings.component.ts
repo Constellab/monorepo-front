@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import {
@@ -32,6 +32,7 @@ import { CaFolderStorageUsageSectionComponent } from '../ca-folder-storage-usage
   selector: 'ca-folder-settings',
   templateUrl: './ca-folder-settings.component.html',
   styleUrls: ['./ca-folder-settings.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlTextIconModule,
     MatIcon,

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Input } from '@angular/core';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
 import { FlJsonEditorModule } from '@monorepo/front-core-lib/fl-json-editor';
@@ -13,6 +13,7 @@ import { LabBiotaData } from '../../../../model/lab-biota-data.class';
   selector: 'lab-biota-data-card',
   templateUrl: './lab-biota-data-card.component.html',
   styleUrls: ['./lab-biota-data-card.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlCardModule, FlJsonEditorModule, FlDateModule, TranslatePipe],
 })
 export class LabBiotaDataCardComponent {

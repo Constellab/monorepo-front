@@ -1,4 +1,4 @@
-import { Component, inject,OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { CoCommunityLibModule } from '@monorepo/community-lib';
@@ -16,6 +16,7 @@ import {
   selector: 'li-share-agent-new-version-community-dialog',
   templateUrl: './li-share-agent-new-version-community-dialog.component.html',
   styleUrls: ['./li-share-agent-new-version-community-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlDialogModule, MatDialogContent, CoCommunityLibModule, MatButton, FlLoaderModule, TranslatePipe],
 })
 export class LiShareAgentNewVersionCommunityDialogComponent implements OnInit {

@@ -1,5 +1,5 @@
 import { AsyncPipe, DecimalPipe } from '@angular/common';
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatMiniFabButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
@@ -22,6 +22,7 @@ export interface CaLabSelectVolumeForm {
   selector: 'ca-lab-select-storage',
   templateUrl: './ca-lab-select-storage.component.html',
   styleUrl: './ca-lab-select-storage.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlTextIconModule,
     MatIcon,

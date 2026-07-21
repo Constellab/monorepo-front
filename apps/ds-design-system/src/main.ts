@@ -1,4 +1,4 @@
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi, withXhr } from '@angular/common/http';
 import { inject, Injector, provideAppInitializer } from '@angular/core';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { MAT_TOOLTIP_DEFAULT_OPTIONS } from '@angular/material/tooltip';
@@ -19,7 +19,7 @@ bootstrapApplication(DsAppComponent, {
   providers: [
     ...(dsAppConfig.providers ?? []),
     provideAnimations(),
-    provideHttpClient(withInterceptorsFromDi()),
+    provideHttpClient(withXhr(), withInterceptorsFromDi()),
     // The FlThemeService (and other library helpers) resolve dependencies through
     // the root injector, so it must be registered before the theme is loaded.
     provideAppInitializer(() => flSetRootInjector(inject(Injector))),

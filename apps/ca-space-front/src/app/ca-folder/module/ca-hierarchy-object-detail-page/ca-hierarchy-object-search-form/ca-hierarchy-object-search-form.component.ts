@@ -1,4 +1,4 @@
-import { Component, computed, inject, input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, computed, inject, input, OnDestroy, OnInit } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { MatOption } from '@angular/material/core';
 import { MatFormField, MatLabel, MatPrefix } from '@angular/material/form-field';
@@ -34,6 +34,7 @@ export type CaHierarchyObjectSearchFormContext =
   selector: 'ca-hierarchy-object-search-form',
   templateUrl: './ca-hierarchy-object-search-form.component.html',
   styleUrl: './ca-hierarchy-object-search-form.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     ReactiveFormsModule,
     MatFormField,

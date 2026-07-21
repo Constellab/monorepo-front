@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FlClipboardService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
@@ -12,6 +12,7 @@ export interface FlPrettyJsonDialogInput {
   selector: 'fl-pretty-json-dialog',
   templateUrl: './fl-pretty-json-dialog.component.html',
   styleUrls: ['./fl-pretty-json-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlPrettyJsonDialogComponent {

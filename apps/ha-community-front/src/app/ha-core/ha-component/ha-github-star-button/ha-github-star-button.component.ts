@@ -1,6 +1,7 @@
 import { isPlatformBrowser } from '@angular/common';
 import {
   AfterViewInit,
+  ChangeDetectionStrategy,
   Component,
   computed,
   ElementRef,
@@ -10,8 +11,7 @@ import {
   PLATFORM_ID,
   Renderer2,
   Signal,
-  ViewChild,
-} from '@angular/core';
+  ViewChild} from '@angular/core';
 import { ClSubscriptionHandler, ClTheme } from '@monorepo/core-lib';
 import { GitHubButtonProps } from 'github-buttons';
 
@@ -21,6 +21,7 @@ import { HaThemeState } from '../../ha-state/ha-theme.state';
   selector: 'ha-github-star-button',
   imports: [],
   templateUrl: './ha-github-star-button.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './ha-github-star-button.component.scss',
 })
 export class HaGithubStarButtonComponent implements AfterViewInit, OnDestroy {

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Input } from '@angular/core';
 import {
   MatCell,
   MatCellDef,
@@ -22,6 +22,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   selector: 'li-shared-entity-table',
   templateUrl: './li-shared-entity-table.component.html',
   styleUrls: ['./li-shared-entity-table.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     MatTable,
     MatColumnDef,

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { TdIOSpec, TdIOSpecs } from '../../model/td-process-type.class';
 
@@ -12,6 +12,7 @@ export interface TdDocIOUpdateEvent {
   selector: 'td-io-docs',
   templateUrl: './td-io-docs.component.html',
   styleUrls: ['./td-io-docs.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class TdIoDocsComponent {

@@ -1,5 +1,6 @@
 import { isPlatformBrowser } from '@angular/common';
 import {
+  ChangeDetectionStrategy,
   Component,
   EventEmitter,
   HostBinding,
@@ -7,8 +8,7 @@ import {
   Input,
   OnInit,
   Output,
-  PLATFORM_ID,
-} from '@angular/core';
+  PLATFORM_ID} from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { FlFormFieldDirective } from '@monorepo/front-core-lib/fl-core';
 
@@ -20,6 +20,7 @@ import { TeEvent } from '../../model/te-event.class';
   selector: 'te-text-editor',
   templateUrl: './te-text-editor.component.html',
   styleUrl: './te-text-editor.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class TeTextEditorComponent extends FlFormFieldDirective<TeRichText> implements OnInit {

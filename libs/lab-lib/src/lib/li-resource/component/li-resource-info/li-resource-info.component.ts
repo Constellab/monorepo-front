@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input, OnInit } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
@@ -30,6 +30,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   selector: 'li-resource-info',
   templateUrl: './li-resource-info.component.html',
   styleUrls: ['./li-resource-info.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlCardModule,
     FlTextIconModule,

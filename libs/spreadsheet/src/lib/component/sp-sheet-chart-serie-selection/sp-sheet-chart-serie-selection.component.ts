@@ -1,4 +1,4 @@
-import { Component, inject,OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { FL_PORTAL_DATA } from '@monorepo/front-core-lib/fl-portal';
 import { FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
@@ -13,6 +13,7 @@ import { SpSheetChart2dSerieSelectionForm } from '../../model/chart/sp-sheet-cha
   selector: 'sp-sheet-chart-serie-selection',
   templateUrl: './sp-sheet-chart-serie-selection.component.html',
   styleUrls: ['./sp-sheet-chart-serie-selection.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class SpSheetChartSerieSelectionComponent implements OnInit {

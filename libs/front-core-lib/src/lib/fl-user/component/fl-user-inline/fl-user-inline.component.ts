@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Input, OnInit } from '@angular/core';
 
 import { FlUser } from '../../model/fl-user.class';
 
@@ -6,6 +6,7 @@ import { FlUser } from '../../model/fl-user.class';
   selector: 'fl-user-inline',
   templateUrl: './fl-user-inline.component.html',
   styleUrls: ['./fl-user-inline.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlUserInlineComponent implements OnInit {

@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -32,6 +32,7 @@ interface CaBreadcrumbLink {
   selector: 'ca-hierarchy-object-breadcrumb',
   templateUrl: './ca-hierarchy-object-breadcrumb.component.html',
   styleUrls: ['./ca-hierarchy-object-breadcrumb.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatIconButton, MatTooltip, MatIcon, RouterLink, AsyncPipe, TranslatePipe],
 })
 export class CaHierarchyObjectBreadcrumbComponent implements OnInit {

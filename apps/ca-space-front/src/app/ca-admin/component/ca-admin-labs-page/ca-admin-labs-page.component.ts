@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 
@@ -8,6 +8,7 @@ import { CaLabSearchComponent } from '../../../ca-core/entity-module/ca-lab-core
   selector: 'ca-admin-labs-page',
   templateUrl: './ca-admin-labs-page.component.html',
   styleUrls: ['./ca-admin-labs-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [CaLabSearchComponent],
 })
 export class CaAdminLabsPageComponent {

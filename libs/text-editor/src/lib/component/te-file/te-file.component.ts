@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostBinding, Input, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy,Component, ElementRef, HostBinding, Input, OnInit, ViewChild } from '@angular/core';
 import { FlInputFileDirective } from '@monorepo/front-core-lib/fl-input-file';
 
 import { TeFileBlockConfig } from '../../block/te-file-block';
@@ -9,6 +9,7 @@ import { TeElementBlockDirective } from '../../model/te-element.directive';
   selector: 'te-file',
   templateUrl: './te-file.component.html',
   styleUrl: './te-file.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class TeFileComponent extends TeElementBlockDirective implements OnInit {

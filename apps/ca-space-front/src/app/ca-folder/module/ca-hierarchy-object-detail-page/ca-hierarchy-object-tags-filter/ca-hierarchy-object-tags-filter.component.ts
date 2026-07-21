@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject, OnInit, output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit, output } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { MatDivider } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
@@ -39,6 +39,7 @@ import { CaHierarchyObjectDetailState } from '../../ca-folder-hierarchy-core/sta
   templateUrl: './ca-hierarchy-object-tags-filter.component.html',
   styleUrl: './ca-hierarchy-object-tags-filter.component.scss',
   // provide the tag service for the fl-add-tag-input component
+  changeDetection: ChangeDetectionStrategy.Eager,
   providers: [
     {
       provide: FlTagService,

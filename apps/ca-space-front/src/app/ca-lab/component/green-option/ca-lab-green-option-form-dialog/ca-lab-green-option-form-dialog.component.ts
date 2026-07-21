@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent } from '@angular/material/dialog';
@@ -39,6 +39,7 @@ export interface CaLabGreenOptionFormDialogInput extends FlFormDialogInput<CaLab
   selector: 'ca-lab-green-option-form-dialog',
   templateUrl: './ca-lab-green-option-form-dialog.component.html',
   styleUrls: ['./ca-lab-green-option-form-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlDialogModule,
     MatDialogContent,

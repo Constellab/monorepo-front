@@ -12,6 +12,7 @@
       "options": {
         "outputPath": "dist/apps/ds-design-system",
         "browser": "apps/ds-design-system/src/main.ts",
+        "polyfills": ["zone.js"],
         "tsConfig": "apps/ds-design-system/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [

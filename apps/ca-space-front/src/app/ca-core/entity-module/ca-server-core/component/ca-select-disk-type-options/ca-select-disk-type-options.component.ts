@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, inject } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MatOption } from '@angular/material/core';
 import { MatSelect } from '@angular/material/select';
 import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib/fl-core';
@@ -10,6 +10,7 @@ import { CaDiskType } from '../../../../model/entities/server/ca-server-cloud.cl
   selector: 'ca-select-disk-type-options',
   templateUrl: './ca-select-disk-type-options.component.html',
   styleUrls: ['./ca-select-disk-type-options.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatOption, FlCorePipeModule],
 })
 export class CaSelectDiskTypeOptionsComponent

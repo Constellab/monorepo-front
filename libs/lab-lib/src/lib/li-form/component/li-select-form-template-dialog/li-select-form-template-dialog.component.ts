@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
@@ -10,6 +10,7 @@ import { LiFormTemplateSearchComponent } from '../li-form-template-search/li-for
 @Component({
   selector: 'li-select-form-template-dialog',
   templateUrl: './li-select-form-template-dialog.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlDialogModule, MatDialogContent, LiFormTemplateSearchComponent, TranslatePipe],
 })
 export class LiSelectFormTemplateDialogComponent {

@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input, OnInit } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -25,6 +25,7 @@ import { CaLabUsersTableComponent } from '../ca-lab-users-table/ca-lab-users-tab
   selector: 'ca-lab-users-list',
   templateUrl: './ca-lab-users-list.component.html',
   styleUrls: ['./ca-lab-users-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlCardModule,
     FlTextIconModule,

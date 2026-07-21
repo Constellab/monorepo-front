@@ -1,4 +1,4 @@
-import { Component, effect, inject, Signal } from '@angular/core';
+import { ChangeDetectionStrategy,Component, effect, inject, Signal } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { Router } from '@angular/router';
 import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
@@ -21,6 +21,7 @@ import { HaBrickVersionsTableComponent } from '../ha-brick-versions-table/ha-bri
   selector: 'ha-brick-versions-page',
   templateUrl: './ha-brick-versions.component.html',
   styleUrls: ['./ha-brick-versions.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatButton, HaBrickVersionsTableComponent, TranslatePipe, FlCorePipeModule],
 })
 export class HaBrickVersionsComponent extends HaCommunityPageDirective {

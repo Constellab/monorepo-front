@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, computed, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, computed, inject, OnInit } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
 import {
@@ -29,6 +29,7 @@ import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
   selector: 'ha-partner-list-page',
   templateUrl: './ha-partner-list-page.component.html',
   styleUrls: ['./ha-partner-list-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     HaPageComponent,
     FlInfiniteScrollModule,

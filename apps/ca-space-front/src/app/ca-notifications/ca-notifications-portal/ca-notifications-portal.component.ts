@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MatDivider } from '@angular/material/divider';
 import { RouterLink } from '@angular/router';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
@@ -22,6 +22,7 @@ import { CaNotificationInfoComponent } from '../ca-notification-info/ca-notifica
   selector: 'ca-notifications-portal',
   templateUrl: './ca-notifications-portal.component.html',
   styleUrls: ['./ca-notifications-portal.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlPortalModule,
     FlInfiniteScrollModule,

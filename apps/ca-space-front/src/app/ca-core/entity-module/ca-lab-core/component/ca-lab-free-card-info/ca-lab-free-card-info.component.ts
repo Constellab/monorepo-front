@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input, OnInit } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -31,6 +31,7 @@ import { CaLabFreeInfoComponent } from '../ca-lab-free-info/ca-lab-free-info.com
   selector: 'ca-lab-free-card-info',
   templateUrl: './ca-lab-free-card-info.component.html',
   styleUrls: ['./ca-lab-free-card-info.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlSectionModule,
     FlCardModule,

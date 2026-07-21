@@ -1,4 +1,4 @@
-import { Component, inject,OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import {
   MatExpansionPanel,
@@ -19,6 +19,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   selector: 'li-scenario-template-search-form',
   templateUrl: './li-scenario-template-search-form.component.html',
   styleUrls: ['./li-scenario-template-search-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     ReactiveFormsModule,
     MatFormField,

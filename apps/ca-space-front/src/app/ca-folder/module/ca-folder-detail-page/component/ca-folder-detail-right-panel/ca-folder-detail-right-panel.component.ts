@@ -1,12 +1,12 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   ComponentRef,
   inject,
   OnDestroy,
   OnInit,
   ViewChild,
-  ViewContainerRef,
-} from '@angular/core';
+  ViewContainerRef} from '@angular/core';
 import { FL_PORTAL_DATA } from '@monorepo/front-core-lib/fl-portal';
 
 import { CaFolderDetailRightPanel } from '../../state/ca-folder-right-panel.state';
@@ -22,6 +22,7 @@ import { CaFolderSettingsComponent } from '../ca-folder-settings/ca-folder-setti
 @Component({
   selector: 'ca-folder-detail-right-panel',
   templateUrl: './ca-folder-detail-right-panel.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./ca-folder-detail-right-panel.component.scss'],
 })
 export class CaFolderDetailRightPanelComponent implements OnInit, OnDestroy {

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
@@ -14,6 +14,7 @@ import { CaSettingsService } from '../../../ca-core/service-api/ca-settings.serv
   selector: 'ca-admin-other',
   templateUrl: './ca-admin-other.component.html',
   styleUrl: './ca-admin-other.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlCardModule, FlTextIconModule, MatIcon, FlInputFileModule, TranslatePipe, MatButton],
 })
 export class CaAdminOtherComponent {

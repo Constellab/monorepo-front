@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, input } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { RouterLink } from '@angular/router';
@@ -12,6 +12,7 @@ import { CaDetailRoutePipe } from '../../../../module/ca-core-pipe/ca-detail-rou
   selector: 'ca-lab-inline',
   templateUrl: './ca-lab-inline.component.html',
   styleUrls: ['./ca-lab-inline.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlTextIconModule, MatIcon, MatTooltip, TranslatePipe, RouterLink, CaDetailRoutePipe],
 })
 export class CaLabInlineComponent {

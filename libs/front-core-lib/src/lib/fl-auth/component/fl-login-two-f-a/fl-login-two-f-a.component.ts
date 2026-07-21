@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject,OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { FlQueryParamHandler } from '@monorepo/front-core-lib/fl-core';
 import { switchMap } from 'rxjs/operators';
@@ -10,6 +10,7 @@ import { FlCompleteLoginQueryParam } from '../fl-complete-login/fl-complete-logi
   selector: 'fl-login-two-f-a',
   templateUrl: './fl-login-two-f-a.component.html',
   styleUrls: ['./fl-login-two-f-a.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlLoginTwoFAComponent implements OnInit {

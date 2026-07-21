@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import {
   MAT_DIALOG_DATA,
@@ -41,6 +41,7 @@ class CaLabBackupArrayObs extends FlArrayObs<CaLabBackupPeriod> {
   selector: 'ca-lab-storage-price-dialog',
   templateUrl: './ca-lab-storage-price-dialog.component.html',
   styleUrl: './ca-lab-storage-price-dialog.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlDialogModule,
     MatDialogContent,

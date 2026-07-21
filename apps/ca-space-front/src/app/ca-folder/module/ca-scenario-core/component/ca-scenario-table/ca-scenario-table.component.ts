@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import {
   MatCell,
@@ -29,6 +29,7 @@ import { CaSyncObjectInfoComponent } from '../../../ca-folder-hierarchy-core/com
   selector: 'ca-scenario-table',
   templateUrl: './ca-scenario-table.component.html',
   styleUrls: ['./ca-scenario-table.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     MatTable,
     MatColumnDef,

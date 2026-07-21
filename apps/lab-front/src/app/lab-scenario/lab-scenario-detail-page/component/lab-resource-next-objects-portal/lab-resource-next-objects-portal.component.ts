@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { FlEntityPaginatedDatasource, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
@@ -21,6 +21,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   selector: 'lab-resource-next-objects-portal',
   templateUrl: './lab-resource-next-objects-portal.component.html',
   styleUrl: './lab-resource-next-objects-portal.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlPortalModule,
     FlTextIconModule,

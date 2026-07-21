@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatOption } from '@angular/material/core';
@@ -41,6 +41,7 @@ export interface CaLabAdminFormDialogInput extends FlFormDialogInput<CaLabAdminF
   selector: 'ca-lab-admin-form-dialog',
   templateUrl: './ca-lab-admin-form-dialog.component.html',
   styleUrls: ['./ca-lab-admin-form-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlDialogModule,
     MatDialogContent,

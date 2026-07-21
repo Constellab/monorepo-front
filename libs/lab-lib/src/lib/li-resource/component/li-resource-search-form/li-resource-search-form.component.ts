@@ -1,4 +1,4 @@
-import { Component, inject, input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, input, OnInit } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { MatCheckbox } from '@angular/material/checkbox';
 import {
@@ -30,6 +30,7 @@ import { LiResourceOriginOptionsComponent } from '../li-resource-origin-options/
   selector: 'li-resource-search-form',
   templateUrl: './li-resource-search-form.component.html',
   styleUrls: ['./li-resource-search-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     ReactiveFormsModule,
     MatFormField,

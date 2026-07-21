@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject,Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { FlDatasourcePaginated, FlInputSearchFilter } from '@monorepo/front-core-lib/fl-core';
 import { FlFormFieldDirective } from '@monorepo/front-core-lib/fl-core';
@@ -16,6 +16,7 @@ import { FlUserConfig, FlUserConfigSearchNameMode } from '../../service/fl-user-
   templateUrl: './fl-select-user.component.html',
   styleUrls: ['./fl-select-user.component.scss'],
   providers: [{ provide: FlFormFieldDirective, useExisting: FlSelectUserComponent }],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlSelectUserComponent extends FlFormFieldDirective<FlUser> implements OnInit {

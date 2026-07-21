@@ -1,4 +1,4 @@
-import { Component, inject,Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input } from '@angular/core';
 import {
   LiNoteResourceService,
   LiResourceService,
@@ -19,6 +19,7 @@ import { map } from 'rxjs/operators';
   selector: 'li-rich-text-view',
   templateUrl: './li-rich-text-view.component.html',
   styleUrls: ['./li-rich-text-view.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [RvResourceViewModule],
 })
 export class LiRichTextViewComponent extends TeElementBlockDirective {

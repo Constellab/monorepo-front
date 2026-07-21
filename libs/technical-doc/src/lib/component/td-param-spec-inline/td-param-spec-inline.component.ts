@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, input } from '@angular/core';
 
 import { TdParamSpecEntry } from '../../model/td-config-spec.class';
 
@@ -6,6 +6,7 @@ import { TdParamSpecEntry } from '../../model/td-config-spec.class';
   selector: 'td-param-spec-inline',
   templateUrl: './td-param-spec-inline.component.html',
   styleUrl: './td-param-spec-inline.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class TdParamSpecInlineComponent {

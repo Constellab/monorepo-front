@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input, OnInit, signal } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
@@ -15,6 +15,7 @@ import { LiSelectFormTemplateDialogComponent } from '../li-select-form-template-
   selector: 'li-rich-text-form-template',
   templateUrl: './li-rich-text-form-template.component.html',
   styleUrl: './li-rich-text-form-template.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatIcon, MatButton, FlLoaderModule, TranslatePipe, FlIconModule],
 })
 export class LiRichTextFormTemplateComponent extends TeElementBlockDirective implements OnInit {

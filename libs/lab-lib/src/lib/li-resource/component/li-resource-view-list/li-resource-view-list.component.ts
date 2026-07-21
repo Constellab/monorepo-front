@@ -1,4 +1,4 @@
-import { Component, inject,OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { ClCoreJsonConvert } from '@monorepo/core-lib';
 import { FlArrayObs, FlEntityArrayObs, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import { LiResource, LiResourceViewResourcesList } from '@monorepo/lab-lib/li-core';
@@ -14,6 +14,7 @@ import { LiResourceTableComponent } from '../li-resource-table/li-resource-table
   selector: 'li-resource-view-list',
   templateUrl: './li-resource-view-list.component.html',
   styleUrls: ['./li-resource-view-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [LiResourceTableComponent],
 })
 export class LiResourceViewListComponent

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
@@ -23,6 +23,7 @@ import { CaServerPriceTableComponent } from '../ca-server-price-table/ca-server-
   selector: 'ca-server-prices-dialog',
   templateUrl: './ca-server-prices-dialog.component.html',
   styleUrl: './ca-server-prices-dialog.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlDialogModule,
     MatIconButton,

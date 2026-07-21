@@ -7,12 +7,12 @@
   "tags": ["front"],
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:application",
+      "executor": "@angular/build:application",
       "options": {
         "outputPath": "dist/apps/lab-front",
         "index": "apps/lab-front/src/index.html",
         "browser": "apps/lab-front/src/lab-main.ts",
-        "polyfills": ["apps/lab-front/src/polyfills.ts"],
+        "polyfills": ["zone.js", "apps/lab-front/src/polyfills.ts"],
         "tsConfig": "apps/lab-front/tsconfig.app.json",
         "assets": [
           "apps/lab-front/src/assets",
@@ -109,7 +109,7 @@
       }
     },
     "serve": {
-      "executor": "@angular-devkit/build-angular:dev-server",
+      "executor": "@angular/build:dev-server",
       "options": {
         "buildTarget": "lab-front:build"
       },
@@ -125,16 +125,13 @@
       "continuous": true
     },
     "extract-i18n": {
-      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "executor": "@angular/build:extract-i18n",
       "options": {
         "buildTarget": "lab-front:build"
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
-      "options": {
-        "lintFilePatterns": ["apps/lab-front/src/**/*.ts", "apps/lab-front/src/**/*.html"]
-      }
+      "executor": "@nx/eslint:lint"
     },
     "test": {
       "executor": "@angular/build:unit-test",

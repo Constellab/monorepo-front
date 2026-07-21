@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { ClTheme } from '@monorepo/core-lib';
 import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
@@ -13,6 +13,7 @@ import { CaAuthenticatedUserService } from '../../../ca-core/service-api/ca-auth
   selector: 'ca-theme-selection',
   templateUrl: './ca-theme-selection.component.html',
   styleUrls: ['./ca-theme-selection.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatButton, TranslatePipe],
 })
 export class CaThemeSelectionComponent implements OnInit {

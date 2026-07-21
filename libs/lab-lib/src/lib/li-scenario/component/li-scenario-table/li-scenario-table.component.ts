@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Injector, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, EventEmitter, inject, Injector, Input, Output } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatSortHeader } from '@angular/material/sort';
@@ -36,6 +36,7 @@ import { LiScenarioIconsComponent } from '../li-scenario-icons/li-scenario-icons
   selector: 'li-scenario-table',
   templateUrl: './li-scenario-table.component.html',
   styleUrls: ['./li-scenario-table.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     MatTable,
     FlSearchModule,

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { FL_PORTAL_DATA } from '@monorepo/front-core-lib/fl-portal';
 
 import { ChChartVennDataSection } from '../../../model/data/ch-chart-venn-data.class';
@@ -10,6 +10,7 @@ import { ChChartVennDataSection } from '../../../model/data/ch-chart-venn-data.c
   selector: 'ch-chart-venn-data-portal',
   templateUrl: './ch-chart-venn-data-portal.component.html',
   styleUrls: ['./ch-chart-venn-data-portal.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class ChChartVennDataPortalComponent {

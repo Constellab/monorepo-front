@@ -1,4 +1,4 @@
-import { Component, inject,Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
@@ -27,6 +27,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   selector: 'li-brick-data-table',
   templateUrl: './li-brick-data-table.component.html',
   styleUrls: ['./li-brick-data-table.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     MatTable,
     MatColumnDef,

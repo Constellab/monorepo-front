@@ -1,4 +1,4 @@
-import { Component, inject, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import {
@@ -30,6 +30,7 @@ import { CaGroupService } from '../../../../service-api/ca-group.service';
   selector: 'ca-user-group-table',
   templateUrl: './ca-user-group-table.component.html',
   styleUrls: ['./ca-user-group-table.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     MatTable,
     MatColumnDef,

@@ -1,5 +1,5 @@
 import { TemplatePortal } from '@angular/cdk/portal';
-import { AfterContentInit, Component, ContentChild, inject,Input, ViewContainerRef } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy,Component, ContentChild, inject, Input, ViewContainerRef } from '@angular/core';
 import { ClHelpService } from '@monorepo/core-lib';
 
 import { FlSectionBodyDirective } from '../fl-section-body';
@@ -15,6 +15,7 @@ import { FlSectionBodyDirective } from '../fl-section-body';
   selector: 'fl-section',
   templateUrl: './fl-section.component.html',
   styleUrls: ['./fl-section.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlSectionComponent implements AfterContentInit {

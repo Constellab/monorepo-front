@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { CoCommunityLibModule, CoListEntityType, CoListFiltersComponent } from '@monorepo/community-lib';
@@ -25,6 +25,7 @@ import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
   selector: 'ha-agent-list',
   templateUrl: './ha-agent-list.component.html',
   styleUrls: ['./ha-agent-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlTextIconModule,
     FlInfiniteScrollModule,

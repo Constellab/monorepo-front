@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, computed, effect, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, computed, effect, inject } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { FlOverlayRef, FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
@@ -20,6 +20,7 @@ import { LiResourceViewSpecCardComponent } from '../li-resource-view-spec-card/l
   selector: 'li-resource-available-views-portal',
   templateUrl: './li-resource-available-views-portal.component.html',
   styleUrls: ['./li-resource-available-views-portal.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlPortalModule,
     FlSectionModule,

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Input } from '@angular/core';
 import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { FlGlobalValidators } from '@monorepo/front-core-lib/fl-core';
 
@@ -9,6 +9,7 @@ import { FlGlobalValidators } from '@monorepo/front-core-lib/fl-core';
   selector: 'fl-signup-form',
   templateUrl: './fl-signup-form.component.html',
   styleUrls: ['./fl-signup-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlSignupFormComponent {

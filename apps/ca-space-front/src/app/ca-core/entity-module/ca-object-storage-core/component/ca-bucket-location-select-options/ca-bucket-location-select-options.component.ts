@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { AfterViewInit, Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy,Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatOptgroup, MatOption } from '@angular/material/core';
 import { MatSelect } from '@angular/material/select';
 import { ClHelpService } from '@monorepo/core-lib';
@@ -29,6 +29,7 @@ export type CaBucketLocationSelectMode = 'all' | 'cloud';
   selector: 'ca-bucket-location-select-options',
   templateUrl: './ca-bucket-location-select-options.component.html',
   styleUrls: ['./ca-bucket-location-select-options.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlInfiniteScrollModule,
     MatOption,

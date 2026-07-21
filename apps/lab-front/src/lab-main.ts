@@ -1,4 +1,4 @@
-import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi, withXhr } from '@angular/common/http';
 import {
   enableProdMode,
   importProvidersFrom,
@@ -149,7 +149,7 @@ function bootstrapApp(): void {
       { provide: RV_MODULE_CONFIG, useClass: LabResourceViewModuleConfig },
       { provide: LabEnvStore, useFactory: provideLabEnvStore, deps: [FlLocalStorageService] },
       { provide: LiConfig, useClass: LabLibConfig },
-      provideHttpClient(withInterceptorsFromDi()),
+      provideHttpClient(withXhr(), withInterceptorsFromDi()),
       provideAnimations(),
       // form field default config
       { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: FL_MAT_FORM_FIELD_CONFIG },

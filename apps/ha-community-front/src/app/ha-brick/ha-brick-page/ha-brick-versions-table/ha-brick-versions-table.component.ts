@@ -1,4 +1,4 @@
-import { Component, inject, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import {
   MatCell,
@@ -24,6 +24,7 @@ import { HaBrickVersionDetailDialogComponent } from '../ha-brick-version-detail-
   selector: 'ha-brick-versions-table',
   templateUrl: './ha-brick-versions-table.component.html',
   styleUrls: ['./ha-brick-versions-table.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     MatTable,
     MatColumnDef,

@@ -1,4 +1,4 @@
-import { Component, inject, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input } from '@angular/core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlFormulaDialogComponent, FlFormulaDialogInput } from '@monorepo/front-core-lib/fl-formula';
 import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
@@ -9,6 +9,7 @@ import { TeElementBlockDirective } from '../../model/te-element.directive';
   selector: 'te-formula',
   templateUrl: './te-formula.component.html',
   styleUrl: './te-formula.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class TeFormulaComponent extends TeElementBlockDirective {

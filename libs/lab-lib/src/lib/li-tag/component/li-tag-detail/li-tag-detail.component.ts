@@ -1,4 +1,4 @@
-import { Component, computed, inject, input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, computed, inject, input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
@@ -66,6 +66,7 @@ import {
   ],
   templateUrl: './li-tag-detail.component.html',
   styleUrl: './li-tag-detail.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   providers: [
     LiTagDetailState,
     { provide: TdAbstractDynamicParamSpecState, useClass: CoTagAdditionalInfoSpecState },

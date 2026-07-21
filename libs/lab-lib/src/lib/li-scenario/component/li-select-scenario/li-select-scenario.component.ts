@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject, input, OnInit, output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, input, OnInit, output } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
 import { FlFormFieldDirective, FlInputSearchFilter } from '@monorepo/front-core-lib/fl-core';
@@ -19,6 +19,7 @@ import { LiSelectScenarioDialogComponent } from '../li-select-scenario-dialog/li
   templateUrl: './li-select-scenario.component.html',
   styleUrls: ['./li-select-scenario.component.scss'],
   providers: [{ provide: FlFormFieldDirective, useExisting: LiSelectScenarioComponent }],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlInputSearchModule,
     FlUserModule,

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Input } from '@angular/core';
 import { MatSortHeader } from '@angular/material/sort';
 import {
   MatCell,
@@ -26,6 +26,7 @@ import { CaTeamActionMenuComponent } from '../ca-team-action-menu/ca-team-action
   selector: 'ca-team-table',
   templateUrl: './ca-team-table.component.html',
   styleUrls: ['./ca-team-table.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     MatTable,
     FlSearchModule,

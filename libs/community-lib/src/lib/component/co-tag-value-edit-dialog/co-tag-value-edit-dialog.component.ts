@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -39,6 +39,7 @@ export type CoTagValueEditDialogInput = FlFormDialogInput<Partial<CoTagValueEdit
     TdTechnicalDocModule,
   ],
   templateUrl: './co-tag-value-edit-dialog.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './co-tag-value-edit-dialog.component.scss',
 })
 export class CoTagValueEditDialogComponent

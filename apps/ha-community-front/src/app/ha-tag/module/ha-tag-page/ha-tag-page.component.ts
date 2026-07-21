@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatButton, MatIconButton } from '@angular/material/button';
@@ -75,6 +75,7 @@ import {
   ],
   templateUrl: './ha-tag-page.component.html',
   styleUrl: './ha-tag-page.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   providers: [
     { provide: TdAbstractDynamicParamSpecState, useClass: CoTagAdditionalInfoSpecState },
     HaEntityCommentState,

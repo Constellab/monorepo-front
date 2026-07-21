@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 
@@ -10,6 +10,7 @@ import { CoConfig } from '../../service/co-service-config.config';
   selector: 'co-agent-create-dialog-form',
   templateUrl: './co-agent-create-dialog-form.component.html',
   styleUrl: './co-agent-create-dialog-form.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class CoAgentCreateDialogFormComponent {

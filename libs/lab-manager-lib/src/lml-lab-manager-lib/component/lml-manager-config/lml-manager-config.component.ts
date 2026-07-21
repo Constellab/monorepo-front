@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 
 import { LmlLabManagerService } from '../../lml-lab-manager.service';
@@ -12,6 +12,7 @@ import { LmlBrickVersionDTODatasource, LmlLabManagerConfig } from '../../model/l
   selector: 'lml-manager-config',
   templateUrl: './lml-manager-config.component.html',
   styleUrls: ['./lml-manager-config.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class LmlManagerConfigComponent implements OnInit, OnDestroy {

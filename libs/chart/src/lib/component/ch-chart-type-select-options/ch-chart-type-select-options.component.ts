@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, inject, Input, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy,Component, inject, Input, OnInit } from '@angular/core';
 import { MatSelect } from '@angular/material/select';
 import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib/fl-core';
 
@@ -11,6 +11,7 @@ import { CH_CHART_TYPE_ICONS,ChChartType } from '../../model/ch-chart.class';
   selector: 'ch-chart-type-select-options',
   templateUrl: './ch-chart-type-select-options.component.html',
   styleUrls: ['./ch-chart-type-select-options.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class ChChartTypeSelectOptionsComponent

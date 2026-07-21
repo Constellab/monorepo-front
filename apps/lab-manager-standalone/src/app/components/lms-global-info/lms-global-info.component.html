@@ -55,26 +55,27 @@
     }
 
     <div class="g-layout-row g-layout-start-center g-layout-gap-1em buttons">
+      @let labManagerStatus = labStatus().labManagerStatus;
       <a
         mat-stroked-button
         class="primary"
         target="_blank"
         rel="noopener noreferrer"
-        [href]="labStatus().labManagerStatus?.labFrontUrl"
-        [disabled]="!labIsRunning() || !labStatus().labManagerStatus">
+        [href]="labManagerStatus?.labFrontUrl"
+        [disabled]="!labIsRunning() || !labManagerStatus">
         <mat-icon>arrow_forward_ios</mat-icon>
         {{ 'lms.go_to_lab' | translate }}
       </a>
 
-      @if (labStatus().labManagerStatus?.codelabFullUrl) {
+      @if (labManagerStatus?.codelabFullUrl) {
         <a
           target="_blank"
           rel="noopener noreferrer"
           mat-stroked-button
           type="button"
-          [href]="labStatus().labManagerStatus.codelabFullUrl"
+          [href]="labManagerStatus.codelabFullUrl"
           class="primary"
-          [disabled]="!labIsRunning() || !labStatus().labManagerStatus">
+          [disabled]="!labIsRunning() || !labManagerStatus">
           <mat-icon>computer</mat-icon>
           {{ 'lms.open_codelab' | translate }}
         </a>
@@ -93,7 +94,7 @@
           [disabled]="
             !labStatus().labManagerIsConfigured ||
             !labStatus().brickAreConfigured ||
-            labStatus().labManagerStatus?.actionInProgress ||
+            labManagerStatus?.actionInProgress ||
             labIsRunning()
           ">
           <mat-icon>play_arrow</mat-icon>

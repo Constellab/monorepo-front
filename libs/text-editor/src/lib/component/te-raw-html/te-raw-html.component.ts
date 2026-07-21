@@ -1,4 +1,4 @@
-import { Component, computed, inject, Input, signal } from '@angular/core';
+import { ChangeDetectionStrategy,Component, computed, inject, Input, signal } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
 import { TeRawHtmlBlockData } from '../../block/te-raw-html-block.class';
@@ -8,6 +8,7 @@ import { TeElementBlockDirective } from '../../model/te-element.directive';
   selector: 'te-raw-html',
   templateUrl: './te-raw-html.component.html',
   styleUrl: './te-raw-html.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class TeRawHtmlComponent extends TeElementBlockDirective {

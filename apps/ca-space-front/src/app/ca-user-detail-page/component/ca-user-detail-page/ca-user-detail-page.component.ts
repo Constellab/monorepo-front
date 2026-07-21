@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { ActivatedRoute } from '@angular/router';
@@ -34,6 +34,7 @@ import { CaUserSpacesListComponent } from '../ca-user-spaces-list/ca-user-spaces
   selector: 'ca-user-detail-page',
   templateUrl: './ca-user-detail-page.component.html',
   styleUrls: ['./ca-user-detail-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlSectionModule,
     FlCardModule,

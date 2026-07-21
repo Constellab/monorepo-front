@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { LmlLabManagerLibModule, LmlLabManagerService, LmlLabManagerState } from '@monorepo/lab-manager-lib';
 
 import { LmsLabState } from '../../service/lms-lab.state';
@@ -15,6 +15,7 @@ import { LmsGlobalInfoComponent } from '../lms-global-info/lms-global-info.compo
     LmsLabState,
   ],
   templateUrl: './lms-page.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './lms-page.component.scss',
 })
 export class LmsPageComponent {

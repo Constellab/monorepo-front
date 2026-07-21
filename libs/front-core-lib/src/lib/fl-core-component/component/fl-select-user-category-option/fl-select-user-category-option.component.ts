@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, inject, Input } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy,Component, inject, Input } from '@angular/core';
 import { MatSelect } from '@angular/material/select';
 import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib/fl-core';
 
@@ -9,6 +9,7 @@ import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib/fl-
   selector: 'fl-select-user-category-option',
   templateUrl: './fl-select-user-category-option.component.html',
   styleUrls: ['./fl-select-user-category-option.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlSelectUserCategoryOptionComponent

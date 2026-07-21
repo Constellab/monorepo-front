@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, OnDestroy, OnInit } from '@angular/core';
 import { ClHelpService } from '@monorepo/core-lib';
 import { FlStatus } from '@monorepo/front-core-lib/fl-status';
 import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
@@ -16,6 +16,7 @@ import { PrWorkflowNodeIcon } from '../pr-workflow-node-content/pr-workflow-node
   selector: 'pr-workflow-node-process',
   templateUrl: './pr-workflow-node-process.component.html',
   styleUrls: ['./pr-workflow-node-process.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class PrWorkflowNodeProcessComponent extends PrWorkflowNodeDirective implements OnInit, OnDestroy {

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
@@ -22,6 +22,7 @@ export interface CaLabDesktopConfigureDialogInput {
   selector: 'ca-lab-desktop-configure-dialog',
   templateUrl: './ca-lab-desktop-configure-dialog.component.html',
   styleUrl: './ca-lab-desktop-configure-dialog.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlDialogModule,
     MatDialogContent,

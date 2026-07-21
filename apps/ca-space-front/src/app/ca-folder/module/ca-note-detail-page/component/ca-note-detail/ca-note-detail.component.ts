@@ -1,4 +1,4 @@
-import { Component, inject, Injector, input, output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Injector, input, output } from '@angular/core';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
@@ -29,6 +29,7 @@ import { CaNoteTextEditorConfig } from '../../../ca-note-core/model/ca-note-text
   selector: 'ca-note-detail',
   templateUrl: './ca-note-detail.component.html',
   styleUrls: ['./ca-note-detail.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlCardModule,
     CaHierarchyObjectIconComponent,

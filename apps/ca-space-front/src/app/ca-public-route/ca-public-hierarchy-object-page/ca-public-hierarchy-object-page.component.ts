@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit, viewChild, ViewContainerRef } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnDestroy, OnInit, viewChild, ViewContainerRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FlServerError } from '@monorepo/front-core-lib/fl-api';
 import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
@@ -24,6 +24,7 @@ import { CaScenarioDetailComponent } from '../../ca-folder/module/ca-scenario-co
   selector: 'ca-public-hierarchy-object-page',
   imports: [FlSectionModule, FlLoaderModule, FlCoreComponentModule],
   templateUrl: './ca-public-hierarchy-object-page.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './ca-public-hierarchy-object-page.component.scss',
 })
 export class CaPublicHierarchyObjectPageComponent implements OnInit, OnDestroy {

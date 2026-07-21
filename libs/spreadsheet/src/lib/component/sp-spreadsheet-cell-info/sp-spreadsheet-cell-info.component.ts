@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { FL_PORTAL_DATA } from '@monorepo/front-core-lib/fl-portal';
 
 import { SpCellWithCoord } from '../../model/selection/sp-sheet-single-selection.class';
@@ -13,6 +13,7 @@ import { SpSpreadsheetState } from '../../state/sp-spreadsheet.state';
   selector: 'sp-spreadsheet-cell-info',
   templateUrl: './sp-spreadsheet-cell-info.component.html',
   styleUrls: ['./sp-spreadsheet-cell-info.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class SpSpreadsheetCellInfoComponent {

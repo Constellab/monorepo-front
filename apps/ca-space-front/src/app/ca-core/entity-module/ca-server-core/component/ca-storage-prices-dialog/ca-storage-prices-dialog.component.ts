@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatDialogContent } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
@@ -19,6 +19,7 @@ import { CaStoragePriceTableComponent } from '../ca-storage-price-table/ca-stora
   selector: 'ca-storage-prices-dialog',
   templateUrl: './ca-storage-prices-dialog.component.html',
   styleUrl: './ca-storage-prices-dialog.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlDialogModule,
     MatIconButton,

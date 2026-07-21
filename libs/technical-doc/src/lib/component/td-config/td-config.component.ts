@@ -1,4 +1,4 @@
-import { Component, computed, input, Signal } from '@angular/core';
+import { ChangeDetectionStrategy,Component, computed, input, Signal } from '@angular/core';
 
 import { TdParamSpecParamSet, TdParamSpecs } from '../../model/td-config-spec.class';
 
@@ -6,6 +6,7 @@ import { TdParamSpecParamSet, TdParamSpecs } from '../../model/td-config-spec.cl
   selector: 'td-config',
   templateUrl: './td-config.component.html',
   styleUrls: ['./td-config.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class TdConfigComponent {

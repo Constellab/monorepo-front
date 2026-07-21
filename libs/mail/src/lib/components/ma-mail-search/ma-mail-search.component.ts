@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 import { FlSavedSearch, FlSearchConfig, FlSearchState } from '@monorepo/front-core-lib/fl-search';
 import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
@@ -12,6 +12,7 @@ import { MaMailSearch, MaMailSearchFields } from '../../models/ma-mail-search.cl
   templateUrl: './ma-mail-search.component.html',
   styleUrl: './ma-mail-search.component.scss',
   providers: [FlSearchState],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class MaMailSearchComponent implements OnInit {

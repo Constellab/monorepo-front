@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
@@ -8,6 +8,7 @@ import { BnBioNetworkEngineConfig, BnBioNetworkEngineState } from '../../state/b
   selector: 'bn-bio-network-engine-config',
   templateUrl: './bn-bio-network-engine-config.component.html',
   styleUrls: ['./bn-bio-network-engine-config.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class BnBioNetworkEngineConfigComponent implements OnInit, OnDestroy {

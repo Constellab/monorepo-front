@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Input } from '@angular/core';
 
 import { TdTypeOtherClass } from '../../model/td-type-other-class.class';
 
@@ -6,6 +6,7 @@ import { TdTypeOtherClass } from '../../model/td-type-other-class.class';
   selector: 'td-other-class-doc',
   templateUrl: './td-other-class-doc.component.html',
   styleUrls: ['./td-other-class-doc.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class TdOtherClassDocComponent {

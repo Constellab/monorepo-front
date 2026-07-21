@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import {
   FlHorizontalNavBarItem,
@@ -23,6 +23,7 @@ import { CaLabDetailPageState } from '../../../state/ca-lab-detail-page.state';
   selector: 'ca-lab-header',
   templateUrl: './ca-lab-header.component.html',
   styleUrls: ['./ca-lab-header.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlHorizontalNavBarModule, FlTextIconModule, MatIcon, FlIconModule, FlStatusModule, AsyncPipe],
 })
 export class CaLabHeaderComponent {

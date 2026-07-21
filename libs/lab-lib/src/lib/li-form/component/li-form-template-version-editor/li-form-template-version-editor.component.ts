@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject, input, output, signal } from '@angular/core';
+import { ChangeDetectionStrategy,Component, computed, effect, inject, input, output, signal } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { FlAiModule } from '@monorepo/front-core-lib/fl-ai';
@@ -24,6 +24,7 @@ import { LiFormTemplateDynamicParamSpecState } from './li-form-template-dynamic-
   selector: 'li-form-template-version-editor',
   templateUrl: './li-form-template-version-editor.component.html',
   styleUrl: './li-form-template-version-editor.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [TdTechnicalDocModule, FlUserModule, FlAiModule, MatButton, MatIcon, TranslatePipe],
 })
 export class LiFormTemplateVersionEditorComponent {

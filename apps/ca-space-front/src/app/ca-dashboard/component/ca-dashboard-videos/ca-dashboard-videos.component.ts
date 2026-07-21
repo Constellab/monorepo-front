@@ -1,5 +1,5 @@
 import { NgClass, NgOptimizedImage } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
@@ -13,6 +13,7 @@ import { CaSettingsService } from '../../../ca-core/service-api/ca-settings.serv
   selector: 'ca-dashboard-videos',
   templateUrl: './ca-dashboard-videos.component.html',
   styleUrl: './ca-dashboard-videos.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlCardModule, FlTextIconModule, MatIcon, MatIconButton, NgOptimizedImage, NgClass, TranslatePipe],
 })
 export class CaDashboardVideosComponent implements OnInit {

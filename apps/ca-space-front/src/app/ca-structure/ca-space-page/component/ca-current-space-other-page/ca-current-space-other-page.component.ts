@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy,Component } from '@angular/core';
 
 import { CaBucketCredentialsListComponent } from '../../../../ca-core/entity-module/ca-bucket-credentials-core/component/ca-bucket-credentials-list/ca-bucket-credentials-list.component';
 
@@ -6,6 +6,7 @@ import { CaBucketCredentialsListComponent } from '../../../../ca-core/entity-mod
   selector: 'ca-ca-current-space-other-page',
   templateUrl: './ca-current-space-other-page.component.html',
   styleUrls: ['./ca-current-space-other-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [CaBucketCredentialsListComponent],
 })
 export class CaCurrentSpaceOtherPageComponent {}

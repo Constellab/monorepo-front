@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, Input, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy,Component, ElementRef, inject, Input, OnInit, ViewChild } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
 
 import { BnBioNetwork } from '../../model/bn-bio-network.class';
@@ -27,6 +27,7 @@ import { BnBioNetworkSimulationState } from '../../state/bn-bio-network-simulati
     BnBioNetworkEngineState,
     BnBioNetworkSimulationState,
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class BnBioNetworkComponent implements OnInit {

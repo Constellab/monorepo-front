@@ -1,4 +1,4 @@
-import { Component, inject, input, ViewContainerRef } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, input, ViewContainerRef } from '@angular/core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -33,6 +33,7 @@ interface LmlCurrentStatusInfo {
   selector: 'lml-manager-status',
   templateUrl: './lml-manager-status.component.html',
   styleUrls: ['./lml-manager-status.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class LmlManagerStatusComponent {

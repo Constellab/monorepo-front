@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { FL_PORTAL_DATA } from '@monorepo/front-core-lib/fl-portal';
 
 import { ChChartLabelFormatter } from '../../../model/ch-chart-label-formatter.class';
@@ -14,6 +14,7 @@ export interface ChChartHeatMapDataPortalInput {
   selector: 'ch-chart-heat-map-data-portal',
   templateUrl: './ch-chart-heat-map-data-portal.component.html',
   styleUrls: ['./ch-chart-heat-map-data-portal.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class ChChartHeatMapDataPortalComponent {

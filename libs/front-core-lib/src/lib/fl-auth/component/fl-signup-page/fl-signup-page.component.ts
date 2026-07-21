@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ClStringHelper } from '@monorepo/core-lib';
 import { FlCaptchaService } from '@monorepo/front-core-lib/fl-captcha';
@@ -14,6 +14,7 @@ import { FlSignupFormComponent } from '../fl-signup-form/fl-signup-form.componen
   selector: 'fl-signup-page',
   templateUrl: './fl-signup-page.component.html',
   styleUrls: ['./fl-signup-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlSignupPageComponent implements OnInit {

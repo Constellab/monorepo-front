@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Input, OnInit } from '@angular/core';
 import { ClOnChange } from '@monorepo/core-lib';
 import { DateTime } from 'luxon';
 
@@ -12,6 +12,7 @@ import { FlDateFormatKey } from '../../pipe/fl-date/fl-date.pipe';
   selector: 'fl-date-range',
   templateUrl: './fl-date-range.component.html',
   styleUrls: ['./fl-date-range.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlDateRangeComponent implements OnInit {

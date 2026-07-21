@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input, OnInit } from '@angular/core';
 import { MatAnchor } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
 import { FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
@@ -20,6 +20,7 @@ import { CaNoteTextEditorConfig } from '../../../ca-note-core/model/ca-note-text
   selector: 'ca-folder-note-preview',
   templateUrl: './ca-folder-note-preview.component.html',
   styleUrls: ['./ca-folder-note-preview.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     CaHierarchyObjectIconComponent,
     MatAnchor,

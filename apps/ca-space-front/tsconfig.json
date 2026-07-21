@@ -8,7 +8,7 @@
     },
     {
       "path": "./tsconfig.spec.json"
-    },
+    }
   ],
   "angularCompilerOptions": {
     "strictInjectionParameters": true,
@@ -17,6 +17,7 @@
   },
   "compilerOptions": {
     "module": "preserve",
-    "moduleResolution": "bundler"
+    "moduleResolution": "bundler",
+    "ignoreDeprecations": "6.0"
   }
 }

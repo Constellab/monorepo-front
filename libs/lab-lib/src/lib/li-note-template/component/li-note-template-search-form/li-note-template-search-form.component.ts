@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import {
   MatExpansionPanel,
@@ -20,6 +20,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   selector: 'li-note-template-search-form',
   templateUrl: './li-note-template-search-form.component.html',
   styleUrls: ['./li-note-template-search-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     ReactiveFormsModule,
     MatExpansionPanel,

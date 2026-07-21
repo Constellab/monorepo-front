@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, EventEmitter, inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
@@ -17,6 +17,7 @@ import { CaFolderService } from '../../../../service-api/ca-folder.service';
   selector: 'ca-chat-write-message',
   templateUrl: './ca-chat-write-message.component.html',
   styleUrl: './ca-chat-write-message.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     TeTextEditorModule,
     ReactiveFormsModule,

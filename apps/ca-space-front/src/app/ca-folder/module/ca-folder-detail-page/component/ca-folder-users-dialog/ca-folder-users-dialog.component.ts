@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
@@ -29,6 +29,7 @@ export interface CaFolderUsersDialogInput {
   selector: 'ca-folder-users-dialog',
   templateUrl: './ca-folder-users-dialog.component.html',
   styleUrls: ['./ca-folder-users-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlDialogModule,
     MatDialogContent,

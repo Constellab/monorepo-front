@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, inject, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -13,6 +13,7 @@ import { CaLabService } from '../../../../service-api/ca-lab.service';
   selector: 'ca-lab-login-button',
   templateUrl: './ca-lab-login-button.component.html',
   styleUrls: ['./ca-lab-login-button.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatTooltip, MatButtonModule, NgClass, MatIcon, FlLoaderModule, TranslatePipe],
 })
 export class CaLabLoginButtonComponent {

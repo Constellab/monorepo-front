@@ -1,4 +1,4 @@
-import { Component, inject,Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input, OnInit } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { FlEntityPaginatedDatasource, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
@@ -17,6 +17,7 @@ import { LiResourceDetailState } from '../../state/li-resource-detail.state';
   selector: 'li-resource-view-historic',
   templateUrl: './li-resource-view-historic.component.html',
   styleUrls: ['./li-resource-view-historic.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlCardModule,
     FlTextIconModule,

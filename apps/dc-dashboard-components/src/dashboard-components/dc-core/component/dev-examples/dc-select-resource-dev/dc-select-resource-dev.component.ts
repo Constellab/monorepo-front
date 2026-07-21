@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, OnInit, signal, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy,Component, ElementRef, inject, OnInit, signal, ViewChild } from '@angular/core';
 
 import {
   DcComponentData,
@@ -22,6 +22,7 @@ class DcStreamlitEventLogger implements DcDynamicComponentEvent {
   imports: [DcSelectResourceComponent],
   templateUrl: './dc-select-resource-dev.component.html',
   styleUrl: '../dc-dev-examples.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   providers: [DcComponentLoaderService],
 })
 export class DcSelectResourceDevComponent implements OnInit {

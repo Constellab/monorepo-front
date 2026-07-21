@@ -1,5 +1,6 @@
 import { isPlatformBrowser, isPlatformServer, NgClass } from '@angular/common';
 import {
+  ChangeDetectionStrategy,
   Component,
   computed,
   effect,
@@ -8,8 +9,7 @@ import {
   PLATFORM_ID,
   Signal,
   StateKey,
-  TransferState,
-} from '@angular/core';
+  TransferState} from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconButton } from '@angular/material/button';
@@ -58,6 +58,7 @@ import {
   selector: 'ha-brick-sidenav',
   templateUrl: './ha-brick-sidenav.component.html',
   styleUrls: ['./ha-brick-sidenav.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     MatIcon,
     ReactiveFormsModule,

@@ -1,4 +1,4 @@
-import { Component, inject, input, NgZone, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, input, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTab, MatTabContent, MatTabGroup } from '@angular/material/tabs';
@@ -42,6 +42,7 @@ import { CaScenarioTechnicalReportGraphComponent } from '../ca-scenario-technica
   selector: 'ca-scenario-technical-report',
   templateUrl: './ca-scenario-technical-report.component.html',
   styleUrls: ['./ca-scenario-technical-report.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlCardModule,
     FlTextIconModule,

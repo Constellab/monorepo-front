@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -27,6 +27,7 @@ import { CaSettingsService } from '../../../ca-core/service-api/ca-settings.serv
   selector: 'ca-admin-server-standard-list',
   templateUrl: './ca-admin-server-standard-list.component.html',
   styleUrl: './ca-admin-server-standard-list.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlCardModule,
     FlTextIconModule,

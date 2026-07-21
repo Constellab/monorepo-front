@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent } from '@angular/material/dialog';
 import { FlDialogModule, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
@@ -21,6 +21,7 @@ export interface LiVenvDetailDialogInput {
   selector: 'li-venv-detail-dialog',
   templateUrl: './li-venv-detail-dialog.component.html',
   styleUrls: ['./li-venv-detail-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlDialogModule,
     MatDialogContent,

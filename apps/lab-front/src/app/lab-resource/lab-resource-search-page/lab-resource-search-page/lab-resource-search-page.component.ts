@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy,Component } from '@angular/core';
 import { LiResourceSearchComponent } from '@monorepo/lab-lib/li-resource';
 
 /**
@@ -8,6 +8,7 @@ import { LiResourceSearchComponent } from '@monorepo/lab-lib/li-resource';
   selector: 'lab-resource-search-page',
   templateUrl: './lab-resource-search-page.component.html',
   styleUrls: ['./lab-resource-search-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [LiResourceSearchComponent],
 })
 export class LabResourceSearchPageComponent {}

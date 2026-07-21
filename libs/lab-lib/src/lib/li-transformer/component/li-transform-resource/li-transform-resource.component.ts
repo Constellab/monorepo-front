@@ -1,5 +1,5 @@
 import { CdkDrag, CdkDragDrop, CdkDragHandle, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
-import { ChangeDetectorRef, Component, inject,Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,ChangeDetectorRef, Component, inject, Input, OnInit } from '@angular/core';
 import {
   ControlContainer,
   FormArray,
@@ -58,6 +58,7 @@ interface LiSelectedTransformer {
     // configure the dynamic field to support tags and other custom fields
     { provide: FlDynamicFieldConfigService, useClass: LiProcessDynamicFieldConfig },
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     MatButton,
     MatIcon,

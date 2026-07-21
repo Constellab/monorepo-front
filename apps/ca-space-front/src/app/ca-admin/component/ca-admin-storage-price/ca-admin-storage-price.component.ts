@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
@@ -17,6 +17,7 @@ import { CaServerService } from '../../../ca-core/service-api/ca-server.service'
   selector: 'ca-admin-storage-price',
   templateUrl: './ca-admin-storage-price.component.html',
   styleUrl: './ca-admin-storage-price.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlCardModule,
     FlTextIconModule,

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenuItem } from '@angular/material/menu';
@@ -43,6 +43,7 @@ export interface LiResourceViewPortalInput {
   selector: 'li-resource-view-portal',
   templateUrl: './li-resource-view-portal.component.html',
   styleUrls: ['./li-resource-view-portal.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlPortalModule,
     FlResizeModule,

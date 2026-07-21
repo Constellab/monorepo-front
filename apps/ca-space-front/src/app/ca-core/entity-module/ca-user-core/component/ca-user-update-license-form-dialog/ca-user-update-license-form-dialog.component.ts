@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatOption } from '@angular/material/core';
@@ -22,6 +22,7 @@ export interface CaUserUpdateLicenseDialogInput {
   selector: 'ca-user-update-license-form-dialog',
   templateUrl: './ca-user-update-license-form-dialog.component.html',
   styleUrl: './ca-user-update-license-form-dialog.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlDialogModule,
     MatDialogContent,

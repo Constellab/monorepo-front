@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Input } from '@angular/core';
 
 /**
  * Simple graphic component to display a round image on the left of the card
@@ -9,6 +9,7 @@ import { Component, Input } from '@angular/core';
   selector: 'fl-card-image',
   templateUrl: './fl-card-image.component.html',
   styleUrls: ['./fl-card-image.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlCardImageComponent {

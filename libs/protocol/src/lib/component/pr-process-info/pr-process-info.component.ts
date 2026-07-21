@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input, OnInit } from '@angular/core';
 import { CoCommunityHelperService } from '@monorepo/community-lib';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { TdTypingName } from '@monorepo/technical-doc';
@@ -13,6 +13,7 @@ import { PrProcessConfigInfoDialogComponent } from '../pr-process-config-info-di
   selector: 'pr-process-info',
   templateUrl: './pr-process-info.component.html',
   styleUrl: './pr-process-info.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class PrProcessInfoComponent implements OnInit {

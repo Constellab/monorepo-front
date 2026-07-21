@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject, input, OnInit, output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, input, OnInit, output } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
 import {
@@ -27,6 +27,7 @@ import { LiSelectFormTemplateDialogComponent } from '../li-select-form-template-
       useExisting: LiSelectFormTemplateComponent,
     },
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [AsyncPipe, FlInputSearchModule, FlIconModule, FlTranslateModule, MatIcon],
 })
 export class LiSelectFormTemplateComponent extends FlFormFieldDirective<LiFormTemplate> implements OnInit {

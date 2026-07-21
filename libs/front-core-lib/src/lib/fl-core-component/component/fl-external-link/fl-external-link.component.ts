@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Input } from '@angular/core';
 
 /**
  * Module to show a link that redirect to an external page
@@ -8,6 +8,7 @@ import { Component, Input } from '@angular/core';
   selector: 'fl-external-link',
   templateUrl: './fl-external-link.component.html',
   styleUrls: ['./fl-external-link.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlExternalLinkComponent {

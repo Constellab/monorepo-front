@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input, OnInit } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { FlDrawerModule } from '@monorepo/front-core-lib/fl-drawer';
 import {
@@ -17,6 +17,7 @@ import { Observable } from 'rxjs';
   selector: 'lab-scenario-template-detail',
   templateUrl: './lab-scenario-template-detail.component.html',
   styleUrls: ['./lab-scenario-template-detail.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlDrawerModule,
     LiTagListComponent,

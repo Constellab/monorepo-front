@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   ContentChild,
   ElementRef,
@@ -9,8 +10,7 @@ import {
   OnInit,
   Output,
   TemplateRef,
-  ViewChild,
-} from '@angular/core';
+  ViewChild} from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ClHelpService, clRxjsElasticSearch } from '@monorepo/core-lib';
 import { FlDatasourcePaginated, FlInputSearchFilter } from '@monorepo/front-core-lib/fl-core';
@@ -47,6 +47,7 @@ abstract class FlInputSearchEvent {
   selector: 'fl-input-search',
   templateUrl: './fl-input-search.component.html',
   styleUrls: ['./fl-input-search.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlInputSearchComponent<T> implements OnInit, OnDestroy {

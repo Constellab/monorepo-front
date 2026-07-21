@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { CoIcon } from '@monorepo/community-lib';
 import { CoCommunityLibModule } from '@monorepo/community-lib';
 import {
@@ -20,6 +20,7 @@ import { HaIconInfoPortalComponent } from '../ha-icon-info-portal/ha-icon-info-p
   selector: 'ha-icon-list',
   templateUrl: './ha-icon-list.component.html',
   styleUrls: ['./ha-icon-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [CoCommunityLibModule],
 })
 export class HaIconListComponent implements OnInit, OnDestroy {

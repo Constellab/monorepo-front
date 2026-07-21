@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Input } from '@angular/core';
 import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
 
 /**
@@ -8,6 +8,7 @@ import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
   selector: 'fl-infinite-table-container',
   templateUrl: './fl-infinite-table-container.component.html',
   styleUrls: ['./fl-infinite-table-container.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlInfiniteTableContainerComponent {

@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, computed, effect, inject, OnDestroy, OnInit, Signal } from '@angular/core';
+import { ChangeDetectionStrategy,Component, computed, effect, inject, OnDestroy, OnInit, Signal } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
@@ -36,6 +36,7 @@ import { HaDocTextEditorConfig } from '../ha-doc-text-editor-config.class';
   selector: 'ha-brick-doc',
   templateUrl: './ha-brick-doc.component.html',
   styleUrls: ['./ha-brick-doc.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlFormModule,
     TeTextEditorModule,

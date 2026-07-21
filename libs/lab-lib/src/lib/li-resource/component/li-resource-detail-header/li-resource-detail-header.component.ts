@@ -1,4 +1,4 @@
-import { Component, inject, Injector, Input, Signal, ViewContainerRef } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Injector, Input, Signal, ViewContainerRef } from '@angular/core';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatDialogClose } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
@@ -35,6 +35,7 @@ import {
   selector: 'li-resource-detail-header',
   templateUrl: './li-resource-detail-header.component.html',
   styleUrls: ['./li-resource-detail-header.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlFormModule,
     RouterLink,

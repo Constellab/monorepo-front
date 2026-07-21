@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlInputFileModule } from '@monorepo/front-core-lib/fl-input-file';
@@ -38,6 +38,7 @@ export interface HaResourceViewInputDialogOutputData {
   selector: 'ha-resource-view-input-dialog',
   templateUrl: './ha-resource-view-input-dialog.component.html',
   styleUrls: ['./ha-resource-view-input-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlDialogModule, MatDialogContent, FlLoaderModule, FlInputFileModule, TranslatePipe],
 })
 export class HaResourceViewInputDialogComponent {

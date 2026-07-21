@@ -1,4 +1,4 @@
-import { Component, computed, inject, Injector, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy,Component, computed, inject, Injector, OnInit, signal } from '@angular/core';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
@@ -68,6 +68,7 @@ import { TranslatePipe } from '@ngx-translate/core';
     LiFormTemplateVersionEditorComponent,
     TranslatePipe,
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   providers: [
     LiFormTemplateDynamicParamSpecState,
     { provide: TdAbstractDynamicParamSpecState, useExisting: LiFormTemplateDynamicParamSpecState },

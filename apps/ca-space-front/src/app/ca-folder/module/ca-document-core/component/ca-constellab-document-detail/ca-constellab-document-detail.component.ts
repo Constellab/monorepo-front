@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, computed, effect, inject, Injector, input, output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, computed, effect, inject, Injector, input, output } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
@@ -49,6 +49,7 @@ import { CaDocumentActionDetailMenu, CaDocumentActionEvent } from '../../ca-docu
     NgClass,
   ],
   templateUrl: './ca-constellab-document-detail.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './ca-constellab-document-detail.component.scss',
 })
 export class CaConstellabDocumentDetailComponent {

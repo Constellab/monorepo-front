@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -23,6 +23,7 @@ import { CaCloudProviderService } from '../../../ca-core/service-api/ca-cloud-pr
   selector: 'ca-admin-cloud-providers-list',
   templateUrl: './ca-admin-cloud-providers-list.component.html',
   styleUrls: ['./ca-admin-cloud-providers-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlCardModule,
     FlTextIconModule,

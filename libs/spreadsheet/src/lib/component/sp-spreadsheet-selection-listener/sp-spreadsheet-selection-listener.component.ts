@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject,Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, EventEmitter, inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
@@ -14,6 +14,7 @@ import { SpSpreadsheetSelectionListenerManagerService } from '../../state/sp-spr
   selector: 'sp-spreadsheet-selection-listener',
   templateUrl: './sp-spreadsheet-selection-listener.component.html',
   styleUrls: ['./sp-spreadsheet-selection-listener.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class SpSpreadsheetSelectionListenerComponent implements OnInit, OnDestroy {

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy,Component } from '@angular/core';
 import { LiTagKeyModel } from '@monorepo/lab-lib/li-core';
 import { LiTagSearchComponent } from '@monorepo/lab-lib/li-tag';
 
@@ -6,6 +6,7 @@ import { LiTagSearchComponent } from '@monorepo/lab-lib/li-tag';
   selector: 'lab-tag-search-page',
   imports: [LiTagSearchComponent],
   templateUrl: './lab-tag-search-page.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './lab-tag-search-page.component.scss',
 })
 export class LabTagSearchPageComponent {

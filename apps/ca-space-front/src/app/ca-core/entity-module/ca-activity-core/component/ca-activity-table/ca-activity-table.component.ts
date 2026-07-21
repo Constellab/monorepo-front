@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { MatSortHeader } from '@angular/material/sort';
 import {
   MatCell,
@@ -23,6 +23,7 @@ import { CaActivity, CaActivityDatasource } from '../../../../model/entities/ca-
   selector: 'ca-activity-table',
   templateUrl: './ca-activity-table.component.html',
   styleUrls: ['./ca-activity-table.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     MatTable,
     FlSearchModule,

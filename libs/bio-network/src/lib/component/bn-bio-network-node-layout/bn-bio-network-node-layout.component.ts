@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,ChangeDetectorRef, Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -17,6 +17,7 @@ import { BnBioNetworkDrawerState } from '../../state/bn-bio-network-drawer.state
   selector: 'bn-bio-network-node-layout',
   templateUrl: './bn-bio-network-node-layout.component.html',
   styleUrls: ['./bn-bio-network-node-layout.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class BnBioNetworkNodeLayoutComponent implements OnInit, OnDestroy {

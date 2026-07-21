@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, EventEmitter, inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, EventEmitter, inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -47,6 +47,7 @@ export interface DcProcessConfigOutput {
   ],
   templateUrl: './dc-process-config.component.html',
   styleUrl: './dc-process-config.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   hostDirectives: [DcCoreMainDirective],
 })
 export class DcProcessConfigComponent

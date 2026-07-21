@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
@@ -23,6 +23,7 @@ import {
   selector: 'fl-portal-action-line',
   templateUrl: './fl-portal-action-line.component.html',
   styleUrls: ['./fl-portal-action-line.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlPortalActionLineComponent implements OnInit, OnDestroy {

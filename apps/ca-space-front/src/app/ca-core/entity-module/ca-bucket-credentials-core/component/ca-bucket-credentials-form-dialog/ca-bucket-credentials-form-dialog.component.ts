@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatDialogActions, MatDialogContent } from '@angular/material/dialog';
@@ -28,6 +28,7 @@ export type CaBucketCredentialsFormDialogInput = FlFormDialogInput<CaBucketCrede
   selector: 'ca-bucket-credentials-form-dialog',
   templateUrl: './ca-bucket-credentials-form-dialog.component.html',
   styleUrls: ['./ca-bucket-credentials-form-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlDialogModule,
     MatDialogContent,

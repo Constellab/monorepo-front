@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, inject, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { MatOptgroup, MatOption } from '@angular/material/core';
 import { MatSelect } from '@angular/material/select';
 import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib/fl-core';
@@ -11,6 +11,7 @@ import { CaCountryService } from '../../../../service-api/ca-country.service';
   selector: 'ca-select-city-options',
   templateUrl: './ca-select-options-city.component.html',
   styleUrls: ['./ca-select-options-city.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatOption, MatOptgroup, TranslatePipe],
 })
 export class CaSelectOptionsCityComponent

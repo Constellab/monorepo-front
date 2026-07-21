@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
@@ -33,6 +33,7 @@ import { CaSpaceUser, CaSpaceUserDatasource } from '../../../../model/entities/s
   selector: 'ca-space-user-table',
   templateUrl: './ca-space-user-table.component.html',
   styleUrls: ['./ca-space-user-table.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     MatTable,
     MatSort,

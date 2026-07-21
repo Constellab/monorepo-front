@@ -1,5 +1,5 @@
 import { DecimalPipe } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Input } from '@angular/core';
 import {
   MatCell,
   MatCellDef,
@@ -24,6 +24,7 @@ import { CaLabBackupPeriod } from '../../../../ca-core/model/entities/lab/ca-lab
   selector: 'ca-lab-backup-storage-price-table',
   templateUrl: './ca-lab-backup-storage-price-table.component.html',
   styleUrl: './ca-lab-backup-storage-price-table.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     MatTable,
     MatColumnDef,

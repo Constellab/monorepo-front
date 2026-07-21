@@ -26,8 +26,12 @@ describe('LiFormSearch', () => {
       });
     });
 
-    it('should have a templateId filter with EQ operator', () => {
-      expect(LiFormSearch.filterConverter.templateId).toEqual({ key: 'template_id', operator: 'EQ' });
+    it('should have a templateId filter with EQ operator and getEntityId converter', () => {
+      expect(LiFormSearch.filterConverter.templateId).toEqual({
+        key: 'template_id',
+        operator: 'EQ',
+        convertValue: FlSearchConverter.getEntityId,
+      });
     });
 
     it('should have a createdAt filter using dateInterval', () => {
@@ -56,12 +60,12 @@ describe('LiFormSearch', () => {
       expect(LiFormSearch.sortConverter['status']).toBe('status');
     });
 
-    it('should have created_at sort key', () => {
-      expect(LiFormSearch.sortConverter['created_at']).toBe('created_at');
+    it('should map creation to the created_at sort key', () => {
+      expect(LiFormSearch.sortConverter['creation']).toBe('created_at');
     });
 
-    it('should have last_modified_at sort key', () => {
-      expect(LiFormSearch.sortConverter['last_modified_at']).toBe('last_modified_at');
+    it('should map lastModification to the last_modified_at sort key', () => {
+      expect(LiFormSearch.sortConverter['lastModification']).toBe('last_modified_at');
     });
   });
 

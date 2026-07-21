@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject,Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { FlFormFieldDirective, FlInputSearchFilter } from '@monorepo/front-core-lib/fl-core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
@@ -26,6 +26,7 @@ import {
   templateUrl: './li-select-scenario-template.component.html',
   styleUrls: ['./li-select-scenario-template.component.scss'],
   providers: [{ provide: FlFormFieldDirective, useExisting: LiSelectScenarioTemplateComponent }],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlInputSearchModule, FlUserModule, LiScenarioTemplateInlineComponent],
 })
 export class LiSelectScenarioTemplateComponent

@@ -1,4 +1,4 @@
-import { Component, computed, input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, computed, input } from '@angular/core';
 import {
   MatCell,
   MatCellDef,
@@ -35,6 +35,7 @@ export interface TdParamTableRow {
   selector: 'td-param-table',
   templateUrl: './td-param-table.component.html',
   styleUrl: './td-param-table.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     MatTable,
     MatColumnDef,

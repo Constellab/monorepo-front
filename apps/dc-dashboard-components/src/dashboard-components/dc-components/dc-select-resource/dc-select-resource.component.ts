@@ -1,4 +1,4 @@
-import { Component, computed, inject, input, OnInit, output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, computed, inject, input, OnInit, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ClCoreJsonConvert } from '@monorepo/core-lib';
 import { FlInputSearchModule } from '@monorepo/front-core-lib/fl-input-search';
@@ -34,6 +34,7 @@ export interface DcSelectResourceOutput {
   selector: 'dc-select-resource',
   templateUrl: './dc-select-resource.component.html',
   styleUrl: './dc-select-resource.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   hostDirectives: [DcCoreMainDirective],
 })
 export class DcSelectResourceComponent

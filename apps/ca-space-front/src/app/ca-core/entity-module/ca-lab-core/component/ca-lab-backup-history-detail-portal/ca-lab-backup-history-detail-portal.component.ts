@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
 import { FL_PORTAL_DATA, FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
@@ -11,6 +11,7 @@ import { CaLabBackupHistoryDetail } from '../../../../model/entities/lab/ca-lab-
   selector: 'ca-lab-backup-history-detail-portal',
   templateUrl: './ca-lab-backup-history-detail-portal.component.html',
   styleUrl: './ca-lab-backup-history-detail-portal.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlPortalModule, FlStatusModule, FlKeyValueModule, FlCorePipeModule, TranslatePipe],
 })
 export class CaLabBackupHistoryDetailPortalComponent {

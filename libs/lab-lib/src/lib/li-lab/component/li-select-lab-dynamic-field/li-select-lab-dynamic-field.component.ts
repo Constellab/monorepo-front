@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy,Component } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatError, MatHint } from '@angular/material/form-field';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
@@ -11,6 +11,7 @@ import { LiSelectLabComponent } from '../li-select-lab/li-select-lab.component';
   selector: 'li-select-lab-dynamic-field',
   templateUrl: './li-select-lab-dynamic-field.component.html',
   styleUrls: ['./li-select-lab-dynamic-field.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlFormModule, LiSelectLabComponent, ReactiveFormsModule, MatError, MatHint, FlCorePipeModule],
 })
 export class LiSelectLabDynamicFieldComponent extends FlDynamicFieldAbstractDirective {}

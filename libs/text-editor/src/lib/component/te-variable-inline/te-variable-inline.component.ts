@@ -1,4 +1,4 @@
-import { Component, HostBinding, HostListener, inject,OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, HostBinding, HostListener, inject, OnInit } from '@angular/core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 
 import { TeElementInlineDirective } from '../../model/te-element.directive';
@@ -12,6 +12,7 @@ import { TeVariableFormDialogComponent } from '../te-variable-form-dialog/te-var
   selector: 'te-variable-inline',
   templateUrl: './te-variable-inline.component.html',
   styleUrl: './te-variable-inline.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class TeVariableInlineComponent

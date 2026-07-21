@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
@@ -33,6 +33,7 @@ import { CaServerCloudFormDialogComponent } from '../ca-server-cloud-form-dialog
   selector: 'ca-server-cloud-table',
   templateUrl: './ca-server-cloud-table.component.html',
   styleUrls: ['./ca-server-cloud-table.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     MatTable,
     FlSearchModule,

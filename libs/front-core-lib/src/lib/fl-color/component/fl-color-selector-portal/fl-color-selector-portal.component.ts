@@ -1,10 +1,11 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { FL_PORTAL_DATA, FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
 
 @Component({
   selector: 'fl-color-selector-portal',
   templateUrl: './fl-color-selector-portal.component.html',
   styleUrls: ['./fl-color-selector-portal.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlColorSelectorPortalComponent {

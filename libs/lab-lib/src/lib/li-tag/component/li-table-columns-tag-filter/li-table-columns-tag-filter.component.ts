@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, output, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnDestroy, output, ViewChild } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import {
   MatExpansionPanel,
@@ -33,6 +33,7 @@ import { TranslatePipe } from '@ngx-translate/core';
     FlTagModule,
   ],
   templateUrl: './li-table-columns-tag-filter.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './li-table-columns-tag-filter.component.scss',
 })
 export class LiTableColumnsTagFilterComponent extends FlFormFieldDirective<FlTag[]> implements OnDestroy {

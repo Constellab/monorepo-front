@@ -1,4 +1,4 @@
-import { Component, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, input } from '@angular/core';
 import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 
@@ -8,6 +8,7 @@ import { LiTagDetailState } from '../../state/li-tag-detail.state';
   selector: 'li-tag-detail-header',
   imports: [FlSectionModule, FlFormModule],
   templateUrl: './li-tag-detail-header.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './li-tag-detail-header.component.scss',
 })
 export class LiTagDetailHeaderComponent {

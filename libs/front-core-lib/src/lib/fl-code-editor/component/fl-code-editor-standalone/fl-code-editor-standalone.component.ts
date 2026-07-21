@@ -1,5 +1,6 @@
 import { isPlatformBrowser } from '@angular/common';
 import {
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
   inject,
@@ -7,8 +8,7 @@ import {
   OnDestroy,
   OnInit,
   PLATFORM_ID,
-  ViewChild,
-} from '@angular/core';
+  ViewChild} from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { defaultKeymap, indentWithTab } from '@codemirror/commands';
 import { json } from '@codemirror/lang-json';
@@ -36,6 +36,7 @@ import { Subject, takeUntil } from 'rxjs';
   selector: 'fl-code-editor-standalone',
   imports: [],
   templateUrl: './fl-code-editor-standalone.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./fl-code-editor-standalone.component.scss'],
 })
 export class FlCodeEditorStandaloneComponent implements OnInit, OnDestroy {

@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, Renderer2 } from '@angular/core';
+import { ChangeDetectionStrategy,Component, ElementRef, inject, Renderer2 } from '@angular/core';
 import { FL_CDK_OVERLAY_PANEL_CLASS, FlHtmlHelper } from '@monorepo/front-core-lib/fl-core';
 import { FlPortalHeaderComponent } from '@monorepo/front-core-lib/fl-portal';
 
@@ -12,6 +12,7 @@ import { FlResizeDirective } from '../fl-resize/fl-resize.directive';
   selector: 'fl-resize-portal-fullscreen-button',
   templateUrl: './fl-resize-portal-fullscreen-button.component.html',
   styleUrls: ['./fl-resize-portal-fullscreen-button.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlResizePortalFullscreenButtonComponent {

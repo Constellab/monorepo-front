@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { FlDynamicFieldAbstractDirective } from '@monorepo/front-core-lib/fl-dynamic-field';
@@ -8,6 +8,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   selector: 'li-computed-dynamic-field',
   templateUrl: './li-computed-dynamic-field.component.html',
   styleUrl: './li-computed-dynamic-field.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatIconModule, MatTooltipModule, TranslatePipe],
 })
 export class LiComputedDynamicFieldComponent extends FlDynamicFieldAbstractDirective {

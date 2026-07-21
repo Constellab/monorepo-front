@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Input } from '@angular/core';
 
 import { CaHierarchyObject } from '../../../../model/entities/folder/ca-hierarchy-object.class';
 import { CaHierarchyObjectIconComponent } from '../ca-hierarchy-object-icon/ca-hierarchy-object-icon.component';
@@ -7,6 +7,7 @@ import { CaHierarchyObjectIconComponent } from '../ca-hierarchy-object-icon/ca-h
   selector: 'ca-hierarchy-object-inline',
   templateUrl: './ca-hierarchy-object-inline.component.html',
   styleUrl: './ca-hierarchy-object-inline.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [CaHierarchyObjectIconComponent],
 })
 export class CaHierarchyObjectInlineComponent {

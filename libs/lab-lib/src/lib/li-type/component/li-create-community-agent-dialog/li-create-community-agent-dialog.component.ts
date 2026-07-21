@@ -1,4 +1,4 @@
-import { Component, inject,OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CoAgentType, CoCommunityLibModule, CoCreateAgentFormData, CoSpace } from '@monorepo/community-lib';
@@ -22,6 +22,7 @@ export interface LiCreateAgentCommunityDialogData {
   selector: 'li-create-community-agent-dialog',
   templateUrl: './li-create-community-agent-dialog.component.html',
   styleUrls: ['./li-create-community-agent-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlDialogModule, CoCommunityLibModule, TranslatePipe],
 })
 export class LiCreateCommunityAgentDialogComponent implements OnInit {

@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, computed, DOCUMENT, effect, inject, OnDestroy, OnInit, Signal } from '@angular/core';
+import { ChangeDetectionStrategy,Component, computed, DOCUMENT, effect, inject, OnDestroy, OnInit, Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
@@ -34,6 +34,7 @@ import { HaEditBrickDialogComponent } from '../ha-edit-brick-dialog/ha-edit-bric
   templateUrl: './ha-brick-page.component.html',
   styleUrls: ['./ha-brick-page.component.scss'],
   providers: [HaBrickPageState, HaEntityCommentState],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlLoaderModule,
     FlSectionModule,

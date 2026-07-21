@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, input } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
@@ -10,6 +10,7 @@ import { LiFormTemplateRef } from '../../../li-core/model/entities/form/li-form.
   selector: 'li-form-template-ref-inline',
   templateUrl: './li-form-template-ref-inline.component.html',
   styleUrl: './li-form-template-ref-inline.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [RouterLink, MatIcon, FlIconModule],
 })
 export class LiFormTemplateRefInlineComponent {

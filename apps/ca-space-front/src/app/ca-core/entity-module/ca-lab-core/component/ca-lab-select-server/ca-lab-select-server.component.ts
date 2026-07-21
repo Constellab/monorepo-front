@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatError } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
@@ -39,6 +39,7 @@ export interface CaLabSelectServerForm {
   selector: 'ca-lab-select-server',
   templateUrl: './ca-lab-select-server.component.html',
   styleUrl: './ca-lab-select-server.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     ReactiveFormsModule,
     CaServerDecisionTreeComponent,

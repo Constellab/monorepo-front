@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { MatDivider } from '@angular/material/divider';
 import { CoTagCommunityIconComponent } from '@monorepo/community-lib';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
@@ -24,6 +24,7 @@ export interface LiTagDetailPortalInput {
   selector: 'li-tag-detail-portal',
   templateUrl: './li-tag-detail-portal.component.html',
   styleUrls: ['./li-tag-detail-portal.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlPortalModule,
     FlSectionModule,

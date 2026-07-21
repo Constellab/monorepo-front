@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 
@@ -11,6 +11,7 @@ import { CaBucketSearchComponent } from '../bucket/ca-bucket-search/ca-bucket-se
   selector: 'ca-ca-admin-buckets-page',
   templateUrl: './ca-admin-buckets-page.component.html',
   styleUrls: ['./ca-admin-buckets-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [CaBucketSearchComponent],
 })
 export class CaAdminBucketsPageComponent {

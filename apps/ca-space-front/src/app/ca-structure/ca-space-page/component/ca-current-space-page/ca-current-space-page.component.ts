@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import {
   FlHorizontalNavBarItem,
@@ -15,6 +15,7 @@ import { CaCurrentSpaceService } from '../../../../ca-core/service-api/ca-curren
   selector: 'ca-current-space-page',
   templateUrl: './ca-current-space-page.component.html',
   styleUrls: ['./ca-current-space-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlHorizontalNavBarModule, RouterOutlet, AsyncPipe],
 })
 export class CaCurrentSpacePageComponent implements OnInit {

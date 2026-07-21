@@ -1,5 +1,5 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Component, computed, inject, input, output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, computed, inject, input, output } from '@angular/core';
 import { ClStringHelper } from '@monorepo/core-lib';
 import { FlArrayObs } from '@monorepo/front-core-lib/fl-core';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
@@ -10,6 +10,7 @@ import { TdParamSpecEntry, TdParamSpecTypeEnum } from '../../model/td-config-spe
   selector: 'td-editable-param-specs-table',
   templateUrl: './td-editable-param-specs-table.component.html',
   styleUrl: './td-editable-param-specs-table.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class TdEditableParamSpecsTableComponent {

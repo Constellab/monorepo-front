@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { RouterOutlet } from '@angular/router';
 import {
@@ -17,6 +17,7 @@ import { CaRouterService } from '../../../ca-core/service/ca-router.service';
   selector: 'ca-admin-page',
   templateUrl: './ca-admin-page.component.html',
   styleUrls: ['./ca-admin-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlHorizontalNavBarModule, FlTextIconModule, MatIcon, RouterOutlet, TranslatePipe],
 })
 export class CaAdminPageComponent {

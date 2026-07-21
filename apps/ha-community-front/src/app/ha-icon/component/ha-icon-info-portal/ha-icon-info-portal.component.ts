@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -14,6 +14,7 @@ import { HaIsGencoveryMemberDirective } from '../../../ha-core/ha-module/ha-core
   selector: 'ha-icon-info-portal',
   templateUrl: './ha-icon-info-portal.component.html',
   styleUrls: ['./ha-icon-info-portal.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlKeyValueModule,
     MatIconButton,

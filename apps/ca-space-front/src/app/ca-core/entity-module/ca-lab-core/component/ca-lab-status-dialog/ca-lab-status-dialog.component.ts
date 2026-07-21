@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FlJsonEditorModule } from '@monorepo/front-core-lib/fl-json-editor';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
@@ -13,6 +13,7 @@ import { CaLabService } from '../../../../service-api/ca-lab.service';
   selector: 'ca-lab-status-dialog',
   templateUrl: './ca-lab-status-dialog.component.html',
   styleUrls: ['./ca-lab-status-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlSectionModule, FlJsonEditorModule],
 })
 export class CaLabStatusDialogComponent implements OnInit {

@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { Observable } from 'rxjs';
@@ -15,6 +15,7 @@ import { CaAuthenticatedUserService } from '../../../../service-api/ca-authentic
   selector: 'ca-authenticated-user-inline',
   templateUrl: './ca-authenticated-user-inline.component.html',
   styleUrls: ['./ca-authenticated-user-inline.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [RouterLink, FlUserModule, AsyncPipe],
 })
 export class CaAuthenticatedUserInlineComponent implements OnInit {

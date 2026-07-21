@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, inject } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MatOption } from '@angular/material/core';
 import { MatSelect } from '@angular/material/select';
 import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib/fl-core';
@@ -9,6 +9,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   selector: 'li-tag-value-format-options',
   imports: [MatOption, TranslatePipe],
   templateUrl: './li-tag-value-format-options.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './li-tag-value-format-options.component.scss',
 })
 export class LiTagValueFormatOptionsComponent

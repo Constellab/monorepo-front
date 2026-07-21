@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent } from '@angular/material/dialog';
@@ -35,6 +35,7 @@ export interface LiFormTemplateDuplicateDialogInput extends FlFormDialogInput<Li
   selector: 'li-form-template-duplicate-dialog',
   templateUrl: './li-form-template-duplicate-dialog.component.html',
   styleUrl: './li-form-template-duplicate-dialog.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlDialogModule,
     MatDialogContent,

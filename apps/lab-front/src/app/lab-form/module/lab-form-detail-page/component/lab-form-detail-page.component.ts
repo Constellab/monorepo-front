@@ -1,4 +1,4 @@
-import { Component, computed, inject, Injector, OnInit, signal, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy,Component, computed, inject, Injector, OnInit, signal, ViewChild } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatButtonToggle, MatButtonToggleGroup } from '@angular/material/button-toggle';
 import { MatIcon } from '@angular/material/icon';
@@ -36,6 +36,7 @@ import { Observable } from 'rxjs';
   selector: 'lab-form-detail-page',
   templateUrl: './lab-form-detail-page.component.html',
   styleUrl: './lab-form-detail-page.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlAiModule,
     FlDrawerModule,

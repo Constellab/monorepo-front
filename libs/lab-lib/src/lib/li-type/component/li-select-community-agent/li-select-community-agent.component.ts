@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, EventEmitter, inject,Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconButton } from '@angular/material/button';
 import { MatChipOption } from '@angular/material/chips';
@@ -24,6 +24,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   selector: 'li-select-community-agent',
   templateUrl: './li-select-community-agent.component.html',
   styleUrls: ['./li-select-community-agent.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     MatChipOption,
     MatDivider,

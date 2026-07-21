@@ -1,4 +1,4 @@
-import { Component, inject,OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 import {
@@ -23,6 +23,7 @@ import { LiActivityTableComponent } from '../li-activity-table/li-activity-table
   templateUrl: './li-activity-search.component.html',
   styleUrls: ['./li-activity-search.component.scss'],
   providers: [FlSearchState],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlSearchModule,
     LiActivitySearchFormComponent,

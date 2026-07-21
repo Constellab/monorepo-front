@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -10,6 +10,7 @@ import { CaServerCloudSearchComponent } from '../ca-server-cloud-search/ca-serve
   selector: 'ca-select-server-cloud-dialog',
   templateUrl: './ca-select-server-cloud-dialog.component.html',
   styleUrl: './ca-select-server-cloud-dialog.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlDialogModule, MatDialogContent, CaServerCloudSearchComponent, TranslatePipe],
 })
 export class CaSelectServerCloudDialogComponent {

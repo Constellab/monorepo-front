@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, inject,OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
@@ -17,6 +17,7 @@ import { LabWorkflowActionsComponent } from '../lab-workflow-actions/lab-workflo
   selector: 'lab-workflow',
   templateUrl: './lab-workflow.component.html',
   styleUrls: ['./lab-workflow.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     PrProtocolModule,
     LabWorkflowActionsComponent,

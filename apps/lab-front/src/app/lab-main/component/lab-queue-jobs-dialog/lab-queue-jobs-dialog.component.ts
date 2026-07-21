@@ -1,4 +1,4 @@
-import { Component, inject,OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
@@ -35,6 +35,7 @@ import { Subscription, tap, zip } from 'rxjs';
   selector: 'lab-queue-jobs-dialog',
   templateUrl: './lab-queue-jobs-dialog.component.html',
   styleUrls: ['./lab-queue-jobs-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlDialogModule,
     MatDialogContent,

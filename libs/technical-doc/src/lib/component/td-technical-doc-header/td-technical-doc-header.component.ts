@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Input, OnChanges, OnInit } from '@angular/core';
 import { FlColorHelper } from '@monorepo/front-core-lib/fl-core';
 
 import { TdTypeEntity } from '../../model/td-type.class';
@@ -7,6 +7,7 @@ import { TdTypeEntity } from '../../model/td-type.class';
   selector: 'td-technical-doc-header',
   templateUrl: './td-technical-doc-header.component.html',
   styleUrls: ['./td-technical-doc-header.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class TdTechnicalDocHeaderComponent implements OnInit, OnChanges {

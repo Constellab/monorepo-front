@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   ComponentRef,
   effect,
@@ -8,8 +9,7 @@ import {
   OnDestroy,
   OnInit,
   ViewChild,
-  ViewContainerRef,
-} from '@angular/core';
+  ViewContainerRef} from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
 
 import { FlDynamicAbstractFormDirective } from '../../model/fl-dynamic-abstract-form.directive';
@@ -24,6 +24,7 @@ import { FlDynamicFieldConfigService } from '../../model/fl-dynamic-field-config
   selector: 'fl-dynamic-field',
   templateUrl: './fl-dynamic-field.component.html',
   styleUrls: ['./fl-dynamic-field.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlDynamicFieldComponent implements OnInit, OnDestroy, FlDynamicAbstractFormDirective {

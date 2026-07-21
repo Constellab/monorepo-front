@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit, SecurityContext } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input, OnInit, SecurityContext } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ClYoutubeHelper } from '@monorepo/core-lib';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
@@ -10,6 +10,7 @@ import { TeLinkDialogComponent, TeLinkDialogInput } from '../te-link-dialog/te-l
   selector: 'te-video',
   templateUrl: './te-video.component.html',
   styleUrls: ['./te-video.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class TeVideoComponent extends TeElementBlockDirective implements OnInit {

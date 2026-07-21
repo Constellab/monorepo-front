@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatOption } from '@angular/material/core';
@@ -29,6 +29,7 @@ export interface CaLabVolumeUpdateDialogInput extends FlFormDialogInput<CaLabUpd
   selector: 'ca-lab-volume-update-dialog',
   templateUrl: './ca-lab-volume-update-dialog.component.html',
   styleUrl: './ca-lab-volume-update-dialog.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlDialogModule,
     MatDialogContent,

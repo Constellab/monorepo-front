@@ -7,12 +7,12 @@
   "tags": ["front"],
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:application",
+      "executor": "@angular/build:application",
       "options": {
         "outputPath": "dist/apps/ca-space-front",
         "index": "apps/ca-space-front/src/index.html",
         "browser": "apps/ca-space-front/src/ca-main.ts",
-        "polyfills": ["apps/ca-space-front/src/polyfills.ts"],
+        "polyfills": ["zone.js", "apps/ca-space-front/src/polyfills.ts"],
         "tsConfig": "apps/ca-space-front/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
@@ -105,7 +105,7 @@
       }
     },
     "serve": {
-      "executor": "@angular-devkit/build-angular:dev-server",
+      "executor": "@angular/build:dev-server",
       "options": {
         "buildTarget": "ca-space-front:build"
       },
@@ -121,16 +121,13 @@
       "continuous": true
     },
     "extract-i18n": {
-      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "executor": "@angular/build:extract-i18n",
       "options": {
         "buildTarget": "ca-space-front:build"
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
-      "options": {
-        "lintFilePatterns": ["apps/ca-space-front/src/**/*.ts", "apps/ca-space-front/src/**/*.html"]
-      }
+      "executor": "@nx/eslint:lint"
     },
     "test": {
       "executor": "@angular/build:unit-test",

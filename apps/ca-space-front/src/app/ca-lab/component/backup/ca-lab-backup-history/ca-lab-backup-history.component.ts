@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input, OnInit } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
@@ -27,6 +27,7 @@ import { CaLabDetailPageState } from '../../../state/ca-lab-detail-page.state';
   selector: 'ca-lab-backup-history',
   templateUrl: './ca-lab-backup-history.component.html',
   styleUrls: ['./ca-lab-backup-history.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlCardModule,
     FlTextIconModule,

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, inject, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy,Component, inject, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { FlEventWrapper } from '@monorepo/front-core-lib/fl-core';
 import { FL_PORTAL_DATA, FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
@@ -13,6 +13,7 @@ import { FlMenuDynamicComponent } from '../fl-menu-dynamic/fl-menu-dynamic.compo
   selector: 'fl-menu-dynamic-portal',
   templateUrl: './fl-menu-dynamic-portal.component.html',
   styleUrls: ['./fl-menu-dynamic-portal.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlMenuDynamicPortalComponent implements OnInit, AfterViewInit, OnDestroy {

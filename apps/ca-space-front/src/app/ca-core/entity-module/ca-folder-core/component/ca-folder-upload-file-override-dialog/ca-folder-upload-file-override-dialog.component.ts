@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
@@ -28,6 +28,7 @@ export type CaFolderUploadFileErrorDialogOutput = CaDocumentUploadOverrideMode |
     FormsModule,
   ],
   templateUrl: './ca-folder-upload-file-override-dialog.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './ca-folder-upload-file-override-dialog.component.scss',
 })
 export class CaFolderUploadFileOverrideDialogComponent implements OnInit {

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject,Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { FlEntityPaginatedDatasource, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import {
@@ -31,6 +31,7 @@ import { LiViewConfigTableComponent } from '../li-view-config-table/li-view-conf
   templateUrl: './li-view-config-search.component.html',
   styleUrls: ['./li-view-config-search.component.scss'],
   providers: [FlSearchState],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlSearchModule,
     LiViewConfigSearchFormComponent,

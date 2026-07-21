@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject, makeStateKey, OnInit, StateKey } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, makeStateKey, OnInit, StateKey } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { CoCommunityLibModule, CoListFiltersComponent } from '@monorepo/community-lib';
@@ -28,6 +28,7 @@ import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
   selector: 'ha-list-bricks-page',
   templateUrl: './ha-list-bricks-page.component.html',
   styleUrls: ['./ha-list-bricks-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlTextIconModule,
     FlInfiniteScrollModule,

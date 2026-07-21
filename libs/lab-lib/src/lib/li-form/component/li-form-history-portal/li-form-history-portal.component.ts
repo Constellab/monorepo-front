@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { FL_PORTAL_DATA, FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
 import { TdParamSpecs } from '@monorepo/technical-doc';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -14,6 +14,7 @@ export interface LiFormHistoryPortalData {
   selector: 'li-form-history-portal',
   templateUrl: './li-form-history-portal.component.html',
   styleUrl: './li-form-history-portal.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlPortalModule, LiFormHistoryComponent, TranslatePipe],
 })
 export class LiFormHistoryPortalComponent {

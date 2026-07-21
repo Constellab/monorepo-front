@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Input } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
@@ -10,6 +10,7 @@ import { CaCloudProviderRegionInlineComponent } from '../../../ca-cloud-provider
   selector: 'ca-bucket-location-inline',
   templateUrl: './ca-bucket-location-inline.component.html',
   styleUrls: ['./ca-bucket-location-inline.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [CaCloudProviderRegionInlineComponent, FlTextIconModule, MatIcon, FlIconModule],
 })
 export class CaBucketLocationInlineComponent {

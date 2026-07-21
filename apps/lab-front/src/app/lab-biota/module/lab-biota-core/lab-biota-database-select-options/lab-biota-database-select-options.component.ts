@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, inject } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MatOptgroup, MatOption } from '@angular/material/core';
 import { MatSelect } from '@angular/material/select';
 import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib/fl-core';
@@ -13,6 +13,7 @@ import { LAB_BIOTA_DATABASE_GROUPS } from '../../../model/lab-biota-database.cla
   selector: 'lab-biota-database-select-options',
   templateUrl: './lab-biota-database-select-options.component.html',
   styleUrls: ['./lab-biota-database-select-options.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatOptgroup, MatOption, TranslatePipe],
 })
 export class LabBiotaDatabaseSelectOptionsComponent

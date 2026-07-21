@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { MatRipple } from '@angular/material/core';
 import { MatIcon } from '@angular/material/icon';
 import { CoCommunityHelperService } from '@monorepo/community-lib';
@@ -30,6 +30,7 @@ import { CaDashboardVideosComponent } from '../ca-dashboard-videos/ca-dashboard-
   selector: 'ca-dashboard-page',
   templateUrl: './ca-dashboard-page.component.html',
   styleUrls: ['./ca-dashboard-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlCoreDirectiveModule,
     CaUserListInlineComponent,

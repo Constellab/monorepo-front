@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy,Component, signal } from '@angular/core';
 import { TeBlockType, TeRichTextDTO, TeTools } from '@monorepo/text-editor';
 
 import {
@@ -11,6 +11,7 @@ import { DcTextEditorToolExampleBlock } from '../../dc-text-editor-tool-example'
   selector: 'dc-text-editor-dev',
   imports: [DcTextEditorComponent],
   templateUrl: './dc-text-editor-dev.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: '../dc-dev-examples.scss',
 })
 export class DcTextEditorDevComponent {

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Input } from '@angular/core';
 import { MatAnchor } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
@@ -16,6 +16,7 @@ import { CaDetailRoutePipe } from '../../../../module/ca-core-pipe/ca-detail-rou
   selector: 'ca-lab-free-info',
   templateUrl: './ca-lab-free-info.component.html',
   styleUrls: ['./ca-lab-free-info.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlTextIconModule,
     MatIcon,

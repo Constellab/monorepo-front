@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { LiScenario } from '@monorepo/lab-lib/li-core';
@@ -15,6 +15,7 @@ import { LiScenarioSearchComponent } from '../li-scenario-search/li-scenario-sea
   selector: 'li-select-scenario-dialog',
   templateUrl: './li-select-scenario-dialog.component.html',
   styleUrls: ['./li-select-scenario-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlDialogModule, MatDialogContent, LiScenarioSearchComponent, TranslatePipe],
 })
 export class LiSelectScenarioDialogComponent {

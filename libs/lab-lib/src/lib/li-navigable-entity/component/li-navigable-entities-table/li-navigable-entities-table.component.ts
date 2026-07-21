@@ -1,12 +1,12 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   ComponentRef,
   Input,
   OnDestroy,
   OnInit,
   ViewChild,
-  ViewContainerRef,
-} from '@angular/core';
+  ViewContainerRef} from '@angular/core';
 import { FlEntityArrayObs } from '@monorepo/front-core-lib/fl-core';
 import { LiEntityType } from '@monorepo/lab-lib/li-core';
 
@@ -16,6 +16,7 @@ import { LiEntityType } from '@monorepo/lab-lib/li-core';
 @Component({
   selector: 'li-navigable-entities-table',
   templateUrl: './li-navigable-entities-table.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './li-navigable-entities-table.component.scss',
 })
 export class LiNavigableEntitiesTableComponent implements OnInit, OnDestroy {

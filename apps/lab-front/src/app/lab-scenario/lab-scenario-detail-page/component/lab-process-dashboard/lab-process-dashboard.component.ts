@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, HostListener, inject, OnDestroy, OnInit, signal, WritableSignal } from '@angular/core';
+import { ChangeDetectionStrategy,Component, HostListener, inject, OnDestroy, OnInit, signal, WritableSignal } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatDialogContent } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
@@ -64,6 +64,7 @@ import { LabProcessIoPanelComponent } from '../lab-process-io-panel/lab-process-
   templateUrl: './lab-process-dashboard.component.html',
   styleUrls: ['./lab-process-dashboard.component.scss'],
   providers: [LabProcessDashboardConfigState],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     MatDialogContent,
     CoCommunityLibModule,

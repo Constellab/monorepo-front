@@ -44,12 +44,12 @@ describe('LiFormTemplateSearch', () => {
       expect(LiFormTemplateSearch.sortConverter['name']).toBe('name');
     });
 
-    it('should have created_at sort key', () => {
-      expect(LiFormTemplateSearch.sortConverter['created_at']).toBe('created_at');
+    it('should map creation to the created_at sort key', () => {
+      expect(LiFormTemplateSearch.sortConverter['creation']).toBe('created_at');
     });
 
-    it('should have last_modified_at sort key', () => {
-      expect(LiFormTemplateSearch.sortConverter['last_modified_at']).toBe('last_modified_at');
+    it('should map lastModification to the last_modified_at sort key', () => {
+      expect(LiFormTemplateSearch.sortConverter['lastModification']).toBe('last_modified_at');
     });
   });
 

@@ -1,4 +1,4 @@
-import { Component, ContentChild, ElementRef, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, ContentChild, ElementRef, Input } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 
 import { FlInputFileDirective } from '../fl-input-file.directive';
@@ -20,6 +20,7 @@ import { FlInputFileDirective } from '../fl-input-file.directive';
   selector: 'fl-input-file-icon-container',
   templateUrl: './fl-input-file-icon-container.component.html',
   styleUrls: ['./fl-input-file-icon-container.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlInputFileIconContainerComponent {

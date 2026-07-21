@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import {
@@ -24,6 +24,7 @@ import { LabBiotaData } from '../../../model/lab-biota-data.class';
   selector: 'lab-biota-database-table',
   templateUrl: './lab-biota-database-table.component.html',
   styleUrls: ['./lab-biota-database-table.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlInfiniteScrollModule,
     MatTable,

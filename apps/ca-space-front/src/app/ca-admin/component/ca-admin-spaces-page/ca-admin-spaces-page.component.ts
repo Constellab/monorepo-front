@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 
@@ -11,6 +11,7 @@ import { CaSpaceSearchComponent } from '../../../ca-core/entity-module/ca-space-
   selector: 'ca-admin-spaces-page',
   templateUrl: './ca-admin-spaces-page.component.html',
   styleUrls: ['./ca-admin-spaces-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [CaSpaceSearchComponent],
 })
 export class CaAdminSpacesPageComponent {

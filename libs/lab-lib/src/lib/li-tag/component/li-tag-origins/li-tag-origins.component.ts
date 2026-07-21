@@ -1,4 +1,4 @@
-import { Component, inject,Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
@@ -14,6 +14,7 @@ import { Observable } from 'rxjs';
   selector: 'li-tag-origins',
   templateUrl: './li-tag-origins.component.html',
   styleUrl: './li-tag-origins.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlSectionModule, FlKeyValueModule, FlUserModule, RouterLink, TranslatePipe, LiDetailRoutePipe],
 })
 export class LiTagOriginsComponent implements OnInit {

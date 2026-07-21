@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy,Component } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatError, MatHint } from '@angular/material/form-field';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
@@ -18,6 +18,7 @@ import { LiFolderInlineSelectComponent } from '../li-folder-inline-select/li-fol
     LiFolderInlineSelectComponent,
   ],
   templateUrl: './li-select-folder-dynamic-field.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './li-select-folder-dynamic-field.component.scss',
 })
 export class LiSelectFolderDynamicFieldComponent extends FlDynamicFieldAbstractDirective {}

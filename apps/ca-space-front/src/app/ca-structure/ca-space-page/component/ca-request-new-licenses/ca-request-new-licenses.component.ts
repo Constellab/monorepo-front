@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
@@ -17,6 +17,7 @@ import { CaSpaceService } from '../../../../ca-core/service-api/ca-space.service
   selector: 'ca-request-new-licenses',
   templateUrl: './ca-request-new-licenses.component.html',
   styleUrls: ['./ca-request-new-licenses.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlDialogModule,
     MatDialogContent,

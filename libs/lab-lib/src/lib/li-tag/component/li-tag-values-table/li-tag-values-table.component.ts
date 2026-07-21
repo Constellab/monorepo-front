@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
@@ -46,6 +46,7 @@ import { LiTagDetailState } from '../../state/li-tag-detail.state';
     MatMenuTrigger,
   ],
   templateUrl: './li-tag-values-table.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './li-tag-values-table.component.scss',
 })
 export class LiTagValuesTableComponent {

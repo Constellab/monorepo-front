@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 
 import { FL_PORTAL_DATA } from '../../model/fl-portal.class';
 
@@ -9,6 +9,7 @@ import { FL_PORTAL_DATA } from '../../model/fl-portal.class';
   selector: 'fl-tooltip',
   templateUrl: './fl-tooltip.component.html',
   styleUrls: ['./fl-tooltip.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlTooltipComponent {

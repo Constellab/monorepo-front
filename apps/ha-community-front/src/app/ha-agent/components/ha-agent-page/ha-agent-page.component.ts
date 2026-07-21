@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnInit, Signal, ViewContainerRef } from '@angular/core';
+import { ChangeDetectionStrategy,Component, computed, inject, OnInit, Signal, ViewContainerRef } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
@@ -39,6 +39,7 @@ import {
   templateUrl: './ha-agent-page.component.html',
   styleUrls: ['./ha-agent-page.component.scss'],
   providers: [HaAgentPageState, HaEntityCommentState],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlTextIconModule,
     FlLoaderModule,

@@ -1,4 +1,4 @@
-import { Component, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, input } from '@angular/core';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { switchMap } from 'rxjs';
@@ -19,6 +19,7 @@ import { CaScenarioTechnicalReportComponent } from '../ca-scenario-technical-rep
     CaScenarioTechnicalReportComponent,
   ],
   templateUrl: './ca-scenario-detail.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './ca-scenario-detail.component.scss',
 })
 export class CaScenarioDetailComponent {

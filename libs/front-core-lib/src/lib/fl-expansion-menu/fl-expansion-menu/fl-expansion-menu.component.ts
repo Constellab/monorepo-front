@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, EventEmitter, Input, Output } from '@angular/core';
 
 /**
  * Menu bar that can grow and shrink.
@@ -7,6 +7,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   selector: 'fl-expansion-menu',
   templateUrl: './fl-expansion-menu.component.html',
   styleUrls: ['./fl-expansion-menu.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlExpansionMenuComponent {

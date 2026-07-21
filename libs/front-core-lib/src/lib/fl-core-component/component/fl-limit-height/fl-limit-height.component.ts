@@ -1,12 +1,12 @@
 import {
   AfterViewInit,
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
   inject,
   Input,
   Renderer2,
-  ViewChild,
-} from '@angular/core';
+  ViewChild} from '@angular/core';
 
 /**
  * Component to limit the size of the ng-content. If the height is higher than
@@ -16,6 +16,7 @@ import {
   selector: 'fl-limit-height',
   templateUrl: './fl-limit-height.component.html',
   styleUrls: ['./fl-limit-height.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlLimitHeightComponent implements AfterViewInit {

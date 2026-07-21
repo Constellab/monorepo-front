@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Input } from '@angular/core';
 
 /**
  * Graphic component to show a round image with a light shadow
@@ -10,6 +10,7 @@ import { Component, Input } from '@angular/core';
   selector: 'fl-round-image',
   templateUrl: './fl-round-image.component.html',
   styleUrls: ['./fl-round-image.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlRoundImageComponent {

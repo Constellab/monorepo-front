@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   inject,
   Input,
@@ -6,8 +7,7 @@ import {
   OnInit,
   OutputRefSubscription,
   ViewChild,
-  ViewContainerRef,
-} from '@angular/core';
+  ViewContainerRef} from '@angular/core';
 import { FlDynamicFieldConfigService } from '@monorepo/front-core-lib/fl-dynamic-field';
 import { LiProcessDashboardDynamicFieldConfig } from '@monorepo/lab-lib/li-config';
 import { LiProcess } from '@monorepo/lab-lib/li-core';
@@ -27,6 +27,7 @@ import { LabConfigureTaskComponent } from '../lab-configure-task/lab-configure-t
   selector: 'lab-configure-process',
   templateUrl: './lab-configure-process.component.html',
   styleUrls: ['./lab-configure-process.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   providers: [
     // configure the dynamic field to support tags and other custom fields
     // enable dynamic config

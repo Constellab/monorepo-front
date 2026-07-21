@@ -1,5 +1,5 @@
 import { CdkScrollable } from '@angular/cdk/scrolling';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
 
 import { LiResourceDetailComponent } from '../li-resource-detail/li-resource-detail.component';
@@ -8,6 +8,7 @@ import { LiResourceDetailComponent } from '../li-resource-detail/li-resource-det
   selector: 'li-resource-detail-dialog',
   templateUrl: './li-resource-detail-dialog.component.html',
   styleUrls: ['./li-resource-detail-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [CdkScrollable, MatDialogContent, LiResourceDetailComponent],
 })
 export class LiResourceDetailDialogComponent {

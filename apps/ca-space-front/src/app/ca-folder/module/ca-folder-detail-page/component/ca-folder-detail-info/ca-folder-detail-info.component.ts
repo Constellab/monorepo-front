@@ -1,4 +1,4 @@
-import { Component, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, input } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -19,6 +19,7 @@ import { CaHierarchyObjectEventState } from '../../../ca-folder-hierarchy-core/s
   selector: 'ca-folder-detail-info',
   templateUrl: './ca-folder-detail-info.component.html',
   styleUrl: './ca-folder-detail-info.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlSectionModule,
     FlTextIconModule,

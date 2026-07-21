@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy,Component } from '@angular/core';
 
 import { LmsPageComponent } from './components/lms-page/lms-page.component';
 
@@ -6,6 +6,7 @@ import { LmsPageComponent } from './components/lms-page/lms-page.component';
   selector: 'lms-root',
   templateUrl: './lms-app.component.html',
   styleUrl: './lms-app.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [LmsPageComponent],
 })
 export class LmsAppComponent {}

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Input, OnInit } from '@angular/core';
 import { FlBasicDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
 
 import { FlDynamicFieldAbstractDirective } from '../../model/fl-dynamic-field-abstract.directive';
@@ -11,6 +11,7 @@ import { FlDynamicFieldAbstractDirective } from '../../model/fl-dynamic-field-ab
   templateUrl: './fl-dynamic-field-select-search.component.html',
   styleUrl: './fl-dynamic-field-select-search.component.scss',
   standalone: false,
+  changeDetection: ChangeDetectionStrategy.Eager,
   host: { '[class.cell-rendering]': 'cellRendering' },
 })
 export class FlDynamicFieldSelectSearchComponent extends FlDynamicFieldAbstractDirective implements OnInit {

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
@@ -33,6 +33,7 @@ import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
   selector: 'ca-lab-create-page',
   templateUrl: './ca-lab-create-page.component.html',
   styleUrl: './ca-lab-create-page.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlCardModule,
     FlTextIconModule,

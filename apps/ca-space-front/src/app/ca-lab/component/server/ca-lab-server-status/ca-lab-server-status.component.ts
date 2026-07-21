@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { TranslatePipe } from '@ngx-translate/core';
 import { combineLatest, Observable } from 'rxjs';
@@ -21,6 +21,7 @@ type CaServerStatus =
   selector: 'ca-lab-server-status',
   templateUrl: './ca-lab-server-status.component.html',
   styleUrls: ['./ca-lab-server-status.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatButton, AsyncPipe, TranslatePipe],
 })
 export class CaLabServerStatusComponent {

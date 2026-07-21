@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
@@ -40,6 +40,7 @@ export interface CaHierarchyObjectBulkTagsDialogInput {
   ],
   templateUrl: './ca-hierarchy-object-bulk-tags-dialog.component.html',
   styleUrl: './ca-hierarchy-object-bulk-tags-dialog.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   providers: [{ provide: FlTagService, useClass: CaTagService }],
 })
 export class CaHierarchyObjectBulkTagsDialogComponent implements OnInit {

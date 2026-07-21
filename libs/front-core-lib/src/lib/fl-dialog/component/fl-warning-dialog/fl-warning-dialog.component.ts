@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
 
@@ -12,6 +12,7 @@ export interface FlWarningDialogData {
   selector: 'fl-warning-dialog',
   templateUrl: './fl-warning-dialog.component.html',
   styleUrl: './fl-warning-dialog.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlWarningDialogComponent {

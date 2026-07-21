@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
 import { FlArrayObs } from '@monorepo/front-core-lib/fl-core';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
@@ -17,6 +17,7 @@ export interface CaScenariosListDialogInput {
   selector: 'ca-scenarios-table-dialog',
   templateUrl: './ca-scenario-table-dialog.component.html',
   styleUrl: './ca-scenario-table-dialog.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlDialogModule, MatDialogContent, CaScenarioTableComponent, AsyncPipe, FlTranslateModule],
 })
 export class CaScenarioTableDialogComponent {

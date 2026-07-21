@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatDatepicker, MatDatepickerInput, MatDatepickerToggle } from '@angular/material/datepicker';
@@ -23,6 +23,7 @@ export interface LiShareResourceWithSpaceDialogInput {
   selector: 'li-share-resource-with-space-dialog',
   templateUrl: './li-share-resource-with-space-dialog.component.html',
   styleUrl: './li-share-resource-with-space-dialog.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlDialogModule,
     MatDialogContent,

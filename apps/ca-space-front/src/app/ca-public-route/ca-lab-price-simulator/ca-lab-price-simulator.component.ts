@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy,Component } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -30,6 +30,7 @@ import { CaEnvironmentHelper } from '../../ca-core/utils/ca-environment.helper';
     RouterLink,
   ],
   templateUrl: './ca-lab-price-simulator.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './ca-lab-price-simulator.component.scss',
 })
 export class CaLabPriceSimulatorComponent {

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Input, OnInit } from '@angular/core';
 
 import { TdResourceType, TdResourceView } from '../../model/td-resource-type.class';
 
@@ -6,6 +6,7 @@ import { TdResourceType, TdResourceView } from '../../model/td-resource-type.cla
   selector: 'td-resource-doc',
   templateUrl: './td-resource-doc.component.html',
   styleUrls: ['./td-resource-doc.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class TdResourceDocComponent implements OnInit {

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
@@ -22,6 +22,7 @@ import { LmsLabState } from '../../service/lms-lab.state';
     FlLoaderModule,
   ],
   templateUrl: './lms-global-info.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './lms-global-info.component.scss',
 })
 export class LmsGlobalInfoComponent {

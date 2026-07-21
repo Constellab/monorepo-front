@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy,Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { ClTheme } from '@monorepo/core-lib';
 import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
 import { RenderData, Streamlit } from 'streamlit-component-lib';
@@ -28,6 +28,7 @@ export class DcStreamlitEvent implements DcDynamicComponentEvent {
   templateUrl: './dc-component-loader-iframe-dev.component.html',
   styleUrl: './dc-component-loader-iframe-dev.component.scss',
   hostDirectives: [DcResizeIframeDirective],
+  changeDetection: ChangeDetectionStrategy.Eager,
   providers: [DcComponentLoaderService],
 })
 export class DcComponentLoaderIframeDevComponent implements OnInit {

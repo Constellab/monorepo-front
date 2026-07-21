@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject, Injector, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Injector, OnInit } from '@angular/core';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { ClHelpService } from '@monorepo/core-lib';
@@ -51,6 +51,7 @@ import {
     AsyncPipe,
   ],
   templateUrl: './ca-root-folders-page.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './ca-root-folders-page.component.scss',
 })
 export class CaRootFoldersPageComponent implements OnInit {

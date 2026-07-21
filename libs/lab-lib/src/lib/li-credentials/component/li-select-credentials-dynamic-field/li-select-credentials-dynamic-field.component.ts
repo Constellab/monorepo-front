@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Input } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatError, MatHint } from '@angular/material/form-field';
 import { RouterLink } from '@angular/router';
@@ -17,6 +17,7 @@ import { LiSelectCredentialsComponent } from '../li-select-credentials/li-select
   selector: 'li-select-credentials-dynamic-field',
   templateUrl: './li-select-credentials-dynamic-field.component.html',
   styleUrls: ['./li-select-credentials-dynamic-field.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlFormModule,
     LiSelectCredentialsComponent,

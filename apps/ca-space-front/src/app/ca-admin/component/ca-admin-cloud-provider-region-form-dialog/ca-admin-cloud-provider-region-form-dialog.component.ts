@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatOption } from '@angular/material/core';
@@ -30,6 +30,7 @@ export type CaCloudProviderRegionFormDialogInput = FlFormDialogInput<CaCloudProv
   selector: 'ca-admin-bucket-region-form-dialog',
   templateUrl: './ca-admin-cloud-provider-region-form-dialog.component.html',
   styleUrls: ['./ca-admin-cloud-provider-region-form-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlDialogModule,
     MatDialogContent,

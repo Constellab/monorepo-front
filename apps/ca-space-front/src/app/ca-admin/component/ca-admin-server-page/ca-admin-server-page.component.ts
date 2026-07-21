@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 
@@ -10,6 +10,7 @@ import { CaAdminStoragePriceComponent } from '../ca-admin-storage-price/ca-admin
   selector: 'ca-admin-server-page',
   templateUrl: './ca-admin-server-page.component.html',
   styleUrls: ['./ca-admin-server-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [CaAdminStoragePriceComponent, CaAdminServerStandardListComponent, CaServerCloudSearchComponent],
 })
 export class CaAdminServerPageComponent {

@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input, OnInit } from '@angular/core';
 import { MatAnchor } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
 import { FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
@@ -16,6 +16,7 @@ import { CaHierarchyObjectDetailState } from '../../../ca-folder-hierarchy-core/
   selector: 'ca-folder-chat-right-panel',
   templateUrl: './ca-folder-chat-right-panel.component.html',
   styleUrls: ['./ca-folder-chat-right-panel.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     CaHierarchyObjectIconComponent,
     MatAnchor,

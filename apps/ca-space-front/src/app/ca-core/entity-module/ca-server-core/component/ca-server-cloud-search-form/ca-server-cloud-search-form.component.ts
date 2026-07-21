@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
@@ -15,6 +15,7 @@ import { CaSelectServerStandardOptionsComponent } from '../ca-select-server-stan
   selector: 'ca-server-cloud-search-form',
   templateUrl: './ca-server-cloud-search-form.component.html',
   styleUrls: ['./ca-server-cloud-search-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     ReactiveFormsModule,
     MatFormField,

@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input, OnInit } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -12,6 +12,7 @@ import { CaFolderService } from '../../../../../ca-core/service-api/ca-folder.se
   selector: 'ca-folder-storage-usage-section',
   templateUrl: './ca-folder-storage-usage-section.component.html',
   styleUrl: './ca-folder-storage-usage-section.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlTextIconModule, MatIcon, CaFolderStorageUsageComponent, TranslatePipe],
 })
 export class CaFolderStorageUsageSectionComponent implements OnInit {

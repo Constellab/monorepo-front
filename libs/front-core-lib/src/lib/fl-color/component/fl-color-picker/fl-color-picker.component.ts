@@ -1,4 +1,4 @@
-import { Component, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, input } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { FlFormFieldDirective } from '@monorepo/front-core-lib/fl-core';
 
@@ -7,6 +7,7 @@ import { FlFormFieldDirective } from '@monorepo/front-core-lib/fl-core';
   templateUrl: './fl-color-picker.component.html',
   styleUrl: './fl-color-picker.component.scss',
   providers: [{ provide: FlFormFieldDirective, useExisting: FlColorPickerComponent }],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlColorPickerComponent extends FlFormFieldDirective<string> {

@@ -54,9 +54,9 @@
  */
 
 /***************************************************************************************************
- * Zone JS is required by default for Angular itself.
+ * Zone JS is loaded via the `"zone.js"` polyfills entry in project.json (so the unit-test
+ * builder can inject `zone.js/testing` into the polyfills bundle instead of a top-level await).
  */
-import 'zone.js'; // Included with Angular CLI.
 /***************************************************************************************************
  * APPLICATION IMPORTS
  */

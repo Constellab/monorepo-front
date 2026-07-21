@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Input } from '@angular/core';
 
 import { TdTypeRefDTO, TdTypeTypingEntity } from '../../model/td-type.class';
 
@@ -6,6 +6,7 @@ import { TdTypeRefDTO, TdTypeTypingEntity } from '../../model/td-type.class';
   selector: 'td-main-doc',
   templateUrl: './td-main-doc.component.html',
   styleUrls: ['./td-main-doc.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class TdMainDocComponent {

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ClBulkActionResult } from '@monorepo/core-lib';
 
@@ -6,6 +6,7 @@ import { ClBulkActionResult } from '@monorepo/core-lib';
   selector: 'fl-bulk-action-result-dialog',
   templateUrl: './fl-bulk-action-result-dialog.component.html',
   styleUrls: ['./fl-bulk-action-result-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlBulkActionResultDialogComponent {

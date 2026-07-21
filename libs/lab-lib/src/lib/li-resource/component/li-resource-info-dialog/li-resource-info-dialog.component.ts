@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { LiResource } from '@monorepo/lab-lib/li-core';
@@ -17,6 +17,7 @@ export interface LiResourceInfoDialogInput {
   selector: 'li-resource-info-dialog',
   templateUrl: './li-resource-info-dialog.component.html',
   styleUrls: ['./li-resource-info-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlDialogModule,
     TdTechnicalDocModule,

@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { AfterViewInit, Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy,Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { MatOption } from '@angular/material/core';
 import { MatSelect } from '@angular/material/select';
 import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib/fl-core';
@@ -18,6 +18,7 @@ import { CaServerCloudInlineComponent } from '../ca-server-cloud-inline/ca-serve
   selector: 'ca-select-server-cloud-options',
   templateUrl: './ca-select-server-cloud-options.component.html',
   styleUrls: ['./ca-select-server-cloud-options.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlInfiniteScrollModule,
     FlCoreDirectiveModule,

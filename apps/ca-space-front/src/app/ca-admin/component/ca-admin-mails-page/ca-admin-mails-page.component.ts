@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import { MaMailModule } from '@monorepo/mail';
@@ -7,6 +7,7 @@ import { MaMailModule } from '@monorepo/mail';
   selector: 'ca-admin-mails-page',
   templateUrl: './ca-admin-mails-page.component.html',
   styleUrl: './ca-admin-mails-page.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MaMailModule],
 })
 export class CaAdminMailsPageComponent {

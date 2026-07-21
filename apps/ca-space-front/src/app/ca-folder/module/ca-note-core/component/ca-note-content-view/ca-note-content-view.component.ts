@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { RvResourceView } from '@monorepo/resource-view';
 import { RvResourceViewModule } from '@monorepo/resource-view';
 import { TeElementBlockDirective } from '@monorepo/text-editor';
@@ -11,6 +11,7 @@ import { CaNoteService } from '../../../../../ca-core/service-api/ca-note.servic
   selector: 'ca-note-content-view',
   templateUrl: './ca-note-content-view.component.html',
   styleUrls: ['./ca-note-content-view.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [RvResourceViewModule],
 })
 export class CaNoteContentViewComponent extends TeElementBlockDirective {

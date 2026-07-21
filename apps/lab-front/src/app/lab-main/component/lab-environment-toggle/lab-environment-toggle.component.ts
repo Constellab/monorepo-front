@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSlideToggle, MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -11,6 +11,7 @@ import { LabEnvStore } from '../../../lab-core/lab-env.store';
   selector: 'lab-environment-toggle',
   templateUrl: './lab-environment-toggle.component.html',
   styleUrls: ['./lab-environment-toggle.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatSlideToggle, ReactiveFormsModule, FormsModule, TranslatePipe],
 })
 export class LabEnvironmentToggleComponent implements OnInit, OnDestroy {

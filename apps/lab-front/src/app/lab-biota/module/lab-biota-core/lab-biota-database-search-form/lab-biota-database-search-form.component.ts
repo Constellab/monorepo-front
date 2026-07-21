@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
@@ -15,6 +15,7 @@ import { LabBiotaDatabaseSelectOptionsComponent } from '../lab-biota-database-se
   selector: 'lab-biota-database-search-form',
   templateUrl: './lab-biota-database-search-form.component.html',
   styleUrls: ['./lab-biota-database-search-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     ReactiveFormsModule,
     MatFormField,

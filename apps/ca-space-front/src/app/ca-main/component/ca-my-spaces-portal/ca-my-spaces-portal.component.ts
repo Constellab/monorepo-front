@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { MatDivider } from '@angular/material/divider';
 import { MatIcon } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
@@ -34,6 +34,7 @@ import { CaEnvironmentHelper } from '../../../ca-core/utils/ca-environment.helpe
   selector: 'ca-my-spaces-portal',
   templateUrl: './ca-my-spaces-portal.component.html',
   styleUrls: ['./ca-my-spaces-portal.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlPortalModule,
     RouterLink,

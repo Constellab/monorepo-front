@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input, OnInit } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { FlArrayObs, FlEntityArrayObs } from '@monorepo/front-core-lib/fl-core';
@@ -19,6 +19,7 @@ import { CaSpaceService } from '../../../ca-core/service-api/ca-space.service';
   selector: 'ca-user-spaces-list',
   templateUrl: './ca-user-spaces-list.component.html',
   styleUrls: ['./ca-user-spaces-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlCardModule, FlTextIconModule, MatIcon, FlIconModule, CaSpaceTableComponent, TranslatePipe],
 })
 export class CaUserSpacesListComponent implements OnInit {

@@ -1,4 +1,4 @@
-import { Component, Input, input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Input, input, OnDestroy, OnInit } from '@angular/core';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { FlDebouncer } from '@monorepo/front-core-lib/fl-core';
 import { debounceTime, filter, Observable, Subscription, switchMap, tap } from 'rxjs';
@@ -22,6 +22,7 @@ import { TeTextEditorComponent } from '../te-text-editor/te-text-editor.componen
   selector: 'te-text-editor-save',
   templateUrl: './te-text-editor-save.component.html',
   styleUrl: './te-text-editor-save.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class TeTextEditorSaveComponent implements OnInit, OnDestroy {

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
 import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
@@ -19,6 +19,7 @@ export interface LiExternalLabDetailDialogData {
   selector: 'li-external-lab-detail-dialog',
   templateUrl: './li-external-lab-detail-dialog.component.html',
   styleUrls: ['./li-external-lab-detail-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlDialogModule, MatDialogContent, FlCoreComponentModule, FlSectionModule, TranslatePipe],
 })
 export class LiExternalLabDetailDialogComponent {

@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ClNumberHelper } from '@monorepo/core-lib';
 import { Observable, Subscription } from 'rxjs';
 
@@ -11,6 +11,7 @@ import { FlAbstractLoaderDirective } from '../fl-abstract-loader.directive';
   selector: 'fl-progress-loader',
   templateUrl: './fl-progress-loader.component.html',
   styleUrls: ['./fl-progress-loader.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlProgressLoaderComponent extends FlAbstractLoaderDirective implements OnInit, OnDestroy {

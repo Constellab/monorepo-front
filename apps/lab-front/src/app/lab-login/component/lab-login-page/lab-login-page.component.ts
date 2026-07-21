@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { ActivatedRoute } from '@angular/router';
 import { FlAuthModule } from '@monorepo/front-core-lib/fl-auth';
@@ -12,6 +12,7 @@ import { LabEnvStore } from '../../../lab-core/lab-env.store';
   selector: 'lab-login-page',
   templateUrl: './lab-login-page.component.html',
   styleUrls: ['./lab-login-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlAuthModule, MatButton, TranslatePipe],
 })
 export class LabLoginPageComponent implements OnInit {

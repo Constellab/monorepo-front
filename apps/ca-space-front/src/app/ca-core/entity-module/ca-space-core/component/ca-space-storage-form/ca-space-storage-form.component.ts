@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Input } from '@angular/core';
 import {
   AbstractControlOptions,
   FormBuilder,
@@ -21,6 +21,7 @@ import { CaBucketLocationSelectOptionsComponent } from '../../../ca-object-stora
   selector: 'ca-space-storage-form',
   templateUrl: './ca-space-storage-form.component.html',
   styleUrl: './ca-space-storage-form.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     ReactiveFormsModule,
     MatFormField,

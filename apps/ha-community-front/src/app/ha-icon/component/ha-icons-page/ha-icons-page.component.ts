@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { CoIcon } from '@monorepo/community-lib';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
@@ -19,6 +19,7 @@ import { HaIconListComponent } from '../ha-icon-list/ha-icon-list.component';
   selector: 'ha-icons-page',
   templateUrl: './ha-icons-page.component.html',
   styleUrls: ['./ha-icons-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [HaIconListComponent, TranslatePipe, HaPageComponent],
 })
 export class HaIconsPageComponent extends HaCommunityPageDirective implements OnInit, OnDestroy {

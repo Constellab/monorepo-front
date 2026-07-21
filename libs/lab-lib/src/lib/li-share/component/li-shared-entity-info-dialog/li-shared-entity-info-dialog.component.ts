@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
 import { MatDivider } from '@angular/material/divider';
@@ -63,6 +63,7 @@ const LI_SEND_TO_LAB_ACTION = 'send-to-lab';
   selector: 'li-shared-entity-info-dialog',
   templateUrl: './li-shared-entity-info-dialog.component.html',
   styleUrls: ['./li-shared-entity-info-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlDialogModule,
     FlTextIconModule,

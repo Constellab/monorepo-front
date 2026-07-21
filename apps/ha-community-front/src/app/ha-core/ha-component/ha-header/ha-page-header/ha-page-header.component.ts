@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, computed, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, computed, inject, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { FlTranslatableText, FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -14,6 +14,7 @@ import { HaHeaderComponent } from '../ha-header/ha-header.component';
   selector: 'ha-page-header',
   templateUrl: './ha-page-header.component.html',
   styleUrls: ['./ha-page-header.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [HaHeaderComponent, TranslatePipe, RouterLink, FlTranslateModule, AsyncPipe],
 })
 export class HaPageHeaderComponent {

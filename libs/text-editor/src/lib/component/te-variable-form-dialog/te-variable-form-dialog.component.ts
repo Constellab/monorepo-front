@@ -1,4 +1,4 @@
-import { Component, inject,Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
@@ -8,6 +8,7 @@ import { TeVariableFormInfo, TeVariableFormType } from '../../model/te-variable.
   selector: 'te-variable-form-dialog',
   templateUrl: './te-variable-form-dialog.component.html',
   styleUrl: './te-variable-form-dialog.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class TeVariableFormDialogComponent implements OnInit {

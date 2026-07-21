@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FlAuthModule } from '@monorepo/front-core-lib/fl-auth';
@@ -18,6 +18,7 @@ import { HaHomeSectionShineComponent } from '../../ha-home/ha-home-section-shine
   selector: 'ha-login-page',
   templateUrl: './ha-login-page.component.html',
   styleUrls: ['./ha-login-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlAuthModule,
     HaFooterComponent,

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, computed, input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
@@ -15,6 +15,7 @@ import {
   selector: 'ha-run-stat-aggregate-panel',
   imports: [CommonModule, FlTextIconModule, MatIconModule, MatTooltip, FlTranslateModule, FlDateModule],
   templateUrl: './ha-run-stat-aggregate-panel.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './ha-run-stat-aggregate-panel.component.scss',
 })
 export class HaRunStatAggregatePanelComponent {

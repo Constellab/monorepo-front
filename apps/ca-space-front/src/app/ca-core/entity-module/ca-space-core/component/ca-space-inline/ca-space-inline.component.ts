@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input, OnInit } from '@angular/core';
 import { MatBadge } from '@angular/material/badge';
 import { Observable, of } from 'rxjs';
 
@@ -11,6 +11,7 @@ import { CaSpacePhotoComponent } from '../ca-space-photo/ca-space-photo.componen
   selector: 'ca-space-inline',
   templateUrl: './ca-space-inline.component.html',
   styleUrls: ['./ca-space-inline.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [CaSpacePhotoComponent, MatBadge, AsyncPipe],
 })
 export class CaSpaceInlineComponent implements OnInit {

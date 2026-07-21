@@ -1,4 +1,4 @@
-import { Component, HostBinding, HostListener, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, HostBinding, HostListener, inject, OnInit } from '@angular/core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlFormulaDialogComponent, FlFormulaDialogInput } from '@monorepo/front-core-lib/fl-formula';
 
@@ -12,6 +12,7 @@ export interface TeFormulaInlineToolData {
   selector: 'te-formula-inline',
   templateUrl: './te-formula-inline.component.html',
   styleUrl: './te-formula-inline.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class TeFormulaInlineComponent

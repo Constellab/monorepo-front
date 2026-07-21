@@ -1,6 +1,7 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import { AsyncPipe } from '@angular/common';
 import {
+  ChangeDetectionStrategy,
   Component,
   effect,
   ElementRef,
@@ -11,8 +12,7 @@ import {
   output,
   signal,
   ViewChild,
-  WritableSignal,
-} from '@angular/core';
+  WritableSignal} from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatIconButton } from '@angular/material/button';
 import { MatCheckbox } from '@angular/material/checkbox';
@@ -44,6 +44,7 @@ export enum CoListEntityType {
   selector: 'co-list-filters',
   templateUrl: './co-list-filters.component.html',
   styleUrls: ['./co-list-filters.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     MatIconModule,
     AsyncPipe,

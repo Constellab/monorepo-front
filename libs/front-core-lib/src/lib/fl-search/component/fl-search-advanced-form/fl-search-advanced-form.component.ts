@@ -1,4 +1,4 @@
-import { Component, inject,OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FlFormInputsManagerConfig } from '@monorepo/front-core-lib/fl-form-inputs-manager';
 
@@ -11,6 +11,7 @@ import { FlSearchState } from '../../model/fl-search.state';
   selector: 'fl-search-advanced-form',
   templateUrl: './fl-search-advanced-form.component.html',
   styleUrls: ['./fl-search-advanced-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlSearchAdvancedFormComponent implements OnInit {

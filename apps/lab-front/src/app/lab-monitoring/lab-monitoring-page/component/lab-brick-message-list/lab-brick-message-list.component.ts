@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Input } from '@angular/core';
 import { MatDivider } from '@angular/material/divider';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { FlStatusModule } from '@monorepo/front-core-lib/fl-status';
@@ -12,6 +12,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   selector: 'lab-brick-message-list',
   templateUrl: './lab-brick-message-list.component.html',
   styleUrls: ['./lab-brick-message-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlSectionModule, FlStatusModule, MatDivider, TranslatePipe],
 })
 export class LabBrickMessageListComponent {

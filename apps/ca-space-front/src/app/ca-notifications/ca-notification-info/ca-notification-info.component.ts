@@ -1,4 +1,4 @@
-import { Component, computed, input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, computed, input } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
@@ -25,6 +25,7 @@ import { CaNotification } from '../../ca-core/model/entities/ca-notification.cla
     FlCorePipeModule,
   ],
   templateUrl: './ca-notification-info.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './ca-notification-info.component.scss',
 })
 export class CaNotificationInfoComponent {

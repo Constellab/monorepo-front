@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject, input, output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, input, output } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
@@ -24,6 +24,7 @@ import {
   templateUrl: './li-folder-inline-select.component.html',
   styleUrls: ['./li-folder-inline-select.component.scss'],
   providers: [{ provide: FlFormFieldDirective, useExisting: LiFolderInlineSelectComponent }],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatIcon, FlIconModule, LiFolderInlineComponent, MatButton, AsyncPipe, FlTranslateModule],
 })
 export class LiFolderInlineSelectComponent extends FlFormFieldDirective<LiFolder> {

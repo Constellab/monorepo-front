@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { AfterViewInit, Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy,Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { MatOption } from '@angular/material/core';
 import { MatSelect } from '@angular/material/select';
 import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib/fl-core';
@@ -18,6 +18,7 @@ import { CaBucketCredentialsInlineComponent } from '../ca-bucket-credentials-inl
   selector: 'ca-select-bucket-credentials-options',
   templateUrl: './ca-select-bucket-credentials-options.component.html',
   styleUrls: ['./ca-select-bucket-credentials-options.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlInfiniteScrollModule,
     FlCoreDirectiveModule,

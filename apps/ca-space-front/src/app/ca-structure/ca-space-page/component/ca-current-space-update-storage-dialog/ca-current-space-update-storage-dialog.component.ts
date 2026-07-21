@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent } from '@angular/material/dialog';
@@ -27,6 +27,7 @@ export type CaStorageLimitUpdateDialogInput = FlFormDialogInput<CaStorageLimit>;
   selector: 'ca-current-space-update-storage-dialog',
   templateUrl: './ca-current-space-update-storage-dialog.component.html',
   styleUrl: './ca-current-space-update-storage-dialog.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlDialogModule,
     MatDialogContent,

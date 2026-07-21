@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FlGlobalValidators } from '@monorepo/front-core-lib/fl-core';
@@ -11,6 +11,7 @@ import { FlUserAccountService } from '../../service/fl-user-account.service';
   selector: 'fl-reset-password-page',
   templateUrl: './fl-reset-password-page.component.html',
   styleUrls: ['./fl-reset-password-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlResetPasswordPageComponent {

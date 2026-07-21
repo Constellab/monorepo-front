@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { Observable } from 'rxjs';
 
@@ -13,6 +13,7 @@ import { CaLabDetailComponent } from '../ca-lab-detail/ca-lab-detail.component';
   selector: 'ca-lab-dashboard-page',
   templateUrl: './ca-lab-dashboard-page.component.html',
   styleUrls: ['./ca-lab-dashboard-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlSectionModule,
     CaLabDetailComponent,

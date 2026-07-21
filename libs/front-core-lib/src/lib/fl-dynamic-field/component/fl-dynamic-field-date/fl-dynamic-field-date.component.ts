@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, DestroyRef, inject, Input, OnInit } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl } from '@angular/forms';
 import { DateTime } from 'luxon';
@@ -10,6 +10,7 @@ import { FlDynamicFieldAbstractDirective } from '../../model/fl-dynamic-field-ab
   templateUrl: './fl-dynamic-field-date.component.html',
   styleUrl: './fl-dynamic-field-date.component.scss',
   standalone: false,
+  changeDetection: ChangeDetectionStrategy.Eager,
   host: { '[class.cell-rendering]': 'cellRendering' },
 })
 export class FlDynamicFieldDateComponent extends FlDynamicFieldAbstractDirective implements OnInit {

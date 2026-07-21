@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlSavedSearch } from '@monorepo/front-core-lib/fl-search';
@@ -28,6 +28,7 @@ export interface LiSelectResourceDialogInput {
   selector: 'li-select-resource-dialog',
   templateUrl: './li-select-resource-dialog.component.html',
   styleUrls: ['./li-select-resource-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlDialogModule, MatDialogContent, LiResourceSearchComponent, TranslatePipe],
 })
 export class LiSelectResourceDialogComponent {

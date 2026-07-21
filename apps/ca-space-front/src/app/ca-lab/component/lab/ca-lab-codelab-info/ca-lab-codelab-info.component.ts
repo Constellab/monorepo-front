@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import {
   MAT_DIALOG_DATA,
@@ -24,6 +24,7 @@ import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
   selector: 'ca-lab-codelab-info',
   templateUrl: './ca-lab-codelab-info.component.html',
   styleUrls: ['./ca-lab-codelab-info.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlDialogModule,
     MatDialogContent,

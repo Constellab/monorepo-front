@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -22,6 +22,7 @@ import { CaLabGreenOptionTableComponent } from '../ca-lab-green-option-table/ca-
   selector: 'ca-lab-green-options',
   templateUrl: './ca-lab-green-options.component.html',
   styleUrls: ['./ca-lab-green-options.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlCardModule,
     FlTextIconModule,

@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
@@ -40,6 +40,7 @@ import { CaHierarchyObjectSearchFormComponent } from '../../ca-hierarchy-object-
     AsyncPipe,
   ],
   templateUrl: './ca-folder-global-search-page.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './ca-folder-global-search-page.component.scss',
 })
 export class CaFolderGlobalSearchPageComponent implements OnInit {

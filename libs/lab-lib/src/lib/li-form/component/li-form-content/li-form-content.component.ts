@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   computed,
   DestroyRef,
@@ -8,8 +9,7 @@ import {
   model,
   output,
   signal,
-  ViewChild,
-} from '@angular/core';
+  ViewChild} from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatIcon } from '@angular/material/icon';
 import { FlAiModule } from '@monorepo/front-core-lib/fl-ai';
@@ -31,6 +31,7 @@ import { LiFormTemplateRefInlineComponent } from '../li-form-template-ref-inline
   selector: 'li-form-content',
   templateUrl: './li-form-content.component.html',
   styleUrl: './li-form-content.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     LiFormEditorComponent,
     LiFormTemplateRefInlineComponent,
