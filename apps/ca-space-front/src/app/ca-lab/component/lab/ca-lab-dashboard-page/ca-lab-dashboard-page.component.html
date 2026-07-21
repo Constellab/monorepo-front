@@ -1,16 +1,108 @@
 <fl-async-section [object]="lab$" class="g-flex-grow">
   <ng-container *flSectionBody="lab$ as lab">
-    <div class="g-layout-col g-flex-grow">
-      <div class="g-layout-row g-layout-between-stretch g-section">
-        <ca-lab-detail class="half-section"></ca-lab-detail>
+    <div class="g-layout-col g-flex-grow dashboard">
+      <ca-lab-hero [lab]="lab" class="g-section"></ca-lab-hero>
 
+      <mat-accordion class="g-section summary">
+        <!-- Bricks -->
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <mat-icon class="panel-icon" flIcon="brick"></mat-icon>
+              <span>{{ 'lab_bricks' | translate }}</span>
+            </mat-panel-title>
+            <mat-panel-description class="panel-preview">
+              @if (labManagerIsRunning$ | async) {
+                <ca-lab-chip-list [labels]="(brickNames$ | async) ?? []" icon="extension" iconColor="primary">
+                </ca-lab-chip-list>
+              } @else {
+                <span class="g-text-light g-text-small">{{
+                  'lab_bricks_unavailable_title' | translate
+                }}</span>
+              }
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <ng-template matExpansionPanelContent>
+            @if (isOwner$ | async) {
+              @if (labManagerIsRunning$ | async) {
+                @if ((bricks.getStatus$() | async)?.status === 'error') {
+                  <p class="bricks-error">{{ 'lab_bricks_load_error' | translate }}</p>
+                } @else if (bricks.isLoaded$() | async) {
+                  <lml-bricks-config-form [brickVersions]="bricks.getDatasource()"></lml-bricks-config-form>
+                }
+              } @else {
+                <div class="bricks-empty g-layout-col g-layout-center-center g-layout-gap-1em">
+                  <span class="bricks-empty-tile">
+                    <mat-icon class="g-icon-big" flIcon="brick"></mat-icon>
+                  </span>
+                  <div class="bricks-empty-title">{{ 'lab_bricks_unavailable_title' | translate }}</div>
+                  <div class="g-text-light bricks-empty-body">
+                    {{ 'lab_bricks_stopped_help' | translate }}
+                  </div>
+                </div>
+              }
+            } @else {
+              <p class="g-text-light">{{ 'lab_bricks_dashboard_help' | translate }}</p>
+            }
+          </ng-template>
+        </mat-expansion-panel>
+
+        <!-- Users -->
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <mat-icon class="panel-icon">group</mat-icon>
+              <span>{{ 'users' | translate }}</span>
+            </mat-panel-title>
+            <mat-panel-description class="panel-preview">
+              <ca-user-list-inline [users$]="users$" (click)="$event.stopPropagation()">
+              </ca-user-list-inline>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <ng-template matExpansionPanelContent>
+            <ca-lab-users-list [labId]="lab.id"></ca-lab-users-list>
+          </ng-template>
+        </mat-expansion-panel>
+
+        <!-- Folders -->
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <mat-icon class="panel-icon">folder</mat-icon>
+              <span>{{ 'folders' | translate }}</span>
+            </mat-panel-title>
+            <mat-panel-description class="panel-preview">
+              <ca-lab-chip-list
+                [labels]="(folderNames$ | async) ?? []"
+                icon="folder"
+                iconColor="primary"></ca-lab-chip-list>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <ng-template matExpansionPanelContent>
+            <ca-lab-folders-list [labId]="lab.id"></ca-lab-folders-list>
+          </ng-template>
+        </mat-expansion-panel>
+
+        <!-- Green computing (cloud/server labs only) -->
         @if (lab.typeObj.isCloud) {
-          <ca-lab-server-info-card [labId]="lab.id" class="half-section"></ca-lab-server-info-card>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <mat-icon class="panel-icon">energy_savings_leaf</mat-icon>
+                <span>{{ 'lab_green_options' | translate }}</span>
+              </mat-panel-title>
+              <mat-panel-description class="panel-preview">
+                @for (option of greenOptions$ | async; track option.id) {
+                  <ca-lab-green-option-badge [greenOption]="option"></ca-lab-green-option-badge>
+                }
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <ng-template matExpansionPanelContent>
+              <ca-lab-green-options></ca-lab-green-options>
+            </ng-template>
+          </mat-expansion-panel>
         }
-      </div>
-      <ca-lab-users-list class="g-section" [labId]="lab.id"></ca-lab-users-list>
-
-      <ca-lab-folders-list class="g-section" [labId]="lab.id"></ca-lab-folders-list>
+      </mat-accordion>
     </div>
   </ng-container>
 </fl-async-section>

@@ -1,23 +1,13 @@
-.button {
-  margin-left: 5px;
-  margin-right: 5px;
-}
+.lab-manager-panel {
+  margin-top: 1.5em;
+  background-color: var(--card-background);
 
-.refresh {
-  flex-shrink: 0;
-}
+  // Taller collapsed header for the advanced expander.
+  ::ng-deep .mat-expansion-panel-header {
+    height: 72px;
 
-.help-text {
-  margin-top: 0.5em;
-  margin-bottom: 1em;
-}
-
-.new-version {
-  margin-top: 1em;
-  margin-bottom: 1em;
-}
-
-.advanced-config {
-  margin-top: 1em;
-  background-color: var(--main-background);
+    &.mat-expanded {
+      height: 72px;
+    }
+  }
 }

@@ -1,7 +1,19 @@
-.technical-info-container {
-  margin-top: 1em;
+.detail-grid {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 1em;
+  row-gap: 0.5em;
+  align-items: baseline;
 }
 
-.technical-info-list {
-  margin-left: 1em;
+.detail-value {
+  word-break: break-word;
+}
+
+.technical-info-container {
+  margin-top: 1.5em;
+}
+
+.technical-info-title {
+  margin-bottom: 0.75em;
 }

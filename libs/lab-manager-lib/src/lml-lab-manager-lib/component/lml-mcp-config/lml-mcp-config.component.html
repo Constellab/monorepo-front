@@ -1,32 +1,23 @@
-<fl-card>
-  <fl-card-header>
-    <fl-text-icon>
-      <mat-icon>hub</mat-icon>
-      <h2>{{ 'lml.mcp_server' | translate }}</h2>
-    </fl-text-icon>
-  </fl-card-header>
+<div class="mcp-row g-layout-row g-layout-start-center g-layout-gap-1em">
+  <!-- Tile -->
+  <div class="feature-tile g-layout-row g-layout-center-center flex-shrink-0">
+    <mat-icon>smart_toy</mat-icon>
+  </div>
 
-  <fl-card-body>
-    <p class="help-text g-text-light">{{ 'lml.mcp_server_help' | translate }}</p>
+  <!-- Label + description -->
+  <div class="g-flex-grow">
+    <div class="feature-title">{{ 'lml.mcp_server' | translate }}</div>
+    <div class="g-text-small g-text-light">{{ 'lml.mcp_server_help' | translate }}</div>
+  </div>
 
-    @if (!getIsLoading()) {
-      <div class="g-layout-row g-layout-start-center g-layout-gap-1em">
-        <mat-slide-toggle
-          [ngModel]="enabled()"
-          (ngModelChange)="onToggle($event)"
-          [disabled]="saveIsLoading()">
-          {{ 'lml.mcp_server_enable' | translate }}
-        </mat-slide-toggle>
-
-        @if (saveIsLoading()) {
-          <fl-button-loader size="small"></fl-button-loader>
-        }
-      </div>
-
-      <p class="g-text-small g-text-light restart-hint">
-        <mat-icon class="g-text-small">info</mat-icon>
-        {{ 'lml.mcp_server_restart_hint' | translate }}
-      </p>
-    }
-  </fl-card-body>
-</fl-card>
+  <!-- Toggle + loader -->
+  @if (!getIsLoading()) {
+    <div class="g-layout-row g-layout-end-center g-layout-gap-05em">
+      <mat-slide-toggle [ngModel]="enabled()" (ngModelChange)="onToggle($event)" [disabled]="saveIsLoading()">
+      </mat-slide-toggle>
+      @if (saveIsLoading()) {
+        <fl-button-loader size="small"></fl-button-loader>
+      }
+    </div>
+  }
+</div>

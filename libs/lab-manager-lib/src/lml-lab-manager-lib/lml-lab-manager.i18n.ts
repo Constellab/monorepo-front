@@ -64,9 +64,13 @@ const lmlLabManagerI18nFr: FlLangTranslation = {
     clean_lab_manager_system_prune: 'Nettoyer le système Docker (system prune)',
     start_adminer: 'Démarrer adminer',
     stop_adminer: 'Arrêter adminer',
+    start: 'Démarrer',
+    stop: 'Arrêter',
     lab_manager_status: 'Statut',
     lab_container_get_size: 'Obtenir la taille',
-    lab_manager_refresh: '  Rafraîchir',
+    lab_manager_refresh: 'Rafraîchir',
+    adminer: 'Adminer',
+    adminer_dialog_title: 'Accès aux bases de données Adminer',
     adminer_info: 'Informations adminer',
     adminer_help:
       'Adminer est un outil de gestion de base de données en ligne, il permet de naviguer dans les bases de données du lab.',
@@ -81,7 +85,7 @@ const lmlLabManagerI18nFr: FlLangTranslation = {
       'Configuration sauvegardée. Vous devez redémarrer le lab pour que les changements soient appliqués',
     mcp_server: 'Serveur MCP',
     mcp_server_help:
-      'Le serveur MCP expose les fonctionnalités du data lab à des clients externes (comme Claude). Désactivé par défaut.',
+      'Le serveur MCP expose les fonctionnalités du data lab à des clients externes (comme Claude). Désactivé par défaut. Redémarrez le data lab pour appliquer ce changement.',
     mcp_server_enable: 'Activer le serveur MCP',
     mcp_server_restart_hint: 'Redémarrez le data lab pour appliquer ce changement.',
     mcp_config_updated:
@@ -90,6 +94,7 @@ const lmlLabManagerI18nFr: FlLangTranslation = {
     custom_env_help:
       "Variables d'environnement supplémentaires transmises au data lab. Redémarrez le data lab pour appliquer les changements.",
     custom_env_empty: "Aucune variable d'environnement personnalisée.",
+    custom_env_manage: 'Gérer les variables',
     custom_env_add: 'Ajouter une variable',
     custom_env_edit: 'Modifier la variable',
     custom_env_remove: 'Supprimer la variable',
@@ -103,6 +108,7 @@ const lmlLabManagerI18nFr: FlLangTranslation = {
       'Variables modifiées, veuillez cliquer sur "Sauvegarder" pour enregistrer les changements.',
     custom_env_updated:
       "Variables d'environnement sauvegardées. Redémarrez le data lab pour appliquer les changements.",
+    bricks: 'Bricks',
     brick: 'Brique',
     brick_version: 'Version de la brique',
     brick_repo_type: 'Type de repository',
@@ -112,12 +118,17 @@ const lmlLabManagerI18nFr: FlLangTranslation = {
     brick_version_view_detail: 'Voir le détail',
     lab_manager_section_help:
       'Le lab manager est un service de data lab responsable de sa gestion. Il vous permet de démarrer, arrêter, redémarrer et configurer le data lab, ainsi que de gérer les sauvegardes du data lab.',
-    lab_manager_advanced_config: 'Configuration avancée du lab manager',
+    lab_manager_advanced_config: 'Configuration avancée',
     lab_manager_config_section_help:
       'Cette section vous permet de configurer le data lab en spécifiant les briques et leurs versions à installer. Après avoir apporté des modifications, redémarrez le data lab pour appliquer les nouvelles versions de brique.',
     lab_config_changed:
       'Configuration modifiée, veuillez cliquer sur le bouton "Sauvegarder" pour enregistrer les changements.',
+    lab_config_changed_title: 'Modifications non enregistrées',
+    lab_config_restart_hint:
+      'Redémarrez le data lab après la sauvegarde pour appliquer les nouvelles versions de brique.',
     save: 'Sauvegarder',
+    save_changes: 'Enregistrer les modifications',
+    cancel: 'Annuler',
     lab_not_configured_help:
       "Le lab n'est pas configuré. Veuillez ajouter les bricks souhaitées sur votre lab. La brick 'gws_core' est obligatoire.",
     lab_update_brick: 'Modifier une brique',
@@ -154,7 +165,7 @@ const lmlLabManagerI18nFr: FlLangTranslation = {
     lab_is_starting: 'Le lab est en train de démarrer, cela peut prendre quelques minutes.',
     show_errors: 'Voir les erreurs',
     glab_errors: 'Erreurs Glab',
-    new_lab_manager_version: 'Nouvelle version disponible (cliquer pour mettre à jour)',
+    new_lab_manager_version: 'Nouvelle version du lab manager disponible',
     no_log: 'Aucun log.',
     glab_no_error_log: "Le service glab n'a pas d'erreur, veuillez vérifier les autres services",
     name: 'Nom',
@@ -256,9 +267,13 @@ const lmlLabManagerI18nEn: FlLangTranslation = {
     clean_lab_manager_system_prune: 'Clean Docker system (system prune)',
     start_adminer: 'Start adminer',
     stop_adminer: 'Stop adminer',
+    start: 'Start',
+    stop: 'Stop',
     lab_manager_status: 'Status',
     lab_container_get_size: 'Get size',
     lab_manager_refresh: 'Refresh',
+    adminer: 'Adminer',
+    adminer_dialog_title: 'Adminer database access',
     adminer_info: 'Adminer info',
     adminer_help:
       'Adminer is an online database management tool, it allows you to navigate through the lab databases.',
@@ -272,7 +287,7 @@ const lmlLabManagerI18nEn: FlLangTranslation = {
     lab_cloud_config_updated: 'Config saved. You need to restart the lab to apply changes',
     mcp_server: 'MCP server',
     mcp_server_help:
-      'The MCP server exposes the data lab to external clients (such as Claude). Disabled by default.',
+      'The MCP server exposes the data lab to external clients (such as Claude). Disabled by default. Restart the data lab to apply this change.',
     mcp_server_enable: 'Enable MCP server',
     mcp_server_restart_hint: 'Restart the data lab to apply this change.',
     mcp_config_updated: 'MCP config saved. Restart the data lab to apply the changes.',
@@ -280,6 +295,7 @@ const lmlLabManagerI18nEn: FlLangTranslation = {
     custom_env_help:
       'Extra environment variables passed to the data lab. Restart the data lab to apply the changes.',
     custom_env_empty: 'No custom environment variables.',
+    custom_env_manage: 'Manage variables',
     custom_env_add: 'Add variable',
     custom_env_edit: 'Edit variable',
     custom_env_remove: 'Remove variable',
@@ -291,6 +307,7 @@ const lmlLabManagerI18nEn: FlLangTranslation = {
     custom_env_already_exists: 'The variable "{{key}}" already exists.',
     custom_env_changed: 'Variables changed, please click "Save" to persist the changes.',
     custom_env_updated: 'Environment variables saved. Restart the data lab to apply the changes.',
+    bricks: 'Bricks',
     brick: 'Brick',
     brick_version: 'Brick version',
     brick_repo_type: 'Repo type',
@@ -300,11 +317,15 @@ const lmlLabManagerI18nEn: FlLangTranslation = {
     brick_version_view_detail: 'View details',
     lab_manager_section_help:
       'The lab manager is a data lab service responsible for managing it. It allows you to start, stop, restart, and configure the data lab, as well as manage data lab backups.',
-    lab_manager_advanced_config: 'Lab manager advanced config',
+    lab_manager_advanced_config: 'Advanced configuration',
     lab_manager_config_section_help:
       'This section lets you configure the data lab by specifying the bricks and their versions to be installed. After making changes, restart the data lab to apply the new brick versions.',
     lab_config_changed: 'Configuration modified, please click on the "Save" button to save the changes.',
+    lab_config_changed_title: 'Unsaved changes',
+    lab_config_restart_hint: 'Restart the data lab after saving to apply the new brick versions.',
     save: 'Save',
+    save_changes: 'Save changes',
+    cancel: 'Cancel',
     lab_not_configured_help:
       "The lab is not configured. Please add the bricks you want on your lab. The 'gws_core' brick is mandatory.",
     lab_update_brick: 'Update brick',
@@ -341,7 +362,7 @@ const lmlLabManagerI18nEn: FlLangTranslation = {
     lab_is_starting: 'The lab is starting, this may take a few minutes.',
     show_errors: 'View errors',
     glab_errors: 'Glab errors',
-    new_lab_manager_version: 'New version available (click to update)',
+    new_lab_manager_version: 'New lab manager version available',
     no_log: 'No log.',
     glab_no_error_log: 'The glab service has no error, please check others services',
     name: 'Name',

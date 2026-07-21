@@ -24,6 +24,7 @@ export * from './lml-lab-manager-lib/component/lml-manager-status/lml-manager-st
 export * from './lml-lab-manager-lib/component/lml-manager/lml-manager.component';
 export * from './lml-lab-manager-lib/component/lml-mcp-config/lml-mcp-config.component';
 export * from './lml-lab-manager-lib/component/lml-migration-plan/lml-migration-plan.component';
+export * from './lml-lab-manager-lib/component/lml-status-banners/lml-status-banners.component';
 
 // pipes
 export * from './lml-lab-manager-lib/pipe/lml-community-brick-image.pipe';

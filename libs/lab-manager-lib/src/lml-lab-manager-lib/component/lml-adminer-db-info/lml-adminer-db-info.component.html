@@ -1,17 +1,31 @@
-<fl-key-value>
-  <fl-key>{{ 'lml.adminer_server' | translate }}</fl-key>
-  {{ adminerDbInfo().host }}
-</fl-key-value>
+<dl class="db-info-grid">
+  <dt>{{ 'lml.adminer_server' | translate }}</dt>
+  <dd class="mono">{{ adminerDbInfo().host }}</dd>
 
-<fl-key-value>
-  <fl-key>{{ 'lml.adminer_user' | translate }}</fl-key>
-  {{ adminerDbInfo().username }}
-</fl-key-value>
+  <dt>{{ 'lml.adminer_user' | translate }}</dt>
+  <dd class="mono">{{ adminerDbInfo().username }}</dd>
 
-<fl-password-hidden [password]="adminerDbInfo().password" [label]="'lml.adminer_password' | translate">
-</fl-password-hidden>
+  <dt>{{ 'lml.adminer_db' | translate }}</dt>
+  <dd class="mono">{{ adminerDbInfo().dbName }}</dd>
 
-<fl-key-value>
-  <fl-key>{{ 'lml.adminer_db' | translate }}</fl-key>
-  {{ adminerDbInfo().dbName }}
-</fl-key-value>
+  <dt>{{ 'lml.adminer_password' | translate }}</dt>
+  <dd class="password-cell g-layout-row g-layout-start-center g-layout-gap-05em">
+    <span
+      role="button"
+      tabindex="0"
+      class="mono g-text-link"
+      (click)="copyPassword()"
+      (keydown.enter)="copyPassword()"
+      [matTooltip]="'flCoreComponent.copy_to_clipboard' | translate">
+      {{ showPassword ? adminerDbInfo().password : '********' }}
+    </span>
+    <button
+      mat-icon-button
+      type="button"
+      class="g-button-icon-small"
+      (click)="showPassword = !showPassword"
+      [matTooltip]="(showPassword ? 'flCoreComponent.hide' : 'flCoreComponent.show') | translate">
+      <mat-icon>{{ showPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+    </button>
+  </dd>
+</dl>

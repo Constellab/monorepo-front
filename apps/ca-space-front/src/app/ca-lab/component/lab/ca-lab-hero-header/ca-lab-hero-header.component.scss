@@ -1,0 +1,43 @@
+.hero-title-row h2 {
+  margin: 0;
+}
+
+.hero-tile {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  mat-icon {
+    width: 28px;
+    height: 28px;
+    font-size: 28px;
+  }
+}
+
+.hero-subtitle {
+  gap: 6px;
+  font-weight: 600;
+
+  .check {
+    width: 18px;
+    height: 18px;
+    font-size: 18px;
+  }
+}
+
+.hero-actions {
+  flex-shrink: 0;
+}
+
+.hero-header-status {
+  display: block;
+  margin-top: 16px;
+
+  &:empty {
+    display: none;
+  }
+}

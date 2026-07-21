@@ -1,0 +1,39 @@
+.hero {
+  border-radius: var(--card-radius);
+  overflow: hidden;
+}
+
+.hero-top {
+  padding: 24px 28px;
+}
+
+.hero-facts {
+  padding: 6px 28px;
+  border-top: 1px solid var(--mat-sys-outline-variant);
+  background: var(--mat-sys-surface-variant);
+}
+
+.facts-list {
+  // row-gap (vertical) column-gap (horizontal)
+  gap: 8px 28px;
+}
+
+.details-btn {
+  color: var(--mat-sys-primary);
+  flex-shrink: 0;
+}
+
+.fact {
+  gap: 8px;
+
+  .fact-icon {
+    width: 18px;
+    height: 18px;
+    font-size: 18px;
+    color: var(--mat-sys-on-surface-variant);
+  }
+
+  .fact-value {
+    font-weight: 600;
+  }
+}

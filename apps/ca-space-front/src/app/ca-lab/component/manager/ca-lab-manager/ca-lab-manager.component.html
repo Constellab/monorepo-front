@@ -1,16 +1,43 @@
-<lml-manager [autoRefreshStatusFrequency]="15000" [showCurrentAction]="false">
-  <button mat-icon-button type="button" [matMenuTriggerFor]="menu" class="menu">
-    <mat-icon>more_vert</mat-icon>
-  </button>
-  <mat-menu #menu="matMenu">
-    <button mat-menu-item type="button" (click)="openStatusDialog()">
-      <mat-icon>info</mat-icon>
-      <span>{{ 'lab_check_status' | translate }}</span>
-    </button>
+@if (labManagerIsRunning$ | async) {
+  <!-- Advanced: lab-manager actions, MCP, env vars & docker services -->
+  <fl-card class="g-section">
+    <fl-card-header>
+      <div class="g-layout-row g-layout-between-center g-flex-grow">
+        <fl-text-icon>
+          <mat-icon>tune</mat-icon>
+          <h2>{{ 'lml.lab_manager_advanced_config' | translate }}</h2>
+        </fl-text-icon>
+        <button
+          mat-icon-button
+          type="button"
+          (click)="advanced.refresh()"
+          [matTooltip]="'lml.lab_manager_refresh' | translate">
+          <mat-icon>refresh</mat-icon>
+        </button>
+      </div>
+    </fl-card-header>
 
-    <button mat-menu-item type="button" (click)="openLabConfig()">
-      <mat-icon>info</mat-icon>
-      {{ 'lab_installed_brick' | translate }}
-    </button>
-  </mat-menu>
-</lml-manager>
+    <fl-card-body>
+      <lml-manager-advanced #advanced></lml-manager-advanced>
+    </fl-card-body>
+  </fl-card>
+} @else {
+  <fl-card>
+    <fl-card-header>
+      <fl-text-icon>
+        <mat-icon>tune</mat-icon>
+        <h2>{{ 'lml.lab_manager_advanced_config' | translate }}</h2>
+      </fl-text-icon>
+    </fl-card-header>
+
+    <fl-card-body>
+      <div class="advanced-empty g-layout-col g-layout-center-center g-layout-gap-1em">
+        <span class="advanced-empty-tile">
+          <mat-icon class="g-icon-big">tune</mat-icon>
+        </span>
+        <div class="advanced-empty-title">{{ 'lab_advanced_unavailable_title' | translate }}</div>
+        <div class="g-text-light advanced-empty-body">{{ 'lab_advanced_stopped_help' | translate }}</div>
+      </div>
+    </fl-card-body>
+  </fl-card>
+}

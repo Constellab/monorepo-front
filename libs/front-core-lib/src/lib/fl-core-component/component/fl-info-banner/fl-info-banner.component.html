@@ -1,0 +1,10 @@
+<div class="banner g-layout-row g-layout-start-center g-layout-gap-1em" [class]="'variant-' + variant()">
+  <mat-icon class="banner-icon">{{ icon() }}</mat-icon>
+  <div class="g-flex-grow">
+    <div class="banner-title">{{ title() }}</div>
+    @if (body()) {
+      <div class="banner-body g-text-small">{{ body() }}</div>
+    }
+  </div>
+  <ng-content></ng-content>
+</div>

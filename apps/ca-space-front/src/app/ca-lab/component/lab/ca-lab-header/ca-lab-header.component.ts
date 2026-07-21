@@ -5,9 +5,9 @@ import {
   FlHorizontalNavBarItem,
   FlHorizontalNavBarModule,
 } from '@monorepo/front-core-lib/fl-horizontal-nav-bar';
-import { FlStatus, FlStatusModule } from '@monorepo/front-core-lib/fl-status';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { TranslatePipe } from '@ngx-translate/core';
 import { combineLatest, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -15,6 +15,15 @@ import { CaLab, CaLabStatus } from '../../../../ca-core/model/entities/lab/ca-la
 import { CaRouterService } from '../../../../ca-core/service/ca-router.service';
 import { CaAuthenticatedUserService } from '../../../../ca-core/service-api/ca-authenticated-user.service';
 import { CaLabDetailPageState } from '../../../state/ca-lab-detail-page.state';
+
+/** Colored status badge shown in the header nav bar. */
+interface CaLabStatusBadge {
+  label: string;
+  variant: 'primary' | 'warn' | 'accent';
+}
+
+/** Lab statuses considered "running" (badge shown in primary color). */
+const RUNNING_STATUSES: CaLabStatus[] = ['LAB_RUNNING', 'SERVER_RUNNING', 'SERVER_CONFIGURED'];
 
 /**
  * Header info about the lab in the detail page
@@ -24,16 +33,28 @@ import { CaLabDetailPageState } from '../../../state/ca-lab-detail-page.state';
   templateUrl: './ca-lab-header.component.html',
   styleUrls: ['./ca-lab-header.component.scss'],
   changeDetection: ChangeDetectionStrategy.Eager,
-  imports: [FlHorizontalNavBarModule, FlTextIconModule, MatIcon, FlIconModule, FlStatusModule, AsyncPipe],
+  imports: [FlHorizontalNavBarModule, FlTextIconModule, MatIcon, FlIconModule, AsyncPipe, TranslatePipe],
 })
 export class CaLabHeaderComponent {
   private state = inject(CaLabDetailPageState);
   private authenticatedUserService = inject(CaAuthenticatedUserService);
 
   lab$: Observable<CaLab> = this.state.getLab$();
-  labStatus$: Observable<FlStatus<CaLabStatus>> = this.state
+
+  /** Colored dot + label badge summarizing the lab status. */
+  labBadge$: Observable<CaLabStatusBadge> = this.state
     .getSimpleStatus$()
-    .pipe(map((status) => status.labStatus));
+    .pipe(map((status) => this.buildBadge(status.labStatus.value, status.labStatus.name)));
+
+  private buildBadge(value: CaLabStatus, name: string): CaLabStatusBadge {
+    let variant: CaLabStatusBadge['variant'] = 'accent';
+    if (value === 'ERROR') {
+      variant = 'warn';
+    } else if (RUNNING_STATUSES.includes(value)) {
+      variant = 'primary';
+    }
+    return { label: name, variant };
+  }
 
   navBarItems$: Observable<FlHorizontalNavBarItem[]> = combineLatest([
     this.state.getLab$(),

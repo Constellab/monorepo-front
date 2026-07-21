@@ -10,9 +10,13 @@
         {{ 'lms.configure_lab_manager' | translate }}
       </button>
 
-      <button mat-stroked-button type="button" (click)="refresh()" class="g-button-small refresh">
+      <button
+        mat-icon-button
+        type="button"
+        (click)="refresh()"
+        class="refresh"
+        [matTooltip]="'lms.refresh_status' | translate">
         <mat-icon>refresh</mat-icon>
-        {{ 'lms.refresh_status' | translate }}
       </button>
     </fl-card-actions>
   </fl-card-header>
@@ -42,66 +46,57 @@
       [nokText]="'lms.lab_is_not_running' | translate">
     </fl-text-ok-nok>
 
-    @if (labIsStarting()) {
-      <div class="g-layout-row g-layout-start-center g-layout-gap-1em">
-        <fl-loader size="small"></fl-loader>
-        <div>
-          <div>{{ 'lms.lab_is_starting' | translate }}</div>
-          @if (labStatus().labManagerStatus?.glabStatus?.startProgress; as progress) {
-            <div class="g-text-light g-text-small">{{ progress.percent }}% {{ progress.message }}</div>
-          }
-        </div>
-      </div>
-    }
+    <!-- Lab manager current status & running task -->
+    <lml-manager-status class="manager-status"></lml-manager-status>
 
+    <!--  Lab actions  -->
     <div class="g-layout-row g-layout-start-center g-layout-gap-1em buttons">
-      @let labManagerStatus = labStatus().labManagerStatus;
-      <a
-        mat-stroked-button
-        class="primary"
-        target="_blank"
-        rel="noopener noreferrer"
-        [href]="labManagerStatus?.labFrontUrl"
-        [disabled]="!labIsRunning() || !labManagerStatus">
-        <mat-icon>arrow_forward_ios</mat-icon>
-        {{ 'lms.go_to_lab' | translate }}
-      </a>
-
-      @if (labManagerStatus?.codelabFullUrl) {
+      @if (labIsRunning()) {
         <a
+          mat-flat-button
+          class="primary"
           target="_blank"
           rel="noopener noreferrer"
-          mat-stroked-button
-          type="button"
-          [href]="labManagerStatus.codelabFullUrl"
-          class="primary"
-          [disabled]="!labIsRunning() || !labManagerStatus">
-          <mat-icon>computer</mat-icon>
-          {{ 'lms.open_codelab' | translate }}
+          [href]="labStatus().labManagerStatus?.labFrontUrl"
+          [disabled]="!labStatus().labManagerStatus">
+          <mat-icon>arrow_forward_ios</mat-icon>
+          {{ 'lms.go_to_lab' | translate }}
         </a>
-      }
-      @if (labIsRunning()) {
+
+        @if (labStatus().labManagerStatus?.codelabFullUrl) {
+          <a
+            mat-stroked-button
+            class="primary"
+            target="_blank"
+            rel="noopener noreferrer"
+            [href]="labStatus().labManagerStatus.codelabFullUrl"
+            [disabled]="!labStatus().labManagerStatus">
+            <mat-icon>computer</mat-icon>
+            {{ 'lms.open_codelab' | translate }}
+          </a>
+        }
+
+        <span class="g-flex-grow"></span>
+
         <button mat-stroked-button type="button" (click)="stopLab()" class="warn">
           <mat-icon>stop</mat-icon>
           {{ 'lms.stop_lab' | translate }}
         </button>
       } @else {
         <button
-          mat-stroked-button
+          mat-flat-button
           type="button"
           (click)="startLab()"
           class="primary"
           [disabled]="
             !labStatus().labManagerIsConfigured ||
             !labStatus().brickAreConfigured ||
-            labManagerStatus?.actionInProgress ||
-            labIsRunning()
+            labStatus().labManagerStatus?.actionInProgress
           ">
           <mat-icon>play_arrow</mat-icon>
           {{ 'lms.start_lab' | translate }}
         </button>
       }
     </div>
-    <!--  Start stop button  -->
   </fl-card-body>
 </fl-card>

@@ -203,6 +203,10 @@ export class CaLabDetailPageState implements OnDestroy {
   private onNewLabManagerStatus(labManagerStatus: LmlLabManagerStatus): void {
     const busyStatus = this.busyStatus$.getValue();
 
+    // the lab-manager status stream can emit before the first busy status has been received,
+    // in which case there is nothing to compare against yet.
+    if (busyStatus == null) return;
+
     // if the lab running status is different from the lab manager status, refresh the status immediately
     if (labManagerStatus.actionInProgress !== busyStatus.isBusy) {
       this.refreshStatus();

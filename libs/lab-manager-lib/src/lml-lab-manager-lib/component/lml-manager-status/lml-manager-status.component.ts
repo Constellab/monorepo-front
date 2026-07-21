@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy,Component, inject, input, ViewContainerRef } from '@angular/core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { Observable } from 'rxjs';
+import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+import { combineLatest, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { LmlLabManagerService } from '../../lml-lab-manager.service';
@@ -8,23 +9,12 @@ import { LmlLabManagerState } from '../../lml-lab-manager.state';
 import { LmlLabManagerStatus } from '../../model/lml-lab-manager.class';
 import { LmlAdminerInfoDialogComponent } from '../lml-adminer-info-dialog/lml-adminer-info-dialog.component';
 import { LmlDockerContainerErrorDialogComponent } from '../lml-docker-container-error-dialog/lml-docker-container-error-dialog.component';
-
-type LmlCurrentStatus =
-  | 'NOT_CONFIGURED'
-  | 'NOT_INITIALIZED'
-  | 'NOT_INITIALIZED_SINCE'
-  | 'SOME_APPS_DOWN'
-  | 'ALL_APPS_DOWN'
-  | 'CONFIGURED';
-
-interface LmlCurrentStatusInfo {
-  status: LmlCurrentStatus;
-  text: string;
-  icon: string;
-  iconClass: string;
-  buttonText?: string;
-  buttonTooltip?: string;
-}
+import {
+  LmlStatusBannerBusy,
+  LmlStatusBannerError,
+  LmlStatusBannersConfig,
+  LmlStatusBannerWarning,
+} from '../lml-status-banners/lml-status-banners.component';
 
 /**
  * Simple component to display the lab status via the manager
@@ -43,88 +33,132 @@ export class LmlManagerStatusComponent {
   private managerState = inject(LmlLabManagerState);
   private managerService = inject(LmlLabManagerService);
   private dialogService = inject(FlDialogService);
+  private translateService = inject(FlTranslateService);
   private viewContainerRef = inject(ViewContainerRef);
 
   managerStatus$ = this.managerState.getStatus$();
-
-  currentStatus$: Observable<LmlCurrentStatusInfo> = this.managerStatus$.pipe(
-    map((labStatus) => this.convertToCurrentStatus(labStatus))
-  );
-
   adminerIsRunning$ = this.managerState.adminerIsRunning$();
 
-  private convertToCurrentStatus(labStatus: LmlLabManagerStatus): LmlCurrentStatusInfo {
-    // Don't show the main button and status if lab is starting or there is a task running
+  /** The status banners config (running task loader + error / warning banners). */
+  bannersConfig$: Observable<LmlStatusBannersConfig> = combineLatest([
+    this.managerStatus$,
+    this.adminerIsRunning$,
+  ]).pipe(
+    map(([labStatus, adminerIsRunning]) => ({
+      busy: this.showCurrentAction() ? this.convertToBusy(labStatus) : null,
+      error: this.convertToErrorBanner(labStatus),
+      warning: adminerIsRunning ? this.adminerWarning() : null,
+      restart: this.needsRestart(labStatus)
+        ? { action: () => this.initLab('lml.lab_manager_restart') }
+        : null,
+    }))
+  );
+
+  /** True when a saved config change is waiting for a restart to be applied. */
+  private needsRestart(labStatus: LmlLabManagerStatus): boolean {
+    return !labStatus.actionInProgress && labStatus.needsRestart;
+  }
+
+  private adminerWarning(): LmlStatusBannerWarning {
+    return {
+      title: 'lml.lab_manager_adminer_running',
+      actions: [
+        { label: 'lml.adminer_info', action: () => this.openAdminInfo() },
+        { label: 'lml.stop_adminer', action: () => this.managerState.stopAdminer() },
+      ],
+    };
+  }
+
+  private convertToBusy(labStatus: LmlLabManagerStatus): LmlStatusBannerBusy | null {
+    if (labStatus.labStatus === 'STARTING') {
+      const progress = labStatus.glabStatus?.startProgress;
+      return {
+        mainText: this.translateService.translate('lml.lab_is_starting'),
+        progress: progress ? { percent: progress.percent, message: progress.message } : undefined,
+      };
+    }
+
+    // Only a running task is shown as a loader (success tasks are hidden, errors are
+    // surfaced by the current-status line / glab error banner).
+    if (labStatus.currentTask && labStatus.currentTask.status.value === 'RUNNING') {
+      return {
+        mainText: labStatus.currentTask.name,
+        subText: labStatus.currentTask.info,
+      };
+    }
+
+    return null;
+  }
+
+  /**
+   * Builds the single warn/error banner to surface, or null when healthy. A glab start
+   * error takes precedence (view the install logs); otherwise unhealthy lab-manager states
+   * (apps down/error, not configured/initialized) offer a restart or initialize action.
+   */
+  private convertToErrorBanner(labStatus: LmlLabManagerStatus): LmlStatusBannerError | null {
+    const restartAction = {
+      label: 'lml.lab_manager_restart',
+      action: () => this.initLab('lml.lab_manager_restart'),
+    };
+    const initializeAction = {
+      label: 'lml.lab_manager_initialize',
+      action: () => this.initLab('lml.lab_manager_initialize'),
+    };
+
+    // A start error (e.g. during install) — show it with a link to the logs and a restart.
+    if (labStatus.glabStatus?.hasStartError) {
+      return {
+        body: this.translateService.translate('lml.glab_error'),
+        actions: [{ label: 'lml.show_errors', action: () => this.openLabErrorLogs() }, restartAction],
+      };
+    }
+
+    // Don't surface a state banner while an action is running.
     if (labStatus.actionInProgress) return null;
 
     if (labStatus.containersStatus.status.value === 'ERROR') {
       return {
-        status: 'SOME_APPS_DOWN',
-        text: 'lml.lab_manager_some_apps_error',
-        icon: 'error',
-        iconClass: 'g-warn-text',
-        buttonText: 'lml.lab_manager_restart',
-        buttonTooltip: 'lml.restart_lab_help',
+        body: this.translateService.translate('lml.lab_manager_some_apps_error'),
+        actions: [restartAction],
       };
-    } else if (!labStatus.isConfigured) {
+    }
+    if (!labStatus.isConfigured) {
+      return { body: this.translateService.translate('lml.lab_manager_not_configured') };
+    }
+    if (!labStatus.isInitialized) {
       return {
-        status: 'NOT_CONFIGURED',
-        text: 'lml.lab_manager_not_configured',
-        icon: 'clear',
-        iconClass: 'g-warn-text',
+        body: this.translateService.translate('lml.lab_manager_not_initialized'),
+        actions: [initializeAction],
       };
-    } else if (!labStatus.isInitialized) {
+    }
+    // the lab manager was updated but not re-initialized since
+    if (labStatus.lastInitVersion && labStatus.lastInitVersion !== labStatus.version) {
       return {
-        status: 'NOT_INITIALIZED',
-        text: 'lml.lab_manager_not_initialized',
-        icon: 'clear',
-        iconClass: 'g-warn-text',
-        buttonText: 'lml.lab_manager_initialize',
-        buttonTooltip: 'lml.lab_initialize_help',
+        body: this.translateService.translate('lml.lab_manager_not_initialized_since_new_version'),
+        actions: [initializeAction],
       };
-      // if the lab manager was updated but the init was not done since
-    } else if (labStatus.lastInitVersion && labStatus.lastInitVersion !== labStatus.version) {
+    }
+    if (labStatus.containersStatus.status.value === 'PARTIALLY_UP') {
       return {
-        status: 'NOT_INITIALIZED_SINCE',
-        text: 'lml.lab_manager_not_initialized_since_new_version',
-        icon: 'warnings',
-        iconClass: 'g-warn-text',
-        buttonText: 'lml.lab_manager_initialize',
-        buttonTooltip: 'lml.lab_initialize_help',
+        body: this.translateService.translate('lml.lab_manager_some_apps_down'),
+        actions: [restartAction],
       };
-    } else if (labStatus.containersStatus.status.value === 'PARTIALLY_UP') {
-      return {
-        status: 'SOME_APPS_DOWN',
-        text: 'lml.lab_manager_some_apps_down',
-        icon: 'clear',
-        iconClass: 'g-warn-text',
-        buttonText: 'lml.lab_manager_restart',
-        buttonTooltip: 'lml.restart_lab_help',
-      };
-    } else if (
+    }
+    if (
       labStatus.containersStatus.status.value === 'DOWN' ||
       labStatus.containersStatus.status.value === 'STOP'
     ) {
       return {
-        status: 'ALL_APPS_DOWN',
-        text: 'lml.lab_manager_all_apps_down',
-        icon: 'clear',
-        iconClass: 'g-warn-text',
-        buttonText: 'lml.lab_manager_restart',
-        buttonTooltip: 'lml.restart_lab_help',
+        body: this.translateService.translate('lml.lab_manager_all_apps_down'),
+        actions: [restartAction],
       };
     }
-    return {
-      status: 'CONFIGURED',
-      text: 'lml.lab_manager_configured',
-      icon: 'check',
-      iconClass: 'g-success-text',
-      buttonText: 'lml.lab_manager_restart',
-      buttonTooltip: 'lml.restart_lab_help',
-    };
+
+    // Healthy — no banner.
+    return null;
   }
 
-  currentStatusAction(buttonText: string): void {
+  private initLab(buttonText: string): void {
     this.managerState.initLab({ text: buttonText, translateText: true });
   }
 

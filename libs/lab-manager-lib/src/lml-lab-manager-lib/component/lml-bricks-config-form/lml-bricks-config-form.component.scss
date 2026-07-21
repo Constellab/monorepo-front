@@ -1,3 +1,11 @@
+.bricks-header {
+  margin-bottom: 1.5em;
+}
+
+.add-button {
+  flex-shrink: 0;
+}
+
 .help-text {
   margin-top: 0.5em;
   margin-bottom: 0.5em;
@@ -8,8 +16,57 @@
   margin-bottom: 2em;
 }
 
-.actions {
+.brick-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+
+  // Collapse to a single column on small/medium screens.
+  @media (max-width: 1100px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.brick-row {
   width: 100%;
+  min-width: 0;
   box-sizing: border-box;
-  padding-right: 2em;
+  margin: 0;
+  padding: 16px 18px;
+  border: 1px solid var(--mat-sys-outline-variant);
+  border-radius: var(--mat-sys-corner-medium);
+}
+
+.brick-tile {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: var(--mat-sys-surface-variant);
+
+  mat-icon {
+    color: var(--mat-sys-primary);
+  }
+}
+
+.brick-name {
+  min-width: 0;
+  font-family: monospace;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.brick-version {
+  font-family: monospace;
+  white-space: nowrap;
+}
+
+.save-footer {
+  display: block;
+  margin-top: 16px;
 }

@@ -1,50 +1,83 @@
-.action-buttons button {
-  margin-right: 1em;
-  margin-bottom: 0.5em;
+.lab-manager-version {
+  margin: 0 0 1em;
+  color: var(--mat-sys-on-surface-variant);
+
+  .mono {
+    font-family: monospace;
+  }
 }
 
-.divider {
-  margin-top: 1em;
+.warning-strip {
+  padding: 14px 16px;
+  border-radius: var(--mat-sys-corner-medium);
+  background: var(--mat-sys-tertiary-container);
+  color: var(--mat-sys-on-tertiary-container);
   margin-bottom: 1em;
 }
 
-.warning-text {
-  margin-top: 1em;
-  margin-bottom: 0.5em;
+.action-buttons {
+  gap: 10px;
+
+  button {
+    margin: 0;
+  }
 }
 
-.composes-section {
+.divider {
+  margin-top: 1.5em;
+  margin-bottom: 1em;
+}
+
+.feature-row {
+  padding: 14px 0;
+}
+
+.feature-tile {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--mat-sys-corner-medium);
+  background: var(--mat-sys-surface-variant);
+  color: var(--mat-sys-primary);
+  flex-shrink: 0;
+}
+
+.feature-title {
+  font-weight: 500;
+}
+
+.services-section {
   h3 {
     margin: 0 0 0.5rem 0;
   }
 }
 
-.composes-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+.services-list {
+  gap: 4px;
 }
 
-.no-composes {
-  padding: 1rem;
-  text-align: center;
-  color: var(--text-secondary);
-  font-style: italic;
+.service-row {
+  padding: 14px 0;
+  border-top: 1px solid var(--mat-sys-outline-variant);
+}
+
+.service-name {
+  font-family: monospace;
+  font-weight: 500;
 }
 
 .env-badge {
-  border: 2px solid;
-  border-radius: 20px;
-  padding: 2px 5px;
-  text-transform: uppercase;
+  border-radius: var(--mat-sys-corner-full);
+  padding: 2px 9px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
 }
 
-.end-badge-prod {
-  border-color: var(--primary-color);
-  color: var(--primary-color);
+.env-badge-prod {
+  background: var(--mat-sys-primary-container);
+  color: var(--mat-sys-on-primary-container);
 }
 
 .env-badge-dev {
-  border-color: var(--accent-color);
-  color: var(--accent-color);
+  background: var(--mat-sys-tertiary-container);
+  color: var(--mat-sys-on-tertiary-container);
 }

@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
-import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
-import { LmlLabManagerState } from '@monorepo/lab-manager-lib';
+import { LmlLabManagerLibModule, LmlLabManagerState } from '@monorepo/lab-manager-lib';
 
 import { LmsLabService } from '../../service/lms-lab.service';
 import { LmsLabState } from '../../service/lms-lab.state';
@@ -19,7 +19,8 @@ import { LmsLabState } from '../../service/lms-lab.state';
     FlTranslateModule,
     MatIconModule,
     MatButtonModule,
-    FlLoaderModule,
+    MatTooltipModule,
+    LmlLabManagerLibModule,
   ],
   templateUrl: './lms-global-info.component.html',
   changeDetection: ChangeDetectionStrategy.Eager,
@@ -34,8 +35,6 @@ export class LmsGlobalInfoComponent {
   labStatus = this.state.labManagerStatus;
   labIsRunning = this.state.labIsRunning;
   labManagerIsRunning = this.state.labManagerIsRunning;
-
-  labIsStarting = this.state.labIsStarting;
 
   refresh(): void {
     this.state.refreshStatus();

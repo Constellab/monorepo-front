@@ -1,0 +1,79 @@
+@if (lab$ | async; as lab) {
+  <fl-dialog-header>{{ lab.name }}</fl-dialog-header>
+
+  <mat-dialog-content>
+    <div class="info-grid">
+      <!-- Lab rows -->
+      <span class="label">{{ 'lab_type' | translate }}</span>
+      <span>{{ 'lab_type_' + lab.type | translate }}</span>
+
+      @if (lab.typeObj.isOnServer) {
+        <span class="label">{{ 'url' | translate }}</span>
+        <span>
+          <a [href]="lab.frontUrl" target="_blank" rel="noopener noreferrer" class="g-text-link">{{
+            lab.frontUrl
+          }}</a>
+        </span>
+      }
+
+      @if (lab.region) {
+        <span class="label">{{ 'region' | translate }}</span>
+        <span><ca-city [city]="lab.region.city"></ca-city></span>
+      }
+
+      @if (lab.billingMode) {
+        <span class="label">{{ 'lab_billing_mode' | translate }}</span>
+        <span>{{ 'lab_billing_mode_' + lab.billingMode | translate }}</span>
+      }
+
+      @if (lab.desktopPlatform) {
+        <span class="label">{{ 'lab_desktop_platform' | translate }}</span>
+        <span>{{ lab.desktopPlatform }}</span>
+      }
+
+      @if (lab.isFreeLab) {
+        <span class="label"></span>
+        <span class="accent">{{ 'free_data_lab_long' | translate }}</span>
+      }
+
+      <!-- Server rows (cloud/server labs only) -->
+      @if (serverInfo(); as server) {
+        <span class="row-divider"></span>
+
+        <span class="label">{{ 'cloud_provider' | translate }}</span>
+        <span>
+          <ca-cloud-provider-inline [cloudProvider]="server.cloudProvider"></ca-cloud-provider-inline>
+        </span>
+
+        <span class="label">{{ 'name' | translate }}</span>
+        <span>{{ server.name }}</span>
+
+        <span class="label">{{ 'cpuCount' | translate }}</span>
+        <span>{{ server.cpuCount }} &nbsp;·&nbsp; {{ server.cpuType }}</span>
+
+        <span class="label">{{ 'ram' | translate }}</span>
+        <span>{{ server.ram }} {{ 'flCoreComponent.giga_byte_symbole' | translate }}</span>
+
+        @if (server.gpuType) {
+          <span class="label">{{ 'gpuCount' | translate }}</span>
+          <span>{{ server.gpuCount }} &nbsp;·&nbsp; {{ server.gpuType }}</span>
+        }
+
+        <span class="label">{{ 'lab_volume_size' | translate }}</span>
+        <span
+          >{{ server.volumeSize }} GB &nbsp;·&nbsp;
+          {{ 'lab_volume_type_' + server.volumeType | translate }}</span
+        >
+      }
+    </div>
+  </mat-dialog-content>
+
+  @if (serverInfo()) {
+    <div mat-dialog-actions>
+      <button mat-stroked-button type="button" (click)="openVolumeHistory()">
+        <mat-icon>history</mat-icon>
+        {{ 'lab_volume_history' | translate }}
+      </button>
+    </div>
+  }
+}

@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { ChangeDetectionStrategy,Component, inject, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -19,18 +19,26 @@ import { CaLabService } from '../../../../service-api/ca-lab.service';
 export class CaLabLoginButtonComponent {
   private labService = inject(CaLabService);
 
-  @Input() labId: string;
+  labId = input<string>();
 
-  @Input() isRunning: boolean = false;
+  isRunning = input<boolean>(false);
 
-  @Input() size: 'small' | 'normal' = 'normal';
+  size = input<'small' | 'normal'>('normal');
+
+  /** Translation key for the button label. */
+  label = input<string>('go_to_lab');
+
+  /** When true the button is a filled (primary) button instead of stroked. */
+  filled = input<boolean>(false);
 
   isLoading: boolean = false;
+
+  readonly buttonClass = computed(() => (this.size() === 'small' ? 'g-button-small' : ''));
 
   loginToLab(event: MouseEvent): void {
     ClHelpService.stopEventPropagation(event);
     this.isLoading = true;
-    this.labService.logUserToLab(this.labId).subscribe({
+    this.labService.logUserToLab(this.labId()).subscribe({
       next: (result) => this.loginSuccess(result.url),
       error: () => (this.isLoading = false),
     });
@@ -40,10 +48,6 @@ export class CaLabLoginButtonComponent {
     // redirect to the lab url
     window.location.href = url;
     this.isLoading = false;
-  }
-
-  get buttonClass(): string {
-    return this.size === 'small' ? 'g-button-small' : '';
   }
 
   // prevent ripple effect when used on card

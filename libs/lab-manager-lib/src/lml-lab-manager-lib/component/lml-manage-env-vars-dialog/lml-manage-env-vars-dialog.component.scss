@@ -1,0 +1,12 @@
+.mono {
+  font-family: monospace;
+}
+
+// Push the edit/delete actions to the right edge of the row.
+.actions-cell {
+  justify-content: flex-end;
+}
+
+.changed-hint {
+  margin-top: 0.75em;
+}

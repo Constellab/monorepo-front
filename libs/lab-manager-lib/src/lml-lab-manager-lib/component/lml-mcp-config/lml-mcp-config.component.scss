@@ -1,10 +1,21 @@
-.help-text {
-  margin-top: 1em;
+.mcp-row {
+  padding: 14px 0;
+}
+
+.feature-tile {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--mat-sys-corner-medium);
+  background: var(--mat-sys-surface-variant);
+  color: var(--mat-sys-primary);
+  flex-shrink: 0;
+}
+
+.feature-title {
+  font-weight: 500;
 }
 
 .restart-hint {
-  display: flex;
-  align-items: center;
-  gap: 0.4em;
-  margin-top: 1em;
+  margin-top: 0.4em;
+  margin-left: 56px; // tile width + gap
 }

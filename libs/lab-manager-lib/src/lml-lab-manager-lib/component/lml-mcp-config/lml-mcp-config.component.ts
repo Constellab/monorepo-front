@@ -1,5 +1,4 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 
 import { LmlLabManagerService } from '../../lml-lab-manager.service';
 import { LmlLabManagerState } from '../../lml-lab-manager.state';
@@ -25,7 +24,6 @@ export class LmlMcpConfigComponent implements OnInit {
 
   private managerApiService = inject(LmlLabManagerService);
   private managerState = inject(LmlLabManagerState);
-  private snackBarService = inject(FlSnackBarService);
 
   ngOnInit(): void {
     this.managerApiService.getMcpConfig().subscribe({
@@ -54,13 +52,9 @@ export class LmlMcpConfigComponent implements OnInit {
 
   private saveSuccess(): void {
     this.saveIsLoading.set(false);
-    this.snackBarService.openSuccessMessage(
-      {
-        text: 'lml.mcp_config_updated',
-        translateText: true,
-      },
-      10000
-    );
-    this.managerState.refreshStatus(true);
+    this.managerState.onConfigSavedNeedsRestart({
+      text: 'lml.mcp_config_updated',
+      translateText: true,
+    });
   }
 }

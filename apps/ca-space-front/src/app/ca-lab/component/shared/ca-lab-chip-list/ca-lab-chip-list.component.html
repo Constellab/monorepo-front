@@ -1,0 +1,18 @@
+<div class="chip-list g-layout-row-wrap g-layout-start-center">
+  @for (label of visibleLabels(); track label) {
+    <span class="chip g-layout-row g-layout-start-center">
+      @if (icon()) {
+        <mat-icon
+          class="chip-icon"
+          [class.g-primary-text]="iconColor() === 'primary'"
+          [class.g-accent-text]="iconColor() === 'accent'">
+          {{ icon() }}
+        </mat-icon>
+      }
+      <span>{{ label }}</span>
+    </span>
+  }
+  @if (overflowCount() > 0) {
+    <span class="chip overflow">+{{ overflowCount() }}</span>
+  }
+</div>

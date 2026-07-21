@@ -6,9 +6,7 @@
       "title": "Getting started",
       "note": "Global product-concepts page. Lives OUTSIDE the Constellab space folder (root-level 'Getting started' node); sourced from the shared concepts docs, not app code.",
       "remote_doc_id": "b38e4929-2e4f-469c-b47b-f9921a3d4c74",
-      "source_files": [
-        "../../docs/concepts/domain-objects.md"
-      ]
+      "source_files": ["../../docs/concepts/domain-objects.md"]
     },
     {
       "title": "Constellab space",
@@ -127,16 +125,12 @@
     {
       "title": "Labs - Overview",
       "remote_doc_id": "fb932f3b-4984-4cd5-b3d8-e79033e411c1",
-      "source_files": [
-        "src/app/ca-lab/ca-lab-routes.ts"
-      ]
+      "source_files": ["src/app/ca-lab/ca-lab-routes.ts"]
     },
     {
       "title": "Labs - My labs",
       "remote_doc_id": "49bc83bf-c9d9-470b-af02-dabc6fced27f",
-      "source_files": [
-        "src/app/ca-lab/component/lab/ca-my-labs-page/ca-my-labs-page.component.ts"
-      ]
+      "source_files": ["src/app/ca-lab/component/lab/ca-my-labs-page/ca-my-labs-page.component.ts"]
     },
     {
       "title": "Labs - Creating a lab",
@@ -152,8 +146,7 @@
       "source_files": [
         "src/app/ca-lab/component/lab/ca-lab-detail-page/ca-lab-detail-page.component.ts",
         "src/app/ca-lab/component/lab/ca-lab-dashboard-page/ca-lab-dashboard-page.component.ts",
-        "src/app/ca-lab/component/lab/ca-lab-start-stop",
-        "src/app/ca-lab/component/lab/ca-lab-global-status"
+        "src/app/ca-lab/component/lab/ca-lab-start-stop"
       ]
     },
     {
@@ -200,9 +193,7 @@
     {
       "title": "Chat - Using folder chat",
       "remote_doc_id": "19bb66b1-9693-4e51-a02e-01a87e24a88a",
-      "source_files": [
-        "src/app/ca-chat/component/ca-chat-detail-page/ca-chat-detail-page.component.ts"
-      ]
+      "source_files": ["src/app/ca-chat/component/ca-chat-detail-page/ca-chat-detail-page.component.ts"]
     },
     {
       "title": "Apps",

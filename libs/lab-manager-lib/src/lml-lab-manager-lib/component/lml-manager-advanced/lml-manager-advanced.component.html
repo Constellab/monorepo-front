@@ -1,58 +1,83 @@
-<div>
-  @if (labStatus$ | async; as labStatus) {
-    <!-- Container status-->
-    <div class="status g-layout-row g-layout-start-center g-layout-gap-1em">
-      <span>{{ 'lml.lab_manager_status' | translate }} : </span>
-      <fl-status-chip [status]="labStatus.containersStatus.status" size="small"></fl-status-chip>
-      @if (labStatus.containersStatus.info) {
-        <span>{{ labStatus.containersStatus.info }}</span>
-      }
-    </div>
+<!-- Lab manager version -->
+@if (labStatus$ | async; as labStatus) {
+  <p class="lab-manager-version">
+    {{ 'lml.lab_manager_version' | translate }} : <strong class="mono">{{ labStatus.version }}</strong>
+  </p>
+}
 
-    <fl-key-value>
-      <fl-key>{{ 'lml.lab_manager_version' | translate }}</fl-key>
-      {{ labStatus.version }}
-    </fl-key-value>
-  }
+<!-- Warning strip -->
+<div class="warning-strip g-layout-row g-layout-start-center g-layout-gap-1em">
+  <mat-icon class="g-accent-text">warning</mat-icon>
+  <div class="g-flex-grow g-text-small">
+    {{ 'lml.lab_advanced_configuration_warning' | translate }}
+  </div>
 </div>
 
-<!--  Action button  -->
-<div class="action-buttons">
-  <fl-text-icon class="warning-text">
-    <mat-icon>warnings</mat-icon>
-    {{ 'lml.lab_advanced_configuration_warning' | translate }}
-  </fl-text-icon>
-
-  <button mat-stroked-button type="button" class="g-button-small primary" (click)="initAll()">
+<!-- Lab-manager action buttons -->
+<div class="action-buttons g-layout-row-wrap g-layout-start-center">
+  <button mat-flat-button type="button" class="g-button-small accent" (click)="restartLab()">
+    <mat-icon>restart_alt</mat-icon>
+    {{ 'lml.lab_manager_restart' | translate }}
+  </button>
+  <button mat-stroked-button type="button" class="g-button-small" (click)="initAll()">
     {{ 'lml.lab_manager_initialize' | translate }}
   </button>
-  <button mat-stroked-button type="button" class="g-button-small primary" (click)="configureLabManager()">
+  <button mat-stroked-button type="button" class="g-button-small" (click)="configureLabManager()">
     {{ 'lml.configure_lab_manager' | translate }}
   </button>
-  <button mat-stroked-button type="button" class="g-button-small primary" (click)="updateLabManager()">
+  <button mat-stroked-button type="button" class="g-button-small" (click)="updateLabManager()">
     {{ 'lml.update_lab_manager' | translate }}
   </button>
-
-  <button mat-stroked-button type="button" class="g-button-small warn" (click)="stopCurrentTask()">
+  <button mat-stroked-button type="button" class="g-button-small" (click)="stopCurrentTask()">
     {{ 'lml.stop_current_task' | translate }}
   </button>
-
-  <button mat-stroked-button type="button" class="g-button-small warn" (click)="startAdminer()">
-    {{ 'lml.start_adminer' | translate }}
-  </button>
-
-  <button mat-stroked-button type="button" class="g-button-small warn" (click)="stopAdminer()">
-    {{ 'lml.stop_adminer' | translate }}
-  </button>
-  <button mat-stroked-button type="button" class="g-button-small warn" (click)="cleanLabManager()">
+  <button mat-stroked-button type="button" class="g-button-small" (click)="cleanLabManager()">
     {{ 'lml.clean_lab_manager' | translate }}
   </button>
 </div>
 
 <mat-divider class="divider"></mat-divider>
 
-<!--  List of composes  -->
-<div class="composes-section">
+<!-- Adminer row -->
+<div class="feature-row g-layout-row g-layout-start-center g-layout-gap-1em">
+  <!-- Tile -->
+  <div class="feature-tile g-layout-row g-layout-center-center flex-shrink-0">
+    <mat-icon>dataset</mat-icon>
+  </div>
+
+  <!-- Label + description -->
+  <div class="g-flex-grow">
+    <div class="feature-title">{{ 'lml.adminer' | translate }}</div>
+    <div class="g-text-small g-text-light">{{ 'lml.adminer_help' | translate }}</div>
+  </div>
+
+  <!-- Actions -->
+  @if (adminerIsRunning$ | async) {
+    <div class="g-layout-row g-layout-end-center g-layout-gap-05em flex-shrink-0">
+      <button mat-stroked-button type="button" (click)="openAdminInfo()">
+        {{ 'lml.adminer_info' | translate }}
+      </button>
+      <button mat-stroked-button type="button" (click)="stopAdminer()">
+        {{ 'lml.stop' | translate }}
+      </button>
+    </div>
+  } @else {
+    <button mat-stroked-button type="button" class="flex-shrink-0" (click)="startAdminer()">
+      {{ 'lml.start' | translate }}
+    </button>
+  }
+</div>
+
+<!-- MCP toggle row -->
+<lml-mcp-config></lml-mcp-config>
+
+<!-- Environment variables row -->
+<lml-custom-env-config></lml-custom-env-config>
+
+<mat-divider class="divider"></mat-divider>
+
+<!-- Docker services -->
+<div class="services-section">
   <div class="g-layout-row g-layout-between-center">
     <h3>{{ 'lml.composes' | translate }}</h3>
     <button mat-icon-button (click)="refreshComposes()" [matTooltip]="'lml.lab_manager_refresh' | translate">
@@ -62,23 +87,26 @@
 
   <fl-async-section [object]="composes$" [isFlStatusEvent]="true" emptyText="lml.no_composes">
     <ng-container *flSectionBodyStatusObsEvent="composes$ as composesData">
-      <div class="composes-list">
+      <div class="services-list g-layout-col">
         @for (compose of composesData.composes; track compose.brickName + '-' + compose.uniqueName) {
-          <div class="compose-item g-layout-row g-layout-between-center">
-            <div>
-              <div>
-                {{ compose.brickName }} - {{ compose.uniqueName }}
-                @if (compose.env === 'dev' || compose.env === 'prod') {
-                  -
-                  <span class="env-badge g-text-small" [ngClass]="'env-badge-' + compose.env">{{
-                    compose.env
-                  }}</span>
+          <div class="service-row g-layout-row g-layout-start-center g-layout-gap-1em">
+            <div class="g-flex-grow service-info">
+              <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
+                <span class="service-name mono">{{ compose.brickName }} - {{ compose.uniqueName }}</span>
+                @if (compose.env === 'prod') {
+                  <span class="env-badge env-badge-prod g-text-tiny">PROD</span>
+                } @else if (compose.env === 'dev') {
+                  <span class="env-badge env-badge-dev g-text-tiny">DEV</span>
                 }
               </div>
-              <div class="g-text-small">{{ compose.description }}</div>
+              <div class="g-text-small g-text-light">{{ compose.description }}</div>
             </div>
-            <button mat-stroked-button class="g-button-small primary" (click)="openComposeDetail(compose)">
-              {{ 'lml.details' | translate }}
+            <button
+              mat-button
+              type="button"
+              class="g-button-small primary"
+              (click)="openComposeDetail(compose)">
+              <span>{{ 'lml.details' | translate }}</span>
             </button>
           </div>
         }

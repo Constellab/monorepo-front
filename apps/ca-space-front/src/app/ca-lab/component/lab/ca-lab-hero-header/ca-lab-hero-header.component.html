@@ -1,0 +1,65 @@
+@if (lab$ | async; as lab) {
+  <div class="hero-title-row g-layout-row g-layout-start-center g-layout-gap-1em">
+    <span class="hero-tile g-primary-background">
+      <mat-icon flIcon="lab"></mat-icon>
+    </span>
+
+    <div class="hero-title-col g-flex-grow g-layout-col">
+      <h2>
+        @if (labIsRunning$ | async) {
+          {{ 'lab_hero_running_title' | translate: { name: lab.name } }}
+        } @else {
+          {{ 'lab_hero_stopped_title' | translate: { name: lab.name } }}
+        }
+      </h2>
+      @if (labIsRunning$ | async) {
+        <div class="hero-subtitle g-layout-row g-layout-start-center g-primary-text">
+          <mat-icon class="check">check_circle</mat-icon>
+          <span>{{ 'lab_health_all_healthy' | translate }}</span>
+        </div>
+      } @else {
+        <div class="hero-subtitle g-layout-row g-layout-start-center g-text-light">
+          <mat-icon class="check">stop_circle</mat-icon>
+          <span>{{ 'lab_health_stopped' | translate }}</span>
+        </div>
+      }
+    </div>
+
+    <div class="hero-actions g-layout-row g-layout-start-center g-layout-gap-05em">
+      <ca-lab-login-button
+        [labId]="lab.id"
+        [isRunning]="(labIsRunning$ | async) ?? false"
+        label="go_to_lab_full"
+        [filled]="true">
+      </ca-lab-login-button>
+      <ca-lab-start-stop size="normal"></ca-lab-start-stop>
+      <ng-content></ng-content>
+
+      <button
+        mat-icon-button
+        type="button"
+        [matMenuTriggerFor]="heroMenu"
+        [matTooltip]="'lab_more_actions' | translate">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #heroMenu="matMenu">
+        <button mat-menu-item type="button" (click)="openCodelabInfo(lab)">
+          <mat-icon flIcon="code"></mat-icon>
+          <span>{{ 'codelab_info' | translate }}</span>
+        </button>
+        <button mat-menu-item type="button" (click)="refreshStatus()">
+          <mat-icon>refresh</mat-icon>
+          <span>{{ 'refresh_status' | translate }}</span>
+        </button>
+        <button mat-menu-item type="button" (click)="openRecordedVersions(lab)">
+          <mat-icon>history</mat-icon>
+          <span>{{ 'lab_recorded_versions' | translate }}</span>
+        </button>
+      </mat-menu>
+    </div>
+  </div>
+
+  @if (bannersConfig$ | async; as bannersConfig) {
+    <lml-status-banners class="hero-header-status" [config]="bannersConfig"></lml-status-banners>
+  }
+}

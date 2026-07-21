@@ -1,12 +1,11 @@
-import { ChangeDetectionStrategy,Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
+import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit } from '@angular/core';
 
 import { LmlLabManagerService } from '../../lml-lab-manager.service';
-import { LmlLabManagerState } from '../../lml-lab-manager.state';
 import { LmlBrickVersionDTODatasource, LmlLabManagerConfig } from '../../model/lml-lab-manager.class';
 
 /**
- * Component to configure the lab (bricks)
+ * Component to configure the lab (bricks). Loads the brick config; editing and saving is
+ * handled by the embedded lml-bricks-config-form.
  */
 @Component({
   selector: 'lml-manager-config',
@@ -17,14 +16,10 @@ import { LmlBrickVersionDTODatasource, LmlLabManagerConfig } from '../../model/l
 })
 export class LmlManagerConfigComponent implements OnInit, OnDestroy {
   brickVersions: LmlBrickVersionDTODatasource;
-  configHasChanged: boolean = false;
 
   getIsLoading: boolean = false;
-  saveIsLoading: boolean = false;
 
   private managerApiService = inject(LmlLabManagerService);
-  private managerState = inject(LmlLabManagerState);
-  private snackBarService = inject(FlSnackBarService);
 
   ngOnInit(): void {
     this.managerApiService.getLabManagerConfig().subscribe({
@@ -36,31 +31,6 @@ export class LmlManagerConfigComponent implements OnInit, OnDestroy {
   getSuccess(config: LmlLabManagerConfig): void {
     this.brickVersions = new LmlBrickVersionDTODatasource(config.brickVersions, true);
     this.getIsLoading = false;
-  }
-
-  onNewConfig(): void {
-    this.configHasChanged = true;
-  }
-
-  saveConfig(): void {
-    this.saveIsLoading = true;
-    this.managerApiService.updateConfig(this.brickVersions.toLabManagerConfig()).subscribe({
-      next: () => this.saveSuccess(),
-      error: () => (this.saveIsLoading = false),
-    });
-  }
-
-  private saveSuccess(): void {
-    this.saveIsLoading = false;
-    this.snackBarService.openSuccessMessage(
-      {
-        text: 'lml.lab_cloud_config_updated',
-        translateText: true,
-      },
-      10000
-    );
-    this.configHasChanged = false;
-    this.managerState.refreshStatus(true);
   }
 
   ngOnDestroy(): void {

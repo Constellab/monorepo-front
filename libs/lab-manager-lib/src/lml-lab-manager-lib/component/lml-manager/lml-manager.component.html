@@ -1,65 +1,27 @@
-<fl-card id="lab-manager">
-  <fl-card-header>
-    <fl-text-icon>
-      <mat-icon>engineering</mat-icon>
-      <h2>{{ 'lml.lab_manager' | translate }}</h2>
-    </fl-text-icon>
-
-    <fl-card-actions>
-      <button mat-stroked-button type="button" class="g-button-small button refresh" (click)="refresh()">
-        <mat-icon>refresh</mat-icon>
-        <span>{{ 'lml.lab_manager_refresh' | translate }}</span>
-        @if (refreshIsLoading) {
-          <fl-button-loader size="small"></fl-button-loader>
-        }
-      </button>
-      <ng-content></ng-content>
-    </fl-card-actions>
-  </fl-card-header>
-
-  <fl-card-body>
-    <p class="g-text-light help-text">{{ 'lml.lab_manager_section_help' | translate }}</p>
-
-    @if (newLabManagerVersionAvailable$ | async) {
-      <fl-text-icon (click)="updateLabManager()" class="new-version">
-        <mat-icon>info</mat-icon>
-        <span class="g-text-link">{{ 'lml.new_lab_manager_version' | translate }}</span>
-      </fl-text-icon>
-    }
-
-    <!--  Global status  -->
-    <fl-async-section
-      [object]="labManagerStatus$"
-      [isFlStatusEvent]="true"
-      [showServerErrorText]="true"
-      emptyText="lml.lab_manager_not_running">
-      <ng-container *flSectionBody>
-        <lml-manager-status [showCurrentAction]="showCurrentAction"></lml-manager-status>
-      </ng-container>
-    </fl-async-section>
-
-    <mat-expansion-panel class="advanced-config">
-      <mat-expansion-panel-header>
-        <fl-text-icon>
-          <mat-icon>settings</mat-icon>
-          {{ 'lml.lab_manager_advanced_config' | translate }}
-        </fl-text-icon>
-      </mat-expansion-panel-header>
-
-      <ng-template matExpansionPanelContent>
-        <lml-manager-advanced></lml-manager-advanced>
-      </ng-template>
-    </mat-expansion-panel>
-  </fl-card-body>
-</fl-card>
-
 @if (labManagerIsRunning$ | async) {
   <!--Lab config-->
   <lml-manager-config class="g-section"></lml-manager-config>
-
-  <!--MCP server-->
-  <lml-mcp-config class="g-section"></lml-mcp-config>
-
-  <!--Custom env variables-->
-  <lml-custom-env-config class="g-section"></lml-custom-env-config>
 }
+
+<!--Lab manager-->
+<mat-expansion-panel id="lab-manager" class="g-section lab-manager-panel">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      <fl-text-icon>
+        <mat-icon>tune</mat-icon>
+        <h2>{{ 'lml.lab_manager_advanced_config' | translate }}</h2>
+      </fl-text-icon>
+    </mat-panel-title>
+    <mat-panel-description class="g-layout-row g-layout-end-center">
+      <button
+        mat-icon-button
+        type="button"
+        (click)="advanced.refresh(); $event.stopPropagation()"
+        [matTooltip]="'lml.lab_manager_refresh' | translate">
+        <mat-icon>refresh</mat-icon>
+      </button>
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+
+  <lml-manager-advanced #advanced></lml-manager-advanced>
+</mat-expansion-panel>

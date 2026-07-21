@@ -9,7 +9,16 @@
       </fl-horizontal-nav-bar-title>
 
       <fl-horizontal-nav-bar-actions class="g-layout-row g-layout-start-center">
-        <fl-status-chip [status]="labStatus$" class="g-text-big button-action"></fl-status-chip>
+        @if (labBadge$ | async; as badge) {
+          <span
+            class="lab-status-badge g-layout-row g-layout-start-center"
+            [class.primary]="badge.variant === 'primary'"
+            [class.warn]="badge.variant === 'warn'"
+            [class.accent]="badge.variant === 'accent'">
+            <span class="lab-status-dot"></span>
+            <span>{{ badge.label | translate }}</span>
+          </span>
+        }
       </fl-horizontal-nav-bar-actions>
     </fl-horizontal-nav-bar>
   </div>

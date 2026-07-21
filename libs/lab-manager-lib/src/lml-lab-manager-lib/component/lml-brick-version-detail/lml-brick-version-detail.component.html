@@ -1,40 +1,36 @@
-<fl-key-value>
-  <fl-key>{{ 'lml.brick' | translate }}</fl-key>
-  {{ brickName() }}
-</fl-key-value>
+<div class="detail-grid">
+  <span class="detail-key">{{ 'lml.brick' | translate }}</span>
+  <span class="detail-value g-text-light">{{ brickName() }}</span>
 
-<fl-key-value>
-  <fl-key>{{ 'lml.brick_version' | translate }}</fl-key>
-  {{ brickVersion().brickVersion }}
-</fl-key-value>
+  <span class="detail-key">{{ 'lml.brick_version' | translate }}</span>
+  <span class="detail-value g-text-light">{{ brickVersion().brickVersion }}</span>
 
-<fl-key-value>
-  <fl-key>{{ 'lml.brick_repo_type' | translate }}</fl-key>
-  {{ brickVersion().repoType }}
-</fl-key-value>
+  <span class="detail-key">{{ 'lml.brick_repo_type' | translate }}</span>
+  <span class="detail-value g-text-light">{{ brickVersion().repoType }}</span>
 
-<fl-key-value>
-  <fl-key>{{ 'lml.brick_version_repository_url' | translate }}</fl-key>
-  {{ brickVersion().repositoryUrl }}
-</fl-key-value>
+  <span class="detail-key">{{ 'lml.brick_version_repository_url' | translate }}</span>
+  <span class="detail-value g-text-light">{{ brickVersion().repositoryUrl }}</span>
 
-<fl-key-value>
-  <fl-key>{{ 'lml.brick_version_info' | translate }}</fl-key>
-  <a [href]="communityLink()" target="_blank" rel="noopener noreferrer" class="g-text-link">{{
-    communityLink()
-  }}</a>
-</fl-key-value>
+  <span class="detail-key">{{ 'lml.brick_version_info' | translate }}</span>
+  <span class="detail-value">
+    <a [href]="communityLink()" target="_blank" rel="noopener noreferrer" class="g-text-link">{{
+      communityLink()
+    }}</a>
+  </span>
+</div>
 
 <!-- Technical infos-->
-<div class="technical-info-container">
-  <p>{{ 'lml.brick_technical_info' | translate }}</p>
+@if (brickVersion().technicalInfo | flObjectKeys; as technicalInfoKeys) {
+  @if (technicalInfoKeys.length) {
+    <div class="technical-info-container">
+      <h4 class="technical-info-title">{{ 'lml.brick_technical_info' | translate }}</h4>
 
-  <div class="technical-info-list">
-    @for (key of brickVersion().technicalInfo | flObjectKeys; track key) {
-      <fl-key-value>
-        <fl-key>{{ key }}</fl-key>
-        {{ brickVersion().technicalInfo[key] }}
-      </fl-key-value>
-    }
-  </div>
-</div>
+      <div class="detail-grid">
+        @for (key of technicalInfoKeys; track key) {
+          <span class="detail-key">{{ key }}</span>
+          <span class="detail-value g-text-light">{{ brickVersion().technicalInfo[key] }}</span>
+        }
+      </div>
+    </div>
+  }
+}

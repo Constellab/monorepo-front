@@ -2,6 +2,16 @@
   margin-left: 1em;
 }
 
+.manager-status {
+  display: block;
+  margin-top: 1em;
+}
+
 .buttons {
   margin-top: 1em;
+
+  > button,
+  > a {
+    flex-shrink: 0;
+  }
 }

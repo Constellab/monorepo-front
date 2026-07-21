@@ -3,9 +3,10 @@ import { ClSubscriptionHandler } from '@monorepo/core-lib';
 import { FlStatusEvent, flStatutEventSuccess } from '@monorepo/front-core-lib/fl-core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
 import { BehaviorSubject, distinct, filter, Observable } from 'rxjs';
-import { map, share } from 'rxjs/operators';
+import { map, shareReplay } from 'rxjs/operators';
 
 import { LmlCleanLabManagerFormDialogComponent } from './component/lml-clean-lab-manager-form-dialog/lml-clean-lab-manager-form-dialog.component';
 import { LmlLabManagerService } from './lml-lab-manager.service';
@@ -29,11 +30,16 @@ export class LmlLabManagerState implements OnDestroy {
   private autoRefreshFrequency = 5000;
   private autoRefreshTimeout: any;
 
+  // Cache the lab-manager version upgrade info so it is fetched once and replayed to all
+  // subscribers (the hero header on every tab) instead of re-querying on each render.
+  private versionUpgradeInfo$: Observable<LmlLabManagerMigrationPlanDTO> | null = null;
+
   private subscriptions = new ClSubscriptionHandler();
 
   private dialogService = inject(FlDialogService);
   private actionService = inject(FlPortalActionsService);
   private labManagerService = inject(LmlLabManagerService);
+  private snackBarService = inject(FlSnackBarService);
 
   public init(autoRefreshFrequency: number): void {
     if (autoRefreshFrequency) {
@@ -61,6 +67,9 @@ export class LmlLabManagerState implements OnDestroy {
 
   private onActionResult(): void {
     this.refreshStatus(true);
+    // A lab-manager action (e.g. update) may change the installed version, so the cached
+    // upgrade info is stale — drop it so the next read re-fetches.
+    this.refreshVersionUpgradeInfo();
   }
 
   public refreshStatus(skipLoading: boolean = false): void {
@@ -109,6 +118,24 @@ export class LmlLabManagerState implements OnDestroy {
 
   public adminerIsRunning$(): Observable<boolean> {
     return this.getStatus$().pipe(map((status) => status.adminerIsRunning));
+  }
+
+  /**
+   * Common post-save handler for the config sub-forms (bricks / MCP / env vars). A config change
+   * only takes effect after the lab is restarted, so this shows a success snackbar offering a
+   * restart action and refreshes the status (without a loading flicker) so any "needs restart"
+   * banner updates.
+   * @param message the success message to show (specific to the config that was saved)
+   */
+  onConfigSavedNeedsRestart(message: FlTranslatableText): void {
+    this.snackBarService.openSuccessMessage(message, 10000, {
+      showCloseButton: true,
+      action: {
+        label: { text: 'lml.lab_manager_restart', translateText: true },
+        onClick: () => this.initLab({ text: 'lml.lab_manager_restart', translateText: true }),
+      },
+    });
+    this.refreshStatus(true);
   }
 
   //////////////////////////// Actions ////////////////////////////
@@ -219,7 +246,19 @@ export class LmlLabManagerState implements OnDestroy {
   }
 
   public getVersionUpgradeInfo$(): Observable<LmlLabManagerMigrationPlanDTO> {
-    return this.labManagerService.getVersionUpgradeInfo().pipe(share());
+    // Lazily fetch once and cache; shareReplay replays the result to later subscribers
+    // (e.g. when switching between the dashboard and configuration tabs).
+    if (!this.versionUpgradeInfo$) {
+      this.versionUpgradeInfo$ = this.labManagerService
+        .getVersionUpgradeInfo()
+        .pipe(shareReplay({ bufferSize: 1, refCount: false }));
+    }
+    return this.versionUpgradeInfo$;
+  }
+
+  /** Force the next getVersionUpgradeInfo$() to re-fetch (e.g. after an update). */
+  public refreshVersionUpgradeInfo(): void {
+    this.versionUpgradeInfo$ = null;
   }
 
   public newLabManagerVersionAvailable$(): Observable<boolean> {

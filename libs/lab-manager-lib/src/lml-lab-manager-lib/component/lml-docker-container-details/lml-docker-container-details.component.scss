@@ -1,0 +1,16 @@
+.detail-grid {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 1em;
+  row-gap: 0.5em;
+  align-items: baseline;
+}
+
+.detail-value {
+  word-break: break-word;
+}
+
+.size-button {
+  margin-top: 1em;
+  width: fit-content;
+}

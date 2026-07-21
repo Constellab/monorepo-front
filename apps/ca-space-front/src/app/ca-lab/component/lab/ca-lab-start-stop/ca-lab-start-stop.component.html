@@ -1,6 +1,11 @@
 <!--  Start and stop button  -->
 @if (serverIsRunning$ | async) {
-  <button mat-stroked-button type="button" (click)="stopLab()" class="g-button-small warn">
+  <button
+    mat-stroked-button
+    type="button"
+    (click)="stopLab()"
+    class="warn"
+    [class.g-button-small]="size() === 'small'">
     <mat-icon>stop</mat-icon>
     <span>{{ 'stop_lab' | translate }}</span>
   </button>
@@ -13,7 +18,8 @@
       mat-stroked-button
       type="button"
       (click)="startLab()"
-      class="g-button-small primary"
+      class="primary"
+      [class.g-button-small]="size() === 'small'"
       [disabled]="disabledStart$ | async">
       <mat-icon>play_arrow</mat-icon>
       <span>{{ 'start_lab' | translate }}</span>

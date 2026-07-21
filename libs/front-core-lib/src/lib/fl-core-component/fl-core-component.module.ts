@@ -18,6 +18,7 @@ import { FlChipComponent } from './component/fl-chip/fl-chip.component';
 import { FlErrorTextComponent } from './component/fl-error-text/fl-error-text.component';
 import { FlExternalLinkComponent } from './component/fl-external-link/fl-external-link.component';
 import { FlFileTextIconComponent } from './component/fl-file-text-icon/fl-file-text-icon.component';
+import { FlInfoBannerComponent } from './component/fl-info-banner/fl-info-banner.component';
 import { FlLimitHeightComponent } from './component/fl-limit-height/fl-limit-height.component';
 import { FlPasswordHiddenComponent } from './component/fl-password-hidden/fl-password-hidden.component';
 import { FlPinUnpinButtonComponent } from './component/fl-pin-unpin-button/fl-pin-unpin-button.component';
@@ -41,6 +42,7 @@ import { FL_CORE_COMPONENT_I18N } from './i18n/fl-core-component.i18n';
     FlFileTextIconComponent,
     FlPasswordHiddenComponent,
     FlPoweredByConstellabComponent,
+    FlInfoBannerComponent,
   ],
   exports: [
     FlLimitHeightComponent,
@@ -53,6 +55,7 @@ import { FL_CORE_COMPONENT_I18N } from './i18n/fl-core-component.i18n';
     FlFileTextIconComponent,
     FlPasswordHiddenComponent,
     FlPoweredByConstellabComponent,
+    FlInfoBannerComponent,
   ],
   imports: [
     CommonModule,

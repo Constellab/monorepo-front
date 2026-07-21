@@ -111,6 +111,8 @@ export class LmlLabManagerStatus {
   version: string;
   isConfigured: boolean;
   isInitialized: boolean;
+  // true when a configuration change requires the lab to be restarted to be applied
+  needsRestart: boolean;
   // version of the lab manager that has been used to init the lab
   lastInitVersion: string;
   labFrontUrl: string;

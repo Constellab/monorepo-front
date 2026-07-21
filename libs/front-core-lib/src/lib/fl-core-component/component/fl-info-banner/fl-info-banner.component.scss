@@ -1,0 +1,48 @@
+.banner {
+  padding: 16px 20px;
+  border-radius: var(--mat-sys-corner-medium);
+
+  &.variant-primary {
+    background: var(--mat-sys-primary-container);
+    color: var(--mat-sys-on-primary-container);
+
+    .banner-icon {
+      color: var(--mat-sys-primary);
+    }
+  }
+
+  &.variant-accent {
+    background: var(--mat-sys-tertiary-container);
+    color: var(--mat-sys-on-tertiary-container);
+  }
+
+  &.variant-error {
+    background: var(--mat-sys-error-container);
+    color: var(--mat-sys-on-error-container);
+
+    .banner-icon {
+      color: var(--mat-sys-error);
+    }
+  }
+
+  &.variant-neutral {
+    background: var(--mat-sys-surface-variant);
+    color: var(--mat-sys-on-surface-variant);
+
+    .banner-icon {
+      color: var(--mat-sys-primary);
+    }
+  }
+}
+
+.banner-icon {
+  flex-shrink: 0;
+}
+
+.banner-title {
+  font-weight: 600;
+}
+
+.banner-body {
+  opacity: 0.9;
+}

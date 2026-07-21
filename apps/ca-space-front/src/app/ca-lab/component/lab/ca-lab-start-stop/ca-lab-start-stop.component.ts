@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -32,6 +32,9 @@ import {
   imports: [MatButton, MatIcon, MatTooltip, AsyncPipe, TranslatePipe],
 })
 export class CaLabStartStopComponent {
+  /** Button size — 'small' keeps the compact style used in lists/cards. */
+  size = input<'small' | 'normal'>('small');
+
   private state = inject(CaLabDetailPageState);
   private labService = inject(CaLabService);
   private snackBarService = inject(FlSnackBarService);

@@ -6,6 +6,7 @@ export * from './component/fl-chip/fl-chip.component';
 export * from './component/fl-error-text/fl-error-text.component';
 export * from './component/fl-external-link/fl-external-link.component';
 export * from './component/fl-file-text-icon/fl-file-text-icon.component';
+export * from './component/fl-info-banner/fl-info-banner.component';
 export * from './component/fl-limit-height/fl-limit-height.component';
 export * from './component/fl-pin-unpin-button/fl-pin-unpin-button.component';
 export * from './component/fl-powered-by-constellab/fl-powered-by-constellab.component';

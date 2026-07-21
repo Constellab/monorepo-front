@@ -2,8 +2,7 @@
   <h2>{{ labConfig().label }}</h2>
 }
 
-<p>{{ 'brick_list' | translate }}</p>
-<ul>
+<ul class="brick-list">
   @for (brickVersion of labConfig().brickVersions; track brickVersion.brick.name) {
     <li class="g-layout-row g-layout-between-center">
       <fl-key-value>
