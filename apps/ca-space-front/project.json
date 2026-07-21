@@ -12,7 +12,7 @@
         "outputPath": "dist/apps/ca-space-front",
         "index": "apps/ca-space-front/src/index.html",
         "browser": "apps/ca-space-front/src/ca-main.ts",
-        "polyfills": ["apps/ca-space-front/src/polyfills.ts"],
+        "polyfills": ["zone.js", "apps/ca-space-front/src/polyfills.ts"],
         "tsConfig": "apps/ca-space-front/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [

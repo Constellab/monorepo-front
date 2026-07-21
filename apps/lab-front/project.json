@@ -12,7 +12,7 @@
         "outputPath": "dist/apps/lab-front",
         "index": "apps/lab-front/src/index.html",
         "browser": "apps/lab-front/src/lab-main.ts",
-        "polyfills": ["apps/lab-front/src/polyfills.ts"],
+        "polyfills": ["zone.js", "apps/lab-front/src/polyfills.ts"],
         "tsConfig": "apps/lab-front/tsconfig.app.json",
         "assets": [
           "apps/lab-front/src/assets",

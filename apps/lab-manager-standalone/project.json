@@ -13,7 +13,7 @@
         "outputPath": "dist/apps/lab-manager-standalone",
         "index": "apps/lab-manager-standalone/src/index.html",
         "browser": "apps/lab-manager-standalone/src/main.ts",
-        "polyfills": ["apps/lab-manager-standalone/src/polyfills.ts"],
+        "polyfills": ["zone.js", "apps/lab-manager-standalone/src/polyfills.ts"],
         "tsConfig": "apps/lab-manager-standalone/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
