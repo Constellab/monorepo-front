@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Input } from '@angular/core';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { LiScenarioTemplate } from '@monorepo/lab-lib/li-core';
 
@@ -6,6 +6,7 @@ import { LiScenarioTemplate } from '@monorepo/lab-lib/li-core';
   selector: 'li-scenario-template-inline',
   templateUrl: './li-scenario-template-inline.component.html',
   styleUrls: ['./li-scenario-template-inline.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlUserModule],
 })
 export class LiScenarioTemplateInlineComponent {

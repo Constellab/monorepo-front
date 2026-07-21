@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent } from '@angular/material/dialog';
@@ -22,6 +22,7 @@ export type HaCreateStoryDtoInput = FlFormDialogInput<HaCreateStoryDto>;
   selector: 'ha-story-edit-dialog',
   templateUrl: './ha-story-edit-dialog.component.html',
   styleUrls: ['./ha-story-edit-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlDialogModule,
     MatDialogContent,

@@ -1,4 +1,4 @@
-import { Component, inject, Input, input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input, input, OnInit } from '@angular/core';
 
 import { FlUser } from '../../model/fl-user.class';
 import { FlUserConfig } from '../../service/fl-user-config.config';
@@ -9,6 +9,7 @@ export type FlUserProfilePictureSize = 'small' | 'medium' | 'big' | number;
   selector: 'fl-user-profile-picture',
   templateUrl: './fl-user-profile-picture.component.html',
   styleUrls: ['./fl-user-profile-picture.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlUserProfilePictureComponent implements OnInit {

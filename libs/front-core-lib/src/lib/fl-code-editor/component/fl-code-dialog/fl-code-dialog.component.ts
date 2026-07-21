@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
@@ -15,6 +15,7 @@ export interface FlCodeDialogData {
   selector: 'fl-code-dialog',
   templateUrl: './fl-code-dialog.component.html',
   styleUrls: ['./fl-code-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlCodeDialogComponent {

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ClCredentials } from '@monorepo/core-lib';
 import { Observable } from 'rxjs';
@@ -20,6 +20,7 @@ export interface FlCheckCredentialsDialogInput {
   selector: 'fl-check-credentials-dialog',
   templateUrl: './fl-check-credentials-dialog.component.html',
   styleUrls: ['./fl-check-credentials-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlCheckCredentialsDialogComponent {

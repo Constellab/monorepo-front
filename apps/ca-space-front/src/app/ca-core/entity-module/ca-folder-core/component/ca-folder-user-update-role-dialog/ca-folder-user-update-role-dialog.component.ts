@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
@@ -37,6 +37,7 @@ export interface CaFolderUserUpdateRoleDialogInput {
     FlUserModule,
   ],
   templateUrl: './ca-folder-user-update-role-dialog.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './ca-folder-user-update-role-dialog.component.scss',
 })
 export class CaFolderUserUpdateRoleDialogComponent {

@@ -1,4 +1,4 @@
-import { Component, computed, inject, input, NgZone, OnDestroy, output, signal } from '@angular/core';
+import { ChangeDetectionStrategy,Component, computed, inject, input, NgZone, OnDestroy, output, signal } from '@angular/core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
@@ -20,6 +20,7 @@ import {
   selector: 'fl-ai-menu-button',
   templateUrl: './fl-ai-menu-button.component.html',
   styleUrl: './fl-ai-menu-button.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlAiMenuButtonComponent implements OnDestroy {

@@ -1,4 +1,4 @@
-import { Component, inject, output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, output } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { FlInputFileModule } from '@monorepo/front-core-lib/fl-input-file';
@@ -25,6 +25,7 @@ import { LmsLabState } from '../../service/lms-lab.state';
     FlSnackBarModule,
   ],
   templateUrl: './lms-configure-lab-manager.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './lms-configure-lab-manager.component.scss',
 })
 export class LmsConfigureLabManagerComponent {

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatSnackBarRef } from '@angular/material/snack-bar';
 import { FlSnackBarMode } from '@monorepo/front-core-lib/fl-snack-bar';
@@ -9,6 +9,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   selector: 'ha-cookie-consent',
   templateUrl: './ha-cookie-consent.component.html',
   styleUrls: ['./ha-cookie-consent.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatButton, TranslatePipe],
 })
 export class HaCookieConsentComponent {

@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject,OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, ElementRef, inject, OnDestroy, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FlConfirmDialogInput } from '@monorepo/front-core-lib/fl-dialog';
 import { FlConfirmDialogResult } from '@monorepo/front-core-lib/fl-dialog';
@@ -26,6 +26,7 @@ export interface TeTextEditorHistoryModificationVisualizerDialogData {
   selector: 'te-text-editor-history-modification-visualizer-dialog',
   templateUrl: './te-text-editor-history-modification-visualizer-dialog.component.html',
   styleUrl: './te-text-editor-history-modification-visualizer-dialog.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class TeTextEditorHistoryModificationVisualizerDialogComponent implements OnInit, OnDestroy {

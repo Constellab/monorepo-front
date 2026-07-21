@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnDestroy, OnInit, output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input, OnDestroy, OnInit, output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { FlInfiniteScrollMode } from '@monorepo/front-core-lib/fl-infinite-scroll';
 import { Observable, Subscription } from 'rxjs';
@@ -10,6 +10,7 @@ import { CoIconService } from '../../service/co-icon.service';
   selector: 'co-icon-list',
   templateUrl: './co-icon-list.component.html',
   styleUrl: './co-icon-list.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class CoIconListComponent implements OnInit, OnDestroy {

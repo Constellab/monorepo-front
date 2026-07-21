@@ -1,4 +1,4 @@
-import { Component, computed, input, Signal } from '@angular/core';
+import { ChangeDetectionStrategy,Component, computed, input, Signal } from '@angular/core';
 import { FormBuilder, FormGroup, UntypedFormGroup } from '@angular/forms';
 import {
   FlDynamicEditableFormGroupConfig,
@@ -23,6 +23,7 @@ export interface TdConfigureSpecsForm {
   selector: 'td-configure-specs-form',
   standalone: false,
   templateUrl: './td-configure-specs-form.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './td-configure-specs-form.component.scss',
 })
 export class TdConfigureSpecsFormComponent {

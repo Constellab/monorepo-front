@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
 import { ClHelpService } from '@monorepo/core-lib';
@@ -22,6 +22,7 @@ import { CaGroupInlineComponent } from '../ca-group-inline/ca-group-inline.compo
   templateUrl: './ca-select-group.component.html',
   styleUrls: ['./ca-select-group.component.scss'],
   providers: [{ provide: FlFormFieldDirective, useExisting: CaSelectGroupComponent }],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlInputSearchModule, MatIcon, FlIconModule, FlUserModule, CaGroupInlineComponent, TranslatePipe],
 })
 export class CaSelectGroupComponent extends FlFormFieldDirective<CaGroup> implements OnInit {

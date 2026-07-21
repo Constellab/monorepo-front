@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
@@ -17,6 +17,7 @@ import { LabBiotaDatabaseTableComponent } from '../../../lab-biota-core/lab-biot
   selector: 'lab-biota-database-detail-page',
   templateUrl: './lab-biota-database-detail-page.component.html',
   styleUrls: ['./lab-biota-database-detail-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlSectionModule, FlTextIconModule, FlCardModule, LabBiotaDatabaseTableComponent, TranslatePipe],
 })
 export class LabBiotaDatabaseDetailPageComponent implements OnInit {

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
 import { MatRadioButton, MatRadioChange, MatRadioGroup } from '@angular/material/radio';
 import { FlRadioButtonBigModule } from '@monorepo/front-core-lib/fl-radio-button-big';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
@@ -23,6 +23,7 @@ export interface CaServerDecisionTreeOptionFlatDTO {
   selector: 'ca-server-decision-tree',
   templateUrl: './ca-server-decision-tree.component.html',
   styleUrl: './ca-server-decision-tree.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlSectionModule, MatRadioGroup, MatRadioButton, FlRadioButtonBigModule],
 })
 export class CaServerDecisionTreeComponent implements OnInit {

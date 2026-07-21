@@ -1,5 +1,6 @@
 import { NgClass } from '@angular/common';
 import {
+  ChangeDetectionStrategy,
   Component,
   DoCheck,
   ElementRef,
@@ -7,8 +8,7 @@ import {
   Signal,
   signal,
   ViewChild,
-  WritableSignal,
-} from '@angular/core';
+  WritableSignal} from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatRipple } from '@angular/material/core';
 import { MatIcon } from '@angular/material/icon';
@@ -25,6 +25,7 @@ import { LiResourceDetailState } from '../../state/li-resource-detail.state';
   selector: 'li-resource-children-tabs',
   templateUrl: './li-resource-children-tabs.component.html',
   styleUrls: ['./li-resource-children-tabs.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatRipple, NgClass, MatTooltip, MatIconButton, MatIcon],
 })
 export class LiResourceChildrenTabsComponent implements DoCheck {

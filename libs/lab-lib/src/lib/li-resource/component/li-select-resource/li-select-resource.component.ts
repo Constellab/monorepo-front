@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject, input, OnInit, output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, input, OnInit, output } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
 import {
@@ -40,6 +40,7 @@ import {
     LiResourceInlineComponent,
   ],
   templateUrl: './li-select-resource.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './li-select-resource.component.scss',
 })
 export class LiSelectResourceComponent extends FlFormFieldDirective<LiResource> implements OnInit {

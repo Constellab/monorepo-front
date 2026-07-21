@@ -1,5 +1,5 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
@@ -20,6 +20,7 @@ import { LabBiotaDataCardDialogComponent } from '../lab-biota-data-card-dialog/l
   selector: 'lab-biota-databases',
   templateUrl: './lab-biota-databases.component.html',
   styleUrls: ['./lab-biota-databases.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlTextIconModule,
     MatIcon,

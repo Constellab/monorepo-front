@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Input } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { PrProtocolIntOut } from '@monorepo/protocol';
 
@@ -6,6 +6,7 @@ import { PrProtocolIntOut } from '@monorepo/protocol';
   selector: 'ca-scenario-technical-report-int-out',
   templateUrl: './ca-scenario-technical-report-int-out.component.html',
   styleUrls: ['./ca-scenario-technical-report-int-out.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatIcon],
 })
 export class CaScenarioTechnicalReportIntOutComponent {

@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { FlDynamicAbstractFormDirective } from '../../model/fl-dynamic-abstract-form.directive';
@@ -15,6 +15,7 @@ import {
   selector: 'fl-dynamic-form-group',
   templateUrl: './fl-dynamic-form-group.component.html',
   styleUrls: ['./fl-dynamic-form-group.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlDynamicFormGroupComponent implements FlDynamicAbstractFormDirective {

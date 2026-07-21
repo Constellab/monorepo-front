@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -19,6 +19,7 @@ import { map } from 'rxjs/operators';
   selector: 'lab-scenario-linked-notes',
   templateUrl: './lab-scenario-linked-notes.component.html',
   styleUrls: ['./lab-scenario-linked-notes.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlSectionModule, MatIconButton, MatTooltip, MatIcon, LiNoteTableComponent, TranslatePipe],
 })
 export class LabScenarioLinkedNotesComponent implements OnInit, OnDestroy {

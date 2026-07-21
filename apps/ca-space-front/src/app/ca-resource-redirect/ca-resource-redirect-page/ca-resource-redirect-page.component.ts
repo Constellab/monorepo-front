@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FlServerError } from '@monorepo/front-core-lib/fl-api';
 import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
@@ -17,6 +17,7 @@ import { CaResourceService } from '../../ca-core/service-api/ca-resource.service
   selector: 'ca-resource-redirect-page',
   imports: [FlLoaderModule, FlCoreComponentModule],
   templateUrl: './ca-resource-redirect-page.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './ca-resource-redirect-page.component.scss',
 })
 export class CaResourceRedirectPageComponent implements OnInit {

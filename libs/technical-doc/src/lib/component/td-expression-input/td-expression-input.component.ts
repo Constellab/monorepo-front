@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   computed,
   ElementRef,
@@ -8,8 +9,7 @@ import {
   signal,
   TemplateRef,
   ViewChild,
-  ViewContainerRef,
-} from '@angular/core';
+  ViewContainerRef} from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { FlFormFieldDirective } from '@monorepo/front-core-lib/fl-core';
 import { FlOverlayRef, FlPortalService } from '@monorepo/front-core-lib/fl-portal';
@@ -26,6 +26,7 @@ import { TD_EXPRESSION_FUNCTIONS, TdExpressionFunction } from './td-expression-i
   selector: 'td-expression-input',
   templateUrl: './td-expression-input.component.html',
   styleUrl: './td-expression-input.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class TdExpressionInputComponent extends FlFormFieldDirective<string> implements OnDestroy {

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, EventEmitter, inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -70,6 +70,7 @@ export const LI_RESOURCE_SEARCH_NAME: string = 'li-resource';
   templateUrl: './li-resource-search.component.html',
   styleUrls: ['./li-resource-search.component.scss'],
   providers: [FlSearchState],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlSearchModule,
     FlDragModule,

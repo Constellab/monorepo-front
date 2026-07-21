@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy,Component } from '@angular/core';
 
 /**
  * Header of the <fl-card> {@link FlCardComponent}
@@ -9,6 +9,7 @@ import { Component } from '@angular/core';
   selector: 'fl-card-header',
   templateUrl: './fl-card-header.component.html',
   styleUrls: ['./fl-card-header.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlCardHeaderComponent {}

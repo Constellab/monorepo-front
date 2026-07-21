@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -27,6 +27,7 @@ import { CaSpaceInvitTableComponent } from '../ca-space-invit-table/ca-space-inv
   selector: 'ca-current-space-invit-dialog',
   templateUrl: './ca-current-space-invit-dialog.component.html',
   styleUrls: ['./ca-current-space-invit-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlCardModule,
     FlTextIconModule,

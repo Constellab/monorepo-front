@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -23,6 +23,7 @@ import { CaLabInlineComponent } from '../ca-lab-inline/ca-lab-inline.component';
   templateUrl: './ca-select-lab.component.html',
   styleUrls: ['./ca-select-lab.component.scss'],
   providers: [{ provide: FlFormFieldDirective, useExisting: CaSelectLabComponent }],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlInputSearchModule, MatIcon, MatTooltip, CaLabInlineComponent, TranslatePipe],
 })
 export class CaSelectLabComponent extends FlFormFieldDirective<CaLab> implements OnInit {

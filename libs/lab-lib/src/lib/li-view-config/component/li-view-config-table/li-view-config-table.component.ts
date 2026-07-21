@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { MatSortHeader } from '@angular/material/sort';
 import {
@@ -33,6 +33,7 @@ import { LiViewConfigPreviewComponent } from '../li-view-config-preview/li-view-
   selector: 'li-view-config-table',
   templateUrl: './li-view-config-table.component.html',
   styleUrls: ['./li-view-config-table.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     MatTable,
     FlSearchModule,

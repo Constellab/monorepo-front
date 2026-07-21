@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, effect, inject, input, output, signal } from '@angular/core';
+import { ChangeDetectionStrategy,Component, effect, inject, input, output, signal } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { FlFormHelper } from '@monorepo/front-core-lib/fl-core';
@@ -25,6 +25,7 @@ import { liBuildSaveDTO, liExtractSavePayload } from './li-form-editor.logic';
   templateUrl: './li-form-editor.component.html',
   styleUrl: './li-form-editor.component.scss',
   imports: [TdTechnicalDocModule, ReactiveFormsModule, MatButton, TranslatePipe, FlIconModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
   providers: [{ provide: FlDynamicFieldConfigService, useClass: LiFormDynamicFieldConfig }],
 })
 export class LiFormEditorComponent {

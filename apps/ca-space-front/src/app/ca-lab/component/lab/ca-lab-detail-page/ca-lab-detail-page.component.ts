@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterOutlet } from '@angular/router';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { LmlBrickService, LmlLabManagerService, LmlLabManagerState } from '@monorepo/lab-manager-lib';
@@ -24,6 +24,7 @@ import { CaLabHeaderComponent } from '../ca-lab-header/ca-lab-header.component';
     LmlLabManagerState,
     CaLabDetailConfigPageState,
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlSectionModule, CaLabHeaderComponent, RouterOutlet],
 })
 export class CaLabDetailPageComponent implements OnInit, OnDestroy {

@@ -1,4 +1,4 @@
-import { Component, inject,OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { MatTab, MatTabContent, MatTabGroup } from '@angular/material/tabs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
@@ -15,6 +15,7 @@ import { LabScenarioTemplateWorkflowComponent } from '../lab-scenario-template-w
   selector: 'lab-scenario-template-detail-page',
   templateUrl: './lab-scenario-template-detail-page.component.html',
   styleUrls: ['./lab-scenario-template-detail-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlSectionModule,
     LabScenarioTemplateDetailHeaderComponent,

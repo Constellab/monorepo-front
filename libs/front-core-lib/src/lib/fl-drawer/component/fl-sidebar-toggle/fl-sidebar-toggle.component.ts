@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 
 import { FlSidebarLayoutComponent } from '../fl-sidebar-layout/fl-sidebar-layout.component';
 
@@ -11,6 +11,7 @@ import { FlSidebarLayoutComponent } from '../fl-sidebar-layout/fl-sidebar-layout
   selector: 'fl-sidebar-toggle',
   standalone: false,
   templateUrl: './fl-sidebar-toggle.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./fl-sidebar-toggle.component.scss'],
 })
 export class FlSidebarToggleComponent {

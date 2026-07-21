@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CoCommunityHelperService } from '@monorepo/community-lib';
 
@@ -13,6 +13,7 @@ export interface PrProcessInfoDialogInput {
   selector: 'pr-process-info-dialog',
   templateUrl: './pr-process-info-dialog.component.html',
   styleUrl: './pr-process-info-dialog.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class PrProcessInfoDialogComponent {

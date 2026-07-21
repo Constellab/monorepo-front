@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { AfterViewInit, Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy,Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { MatOption } from '@angular/material/core';
 import { MatSelect } from '@angular/material/select';
 import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib/fl-core';
@@ -14,6 +14,7 @@ import { CaServerService } from '../../../../service-api/ca-server.service';
   selector: 'ca-select-server-standard-options',
   templateUrl: './ca-select-server-standard-options.component.html',
   styleUrl: './ca-select-server-standard-options.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlInfiniteScrollModule, FlCoreDirectiveModule, MatOption, AsyncPipe, FlCorePipeModule],
 })
 export class CaSelectServerStandardOptionsComponent

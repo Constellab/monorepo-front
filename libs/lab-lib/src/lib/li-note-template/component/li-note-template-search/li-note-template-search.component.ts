@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -33,6 +33,7 @@ import { LiNoteTemplateTableComponent } from '../li-note-template-table/li-note-
   templateUrl: './li-note-template-search.component.html',
   styleUrls: ['./li-note-template-search.component.scss'],
   providers: [FlSearchState],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlSearchModule,
     LiNoteTemplateSearchFormComponent,

@@ -1,4 +1,4 @@
-import { Component, inject,OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
@@ -24,6 +24,7 @@ import { map } from 'rxjs/operators';
   selector: 'lab-monitoring-venvs-page',
   templateUrl: './lab-monitoring-venvs-page.component.html',
   styleUrls: ['./lab-monitoring-venvs-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlCardModule,
     FlTextIconModule,

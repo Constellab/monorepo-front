@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, input } from '@angular/core';
 
 export type RvAppStatus = 'RUNNING' | 'STOPPED' | 'STARTING';
 
@@ -11,6 +11,7 @@ export type RvAppStatus = 'RUNNING' | 'STOPPED' | 'STARTING';
   selector: 'rv-app-progress',
   templateUrl: './rv-app-progress.component.html',
   styleUrl: './rv-app-progress.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class RvAppProgressComponent {

@@ -1,6 +1,7 @@
 import { CdkDrag, CdkDragDrop, CdkDragHandle, CdkDropList } from '@angular/cdk/drag-drop';
 import { NgClass } from '@angular/common';
 import {
+  ChangeDetectionStrategy,
   Component,
   effect,
   inject,
@@ -9,8 +10,7 @@ import {
   output,
   Signal,
   untracked,
-  viewChild,
-} from '@angular/core';
+  viewChild} from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import {
@@ -46,6 +46,7 @@ export interface HaBrickSidenavTreeEvent {
   selector: 'ha-brick-sidenav-tree',
   templateUrl: './ha-brick-sidenav-tree.component.html',
   styleUrls: ['./ha-brick-sidenav-tree.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     MatTree,
     MatTreeNode,

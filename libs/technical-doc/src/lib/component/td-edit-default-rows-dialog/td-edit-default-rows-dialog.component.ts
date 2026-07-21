@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit, signal } from '@angular/core';
 import { UntypedFormArray } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FlDynamicFormArrayConfig, FlDynamicFormHelper } from '@monorepo/front-core-lib/fl-dynamic-field';
@@ -22,6 +22,7 @@ export interface TdEditDefaultRowsDialogInput {
 @Component({
   selector: 'td-edit-default-rows-dialog',
   templateUrl: './td-edit-default-rows-dialog.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class TdEditDefaultRowsDialogComponent implements OnInit {

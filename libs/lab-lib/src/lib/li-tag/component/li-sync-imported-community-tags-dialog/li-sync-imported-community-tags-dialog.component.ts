@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatDialogRef } from '@angular/material/dialog';
 import {
@@ -28,6 +28,7 @@ import { Observable } from 'rxjs';
     MatExpansionPanelDescription,
   ],
   templateUrl: './li-sync-imported-community-tags-dialog.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './li-sync-imported-community-tags-dialog.component.scss',
 })
 export class LiSyncImportedCommunityTagsDialogComponent implements OnInit {

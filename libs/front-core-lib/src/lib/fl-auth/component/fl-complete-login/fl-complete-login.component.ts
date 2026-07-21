@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { FlLoginSavedRoute, FlQueryParamHandler } from '@monorepo/front-core-lib/fl-core';
 import { Observable } from 'rxjs';
@@ -15,6 +15,7 @@ export interface FlCompleteLoginQueryParam {
   templateUrl: './fl-complete-login.component.html',
   styleUrls: ['./fl-complete-login.component.scss'],
   providers: [FlQueryParamHandler],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlCompleteLoginComponent implements OnInit {

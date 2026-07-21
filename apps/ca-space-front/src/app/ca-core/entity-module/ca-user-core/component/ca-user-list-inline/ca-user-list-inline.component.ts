@@ -1,5 +1,6 @@
 import { NgClass } from '@angular/common';
 import {
+  ChangeDetectionStrategy,
   Component,
   EventEmitter,
   inject,
@@ -9,8 +10,7 @@ import {
   Output,
   TemplateRef,
   ViewChild,
-  ViewContainerRef,
-} from '@angular/core';
+  ViewContainerRef} from '@angular/core';
 import { FormsModule, NgControl, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -46,6 +46,7 @@ interface CaUserSelection {
   selector: 'ca-user-list-inline',
   templateUrl: './ca-user-list-inline.component.html',
   styleUrls: ['./ca-user-list-inline.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     NgClass,
     MatTooltip,

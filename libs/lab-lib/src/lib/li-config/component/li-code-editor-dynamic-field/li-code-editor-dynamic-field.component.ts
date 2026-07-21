@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Input, OnInit } from '@angular/core';
 import { MatError } from '@angular/material/form-field';
 import { FlCodeEditorLanguage, FlCodeEditorModule } from '@monorepo/front-core-lib/fl-code-editor';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
@@ -13,6 +13,7 @@ import { TdParamSpecTypeEnum } from '@monorepo/technical-doc';
   selector: 'li-code-editor-dynamic-field',
   templateUrl: './li-code-editor-dynamic-field.component.html',
   styleUrls: ['./li-code-editor-dynamic-field.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlCodeEditorModule, FlCorePipeModule, MatError],
 })
 export class LiCodeEditorDynamicFieldComponent extends FlDynamicFieldAbstractDirective implements OnInit {

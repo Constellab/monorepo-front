@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject,OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import {
   MAT_DIALOG_DATA,
@@ -36,6 +36,7 @@ export interface LiNavigableImpactDialogInput {
   selector: 'li-navigable-impact-dialog',
   templateUrl: './li-navigable-impact-dialog.component.html',
   styleUrl: './li-navigable-impact-dialog.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlDialogModule,
     MatDialogContent,

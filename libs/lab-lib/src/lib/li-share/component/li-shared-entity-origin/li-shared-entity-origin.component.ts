@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Input } from '@angular/core';
 import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
 import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
 import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
@@ -13,6 +13,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   selector: 'li-shared-entity-origin',
   templateUrl: './li-shared-entity-origin.component.html',
   styleUrls: ['./li-shared-entity-origin.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlKeyValueModule, FlDateModule, FlCoreComponentModule, TranslatePipe, FlUserModule],
 })
 export class LiSharedEntityOriginComponent {

@@ -1,5 +1,6 @@
 import {
   AfterContentInit,
+  ChangeDetectionStrategy,
   Component,
   computed,
   ContentChild,
@@ -8,8 +9,7 @@ import {
   input,
   OnDestroy,
   OnInit,
-  signal,
-} from '@angular/core';
+  signal} from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { ThemePalette } from '@angular/material/core';
 import { ClHelpService } from '@monorepo/core-lib';
@@ -36,6 +36,7 @@ import { FlInputFileDirective } from '../fl-input-file.directive';
   selector: 'fl-input-file-container',
   templateUrl: './fl-input-file-container.component.html',
   styleUrls: ['./fl-input-file-container.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlInputFileContainerComponent implements OnInit, AfterContentInit, OnDestroy {

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { FlFormHelper } from '@monorepo/front-core-lib/fl-core';
@@ -33,6 +33,7 @@ export interface LiTransformResourcePortalInput {
   selector: 'li-transform-resource-portal',
   templateUrl: './li-transform-resource-portal.component.html',
   styleUrls: ['./li-transform-resource-portal.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlPortalModule,
     FlResizeModule,

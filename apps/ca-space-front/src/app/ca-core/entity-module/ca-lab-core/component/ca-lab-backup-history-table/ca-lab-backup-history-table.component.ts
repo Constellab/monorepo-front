@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Input } from '@angular/core';
 import {
   MatCell,
   MatCellDef,
@@ -29,6 +29,7 @@ import { CaLabBackupHistoryDetailComponent } from '../ca-lab-backup-history-deta
   selector: 'ca-lab-backup-history-table',
   templateUrl: './ca-lab-backup-history-table.component.html',
   styleUrls: ['./ca-lab-backup-history-table.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     MatTable,
     MatColumnDef,

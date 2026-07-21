@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject,Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { FlFormFieldDirective, FlInputSearchFilter } from '@monorepo/front-core-lib/fl-core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
@@ -20,6 +20,7 @@ import {
   templateUrl: './li-select-type.component.html',
   styleUrls: ['./li-select-type.component.scss'],
   providers: [{ provide: FlFormFieldDirective, useExisting: LiSelectTypeComponent }],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlInputSearchModule, TdTechnicalDocModule],
 })
 export class LiSelectTypeComponent extends FlFormFieldDirective<LiTypeEntity> implements OnInit {

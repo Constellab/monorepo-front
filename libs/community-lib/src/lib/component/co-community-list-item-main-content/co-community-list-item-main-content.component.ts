@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Input } from '@angular/core';
 import { ClDateInput } from '@monorepo/core-lib';
 
 import { CoSpace } from '../../model/co-space.class';
@@ -8,6 +8,7 @@ import { CoUser } from '../../model/co-user.class';
   selector: 'co-community-list-item-main-content',
   templateUrl: './co-community-list-item-main-content.component.html',
   styleUrls: ['./co-community-list-item-main-content.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class CoCommunityListItemMainContentComponent {

@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { MatOption } from '@angular/material/core';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
@@ -15,6 +15,7 @@ import { CaSpaceType } from '../../../../model/entities/space/ca-space.class';
   selector: 'ca-space-search-form',
   templateUrl: './ca-space-search-form.component.html',
   styleUrls: ['./ca-space-search-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     ReactiveFormsModule,
     MatFormField,

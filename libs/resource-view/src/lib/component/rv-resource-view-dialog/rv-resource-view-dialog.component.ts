@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { RvResourceViewBase } from '../../model/rv-resource-view.class';
@@ -15,6 +15,7 @@ export interface RvResourceViewDialogData {
   selector: 'rv-resource-view-dialog',
   templateUrl: './rv-resource-view-dialog.component.html',
   styleUrls: ['./rv-resource-view-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class RvResourceViewDialogComponent {

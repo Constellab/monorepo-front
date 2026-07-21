@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
@@ -23,6 +23,7 @@ export interface CaLabConfigDialogInput {
   selector: 'ca-lab-config-dialog',
   templateUrl: './ca-lab-config-dialog.component.html',
   styleUrls: ['./ca-lab-config-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlDialogModule,
     MatDialogContent,

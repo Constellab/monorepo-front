@@ -1,4 +1,4 @@
-import { Component, inject,OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { map, Observable } from 'rxjs';
 
 import { PrWorkflowLayer } from '../../model/workflow/pr-workflow-layer.class';
@@ -11,6 +11,7 @@ import { PrWorkflowManagerState } from '../../state/pr-workflow-manager-state';
   selector: 'pr-workflow-layers-breadcrumb',
   templateUrl: './pr-workflow-layers-breadcrumb.component.html',
   styleUrls: ['./pr-workflow-layers-breadcrumb.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class PrWorkflowLayersBreadcrumbComponent implements OnInit {

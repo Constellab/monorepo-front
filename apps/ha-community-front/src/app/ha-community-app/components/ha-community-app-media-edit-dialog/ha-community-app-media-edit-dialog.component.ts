@@ -1,4 +1,4 @@
-import { Component, computed, inject, Signal } from '@angular/core';
+import { ChangeDetectionStrategy,Component, computed, inject, Signal } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconButton } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -21,6 +21,7 @@ import { HaCommunityAppState } from '../../state/ha-community-app.state';
   selector: 'ha-community-app-media-edit-dialog',
   templateUrl: './ha-community-app-media-edit-dialog.component.html',
   styleUrls: ['./ha-community-app-media-edit-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlDialogModule,
     TranslatePipe,

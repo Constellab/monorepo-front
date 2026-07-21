@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import {
@@ -46,6 +46,7 @@ import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
     CoListFiltersComponent,
   ],
   templateUrl: './ha-community-app-list-page.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './ha-community-app-list-page.component.scss',
 })
 export class HaCommunityAppListPageComponent extends HaCommunityPageDirective implements OnInit {

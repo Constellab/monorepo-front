@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
@@ -20,6 +20,7 @@ export interface LiMonitorBetweenDatesDialogInput {
   selector: 'li-monitor-between-dates-dialog',
   templateUrl: './li-monitor-between-dates-dialog.component.html',
   styleUrls: ['./li-monitor-between-dates-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlDialogModule, MatDialogContent, FlSectionModule, LiMonitorBetweenDatesComponent],
 })
 export class LiMonitorBetweenDatesDialogComponent {

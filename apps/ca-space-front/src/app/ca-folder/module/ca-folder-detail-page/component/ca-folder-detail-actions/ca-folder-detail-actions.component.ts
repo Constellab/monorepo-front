@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject, Injector } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Injector } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
@@ -30,6 +30,7 @@ import { CaFolderRightPanelState } from '../../state/ca-folder-right-panel.state
   selector: 'ca-folder-detail-actions',
   templateUrl: './ca-folder-detail-actions.component.html',
   styleUrl: './ca-folder-detail-actions.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     MatIconButton,
     MatTooltip,

@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatDialogActions, MatDialogContent } from '@angular/material/dialog';
@@ -30,6 +30,7 @@ import { HaSpaceService } from '../../../ha-core/ha-service/ha-space.service';
   selector: 'ha-edit-brick-dialog',
   templateUrl: './ha-edit-brick-dialog.component.html',
   styleUrls: ['./ha-edit-brick-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlDialogModule,
     MatDialogContent,

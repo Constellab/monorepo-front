@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
@@ -46,6 +46,7 @@ export interface HaAgentEditFormData {
   selector: 'ha-agent-edit-dialog',
   templateUrl: './ha-agent-edit-dialog.component.html',
   styleUrl: './ha-agent-edit-dialog.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlDialogModule,
     MatDialogContent,

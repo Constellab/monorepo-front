@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 
 import { CoIcon } from '../../model/co-icon.class';
@@ -7,6 +7,7 @@ import { CoIcon } from '../../model/co-icon.class';
   selector: 'co-community-icon-select-dialog',
   templateUrl: './co-community-icon-select-dialog.component.html',
   styleUrl: './co-community-icon-select-dialog.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class CoCommunityIconSelectDialogComponent {

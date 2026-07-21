@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy,Component } from '@angular/core';
 
 /**
  * Container for the {@link FlArticleComponent}, {@link FlArticleLeftSideComponent} and
@@ -13,6 +13,7 @@ import { Component } from '@angular/core';
   selector: 'fl-article-container',
   templateUrl: './fl-article-container.component.html',
   styleUrls: ['./fl-article-container.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlArticleContainerComponent {}

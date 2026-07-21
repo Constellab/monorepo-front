@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit, Renderer2 } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { ClTheme } from '@monorepo/core-lib';
 import { RenderData, Streamlit } from 'streamlit-component-lib';
 
@@ -24,6 +24,7 @@ import { DcComponentData } from '../../core/model/dc-dynamic-component.class';
   imports: [],
   selector: 'dc-root',
   templateUrl: './dc-iframe-message.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './dc-iframe-message.component.scss',
 })
 export class DcIframeMessageComponent implements OnInit, OnDestroy {

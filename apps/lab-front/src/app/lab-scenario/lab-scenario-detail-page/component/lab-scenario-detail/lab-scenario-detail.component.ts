@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTooltip } from '@angular/material/tooltip';
 import { ClSubscriptionHandler } from '@monorepo/core-lib';
@@ -35,6 +35,7 @@ import { LabScenarioLinkedNotesComponent } from '../lab-scenario-linked-notes/la
   selector: 'lab-scenario-detail',
   templateUrl: './lab-scenario-detail.component.html',
   styleUrls: ['./lab-scenario-detail.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlDrawerModule,
     LiTagListComponent,

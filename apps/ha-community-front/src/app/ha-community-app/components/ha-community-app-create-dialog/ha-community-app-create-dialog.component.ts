@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -56,6 +56,7 @@ export type HaCreateCommunityAppInput = FlFormDialogInput<HaCommunityAppEdit>;
     MatTooltip,
   ],
   templateUrl: './ha-community-app-create-dialog.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './ha-community-app-create-dialog.component.scss',
 })
 export class HaCommunityAppCreateDialogComponent

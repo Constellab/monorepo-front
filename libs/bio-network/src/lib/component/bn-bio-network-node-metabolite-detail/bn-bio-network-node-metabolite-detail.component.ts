@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { filter, map, switchMap } from 'rxjs/operators';
 
@@ -16,6 +16,7 @@ import { BnBioNetworkSelectionState } from '../../state/bn-bio-network-selection
   selector: 'bn-bio-network-node-metabolite-detail',
   templateUrl: './bn-bio-network-node-metabolite-detail.component.html',
   styleUrls: ['./bn-bio-network-node-metabolite-detail.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class BnBioNetworkNodeMetaboliteDetailComponent implements OnInit {

@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { MatOption } from '@angular/material/core';
@@ -17,6 +17,7 @@ import { CaActivityEntityType, CaActivityType } from '../../../../model/entities
   selector: 'ca-activity-search-form',
   templateUrl: './ca-activity-search-form.component.html',
   styleUrls: ['./ca-activity-search-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     ReactiveFormsModule,
     MatFormField,

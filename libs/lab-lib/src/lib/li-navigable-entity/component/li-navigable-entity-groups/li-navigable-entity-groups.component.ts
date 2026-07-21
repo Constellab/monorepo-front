@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Input } from '@angular/core';
 import {
   MatAccordion,
   MatExpansionPanel,
@@ -17,6 +17,7 @@ import { LiNavigableEntitiesTableComponent } from '../li-navigable-entities-tabl
   selector: 'li-navigable-entity-groups',
   templateUrl: './li-navigable-entity-groups.component.html',
   styleUrls: ['./li-navigable-entity-groups.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     MatAccordion,
     MatExpansionPanel,

@@ -1,4 +1,4 @@
-import { Component, computed, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, computed, inject, input } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { ClHelpService } from '@monorepo/core-lib';
@@ -13,6 +13,7 @@ import { CaHierarchyObjectActionsMenuState } from '../../state/ca-hierarchy-obje
   selector: 'ca-hierarchy-object-actions-menu',
   imports: [MatIcon, MatIconButton],
   templateUrl: './ca-hierarchy-object-actions-menu.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './ca-hierarchy-object-actions-menu.component.scss',
 })
 export class CaHierarchyObjectActionsMenuComponent {

@@ -1,4 +1,4 @@
-import { Component, inject, ViewContainerRef } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, ViewContainerRef } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {
   FlConfirmDialogInput,
@@ -22,6 +22,7 @@ export interface TdConfigureParamSpecsTableDialogInput {
   selector: 'td-configure-param-specs-table-dialog',
   templateUrl: './td-configure-param-specs-table-dialog.component.html',
   styleUrl: './td-configure-param-specs-table-dialog.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class TdConfigureParamSpecsTableDialogComponent {

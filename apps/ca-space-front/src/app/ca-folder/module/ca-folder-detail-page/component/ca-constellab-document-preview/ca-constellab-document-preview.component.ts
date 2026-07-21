@@ -1,5 +1,5 @@
 import { CdkScrollable } from '@angular/cdk/scrolling';
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAnchor } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
@@ -19,6 +19,7 @@ import { CaConstellabDocumentTextEditorConfig } from '../../../ca-document-core/
   selector: 'ca-constellab-document-preview',
   templateUrl: './ca-constellab-document-preview.component.html',
   styleUrl: './ca-constellab-document-preview.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlSectionModule,
     CdkScrollable,

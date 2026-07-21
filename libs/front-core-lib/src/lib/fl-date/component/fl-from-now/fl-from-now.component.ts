@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Input } from '@angular/core';
 import { TooltipPosition } from '@angular/material/tooltip';
 import { ClDateFormat, ClDateInput } from '@monorepo/core-lib';
 
@@ -9,6 +9,7 @@ import { ClDateFormat, ClDateInput } from '@monorepo/core-lib';
   selector: 'fl-from-now',
   templateUrl: './fl-from-now.component.html',
   styleUrls: ['./fl-from-now.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlFromNowComponent {

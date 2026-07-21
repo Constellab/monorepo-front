@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import {
   booleanAttribute,
+  ChangeDetectionStrategy,
   Component,
   computed,
   effect,
@@ -8,8 +9,7 @@ import {
   inject,
   input,
   output,
-  signal,
-} from '@angular/core';
+  signal} from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 import { TeRichText, TeRichTextDTO, TeTextEditorModule, TeTools } from '@monorepo/text-editor';
@@ -40,6 +40,7 @@ export interface DcRichTextConfig {
   templateUrl: './dc-text-editor.component.html',
   styleUrl: './dc-text-editor.component.scss',
   hostDirectives: [DcCoreMainDirective],
+  changeDetection: ChangeDetectionStrategy.Eager,
   host: {
     class: 'g-scrollable-element',
   },

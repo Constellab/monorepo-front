@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, input } from '@angular/core';
 
 /**
  * Wraps a single showcased variant with a caption describing the class /
@@ -7,6 +7,7 @@ import { Component, input } from '@angular/core';
 @Component({
   selector: 'ds-example',
   templateUrl: './ds-example.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './ds-example.component.scss',
 })
 export class DsExampleComponent {

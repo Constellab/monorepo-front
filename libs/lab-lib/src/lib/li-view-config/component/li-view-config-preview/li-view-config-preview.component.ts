@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input, OnDestroy } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -15,6 +15,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   selector: 'li-view-config-preview',
   templateUrl: './li-view-config-preview.component.html',
   styleUrls: ['./li-view-config-preview.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatIconButton, MatTooltip, MatIcon, FlLoaderModule, TranslatePipe],
 })
 export class LiViewConfigPreviewComponent implements OnDestroy {

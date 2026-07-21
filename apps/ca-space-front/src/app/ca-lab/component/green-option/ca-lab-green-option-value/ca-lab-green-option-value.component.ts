@@ -1,5 +1,5 @@
 import { DecimalPipe } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Input } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 
 import {
@@ -13,6 +13,7 @@ import {
   selector: 'ca-lab-green-option-value',
   templateUrl: './ca-lab-green-option-value.component.html',
   styleUrls: ['./ca-lab-green-option-value.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [DecimalPipe, TranslatePipe],
 })
 export class CaLabGreenOptionValueComponent {

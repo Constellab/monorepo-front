@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject, Signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
@@ -19,6 +19,7 @@ import { CaChatState } from '../ca-chat.state';
   templateUrl: './ca-chat-page.component.html',
   styleUrl: './ca-chat-page.component.scss',
   providers: [CaChatState],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlLoaderModule,
     CaHierarchyObjectTreeComponent,

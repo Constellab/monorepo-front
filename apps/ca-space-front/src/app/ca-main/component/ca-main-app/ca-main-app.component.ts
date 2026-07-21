@@ -1,5 +1,5 @@
 import { AsyncPipe, NgClass, NgOptimizedImage } from '@angular/common';
-import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy,Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { MatBadge } from '@angular/material/badge';
 import { MatAnchor, MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
@@ -33,6 +33,7 @@ import { CaMySpacesPortalComponent } from '../ca-my-spaces-portal/ca-my-spaces-p
   selector: 'ca-main-app',
   templateUrl: './ca-main-app.component.html',
   styleUrls: ['./ca-main-app.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     MatSidenavContainer,
     MatSidenav,

@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -28,6 +28,7 @@ export interface LiShareTagToCommunityDialogInput {
     ReactiveFormsModule,
   ],
   templateUrl: './li-share-tag-to-community-dialog.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './li-share-tag-to-community-dialog.component.scss',
 })
 export class LiShareTagToCommunityDialogComponent implements OnInit {

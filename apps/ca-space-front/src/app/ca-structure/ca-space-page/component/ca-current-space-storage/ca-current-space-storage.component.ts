@@ -1,5 +1,5 @@
 import { AsyncPipe, DecimalPipe, NgClass } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { ThemePalette } from '@angular/material/core';
 import { MatIcon } from '@angular/material/icon';
@@ -39,6 +39,7 @@ import {
   selector: 'ca-current-space-storage',
   templateUrl: './ca-current-space-storage.component.html',
   styleUrl: './ca-current-space-storage.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlCardModule,
     FlTextIconModule,

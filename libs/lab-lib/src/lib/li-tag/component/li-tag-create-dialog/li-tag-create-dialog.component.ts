@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatDialogRef } from '@angular/material/dialog';
@@ -28,6 +28,7 @@ import { Subscription } from 'rxjs';
     MatError,
   ],
   templateUrl: './li-tag-create-dialog.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './li-tag-create-dialog.component.scss',
 })
 export class LiTagCreateDialogComponent implements OnInit, OnDestroy {

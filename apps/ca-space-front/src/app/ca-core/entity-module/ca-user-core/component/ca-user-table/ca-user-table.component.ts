@@ -1,5 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { Component, ContentChild, inject, Input, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy,Component, ContentChild, inject, Input, TemplateRef } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
@@ -48,6 +48,7 @@ import {
   selector: 'ca-user-table',
   templateUrl: './ca-user-table.component.html',
   styleUrls: ['./ca-user-table.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     MatTable,
     FlSearchModule,

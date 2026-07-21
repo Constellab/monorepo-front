@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input, OnInit } from '@angular/core';
 import { MatTooltip } from '@angular/material/tooltip';
 import { RouterLink } from '@angular/router';
 import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
@@ -18,6 +18,7 @@ import { CaLabDetailPageState } from '../../../state/ca-lab-detail-page.state';
   selector: 'ca-lab-current-task',
   templateUrl: './ca-lab-current-task.component.html',
   styleUrl: './ca-lab-current-task.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlLoaderModule, RouterLink, MatTooltip, AsyncPipe, TranslatePipe, FlDateModule],
 })
 export class CaLabCurrentTaskComponent implements OnInit {

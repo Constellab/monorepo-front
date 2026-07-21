@@ -1,4 +1,4 @@
-import { Component, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy,Component, input, signal } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
 import { LiLogLine } from '@monorepo/lab-lib/li-core';
@@ -8,6 +8,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   selector: 'li-log-line-content',
   imports: [FlDateModule, MatButton, TranslatePipe],
   templateUrl: './li-log-line-content.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './li-log-line-content.component.scss',
 })
 export class LiLogLineContentComponent {

@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -47,6 +47,7 @@ export interface LiCredentialsFormDialogInput extends FlFormDialogInput<LiSaveCr
   selector: 'li-credentials-form-dialog',
   templateUrl: './li-credentials-form-dialog.component.html',
   styleUrls: ['./li-credentials-form-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlDialogModule,
     MatDialogContent,

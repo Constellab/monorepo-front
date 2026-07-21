@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Input } from '@angular/core';
 
 import { CoListItemType } from '../../model/co-list-item-type.enum';
 import { CoListStoryDto } from '../../model/co-story.class';
@@ -7,6 +7,7 @@ import { CoListStoryDto } from '../../model/co-story.class';
   selector: 'co-story-list-item',
   templateUrl: './co-story-list-item.component.html',
   styleUrls: ['./co-story-list-item.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class CoStoryListItemComponent {

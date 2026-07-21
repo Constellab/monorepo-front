@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnDestroy, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy,Component, computed, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { ActivatedRoute } from '@angular/router';
 import { FlServerError } from '@monorepo/front-core-lib/fl-api';
@@ -37,6 +37,7 @@ import { interval, Subscription, switchMap, takeWhile } from 'rxjs';
   selector: 'lab-open-app-page',
   templateUrl: './lab-open-app-page.component.html',
   styleUrl: './lab-open-app-page.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [RvResourceViewModule, MatButton, FlTranslateModule],
 })
 export class LabOpenAppPageComponent implements OnInit, OnDestroy {

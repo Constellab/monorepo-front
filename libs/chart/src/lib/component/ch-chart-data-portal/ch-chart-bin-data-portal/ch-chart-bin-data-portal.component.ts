@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { FL_PORTAL_DATA } from '@monorepo/front-core-lib/fl-portal';
 import { Numeric } from 'd3';
 
@@ -17,6 +17,7 @@ export interface ChChartBinDataPortalInput {
   selector: 'ch-chart-bin-data-portal',
   templateUrl: './ch-chart-bin-data-portal.component.html',
   styleUrls: ['./ch-chart-bin-data-portal.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class ChChartBinDataPortalComponent {

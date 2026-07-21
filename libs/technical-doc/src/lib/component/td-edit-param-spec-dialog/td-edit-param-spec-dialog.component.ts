@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   computed,
   inject,
@@ -7,8 +8,7 @@ import {
   signal,
   TemplateRef,
   ViewChild,
-  ViewContainerRef,
-} from '@angular/core';
+  ViewContainerRef} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ClStringHelper, ClSubscriptionHandler } from '@monorepo/core-lib';
@@ -57,6 +57,7 @@ export interface TdEditParamSpecDialogInput {
   selector: 'td-edit-param-spec-dialog',
   templateUrl: './td-edit-param-spec-dialog.component.html',
   styleUrl: './td-edit-param-spec-dialog.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {

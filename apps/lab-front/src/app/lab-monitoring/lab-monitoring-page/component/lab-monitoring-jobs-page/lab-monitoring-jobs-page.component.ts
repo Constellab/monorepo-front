@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
@@ -23,6 +23,7 @@ import { Observable, share } from 'rxjs';
   selector: 'lab-monitoring-jobs-page',
   templateUrl: './lab-monitoring-jobs-page.component.html',
   styleUrls: ['./lab-monitoring-jobs-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlTextIconModule,
     MatIcon,

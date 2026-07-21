@@ -1,4 +1,4 @@
-import { Component, inject, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input } from '@angular/core';
 import { MatDivider } from '@angular/material/divider';
 import { CoCommunityHelperService } from '@monorepo/community-lib';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
@@ -13,6 +13,7 @@ import { CaScenarioTechnicalReportLinkComponent } from '../ca-scenario-technical
   selector: 'ca-scenario-technical-report-graph',
   templateUrl: './ca-scenario-technical-report-graph.component.html',
   styleUrls: ['./ca-scenario-technical-report-graph.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     MatDivider,
     PrProtocolModule,

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, OnInit } from '@angular/core';
 import { FlTagColorer, FlTagWithColor } from '@monorepo/front-core-lib/fl-tag';
 import { Observable } from 'rxjs';
 
@@ -20,6 +20,7 @@ export interface ChChartLegendSerieWithTagsInput {
   selector: 'ch-chart-legend-series-with-tags',
   templateUrl: './ch-chart-legend-series-with-tags.component.html',
   styleUrls: ['./ch-chart-legend-series-with-tags.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class ChChartLegendSeriesWithTagsComponent

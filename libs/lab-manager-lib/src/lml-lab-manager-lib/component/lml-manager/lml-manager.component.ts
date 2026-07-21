@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { ClSubscriptionHandler } from '@monorepo/core-lib';
 import { FlStatusEvent } from '@monorepo/front-core-lib/fl-core';
 import { Observable } from 'rxjs';
@@ -13,6 +13,7 @@ import { LmlLabManagerState } from '../../lml-lab-manager.state';
   selector: 'lml-manager',
   templateUrl: './lml-manager.component.html',
   styleUrls: ['./lml-manager.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class LmlManagerComponent implements OnInit, OnDestroy {

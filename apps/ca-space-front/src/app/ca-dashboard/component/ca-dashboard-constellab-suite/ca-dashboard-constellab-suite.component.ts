@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
@@ -19,6 +19,7 @@ import { CaConstellabSuiteDetailDialogComponent } from '../ca-constellab-suite-d
   selector: 'ca-dashboard-constellab-suite',
   templateUrl: './ca-dashboard-constellab-suite.component.html',
   styleUrls: ['./ca-dashboard-constellab-suite.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlCardModule, FlTextIconModule, MatIcon, TranslatePipe, AsyncPipe, CaIconContainerComponent],
 })
 export class CaDashboardConstellabSuiteComponent {

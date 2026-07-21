@@ -1,4 +1,4 @@
-import { Component, computed, inject, input, Signal } from '@angular/core';
+import { ChangeDetectionStrategy,Component, computed, inject, input, Signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
@@ -20,6 +20,7 @@ import { HaAgentPageState } from '../../state/ha-agent-page.state';
   selector: 'ha-agent-version-detail',
   templateUrl: './ha-agent-version-detail.component.html',
   styleUrls: ['./ha-agent-version-detail.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     MatButton,
     TeTextEditorModule,

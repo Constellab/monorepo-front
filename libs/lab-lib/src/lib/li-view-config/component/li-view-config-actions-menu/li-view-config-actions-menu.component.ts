@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject,Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
@@ -37,6 +37,7 @@ import { LiUpdateViewConfigDialogComponent } from '../li-update-view-config-dial
   selector: 'li-view-config-actions-menu',
   templateUrl: './li-view-config-actions-menu.component.html',
   styleUrls: ['./li-view-config-actions-menu.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     MatButton,
     MatMenuTrigger,

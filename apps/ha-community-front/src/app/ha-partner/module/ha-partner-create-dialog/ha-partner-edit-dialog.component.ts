@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatLabel } from '@angular/material/form-field';
@@ -28,6 +28,7 @@ export type HaEditPartnerDialogInput = FlFormDialogInput<HaEditPartnerDto>;
   selector: 'ha-partner-edit-dialog',
   templateUrl: './ha-partner-edit-dialog.component.html',
   styleUrls: ['./ha-partner-edit-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlDialogModule,
     TranslatePipe,

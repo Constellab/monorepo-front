@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy,Component } from '@angular/core';
 
 @Component({
   selector: 'fl-video-play-button',
@@ -53,6 +53,7 @@ import { Component } from '@angular/core';
       }
     `,
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlVideoPlayButtonComponent {}

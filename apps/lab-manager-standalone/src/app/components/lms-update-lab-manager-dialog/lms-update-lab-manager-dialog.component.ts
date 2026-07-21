@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
@@ -12,6 +12,7 @@ import { LmsLabService } from '../../service/lms-lab.service';
   selector: 'lms-update-lab-manager-dialog',
   imports: [FlDialogModule, FlTranslateModule, AsyncPipe, FlKeyValueModule, LmlLabManagerLibModule],
   templateUrl: './lms-update-lab-manager-dialog.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './lms-update-lab-manager-dialog.component.scss',
 })
 export class LmsUpdateLabManagerDialogComponent {

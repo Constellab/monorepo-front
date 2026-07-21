@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Input } from '@angular/core';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
 import { FlStatusModule } from '@monorepo/front-core-lib/fl-status';
@@ -17,6 +17,7 @@ import {
   selector: 'ca-lab-backup-history-detail',
   templateUrl: './ca-lab-backup-history-detail.component.html',
   styleUrl: './ca-lab-backup-history-detail.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     CaLabBackupHistoryDetailPortalDirective,
     FlStatusModule,

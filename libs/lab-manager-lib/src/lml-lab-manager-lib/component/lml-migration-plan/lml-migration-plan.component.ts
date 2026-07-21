@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, input } from '@angular/core';
 
 import { LmlLabManagerMigrationPlanDTO } from '../../model/lml-migration.class';
 
@@ -10,6 +10,7 @@ import { LmlLabManagerMigrationPlanDTO } from '../../model/lml-migration.class';
   selector: 'lml-migration-plan',
   templateUrl: './lml-migration-plan.component.html',
   styleUrls: ['./lml-migration-plan.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class LmlMigrationPlanComponent {

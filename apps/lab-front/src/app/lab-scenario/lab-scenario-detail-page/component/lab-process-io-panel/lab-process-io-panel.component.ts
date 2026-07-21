@@ -1,5 +1,5 @@
 import { AsyncPipe, NgClass } from '@angular/common';
-import { Component, HostBinding, inject, Input, input,OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, HostBinding, inject, Input, input, OnDestroy, OnInit } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
@@ -35,6 +35,7 @@ interface LabWorkflowPortResource {
   selector: 'lab-process-io-panel',
   templateUrl: './lab-process-io-panel.component.html',
   styleUrls: ['./lab-process-io-panel.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     NgClass,
     MatIconButton,

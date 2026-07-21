@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input, OnInit } from '@angular/core';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -36,6 +36,7 @@ import { CaRequestNewLicensesComponent } from '../ca-request-new-licenses/ca-req
   selector: 'ca-current-space-detail',
   templateUrl: './ca-current-space-detail.component.html',
   styleUrls: ['./ca-current-space-detail.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlCardModule,
     CaIsSpaceAdminDirective,

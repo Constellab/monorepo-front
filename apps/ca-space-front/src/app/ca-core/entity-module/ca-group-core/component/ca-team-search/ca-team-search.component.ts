@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -31,6 +31,7 @@ import { CaTeamTableComponent } from '../ca-team-table/ca-team-table.component';
   templateUrl: './ca-team-search.component.html',
   styleUrls: ['./ca-team-search.component.scss'],
   providers: [FlSearchState],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlCardModule,
     FlSearchModule,

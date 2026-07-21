@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Input, Output, ViewContainerRef } from '@angular/core';
+import { ChangeDetectionStrategy,Component, EventEmitter, inject, Input, Output, ViewContainerRef } from '@angular/core';
 import { ClBrick } from '@monorepo/core-lib';
 import {
   FlConfirmDialogInput,
@@ -27,6 +27,7 @@ import { LmlConfigureBrickComponent } from '../lml-configure-brick/lml-configure
   selector: 'lml-bricks-config-form',
   templateUrl: './lml-bricks-config-form.component.html',
   styleUrls: ['./lml-bricks-config-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class LmlBricksConfigFormComponent {

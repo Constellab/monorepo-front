@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { MatSortHeader } from '@angular/material/sort';
 import {
   MatCell,
@@ -33,6 +33,7 @@ import { LiTypeShowDetailButtonComponent } from '../li-type-show-detail-button/l
   selector: 'li-process-type-table',
   templateUrl: './li-process-type-table.component.html',
   styleUrls: ['./li-process-type-table.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     MatTable,
     FlSearchModule,

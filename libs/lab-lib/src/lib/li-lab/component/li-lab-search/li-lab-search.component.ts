@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -27,6 +27,7 @@ import { LiLabTableComponent } from '../li-lab-table/li-lab-table.component';
   templateUrl: './li-lab-search.component.html',
   styleUrls: ['./li-lab-search.component.scss'],
   providers: [FlSearchState],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlSearchModule,
     LiLabSearchFormComponent,

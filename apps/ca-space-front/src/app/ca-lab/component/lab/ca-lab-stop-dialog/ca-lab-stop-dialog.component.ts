@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatCheckbox } from '@angular/material/checkbox';
@@ -28,6 +28,7 @@ export interface CaStopLabDialogInput {
   selector: 'ca-lab-stop-dialog',
   templateUrl: './ca-lab-stop-dialog.component.html',
   styleUrl: './ca-lab-stop-dialog.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlDialogModule,
     MatDialogContent,

@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { ActivatedRoute } from '@angular/router';
@@ -25,6 +25,7 @@ import { CaAuthService } from '../../service/ca-auth.service';
   selector: 'ca-signup-to-space-page',
   templateUrl: './ca-signup-to-space-page.component.html',
   styleUrls: ['./ca-signup-to-space-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlSectionModule,
     FlCardModule,

@@ -1,5 +1,5 @@
 import { DecimalPipe } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Input } from '@angular/core';
 import {
   MatCell,
   MatCellDef,
@@ -23,6 +23,7 @@ import { CaLabVolumePeriod } from '../../../../ca-core/model/entities/lab/ca-lab
   selector: 'ca-lab-volume-price-table',
   templateUrl: './ca-lab-volume-price-table.component.html',
   styleUrl: './ca-lab-volume-price-table.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     MatTable,
     MatColumnDef,

@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input, OnInit } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -26,6 +26,7 @@ import { CaBucketCredentialsTableComponent } from '../ca-bucket-credentials-tabl
   selector: 'ca-bucket-credentials-list',
   templateUrl: './ca-bucket-credentials-list.component.html',
   styleUrls: ['./ca-bucket-credentials-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlCardModule,
     FlTextIconModule,

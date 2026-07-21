@@ -1,6 +1,6 @@
 import { NgClass } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { MatAnchor, MatButton } from '@angular/material/button';
 import { MatDivider } from '@angular/material/divider';
 import { MatIcon } from '@angular/material/icon';
@@ -31,6 +31,7 @@ import { LabMainMenuSettingsComponent } from '../lab-main-menu-settings/lab-main
   selector: 'lab-main-app',
   templateUrl: './lab-main-app.component.html',
   styleUrls: ['./lab-main-app.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     NgClass,
     FlExpansionMenuModule,

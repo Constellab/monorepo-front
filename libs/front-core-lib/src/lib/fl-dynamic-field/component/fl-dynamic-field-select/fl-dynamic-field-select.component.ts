@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, signal, WritableSignal } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Input, OnInit, signal, WritableSignal } from '@angular/core';
 
 import { FlDynamicFieldAbstractDirective } from '../../model/fl-dynamic-field-abstract.directive';
 import {
@@ -13,6 +13,7 @@ type FlGroupedSelectOption = Record<string, FlDynamicFieldSelectKeyNameOption[]>
   templateUrl: './fl-dynamic-field-select.component.html',
   styleUrls: ['./fl-dynamic-field-select.component.scss'],
   standalone: false,
+  changeDetection: ChangeDetectionStrategy.Eager,
   host: { '[class.cell-rendering]': 'cellRendering' },
 })
 export class FlDynamicFieldSelectComponent extends FlDynamicFieldAbstractDirective implements OnInit {

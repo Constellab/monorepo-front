@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Input } from '@angular/core';
 import { DateTime } from 'luxon';
 
 import { FlUser } from '../../model/fl-user.class';
@@ -7,6 +7,7 @@ import { FlUser } from '../../model/fl-user.class';
   selector: 'fl-creation-info',
   templateUrl: './fl-creation-info.component.html',
   styleUrls: ['./fl-creation-info.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlCreationInfoComponent {

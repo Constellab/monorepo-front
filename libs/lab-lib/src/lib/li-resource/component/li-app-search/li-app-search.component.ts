@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import {
   FlDatasourcePaginated,
@@ -36,6 +36,7 @@ export const LI_APP_SEARCH_NAME: string = 'li-app';
   templateUrl: './li-app-search.component.html',
   styleUrl: './li-app-search.component.scss',
   providers: [FlSearchState],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlSearchModule,
     FlDragModule,

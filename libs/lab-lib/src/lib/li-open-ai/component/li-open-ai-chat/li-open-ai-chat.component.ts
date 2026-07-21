@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, inject,Input, Output, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy,Component, ElementRef, EventEmitter, inject, Input, Output, ViewChild } from '@angular/core';
 import { FormControl, NgControl, ReactiveFormsModule } from '@angular/forms';
 import { MatIconButton } from '@angular/material/button';
 import { MatFormField, MatHint, MatLabel, MatSuffix } from '@angular/material/form-field';
@@ -22,6 +22,7 @@ import {
   templateUrl: './li-open-ai-chat.component.html',
   styleUrls: ['./li-open-ai-chat.component.scss'],
   providers: [{ provide: FlFormFieldDirective, useExisting: LiOpenAiChatComponent }],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     LiOpenAiChatMessageComponent,
     MatFormField,

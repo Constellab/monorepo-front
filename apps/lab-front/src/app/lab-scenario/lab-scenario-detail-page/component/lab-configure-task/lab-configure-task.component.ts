@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
 import { LiProcess } from '@monorepo/lab-lib/li-core';
@@ -12,6 +12,7 @@ import { LabProcessDashboardConfigState } from '../../state/lab-process-dashboar
   selector: 'lab-configure-task',
   templateUrl: './lab-configure-task.component.html',
   styleUrls: ['./lab-configure-task.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [ReactiveFormsModule, FlCoreComponentModule, TranslatePipe, TdTechnicalDocModule],
 })
 export class LabConfigureTaskComponent implements OnInit, OnDestroy {

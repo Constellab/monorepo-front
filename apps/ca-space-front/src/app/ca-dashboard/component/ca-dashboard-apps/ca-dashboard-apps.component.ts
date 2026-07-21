@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
@@ -26,6 +26,7 @@ import { CaDashboardListLayoutComponent } from '../ca-dashboard-list-layout/ca-d
   selector: 'ca-dashboard-apps',
   templateUrl: './ca-dashboard-apps.component.html',
   styleUrls: ['./ca-dashboard-apps.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     CaDashboardListLayoutComponent,
     CaAppCardComponent,

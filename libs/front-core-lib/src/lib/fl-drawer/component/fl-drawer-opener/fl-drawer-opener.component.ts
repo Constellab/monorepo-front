@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, HostListener, inject,Input, NgZone } from '@angular/core';
+import { ChangeDetectionStrategy,ChangeDetectorRef, Component, HostListener, inject, Input, NgZone } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
 
 /**
@@ -8,6 +8,7 @@ import { MatDrawer } from '@angular/material/sidenav';
   selector: 'fl-drawer-opener',
   templateUrl: './fl-drawer-opener.component.html',
   styleUrls: ['./fl-drawer-opener.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlDrawerOpenerComponent {

@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, EventEmitter, inject, Injector, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, EventEmitter, inject, Injector, Input, Output } from '@angular/core';
 import { MatSortHeader } from '@angular/material/sort';
 import {
   MatCell,
@@ -48,6 +48,7 @@ import { TranslatePipe } from '@ngx-translate/core';
     CoTagCommunityIconComponent,
   ],
   templateUrl: './li-tag-table.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './li-tag-table.component.scss',
 })
 export class LiTagTableComponent {

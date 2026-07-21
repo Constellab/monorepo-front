@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy,Component, signal } from '@angular/core';
 
 import {
   DcTreeConfig,
@@ -9,6 +9,7 @@ import {
   selector: 'dc-tree-dev',
   imports: [DcTreeMenuComponent],
   templateUrl: './dc-tree-dev.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: '../dc-dev-examples.scss',
 })
 export class DcTreeDevComponent {

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Input } from '@angular/core';
 
 import { TD_TYPE_STYLE_DEFAULT,TdTypeStyle } from '../../model/td-type.class';
 
@@ -9,6 +9,7 @@ import { TD_TYPE_STYLE_DEFAULT,TdTypeStyle } from '../../model/td-type.class';
   selector: 'td-type-inline',
   templateUrl: './td-type-inline.component.html',
   styleUrl: './td-type-inline.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class TdTypeInlineComponent {

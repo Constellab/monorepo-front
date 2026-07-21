@@ -1,4 +1,4 @@
-import { Component, Directive, ElementRef, HostListener, inject, Renderer2 } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Directive, ElementRef, HostListener, inject, Renderer2 } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
@@ -102,6 +102,7 @@ export class FlVideoFullscreenDirective {
       }
     `,
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlVideoFullscreenComponent {

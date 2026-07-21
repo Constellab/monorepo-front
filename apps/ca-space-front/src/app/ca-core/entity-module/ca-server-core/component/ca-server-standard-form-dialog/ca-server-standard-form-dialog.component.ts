@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent } from '@angular/material/dialog';
@@ -24,6 +24,7 @@ export type CaServerStandardFormDialogInput = FlFormDialogInput<CaServerStandard
   selector: 'ca-server-standard-form-dialog',
   templateUrl: './ca-server-standard-form-dialog.component.html',
   styleUrl: './ca-server-standard-form-dialog.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlDialogModule,
     MatDialogContent,

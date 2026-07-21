@@ -1,5 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Component, ElementRef, inject, Input, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy,Component, ElementRef, inject, Input, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
 import { FlHighlight } from '@monorepo/front-core-lib/fl-markdown';
 
 import {
@@ -12,6 +12,7 @@ import {
   selector: 'td-resource-doc-function-signature',
   templateUrl: './td-resource-doc-function-signature.component.html',
   styleUrls: ['./td-resource-doc-function-signature.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class TdResourceDocFunctionSignatureComponent implements OnInit {

@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
 import {
@@ -25,6 +25,7 @@ import { LiSelectCredentialsDialogComponent } from '../li-select-credentials-dia
   templateUrl: './li-select-credentials.component.html',
   styleUrls: ['./li-select-credentials.component.scss'],
   providers: [{ provide: FlFormFieldDirective, useExisting: LiSelectCredentialsComponent }],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlInputSearchModule,
     FlUserModule,

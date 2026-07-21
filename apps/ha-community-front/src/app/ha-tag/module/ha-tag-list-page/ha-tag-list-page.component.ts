@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
@@ -41,6 +41,7 @@ import { HaTagService } from '../../../ha-core/ha-service/ha-tag.service';
   ],
   templateUrl: './ha-tag-list-page.component.html',
   styleUrl: './ha-tag-list-page.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: true,
 })
 export class HaTagListPageComponent extends HaCommunityPageDirective implements OnInit {

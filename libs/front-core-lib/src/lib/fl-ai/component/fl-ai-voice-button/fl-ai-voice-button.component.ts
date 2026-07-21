@@ -1,4 +1,4 @@
-import { Component, computed, inject, input, OnDestroy, output, signal } from '@angular/core';
+import { ChangeDetectionStrategy,Component, computed, inject, input, OnDestroy, output, signal } from '@angular/core';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { Observable } from 'rxjs';
 
@@ -15,6 +15,7 @@ import { FlAiService } from '../../service/fl-ai.service';
   selector: 'fl-ai-voice-button',
   templateUrl: './fl-ai-voice-button.component.html',
   styleUrl: './fl-ai-voice-button.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlAiVoiceButtonComponent implements OnDestroy {

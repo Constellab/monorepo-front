@@ -1,4 +1,4 @@
-import { Component, inject,OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, ValidatorFn, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ClYoutubeHelper } from '@monorepo/core-lib';
@@ -12,6 +12,7 @@ export interface TeLinkDialogInput {
   selector: 'te-link-dialog',
   templateUrl: './te-link-dialog.component.html',
   styleUrls: ['./te-link-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class TeLinkDialogComponent implements OnInit {

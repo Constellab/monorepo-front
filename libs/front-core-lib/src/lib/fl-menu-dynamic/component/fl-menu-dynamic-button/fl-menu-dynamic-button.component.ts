@@ -1,4 +1,4 @@
-import { Component, computed, EventEmitter, input, Output, Signal } from '@angular/core';
+import { ChangeDetectionStrategy,Component, computed, EventEmitter, input, Output, Signal } from '@angular/core';
 import { FlThemeHelper } from '@monorepo/front-core-lib/fl-theme';
 
 import {
@@ -15,6 +15,7 @@ import {
   selector: 'fl-menu-dynamic-button',
   templateUrl: './fl-menu-dynamic-button.component.html',
   styleUrls: ['./fl-menu-dynamic-button.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlMenuDynamicButtonComponent {

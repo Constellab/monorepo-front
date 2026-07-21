@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Input } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
@@ -13,6 +13,7 @@ import { CaGroup } from '../../../../model/entities/ca-group.entity';
   selector: 'ca-group-inline',
   templateUrl: './ca-group-inline.component.html',
   styleUrls: ['./ca-group-inline.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlTextIconModule, MatIcon, FlIconModule, FlUserModule],
 })
 export class CaGroupInlineComponent {

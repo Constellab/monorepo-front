@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy,Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FlResizeObservable } from '@monorepo/front-core-lib/fl-core';
 import { FlPlotlyData } from '@monorepo/front-core-lib/fl-plotly';
 // Plotly.newPlot()
@@ -12,6 +12,7 @@ import { debounceTime } from 'rxjs/operators';
   selector: 'fl-plotly-standalone',
   imports: [],
   templateUrl: './fl-plotly-standalone.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './fl-plotly-standalone.component.scss',
 })
 export class FlPlotlyStandaloneComponent implements OnInit, OnDestroy {

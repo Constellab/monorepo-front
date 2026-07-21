@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, ViewContainerRef } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit, ViewContainerRef } from '@angular/core';
 import { FlStatusEvent } from '@monorepo/front-core-lib/fl-core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { Observable } from 'rxjs';
@@ -18,6 +18,7 @@ import {
   selector: 'lml-manager-advanced',
   templateUrl: './lml-manager-advanced.component.html',
   styleUrls: ['./lml-manager-advanced.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class LmlManagerAdvancedComponent implements OnInit {

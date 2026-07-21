@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, computed, inject, input, OnDestroy, Signal } from '@angular/core';
+import { ChangeDetectionStrategy,Component, computed, inject, input, OnDestroy, Signal } from '@angular/core';
 import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
@@ -19,6 +19,7 @@ import { CaChatWriteMessageComponent } from '../ca-chat-write-message/ca-chat-wr
   selector: 'ca-chat-folder',
   templateUrl: './ca-chat-folder.component.html',
   styleUrl: './ca-chat-folder.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlInfiniteScrollModule,
     CaChatMessageComponent,

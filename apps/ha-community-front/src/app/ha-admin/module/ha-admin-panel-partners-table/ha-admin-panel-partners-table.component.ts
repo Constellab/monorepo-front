@@ -1,4 +1,4 @@
-import { Component, input, output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, input, output } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatSortHeader } from '@angular/material/sort';
@@ -56,6 +56,7 @@ export interface HaAdminPanelPartnersTableActionEvent {
     HaDetailRoutePipe,
   ],
   templateUrl: './ha-admin-panel-partners-table.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './ha-admin-panel-partners-table.component.scss',
 })
 export class HaAdminPanelPartnersTableComponent {

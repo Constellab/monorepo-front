@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { MatSelectChange } from '@angular/material/select';
 import { Observable } from 'rxjs';
 
@@ -13,6 +13,7 @@ import { BnBioNetworkOptionsState } from '../../state/bn-bio-network-options.sta
   selector: 'bn-bio-network-clusters-list',
   templateUrl: './bn-bio-network-clusters-list.component.html',
   styleUrls: ['./bn-bio-network-clusters-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class BnBioNetworkClustersListComponent implements OnInit {

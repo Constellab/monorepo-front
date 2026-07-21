@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Input } from '@angular/core';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { TranslatePipe } from '@ngx-translate/core';
 
@@ -11,6 +11,7 @@ import { CaFolderObject } from '../../../../../ca-core/model/entities/folder/ca-
   selector: 'ca-sync-object-info',
   templateUrl: './ca-sync-object-info.component.html',
   styleUrls: ['./ca-sync-object-info.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlUserModule, TranslatePipe],
 })
 export class CaSyncObjectInfoComponent {

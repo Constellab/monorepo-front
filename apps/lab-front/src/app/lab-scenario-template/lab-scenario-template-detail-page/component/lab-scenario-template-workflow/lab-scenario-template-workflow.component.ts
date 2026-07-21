@@ -1,4 +1,4 @@
-import { Component, inject,Input, NgZone, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { ClStringHelper } from '@monorepo/core-lib';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
@@ -21,6 +21,7 @@ import { Observable, of } from 'rxjs';
   selector: 'lab-scenario-template-workflow',
   templateUrl: './lab-scenario-template-workflow.component.html',
   styleUrl: './lab-scenario-template-workflow.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlTextIconModule, MatIcon, FlSectionModule, PrProtocolModule, TranslatePipe],
 })
 export class LabScenarioTemplateWorkflowComponent implements OnInit, OnDestroy {

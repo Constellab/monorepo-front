@@ -1,5 +1,5 @@
 import { AsyncPipe, NgClass } from '@angular/common';
-import { Component, inject, Injector, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Injector, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
@@ -21,6 +21,7 @@ import { LabScenarioDetailPageState } from '../../state/lab-scenario-detail-page
   selector: 'lab-scenario-detail-header',
   templateUrl: './lab-scenario-detail-header.component.html',
   styleUrls: ['./lab-scenario-detail-header.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     LiScenarioIconsComponent,
     FlFormModule,

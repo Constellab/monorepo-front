@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, signal } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
@@ -44,6 +44,7 @@ export interface LiFormTestVersionDialogInput {
     MatButton,
     TranslatePipe,
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   providers: [{ provide: FlDynamicFieldConfigService, useClass: LiFormDynamicFieldConfig }],
 })
 export class LiFormTestVersionDialogComponent {

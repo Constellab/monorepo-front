@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { ClHelpService } from '@monorepo/core-lib';
 import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
 import { Observable } from 'rxjs';
@@ -15,6 +15,7 @@ import { PrWorkflowNodeIcon } from '../pr-workflow-node-content/pr-workflow-node
   selector: 'pr-workflow-node-resource',
   templateUrl: './pr-workflow-node-resource.component.html',
   styleUrl: './pr-workflow-node-resource.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class PrWorkflowNodeResourceComponent extends PrWorkflowNodeDirective implements OnInit {

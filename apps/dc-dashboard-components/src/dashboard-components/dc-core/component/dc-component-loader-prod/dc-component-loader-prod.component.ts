@@ -1,5 +1,5 @@
 import { DOCUMENT } from '@angular/common';
-import { Component, inject, OnDestroy, OnInit, Renderer2 } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
 
 import {
@@ -25,6 +25,7 @@ import { DcComponentLoaderService } from '../../service/dc-component-loader.serv
   imports: [],
   templateUrl: './dc-component-loader-prod.component.html',
   styleUrl: './dc-component-loader-prod.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   providers: [DcComponentLoaderService],
 })
 export class DcComponentLoaderProdComponent implements OnInit, OnDestroy {

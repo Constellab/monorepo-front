@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_SNACK_BAR_DATA, MatSnackBarRef } from '@angular/material/snack-bar';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
@@ -19,6 +19,7 @@ export interface LiErrorSnackBarData {
   selector: 'li-error-snack-bar',
   templateUrl: './li-error-snack-bar.component.html',
   styleUrls: ['./li-error-snack-bar.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [CommonModule, MatButtonModule, FlTranslateModule],
 })
 export class LiErrorSnackBarComponent {

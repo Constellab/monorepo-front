@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, computed, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, computed, inject, OnInit } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
@@ -48,6 +48,7 @@ import { HaStoryTextEditorConfig } from '../ha-story-edit-page/ha-story-text-edi
     MatButton,
     MatIcon,
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   providers: [HaStoryState, HaEntityCommentState],
 })
 export class HaStoryPageComponent extends HaCommunityPageDirective implements OnInit {

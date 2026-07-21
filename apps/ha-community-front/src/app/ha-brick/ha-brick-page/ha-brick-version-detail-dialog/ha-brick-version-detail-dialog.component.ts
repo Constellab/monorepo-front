@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
@@ -17,6 +17,7 @@ import { HaBrickVersionService } from '../../../ha-core/ha-service/ha-brick-vers
   selector: 'ha-brick-version-detail-dialog',
   templateUrl: './ha-brick-version-detail-dialog.component.html',
   styleUrls: ['./ha-brick-version-detail-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlDialogModule,
     MatDialogContent,

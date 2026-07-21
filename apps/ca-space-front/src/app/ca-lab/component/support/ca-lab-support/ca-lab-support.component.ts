@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
@@ -17,6 +17,7 @@ import { CaLabDetailPageState } from '../../../state/ca-lab-detail-page.state';
   selector: 'ca-lab-support',
   templateUrl: './ca-lab-support.component.html',
   styleUrl: './ca-lab-support.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlCardModule, FlTextIconModule, MatIcon, CaIsAdminDirective, MatButton, TranslatePipe],
 })
 export class CaLabSupportComponent {

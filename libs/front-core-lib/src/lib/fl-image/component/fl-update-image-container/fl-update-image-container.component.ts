@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
   EventEmitter,
@@ -7,8 +8,7 @@ import {
   Input,
   input,
   Output,
-  ViewChild,
-} from '@angular/core';
+  ViewChild} from '@angular/core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlConfirmDialogInput, FlConfirmDialogResult } from '@monorepo/front-core-lib/fl-dialog';
 import { FlMenuDynamicService } from '@monorepo/front-core-lib/fl-menu-dynamic';
@@ -29,6 +29,7 @@ import {
   selector: 'fl-update-image-container',
   templateUrl: './fl-update-image-container.component.html',
   styleUrl: './fl-update-image-container.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlUpdateImageContainerComponent {

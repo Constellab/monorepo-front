@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Input } from '@angular/core';
 
 import { TdTypeRefDTO } from '../../model/td-type.class';
 
@@ -6,6 +6,7 @@ import { TdTypeRefDTO } from '../../model/td-type.class';
   selector: 'td-io-resource',
   templateUrl: './td-io-resource.component.html',
   styleUrls: ['./td-io-resource.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class TdIoResourceComponent {

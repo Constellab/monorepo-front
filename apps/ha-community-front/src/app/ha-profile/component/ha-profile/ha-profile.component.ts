@@ -1,5 +1,5 @@
 import { AsyncPipe, NgClass } from '@angular/common';
-import { Component, computed, inject, OnDestroy, OnInit, Signal } from '@angular/core';
+import { ChangeDetectionStrategy,Component, computed, inject, OnDestroy, OnInit, Signal } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
@@ -85,6 +85,7 @@ export type HaProfileSectionType = 'stories' | 'apps' | 'agents' | 'bricks';
     ReactiveFormsModule,
     FlLoaderModule,
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   providers: [HaProfileState],
 })
 export class HaProfileComponent extends HaCommunityPageDirective implements OnInit, OnDestroy {

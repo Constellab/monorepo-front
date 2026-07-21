@@ -1,4 +1,4 @@
-import { Component, computed, input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, computed, input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -10,6 +10,7 @@ import { CoItemTypeIconComponent } from '../co-item-type-icon/co-item-type-icon.
   selector: 'co-type-badge',
   templateUrl: './co-type-badge.component.html',
   styleUrls: ['./co-type-badge.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [TranslatePipe, MatIconModule, FlIconModule, CoItemTypeIconComponent],
 })
 export class CoTypeBadgeComponent {

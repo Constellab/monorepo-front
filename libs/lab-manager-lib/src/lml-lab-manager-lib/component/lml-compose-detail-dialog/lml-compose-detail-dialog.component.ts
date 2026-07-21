@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FlCodeDialogComponent, FlCodeDialogData } from '@monorepo/front-core-lib/fl-code-editor';
 import { FlStatusEvent } from '@monorepo/front-core-lib/fl-core';
@@ -19,6 +19,7 @@ export interface LmlComposeDetailDialogData {
   templateUrl: './lml-compose-detail-dialog.component.html',
   styleUrls: ['./lml-compose-detail-dialog.component.scss'],
   standalone: false,
+  changeDetection: ChangeDetectionStrategy.Eager,
   providers: [LmlComposeState],
 })
 export class LmlComposeDetailDialogComponent implements OnInit, OnDestroy {

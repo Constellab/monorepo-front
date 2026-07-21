@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatDialogContent } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
@@ -20,6 +20,7 @@ import { CaUserTwoFaToggleComponent } from '../ca-user-two-fa-toggle/ca-user-two
   selector: 'ca-user-settings-dialog',
   templateUrl: './ca-user-settings-dialog.component.html',
   styleUrls: ['./ca-user-settings-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlDialogModule,
     MatDialogContent,

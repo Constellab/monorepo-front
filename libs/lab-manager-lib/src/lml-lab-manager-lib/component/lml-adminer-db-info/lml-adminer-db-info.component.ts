@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, input } from '@angular/core';
 
 import { LmlAdminerDbInfo } from '../../model/lml-lab-manager.class';
 
@@ -6,6 +6,7 @@ import { LmlAdminerDbInfo } from '../../model/lml-lab-manager.class';
   selector: 'lml-adminer-db-info',
   templateUrl: './lml-adminer-db-info.component.html',
   styleUrl: './lml-adminer-db-info.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class LmlAdminerDbInfoComponent {

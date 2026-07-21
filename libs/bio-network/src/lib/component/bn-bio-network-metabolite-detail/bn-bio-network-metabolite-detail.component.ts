@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Input } from '@angular/core';
 
 import { BnBioNetworkMetabolite } from '../../model/bn-bio-network.class';
 
@@ -9,6 +9,7 @@ import { BnBioNetworkMetabolite } from '../../model/bn-bio-network.class';
   selector: 'bn-bio-network-metabolite-detail',
   templateUrl: './bn-bio-network-metabolite-detail.component.html',
   styleUrls: ['./bn-bio-network-metabolite-detail.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class BnBioNetworkMetaboliteDetailComponent {

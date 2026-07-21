@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
   HostBinding,
@@ -7,8 +8,7 @@ import {
   OnInit,
   SecurityContext,
   TemplateRef,
-  ViewChild,
-} from '@angular/core';
+  ViewChild} from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ClHelpService, ClStringHelper } from '@monorepo/core-lib';
 import { FlInputFileDirective } from '@monorepo/front-core-lib/fl-input-file';
@@ -27,6 +27,7 @@ import { TeSourceUrlRegistry } from '../../model/te-source-url-registry';
   selector: 'te-figure',
   templateUrl: './te-figure.component.html',
   styleUrls: ['./te-figure.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class TeFigureComponent extends TeElementBlockDirective implements OnInit {

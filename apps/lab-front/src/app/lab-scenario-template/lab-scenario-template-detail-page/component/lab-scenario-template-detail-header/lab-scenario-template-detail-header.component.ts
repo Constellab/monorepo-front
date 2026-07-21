@@ -1,4 +1,4 @@
-import { Component, inject,Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -16,6 +16,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   selector: 'lab-scenario-template-detail-header',
   templateUrl: './lab-scenario-template-detail-header.component.html',
   styleUrl: './lab-scenario-template-detail-header.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlFormModule, MatIconButton, MatTooltip, MatIcon, TranslatePipe],
 })
 export class LabScenarioTemplateDetailHeaderComponent {

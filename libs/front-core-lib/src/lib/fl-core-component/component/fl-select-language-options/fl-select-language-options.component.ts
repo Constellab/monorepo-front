@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, inject } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MatSelect } from '@angular/material/select';
 import { clLangNameMap, ClSupportedLanguage } from '@monorepo/core-lib';
 import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib/fl-core';
@@ -10,6 +10,7 @@ import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib/fl-
   selector: 'fl-select-language-options',
   templateUrl: './fl-select-language-options.component.html',
   styleUrls: ['./fl-select-language-options.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlSelectLanguageOptionsComponent

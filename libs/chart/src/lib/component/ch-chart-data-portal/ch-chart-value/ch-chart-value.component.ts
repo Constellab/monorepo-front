@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Input } from '@angular/core';
 
 import { ChChartLabelFormatter } from '../../../model/ch-chart-label-formatter.class';
 
@@ -9,6 +9,7 @@ import { ChChartLabelFormatter } from '../../../model/ch-chart-label-formatter.c
   selector: 'ch-chart-value',
   templateUrl: './ch-chart-value.component.html',
   styleUrls: ['./ch-chart-value.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class ChChartValueComponent {

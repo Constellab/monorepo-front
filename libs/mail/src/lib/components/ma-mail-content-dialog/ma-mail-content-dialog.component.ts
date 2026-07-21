@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { MaMailEntity } from '../../models/ma-mail.entity';
@@ -7,6 +7,7 @@ import { MaMailEntity } from '../../models/ma-mail.entity';
   selector: 'ma-mail-content-dialog',
   templateUrl: './ma-mail-content-dialog.component.html',
   styleUrl: './ma-mail-content-dialog.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class MaMailContentDialogComponent {

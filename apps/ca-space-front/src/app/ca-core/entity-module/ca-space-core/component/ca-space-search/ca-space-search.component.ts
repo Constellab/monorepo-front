@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -32,6 +32,7 @@ import { CaSpaceTableComponent } from '../ca-space-table/ca-space-table.componen
   templateUrl: './ca-space-search.component.html',
   styleUrls: ['./ca-space-search.component.scss'],
   providers: [FlSearchState],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlCardModule,
     FlSearchModule,

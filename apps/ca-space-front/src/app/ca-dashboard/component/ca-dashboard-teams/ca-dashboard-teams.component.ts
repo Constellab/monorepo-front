@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
@@ -25,6 +25,7 @@ import { CaDashboardListLayoutComponent } from '../ca-dashboard-list-layout/ca-d
   selector: 'ca-dashboard-teams',
   templateUrl: './ca-dashboard-teams.component.html',
   styleUrls: ['./ca-dashboard-teams.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     CaDashboardListLayoutComponent,
     CaTeamCardComponent,

@@ -163,4 +163,18 @@ export default defineConfig([
   getSubConfigs('spreadsheet', 'sp', true, false),
   getSubConfigs('technical-doc', 'td', true, false),
   getSubConfigs('text-editor', 'te', true, false),
+
+  // Must stay last: it overrides `nx.configs['flat/angular']`, which enables this rule.
+  //
+  // Enabled by default in angular-eslint v22 (ts-recommended). Angular 22 made OnPush the
+  // default strategy, and the v22 `ChangeDetectionStrategy.Eager` migration annotated ~940
+  // existing components to preserve their previous behaviour. This rule flags every one of
+  // them, so it is turned off while OnPush adoption is done incrementally.
+  // Re-enable (ideally per project) once components have been migrated to OnPush.
+  {
+    files: ['**/*.ts', '**/*.tsx'],
+    rules: {
+      '@angular-eslint/prefer-on-push-component-change-detection': 'off',
+    },
+  },
 ]);

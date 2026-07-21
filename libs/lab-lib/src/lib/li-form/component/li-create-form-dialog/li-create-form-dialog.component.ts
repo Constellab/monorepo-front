@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit, signal } from '@angular/core';
 import { FormBuilder, FormControl, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatCheckbox } from '@angular/material/checkbox';
@@ -38,6 +38,7 @@ export type LiCreateFormDialogInput = FlFormDialogInput<LiCreateFormFormValue>;
   selector: 'li-create-form-dialog',
   templateUrl: './li-create-form-dialog.component.html',
   styleUrl: './li-create-form-dialog.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlDialogModule,
     MatDialogContent,

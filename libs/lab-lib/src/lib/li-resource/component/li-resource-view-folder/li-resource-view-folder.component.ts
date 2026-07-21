@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject,OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import {
@@ -51,6 +51,7 @@ import {
   selector: 'li-resource-view-folder',
   templateUrl: './li-resource-view-folder.component.html',
   styleUrls: ['./li-resource-view-folder.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     MatTree,
     MatTreeNodeDef,

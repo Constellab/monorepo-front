@@ -1,4 +1,4 @@
-import { Component, inject,OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
@@ -13,6 +13,7 @@ import { FlUserAccountService } from '../../service/fl-user-account.service';
   selector: 'fl-password-forgotten',
   templateUrl: './fl-password-forgotten.component.html',
   styleUrls: ['./fl-password-forgotten.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlPasswordForgottenComponent implements OnInit {

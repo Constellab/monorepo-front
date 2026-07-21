@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy,Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteSelectedEvent, } from '@angular/material/autocomplete';
 import { MatButton, MatIconButton } from '@angular/material/button';
@@ -44,6 +44,7 @@ import { HaStoryTextEditorConfig } from './ha-story-text-editor.config';
   selector: 'ha-story-edit-page',
   templateUrl: './ha-story-edit-page.component.html',
   styleUrls: ['./ha-story-edit-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     MatIcon,
     FlTextIconModule,

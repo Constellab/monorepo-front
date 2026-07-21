@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ClStringHelper } from '@monorepo/core-lib';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
@@ -13,6 +13,7 @@ import { TeLinkDialogComponent, TeLinkDialogInput } from '../te-link-dialog/te-l
   selector: 'te-iframe',
   templateUrl: './te-iframe.component.html',
   styleUrl: './te-iframe.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class TeIframeComponent extends TeElementBlockDirective implements OnInit {

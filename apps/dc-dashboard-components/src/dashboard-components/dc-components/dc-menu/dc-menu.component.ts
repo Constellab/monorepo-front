@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import {
@@ -39,6 +39,7 @@ interface DcMenuItemOutput {
   selector: 'dc-menu',
   imports: [FlMenuDynamicModule, MatIconButton, MatIcon, FlIconModule],
   templateUrl: './dc-menu.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './dc-menu.component.scss',
 })
 export class DcMenuComponent implements DcDynamicComponent<DcMenuConfig, DcMenuItemOutput> {

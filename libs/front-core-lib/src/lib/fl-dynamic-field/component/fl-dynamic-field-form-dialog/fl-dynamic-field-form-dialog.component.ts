@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FlFormHelper } from '@monorepo/front-core-lib/fl-core';
@@ -29,6 +29,7 @@ export interface FlDynamicFieldFormDialogOutput {
   selector: 'fl-dynamic-field-form-dialog',
   standalone: false,
   templateUrl: './fl-dynamic-field-form-dialog.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './fl-dynamic-field-form-dialog.component.scss',
 })
 export class FlDynamicFieldFormDialogComponent implements OnInit {

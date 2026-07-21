@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   ComponentRef,
@@ -7,13 +8,13 @@ import {
   OnDestroy,
   OnInit,
   ViewChild,
-  ViewContainerRef,
-} from '@angular/core';
+  ViewContainerRef} from '@angular/core';
 
 @Component({
   selector: 'fl-formula',
   templateUrl: './fl-formula.component.html',
   styleUrl: './fl-formula.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlFormulaComponent implements OnInit, OnDestroy {

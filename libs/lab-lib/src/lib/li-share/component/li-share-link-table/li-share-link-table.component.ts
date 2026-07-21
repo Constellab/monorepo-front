@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Input } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import {
   MatCell,
@@ -28,6 +28,7 @@ import { LiShareLinkLinksComponent } from '../li-share-link-links/li-share-link-
   selector: 'li-share-link-table',
   templateUrl: './li-share-link-table.component.html',
   styleUrls: ['./li-share-link-table.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     MatTable,
     MatColumnDef,

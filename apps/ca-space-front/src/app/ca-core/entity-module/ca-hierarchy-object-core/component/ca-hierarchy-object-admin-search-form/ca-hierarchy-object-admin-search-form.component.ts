@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { MatOption } from '@angular/material/core';
@@ -21,6 +21,7 @@ import { CaHierarchyObjectIconComponent } from '../ca-hierarchy-object-icon/ca-h
   selector: 'ca-hierarchy-object-admin-search-form',
   templateUrl: './ca-hierarchy-object-admin-search-form.component.html',
   styleUrls: ['./ca-hierarchy-object-admin-search-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     ReactiveFormsModule,
     MatFormField,

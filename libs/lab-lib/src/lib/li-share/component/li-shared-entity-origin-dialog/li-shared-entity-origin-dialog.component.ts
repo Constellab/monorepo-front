@@ -1,5 +1,5 @@
 import { CdkScrollable } from '@angular/cdk/scrolling';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
@@ -16,6 +16,7 @@ import { LiSharedEntityOriginComponent } from '../li-shared-entity-origin/li-sha
   selector: 'li-shared-entity-origin-dialog',
   templateUrl: './li-shared-entity-origin-dialog.component.html',
   styleUrls: ['./li-shared-entity-origin-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlDialogModule,
     CdkScrollable,

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { Observable } from 'rxjs';
 
@@ -16,6 +16,7 @@ import {
   selector: 'rv-rich-text-resource-view',
   templateUrl: './rv-rich-text-resource-view.component.html',
   styleUrls: ['./rv-rich-text-resource-view.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class RvRichTextResourceViewComponent implements OnInit {

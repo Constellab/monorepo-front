@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -21,6 +21,7 @@ import { LabNoteDetailPageState } from '../../lab-note-detail-page-state.service
   selector: 'lab-note-linked-scenarios',
   templateUrl: './lab-note-linked-scenarios.component.html',
   styleUrls: ['./lab-note-linked-scenarios.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlSectionModule, MatIconButton, MatIcon, MatTooltip, LiScenarioTableComponent, TranslatePipe],
 })
 export class LabNoteLinkedScenariosComponent implements OnInit, OnDestroy {

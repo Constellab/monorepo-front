@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { CoCreateAgentFormData } from '@monorepo/community-lib';
 import { CoCommunityLibModule } from '@monorepo/community-lib';
@@ -23,6 +23,7 @@ export type HaCreateAgentInput = FlFormDialogInput<HaCreateAgentDto>;
   selector: 'ha-agent-create-dialog',
   templateUrl: './ha-agent-create-dialog.component.html',
   styleUrls: ['./ha-agent-create-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlDialogModule, CoCommunityLibModule, FlInputFileModule, TranslatePipe],
 })
 export class HaAgentCreateDialogComponent

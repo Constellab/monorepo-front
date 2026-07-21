@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
@@ -21,6 +21,7 @@ import { HaCurrentPageState } from '../../ha-core/ha-state/ha-current-page.state
   selector: 'ha-invite-page',
   templateUrl: './ha-invite-page.component.html',
   styleUrls: ['./ha-invite-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [HaHeaderComponent, HaFooterComponent, TranslatePipe, FlLoaderModule, MatButton],
 })
 export class HaInvitePageComponent implements OnInit {

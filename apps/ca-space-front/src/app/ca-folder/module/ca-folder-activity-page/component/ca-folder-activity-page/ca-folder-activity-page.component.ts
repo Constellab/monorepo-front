@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 
@@ -12,6 +12,7 @@ import { CaHierarchyObjectBreadcrumbComponent } from '../../../ca-folder-hierarc
   selector: 'ca-folder-activity-page',
   templateUrl: './ca-folder-activity-page.component.html',
   styleUrls: ['./ca-folder-activity-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [CaHierarchyObjectBreadcrumbComponent, CaActivitySearchComponent],
 })
 export class CaFolderActivityPageComponent implements OnInit {

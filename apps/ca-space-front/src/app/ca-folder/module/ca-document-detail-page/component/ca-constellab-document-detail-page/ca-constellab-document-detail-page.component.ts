@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
@@ -21,6 +21,7 @@ import { CaHierarchyObjectDetailState } from '../../../ca-folder-hierarchy-core/
   selector: 'ca-constellab-document-detail-page',
   templateUrl: './ca-constellab-document-detail-page.component.html',
   styleUrls: ['./ca-constellab-document-detail-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     CaHierarchyObjectBreadcrumbComponent,
     FlSectionModule,

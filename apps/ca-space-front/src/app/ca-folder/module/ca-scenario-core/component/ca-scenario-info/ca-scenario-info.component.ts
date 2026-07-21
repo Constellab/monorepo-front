@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Input } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlTagModule } from '@monorepo/front-core-lib/fl-tag';
 import { TeBasicConfig, TeTextEditorModule } from '@monorepo/text-editor';
@@ -12,6 +12,7 @@ import { CaValidatedObjectInfoComponent } from '../../../ca-folder-hierarchy-cor
   selector: 'ca-scenario-info',
   templateUrl: './ca-scenario-info.component.html',
   styleUrls: ['./ca-scenario-info.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     CaValidatedObjectInfoComponent,
     CaSyncObjectInfoComponent,

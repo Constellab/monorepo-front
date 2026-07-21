@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 
@@ -8,6 +8,7 @@ import { LmsConfigureLabManagerComponent } from '../lms-configure-lab-manager/lm
   selector: 'lms-configure-lab-manager-dialog',
   imports: [FlDialogModule, LmsConfigureLabManagerComponent],
   templateUrl: './lms-configure-lab-manager-dialog.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './lms-configure-lab-manager-dialog.component.scss',
 })
 export class LmsConfigureLabManagerDialogComponent {

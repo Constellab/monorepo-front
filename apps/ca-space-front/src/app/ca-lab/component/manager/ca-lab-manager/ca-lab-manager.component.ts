@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnDestroy } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
@@ -22,6 +22,7 @@ import { CaLabDetailPageState } from '../../../state/ca-lab-detail-page.state';
   selector: 'ca-lab-manager',
   templateUrl: './ca-lab-manager.component.html',
   styleUrls: ['./ca-lab-manager.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     LmlLabManagerLibModule,
     MatIconButton,

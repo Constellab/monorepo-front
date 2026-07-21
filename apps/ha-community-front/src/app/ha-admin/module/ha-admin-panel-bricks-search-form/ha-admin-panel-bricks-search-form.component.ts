@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
@@ -23,6 +23,7 @@ import { HaBrick, HaBrickVisibility } from '../../../ha-core/ha-model/ha-entitie
     CoCommunityLibModule,
   ],
   templateUrl: './ha-admin-panel-bricks-search-form.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './ha-admin-panel-bricks-search-form.component.scss',
 })
 export class HaAdminPanelBricksSearchFormComponent implements OnInit {

@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input, OnInit } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
@@ -25,6 +25,7 @@ import { CaGroupService } from '../../../../ca-core/service-api/ca-group.service
   selector: 'ca-team-users-list',
   templateUrl: './ca-team-users-list.component.html',
   styleUrls: ['./ca-team-users-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlCardModule,
     FlTextIconModule,

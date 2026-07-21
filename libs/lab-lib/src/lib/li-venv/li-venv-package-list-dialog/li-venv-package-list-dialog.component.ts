@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
@@ -20,6 +20,7 @@ interface LiVenvPackageEntry {
   selector: 'li-venv-package-list-dialog',
   templateUrl: './li-venv-package-list-dialog.component.html',
   styleUrls: ['./li-venv-package-list-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlDialogModule, MatDialogContent, FlSectionModule, TranslateModule],
 })
 export class LiVenvPackageListDialogComponent {

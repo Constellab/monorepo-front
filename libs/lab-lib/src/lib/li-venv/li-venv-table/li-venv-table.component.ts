@@ -1,4 +1,4 @@
-import { Component, inject,Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
@@ -33,6 +33,7 @@ import {
   selector: 'li-venv-table',
   templateUrl: './li-venv-table.component.html',
   styleUrls: ['./li-venv-table.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     MatTable,
     MatColumnDef,

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import {
   MatCell,
@@ -28,6 +28,7 @@ import { CaSyncObjectInfoComponent } from '../../../ca-folder-hierarchy-core/com
   selector: 'ca-note-table',
   templateUrl: './ca-note-table.component.html',
   styleUrls: ['./ca-note-table.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     MatTable,
     MatColumnDef,

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy,Component } from '@angular/core';
 
 import { FlAbstractLoaderDirective } from '../fl-abstract-loader.directive';
 
@@ -20,6 +20,7 @@ import { FlAbstractLoaderDirective } from '../fl-abstract-loader.directive';
   selector: 'fl-loader',
   templateUrl: './fl-loader.component.html',
   styleUrls: ['./fl-loader.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlLoaderComponent extends FlAbstractLoaderDirective {}

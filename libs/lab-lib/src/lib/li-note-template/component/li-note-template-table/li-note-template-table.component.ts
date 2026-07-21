@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Injector, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, EventEmitter, inject, Injector, Input, Output } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatSort, MatSortHeader } from '@angular/material/sort';
@@ -37,6 +37,7 @@ import {
   selector: 'li-note-template-table',
   templateUrl: './li-note-template-table.component.html',
   styleUrls: ['./li-note-template-table.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     MatTable,
     MatSort,

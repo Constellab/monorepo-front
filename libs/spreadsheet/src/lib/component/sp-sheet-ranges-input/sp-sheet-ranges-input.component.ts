@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, EventEmitter, inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, NgControl, UntypedFormGroup } from '@angular/forms';
 import { FlFormFieldDirective } from '@monorepo/front-core-lib/fl-core';
 import { Observable, of, Subscription } from 'rxjs';
@@ -26,6 +26,7 @@ interface SpSpreadsheetRangeForm {
   templateUrl: './sp-sheet-ranges-input.component.html',
   styleUrls: ['./sp-sheet-ranges-input.component.scss'],
   providers: [{ provide: FlFormFieldDirective, useExisting: SpSheetRangesInputComponent }],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class SpSheetRangesInputComponent

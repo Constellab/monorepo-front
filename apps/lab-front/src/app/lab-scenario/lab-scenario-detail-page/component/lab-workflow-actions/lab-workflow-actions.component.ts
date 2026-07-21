@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject,OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatDivider } from '@angular/material/divider';
 import { MatIcon } from '@angular/material/icon';
@@ -31,6 +31,7 @@ import { LabScenarioDetailPageState } from '../../state/lab-scenario-detail-page
   selector: 'lab-workflow-actions',
   templateUrl: './lab-workflow-actions.component.html',
   styleUrls: ['./lab-workflow-actions.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     MatButton,
     MatMenuTrigger,

@@ -1,5 +1,5 @@
 import { CdkScrollable } from '@angular/cdk/scrolling';
-import { Component, inject,OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FlArticleModule } from '@monorepo/front-core-lib/fl-article';
 import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
@@ -13,6 +13,7 @@ import { mergeMap,Observable } from 'rxjs';
   selector: 'lab-technical-doc-page',
   templateUrl: './lab-technical-doc-page.component.html',
   styleUrls: ['./lab-technical-doc-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlSectionModule,
     FlCoreDirectiveModule,

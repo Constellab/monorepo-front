@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, inject } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MatOption } from '@angular/material/core';
 import { MatIcon } from '@angular/material/icon';
 import { MatSelect } from '@angular/material/select';
@@ -12,6 +12,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   selector: 'li-scenario-creation-type-options',
   templateUrl: './li-scenario-creation-type-options.component.html',
   styleUrls: ['./li-scenario-creation-type-options.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatOption, MatIcon, FlIconModule, FlCorePipeModule, TranslatePipe],
 })
 export class LiScenarioCreationTypeOptionsComponent

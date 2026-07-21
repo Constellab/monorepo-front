@@ -1,10 +1,11 @@
-import { Component, EventEmitter, HostBinding, Input, input, Output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, EventEmitter, HostBinding, Input, input, Output } from '@angular/core';
 import { TdTypeStyle } from '@monorepo/technical-doc';
 
 @Component({
   selector: 'co-update-type-icon-container',
   templateUrl: './co-update-type-icon-container.component.html',
   styleUrl: './co-update-type-icon-container.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class CoUpdateTypeIconContainerComponent {

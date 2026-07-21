@@ -1,5 +1,5 @@
 import { NgClass, NgTemplateOutlet } from '@angular/common';
-import { Component, ContentChild, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy,Component, ContentChild, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
@@ -19,6 +19,7 @@ import { CaDetailRoutePipe } from '../../../ca-core/module/ca-core-pipe/ca-detai
   selector: 'ca-dashboard-list-layout',
   templateUrl: './ca-dashboard-list-layout.component.html',
   styleUrls: ['./ca-dashboard-list-layout.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlSectionModule,
     RouterLink,

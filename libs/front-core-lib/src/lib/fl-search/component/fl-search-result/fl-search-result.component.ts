@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy,Component } from '@angular/core';
 
 /**
  * Component to place under the {@link FlSearchComponent} and this contains result object for the search
@@ -8,6 +8,7 @@ import { Component } from '@angular/core';
   selector: 'fl-search-result',
   templateUrl: './fl-search-result.component.html',
   styleUrls: ['./fl-search-result.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlSearchResultComponent {}

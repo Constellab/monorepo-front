@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatDrawer, MatDrawerContainer, MatDrawerContent } from '@angular/material/sidenav';
 import { RouterOutlet } from '@angular/router';
@@ -41,6 +41,7 @@ import { CaHierarchyObjectTagsFilterComponent } from '../ca-hierarchy-object-tag
     FlSearchState,
     FlQueryParamHandler,
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     MatDrawerContainer,
     MatDrawer,

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy,Component } from '@angular/core';
 
 /**
  * Footer for the card
@@ -7,6 +7,7 @@ import { Component } from '@angular/core';
   selector: 'fl-card-footer',
   templateUrl: './fl-card-footer.component.html',
   styleUrls: ['./fl-card-footer.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlCardFooterComponent {}

@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input, OnInit } from '@angular/core';
 import { FormControl, ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { MatOption } from '@angular/material/core';
@@ -25,6 +25,7 @@ export type CaLabSearchMode = 'all' | 'current-space';
   selector: 'ca-lab-search-form',
   templateUrl: './ca-lab-search-form.component.html',
   styleUrls: ['./ca-lab-search-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     ReactiveFormsModule,
     MatFormField,

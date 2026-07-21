@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent } from '@angular/material/dialog';
@@ -27,6 +27,7 @@ export interface CaFolderConfigureStorageInput extends FlFormDialogInput<CaFolde
   selector: 'ca-folder-configure-storage',
   templateUrl: './ca-folder-configure-storage.component.html',
   styleUrls: ['./ca-folder-configure-storage.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlDialogModule,
     MatDialogContent,

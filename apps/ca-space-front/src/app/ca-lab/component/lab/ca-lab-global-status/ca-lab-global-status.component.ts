@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { ClDateHelper } from '@monorepo/core-lib';
@@ -29,6 +29,7 @@ import { CaLabStartStopComponent } from '../ca-lab-start-stop/ca-lab-start-stop.
   selector: 'ca-lab-global-status',
   templateUrl: './ca-lab-global-status.component.html',
   styleUrls: ['./ca-lab-global-status.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlCardModule,
     FlTextIconModule,

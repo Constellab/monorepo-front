@@ -1,5 +1,5 @@
 import { Breakpoints } from '@angular/cdk/layout';
-import { Component, inject,OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit, ViewChild } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
 import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
 
@@ -14,6 +14,7 @@ import { FlSearchState } from '../../model/fl-search.state';
   selector: 'fl-search',
   templateUrl: './fl-search.component.html',
   styleUrls: ['./fl-search.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlSearchComponent implements OnInit {

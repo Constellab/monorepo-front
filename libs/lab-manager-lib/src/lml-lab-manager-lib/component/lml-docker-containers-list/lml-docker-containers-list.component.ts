@@ -1,4 +1,4 @@
-import { Component, inject, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input } from '@angular/core';
 import { ClHelpService } from '@monorepo/core-lib';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 
@@ -18,6 +18,7 @@ import {
   selector: 'lml-docker-containers-list',
   templateUrl: './lml-docker-containers-list.component.html',
   styleUrls: ['./lml-docker-containers-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class LmlDockerContainersListComponent {

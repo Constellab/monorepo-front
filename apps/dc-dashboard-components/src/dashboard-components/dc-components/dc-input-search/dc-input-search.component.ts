@@ -1,4 +1,4 @@
-import { booleanAttribute, Component, computed, effect, input, numberAttribute, output } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy,Component, computed, effect, input, numberAttribute, output } from '@angular/core';
 import { ClPage } from '@monorepo/core-lib';
 import {
   FlExternalDatasourcePaginated,
@@ -15,6 +15,7 @@ import { DcInputSearchObject, DcInputSearchRequest, DcInputSearchResult } from '
   selector: 'dc-input-search',
   imports: [FlInputSearchModule, FlUserModule],
   templateUrl: './dc-input-search.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './dc-input-search.component.scss',
 })
 export class DcInputSearchComponent {

@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatSelect, MatSelectChange } from '@angular/material/select';
@@ -15,6 +15,7 @@ import { CaAuthenticatedUserService } from '../../../ca-core/service-api/ca-auth
   selector: 'ca-language-selection',
   templateUrl: './ca-language-selection.component.html',
   styleUrls: ['./ca-language-selection.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     MatFormField,
     MatLabel,

@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { AfterViewInit, Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy,Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatOption } from '@angular/material/core';
 import { MatSelect } from '@angular/material/select';
 import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib/fl-core';
@@ -17,6 +17,7 @@ export type CaSelectCloudProviderRegionOptionsMode = 'all' | 'S3' | 'SERVER' | '
   selector: 'ca-select-cloud-provider-region-options',
   templateUrl: './ca-select-cloud-provider-region-options.component.html',
   styleUrls: ['./ca-select-cloud-provider-region-options.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlInfiniteScrollModule,
     FlCoreDirectiveModule,

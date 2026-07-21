@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatCheckbox } from '@angular/material/checkbox';
@@ -30,6 +30,7 @@ export interface CaLabRestoreBackupToLabDialogInput {
   selector: 'ca-lab-restore-backup-to-lab',
   templateUrl: './ca-lab-restore-backup-to-lab.component.html',
   styleUrl: './ca-lab-restore-backup-to-lab.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlDialogModule,
     MatDialogContent,

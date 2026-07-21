@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, UntypedFormControl, Validators } from '@angular/forms';
 import {
   MatAutocomplete,
@@ -45,6 +45,7 @@ export interface HaCoAuthorsDialogInput {
   selector: 'ha-co-author-dialog',
   templateUrl: './ha-co-author-dialog.component.html',
   styleUrls: ['./ha-co-author-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlDialogModule,
     MatDialogContent,

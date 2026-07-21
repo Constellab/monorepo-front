@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Input, OnInit } from '@angular/core';
 
 import { TdTypeObjectType, TdTypingErrorDTO } from '../../model/td-type.class';
 import { TdTypingName } from '../../model/td-typing-name.class';
@@ -7,6 +7,7 @@ import { TdTypingName } from '../../model/td-typing-name.class';
   selector: 'td-type-errors',
   templateUrl: './td-type-errors.component.html',
   styleUrls: ['./td-type-errors.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class TdTypeErrorsComponent implements OnInit {

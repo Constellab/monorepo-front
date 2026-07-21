@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject,Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { FlFormFieldDirective, FlInputSearchFilter } from '@monorepo/front-core-lib/fl-core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
@@ -18,6 +18,7 @@ import {
   templateUrl: './li-select-note-template.component.html',
   styleUrls: ['./li-select-note-template.component.scss'],
   providers: [{ provide: FlFormFieldDirective, useExisting: LiSelectNoteTemplateComponent }],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlInputSearchModule, FlUserModule, LiNoteTemplateInlineComponent],
 })
 export class LiSelectNoteTemplateComponent extends FlFormFieldDirective<LiNoteTemplate> implements OnInit {

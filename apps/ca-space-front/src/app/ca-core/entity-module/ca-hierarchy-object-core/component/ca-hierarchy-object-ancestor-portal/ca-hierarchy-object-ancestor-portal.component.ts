@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { FL_PORTAL_DATA, FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
@@ -23,6 +23,7 @@ import { CaHierarchyObjectInlineComponent } from '../ca-hierarchy-object-inline/
     MatIcon,
   ],
   templateUrl: './ca-hierarchy-object-ancestor-portal.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './ca-hierarchy-object-ancestor-portal.component.scss',
 })
 export class CaHierarchyObjectAncestorPortalComponent {

@@ -1,5 +1,5 @@
 import { ArrayDataSource } from '@angular/cdk/collections';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TdConfigI } from '@monorepo/technical-doc';
 
@@ -18,6 +18,7 @@ interface PrConfigLine {
   selector: 'pr-process-config-info-dialog',
   templateUrl: './pr-process-config-info-dialog.component.html',
   styleUrls: ['./pr-process-config-info-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class PrProcessConfigInfoDialogComponent {

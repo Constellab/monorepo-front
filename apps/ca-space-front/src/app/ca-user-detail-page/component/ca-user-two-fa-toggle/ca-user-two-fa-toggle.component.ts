@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { ThemePalette } from '@angular/material/core';
 import { FlConfirmDialogResult, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
@@ -15,6 +15,7 @@ import { CaAuthenticatedUserService } from '../../../ca-core/service-api/ca-auth
   selector: 'ca-user-two-fa-toggle',
   templateUrl: './ca-user-two-fa-toggle.component.html',
   styleUrls: ['./ca-user-two-fa-toggle.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlSectionModule, MatButton, NgClass, TranslatePipe],
 })
 export class CaUserTwoFaToggleComponent implements OnInit {

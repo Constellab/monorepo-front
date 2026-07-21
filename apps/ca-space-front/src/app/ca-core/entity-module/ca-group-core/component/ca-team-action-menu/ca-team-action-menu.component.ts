@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
@@ -25,6 +25,7 @@ import {
   selector: 'ca-team-action-menu',
   templateUrl: './ca-team-action-menu.component.html',
   styleUrls: ['./ca-team-action-menu.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatIconButton, MatMenuTrigger, MatIcon, MatMenu, MatMenuItem, MatTooltip, TranslatePipe],
 })
 export class CaTeamActionMenuComponent {

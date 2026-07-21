@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { LiAgent } from '@monorepo/lab-lib/li-core';
@@ -13,6 +13,7 @@ import { LiSelectCommunityAgentComponent } from '../li-select-community-agent/li
   selector: 'li-select-community-agent-dialog',
   templateUrl: './li-select-community-agent-dialog.component.html',
   styleUrls: ['./li-select-community-agent-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlDialogModule, MatDialogContent, LiSelectCommunityAgentComponent, TranslatePipe],
 })
 export class LiSelectCommunityAgentDialogComponent {

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
 import {
@@ -21,6 +21,7 @@ import { CaSpacePhotoComponent } from '../ca-space-photo/ca-space-photo.componen
   templateUrl: './ca-select-space.component.html',
   styleUrls: ['./ca-select-space.component.scss'],
   providers: [{ provide: FlFormFieldDirective, useExisting: CaSelectSpaceComponent }],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlInputSearchModule, CaSpacePhotoComponent, MatIcon, FlIconModule, CaSpaceInlineComponent],
 })
 export class CaSelectSpaceComponent extends FlFormFieldDirective<CaSpace> implements OnInit {

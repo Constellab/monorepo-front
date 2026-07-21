@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
@@ -48,6 +48,7 @@ export type HaTagKeyEditDialogInput = FlFormDialogInput<HaTagKeyEditDTO>;
     MatError,
   ],
   templateUrl: './ha-tag-key-edit-dialog.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './ha-tag-key-edit-dialog.component.scss',
 })
 export class HaTagKeyEditDialogComponent

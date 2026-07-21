@@ -3,14 +3,14 @@ import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import {
   AfterContentInit,
+  ChangeDetectionStrategy,
   Component,
   DestroyRef,
   HostListener,
   inject,
   OnDestroy,
   OnInit,
-  PLATFORM_ID,
-} from '@angular/core';
+  PLATFORM_ID} from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RouterOutlet } from '@angular/router';
 import { CoRagflowChatbotBubbleComponent } from '@monorepo/community-lib';
@@ -43,6 +43,7 @@ import { HaCookieConsentComponent } from '../ha-cookie-consent/ha-cookie-consent
   templateUrl: './ha-main.component.html',
   styleUrls: ['./ha-main.component.scss'],
   providers: [HaThemeState, HaJsonLdState, HaCurrentPageState],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [RouterOutlet, CoRagflowChatbotBubbleComponent],
 })
 export class HaMainComponent implements OnInit, AfterContentInit, OnDestroy {

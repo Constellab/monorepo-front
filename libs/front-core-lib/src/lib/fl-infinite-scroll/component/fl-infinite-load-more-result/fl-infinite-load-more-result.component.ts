@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Input } from '@angular/core';
 import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
 
 /**
@@ -9,6 +9,7 @@ import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
   selector: 'fl-infinite-load-more-result',
   templateUrl: './fl-infinite-load-more-result.component.html',
   styleUrls: ['./fl-infinite-load-more-result.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlInfiniteLoadMoreResultComponent {

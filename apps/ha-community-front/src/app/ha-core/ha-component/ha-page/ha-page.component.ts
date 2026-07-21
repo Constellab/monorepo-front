@@ -1,4 +1,4 @@
-import { Component, computed, inject, input, output, Signal } from '@angular/core';
+import { ChangeDetectionStrategy,Component, computed, inject, input, output, Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { MatButton } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
@@ -19,6 +19,7 @@ import { HaPageHeaderComponent } from '../ha-header/ha-page-header/ha-page-heade
   selector: 'ha-page',
   templateUrl: './ha-page.component.html',
   styleUrls: ['./ha-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     TranslatePipe,
     HaFooterComponent,

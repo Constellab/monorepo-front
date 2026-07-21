@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnDestroy, OnInit, ViewContainerRef } from '@angular/core';
+import { ChangeDetectionStrategy,Component, computed, inject, OnDestroy, OnInit, ViewContainerRef } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -56,6 +56,7 @@ import { HaCommunityAppMediaEditDialogComponent } from '../ha-community-app-medi
   ],
   templateUrl: './ha-community-app-page.component.html',
   styleUrl: './ha-community-app-page.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   providers: [HaCommunityAppState, HaEntityCommentState],
 })
 export class HaCommunityAppPageComponent extends HaCommunityPageDirective implements OnInit, OnDestroy {

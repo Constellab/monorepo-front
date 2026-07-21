@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
@@ -29,6 +29,7 @@ import { Observable } from 'rxjs';
     MatIconModule,
   ],
   templateUrl: './lab-monitoring-current-info.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './lab-monitoring-current-info.component.scss',
 })
 export class LabMonitoringCurrentInfoComponent {

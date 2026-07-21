@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, EventEmitter, inject, Output } from '@angular/core';
 import { FlCaptchaService } from '@monorepo/front-core-lib/fl-captcha';
 import { Observable, switchMap } from 'rxjs';
 
@@ -12,6 +12,7 @@ import { FlLoginFormComponent } from '../fl-login-form/fl-login-form.component';
   selector: 'fl-login',
   templateUrl: './fl-login.component.html',
   styleUrls: ['./fl-login.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlLoginComponent {

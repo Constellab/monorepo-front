@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit, Renderer2, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input, OnInit, Renderer2, ViewEncapsulation } from '@angular/core';
 import { ClYoutubeHelper } from '@monorepo/core-lib';
 import edjsHTML from 'editorjs-html';
 
@@ -12,6 +12,7 @@ import { TeConfig } from '../../model/te-config.class';
   templateUrl: './te-text-editor-server-side.component.html',
   styleUrl: './te-text-editor-server-side.component.scss',
   standalone: false,
+  changeDetection: ChangeDetectionStrategy.Eager,
   encapsulation: ViewEncapsulation.None,
 })
 export class TeTextEditorServerSideComponent implements OnInit {

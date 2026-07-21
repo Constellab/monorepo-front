@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, UntypedFormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
@@ -9,6 +9,7 @@ import { TeMetadataBlockConfig, TeMetadataPermission } from '../../model/te-meta
   standalone: false,
 
   templateUrl: './te-edit-block-metadata-dialog.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './te-edit-block-metadata-dialog.component.scss',
 })
 export class TeEditBlockMetadataDialogComponent implements OnInit {

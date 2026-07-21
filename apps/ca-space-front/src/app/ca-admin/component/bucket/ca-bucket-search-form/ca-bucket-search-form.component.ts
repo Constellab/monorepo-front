@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { MatOption } from '@angular/material/core';
 import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
@@ -23,6 +23,7 @@ import {
   selector: 'ca-bucket-search-form',
   templateUrl: './ca-bucket-search-form.component.html',
   styleUrls: ['./ca-bucket-search-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     ReactiveFormsModule,
     MatFormField,

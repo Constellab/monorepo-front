@@ -1,12 +1,12 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   ComponentRef,
   Input,
   OnDestroy,
   OnInit,
   ViewChild,
-  ViewContainerRef,
-} from '@angular/core';
+  ViewContainerRef} from '@angular/core';
 
 import { FlPlotlyData } from '../plotly-data.class';
 
@@ -14,6 +14,7 @@ import { FlPlotlyData } from '../plotly-data.class';
   selector: 'fl-plotly',
   templateUrl: './fl-plotly.component.html',
   styleUrls: ['./fl-plotly.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlPlotlyComponent implements OnInit, OnDestroy {

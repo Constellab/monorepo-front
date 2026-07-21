@@ -1,4 +1,4 @@
-import { Component, computed, effect, HostBinding, input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, computed, effect, HostBinding, input } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { TdIconAutoColorPipe, TdIconBackgroundColorPipe } from '@monorepo/technical-doc';
@@ -7,6 +7,7 @@ import { TdIconAutoColorPipe, TdIconBackgroundColorPipe } from '@monorepo/techni
   selector: 'ca-icon-container',
   imports: [MatIcon, FlIconModule],
   templateUrl: './ca-icon-container.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './ca-icon-container.component.scss',
 })
 export class CaIconContainerComponent {

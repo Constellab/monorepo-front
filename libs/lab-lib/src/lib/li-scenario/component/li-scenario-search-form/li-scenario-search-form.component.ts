@@ -1,4 +1,4 @@
-import { Component, inject,OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { MatCheckbox } from '@angular/material/checkbox';
 import {
@@ -27,6 +27,7 @@ import { LiScenarioStatusOptionsComponent } from '../li-scenario-status-options/
   selector: 'li-scenario-search-form',
   templateUrl: './li-scenario-search-form.component.html',
   styleUrls: ['./li-scenario-search-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     ReactiveFormsModule,
     MatFormField,

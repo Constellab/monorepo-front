@@ -1,4 +1,4 @@
-import { Component, inject, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input } from '@angular/core';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -17,6 +17,7 @@ import { CaTeamUsersListComponent } from '../ca-team-users-list/ca-team-users-li
   selector: 'ca-team-detail',
   templateUrl: './ca-team-detail.component.html',
   styleUrls: ['./ca-team-detail.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlCardModule,
     FlKeyValueModule,

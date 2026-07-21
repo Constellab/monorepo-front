@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { FlArrayObs } from '@monorepo/front-core-lib/fl-core';
 import { FL_PORTAL_DATA } from '@monorepo/front-core-lib/fl-portal';
 
@@ -32,6 +32,7 @@ export interface PrIofaceInfoPortalData {
   selector: 'pr-ioface-info-portal',
   templateUrl: './pr-ioface-info-portal.component.html',
   styleUrl: './pr-ioface-info-portal.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class PrIofaceInfoPortalComponent {

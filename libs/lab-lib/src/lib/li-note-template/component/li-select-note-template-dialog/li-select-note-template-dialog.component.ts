@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import {
@@ -21,6 +21,7 @@ export interface LiSelectNoteTemplateDialogInput {
   selector: 'li-select-note-template-dialog',
   templateUrl: './li-select-note-template-dialog.component.html',
   styleUrls: ['./li-select-note-template-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlDialogModule, MatDialogContent, LiNoteTemplateSearchComponent, TranslatePipe],
 })
 export class LiSelectNoteTemplateDialogComponent {

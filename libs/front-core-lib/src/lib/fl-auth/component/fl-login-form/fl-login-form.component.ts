@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Input } from '@angular/core';
 import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 
 /**
@@ -8,6 +8,7 @@ import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
   selector: 'fl-login-form',
   templateUrl: './fl-login-form.component.html',
   styleUrls: ['./fl-login-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlLoginFormComponent {

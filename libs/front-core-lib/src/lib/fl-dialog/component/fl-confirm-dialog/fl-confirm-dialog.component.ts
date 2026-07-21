@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FlGlobalValidators } from '@monorepo/front-core-lib/fl-core';
@@ -11,6 +11,7 @@ import { FlConfirmDialogInput, FlConfirmDialogResult } from '../../model/fl-conf
   selector: 'fl-confirm-dialog',
   templateUrl: './fl-confirm-dialog.component.html',
   styleUrls: ['./fl-confirm-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlConfirmDialogComponent implements OnInit {

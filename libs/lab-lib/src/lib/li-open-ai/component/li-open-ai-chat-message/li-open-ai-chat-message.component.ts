@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatFormField } from '@angular/material/form-field';
@@ -19,6 +19,7 @@ export type LiOpenAiChatMessageAction = 'delete' | 'delete-all';
   selector: 'li-open-ai-chat-message',
   templateUrl: './li-open-ai-chat-message.component.html',
   styleUrls: ['./li-open-ai-chat-message.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     NgClass,
     MatIcon,

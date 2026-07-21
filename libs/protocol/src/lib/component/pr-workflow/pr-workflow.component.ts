@@ -1,13 +1,13 @@
 import {
   AfterViewInit,
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
   inject,
   Input,
   OnDestroy,
   OnInit,
-  ViewChild,
-} from '@angular/core';
+  ViewChild} from '@angular/core';
 import { FlPortalConnectedPosition, FlPortalService } from '@monorepo/front-core-lib/fl-portal';
 import { Observable, Subscription } from 'rxjs';
 
@@ -29,6 +29,7 @@ import {
   selector: 'pr-workflow',
   templateUrl: './pr-workflow.component.html',
   styleUrls: ['./pr-workflow.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class PrWorkflowComponent implements OnInit, AfterViewInit, OnDestroy {

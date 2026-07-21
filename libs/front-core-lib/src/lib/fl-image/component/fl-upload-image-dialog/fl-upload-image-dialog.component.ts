@@ -1,4 +1,4 @@
-import { Component, inject,OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FlCompressBlobOption, FlImageHelper } from '@monorepo/front-core-lib/fl-core';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
@@ -46,6 +46,7 @@ export interface FlUploadImageDialogOutput<T = any> {
   selector: 'fl-upload-image-dialog',
   templateUrl: './fl-upload-image-dialog.component.html',
   styleUrls: ['./fl-upload-image-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlUploadImageDialogComponent implements OnInit {

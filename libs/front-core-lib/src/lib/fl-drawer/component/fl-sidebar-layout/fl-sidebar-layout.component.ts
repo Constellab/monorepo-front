@@ -1,5 +1,5 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { Component, HostBinding, inject, input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy,Component, HostBinding, inject, input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
 import { Subscription } from 'rxjs';
 
@@ -15,6 +15,7 @@ import { Subscription } from 'rxjs';
   selector: 'fl-sidebar-layout',
   standalone: false,
   templateUrl: './fl-sidebar-layout.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./fl-sidebar-layout.component.scss'],
 })
 export class FlSidebarLayoutComponent implements OnInit, OnDestroy {

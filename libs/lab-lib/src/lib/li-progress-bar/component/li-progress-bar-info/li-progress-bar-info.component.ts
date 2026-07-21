@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatDivider } from '@angular/material/divider';
@@ -46,6 +46,7 @@ interface LiProgressWithMessage {
   selector: 'li-progress-bar-info',
   templateUrl: './li-progress-bar-info.component.html',
   styleUrls: ['./li-progress-bar-info.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlKeyValueModule,
     FlTextIconModule,

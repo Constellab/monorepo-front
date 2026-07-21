@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   ComponentRef,
   ElementRef,
@@ -9,8 +10,7 @@ import {
   OnDestroy,
   OnInit,
   ViewChild,
-  ViewContainerRef,
-} from '@angular/core';
+  ViewContainerRef} from '@angular/core';
 import { ClHelpService } from '@monorepo/core-lib';
 import { FlResizeObservable } from '@monorepo/front-core-lib/fl-core';
 import { FlMenuDynamic, FlMenuDynamicService } from '@monorepo/front-core-lib/fl-menu-dynamic';
@@ -36,6 +36,7 @@ interface Size {
   templateUrl: './ch-chart.component.html',
   styleUrls: ['./ch-chart.component.scss'],
   providers: [ChChartState],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class ChChartComponent implements OnInit, OnDestroy {

@@ -1,11 +1,12 @@
 import { isPlatformServer } from '@angular/common';
-import { Component, inject, makeStateKey, OnInit, PLATFORM_ID, TransferState } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, makeStateKey, OnInit, PLATFORM_ID, TransferState } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'ha-monorepo-root',
   templateUrl: './ha-app.component.html',
   styleUrls: ['./ha-app.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [RouterOutlet],
 })
 export class HaAppComponent implements OnInit {

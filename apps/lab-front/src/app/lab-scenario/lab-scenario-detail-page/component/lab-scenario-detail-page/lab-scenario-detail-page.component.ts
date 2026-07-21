@@ -1,4 +1,4 @@
-import { Component, inject,OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { MatTab, MatTabContent, MatTabGroup } from '@angular/material/tabs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
@@ -29,6 +29,7 @@ import { LabWorkflowComponent } from '../lab-workflow/lab-workflow.component';
     LabWorkflowEditConfig,
     LabWorkflowFactory,
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlSectionModule,
     LabScenarioDetailHeaderComponent,

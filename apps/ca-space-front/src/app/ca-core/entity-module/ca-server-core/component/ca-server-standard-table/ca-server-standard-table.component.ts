@@ -1,4 +1,4 @@
-import { Component, inject, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
@@ -39,6 +39,7 @@ import { CaServerStandardPriceComponent } from '../ca-server-standard-price/ca-s
   selector: 'ca-server-standard-table',
   templateUrl: './ca-server-standard-table.component.html',
   styleUrl: './ca-server-standard-table.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     MatTable,
     MatColumnDef,

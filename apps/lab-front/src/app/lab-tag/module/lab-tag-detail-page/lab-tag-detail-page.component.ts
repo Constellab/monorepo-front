@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LiTagDetailComponent } from '@monorepo/lab-lib/li-tag';
 import { map, Observable } from 'rxjs';
@@ -7,6 +7,7 @@ import { map, Observable } from 'rxjs';
   selector: 'lab-tag-detail-page',
   imports: [LiTagDetailComponent],
   templateUrl: './lab-tag-detail-page.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './lab-tag-detail-page.component.scss',
 })
 export class LabTagDetailPageComponent implements OnInit {

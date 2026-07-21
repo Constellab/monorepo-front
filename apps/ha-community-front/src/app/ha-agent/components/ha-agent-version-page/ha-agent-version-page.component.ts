@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, computed, inject, OnInit, Signal } from '@angular/core';
+import { ChangeDetectionStrategy,ChangeDetectorRef, Component, computed, inject, OnInit, Signal } from '@angular/core';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -29,6 +29,7 @@ import { HaAgentVersionDetailComponent } from '../ha-agent-version-detail/ha-age
   selector: 'ha-agent-version-page',
   templateUrl: './ha-agent-version-page.component.html',
   styleUrls: ['./ha-agent-version-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     CoCommunityLibModule,
     MatButton,

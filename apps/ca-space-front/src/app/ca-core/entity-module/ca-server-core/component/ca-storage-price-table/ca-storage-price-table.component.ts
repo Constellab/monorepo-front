@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
@@ -34,6 +34,7 @@ import { CaServerService } from '../../../../service-api/ca-server.service';
   selector: 'ca-storage-price-table',
   templateUrl: './ca-storage-price-table.component.html',
   styleUrl: './ca-storage-price-table.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     MatTable,
     MatColumnDef,

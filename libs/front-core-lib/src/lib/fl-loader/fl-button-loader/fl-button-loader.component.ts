@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, Input, OnDestroy, OnInit, Renderer2 } from '@angular/core';
+import { ChangeDetectionStrategy,Component, ElementRef, inject, Input, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { MatButton, MatIconButton } from '@angular/material/button';
 
 /**
@@ -9,6 +9,7 @@ import { MatButton, MatIconButton } from '@angular/material/button';
   selector: 'fl-button-loader',
   templateUrl: './fl-button-loader.component.html',
   styleUrls: ['./fl-button-loader.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlButtonLoaderComponent implements OnInit, OnDestroy {

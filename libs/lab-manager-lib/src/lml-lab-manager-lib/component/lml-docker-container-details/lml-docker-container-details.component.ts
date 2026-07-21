@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { LmlLabManagerService } from '../../lml-lab-manager.service';
@@ -11,6 +11,7 @@ import { LmlDockerContainerSize, LmlDockerPsFull } from '../../model/lml-lab-man
   selector: 'lml-docker-container-details',
   templateUrl: './lml-docker-container-details.component.html',
   styleUrls: ['./lml-docker-container-details.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class LmlDockerContainerDetailsComponent implements OnInit {

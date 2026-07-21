@@ -1,5 +1,5 @@
 import { NgOptimizedImage } from '@angular/common';
-import { Component, computed, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, computed, inject, input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { ClStringHelper } from '@monorepo/core-lib';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -11,6 +11,7 @@ import { CoConfig } from '../../service/co-service-config.config';
   selector: 'co-visibility-badge',
   templateUrl: './co-visibility-badge.component.html',
   styleUrls: ['./co-visibility-badge.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [TranslatePipe, MatIconModule, NgOptimizedImage],
 })
 export class CoVisibilityBadgeComponent {

@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MatIconAnchor } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
@@ -25,6 +25,7 @@ export type LiProgressBarInfoDialogData = Observable<LiProcessRunInfoData>;
   selector: 'li-progress-bar-info-dialog',
   templateUrl: './li-progress-bar-info-dialog.component.html',
   styleUrls: ['./li-progress-bar-info-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlDialogModule,
     MatIconAnchor,

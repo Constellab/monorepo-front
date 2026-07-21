@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { MatCheckbox } from '@angular/material/checkbox';
 import {
@@ -23,6 +23,7 @@ import { LiSelectFormTemplateComponent } from '../li-select-form-template/li-sel
   selector: 'li-form-search-form',
   templateUrl: './li-form-search-form.component.html',
   styleUrl: './li-form-search-form.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     ReactiveFormsModule,
     MatFormField,

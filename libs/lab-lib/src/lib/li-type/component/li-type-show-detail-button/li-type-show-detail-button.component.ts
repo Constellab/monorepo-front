@@ -1,4 +1,4 @@
-import { Component, inject,Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -14,6 +14,7 @@ import { LiTypeDialogComponent, LiTypeDialogInput } from '../li-type-dialog/li-t
   selector: 'li-type-show-detail-button',
   templateUrl: './li-type-show-detail-button.component.html',
   styleUrls: ['./li-type-show-detail-button.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatIconButton, MatTooltip, MatIcon, TranslatePipe],
 })
 export class LiTypeShowDetailButtonComponent {

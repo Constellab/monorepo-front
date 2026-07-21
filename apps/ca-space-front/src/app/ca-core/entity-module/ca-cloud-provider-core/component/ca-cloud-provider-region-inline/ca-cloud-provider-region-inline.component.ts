@@ -1,5 +1,5 @@
 import { NgOptimizedImage } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Input } from '@angular/core';
 
 import { CaCloudProviderRegion } from '../../../../model/entities/ca-cloud-provider.class';
 
@@ -7,6 +7,7 @@ import { CaCloudProviderRegion } from '../../../../model/entities/ca-cloud-provi
   selector: 'ca-cloud-provider-region-inline',
   templateUrl: './ca-cloud-provider-region-inline.component.html',
   styleUrls: ['./ca-cloud-provider-region-inline.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [NgOptimizedImage],
 })
 export class CaCloudProviderRegionInlineComponent {

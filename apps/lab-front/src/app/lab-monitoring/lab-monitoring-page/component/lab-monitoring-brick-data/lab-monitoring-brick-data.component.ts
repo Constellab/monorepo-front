@@ -1,4 +1,4 @@
-import { Component, inject,OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
@@ -17,6 +17,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   selector: 'lab-monitoring-brick-data',
   templateUrl: './lab-monitoring-brick-data.component.html',
   styleUrls: ['./lab-monitoring-brick-data.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlCardModule,
     FlTextIconModule,

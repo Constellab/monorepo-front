@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, inject,OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { MatDivider } from '@angular/material/divider';
@@ -33,6 +33,7 @@ export interface LiShareAgentCommunityDialogData {
   selector: 'li-share-agent-community-dialog',
   templateUrl: './li-share-agent-community-dialog.component.html',
   styleUrls: ['./li-share-agent-community-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlDialogModule,
     MatDialogContent,

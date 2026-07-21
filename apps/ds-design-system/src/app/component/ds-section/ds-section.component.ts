@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, input } from '@angular/core';
 
 /**
  * A titled section used to group a set of showcased components.
@@ -7,6 +7,7 @@ import { Component, input } from '@angular/core';
 @Component({
   selector: 'ds-section',
   templateUrl: './ds-section.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './ds-section.component.scss',
 })
 export class DsSectionComponent {

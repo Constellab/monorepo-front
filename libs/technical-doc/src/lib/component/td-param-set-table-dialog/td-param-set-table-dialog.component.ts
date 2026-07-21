@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
 import {
   MatCell,
@@ -31,6 +31,7 @@ export interface TdParamSetTableDialogInput {
   selector: 'td-param-set-table-dialog',
   templateUrl: './td-param-set-table-dialog.component.html',
   styleUrl: './td-param-set-table-dialog.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlDialogModule,
     MatDialogContent,

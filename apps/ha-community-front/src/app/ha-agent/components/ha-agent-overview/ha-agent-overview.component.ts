@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnDestroy, Signal } from '@angular/core';
+import { ChangeDetectionStrategy,Component, computed, inject, OnDestroy, Signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { CoCommunityLibModule } from '@monorepo/community-lib';
@@ -24,6 +24,7 @@ import { HaAgentVersionDetailComponent } from '../ha-agent-version-detail/ha-age
   selector: 'ha-agent-overview',
   templateUrl: './ha-agent-overview.component.html',
   styleUrls: ['./ha-agent-overview.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     CoCommunityLibModule,
     FlFormModule,

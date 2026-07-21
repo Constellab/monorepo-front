@@ -1,5 +1,5 @@
 import { AsyncPipe, NgClass } from '@angular/common';
-import { Component, inject,Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input, OnInit } from '@angular/core';
 import { MatRipple } from '@angular/material/core';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { LiProcess } from '@monorepo/lab-lib/li-core';
@@ -16,6 +16,7 @@ import { LabConfigureProcessComponent } from '../lab-configure-process/lab-confi
   selector: 'lab-configure-protocol',
   templateUrl: './lab-configure-protocol.component.html',
   styleUrls: ['./lab-configure-protocol.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlSectionModule, MatRipple, NgClass, LabConfigureProcessComponent, AsyncPipe],
 })
 export class LabConfigureProtocolComponent implements OnInit {

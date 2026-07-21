@@ -1,4 +1,4 @@
-import { Component, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, input } from '@angular/core';
 import { FlClipboardService } from '@monorepo/front-core-lib/fl-snack-bar';
 
 /**
@@ -8,6 +8,7 @@ import { FlClipboardService } from '@monorepo/front-core-lib/fl-snack-bar';
   selector: 'fl-password-hidden',
   standalone: false,
   templateUrl: './fl-password-hidden.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './fl-password-hidden.component.scss',
 })
 export class FlPasswordHiddenComponent {

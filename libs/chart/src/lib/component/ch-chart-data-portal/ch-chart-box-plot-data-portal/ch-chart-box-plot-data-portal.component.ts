@@ -1,4 +1,4 @@
-import { Component, inject, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, ViewChild } from '@angular/core';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { FL_PORTAL_DATA } from '@monorepo/front-core-lib/fl-portal';
 import { FlTagColorer } from '@monorepo/front-core-lib/fl-tag';
@@ -19,6 +19,7 @@ export interface ChChartBoxPlotDataPortalInput {
   selector: 'ch-chart-box-plot-data-portal',
   templateUrl: './ch-chart-box-plot-data-portal.component.html',
   styleUrls: ['./ch-chart-box-plot-data-portal.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class ChChartBoxPlotDataPortalComponent {

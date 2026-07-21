@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject, input, OnInit, output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, DestroyRef, inject, input, OnInit, output } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
@@ -9,6 +9,7 @@ import { DateTime } from 'luxon';
   templateUrl: './fl-datetime-picker.component.html',
   styleUrl: './fl-datetime-picker.component.scss',
   standalone: false,
+  changeDetection: ChangeDetectionStrategy.Eager,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
 import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
@@ -26,6 +26,7 @@ import { LabOpenRouteResourceViewModuleConfig } from '../model/lab-public-route-
     FlCoreComponentModule,
   ],
   templateUrl: './lab-public-route-resource-page.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './lab-public-route-resource-page.component.scss',
 })
 export class LabPublicRouteResourcePageComponent implements OnInit, OnDestroy {

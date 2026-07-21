@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 
@@ -14,6 +14,7 @@ import { CaAdminOtherComponent } from '../ca-admin-other/ca-admin-other.componen
   selector: 'ca-admin-others-page',
   templateUrl: './ca-admin-others-page.component.html',
   styleUrls: ['./ca-admin-others-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     CaAdminOtherComponent,
     CaAdminCloudProvidersListComponent,

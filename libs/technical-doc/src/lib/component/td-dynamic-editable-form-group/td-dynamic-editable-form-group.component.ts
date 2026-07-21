@@ -1,4 +1,4 @@
-import { Component, computed, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, computed, inject, input } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import { FlDynamicAbstractFormDirective } from '@monorepo/front-core-lib/fl-dynamic-field';
 import { FlDynamicEditableFormGroupConfig } from '@monorepo/front-core-lib/fl-dynamic-field';
@@ -9,6 +9,7 @@ import { TdAbstractDynamicParamSpecState } from '../../service/td-abstract-dynam
   selector: 'td-dynamic-editable-form-group',
   templateUrl: './td-dynamic-editable-form-group.component.html',
   styleUrl: './td-dynamic-editable-form-group.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class TdDynamicEditableFormGroupComponent implements FlDynamicAbstractFormDirective {

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, computed, ElementRef, inject, signal, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy,Component, computed, ElementRef, inject, signal, ViewChild } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { FlImageModule } from '@monorepo/front-core-lib/fl-image';
@@ -17,6 +17,7 @@ interface HaCommunityAppCarouselItem {
   selector: 'ha-community-app-carousel',
   templateUrl: './ha-community-app-carousel.component.html',
   styleUrl: './ha-community-app-carousel.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatIconButton, MatIcon, FlImageModule, FlVideoModule],
 })
 export class HaCommunityAppCarouselComponent implements AfterViewInit {

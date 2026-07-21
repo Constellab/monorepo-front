@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { MatCheckbox } from '@angular/material/checkbox';
 import {
@@ -23,6 +23,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   selector: 'li-note-search-form',
   templateUrl: './li-note-search-form.component.html',
   styleUrls: ['./li-note-search-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     ReactiveFormsModule,
     MatFormField,

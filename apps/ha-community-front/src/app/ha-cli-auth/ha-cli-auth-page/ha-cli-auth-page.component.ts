@@ -1,5 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Component, inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { MatButton } from '@angular/material/button';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -19,6 +19,7 @@ const SESSION_STORAGE_KEY = 'cli-auth-code';
   selector: 'ha-cli-auth-page',
   templateUrl: './ha-cli-auth-page.component.html',
   styleUrls: ['./ha-cli-auth-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [HaHeaderComponent, HaFooterComponent, TranslatePipe, MatButton, FlLoaderModule],
 })
 export class HaCliAuthPageComponent implements OnInit {

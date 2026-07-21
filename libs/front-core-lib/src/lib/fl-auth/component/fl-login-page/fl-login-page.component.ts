@@ -1,10 +1,11 @@
-import { Component, EventEmitter, inject,Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
 
 @Component({
   selector: 'fl-login-page',
   templateUrl: './fl-login-page.component.html',
   styleUrls: ['./fl-login-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlLoginPageComponent implements OnInit {

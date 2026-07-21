@@ -1,4 +1,4 @@
-import { Component, inject, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
@@ -36,6 +36,7 @@ import { CaLabGreenOptionValueComponent } from '../ca-lab-green-option-value/ca-
   selector: 'ca-lab-green-option-table',
   templateUrl: './ca-lab-green-option-table.component.html',
   styleUrls: ['./ca-lab-green-option-table.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     MatTable,
     MatColumnDef,

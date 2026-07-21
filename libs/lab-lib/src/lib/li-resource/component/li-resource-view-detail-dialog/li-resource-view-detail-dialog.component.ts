@@ -1,4 +1,4 @@
-import { Component, inject,OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
@@ -28,6 +28,7 @@ export type LiResourceViewDetailDialogInput =
   selector: 'li-resource-view-detail-dialog',
   templateUrl: './li-resource-view-detail-dialog.component.html',
   styleUrls: ['./li-resource-view-detail-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlDialogModule, MatDialogContent, FlSectionModule, LiResourceViewDetailComponent],
 })
 export class LiResourceViewDetailDialogComponent implements OnInit {

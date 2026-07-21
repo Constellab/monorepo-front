@@ -1,4 +1,4 @@
-import { Component, inject, input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, input, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { TeRichText, TeTextEditorModule } from '@monorepo/text-editor';
@@ -15,6 +15,7 @@ import { CaNoteTextEditorConfig } from '../../model/ca-note-text-editor-config.c
   selector: 'ca-note-content',
   templateUrl: './ca-note-content.component.html',
   styleUrls: ['./ca-note-content.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlSectionModule, TeTextEditorModule, ReactiveFormsModule, FormsModule],
 })
 export class CaNoteContentComponent implements OnInit {

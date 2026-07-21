@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LiConfig, LiResourceViewRichText } from '@monorepo/lab-lib/li-core';
 import { RvResourceViewDirective } from '@monorepo/resource-view';
@@ -8,6 +8,7 @@ import { TeConfig, TeRichText, TeTextEditorModule } from '@monorepo/text-editor'
   selector: 'li-resource-rich-text-view',
   templateUrl: './li-resource-rich-text-view.component.html',
   styleUrls: ['./li-resource-rich-text-view.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [TeTextEditorModule, ReactiveFormsModule, FormsModule],
 })
 export class LiResourceRichTextViewComponent

@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { MatCheckbox } from '@angular/material/checkbox';
 import {
@@ -37,6 +37,7 @@ import {
     MatIcon
   ],
   templateUrl: './li-tag-search-form.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './li-tag-search-form.component.scss',
 })
 export class LiTagSearchFormComponent implements OnInit {

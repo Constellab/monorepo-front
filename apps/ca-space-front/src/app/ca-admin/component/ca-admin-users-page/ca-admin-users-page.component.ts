@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 
@@ -8,6 +8,7 @@ import { CaUserSearchComponent } from '../../../ca-core/entity-module/ca-user-co
   selector: 'ca-admin-users-page',
   templateUrl: './ca-admin-users-page.component.html',
   styleUrls: ['./ca-admin-users-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [CaUserSearchComponent],
 })
 export class CaAdminUsersPageComponent {

@@ -1,4 +1,4 @@
-import { Component, inject,OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { FlColorHelper } from '@monorepo/front-core-lib/fl-core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FL_PORTAL_DATA } from '@monorepo/front-core-lib/fl-portal';
@@ -28,6 +28,7 @@ const GROUP_TIME_INTERVAL = Duration.fromObject({ minutes: 10 });
   selector: 'te-text-editor-history-portal',
   templateUrl: './te-text-editor-history-portal.component.html',
   styleUrl: './te-text-editor-history-portal.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class TeTextEditorHistoryPortalComponent implements OnInit {

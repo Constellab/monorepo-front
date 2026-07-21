@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
@@ -38,6 +38,7 @@ export interface CaHierarchyObjectTokenDialogInput {
     MatIcon,
   ],
   templateUrl: './ca-hierarchy-object-tokens-dialog.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './ca-hierarchy-object-tokens-dialog.component.scss',
 })
 export class CaHierarchyObjectTokensDialogComponent implements OnInit {

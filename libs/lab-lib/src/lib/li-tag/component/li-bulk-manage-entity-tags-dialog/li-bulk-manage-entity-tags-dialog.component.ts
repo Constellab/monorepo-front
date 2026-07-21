@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatCheckbox } from '@angular/material/checkbox';
@@ -37,6 +37,7 @@ export interface LiBulkManageEntityTagsDialogInput {
   selector: 'li-bulk-manage-entity-tags-dialog',
   templateUrl: './li-bulk-manage-entity-tags-dialog.component.html',
   styleUrls: ['./li-bulk-manage-entity-tags-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlDialogModule,
     FlTextIconModule,

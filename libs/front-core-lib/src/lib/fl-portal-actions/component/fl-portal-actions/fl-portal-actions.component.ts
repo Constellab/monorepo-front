@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { FlPortalActionDetail } from '../../model/fl-portal-action-detail.class';
@@ -13,6 +13,7 @@ import { FlPortalActionsState } from '../../service/fl-portal-actions.state';
   selector: 'fl-portal-actions',
   templateUrl: './fl-portal-actions.component.html',
   styleUrls: ['./fl-portal-actions.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlPortalActionsComponent {

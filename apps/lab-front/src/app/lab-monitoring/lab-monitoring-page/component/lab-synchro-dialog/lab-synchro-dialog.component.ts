@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatCheckbox } from '@angular/material/checkbox';
@@ -15,6 +15,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   selector: 'lab-synchro-dialog',
   templateUrl: './lab-synchro-dialog.component.html',
   styleUrls: ['./lab-synchro-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlDialogModule,
     MatDialogContent,

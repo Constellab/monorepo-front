@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
@@ -25,6 +25,7 @@ import { LabSynchroDialogComponent } from '../lab-synchro-dialog/lab-synchro-dia
   selector: 'lab-info',
   templateUrl: './lab-info.component.html',
   styleUrls: ['./lab-info.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlCardModule,
     FlLoaderModule,

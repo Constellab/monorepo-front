@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnDestroy, OnInit, Signal } from '@angular/core';
+import { ChangeDetectionStrategy,Component, computed, inject, OnDestroy, OnInit, Signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
@@ -17,6 +17,7 @@ import { HaBrickPageState } from '../../state/ha-brick-page.state';
   selector: 'ha-brick-tech-doc-page',
   templateUrl: './ha-brick-tech-doc.component.html',
   styleUrls: ['./ha-brick-tech-doc.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlLoaderModule,
     TdTechnicalDocModule,

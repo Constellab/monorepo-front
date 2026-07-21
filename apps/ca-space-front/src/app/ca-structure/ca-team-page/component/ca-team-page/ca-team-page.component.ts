@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { mergeMap, Observable } from 'rxjs';
@@ -14,6 +14,7 @@ import { CaTeamDetailComponent } from '../ca-team-detail/ca-team-detail.componen
   selector: 'ca-team-page',
   templateUrl: './ca-team-page.component.html',
   styleUrls: ['./ca-team-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlSectionModule, CaTeamDetailComponent],
 })
 export class CaTeamPageComponent implements OnInit {

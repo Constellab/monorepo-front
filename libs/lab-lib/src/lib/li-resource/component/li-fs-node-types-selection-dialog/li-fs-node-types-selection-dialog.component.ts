@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import {
   FormArray,
   FormBuilder,
@@ -67,6 +67,7 @@ export interface LiUploadFsNodeTypeFolderResult {
   selector: 'li-fs-node-types-selection-dialog',
   templateUrl: './li-fs-node-types-selection-dialog.component.html',
   styleUrls: ['./li-fs-node-types-selection-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlDialogModule,
     MatDialogContent,

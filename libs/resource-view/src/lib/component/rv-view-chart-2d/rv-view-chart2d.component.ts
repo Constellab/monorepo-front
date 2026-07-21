@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, OnInit } from '@angular/core';
 import { ChChartConfig } from '@monorepo/chart';
 
 import { rvBasicPlotToChart } from '../../model/rv-basic-plot-2d.class';
@@ -17,6 +17,7 @@ import { rvVulcanoPlotToChart } from '../../model/rv-vulcano-plot.class';
   selector: 'rv-view-chart-2d',
   templateUrl: './rv-view-chart2d.component.html',
   styleUrls: ['./rv-view-chart2d.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class RvViewChart2dComponent extends RvResourceViewDirective<RvViewChartType> implements OnInit {

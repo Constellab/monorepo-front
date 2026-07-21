@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Input } from '@angular/core';
 
 import { CoAgent } from '../../model/co-agent.class';
 import { CoListItemType } from '../../model/co-list-item-type.enum';
@@ -7,6 +7,7 @@ import { CoListItemType } from '../../model/co-list-item-type.enum';
   selector: 'co-agent-list-item',
   templateUrl: './co-agent-list-item.component.html',
   styleUrls: ['./co-agent-list-item.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class CoAgentListItemComponent {

@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit, signal, ViewContainerRef } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnDestroy, OnInit, signal, ViewContainerRef } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA,MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
@@ -34,6 +34,7 @@ export interface LiFormTemplateAiSpecsReviewDialogInput {
   selector: 'li-form-template-ai-specs-review-dialog',
   templateUrl: './li-form-template-ai-specs-review-dialog.component.html',
   styleUrl: './li-form-template-ai-specs-review-dialog.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlDialogModule,
     FlLoaderModule,

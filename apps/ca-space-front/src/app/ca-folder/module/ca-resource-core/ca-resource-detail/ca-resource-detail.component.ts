@@ -1,4 +1,4 @@
-import { Component, inject, Injector, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Injector, input, signal } from '@angular/core';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
@@ -39,6 +39,7 @@ import {
     MatTooltipModule,
   ],
   templateUrl: './ca-resource-detail.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './ca-resource-detail.component.scss',
 })
 export class CaResourceDetailComponent {

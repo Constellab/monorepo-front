@@ -1,4 +1,4 @@
-import { Component, computed, EventEmitter, inject, input, OnDestroy, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, computed, EventEmitter, inject, input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
@@ -28,6 +28,7 @@ import { CaChatWriteMessageComponent } from '../ca-chat-write-message/ca-chat-wr
   selector: 'ca-chat-message',
   templateUrl: './ca-chat-message.component.html',
   styleUrl: './ca-chat-message.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     CaNotificationMarkDirective,
     FlUserModule,

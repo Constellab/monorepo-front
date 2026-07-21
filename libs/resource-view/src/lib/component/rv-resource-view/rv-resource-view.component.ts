@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   ComponentRef,
   inject,
@@ -6,8 +7,7 @@ import {
   OnDestroy,
   OnInit,
   ViewChild,
-  ViewContainerRef,
-} from '@angular/core';
+  ViewContainerRef} from '@angular/core';
 import { ClHelpService } from '@monorepo/core-lib';
 import { FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
 
@@ -21,6 +21,7 @@ import { RvViewConfig } from '../../model/rv-view-config.class';
   selector: 'rv-resource-view',
   templateUrl: './rv-resource-view.component.html',
   styleUrls: ['./rv-resource-view.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class RvResourceViewComponent implements OnInit, OnDestroy {

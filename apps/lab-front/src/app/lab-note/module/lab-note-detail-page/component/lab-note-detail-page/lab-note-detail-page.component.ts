@@ -1,4 +1,4 @@
-import { Component, inject, Injector, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Injector, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
@@ -34,6 +34,7 @@ import { LabNoteLinkedScenariosComponent } from '../lab-note-linked-scenarios/la
   templateUrl: './lab-note-detail-page.component.html',
   styleUrls: ['./lab-note-detail-page.component.scss'],
   providers: [LabNoteDetailPageState],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlSectionModule,
     MatIcon,

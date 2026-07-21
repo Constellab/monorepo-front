@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogContent, MatDialogRef } from '@angular/material/dialog';
@@ -18,6 +18,7 @@ import { LiLabService } from '../../service/li-lab.service';
   selector: 'li-lab-registration-dialog',
   templateUrl: './li-lab-registration-dialog.component.html',
   styleUrls: ['./li-lab-registration-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlDialogModule,
     MatDialogContent,

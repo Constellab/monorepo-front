@@ -1,4 +1,4 @@
-import { Component, inject, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
@@ -46,6 +46,7 @@ import { CaLabStatusDialogComponent } from '../ca-lab-status-dialog/ca-lab-statu
   selector: 'ca-lab-table',
   templateUrl: './ca-lab-table.component.html',
   styleUrls: ['./ca-lab-table.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     MatTable,
     FlSearchModule,

@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, inject, Input, input, OnDestroy, OnInit, Signal, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input, input, OnDestroy, OnInit, Signal, viewChild } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import {
@@ -27,6 +27,7 @@ import { CaHierarchyObjectIconComponent } from '../ca-hierarchy-object-icon/ca-h
   selector: 'ca-hierarchy-object-tree',
   templateUrl: './ca-hierarchy-object-tree.component.html',
   styleUrl: './ca-hierarchy-object-tree.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     MatTree,
     MatTreeNodeDef,

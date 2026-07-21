@@ -1,4 +1,4 @@
-import { Component, inject,OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -44,6 +44,7 @@ export enum LabMonitoringRunPeriod {
     MatTimepickerModule,
   ],
   templateUrl: './lab-monitoring-detail.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './lab-monitoring-detail.component.scss',
 })
 export class LabMonitoringDetailComponent implements OnInit, OnDestroy {

@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { ClHelpService } from '@monorepo/core-lib';
 import { Observable, Subscription } from 'rxjs';
 
@@ -15,6 +15,7 @@ export type CaSpacePhotoSize = 'small' | 'medium' | 'big';
   selector: 'ca-space-photo',
   templateUrl: './ca-space-photo.component.html',
   styleUrls: ['./ca-space-photo.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [NgClass],
 })
 export class CaSpacePhotoComponent implements OnInit, OnDestroy {

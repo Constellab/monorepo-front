@@ -1,4 +1,4 @@
-import { Component, effect, inject, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy,Component, effect, inject, input, signal } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
@@ -14,6 +14,7 @@ import { liFormatChangeEntry, LiFormattedChangeEntry, liGetChangeSummary } from 
   selector: 'li-form-history',
   templateUrl: './li-form-history.component.html',
   styleUrl: './li-form-history.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatButton, MatIcon, FlLoaderModule, FlUserModule, TranslatePipe],
 })
 export class LiFormHistoryComponent {

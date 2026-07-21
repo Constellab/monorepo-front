@@ -1,5 +1,5 @@
 import { AsyncPipe, NgClass } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
 import { CoCommunityAppListItemComponent, CoCommunityLibModule } from '@monorepo/community-lib';
@@ -38,6 +38,7 @@ export type HaHomeItemsListSectionType = 'stories' | 'apps' | 'agents' | 'bricks
   selector: 'ha-home-items-list-section',
   templateUrl: './ha-home-items-list-section.component.html',
   styleUrls: ['./ha-home-items-list-section.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     NgClass,
     TranslatePipe,

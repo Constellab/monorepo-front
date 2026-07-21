@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
 import { FlTagModule } from '@monorepo/front-core-lib/fl-tag';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
@@ -20,6 +20,7 @@ import { CaFolderDetailState } from '../../state/ca-folder-detail.state';
   selector: 'ca-folder-detail',
   templateUrl: './ca-folder-detail.component.html',
   styleUrls: ['./ca-folder-detail.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     CaHierarchyObjectIconComponent,
     CaNotificationMarkDirective,

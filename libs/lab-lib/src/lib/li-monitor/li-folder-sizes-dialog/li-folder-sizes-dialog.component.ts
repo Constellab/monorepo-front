@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, signal } from '@angular/core';
 import { MatDialogContent } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
@@ -12,6 +12,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   selector: 'li-folder-sizes-dialog',
   templateUrl: './li-folder-sizes-dialog.component.html',
   styleUrls: ['./li-folder-sizes-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlDialogModule,
     MatDialogContent,

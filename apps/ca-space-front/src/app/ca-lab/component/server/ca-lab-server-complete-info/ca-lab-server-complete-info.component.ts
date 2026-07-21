@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Input } from '@angular/core';
 import { MatExpansionPanel, MatExpansionPanelHeader } from '@angular/material/expansion';
 import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
 import { FlJsonEditorModule } from '@monorepo/front-core-lib/fl-json-editor';
@@ -11,6 +11,7 @@ import { CaServerCompleteInfo } from '../../../../ca-core/model/entities/lab/ca-
   selector: 'ca-lab-server-complete-info',
   templateUrl: './ca-lab-server-complete-info.component.html',
   styleUrls: ['./ca-lab-server-complete-info.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlKeyValueModule,
     MatExpansionPanel,

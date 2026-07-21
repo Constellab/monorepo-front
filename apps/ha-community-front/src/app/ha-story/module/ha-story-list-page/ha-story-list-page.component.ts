@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
@@ -28,6 +28,7 @@ import { HaTopicService } from '../../../ha-core/ha-service/ha-topic.service';
   selector: 'ha-story-list-page',
   templateUrl: './ha-story-list-page.component.html',
   styleUrls: ['./ha-story-list-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlInfiniteScrollModule,
     ReactiveFormsModule,

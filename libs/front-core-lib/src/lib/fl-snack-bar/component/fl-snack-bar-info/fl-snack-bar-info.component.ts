@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MAT_SNACK_BAR_DATA, MatSnackBarRef } from '@angular/material/snack-bar';
 import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
 
@@ -11,6 +11,7 @@ import { FlSnackBarInfoInput, FlSnackBarMode } from '../../model/fl-snack-bar.cl
   selector: 'fl-snack-bar-info',
   templateUrl: './fl-snack-bar-info.component.html',
   styleUrls: ['./fl-snack-bar-info.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlSnackBarInfoComponent {

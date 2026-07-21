@@ -1,4 +1,4 @@
-import { Component, inject, Injector, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Injector, OnInit } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { ClHelpService } from '@monorepo/core-lib';
@@ -51,6 +51,7 @@ import {
     TranslatePipe,
     MatIconButton,
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   providers: [FlSearchState],
 })
 export class CaCurrentSpaceHierarchyObjectPageComponent implements OnInit {

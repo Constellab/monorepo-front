@@ -1,4 +1,4 @@
-import { Component, effect, inject, input, OnDestroy, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy,Component, effect, inject, input, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import katex from 'katex';
 import { Subscription } from 'rxjs';
@@ -9,6 +9,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './fl-formula-standalone.component.html',
   styleUrl: './fl-formula-standalone.component.scss',
   // use encapsulation to import KaTeX styles
+  changeDetection: ChangeDetectionStrategy.Eager,
   encapsulation: ViewEncapsulation.None,
 })
 export class FlFormulaStandaloneComponent implements OnDestroy {

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy,Component } from '@angular/core';
 
 import { LabMonitoringAppsStatusComponent } from '../lab-monitoring-apps-status/lab-monitoring-apps-status.component';
 import { LabMonitoringBrickDataComponent } from '../lab-monitoring-brick-data/lab-monitoring-brick-data.component';
@@ -8,6 +8,7 @@ import { LabMonitoringShareLinksComponent } from '../lab-monitoring-share-links/
   selector: 'lab-monitoring-other-page',
   templateUrl: './lab-monitoring-other-page.component.html',
   styleUrl: './lab-monitoring-other-page.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     LabMonitoringShareLinksComponent,
     LabMonitoringBrickDataComponent,

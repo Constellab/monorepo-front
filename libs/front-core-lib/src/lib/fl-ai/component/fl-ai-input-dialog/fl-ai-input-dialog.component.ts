@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnDestroy, signal } from '@angular/core';
+import { ChangeDetectionStrategy,Component, computed, inject, OnDestroy, signal } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
@@ -18,6 +18,7 @@ export interface FlAiInputDialogData<T = unknown> {
   selector: 'fl-ai-input-dialog',
   templateUrl: './fl-ai-input-dialog.component.html',
   styleUrl: './fl-ai-input-dialog.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlAiInputDialogComponent implements OnDestroy {

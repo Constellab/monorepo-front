@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatDivider } from '@angular/material/divider';
 import { MatIcon } from '@angular/material/icon';
@@ -29,6 +29,7 @@ import { LabQueueJobsDialogComponent } from '../lab-queue-jobs-dialog/lab-queue-
   selector: 'lab-main-menu-settings',
   templateUrl: './lab-main-menu-settings.component.html',
   styleUrls: ['./lab-main-menu-settings.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     MatButton,
     FlExpansionMenuModule,

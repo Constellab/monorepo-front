@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 
@@ -17,6 +17,7 @@ export interface LmlBrickVersionDetailDialogInput {
   selector: 'lml-brick-version-detail-dialog',
   templateUrl: './lml-brick-version-detail-dialog.component.html',
   styleUrls: ['./lml-brick-version-detail-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class LmlBrickVersionDetailDialogComponent {

@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatDivider } from '@angular/material/divider';
@@ -24,6 +24,7 @@ import { HaSpaceService } from '../../../ha-core/ha-service/ha-space.service';
   selector: 'ha-edit-brick-form',
   templateUrl: './ha-edit-brick-form.component.html',
   styleUrls: ['./ha-edit-brick-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlInputFileModule,
     ReactiveFormsModule,

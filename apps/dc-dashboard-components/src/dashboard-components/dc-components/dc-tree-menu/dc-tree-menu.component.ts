@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, effect, EventEmitter, input, Output, Signal, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy,Component, effect, EventEmitter, input, Output, Signal, viewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTree, MatTreeModule } from '@angular/material/tree';
@@ -29,6 +29,7 @@ export interface DcTreeItemOutput {
   selector: 'dc-tree',
   imports: [MatTreeModule, MatIconModule, MatButtonModule, FlIconModule, NgClass],
   templateUrl: './dc-tree-menu.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './dc-tree-menu.component.scss',
 })
 export class DcTreeMenuComponent implements DcDynamicComponent<DcTreeConfig, DcTreeItemOutput> {

@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
@@ -22,6 +22,7 @@ import { HaPartner } from '../../../ha-core/ha-model/ha-entities/ha-partner';
     MatCheckbox,
   ],
   templateUrl: './ha-admin-panel-partners-search-form.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './ha-admin-panel-partners-search-form.component.scss',
 })
 export class HaAdminPanelPartnersSearchFormComponent implements OnInit {

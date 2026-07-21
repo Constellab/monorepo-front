@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatOption } from '@angular/material/core';
@@ -33,6 +33,7 @@ export interface CaSpaceInvitFormDialogInput {
   selector: 'ca-space-invit-form-dialog',
   templateUrl: './ca-space-invit-form-dialog.component.html',
   styleUrls: ['./ca-space-invit-form-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlDialogModule,
     MatDialogContent,

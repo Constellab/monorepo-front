@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -30,6 +30,7 @@ import { LiFormTemplateTableComponent } from '../li-form-template-table/li-form-
   selector: 'li-form-template-search',
   templateUrl: './li-form-template-search.component.html',
   providers: [FlSearchState],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlSearchModule,
     LiFormTemplateSearchFormComponent,

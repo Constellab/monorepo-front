@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
@@ -13,6 +13,7 @@ export interface LmlDockerUpFormInput {
   selector: 'lml-docker-up-form',
   templateUrl: './lml-docker-up-form.component.html',
   styleUrls: ['./lml-docker-up-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class LmlDockerUpFormComponent {

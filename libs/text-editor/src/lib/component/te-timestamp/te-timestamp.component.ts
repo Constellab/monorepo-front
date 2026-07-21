@@ -1,4 +1,4 @@
-import { Component, inject, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input } from '@angular/core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { DateTime } from 'luxon';
 
@@ -19,6 +19,7 @@ import {
   host: {
     'attr.contenteditable': 'false',
   },
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class TeTimestampComponent extends TeElementBlockDirective {

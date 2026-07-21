@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy,Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { select } from 'd3';
 
 import { ChChartSVGLegend } from '../../../model/legend/ch-chart-legend.class';
@@ -11,6 +11,7 @@ import { ChChartRightSectionDirective } from '../ch-chart-right-section.directiv
   selector: 'ch-chart-legend-heat-map',
   templateUrl: './ch-chart-legend-heat-map.component.html',
   styleUrls: ['./ch-chart-legend-heat-map.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class ChChartLegendHeatMapComponent

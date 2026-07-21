@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject, Input, OnInit, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input, OnInit, viewChild } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
@@ -19,6 +19,7 @@ import { CaFolderDescriptionTextEditorConfig } from './ca-folder-description-tex
   selector: 'ca-folder-description',
   templateUrl: './ca-folder-description.component.html',
   styleUrls: ['./ca-folder-description.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlSectionModule,
     CaHierarchyObjectIconComponent,

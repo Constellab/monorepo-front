@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Input } from '@angular/core';
 
 import { TdTypeEntity } from '../../model/td-type.class';
 
@@ -6,6 +6,7 @@ import { TdTypeEntity } from '../../model/td-type.class';
   selector: 'td-technical-doc',
   templateUrl: './td-technical-doc.component.html',
   styleUrls: ['./td-technical-doc.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class TdTechnicalDocComponent {

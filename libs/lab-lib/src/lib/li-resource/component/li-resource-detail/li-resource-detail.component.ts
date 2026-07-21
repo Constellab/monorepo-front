@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit, Signal } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input, OnInit, Signal } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -18,6 +18,7 @@ import { LiResourceViewDetailComponent } from '../li-resource-view-detail/li-res
   templateUrl: './li-resource-detail.component.html',
   styleUrls: ['./li-resource-detail.component.scss'],
   providers: [LiResourceDetailState, LiViewConfigurerState, FlQueryParamHandler],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     LiResourceChildrenTabsComponent,
     LiResourceDetailHeaderComponent,

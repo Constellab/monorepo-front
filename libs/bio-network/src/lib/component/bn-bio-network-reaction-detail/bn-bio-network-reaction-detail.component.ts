@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Input } from '@angular/core';
 
 import { BnBioNetworkReaction } from '../../model/bn-bio-network.class';
 
@@ -6,6 +6,7 @@ import { BnBioNetworkReaction } from '../../model/bn-bio-network.class';
   selector: 'bn-bio-network-reaction-detail',
   templateUrl: './bn-bio-network-reaction-detail.component.html',
   styleUrls: ['./bn-bio-network-reaction-detail.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class BnBioNetworkReactionDetailComponent {

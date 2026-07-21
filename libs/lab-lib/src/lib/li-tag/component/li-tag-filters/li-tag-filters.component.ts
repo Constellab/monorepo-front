@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, EventEmitter, inject, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy,Component, EventEmitter, inject, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import {
   MatExpansionPanel,
@@ -34,6 +34,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   selector: 'li-tag-filters',
   templateUrl: './li-tag-filters.component.html',
   styleUrls: ['./li-tag-filters.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     MatExpansionPanel,
     MatExpansionPanelHeader,

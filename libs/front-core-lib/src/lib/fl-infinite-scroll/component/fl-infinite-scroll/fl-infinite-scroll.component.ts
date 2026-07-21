@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Input, OnInit } from '@angular/core';
 import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
 
 import { FlInfiniteScrollMode } from '../../directive/fl-infinite-scroll/fl-infinite-scroll.directive';
@@ -11,6 +11,7 @@ import { FlInfiniteScrollMode } from '../../directive/fl-infinite-scroll/fl-infi
   selector: 'fl-infinite-scroll',
   templateUrl: './fl-infinite-scroll.component.html',
   styleUrls: ['./fl-infinite-scroll.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlInfiniteScrollComponent implements OnInit {

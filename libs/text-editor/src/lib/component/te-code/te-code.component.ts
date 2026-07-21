@@ -1,4 +1,4 @@
-import { Component, HostListener, Input, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy,Component, HostListener, Input, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { flCheckLanguage, FlCodeEditorComponent } from '@monorepo/front-core-lib/fl-code-editor';
 import { FlCodeEditorLanguage } from '@monorepo/front-core-lib/fl-code-editor';
@@ -9,6 +9,7 @@ import { TeElementBlockDirective } from '../../model/te-element.directive';
   selector: 'te-code',
   templateUrl: './te-code.component.html',
   styleUrl: './te-code.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class TeCodeComponent extends TeElementBlockDirective {

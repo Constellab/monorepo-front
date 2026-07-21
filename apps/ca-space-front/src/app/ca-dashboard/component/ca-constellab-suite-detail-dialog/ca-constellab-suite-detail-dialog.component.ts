@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
@@ -20,6 +20,7 @@ export interface CaConstellabSuiteDetailDialogInput {
   selector: 'ca-constellab-suite-detail-dialog',
   templateUrl: './ca-constellab-suite-detail-dialog.component.html',
   styleUrls: ['./ca-constellab-suite-detail-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlDialogModule,
     MatButton,

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy,Component } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { RouterOutlet } from '@angular/router';
 import {
@@ -13,6 +13,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   selector: 'lab-monitoring-page',
   templateUrl: './lab-monitoring-page.component.html',
   styleUrls: ['./lab-monitoring-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlHorizontalNavBarModule, FlTextIconModule, MatIcon, RouterOutlet, TranslatePipe],
 })
 export class LabMonitoringPageComponent {

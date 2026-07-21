@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy,Component } from '@angular/core';
 
 import { FlDynamicFieldAbstractDirective } from '../../model/fl-dynamic-field-abstract.directive';
 
@@ -6,6 +6,7 @@ import { FlDynamicFieldAbstractDirective } from '../../model/fl-dynamic-field-ab
   selector: 'fl-dynamic-field-textarea',
   templateUrl: './fl-dynamic-field-textarea.component.html',
   styleUrls: ['./fl-dynamic-field-textarea.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlDynamicFieldTextareaComponent extends FlDynamicFieldAbstractDirective {}

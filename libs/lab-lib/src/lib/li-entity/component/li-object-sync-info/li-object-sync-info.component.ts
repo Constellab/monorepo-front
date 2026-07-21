@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Input } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
@@ -12,6 +12,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   selector: 'li-object-sync-info',
   templateUrl: './li-object-sync-info.component.html',
   styleUrls: ['./li-object-sync-info.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatIcon, FlUserModule, FlTextIconModule, TranslatePipe],
 })
 export class LiObjectSyncInfoComponent {

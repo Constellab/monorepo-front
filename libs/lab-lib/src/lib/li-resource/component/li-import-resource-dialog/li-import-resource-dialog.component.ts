@@ -1,4 +1,4 @@
-import { Component, inject,OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
@@ -55,6 +55,7 @@ export interface LiImportResourceDialogInput {
     // configure the dynamic field to support tags and other custom fields
     { provide: FlDynamicFieldConfigService, useClass: LiProcessDynamicFieldConfig },
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlDialogModule,
     MatDialogContent,

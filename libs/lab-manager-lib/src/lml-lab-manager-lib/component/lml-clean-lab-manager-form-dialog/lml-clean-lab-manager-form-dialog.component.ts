@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 
@@ -6,6 +6,7 @@ import { MatDialogRef } from '@angular/material/dialog';
   selector: 'lml-clean-lab-manager-form-dialog',
   templateUrl: './lml-clean-lab-manager-form-dialog.component.html',
   styleUrls: ['./lml-clean-lab-manager-form-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class LmlCleanLabManagerFormDialogComponent {

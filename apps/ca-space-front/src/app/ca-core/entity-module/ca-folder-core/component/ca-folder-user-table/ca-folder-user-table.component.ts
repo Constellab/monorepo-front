@@ -1,4 +1,4 @@
-import { Component, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
@@ -32,6 +32,7 @@ import {
     MatButtonModule,
   ],
   templateUrl: './ca-folder-user-table.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './ca-folder-user-table.component.scss',
 })
 export class CaFolderUserTableComponent {

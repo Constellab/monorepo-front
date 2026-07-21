@@ -1,4 +1,4 @@
-import { Component, computed, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, computed, inject, input } from '@angular/core';
 
 import { LmlBrickService } from '../../lml-brick.service';
 import { LmlBrickVersion } from '../../model/lml-brick.class';
@@ -10,6 +10,7 @@ import { LmlBrickVersion } from '../../model/lml-brick.class';
   selector: 'lml-brick-version-detail',
   templateUrl: './lml-brick-version-detail.component.html',
   styleUrls: ['./lml-brick-version-detail.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class LmlBrickVersionDetailComponent {

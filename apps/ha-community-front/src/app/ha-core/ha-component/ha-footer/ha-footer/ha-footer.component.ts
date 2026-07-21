@@ -1,5 +1,5 @@
 import { NgOptimizedImage, NgTemplateOutlet } from '@angular/common';
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, input } from '@angular/core';
 import {
   MatExpansionPanel,
   MatExpansionPanelHeader,
@@ -29,6 +29,7 @@ import { HaFooterSocialsComponent } from '../ha-footer-socials/ha-footer-socials
     TranslatePipe,
     RouterLink,
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./ha-footer.component.scss'],
 })
 export class HaFooterComponent {

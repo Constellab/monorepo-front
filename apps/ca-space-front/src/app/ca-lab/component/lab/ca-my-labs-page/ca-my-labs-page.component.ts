@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
@@ -21,6 +21,7 @@ import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
   selector: 'ca-my-labs-page',
   templateUrl: './ca-my-labs-page.component.html',
   styleUrls: ['./ca-my-labs-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlSectionModule,
     FlTextIconModule,

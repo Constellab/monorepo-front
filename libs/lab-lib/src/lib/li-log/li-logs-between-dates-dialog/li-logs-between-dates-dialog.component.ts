@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy,Component, computed, inject, OnInit, signal } from '@angular/core';
 import { MatButton, MatIconAnchor } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
@@ -26,6 +26,7 @@ export interface LiLogBetweenDatesDialogInput {
   selector: 'li-logs-between-dates-dialog',
   templateUrl: './li-logs-between-dates-dialog.component.html',
   styleUrls: ['./li-logs-between-dates-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlDialogModule,
     MatIconAnchor,

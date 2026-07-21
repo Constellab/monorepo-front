@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
@@ -42,6 +42,7 @@ import {
     MatTooltip,
   ],
   templateUrl: './ca-hierarchy-object-token-table.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './ca-hierarchy-object-token-table.component.scss',
 })
 export class CaHierarchyObjectTokenTableComponent {

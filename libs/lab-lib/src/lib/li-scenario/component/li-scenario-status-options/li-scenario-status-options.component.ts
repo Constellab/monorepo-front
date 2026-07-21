@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, inject } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MatOption } from '@angular/material/core';
 import { MatSelect } from '@angular/material/select';
 import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib/fl-core';
@@ -10,6 +10,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   selector: 'li-scenario-status-options',
   templateUrl: './li-scenario-status-options.component.html',
   styleUrls: ['./li-scenario-status-options.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatOption, TranslatePipe],
 })
 export class LiScenarioStatusOptionsComponent

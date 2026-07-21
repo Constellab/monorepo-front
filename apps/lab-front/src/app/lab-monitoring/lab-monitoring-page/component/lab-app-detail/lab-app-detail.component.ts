@@ -1,4 +1,4 @@
-import { Component, inject, input, output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, input, output } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
@@ -35,6 +35,7 @@ import { LabMonitoringAppDetailComponent } from '../lab-monitoring-app-detail/la
   selector: 'lab-app-detail',
   templateUrl: './lab-app-detail.component.html',
   styleUrl: './lab-app-detail.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlCardModule,
     FlKeyValueModule,

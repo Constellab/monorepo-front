@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, signal, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy,Component, ElementRef, OnInit, signal, ViewChild } from '@angular/core';
 import { LiPaginatedResponse } from '@monorepo/lab-lib/li-core';
 
 import {
@@ -34,6 +34,7 @@ const FAKE_ITEMS: FakeItem[] = [
   selector: 'dc-input-search-dev',
   imports: [DcInputSearchComponent],
   templateUrl: './dc-input-search-dev.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: '../dc-dev-examples.scss',
 })
 export class DcInputSearchDevComponent implements OnInit {

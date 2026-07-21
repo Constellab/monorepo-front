@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatDatepicker, MatDatepickerInput, MatDatepickerToggle } from '@angular/material/datepicker';
@@ -26,6 +26,7 @@ export interface CaServerPriceFormDialogInput extends FlFormDialogInput<CaCreate
   selector: 'ca-server-price-form-dialog',
   templateUrl: './ca-server-price-form-dialog.component.html',
   styleUrl: './ca-server-price-form-dialog.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlDialogModule,
     MatDialogContent,

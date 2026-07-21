@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Input } from '@angular/core';
 import { RvResourceView } from '@monorepo/resource-view';
 import { RvResourceViewModule } from '@monorepo/resource-view';
 import { TeElementBlockDirective } from '@monorepo/text-editor';
@@ -10,6 +10,7 @@ import { HaDocViewConfig } from '../ha-doc-content-view.class';
   selector: 'ha-doc-content-view',
   templateUrl: './ha-doc-content-view.component.html',
   styleUrls: ['./ha-doc-content-view.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [RvResourceViewModule],
 })
 export class HaDocContentViewComponent extends TeElementBlockDirective {

@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 
@@ -7,6 +7,7 @@ import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
   templateUrl: './ha-feature-card.component.html',
   styleUrls: ['./ha-feature-card.component.scss'],
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatIconModule, FlIconModule],
 })
 export class HaFeatureCardComponent {

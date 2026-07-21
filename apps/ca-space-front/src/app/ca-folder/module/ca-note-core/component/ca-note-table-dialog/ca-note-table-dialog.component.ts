@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
 import { FlArrayObs } from '@monorepo/front-core-lib/fl-core';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
@@ -20,6 +20,7 @@ export interface CaNoteTableDialogInput {
   selector: 'ca-note-table-dialog',
   imports: [FlDialogModule, FlTranslateModule, MatDialogContent, CaNoteTableComponent, AsyncPipe],
   templateUrl: './ca-note-table-dialog.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './ca-note-table-dialog.component.scss',
 })
 export class CaNoteTableDialogComponent {

@@ -1,5 +1,5 @@
 import { DecimalPipe } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Input } from '@angular/core';
 import {
   MatCell,
   MatCellDef,
@@ -24,6 +24,7 @@ import { CaLabRunningStatus } from '../../../../ca-core/model/entities/lab/ca-la
   selector: 'ca-lab-running-status-table',
   templateUrl: './ca-lab-running-status-table.component.html',
   styleUrls: ['./ca-lab-running-status-table.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     MatTable,
     MatColumnDef,

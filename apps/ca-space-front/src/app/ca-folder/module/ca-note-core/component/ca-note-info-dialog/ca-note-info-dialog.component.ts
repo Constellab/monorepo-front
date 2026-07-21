@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
@@ -26,6 +26,7 @@ import { CaNoteService } from '../../../../../ca-core/service-api/ca-note.servic
     CaHierarchyObjectIconComponent,
   ],
   templateUrl: './ca-note-info-dialog.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './ca-note-info-dialog.component.scss',
 })
 export class CaNoteInfoDialogComponent {

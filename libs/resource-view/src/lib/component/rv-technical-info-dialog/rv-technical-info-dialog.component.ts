@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { RvTechnicalInfo } from '../../model/rv-technical-info.class';
@@ -10,6 +10,7 @@ import { RvTechnicalInfo } from '../../model/rv-technical-info.class';
   selector: 'rv-technical-info-dialog',
   templateUrl: './rv-technical-info-dialog.component.html',
   styleUrls: ['./rv-technical-info-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class RvTechnicalInfoDialogComponent {

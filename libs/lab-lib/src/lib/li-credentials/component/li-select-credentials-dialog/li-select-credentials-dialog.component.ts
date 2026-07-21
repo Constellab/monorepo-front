@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
@@ -11,6 +11,7 @@ import { LiCredentialsSearchComponent } from '../li-credentials-search/li-creden
   selector: 'li-select-credentials-dialog',
   templateUrl: './li-select-credentials-dialog.component.html',
   styleUrls: ['./li-select-credentials-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlDialogModule, MatDialogContent, LiCredentialsSearchComponent, TranslatePipe],
 })
 export class LiSelectCredentialsDialogComponent {

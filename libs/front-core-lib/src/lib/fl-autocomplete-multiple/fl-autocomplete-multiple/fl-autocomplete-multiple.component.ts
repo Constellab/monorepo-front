@@ -1,5 +1,5 @@
 import { TAB } from '@angular/cdk/keycodes';
-import { Component, ElementRef, EventEmitter, inject, Input, Output, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy,Component, ElementRef, EventEmitter, inject, Input, Output, ViewChild } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
@@ -11,6 +11,7 @@ import { Observable, of } from 'rxjs';
   selector: 'fl-autocomplete-multiple',
   templateUrl: './fl-autocomplete-multiple.component.html',
   styleUrls: ['./fl-autocomplete-multiple.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlAutocompleteMultipleComponent<T = any> extends FlFormFieldDirective<T[]> {

@@ -1,4 +1,4 @@
-import { Component, inject,OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
@@ -17,6 +17,7 @@ import { map } from 'rxjs/operators';
   selector: 'lab-monitoring-logs-page',
   templateUrl: './lab-monitoring-logs-page.component.html',
   styleUrls: ['./lab-monitoring-logs-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlCardModule,
     FlTextIconModule,

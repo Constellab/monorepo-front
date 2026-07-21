@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { MatAnchor, MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
@@ -37,6 +37,7 @@ import {
   ],
   providers: [FlSearchState],
   templateUrl: './ha-admin-panel-stories.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './ha-admin-panel-stories.component.scss',
 })
 export class HaAdminPanelStoriesComponent implements OnInit {

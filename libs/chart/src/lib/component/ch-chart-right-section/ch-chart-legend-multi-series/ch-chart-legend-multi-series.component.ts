@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, Input } from '@angular/core';
 
 import { ChChartSerieSimple } from '../../../model/data/ch-chart-serie.class';
 import { ChChartScaleColor } from '../../../model/scale/ch-chart-scale-color.class';
@@ -16,6 +16,7 @@ export interface ChChartLegendMultiSeriesInput {
   selector: 'ch-chart-legend-multi-series',
   templateUrl: './ch-chart-legend-multi-series.component.html',
   styleUrls: ['./ch-chart-legend-multi-series.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class ChChartLegendMultiSeriesComponent extends ChChartRightSectionDirective<

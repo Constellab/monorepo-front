@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
@@ -18,6 +18,7 @@ import { CaAppCardComponent } from '../ca-app-core/ca-app-card/ca-app-card.compo
   selector: 'ca-my-apps-page',
   templateUrl: './ca-my-apps-page.component.html',
   styleUrls: ['./ca-my-apps-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlSectionModule,
     FlTextIconModule,

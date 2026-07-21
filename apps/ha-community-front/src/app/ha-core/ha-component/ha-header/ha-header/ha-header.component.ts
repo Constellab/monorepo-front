@@ -1,5 +1,5 @@
 import { NgClass, NgOptimizedImage } from '@angular/common';
-import { Component, effect, inject, input, signal, WritableSignal } from '@angular/core';
+import { ChangeDetectionStrategy,Component, effect, inject, input, signal, WritableSignal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { MatButton } from '@angular/material/button';
 import { MatDivider } from '@angular/material/divider';
@@ -25,6 +25,7 @@ import { HaInstantSearchDialogComponent } from '../../ha-instant-search-dialog/h
   selector: 'ha-header',
   templateUrl: './ha-header.component.html',
   styleUrls: ['./ha-header.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     NgClass,
     RouterLink,

@@ -1,4 +1,4 @@
-import { Component, inject, Injector, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Injector, OnInit } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { MatIconButton } from '@angular/material/button';
 import { MatCheckbox } from '@angular/material/checkbox';
@@ -73,6 +73,7 @@ export type CaHierarchyObjectTrashDialogInput =
   ],
   templateUrl: './ca-hierarchy-object-trash-dialog.component.html',
   styleUrl: './ca-hierarchy-object-trash-dialog.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   providers: [FlSearchState],
 })
 export class CaHierarchyObjectTrashDialogComponent implements OnInit {

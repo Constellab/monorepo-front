@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   EventEmitter,
   inject,
@@ -6,8 +7,7 @@ import {
   OnDestroy,
   Output,
   TemplateRef,
-  ViewChild,
-} from '@angular/core';
+  ViewChild} from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 
@@ -18,6 +18,7 @@ import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
   selector: 'te-title-caption',
   templateUrl: './te-title-caption.component.html',
   styleUrls: ['./te-title-caption.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class TeTitleCaptionComponent implements OnDestroy {

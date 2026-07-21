@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatExpansionPanel, MatExpansionPanelHeader } from '@angular/material/expansion';
 import { MatIcon } from '@angular/material/icon';
@@ -19,6 +19,7 @@ import { CaLabDetailServerState } from '../../../state/ca-lab-detail-server.stat
   selector: 'ca-lab-server',
   templateUrl: './ca-lab-server.component.html',
   styleUrls: ['./ca-lab-server.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlCardModule,
     FlTextIconModule,

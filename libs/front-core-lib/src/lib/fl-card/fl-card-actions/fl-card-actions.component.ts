@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy,Component } from '@angular/core';
 
 /**
  * The actions on top right of the <fl-card> {@link FlCardComponent}
@@ -9,6 +9,7 @@ import { Component } from '@angular/core';
   selector: 'fl-card-actions',
   templateUrl: './fl-card-actions.component.html',
   styleUrls: ['./fl-card-actions.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlCardActionsComponent {}

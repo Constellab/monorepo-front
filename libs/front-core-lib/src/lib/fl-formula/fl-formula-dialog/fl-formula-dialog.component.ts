@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
@@ -13,6 +13,7 @@ export interface FlFormulaDialogInput extends FlFormDialogInput<string> {
   selector: 'fl-formula-dialog',
   templateUrl: './fl-formula-dialog.component.html',
   styleUrls: ['./fl-formula-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlFormulaDialogComponent implements OnInit {

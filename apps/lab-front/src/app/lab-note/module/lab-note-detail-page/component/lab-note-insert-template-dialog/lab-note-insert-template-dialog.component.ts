@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
@@ -26,6 +26,7 @@ export interface LabNoteInsertTemplateDialogData {
   selector: 'lab-note-insert-template-dialog',
   templateUrl: './lab-note-insert-template-dialog.component.html',
   styleUrl: './lab-note-insert-template-dialog.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlDialogModule,
     FlTextIconModule,

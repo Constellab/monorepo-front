@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
@@ -24,6 +24,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   selector: 'lab-monitoring-share-links',
   templateUrl: './lab-monitoring-share-links.component.html',
   styleUrls: ['./lab-monitoring-share-links.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlCardModule,
     FlTextIconModule,

@@ -1,4 +1,4 @@
-import { Component, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, input } from '@angular/core';
 import { MatAnchor, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -18,6 +18,7 @@ import { CaLabConfig } from '../../../../model/entities/lab/ca-lab-config.class'
   selector: 'ca-lab-config',
   templateUrl: './ca-lab-config.component.html',
   styleUrls: ['./ca-lab-config.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlKeyValueModule, MatAnchor, MatIconButton, MatTooltip, MatIcon, TranslatePipe],
 })
 export class CaLabConfigComponent {

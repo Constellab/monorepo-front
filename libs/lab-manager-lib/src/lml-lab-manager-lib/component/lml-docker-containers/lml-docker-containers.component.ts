@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input, OnInit } from '@angular/core';
 import { FlStatusEvent } from '@monorepo/front-core-lib/fl-core';
 import { Observable } from 'rxjs';
 
@@ -9,6 +9,7 @@ import { LmlDockerInspect } from '../../model/lml-lab-manager.class';
   selector: 'lml-docker-containers',
   templateUrl: './lml-docker-containers.component.html',
   styleUrls: ['./lml-docker-containers.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class LmlDockerContainersComponent implements OnInit {

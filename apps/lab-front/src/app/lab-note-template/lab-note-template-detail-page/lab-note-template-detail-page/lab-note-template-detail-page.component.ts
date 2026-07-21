@@ -1,4 +1,4 @@
-import { Component, inject, Injector, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Injector, OnInit } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
@@ -28,6 +28,7 @@ import { LabNoteTemplateTextEditorConfig } from '../lab-note-template-text-edito
   selector: 'lab-note-template-detail-page',
   templateUrl: './lab-note-template-detail-page.component.html',
   styleUrls: ['./lab-note-template-detail-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlSectionModule,
     FlTextIconModule,

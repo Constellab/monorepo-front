@@ -1,4 +1,4 @@
-import { Component, inject,Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, Input, OnInit } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { FlEntityPaginatedDatasource, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
@@ -16,6 +16,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   selector: 'li-scenarios-using-resource',
   templateUrl: './li-scenarios-using-resource.component.html',
   styleUrls: ['./li-scenarios-using-resource.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlCardModule,
     FlTextIconModule,

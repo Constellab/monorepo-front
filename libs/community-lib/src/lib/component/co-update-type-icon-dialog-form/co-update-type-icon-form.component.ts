@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { FlColorHelper, FlFormFieldDirective } from '@monorepo/front-core-lib/fl-core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
@@ -12,6 +12,7 @@ import { CoCommunityIconSelectDialogComponent } from '../co-community-icon-selec
   selector: 'co-update-type-icon-form',
   templateUrl: './co-update-type-icon-form.component.html',
   styleUrl: './co-update-type-icon-form.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class CoUpdateTypeIconFormComponent extends FlFormFieldDirective<TdTypeStyle> {

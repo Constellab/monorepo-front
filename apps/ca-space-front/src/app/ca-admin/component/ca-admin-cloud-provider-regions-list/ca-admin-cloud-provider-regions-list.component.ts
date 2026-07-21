@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -23,6 +23,7 @@ import { CaAdminCloudProviderRegionTableComponent } from '../ca-admin-cloud-prov
   selector: 'ca-admin-bucket-regions-list',
   templateUrl: './ca-admin-cloud-provider-regions-list.component.html',
   styleUrls: ['./ca-admin-cloud-provider-regions-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlCardModule,
     FlTextIconModule,

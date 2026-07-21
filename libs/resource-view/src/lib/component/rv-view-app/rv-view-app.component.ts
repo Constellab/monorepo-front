@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { interval, Observable, Subscription } from 'rxjs';
@@ -22,6 +22,7 @@ export interface RvAppProcessStatus {
   selector: 'rv-view-app',
   templateUrl: './rv-view-app.component.html',
   styleUrl: './rv-view-app.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class RvViewAppComponent

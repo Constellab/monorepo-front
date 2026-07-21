@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { CaLabDetailConfigPageState } from '../../../state/ca-lab-detail-config-page.state';
@@ -15,6 +15,7 @@ import { CaLabGlobalStatusComponent } from '../ca-lab-global-status/ca-lab-globa
   selector: 'ca-lab-config-page',
   templateUrl: './ca-lab-config-page.component.html',
   styleUrls: ['./ca-lab-config-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [CaLabGlobalStatusComponent, CaLabManagerComponent, CaLabGreenOptionsComponent, AsyncPipe],
 })
 export class CaLabConfigPageComponent implements OnInit {

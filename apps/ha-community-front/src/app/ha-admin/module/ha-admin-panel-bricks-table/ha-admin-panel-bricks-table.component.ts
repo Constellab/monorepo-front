@@ -1,4 +1,4 @@
-import { Component, input, output } from '@angular/core';
+import { ChangeDetectionStrategy,Component, input, output } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatSortHeader } from '@angular/material/sort';
@@ -52,6 +52,7 @@ export interface HaAdminPanelBricksTableActionEvent {
     CoCommunityLibModule,
   ],
   templateUrl: './ha-admin-panel-bricks-table.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './ha-admin-panel-bricks-table.component.scss',
 })
 export class HaAdminPanelBricksTableComponent {
