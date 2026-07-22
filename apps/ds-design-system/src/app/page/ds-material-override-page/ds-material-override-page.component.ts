@@ -20,7 +20,7 @@ import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
-import { FL_ICONS_DEFAULT, FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FL_ICONS_DEFAULT, FlIconModule, FlMatIcon, FlSvgIcon } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
 
 import { DsExampleComponent } from '../../component/ds-example/ds-example.component';
@@ -72,8 +72,15 @@ export class DsMaterialOverridePageComponent {
 
   protected readonly isDark = signal(this.themeService.isDarkTheme());
 
-  /** All custom FlIcons registered by the front-core-lib, shown by their registered name. */
-  protected readonly customIcons = FL_ICONS_DEFAULT;
+  /** Custom FlIcons backed by an SVG file (have a `filename`). */
+  protected readonly svgIcons = FL_ICONS_DEFAULT.filter(
+    (icon): icon is FlSvgIcon => 'filename' in icon
+  );
+
+  /** Custom FlIcons that rename an existing Material symbol (have a `matIconName`). */
+  protected readonly matIcons = FL_ICONS_DEFAULT.filter(
+    (icon): icon is FlMatIcon => 'matIconName' in icon
+  );
 
   // Form field demo controls
   protected readonly textControl = new FormControl('');

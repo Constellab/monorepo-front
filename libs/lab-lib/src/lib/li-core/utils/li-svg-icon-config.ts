@@ -4,8 +4,7 @@ import { FL_ICONS_DEFAULT, FlIcon } from '@monorepo/front-core-lib/fl-svg-icon';
 
 export const LI_SVG_ICONS: FlIcon[] = [
   ...FL_ICONS_DEFAULT,
-  { name: 'database', filename: 'database-solid.svg' },
-  { name: 'dna', filename: 'dna-solid.svg' },
-  { name: 'ontology', filename: 'folder-diagram-solid.svg' },
-  { name: 'code', filename: 'laptop-code-solid.svg' },
+  { name: 'dna', matIconName: 'genetics' },
+  { name: 'ontology', matIconName: 'account_tree' },
+  { name: 'code', matIconName: 'code_blocks' },
 ];

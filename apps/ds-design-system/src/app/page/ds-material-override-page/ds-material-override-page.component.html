@@ -432,12 +432,25 @@
       </fl-card-header>
       <fl-card-body>
         <div class="ds-section-body">
-          <ds-example label="Registered names" code='<mat-icon flIcon="name">'>
+          <ds-example label="SVG icons" code="{ name, filename }">
             <div class="ds-icon-grid">
-              @for (icon of customIcons; track icon.name) {
+              @for (icon of svgIcons; track icon.name) {
                 <div class="ds-icon-cell">
                   <mat-icon [flIcon]="icon.name"></mat-icon>
                   <span class="ds-icon-name g-text-small">{{ icon.name }}</span>
+                  <span class="ds-icon-source g-text-tiny">{{ icon.filename }}</span>
+                </div>
+              }
+            </div>
+          </ds-example>
+
+          <ds-example label="Material overrides (renamed symbols)" code="{ name, matIconName }">
+            <div class="ds-icon-grid">
+              @for (icon of matIcons; track icon.name) {
+                <div class="ds-icon-cell">
+                  <mat-icon [flIcon]="icon.name"></mat-icon>
+                  <span class="ds-icon-name g-text-small">{{ icon.name }}</span>
+                  <span class="ds-icon-source g-text-tiny">{{ icon.matIconName }}</span>
                 </div>
               }
             </div>
