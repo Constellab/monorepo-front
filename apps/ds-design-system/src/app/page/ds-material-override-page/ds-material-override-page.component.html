@@ -18,7 +18,7 @@
     <fl-card>
       <fl-card-header>
         <div class="ds-section-title">Buttons</div>
-        <p class="ds-section-description">
+        <p class="ds-section-description g-text-normal">
           Buttons are pill-shaped and uppercased. Sizes, greyed and dashed variants come from override
           classes.
         </p>
@@ -112,7 +112,7 @@
     <fl-card>
       <fl-card-header>
         <div class="ds-section-title">Info banner</div>
-        <p class="ds-section-description">
+        <p class="ds-section-description g-text-normal">
           Full-width rounded notice (leading icon + title + body + projected trailing action) in each colour
           variant.
         </p>
@@ -166,7 +166,7 @@
     <fl-card>
       <fl-card-header>
         <div class="ds-section-title">Form fields</div>
-        <p class="ds-section-description">
+        <p class="ds-section-description g-text-normal">
           Form fields use the outline appearance at reduced density. Compact and no-hint variants come from
           override classes.
         </p>
@@ -201,7 +201,9 @@
             <div class="g-form-field-compact">
               <mat-form-field class="g-form-field-no-hint">
                 <mat-label>Compact</mat-label>
+                <mat-icon matPrefix>search</mat-icon>
                 <input matInput placeholder="Reduced height & width" />
+                <button mat-icon-button matSuffix aria-label="Clear"><mat-icon>close</mat-icon></button>
               </mat-form-field>
             </div>
           </ds-example>
@@ -217,7 +219,7 @@
     <fl-card>
       <fl-card-header>
         <div class="ds-section-title">Select</div>
-        <p class="ds-section-description">mat-select with the capitalize override on the selected value.</p>
+        <p class="ds-section-description g-text-normal">mat-select with the capitalize override on the selected value.</p>
       </fl-card-header>
       <fl-card-body>
         <div class="ds-section-body">
@@ -239,7 +241,7 @@
     <fl-card>
       <fl-card-header>
         <div class="ds-section-title">Checkbox, radio & toggle</div>
-        <p class="ds-section-description">
+        <p class="ds-section-description g-text-normal">
           Reduced-density checkbox and radio. The big radio variant turns a radio into a bordered card.
         </p>
       </fl-card-header>
@@ -283,7 +285,7 @@
     <fl-card>
       <fl-card-header>
         <div class="ds-section-title">Table</div>
-        <p class="ds-section-description">
+        <p class="ds-section-description g-text-normal">
           Flex mat-table with tightened rows, column-width helpers, selectable and hover rows.
         </p>
       </fl-card-header>
@@ -327,7 +329,7 @@
     <fl-card>
       <fl-card-header>
         <div class="ds-section-title">Chips</div>
-        <p class="ds-section-description">Grey rounded chips via the override mixin.</p>
+        <p class="ds-section-description g-text-normal">Grey rounded chips via the override mixin.</p>
       </fl-card-header>
       <fl-card-body>
         <div class="ds-section-body">
@@ -349,7 +351,7 @@
     <fl-card>
       <fl-card-header>
         <div class="ds-section-title">Tabs</div>
-        <p class="ds-section-description">Tab group with the dense and card-background header overrides.</p>
+        <p class="ds-section-description g-text-normal">Tab group with the dense and card-background header overrides.</p>
       </fl-card-header>
       <fl-card-body>
         <div class="ds-section-body">
@@ -374,7 +376,7 @@
     <fl-card>
       <fl-card-header>
         <div class="ds-section-title">Tooltip</div>
-        <p class="ds-section-description">Tooltip with multiline support override.</p>
+        <p class="ds-section-description g-text-normal">Tooltip with multiline support override.</p>
       </fl-card-header>
       <fl-card-body>
         <div class="ds-section-body">
@@ -396,7 +398,7 @@
     <fl-card>
       <fl-card-header>
         <div class="ds-section-title">Snackbar</div>
-        <p class="ds-section-description">
+        <p class="ds-section-description g-text-normal">
           FlSnackBarService success / error messages and raw container color variants.
         </p>
       </fl-card-header>
@@ -420,6 +422,32 @@
             <button mat-flat-button class="warn" (click)="openSnackbar('g-snackbar-warn')">Warn</button>
             <button mat-stroked-button class="primary" (click)="openSnackbar('g-snackbar-card')">Card</button>
             <button mat-button (click)="openSnackbar('')">Default</button>
+          </ds-example>
+        </div>
+      </fl-card-body>
+    </fl-card>
+
+    <!-- ============================ CUSTOM ICONS ============================ -->
+    <fl-card>
+      <fl-card-header>
+        <div class="ds-section-title">Custom icons</div>
+        <p class="ds-section-description g-text-normal">
+          Custom <code>FlIcon</code>s registered by front-core-lib (<code>FL_ICONS_DEFAULT</code>).
+          Rendered with the <code>flIcon</code> directive by their registered name, which resolves
+          both SVG icons and renamed Material symbols.
+        </p>
+      </fl-card-header>
+      <fl-card-body>
+        <div class="ds-section-body">
+          <ds-example label="Registered names" code="<mat-icon flIcon=&quot;name&quot;>">
+            <div class="ds-icon-grid">
+              @for (icon of customIcons; track icon.name) {
+                <div class="ds-icon-cell">
+                  <mat-icon [flIcon]="icon.name"></mat-icon>
+                  <span class="ds-icon-name g-text-small">{{ icon.name }}</span>
+                </div>
+              }
+            </div>
           </ds-example>
         </div>
       </fl-card-body>

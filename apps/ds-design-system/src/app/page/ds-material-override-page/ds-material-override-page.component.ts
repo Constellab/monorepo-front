@@ -20,6 +20,7 @@ import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
+import { FL_ICONS_DEFAULT, FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
 
 import { DsExampleComponent } from '../../component/ds-example/ds-example.component';
@@ -61,6 +62,7 @@ interface DemoRow {
     FlCardModule,
     FlCoreComponentModule,
     FlLoaderModule,
+    FlIconModule,
     DsExampleComponent,
   ],
 })
@@ -70,6 +72,9 @@ export class DsMaterialOverridePageComponent {
   private readonly flSnackBar = inject(FlSnackBarService);
 
   protected readonly isDark = signal(this.themeService.isDarkTheme());
+
+  /** All custom FlIcons registered by the front-core-lib, shown by their registered name. */
+  protected readonly customIcons = FL_ICONS_DEFAULT;
 
   // Form field demo controls
   protected readonly textControl = new FormControl('');
