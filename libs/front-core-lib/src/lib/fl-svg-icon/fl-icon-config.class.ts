@@ -75,7 +75,7 @@ export const FL_ICONS_DEFAULT: FlIcon[] = [
   { name: 'constellab_document', matIconName: 'description' },
   { name: 'brick', filename: 'brick_logo.svg' },
   { name: 'agent', filename: 'agent_logo.svg' },
-  { name: 'app', filename: 'app_logo.svg' },
+  { name: 'app', matIconName: 'apps' },
   { name: 'story', filename: 'story_logo.svg' },
   { name: 'tag', matIconName: 'local_offer' },
   { name: 'download', filename: 'download.svg' },
