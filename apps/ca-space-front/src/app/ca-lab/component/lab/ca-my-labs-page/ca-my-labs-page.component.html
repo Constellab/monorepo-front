@@ -7,12 +7,7 @@
       </fl-text-icon>
 
       <fl-section-actions>
-        <button
-          *caIsSpaceUser
-          mat-flat-button
-          type="button"
-          (click)="openCreateLabDialog()"
-          class="g-button-grey">
+        <button *caIsSpaceUser mat-flat-button type="button" (click)="openCreateLabDialog()" class="primary">
           <mat-icon>add</mat-icon>
           <span>{{ 'add_new_lab' | translate }}</span>
         </button>

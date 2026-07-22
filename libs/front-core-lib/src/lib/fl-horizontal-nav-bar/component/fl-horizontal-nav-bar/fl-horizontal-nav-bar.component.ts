@@ -1,5 +1,5 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { ChangeDetectionStrategy,Component, inject, input, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, ViewChild } from '@angular/core';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { NavigationEnd, Router } from '@angular/router';
 import { Observable, startWith } from 'rxjs';
@@ -15,8 +15,9 @@ import { FlHorizontalNavBarItem } from '../../fl-horizontal-nav-bar.class';
   selector: 'fl-horizontal-nav-bar',
   templateUrl: './fl-horizontal-nav-bar.component.html',
   styleUrls: ['./fl-horizontal-nav-bar.component.scss'],
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: false,
+  host: { class: 'g-card' },
 })
 export class FlHorizontalNavBarComponent {
   private breakpointObserver = inject(BreakpointObserver);

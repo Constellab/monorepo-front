@@ -22,36 +22,36 @@ export interface FlThemeDetail {
  * Light theme detail
  */
 export const FL_THEME_DETAIL_LIGHT: FlThemeDetail = {
-  primary: '#25b49c',
-  accent: '#c5bbee',
-  warn: '#ff93d0',
-  background: '#F9F8F8',
+  primary: '#1d907d',
+  accent: '#675a9d',
+  warn: '#c35895',
+  background: '#f7fdfc',
   foreground: '#041210',
 
-  primaryContrast: '#041210',
-  accentContrast: '#392a75',
-  warnContrast: '#790f4b',
+  primaryContrast: '#ffffff',
+  accentContrast: '#ffffff',
+  warnContrast: '#ffffff',
 
-  cardBackground: '#EAEAEA',
-  hover: '#D2D2D2',
+  cardBackground: '#ffffff',
+  hover: '#d2d2d2',
 };
 
 /**
  * Dark theme detail
  */
 export const FL_THEME_DETAIL_DARK: FlThemeDetail = {
-  primary: '#25b49c',
-  accent: '#c5bbee',
-  warn: '#ff93d0',
-  background: '#1B1919',
-  foreground: '#E8E8E8',
+  primary: '#1d907d',
+  accent: '#675a9d',
+  warn: '#c35895',
+  background: '#222222',
+  foreground: '#f1f1f1',
 
-  primaryContrast: '#041210',
-  accentContrast: '#392a75',
-  warnContrast: '#790f4b',
+  primaryContrast: '#ffffff',
+  accentContrast: '#ffffff',
+  warnContrast: '#ffffff',
 
-  cardBackground: '#2B2D2E',
-  hover: '#3A3D3D',
+  cardBackground: '#2b2d2e',
+  hover: '#494949',
 };
 
 /**

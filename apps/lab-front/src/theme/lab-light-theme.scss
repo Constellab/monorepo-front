@@ -1,15 +1,5 @@
-@use '@angular/material' as mat;
 @use '../../../../libs/front-core-lib/src/style/theme/base/base-light-theme';
 @use '../../../../libs/text-editor/src/style/te-text-editor-light';
 
 // Style to highlight code in text editor
 @use 'highlight.js/styles/atom-one-light.css';
-
-html {
-  --card-background: #ffffff;
-  @include mat.theme-overrides(
-    (
-      surface: #f7fdfc,
-    )
-  );
-}

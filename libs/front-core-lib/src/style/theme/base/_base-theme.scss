@@ -50,8 +50,8 @@
 
     @include mat.theme-overrides(
       (
-        primary: #c5bbee,
-        on-primary: #392a75,
+        primary: #675a9d,
+        on-primary: #ffffff,
       )
     );
     @include _color_overrides();
@@ -71,8 +71,8 @@
 
     @include mat.theme-overrides(
       (
-        primary: #ff93d0,
-        on-primary: #790f4b,
+        primary: #c35895,
+        on-primary: #ffffff,
       )
     );
     @include _color_overrides();
@@ -91,13 +91,21 @@
     --warn-color: var(--mat-sys-error);
     --warn-color-contrast: var(--mat-sys-on-error);
     --success-color: #22b252;
-    --warning-color: orange;
+    --success-color-soft: #e2f5e9;
+    --warning-color: #ffa500;
+    --warning-color-soft: #fff2dc;
     --color-foreground: var(--mat-sys-on-surface);
     --main-background: var(--mat-sys-surface);
 
     --card-radius: 20px;
     // override to define the card border for both theme
-    --card-border: none;
+    --card-border: 1px solid var(--hover-color);
+
+    // elevation shadows
+    --shadow-1: 0 1px 2px rgba(4, 18, 16, 0.08), 0 1px 3px rgba(4, 18, 16, 0.06);
+    --shadow-2: 0 2px 6px rgba(4, 18, 16, 0.1), 0 1px 2px rgba(4, 18, 16, 0.06);
+    --shadow-3: 0 8px 24px rgba(4, 18, 16, 0.12);
+
     --navbar-height: 4rem;
     --small-navbar-height: 48px;
 
@@ -129,12 +137,18 @@
         background: var(--mat-sys-surface),
         // override the main colors
         // we use the same color for light and dark theme
-        primary: #25b49c,
-        on-primary: #041210,
-        tertiary: #c5bbee,
-        on-tertiary: #392a75,
-        error: #ff93d0,
-        on-error: #790f4b
+        primary: #1d907d,
+        on-primary: #ffffff,
+        primary-container: #d3f0eb,
+        on-primary-container: #07241f,
+        tertiary: #675a9d,
+        on-tertiary: #ffffff,
+        tertiary-container: #eeebfa,
+        on-tertiary-container: #291a67,
+        error: #c35895,
+        on-error: #ffffff,
+        error-container: #ffe9f6,
+        on-error-container: #5c1440
       )
     );
 
@@ -300,6 +314,29 @@
     }
 
     //////////////// OTHER /////////////////////
+    ///
+
+    .g-card {
+      display: block;
+      background-color: var(--card-background);
+      border-radius: var(--card-radius);
+      border: var(--card-border);
+      box-shadow: var(--shadow-1);
+    }
+
+    .cdk-overlay-container {
+      .g-card {
+        background-color: var(--main-background);
+      }
+    }
+
+    // special css for g-card inside g-card
+    .g-card .g-card {
+      background-color: var(--main-background);
+      box-shadow: none;
+      border-radius: 10px;
+    }
+
     .g-card-background {
       background-color: var(--card-background);
     }

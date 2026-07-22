@@ -3,11 +3,8 @@
 }
 
 .sidenav {
-  //width: 5rem;
-  border-right: none;
   top: var(--main-menu-margin) !important;
   bottom: var(--main-menu-margin) !important;
-  background-color: var(--card-background);
   border-radius: 0 var(--card-radius) var(--card-radius) 0;
 }
 

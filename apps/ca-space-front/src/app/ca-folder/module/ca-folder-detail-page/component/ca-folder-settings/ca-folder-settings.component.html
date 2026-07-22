@@ -9,9 +9,9 @@
       <ca-folder-detail-info
         [folder]="folder"
         [canEditFolder]="canEditFolder$ | async"
-        class="section"></ca-folder-detail-info>
+        class="g-card section"></ca-folder-detail-info>
 
-      <div class="section">
+      <div class="g-card section">
         <fl-text-icon>
           <mat-icon>message</mat-icon>
           <h3>{{ 'chat' | translate }}</h3>
@@ -48,12 +48,12 @@
       </div>
 
       @if (canEditFolder$ | async) {
-        <ca-folder-storage-settings [folderId]="folderId" class="section"></ca-folder-storage-settings>
+        <ca-folder-storage-settings [folderId]="folderId" class="g-card section"></ca-folder-storage-settings>
       }
 
       <ca-folder-storage-usage-section
         [folderId]="folderId"
-        class="section"></ca-folder-storage-usage-section>
+        class="g-card section"></ca-folder-storage-usage-section>
 
       @if ((canEditFolder$ | async) && folder; as folder) {
         <div class="g-text-centered delete-button">

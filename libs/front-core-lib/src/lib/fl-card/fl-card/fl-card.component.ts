@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component } from '@angular/core';
+import { Component } from '@angular/core';
 
 /**
  * Graphic component to display a card with a colored header
@@ -17,7 +17,7 @@ import { ChangeDetectionStrategy,Component } from '@angular/core';
   selector: 'fl-card',
   templateUrl: './fl-card.component.html',
   styleUrls: ['./fl-card.component.scss'],
-  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
+  host: { class: 'g-card' },
 })
 export class FlCardComponent {}

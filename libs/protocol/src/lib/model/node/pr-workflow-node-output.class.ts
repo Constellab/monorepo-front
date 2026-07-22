@@ -2,6 +2,7 @@ import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
 import { TdTypingName } from '@monorepo/technical-doc';
 import { map, Observable, of } from 'rxjs';
 
+import { PrWorkflowNodeIcon } from '../../component/pr-workflow-node-content/pr-workflow-node-content.component';
 import { PrProcess } from '../pr-process.class';
 import { PrWorkflowNodeResource, PrWorkNodeIoExternalButton } from './pr-workflow-node-resource.class';
 
@@ -11,7 +12,7 @@ export class PrWorkflowNodeOutput extends PrWorkflowNodeResource<PrProcess> {
     this.generatePorts(object.outputs.ports, 'output');
   }
 
-  protected getDefaultColor(): string {
+  protected getDefaultBackgroundColor(): string {
     return FlThemeService.getInstance().getCurrentThemeDetail().warn;
   }
 
@@ -70,7 +71,11 @@ export class PrWorkflowNodeOutput extends PrWorkflowNodeResource<PrProcess> {
     );
   }
 
-  protected getDefaultIcon(): string {
-    return 'logout';
+  protected getDefaultIcon(): PrWorkflowNodeIcon {
+    return {
+      icon: 'logout',
+      iconType: 'MATERIAL_ICON',
+      iconColor: FlThemeService.getInstance().getCurrentThemeDetail().warnContrast,
+    };
   }
 }

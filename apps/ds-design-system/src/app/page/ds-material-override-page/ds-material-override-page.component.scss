@@ -24,6 +24,21 @@
   gap: 1.5em;
 }
 
+.ds-section-title {
+  font-weight: 600;
+}
+
+.ds-section-description {
+  margin: 0.25em 0 0;
+  color: var(--light-color);
+}
+
+.ds-section-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+}
+
 // Lay inline groups (radios) out horizontally with spacing
 .ds-inline-group {
   display: flex;

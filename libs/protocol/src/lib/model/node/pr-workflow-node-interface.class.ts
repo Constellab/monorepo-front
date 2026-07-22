@@ -2,6 +2,7 @@ import { FlStatusEvent } from '@monorepo/front-core-lib/fl-core';
 import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
 import { map, Observable, of, switchMap } from 'rxjs';
 
+import { PrWorkflowNodeIcon } from '../../component/pr-workflow-node-content/pr-workflow-node-content.component';
 import { PrWorkflowActionState } from '../../state/pr-workflow-action-state';
 import { PrWorkflowResourcesState } from '../../state/pr-workflow-resources.state';
 import { PrInterface } from '../pr-interface.class';
@@ -83,7 +84,7 @@ export class PrWorkflowNodeInterface extends PrWorkflowNodeResource<PrInterface>
     return this.resourceState.getResource(resourceId);
   }
 
-  protected getDefaultColor(): string {
+  protected getDefaultBackgroundColor(): string {
     return FlThemeService.getInstance().getCurrentThemeDetail().primary;
   }
 
@@ -111,7 +112,11 @@ export class PrWorkflowNodeInterface extends PrWorkflowNodeResource<PrInterface>
     });
   }
 
-  protected getDefaultIcon(): string {
-    return 'login';
+  protected getDefaultIcon(): PrWorkflowNodeIcon {
+    return {
+      icon: 'login',
+      iconType: 'MATERIAL_ICON',
+      iconColor: FlThemeService.getInstance().getCurrentThemeDetail().primaryContrast,
+    };
   }
 }
