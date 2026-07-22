@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, input, output, signal, ViewContainerRef } from '@angular/core';
+import { Component, inject, input, output, signal, ViewContainerRef } from '@angular/core';
 import { ClBrick } from '@monorepo/core-lib';
 import {
   FlConfirmDialogInput,
@@ -31,7 +31,6 @@ import { LmlConfigureBrickComponent } from '../lml-configure-brick/lml-configure
   selector: 'lml-bricks-config-form',
   templateUrl: './lml-bricks-config-form.component.html',
   styleUrls: ['./lml-bricks-config-form.component.scss'],
-  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class LmlBricksConfigFormComponent {
@@ -43,7 +42,7 @@ export class LmlBricksConfigFormComponent {
 
   warningOnRemoveBrick = input<boolean>(true);
 
-  addGwsCoreIsLoading: boolean = false;
+  addGwsCoreIsLoading = signal<boolean>(false);
 
   configHasChanged = signal<boolean>(false);
   saveIsLoading = signal<boolean>(false);
@@ -177,15 +176,15 @@ export class LmlBricksConfigFormComponent {
   }
 
   addGwsCoreBrick(): void {
-    this.addGwsCoreIsLoading = true;
+    this.addGwsCoreIsLoading.set(true);
     this.brickService.getBrickLatestVersion(ClBrick.GWS_CORE).subscribe({
       next: (brick) => this.getGwsCoreBrickSuccess(brick),
-      error: () => (this.addGwsCoreIsLoading = false),
+      error: () => this.addGwsCoreIsLoading.set(false),
     });
   }
 
   private getGwsCoreBrickSuccess(brick: LmlBrickVersion): void {
     this.onBrickDialogClosed('add', { name: brick.brickName, version: brick.brickVersion });
-    this.addGwsCoreIsLoading = false;
+    this.addGwsCoreIsLoading.set(false);
   }
 }

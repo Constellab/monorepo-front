@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -28,7 +28,6 @@ import {
   selector: 'ca-lab-start-stop',
   templateUrl: './ca-lab-start-stop.component.html',
   styleUrls: ['./ca-lab-start-stop.component.scss'],
-  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatButton, MatIcon, MatTooltip, AsyncPipe, TranslatePipe],
 })
 export class CaLabStartStopComponent {

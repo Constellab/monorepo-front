@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIcon } from '@angular/material/icon';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
@@ -34,7 +34,6 @@ import { CaLabHeroComponent } from '../ca-lab-hero/ca-lab-hero.component';
   selector: 'ca-lab-dashboard-page',
   templateUrl: './ca-lab-dashboard-page.component.html',
   styleUrls: ['./ca-lab-dashboard-page.component.scss'],
-  changeDetection: ChangeDetectionStrategy.Eager,
   providers: [CaLabUsersState, CaLabFoldersState, CaLabGreenOptionsState, CaLabBricksState],
   imports: [
     FlSectionModule,

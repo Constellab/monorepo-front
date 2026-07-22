@@ -12,7 +12,7 @@
     <p class="g-warn-text">{{ 'lml.lab_not_configured_help' | translate }}</p>
     <button mat-stroked-button type="button" class="g-button-small" (click)="addGwsCoreBrick()">
       {{ 'lml.add_gws_core' | translate }}
-      @if (addGwsCoreIsLoading) {
+      @if (addGwsCoreIsLoading()) {
         <fl-button-loader></fl-button-loader>
       }
     </button>

@@ -8,10 +8,10 @@
       [ngClass]="buttonClass()"
       (mousedown)="stopEventPropagation($event)">
       {{ label() | translate }}
-      @if (!isLoading) {
+      @if (!isLoading()) {
         <mat-icon>play_arrow</mat-icon>
       }
-      @if (isLoading) {
+      @if (isLoading()) {
         <fl-button-loader [size]="size()"></fl-button-loader>
       }
     </button>
@@ -24,10 +24,10 @@
       [ngClass]="buttonClass()"
       (mousedown)="stopEventPropagation($event)">
       {{ label() | translate }}
-      @if (!isLoading) {
+      @if (!isLoading()) {
         <mat-icon>play_arrow</mat-icon>
       }
-      @if (isLoading) {
+      @if (isLoading()) {
         <fl-button-loader [size]="size()"></fl-button-loader>
       }
     </button>

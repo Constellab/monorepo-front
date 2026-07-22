@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -21,7 +21,6 @@ import { Observable, Subscription } from 'rxjs';
   selector: 'ca-lab-manager',
   templateUrl: './ca-lab-manager.component.html',
   styleUrls: ['./ca-lab-manager.component.scss'],
-  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     LmlLabManagerLibModule,
     FlCardModule,

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
 
 import { LmlLabManagerService } from '../../lml-lab-manager.service';
 import { LmlBrickVersionDTODatasource, LmlLabManagerConfig } from '../../model/lml-lab-manager.class';
@@ -11,31 +11,28 @@ import { LmlBrickVersionDTODatasource, LmlLabManagerConfig } from '../../model/l
   selector: 'lml-manager-config',
   templateUrl: './lml-manager-config.component.html',
   styleUrls: ['./lml-manager-config.component.scss'],
-  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class LmlManagerConfigComponent implements OnInit, OnDestroy {
-  brickVersions: LmlBrickVersionDTODatasource;
+  brickVersions = signal<LmlBrickVersionDTODatasource>(undefined);
 
-  getIsLoading: boolean = false;
+  getIsLoading = signal<boolean>(false);
 
   private managerApiService = inject(LmlLabManagerService);
 
   ngOnInit(): void {
     this.managerApiService.getLabManagerConfig().subscribe({
       next: (config) => this.getSuccess(config),
-      error: () => (this.getIsLoading = false),
+      error: () => this.getIsLoading.set(false),
     });
   }
 
   getSuccess(config: LmlLabManagerConfig): void {
-    this.brickVersions = new LmlBrickVersionDTODatasource(config.brickVersions, true);
-    this.getIsLoading = false;
+    this.brickVersions.set(new LmlBrickVersionDTODatasource(config.brickVersions, true));
+    this.getIsLoading.set(false);
   }
 
   ngOnDestroy(): void {
-    if (this.brickVersions) {
-      this.brickVersions.manualDisconnect();
-    }
+    this.brickVersions()?.manualDisconnect();
   }
 }
