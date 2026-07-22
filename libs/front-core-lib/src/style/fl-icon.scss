@@ -1,3 +1,46 @@
+// Material Symbols Rounded base class.
+// The font is loaded per app via the index.html <link> (css2?family=Material+Symbols+Rounded...).
+// This is the default icon font set (see fl-icon-registry.service.ts -> setDefaultFontSetClass).
+// Icons default to filled (FILL 1); add .material-symbols-outline to render them outlined.
+.material-symbols-rounded {
+  font-family: 'Material Symbols Rounded';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  // filled by default
+  font-variation-settings:
+    'FILL' 1,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
+
+  // outlined variant, applied where the icon should be hollow
+  &.material-symbols-outline {
+    font-variation-settings:
+      'FILL' 0,
+      'wght' 400,
+      'GRAD' 0,
+      'opsz' 24;
+  }
+
+  // kept for backwards-compat: fill is now the default, so this is a no-op
+  &.material-symbols-fill {
+    font-variation-settings:
+      'FILL' 1,
+      'wght' 400,
+      'GRAD' 0,
+      'opsz' 24;
+  }
+}
+
 // wrap with body to override material style
 // autocomplete not working in intellij for now : https://youtrack.jetbrains.com/issue/WEB-5970/SCSS-auto-autocomplete-is-broken-again-before-nested-declaration-block
 body {

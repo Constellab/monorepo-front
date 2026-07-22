@@ -19,10 +19,6 @@ export class FlPinUnpinButtonComponent {
     return this.pin ? 'flCoreComponent.unpin' : 'flCoreComponent.pin';
   }
 
-  get pinToggleIcon(): string {
-    return this.pin ? 'material-icons' : 'material-icons-outlined';
-  }
-
   togglePin(): void {
     this.pinChange.next(!this.pin);
   }

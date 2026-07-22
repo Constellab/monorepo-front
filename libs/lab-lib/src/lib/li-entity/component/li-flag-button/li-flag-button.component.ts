@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, inject,Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -55,10 +55,6 @@ export class LiFlagButtonComponent {
   private onError(highlighted: boolean): void {
     this.entity.flagged = !highlighted;
     this.isLoading = false;
-  }
-
-  get fontSet(): string {
-    return this.entity.flagged ? 'material-icons' : 'material-icons-outlined';
   }
 
   get tooltip(): string {
