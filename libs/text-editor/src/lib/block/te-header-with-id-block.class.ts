@@ -112,7 +112,7 @@ export class TeHeaderWithIdBlock extends Header implements TeBlockWithMetadataFr
     button.contentEditable = 'false';
     button.setAttribute('aria-label', 'Copy link to header');
     button.type = 'button';
-    button.innerHTML = '<span class="material-icons-outlined">link</span>';
+    button.innerHTML = '<span class="material-symbols-rounded">link</span>';
 
     const copyLink = (e: Event): void => {
       e.preventDefault();

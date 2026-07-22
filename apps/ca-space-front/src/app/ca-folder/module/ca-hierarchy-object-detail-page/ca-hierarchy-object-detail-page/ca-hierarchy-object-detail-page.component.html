@@ -1,6 +1,6 @@
 <mat-drawer-container class="g-full drawer-container">
   <mat-drawer mode="side" [opened]="treeOpened$ | async" class="drawer g-print-hide">
-    <div class="drawer-content">
+    <div class="g-card drawer-content">
       <ca-hierarchy-object-tree
         [hierarchyObjects]="hierarchyObjects"
         [selectedObject$]="activeObject$"

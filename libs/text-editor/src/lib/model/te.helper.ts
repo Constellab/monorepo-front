@@ -59,7 +59,7 @@ export class TeHelper {
    * @param icon
    */
   public static getMatIconElement(icon: string): string {
-    return `<span class="material-icons-outlined">${icon}</span>`;
+    return `<span class="material-symbols-rounded">${icon}</span>`;
   }
 
   public static getTranslateService(): FlTranslateService {

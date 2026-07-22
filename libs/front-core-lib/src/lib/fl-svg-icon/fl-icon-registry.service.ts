@@ -1,4 +1,4 @@
-import { inject,Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -14,8 +14,8 @@ export class FlIconRegistryService {
   private config = inject<FlIconConfig>(FL_ICON_MODULE);
 
   public initIcons(): void {
-    // set the default icon to outlined
-    this.matIconRegistry.setDefaultFontSetClass('material-icons-outlined');
+    // set the default icon font to Material Symbols Rounded (outlined by default)
+    this.matIconRegistry.setDefaultFontSetClass('material-symbols-rounded');
 
     this.registerCustomIcons();
   }

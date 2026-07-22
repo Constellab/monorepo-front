@@ -1,0 +1,71 @@
+.container {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5em;
+  box-sizing: border-box;
+}
+
+.panel {
+  width: 100%;
+  max-width: 480px;
+  padding: 2em;
+  border-radius: var(--card-radius);
+}
+
+// The untrusted client claim leads the page; the client_id sits just under it as small print.
+.client-claim {
+  margin-bottom: 0.25em;
+}
+
+.client-id {
+  color: var(--light-color);
+  margin-top: 0;
+  word-break: break-all;
+}
+
+// The warning is the most important thing on the page — give it a prominent, warn-toned banner.
+.warning {
+  margin: 1.5em 0;
+  padding: 1em;
+  border-radius: var(--card-radius);
+  border: 1px solid var(--warn-color);
+  color: var(--warn-color);
+}
+
+.details {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.75em 1em;
+  margin: 0 0 2em;
+}
+
+.details dt {
+  color: var(--light-color);
+}
+
+.details dd {
+  margin: 0;
+  word-break: break-word;
+}
+
+.access-details {
+  margin: 0.25em 0 0;
+  padding-left: 1.2em;
+}
+
+.warn-text {
+  color: var(--warn-color);
+}
+
+.code-error {
+  margin-bottom: 1em;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1em;
+}

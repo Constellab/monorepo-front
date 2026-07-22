@@ -1,5 +1,5 @@
 import { ViewportScroller } from '@angular/common';
-import { ChangeDetectionStrategy,Component, computed, inject, input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input, OnInit } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
@@ -66,6 +66,15 @@ export class HaEntityPageInfoComponent implements OnInit {
   isAuthor = input<boolean>(false);
   showCoAuthorsButton = input<boolean>(true);
   imageUrl = input<string | null>(null);
+
+  uniqueContributors = computed(() => {
+    const seen = new Set<string>();
+    return this.contributors().filter((contributor) => {
+      if (seen.has(contributor.id)) return false;
+      seen.add(contributor.id);
+      return true;
+    });
+  });
 
   isLiked = this.entityLikeState.getIsLiked();
   likesCount = this.entityLikeState.getLikesCount();

@@ -1,4 +1,13 @@
-import { ChangeDetectionStrategy,Component, EventEmitter, inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
@@ -27,6 +36,7 @@ import { CaFolderService } from '../../../../service-api/ca-folder.service';
     MatIcon,
     TranslatePipe,
   ],
+  host: { class: 'g-card' },
 })
 export class CaChatWriteMessageComponent implements OnInit, OnDestroy {
   private folderService = inject(CaFolderService);

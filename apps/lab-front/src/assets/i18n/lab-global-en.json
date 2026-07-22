@@ -51,5 +51,25 @@
     "resource_type": "Resource type",
     "public": "Public",
     "error": "Error"
+  },
+  "oauthConsent": {
+    "loading": "Loading authorization request…",
+    "title": "Authorize access to this lab?",
+    "client_claim": "A client calling itself “{{client}}” is requesting access.",
+    "client_id": "Client ID",
+    "detail_lab": "Lab",
+    "detail_access": "Access",
+    "detail_as": "Acting as",
+    "allow": "Allow",
+    "deny": "Deny",
+    "cancel": "Cancel",
+    "retry": "Try again",
+    "invalid_title": "Invalid authorization link",
+    "invalid_message": "This authorization link is invalid. Please start again from your client.",
+    "expired_title": "Authorization request expired",
+    "expired_message": "This authorization request has expired. Please start again from your client.",
+    "load_error_title": "Could not load this authorization request",
+    "load_error_message": "Something went wrong loading this authorization request. Please try again.",
+    "code_error_message": "Could not authorize the client right now. Please try again."
   }
 }

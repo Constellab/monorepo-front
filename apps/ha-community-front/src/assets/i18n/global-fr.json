@@ -456,7 +456,7 @@
   "icon_technical_name_pattern_error": "Le nom technique de l'icône doit contenir seulement des lettres, des nombres et des underscores",
   "icon_sub_names_pattern_error": "Les surnoms de l'icône doivent être séparés par des virgules",
   "icon_type": "Type d'icône",
-  "google_material_icons": "Les icônes Google Material",
+  "google_material_icons": "Les icônes Google Material Symbols",
   "are_also_allowed": "sont également autorisées",
   "here": "ici",
   "technical_name_copied_to_clipboard": "Nom technique copié dans le presse-papier",

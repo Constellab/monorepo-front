@@ -10,42 +10,30 @@
 </fl-dialog-header>
 
 <mat-dialog-content>
-  <div>
-    <fl-key-value>
-      <fl-key>{{ 'lml.brick_name' | translate }}</fl-key>
-      {{ compose.brickName }}
-    </fl-key-value>
+  <div class="detail-grid">
+    <span class="detail-key">{{ 'lml.brick_name' | translate }}</span>
+    <span class="detail-value g-text-light">{{ compose.brickName }}</span>
 
-    <fl-key-value>
-      <fl-key>{{ 'lml.unique_name' | translate }}</fl-key>
-      {{ compose.uniqueName }}
-    </fl-key-value>
+    <span class="detail-key">{{ 'lml.unique_name' | translate }}</span>
+    <span class="detail-value g-text-light">{{ compose.uniqueName }}</span>
 
     @if (compose.env === 'dev' || compose.env === 'prod') {
-      <fl-key-value>
-        <fl-key>{{ 'lml.env' | translate }}</fl-key>
-        {{ compose.env }}
-      </fl-key-value>
+      <span class="detail-key">{{ 'lml.env' | translate }}</span>
+      <span class="detail-value g-text-light">{{ compose.env }}</span>
     }
 
     @if (compose.description) {
-      <fl-key-value>
-        <fl-key>{{ 'lml.compose_description' | translate }}</fl-key>
-        {{ compose.description }}
-      </fl-key-value>
+      <span class="detail-key">{{ 'lml.compose_description' | translate }}</span>
+      <span class="detail-value g-text-light">{{ compose.description }}</span>
     }
 
     @if (compose.composeFilePath) {
-      <fl-key-value>
-        <fl-key>{{ 'lml.compose_file_path' | translate }}</fl-key>
-        {{ compose.composeFilePath }}
-      </fl-key-value>
+      <span class="detail-key">{{ 'lml.compose_file_path' | translate }}</span>
+      <span class="detail-value g-text-light">{{ compose.composeFilePath }}</span>
     }
 
-    <fl-key-value>
-      <fl-key>{{ 'lml.auto_start' | translate }}</fl-key>
-      {{ compose.autoStart | flYesNo }}
-    </fl-key-value>
+    <span class="detail-key">{{ 'lml.auto_start' | translate }}</span>
+    <span class="detail-value g-text-light">{{ compose.autoStart | flYesNo }}</span>
   </div>
 
   <!-- Compose Status -->
@@ -80,17 +68,19 @@
             }
           </div>
 
-          <fl-key-value>
-            <fl-key>{{ 'lml.started_at' | translate }}</fl-key>
-            {{ processObj.startedAt | flDate: 'DATE_TIME' }}
-          </fl-key-value>
+          <div class="detail-grid">
+            <span class="detail-key">{{ 'lml.started_at' | translate }}</span>
+            <span class="detail-value g-text-light">{{ processObj.startedAt | flDate: 'DATE_TIME' }}</span>
 
-          @if (processObj.completedAt) {
-            <fl-key-value>
-              <fl-key>{{ 'lml.completed_at' | translate }}</fl-key>
-              {{ processObj.completedAt | flDate: 'DATE_TIME' }} ({{ processObj.durationInMs | flDuration }})
-            </fl-key-value>
-          }
+            @if (processObj.completedAt) {
+              <span class="detail-key">{{ 'lml.completed_at' | translate }}</span>
+              <span class="detail-value g-text-light">
+                {{ processObj.completedAt | flDate: 'DATE_TIME' }} ({{
+                  processObj.durationInMs | flDuration
+                }})
+              </span>
+            }
+          </div>
 
           @if (processObj.status.value === 'RUNNING') {
             <div class="g-layout-row g-layout-start-center g-layout-gap-1em" style="margin-top: 1em">

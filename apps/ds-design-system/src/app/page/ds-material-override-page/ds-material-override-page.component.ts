@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -16,10 +16,14 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ClTheme } from '@monorepo/core-lib';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
+import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
+import { FL_ICONS_DEFAULT, FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
 
 import { DsExampleComponent } from '../../component/ds-example/ds-example.component';
-import { DsSectionComponent } from '../../component/ds-section/ds-section.component';
 
 interface DemoRow {
   name: string;
@@ -55,15 +59,22 @@ interface DemoRow {
     MatTableModule,
     MatTabsModule,
     MatTooltipModule,
-    DsSectionComponent,
+    FlCardModule,
+    FlCoreComponentModule,
+    FlLoaderModule,
+    FlIconModule,
     DsExampleComponent,
   ],
 })
 export class DsMaterialOverridePageComponent {
   private readonly themeService = inject(FlThemeService);
   private readonly snackBar = inject(MatSnackBar);
+  private readonly flSnackBar = inject(FlSnackBarService);
 
   protected readonly isDark = signal(this.themeService.isDarkTheme());
+
+  /** All custom FlIcons registered by the front-core-lib, shown by their registered name. */
+  protected readonly customIcons = FL_ICONS_DEFAULT;
 
   // Form field demo controls
   protected readonly textControl = new FormControl('');
@@ -90,5 +101,23 @@ export class DsMaterialOverridePageComponent {
       duration: 3000,
       panelClass: panelClass ? [panelClass] : [],
     });
+  }
+
+  protected openSuccessSnackbar(): void {
+    this.flSnackBar.openSuccessMessage({ text: 'Changes saved successfully', translateText: false });
+  }
+
+  protected openSuccessSnackbarWithAction(): void {
+    this.flSnackBar.openSuccessMessage({ text: 'Item moved to trash', translateText: false }, 5000, {
+      showCloseButton: true,
+      action: {
+        label: { text: 'Undo', translateText: false },
+        onClick: () => this.flSnackBar.openSuccessMessage({ text: 'Action undone', translateText: false }),
+      },
+    });
+  }
+
+  protected openErrorSnackbar(): void {
+    this.flSnackBar.openErrorMessage({ text: 'Something went wrong', translateText: false });
   }
 }

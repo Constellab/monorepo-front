@@ -1,22 +1,16 @@
-<fl-section [object]="brickVersions" [isLoading]="getIsLoading">
-  <ng-container *flSectionBody>
-    <lml-bricks-config-form [brickVersions]="brickVersions" (configChange)="onNewConfig()">
-      @if (configHasChanged) {
-        <p class="help-text g-warn-text">
-          {{ 'lml.lab_config_changed' | translate }}
-        </p>
-      }
-      <button
-        mat-flat-button
-        type="button"
-        (click)="saveConfig()"
-        class="g-centered-forced save-button primary">
-        <mat-icon>save</mat-icon>
-        {{ 'lml.save' | translate }}
-        @if (saveIsLoading) {
-          <fl-button-loader></fl-button-loader>
-        }
-      </button>
-    </lml-bricks-config-form>
-  </ng-container>
-</fl-section>
+<fl-card>
+  <fl-card-header>
+    <fl-text-icon>
+      <mat-icon flIcon="brick"></mat-icon>
+      <h2>{{ 'lml.bricks' | translate }}</h2>
+    </fl-text-icon>
+  </fl-card-header>
+
+  <fl-card-body>
+    <fl-section [object]="brickVersions()" [isLoading]="getIsLoading()">
+      <ng-container *flSectionBody>
+        <lml-bricks-config-form [brickVersions]="brickVersions()"></lml-bricks-config-form>
+      </ng-container>
+    </fl-section>
+  </fl-card-body>
+</fl-card>

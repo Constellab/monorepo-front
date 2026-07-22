@@ -1,7 +1,19 @@
-.url {
-  margin-top: 1em;
+.help-text {
+  margin-bottom: 1.5em;
 }
 
-.section {
-  margin-top: 1em;
+.adminer-url {
+  margin-bottom: 1em;
+  word-break: break-all;
+}
+
+.db-section {
+  margin-top: 1.5em;
+  padding: 16px;
+  border: 1px solid var(--mat-sys-outline-variant);
+  border-radius: var(--mat-sys-corner-medium);
+}
+
+.db-section-title {
+  margin: 0 0 0.75em;
 }

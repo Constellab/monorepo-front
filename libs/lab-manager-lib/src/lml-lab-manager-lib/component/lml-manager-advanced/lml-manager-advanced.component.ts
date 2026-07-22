@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, OnInit, ViewContainerRef } from '@angular/core';
+import { Component, inject, OnInit, ViewContainerRef } from '@angular/core';
 import { FlStatusEvent } from '@monorepo/front-core-lib/fl-core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { Observable } from 'rxjs';
@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { LmlLabManagerService } from '../../lml-lab-manager.service';
 import { LmlLabManagerState } from '../../lml-lab-manager.state';
 import { LmlComposeInfo, LmlComposeList, LmlLabManagerStatus } from '../../model/lml-lab-manager.class';
+import { LmlAdminerInfoDialogComponent } from '../lml-adminer-info-dialog/lml-adminer-info-dialog.component';
 import {
   LmlComposeDetailDialogComponent,
   LmlComposeDetailDialogData,
@@ -18,7 +19,6 @@ import {
   selector: 'lml-manager-advanced',
   templateUrl: './lml-manager-advanced.component.html',
   styleUrls: ['./lml-manager-advanced.component.scss'],
-  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class LmlManagerAdvancedComponent implements OnInit {
@@ -28,6 +28,7 @@ export class LmlManagerAdvancedComponent implements OnInit {
   private viewContainer = inject(ViewContainerRef);
 
   labStatus$: Observable<LmlLabManagerStatus> = this.managerState.getStatus$();
+  adminerIsRunning$: Observable<boolean> = this.managerState.adminerIsRunning$();
   composes$: Observable<FlStatusEvent<LmlComposeList>> = new Observable();
 
   ngOnInit(): void {
@@ -48,11 +49,21 @@ export class LmlManagerAdvancedComponent implements OnInit {
     this.loadComposes();
   }
 
+  /** Refreshes the whole advanced section: lab-manager status and docker services. */
+  refresh(): void {
+    this.managerState.refreshStatus(true);
+    this.loadComposes();
+  }
+
   openComposeDetail(compose: LmlComposeInfo): void {
     this.dialogService.openHugeDialog(LmlComposeDetailDialogComponent, {
       data: { compose } as LmlComposeDetailDialogData,
       viewContainerRef: this.viewContainer,
     });
+  }
+
+  restartLab(): void {
+    this.managerState.initLab({ text: 'lml.lab_manager_restart', translateText: true });
   }
 
   initAll(): void {
@@ -77,6 +88,12 @@ export class LmlManagerAdvancedComponent implements OnInit {
 
   stopAdminer(): void {
     this.managerState.stopAdminer();
+  }
+
+  openAdminInfo(): void {
+    this.dialogService.openSmallDialog(LmlAdminerInfoDialogComponent, {
+      viewContainerRef: this.viewContainer,
+    });
   }
 
   cleanLabManager(): void {

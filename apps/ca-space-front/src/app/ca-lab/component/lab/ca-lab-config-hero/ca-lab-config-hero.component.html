@@ -1,0 +1,33 @@
+<div class="hero g-card">
+  @if (status$ | async; as status) {
+    <div class="hero-top">
+      <ca-lab-hero-header>
+        @if (status.labIsRunning) {
+          <button mat-stroked-button type="button" class="primary" (click)="restartLab()">
+            <mat-icon>restart_alt</mat-icon>
+            <span>{{ 'lml.lab_manager_restart' | translate }}</span>
+          </button>
+        }
+      </ca-lab-hero-header>
+    </div>
+
+    <!-- Health checks footer -->
+    @if (labIsRunning$ | async) {
+      <div class="health-checks g-layout-row-wrap">
+        @for (check of healthChecks$ | async; track check.label) {
+          <div class="check g-layout-row g-layout-start-center">
+            <mat-icon [class.g-primary-text]="check.ok" [class.g-text-light]="!check.ok">
+              {{ check.ok ? 'check_circle' : 'radio_button_unchecked' }}
+            </mat-icon>
+            <span class="g-text-small">{{ check.label | translate }}</span>
+          </div>
+        }
+      </div>
+    } @else {
+      <div class="health-info g-layout-row g-layout-start-center g-text-light">
+        <mat-icon>info</mat-icon>
+        <span class="g-text-small">{{ 'lab_health_checks_when_running' | translate }}</span>
+      </div>
+    }
+  }
+</div>

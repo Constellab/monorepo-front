@@ -1,57 +1,46 @@
-import { ChangeDetectionStrategy,Component, inject, OnDestroy } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
-import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { LmlLabManagerLibModule } from '@monorepo/lab-manager-lib';
+import { MatTooltip } from '@angular/material/tooltip';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { LmlLabManagerLibModule, LmlLabManagerState } from '@monorepo/lab-manager-lib';
 import { TranslatePipe } from '@ngx-translate/core';
-import { Subscription } from 'rxjs';
-
-import {
-  CaLabConfigDialogComponent,
-  CaLabConfigDialogInput,
-} from '../../../../ca-core/entity-module/ca-lab-core/component/ca-lab-config-dialog/ca-lab-config-dialog.component';
-import { CaLabStatusDialogComponent } from '../../../../ca-core/entity-module/ca-lab-core/component/ca-lab-status-dialog/ca-lab-status-dialog.component';
-import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
-import { CaLabDetailPageState } from '../../../state/ca-lab-detail-page.state';
+import { Observable, Subscription } from 'rxjs';
 
 /**
- * Component only accessible by the admin
+ * Advanced configuration section of the lab (config page). Renders — flat, without an
+ * expansion panel — the lab-manager advanced actions, MCP toggle, custom env variables
+ * and docker services. When the lab manager is not running, shows an empty state.
+ * Only accessible to the lab owner.
+ *
+ * Requires LmlLabManagerState to be provided by the lab detail page.
  */
 @Component({
   selector: 'ca-lab-manager',
   templateUrl: './ca-lab-manager.component.html',
   styleUrls: ['./ca-lab-manager.component.scss'],
-  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     LmlLabManagerLibModule,
-    MatIconButton,
-    MatMenuTrigger,
+    FlCardModule,
+    FlTextIconModule,
     MatIcon,
-    MatMenu,
-    MatMenuItem,
+    MatIconButton,
+    MatTooltip,
+    AsyncPipe,
     TranslatePipe,
   ],
 })
-export class CaLabManagerComponent implements OnDestroy {
-  private dialogService = inject(FlDialogService);
-  private state = inject(CaLabDetailPageState);
-  private labService = inject(CaLabService);
+export class CaLabManagerComponent implements OnInit, OnDestroy {
+  private managerState = inject(LmlLabManagerState);
+
+  labManagerIsRunning$: Observable<boolean> = this.managerState.labManagerIsRunning$();
 
   private subscription: Subscription;
 
-  openStatusDialog(): void {
-    this.dialogService.openMediumDialog(CaLabStatusDialogComponent, { data: this.state.getLabId() });
-  }
-
-  openLabConfig(): void {
-    const input: CaLabConfigDialogInput = {
-      labConfig: this.labService.getConfig(this.state.getLabId()),
-      title: { text: 'lab_installed_brick', translateText: true },
-      helpText: { text: 'lab_installed_brick_help', translateText: true },
-    };
-
-    this.dialogService.openSmallDialog(CaLabConfigDialogComponent, { data: input });
+  ngOnInit(): void {
+    this.managerState.init(15000);
   }
 
   ngOnDestroy(): void {

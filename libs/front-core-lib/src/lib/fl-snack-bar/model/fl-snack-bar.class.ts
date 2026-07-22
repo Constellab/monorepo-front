@@ -29,12 +29,30 @@ export interface FlSnackBarInfoInput {
  */
 export type FlSnackBarMode = 'success' | 'error';
 
+export interface FlSnackBarAction {
+  /**
+   * The label of the action button (supports translation)
+   */
+  label: FlTranslatableText;
+
+  /**
+   * Callback invoked when the action button is clicked. The snackbar is dismissed
+   * automatically after the callback runs.
+   */
+  onClick: () => void;
+}
+
 export interface FlSnackBarAdditionalConfig {
   /**
    * if true a close button is shown in the snackbar
    * default to true
    */
   showCloseButton?: boolean;
+
+  /**
+   * Optional custom action button shown before the close button.
+   */
+  action?: FlSnackBarAction;
 }
 
 export const FL_SNACKBAR_ADDITIONAL_CONFIG_DEFAULT: FlSnackBarAdditionalConfig = {

@@ -2,11 +2,13 @@ import { Observable } from 'rxjs';
 
 import {
   LmlAdminerInfo,
+  LmlBrickInfoDTO,
   LmlCleanLabManagerOptions,
   LmlComposeList,
   LmlComposeRestartOptions,
   LmlComposeUniqueId,
   LmlComposeUpOptions,
+  LmlCustomEnvVariablesDTO,
   LmlDockerContainerSize,
   LmlDockerErrorLogs,
   LmlDockerInspect,
@@ -14,6 +16,7 @@ import {
   LmlDockerPsFull,
   LmlLabManagerConfig,
   LmlLabManagerStatus,
+  LmlMcpConfigDTO,
   LmlSubComposeStatus,
 } from './model/lml-lab-manager.class';
 import { LmlLabManagerMigrationPlanDTO } from './model/lml-migration.class';
@@ -33,6 +36,13 @@ export abstract class LmlLabManagerService {
 
   abstract getLabManagerConfig(): Observable<LmlLabManagerConfig>;
 
+  /**
+   * Get detailed info (description, image, latest version, whether a newer version
+   * exists) for the lab's installed bricks. Called after getLabManagerConfig to enrich
+   * the loaded bricks. May not return an entry for every configured brick.
+   */
+  abstract getMultipleBrickInfo(): Observable<LmlBrickInfoDTO[]>;
+
   abstract getVersionUpgradeInfo(): Observable<LmlLabManagerMigrationPlanDTO>;
 
   abstract getLabStartingError(): Observable<LmlDockerErrorLogs>;
@@ -49,6 +59,16 @@ export abstract class LmlLabManagerService {
   abstract updateConfig(config: LmlLabManagerConfig): Observable<void>;
 
   abstract updateLabManager(migrationPlan: LmlLabManagerMigrationPlanDTO): void;
+
+  ////////////////////////////////////// MCP / CUSTOM ENV //////////////////////////////////////
+
+  abstract getMcpConfig(): Observable<LmlMcpConfigDTO>;
+
+  abstract updateMcpConfig(config: LmlMcpConfigDTO): Observable<void>;
+
+  abstract getCustomEnvVariables(): Observable<LmlCustomEnvVariablesDTO>;
+
+  abstract updateCustomEnvVariables(dto: LmlCustomEnvVariablesDTO): Observable<void>;
 
   ////////////////////////////////////// COMPOSE //////////////////////////////////////
 

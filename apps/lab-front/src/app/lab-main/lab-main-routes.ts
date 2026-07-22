@@ -26,6 +26,7 @@ import { LAB_LOGIN_ROUTES } from '../lab-login/lab-login-routes';
 import { LAB_MONITORING_ROUTES } from '../lab-monitoring/lab-monitoring-routes';
 import { LAB_NOTE_ROUTES } from '../lab-note/lab-note-routes';
 import { LAB_NOTE_TEMPLATE_ROUTES } from '../lab-note-template/lab-note-template-routes';
+import { LAB_OAUTH_CONSENT_ROUTES } from '../lab-oauth-consent/lab-oauth-consent-routes';
 import { LAB_OPEN_ROUTES } from '../lab-public-route/lab-public.routes';
 import { LAB_RESOURCE_ROUTES } from '../lab-resource/lab-resource-routes';
 import { LAB_SCENARIO_ROUTES } from '../lab-scenario/lab-scenario-routes';
@@ -137,5 +138,12 @@ export const LAB_MAIN_ROUTES: Routes = [
   {
     path: LI_CONST_OPEN_ROUTE,
     children: LAB_OPEN_ROUTES,
+  },
+
+  //////////////////////// OAUTH CONSENT  /////////////////////////
+  // Top-level (like login): the page owns its own auth bounce and must keep login_state intact.
+  {
+    path: 'oauth-consent',
+    children: LAB_OAUTH_CONSENT_ROUTES,
   },
 ];

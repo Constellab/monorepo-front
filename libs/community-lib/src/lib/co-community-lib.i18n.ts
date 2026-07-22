@@ -30,7 +30,7 @@ const coCommunityLibI18nFr: FlLangTranslation = {
     search: 'Rechercher',
     search_icon: 'Rechercher une icône',
     reference_a_material_icon:
-      'Référencer une icône de Material, vous pouvez trouver toutes les icônes de Material',
+      'Référencer une icône Material Symbols, vous pouvez trouver toutes les icônes Material Symbols',
     here: 'ici',
     or_chose_a_community_icon: 'Ou choisir une icône de Community dans la liste ci-dessous',
     save: 'Enregistrer',
@@ -119,7 +119,7 @@ const coCommunityLibI18nEn: FlLangTranslation = {
     change_background_color: 'Change the background color',
     search: 'Search',
     search_icon: 'Search icon',
-    reference_a_material_icon: 'Reference a Material Icon, you can find all Material Icons',
+    reference_a_material_icon: 'Reference a Material Symbols icon, you can find all Material Symbols',
     here: 'here',
     or_chose_a_community_icon: 'Or chose a Community Icon in the list below',
     save: 'Save',

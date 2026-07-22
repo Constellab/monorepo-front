@@ -1,3 +1,86 @@
-.half-section {
-  width: 49%;
+.summary {
+  // Taller collapsed / expanded headers for the dashboard panels
+  --mat-expansion-header-collapsed-state-height: 72px;
+  --mat-expansion-header-expanded-state-height: 72px;
+}
+
+.panel-icon {
+  margin-right: 12px;
+  flex-shrink: 0;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+mat-panel-title {
+  align-items: center;
+  // Size the title to its content so it never grows into (and overlaps) the preview.
+  flex: 0 0 auto;
+  margin-right: 24px;
+
+  span {
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+}
+
+// Preview (avatars / chips / badges) in the collapsed header — sits next to the title.
+// Takes the remaining space, stays on one line and clips overflow so it never pushes
+// past the title or the fixed header height.
+.panel-preview {
+  justify-content: flex-start;
+  align-items: center;
+  gap: 8px;
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  flex-wrap: nowrap;
+}
+
+// "N updates available" badge in the bricks-panel preview.
+// Same purple/tertiary style and upgrade icon as the config-form update badges.
+.brick-updates-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  flex-shrink: 0;
+  white-space: nowrap;
+  padding: 2px 10px;
+  margin-right: 16px;
+  border-radius: var(--mat-sys-corner-full);
+  background: var(--mat-sys-tertiary-container);
+  color: var(--mat-sys-tertiary);
+
+  mat-icon {
+    color: var(--mat-sys-tertiary);
+  }
+}
+
+// Bricks load error (config fetch failed while the lab manager is running).
+.bricks-error {
+  color: var(--warn-color);
+}
+
+// Bricks empty state (lab manager not running).
+.bricks-empty {
+  text-align: center;
+  padding: 32px 24px;
+
+  .bricks-empty-tile {
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--mat-sys-surface-variant);
+    color: var(--mat-sys-on-surface-variant);
+  }
+
+  .bricks-empty-title {
+    font-weight: 600;
+  }
+
+  .bricks-empty-body {
+    max-width: 420px;
+  }
 }

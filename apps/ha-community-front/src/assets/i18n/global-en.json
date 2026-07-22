@@ -454,7 +454,7 @@
   "icon_technical_name_pattern_error": "The icon technical name must contain only lowercase letters, numbers and underscores",
   "icon_sub_names_pattern_error": "The icon sub names must contain only letters, numbers and be separated by a comma",
   "icon_type": "Icon type",
-  "google_material_icons": "Google material icons",
+  "google_material_icons": "Google Material Symbols",
   "are_also_allowed": "are also allowed",
   "here": "here",
   "technical_name_copied_to_clipboard": "Technical name copied to clipboard",

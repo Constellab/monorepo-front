@@ -32,9 +32,9 @@ export abstract class PrWorkflowNodeResource<T = any> extends PrWorkflowNode<T> 
     super(instanceName, parentLayerId, object);
   }
 
-  protected abstract getDefaultIcon(): string;
+  protected abstract getDefaultIcon(): PrWorkflowNodeIcon;
 
-  protected abstract getDefaultColor(): string;
+  protected abstract getDefaultBackgroundColor(): string;
 
   protected abstract getDefaultName(): string;
 
@@ -77,18 +77,18 @@ export abstract class PrWorkflowNodeResource<T = any> extends PrWorkflowNode<T> 
   }
 
   getNodeColor$(): Observable<string> {
-    return this.getResource$().pipe(map((resource) => this.getResourceColor(resource)));
+    return this.getResource$().pipe(map((resource) => this.getResourceBackgroundColor(resource)));
   }
 
   getPortColor(): Observable<string> {
-    return this.getResource$().pipe(map((resource) => this.getResourceColor(resource)));
+    return this.getResource$().pipe(map((resource) => this.getResourceBackgroundColor(resource)));
   }
 
-  private getResourceColor(resource: FlStatusEvent<PrResource>): string {
+  private getResourceBackgroundColor(resource: FlStatusEvent<PrResource>): string {
     if (resource && resource.status === 'success' && resource.object.style?.background_color) {
       return resource.object.style.background_color;
     }
-    return this.getDefaultColor();
+    return this.getDefaultBackgroundColor();
   }
 
   public getResource$(): Observable<FlStatusEvent<PrResource>> {
@@ -100,10 +100,7 @@ export abstract class PrWorkflowNodeResource<T = any> extends PrWorkflowNode<T> 
   }
 
   private getResourceIcon(resource: FlStatusEvent<PrResource>): PrWorkflowNodeIcon {
-    const defaultIcon: PrWorkflowNodeIcon = {
-      icon: this.getDefaultIcon(),
-      iconType: 'MATERIAL_ICON',
-    };
+    const defaultIcon: PrWorkflowNodeIcon = this.getDefaultIcon();
     if (!resource) return defaultIcon;
 
     if (resource.status === 'error') {
@@ -118,8 +115,8 @@ export abstract class PrWorkflowNodeResource<T = any> extends PrWorkflowNode<T> 
       let iconColor = resource.object.style.icon_color;
       // calculate the icon color if not defined
       if (!iconColor) {
-        const resourceColor = this.getResourceColor(resource);
-        iconColor = FlColorHelper.getContrastColor(resourceColor);
+        const backgroundColor = this.getResourceBackgroundColor(resource);
+        iconColor = FlColorHelper.getContrastColor(backgroundColor);
       }
       return {
         icon: resource.object.style.icon_technical_name,

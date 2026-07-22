@@ -1,26 +1,26 @@
-<fl-dialog-header>
-  {{ 'lml.adminer_info' | translate }}
-</fl-dialog-header>
+<fl-dialog-header>{{ 'lml.adminer_dialog_title' | translate }}</fl-dialog-header>
 
 <mat-dialog-content>
-  <p>{{ 'lml.adminer_help' | translate }}</p>
+  <p class="help-text g-text-light">{{ 'lml.adminer_help' | translate }}</p>
 
   <fl-async-section [object]="adminerInfo$">
     <ng-container *flSectionBody="adminerInfo$ as adminerInfo">
-      <fl-key-value class="url">
-        <fl-key>{{ 'lml.adminer_url' | translate }}</fl-key>
-        <a [href]="adminerInfo.url" target="_blank" rel="noopener noreferrer" class="g-text-link">{{
-          adminerInfo.url
-        }}</a>
-      </fl-key-value>
+      <a
+        [href]="adminerInfo.url"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="adminer-url g-layout-row g-layout-start-center g-layout-gap-05em">
+        <mat-icon class="g-icon-small">open_in_new</mat-icon>
+        <span class="g-text-link">{{ adminerInfo.url }}</span>
+      </a>
 
-      <div class="section">
-        <p class="g-text-big">{{ 'lml.adminer_gws_core_prod' | translate }}</p>
+      <div class="db-section">
+        <h3 class="db-section-title">{{ 'lml.adminer_gws_core_prod' | translate }}</h3>
         <lml-adminer-db-info [adminerDbInfo]="adminerInfo.gwsCoreProd"></lml-adminer-db-info>
       </div>
 
-      <div class="section">
-        <p class="g-text-big">{{ 'lml.adminer_gws_core_dev' | translate }}</p>
+      <div class="db-section">
+        <h3 class="db-section-title">{{ 'lml.adminer_gws_core_dev' | translate }}</h3>
         <lml-adminer-db-info [adminerDbInfo]="adminerInfo.gwsCoreDev"></lml-adminer-db-info>
       </div>
     </ng-container>

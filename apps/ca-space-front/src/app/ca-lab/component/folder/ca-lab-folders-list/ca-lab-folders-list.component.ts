@@ -1,15 +1,12 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy,Component, inject, Input, OnInit } from '@angular/core';
-import { MatIconButton } from '@angular/material/button';
+import { Component, inject, Input, OnInit } from '@angular/core';
+import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
-import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlPortalActionResult, FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
-import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { TranslatePipe } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -25,19 +22,16 @@ import {
 } from '../../../../ca-core/model/entities/lab/ca-lab-folder.class';
 import { CaLabFolderService } from '../../../../ca-core/service-api/ca-lab-folder.service';
 import { CaLabDetailPageState } from '../../../state/ca-lab-detail-page.state';
+import { CaLabFoldersState } from '../../../state/ca-lab-folders.state';
 import { CaLabFoldersTableComponent } from '../ca-lab-folders-table/ca-lab-folders-table.component';
 
 @Component({
   selector: 'ca-lab-folders-list',
   templateUrl: './ca-lab-folders-list.component.html',
   styleUrls: ['./ca-lab-folders-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
-    FlCardModule,
-    FlTextIconModule,
     MatIcon,
-    FlIconModule,
-    MatIconButton,
+    MatButton,
     MatTooltip,
     FlSectionModule,
     CaLabFoldersTableComponent,
@@ -50,6 +44,7 @@ export class CaLabFoldersListComponent implements OnInit {
   private dialogService = inject(FlDialogService);
   private state = inject(CaLabDetailPageState);
   private actionService = inject(FlPortalActionsService);
+  private foldersState = inject(CaLabFoldersState);
 
   @Input() labId: string;
 
@@ -64,12 +59,14 @@ export class CaLabFoldersListComponent implements OnInit {
     })
   );
 
+  // read in ngOnInit, not as a field initializer: the parent dashboard calls foldersState.init()
+  // in its own ngOnInit, so the datasource only exists once this component is initialized.
   datasource: CaLabFolderDatasource;
 
   isOwner$: Observable<boolean> = this.state.isLabOwner$();
 
   ngOnInit(): void {
-    this.datasource = new CaLabFolderDatasource(this.labFolderService.getLabFolders(this.labId));
+    this.datasource = this.foldersState.getDatasource();
   }
 
   openAddFolderDialog(): void {
@@ -97,7 +94,7 @@ export class CaLabFoldersListComponent implements OnInit {
 
   private onActionFinished(result: FlPortalActionResult<CaLabFolder>): void {
     if (result.status === 'success') {
-      this.datasource.addItem(result.result);
+      this.foldersState.addItem(result.result);
     }
   }
 }

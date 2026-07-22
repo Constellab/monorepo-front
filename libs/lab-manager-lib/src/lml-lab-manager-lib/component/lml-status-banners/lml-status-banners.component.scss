@@ -1,0 +1,75 @@
+:host {
+  display: block;
+}
+
+// Space stacked sections apart, without a leading/trailing gap.
+.task,
+.status-banner {
+  display: block;
+
+  &:not(:first-child) {
+    margin-top: 1em;
+  }
+}
+
+// Keep projected action buttons at their natural size in the banner row.
+.status-banner button {
+  flex-shrink: 0;
+}
+
+.task {
+  padding: 12px 16px;
+  border-radius: var(--mat-sys-corner-medium);
+  background: var(--mat-sys-surface-variant);
+}
+
+.task-loader {
+  flex-shrink: 0;
+}
+
+// With a subtitle, top-align so the loader and percent line up with the title;
+// without one, the row stays vertically centered (g-layout-start-center).
+.task-head.has-subtitle {
+  align-items: flex-start;
+}
+
+.task-label {
+  min-width: 0;
+}
+
+.task-title {
+  font-weight: 500;
+}
+
+.task-subtitle {
+  font-weight: 400;
+}
+
+.task-percent {
+  flex-shrink: 0;
+  font-family: monospace;
+  font-weight: 500;
+  color: var(--mat-sys-primary);
+}
+
+.task-progress {
+  --mat-progress-bar-track-height: 8px;
+  --mat-progress-bar-active-indicator-height: 8px;
+
+  margin-top: 1em;
+  height: 8px;
+  border-radius: var(--mat-sys-corner-full);
+
+  // The MDC track/fill have their own fixed height — stretch them to fill the bar.
+  ::ng-deep .mdc-linear-progress__bar-inner {
+    border-top-width: 8px;
+  }
+
+  ::ng-deep .mdc-linear-progress__track {
+    height: 8px;
+  }
+
+  ::ng-deep .mdc-linear-progress__bar {
+    height: 8px;
+  }
+}

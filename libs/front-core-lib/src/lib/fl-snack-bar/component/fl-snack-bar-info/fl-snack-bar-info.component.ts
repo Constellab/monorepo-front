@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MAT_SNACK_BAR_DATA, MatSnackBarRef } from '@angular/material/snack-bar';
 import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
 
-import { FlSnackBarInfoInput, FlSnackBarMode } from '../../model/fl-snack-bar.class';
+import { FlSnackBarAction, FlSnackBarInfoInput, FlSnackBarMode } from '../../model/fl-snack-bar.class';
 
 /**
  * Simple snack bar to display an error or success message
@@ -11,7 +11,6 @@ import { FlSnackBarInfoInput, FlSnackBarMode } from '../../model/fl-snack-bar.cl
   selector: 'fl-snack-bar-info',
   templateUrl: './fl-snack-bar-info.component.html',
   styleUrls: ['./fl-snack-bar-info.component.scss'],
-  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FlSnackBarInfoComponent {
@@ -21,6 +20,7 @@ export class FlSnackBarInfoComponent {
   mode: FlSnackBarMode;
   text: FlTranslatableText;
   showCloseButton: boolean;
+  action: FlSnackBarAction;
 
   constructor() {
     const data = this.data;
@@ -35,6 +35,12 @@ export class FlSnackBarInfoComponent {
     this.mode = data.mode;
     this.text = data.text;
     this.showCloseButton = data.additionalConfig.showCloseButton;
+    this.action = data.additionalConfig.action;
+  }
+
+  onActionClick(): void {
+    this.action.onClick();
+    this.snackBarRef.dismiss();
   }
 
   closeSnackBar(): void {

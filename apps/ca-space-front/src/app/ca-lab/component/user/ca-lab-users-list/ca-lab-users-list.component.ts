@@ -1,20 +1,18 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy,Component, inject, Input, OnInit } from '@angular/core';
-import { MatIconButton } from '@angular/material/button';
+import { Component, inject, Input, OnInit } from '@angular/core';
+import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
-import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { TranslatePipe } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { CaLabUser, CaLabUserDatasource } from '../../../../ca-core/model/entities/lab/ca-lab-user.class';
-import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
 import { CaLabDetailPageState } from '../../../state/ca-lab-detail-page.state';
+import { CaLabUsersState } from '../../../state/ca-lab-users.state';
 import {
   CaLabUserFormDialogComponent,
   CaLabUserFormDialogInput,
@@ -25,12 +23,9 @@ import { CaLabUsersTableComponent } from '../ca-lab-users-table/ca-lab-users-tab
   selector: 'ca-lab-users-list',
   templateUrl: './ca-lab-users-list.component.html',
   styleUrls: ['./ca-lab-users-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
-    FlCardModule,
-    FlTextIconModule,
     MatIcon,
-    MatIconButton,
+    MatButton,
     MatTooltip,
     FlSectionModule,
     CaLabUsersTableComponent,
@@ -39,11 +34,15 @@ import { CaLabUsersTableComponent } from '../ca-lab-users-table/ca-lab-users-tab
   ],
 })
 export class CaLabUsersListComponent implements OnInit {
-  private labService = inject(CaLabService);
   private dialogService = inject(FlDialogService);
   private state = inject(CaLabDetailPageState);
+  private usersState = inject(CaLabUsersState);
 
   @Input() labId: string;
+
+  // read in ngOnInit, not as a field initializer: the parent dashboard calls usersState.init()
+  // in its own ngOnInit, so the datasource only exists once this component is initialized.
+  datasource: CaLabUserDatasource;
 
   columns$: Observable<FlTableColumnStatic<CaLabUser>[]> = this.state.isLabOwner$().pipe(
     map((isLabOwner) => {
@@ -56,12 +55,10 @@ export class CaLabUsersListComponent implements OnInit {
     })
   );
 
-  datasource: CaLabUserDatasource;
-
   isOwner$: Observable<boolean> = this.state.isLabOwner$();
 
   ngOnInit(): void {
-    this.datasource = new CaLabUserDatasource(this.labService.getLabUsers(this.labId));
+    this.datasource = this.usersState.getDatasource();
   }
 
   openAddUserDialog(): void {
@@ -78,7 +75,7 @@ export class CaLabUsersListComponent implements OnInit {
 
   private onUserAddedClosed(labUser?: CaLabUser): void {
     if (labUser) {
-      this.datasource.addItem(labUser);
+      this.usersState.addItem(labUser);
     }
   }
 }

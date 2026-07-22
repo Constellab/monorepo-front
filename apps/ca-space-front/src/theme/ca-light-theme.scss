@@ -3,12 +3,3 @@
 
 // Style to highlight code in text editor
 @use 'highlight.js/styles/atom-one-light.css';
-
-.g-dashboard-background {
-  background-color: hsla(359, 0%, 100%, 1);
-  background-image:
-    radial-gradient(at 91% 22%, #c5bbee 0px, transparent 50%),
-    radial-gradient(at 74% 70%, #25b49c 0px, transparent 50%),
-    radial-gradient(at 83% 0%, #c5bbee 0px, transparent 50%),
-    radial-gradient(at 99% 98%, #ff93d0 0px, transparent 50%);
-}

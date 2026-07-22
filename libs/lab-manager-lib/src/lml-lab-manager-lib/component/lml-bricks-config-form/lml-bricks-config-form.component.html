@@ -1,96 +1,137 @@
-<fl-card>
-  <fl-card-header>
-    <fl-text-icon>
-      <mat-icon flIcon="brick"></mat-icon>
-      <h2>{{ 'lml.lab_bricks' | translate }}</h2>
-    </fl-text-icon>
+<div class="bricks-header g-layout-row g-layout-between-center g-layout-gap-1em">
+  <p class="help-text g-text-light">{{ 'lml.lab_manager_config_section_help' | translate }}</p>
 
-    <fl-card-actions>
-      <button mat-stroked-button type="button" class="g-button-small" (click)="openBrickVersionForm()">
-        <mat-icon>add</mat-icon>
-        {{ 'lml.lab_add_brick' | translate }}
+  <button mat-flat-button type="button" class="primary add-button" (click)="openBrickVersionForm()">
+    <mat-icon>add</mat-icon>
+    {{ 'lml.lab_add_brick' | translate }}
+  </button>
+</div>
+
+@if (updatesAvailableCount$ | async; as updatesCount) {
+  @if (updatesCount > 0) {
+    <fl-info-banner
+      class="updates-banner"
+      variant="accent"
+      icon="upgrade"
+      [title]="'lml.bricks_updates_available' | translate: { count: updatesCount }">
+      <button mat-stroked-button type="button" class="update-all-button" (click)="updateAllToLatest()">
+        <mat-icon>upgrade</mat-icon>
+        {{ 'lml.update_all_bricks' | translate }}
       </button>
-    </fl-card-actions>
-  </fl-card-header>
+    </fl-info-banner>
+  }
+}
 
-  <fl-card-body>
-    <p class="help-text g-text-light">{{ 'lml.lab_manager_config_section_help' | translate }}</p>
+@if (!isConfigured()) {
+  <div class="g-layout-row g-layout-start-center g-layout-gap-1em not-configured">
+    <p class="g-warn-text">{{ 'lml.lab_not_configured_help' | translate }}</p>
+    <button mat-stroked-button type="button" class="g-button-small" (click)="addGwsCoreBrick()">
+      {{ 'lml.add_gws_core' | translate }}
+      @if (addGwsCoreIsLoading()) {
+        <fl-button-loader></fl-button-loader>
+      }
+    </button>
+  </div>
+}
 
-    @if (!isConfigured()) {
-      <div class="g-layout-row g-layout-start-center g-layout-gap-1em not-configured">
-        <p class="g-warn-text">{{ 'lml.lab_not_configured_help' | translate }}</p>
-        <button mat-stroked-button type="button" class="g-button-small" (click)="addGwsCoreBrick()">
-          {{ 'lml.add_gws_core' | translate }}
-          @if (addGwsCoreIsLoading) {
-            <fl-button-loader></fl-button-loader>
+@if (!brickVersions().isEmpty()) {
+  <div class="brick-list">
+    @for (brick of brickVersions().connect() | async; track brick.name) {
+      <div class="brick-row g-layout-row g-layout-start-center g-layout-gap-1em">
+        <span class="brick-tile" [class.has-image]="brick.info">
+          @if (brick.info) {
+            <img
+              class="brick-image"
+              [src]="brick.info.imageLink | lmlCommunityBrickImage"
+              [alt]="brick.name" />
+          } @else {
+            <mat-icon flIcon="brick"></mat-icon>
           }
-        </button>
+        </span>
+
+        <div class="brick-info g-flex-grow g-layout-col">
+          <span class="brick-name">{{ brick.name }}</span>
+          @if (brick.info?.description) {
+            <span class="brick-description g-text-light g-text-small">{{ brick.info.description }}</span>
+          }
+        </div>
+
+        @if (brick.info?.hasNewVersion) {
+          <button
+            type="button"
+            class="brick-update-badge g-text-small"
+            (click)="updateBrickToLatest(brick)"
+            [matTooltip]="'lml.brick_update_to_latest' | translate: { version: brick.info.lastVersion }">
+            <mat-icon class="g-icon-small">upgrade</mat-icon>
+            {{ 'lml.brick_new_version_available' | translate: { version: brick.info.lastVersion } }}
+          </button>
+        }
+
+        <span class="brick-version">v{{ brick.version }}</span>
+
+        <div class="g-layout-row g-layout-end-center actions">
+          <button
+            mat-icon-button
+            type="button"
+            class="g-button-icon-small"
+            (click)="openBrickVersionDetailDialog(brick)"
+            [matTooltip]="'lml.brick_version_view_detail' | translate">
+            <mat-icon>info</mat-icon>
+          </button>
+
+          <button
+            mat-icon-button
+            type="button"
+            class="g-button-icon-small"
+            (click)="openBrickVersionForm(brick)"
+            [matTooltip]="'lml.lab_update_brick' | translate">
+            <mat-icon>edit</mat-icon>
+          </button>
+
+          <button
+            mat-icon-button
+            type="button"
+            class="g-button-icon-small"
+            (click)="openDeleteBrickConfirmDialog(brick)"
+            [matTooltip]="'lml.lab_remove_brick' | translate">
+            <mat-icon>clear</mat-icon>
+          </button>
+        </div>
       </div>
     }
+  </div>
+}
 
-    @if (!brickVersions.isEmpty()) {
-      <mat-table [dataSource]="brickVersions">
-        <!-- Name -->
-        <ng-container matColumnDef="name">
-          <mat-header-cell *matHeaderCellDef>
-            {{ 'lml.name' | translate }}
-          </mat-header-cell>
-          <mat-cell *matCellDef="let row">
-            {{ row.name }}
-          </mat-cell>
-        </ng-container>
-
-        <!-- Version -->
-        <ng-container matColumnDef="version">
-          <mat-header-cell *matHeaderCellDef>
-            {{ 'lml.version' | translate }}
-          </mat-header-cell>
-          <mat-cell *matCellDef="let row">
-            {{ row.version }}
-          </mat-cell>
-        </ng-container>
-
-        <!-- Actions -->
-        <ng-container matColumnDef="actions">
-          <mat-header-cell *matHeaderCellDef></mat-header-cell>
-          <mat-cell *matCellDef="let row">
-            <div class="g-layout-row g-layout-end-center actions">
-              <!-- Info button -->
-              <button
-                mat-icon-button
-                type="button"
-                class="g-button-icon-small"
-                (click)="openBrickVersionDetailDialog(row)"
-                [matTooltip]="'lml.brick_version_view_detail' | translate">
-                <mat-icon>info</mat-icon>
-              </button>
-
-              <button
-                mat-icon-button
-                type="button"
-                class="g-button-icon-small"
-                (click)="openBrickVersionForm(row)"
-                [matTooltip]="'lml.lab_update_brick' | translate">
-                <mat-icon>edit</mat-icon>
-              </button>
-
-              <button
-                mat-icon-button
-                type="button"
-                class="g-button-icon-small"
-                (click)="openDeleteBrickConfirmDialog(row)"
-                [matTooltip]="'lml.lab_remove_brick' | translate">
-                <mat-icon>clear</mat-icon>
-              </button>
-            </div>
-          </mat-cell>
-        </ng-container>
-
-        <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: columns"></mat-row>
-      </mat-table>
-    }
-
-    <ng-content></ng-content>
-  </fl-card-body>
-</fl-card>
+@if (configHasChanged()) {
+  <fl-info-banner
+    class="save-footer"
+    variant="primary"
+    icon="edit_note"
+    [title]="'lml.lab_config_changed_title' | translate"
+    [body]="'lml.lab_config_restart_hint' | translate">
+    <div class="footer-actions g-layout-row g-layout-end-center g-layout-gap-05em">
+      <button
+        mat-stroked-button
+        type="button"
+        (click)="cancel()"
+        [disabled]="saveIsLoading() || cancelIsLoading()">
+        {{ 'lml.cancel' | translate }}
+        @if (cancelIsLoading()) {
+          <fl-button-loader></fl-button-loader>
+        }
+      </button>
+      <button
+        mat-flat-button
+        type="button"
+        (click)="save()"
+        class="primary"
+        [disabled]="saveIsLoading() || cancelIsLoading()">
+        <mat-icon>save</mat-icon>
+        {{ 'lml.save_changes' | translate }}
+        @if (saveIsLoading()) {
+          <fl-button-loader></fl-button-loader>
+        }
+      </button>
+    </div>
+  </fl-info-banner>
+}

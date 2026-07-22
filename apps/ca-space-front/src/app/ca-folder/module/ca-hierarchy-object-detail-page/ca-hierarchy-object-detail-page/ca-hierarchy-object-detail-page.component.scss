@@ -4,11 +4,6 @@
   width: 100%;
 }
 
-.drawer-container {
-  // let the color background of main app
-  background-color: transparent;
-}
-
 .drawer {
   width: 17em;
   border-right: none;
@@ -17,9 +12,6 @@
   background-color: transparent;
 }
 
-.drawer-content{
-  background-color: var(--card-background);
-  border-radius: var(--card-radius);
-  display: block;
+.drawer-content {
   padding: 8px;
 }

@@ -1,0 +1,99 @@
+@let config = this.config();
+
+<!-- Running task loader -->
+@if (config.busy; as busy) {
+  <div class="task g-layout-col g-layout-gap-05em">
+    <div
+      class="task-head g-layout-row g-layout-start-center g-layout-gap-05em"
+      [class.has-subtitle]="busy.progress?.message">
+      <fl-loader size="small" class="task-loader"></fl-loader>
+
+      <div class="task-label g-flex-grow">
+        <div class="task-title">
+          {{ busy.mainText }}
+          @if (busy.subText) {
+            <span class="g-text-light">— {{ busy.subText }}</span>
+          }
+          @if (busy.datetime) {
+            <span class="g-text-light g-text-small">
+              · <fl-from-now [date]="busy.datetime"></fl-from-now
+            ></span>
+          }
+        </div>
+        @if (busy.progress?.message) {
+          <div class="g-text-light g-text-small task-subtitle">{{ busy.progress.message }}</div>
+        }
+      </div>
+
+      @if (busy.progress) {
+        <span class="task-percent">{{ busy.progress.percent }}%</span>
+      }
+    </div>
+
+    @if (busy.progress) {
+      <mat-progress-bar class="task-progress" mode="determinate" [value]="busy.progress.percent">
+      </mat-progress-bar>
+    }
+  </div>
+}
+
+<!-- Error -->
+@if (config.error; as error) {
+  <fl-info-banner
+    class="status-banner"
+    variant="error"
+    icon="error"
+    [title]="error.title ?? defaultErrorTitle | translate"
+    [body]="error.body">
+    @for (action of error.actions; track action.label) {
+      <button mat-flat-button type="button" class="warn" (click)="action.action()">
+        <span>{{ action.label | translate }}</span>
+      </button>
+    }
+  </fl-info-banner>
+}
+
+<!-- Warning -->
+@if (config.warning; as warning) {
+  <fl-info-banner
+    class="status-banner"
+    variant="accent"
+    icon="warning"
+    [title]="warning.title ? (warning.title | translate) : (warning.body ?? '')"
+    [body]="(warning.title ? warning.body : '') ?? ''">
+    @for (action of warning.actions; track action.label) {
+      <button mat-flat-button type="button" class="accent" (click)="action.action()">
+        <span>{{ action.label | translate }}</span>
+      </button>
+    }
+  </fl-info-banner>
+}
+
+<!-- Restart needed -->
+@if (config.restart; as restart) {
+  <fl-info-banner
+    class="status-banner"
+    variant="accent"
+    icon="restart_alt"
+    [title]="restart.title ?? defaultRestartTitle | translate"
+    [body]="restart.body ?? defaultRestartBody | translate">
+    <button mat-flat-button type="button" class="accent" (click)="restart.action()">
+      <mat-icon>restart_alt</mat-icon>
+      <span>{{ restart.buttonLabel ?? defaultRestartButtonLabel | translate }}</span>
+    </button>
+  </fl-info-banner>
+}
+
+<!-- New version available -->
+@if (config.newVersion; as newVersion) {
+  <fl-info-banner
+    class="status-banner"
+    variant="neutral"
+    icon="upgrade"
+    [title]="newVersion.title ?? defaultNewVersionTitle | translate">
+    <button mat-flat-button type="button" class="primary" (click)="newVersion.action()">
+      <mat-icon>upgrade</mat-icon>
+      <span>{{ newVersion.buttonLabel ?? defaultNewVersionButtonLabel | translate }}</span>
+    </button>
+  </fl-info-banner>
+}

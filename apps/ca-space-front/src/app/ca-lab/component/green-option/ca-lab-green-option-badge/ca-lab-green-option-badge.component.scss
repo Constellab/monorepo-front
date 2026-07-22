@@ -1,0 +1,18 @@
+.badge {
+  gap: 5px;
+  height: 24px;
+  padding: 0 10px;
+  border-radius: var(--mat-sys-corner-full);
+  background: var(--mat-sys-surface-variant);
+  color: var(--mat-sys-on-surface-variant);
+
+  .badge-icon {
+    width: 15px;
+    height: 15px;
+    font-size: 15px;
+  }
+
+  .badge-label {
+    white-space: nowrap;
+  }
+}

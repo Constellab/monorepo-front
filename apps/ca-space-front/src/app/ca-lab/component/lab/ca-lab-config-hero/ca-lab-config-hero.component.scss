@@ -1,0 +1,30 @@
+.hero {
+  border-radius: var(--card-radius);
+  overflow: hidden;
+}
+
+.hero-top {
+  padding: 24px 28px;
+}
+
+.health-checks {
+  border-top: 1px solid var(--mat-sys-outline-variant);
+
+  .check {
+    gap: 8px;
+    flex: 1 1 0;
+    min-width: 160px;
+    padding: 14px 18px;
+    border-left: 1px solid var(--mat-sys-outline-variant);
+
+    &:first-child {
+      border-left: none;
+    }
+  }
+}
+
+.health-info {
+  gap: 10px;
+  padding: 16px 32px;
+  border-top: 1px solid var(--mat-sys-outline-variant);
+}

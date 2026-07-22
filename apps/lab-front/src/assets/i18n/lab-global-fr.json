@@ -51,5 +51,25 @@
     "resource_type": "Type",
     "public": "Public",
     "error": "Erreur"
+  },
+  "oauthConsent": {
+    "loading": "Chargement de la demande d'autorisation…",
+    "title": "Autoriser l'accès à ce lab ?",
+    "client_claim": "Un client se présentant comme « {{client}} » demande l'accès.",
+    "client_id": "ID du client",
+    "detail_lab": "Lab",
+    "detail_access": "Accès",
+    "detail_as": "Agit en tant que",
+    "allow": "Autoriser",
+    "deny": "Refuser",
+    "cancel": "Annuler",
+    "retry": "Réessayer",
+    "invalid_title": "Lien d'autorisation invalide",
+    "invalid_message": "Ce lien d'autorisation est invalide. Veuillez recommencer depuis votre client.",
+    "expired_title": "Demande d'autorisation expirée",
+    "expired_message": "Cette demande d'autorisation a expiré. Veuillez recommencer depuis votre client.",
+    "load_error_title": "Impossible de charger cette demande d'autorisation",
+    "load_error_message": "Une erreur s'est produite lors du chargement de cette demande d'autorisation. Veuillez réessayer.",
+    "code_error_message": "Impossible d'autoriser le client pour le moment. Veuillez réessayer."
   }
 }

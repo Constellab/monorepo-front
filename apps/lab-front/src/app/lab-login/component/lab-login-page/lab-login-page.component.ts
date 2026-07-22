@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { ActivatedRoute } from '@angular/router';
 import { FlAuthModule } from '@monorepo/front-core-lib/fl-auth';
@@ -12,7 +12,6 @@ import { LabEnvStore } from '../../../lab-core/lab-env.store';
   selector: 'lab-login-page',
   templateUrl: './lab-login-page.component.html',
   styleUrls: ['./lab-login-page.component.scss'],
-  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlAuthModule, MatButton, TranslatePipe],
 })
 export class LabLoginPageComponent implements OnInit {
@@ -35,11 +34,13 @@ export class LabLoginPageComponent implements OnInit {
   /**
    * Open-redirect guard. With the front-driven gateway design the redirect is entirely front-side
    * (the backend no longer issues it), so the front owns this guard. Only allow a same-origin,
-   * path-only URL targeting the app gateway (`/open/app/...`). Reject absolute URLs, other origins,
-   * protocol-relative (`//`), and backslash tricks.
+   * path-only URL targeting a known front-owned auth-bounce entrypoint: the app gateway
+   * (`/open/app/...`) or the OAuth consent page (`/oauth-consent`). Reject absolute URLs, other
+   * origins, protocol-relative (`//`), and backslash tricks.
    */
   private static isSafeRedirectUri(uri: string): boolean {
-    return /^\/open\/app\//.test(uri) && !uri.startsWith('//') && !uri.includes('\\');
+    const isAllowedPath = /^\/open\/app\//.test(uri) || /^\/oauth-consent(?:[/?]|$)/.test(uri);
+    return isAllowedPath && !uri.startsWith('//') && !uri.includes('\\');
   }
 
   switchToProd(): void {

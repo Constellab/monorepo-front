@@ -24,6 +24,21 @@
   gap: 1.5em;
 }
 
+.ds-section-title {
+  font-weight: 600;
+}
+
+.ds-section-description {
+  margin: 0.25em 0 0;
+  color: var(--light-color);
+}
+
+.ds-section-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+}
+
 // Lay inline groups (radios) out horizontally with spacing
 .ds-inline-group {
   display: flex;
@@ -38,4 +53,28 @@
 
 .ds-tab-content {
   padding: 1em 0.5em;
+}
+
+// Grid of custom icons, each cell showing the glyph above its registered name
+.ds-icon-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+  gap: 1em;
+  width: 100%;
+}
+
+.ds-icon-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.75em 0.5em;
+  border-radius: var(--card-radius);
+  background: var(--hover-color);
+  text-align: center;
+}
+
+.ds-icon-name {
+  color: var(--light-color);
+  word-break: break-word;
 }

@@ -1,0 +1,17 @@
+<div class="env-row g-layout-row g-layout-start-center g-layout-gap-1em">
+  <!-- Tile -->
+  <div class="feature-tile g-layout-row g-layout-center-center flex-shrink-0">
+    <mat-icon>data_object</mat-icon>
+  </div>
+
+  <!-- Label + description -->
+  <div class="g-flex-grow">
+    <div class="feature-title">{{ 'lml.custom_env' | translate }}</div>
+    <div class="g-text-small g-text-light">{{ 'lml.custom_env_help' | translate }}</div>
+  </div>
+
+  <!-- Manage button -->
+  <button mat-stroked-button type="button" class="manage-btn" (click)="openEnvVarForm()">
+    {{ 'lml.custom_env_manage' | translate }}
+  </button>
+</div>

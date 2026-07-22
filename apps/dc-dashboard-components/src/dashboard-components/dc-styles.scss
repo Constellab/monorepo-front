@@ -10,6 +10,11 @@
 @use '../../../../libs/front-core-lib/src/style/fl-dialog';
 @use '../../../../libs/front-core-lib/src/style/fl-icon';
 
+// Material Symbols Rounded font (variable, FILL/wght axes).
+// Unlike the other apps this component build has no index.html <link>, so the font
+// is pulled in here. The .material-symbols-rounded class itself is defined in fl-icon.scss.
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
+
 // make the dialog above the streamlit sidebar and streamlit dialog
 .cdk-overlay-container {
   z-index: 9999999999999;

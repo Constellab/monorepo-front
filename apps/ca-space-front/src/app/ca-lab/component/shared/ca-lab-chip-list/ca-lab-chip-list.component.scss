@@ -1,0 +1,22 @@
+.chip-list {
+  gap: 8px;
+}
+
+.chip {
+  gap: 6px;
+  height: 30px;
+  padding: 0 12px;
+  border-radius: var(--mat-sys-corner-full);
+  background: var(--mat-sys-surface-variant);
+  color: var(--mat-sys-on-surface);
+
+  .chip-icon {
+    width: 17px;
+    height: 17px;
+    font-size: 17px;
+  }
+
+  &.overflow {
+    color: var(--mat-sys-on-surface-variant);
+  }
+}

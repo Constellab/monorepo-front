@@ -1,71 +1,55 @@
-import { ChangeDetectionStrategy,Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
+import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
 
 import { LmlLabManagerService } from '../../lml-lab-manager.service';
-import { LmlLabManagerState } from '../../lml-lab-manager.state';
 import { LmlBrickVersionDTODatasource, LmlLabManagerConfig } from '../../model/lml-lab-manager.class';
 
 /**
- * Component to configure the lab (bricks)
+ * Component to configure the lab (bricks). Loads the brick config; editing and saving is
+ * handled by the embedded lml-bricks-config-form.
  */
 @Component({
   selector: 'lml-manager-config',
   templateUrl: './lml-manager-config.component.html',
   styleUrls: ['./lml-manager-config.component.scss'],
-  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class LmlManagerConfigComponent implements OnInit, OnDestroy {
-  brickVersions: LmlBrickVersionDTODatasource;
-  configHasChanged: boolean = false;
+  brickVersions = signal<LmlBrickVersionDTODatasource>(undefined);
 
-  getIsLoading: boolean = false;
-  saveIsLoading: boolean = false;
+  getIsLoading = signal<boolean>(false);
 
   private managerApiService = inject(LmlLabManagerService);
-  private managerState = inject(LmlLabManagerState);
-  private snackBarService = inject(FlSnackBarService);
 
   ngOnInit(): void {
     this.managerApiService.getLabManagerConfig().subscribe({
       next: (config) => this.getSuccess(config),
-      error: () => (this.getIsLoading = false),
+      error: () => this.getIsLoading.set(false),
     });
   }
 
   getSuccess(config: LmlLabManagerConfig): void {
-    this.brickVersions = new LmlBrickVersionDTODatasource(config.brickVersions, true);
-    this.getIsLoading = false;
+    const datasource = new LmlBrickVersionDTODatasource(config.brickVersions, true);
+    this.brickVersions.set(datasource);
+    this.getIsLoading.set(false);
+    this.loadBricksInfo(datasource, config);
   }
 
-  onNewConfig(): void {
-    this.configHasChanged = true;
-  }
+  /**
+   * Enrich the loaded bricks with their detailed info (description, image, latest version).
+   * Best effort: on error the rows keep their basic (icon/name/version) display.
+   */
+  private loadBricksInfo(datasource: LmlBrickVersionDTODatasource, config: LmlLabManagerConfig): void {
+    if (!config.brickVersions?.length) return;
 
-  saveConfig(): void {
-    this.saveIsLoading = true;
-    this.managerApiService.updateConfig(this.brickVersions.toLabManagerConfig()).subscribe({
-      next: () => this.saveSuccess(),
-      error: () => (this.saveIsLoading = false),
+    this.managerApiService.getMultipleBrickInfo().subscribe({
+      next: (infos) => datasource.mergeBricksInfo(infos),
+      error: () => {
+        /* keep the basic display on error */
+      },
     });
   }
 
-  private saveSuccess(): void {
-    this.saveIsLoading = false;
-    this.snackBarService.openSuccessMessage(
-      {
-        text: 'lml.lab_cloud_config_updated',
-        translateText: true,
-      },
-      10000
-    );
-    this.configHasChanged = false;
-    this.managerState.refreshStatus(true);
-  }
-
   ngOnDestroy(): void {
-    if (this.brickVersions) {
-      this.brickVersions.manualDisconnect();
-    }
+    this.brickVersions()?.manualDisconnect();
   }
 }

@@ -1,0 +1,43 @@
+<div class="hero g-card">
+  <div class="hero-top">
+    <ca-lab-hero-header></ca-lab-hero-header>
+  </div>
+
+  @let lab = this.lab();
+  <div class="hero-facts g-layout-row g-layout-start-center">
+    <div class="facts-list g-layout-row-wrap g-layout-start-center g-flex-grow">
+      <span class="fact g-layout-row g-layout-start-center">
+        <mat-icon class="fact-icon">{{ lab.typeObj.icon }}</mat-icon>
+        <span class="g-text-light">{{ 'lab_fact_type' | translate }}</span>
+        <span class="fact-value">{{ lab.typeObj.tooltip | translate }}</span>
+      </span>
+
+      @if (lab.region) {
+        <span class="fact g-layout-row g-layout-start-center">
+          <mat-icon class="fact-icon">location_on</mat-icon>
+          <span class="g-text-light">{{ 'lab_fact_region' | translate }}</span>
+          <span class="fact-value">{{ lab.region.name }}</span>
+        </span>
+      }
+
+      <span class="fact g-layout-row g-layout-start-center">
+        <mat-icon class="fact-icon">payments</mat-icon>
+        <span class="g-text-light">{{ 'lab_fact_billing' | translate }}</span>
+        <span class="fact-value">{{ 'lab_billing_mode_' + lab.billingMode | translate }}</span>
+      </span>
+
+      @if (serverInfo(); as server) {
+        <span class="fact g-layout-row g-layout-start-center">
+          <mat-icon class="fact-icon">dns</mat-icon>
+          <span class="g-text-light">{{ 'lab_fact_server' | translate }}</span>
+          <span class="fact-value">{{ serverSummary(server) }}</span>
+        </span>
+      }
+    </div>
+
+    <button mat-button type="button" class="details-btn" (click)="openDetails()">
+      <mat-icon>info</mat-icon>
+      {{ 'lab_hero_details' | translate }}
+    </button>
+  </div>
+</div>

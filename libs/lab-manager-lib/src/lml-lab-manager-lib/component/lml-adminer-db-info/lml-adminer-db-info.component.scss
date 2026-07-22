@@ -1,0 +1,29 @@
+.db-info-grid {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 0.5em 1.5em;
+  margin: 0;
+
+  dt {
+    color: var(--mat-sys-on-surface-variant);
+    white-space: nowrap;
+  }
+
+  dd {
+    margin: 0;
+    min-width: 0;
+    word-break: break-word;
+  }
+}
+
+.mono {
+  font-family: monospace;
+}
+
+.password-cell {
+  // keep the reveal toggle from stretching the row height
+  .g-button-icon-small {
+    flex-shrink: 0;
+  }
+}

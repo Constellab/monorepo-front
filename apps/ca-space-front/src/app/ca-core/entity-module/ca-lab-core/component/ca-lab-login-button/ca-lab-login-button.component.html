@@ -1,17 +1,35 @@
-<div [matTooltip]="'lab_login_disabled' | translate" [matTooltipDisabled]="isRunning">
-  <button
-    mat-stroked-button
-    class="primary g-full"
-    (click)="loginToLab($event)"
-    [disabled]="!isRunning"
-    [ngClass]="buttonClass"
-    (mousedown)="stopEventPropagation($event)">
-    {{ 'go_to_lab' | translate }}
-    @if (!isLoading) {
-      <mat-icon>play_arrow</mat-icon>
-    }
-    @if (isLoading) {
-      <fl-button-loader [size]="size"></fl-button-loader>
-    }
-  </button>
+<div [matTooltip]="'lab_login_disabled' | translate" [matTooltipDisabled]="isRunning()">
+  @if (filled()) {
+    <button
+      mat-flat-button
+      class="primary g-full"
+      (click)="loginToLab($event)"
+      [disabled]="!isRunning()"
+      [ngClass]="buttonClass()"
+      (mousedown)="stopEventPropagation($event)">
+      {{ label() | translate }}
+      @if (!isLoading()) {
+        <mat-icon>play_arrow</mat-icon>
+      }
+      @if (isLoading()) {
+        <fl-button-loader [size]="size()"></fl-button-loader>
+      }
+    </button>
+  } @else {
+    <button
+      mat-stroked-button
+      class="primary g-full"
+      (click)="loginToLab($event)"
+      [disabled]="!isRunning()"
+      [ngClass]="buttonClass()"
+      (mousedown)="stopEventPropagation($event)">
+      {{ label() | translate }}
+      @if (!isLoading()) {
+        <mat-icon>play_arrow</mat-icon>
+      }
+      @if (isLoading()) {
+        <fl-button-loader [size]="size()"></fl-button-loader>
+      }
+    </button>
+  }
 </div>

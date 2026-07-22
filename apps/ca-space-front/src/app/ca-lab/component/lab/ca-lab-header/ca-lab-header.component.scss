@@ -16,7 +16,33 @@ mat-icon {
   flex-shrink: 0;
 }
 
-// separate the buttons in a card action
-.button-action {
-  margin-left: 0.5em !important;
+.lab-status-badge {
+  margin-left: 0.5em;
+  gap: 0.6em;
+  padding: 0.55em 1.1em;
+  border-radius: var(--mat-sys-corner-full);
+  font-weight: 600;
+
+  .lab-status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: currentColor;
+    flex-shrink: 0;
+  }
+
+  &.primary {
+    color: var(--mat-sys-primary);
+    background: var(--mat-sys-primary-container);
+  }
+
+  &.warn {
+    color: var(--mat-sys-error);
+    background: var(--mat-sys-error-container);
+  }
+
+  &.accent {
+    color: var(--mat-sys-tertiary);
+    background: var(--mat-sys-tertiary-container);
+  }
 }
