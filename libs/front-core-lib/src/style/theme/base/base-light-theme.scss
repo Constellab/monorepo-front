@@ -1,8 +1,9 @@
 @use '@angular/material' as mat;
 
-@use './_theme-colors' as dark;
+@use './_theme-colors' as theme;
 @use './_base-theme.scss' as base;
 
+// Full M3 light theme, generated from the default (light) palettes.
 @include base.define_theme(light);
 
 html {
@@ -12,8 +13,8 @@ html {
   // color to use for hover element or more contrast grey (also used as border)
   --hover-color: #d2d2d2;
 
-  // use to override global system variable
-  // if override surface, it overrides the --mat-sys-surface variable
+  // Light surfaces are intentionally kept explicit (a subtle green-tinted page
+  // background) rather than derived from the neutral ramp.
   @include mat.theme-overrides(
     (
       // page background (light green)
@@ -21,7 +22,13 @@ html {
       // main foreground / text color
       on-surface: #041210,
       // for table row border
-      outline: rgba(0, 0, 0, 0.12)
+      outline: rgba(0, 0, 0, 0.12),
+      // Deepen the on-container text tones: Material light reads these from T30,
+      // but we want the darker T10 tone for stronger contrast on the light
+      // containers. This keeps the tonal ramps monotonic (no out-of-order slots).
+      on-primary-container: #07241f,
+      on-tertiary-container: #291a67,
+      on-error-container: #5c1440
     )
   );
 }

@@ -1,26 +1,25 @@
 @use '@angular/material' as mat;
+@use './_theme-colors' as theme;
 @use './_base-theme.scss' as base;
 
-@include base.define_theme(dark);
+// Full M3 dark theme, generated from the dedicated dark palettes.
+@include base.define_theme(
+  dark,
+  $primary-palette: theme.$primary-palette-dark,
+  $tertiary-palette: theme.$accent-palette-dark,
+  $error-palette: theme.$warn_palette-dark
+);
+
 html {
-  --card-background: #2b2d2e;
+  // custom vars (not part of the mat-sys palette). Surfaces/on-surface/outline
+  // are now derived by Material from the dark neutral ramp.
+  --card-background: #1a2221;
   // muted / secondary text color
   --light-color: #d9d9d9;
   // color to use for hover element or more contrast grey (also used as border)
-  --hover-color: #494949;
-
-  // use to override global system variable
-  // if override surface, it overrides the --mat-sys-surface variable
-  @include mat.theme-overrides(
-    (
-      // page background
-      surface: #222222,
-      // main foreground / text color
-      on-surface: #f1f1f1,
-      // for table row border
-      outline: rgba(255, 255, 255, 0.12)
-    )
-  );
+  --hover-color: #3a4443;
+  // card border color
+  --card-border: 1px solid #2c3634;
 }
 
 ////////////////////// GLOBAL CSS VARIABLES ///////////////////////

@@ -1,4 +1,5 @@
 // Import input-file style
+@use 'sass:map';
 @use '@angular/material' as mat;
 @use '../components/fl-input-file-theme';
 @use './_theme-colors' as theme;
@@ -28,51 +29,53 @@
 }
 
 /**
-  This mixin defines the theme overrides for the application using class
-  When primary, accent or warn class is used, it will apply the theme color to all the components
+  Returns the "main" tone of a palette for the given scheme.
+  Light reads T40, dark reads T80 (matching Material's sys-color mapping).
  */
-@mixin _theme_overrides($theme-type, $accent-palette, $warn_palette) {
+@function _main-tone($palette, $theme-type) {
+  @if $theme-type == dark {
+    @return map.get($palette, 80);
+  }
+  @return map.get($palette, 40);
+}
+
+/**
+  Returns the "on-main" tone of a palette for the given scheme.
+  Light reads T100, dark reads T20.
+ */
+@function _on-main-tone($palette, $theme-type) {
+  @if $theme-type == dark {
+    @return map.get($palette, 20);
+  }
+  @return map.get($palette, 100);
+}
+
+/**
+  This mixin defines the theme overrides for the application using class
+  When primary, accent or warn class is used, it will apply the theme color to all the components.
+  The .accent / .warn classes remap the component "primary" role to the tertiary / error color,
+  pulled directly from the active theme's palettes (single source of truth, no hardcoded hex).
+ */
+@mixin _theme_overrides($theme-type, $tertiary-palette, $error-palette) {
   .primary {
     @include _color_overrides();
   }
 
   .accent {
-    // for now, no need to override the whole theme
-    //color-scheme: light-dark;
-    //@include mat.theme(
-    //    (
-    //      color: (
-    //        primary: $accent-palette,
-    //        theme-type: $theme-type,
-    //      ),
-    //    )
-    //);
-
     @include mat.theme-overrides(
       (
-        primary: #675a9d,
-        on-primary: #ffffff,
+        primary: _main-tone($tertiary-palette, $theme-type),
+        on-primary: _on-main-tone($tertiary-palette, $theme-type),
       )
     );
     @include _color_overrides();
   }
 
   .warn {
-    // for now, no need to override the whole theme
-    //color-scheme: light-dark;
-    //@include mat.theme(
-    //  (
-    //    color: (
-    //      primary: $warn-palette,
-    //      theme-type: $theme-type,
-    //    ),
-    //  )
-    //);
-
     @include mat.theme-overrides(
       (
-        primary: #c35895,
-        on-primary: #ffffff,
+        primary: _main-tone($error-palette, $theme-type),
+        on-primary: _on-main-tone($error-palette, $theme-type),
       )
     );
     @include _color_overrides();
@@ -82,7 +85,12 @@
 /**
   Set the theme
  */
-@mixin define_theme($theme-type) {
+@mixin define_theme(
+  $theme-type,
+  $primary-palette: theme.$primary-palette,
+  $tertiary-palette: theme.$accent-palette,
+  $error-palette: theme.$warn_palette
+) {
   html {
     --primary-color: var(--mat-sys-primary);
     --primary-color-contrast: var(--mat-sys-on-primary);
@@ -110,11 +118,15 @@
     --small-navbar-height: 48px;
 
     color-scheme: $theme-type;
+    // Full Material 3 theme generated from complete per-scheme palettes.
+    // The error palette is carried inside $primary-palette (patched via
+    // _patch-error-palette / _patch-error-palette-dark), so Material derives all
+    // brand roles directly from these palettes — no manual color overrides needed.
     @include mat.theme(
       (
         color: (
-          primary: theme.$primary-palette,
-          tertiary: theme.$accent-palette,
+          primary: $primary-palette,
+          tertiary: $tertiary-palette,
           theme-type: $theme-type,
         ),
         typography: (
@@ -125,30 +137,13 @@
       )
     );
 
-    // use to override global system variable
-    // if override surface, it overrides the --mat-sys-surface variable
+    // use to override global system variable (non-color knobs only)
     @include mat.theme-overrides(
       (
-        // for table row border
-        outline: rgba(255, 255, 255, 0.12),
         body-medium-size: 13px,
         body-large-size: 13px,
         // disable slightly green background on drawer
         background: var(--mat-sys-surface),
-        // override the main colors
-        // we use the same color for light and dark theme
-        primary: #1d907d,
-        on-primary: #ffffff,
-        primary-container: #d3f0eb,
-        on-primary-container: #07241f,
-        tertiary: #675a9d,
-        on-tertiary: #ffffff,
-        tertiary-container: #eeebfa,
-        on-tertiary-container: #291a67,
-        error: #c35895,
-        on-error: #ffffff,
-        error-container: #ffe9f6,
-        on-error-container: #5c1440
       )
     );
 
@@ -199,7 +194,7 @@
       )
     );
 
-    @include _theme_overrides($theme-type, theme.$accent-palette, theme.$warn-palette);
+    @include _theme_overrides($theme-type, $tertiary-palette, $error-palette);
 
     // set the default color of mat-button and mat-stroked without theme to white/black
     .mdc-button:not(.mdc-button--raised):not(.mdc-button--unelevated):not(.mat-mdc-button-disabled) {

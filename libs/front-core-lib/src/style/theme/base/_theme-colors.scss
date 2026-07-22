@@ -131,7 +131,7 @@ $accent-palette: _patch-error-palette(
     70: #c1bbd8,
     80: #dbd8e9,
     85: #eeebfa,
-    90: #f0eff6,
+    90: #eeebfa,
     95: #f9f8fd,
     100: #ffffff,
     secondary: (
@@ -147,7 +147,7 @@ $accent-palette: _patch-error-palette(
       70: #c1bbd8,
       80: #dbd8e9,
       85: #eeebfa,
-      90: #f0eff6,
+      90: #eeebfa,
       95: #f9f8fd,
       100: #ffffff,
     ),
@@ -186,6 +186,218 @@ $warn_palette: _patch-error-palette(
       85: #fbf2f7,
       90: #ffe9f6,
       95: #fff4fa,
+      100: #ffffff,
+    ),
+  )
+);
+
+// =============================================================================
+// DARK THEME PALETTES
+// -----------------------------------------------------------------------------
+// A complete, separate set of tonal palettes tuned for the dark scheme.
+//
+// Material reads DIFFERENT tone slots for the dark scheme than for light (see
+// @angular/material/core/tokens/m3/_md-sys-color.scss). The slots below are
+// filled so that Material's dark scheme resolves each role directly to a brand
+// color — no theme-overrides needed. Key dark-scheme reads:
+//
+//   primary               -> primary  T80        on-primary            -> primary  T20
+//   primary-container     -> primary  T30        on-primary-container  -> primary  T90
+//   inverse-primary       -> primary  T40
+//   tertiary              -> tertiary T80        on-tertiary           -> tertiary T20
+//   tertiary-container    -> tertiary T30        on-tertiary-container -> tertiary T90
+//   error                 -> error    T80        on-error              -> error    T20
+//   error-container       -> error    T30        on-error-container    -> error    T90
+//   surface / background  -> neutral  T6         on-surface            -> neutral  T90
+//   surface-container-*   -> neutral  T4/10/12/17/22, surface-bright -> neutral T24
+//   outline               -> neutral-variant T60 outline-variant      -> neutral-variant T30
+// =============================================================================
+
+/// Dark error tonal map (pink). Dark scheme reads:
+///   error T80 (main), on-error T20, error-container T30, on-error-container T90.
+$warn_palette-dark: (
+  0: #000000,
+  5: #200a15,
+  10: #2a0f1e,
+  15: #331224,
+  // on-error (T20) -> pink 900
+  20: #3c162b,
+  25: #4d1c37,
+  // error-container (T30) -> pink 800
+  30: #612346,
+  40: #873162,
+  50: #ac3e7d,
+  60: #c35895,
+  70: #d487b3,
+  // error (T80) -> pink 400
+  80: #d487b3,
+  85: #e3b0cd,
+  // on-error-container (T90) -> pink 100
+  90: #f8ecf3,
+  95: #fbf2f7,
+  98: #fdf7fa,
+  99: #fffbfd,
+  100: #ffffff,
+);
+
+/// Adds the dark error colors to the given palette.
+@function _patch-error-palette-dark($palette) {
+  @return map.merge(
+    $palette,
+    (
+      error: $warn_palette-dark,
+    )
+  );
+}
+
+$primary-palette-dark: _patch-error-palette-dark(
+  (
+    0: #000000,
+    // on-primary (T20) -> teal 900
+    20: #0e443b,
+    10: #072722,
+    5: #041916,
+    15: #0a352e,
+    25: #135448,
+    // primary-container (T30) -> teal 800
+    30: #166c5e,
+    // inverse-primary (T40) -> teal 700 (light-theme primary)
+    40: #1d907d,
+    50: #28c3a9,
+    60: #45d9c0,
+    70: #5fdfc9,
+    // primary (T80) -> teal 400
+    80: #78e3d1,
+    85: #a6ede1,
+    // on-primary-container (T90) -> teal 200
+    90: #ccf5ee,
+    95: #eafbf8,
+    98: #f4fdfb,
+    99: #fbfffe,
+    100: #ffffff,
+    secondary: (
+      0: #000000,
+      20: #0e443b,
+      10: #072722,
+      5: #041916,
+      15: #0a352e,
+      25: #135448,
+      30: #166c5e,
+      40: #1d907d,
+      50: #28c3a9,
+      60: #45d9c0,
+      70: #5fdfc9,
+      80: #78e3d1,
+      85: #a6ede1,
+      90: #ccf5ee,
+      95: #eafbf8,
+      98: #f4fdfb,
+      99: #fbfffe,
+      100: #ffffff,
+    ),
+    // Neutral ramp tuned to the requested dark surfaces:
+    //   surface/background (T6) #101615, container-low (T10), container (T12) #1a2221 (card),
+    //   container-high (T17), container-highest (T22), bright (T24) #2c3634,
+    //   on-surface (T90) #f1f1f1
+    neutral: (
+        0: #000000,
+        4: #0b100f,
+        6: #101615,
+        10: #161d1c,
+        12: #1a2221,
+        17: #222b2a,
+        20: #26302e,
+        22: #2a3433,
+        24: #2c3634,
+        25: #303a39,
+        30: #3a4443,
+        35: #454f4e,
+        40: #505b59,
+        50: #69736f,
+        60: #838d8b,
+        70: #9da7a5,
+        80: #b8c2c0,
+        87: #ccd6d4,
+        90: #f1f1f1,
+        92: #f4f4f4,
+        94: #f7f7f7,
+        95: #f8f8f8,
+        96: #fafafa,
+        98: #fcfcfc,
+        99: #fefefe,
+        100: #ffffff,
+      ),
+    neutral-variant: (
+      0: #000000,
+      4: #0b100f,
+      6: #101615,
+      10: #161d1c,
+      12: #1a2221,
+      17: #222b2a,
+      20: #26302e,
+      22: #2a3433,
+      24: #2c3634,
+      25: #303a39,
+      // outline-variant (T30) -> card border / hover tone
+      30: #3a4443,
+      35: #454f4e,
+      40: #505b59,
+      50: #69736f,
+      // outline (T60)
+      60: #838d8b,
+      70: #9da7a5,
+      80: #b8c2c0,
+      90: #dfe4e3,
+      95: #eef1f0,
+      98: #f6f8f7,
+      99: #fbfcfc,
+      100: #ffffff,
+    ),
+  )
+);
+
+$accent-palette-dark: _patch-error-palette-dark(
+  (
+    0: #000000,
+    // on-tertiary (T20) -> lavender 900
+    20: #221e34,
+    10: #16121f,
+    5: #0d0a14,
+    15: #1c1829,
+    25: #2b2540,
+    // tertiary-container (T30) -> lavender 700
+    30: #4d4375,
+    40: #675a9d,
+    50: #7d71ad,
+    60: #a097c3,
+    70: #c1bbd8,
+    // tertiary (T80) -> lavender 400
+    80: #a097c3,
+    85: #c1bbd8,
+    // on-tertiary-container (T90) -> lavender 200
+    90: #dbd8e9,
+    95: #f0eff6,
+    98: #f9f8fd,
+    99: #fdfdfe,
+    100: #ffffff,
+    secondary: (
+      0: #000000,
+      20: #221e34,
+      10: #16121f,
+      5: #0d0a14,
+      15: #1c1829,
+      25: #2b2540,
+      30: #4d4375,
+      40: #675a9d,
+      50: #7d71ad,
+      60: #a097c3,
+      70: #c1bbd8,
+      80: #a097c3,
+      85: #c1bbd8,
+      90: #dbd8e9,
+      95: #f0eff6,
+      98: #f9f8fd,
+      99: #fdfdfe,
       100: #ffffff,
     ),
   )
