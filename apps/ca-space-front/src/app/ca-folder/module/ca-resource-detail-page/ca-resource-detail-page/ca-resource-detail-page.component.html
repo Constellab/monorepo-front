@@ -1,14 +1,4 @@
 <div class="g-page page">
-  @if (headerHidden()) {
-    <div class="show-header-container">
-      <mat-icon class="show-header" [matTooltip]="'show_header' | translate" (click)="showHeader()"
-        >expand_more</mat-icon
-      >
-    </div>
-  } @else {
-    <ca-hierarchy-object-breadcrumb></ca-hierarchy-object-breadcrumb>
-  }
-
   <ca-resource-detail
     [resourceId]="resourceId$ | async"
     [userRole]="userRole$ | async"

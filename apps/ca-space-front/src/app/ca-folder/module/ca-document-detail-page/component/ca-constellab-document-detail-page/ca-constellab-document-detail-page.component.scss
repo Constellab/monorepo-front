@@ -1,45 +1,15 @@
-// override default page padding
+// override default page padding and align with main menu
 .page {
   padding: var(--main-menu-margin) 1em 0 1em;
+  // fill the available flex space, not the full viewport (the breadcrumb sits
+  // above this page in the shell, so 100vh would overflow by the bar's height)
+  min-height: 100%;
 }
 
-.section {
+.document {
+  display: flex;
+  flex-direction: column;
   flex: 1;
-}
-
-.card-container {
-  margin: auto;
-  height: 100%;
-  width: var(--article-width);
-  background-color: var(--card-background);
-  border-radius: var(--card-radius);
-  padding: 1em;
+  padding-bottom: 1em;
   box-sizing: border-box;
-}
-
-@media print {
-  .card-container {
-    padding: 0;
-  }
-}
-
-.button {
-  margin-left: 0.5em;
-  margin-right: 0.5em;
-}
-
-.doc-header {
-  // align the elements with the title editable
-  padding-left: var(--element-editable-padding);
-}
-
-.text-editor {
-  margin-bottom: 2em;
-  margin-top: 1em;
-  max-width: 100%;
-  flex: 1;
-}
-
-.text-editor-edit {
-  border-color: var(--hover-color);
 }

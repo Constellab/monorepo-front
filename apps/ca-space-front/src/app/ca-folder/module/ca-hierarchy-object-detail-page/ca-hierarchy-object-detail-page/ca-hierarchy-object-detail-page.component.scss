@@ -1,13 +1,49 @@
 :host {
   display: flex;
-  min-height: 100vh;
+  height: 100vh;
   width: 100%;
+}
+
+.page-layout {
+  // fill the viewport height exactly so breadcrumb + drawer-container add up to
+  // 100vh (not breadcrumb + 100vh, which caused an overflow scrollbar)
+  height: 100%;
+  min-height: 0;
+}
+
+.breadcrumb {
+  // full-width bar with the card background and a bottom separator
+  padding: 0.5em 1em;
+  background-color: var(--card-background);
+  border-bottom: 1px solid var(--mat-sys-outline-variant);
+}
+
+.show-header-container {
+  position: relative;
+  height: 10px;
+}
+
+.show-header {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  background-color: var(--hover-color);
+  border-radius: 50%;
+  z-index: 9999;
+  cursor: pointer;
+}
+
+.drawer-container {
+  flex: 1;
+  // allow the flex child to shrink so the drawer-container fits the remaining
+  // space (below the breadcrumb) instead of forcing its own full height
+  min-height: 0;
 }
 
 .drawer {
   width: 17em;
   border-right: none;
-  // align the drawer content with main menu margin
+  // align the drawer top with the detail page content top padding
   padding: var(--main-menu-margin) 0 var(--main-menu-margin) 0.5em;
   background-color: transparent;
 }

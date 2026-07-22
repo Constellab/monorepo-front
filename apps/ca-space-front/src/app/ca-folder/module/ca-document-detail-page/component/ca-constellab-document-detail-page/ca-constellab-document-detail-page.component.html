@@ -1,8 +1,7 @@
-<div class="g-page page">
-  <ca-hierarchy-object-breadcrumb class="g-print-hide"></ca-hierarchy-object-breadcrumb>
-
+<div class="g-page page g-layout-col">
   <ca-constellab-document-detail
     [documentId]="documentId$ | async"
     [userRole]="userRole$ | async"
-    [tags]="tags"></ca-constellab-document-detail>
+    [tags]="tags"
+    class="document"></ca-constellab-document-detail>
 </div>

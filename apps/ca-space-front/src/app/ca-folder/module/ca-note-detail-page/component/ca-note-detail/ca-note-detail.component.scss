@@ -8,37 +8,25 @@
   flex: 1;
 }
 
-.card-container {
-  height: 100%;
-  margin-inline: auto;
-  width: var(--article-width);
-  background-color: var(--card-background);
-  border-radius: var(--card-radius);
-  padding: 1em;
-  box-sizing: border-box;
-}
-
-@media print {
-  .card-container {
-    padding: 0;
-  }
-}
-
 .icon {
   margin-right: 0.5em;
 }
 
 .title {
   flex: 1;
-}
-
-.button {
-  margin-right: 0.5em;
-  margin-left: 0.5em;
+  min-width: 0;
 }
 
 .note-content {
   margin-top: 1em;
+}
+
+.authors {
+  gap: 0.5em 1.5em;
+}
+
+.author-label {
+  color: var(--mat-sys-on-surface-variant);
 }
 
 .delete-text {

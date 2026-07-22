@@ -6,6 +6,9 @@
   overflow: hidden;
   margin: auto;
   box-sizing: content-box;
+  // solid primary background instead of a gradient
+  background-color: var(--mat-sys-primary);
+  color: var(--mat-sys-on-primary);
 }
 
 .user-icon-image {

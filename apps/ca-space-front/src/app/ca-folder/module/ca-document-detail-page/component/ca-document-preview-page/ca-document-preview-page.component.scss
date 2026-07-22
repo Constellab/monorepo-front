@@ -1,8 +1,9 @@
 // override default page padding
 .page {
   padding: var(--main-menu-margin) 0 0 0;
-}
-
-.breadcrumbs {
-  margin-inline: 1em;
+  // fill the available flex space, not the full viewport (the breadcrumb sits
+  // above this page in the shell, so 100vh would overflow by the bar's height)
+  height: 100%;
+  min-height: 100%;
+  max-height: 100%;
 }

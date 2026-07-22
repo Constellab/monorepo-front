@@ -1,17 +1,9 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
-import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
-import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
-import { FlTagModule } from '@monorepo/front-core-lib/fl-tag';
-import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import { TeTextEditorModule } from '@monorepo/text-editor';
 import { map } from 'rxjs/operators';
 
 import { CaConstellabDocumentDetailComponent } from '../../../ca-document-core/component/ca-constellab-document-detail/ca-constellab-document-detail.component';
-import { CaHierarchyObjectBreadcrumbComponent } from '../../../ca-folder-hierarchy-core/component/ca-hierarchy-object-breadcrumb/ca-hierarchy-object-breadcrumb.component';
 import { CaHierarchyObjectDetailState } from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
 
 /**
@@ -22,18 +14,7 @@ import { CaHierarchyObjectDetailState } from '../../../ca-folder-hierarchy-core/
   templateUrl: './ca-constellab-document-detail-page.component.html',
   styleUrls: ['./ca-constellab-document-detail-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.Eager,
-  imports: [
-    CaHierarchyObjectBreadcrumbComponent,
-    FlSectionModule,
-    FlFormModule,
-    FlCardModule,
-    FlUserModule,
-    TeTextEditorModule,
-    ReactiveFormsModule,
-    FlTagModule,
-    CaConstellabDocumentDetailComponent,
-    AsyncPipe,
-  ],
+  imports: [CaConstellabDocumentDetailComponent, AsyncPipe],
 })
 export class CaConstellabDocumentDetailPageComponent {
   private state = inject(CaHierarchyObjectDetailState);
