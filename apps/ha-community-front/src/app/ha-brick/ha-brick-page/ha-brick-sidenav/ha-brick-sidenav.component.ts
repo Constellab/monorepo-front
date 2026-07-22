@@ -193,6 +193,7 @@ export class HaBrickSidenavComponent {
       n.parentId = null;
       return n;
     });
+    this.dataSource$.clear();
     this.dataSource$.addNodeObjectsWithChildren(nodes);
   }
 
