@@ -163,6 +163,9 @@ export class HaBrickPageState {
 
   public initDoc(docId: string, url: UrlSegment[], brick: HaBrick): void {
     if (this.doc() && this.doc().id === docId) {
+      // Doc already loaded
+      this._docLoading.set(false);
+      this._docError.set(false);
       return;
     }
 

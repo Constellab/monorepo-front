@@ -9,7 +9,8 @@ import {
   PLATFORM_ID,
   Signal,
   StateKey,
-  TransferState} from '@angular/core';
+  TransferState,
+} from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconButton } from '@angular/material/button';
@@ -135,6 +136,12 @@ export class HaBrickSidenavComponent {
   getRoute: (node: HaNode) => string = (node: HaNode) => {
     return 'doc/' + node.completePath;
   };
+
+  isTechDocActive(node: FlTree<HaNode>): boolean {
+    const completePath = node.object.completePath;
+    if (!completePath) return false;
+    return this.currentDocId() === completePath.split('/').pop();
+  }
 
   private init(brick: HaBrick, pathVersion: string): void {
     this.currentBrick = brick;

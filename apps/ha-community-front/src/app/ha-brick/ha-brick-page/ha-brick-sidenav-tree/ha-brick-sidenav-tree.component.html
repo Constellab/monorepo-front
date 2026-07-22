@@ -19,7 +19,7 @@
     [matTreeNodePaddingIndent]="10"
     (mouseenter)="hoverId = node.id"
     (mouseleave)="hoverId = null"
-    [ngClass]="{ 'selected-tree-node': isSelected(node) }">
+    [class.selected-tree-node]="isSelected(node)">
     @if (node.object.children) {
       <div class="g-text-small tree-node g-layout-row g-layout-start-center" matTreeNodeToggle>
         <div class="tree-node-div">
@@ -48,7 +48,7 @@
       </div>
     } @else {
       <a
-        [routerLink]="getRoute()(node.object)"
+        [routerLink]="isSelected(node) ? null : getRoute()(node.object)"
         class="g-text-small tree-node a-tree-node g-layout-row g-layout-start-center">
         <div class="tree-node-without-children tree-node-div">
           {{ node.object.name }}

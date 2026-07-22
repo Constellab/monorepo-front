@@ -1,3 +1,4 @@
+<!-- Header: "menu" title + add button (only with edit rights) -->
 <div class="g-layout-row g-layout-between-center">
   <span class="g-text-medium g-weight-600">{{ 'menu' | translate }}</span>
   @if (userHasEditRight()) {
@@ -9,15 +10,19 @@
 
 <div class="entity-page-info-div-content table-of-contents">
   <div>
+    <!-- 1. "Introduction" link (doc root) -->
+    <!--    Active when currentDocId() === '' (no URL sub-segment) -->
     <a
-      [routerLink]="'.'"
+      [routerLink]="currentDocId() === '' ? null : '.'"
       [relativeTo]="route"
       [routerLinkActive]="'active'"
       class="g-text-small tree-node g-layout-row g-layout-start-center tree-node-div"
-      [ngClass]="currentDocId() === '' ? 'selected-tree-node' : ''">
+      [class.selected-tree-node]="currentDocId() === ''">
       {{ 'introduction' | translate }}
     </a>
 
+    <!-- 2. Tree of written documentations (folders + docs) -->
+    <!--    Dedicated component: handles drag & drop, editing and selection -->
     <ha-brick-sidenav-tree
       [sidenavObjects]="dataSource$"
       [selectedObject]="currentDocId()"
@@ -29,6 +34,8 @@
       (menuButtonEvent)="onDocumentationTreeEvent($event)"
       (refreshDatasource)="onRefreshDocumentationTree()"></ha-brick-sidenav-tree>
 
+    <!-- 3. Tree of technical documentations (generated/imported) -->
+    <!--    Loaded on demand when the root folder is expanded -->
     <mat-tree
       #techTree
       [dataSource]="techDataSource$"
@@ -41,6 +48,7 @@
         matTreeNodePadding
         [matTreeNodePaddingIndent]="10"
         class="g-drag-hide-placeholder">
+        <!-- Folder node: collapsible (toggle) -->
         @if (node.object.children) {
           <div
             class="g-text-small tree-node g-layout-row g-layout-start-center"
@@ -63,9 +71,11 @@
             </button>
           </div>
         } @else {
+          <!-- Leaf node: link to a technical doc page -->
           <a
-            [routerLink]="'doc/' + node.object.completePath"
-            class="g-text-small tree-node g-layout-row g-layout-start-center">
+            [routerLink]="isTechDocActive(node) ? null : 'doc/' + node.object.completePath"
+            class="g-text-small tree-node g-layout-row g-layout-start-center"
+            [class.selected-tree-node]="isTechDocActive(node)">
             <div class="tree-node-div">
               {{ node.object.name }}
             </div>
@@ -74,12 +84,14 @@
       </mat-tree-node>
     </mat-tree>
 
+    <!-- 4. "Versions" link -->
+    <!--    Active when currentDocId() === 'version' -->
     <a
-      [routerLink]="'version'"
+      [routerLink]="currentDocId() === 'version' ? null : 'version'"
       [relativeTo]="route"
       [routerLinkActive]="'active'"
       class="g-text-small tree-node g-layout-row g-layout-start-center tree-node-div"
-      [ngClass]="currentDocId() === 'version' ? 'selected-tree-node' : ''">
+      [class.selected-tree-node]="currentDocId() === 'version'">
       {{ 'version' | translate }}
     </a>
   </div>

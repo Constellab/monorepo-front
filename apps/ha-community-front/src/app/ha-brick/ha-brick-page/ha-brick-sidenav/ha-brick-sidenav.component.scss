@@ -120,6 +120,9 @@ mat-tree-node {
   height: 100%;
 }
 
-.selected-tree-node{
+.selected-tree-node,
+.selected-tree-node.tree-node:hover {
   color: var(--primary-color) !important;
+  cursor: default;
+  text-decoration: none;
 }
