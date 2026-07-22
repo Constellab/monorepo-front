@@ -6,6 +6,7 @@ import { FlSearchConverter } from '@monorepo/front-core-lib/fl-search';
 import { FlFileHelper } from '@monorepo/front-core-lib/fl-translate';
 import {
   LmlAdminerInfo,
+  LmlBrickInfoDTO,
   LmlCleanLabManagerOptions,
   LmlComposeEnv,
   LmlComposeList,
@@ -243,6 +244,10 @@ export class CaLabService {
 
   public getLabManagerConfig(id: string): Observable<LmlLabManagerConfig> {
     return this.apiService.get(`${this.route}/${id}/lab-manager/config`, LmlLabManagerConfig);
+  }
+
+  public getMultipleBrickInfo(id: string): Observable<LmlBrickInfoDTO[]> {
+    return this.apiService.get(`${this.route}/${id}/lab-manager/config/detail`, LmlBrickInfoDTO);
   }
 
   public getLabManagerStatus(id: string): Observable<LmlLabManagerStatus> {

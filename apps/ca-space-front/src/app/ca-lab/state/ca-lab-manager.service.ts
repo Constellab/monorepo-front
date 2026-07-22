@@ -1,6 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import {
   LmlAdminerInfo,
+  LmlBrickInfoDTO,
   LmlCleanLabManagerOptions,
   LmlComposeList,
   LmlComposeRestartOptions,
@@ -46,6 +47,10 @@ export class CaLabManagerService extends LmlLabManagerService {
 
   getLabManagerConfig(): Observable<LmlLabManagerConfig> {
     return this.labService.getLabManagerConfig(this.labState.getLabId());
+  }
+
+  getMultipleBrickInfo(): Observable<LmlBrickInfoDTO[]> {
+    return this.labService.getMultipleBrickInfo(this.labState.getLabId());
   }
 
   getVersionUpgradeInfo(): Observable<LmlLabManagerMigrationPlanDTO> {

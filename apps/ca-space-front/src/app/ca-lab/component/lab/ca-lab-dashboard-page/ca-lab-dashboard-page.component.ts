@@ -78,6 +78,9 @@ export class CaLabDashboardPageComponent implements OnInit {
   /** Installed brick names, for the bricks-panel preview in the header. */
   brickNames$: Observable<string[]>;
 
+  /** Count of installed bricks with a newer version available, for the bricks-panel preview badge. */
+  brickUpdatesCount$: Observable<number>;
+
   ngOnInit(): void {
     // configState must be initialized before managerState so that
     // CaLabManagerService.labManagerIsRunning$() can subscribe to getStatus$().
@@ -97,6 +100,7 @@ export class CaLabDashboardPageComponent implements OnInit {
     // manager status is polled itself, so it no longer depends on managerState.init() above.
     this.bricksState.init();
     this.brickNames$ = this.bricksState.getBrickNames$();
+    this.brickUpdatesCount$ = this.bricksState.getUpdatesAvailableCount$();
   }
 
   get bricks(): CaLabBricksState {

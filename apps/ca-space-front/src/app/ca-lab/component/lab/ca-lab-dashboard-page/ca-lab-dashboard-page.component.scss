@@ -36,6 +36,25 @@ mat-panel-title {
   flex-wrap: nowrap;
 }
 
+// "N updates available" badge in the bricks-panel preview.
+// Same purple/tertiary style and upgrade icon as the config-form update badges.
+.brick-updates-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  flex-shrink: 0;
+  white-space: nowrap;
+  padding: 2px 10px;
+  margin-right: 16px;
+  border-radius: var(--mat-sys-corner-full);
+  background: var(--mat-sys-tertiary-container);
+  color: var(--mat-sys-tertiary);
+
+  mat-icon {
+    color: var(--mat-sys-tertiary);
+  }
+}
+
 // Bricks load error (config fetch failed while the lab manager is running).
 .bricks-error {
   color: var(--warn-color);

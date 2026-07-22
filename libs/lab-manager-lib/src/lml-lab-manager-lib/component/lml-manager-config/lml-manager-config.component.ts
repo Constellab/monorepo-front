@@ -28,8 +28,25 @@ export class LmlManagerConfigComponent implements OnInit, OnDestroy {
   }
 
   getSuccess(config: LmlLabManagerConfig): void {
-    this.brickVersions.set(new LmlBrickVersionDTODatasource(config.brickVersions, true));
+    const datasource = new LmlBrickVersionDTODatasource(config.brickVersions, true);
+    this.brickVersions.set(datasource);
     this.getIsLoading.set(false);
+    this.loadBricksInfo(datasource, config);
+  }
+
+  /**
+   * Enrich the loaded bricks with their detailed info (description, image, latest version).
+   * Best effort: on error the rows keep their basic (icon/name/version) display.
+   */
+  private loadBricksInfo(datasource: LmlBrickVersionDTODatasource, config: LmlLabManagerConfig): void {
+    if (!config.brickVersions?.length) return;
+
+    this.managerApiService.getMultipleBrickInfo().subscribe({
+      next: (infos) => datasource.mergeBricksInfo(infos),
+      error: () => {
+        /* keep the basic display on error */
+      },
+    });
   }
 
   ngOnDestroy(): void {

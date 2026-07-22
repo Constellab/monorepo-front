@@ -1,4 +1,5 @@
 import { Component, inject, input, output, signal, ViewContainerRef } from '@angular/core';
+import { toObservable } from '@angular/core/rxjs-interop';
 import { ClBrick } from '@monorepo/core-lib';
 import {
   FlConfirmDialogInput,
@@ -6,6 +7,7 @@ import {
   FlDialogService,
 } from '@monorepo/front-core-lib/fl-dialog';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
+import { map, switchMap } from 'rxjs/operators';
 
 import { LmlBrickService } from '../../lml-brick.service';
 import { LmlLabManagerService } from '../../lml-lab-manager.service';
@@ -100,6 +102,52 @@ export class LmlBricksConfigFormComponent {
       brickVersions.addItem(brickVersionDTO);
     }
     this.emitConfigChange();
+  }
+
+  /** Number of installed bricks with a newer version available. Re-emits as the list changes. */
+  updatesAvailableCount$ = toObservable(this.brickVersions).pipe(
+    switchMap((datasource) => datasource.connect()),
+    map((bricks) => bricks.filter((brick) => brick.info?.hasNewVersion).length)
+  );
+
+  /**
+   * Bump a brick to its latest available version in place (no dialog). Flags the config
+   * as changed so the user saves; the update badge clears since it is no longer outdated.
+   */
+  updateBrickToLatest(brickVersionDTO: LmlLabManagerBrickVersionDTO): void {
+    if (this.bumpToLatest(brickVersionDTO)) {
+      this.emitConfigChange();
+    }
+  }
+
+  /**
+   * Bump every outdated brick to its latest version in one go. Flags the config as
+   * changed so the user saves; each update badge clears as the bricks are no longer outdated.
+   */
+  updateAllToLatest(): void {
+    const outdated = this.brickVersions().array.filter((brick) => brick.info?.hasNewVersion);
+    if (outdated.length === 0) return;
+
+    for (const brick of outdated) {
+      this.bumpToLatest(brick);
+    }
+    this.emitConfigChange();
+  }
+
+  /**
+   * Set a brick to its latest version in the datasource (clearing its outdated flag).
+   * Returns false (no-op) when the brick has no known latest version.
+   */
+  private bumpToLatest(brickVersionDTO: LmlLabManagerBrickVersionDTO): boolean {
+    const lastVersion = brickVersionDTO.info?.lastVersion;
+    if (!lastVersion) return false;
+
+    this.brickVersions().updateItem({
+      ...brickVersionDTO,
+      version: lastVersion,
+      info: { ...brickVersionDTO.info, hasNewVersion: false },
+    });
+    return true;
   }
 
   openDeleteBrickConfirmDialog(brickVersionDTO: LmlLabManagerBrickVersionDTO): void {

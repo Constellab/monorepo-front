@@ -3,6 +3,7 @@ import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlFileHelper } from '@monorepo/front-core-lib/fl-translate';
 import {
   LmlAdminerInfo,
+  LmlBrickInfoDTO,
   LmlCleanLabManagerOptions,
   LmlComposeList,
   LmlComposeRestartOptions,
@@ -47,6 +48,10 @@ export class LmsLabManagerService extends LmlLabManagerService {
 
   getLabManagerConfig(): Observable<LmlLabManagerConfig> {
     return this.labService.getLabManagerConfig();
+  }
+
+  getMultipleBrickInfo(): Observable<LmlBrickInfoDTO[]> {
+    return this.labService.getMultipleBrickInfo();
   }
 
   getVersionUpgradeInfo(): Observable<LmlLabManagerMigrationPlanDTO> {

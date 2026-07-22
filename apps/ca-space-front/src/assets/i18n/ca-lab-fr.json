@@ -37,6 +37,7 @@
   "lab_bricks_load_error": "Les bricks n'ont pas pu être chargées. Veuillez réessayer plus tard.",
   "lab_bricks_stopped_help": "Démarrez le lab manager pour voir ses bricks et gérer leurs versions.",
   "lab_bricks_unavailable_title": "Les bricks sont disponibles lorsque le lab manager est démarré",
+  "lab_bricks_updates_available": "{{count}} mise(s) à jour disponible(s)",
   "lab_recorded_versions": "Dernières versions enregistrées",
   "lab_recorded_versions_help": "Voici les versions des bricks enregistrées lors du dernier démarrage du lab. Elles sont conservées ici pour rester consultables même lorsque le lab est arrêté. Lorsque le lab est démarré, la liste ci-dessus peut être plus à jour.",
   "lab_config_hero_running_help": "Votre data lab est actif et prêt. Ouvrez-le pour commencer à travailler.",

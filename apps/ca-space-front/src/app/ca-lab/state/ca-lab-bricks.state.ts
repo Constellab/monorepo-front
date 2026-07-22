@@ -63,6 +63,23 @@ export class CaLabBricksState implements OnDestroy {
   private onConfigLoaded(config: LmlLabManagerConfig): void {
     this.datasource = new LmlBrickVersionDTODatasource(config.brickVersions, true);
     this.status$.next({ status: 'success', result: config.brickVersions });
+    this.loadBricksInfo(config);
+  }
+
+  /**
+   * Enrich the loaded bricks with their detailed info (description, image, latest version).
+   * Best effort: the config bricks are already displayed, so a failure here is silent and
+   * simply leaves rows in their basic (icon/name/version) form.
+   */
+  private loadBricksInfo(config: LmlLabManagerConfig): void {
+    if (!config.brickVersions?.length) return;
+
+    this.managerApiService.getMultipleBrickInfo().subscribe({
+      next: (infos) => this.datasource?.mergeBricksInfo(infos),
+      error: () => {
+        /* keep the basic display on error */
+      },
+    });
   }
 
   getDatasource(): LmlBrickVersionDTODatasource {
@@ -84,6 +101,18 @@ export class CaLabBricksState implements OnDestroy {
       filter((status) => status.status === 'success' && this.datasource != null),
       switchMap(() => this.datasource.connect()),
       map((bricks) => bricks.map((brick) => brick.name))
+    );
+  }
+
+  /**
+   * Number of installed bricks with a newer version available, for the accordion header
+   * preview badge. Re-emits whenever the brick list (or its enriched info) changes.
+   */
+  getUpdatesAvailableCount$(): Observable<number> {
+    return this.status$.pipe(
+      filter((status) => status.status === 'success' && this.datasource != null),
+      switchMap(() => this.datasource.connect()),
+      map((bricks) => bricks.filter((brick) => brick.info?.hasNewVersion).length)
     );
   }
 

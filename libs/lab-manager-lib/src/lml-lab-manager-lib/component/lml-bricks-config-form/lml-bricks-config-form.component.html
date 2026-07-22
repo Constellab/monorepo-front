@@ -7,6 +7,21 @@
   </button>
 </div>
 
+@if (updatesAvailableCount$ | async; as updatesCount) {
+  @if (updatesCount > 0) {
+    <fl-info-banner
+      class="updates-banner"
+      variant="accent"
+      icon="upgrade"
+      [title]="'lml.bricks_updates_available' | translate: { count: updatesCount }">
+      <button mat-stroked-button type="button" class="update-all-button" (click)="updateAllToLatest()">
+        <mat-icon>upgrade</mat-icon>
+        {{ 'lml.update_all_bricks' | translate }}
+      </button>
+    </fl-info-banner>
+  }
+}
+
 @if (!isConfigured()) {
   <div class="g-layout-row g-layout-start-center g-layout-gap-1em not-configured">
     <p class="g-warn-text">{{ 'lml.lab_not_configured_help' | translate }}</p>
@@ -23,11 +38,34 @@
   <div class="brick-list">
     @for (brick of brickVersions().connect() | async; track brick.name) {
       <div class="brick-row g-layout-row g-layout-start-center g-layout-gap-1em">
-        <span class="brick-tile">
-          <mat-icon flIcon="brick"></mat-icon>
+        <span class="brick-tile" [class.has-image]="brick.info">
+          @if (brick.info) {
+            <img
+              class="brick-image"
+              [src]="brick.info.imageLink | lmlCommunityBrickImage"
+              [alt]="brick.name" />
+          } @else {
+            <mat-icon flIcon="brick"></mat-icon>
+          }
         </span>
 
-        <span class="brick-name g-flex-grow">{{ brick.name }}</span>
+        <div class="brick-info g-flex-grow g-layout-col">
+          <span class="brick-name">{{ brick.name }}</span>
+          @if (brick.info?.description) {
+            <span class="brick-description g-text-light g-text-small">{{ brick.info.description }}</span>
+          }
+        </div>
+
+        @if (brick.info?.hasNewVersion) {
+          <button
+            type="button"
+            class="brick-update-badge g-text-small"
+            (click)="updateBrickToLatest(brick)"
+            [matTooltip]="'lml.brick_update_to_latest' | translate: { version: brick.info.lastVersion }">
+            <mat-icon class="g-icon-small">upgrade</mat-icon>
+            {{ 'lml.brick_new_version_available' | translate: { version: brick.info.lastVersion } }}
+          </button>
+        }
 
         <span class="brick-version">v{{ brick.version }}</span>
 

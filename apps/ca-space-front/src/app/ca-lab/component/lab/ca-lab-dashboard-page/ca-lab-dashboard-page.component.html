@@ -13,8 +13,20 @@
             </mat-panel-title>
             <mat-panel-description class="panel-preview">
               @if (labManagerIsRunning$ | async) {
-                <ca-lab-chip-list [labels]="(brickNames$ | async) ?? []" icon="extension" iconColor="primary">
+                <ca-lab-chip-list
+                  class="g-flex-grow"
+                  [labels]="(brickNames$ | async) ?? []"
+                  icon="extension"
+                  iconColor="primary">
                 </ca-lab-chip-list>
+                @if (brickUpdatesCount$ | async; as updatesCount) {
+                  @if (updatesCount > 0) {
+                    <span class="brick-updates-badge g-text-small">
+                      <mat-icon class="g-icon-small">upgrade</mat-icon>
+                      {{ 'lab_bricks_updates_available' | translate: { count: updatesCount } }}
+                    </span>
+                  }
+                }
               } @else {
                 <span class="g-text-light g-text-small">{{
                   'lab_bricks_unavailable_title' | translate

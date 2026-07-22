@@ -2,6 +2,7 @@ import { Observable } from 'rxjs';
 
 import {
   LmlAdminerInfo,
+  LmlBrickInfoDTO,
   LmlCleanLabManagerOptions,
   LmlComposeList,
   LmlComposeRestartOptions,
@@ -34,6 +35,13 @@ export abstract class LmlLabManagerService {
   abstract configureLabManager(): Observable<void>;
 
   abstract getLabManagerConfig(): Observable<LmlLabManagerConfig>;
+
+  /**
+   * Get detailed info (description, image, latest version, whether a newer version
+   * exists) for the lab's installed bricks. Called after getLabManagerConfig to enrich
+   * the loaded bricks. May not return an entry for every configured brick.
+   */
+  abstract getMultipleBrickInfo(): Observable<LmlBrickInfoDTO[]>;
 
   abstract getVersionUpgradeInfo(): Observable<LmlLabManagerMigrationPlanDTO>;
 

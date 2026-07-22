@@ -131,9 +131,29 @@ export class LmlLabManagerStatus {
   }
 }
 
+/**
+ * Detailed info about an installed brick, returned by the multiple-brick-info route.
+ * The route may not return an entry for every requested brick (e.g. unknown/private
+ * bricks), so on the front this is attached optionally to the config brick it enriches.
+ */
+export class LmlBrickInfoDTO {
+  id: string;
+  name: string;
+  description: string;
+  imageLink: string | null;
+  lastVersion: string;
+  hasNewVersion: boolean;
+}
+
 export class LmlLabManagerBrickVersionDTO {
   name: string;
   version: string;
+
+  // enriched (optional) info loaded after the config, via the multiple-brick-info route.
+  // may be absent when the route returns no entry for this brick.
+  // note: config bricks are plain objects (no @Type on LmlLabManagerConfig.brickVersions),
+  // so this must stay a plain field — read hasNewVersion via `brick.info?.hasNewVersion`.
+  info?: LmlBrickInfoDTO;
 }
 
 export class LmlBrickVersionDTODatasource extends FlArrayObs<LmlLabManagerBrickVersionDTO> {
@@ -145,6 +165,28 @@ export class LmlBrickVersionDTODatasource extends FlArrayObs<LmlLabManagerBrickV
     return {
       brickVersions: this.array,
     };
+  }
+
+  /** Number of installed bricks for which a newer version is available. */
+  public updatesAvailableCount(): number {
+    return this.array.filter((brick) => brick.info?.hasNewVersion).length;
+  }
+
+  /**
+   * Merge detailed brick info (from the multiple-brick-info route) onto the matching
+   * config bricks. Bricks with no returned info keep their current (icon/name/version)
+   * display. Mutates the items in place then re-emits so views refresh.
+   */
+  public mergeBricksInfo(infos: LmlBrickInfoDTO[]): void {
+    const infoByName = new Map(infos.map((info) => [info.name, info]));
+    const array = this.array;
+    for (const brick of array) {
+      const info = infoByName.get(brick.name);
+      if (info) {
+        brick.info = info;
+      }
+    }
+    this.array = array;
   }
 }
 

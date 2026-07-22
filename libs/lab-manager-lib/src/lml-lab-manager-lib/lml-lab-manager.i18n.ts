@@ -116,6 +116,10 @@ const lmlLabManagerI18nFr: FlLangTranslation = {
     brick_version_repository_url: 'Url du repository',
     brick_technical_info: 'Informations techniques',
     brick_version_view_detail: 'Voir le détail',
+    brick_new_version_available: '{{version}} disponible',
+    brick_update_to_latest: 'Mettre à jour vers la version {{version}}',
+    bricks_updates_available: '{{count}} mise(s) à jour de brique disponible(s)',
+    update_all_bricks: 'Tout mettre à jour',
     lab_manager_section_help:
       'Le lab manager est un service de data lab responsable de sa gestion. Il vous permet de démarrer, arrêter, redémarrer et configurer le data lab, ainsi que de gérer les sauvegardes du data lab.',
     lab_manager_advanced_config: 'Configuration avancée',
@@ -315,6 +319,10 @@ const lmlLabManagerI18nEn: FlLangTranslation = {
     brick_version_repository_url: 'Repository url',
     brick_technical_info: 'Technical info',
     brick_version_view_detail: 'View details',
+    brick_new_version_available: '{{version}} available',
+    brick_update_to_latest: 'Update to version {{version}}',
+    bricks_updates_available: '{{count}} brick update(s) available',
+    update_all_bricks: 'Update all',
     lab_manager_section_help:
       'The lab manager is a data lab service responsible for managing it. It allows you to start, stop, restart, and configure the data lab, as well as manage data lab backups.',
     lab_manager_advanced_config: 'Advanced configuration',
