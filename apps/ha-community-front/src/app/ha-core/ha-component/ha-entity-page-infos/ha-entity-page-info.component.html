@@ -7,7 +7,7 @@
 
   <ng-content></ng-content>
 
-  @if (contributors()?.length > 0) {
+  @if (uniqueContributors().length > 0) {
     <div class="entity-page-info-div">
       <div class="entity-page-info-div-title">
         <span class="g-text-medium g-weight-600">{{ 'contributors' | translate }}</span>
@@ -23,7 +23,7 @@
         }
       </div>
       <div class="entity-page-info-div-content">
-        @for (contributor of contributors(); track contributor.id) {
+        @for (contributor of uniqueContributors(); track contributor.id) {
           <a [routerLink]="'/profile/' + contributor.id">
             <fl-user-inline [user]="contributor" [portalOnHover]="false"></fl-user-inline>
           </a>
