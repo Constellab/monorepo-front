@@ -11,7 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -68,7 +68,6 @@ interface DemoRow {
 })
 export class DsMaterialOverridePageComponent {
   private readonly themeService = inject(FlThemeService);
-  private readonly snackBar = inject(MatSnackBar);
   private readonly flSnackBar = inject(FlSnackBarService);
 
   protected readonly isDark = signal(this.themeService.isDarkTheme());
@@ -94,13 +93,6 @@ export class DsMaterialOverridePageComponent {
     const next = this.isDark() ? ClTheme.LIGHT_THEME : ClTheme.DARK_THEME;
     this.themeService.changeTheme(next);
     this.isDark.set(this.themeService.isDarkTheme());
-  }
-
-  protected openSnackbar(panelClass: string): void {
-    this.snackBar.open(`Snackbar with ${panelClass || 'default'} style`, 'Close', {
-      duration: 3000,
-      panelClass: panelClass ? [panelClass] : [],
-    });
   }
 
   protected openSuccessSnackbar(): void {
