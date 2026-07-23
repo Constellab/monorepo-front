@@ -1,6 +1,6 @@
-import { NgClass } from '@angular/common';
+import { AsyncPipe, NgClass } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { MatAnchor, MatButton } from '@angular/material/button';
 import { MatDivider } from '@angular/material/divider';
 import { MatIcon } from '@angular/material/icon';
@@ -19,8 +19,10 @@ import {
   LiRouterService,
   LiSystemInfo,
   LiSystemService,
+  LiUser,
 } from '@monorepo/lab-lib/li-core';
 import { TranslatePipe } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
 
 import { LabEnvStore } from '../../../lab-core/lab-env.store';
 import { LabEnvironmentHelper } from '../../../lab-core/lab-environment.helper';
@@ -48,6 +50,7 @@ import { LabMainMenuSettingsComponent } from '../lab-main-menu-settings/lab-main
     RouterOutlet,
     TranslatePipe,
     CoRagflowChatbotBubbleComponent,
+    AsyncPipe,
   ],
 })
 export class LabMainAppComponent implements OnInit {
@@ -61,6 +64,8 @@ export class LabMainAppComponent implements OnInit {
   accessibleLinks: LabMainMenuLink[] = labGetMainMenuLinks();
 
   isChatbotActive = false;
+
+  user$: Observable<LiUser> = this.authenticatedUserService.getUser$();
 
   spaceAppUrl: string = LabEnvironmentHelper.getSpaceFrontAppUrl();
 

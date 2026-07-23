@@ -1,11 +1,13 @@
 import { AsyncPipe, NgClass, NgOptimizedImage } from '@angular/common';
-import { ChangeDetectionStrategy,Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { ChangeDetectionStrategy, Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { MatBadge } from '@angular/material/badge';
 import { MatAnchor, MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatSidenav, MatSidenavContainer, MatSidenavContent } from '@angular/material/sidenav';
 import { MatTooltip } from '@angular/material/tooltip';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { CoRagflowChatbotService } from '@monorepo/community-lib';
 import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
 import { FlExpansionMenuModule } from '@monorepo/front-core-lib/fl-expansion-menu';
 import { FlPortalConfig, FlPortalService } from '@monorepo/front-core-lib/fl-portal';
@@ -14,16 +16,13 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import {
-  CaAuthenticatedUserInlineComponent
-} from '../../../ca-core/entity-module/ca-user-core/component/ca-authenticated-user-inline/ca-authenticated-user-inline.component';
+import { CaAuthenticatedUserInlineComponent } from '../../../ca-core/entity-module/ca-user-core/component/ca-authenticated-user-inline/ca-authenticated-user-inline.component';
 import { CaAuthenticatedUserService } from '../../../ca-core/service-api/ca-authenticated-user.service';
 import { CaCurrentSpaceService } from '../../../ca-core/service-api/ca-current-space.service';
 import { CaNotificationState } from '../../../ca-core/state/ca-notification.state';
-import {
-  CaNotificationsPortalComponent,
-} from '../../../ca-notifications/ca-notifications-portal/ca-notifications-portal.component';
-import { CA_MAIN_MENU_LINKS,CaMainMenuLink } from '../../model/ca-main-menu-link.class';
+import { CaEnvironmentHelper } from '../../../ca-core/utils/ca-environment.helper';
+import { CaNotificationsPortalComponent } from '../../../ca-notifications/ca-notifications-portal/ca-notifications-portal.component';
+import { CA_MAIN_MENU_LINKS, CaMainMenuLink } from '../../model/ca-main-menu-link.class';
 import { CaMySpacesPortalComponent } from '../ca-my-spaces-portal/ca-my-spaces-portal.component';
 
 /**
@@ -61,6 +60,8 @@ export class CaMainAppComponent implements OnInit {
   private currentSpaceService = inject(CaCurrentSpaceService);
   private portalService = inject(FlPortalService);
   private notificationState = inject(CaNotificationState);
+  private chatbotService = inject(CoRagflowChatbotService);
+  private http = inject(HttpClient);
 
   @ViewChild(MatSidenav, { static: true, read: ElementRef }) sidenav: ElementRef<HTMLElement>;
 
@@ -75,8 +76,11 @@ export class CaMainAppComponent implements OnInit {
 
   otherSpaceNotificationsNumber$: Observable<string>;
 
+  isChatbotActive = false;
+
   ngOnInit(): void {
     this.initAccessibleLinks();
+    this.checkChatbotActive();
 
     // if the current space has a photo, use it, otherwise, use the default logo of gencovery
     this.spaceLogo$ = this.currentSpaceService
@@ -103,6 +107,22 @@ export class CaMainAppComponent implements OnInit {
     }
 
     this.accessibleLinks = accessibleLinks;
+  }
+
+  private checkChatbotActive(): void {
+    this.http
+      .get<{ active: boolean }>(`${CaEnvironmentHelper.getCommunityApiUrl()}/ragflow-chatbot/status`)
+      .subscribe({
+        next: (res) => (this.isChatbotActive = res.active),
+        error: () => (this.isChatbotActive = false),
+      });
+  }
+
+  openChatbot(event: MouseEvent): void {
+    this.chatbotService.toggle({
+      user: this.authenticatedUserService.getCurrentUser(),
+      origin: event.currentTarget as HTMLElement,
+    });
   }
 
   openMySpacesPortal(): void {

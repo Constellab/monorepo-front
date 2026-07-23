@@ -1,5 +1,5 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { isPlatformBrowser } from '@angular/common';
+import { AsyncPipe, isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import {
   AfterContentInit,
@@ -10,7 +10,8 @@ import {
   inject,
   OnDestroy,
   OnInit,
-  PLATFORM_ID} from '@angular/core';
+  PLATFORM_ID,
+} from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RouterOutlet } from '@angular/router';
 import { CoRagflowChatbotBubbleComponent } from '@monorepo/community-lib';
@@ -44,7 +45,7 @@ import { HaCookieConsentComponent } from '../ha-cookie-consent/ha-cookie-consent
   styleUrls: ['./ha-main.component.scss'],
   providers: [HaThemeState, HaJsonLdState, HaCurrentPageState],
   changeDetection: ChangeDetectionStrategy.Eager,
-  imports: [RouterOutlet, CoRagflowChatbotBubbleComponent],
+  imports: [RouterOutlet, CoRagflowChatbotBubbleComponent, AsyncPipe],
 })
 export class HaMainComponent implements OnInit, AfterContentInit, OnDestroy {
   currentLanguage: ClSupportedLanguage;
@@ -55,6 +56,8 @@ export class HaMainComponent implements OnInit, AfterContentInit, OnDestroy {
 
   private http: HttpClient = inject(HttpClient);
   private authUserService: HaAuthenticatedUserService = inject(HaAuthenticatedUserService);
+
+  readonly user$ = this.authUserService.getUser();
   private cookieService: FlCookieService = inject(FlCookieService);
   private breakpointObserver: BreakpointObserver = inject(BreakpointObserver);
   private themeState: HaThemeState = inject(HaThemeState);
