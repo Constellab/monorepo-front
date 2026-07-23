@@ -93,7 +93,7 @@ export abstract class LiApiErrorService extends FlApiErrorService {
     this.flSnackBarService.openSnackBar(LiErrorSnackBarComponent, {
       data,
       duration: duration ?? this.defaultApiErrorDuration,
-      panelClass: showAsSuccess ? 'g-snackbar-success' : 'g-snackbar-warn',
+      panelClass: showAsSuccess ? 'g-snackbar-primary' : 'g-snackbar-warn',
     });
   }
 }
