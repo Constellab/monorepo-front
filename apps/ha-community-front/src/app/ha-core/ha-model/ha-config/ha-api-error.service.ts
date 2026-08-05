@@ -66,13 +66,7 @@ export class HaApiErrorService extends FlApiErrorService {
       this.showError(errorResponse.message);
       return throwError(() => serverError);
     } else {
-      // handle session expired specifically. Only for a visitor who was believed to have a
-      // session: the same 401 is the normal answer for an anonymous visitor hitting an
-      // authenticated endpoint, and reloading there would produce it again on every load, forever.
-      if (
-        serverError.nestedError?.code === 'error.wrong_token' &&
-        this.cookieService.check(FL_AUTH_EXPIRED_COOKIE)
-      ) {
+      if (this.isSessionExpired(errorResponse)) {
         return this.sessionExpired(serverError, snackBarDuration);
       }
 
@@ -87,6 +81,27 @@ export class HaApiErrorService extends FlApiErrorService {
 
     // throw the error to propagate it
     return throwError(() => serverError);
+  }
+
+  /**
+   * A 401 that really means "the session is over".
+   *
+   * Keyed on the status, not on the error code: the API answers 'error.unauthorized' on protected
+   * routes and 'error.wrong_token' only on /auth/refresh, so matching a code would make this
+   * branch dead for every route that matters - and adding a third code later would silently break
+   * it again.
+   *
+   * Two exclusions:
+   * - no session marker means there was no session to lose. An anonymous visitor gets a 401 on
+   *   every authenticated endpoint, and reloading would produce it again on the next load, forever.
+   * - the auth routes answer 401 for wrong credentials and for a refresh that could not renew.
+   *   Neither is an expired session, and the interceptor still has a replay to try.
+   */
+  private isSessionExpired(errorResponse: HttpErrorResponse): boolean {
+    if (errorResponse.status !== 401 || !this.cookieService.check(FL_AUTH_EXPIRED_COOKIE)) {
+      return false;
+    }
+    return !errorResponse.url?.includes('/auth/');
   }
 
   /**

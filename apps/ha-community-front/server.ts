@@ -232,6 +232,12 @@ Sitemap: ${HA_ENVIRONMENT.settings.communityFrontUrl}/sitemap.xml`);
       })
       .then((html: any) => {
         res.setHeader('Content-Type', 'text/html');
+        // Rendered per visitor: it carries the header of the logged in user and, since the
+        // session marker cookie is httpOnly, the only answer the browser gets about whether a
+        // session exists. A shared cache would hand one visitor's state to another.
+        // The no-store rules above only match urls ending in .html, which a rendered route never
+        // does.
+        res.setHeader('Cache-Control', 'no-store, must-revalidate');
         // Check for redirection
         const metaTagRedirect = getMetaTagContent(html, HaMetadataNamesConfig.REDIRECT_URL);
 

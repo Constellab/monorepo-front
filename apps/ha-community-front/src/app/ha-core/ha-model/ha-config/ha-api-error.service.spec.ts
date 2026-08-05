@@ -16,16 +16,19 @@ describe('HaApiErrorService', () => {
   };
   let reloadSpy: ReturnType<typeof vi.fn>;
 
-  /** a 401 as the api formats it when the access token is missing or expired */
-  const WRONG_TOKEN = new HttpErrorResponse({
-    status: 401,
-    error: {
+  /** the api uses two different codes for a 401, see unauthorized() below */
+  function unauthorized(code: string, url: string = 'http://api.test/user'): HttpErrorResponse {
+    return new HttpErrorResponse({
       status: 401,
-      code: 'error.wrong_token',
-      detail: 'error.wrong_token',
-      instanceId: 'x',
-    },
-  });
+      url,
+      error: { status: 401, code, detail: code, instanceId: 'x' },
+    });
+  }
+
+  /** what a protected route answers once the access token expired */
+  const PROTECTED_ROUTE_401 = unauthorized('error.unauthorized');
+  /** what /auth/refresh answers when it cannot renew */
+  const REFRESH_401 = unauthorized('error.wrong_token', 'http://api.test/auth/refresh');
 
   beforeEach(() => {
     reloadSpy = vi.fn();
@@ -59,11 +62,34 @@ describe('HaApiErrorService', () => {
   describe('when a session was believed to exist', () => {
     beforeEach(() => cookieServiceSpy.check.mockReturnValue(true));
 
-    it('should end the session and reload', () => {
-      handle(WRONG_TOKEN);
+    it('should end the session on a protected route 401', () => {
+      // protected routes answer 'error.unauthorized', only /auth/refresh answers
+      // 'error.wrong_token'. Keying on the code would make this branch dead code.
+      handle(PROTECTED_ROUTE_401);
 
       expect(cookieServiceSpy.removeCookie).toHaveBeenCalledWith(FL_AUTH_EXPIRED_COOKIE);
       expect(reloadSpy).toHaveBeenCalled();
+    });
+
+    it('should end the session whatever the code', () => {
+      handle(unauthorized('error.some_new_code_the_api_adds_later'));
+
+      expect(reloadSpy).toHaveBeenCalled();
+    });
+
+    it('should not end the session on a 401 from an auth route', () => {
+      // wrong credentials on /auth/login is a 401 too, and it is not an expired session
+      handle(unauthorized('error.wrong_credentials', 'http://api.test/auth/login'));
+
+      expect(reloadSpy).not.toHaveBeenCalled();
+      expect(cookieServiceSpy.removeCookie).not.toHaveBeenCalled();
+    });
+
+    it('should not end the session when the refresh itself fails', () => {
+      // the interceptor owns that decision, it still has a replay to try
+      handle(REFRESH_401);
+
+      expect(reloadSpy).not.toHaveBeenCalled();
     });
   });
 
@@ -71,14 +97,14 @@ describe('HaApiErrorService', () => {
     it('should not reload on a 401', () => {
       // an anonymous visitor gets a 401 on every authenticated endpoint. Reloading would produce
       // the same 401 on the next load, forever.
-      handle(WRONG_TOKEN);
+      handle(PROTECTED_ROUTE_401);
 
       expect(reloadSpy).not.toHaveBeenCalled();
     });
 
     it('should still propagate the error', () => {
       const onError = vi.fn();
-      service.handleServerError(WRONG_TOKEN).subscribe({ error: onError });
+      service.handleServerError(PROTECTED_ROUTE_401).subscribe({ error: onError });
 
       expect(onError).toHaveBeenCalled();
     });

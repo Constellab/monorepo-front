@@ -1,4 +1,4 @@
-import { PLATFORM_ID, REQUEST } from '@angular/core';
+import { PLATFORM_ID, REQUEST, TransferState } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { FL_AUTH_EXPIRED_COOKIE } from '@monorepo/front-core-lib/fl-core';
@@ -7,7 +7,8 @@ import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import { of, throwError } from 'rxjs';
 
 import { HaUser } from '../ha-model/ha-entities/ha-user';
-import { HaAuthenticatedUserService } from './ha-authenticated-user.service';
+import { HA_SESSION_MARKER_COOKIE } from './ha-auth.service';
+import { HA_SESSION_STATE_KEY, HaAuthenticatedUserService } from './ha-authenticated-user.service';
 
 describe('HaAuthenticatedUserService', () => {
   const USER = { id: 'user-1', lang: 'en' } as unknown as HaUser;
@@ -38,11 +39,48 @@ describe('HaAuthenticatedUserService', () => {
     return TestBed.inject(HaAuthenticatedUserService);
   }
 
+  function transferState(): TransferState {
+    return TestBed.inject(TransferState);
+  }
+
   describe('init on the browser', () => {
     it('should ask the api even without a marker cookie', () => {
       // the api is the authority: an expired access token is renewed by the refresh interceptor,
       // so a cookie must never decide whether the call is worth making.
       const service = build('browser');
+
+      service.init();
+
+      expect(apiServiceSpy.get).toHaveBeenCalledWith('user');
+    });
+
+    it('should skip the call when the server saw no session', () => {
+      // the marker is httpOnly so only the server can read it. It hands the answer over rather
+      // than letting every anonymous visitor spend a 401 plus a failed refresh.
+      const service = build('browser');
+      transferState().set(HA_SESSION_STATE_KEY, false);
+
+      service.init();
+
+      expect(apiServiceSpy.get).not.toHaveBeenCalled();
+      expect(service.getCurrentUser()).toBeNull();
+    });
+
+    it('should ask the api when the server saw a session', () => {
+      const service = build('browser');
+      transferState().set(HA_SESSION_STATE_KEY, true);
+
+      service.init();
+
+      expect(apiServiceSpy.get).toHaveBeenCalledWith('user');
+    });
+
+    it('should consume the transferred answer, not reuse it', () => {
+      // init() runs again after a login. Reusing a stale "no session" would leave the user
+      // looking anonymous right after signing in.
+      const service = build('browser');
+      transferState().set(HA_SESSION_STATE_KEY, false);
+      service.init();
 
       service.init();
 
@@ -78,12 +116,37 @@ describe('HaAuthenticatedUserService', () => {
       expect(service.getCurrentUser()).toBeNull();
     });
 
-    it('should ask the api with a marker cookie', () => {
+    it('should ask the api with the marker cookie set by the api', () => {
+      const service = build('server', { [HA_SESSION_MARKER_COOKIE]: '1' });
+
+      service.init();
+
+      expect(apiServiceSpy.get).toHaveBeenCalledWith('user');
+    });
+
+    it('should still accept the legacy marker written by the front', () => {
+      // during the front-before-back deployment window the api does not set Session_Active yet
       const service = build('server', { [FL_AUTH_EXPIRED_COOKIE]: '123' });
 
       service.init();
 
       expect(apiServiceSpy.get).toHaveBeenCalledWith('user');
+    });
+
+    it('should hand the answer over to the browser', () => {
+      const service = build('server', { [HA_SESSION_MARKER_COOKIE]: '1' });
+
+      service.init();
+
+      expect(transferState().get(HA_SESSION_STATE_KEY, null)).toBe(true);
+    });
+
+    it('should hand over a negative answer too', () => {
+      const service = build('server');
+
+      service.init();
+
+      expect(transferState().get(HA_SESSION_STATE_KEY, null)).toBe(false);
     });
   });
 

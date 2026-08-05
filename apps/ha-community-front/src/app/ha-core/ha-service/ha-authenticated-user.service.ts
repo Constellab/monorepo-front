@@ -1,5 +1,15 @@
-import { isPlatformBrowser, isPlatformServer } from '@angular/common';
-import { DestroyRef, inject, Injectable, Injector, PLATFORM_ID, REQUEST } from '@angular/core';
+import { isPlatformServer } from '@angular/common';
+import {
+  DestroyRef,
+  inject,
+  Injectable,
+  Injector,
+  makeStateKey,
+  PLATFORM_ID,
+  REQUEST,
+  StateKey,
+  TransferState,
+} from '@angular/core';
 import { ClSupportedLanguage, ClTheme } from '@monorepo/core-lib';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import {
@@ -14,6 +24,13 @@ import { filter, map, take, tap } from 'rxjs/operators';
 
 import { HaBrick } from '../ha-model/ha-entities/ha-brick.class';
 import { HaUser, HaUserCategory } from '../ha-model/ha-entities/ha-user';
+import { HA_SESSION_MARKER_COOKIE } from './ha-auth.service';
+
+/**
+ * Whether the SSR server saw a session marker cookie, handed over to the browser so an anonymous
+ * visitor does not spend a 401 plus a failed refresh discovering the same thing.
+ */
+export const HA_SESSION_STATE_KEY: StateKey<boolean> = makeStateKey<boolean>('haHasSession');
 
 /**
  * Manages the currently authenticated user state.
@@ -36,6 +53,7 @@ export class HaAuthenticatedUserService implements FlCleanableService {
   private injector = inject(Injector);
   private platformId = inject(PLATFORM_ID);
   private snackBarService = inject(FlSnackBarService);
+  private transferState = inject(TransferState);
   private readonly userRoute: string = 'user';
   private userAuthenticated: HaUser;
   public userSubject: BehaviorSubject<HaUser | undefined> = new BehaviorSubject<HaUser | undefined>(
@@ -75,20 +93,29 @@ export class HaAuthenticatedUserService implements FlCleanableService {
   }
 
   /**
-   * On the browser the API is the authority and the call is always worth making: an expired access
-   * token is renewed by HaHttpRefreshInterceptorService and the request replayed, so a cookie must
-   * never decide whether to ask.
+   * The server cannot renew an expired access token - it could not plumb the new cookies back to
+   * the browser - so the marker cookie is its only signal that a session exists. Without it every
+   * server rendered page would come out logged out for a user whose session is valid for 30 days.
    *
-   * The server has no such recourse. It cannot plumb renewed cookies back to the browser, so once
-   * the 15 min access token has expired the marker cookie is its only signal that a session
-   * exists. Without it every server rendered page would come out logged out for a user whose
-   * session is valid for 30 days.
+   * It hands its answer to the browser, which cannot read the httpOnly marker itself. An explicit
+   * "no session" is a reliable negative, since the API sets the marker for the whole refresh token
+   * lifetime, and it spares every anonymous visitor a 401 plus a failed refresh.
+   *
+   * Absent that answer the browser asks the API, which is the authority: an expired access token
+   * is renewed by HaHttpRefreshInterceptorService and the request replayed, so no cookie ever gets
+   * to decide that a visitor is logged out.
    */
   private shouldLoadUser(): boolean {
-    if (isPlatformBrowser(this.platformId)) {
-      return true;
+    if (isPlatformServer(this.platformId)) {
+      const hasSession: boolean = this.hasSessionMarkerOnServer();
+      this.transferState.set(HA_SESSION_STATE_KEY, hasSession);
+      return hasSession;
     }
-    return this.request?.cookies?.[FL_AUTH_EXPIRED_COOKIE] != null;
+
+    const transferred: boolean = this.transferState.get(HA_SESSION_STATE_KEY, true);
+    // consume it: init() runs again after a login, where a stale "no session" would be wrong
+    this.transferState.remove(HA_SESSION_STATE_KEY);
+    return transferred;
   }
 
   /**
@@ -119,9 +146,14 @@ export class HaAuthenticatedUserService implements FlCleanableService {
   /**
    * SSR only: the marker cookie carried by the Express request. On the browser, ask the API
    * instead - see isAuthenticated().
+   *
+   * FL_AUTH_EXPIRED_COOKIE is the legacy marker the front used to write itself. It is still
+   * accepted for the front-before-back deployment window, where the API does not set
+   * Session_Active yet. Drop it once the API is deployed.
    */
   public hasSessionMarkerOnServer(): boolean {
-    return this.request?.cookies?.[FL_AUTH_EXPIRED_COOKIE] != null;
+    const cookies: Record<string, string> = this.request?.cookies;
+    return cookies?.[HA_SESSION_MARKER_COOKIE] != null || cookies?.[FL_AUTH_EXPIRED_COOKIE] != null;
   }
 
   public getUser(): Observable<HaUser> {

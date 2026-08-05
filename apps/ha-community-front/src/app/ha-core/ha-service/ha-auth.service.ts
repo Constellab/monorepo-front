@@ -8,6 +8,15 @@ import { FlCookieService } from '@monorepo/front-core-lib/fl-dialog';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
+/**
+ * Session marker cookie set by the API alongside the two httpOnly credential cookies. Path '/' so
+ * the SSR server receives it on every page, Max-Age of the refresh token so it never outlives the
+ * session by less than the session itself, and httpOnly since only the server reads it.
+ *
+ * Its value is a constant '1': only its presence carries meaning.
+ */
+export const HA_SESSION_MARKER_COOKIE: string = 'Session_Active';
+
 @Injectable({
   providedIn: 'root',
 })
