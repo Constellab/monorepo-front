@@ -42,10 +42,13 @@ attendre ». Or depuis le passage à 15 minutes, il n'a plus aucun signal :
 - il ne peut pas rafraîchir lui-même : les `Set-Cookie` renouvelés n'atteindraient pas le
   navigateur.
 
-D'où un **cookie marqueur** (`Session_Active`, `Path=/`, `httpOnly`) posé par l'API, qui
-lui dit seulement « une session existe peut-être ». Le serveur transmet ensuite sa réponse
-au navigateur via `TransferState`, pour qu'un visiteur anonyme ne dépense pas d'appel
-inutile.
+D'où un **cookie marqueur**, `Path=/`, `httpOnly`, qui lui dit seulement « une session
+existe peut-être ». Le serveur transmet ensuite sa réponse au navigateur via
+`TransferState`, pour qu'un visiteur anonyme ne dépense pas d'appel inutile.
+
+À terme ce sera `Session_Active`, posé par l'API. **Il n'existe pas encore** : en attendant
+le front continue d'écrire `Auth_Expiration` lui-même, et le serveur accepte les deux (voir
+« Après déploiement du back »).
 
 > **La règle qui encadre le marqueur** — il a le droit de se tromper en disant « peut-être
 > connecté », **jamais** en disant « pas connecté ». Il ne conclut jamais qu'une session est
@@ -67,8 +70,12 @@ Attrape le `401`, appelle `POST /auth/refresh`, rejoue la requête.
 - **rien sur** `/auth/login`, `/auth/login-2fa`, `/auth/refresh`, `/auth/logout` ;
 - **rien pendant le SSR** — le serveur ne peut pas transmettre les cookies renouvelés ;
 - **`429` distinct du `401`** — « réessaie plus tard », jamais une déconnexion ;
-- **tout échec de refresh vaut fin de session**, quel que soit le statut. Un `404` pendant
-  le déploiement front-avant-back est donc géré sans cas particulier.
+- **aucun statut de refresh n'est traité à part** — tout échec suit le même chemin : un rejeu,
+  puis l'erreur remonte. Un `404` pendant le déploiement front-avant-back est donc géré sans
+  cas particulier.
+
+**Un échec de refresh ne conclut jamais rien lui-même** — ni ici, ni sur le marqueur. C'est
+`HaApiErrorService`, sur le `401` du rejeu, qui décide de la fin de session.
 
 **Multi-onglets** : si le refresh échoue, la requête d'origine est rejouée une fois avant
 de conclure. Le `401` de l'onglet perdant prouve que l'autre a déjà réussi sa rotation,
@@ -97,7 +104,8 @@ maintenant `refresh()` avant de rediriger.
 
 ### Le marqueur réduit au rendu serveur
 
-Six endroits décidaient à partir du cookie. Cinq demandent maintenant à l'API :
+Six endroits décidaient à partir du cookie côté navigateur. Plus aucun : ils s'appuient
+maintenant sur `HaAuthenticatedUserService`, et le cookie ne sert plus qu'au rendu serveur.
 
 | Endroit                           | Devenu                                                      |
 | --------------------------------- | ----------------------------------------------------------- |

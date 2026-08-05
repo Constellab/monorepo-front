@@ -26,21 +26,19 @@ import { HaBrick } from '../ha-model/ha-entities/ha-brick.class';
 import { HaUser, HaUserCategory } from '../ha-model/ha-entities/ha-user';
 import { HA_SESSION_MARKER_COOKIE } from './ha-auth.service';
 
-/**
- * Whether the SSR server saw a session marker cookie, handed over to the browser so an anonymous
- * visitor does not spend a 401 plus a failed refresh discovering the same thing.
- */
+/** Whether the SSR server saw a session marker cookie, handed over to the browser. */
 export const HA_SESSION_STATE_KEY: StateKey<boolean> = makeStateKey<boolean>('haHasSession');
 
 /**
- * Manages the currently authenticated user state.
+ * Manages the currently authenticated user state, and is the authority on who is logged in: no
+ * cookie ever gets to decide that on the browser.
  *
- * Initialized at app startup via provideAppInitializer (see ha-app.config.ts).
- * If an auth cookie exists, fetches the user from the API and pushes it to userSubject.
- * Other components/services observe getUser() to react to auth state changes.
+ * Initialized at app startup via provideAppInitializer (see ha-app.config.ts). Fetches the user
+ * from the API and pushes it to userSubject. Other components/services observe getUser() to react
+ * to auth state changes.
  *
- * SSR-aware: on the server, reads cookies from the Express request object
- * to determine auth state without browser APIs.
+ * SSR-aware: on the server, reads cookies from the Express request object to determine auth state
+ * without browser APIs.
  *
  * Implements FlCleanableService so FlCleanerService can reset it on logout.
  */
@@ -93,17 +91,13 @@ export class HaAuthenticatedUserService implements FlCleanableService {
   }
 
   /**
-   * The server cannot renew an expired access token - it could not plumb the new cookies back to
-   * the browser - so the marker cookie is its only signal that a session exists. Without it every
-   * server rendered page would come out logged out for a user whose session is valid for 30 days.
+   * The server has no choice but to trust the marker cookie, see hasSessionMarkerOnServer(). It
+   * hands its answer to the browser, which cannot read the httpOnly marker itself: because the
+   * marker outlives the refresh token, an explicit "no session" is a reliable negative, and it
+   * spares every anonymous visitor a 401 plus a failed refresh.
    *
-   * It hands its answer to the browser, which cannot read the httpOnly marker itself. An explicit
-   * "no session" is a reliable negative, since the API sets the marker for the whole refresh token
-   * lifetime, and it spares every anonymous visitor a 401 plus a failed refresh.
-   *
-   * Absent that answer the browser asks the API, which is the authority: an expired access token
-   * is renewed by HaHttpRefreshInterceptorService and the request replayed, so no cookie ever gets
-   * to decide that a visitor is logged out.
+   * Absent that answer the browser calls the API rather than guessing - a call it may well spend
+   * for nothing, which is the acceptable half of the trade.
    */
   private shouldLoadUser(): boolean {
     if (isPlatformServer(this.platformId)) {
@@ -147,9 +141,13 @@ export class HaAuthenticatedUserService implements FlCleanableService {
    * SSR only: the marker cookie carried by the Express request. On the browser, ask the API
    * instead - see isAuthenticated().
    *
-   * FL_AUTH_EXPIRED_COOKIE is the legacy marker the front used to write itself. It is still
-   * accepted for the front-before-back deployment window, where the API does not set
-   * Session_Active yet. Drop it once the API is deployed.
+   * The server cannot renew an expired access token, it could not plumb the new cookies back to
+   * the browser, so the marker is its only signal that a session exists. Without it every server
+   * rendered page would come out logged out for a user whose session is valid for 30 days.
+   *
+   * FL_AUTH_EXPIRED_COOKIE is the marker the front writes itself, accepted for the
+   * front-before-back deployment window where the API does not set Session_Active yet. Drop it
+   * once the API is deployed.
    */
   public hasSessionMarkerOnServer(): boolean {
     const cookies: Record<string, string> = this.request?.cookies;

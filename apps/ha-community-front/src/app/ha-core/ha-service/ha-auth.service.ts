@@ -9,11 +9,12 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 /**
- * Session marker cookie set by the API alongside the two httpOnly credential cookies. Path '/' so
- * the SSR server receives it on every page, Max-Age of the refresh token so it never outlives the
- * session by less than the session itself, and httpOnly since only the server reads it.
+ * The session marker the API will own, set alongside the two httpOnly credential cookies with
+ * Path '/' so the SSR server receives it on every page. Only its presence carries meaning.
  *
- * Its value is a constant '1': only its presence carries meaning.
+ * Read only, and not set by anything yet: until the API ships it the front writes
+ * FL_AUTH_EXPIRED_COOKIE itself (see SESSION_MARKER_DURATION_MS). Both are accepted on the server
+ * side so the front works against either version of the API.
  */
 export const HA_SESSION_MARKER_COOKIE: string = 'Session_Active';
 
@@ -27,20 +28,17 @@ export class HaAuthService extends FlAuthService {
   private readonly route: string = 'auth';
 
   /**
-   * Lifetime of the 'Auth_Expiration' marker cookie, which is written by the front and not by
-   * the API.
+   * Lifetime of the 'Auth_Expiration' marker cookie, written by the front until the API owns
+   * HA_SESSION_MARKER_COOKIE.
    *
    * The marker is only a hint telling the app a session may exist: it spares an API call for a
    * visitor who certainly has none (the community site is public and indexed) and lets the server
    * render the right shell during SSR, where cookies are the only thing readable synchronously.
    *
-   * It may therefore be wrong by saying "maybe logged in", never by saying "logged out". That
-   * holds only while it outlives the refresh token, hence a duration deliberately longer than the
-   * API REFRESH_TOKEN_DURATION_SECONDS (30 days). Using the 15 min access token 'expiresIn' here
-   * would log out every user with a perfectly valid session.
-   *
-   * Temporary: the API will own this cookie and set it alongside the two httpOnly ones, which
-   * removes this duplicated constant.
+   * The rule everything reading a marker relies on: it may be wrong by saying "maybe logged in",
+   * never by saying "logged out". That holds only while it outlives the refresh token, hence a
+   * duration deliberately longer than the API REFRESH_TOKEN_DURATION_SECONDS (30 days). Using the
+   * 15 min access token 'expiresIn' here would log out every user with a perfectly valid session.
    */
   private static readonly SESSION_MARKER_DURATION_MS: number = 60 * ClDateHelper.ONE_DAY;
 
@@ -67,8 +65,7 @@ export class HaAuthService extends FlAuthService {
    *
    * A failure does NOT clear the session marker. It does not prove the session is over: another
    * tab may have consumed the single-use refresh token a moment earlier and hold a valid session.
-   * Concluding here would make the marker lie in the one direction it must never lie. The caller
-   * decides, once it has retried the original request.
+   * The caller decides, once it has retried the original request.
    */
   public refresh(): Observable<FlAuthLoginResponse> {
     return this.http

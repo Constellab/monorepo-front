@@ -90,25 +90,21 @@ export class HaHttpRefreshInterceptorService implements HttpInterceptor {
     );
   }
 
-  private refreshThenReplay(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    return this.refreshOnce().pipe(
-      // a failed refresh is not proof the session is over: another tab may have won the rotation
-      // race, in which case this tab now holds cookies it did not mint. Replaying settles it.
-      catchError(() => of(null)),
-      switchMap(() => this.replay(req, next))
-    );
-  }
-
   /**
-   * Replay the request a single time, then give up. Retrying in a loop would turn a server side
-   * problem into an infinite one.
+   * The replay is handed straight to the downstream handler, so a 401 on it is not caught again
+   * here: one replay, then the error surfaces. A server side problem never becomes a loop.
    *
    * Ending the session is deliberately not done here: HaApiErrorService already owns that
    * decision, and it needs the marker cookie still in place to tell an expired session apart from
    * an anonymous visitor calling an authenticated endpoint. Clearing it here would blur the two.
    */
-  private replay(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    return next.handle(req);
+  private refreshThenReplay(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    return this.refreshOnce().pipe(
+      // a failed refresh is not proof the session is over: another tab may have won the rotation
+      // race, in which case this tab now holds cookies it did not mint. Replaying settles it.
+      catchError(() => of(null)),
+      switchMap(() => next.handle(req))
+    );
   }
 
   private refreshOnce(): Observable<unknown> {

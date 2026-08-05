@@ -67,8 +67,6 @@ export class HaLoginPageComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe((params) => this.checkRouteQueryParams(params));
   }
 
-  // check if there are any query params 'error' or 'success'
-
   onLoginSuccess(): void {
     this.authenticatedUserService.init();
 
@@ -95,7 +93,8 @@ export class HaLoginPageComponent implements OnInit {
 
     this.authService.refresh().subscribe({
       next: () => this.redirectToOauthAuthorize(),
-      error: (): void => undefined,
+      // no session: stay on the page and let the visitor log in
+      error: () => undefined,
     });
   }
 

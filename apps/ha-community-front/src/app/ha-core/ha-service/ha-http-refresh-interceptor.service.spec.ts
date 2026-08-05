@@ -137,8 +137,8 @@ describe('HaHttpRefreshInterceptorService', () => {
     });
 
     it('should treat a missing refresh route as an ordinary failure', () => {
-      // deploying the front before the back, /auth/refresh answers 404. Any failed refresh means
-      // "session over", the status must not be special cased.
+      // deploying the front before the back, /auth/refresh answers 404. Every failed refresh takes
+      // the same path - replay once, then surface the error - so the status is never special cased.
       authServiceSpy.refresh.mockReturnValue(throwError(() => new HttpErrorResponse({ status: 404 })));
       const outcome = call();
 
@@ -163,17 +163,9 @@ describe('HaHttpRefreshInterceptorService', () => {
       }
     );
 
-    it('should not refresh nor log out on a 429', () => {
-      // rate limited means "retry later", not "session over"
-      const outcome = call();
-
-      httpMock.expectOne(USER_URL).flush(null, { status: 429, statusText: 'Too Many Requests' });
-
-      expect(authServiceSpy.refresh).not.toHaveBeenCalled();
-      expect(outcome.error?.status).toBe(429);
-    });
-
-    it.each([403, 500])('should leave a %s untouched', (status) => {
+    // only a 401 means "the access token expired". A 429 in particular means "retry later" and
+    // must never be read as the end of a session.
+    it.each([403, 429, 500])('should leave a %s untouched', (status) => {
       const outcome = call();
 
       httpMock.expectOne(USER_URL).flush(null, { status, statusText: 'Error' });
