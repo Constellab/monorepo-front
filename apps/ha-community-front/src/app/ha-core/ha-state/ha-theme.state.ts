@@ -33,7 +33,8 @@ export class HaThemeState {
 
   changeTheme(theme: ClTheme): void {
     this.setTheme(theme);
-    if (this.authUserService.hasAuthorizationCookie()) {
+    // only a resolved user has a theme to persist, a cookie says nothing about that
+    if (this.authUserService.getCurrentUser() != null) {
       this.authUserService.changeTheme(theme).subscribe();
     }
   }

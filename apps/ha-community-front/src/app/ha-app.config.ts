@@ -63,6 +63,7 @@ import { HaUserConfig } from './ha-core/ha-model/ha-config/ha-user-config.config
 import { HaAuthService } from './ha-core/ha-service/ha-auth.service';
 import { HaAuthenticatedUserService } from './ha-core/ha-service/ha-authenticated-user.service';
 import { HaHttpInterceptorSsrService } from './ha-core/ha-service/ha-http-interceptor-ssr.service';
+import { HaHttpRefreshInterceptorService } from './ha-core/ha-service/ha-http-refresh-interceptor.service';
 import { HA_SVG_ICONS } from './ha-core/utils/ha-svg-icon-config';
 
 function loadUserOnInit(authenticatedUserService: HaAuthenticatedUserService): () => void {
@@ -90,8 +91,10 @@ function initRootInjector(injector: Injector): void {
  * Key architectural decisions:
  * - SSR support: provideClientHydration + TransferState ensure data fetched on the server
  *   is reused on the client without duplicate API calls (see HaBrickPageState for usage).
- * - Two HTTP interceptors: FlHttpInterceptorService (adds auth/lang headers) and
- *   HaHttpInterceptorSsrService (rewrites relative URLs to absolute for SSR).
+ * - Three HTTP interceptors, in order: FlHttpInterceptorService (withCredentials + lang header),
+ *   HaHttpInterceptorSsrService (forwards the Authorization cookie of the Express request during
+ *   SSR) and HaHttpRefreshInterceptorService (renews the 15 min access token on a 401 and replays
+ *   the request, browser only).
  * - provideAppInitializer hooks run at startup: load theme, set root injector, fetch authenticated user.
  * - Library modules (Fl*, Co*, Td*) are configured via forRoot() with app-specific config classes
  *   (e.g. HaApiServiceConfig provides the API base URL to FlApiModule).
@@ -142,6 +145,11 @@ export const haAppConfig: ApplicationConfig = {
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HaHttpInterceptorSsrService,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HaHttpRefreshInterceptorService,
       multi: true,
     },
     TransferState,

@@ -11,6 +11,7 @@ import { HaFooterComponent } from '../../ha-core/ha-component/ha-footer/ha-foote
 import { HaHeaderComponent } from '../../ha-core/ha-component/ha-header/ha-header/ha-header.component';
 import { HaConstellabHelper } from '../../ha-core/ha-model/ha-config/ha-constellab.helper';
 import { HaOauthHelper } from '../../ha-core/ha-model/ha-config/ha-oauth.helper';
+import { HaAuthService } from '../../ha-core/ha-service/ha-auth.service';
 import { HaAuthenticatedUserService } from '../../ha-core/ha-service/ha-authenticated-user.service';
 import { HaRouterService } from '../../ha-core/ha-service/ha-router.service';
 import { HaHomeSectionShineComponent } from '../../ha-home/ha-home-section-shine/ha-home-section-shine.component';
@@ -32,6 +33,7 @@ import { HaHomeSectionShineComponent } from '../../ha-home/ha-home-section-shine
 export class HaLoginPageComponent implements OnInit {
   private location = inject(Location);
   private authenticatedUserService = inject(HaAuthenticatedUserService);
+  private authService = inject(HaAuthService);
   private activatedRoute = inject(ActivatedRoute);
   private snackBarService = inject(FlSnackBarService);
   private router = inject(Router);
@@ -53,14 +55,13 @@ export class HaLoginPageComponent implements OnInit {
     if (this.oauthReturnUrl) {
       // the redirection leaves the app, don't let fl-complete-login navigate inside the app first
       this.redirectionRoute = null;
-    }
-
-    if (this.authenticatedUserService.hasAuthorizationCookie()) {
-      if (this.oauthReturnUrl) {
-        this.redirectToOauthAuthorize();
-      } else {
-        this.router.navigate([HaRouterService.getHomeRoute()]);
-      }
+      this.resumeOauthFlow();
+    } else {
+      this.authenticatedUserService.isAuthenticatedOnce().subscribe((authenticated) => {
+        if (authenticated) {
+          this.router.navigate([HaRouterService.getHomeRoute()]);
+        }
+      });
     }
 
     this.activatedRoute.queryParams.subscribe((params) => this.checkRouteQueryParams(params));
@@ -77,6 +78,25 @@ export class HaLoginPageComponent implements OnInit {
     }
 
     this.redirect();
+  }
+
+  /**
+   * Come back to /oauth/authorize for a visitor who may already have a session.
+   *
+   * The refresh is what makes the answer authoritative, and it is attempted unconditionally: the
+   * API is the only thing that knows. Redirecting on the word of a cookie with an expired access
+   * token makes the API bounce the user back to /login?returnUrl=..., looping between the front
+   * and the API. A failed refresh means no session: fall through and show the form.
+   */
+  private resumeOauthFlow(): void {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+
+    this.authService.refresh().subscribe({
+      next: () => this.redirectToOauthAuthorize(),
+      error: (): void => undefined,
+    });
   }
 
   /**

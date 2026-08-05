@@ -2,15 +2,18 @@ import { isPlatformBrowser, isPlatformServer } from '@angular/common';
 import { DestroyRef, inject, Injectable, Injector, PLATFORM_ID, REQUEST } from '@angular/core';
 import { ClSupportedLanguage, ClTheme } from '@monorepo/core-lib';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
-import { FL_AUTH_EXPIRED_COOKIE, FlCleanableService, FlCleanerService } from '@monorepo/front-core-lib/fl-core';
+import {
+  FL_AUTH_EXPIRED_COOKIE,
+  FlCleanableService,
+  FlCleanerService,
+} from '@monorepo/front-core-lib/fl-core';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { filter, map, take, tap } from 'rxjs/operators';
 
 import { HaBrick } from '../ha-model/ha-entities/ha-brick.class';
 import { HaUser, HaUserCategory } from '../ha-model/ha-entities/ha-user';
-import { HaAuthService } from './ha-auth.service';
 
 /**
  * Manages the currently authenticated user state.
@@ -29,7 +32,6 @@ import { HaAuthService } from './ha-auth.service';
 })
 export class HaAuthenticatedUserService implements FlCleanableService {
   private apiService = inject(FlApiService);
-  private authService = inject(HaAuthService);
   private translateService = inject(FlTranslateService);
   private injector = inject(Injector);
   private platformId = inject(PLATFORM_ID);
@@ -55,32 +57,71 @@ export class HaAuthenticatedUserService implements FlCleanableService {
   }
 
   public init(): void {
-    if (this.hasAuthCookie()) {
-      this.apiService.get(this.userRoute).subscribe({
-        next: (user: HaUser) => {
-          this.translateService.changeAppLanguage(user.lang);
-          this.userAuthenticated = user;
-          this.userSubject.next(user);
-        },
-        error: () => {
-          this.userSubject.next(null);
-        },
-      });
-    } else {
+    if (!this.shouldLoadUser()) {
       this.userSubject.next(null);
+      return;
     }
+
+    this.apiService.get(this.userRoute).subscribe({
+      next: (user: HaUser) => {
+        this.translateService.changeAppLanguage(user.lang);
+        this.userAuthenticated = user;
+        this.userSubject.next(user);
+      },
+      error: () => {
+        this.userSubject.next(null);
+      },
+    });
   }
 
-  public hasAuthorizationCookie(): boolean {
-    return this.hasAuthCookie();
+  /**
+   * On the browser the API is the authority and the call is always worth making: an expired access
+   * token is renewed by HaHttpRefreshInterceptorService and the request replayed, so a cookie must
+   * never decide whether to ask.
+   *
+   * The server has no such recourse. It cannot plumb renewed cookies back to the browser, so once
+   * the 15 min access token has expired the marker cookie is its only signal that a session
+   * exists. Without it every server rendered page would come out logged out for a user whose
+   * session is valid for 30 days.
+   */
+  private shouldLoadUser(): boolean {
+    if (isPlatformBrowser(this.platformId)) {
+      return true;
+    }
+    return this.request?.cookies?.[FL_AUTH_EXPIRED_COOKIE] != null;
   }
 
-  private hasAuthCookie(): boolean {
-    if (isPlatformBrowser(this.platformId)) return this.authService.hasAuthorizationCookie();
+  /**
+   * Authoritative authentication state. Stays silent while the answer is unknown, so callers never
+   * mistake "not loaded yet" for "anonymous".
+   */
+  public isAuthenticated(): Observable<boolean> {
+    return this.userSubject.pipe(
+      filter((user) => user !== undefined),
+      map((user) => user != null)
+    );
+  }
 
-    if (this.request?.cookies) return this.request?.cookies[FL_AUTH_EXPIRED_COOKIE] != null;
+  /**
+   * Same answer, resolved once. For guards and one shot decisions.
+   */
+  public isAuthenticatedOnce(): Observable<boolean> {
+    return this.isAuthenticated().pipe(take(1));
+  }
 
-    return false;
+  /**
+   * Last known user, null when anonymous or not resolved yet. Only for callers that cannot wait.
+   */
+  public getCurrentUser(): HaUser {
+    return this.userSubject.value ?? null;
+  }
+
+  /**
+   * SSR only: the marker cookie carried by the Express request. On the browser, ask the API
+   * instead - see isAuthenticated().
+   */
+  public hasSessionMarkerOnServer(): boolean {
+    return this.request?.cookies?.[FL_AUTH_EXPIRED_COOKIE] != null;
   }
 
   public getUser(): Observable<HaUser> {
@@ -106,7 +147,7 @@ export class HaAuthenticatedUserService implements FlCleanableService {
   }
 
   public changeLang(lang: ClSupportedLanguage): ClSupportedLanguage {
-    if (this.hasAuthCookie()) {
+    if (this.getCurrentUser() != null) {
       this.changeUserLang(lang).subscribe(() => {
         this.snackBarService.openSuccessMessage({
           text: 'language_changed',

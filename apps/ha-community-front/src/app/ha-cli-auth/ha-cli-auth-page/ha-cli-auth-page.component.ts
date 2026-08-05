@@ -1,5 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
-import { ChangeDetectionStrategy,Component, inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { MatButton } from '@angular/material/button';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -53,13 +53,17 @@ export class HaCliAuthPageComponent implements OnInit {
       return;
     }
 
-    if (!this.authenticatedUserService.hasAuthorizationCookie()) {
-      FlLoginSavedRoute.route = '/cli-auth';
-      this.router.navigate([HaRouterService.getLoginRoute()]);
-      return;
-    }
+    // wait for the authoritative answer: an expired access token is renewed behind the scenes, so
+    // deciding from a cookie would send a logged in user to the login page for nothing
+    this.authenticatedUserService.isAuthenticatedOnce().subscribe((authenticated) => {
+      if (!authenticated) {
+        FlLoginSavedRoute.route = '/cli-auth';
+        this.router.navigate([HaRouterService.getLoginRoute()]);
+        return;
+      }
 
-    this.state = 'confirmation';
+      this.state = 'confirmation';
+    });
   }
 
   authorize(): void {

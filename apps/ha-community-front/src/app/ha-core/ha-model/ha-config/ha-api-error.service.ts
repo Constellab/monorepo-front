@@ -66,8 +66,13 @@ export class HaApiErrorService extends FlApiErrorService {
       this.showError(errorResponse.message);
       return throwError(() => serverError);
     } else {
-      // handle session expired specifically
-      if (serverError.nestedError?.code === 'error.wrong_token') {
+      // handle session expired specifically. Only for a visitor who was believed to have a
+      // session: the same 401 is the normal answer for an anonymous visitor hitting an
+      // authenticated endpoint, and reloading there would produce it again on every load, forever.
+      if (
+        serverError.nestedError?.code === 'error.wrong_token' &&
+        this.cookieService.check(FL_AUTH_EXPIRED_COOKIE)
+      ) {
         return this.sessionExpired(serverError, snackBarDuration);
       }
 
