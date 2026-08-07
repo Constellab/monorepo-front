@@ -1,8 +1,9 @@
 import { isPlatformServer, PlatformLocation } from '@angular/common';
 import { inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { ActivatedRouteSnapshot, Router, UrlTree } from '@angular/router';
+import { FlServerError } from '@monorepo/front-core-lib/fl-api';
 import { FlLoginSavedRoute } from '@monorepo/front-core-lib/fl-core';
-import { mergeMap, Observable, of } from 'rxjs';
+import { catchError, mergeMap, Observable, of } from 'rxjs';
 
 import { HaAuthenticatedUserService } from '../ha-service/ha-authenticated-user.service';
 import { HaRouterService } from '../ha-service/ha-router.service';
@@ -42,10 +43,29 @@ export class HaStoryGuard {
       .pipe(mergeMap((authenticated) => (authenticated ? this.canEditStory(storyId) : of(this.loginPage()))));
   }
 
-  private canEditStory(storyId: string): Observable<boolean> {
-    return this.authUserService
-      .isAdmin()
-      .pipe(mergeMap((isAdmin) => (isAdmin ? of(true) : this.storyService.isStoryOwnerOrCoAuthor(storyId))));
+  private canEditStory(storyId: string): Observable<boolean | UrlTree> {
+    return this.authUserService.isAdmin().pipe(
+      mergeMap((isAdmin) => (isAdmin ? of(true) : this.storyService.isStoryOwnerOrCoAuthor(storyId))),
+      catchError((error: FlServerError) => of(this.unansweredCheck(error)))
+    );
+  }
+
+  /**
+   * The check could not be answered at all. Without this the observable would simply error and take
+   * the whole render down with it.
+   *
+   * A 401 means the request could not be authenticated, which says nothing about the rights of the
+   * visitor: during SSR the forwarded access token is expired and the server cannot renew it, so
+   * this is the normal answer for a user whose session is perfectly valid. Concluding "not allowed"
+   * would send them to the login page - the one thing a marker must never do. Let the route
+   * through: the browser runs this guard again after hydration, where the answer is authoritative,
+   * and the API still gates the story itself, so the server only renders an empty shell.
+   *
+   * Any other failure is a real problem rather than a missing credential, and the login page is the
+   * safer place to land.
+   */
+  private unansweredCheck(error: FlServerError): boolean | UrlTree {
+    return error?.response?.status === 401 ? true : this.loginPage();
   }
 
   private loginPage(): UrlTree {

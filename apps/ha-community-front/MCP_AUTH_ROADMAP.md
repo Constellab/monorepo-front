@@ -129,6 +129,20 @@ maintenant sur `HaAuthenticatedUserService`, et le cookie ne sert plus qu'au ren
 `HaAuthenticatedUserService` est l'autorité : `isAuthenticated()` reste silencieux tant que
 la réponse est inconnue, pour qu'on ne confonde jamais « pas encore chargé » et « anonyme ».
 
+### Le guard qui ne conclut pas
+
+`ha-guard/ha-story.guard.ts`
+
+`isStoryOwnerOrCoAuthor()` n'avait aucun `catchError` : pendant le SSR le token forwardé est expiré,
+le `401` faisait **errer** l'observable du guard au lieu de renvoyer un `UrlTree`, et le rendu
+échouait.
+
+Un `401` sur cette vérification ne dit rien des droits du visiteur — c'est la réponse normale pour
+une session valide 30 jours. Le guard laisse donc passer et **ne conclut pas** : le navigateur
+rejoue le guard après hydratation, où la réponse est autoritative, et l'API garde la story de toute
+façon, donc le serveur ne rend qu'une coquille vide. Tout autre échec est un vrai problème, pas un
+identifiant manquant : retour au login.
+
 ### La charge anonyme
 
 Le serveur lit le marqueur `httpOnly` et transmet sa réponse au navigateur
@@ -142,10 +156,14 @@ par `.html` — ce qu'une route rendue n'est jamais.
 
 ### Couverture
 
-**70 tests** répartis sur 8 fichiers, plus le lint. Les invariants les plus délicats — refresh
-unique partagé, absence de boucle de rechargement, décision d'auth jamais reprise sur un cookie —
-ont été vérifiés par mutation, en cassant volontairement le code pour confirmer qu'un test
-l'attrape.
+**82 tests** répartis sur 9 fichiers, plus le lint. Les invariants les plus délicats — refresh
+unique partagé, absence de boucle de rechargement, décision d'auth jamais reprise sur un cookie,
+guard qui ne conclut pas sur un `401` — ont été vérifiés par mutation, en cassant volontairement le
+code pour confirmer qu'un test l'attrape.
+
+La mutation a d'ailleurs révélé un test creux : `expect(() => ...).not.toThrow()` sur un observable
+ne prouve rien, rxjs remonte une erreur levée depuis un subscriber en asynchrone. Assertion sur une
+trace explicite de l'erreur à la place.
 
 ---
 
@@ -165,18 +183,7 @@ Lancer le back avec `ACCESS_TOKEN_DURATION_SECONDS=60`, puis
 - [ ] flux MCP : rester connecté > 60 s puis lancer `/oauth/authorize` → pas de formulaire
 - [ ] navigation privée → **aucun** appel `/user` ni `/auth/refresh`
 
-### 2. Durcir le SSR
-
-`HaStoryGuard` (`ha-story.guard.ts`) : marqueur présent côté serveur → `canEditStory()` →
-`isStoryOwnerOrCoAuthor()`, qui n'a aucun `catchError`. Le token forwardé pendant le SSR est
-expiré et le serveur ne peut pas rafraîchir : le `401` fait **errer** l'observable du guard au lieu
-de renvoyer un `UrlTree`, et le rendu échoue.
-
-- [ ] `catchError` → `loginPage()` dans `canEditStory`
-- [ ] `ha-story.guard.spec.ts` : serveur avec / sans marqueur, navigateur authentifié / anonyme,
-      `401` sur `is-owner-or-co-author`
-
-### 3. Après déploiement du back
+### 2. Après déploiement du back
 
 Purement destructif — le lot qui a retiré le dernier gate cookie a été fait avant, exprès.
 
@@ -192,7 +199,7 @@ Prérequis : le back pose bien `Session_Active` en `Path=/` au login **et** l'ef
 Pas avant : le déploiement se fait **front d'abord, back ensuite**, et le front doit
 fonctionner avec les deux versions du back.
 
-### 4. Côté back (rappel)
+### 3. Côté back (rappel)
 
 - [ ] suite e2e écrite mais **jamais exécutée** — conteneur de base de test absent
 - [ ] tokens MCP (`/oauth/*`) encore à 7 jours, chantier suivant, sans impact front
