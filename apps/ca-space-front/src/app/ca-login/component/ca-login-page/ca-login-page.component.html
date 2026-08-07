@@ -1,4 +1,4 @@
-<fl-login-page [redirectionRoute]="appRoute" class="login">
+<fl-login-page [redirectionRoute]="redirectionRoute()" (loginSuccess)="onLoginSuccess()" class="login">
   <fl-login-footer>
     <div class="footer g-layout-row-wrap g-layout-between">
       <span

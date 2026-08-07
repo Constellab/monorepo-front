@@ -3,6 +3,7 @@ import { ActivatedRouteSnapshot, Router, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
+import { CaOauthReturnUrlService } from '../../ca-core/service/ca-oauth-return-url.service';
 import { CaRouterService } from '../../ca-core/service/ca-router.service';
 import { CaAuthenticatedUserService } from '../../ca-core/service-api/ca-authenticated-user.service';
 import { CaAuthService } from '../service/ca-auth.service';
@@ -18,6 +19,7 @@ export class CaLoginGuard {
   private loginService = inject(CaAuthService);
   private sessionService = inject(CaAuthSessionService);
   private authenticatedUserService = inject(CaAuthenticatedUserService);
+  private returnUrlService = inject(CaOauthReturnUrlService);
   private router = inject(Router);
 
   canActivate(
@@ -36,7 +38,28 @@ export class CaLoginGuard {
     // expired access token does not read as a dead session.
     return this.sessionService.resume().pipe(
       switchMap(() => this.authenticatedUserService.hasLiveSession()),
-      map((live: boolean) => (live ? this.router.createUrlTree([CaRouterService.getAppRoute()]) : true))
+      map((live: boolean) => (live ? this.destinationOfLiveSession(route) : true))
     );
+  }
+
+  /**
+   * Where a visitor who turns out to be logged in belongs.
+   *
+   * Normally the app. But the authorization server sends a machine client's user here whenever GET
+   * /oauth/authorize finds no valid session, and "no valid session" also covers an access token that
+   * had merely expired while the session itself is alive - which the renewal above just fixed.
+   * Entering the app there would abandon the flow with the client waiting for a redirect that never
+   * comes, so come back to the endpoint instead and let it resume.
+   *
+   * @returns false in that case: the browser is leaving the app, so the router must not route.
+   */
+  private destinationOfLiveSession(route: ActivatedRouteSnapshot): boolean | UrlTree {
+    const returnUrl: string = this.returnUrlService.getSafeAuthorizeReturnUrl(route.queryParams);
+    if (returnUrl) {
+      this.returnUrlService.resume(returnUrl);
+      return false;
+    }
+
+    return this.router.createUrlTree([CaRouterService.getAppRoute()]);
   }
 }
