@@ -1,18 +1,19 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { PLATFORM_ID } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { FL_AUTH_EXPIRED_COOKIE } from '@monorepo/front-core-lib/fl-core';
-import { FlCookieService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 
+import { HaAuthenticatedUserService } from '../../ha-service/ha-authenticated-user.service';
 import { HaApiErrorService } from './ha-api-error.service';
 
 describe('HaApiErrorService', () => {
   let service: HaApiErrorService;
-  let cookieServiceSpy: {
-    check: ReturnType<typeof vi.fn>;
-    removeCookie: ReturnType<typeof vi.fn>;
+  /** stateful on purpose: clean() must really drop the user, see the disarming test */
+  let currentUser: { id: string } | null;
+  let authUserServiceFake: {
+    getCurrentUser: () => { id: string } | null;
+    clean: ReturnType<typeof vi.fn>;
   };
   let reloadSpy: ReturnType<typeof vi.fn>;
 
@@ -38,15 +39,20 @@ describe('HaApiErrorService', () => {
       configurable: true,
     });
 
-    cookieServiceSpy = {
-      check: vi.fn().mockReturnValue(false),
-      removeCookie: vi.fn(),
+    currentUser = null;
+    authUserServiceFake = {
+      getCurrentUser: () => currentUser,
+      clean: vi.fn(() => {
+        currentUser = null;
+      }),
     };
 
     TestBed.configureTestingModule({
       providers: [
         HaApiErrorService,
-        { provide: FlCookieService, useValue: cookieServiceSpy },
+        // FlCookieService is deliberately NOT provided: the end of a session must never be decided
+        // from a browser side cookie, so any code reading one here fails with a NullInjectorError.
+        { provide: HaAuthenticatedUserService, useValue: authUserServiceFake },
         { provide: FlSnackBarService, useValue: { openErrorMessage: vi.fn() } },
         { provide: FlTranslateService, useValue: { translate: (key: string): string => key } },
         { provide: PLATFORM_ID, useValue: 'browser' },
@@ -60,14 +66,14 @@ describe('HaApiErrorService', () => {
   }
 
   describe('when a session was believed to exist', () => {
-    beforeEach(() => cookieServiceSpy.check.mockReturnValue(true));
+    beforeEach(() => (currentUser = { id: 'user-1' }));
 
     it('should end the session on a protected route 401', () => {
       // protected routes answer 'error.unauthorized', only /auth/refresh answers
       // 'error.wrong_token'. Keying on the code would make this branch dead code.
       handle(PROTECTED_ROUTE_401);
 
-      expect(cookieServiceSpy.removeCookie).toHaveBeenCalledWith(FL_AUTH_EXPIRED_COOKIE);
+      expect(authUserServiceFake.clean).toHaveBeenCalled();
       expect(reloadSpy).toHaveBeenCalled();
     });
 
@@ -82,7 +88,7 @@ describe('HaApiErrorService', () => {
       handle(unauthorized('error.wrong_credentials', 'http://api.test/auth/login'));
 
       expect(reloadSpy).not.toHaveBeenCalled();
-      expect(cookieServiceSpy.removeCookie).not.toHaveBeenCalled();
+      expect(authUserServiceFake.clean).not.toHaveBeenCalled();
     });
 
     it('should not end the session when the refresh itself fails', () => {
@@ -91,12 +97,31 @@ describe('HaApiErrorService', () => {
 
       expect(reloadSpy).not.toHaveBeenCalled();
     });
+
+    it('should ask for a single reload when several 401 are in flight', () => {
+      // a page firing several calls sees them all fail together. Ending the session drops the user,
+      // which disarms the branch for the ones that land next.
+      handle(PROTECTED_ROUTE_401);
+      handle(PROTECTED_ROUTE_401);
+
+      expect(reloadSpy).toHaveBeenCalledTimes(1);
+    });
   });
 
   describe('when there was no session to lose', () => {
     it('should not reload on a 401', () => {
       // an anonymous visitor gets a 401 on every authenticated endpoint. Reloading would produce
       // the same 401 on the next load, forever.
+      handle(PROTECTED_ROUTE_401);
+
+      expect(reloadSpy).not.toHaveBeenCalled();
+    });
+
+    it('should not reload on a 401 while the user is not resolved yet', () => {
+      // the /user call of the app initializer fails this way when the session really is over: no
+      // user was ever resolved, and reloading would loop on the very next load.
+      currentUser = null;
+
       handle(PROTECTED_ROUTE_401);
 
       expect(reloadSpy).not.toHaveBeenCalled();
@@ -112,9 +137,18 @@ describe('HaApiErrorService', () => {
 
   describe('other errors', () => {
     it('should not reload on a 500', () => {
-      cookieServiceSpy.check.mockReturnValue(true);
+      currentUser = { id: 'user-1' };
 
       handle(new HttpErrorResponse({ status: 500, error: {} }));
+
+      expect(reloadSpy).not.toHaveBeenCalled();
+    });
+
+    it('should not reload on a 429', () => {
+      // "retry later" is never the end of a session
+      currentUser = { id: 'user-1' };
+
+      handle(new HttpErrorResponse({ status: 429, error: {} }));
 
       expect(reloadSpy).not.toHaveBeenCalled();
     });

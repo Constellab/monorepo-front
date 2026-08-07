@@ -69,7 +69,9 @@ Attrape le `401`, appelle `POST /auth/refresh`, rejoue la requête.
 - **un seul rejeu par requête** — pas de boucle ;
 - **rien sur** `/auth/login`, `/auth/login-2fa`, `/auth/refresh`, `/auth/logout` ;
 - **rien pendant le SSR** — le serveur ne peut pas transmettre les cookies renouvelés ;
-- **`429` distinct du `401`** — « réessaie plus tard », jamais une déconnexion ;
+- **`429` distinct du `401`** — sur la requête d'origine, « réessaie plus tard » ne déclenche
+  aucun refresh et n'est jamais lu comme une fin de session. Sur `/auth/refresh` lui-même, en
+  revanche, voir « Décisions prises » ;
 - **aucun statut de refresh n'est traité à part** — tout échec suit le même chemin : un rejeu,
   puis l'erreur remonte. Un `404` pendant le déploiement front-avant-back est donc géré sans
   cas particulier.
@@ -90,9 +92,18 @@ L'API utilise **deux codes** pour un `401` : `error.unauthorized` sur les routes
 `error.wrong_token` seulement sur `/auth/refresh`. Un mécanisme branché sur le code serait
 inerte, et ça ne se verrait qu'après 15 minutes d'usage réel.
 
-Tout est donc piloté par le **statut**, avec deux exclusions : pas de marqueur (rien à
-perdre — sinon boucle de rechargement infinie chez les visiteurs anonymes) et routes
+Tout est donc piloté par le **statut**, avec deux exclusions : aucun utilisateur résolu
+(rien à perdre — sinon boucle de rechargement infinie chez les visiteurs anonymes) et routes
 `/auth/` (un mauvais mot de passe est un `401` aussi).
+
+La question « y avait-il une session ? » est posée à `HaAuthenticatedUserService`, jamais à un
+cookie. Le marqueur que lit le serveur est `httpOnly` : un `check()` côté navigateur répondrait
+« non » indéfiniment et cette branche deviendrait du code mort le jour où l'API prend le marqueur
+en charge. Le `clean()` qui suit désarme la branche, donc plusieurs `401` en vol ne demandent
+qu'un seul rechargement.
+
+Le spec ne fournit délibérément pas `FlCookieService` : toute régression qui rebrancherait la
+décision sur un cookie échoue en `NullInjectorError`.
 
 ### La boucle OAuth / MCP corrigée
 
@@ -131,9 +142,10 @@ par `.html` — ce qu'une route rendue n'est jamais.
 
 ### Couverture
 
-**67 tests** répartis sur 8 fichiers, plus le lint. Les invariants les plus délicats — refresh
-unique partagé, absence de boucle de rechargement — ont été vérifiés par mutation, en cassant
-volontairement le code pour confirmer qu'un test l'attrape.
+**70 tests** répartis sur 8 fichiers, plus le lint. Les invariants les plus délicats — refresh
+unique partagé, absence de boucle de rechargement, décision d'auth jamais reprise sur un cookie —
+ont été vérifiés par mutation, en cassant volontairement le code pour confirmer qu'un test
+l'attrape.
 
 ---
 
@@ -153,17 +165,34 @@ Lancer le back avec `ACCESS_TOKEN_DURATION_SECONDS=60`, puis
 - [ ] flux MCP : rester connecté > 60 s puis lancer `/oauth/authorize` → pas de formulaire
 - [ ] navigation privée → **aucun** appel `/user` ni `/auth/refresh`
 
-### 2. Après déploiement du back
+### 2. Durcir le SSR
+
+`HaStoryGuard` (`ha-story.guard.ts`) : marqueur présent côté serveur → `canEditStory()` →
+`isStoryOwnerOrCoAuthor()`, qui n'a aucun `catchError`. Le token forwardé pendant le SSR est
+expiré et le serveur ne peut pas rafraîchir : le `401` fait **errer** l'observable du guard au lieu
+de renvoyer un `UrlTree`, et le rendu échoue.
+
+- [ ] `catchError` → `loginPage()` dans `canEditStory`
+- [ ] `ha-story.guard.spec.ts` : serveur avec / sans marqueur, navigateur authentifié / anonyme,
+      `401` sur `is-owner-or-co-author`
+
+### 3. Après déploiement du back
+
+Purement destructif — le lot qui a retiré le dernier gate cookie a été fait avant, exprès.
 
 - [ ] supprimer l'écriture d'`Auth_Expiration` par le front (`HaAuthService.afterLogin`) et
       la constante `SESSION_MARKER_DURATION_MS`
+- [ ] supprimer le `clearAuthExpirationCookie` de `HaAuthService.logout()` — c'est alors à
+      `/auth/logout` d'effacer `Session_Active`, **à confirmer côté back**
 - [ ] supprimer le repli sur `Auth_Expiration` dans
       `HaAuthenticatedUserService.hasSessionMarkerOnServer()`
+
+Prérequis : le back pose bien `Session_Active` en `Path=/` au login **et** l'efface au logout.
 
 Pas avant : le déploiement se fait **front d'abord, back ensuite**, et le front doit
 fonctionner avec les deux versions du back.
 
-### 3. Côté back (rappel)
+### 4. Côté back (rappel)
 
 - [ ] suite e2e écrite mais **jamais exécutée** — conteneur de base de test absent
 - [ ] tokens MCP (`/oauth/*`) encore à 7 jours, chantier suivant, sans impact front
@@ -187,10 +216,42 @@ déploiement.
 
 ---
 
+## Décisions prises
+
+### Un `429` sur `/auth/refresh` déconnecte — assumé, à revoir si ça se voit
+
+Aucun statut de refresh n'est traité à part : un refresh en `429` échoue, la requête d'origine est
+rejouée, son `401` conclut la fin de session. L'utilisateur est donc déconnecté à tort si l'API
+rate-limite son refresh — cas plausible derrière un NAT d'entreprise.
+
+Assumé pour l'instant : le principe « aucun cas particulier » est ce qui rend le déploiement
+front-avant-back sans risque, et un `429` sur refresh suppose déjà un usage anormal.
+
+Si le cas se présente en production, le correctif n'est pas de sauter le rejeu — un refresh échoué
+peut vouloir dire qu'un autre onglet a gagné la rotation, et le rejeu réussira. C'est de **retenir
+le statut du refresh et, si le rejeu échoue aussi, remonter le `429` plutôt que le `401`** : le
+rejeu multi-onglets est préservé et `HaApiErrorService` ne conclut rien.
+
+### Le SSR rend une coquille anonyme aux connectés — assumé
+
+Passé la durée du token d'accès, le `/user` du serveur reçoit un `Authorization` expiré, donc `401`,
+donc un shell anonyme corrigé à l'hydratation. Les guards, eux, passent grâce au marqueur : aucune
+redirection à tort, seulement un flicker.
+
+C'est une régression réelle du passage à 15 minutes — avant, le token de 7 jours était presque
+toujours valide pendant le SSR. Elle est assumée : le serveur ne peut structurellement pas
+rafraîchir (`Refresh_Token` est en `Path=/auth`, il ne le reçoit jamais). Un rendu neutre plutôt
+qu'anonyme quand le marqueur dit « peut-être connecté » supprimerait le flicker, si le confort le
+justifie un jour.
+
+---
+
 ## Points de vigilance pour la suite
 
 - **Ne jamais rebrancher une décision d'authentification sur un cookie côté navigateur.**
-  C'est le défaut de conception qu'on vient de retirer.
+  C'est le défaut de conception qu'on vient de retirer, y compris dans `HaApiErrorService`, le
+  dernier endroit à s'y appuyer. Un cookie ne sait pas qu'un token expiré peut être renouvelé, ni
+  qu'une session a été révoquée, et le marqueur de l'API sera `httpOnly` — donc illisible.
 - **Ne jamais brancher quoi que ce soit sur `error.wrong_token` seul.** Deux codes existent,
   un troisième peut apparaître.
 - **Le marqueur ne doit jamais raccourcir sous la durée du refresh token.** Trop long : un

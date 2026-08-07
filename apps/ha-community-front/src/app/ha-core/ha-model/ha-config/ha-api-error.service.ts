@@ -1,11 +1,11 @@
 import { isPlatformBrowser } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
-import { inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { inject, Injectable, Injector, PLATFORM_ID } from '@angular/core';
 import { ClApiError } from '@monorepo/core-lib';
 import { FlApiErrorService, FlServerError } from '@monorepo/front-core-lib/fl-api';
-import { FL_AUTH_EXPIRED_COOKIE } from '@monorepo/front-core-lib/fl-core';
-import { FlCookieService } from '@monorepo/front-core-lib/fl-dialog';
 import { Observable, throwError } from 'rxjs';
+
+import { HaAuthenticatedUserService } from '../../ha-service/ha-authenticated-user.service';
 
 /**
  * Manage the errors of the application
@@ -13,8 +13,16 @@ import { Observable, throwError } from 'rxjs';
  */
 @Injectable()
 export class HaApiErrorService extends FlApiErrorService {
-  private cookieService = inject(FlCookieService);
   private platformId = inject<object>(PLATFORM_ID);
+  private injector = inject(Injector);
+
+  /**
+   * Resolved lazily: HaAuthenticatedUserService depends on FlApiService, which depends on this
+   * error service. Injecting it as a field would close that cycle.
+   */
+  private get authenticatedUserService(): HaAuthenticatedUserService {
+    return this.injector.get(HaAuthenticatedUserService);
+  }
 
   /**
    * Handle the error message for the not specific errors
@@ -92,13 +100,18 @@ export class HaApiErrorService extends FlApiErrorService {
    * it again.
    *
    * Two exclusions:
-   * - no session marker means there was no session to lose. An anonymous visitor gets a 401 on
+   * - no resolved user means there was no session to lose. An anonymous visitor gets a 401 on
    *   every authenticated endpoint, and reloading would produce it again on the next load, forever.
    * - the auth routes answer 401 for wrong credentials and for a refresh that could not renew.
    *   Neither is an expired session, and the interceptor still has a replay to try.
+   *
+   * The "was there a session" half is asked to HaAuthenticatedUserService, never to a cookie: the
+   * marker the server reads is httpOnly, so a browser side cookie check would silently answer no
+   * forever and this branch would become dead code. It also stays right through a session the API
+   * revoked, which no cookie can know about.
    */
   private isSessionExpired(errorResponse: HttpErrorResponse): boolean {
-    if (errorResponse.status !== 401 || !this.cookieService.check(FL_AUTH_EXPIRED_COOKIE)) {
+    if (errorResponse.status !== 401 || this.authenticatedUserService.getCurrentUser() == null) {
       return false;
     }
     return !errorResponse.url?.includes('/auth/');
@@ -108,9 +121,9 @@ export class HaApiErrorService extends FlApiErrorService {
    * Redirect the user to the login page
    */
   private sessionExpired(serverError: FlServerError, snackBarDuration: number): Observable<never> {
-    // for security clear the authentication expiration cookie
-    // to assure the user is disconnected
-    this.cookieService.removeCookie(FL_AUTH_EXPIRED_COOKIE);
+    // drop the authenticated user: the session is over, and it also disarms isSessionExpired() so a
+    // second 401 already in flight cannot ask for a second reload
+    this.authenticatedUserService.clean();
 
     if (isPlatformBrowser(this.platformId)) window.location.reload();
 
