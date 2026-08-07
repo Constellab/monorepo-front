@@ -7,7 +7,7 @@ import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import { of, throwError } from 'rxjs';
 
 import { HaUser } from '../ha-model/ha-entities/ha-user';
-import { HA_SESSION_MARKER_COOKIE } from './ha-auth.service';
+import { HA_AUTHORIZATION_COOKIE, HA_SESSION_MARKER_COOKIE, HaAuthService } from './ha-auth.service';
 import { HaAuthSessionService } from './ha-auth-session.service';
 import { HA_SESSION_STATE_KEY, HaAuthenticatedUserService } from './ha-authenticated-user.service';
 
@@ -19,6 +19,7 @@ describe('HaAuthenticatedUserService', () => {
     shouldResume: ReturnType<typeof vi.fn>;
     resume: ReturnType<typeof vi.fn>;
   };
+  let authServiceSpy: { mayHaveSession: ReturnType<typeof vi.fn> };
 
   function build(
     platform: 'browser' | 'server',
@@ -32,8 +33,10 @@ describe('HaAuthenticatedUserService', () => {
     // the startup resume has its own spec: by default the session is already known here
     sessionServiceSpy = {
       shouldResume: vi.fn().mockReturnValue(false),
-      resume: vi.fn().mockReturnValue(of(true)),
+      resume: vi.fn().mockReturnValue(of(undefined)),
     };
+    // no marker written by the front, the harshest case for the browser side gate
+    authServiceSpy = { mayHaveSession: vi.fn().mockReturnValue(false) };
 
     TestBed.configureTestingModule({
       providers: [
@@ -42,6 +45,7 @@ describe('HaAuthenticatedUserService', () => {
         { provide: FlTranslateService, useValue: { changeAppLanguage: vi.fn() } },
         { provide: FlSnackBarService, useValue: { openSuccessMessage: vi.fn() } },
         { provide: HaAuthSessionService, useValue: sessionServiceSpy },
+        { provide: HaAuthService, useValue: authServiceSpy },
         { provide: PLATFORM_ID, useValue: platform },
         { provide: REQUEST, useValue: cookies ? { cookies } : null },
       ],
@@ -55,9 +59,9 @@ describe('HaAuthenticatedUserService', () => {
   }
 
   describe('init on the browser', () => {
-    it('should ask the api even without a marker cookie', () => {
-      // the api is the authority: an expired access token is renewed by the refresh interceptor,
-      // so a cookie must never decide whether the call is worth making.
+    it('should ask the api when nothing settled the question', () => {
+      // the api is the authority, and an expired access token is renewed by the refresh
+      // interceptor: without a proof there is no session, the call is worth making.
       const service = build('browser');
 
       service.init();
@@ -65,9 +69,8 @@ describe('HaAuthenticatedUserService', () => {
       expect(apiServiceSpy.get).toHaveBeenCalledWith('user');
     });
 
-    it('should skip the call when the server saw no session', () => {
-      // the marker is httpOnly so only the server can read it. It hands the answer over rather
-      // than letting every anonymous visitor spend a 401 plus a failed refresh.
+    it('should skip the call when nothing at all suggests a session', () => {
+      // an anonymous visitor of a public, indexed site must not spend a call to be told so
       const service = build('browser');
       transferState().set(HA_SESSION_STATE_KEY, false);
 
@@ -75,6 +78,20 @@ describe('HaAuthenticatedUserService', () => {
 
       expect(apiServiceSpy.get).not.toHaveBeenCalled();
       expect(service.getCurrentUser()).toBeNull();
+    });
+
+    it('should not take the renderer word for it against its own marker', () => {
+      // the renderer only sees the cookies the browser sends it, and the api sets its own on its
+      // own domain: a negative may just mean it was never shown them. Believing it left a logged
+      // in user looking anonymous while their requests kept working.
+      const service = build('browser');
+      transferState().set(HA_SESSION_STATE_KEY, false);
+      authServiceSpy.mayHaveSession.mockReturnValue(true);
+
+      service.init();
+
+      expect(apiServiceSpy.get).toHaveBeenCalledWith('user');
+      expect(service.getCurrentUser()).toBe(USER);
     });
 
     it('should ask the api when the server saw a session', () => {
@@ -124,10 +141,10 @@ describe('HaAuthenticatedUserService', () => {
       return service;
     }
 
-    it('should re-establish the session before asking who the user is', () => {
+    it('should renew the pair before asking who the user is', () => {
       // a reload loses everything: neither the login state nor the token deadline survives it, the
-      // cookies being httpOnly. The refresh answers both, and the /user call then leaves with a
-      // fresh token instead of a 401 to recover from.
+      // cookies being httpOnly. The refresh hands over the deadline, and the /user call then
+      // leaves with a fresh token instead of a 401 to recover from.
       const service = buildOnFreshPage();
 
       service.init();
@@ -137,14 +154,18 @@ describe('HaAuthenticatedUserService', () => {
       expect(service.getCurrentUser()).toBe(USER);
     });
 
-    it('should stop at an anonymous visitor', () => {
+    it('should ask the api even when the renewal failed', () => {
+      // a failed refresh proves nothing - another tab may have won the rotation - and the access
+      // token in the shared jar may be perfectly valid. Concluding here showed a logged in user as
+      // anonymous while every one of their requests kept working.
       const service = buildOnFreshPage();
-      sessionServiceSpy.resume.mockReturnValue(of(false));
+      // resume() says nothing about the outcome. Anything read as an answer here is a regression.
+      sessionServiceSpy.resume.mockReturnValue(of(null));
 
       service.init();
 
-      expect(apiServiceSpy.get).not.toHaveBeenCalled();
-      expect(service.getCurrentUser()).toBeNull();
+      expect(apiServiceSpy.get).toHaveBeenCalledWith('user');
+      expect(service.getCurrentUser()).toBe(USER);
     });
 
     it('should not resume when the server saw no session', () => {
@@ -189,9 +210,19 @@ describe('HaAuthenticatedUserService', () => {
       expect(apiServiceSpy.get).toHaveBeenCalledWith('user');
     });
 
-    it('should still accept the legacy marker written by the front', () => {
-      // during the front-before-back deployment window the api does not set Session_Active yet
+    it('should accept the marker the front writes for itself', () => {
+      // the only one certain to reach a renderer served from another domain than the api
       const service = build('server', { [FL_AUTH_EXPIRED_COOKIE]: '123' });
+
+      service.init();
+
+      expect(apiServiceSpy.get).toHaveBeenCalledWith('user');
+    });
+
+    it('should accept the access token cookie alone', () => {
+      // it outlives the token it carries, for the 30 days of the refresh token, precisely so that
+      // its absence is what tells an anonymous visitor from an expired session
+      const service = build('server', { [HA_AUTHORIZATION_COOKIE]: 'jwt' });
 
       service.init();
 

@@ -24,15 +24,19 @@ import { filter, map, take, tap } from 'rxjs/operators';
 
 import { HaBrick } from '../ha-model/ha-entities/ha-brick.class';
 import { HaUser, HaUserCategory } from '../ha-model/ha-entities/ha-user';
-import { HA_SESSION_MARKER_COOKIE } from './ha-auth.service';
+import { HA_AUTHORIZATION_COOKIE, HA_SESSION_MARKER_COOKIE, HaAuthService } from './ha-auth.service';
 import { HaAuthSessionService } from './ha-auth-session.service';
 
 /** Whether the SSR server saw a session marker cookie, handed over to the browser. */
 export const HA_SESSION_STATE_KEY: StateKey<boolean> = makeStateKey<boolean>('haHasSession');
 
 /**
- * Manages the currently authenticated user state, and is the authority on who is logged in: no
- * cookie ever gets to decide that on the browser.
+ * Manages the currently authenticated user state, and is the authority on who is logged in.
+ *
+ * The answer comes from /user and from nothing else. A marker cookie may only decide that the call
+ * is not worth making, for a visitor who certainly has no session; it never decides that a visitor
+ * is anonymous, and neither does a failed refresh. Both would leave a logged in user looking
+ * signed out while their requests keep working, which is the failure this service exists to avoid.
  *
  * Initialized at app startup via provideAppInitializer (see ha-app.config.ts). Fetches the user
  * from the API and pushes it to userSubject. Other components/services observe getUser() to react
@@ -54,6 +58,7 @@ export class HaAuthenticatedUserService implements FlCleanableService {
   private snackBarService = inject(FlSnackBarService);
   private transferState = inject(TransferState);
   private sessionService = inject(HaAuthSessionService);
+  private authService = inject(HaAuthService);
   private readonly userRoute: string = 'user';
   private userAuthenticated: HaUser;
   public userSubject: BehaviorSubject<HaUser | undefined> = new BehaviorSubject<HaUser | undefined>(
@@ -78,28 +83,22 @@ export class HaAuthenticatedUserService implements FlCleanableService {
    * Resolve who the visitor is, at startup and again after a login.
    *
    * At startup the app has lost everything a reload cannot carry: it knows neither whether it is
-   * logged in nor when its access token dies, the cookies being httpOnly. The session is therefore
-   * re-established first, which both proves the session is alive and hands over the expiresIn that
-   * arms the proactive renewal - and it means the /user call below leaves with a fresh token
-   * instead of a 401 to recover from.
+   * logged in nor when its access token dies, the cookies being httpOnly. The pair is therefore
+   * renewed first, once, which hands over the expiresIn that arms the proactive renewal and lets
+   * the /user call leave with a fresh token instead of a 401 to recover from.
    *
-   * Exactly once per page: a 401 there is the ordinary answer for an anonymous visitor, not an
-   * error, and asking again would spend a rate limit shared by every visitor behind the same IP.
+   * That renewal is best effort and decides nothing. /user runs whatever it answered, and its
+   * answer is the only one that counts: a failed refresh may just mean another tab won the
+   * rotation, while the access token in the jar is perfectly valid.
    */
   public init(): void {
-    if (!this.shouldLoadUser()) {
+    if (!this.mayHaveSession()) {
       this.userSubject.next(null);
       return;
     }
 
     if (this.sessionService.shouldResume()) {
-      this.sessionService.resume().subscribe((resumed: boolean) => {
-        if (resumed) {
-          this.loadUser();
-        } else {
-          this.userSubject.next(null);
-        }
-      });
+      this.sessionService.resume().subscribe(() => this.loadUser());
       return;
     }
 
@@ -120,15 +119,17 @@ export class HaAuthenticatedUserService implements FlCleanableService {
   }
 
   /**
-   * The server has no choice but to trust the marker cookie, see hasSessionMarkerOnServer(). It
-   * hands its answer to the browser, which cannot read the httpOnly marker itself: because the
-   * marker outlives the refresh token, an explicit "no session" is a reliable negative, and it
-   * spares every anonymous visitor a 401 plus a failed refresh.
+   * Whether a session may exist. The only question a marker is ever allowed to answer, and it may
+   * only spare a pointless call: a false here means "no call at all", never "this user is
+   * anonymous" - that answer belongs to /user.
    *
-   * Absent that answer the browser calls the API rather than guessing - a call it may well spend
-   * for nothing, which is the acceptable half of the trade.
+   * Every available signal is OR'ed, because being wrong in the "no" direction leaves a logged in
+   * user looking anonymous for the whole life of the page, while being wrong in the "maybe"
+   * direction costs one request. In particular the browser does not take the renderer's word for
+   * it: a render only sees the cookies the browser sends it, and the API sets its own on its own
+   * domain, so a negative may simply mean the renderer was never shown them.
    */
-  private shouldLoadUser(): boolean {
+  private mayHaveSession(): boolean {
     if (isPlatformServer(this.platformId)) {
       const hasSession: boolean = this.hasSessionMarkerOnServer();
       this.transferState.set(HA_SESSION_STATE_KEY, hasSession);
@@ -138,7 +139,7 @@ export class HaAuthenticatedUserService implements FlCleanableService {
     const transferred: boolean = this.transferState.get(HA_SESSION_STATE_KEY, true);
     // consume it: init() runs again after a login, where a stale "no session" would be wrong
     this.transferState.remove(HA_SESSION_STATE_KEY);
-    return transferred;
+    return transferred || this.authService.mayHaveSession();
   }
 
   /**
@@ -167,20 +168,27 @@ export class HaAuthenticatedUserService implements FlCleanableService {
   }
 
   /**
-   * SSR only: the marker cookie carried by the Express request. On the browser, ask the API
-   * instead - see isAuthenticated().
+   * SSR only: the markers carried by the Express request. On the browser, ask the API instead -
+   * see isAuthenticated().
    *
    * The server cannot renew an expired access token, it could not plumb the new cookies back to
-   * the browser, so the marker is its only signal that a session exists. Without it every server
+   * the browser, so a marker is its only signal that a session exists. Without one every server
    * rendered page would come out logged out for a user whose session is valid for 30 days.
    *
-   * FL_AUTH_EXPIRED_COOKIE is the marker the front writes itself, accepted for the
-   * front-before-back deployment window where the API does not set Session_Active yet. Drop it
-   * once the API is deployed.
+   * The three are read, and any of them is enough, because each can be missing for a reason that
+   * has nothing to do with the session:
+   * - Session_Active and Authorization are set by the API on its own domain, so a render served
+   *   from another one never receives them;
+   * - Auth_Expiration is written by the front on the front origin, so it is always received here,
+   *   but it is missing for a session opened before it existed.
    */
   public hasSessionMarkerOnServer(): boolean {
     const cookies: Record<string, string> = this.request?.cookies;
-    return cookies?.[HA_SESSION_MARKER_COOKIE] != null || cookies?.[FL_AUTH_EXPIRED_COOKIE] != null;
+    return (
+      cookies?.[HA_SESSION_MARKER_COOKIE] != null ||
+      cookies?.[HA_AUTHORIZATION_COOKIE] != null ||
+      cookies?.[FL_AUTH_EXPIRED_COOKIE] != null
+    );
   }
 
   public getUser(): Observable<HaUser> {

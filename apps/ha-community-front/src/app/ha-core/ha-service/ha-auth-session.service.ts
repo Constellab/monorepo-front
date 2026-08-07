@@ -41,7 +41,14 @@ export class HaAuthSessionService implements FlCleanableService {
    * spin against a route rate limited to 60 requests per minute and per IP. Below that floor the
    * token expires before the timer fires, which the 401 path handles.
    */
-  private static readonly MIN_DELAY_MS: number = 500000000000 * ClDateHelper.ONE_SECOND;
+  private static readonly MIN_DELAY_MS: number = 5 * ClDateHelper.ONE_SECOND;
+
+  /**
+   * Ceiling for the timer, the largest delay setTimeout accepts. Above it the value overflows and
+   * the callback fires immediately instead of much later - so a lifetime absurdly long would hammer
+   * the very route the floor above protects, in the opposite direction.
+   */
+  private static readonly MAX_DELAY_MS: number = 2147483647;
 
   private timer: ReturnType<typeof setTimeout> = null;
 
@@ -76,23 +83,24 @@ export class HaAuthSessionService implements FlCleanableService {
   }
 
   /**
-   * Re-establish the session after a page load, where the app knows neither whether it is logged in
-   * nor when its access token dies.
+   * Renew the pair after a page load, where the app knows neither whether it is logged in nor when
+   * its access token dies.
    *
-   * @returns true when the session is alive, false when the visitor is anonymous. A failure is an
-   * ordinary answer here, not an error: it is what an anonymous visitor gets, and it must not be
-   * reported as one.
+   * Best effort, and deliberately silent about the outcome: it arms the timer when it succeeds and
+   * concludes nothing when it fails. A failure is not proof the session is over - another tab may
+   * have won the rotation, and the access token sitting in the cookie jar may still be perfectly
+   * valid. Who the visitor is comes from /user, right after, and from nothing else.
    */
-  public resume(): Observable<boolean> {
+  public resume(): Observable<void> {
     this.sessionResolved = true;
 
     return this.refreshCoordinator
       .coordinate(() => this.getAuthService().refresh())
       .pipe(
-        // a skipped refresh (another tab renewed the pair a moment ago) is a live session too, but it
-        // carries no expiresIn, so this tab arms nothing and waits for the 401 path to give it one
-        map(() => true),
-        catchError(() => of(false))
+        // a skipped refresh (another tab renewed the pair a moment ago) carries no expiresIn, so
+        // this tab arms nothing and waits for the 401 path to give it one
+        map((): void => undefined),
+        catchError(() => of<void>(undefined))
       );
   }
 
@@ -118,9 +126,9 @@ export class HaAuthSessionService implements FlCleanableService {
       return;
     }
 
-    const delay: number = Math.max(
-      HaAuthSessionService.MIN_DELAY_MS,
-      this.lastExpiresIn * HaAuthSessionService.RENEW_AT_RATIO
+    const delay: number = Math.min(
+      HaAuthSessionService.MAX_DELAY_MS,
+      Math.max(HaAuthSessionService.MIN_DELAY_MS, this.lastExpiresIn * HaAuthSessionService.RENEW_AT_RATIO)
     );
     this.timer = setTimeout(() => this.renew(), delay);
   }

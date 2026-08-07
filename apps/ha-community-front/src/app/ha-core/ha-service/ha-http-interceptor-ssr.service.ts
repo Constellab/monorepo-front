@@ -4,6 +4,8 @@ import { inject, Injectable, PLATFORM_ID, REQUEST } from '@angular/core';
 import { Request } from 'express';
 import { Observable } from 'rxjs';
 
+import { HA_AUTHORIZATION_COOKIE } from './ha-auth.service';
+
 /**
  * SSR-only HTTP interceptor.
  *
@@ -33,15 +35,15 @@ export class HaHttpInterceptorSsrService implements HttpInterceptor {
     if (
       isPlatformServer(this.platformId) &&
       this.request?.cookies &&
-      this.request?.cookies['Authorization'] != null
+      this.request?.cookies[HA_AUTHORIZATION_COOKIE] != null
     ) {
       req = req.clone({
         withCredentials: true,
         headers: req.headers
-          ? req.headers.append('authorization', this.request.cookies['Authorization'])
+          ? req.headers.append('authorization', this.request.cookies[HA_AUTHORIZATION_COOKIE])
           : new HttpHeaders({
-            authorization: this.request.cookies['Authorization'],
-          }),
+              authorization: this.request.cookies[HA_AUTHORIZATION_COOKIE],
+            }),
       });
     }
     return next.handle(req);

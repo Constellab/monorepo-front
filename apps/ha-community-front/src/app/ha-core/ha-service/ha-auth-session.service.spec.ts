@@ -116,6 +116,16 @@ describe('HaAuthSessionService', () => {
       expect(authServiceSpy.refresh).toHaveBeenCalledTimes(1);
     });
 
+    it('should keep an absurdly long lifetime from firing at once', () => {
+      // setTimeout overflows past 2^31-1 ms and fires immediately, so a delay meant to be far away
+      // becomes a burst against the rate limited refresh route
+      service.schedule(Number.MAX_SAFE_INTEGER);
+
+      vi.advanceTimersByTime(1000);
+
+      expect(authServiceSpy.refresh).not.toHaveBeenCalled();
+    });
+
     it('should keep the last known lifetime when none is given', () => {
       service.schedule(EXPIRES_IN);
 
@@ -166,26 +176,29 @@ describe('HaAuthSessionService', () => {
   });
 
   describe('resume', () => {
+    /** @returns whether the caller was let through, which is the only thing resume() ever says */
     function resume(): boolean {
-      let resumed: boolean = null;
-      service.resume().subscribe((value) => (resumed = value));
-      return resumed;
+      let completed = false;
+      service.resume().subscribe(() => (completed = true));
+      return completed;
     }
 
-    it('should report a live session', () => {
+    it('should renew the pair', () => {
       expect(resume()).toBe(true);
       expect(authServiceSpy.refresh).toHaveBeenCalledTimes(1);
     });
 
-    it('should report an anonymous visitor without erroring', () => {
-      // a 401 here is the ordinary answer on a public site, not a failure to report
+    it('should let the caller through even when the refresh failed', () => {
+      // it concludes nothing: another tab may have won the rotation, and the access token in the
+      // shared jar may be perfectly valid. Reporting a failure here made /user be skipped, which
+      // showed a logged in user as anonymous while their requests kept working.
       authServiceSpy.refresh.mockReturnValue(throwError(() => new Error('401')));
       const onError = vi.fn();
 
-      let resumed: boolean = null;
-      service.resume().subscribe({ next: (value) => (resumed = value), error: onError });
+      let completed = false;
+      service.resume().subscribe({ next: () => (completed = true), error: onError });
 
-      expect(resumed).toBe(false);
+      expect(completed).toBe(true);
       expect(onError).not.toHaveBeenCalled();
     });
 

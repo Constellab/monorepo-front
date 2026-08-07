@@ -27,9 +27,16 @@ renouvelle et rejoue la requête, l'utilisateur ne voit rien.
 
 ### 2. C'est l'API qui sait, pas un cookie
 
-Le front lisait un cookie pour décider qui est connecté. Il ne le fait plus côté
-navigateur : il demande. Un cookie ne peut pas savoir qu'une session a été révoquée, ni
-qu'un token expiré peut être renouvelé.
+Le front lisait un cookie pour décider qui est connecté. Il ne le fait plus : il demande
+`/user`. Un cookie ne peut pas savoir qu'une session a été révoquée, ni qu'un token expiré
+peut être renouvelé.
+
+**La règle exacte**, qui vaut pour tout marqueur et pour le refresh de démarrage : un signal
+a le droit de faire **sauter un appel** dont il est sûr qu'il ne servirait à rien, jamais de
+**répondre à la question**. Se tromper dans le sens « peut-être » coûte une requête ; se
+tromper dans le sens « non » affiche un utilisateur connecté comme anonyme pendant toute la
+vie de la page, alors que toutes ses requêtes fonctionnent. C'est asymétrique, donc tous les
+signaux disponibles sont combinés en OU.
 
 ### 3. Sauf le rendu serveur, qui n'a pas le choix
 
@@ -97,15 +104,18 @@ laissée ouverte une heure ne prend aucun `401`.
 `ha-core/ha-service/ha-authenticated-user.service.ts`
 
 Après un rechargement, l'app ne sait ni si elle est connectée, ni quand son token meurt. Elle
-appelle donc **une fois** `POST /auth/refresh` avant de demander `/user` : la réponse prouve
-la session _et_ fournit le `expiresIn` qui arme le timer, et le `/user` qui suit part avec un
-token frais au lieu d'un `401` à rattraper.
+appelle donc **une fois** `POST /auth/refresh` avant de demander `/user` : la réponse fournit
+le `expiresIn` qui arme le timer, et le `/user` qui suit part avec un token frais au lieu d'un
+`401` à rattraper.
 
+- **au mieux, et sans rien conclure** — `/user` est appelé quelle que soit l'issue. Un refresh
+  raté ne prouve pas la fin de session : un autre onglet a pu gagner la rotation, et le token
+  d'accès du pot de cookies partagé peut être parfaitement valide ;
 - **exactement une fois par page** — un `401` y est la réponse normale d'un visiteur anonyme,
   pas une erreur : ni journalisée, ni affichée, ni redemandée ;
-- **rien si le serveur a vu qu'il n'y avait pas de session** (marqueur transmis, voir « La
-  charge anonyme ») : sur un site public et indexé, le plafond de 60 req/min par IP serait
-  dépensé par des visiteurs qui n'ont rien à reprendre ;
+- **rien si aucun signal ne suggère de session** (voir « La charge anonyme ») : sur un site
+  public et indexé, le plafond de 60 req/min par IP serait dépensé par des visiteurs qui n'ont
+  rien à reprendre ;
 - **rien après un login** — la session est déjà connue, un refresh ferait tourner un token
   émis quelques secondes plus tôt.
 
@@ -188,14 +198,15 @@ La page de login redirigeait vers `/oauth/authorize` sur la foi du marqueur. Tok
 expiré → l'API renvoyait sur `/login?returnUrl=…` → **boucle infinie**. Elle appelle
 maintenant `refresh()` avant de rediriger.
 
-### Le marqueur réduit au rendu serveur
+### Le marqueur réduit à « faut-il appeler ? »
 
-Six endroits décidaient à partir du cookie côté navigateur. Plus aucun : ils s'appuient
-maintenant sur `HaAuthenticatedUserService`, et le cookie ne sert plus qu'au rendu serveur.
+Six endroits décidaient qui est connecté à partir du cookie. Plus aucun : ils s'appuient
+maintenant sur `HaAuthenticatedUserService`. Le marqueur ne sert plus qu'à deux choses — le
+rendu serveur, et épargner un appel à qui n'a certainement pas de session.
 
 | Endroit                           | Devenu                                                      |
 | --------------------------------- | ----------------------------------------------------------- |
-| chargement du profil au démarrage | appelle `/user`, sauf réponse SSR négative transmise        |
+| chargement du profil au démarrage | appelle `/user`, sauf si aucun marqueur ne parle            |
 | `HaLoginGuard`, `HaStoryGuard`    | attendent `isAuthenticatedOnce()` ; cookie côté serveur     |
 | `*haIsAuthenticated`              | suit `isAuthenticated()`, réagit donc aussi au login/logout |
 | état du thème                     | s'appuie sur l'utilisateur résolu                           |
@@ -260,10 +271,20 @@ identifiant manquant : retour au login.
 
 ### La charge anonyme
 
-Le serveur lit le marqueur `httpOnly` et transmet sa réponse au navigateur
-(`HA_SESSION_STATE_KEY`), consommée à la première lecture — sinon un `init()` après login
-réutiliserait un « pas de session » périmé. Un visiteur anonyme ne déclenche donc aucun
-appel : ni `/user`, ni la reprise de session.
+Le serveur lit les marqueurs `httpOnly` — `Session_Active`, `Authorization`, `Auth_Expiration`,
+n'importe lequel suffit — et transmet sa réponse au navigateur (`HA_SESSION_STATE_KEY`),
+consommée à la première lecture, sinon un `init()` après login réutiliserait un « pas de
+session » périmé.
+
+Le navigateur ne prend pas ce négatif pour argent comptant : il le complète par le seul
+marqueur qu'il puisse lire lui-même, `Auth_Expiration`, écrit par le front sur l'origine du
+front. Le renderer ne voit que les cookies que le navigateur lui envoie, et l'API pose les
+siens sur son domaine — un rendu servi depuis un autre domaine ne les recevra jamais, et
+croire son « pas de session » afficherait un connecté comme anonyme pour toute la vie de la
+page.
+
+Un visiteur pour lequel **aucun** de ces signaux ne parle ne déclenche donc aucun appel : ni
+`/user`, ni la reprise de session.
 
 Corollaire : les réponses SSR passent en `Cache-Control: no-store` (`server.ts`). Elles
 portent un état par visiteur, et les règles existantes ne couvraient que les URLs finissant
@@ -271,7 +292,7 @@ par `.html` — ce qu'une route rendue n'est jamais.
 
 ### Couverture
 
-**132 tests** répartis sur 11 fichiers, plus le lint. Les invariants les plus délicats — refresh
+**135 tests** répartis sur 11 fichiers, plus le lint. Les invariants les plus délicats — refresh
 unique partagé, sérialisation entre onglets et verrou tenu jusqu'au bout, absence de boucle de
 rechargement, décision d'auth jamais reprise sur un cookie, guard qui ne conclut pas sur un `401`,
 timer annulé au logout par `FlCleanerService` — ont été vérifiés par mutation, en cassant
@@ -316,19 +337,20 @@ Lancer le back avec `ACCESS_TOKEN_DURATION_SECONDS=60`, puis
 
 Purement destructif — le lot qui a retiré le dernier gate cookie a été fait avant, exprès.
 
-- [ ] supprimer l'écriture d'`Auth_Expiration` par le front — le seul
-      `storeAuthExpirationCookie` de `HaAuthService.afterLogin`, **pas la méthode** : elle arme
-      aussi le renouvellement proactif — et la constante `SESSION_MARKER_DURATION_MS`
-- [ ] supprimer le `clearAuthExpirationCookie` de `HaAuthService.logout()` — c'est `/auth/logout`
-      qui efface `Session_Active`, vérifié
-- [ ] supprimer le repli sur `Auth_Expiration` dans
-      `HaAuthenticatedUserService.hasSessionMarkerOnServer()`
+Rien. Le lot destructif prévu ici — supprimer `Auth_Expiration` une fois `Session_Active`
+déployé — **ne doit pas être fait**, et c'est un changement de décision assumé.
 
-Prérequis côté back **vérifiés dans le code**, il ne manque que le déploiement : marqueur en
-`Path=/`, durée du refresh token, reposé à chaque rotation, effacé au logout.
+`Session_Active` est posé par l'API sur le domaine de l'API. Si le front est servi depuis un
+autre (`constellab.community` contre `api.constellab.community`, et les deux ports du dev), le
+rendu serveur ne le reçoit **jamais**. `Auth_Expiration` est écrit par le front sur l'origine du
+front : c'est le seul marqueur que le renderer soit certain de voir, et le seul que le
+navigateur puisse lire lui-même. Le supprimer rendrait tout utilisateur connecté anonyme à
+l'affichage pendant que ses requêtes continuent de fonctionner.
 
-Pas avant : le déploiement se fait **front d'abord, back ensuite**, et le front doit
-fonctionner avec les deux versions du back.
+Prérequis côté back vérifiés : marqueur en `Path=/`, durée du refresh token, reposé à chaque
+rotation, effacé au logout. Le seul point à vérifier si on veut un jour se passer
+d'`Auth_Expiration` est le `Domain` des cookies de l'API, qui devrait couvrir le domaine du
+front.
 
 ### 3. Côté back (rappel)
 
@@ -406,10 +428,14 @@ justifie un jour.
 
 ## Points de vigilance pour la suite
 
-- **Ne jamais rebrancher une décision d'authentification sur un cookie côté navigateur.**
-  C'est le défaut de conception qu'on vient de retirer, y compris dans `HaApiErrorService`, le
-  dernier endroit à s'y appuyer. Un cookie ne sait pas qu'un token expiré peut être renouvelé, ni
-  qu'une session a été révoquée, et le marqueur de l'API sera `httpOnly` — donc illisible.
+- **Rien d'autre que `/user` ne dit qui est connecté.** Ni un cookie, ni le rendu serveur, ni
+  l'issue d'un refresh. Chacun de ces trois a déjà, à un moment, conclu « anonyme » sur un
+  utilisateur parfaitement connecté — symptôme constant : l'en-tête affiche un visiteur, et
+  toutes les requêtes fonctionnent. Ils n'ont le droit que de faire sauter un appel inutile.
+- **Un marqueur absent ne prouve rien à lui seul.** `Session_Active` et `Authorization` sont
+  posés par l'API sur **son** domaine : un rendu servi depuis un autre ne les reçoit jamais.
+  `Auth_Expiration`, écrit par le front sur l'origine du front, est le seul que le renderer soit
+  certain de recevoir et le seul que le navigateur puisse lire. D'où le OU des trois.
 - **Ne jamais brancher quoi que ce soit sur `error.wrong_token` seul.** Deux codes existent,
   un troisième peut apparaître.
 - **Le marqueur ne doit jamais raccourcir sous la durée du refresh token.** Trop long : un

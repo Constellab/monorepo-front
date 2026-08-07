@@ -11,14 +11,23 @@ import { tap } from 'rxjs/operators';
 import { HaAuthSessionService } from './ha-auth-session.service';
 
 /**
- * The session marker the API will own, set alongside the two httpOnly credential cookies with
- * Path '/' so the SSR server receives it on every page. Only its presence carries meaning.
+ * The session marker the API owns, set alongside the two httpOnly credential cookies with Path '/'.
+ * Only its presence carries meaning, its value is the constant '1'.
  *
- * Read only, and not set by anything yet: until the API ships it the front writes
- * FL_AUTH_EXPIRED_COOKIE itself (see SESSION_MARKER_DURATION_MS). Both are accepted on the server
- * side so the front works against either version of the API.
+ * Read only: the front never writes it. It reaches the SSR server only when the API sets it on a
+ * domain the front shares, which is why it is one signal among several and never the only one.
  */
 export const HA_SESSION_MARKER_COOKIE: string = 'Session_Active';
+
+/**
+ * The httpOnly cookie carrying the access token. Unreadable from the browser, but the SSR server
+ * receives it and forwards it to the API (see HaHttpInterceptorSsrService).
+ *
+ * Its presence is the strongest "a session may exist" signal there is: it deliberately outlives the
+ * 15 min token it carries, for the whole 30 days of the refresh token, precisely so that its
+ * absence tells an anonymous visitor apart from an expired session.
+ */
+export const HA_AUTHORIZATION_COOKIE: string = 'Authorization';
 
 @Injectable({
   providedIn: 'root',
@@ -31,12 +40,12 @@ export class HaAuthService extends FlAuthService {
   private readonly route: string = 'auth';
 
   /**
-   * Lifetime of the 'Auth_Expiration' marker cookie, written by the front until the API owns
-   * HA_SESSION_MARKER_COOKIE.
+   * Lifetime of the 'Auth_Expiration' marker the front writes for itself.
    *
-   * The marker is only a hint telling the app a session may exist: it spares an API call for a
-   * visitor who certainly has none (the community site is public and indexed) and lets the server
-   * render the right shell during SSR, where cookies are the only thing readable synchronously.
+   * It is the only marker readable on the browser, and the only one the SSR server is certain to
+   * receive: the front writes it on the front origin, whereas the API sets its cookies on its own
+   * domain, which a render served from another one never sees. It therefore stays useful after the
+   * API ships Session_Active.
    *
    * The rule everything reading a marker relies on: it may be wrong by saying "maybe logged in",
    * never by saying "logged out". That holds only while it outlives the refresh token, hence a
@@ -96,6 +105,18 @@ export class HaAuthService extends FlAuthService {
   public afterLogin(expiresIn: number): void {
     this.storeAuthExpirationCookie(HaAuthService.SESSION_MARKER_DURATION_MS, null, 'Lax');
     this.sessionService.schedule(expiresIn);
+  }
+
+  /**
+   * Whether a session may exist, as far as the browser can tell on its own.
+   *
+   * The only question a marker is ever allowed to answer. It never says who is connected - a cookie
+   * cannot know that a session was revoked, nor that an expired access token can be renewed - it
+   * only lets the app skip a call it is sure would be pointless, for the anonymous visitors of a
+   * public, indexed site. Every caller must treat a true as "ask the API".
+   */
+  public mayHaveSession(): boolean {
+    return this.hasAuthorizationCookie();
   }
 
   private clearServices(): void {
