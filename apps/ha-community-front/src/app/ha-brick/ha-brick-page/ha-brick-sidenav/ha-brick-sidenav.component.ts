@@ -1,4 +1,4 @@
-import { isPlatformBrowser, isPlatformServer, NgClass } from '@angular/common';
+import { isPlatformBrowser, isPlatformServer } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -74,7 +74,6 @@ import {
     MatTreeNodeToggle,
     MatTooltip,
     HaBrickSidenavTreeComponent,
-    NgClass,
   ],
 })
 export class HaBrickSidenavComponent {

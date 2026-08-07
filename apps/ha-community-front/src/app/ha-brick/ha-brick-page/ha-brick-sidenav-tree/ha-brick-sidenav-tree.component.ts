@@ -1,5 +1,4 @@
 import { CdkDrag, CdkDragDrop, CdkDragHandle, CdkDropList } from '@angular/cdk/drag-drop';
-import { NgClass } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -10,7 +9,8 @@ import {
   output,
   Signal,
   untracked,
-  viewChild} from '@angular/core';
+  viewChild,
+} from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import {
@@ -54,7 +54,6 @@ export interface HaBrickSidenavTreeEvent {
     MatTreeNodePadding,
     CdkDropList,
     CdkDrag,
-    NgClass,
     CdkDragHandle,
     MatIcon,
     MatIconButton,
