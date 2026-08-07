@@ -1,13 +1,18 @@
 import { PlatformLocation } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, Injector } from '@angular/core';
 import { Router } from '@angular/router';
 import { ClApiError } from '@monorepo/core-lib';
-import { FlApiErrorService, FlServerError } from '@monorepo/front-core-lib/fl-api';
-import { FL_AUTH_EXPIRED_COOKIE, FlCleanerService, FlLoginSavedRoute } from '@monorepo/front-core-lib/fl-core';
+import { FlApiErrorService, FlApiServiceConfig, FlServerError } from '@monorepo/front-core-lib/fl-api';
+import {
+  FL_AUTH_EXPIRED_COOKIE,
+  FlCleanerService,
+  FlLoginSavedRoute,
+} from '@monorepo/front-core-lib/fl-core';
 import { FlCookieService } from '@monorepo/front-core-lib/fl-dialog';
 import { Observable, throwError } from 'rxjs';
 
+import { CaAuthSessionService } from '../../ca-login/service/ca-auth-session.service';
 import { CA_CONST_LOGIN_ROUTE } from '../utils/ca-base-route';
 import { CaEnvironmentHelper } from '../utils/ca-environment.helper';
 
@@ -20,6 +25,8 @@ export class CaApiErrorService extends FlApiErrorService {
   private router = inject(Router);
   private cookieService = inject(FlCookieService);
   private platformLocation = inject(PlatformLocation);
+  private apiConfig = inject(FlApiServiceConfig);
+  private injector = inject(Injector);
 
   get defaultApiErrorDuration(): number {
     return null;
@@ -65,7 +72,7 @@ export class CaApiErrorService extends FlApiErrorService {
       return throwError(() => serverError);
     } else {
       // handle session expired specifically
-      if (serverError.nestedError?.code === 'error.wrong_token') {
+      if (this.isSessionExpired(errorResponse)) {
         return this.sessionExpired(serverError, snackBarDuration);
       }
 
@@ -80,6 +87,43 @@ export class CaApiErrorService extends FlApiErrorService {
 
     // throw the error to propagate it
     return throwError(() => serverError);
+  }
+
+  /**
+   * A 401 that really means "the session is over".
+   *
+   * Keyed on the renewal outcome, not on the error code. The API answers 401 for an expired access
+   * token AND for an object the user may not touch, and it uses 'error.wrong_token' for the first
+   * one today - but nothing binds it to that, and a code added or renamed later would make this
+   * branch silently inert. The symptom would only show up minutes into a real session.
+   *
+   * CaHttpRefreshInterceptorService already tried to renew the pair and replayed the request by the
+   * time one gets here, so it knows which of the two it was: it says so through
+   * CaAuthSessionService, and any successful renewal clears that answer again.
+   *
+   * Two exclusions on top:
+   * - anything outside the space API. The app also talks to the community API, which owns its own
+   *   credentials: its 401 says nothing about the space session and must never end it.
+   * - the /auth/ routes, where a 401 is wrong credentials or a refresh that could not renew.
+   *   Neither is an expired session, and the interceptor still has a replay to try.
+   */
+  private isSessionExpired(errorResponse: HttpErrorResponse): boolean {
+    const apiUrl: string = this.apiConfig.getApiUrl();
+    if (errorResponse.status !== 401 || !errorResponse.url?.startsWith(apiUrl)) {
+      return false;
+    }
+    if (errorResponse.url.substring(apiUrl.length).startsWith('auth/')) {
+      return false;
+    }
+    return this.getSessionService().isSessionOver();
+  }
+
+  /**
+   * Resolved lazily: CaAuthSessionService reaches CaAuthService, which depends on FlApiService,
+   * which depends on this error service. Injecting it as a field would close that cycle.
+   */
+  private getSessionService(): CaAuthSessionService {
+    return this.injector.get(CaAuthSessionService);
   }
 
   /**
