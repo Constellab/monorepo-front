@@ -1,0 +1,90 @@
+<div class="page g-layout-col g-layout-center-center">
+  <div class="panel g-layout-col">
+    @switch (status()) {
+      @case ('LOADING') {
+        <fl-loader></fl-loader>
+      }
+
+      @case ('INVALID_LINK') {
+        <h1>{{ 'oauth_consent_invalid_title' | translate }}</h1>
+        <p>{{ 'oauth_consent_invalid_message' | translate }}</p>
+      }
+
+      @case ('EXPIRED') {
+        <h1>{{ 'oauth_consent_expired_title' | translate }}</h1>
+        <p>{{ 'oauth_consent_expired_message' | translate }}</p>
+      }
+
+      @case ('ERROR') {
+        <h1>{{ 'oauth_consent_error_title' | translate }}</h1>
+        <p>{{ 'oauth_consent_error_message' | translate }}</p>
+        <div class="actions g-layout-row g-layout-end-center">
+          <button mat-flat-button type="button" class="primary" (click)="retryLoad()">
+            {{ 'oauth_consent_retry' | translate }}
+          </button>
+        </div>
+      }
+
+      @default {
+        <!--
+          READY and SUBMITTING: the decision itself. Every word about the client and its access comes
+          from details(), and clientName is rendered through interpolation, which escapes it.
+        -->
+        @if (details(); as consent) {
+          <h1>{{ 'oauth_consent_title' | translate }}</h1>
+
+          @if (consent.clientNameIsVerified) {
+            <p>{{ 'oauth_consent_client' | translate: { client: consent.clientName } }}</p>
+          } @else {
+            <p>{{ 'oauth_consent_client_claim' | translate: { client: consent.clientName } }}</p>
+            <p class="g-text-small g-text-light">{{ 'oauth_consent_client_unverified' | translate }}</p>
+          }
+
+          @if (consent.warning) {
+            <p class="warning" role="alert">{{ consent.warning }}</p>
+          }
+
+          <h2>{{ 'oauth_consent_resources_title' | translate }}</h2>
+          <ul>
+            <!-- tracked by position: the list comes from the API and two Resources sharing a url
+                 would blank the whole screen rather than merely look odd -->
+            @for (resource of consent.resources; track $index) {
+              <li>
+                <div>{{ resource.name }}</div>
+                @if (resource.description) {
+                  <div class="g-text-small">{{ resource.description }}</div>
+                }
+                <div class="g-text-small g-text-light">{{ resource.url }}</div>
+              </li>
+            }
+          </ul>
+
+          <div class="identity g-layout-col g-text-small g-text-light">
+            <span>{{ 'oauth_consent_account' | translate: { email: consent.userEmail } }}</span>
+            <span>{{ 'oauth_consent_client_id' | translate: { id: consent.clientId } }}</span>
+          </div>
+
+          @if (decisionFailed()) {
+            <p class="decision-error" role="alert">{{ 'oauth_consent_decision_error' | translate }}</p>
+          }
+
+          <div class="actions g-layout-row g-layout-end-center">
+            <button mat-stroked-button type="button" [disabled]="status() === 'SUBMITTING'" (click)="deny()">
+              {{ 'oauth_consent_deny' | translate }}
+            </button>
+            <button
+              mat-flat-button
+              type="button"
+              class="primary"
+              [disabled]="status() === 'SUBMITTING'"
+              (click)="allow()">
+              {{ 'oauth_consent_allow' | translate }}
+            </button>
+          </div>
+
+          <p class="g-text-small g-text-light">{{ 'oauth_consent_deny_hint' | translate }}</p>
+        }
+      }
+    }
+  </div>
+</div>

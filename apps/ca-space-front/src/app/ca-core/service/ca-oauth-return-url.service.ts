@@ -33,8 +33,12 @@ export class CaOauthReturnUrlService {
   /**
    * Name of the login page query param holding the url to come back to after login.
    * Must match the back configuration (frontLoginUrl of the authorization server).
+   *
+   * Public because the API is not the only one to send a visitor to login with a url to come back
+   * to: the consent page does it too when the session died under it, and the two must spell the
+   * param the same way for the login page to read either.
    */
-  private static readonly QUERY_PARAM: string = 'returnUrl';
+  public static readonly RETURN_URL_QUERY_PARAM: string = 'returnUrl';
 
   /**
    * The only endpoint a return url may point at. Narrower than "the API", on purpose: it is the one
@@ -56,7 +60,7 @@ export class CaOauthReturnUrlService {
    * which case the caller falls back to its usual landing page.
    */
   public getSafeAuthorizeReturnUrl(queryParams: Params): string | null {
-    const returnUrl: string = queryParams?.[CaOauthReturnUrlService.QUERY_PARAM];
+    const returnUrl: string = queryParams?.[CaOauthReturnUrlService.RETURN_URL_QUERY_PARAM];
     if (!returnUrl) {
       return null;
     }
