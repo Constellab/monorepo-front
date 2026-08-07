@@ -86,8 +86,10 @@ Attrape le `401`, appelle `POST /auth/refresh`, rejoue la requête.
 
 **Multi-onglets** : si le refresh échoue, la requête d'origine est rejouée une fois avant
 de conclure. Le `401` de l'onglet perdant prouve que l'autre a déjà réussi sa rotation,
-donc le nouveau token est déjà dans le pot de cookies partagé. Aucune coordination entre
-onglets, et le back garde une rotation strictement à usage unique.
+donc le nouveau token est déjà dans le pot de cookies partagé.
+
+Ce rejeu ne suffit pas à lui seul : voir « La sérialisation entre onglets », qui est ce qui
+empêche l'onglet perdant de présenter le token consommé.
 
 ### Le déclencheur : statut, jamais code
 
@@ -134,6 +136,46 @@ maintenant sur `HaAuthenticatedUserService`, et le cookie ne sert plus qu'au ren
 `HaAuthenticatedUserService` est l'autorité : `isAuthenticated()` reste silencieux tant que
 la réponse est inconnue, pour qu'on ne confonde jamais « pas encore chargé » et « anonyme ».
 
+### La sérialisation entre onglets
+
+`ha-core/ha-service/ha-refresh-coordinator.service.ts`
+
+Sans elle, **deux onglets détruisent la session**. La rotation est à usage unique et l'API applique
+OAuth 2.1 §4.14.2 : un refresh token présenté une deuxième fois est traité comme volé et la ligne de
+session est **supprimée**, y compris pour le détenteur légitime. Vérifié dans
+`hn-refresh-token.service.ts` — aucune tolérance, et pas même de colonne pour en écrire une.
+
+Deux cas à distinguer :
+
+- **strictement simultané** — les deux onglets présentent le même token, l'`UPDATE` gardé sur
+  l'ancien hash n'en laisse passer qu'un, l'autre reçoit `null`. Un `401`, aucun dégât.
+- **décalé d'un aller-retour** — l'onglet B envoie son refresh alors que le token est encore
+  courant, mais il arrive **après** le commit de A. B matche le token consommé : session détruite.
+
+Le second cas est le nominal, pas une course exotique : trois onglets restaurés à l'ouverture du
+navigateur tirent leur premier appel à quelques millisecondes d'écart, prennent tous un `401`,
+rafraîchissent tous. Et le dégât est invisible sur le moment — tout le monde continue sur l'access
+token, puis déconnexion générale sans cause apparente. Pire, `previousTokenHash` reste positionné
+pendant toute la vie du nouveau token : un traînard qui porte l'ancien peut détoner à n'importe quel
+moment du créneau.
+
+La déduplication par onglet ne voit rien de tout ça, elle ne connaît que son propre document. D'où
+**`navigator.locks`** — exclusion mutuelle réelle entre onglets de même origine, relâchée
+automatiquement si l'onglet meurt. `BroadcastChannel` ne donnerait que de la notification : tous les
+onglets auraient déjà rafraîchi avant de l'apprendre.
+
+Sous le verrou, on re-teste : si un refresh a réussi dans les 10 dernières secondes (horodatage en
+`localStorage`, le cookie étant `httpOnly`), on **ne rafraîchit pas** et on se contente de rejouer.
+Les onglets partagent un pot de cookies, donc un refresh renouvelle l'access token de tout le monde :
+un `401` qui atterrit juste après est périmé par construction.
+
+Repli sans Web Locks (Safari < 15.4) : l'horodatage seul. Il couvre le cas décalé — le destructeur —
+et laisse le cas simultané, que l'API rejette sans toucher à la session.
+
+> **Le réflexe à ne pas avoir** — « `401` sur `/auth/refresh` ⇒ je retente une fois ». Un retry assez
+> rapide pour porter encore le token consommé transforme le cas inoffensif en destruction de session.
+> Exclusion, jamais retry.
+
 ### Le guard qui ne conclut pas
 
 `ha-guard/ha-story.guard.ts`
@@ -161,10 +203,11 @@ par `.html` — ce qu'une route rendue n'est jamais.
 
 ### Couverture
 
-**82 tests** répartis sur 9 fichiers, plus le lint. Les invariants les plus délicats — refresh
-unique partagé, absence de boucle de rechargement, décision d'auth jamais reprise sur un cookie,
-guard qui ne conclut pas sur un `401` — ont été vérifiés par mutation, en cassant volontairement le
-code pour confirmer qu'un test l'attrape.
+**99 tests** répartis sur 10 fichiers, plus le lint. Les invariants les plus délicats — refresh
+unique partagé, sérialisation entre onglets et verrou tenu jusqu'au bout, absence de boucle de
+rechargement, décision d'auth jamais reprise sur un cookie, guard qui ne conclut pas sur un `401` —
+ont été vérifiés par mutation, en cassant volontairement le code pour confirmer qu'un test
+l'attrape.
 
 La mutation a d'ailleurs révélé un test creux : `expect(() => ...).not.toThrow()` sur un observable
 ne prouve rien, rxjs remonte une erreur levée depuis un subscriber en asynchrone. Assertion sur une
@@ -183,7 +226,10 @@ Lancer le back avec `ACCESS_TOKEN_DURATION_SECONDS=60`, puis
 
 - [ ] se connecter, attendre > 60 s, naviguer → aucune déconnexion, un seul `/auth/refresh`
 - [ ] page déclenchant plusieurs appels après expiration → **un seul** `/auth/refresh`
-- [ ] deux onglets, laisser expirer, agir dans les deux → aucun déconnecté
+- [ ] deux onglets, laisser expirer, agir dans les deux → aucun déconnecté, **un seul**
+      `/auth/refresh` au total, et toujours connecté 15 min plus tard (la destruction de session est
+      invisible sur le moment, il faut attendre l'expiration suivante pour la voir)
+- [ ] trois onglets restaurés à l'ouverture du navigateur, session expirée → même attente
 - [ ] logout puis navigation → retour au login, pas de boucle
 - [ ] flux MCP : rester connecté > 60 s puis lancer `/oauth/authorize` → pas de formulaire
 - [ ] navigation privée → **aucun** appel `/user` ni `/auth/refresh`
@@ -207,8 +253,17 @@ fonctionner avec les deux versions du back.
 
 ### 3. Côté back (rappel)
 
-- [ ] suite e2e écrite mais **jamais exécutée** — conteneur de base de test absent
-      (`apps/hn-community-api/test/hn-auth.e2e.spec.ts`)
+- [ ] fenêtre de grâce sur la réutilisation (`rotatedAt` + `REUSE_GRACE_SECONDS`) dans
+      `HnRefreshTokenService.rotate()`. Le verrou côté front ferme le scénario navigateur, mais pas
+      la réponse de rotation perdue sur coupure réseau après commit, ni le repli sans Web Locks, ni
+      les clients non-navigateur. Coût sécurité quasi nul : dans les deux branches le rejoueur reçoit
+      `null`. **Ne pas** rejouer la même réponse de rotation au second appelant — ça distribuerait un
+      token valide à qui redemande.
+- [ ] corriger le commentaire de `hn-auth.controller.ts` sur `/auth/refresh` et `/auth/logout` : il
+      promet une limite dédiée qui n'existe pas, et le credential porté est un aléa de 256 bits en
+      cookie `httpOnly` — la menace est l'épuisement de ressources, pas le brute force
+- [ ] suite e2e écrite mais **jamais exécutée** — le conteneur de base de test est désormais
+      disponible (`apps/hn-community-api/test/hn-auth.e2e.spec.ts`)
 - [x] tokens MCP (`/oauth/*`) ramenés à 1 h, avec refresh et revoke — sans impact front
 
 ---
@@ -238,14 +293,18 @@ Aucun statut de refresh n'est traité à part : un refresh en `429` échoue, la 
 rejouée, son `401` conclut la fin de session. L'utilisateur est donc déconnecté à tort si l'API
 rate-limite son refresh.
 
-Ce que ça coûte, mesuré côté back : `/auth/refresh` porte `@BlPublicSecure()` **sans options**, donc
-il tombe sur le plafond global de `hn-app.module.ts` — **60 requêtes / minute par IP, partagé avec
-toutes les routes publiques** — et non sur le `CREDENTIAL_THROTTLE` de 10/min de `/auth/login`. Un
-`429` est donc plus atteignable qu'un quota dédié au refresh ne le suggérerait : derrière un NAT
-d'entreprise, ce sont les autres routes publiques qui consomment le budget.
+Ce que ça coûte, vérifié côté back : `/auth/refresh` porte `@BlPublicSecure()` **sans options**, donc
+il tombe sur le plafond global de `hn-app.module.ts` (60/min par IP) et non sur le
+`CREDENTIAL_THROTTLE` de 10/min de `/auth/login`. Mais ce plafond n'est **pas** un compteur partagé
+entre routes : la clé de `@nestjs/throttler` inclut la classe et le handler, donc `/auth/refresh` a
+ses 60/min à lui. Pas d'épuisement croisé.
 
-Assumé pour l'instant : le principe « aucun cas particulier » est ce qui rend le déploiement
-front-avant-back sans risque. À revoir en priorité si des déconnexions inexpliquées remontent.
+60/min par route, c'est large : le risque de `429` est faible, et le vrai facteur limitant serait le
+NAT, pas la rafale d'un utilisateur. Un quota serré (10/min) serait au contraire dangereux — 200
+personnes derrière une IP, à un refresh / 15 min chacune, font déjà ~13/min en régime établi.
+
+Assumé donc : le principe « aucun cas particulier » est ce qui rend le déploiement front-avant-back
+sans risque, et le quota actuel rend le cas peu probable.
 
 Si le cas se présente en production, le correctif n'est pas de sauter le rejeu — un refresh échoué
 peut vouloir dire qu'un autre onglet a gagné la rotation, et le rejeu réussira. C'est de **retenir
@@ -276,5 +335,11 @@ justifie un jour.
   un troisième peut apparaître.
 - **Le marqueur ne doit jamais raccourcir sous la durée du refresh token.** Trop long : un
   appel inutile qui se corrige. Trop court : une déconnexion à tort.
+- **Ne jamais retenter un `/auth/refresh` qui a échoué.** Un retry portant encore le token consommé
+  fait supprimer la session par l'API. La seule mitigation correcte est l'exclusion entre onglets.
+- **Ne jamais rafraîchir hors du coordinateur.** Un appel direct à `HaAuthService.refresh()` contourne
+  le verrou et rouvre le scénario de destruction de session. Aucune exception : la page de login y
+  passe aussi, un client MCP l'ouvrant dans un onglet neuf pendant que l'app tourne déjà dans un
+  autre est précisément la collision en question.
 - **Le refresh ne doit pas passer par `FlApiService`.** Son pipeline d'erreur recharge la
   page sur un `401`, l'appelant ne verrait jamais l'échec.

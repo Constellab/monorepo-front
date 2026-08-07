@@ -13,6 +13,7 @@ import { of, Subject, throwError } from 'rxjs';
 
 import { HaAuthService } from './ha-auth.service';
 import { HaHttpRefreshInterceptorService } from './ha-http-refresh-interceptor.service';
+import { HaRefreshCoordinatorService } from './ha-refresh-coordinator.service';
 
 describe('HaHttpRefreshInterceptorService', () => {
   const API_URL = 'http://api.test/';
@@ -23,11 +24,16 @@ describe('HaHttpRefreshInterceptorService', () => {
   let authServiceSpy: {
     refresh: ReturnType<typeof vi.fn>;
   };
+  /** pass through: the cross-tab behaviour has its own spec, here only the wiring matters */
+  let coordinatorSpy: { coordinate: ReturnType<typeof vi.fn> };
 
   function configure(platform: 'browser' | 'server' = 'browser'): void {
     TestBed.resetTestingModule();
     authServiceSpy = {
       refresh: vi.fn().mockReturnValue(of({ status: 'LOGGED_IN', expiresIn: 900000 })),
+    };
+    coordinatorSpy = {
+      coordinate: vi.fn((refresh: () => unknown) => refresh()),
     };
 
     TestBed.configureTestingModule({
@@ -37,6 +43,7 @@ describe('HaHttpRefreshInterceptorService', () => {
         { provide: HTTP_INTERCEPTORS, useClass: HaHttpRefreshInterceptorService, multi: true },
         { provide: FlApiServiceConfig, useValue: { getApiUrl: () => API_URL } },
         { provide: HaAuthService, useValue: authServiceSpy },
+        { provide: HaRefreshCoordinatorService, useValue: coordinatorSpy },
         { provide: PLATFORM_ID, useValue: platform },
       ],
     });
@@ -94,6 +101,17 @@ describe('HaHttpRefreshInterceptorService', () => {
 
       httpMock.expectOne(USER_URL).flush({});
       httpMock.expectOne(`${API_URL}brick`).flush({});
+    });
+
+    it('should go through the cross tab coordinator, never straight to the api', () => {
+      // refreshing without it lets another tab present the rotated token, which the API reads as a
+      // theft and answers by deleting the session
+      call();
+
+      httpMock.expectOne(USER_URL).flush(...unauthorized());
+
+      expect(coordinatorSpy.coordinate).toHaveBeenCalledTimes(1);
+      httpMock.expectOne(USER_URL).flush({});
     });
 
     it('should refresh again for a later failure', () => {

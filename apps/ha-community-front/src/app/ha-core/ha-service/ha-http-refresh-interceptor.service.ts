@@ -12,6 +12,7 @@ import { Observable, of, throwError } from 'rxjs';
 import { catchError, finalize, shareReplay, switchMap } from 'rxjs/operators';
 
 import { HaAuthService } from './ha-auth.service';
+import { HaRefreshCoordinatorService } from './ha-refresh-coordinator.service';
 
 /**
  * Keeps a session alive across the 15 minutes lifetime of the access token.
@@ -31,6 +32,7 @@ export class HaHttpRefreshInterceptorService implements HttpInterceptor {
   private platformId = inject(PLATFORM_ID);
   private apiConfig = inject(FlApiServiceConfig);
   private injector = inject(Injector);
+  private refreshCoordinator = inject(HaRefreshCoordinatorService);
 
   /**
    * Routes that must never trigger a refresh. Refreshing on /auth/refresh would loop, and the
@@ -44,11 +46,14 @@ export class HaHttpRefreshInterceptorService implements HttpInterceptor {
   ];
 
   /**
-   * The refresh currently in flight, shared by every caller.
+   * The refresh currently in flight, shared by every caller of THIS tab.
    *
    * Rotation is single use: presenting a refresh token consumes it. A page firing several calls
    * hits this on its first expiry, so two parallel refreshes would make the second present a
    * consumed token and log out a user holding a valid session.
+   *
+   * Other tabs are outside its reach, and there the stake is worse than a lost refresh - the API
+   * destroys the session outright. HaRefreshCoordinatorService covers that.
    */
   private refreshInFlight: Observable<unknown> = null;
 
@@ -107,12 +112,19 @@ export class HaHttpRefreshInterceptorService implements HttpInterceptor {
     );
   }
 
+  /**
+   * Two layers, both needed. This one collapses the concurrent 401 of a single tab into one
+   * attempt; the coordinator then serializes that attempt against the other tabs, and drops it
+   * altogether if one of them just renewed the pair.
+   */
   private refreshOnce(): Observable<unknown> {
     if (!this.refreshInFlight) {
-      this.refreshInFlight = this.authService.refresh().pipe(
-        finalize(() => (this.refreshInFlight = null)),
-        shareReplay({ bufferSize: 1, refCount: false })
-      );
+      this.refreshInFlight = this.refreshCoordinator
+        .coordinate(() => this.authService.refresh())
+        .pipe(
+          finalize(() => (this.refreshInFlight = null)),
+          shareReplay({ bufferSize: 1, refCount: false })
+        );
     }
     return this.refreshInFlight;
   }

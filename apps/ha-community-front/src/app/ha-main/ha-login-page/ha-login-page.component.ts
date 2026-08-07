@@ -13,6 +13,7 @@ import { HaConstellabHelper } from '../../ha-core/ha-model/ha-config/ha-constell
 import { HaOauthHelper } from '../../ha-core/ha-model/ha-config/ha-oauth.helper';
 import { HaAuthService } from '../../ha-core/ha-service/ha-auth.service';
 import { HaAuthenticatedUserService } from '../../ha-core/ha-service/ha-authenticated-user.service';
+import { HaRefreshCoordinatorService } from '../../ha-core/ha-service/ha-refresh-coordinator.service';
 import { HaRouterService } from '../../ha-core/ha-service/ha-router.service';
 import { HaHomeSectionShineComponent } from '../../ha-home/ha-home-section-shine/ha-home-section-shine.component';
 
@@ -34,6 +35,7 @@ export class HaLoginPageComponent implements OnInit {
   private location = inject(Location);
   private authenticatedUserService = inject(HaAuthenticatedUserService);
   private authService = inject(HaAuthService);
+  private refreshCoordinator = inject(HaRefreshCoordinatorService);
   private activatedRoute = inject(ActivatedRoute);
   private snackBarService = inject(FlSnackBarService);
   private router = inject(Router);
@@ -85,17 +87,24 @@ export class HaLoginPageComponent implements OnInit {
    * API is the only thing that knows. Redirecting on the word of a cookie with an expired access
    * token makes the API bounce the user back to /login?returnUrl=..., looping between the front
    * and the API. A failed refresh means no session: fall through and show the form.
+   *
+   * Routed through the coordinator like every other refresh: an MCP client opens this page in a new
+   * tab while the app is very likely already open in another, which is exactly the collision the
+   * API punishes by destroying the session. A skipped refresh answers the question just as well -
+   * another tab renewed the pair a moment ago, so the session is alive.
    */
   private resumeOauthFlow(): void {
     if (!isPlatformBrowser(this.platformId)) {
       return;
     }
 
-    this.authService.refresh().subscribe({
-      next: () => this.redirectToOauthAuthorize(),
-      // no session: stay on the page and let the visitor log in
-      error: () => undefined,
-    });
+    this.refreshCoordinator
+      .coordinate(() => this.authService.refresh())
+      .subscribe({
+        next: () => this.redirectToOauthAuthorize(),
+        // no session: stay on the page and let the visitor log in
+        error: () => undefined,
+      });
   }
 
   /**
