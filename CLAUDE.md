@@ -161,6 +161,20 @@ The three environments at a glance:
 - Test files: `*.spec.ts` files alongside source files
 - E2E testing: Cypress for end-to-end tests
 
+## Agent skills
+
+### Issue tracker
+
+Issues live in the `Constellab/monorepo-front` GitHub Issues, managed via the `gh` CLI. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Default vocabulary — `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context — one `CONTEXT.md` + `docs/adr/` at the repo root. See `docs/agents/domain.md`.
+
 <!-- nx configuration start-->
 <!-- Leave the start & end comments to automatically receive updates. -->
 
