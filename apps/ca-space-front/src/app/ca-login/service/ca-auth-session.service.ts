@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { DestroyRef, inject, Injectable, Injector } from '@angular/core';
 import { ClDateHelper } from '@monorepo/core-lib';
 import { FlCleanableService, FlCleanerService } from '@monorepo/front-core-lib/fl-core';
@@ -56,8 +57,17 @@ export class CaAuthSessionService implements FlCleanableService {
   /** Whether this page already knows what its session is - resumed or logged in. */
   private sessionResolved: boolean = false;
 
-  /** Whether a renewal was tried, failed, and the request was refused again. See isSessionOver(). */
-  private sessionOver: boolean = false;
+  /**
+   * The failures that proved the session is over, held by identity. See isSessionOver().
+   *
+   * A WeakSet rather than a flag on purpose: the answer belongs to one response, not to the
+   * service. A flag would have to be cleared, and any request that set it without going through
+   * CaApiErrorService - a raw HttpClient call, a 401 arriving while already on the login page -
+   * would leave it standing, so an ordinary permission 401 minutes later would read a stale yes and
+   * throw a perfectly connected user out. Keyed on the error, there is nothing to go stale, and the
+   * entry is collected with the response itself.
+   */
+  private readonly sessionOverErrors: WeakSet<HttpErrorResponse> = new WeakSet<HttpErrorResponse>();
 
   constructor() {
     const destroyRef = inject(DestroyRef);
@@ -113,16 +123,16 @@ export class CaAuthSessionService implements FlCleanableService {
    * was successfully renewed is an authorization failure, and only a request refused after the
    * renewal itself failed means there is no session left.
    *
-   * Set by CaHttpRefreshInterceptorService, which is the only place that knows both halves. Cleared
-   * by any successful renewal or login, through schedule(), so it can never go stale.
+   * Recorded by CaHttpRefreshInterceptorService, the only place that knows both halves, against the
+   * very failure it saw - so the answer can only ever be read for that one response.
    */
-  public isSessionOver(): boolean {
-    return this.sessionOver;
+  public isSessionOver(error: HttpErrorResponse): boolean {
+    return this.sessionOverErrors.has(error);
   }
 
   /** Called by the interceptor when a renewal failed and the replayed request was refused too. */
-  public reportSessionOver(): void {
-    this.sessionOver = true;
+  public reportSessionOver(error: HttpErrorResponse): void {
+    this.sessionOverErrors.add(error);
   }
 
   /**
@@ -134,7 +144,6 @@ export class CaAuthSessionService implements FlCleanableService {
    */
   public schedule(expiresIn: number): void {
     this.sessionResolved = true;
-    this.sessionOver = false;
     if (expiresIn > 0) {
       this.lastExpiresIn = expiresIn;
     }
@@ -155,7 +164,6 @@ export class CaAuthSessionService implements FlCleanableService {
   public clean(): void {
     this.cancel();
     this.lastExpiresIn = null;
-    this.sessionOver = false;
   }
 
   /**

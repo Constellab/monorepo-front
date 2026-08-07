@@ -98,8 +98,8 @@ export class CaApiErrorService extends FlApiErrorService {
    * branch silently inert. The symptom would only show up minutes into a real session.
    *
    * CaHttpRefreshInterceptorService already tried to renew the pair and replayed the request by the
-   * time one gets here, so it knows which of the two it was: it says so through
-   * CaAuthSessionService, and any successful renewal clears that answer again.
+   * time one gets here, so it knows which of the two it was: it records the answer against this
+   * very response, through CaAuthSessionService, so nothing can read it for another one.
    *
    * Two exclusions on top:
    * - anything outside the space API. The app also talks to the community API, which owns its own
@@ -115,7 +115,7 @@ export class CaApiErrorService extends FlApiErrorService {
     if (errorResponse.url.substring(apiUrl.length).startsWith('auth/')) {
       return false;
     }
-    return this.getSessionService().isSessionOver();
+    return this.getSessionService().isSessionOver(errorResponse);
   }
 
   /**

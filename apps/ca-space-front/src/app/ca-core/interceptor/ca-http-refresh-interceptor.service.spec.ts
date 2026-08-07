@@ -169,12 +169,14 @@ describe('CaHttpRefreshInterceptorService', () => {
     it('should report the end of the session, so the user is logged out cleanly', () => {
       // renewal impossible and the request refused again: there is no session left. Only this
       // service knows both halves, and CaApiErrorService needs the answer to redirect.
-      call();
+      const outcome = call();
 
       httpMock.expectOne(USER_URL).flush(...unauthorized());
       httpMock.expectOne(USER_URL).flush(...unauthorized());
 
       expect(sessionServiceSpy.reportSessionOver).toHaveBeenCalledTimes(1);
+      // against the very failure it saw, so nothing can read the answer for another response
+      expect(sessionServiceSpy.reportSessionOver).toHaveBeenCalledWith(outcome.error);
     });
 
     it('should say nothing when the replay succeeds', () => {

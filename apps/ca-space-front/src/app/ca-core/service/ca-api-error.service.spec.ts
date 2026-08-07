@@ -25,6 +25,7 @@ describe('CaApiErrorService', () => {
     routerSpy = { navigate: vi.fn(), url: '/app/dashboard' };
     cookieServiceSpy = { removeCookie: vi.fn() };
     sessionServiceSpy = { isSessionOver: vi.fn().mockReturnValue(true) };
+    // the answer is keyed on the very response the interceptor saw fail
 
     TestBed.configureTestingModule({
       providers: [
@@ -72,6 +73,16 @@ describe('CaApiErrorService', () => {
       expect(cookieServiceSpy.removeCookie).toHaveBeenCalledWith(
         FL_AUTH_EXPIRED_COOKIE,
         expect.objectContaining({ path: '/' })
+      );
+    });
+
+    it('should ask about this very response, not about the service at large', () => {
+      // a sticky flag could be left standing by a request that never reaches here, and an ordinary
+      // permission 401 minutes later would then read a stale yes
+      handle(401, `${API_URL}users/current`);
+
+      expect(sessionServiceSpy.isSessionOver).toHaveBeenCalledWith(
+        expect.objectContaining({ status: 401, url: `${API_URL}users/current` })
       );
     });
 

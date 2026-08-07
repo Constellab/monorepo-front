@@ -5,8 +5,8 @@ import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { FlCleanableService, FlCleanerService } from '@monorepo/front-core-lib/fl-core';
 import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
 
 import { CaUser } from '../model/entities/ca-user.class';
 import { CaSpaceInfoDto } from '../model/entities/space/ca-space.class';
@@ -50,6 +50,22 @@ export class CaAuthenticatedUserService implements FlCleanableService {
     return this.spaceService
       .getCurrentInfo()
       .pipe(map((spaceInfo) => this.storeCurrentAuthenticatedInfo(spaceInfo)));
+  }
+
+  /**
+   * Whether a session really exists, answered by the API.
+   *
+   * For the places that have to know before the app has loaded a user - the login page and the
+   * invitation page. They used to read the 'Auth_Expiration' marker instead, which was self
+   * correcting only while it expired with the token. It now outlives the session by design, so a
+   * marker left behind by a session that ended weeks ago would send its owner into the app just to
+   * be thrown out again. A marker may only ever spare a pointless call; it never answers this.
+   */
+  public hasLiveSession(): Observable<boolean> {
+    return this.loadCurrentInfo().pipe(
+      map(() => true),
+      catchError(() => of(false))
+    );
   }
 
   public getCurrentUser(): CaUser {

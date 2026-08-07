@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { ActivatedRoute } from '@angular/router';
@@ -14,6 +14,7 @@ import { Observable, switchMap, tap } from 'rxjs';
 import { CaSpacePhotoPipe } from '../../../ca-core/entity-module/ca-space-core/pipe/ca-space-photo.pipe';
 import { CaSpaceInvitReadDTO } from '../../../ca-core/model/entities/space/ca-space-invit.class';
 import { CaRouterService } from '../../../ca-core/service/ca-router.service';
+import { CaAuthenticatedUserService } from '../../../ca-core/service-api/ca-authenticated-user.service';
 import { CaSpaceInvitService } from '../../../ca-core/service-api/ca-space-invit.service';
 import { CaUserAccountsService } from '../../../ca-core/service-api/ca-user-accounts.service';
 import { CaAuthService } from '../../service/ca-auth.service';
@@ -44,6 +45,7 @@ export class CaSignupToSpacePageComponent implements OnInit {
   private routerService = inject(CaRouterService);
   private userAccountService = inject(CaUserAccountsService);
   private authService = inject(CaAuthService);
+  private authenticatedUserService = inject(CaAuthenticatedUserService);
   private captchaService = inject(FlCaptchaService);
 
   invitation$: Observable<CaSpaceInvitReadDTO>;
@@ -123,10 +125,17 @@ export class CaSignupToSpacePageComponent implements OnInit {
       translateText: true,
     });
 
-    if (this.authService.hasAuthorizationCookie()) {
-      this.routerService.navigateToDashboard();
-    } else {
+    if (!this.authService.hasAuthorizationCookie()) {
       this.routerService.navigatorToLoginRoute();
+      return;
     }
+
+    // the marker only says "maybe", and it now outlives the session: sending someone to the
+    // dashboard on its word alone would land them there just to be bounced back to the login page
+    this.authenticatedUserService
+      .hasLiveSession()
+      .subscribe((live: boolean) =>
+        live ? this.routerService.navigateToDashboard() : this.routerService.navigatorToLoginRoute()
+      );
   }
 }

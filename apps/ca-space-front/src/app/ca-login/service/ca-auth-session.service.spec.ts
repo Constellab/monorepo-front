@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 import { FlCleanerService } from '@monorepo/front-core-lib/fl-core';
 import { of, throwError } from 'rxjs';
@@ -167,32 +168,39 @@ describe('CaAuthSessionService', () => {
   });
 
   describe('the end of a session', () => {
+    const failure = (): HttpErrorResponse => new HttpErrorResponse({ status: 401 });
+
     it('should hold nothing until a renewal actually failed', () => {
-      expect(service.isSessionOver()).toBe(false);
+      expect(service.isSessionOver(failure())).toBe(false);
     });
 
     it('should remember what the interceptor found out', () => {
-      service.reportSessionOver();
+      const error = failure();
 
-      expect(service.isSessionOver()).toBe(true);
+      service.reportSessionOver(error);
+
+      expect(service.isSessionOver(error)).toBe(true);
     });
 
-    it('should forget it as soon as a renewal succeeds', () => {
-      // otherwise a permission 401 arriving minutes later would read a stale answer and throw a
-      // perfectly connected user back to the login page
-      service.reportSessionOver();
+    it('should answer only for the failure that proved it', () => {
+      // the answer belongs to one response, not to the service. Held as a flag, a request that set
+      // it without reaching CaApiErrorService - a raw HttpClient call, a 401 landing while already
+      // on the login page - would leave it standing, and an ordinary permission 401 minutes later
+      // would read a stale yes and throw a perfectly connected user out.
+      service.reportSessionOver(failure());
+
+      expect(service.isSessionOver(failure())).toBe(false);
+    });
+
+    it('should have nothing to go stale across a renewal', () => {
+      const error = failure();
+      service.reportSessionOver(error);
 
       service.schedule(EXPIRES_IN);
-
-      expect(service.isSessionOver()).toBe(false);
-    });
-
-    it('should forget it at logout too', () => {
-      service.reportSessionOver();
-
       service.clean();
 
-      expect(service.isSessionOver()).toBe(false);
+      expect(service.isSessionOver(error)).toBe(true);
+      expect(service.isSessionOver(failure())).toBe(false);
     });
   });
 

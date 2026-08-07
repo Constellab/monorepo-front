@@ -116,7 +116,7 @@ export class CaHttpRefreshInterceptorService implements HttpInterceptor {
         next.handle(req).pipe(
           catchError((error: HttpErrorResponse) => {
             if (!renewed && error.status === 401) {
-              this.sessionService.reportSessionOver();
+              this.sessionService.reportSessionOver(error);
             }
             return throwError(() => error);
           })
