@@ -46,9 +46,14 @@ D'où un **cookie marqueur**, `Path=/`, `httpOnly`, qui lui dit seulement « une
 existe peut-être ». Le serveur transmet ensuite sa réponse au navigateur via
 `TransferState`, pour qu'un visiteur anonyme ne dépense pas d'appel inutile.
 
-À terme ce sera `Session_Active`, posé par l'API. **Il n'existe pas encore** : en attendant
-le front continue d'écrire `Auth_Expiration` lui-même, et le serveur accepte les deux (voir
-« Après déploiement du back »).
+C'est `Session_Active`, posé par l'API. **Écrit mais pas déployé** : il vit sur la branche
+`feat/mcp-community` de `monorepo-back`, pas encore mergée dans `master`
+(`hn-auth.controller.ts`, `hn-jwt.config.ts`). En attendant le front continue d'écrire
+`Auth_Expiration` lui-même, et le serveur accepte les deux (voir « Après déploiement du back »).
+
+Le contrat côté back est vérifié et conforme à ce que le front attend : `Path=/`, `httpOnly`,
+`maxAge` = durée du refresh token, valeur constante `1`, reposé à **chaque** rotation (`sendSession`
+est partagé par `login`, `login-2fa` et `refresh`) et effacé au `logout`.
 
 > **La règle qui encadre le marqueur** — il a le droit de se tromper en disant « peut-être
 > connecté », **jamais** en disant « pas connecté ». Il ne conclut jamais qu'une session est
@@ -189,12 +194,13 @@ Purement destructif — le lot qui a retiré le dernier gate cookie a été fait
 
 - [ ] supprimer l'écriture d'`Auth_Expiration` par le front (`HaAuthService.afterLogin`) et
       la constante `SESSION_MARKER_DURATION_MS`
-- [ ] supprimer le `clearAuthExpirationCookie` de `HaAuthService.logout()` — c'est alors à
-      `/auth/logout` d'effacer `Session_Active`, **à confirmer côté back**
+- [ ] supprimer le `clearAuthExpirationCookie` de `HaAuthService.logout()` — c'est `/auth/logout`
+      qui efface `Session_Active`, vérifié
 - [ ] supprimer le repli sur `Auth_Expiration` dans
       `HaAuthenticatedUserService.hasSessionMarkerOnServer()`
 
-Prérequis : le back pose bien `Session_Active` en `Path=/` au login **et** l'efface au logout.
+Prérequis côté back **vérifiés dans le code**, il ne manque que le déploiement : marqueur en
+`Path=/`, durée du refresh token, reposé à chaque rotation, effacé au logout.
 
 Pas avant : le déploiement se fait **front d'abord, back ensuite**, et le front doit
 fonctionner avec les deux versions du back.
@@ -202,7 +208,8 @@ fonctionner avec les deux versions du back.
 ### 3. Côté back (rappel)
 
 - [ ] suite e2e écrite mais **jamais exécutée** — conteneur de base de test absent
-- [ ] tokens MCP (`/oauth/*`) encore à 7 jours, chantier suivant, sans impact front
+      (`apps/hn-community-api/test/hn-auth.e2e.spec.ts`)
+- [x] tokens MCP (`/oauth/*`) ramenés à 1 h, avec refresh et revoke — sans impact front
 
 ---
 
@@ -229,10 +236,16 @@ déploiement.
 
 Aucun statut de refresh n'est traité à part : un refresh en `429` échoue, la requête d'origine est
 rejouée, son `401` conclut la fin de session. L'utilisateur est donc déconnecté à tort si l'API
-rate-limite son refresh — cas plausible derrière un NAT d'entreprise.
+rate-limite son refresh.
+
+Ce que ça coûte, mesuré côté back : `/auth/refresh` porte `@BlPublicSecure()` **sans options**, donc
+il tombe sur le plafond global de `hn-app.module.ts` — **60 requêtes / minute par IP, partagé avec
+toutes les routes publiques** — et non sur le `CREDENTIAL_THROTTLE` de 10/min de `/auth/login`. Un
+`429` est donc plus atteignable qu'un quota dédié au refresh ne le suggérerait : derrière un NAT
+d'entreprise, ce sont les autres routes publiques qui consomment le budget.
 
 Assumé pour l'instant : le principe « aucun cas particulier » est ce qui rend le déploiement
-front-avant-back sans risque, et un `429` sur refresh suppose déjà un usage anormal.
+front-avant-back sans risque. À revoir en priorité si des déconnexions inexpliquées remontent.
 
 Si le cas se présente en production, le correctif n'est pas de sauter le rejeu — un refresh échoué
 peut vouloir dire qu'un autre onglet a gagné la rotation, et le rejeu réussira. C'est de **retenir
