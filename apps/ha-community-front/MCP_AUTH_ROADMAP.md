@@ -63,11 +63,79 @@ est partagé par `login`, `login-2fa` et `refresh`) et effacé au `logout`.
 
 ## Ce qui est fait
 
-### Le renouvellement automatique
+### Le renouvellement proactif — le mécanisme principal
+
+`ha-core/ha-service/ha-auth-session.service.ts`
+
+Le `401` rattrapé n'est que le filet ; le mécanisme est un **timer armé à 80 % de
+`expiresIn`** (≈ 12 min pour 15 min). `expiresIn` est la seule information d'échéance que le
+front reçoit jamais — les cookies sont `httpOnly`, on ne les lit pas et on ne décode pas le
+JWT — donc tout part de là : `HaAuthService.afterLogin()` est le point unique où l'app
+l'apprend, pour un login, un 2FA ou un refresh indifféremment, et c'est lui qui arme.
+
+Chaque refresh annonce l'échéance suivante, donc la chaîne s'auto-entretient. Une session
+laissée ouverte une heure ne prend aucun `401`.
+
+- **toujours via le coordinateur**, sans exception (voir « La sérialisation entre onglets ») ;
+- **un refresh sauté** (un autre onglet vient de renouveler) ne porte pas de `expiresIn` :
+  on réarme sur la dernière durée connue, sinon l'onglet finirait sa vie sans timer ;
+- **jamais de retry** après un échec. Ça ne prouve pas la fin de session — un autre onglet a
+  pu gagner la rotation — et un retry portant encore le token consommé est exactement ce qui
+  fait supprimer la session. Le prochain appel applicatif tranche, via l'intercepteur, qui
+  réarme le timer au passage ;
+- **plancher de 5 s** sur le délai : un `expiresIn` aberrant ne doit pas transformer le
+  renouvellement en boucle contre une route limitée à 60 req/min ;
+- **annulé au logout**, par `FlCleanerService` ;
+- **rien pendant le SSR**.
+
+> **Le piège assumé** — les timers sont gelés dans un onglet en arrière-plan et pendant la
+> veille. Au réveil il se déclenche en retard avec un token déjà mort : c'est le cas que le
+> filet `401` couvre.
+
+### La reprise de session au démarrage
+
+`ha-core/ha-service/ha-authenticated-user.service.ts`
+
+Après un rechargement, l'app ne sait ni si elle est connectée, ni quand son token meurt. Elle
+appelle donc **une fois** `POST /auth/refresh` avant de demander `/user` : la réponse prouve
+la session _et_ fournit le `expiresIn` qui arme le timer, et le `/user` qui suit part avec un
+token frais au lieu d'un `401` à rattraper.
+
+- **exactement une fois par page** — un `401` y est la réponse normale d'un visiteur anonyme,
+  pas une erreur : ni journalisée, ni affichée, ni redemandée ;
+- **rien si le serveur a vu qu'il n'y avait pas de session** (marqueur transmis, voir « La
+  charge anonyme ») : sur un site public et indexé, le plafond de 60 req/min par IP serait
+  dépensé par des visiteurs qui n'ont rien à reprendre ;
+- **rien après un login** — la session est déjà connue, un refresh ferait tourner un token
+  émis quelques secondes plus tôt.
+
+Seul angle mort : si un autre onglet a rafraîchi dans les 10 s, le coordinateur saute l'appel,
+qui ne rapporte donc pas de `expiresIn`. L'onglet n'arme rien et attend son premier `401`.
+
+### L'en-tête `X-Auth-Refreshable`
 
 `ha-core/ha-service/ha-http-refresh-interceptor.service.ts`
 
-Attrape le `401`, appelle `POST /auth/refresh`, rejoue la requête.
+Les routes qui répondent aux anonymes **et** aux connectés (listes de bricks, stories, agents,
+apps, partners) renvoient un `200` anonyme silencieux à un token périmé : l'utilisateur reste
+affiché connecté mais ses contenus privés disparaissent de la liste. L'en-tête dit « je sais
+rafraîchir et rejouer », l'API répond alors `401`, donc le signal de renouveler.
+
+Il est posé sur **exactement** les requêtes que l'intercepteur sait rattraper — navigateur,
+API, hors `/auth/*` — pour que la promesse faite au serveur soit tenue. Le rejeu le porte
+aussi. Les ressources chargées par le navigateur lui-même (`<img src>`, liens de
+téléchargement, iframes) ne passent pas par `HttpClient`, donc ne le portent pas.
+
+**Le rendu serveur ne le pose jamais** : il ne peut pas rafraîchir, et un `401` casserait la
+page au lieu de la rendre en anonyme.
+
+### Le renouvellement sur `401` — le filet
+
+`ha-core/ha-service/ha-http-refresh-interceptor.service.ts`
+
+Attrape le `401`, appelle `POST /auth/refresh`, rejoue la requête. Il ne se déclenche plus que
+pour ce que le timer ne peut pas couvrir : onglet en arrière-plan, machine en veille, démarrage
+à froid.
 
 - **un seul refresh en vol à la fois** — la rotation est à usage unique, deux refresh
   concurrents déconnecteraient une session valide ;
@@ -195,7 +263,7 @@ identifiant manquant : retour au login.
 Le serveur lit le marqueur `httpOnly` et transmet sa réponse au navigateur
 (`HA_SESSION_STATE_KEY`), consommée à la première lecture — sinon un `init()` après login
 réutiliserait un « pas de session » périmé. Un visiteur anonyme ne déclenche donc aucun
-appel.
+appel : ni `/user`, ni la reprise de session.
 
 Corollaire : les réponses SSR passent en `Cache-Control: no-store` (`server.ts`). Elles
 portent un état par visiteur, et les règles existantes ne couvraient que les URLs finissant
@@ -203,11 +271,11 @@ par `.html` — ce qu'une route rendue n'est jamais.
 
 ### Couverture
 
-**99 tests** répartis sur 10 fichiers, plus le lint. Les invariants les plus délicats — refresh
+**132 tests** répartis sur 11 fichiers, plus le lint. Les invariants les plus délicats — refresh
 unique partagé, sérialisation entre onglets et verrou tenu jusqu'au bout, absence de boucle de
-rechargement, décision d'auth jamais reprise sur un cookie, guard qui ne conclut pas sur un `401` —
-ont été vérifiés par mutation, en cassant volontairement le code pour confirmer qu'un test
-l'attrape.
+rechargement, décision d'auth jamais reprise sur un cookie, guard qui ne conclut pas sur un `401`,
+timer annulé au logout par `FlCleanerService` — ont été vérifiés par mutation, en cassant
+volontairement le code pour confirmer qu'un test l'attrape.
 
 La mutation a d'ailleurs révélé un test creux : `expect(() => ...).not.toThrow()` sur un observable
 ne prouve rien, rxjs remonte une erreur levée depuis un subscriber en asynchrone. Assertion sur une
@@ -224,6 +292,14 @@ Rien n'a été validé contre un vrai back. Tout repose sur les tests automatis�
 Lancer le back avec `ACCESS_TOKEN_DURATION_SECONDS=60`, puis
 `bunx nx serve ha-community-front` :
 
+- [ ] se connecter et ne rien faire pendant 5 min → un `/auth/refresh` toutes les ~48 s (80 % de
+      60 s), **aucun** `401` au passage : c'est le timer, pas le filet
+- [ ] recharger la page sur une session vieille de plusieurs heures → un `/auth/refresh` puis
+      `/user`, utilisateur affiché connecté
+- [ ] onglet en arrière-plan 10 min puis revenir → le timer se déclenche en retard, le premier
+      appel prend un `401` et se rejoue, personne n'est déconnecté
+- [ ] liste de bricks / stories avec du contenu privé après expiration → l'API répond `401`
+      (en-tête `X-Auth-Refreshable` présent dans l'onglet réseau) et non un `200` amputé
 - [ ] se connecter, attendre > 60 s, naviguer → aucune déconnexion, un seul `/auth/refresh`
 - [ ] page déclenchant plusieurs appels après expiration → **un seul** `/auth/refresh`
 - [ ] deux onglets, laisser expirer, agir dans les deux → aucun déconnecté, **un seul**
@@ -233,13 +309,16 @@ Lancer le back avec `ACCESS_TOKEN_DURATION_SECONDS=60`, puis
 - [ ] logout puis navigation → retour au login, pas de boucle
 - [ ] flux MCP : rester connecté > 60 s puis lancer `/oauth/authorize` → pas de formulaire
 - [ ] navigation privée → **aucun** appel `/user` ni `/auth/refresh`
+- [ ] visiteur anonyme sur plusieurs pages → **un seul** `/auth/refresh` en `401` pour toute la
+      vie de la page, jamais redemandé à chaque navigation
 
 ### 2. Après déploiement du back
 
 Purement destructif — le lot qui a retiré le dernier gate cookie a été fait avant, exprès.
 
-- [ ] supprimer l'écriture d'`Auth_Expiration` par le front (`HaAuthService.afterLogin`) et
-      la constante `SESSION_MARKER_DURATION_MS`
+- [ ] supprimer l'écriture d'`Auth_Expiration` par le front — le seul
+      `storeAuthExpirationCookie` de `HaAuthService.afterLogin`, **pas la méthode** : elle arme
+      aussi le renouvellement proactif — et la constante `SESSION_MARKER_DURATION_MS`
 - [ ] supprimer le `clearAuthExpirationCookie` de `HaAuthService.logout()` — c'est `/auth/logout`
       qui efface `Session_Active`, vérifié
 - [ ] supprimer le repli sur `Auth_Expiration` dans
@@ -335,6 +414,9 @@ justifie un jour.
   un troisième peut apparaître.
 - **Le marqueur ne doit jamais raccourcir sous la durée du refresh token.** Trop long : un
   appel inutile qui se corrige. Trop court : une déconnexion à tort.
+- **Ne jamais lire un cookie d'auth ni décoder le JWT pour trouver `exp`.** Ils sont `httpOnly`
+  par conception, et décoder une donnée non vérifiée pour en faire une décision est le même défaut
+  sous un autre nom. La seule source d'échéance est `expiresIn`.
 - **Ne jamais retenter un `/auth/refresh` qui a échoué.** Un retry portant encore le token consommé
   fait supprimer la session par l'API. La seule mitigation correcte est l'exclusion entre onglets.
 - **Ne jamais rafraîchir hors du coordinateur.** Un appel direct à `HaAuthService.refresh()` contourne

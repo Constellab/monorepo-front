@@ -8,6 +8,8 @@ import { FlCookieService } from '@monorepo/front-core-lib/fl-dialog';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
+import { HaAuthSessionService } from './ha-auth-session.service';
+
 /**
  * The session marker the API will own, set alongside the two httpOnly credential cookies with
  * Path '/' so the SSR server receives it on every page. Only its presence carries meaning.
@@ -24,6 +26,7 @@ export const HA_SESSION_MARKER_COOKIE: string = 'Session_Active';
 export class HaAuthService extends FlAuthService {
   private apiService = inject(FlApiService);
   private http = inject(HttpClient);
+  private sessionService = inject(HaAuthSessionService);
 
   private readonly route: string = 'auth';
 
@@ -83,12 +86,16 @@ export class HaAuthService extends FlAuthService {
   }
 
   /**
-   * @param expiresIn lifetime of the access token, deliberately unused: the marker tracks the
-   * session, not the access token. See SESSION_MARKER_DURATION_MS.
+   * The single point where the app learns when its access token dies, for a login, a 2FA
+   * completion or a refresh alike. Both things that follow from it happen here.
+   *
+   * @param expiresIn lifetime of the access token, which arms the proactive renewal - and only
+   * that. The marker tracks the session, not the token, so it deliberately ignores this value: see
+   * SESSION_MARKER_DURATION_MS.
    */
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public afterLogin(expiresIn: number): void {
     this.storeAuthExpirationCookie(HaAuthService.SESSION_MARKER_DURATION_MS, null, 'Lax');
+    this.sessionService.schedule(expiresIn);
   }
 
   private clearServices(): void {

@@ -25,6 +25,7 @@ import { filter, map, take, tap } from 'rxjs/operators';
 import { HaBrick } from '../ha-model/ha-entities/ha-brick.class';
 import { HaUser, HaUserCategory } from '../ha-model/ha-entities/ha-user';
 import { HA_SESSION_MARKER_COOKIE } from './ha-auth.service';
+import { HaAuthSessionService } from './ha-auth-session.service';
 
 /** Whether the SSR server saw a session marker cookie, handed over to the browser. */
 export const HA_SESSION_STATE_KEY: StateKey<boolean> = makeStateKey<boolean>('haHasSession');
@@ -52,6 +53,7 @@ export class HaAuthenticatedUserService implements FlCleanableService {
   private platformId = inject(PLATFORM_ID);
   private snackBarService = inject(FlSnackBarService);
   private transferState = inject(TransferState);
+  private sessionService = inject(HaAuthSessionService);
   private readonly userRoute: string = 'user';
   private userAuthenticated: HaUser;
   public userSubject: BehaviorSubject<HaUser | undefined> = new BehaviorSubject<HaUser | undefined>(
@@ -72,12 +74,39 @@ export class HaAuthenticatedUserService implements FlCleanableService {
     }
   }
 
+  /**
+   * Resolve who the visitor is, at startup and again after a login.
+   *
+   * At startup the app has lost everything a reload cannot carry: it knows neither whether it is
+   * logged in nor when its access token dies, the cookies being httpOnly. The session is therefore
+   * re-established first, which both proves the session is alive and hands over the expiresIn that
+   * arms the proactive renewal - and it means the /user call below leaves with a fresh token
+   * instead of a 401 to recover from.
+   *
+   * Exactly once per page: a 401 there is the ordinary answer for an anonymous visitor, not an
+   * error, and asking again would spend a rate limit shared by every visitor behind the same IP.
+   */
   public init(): void {
     if (!this.shouldLoadUser()) {
       this.userSubject.next(null);
       return;
     }
 
+    if (this.sessionService.shouldResume()) {
+      this.sessionService.resume().subscribe((resumed: boolean) => {
+        if (resumed) {
+          this.loadUser();
+        } else {
+          this.userSubject.next(null);
+        }
+      });
+      return;
+    }
+
+    this.loadUser();
+  }
+
+  private loadUser(): void {
     this.apiService.get(this.userRoute).subscribe({
       next: (user: HaUser) => {
         this.translateService.changeAppLanguage(user.lang);

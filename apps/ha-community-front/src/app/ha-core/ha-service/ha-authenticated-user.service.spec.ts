@@ -8,12 +8,17 @@ import { of, throwError } from 'rxjs';
 
 import { HaUser } from '../ha-model/ha-entities/ha-user';
 import { HA_SESSION_MARKER_COOKIE } from './ha-auth.service';
+import { HaAuthSessionService } from './ha-auth-session.service';
 import { HA_SESSION_STATE_KEY, HaAuthenticatedUserService } from './ha-authenticated-user.service';
 
 describe('HaAuthenticatedUserService', () => {
   const USER = { id: 'user-1', lang: 'en' } as unknown as HaUser;
 
   let apiServiceSpy: { get: ReturnType<typeof vi.fn>; put: ReturnType<typeof vi.fn> };
+  let sessionServiceSpy: {
+    shouldResume: ReturnType<typeof vi.fn>;
+    resume: ReturnType<typeof vi.fn>;
+  };
 
   function build(
     platform: 'browser' | 'server',
@@ -24,6 +29,11 @@ describe('HaAuthenticatedUserService', () => {
       get: vi.fn().mockReturnValue(of(USER)),
       put: vi.fn().mockReturnValue(of(undefined)),
     };
+    // the startup resume has its own spec: by default the session is already known here
+    sessionServiceSpy = {
+      shouldResume: vi.fn().mockReturnValue(false),
+      resume: vi.fn().mockReturnValue(of(true)),
+    };
 
     TestBed.configureTestingModule({
       providers: [
@@ -31,6 +41,7 @@ describe('HaAuthenticatedUserService', () => {
         { provide: FlApiService, useValue: apiServiceSpy },
         { provide: FlTranslateService, useValue: { changeAppLanguage: vi.fn() } },
         { provide: FlSnackBarService, useValue: { openSuccessMessage: vi.fn() } },
+        { provide: HaAuthSessionService, useValue: sessionServiceSpy },
         { provide: PLATFORM_ID, useValue: platform },
         { provide: REQUEST, useValue: cookies ? { cookies } : null },
       ],
@@ -102,6 +113,60 @@ describe('HaAuthenticatedUserService', () => {
       service.init();
 
       expect(service.getCurrentUser()).toBeNull();
+    });
+  });
+
+  describe('resuming the session at startup', () => {
+    /** a page that has not settled what its session is yet, which is what a reload leaves behind */
+    function buildOnFreshPage(): HaAuthenticatedUserService {
+      const service = build('browser');
+      sessionServiceSpy.shouldResume.mockReturnValue(true);
+      return service;
+    }
+
+    it('should re-establish the session before asking who the user is', () => {
+      // a reload loses everything: neither the login state nor the token deadline survives it, the
+      // cookies being httpOnly. The refresh answers both, and the /user call then leaves with a
+      // fresh token instead of a 401 to recover from.
+      const service = buildOnFreshPage();
+
+      service.init();
+
+      expect(sessionServiceSpy.resume).toHaveBeenCalledTimes(1);
+      expect(apiServiceSpy.get).toHaveBeenCalledWith('user');
+      expect(service.getCurrentUser()).toBe(USER);
+    });
+
+    it('should stop at an anonymous visitor', () => {
+      const service = buildOnFreshPage();
+      sessionServiceSpy.resume.mockReturnValue(of(false));
+
+      service.init();
+
+      expect(apiServiceSpy.get).not.toHaveBeenCalled();
+      expect(service.getCurrentUser()).toBeNull();
+    });
+
+    it('should not resume when the server saw no session', () => {
+      // /auth/refresh is rate limited per IP and the site is public: a visitor who certainly has no
+      // session must not spend a call to be told so.
+      const service = buildOnFreshPage();
+      transferState().set(HA_SESSION_STATE_KEY, false);
+
+      service.init();
+
+      expect(sessionServiceSpy.resume).not.toHaveBeenCalled();
+    });
+
+    it('should leave the decision to resume to the session service', () => {
+      // init() runs again after a login, where the session is already known and a refresh would
+      // rotate a token minted seconds earlier
+      const service = build('browser');
+
+      service.init();
+
+      expect(sessionServiceSpy.resume).not.toHaveBeenCalled();
+      expect(apiServiceSpy.get).toHaveBeenCalledWith('user');
     });
   });
 

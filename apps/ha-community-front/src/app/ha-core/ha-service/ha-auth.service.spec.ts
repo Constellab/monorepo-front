@@ -8,6 +8,7 @@ import { FlCookieService } from '@monorepo/front-core-lib/fl-dialog';
 import { of } from 'rxjs';
 
 import { HaAuthService } from './ha-auth.service';
+import { HaAuthSessionService } from './ha-auth-session.service';
 
 describe('HaAuthService', () => {
   /** what the api returns for the access token : 15 minutes */
@@ -28,6 +29,7 @@ describe('HaAuthService', () => {
     removeCookie: ReturnType<typeof vi.fn>;
     check: ReturnType<typeof vi.fn>;
   };
+  let sessionServiceSpy: { schedule: ReturnType<typeof vi.fn> };
 
   beforeEach(() => {
     apiServiceSpy = {
@@ -39,6 +41,7 @@ describe('HaAuthService', () => {
       removeCookie: vi.fn(),
       check: vi.fn().mockReturnValue(false),
     };
+    sessionServiceSpy = { schedule: vi.fn() };
 
     TestBed.configureTestingModule({
       providers: [
@@ -47,6 +50,7 @@ describe('HaAuthService', () => {
         provideHttpClientTesting(),
         { provide: FlApiService, useValue: apiServiceSpy },
         { provide: FlCookieService, useValue: cookieServiceSpy },
+        { provide: HaAuthSessionService, useValue: sessionServiceSpy },
       ],
     });
     service = TestBed.inject(HaAuthService);
@@ -90,6 +94,14 @@ describe('HaAuthService', () => {
       // with the 15 min access token would log out a user whose session is valid 30 days.
       const expiration = getStoredMarkerExpiration().getTime();
       expect(expiration).toBeGreaterThanOrEqual(before + REFRESH_TOKEN_DURATION_MS);
+    });
+
+    it('should arm the proactive renewal with the announced lifetime', () => {
+      // expiresIn is the only thing the app ever learns about the expiry: the tokens live in
+      // httpOnly cookies, and nothing else says when they die.
+      service.afterLogin(ACCESS_TOKEN_EXPIRES_IN);
+
+      expect(sessionServiceSpy.schedule).toHaveBeenCalledWith(ACCESS_TOKEN_EXPIRES_IN);
     });
 
     it('should ignore expiresIn to compute the marker duration', () => {
@@ -136,6 +148,14 @@ describe('HaAuthService', () => {
 
       const expiration = getStoredMarkerExpiration().getTime();
       expect(expiration).toBeGreaterThanOrEqual(Date.now() + REFRESH_TOKEN_DURATION_MS);
+    });
+
+    it('should re-arm the renewal from the answer', () => {
+      // each refresh only announces the next lifetime, so the chain has to feed itself
+      service.refresh().subscribe();
+      httpMock.expectOne(REFRESH_URL).flush({ status: 'LOGGED_IN', expiresIn: ACCESS_TOKEN_EXPIRES_IN });
+
+      expect(sessionServiceSpy.schedule).toHaveBeenCalledWith(ACCESS_TOKEN_EXPIRES_IN);
     });
 
     it('should propagate the error on failure', () => {

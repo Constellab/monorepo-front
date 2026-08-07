@@ -12,7 +12,10 @@ import { FlApiServiceConfig } from '@monorepo/front-core-lib/fl-api';
 import { of, Subject, throwError } from 'rxjs';
 
 import { HaAuthService } from './ha-auth.service';
-import { HaHttpRefreshInterceptorService } from './ha-http-refresh-interceptor.service';
+import {
+  HA_AUTH_REFRESHABLE_HEADER,
+  HaHttpRefreshInterceptorService,
+} from './ha-http-refresh-interceptor.service';
 import { HaRefreshCoordinatorService } from './ha-refresh-coordinator.service';
 
 describe('HaHttpRefreshInterceptorService', () => {
@@ -69,6 +72,58 @@ describe('HaHttpRefreshInterceptorService', () => {
   function unauthorized(): [unknown, { status: number; statusText: string }] {
     return [null, { status: 401, statusText: 'Unauthorized' }];
   }
+
+  describe('the refreshable header', () => {
+    it('should announce the request can survive a 401', () => {
+      // without it the api answers a silent anonymous 200 on the routes that serve both visitors
+      // and members: the user still looks logged in but their private entries leave the list.
+      call();
+
+      const request = httpMock.expectOne(USER_URL);
+      expect(request.request.headers.get(HA_AUTH_REFRESHABLE_HEADER)).toBe('1');
+      request.flush({});
+    });
+
+    it('should still be there on the replayed request', () => {
+      call();
+      httpMock.expectOne(USER_URL).flush(...unauthorized());
+
+      const replay = httpMock.expectOne(USER_URL);
+      expect(replay.request.headers.get(HA_AUTH_REFRESHABLE_HEADER)).toBe('1');
+      replay.flush({});
+    });
+
+    it('should not be announced during server side rendering', () => {
+      // the renderer cannot refresh - the renewed Set-Cookie would never reach the browser - so it
+      // needs the tolerant behaviour: anonymous content and a 200, never a 401 that breaks the page
+      configure('server');
+      call();
+
+      const request = httpMock.expectOne(USER_URL);
+      expect(request.request.headers.has(HA_AUTH_REFRESHABLE_HEADER)).toBe(false);
+      request.flush({});
+    });
+
+    it.each(['auth/login', 'auth/login-2fa', 'auth/refresh', 'auth/logout'])(
+      'should not promise a replay on %s',
+      (route) => {
+        // a 401 there is the final answer, never an expired access token to recover from
+        call(`${API_URL}${route}`);
+
+        const request = httpMock.expectOne(`${API_URL}${route}`);
+        expect(request.request.headers.has(HA_AUTH_REFRESHABLE_HEADER)).toBe(false);
+        request.flush({});
+      }
+    );
+
+    it('should leave requests outside the api alone', () => {
+      call('/assets/i18n/global-en.json');
+
+      const request = httpMock.expectOne('/assets/i18n/global-en.json');
+      expect(request.request.headers.has(HA_AUTH_REFRESHABLE_HEADER)).toBe(false);
+      request.flush({});
+    });
+  });
 
   describe('when the access token expired', () => {
     it('should refresh then replay the request', () => {
