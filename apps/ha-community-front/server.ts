@@ -30,6 +30,30 @@ HA_ENVIRONMENT.settings = {
   homeVideoLink: process?.env['HOME_VIDEO_LINK'] || null,
 };
 
+/**
+ * The hostnames CommonEngine will render for.
+ *
+ * Angular 22 rejects a render whose url carries an unlisted hostname, so an empty list throws on
+ * every request rather than letting one through. The list is derived from COMMUNITY_FRONT_URL --
+ * the canonical public url, already set per environment -- so a new environment works without a
+ * second variable to remember. NG_ALLOWED_HOSTS still overrides this, which is the way to add a
+ * host without rebuilding the image.
+ */
+function allowedHosts(): string[] {
+  const { communityFrontUrl } = HA_ENVIRONMENT.settings;
+
+  if (!URL.canParse(communityFrontUrl)) {
+    // Nothing would render, so say why here rather than once per failed request.
+    console.error(
+      `COMMUNITY_FRONT_URL is "${communityFrontUrl}", which is not a url. Server-side rendering ` +
+        'will reject every request until it is set, or until NG_ALLOWED_HOSTS lists the hostnames.'
+    );
+    return [];
+  }
+
+  return [new URL(communityFrontUrl).hostname];
+}
+
 // The Express app is exported so that it can be used by serverless Functions.
 function app(): express.Express {
   const server = express();
@@ -37,7 +61,7 @@ function app(): express.Express {
   const browserDistFolder = resolve(serverDistFolder, '../browser');
   const indexHtml = join(serverDistFolder, 'index.server.html');
 
-  const commonEngine = new CommonEngine();
+  const commonEngine = new CommonEngine({ allowedHosts: allowedHosts() });
 
   server.use(compression());
 
