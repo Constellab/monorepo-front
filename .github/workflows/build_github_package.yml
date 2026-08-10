@@ -65,5 +65,6 @@ jobs:
             ${{ inputs.image_name }}:latest
             ${{ inputs.image_name }}:${{ env.TAG }}
           labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=registry,ref=${{ inputs.image_name }}:buildcache
-          cache-to: type=registry,ref=${{ inputs.image_name }}:buildcache,mode=max
+          # No registry buildcache: `COPY . .` invalidates on every commit, so the only
+          # reusable layer is the dependency install (~30s) while exporting the cache with
+          # mode=max costs ~2 min per run. It was a net loss on every build.
