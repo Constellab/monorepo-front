@@ -14,6 +14,7 @@ import {
   LmlLabManagerService,
   LmlLabManagerState,
   LmlLabManagerStatus,
+  LmlStatusBannerAction,
   LmlStatusBannerBusy,
   LmlStatusBannerError,
   LmlStatusBannersConfig,
@@ -90,9 +91,7 @@ export class CaLabHeroHeaderComponent implements OnInit {
   /** True when a lab-manager change awaits a restart to be applied. */
   private needsRestart$: Observable<boolean> = this.managerState
     .getStatus$()
-    .pipe(
-      map((managerStatus) => !!managerStatus && !managerStatus.actionInProgress && managerStatus.needsRestart)
-    );
+    .pipe(map((managerStatus) => this.needsRestart(managerStatus)));
 
   /** The single lab / lab-manager error banner to surface, if any. */
   private errorBanner$: Observable<LmlStatusBannerError | null>;
@@ -188,11 +187,17 @@ export class CaLabHeroHeaderComponent implements OnInit {
 
     if (!managerStatus) return null;
 
+    // The restart banner carries its own restart button, so don't offer a second one.
+    const restart: LmlStatusBannerAction[] = this.needsRestart(managerStatus)
+      ? []
+      : [{ label: 'lml.lab_manager_restart', action: () => this.restartLab() }];
+
     // A start error (e.g. while installing the bricks) — offer the install logs. Shown even
     // while an action runs, as it is the outcome of the start that just failed.
     if (managerStatus.glabStatus?.hasStartError) {
       return this.errorBanner(this.translateService.translate('lml.glab_error'), [
         { label: 'lml.show_errors', action: () => this.openLabErrorLogs() },
+        ...restart,
       ]);
     }
 
@@ -200,8 +205,10 @@ export class CaLabHeroHeaderComponent implements OnInit {
     if (managerStatus.actionInProgress) return null;
 
     if (managerStatus.containersStatus?.status.value === 'ERROR') {
-      return this.errorBanner(this.translateService.translate('lab_containers_error_warning'));
+      return this.errorBanner(this.translateService.translate('lab_containers_error_warning'), restart);
     }
+    // The lab is reachable but its services are off: the header's start button is the way
+    // back up, so this stays a plain notice.
     if (
       managerStatus.containersStatus?.status.value === 'DOWN' ||
       managerStatus.containersStatus?.status.value === 'STOP'
@@ -209,10 +216,18 @@ export class CaLabHeroHeaderComponent implements OnInit {
       return this.errorBanner(this.translateService.translate('lab_containers_down_warning'));
     }
     if (managerStatus.containersStatus?.status.value === 'PARTIALLY_UP') {
-      return this.errorBanner(this.translateService.translate('lab_containers_partially_up_warning'));
+      return this.errorBanner(
+        this.translateService.translate('lab_containers_partially_up_warning'),
+        restart
+      );
     }
 
     return null;
+  }
+
+  /** True when a saved lab-manager change is waiting for a restart to be applied. */
+  private needsRestart(managerStatus: LmlLabManagerStatus): boolean {
+    return !!managerStatus && !managerStatus.actionInProgress && managerStatus.needsRestart;
   }
 
   private errorBanner(body: string, actions?: LmlStatusBannerError['actions']): LmlStatusBannerError {
