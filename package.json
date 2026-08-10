@@ -41,7 +41,7 @@
     "lab-front:build-image": "docker build -f apps/lab-front/Dockerfile -t lab-front .",
     "lab-front:run-image-dev": "docker run --rm -p 81:81 -e API_URL=http://localhost:3000 -e VIRTUAL_HOST=rio.gencovery.io -e CAPTCHA_SITE_KEY= -e PROD_FRONT_URLS=http://localhost:81 -e DEV_FRONT_URLS=http://localhost:81 lab-front",
     "ha-community-front:serve": "nx serve ha-community-front -- --no-hmr",
-    "ha-community-front:build-prod": "nx build ha-community-front --prod",
+    "ha-community-front:build-prod": "node --max_old_space_size=4096 ./node_modules/.bin/nx build ha-community-front --prod",
     "ha-community-front:build-dev": "nx build ha-community-front --configuration=development",
     "ha-community-front:build-image": "docker build -f apps/ha-community-front/Dockerfile -t ha-community-front .",
     "ha-community-front:run-image-dev": "docker run --rm -p 4000:4000 -e API_URL=http://localhost:3001 -e CAPTCHA_SITE_KEY=123456789 ha-community-front",
