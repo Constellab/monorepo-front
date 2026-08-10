@@ -3,13 +3,13 @@
 </fl-dialog-header>
 
 <mat-dialog-content>
-  @if (isLoading) {
+  @if (isLoading()) {
     <div class="loader-div">
       <fl-loader></fl-loader>
     </div>
   }
 
-  @if (brickSelectionMode && !isLoading) {
+  @if (brickSelectionMode() && !isLoading()) {
     <div class="content">
       <div class="left-side">
         @if (spaceActivated) {
@@ -47,10 +47,10 @@
           </form>
         </div>
 
-        @if (bricks$) {
-          <fl-infinite-scroll [datasource]="bricks$" class="community-bricks-list">
+        @if (bricks$()) {
+          <fl-infinite-scroll [datasource]="bricks$()" class="community-bricks-list">
             <div class="community-bricks-list-div">
-              @for (brick of bricks$ | flDatasourceConnect | async; track brick.id) {
+              @for (brick of bricks$() | flDatasourceConnect | async; track brick.id) {
                 <div>
                   <co-brick-list-item
                     [brick]="brick"
@@ -68,7 +68,7 @@
     </div>
   }
 
-  @if (!brickSelectionMode && !isLoading) {
+  @if (!brickSelectionMode() && !isLoading()) {
     <div>
       <form (ngSubmit)="submit()" id="lab-brick-form" [formGroup]="formGp">
         <div class="select-version-title-div">
@@ -100,7 +100,7 @@
         <mat-form-field class="g-form-input">
           <mat-label>{{ 'lml.brick_version' | translate }}</mat-label>
           <mat-select [placeholder]="'lml.brick_version' | translate" formControlName="version">
-            @for (version of versions; track version) {
+            @for (version of versions(); track version) {
               <mat-option [value]="version">{{ version }}</mat-option>
             }
           </mat-select>
@@ -110,7 +110,7 @@
         </mat-form-field>
 
         <!--  Show lower version  -->
-        @if (isUpdate && oldVersions?.length > 0) {
+        @if (isUpdate && oldVersions().length > 0) {
           <mat-checkbox
             (change)="toggleLowerVersion($event)"
             class="g-mat-checkbox-include-bottom g-mat-checkbox-wrap-text">
@@ -122,9 +122,9 @@
   }
 </mat-dialog-content>
 
-@if (formGp.valid) {
+@if (formIsValid()) {
   <div mat-dialog-actions>
-    @if (formGp.valid) {
+    @if (formIsValid()) {
       <button mat-flat-button type="submit" form="lab-brick-form" class="g-centered-forced primary">
         {{ 'lml.ok' | translate }}
       </button>

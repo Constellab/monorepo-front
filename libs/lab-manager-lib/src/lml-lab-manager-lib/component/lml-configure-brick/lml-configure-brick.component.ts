@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, OnInit, signal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
@@ -32,13 +33,13 @@ export class LmlConfigureBrickComponent implements OnInit {
     version: [null as string, Validators.required],
     brick: [null as CoBrick, Validators.required],
   });
-  brickSelectionMode: boolean = true;
-  isLoading: boolean = true;
+  brickSelectionMode = signal<boolean>(true);
+  isLoading = signal<boolean>(true);
 
-  bricks$: LmlCommunityBrickDatasource<LmlCommunityBrickFilers>;
+  bricks$ = signal<LmlCommunityBrickDatasource<LmlCommunityBrickFilers>>(null);
 
-  versions: string[];
-  oldVersions: string[];
+  versions = signal<string[]>([]);
+  oldVersions = signal<string[]>([]);
 
   spaceIdFilter: string[] = [];
   titleFormControl: FormControl<string> = new FormControl('');
@@ -53,6 +54,11 @@ export class LmlConfigureBrickComponent implements OnInit {
   spaceActivated: boolean = this.communityBrickService.spaceActivated();
   spaces$: Observable<CoSpace[]> = this.communityBrickService.getMySpaces();
 
+  // the dialog is hosted in the caller's view container, so the view is only checked when
+  // something marks it dirty: the form validity must be a signal to show the submit button
+  private formStatus = toSignal(this.formGp.statusChanges, { initialValue: this.formGp.status });
+  formIsValid = computed(() => this.formStatus() === 'VALID');
+
   ngOnInit(): void {
     this.isUpdate = this.brickVersionDTO != null;
 
@@ -61,13 +67,13 @@ export class LmlConfigureBrickComponent implements OnInit {
     }
 
     if (this.isUpdate) {
-      this.brickSelectionMode = false;
+      this.brickSelectionMode.set(false);
       this.communityBrickService.getByName(this.brickVersionDTO.name).subscribe((brick) => {
         this.initBrickVersionSelection(brick);
       });
     }
 
-    if (this.brickSelectionMode) {
+    if (this.brickSelectionMode()) {
       this.initBrickSelection();
     }
   }
@@ -77,7 +83,7 @@ export class LmlConfigureBrickComponent implements OnInit {
   }
 
   updateBricks(): void {
-    this.bricks$.getFirstPage({
+    this.bricks$().getFirstPage({
       spaceIds: this.spaceIdFilter,
       title: this.titleFormControl.value,
     });
@@ -97,25 +103,27 @@ export class LmlConfigureBrickComponent implements OnInit {
   }
 
   onBrickSelected(brick: LmlCommunityBrick): void {
-    this.brickSelectionMode = false;
-    this.isLoading = true;
+    this.brickSelectionMode.set(false);
+    this.isLoading.set(true);
     this.initBrickVersionSelection(brick);
   }
 
   private initBrickSelection(): void {
-    this.bricks$ = new FlEntityPaginatedDatasource(
-      (page, size, requestData) =>
-        this.communityBrickService.getAllWithFilters(
-          requestData.filtersCriteria.spaceIds,
-          requestData.filtersCriteria.title,
-          page,
-          size
-        ),
-      10,
-      { initFirstPage: false }
+    this.bricks$.set(
+      new FlEntityPaginatedDatasource(
+        (page, size, requestData) =>
+          this.communityBrickService.getAllWithFilters(
+            requestData.filtersCriteria.spaceIds,
+            requestData.filtersCriteria.title,
+            page,
+            size
+          ),
+        10,
+        { initFirstPage: false }
+      )
     );
     this.updateBricks();
-    this.isLoading = false;
+    this.isLoading.set(false);
   }
 
   private initBrickVersionSelection(brick: LmlCommunityBrick): void {
@@ -124,26 +132,27 @@ export class LmlConfigureBrickComponent implements OnInit {
     this.communityBrickService.getVersionsList(brick.name).subscribe((versionsList) => {
       if (this.formGp.controls.version.value && versionsList.includes(this.formGp.controls.version.value)) {
         const splitIndex = versionsList.indexOf(this.formGp.controls.version.value);
-        this.versions = versionsList.slice(0, splitIndex + 1);
-        if (splitIndex + 1 < versionsList.length) this.oldVersions = versionsList.slice(splitIndex + 1);
+        this.versions.set(versionsList.slice(0, splitIndex + 1));
+        this.oldVersions.set(splitIndex + 1 < versionsList.length ? versionsList.slice(splitIndex + 1) : []);
       } else {
-        this.versions = versionsList;
+        this.versions.set(versionsList);
+        this.oldVersions.set([]);
       }
-      this.isLoading = false;
+      this.isLoading.set(false);
     });
   }
 
   changeBrick(): void {
-    this.brickSelectionMode = true;
-    this.isLoading = true;
+    this.brickSelectionMode.set(true);
+    this.isLoading.set(true);
     this.initBrickSelection();
   }
 
   toggleLowerVersion(checkEvent: MatCheckboxChange): void {
     if (checkEvent.checked) {
-      this.versions = this.versions.concat(this.oldVersions);
+      this.versions.update((versions) => versions.concat(this.oldVersions()));
     } else {
-      this.versions = this.versions.filter((version) => !this.oldVersions.includes(version));
+      this.versions.update((versions) => versions.filter((version) => !this.oldVersions().includes(version)));
     }
   }
 
