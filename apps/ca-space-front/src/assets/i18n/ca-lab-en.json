@@ -78,6 +78,7 @@
   "delete_lab_confirmation": "Are you sure you want to delete the data lab ? All the history will be deleted and can't be recovered",
   "lab_deleted": "Lab deleted",
   "lab_manager": "Lab manager",
+  "lab_containers_error_warning": "Some services of the data lab are in error, please check 'Lab manager' section",
   "lab_containers_partially_up_warning": "Some services of the data lab are running, please check 'Lab manager' section",
   "lab_containers_down_warning": "The services of the data lab are not running, please check 'Lab manager' section",
   "lab_manager_version": "Lab manager version",

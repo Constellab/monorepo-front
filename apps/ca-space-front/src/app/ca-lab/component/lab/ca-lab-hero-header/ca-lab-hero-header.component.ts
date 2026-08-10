@@ -9,10 +9,13 @@ import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import {
+  LmlDockerContainerErrorDialogComponent,
   LmlLabManagerLibModule,
+  LmlLabManagerService,
   LmlLabManagerState,
   LmlLabManagerStatus,
   LmlStatusBannerBusy,
+  LmlStatusBannerError,
   LmlStatusBannersConfig,
 } from '@monorepo/lab-manager-lib';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -69,6 +72,7 @@ export class CaLabHeroHeaderComponent implements OnInit {
   private state = inject(CaLabDetailPageState);
   private configState = inject(CaLabDetailConfigPageState);
   private managerState = inject(LmlLabManagerState);
+  private managerService = inject(LmlLabManagerService);
   private translateService = inject(FlTranslateService);
   private dialogService = inject(FlDialogService);
   private labService = inject(CaLabService);
@@ -90,27 +94,27 @@ export class CaLabHeroHeaderComponent implements OnInit {
       map((managerStatus) => !!managerStatus && !managerStatus.actionInProgress && managerStatus.needsRestart)
     );
 
-  /** The single lab / lab-manager error or warning message to surface in a banner, if any. */
-  private errorMessage$: Observable<string | null>;
+  /** The single lab / lab-manager error banner to surface, if any. */
+  private errorBanner$: Observable<LmlStatusBannerError | null>;
 
   /** The combined status banners config (loader + error + restart + new-version). */
   bannersConfig$: Observable<LmlStatusBannersConfig>;
 
   ngOnInit(): void {
-    this.errorMessage$ = combineLatest([
+    this.errorBanner$ = combineLatest([
       this.configState.getStatus$(),
       this.managerState.getStatus$().pipe(startWith(null)),
-    ]).pipe(map(([status, managerStatus]) => this.getErrorStatusMessage(status, managerStatus)));
+    ]).pipe(map(([status, managerStatus]) => this.getErrorBanner(status, managerStatus)));
 
     this.bannersConfig$ = combineLatest([
       this.busy$.pipe(startWith(null)),
-      this.errorMessage$.pipe(startWith(null)),
+      this.errorBanner$.pipe(startWith(null)),
       this.needsRestart$.pipe(startWith(false)),
       this.newVersionAvailable$.pipe(startWith(false)),
     ]).pipe(
       map(([busy, error, needsRestart, newVersion]) => ({
         busy,
-        error: error ? { title: 'lab_manager_error_title', body: error } : null,
+        error,
         restart: needsRestart
           ? {
               title: 'lab_restart_needed_title',
@@ -166,30 +170,60 @@ export class CaLabHeroHeaderComponent implements OnInit {
 
   /**
    * Returns the single most relevant error/warning to surface, or null. A task error takes
-   * precedence over container status warnings (only one banner is shown at a time).
+   * precedence over the lab-manager states (only one banner is shown at a time). The
+   * lab-manager cases mirror lml-manager-status so both pages report the same lab health.
    */
-  private getErrorStatusMessage(status: CaLabStatusDTO, managerStatus?: LmlLabManagerStatus): string | null {
+  private getErrorBanner(
+    status: CaLabStatusDTO,
+    managerStatus?: LmlLabManagerStatus
+  ): LmlStatusBannerError | null {
     if (status == null) return null;
 
     if (status.serverTaskStatus.value === 'ERROR') {
-      return (
+      return this.errorBanner(
         `${this.translateService.translate('lab_server_last_task_error')} - ${status.serverTaskText}` +
-        ` - ${ClDateHelper.fromNow(status.serverTaskDatetime)}`
+          ` - ${ClDateHelper.fromNow(status.serverTaskDatetime)}`
       );
     }
 
-    if (managerStatus && !managerStatus.actionInProgress) {
-      if (
-        managerStatus.containersStatus?.status.value === 'DOWN' ||
-        managerStatus.containersStatus?.status.value === 'STOP'
-      ) {
-        return this.translateService.translate('lab_containers_down_warning');
-      }
-      if (managerStatus.containersStatus?.status.value === 'PARTIALLY_UP') {
-        return this.translateService.translate('lab_containers_partially_up_warning');
-      }
+    if (!managerStatus) return null;
+
+    // A start error (e.g. while installing the bricks) — offer the install logs. Shown even
+    // while an action runs, as it is the outcome of the start that just failed.
+    if (managerStatus.glabStatus?.hasStartError) {
+      return this.errorBanner(this.translateService.translate('lml.glab_error'), [
+        { label: 'lml.show_errors', action: () => this.openLabErrorLogs() },
+      ]);
+    }
+
+    // Don't surface a state banner while an action is running.
+    if (managerStatus.actionInProgress) return null;
+
+    if (managerStatus.containersStatus?.status.value === 'ERROR') {
+      return this.errorBanner(this.translateService.translate('lab_containers_error_warning'));
+    }
+    if (
+      managerStatus.containersStatus?.status.value === 'DOWN' ||
+      managerStatus.containersStatus?.status.value === 'STOP'
+    ) {
+      return this.errorBanner(this.translateService.translate('lab_containers_down_warning'));
+    }
+    if (managerStatus.containersStatus?.status.value === 'PARTIALLY_UP') {
+      return this.errorBanner(this.translateService.translate('lab_containers_partially_up_warning'));
     }
 
     return null;
+  }
+
+  private errorBanner(body: string, actions?: LmlStatusBannerError['actions']): LmlStatusBannerError {
+    return { title: 'lab_manager_error_title', body, actions };
+  }
+
+  /** Opens the logs of the failed lab start (same dialog as the lab-manager page). */
+  private openLabErrorLogs(): void {
+    this.dialogService.openMediumDialog(LmlDockerContainerErrorDialogComponent, {
+      data: this.managerService.getLabStartingError(),
+      autoFocus: false,
+    });
   }
 }
