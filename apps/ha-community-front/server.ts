@@ -41,6 +41,13 @@ HA_ENVIRONMENT.settings = {
  */
 function allowedHosts(): string[] {
   const { communityFrontUrl } = HA_ENVIRONMENT.settings;
+  const override = process.env['NG_ALLOWED_HOSTS'];
+
+  // @angular/ssr reads NG_ALLOWED_HOSTS itself and prefers it over anything passed here, so report
+  // that rather than a list which is not the one in force.
+  if (override) {
+    console.log(`Server-side rendering allows "${override}" (from NG_ALLOWED_HOSTS).`);
+  }
 
   if (!URL.canParse(communityFrontUrl)) {
     // Nothing would render, so say why here rather than once per failed request.
@@ -51,7 +58,22 @@ function allowedHosts(): string[] {
     return [];
   }
 
-  return [new URL(communityFrontUrl).hostname];
+  const { hostname } = new URL(communityFrontUrl);
+
+  // An unset COMMUNITY_FRONT_URL falls back to localhost, which parses, so the check above lets it
+  // through -- and a deployed server that renders only for localhost rejects every real request
+  // with nothing in the log to say why. That is this exact outage, so name it at startup.
+  if (HA_ENVIRONMENT.production && hostname === 'localhost' && !override) {
+    console.error(
+      'COMMUNITY_FRONT_URL is unset or points at localhost, so server-side rendering will reject ' +
+        'every request to the public hostname. Set COMMUNITY_FRONT_URL to the public url, or list ' +
+        'the hostnames in NG_ALLOWED_HOSTS.'
+    );
+  } else if (!override) {
+    console.log(`Server-side rendering allows "${hostname}" (from COMMUNITY_FRONT_URL).`);
+  }
+
+  return [hostname];
 }
 
 // The Express app is exported so that it can be used by serverless Functions.
