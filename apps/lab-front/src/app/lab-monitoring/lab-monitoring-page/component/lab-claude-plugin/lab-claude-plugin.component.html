@@ -1,0 +1,144 @@
+<fl-card>
+  <fl-card-header>
+    <h2>{{ 'monitoring.claude_plugin_title' | translate }}</h2>
+  </fl-card-header>
+
+  <fl-card-body>
+    <fl-async-section [object]="pluginInfo$" [showServerErrorText]="true">
+      <ng-container *flSectionBody="pluginInfo$ as pluginInfo">
+        @if (pluginInfo.isAvailable()) {
+          <p>{{ 'monitoring.claude_plugin_lead' | translate }}</p>
+
+          <ng-container
+            *ngTemplateOutlet="
+              prerequisite;
+              context: { $implicit: pluginInfo.minimumClaudeCodeVersion }
+            "></ng-container>
+
+          <!--  Step 1  -->
+          <div class="step">
+            <p class="g-text-big">{{ 'monitoring.claude_plugin_step_1' | translate }}</p>
+            <lab-claude-plugin-command
+              [command]="pluginInfo.commands.addMarketplace"></lab-claude-plugin-command>
+            <p class="g-text-small g-text-light">
+              {{ 'monitoring.claude_plugin_step_1_hint' | translate }}
+            </p>
+          </div>
+
+          <!--  Step 2  -->
+          <div class="step">
+            <p class="g-text-big">{{ 'monitoring.claude_plugin_step_2' | translate }}</p>
+            <lab-claude-plugin-command [command]="pluginInfo.commands.install"></lab-claude-plugin-command>
+            <p class="g-text-small g-text-light">
+              {{ 'monitoring.claude_plugin_step_2_hint' | translate: { plugin: pluginInfo.pluginName } }}
+            </p>
+          </div>
+
+          <!--  Step 3  -->
+          <div class="step">
+            <p class="g-text-big">{{ 'monitoring.claude_plugin_step_3' | translate }}</p>
+            <p>{{ 'monitoring.claude_plugin_step_3_hint' | translate }}</p>
+          </div>
+
+          <!--  Details  -->
+          <mat-expansion-panel class="details">
+            <mat-expansion-panel-header>
+              <mat-panel-title>{{ 'monitoring.details' | translate }}</mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <fl-key-value>
+              <fl-key>{{ 'monitoring.claude_plugin_plugin_name' | translate }}</fl-key>
+              {{ pluginInfo.pluginName }}
+            </fl-key-value>
+            <fl-key-value>
+              <fl-key>{{ 'monitoring.version' | translate }}</fl-key>
+              {{ pluginInfo.version }}
+            </fl-key-value>
+            <fl-key-value>
+              <fl-key>{{ 'monitoring.claude_plugin_marketplace_name' | translate }}</fl-key>
+              {{ pluginInfo.marketplaceName }}
+            </fl-key-value>
+            <fl-key-value>
+              <fl-key>{{ 'monitoring.claude_plugin_mcp_url' | translate }}</fl-key>
+              {{ pluginInfo.mcpUrl }}
+            </fl-key-value>
+
+            <p class="update-intro">{{ 'monitoring.claude_plugin_update_intro' | translate }}</p>
+            <lab-claude-plugin-command
+              [command]="pluginInfo.commands.updateMarketplace"></lab-claude-plugin-command>
+            <lab-claude-plugin-command
+              [command]="pluginInfo.commands.updatePlugin"></lab-claude-plugin-command>
+            <p class="g-text-small g-text-light">
+              {{ 'monitoring.claude_plugin_404_hint' | translate }}
+            </p>
+          </mat-expansion-panel>
+        } @else if (pluginInfo.isUrlNotSupported()) {
+          <!--  The marketplace channel cannot serve this lab: install from a local folder  -->
+          <fl-text-icon>
+            <mat-icon class="g-icon-big">install_desktop</mat-icon>
+            <p class="g-text-big">{{ 'monitoring.claude_plugin_url_not_supported' | translate }}</p>
+          </fl-text-icon>
+          <p>
+            {{
+              'monitoring.claude_plugin_url_not_supported_description'
+                | translate: { url: pluginInfo.mcpUrl || labUrl }
+            }}
+          </p>
+
+          @if (pluginInfo.devInstall) {
+            <ng-container
+              *ngTemplateOutlet="
+                prerequisite;
+                context: { $implicit: pluginInfo.minimumClaudeCodeVersion }
+              "></ng-container>
+
+            <lab-claude-plugin-dev-install
+              [devInstall]="pluginInfo.devInstall"></lab-claude-plugin-dev-install>
+
+            <!--  Details  -->
+            <mat-expansion-panel class="details">
+              <mat-expansion-panel-header>
+                <mat-panel-title>{{ 'monitoring.details' | translate }}</mat-panel-title>
+              </mat-expansion-panel-header>
+
+              <fl-key-value>
+                <fl-key>{{ 'monitoring.claude_plugin_plugin_name' | translate }}</fl-key>
+                {{ pluginInfo.devInstall.pluginName }}
+              </fl-key-value>
+              <fl-key-value>
+                <fl-key>{{ 'monitoring.version' | translate }}</fl-key>
+                {{ pluginInfo.devInstall.version }}
+              </fl-key-value>
+              <fl-key-value>
+                <fl-key>{{ 'monitoring.claude_plugin_dev_marketplace_name' | translate }}</fl-key>
+                {{ pluginInfo.devInstall.marketplaceName }}
+              </fl-key-value>
+            </mat-expansion-panel>
+          }
+        } @else {
+          <!--  MCP_DISABLED, and any status this front-end does not know about  -->
+          <fl-text-icon>
+            <mat-icon class="g-warn-icon">error_outline</mat-icon>
+            <p class="g-text-big">{{ 'monitoring.claude_plugin_disabled' | translate }}</p>
+          </fl-text-icon>
+          <p>{{ 'monitoring.claude_plugin_disabled_description' | translate }}</p>
+        }
+      </ng-container>
+    </fl-async-section>
+  </fl-card-body>
+</fl-card>
+
+<!--  The version requirement applies to both install paths  -->
+<ng-template #prerequisite let-version>
+  <div class="prerequisite">
+    <p>{{ 'monitoring.claude_plugin_requires' | translate: { version: version } }}</p>
+    <fl-key-value>
+      <fl-key>{{ 'monitoring.claude_plugin_check_version' | translate }}</fl-key>
+      claude --version
+    </fl-key-value>
+    <fl-key-value>
+      <fl-key>{{ 'monitoring.claude_plugin_update_claude' | translate }}</fl-key>
+      claude update
+    </fl-key-value>
+  </div>
+</ng-template>

@@ -5,4 +5,11 @@ export class FlDeviceHelper {
     }
     return navigator.platform.toUpperCase().indexOf('MAC') >= 0;
   }
+
+  public static isWindows(): boolean {
+    if (!navigator || !navigator.platform) {
+      return false;
+    }
+    return navigator.platform.toUpperCase().indexOf('WIN') >= 0;
+  }
 }
