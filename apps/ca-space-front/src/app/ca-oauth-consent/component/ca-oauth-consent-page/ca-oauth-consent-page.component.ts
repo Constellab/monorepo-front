@@ -1,8 +1,10 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
 import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
 import { ActivatedRoute } from '@angular/router';
 import { FlServerError } from '@monorepo/front-core-lib/fl-api';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
 import { TranslatePipe } from '@ngx-translate/core';
 
 import { CaAuthService } from '../../../ca-login/service/ca-auth.service';
@@ -41,12 +43,19 @@ export type CaOauthConsentStatus = 'LOADING' | 'READY' | 'SUBMITTING' | 'INVALID
   templateUrl: './ca-oauth-consent-page.component.html',
   styleUrl: './ca-oauth-consent-page.component.scss',
   changeDetection: ChangeDetectionStrategy.Eager,
-  imports: [MatButton, FlLoaderModule, TranslatePipe],
+  imports: [MatButton, MatIcon, FlLoaderModule, TranslatePipe],
 })
 export class CaOauthConsentPageComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private authService = inject(CaAuthService);
   private consentService = inject(CaOauthConsentService);
+  private themeService = inject(FlThemeService);
+
+  /**
+   * Read once, like the login page does: the visitor comes from a client and needs to see whose page
+   * is asking before reading a word of it.
+   */
+  logo: string = this.themeService.getConstellabLogo();
 
   status: WritableSignal<CaOauthConsentStatus> = signal('LOADING');
   details: WritableSignal<CaOauthConsentDetails> = signal(null);

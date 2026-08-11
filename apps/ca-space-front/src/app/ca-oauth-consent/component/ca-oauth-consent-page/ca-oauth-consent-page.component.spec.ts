@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 import { ActivatedRoute, convertToParamMap, Params } from '@angular/router';
 import { FlServerError } from '@monorepo/front-core-lib/fl-api';
+import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
 import { Observable, of, Subject, throwError } from 'rxjs';
 
 import { CaAuthService } from '../../../ca-login/service/ca-auth.service';
@@ -63,6 +64,9 @@ describe('CaOauthConsentPageComponent', () => {
         },
         { provide: CaOauthConsentService, useValue: consentServiceSpy },
         { provide: CaAuthService, useValue: { hasAuthorizationCookie: () => hasMarker } },
+        // only asked for the logo, and the real one reads a media query the test environment has no
+        // answer for
+        { provide: FlThemeService, useValue: { getConstellabLogo: () => 'logo.svg' } },
       ],
     });
 

@@ -1,33 +1,144 @@
 .page {
   min-height: 100vh;
-  padding: 1em;
+  padding: 2em 1em;
   box-sizing: border-box;
 }
 
 .panel {
   width: 100%;
-  max-width: 34em;
-  gap: 1em;
-  padding: 2em;
+  max-width: 40em;
+  gap: 1.25em;
+  padding: 2.5em;
   box-sizing: border-box;
   background-color: var(--card-background);
   border-radius: var(--card-radius);
+  border: 1px solid color-mix(in srgb, var(--color-foreground) 10%, transparent);
+}
+
+// mat-icon hides its overflow, so an icon left to shrink in a flex row is a cropped icon
+.panel mat-icon {
+  flex: none;
+}
+
+.logo {
+  display: block;
+  width: 9em;
+  margin-bottom: 1.25em;
+}
+
+.loading {
+  min-height: 8em;
+}
+
+// the terminal screens: nothing to decide, so a single centered block
+.state {
+  gap: 1em;
+  padding: 1em 0 0.5em;
+}
+
+.retry {
+  margin-top: 0.5em;
+}
+
+// one line of context, set apart from the sentences around it
+.callout {
+  gap: 0.75em;
+  align-items: flex-start;
+  padding: 1em 1.15em;
+  border-radius: var(--card-radius);
+  line-height: 1.4em;
+}
+
+// nudged down to sit on the first line of text rather than above it
+.callout mat-icon {
+  margin-top: 0.1em;
+}
+
+.unverified {
+  background-color: var(--hover-color);
 }
 
 .warning {
-  padding: 0.75em 1em;
-  border-radius: var(--card-radius);
-  background-color: color-mix(in srgb, var(--warning-color) 15%, transparent);
+  background-color: color-mix(in srgb, var(--warning-color) 12%, transparent);
+}
+
+.warning-icon {
+  color: var(--warning-color);
 }
 
 .decision-error {
   color: var(--warn-color);
+  background-color: color-mix(in srgb, var(--warn-color) 10%, transparent);
+}
+
+.resources {
+  gap: 1em;
+  margin-top: 0.75em;
+}
+
+.resource-list {
+  border: 1px solid color-mix(in srgb, var(--color-foreground) 12%, transparent);
+  border-radius: var(--card-radius);
+}
+
+.resource {
+  gap: 0.85em;
+  align-items: flex-start;
+  padding: 1em 1.15em;
+}
+
+.resource:not(:last-child) {
+  border-bottom: 1px solid color-mix(in srgb, var(--color-foreground) 12%, transparent);
+}
+
+.resource-icon {
+  color: var(--primary-color);
+  margin-top: 0.15em;
+}
+
+.resource-text {
+  gap: 0.25em;
+  min-width: 0;
+}
+
+.resource-name {
+  font-weight: 500;
+}
+
+// backend owned urls: long, and never allowed to widen the panel
+.resource-url {
+  overflow-wrap: anywhere;
 }
 
 .identity {
-  gap: 0.25em;
+  gap: 0.5em;
+  margin-top: 0.5em;
+  padding-top: 1.25em;
+  border-top: 1px solid color-mix(in srgb, var(--color-foreground) 10%, transparent);
+}
+
+.identity-line {
+  gap: 0.5em;
+  align-items: center;
+}
+
+.client-id {
+  overflow-wrap: anywhere;
 }
 
 .actions {
-  gap: 0.5em;
+  gap: 1em;
+  margin-top: 0.75em;
+}
+
+@media (max-width: 599px) {
+  .panel {
+    padding: 1.75em;
+  }
+
+  // side by side, the two buttons get too narrow to read on a phone
+  .actions {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
 }
