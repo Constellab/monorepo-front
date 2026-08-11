@@ -182,28 +182,37 @@
     >Space</a
   >
   <mat-divider></mat-divider>
-  @if (currentUser()) {
+  @if (currentUser(); as user) {
     <a
       mat-menu-item
-      [routerLink]="profileRoute + '/' + currentUser().id"
+      [routerLink]="profileRoute + '/' + user.id"
       [attr.aria-label]="'go_to_profile' | translate">
       {{ 'profile' | translate }}
     </a>
+    <a
+      mat-menu-item
+      [routerLink]="adminRoute"
+      *haIsAdmin
+      [attr.aria-label]="'go_to_admin_dashboard' | translate">
+      {{ 'admin_dashboard' | translate }}
+    </a>
+  } @else {
+    <a mat-menu-item [routerLink]="loginRoute" [attr.aria-label]="'go_to_login' | translate">
+      {{ 'login' | translate }}
+    </a>
+    <a mat-menu-item [href]="signupUrl" [attr.aria-label]="'go_to_signup' | translate">
+      {{ 'sign_up' | translate }}
+    </a>
   }
-  <a
-    mat-menu-item
-    [routerLink]="adminRoute"
-    *haIsAdmin
-    [attr.aria-label]="'go_to_admin_dashboard' | translate">
-    {{ 'admin_dashboard' | translate }}
-  </a>
   <mat-divider></mat-divider>
   <button mat-menu-item [matMenuTriggerFor]="languageMenu" [attr.aria-label]="'change_language' | translate">
     {{ 'language' | translate }}
   </button>
-  <button mat-menu-item (click)="logout()" [attr.aria-label]="'logout_action' | translate">
-    {{ 'logout' | translate }}
-  </button>
+  @if (currentUser()) {
+    <button mat-menu-item (click)="logout()" [attr.aria-label]="'logout_action' | translate">
+      {{ 'logout' | translate }}
+    </button>
+  }
 </mat-menu>
 
 <mat-menu #languageMenu="matMenu">
