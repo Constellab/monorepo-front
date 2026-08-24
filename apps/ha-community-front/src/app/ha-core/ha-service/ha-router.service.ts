@@ -89,6 +89,10 @@ export class HaRouterService {
     return '/fair-open-access';
   }
 
+  public static getAiIntegrationRoute(): string {
+    return '/ai-integration';
+  }
+
   ////////////////////////// AGENTS ////////////////////////////////
   public static getAgentsListRoute(): string {
     return '/agents';

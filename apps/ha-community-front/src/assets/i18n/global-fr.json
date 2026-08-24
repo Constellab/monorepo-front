@@ -737,5 +737,21 @@
   "error_loading_brick_dependencies": "Erreur lors du chargement des dépendances de bricks",
   "error_invalid_file_format": "Format de fichier invalide",
   "error_uploading_file": "Erreur lors de l'upload du fichier",
-  "error_loading_spaces": "Erreur lors du chargement des espaces"
+  "error_loading_spaces": "Erreur lors du chargement des espaces",
+  "ai-integration": "Intégration IA",
+  "go_to_ai_integration": "Aller à l'intégration IA",
+  "ai_integration.menu": "Intégration IA",
+  "ai_integration.page_title": "Intégration IA",
+  "ai_integration.page_description": "Connectez vos outils IA à Constellab Community.",
+  "ai_integration.claude_title": "Claude Code",
+  "ai_integration.claude_lead": "Installez le plugin Community pour que Claude Code puisse chercher et lire le contenu de Community : exécutez ces commandes dans un terminal, dans cet ordre.",
+  "ai_integration.requires": "Claude Code doit déjà être installé sur votre machine. Vérifiez-le avec claude --version.",
+  "ai_integration.details": "Détails",
+  "ai_integration.plugin_name": "Plugin",
+  "ai_integration.marketplace": "Marketplace",
+  "ai_integration.api_url": "Adresse de l'API",
+  "ai_integration.endpoint_url": "Point d'accès MCP",
+  "ai_integration.copy_to_clipboard": "Copier dans le presse-papier",
+  "ai_integration.copied": "Commande copiée dans le presse-papier",
+  "ai_integration.load_error": "Les commandes d'installation n'ont pas pu être chargées. Réessayez plus tard."
 }

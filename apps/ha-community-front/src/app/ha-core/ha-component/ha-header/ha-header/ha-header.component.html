@@ -140,6 +140,10 @@
     <mat-icon>admin_panel_settings</mat-icon>
     {{ 'admin_dashboard' | translate }}
   </a>
+  <a mat-menu-item [routerLink]="aiIntegrationRoute" [attr.aria-label]="'go_to_ai_integration' | translate">
+    <mat-icon>smart_toy</mat-icon>
+    {{ 'ai_integration.menu' | translate }}
+  </a>
   <button mat-menu-item (click)="logout()" [attr.aria-label]="'logout_action' | translate">
     <mat-icon>logout</mat-icon>
     {{ 'logout' | translate }}
@@ -195,6 +199,9 @@
       *haIsAdmin
       [attr.aria-label]="'go_to_admin_dashboard' | translate">
       {{ 'admin_dashboard' | translate }}
+    </a>
+    <a mat-menu-item [routerLink]="aiIntegrationRoute" [attr.aria-label]="'go_to_ai_integration' | translate">
+      {{ 'ai_integration.menu' | translate }}
     </a>
   } @else {
     <a mat-menu-item [routerLink]="loginRoute" [attr.aria-label]="'go_to_login' | translate">

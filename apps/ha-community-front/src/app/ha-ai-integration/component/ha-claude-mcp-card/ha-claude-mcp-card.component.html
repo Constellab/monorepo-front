@@ -1,0 +1,56 @@
+<fl-card>
+  <fl-card-header>
+    <h2>{{ 'ai_integration.claude_title' | translate }}</h2>
+  </fl-card-header>
+
+  <fl-card-body>
+    @if (isLoading()) {
+      <div class="g-text-centered">
+        <fl-loader></fl-loader>
+      </div>
+    } @else if (hasError()) {
+      <p>{{ 'ai_integration.load_error' | translate }}</p>
+    } @else if (install(); as install) {
+      <p>{{ 'ai_integration.claude_lead' | translate }}</p>
+
+      <p class="prerequisite g-text-small">{{ 'ai_integration.requires' | translate }}</p>
+
+      @for (step of install.steps; track $index) {
+        <div class="step">
+          <p class="step-description">
+            <span class="step-number">{{ $index + 1 }}</span>
+            {{ step.description }}
+          </p>
+
+          @if (step.command) {
+            <ha-claude-mcp-command [command]="step.command"></ha-claude-mcp-command>
+          }
+        </div>
+      }
+
+      <!--  Details  -->
+      <mat-expansion-panel class="details">
+        <mat-expansion-panel-header>
+          <mat-panel-title>{{ 'ai_integration.details' | translate }}</mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <fl-key-value>
+          <fl-key>{{ 'ai_integration.plugin_name' | translate }}</fl-key>
+          {{ install.pluginName }}
+        </fl-key-value>
+        <fl-key-value>
+          <fl-key>{{ 'ai_integration.marketplace' | translate }}</fl-key>
+          {{ install.marketplace }}
+        </fl-key-value>
+        <fl-key-value>
+          <fl-key>{{ 'ai_integration.api_url' | translate }}</fl-key>
+          {{ install.apiUrl }}
+        </fl-key-value>
+        <fl-key-value>
+          <fl-key>{{ 'ai_integration.endpoint_url' | translate }}</fl-key>
+          {{ install.mcpEndpointUrl }}
+        </fl-key-value>
+      </mat-expansion-panel>
+    }
+  </fl-card-body>
+</fl-card>
