@@ -32,84 +32,29 @@ html {
     )
   );
 
-  @include mat.button-overrides(
-    (
-      filled-hover-state-layer-opacity: 0,
-      outlined-hover-state-layer-opacity: 0,
-      protected-hover-container-elevation-shadow: none,
-      protected-hover-state-layer-opacity: 0,
-      tonal-hover-state-layer-opacity: 0,
-    )
-  );
-
-  .mat-mdc-unelevated-button {
-    background:
-      linear-gradient(180deg, rgba(3, 16, 17, 0) 0%, rgba(3, 16, 17, 0.14) 100%),
-      linear-gradient(0deg, #105156 0%, #105156 100%) !important;
-
-    &::before {
-      background-color: var(--color-foreground) !important;
-    }
-
-    &:hover {
-      box-shadow: 0 6.379px 9.568px 0 rgba(0, 0, 0, 0.3) inset !important;
-    }
-
-    &:hover::before {
-      background: linear-gradient(180deg, transparent 0%, #0f4e52 100%) !important;
-    }
+  // Community brand buttons, expressed with Material's own button tokens instead of
+  // !important background rules + a hand-rolled ::before overlay.
+  // Scoped with :not(.warn):not(.accent) so themed buttons keep the colors remapped
+  // by base-theme (e.g. the error snackbar "ok" button stays on the error color).
+  // Label and hover state layer keep their defaults (on-primary), so they follow.
+  .mat-mdc-unelevated-button:not(.warn):not(.accent) {
+    @include mat.button-overrides(
+      (
+        filled-container-color: var(--color-foreground),
+      )
+    );
   }
 
-  .mat-mdc-raised-button {
-    background: linear-gradient(180deg, rgba(3, 16, 17, 0) 0%, rgba(3, 16, 17, 0.08) 100%), #fff !important;
-    box-shadow: none !important;
-    color: var(--color-foreground) !important;
-
-    &::before {
-      background-color: white !important;
-    }
-
-    &:hover {
-      box-shadow: 0 6px 6px 0 rgba(0, 0, 0, 0.08) inset !important;
-    }
-
-    &:hover::before {
-      background: linear-gradient(180deg, transparent 0%, #fff 100%) !important;
-    }
-  }
-
-  .mat-mdc-button,
-  .mat-mdc-unelevated-button,
-  .mat-mdc-raised-button,
-  .mat-mdc-outlined-button {
-    padding: 6px 20px 8px 20px !important;
-    gap: 6.869px !important;
-    border-radius: 8586px !important;
-    text-transform: none !important;
-    font-size: 14px !important;
-    font-style: normal !important;
-    font-weight: 600 !important;
-    line-height: 20.608px !important;
-    letter-spacing: -0.28px !important;
-    position: relative !important;
-
-    &::before {
-      content: '';
-      position: absolute;
-      top: 2px;
-      left: 2px;
-      right: 0;
-      bottom: 0;
-      width: calc(100% - 4px);
-      height: calc(100% - 4px);
-      border-radius: 8586px;
-      transition: 0.2s;
-    }
-
-    .mdc-button__label {
-      position: relative;
-      z-index: 1;
-    }
+  .mat-mdc-raised-button:not(.warn):not(.accent) {
+    @include mat.button-overrides(
+      (
+        protected-container-color: var(--main-background),
+        protected-label-text-color: var(--color-foreground),
+        protected-state-layer-color: var(--color-foreground),
+        protected-container-elevation-shadow: none,
+        protected-hover-container-elevation-shadow: none,
+      )
+    );
   }
 
   .mat-tree-node {

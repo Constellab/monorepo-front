@@ -60,7 +60,7 @@
         @if (currentUser()) {
           <button
             mat-raised-button
-            class="logged-in-user-button"
+            class="logged-in-user-button g-button-shadow-border"
             [matMenuTriggerFor]="loggedInMenu"
             [attr.aria-label]="'open_user_menu' | translate">
             <div class="logged-in-user-button-content g-weight-600">
@@ -69,7 +69,11 @@
             </div>
           </button>
         } @else {
-          <a [routerLink]="loginRoute" mat-raised-button [attr.aria-label]="'go_to_login' | translate">
+          <a
+            [routerLink]="loginRoute"
+            mat-button
+            class="g-button-shadow-border"
+            [attr.aria-label]="'go_to_login' | translate">
             {{ 'login' | translate }}
           </a>
 
