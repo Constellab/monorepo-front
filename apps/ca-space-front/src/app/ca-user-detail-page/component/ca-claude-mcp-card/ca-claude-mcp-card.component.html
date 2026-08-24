@@ -1,0 +1,54 @@
+<fl-card>
+  <fl-card-header>
+    <h2>{{ 'claude_mcp_title' | translate }}</h2>
+  </fl-card-header>
+
+  <fl-card-body>
+    <fl-async-section [object]="install$" [showServerErrorText]="true">
+      <ng-container *flSectionBody="install$ as install">
+        <p>{{ 'claude_mcp_lead' | translate }}</p>
+
+        <div class="prerequisite">
+          <p class="g-text-small g-text-light">{{ 'claude_mcp_requires' | translate }}</p>
+        </div>
+
+        @for (step of install.steps; track $index) {
+          <div class="step">
+            <p class="step-description">
+              <span class="step-number">{{ $index + 1 }}</span>
+              {{ step.description }}
+            </p>
+
+            @if (step.command) {
+              <ca-claude-mcp-command [command]="step.command"></ca-claude-mcp-command>
+            }
+          </div>
+        }
+
+        <!--  Details  -->
+        <mat-expansion-panel class="details">
+          <mat-expansion-panel-header>
+            <mat-panel-title>{{ 'claude_mcp_details' | translate }}</mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <fl-key-value>
+            <fl-key>{{ 'claude_mcp_plugin_name' | translate }}</fl-key>
+            {{ install.pluginName }}
+          </fl-key-value>
+          <fl-key-value>
+            <fl-key>{{ 'claude_mcp_marketplace' | translate }}</fl-key>
+            {{ install.marketplace }}
+          </fl-key-value>
+          <fl-key-value>
+            <fl-key>{{ 'claude_mcp_api_url' | translate }}</fl-key>
+            {{ install.apiUrl }}
+          </fl-key-value>
+          <fl-key-value>
+            <fl-key>{{ 'claude_mcp_endpoint_url' | translate }}</fl-key>
+            {{ install.mcpEndpointUrl }}
+          </fl-key-value>
+        </mat-expansion-panel>
+      </ng-container>
+    </fl-async-section>
+  </fl-card-body>
+</fl-card>

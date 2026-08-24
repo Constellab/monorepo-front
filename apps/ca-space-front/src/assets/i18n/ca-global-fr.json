@@ -315,5 +315,15 @@
   "oauth_consent_expired_message": "Elle a expiré ou a déjà reçu une réponse, et rien n'a été accordé. Relancez la connexion depuis l'application.",
   "oauth_consent_error_title": "Cette demande n'a pas pu être chargée",
   "oauth_consent_error_message": "Rien n'a été accordé. Réessayez, ou relancez la connexion depuis l'application.",
-  "oauth_consent_retry": "Réessayer"
+  "oauth_consent_retry": "Réessayer",
+  "claude_mcp_title": "Claude Code",
+  "claude_mcp_lead": "Installez le plugin Constellab pour que Claude Code puisse travailler avec cet espace : exécutez ces commandes dans un terminal, dans cet ordre.",
+  "claude_mcp_requires": "Claude Code doit déjà être installé sur votre machine. Vérifiez-le avec claude --version.",
+  "claude_mcp_details": "Détails",
+  "claude_mcp_plugin_name": "Plugin",
+  "claude_mcp_marketplace": "Marketplace",
+  "claude_mcp_api_url": "Adresse de l'API",
+  "claude_mcp_endpoint_url": "Point d'accès MCP",
+  "claude_mcp_copy_to_clipboard": "Copier dans le presse-papier",
+  "claude_mcp_copied": "Commande copiée dans le presse-papier"
 }

@@ -61,6 +61,10 @@
     </ng-container>
   </fl-async-section>
 
+  @if (isCurrentUser) {
+    <ca-claude-mcp-card class="g-section"></ca-claude-mcp-card>
+  }
+
   <ng-container *caIsAdmin>
     <ca-user-spaces-list class="g-section" [userId]="id"></ca-user-spaces-list>
     <ca-lab-free-card-info *caIsAdmin class="g-section" [userId]="id"></ca-lab-free-card-info>
