@@ -16,8 +16,9 @@ import { interval, Subscription, switchMap, takeWhile } from 'rxjs';
  * Front-owned app-link gateway page: the entrypoint AND the progress screen in one.
  *
  * This is the stable, bookmarkable URL `{front}/open/app/:appKey` (optionally `?code=<one-time>` for
- * space/external opens). The backend exposes only JSON APIs; the front owns the URL, the auth hop,
- * the progress UI, and all navigation.
+ * space/external opens, and `?redirect_to=<in-app path>` when the nginx fallback routed a shared app
+ * URL here). The backend exposes only JSON APIs; the front owns the URL, the auth hop, the progress
+ * UI, and all navigation.
  *
  * Flow:
  *  1. On load, `POST /apps/gateway/start {app_key, code?}`.
@@ -25,7 +26,8 @@ import { interval, Subscription, switchMap, takeWhile } from 'rxjs';
  *       ~1s, show progress.
  *     - 401 → not authenticated → redirect to `/login?redirect_uri={this front URL}` (front→front).
  *  2. On `status === 'RUNNING'` → `POST /apps/gateway/handoff {app_key, authorize_grant}` → navigate
- *     the browser to the returned `app_url` (carries `?gws_code=…`, which the app exchanges + scrubs).
+ *     the browser to the returned `app_url` (carries `?gws_code=…`, which the app exchanges + scrubs),
+ *     with `redirect_to` merged into its path when present.
  *     `authorize_grant` is single-use, so handoff is called exactly once per open.
  *  3. On `status === 'STOPPED'`/error → show `status_text` + Retry (re-calls start).
  *
@@ -50,6 +52,12 @@ export class LabOpenAppPageComponent implements OnInit, OnDestroy {
   status = signal<RvAppStatus>('STARTING');
   statusText = signal<string | undefined>(undefined);
 
+  // Translation key of a terminal open failure (no app to open): the nginx fallback resolver
+  // redirects here with ?error=<reason> for a shared URL that maps to no app. Set means `start` was
+  // never called and Retry is hidden — there is nothing to retry.
+  // Kept separate from statusText, which carries raw server text that must not go through translate.
+  errorMessageKey = signal<string | undefined>(undefined);
+
   // Display status for the progress UI. RUNNING is a transient "handing off now" state on this page
   // (we immediately redirect into the app), so show the "starting" look — never the error branch,
   // which rv-app-progress renders for any non-STARTING status.
@@ -58,6 +66,10 @@ export class LabOpenAppPageComponent implements OnInit, OnDestroy {
   private appKey: string | null = null;
   // One-time code for space/external opens (absent for from-lab opens which use the session cookie).
   private code?: string;
+  // In-app path to land on after the handoff (e.g. `/config`), set when the nginx fallback routed a
+  // shared app URL here: the app's own host only serves a server block while it runs, so a shared
+  // URL of a stopped app arrives via the fallback, which forwards the originally requested path.
+  private redirectTo?: string;
   // Grant returned by `start`, kept in page state and sent back verbatim to `handoff`.
   // String for an AUTHENTICATED app, null for a PUBLIC one. Single-use (10 min lifetime).
   private authorizeGrant: string | null = null;
@@ -67,8 +79,36 @@ export class LabOpenAppPageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.appKey = this.activatedRoute.snapshot.paramMap.get('appKey');
     this.code = this.activatedRoute.snapshot.queryParamMap.get('code') ?? undefined;
+    // queryParamMap already URL-decodes: do not decode again, or an encoded slash in the path
+    // (`%2F`) would be turned into a real separator.
+    this.redirectTo = this.activatedRoute.snapshot.queryParamMap.get('redirect_to') ?? undefined;
+
+    // The fallback resolver sends unknown app URLs here with ?error=<reason>. Render the message and
+    // stop: there is no app to start, so calling `start` would only produce a second, confusing failure.
+    const error = this.activatedRoute.snapshot.queryParamMap.get('error');
+    if (error) {
+      this.showTerminalError(error);
+      return;
+    }
 
     this.start();
+  }
+
+  /**
+   * Render a terminal open failure, reusing the page's existing error UI.
+   *
+   * The reason comes from an untrusted query param, so it is mapped through a known-key allowlist to
+   * a translation key — never interpolated into the UI — and anything unrecognised falls back to the
+   * generic message.
+   */
+  private showTerminalError(error: string): void {
+    const messageKeys: Record<string, string> = {
+      invalid_host: 'g.open_app_error_invalid_host',
+      app_not_found: 'g.open_app_error_app_not_found',
+    };
+
+    this.errorMessageKey.set(messageKeys[error] ?? 'g.open_app_error_generic');
+    this.status.set('STOPPED');
   }
 
   ngOnDestroy(): void {
@@ -101,8 +141,13 @@ export class LabOpenAppPageComponent implements OnInit, OnDestroy {
   private onStartError(error: FlServerError): void {
     if (error?.response?.status === 401) {
       // Not authenticated: redirect to the lab login, which returns here after login (front→front).
-      // A from-lab session then exists, so the code is not resent (it was single-use anyway).
-      const redirectUri = `/${LI_CONST_OPEN_ROUTE}/app/${this.appKey}`;
+      // A from-lab session then exists, so the code is not resent (it was single-use anyway) — but
+      // every OTHER query param must survive the hop, or a logged-out visitor following a shared
+      // deep link loses `redirect_to` and lands on the app root after logging in.
+      const params = new URLSearchParams(window.location.search);
+      params.delete('code');
+      const query = params.toString();
+      const redirectUri = `/${LI_CONST_OPEN_ROUTE}/app/${this.appKey}${query ? `?${query}` : ''}`;
       window.location.href = `${LiRouterService.getLoginRoute()}?redirect_uri=${encodeURIComponent(
         redirectUri
       )}`;
@@ -139,10 +184,40 @@ export class LabOpenAppPageComponent implements OnInit, OnDestroy {
     this.appService.gatewayHandoff(this.appKey, this.authorizeGrant).subscribe({
       next: (result) => {
         // Full-page navigation into the app host (carries ?gws_code=…, exchanged + scrubbed by the app).
-        window.location.href = result.app_url;
+        window.location.href = LabOpenAppPageComponent.applyRedirectTo(result.app_url, this.redirectTo);
       },
       error: () => this.onError(),
     });
+  }
+
+  /**
+   * Merge the requested in-app path into the handoff URL, so a shared deep link lands where the
+   * user asked instead of the app root.
+   *
+   * The handoff URL's own query must survive: it carries the single-use `gws_code` that is the
+   * app's only credential, so only the path is replaced and `gws_code` always wins a key collision
+   * (a deep link must not be able to forge it). Off-origin targets are rejected — the backend
+   * sanitises too, but this page can also be reached with a hand-written query string.
+   */
+  private static applyRedirectTo(appUrl: string, redirectTo?: string): string {
+    if (!redirectTo) {
+      return appUrl;
+    }
+    // Same-origin, path-only targets only: reject absolute URLs, protocol-relative and backslash tricks.
+    if (!redirectTo.startsWith('/') || redirectTo.startsWith('//') || redirectTo.includes('\\')) {
+      return appUrl;
+    }
+
+    const target = new URL(appUrl);
+    const requested = new URL(redirectTo, target.origin);
+
+    target.pathname = requested.pathname;
+    requested.searchParams.forEach((value, key) => {
+      if (!target.searchParams.has(key)) {
+        target.searchParams.set(key, value);
+      }
+    });
+    return target.toString();
   }
 
   private onError(): void {
