@@ -1,4 +1,4 @@
-import { AsyncPipe, NgClass } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { MatAnchor, MatButton } from '@angular/material/button';
@@ -7,7 +7,7 @@ import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { Title } from '@angular/platform-browser';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { CoRagflowChatbotBubbleComponent } from '@monorepo/community-lib';
+import { CoRagflowChatbotService } from '@monorepo/community-lib';
 import { ClBrick } from '@monorepo/core-lib';
 import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
 import { FlExpansionMenuModule } from '@monorepo/front-core-lib/fl-expansion-menu';
@@ -19,10 +19,8 @@ import {
   LiRouterService,
   LiSystemInfo,
   LiSystemService,
-  LiUser,
 } from '@monorepo/lab-lib/li-core';
 import { TranslatePipe } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
 
 import { LabEnvStore } from '../../../lab-core/lab-env.store';
 import { LabEnvironmentHelper } from '../../../lab-core/lab-environment.helper';
@@ -49,8 +47,6 @@ import { LabMainMenuSettingsComponent } from '../lab-main-menu-settings/lab-main
     LabMainMenuSettingsComponent,
     RouterOutlet,
     TranslatePipe,
-    CoRagflowChatbotBubbleComponent,
-    AsyncPipe,
   ],
 })
 export class LabMainAppComponent implements OnInit {
@@ -59,13 +55,12 @@ export class LabMainAppComponent implements OnInit {
   private systemService = inject(LiSystemService);
   private titleService = inject(Title);
   private brickService = inject(LiBrickService);
+  private chatbotService = inject(CoRagflowChatbotService);
   private http = inject(HttpClient);
 
   accessibleLinks: LabMainMenuLink[] = labGetMainMenuLinks();
 
   isChatbotActive = false;
-
-  user$: Observable<LiUser> = this.authenticatedUserService.getUser$();
 
   spaceAppUrl: string = LabEnvironmentHelper.getSpaceFrontAppUrl();
 
@@ -89,6 +84,13 @@ export class LabMainAppComponent implements OnInit {
     this.checkChatbotActive();
 
     this.toolbarColorClass = this.labEnvManager.isDev() ? 'g-accent-background' : 'g-card-background';
+  }
+
+  openChatbot(event: MouseEvent): void {
+    this.chatbotService.toggle({
+      user: this.authenticatedUserService.getCurrentUser(),
+      origin: event.currentTarget as HTMLElement,
+    });
   }
 
   private checkChatbotActive(): void {

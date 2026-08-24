@@ -65,6 +65,21 @@
             <span>{{ 'g.home' | translate }}</span>
           </a>
 
+          <!-- Chatbot button -->
+          @if (isChatbotActive) {
+            <button
+              mat-button
+              type="button"
+              (click)="openChatbot($event)"
+              class="menu-button"
+              flExpansionMenuButton
+              [matTooltip]="'g.chatbot' | translate"
+              matTooltipPosition="after">
+              <mat-icon>smart_toy</mat-icon>
+              <span>{{ 'g.chatbot' | translate }}</span>
+            </button>
+          }
+
           <lab-main-menu-settings></lab-main-menu-settings>
         </div>
       </div>
@@ -77,7 +92,3 @@
     <router-outlet></router-outlet>
   </div>
 </div>
-
-@if (isChatbotActive) {
-  <co-ragflow-chatbot-bubble [user]="user$ | async"></co-ragflow-chatbot-bubble>
-}

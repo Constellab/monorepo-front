@@ -18,6 +18,7 @@
     "http_status": "Status HTTP",
     "reduce_menu": "Réduire",
     "home": "home",
+    "chatbot": "Assistant",
     "settings": "Paramètre",
     "codelab_link": "CODELAB",
     "reset_dev_env": "Réinitialiser l'environnement de dev",
