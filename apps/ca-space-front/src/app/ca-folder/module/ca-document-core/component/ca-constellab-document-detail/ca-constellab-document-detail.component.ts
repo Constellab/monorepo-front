@@ -1,5 +1,13 @@
-import { NgClass } from '@angular/common';
-import { ChangeDetectionStrategy,Component, computed, effect, inject, Injector, input, output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  effect,
+  inject,
+  Injector,
+  input,
+  output,
+} from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
@@ -25,6 +33,7 @@ import {
 } from '../../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
 import { CaConstellabDocumentService } from '../../../../../ca-core/service-api/ca-constellab-document.service';
 import { CaDocumentService } from '../../../../../ca-core/service-api/ca-document.service';
+import { CaDetailCardComponent } from '../../../ca-folder-hierarchy-core/component/ca-detail-card/ca-detail-card.component';
 import { CaHierarchyObjectEventState } from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-event.state';
 import { CaConstellabDocumentTextEditorConfig } from '../../ca-constellab-document-text-editor.config';
 import { CaDocumentActionDetailMenu, CaDocumentActionEvent } from '../../ca-document-action-menu';
@@ -36,6 +45,7 @@ import { CaDocumentActionDetailMenu, CaDocumentActionEvent } from '../../ca-docu
 @Component({
   selector: 'ca-constellab-document-detail',
   imports: [
+    CaDetailCardComponent,
     FlFormModule,
     FlSectionModule,
     FlTagModule,
@@ -46,7 +56,6 @@ import { CaDocumentActionDetailMenu, CaDocumentActionEvent } from '../../ca-docu
     TeTextEditorModule,
     TranslatePipe,
     ReactiveFormsModule,
-    NgClass,
   ],
   templateUrl: './ca-constellab-document-detail.component.html',
   changeDetection: ChangeDetectionStrategy.Eager,

@@ -1,18 +1,15 @@
 <div class="g-layout-row g-layout-between-center g-full-height">
   <div class="message-container">
-    <!--  The text color depend on the background  -->
-    <div
-      [ngClass]="{ 'g-primary-contrast': mode === 'success', 'g-warn-contrast': mode === 'error' }"
-      class="message g-text-dense-height"
-      [innerHTML]="text | flTranslatableText | async"></div>
+    <!-- Text color comes from the snackbar container (on-*-container token) -->
+    <div class="message g-text-dense-height" [innerHTML]="text | flTranslatableText | async"></div>
   </div>
 
   <div class="g-layout-row g-layout-end-center actions">
     @if (action) {
       <button
         class="button"
-        [ngClass]="{ 'button-success': mode === 'success', 'button-warn': mode === 'error' }"
-        mat-button
+        [ngClass]="{ primary: mode === 'success', warn: mode === 'error' }"
+        mat-flat-button
         type="button"
         (click)="onActionClick()">
         {{ action.label | flTranslatableText | async }}
@@ -22,8 +19,8 @@
     @if (showCloseButton) {
       <button
         class="button"
-        [ngClass]="{ 'button-success': mode === 'success', 'button-warn': mode === 'error' }"
-        mat-button
+        [ngClass]="{ primary: mode === 'success', warn: mode === 'error' }"
+        mat-flat-button
         type="button"
         (click)="closeSnackBar()">
         {{ 'flSnackBar.ok' | translate }}

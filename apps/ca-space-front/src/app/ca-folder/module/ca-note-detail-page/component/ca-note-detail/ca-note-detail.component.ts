@@ -1,12 +1,9 @@
-import { ChangeDetectionStrategy,Component, inject, Injector, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Injector, input, output } from '@angular/core';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
-import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
-import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlTagModule } from '@monorepo/front-core-lib/fl-tag';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -17,6 +14,7 @@ import { CaRootFolderUserRoleObj } from '../../../../../ca-core/model/entities/f
 import { CaHierarchyObjectTagDatasource } from '../../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
 import { CaNote } from '../../../../../ca-core/model/entities/folder/ca-note.class';
 import { CaNoteService } from '../../../../../ca-core/service-api/ca-note.service';
+import { CaDetailCardComponent } from '../../../ca-folder-hierarchy-core/component/ca-detail-card/ca-detail-card.component';
 import { CaSyncObjectInfoComponent } from '../../../ca-folder-hierarchy-core/component/ca-sync-object-info/ca-sync-object-info.component';
 import { CaValidatedObjectInfoComponent } from '../../../ca-folder-hierarchy-core/component/ca-validated-object-info/ca-validated-object-info.component';
 import { CaHierarchyObjectEventState } from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-event.state';
@@ -31,11 +29,10 @@ import { CaNoteTextEditorConfig } from '../../../ca-note-core/model/ca-note-text
   styleUrls: ['./ca-note-detail.component.scss'],
   changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
-    FlCardModule,
+    CaDetailCardComponent,
     CaHierarchyObjectIconComponent,
     MatButton,
     MatIcon,
-    FlIconModule,
     MatIconButton,
     CaValidatedObjectInfoComponent,
     CaSyncObjectInfoComponent,
@@ -43,7 +40,6 @@ import { CaNoteTextEditorConfig } from '../../../ca-note-core/model/ca-note-text
     CaNoteContentComponent,
     TranslatePipe,
     FlTagModule,
-    FlKeyValueModule,
     FlSectionModule,
   ],
 })

@@ -1,11 +1,13 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { MatTooltip } from '@angular/material/tooltip';
 import { ClDateHelper } from '@monorepo/core-lib';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import {
@@ -77,6 +79,8 @@ export class CaLabHeroHeaderComponent implements OnInit {
   private translateService = inject(FlTranslateService);
   private dialogService = inject(FlDialogService);
   private labService = inject(CaLabService);
+  private portalService = inject(FlPortalActionsService);
+  private destroyRef = inject(DestroyRef);
 
   lab$: Observable<CaLab> = this.state.getLab$();
   labIsRunning$: Observable<boolean> = this.state.labIsRunning$();
@@ -100,6 +104,15 @@ export class CaLabHeroHeaderComponent implements OnInit {
   bannersConfig$: Observable<LmlStatusBannersConfig>;
 
   ngOnInit(): void {
+    // The update-lab-manager action (triggered from the "new version" banner) runs on the
+    // server action channel, which LmlLabManagerState does not listen to. So on any server
+    // action result, refresh the manager state: this clears the stale "new version" banner
+    // and surfaces the "needs restart" banner once the update is installed.
+    this.portalService
+      .getResult$(CaLabDetailPageState.actionType)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => this.managerState.refreshExternalChange());
+
     this.errorBanner$ = combineLatest([
       this.configState.getStatus$(),
       this.managerState.getStatus$().pipe(startWith(null)),
@@ -121,7 +134,9 @@ export class CaLabHeroHeaderComponent implements OnInit {
               action: () => this.restartLab(),
             }
           : null,
-        newVersion: newVersion ? { action: () => this.updateLabManager() } : null,
+        // Hide the "new version available" banner while a task is running: the update
+        // can't be applied mid-task and the banner would just be noise.
+        newVersion: newVersion && !busy ? { action: () => this.updateLabManager() } : null,
       }))
     );
   }

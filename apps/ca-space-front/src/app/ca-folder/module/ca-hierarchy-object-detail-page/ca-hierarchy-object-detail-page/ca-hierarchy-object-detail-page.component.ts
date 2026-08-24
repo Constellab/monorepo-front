@@ -1,10 +1,13 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit, Signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { MatIcon } from '@angular/material/icon';
 import { MatDrawer, MatDrawerContainer, MatDrawerContent } from '@angular/material/sidenav';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterOutlet } from '@angular/router';
 import { FlQueryParamHandler } from '@monorepo/front-core-lib/fl-core';
 import { FlSearchState } from '@monorepo/front-core-lib/fl-search';
+import { TranslatePipe } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -16,6 +19,7 @@ import {
 } from '../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
 import { CaRouterService } from '../../../../ca-core/service/ca-router.service';
 import { CaFolderRightPanelState } from '../../ca-folder-detail-page/state/ca-folder-right-panel.state';
+import { CaHierarchyObjectBreadcrumbComponent } from '../../ca-folder-hierarchy-core/component/ca-hierarchy-object-breadcrumb/ca-hierarchy-object-breadcrumb.component';
 import { CaHierarchyObjectActionsMenuState } from '../../ca-folder-hierarchy-core/state/ca-hierarchy-object-actions-menu.state';
 import { CaHierarchyObjectDetailState } from '../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
 import { CaHierarchyObjectEventState } from '../../ca-folder-hierarchy-core/state/ca-hierarchy-object-event.state';
@@ -43,6 +47,7 @@ import { CaHierarchyObjectTagsFilterComponent } from '../ca-hierarchy-object-tag
   ],
   changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
+    CaHierarchyObjectBreadcrumbComponent,
     MatDrawerContainer,
     MatDrawer,
     CaHierarchyObjectTreeComponent,
@@ -51,6 +56,9 @@ import { CaHierarchyObjectTagsFilterComponent } from '../ca-hierarchy-object-tag
     AsyncPipe,
     CaHierarchyObjectTagsFilterComponent,
     ReactiveFormsModule,
+    MatIcon,
+    MatTooltipModule,
+    TranslatePipe,
   ],
 })
 export class CaHierarchyObjectDetailPageComponent implements OnInit {
@@ -64,6 +72,8 @@ export class CaHierarchyObjectDetailPageComponent implements OnInit {
   activeObject$: Observable<string>;
 
   tagFormControl: FormControl;
+
+  headerHidden: Signal<boolean> = this.state.isHeaderHidden;
 
   getRoute: (node: CaHierarchyObjectSimple) => string = (node: CaHierarchyObjectSimple) => {
     return CaRouterService.getFolderDetailRoute(node.id);
@@ -80,6 +90,10 @@ export class CaHierarchyObjectDetailPageComponent implements OnInit {
       .pipe(map((ancestors) => this.getActiveFolderId(ancestors)));
 
     this.tagFormControl = this.searchState.getTagsFormControl();
+  }
+
+  showHeader(): void {
+    this.state.updateViewSettings({ hideHeader: false });
   }
 
   private getActiveFolderId(ancestors: CaHierarchyObjectSimple[]): string {

@@ -1,0 +1,25 @@
+<div class="card-container g-layout-col">
+  <div class="header g-print-hide">
+    <div class="header-inner">
+      <div class="header-row g-layout-row g-layout-start-center">
+        <div class="title-slot g-layout-row g-layout-start-center">
+          <ng-content select="[ca-detail-card-title]"></ng-content>
+        </div>
+
+        <div class="actions g-print-hide g-layout-row g-layout-start-center">
+          <ng-content select="[ca-detail-card-actions]"></ng-content>
+        </div>
+      </div>
+
+      <div class="meta">
+        <ng-content select="[ca-detail-card-meta]"></ng-content>
+      </div>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="body-inner">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</div>

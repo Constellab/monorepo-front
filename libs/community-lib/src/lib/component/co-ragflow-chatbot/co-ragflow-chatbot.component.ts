@@ -16,6 +16,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { FlUser } from '@monorepo/front-core-lib/fl-user';
 import { TranslatePipe } from '@ngx-translate/core';
 
 import { CoRagflowChatbotState } from '../../state/co-ragflow-chatbot.state';
@@ -50,6 +51,9 @@ export class CoRagflowChatbotComponent implements OnInit, AfterViewChecked {
 
   /** Optional conversation ID to resume */
   conversationId = input<string>();
+
+  /** Optional authenticated user, used to display the avatar on user messages */
+  user = input<FlUser>();
 
   /** Placeholder text for the input */
   placeholder = input<string>('coCommunityLib.chatbot_placeholder');

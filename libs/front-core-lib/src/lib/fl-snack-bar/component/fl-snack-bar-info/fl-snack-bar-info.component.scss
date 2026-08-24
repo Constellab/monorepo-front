@@ -22,14 +22,6 @@
   flex-shrink: 0;
 }
 
-.button-success {
-  color: var(--primary-color-contrast) !important;
-}
-
-.button-warn {
-  color: var(--warn-color-contrast) !important;
-}
-
 ::ng-deep {
   fl-snack-bar-info .message a {
     text-decoration: underline;

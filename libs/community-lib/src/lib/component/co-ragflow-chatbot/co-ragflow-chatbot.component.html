@@ -15,7 +15,7 @@
   } @else {
     <div class="co-chatbot-messages" #messagesContainer>
       @for (message of displayMessages(); track message.id ?? $index) {
-        <co-ragflow-chat-message [message]="message"></co-ragflow-chat-message>
+        <co-ragflow-chat-message [message]="message" [user]="user()"></co-ragflow-chat-message>
       }
 
       @if (isTyping() && !streamingContent()) {

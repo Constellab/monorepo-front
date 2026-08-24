@@ -78,3 +78,10 @@
   color: var(--light-color);
   word-break: break-word;
 }
+
+// Underlying source of the icon (svg filename or renamed Material symbol).
+.ds-icon-source {
+  color: var(--light-color);
+  opacity: 0.7;
+  word-break: break-word;
+}

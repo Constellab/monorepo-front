@@ -8,39 +8,25 @@
   flex: 1;
 }
 
-.card-container {
-  margin: auto;
-  height: 100%;
-  width: var(--article-width);
-  background-color: var(--card-background);
-  border-radius: var(--card-radius);
-  padding: 1em;
-  box-sizing: border-box;
+.title {
+  flex: 1;
+  min-width: 0;
 }
 
-@media print {
-  .card-container {
-    padding: 0;
-  }
+.authors {
+  gap: 0.5em 1.5em;
 }
 
-.button {
-  margin-left: 0.5em;
-  margin-right: 0.5em;
+.author-label {
+  color: var(--mat-sys-on-surface-variant);
 }
 
-.doc-header {
-  // align the elements with the title editable
-  padding-left: var(--element-editable-padding);
-}
-
-.text-editor {
+// element + class raises specificity above te-text-editor's own :host border
+te-text-editor.text-editor {
   margin-bottom: 2em;
   margin-top: 1em;
   max-width: 100%;
   flex: 1;
-}
-
-.text-editor-edit {
-  border-color: var(--hover-color);
+  // remove the default editor border in the detail view (view and edit modes)
+  border: none;
 }

@@ -11,7 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -20,7 +20,7 @@ import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
-import { FL_ICONS_DEFAULT, FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FL_ICONS_DEFAULT, FlIconModule, FlMatIcon, FlSvgIcon } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
 
 import { DsExampleComponent } from '../../component/ds-example/ds-example.component';
@@ -68,13 +68,15 @@ interface DemoRow {
 })
 export class DsMaterialOverridePageComponent {
   private readonly themeService = inject(FlThemeService);
-  private readonly snackBar = inject(MatSnackBar);
   private readonly flSnackBar = inject(FlSnackBarService);
 
   protected readonly isDark = signal(this.themeService.isDarkTheme());
 
-  /** All custom FlIcons registered by the front-core-lib, shown by their registered name. */
-  protected readonly customIcons = FL_ICONS_DEFAULT;
+  /** Custom FlIcons backed by an SVG file (have a `filename`). */
+  protected readonly svgIcons = FL_ICONS_DEFAULT.filter((icon): icon is FlSvgIcon => 'filename' in icon);
+
+  /** Custom FlIcons that rename an existing Material symbol (have a `matIconName`). */
+  protected readonly matIcons = FL_ICONS_DEFAULT.filter((icon): icon is FlMatIcon => 'matIconName' in icon);
 
   // Form field demo controls
   protected readonly textControl = new FormControl('');
@@ -94,13 +96,6 @@ export class DsMaterialOverridePageComponent {
     const next = this.isDark() ? ClTheme.LIGHT_THEME : ClTheme.DARK_THEME;
     this.themeService.changeTheme(next);
     this.isDark.set(this.themeService.isDarkTheme());
-  }
-
-  protected openSnackbar(panelClass: string): void {
-    this.snackBar.open(`Snackbar with ${panelClass || 'default'} style`, 'Close', {
-      duration: 3000,
-      panelClass: panelClass ? [panelClass] : [],
-    });
   }
 
   protected openSuccessSnackbar(): void {

@@ -20,7 +20,7 @@ export class FlSnackBarInfoComponent {
   mode: FlSnackBarMode;
   text: FlTranslatableText;
   showCloseButton: boolean;
-  action: FlSnackBarAction;
+  action?: FlSnackBarAction;
 
   constructor() {
     const data = this.data;
@@ -39,7 +39,7 @@ export class FlSnackBarInfoComponent {
   }
 
   onActionClick(): void {
-    this.action.onClick();
+    this.action?.onClick();
     this.snackBarRef.dismiss();
   }
 

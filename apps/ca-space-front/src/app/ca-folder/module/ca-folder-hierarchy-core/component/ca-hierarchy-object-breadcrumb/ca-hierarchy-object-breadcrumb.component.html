@@ -1,4 +1,4 @@
-<div class="g-layout-row-wrap g-layout-start-center g-text-light container">
+<div class="g-layout-row-wrap g-layout-start-center container">
   <!-- Button to toggle folder tree, hidden if the tree is empty  -->
   <button
     mat-icon-button
@@ -9,9 +9,12 @@
     <mat-icon>menu_open</mat-icon>
   </button>
 
-  @for (link of links$ | async; let last = $last; track link.id) {
-    <a [routerLink]="link.url" class="g-text-link">
-      {{ link.title }}
+  @for (link of links$ | async; let first = $first; let last = $last; track link.id) {
+    <a [routerLink]="link.url" class="crumb g-layout-row g-layout-start-center" [class.crumb-current]="last">
+      @if (first) {
+        <mat-icon class="crumb-icon g-icon-small">folder</mat-icon>
+      }
+      <span>{{ link.title }}</span>
     </a>
 
     @if (!last) {

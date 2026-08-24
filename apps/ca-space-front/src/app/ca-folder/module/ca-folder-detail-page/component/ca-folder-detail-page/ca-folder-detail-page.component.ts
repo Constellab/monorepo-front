@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy,Component, DestroyRef, inject, Injector, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, Injector, OnInit } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatIcon } from '@angular/material/icon';
 import { ActivatedRoute } from '@angular/router';
@@ -34,7 +34,6 @@ import {
 import { CaBulkActionService } from '../../../../../ca-core/service/ca-bulk-action.service';
 import { CaRouterService } from '../../../../../ca-core/service/ca-router.service';
 import { CaHierarchyObjectActionsMenuComponent } from '../../../ca-folder-hierarchy-core/component/ca-hierarchy-object-actions-menu/ca-hierarchy-object-actions-menu.component';
-import { CaHierarchyObjectBreadcrumbComponent } from '../../../ca-folder-hierarchy-core/component/ca-hierarchy-object-breadcrumb/ca-hierarchy-object-breadcrumb.component';
 import { CaHierarchyObjectActionsMenuState } from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-actions-menu.state';
 import { CaHierarchyObjectDetailState } from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
 import { CaHierarchyObjectEventState } from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-event.state';
@@ -54,7 +53,6 @@ import { CaFolderDetailActionsComponent } from '../ca-folder-detail-actions/ca-f
   providers: [CaFolderDetailState, FlQueryParamHandler],
   changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
-    CaHierarchyObjectBreadcrumbComponent,
     FlDragModule,
     FlCardModule,
     FlBulkSelectionModule,

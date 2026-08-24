@@ -1,13 +1,37 @@
 .container {
   min-height: 30px; // keep height even if button is hidden
+  gap: 0.25em;
 }
 
 .toggle-button {
   // made to align button with page title
   margin-left: -6px;
+  margin-right: 0.25em;
+}
+
+.crumb {
+  gap: 0.25em;
+  cursor: pointer;
+  // ancestor crumbs are muted
+  color: var(--mat-sys-on-surface-variant);
+  text-decoration: none;
+}
+
+.crumb:hover {
+  text-decoration: underline;
+}
+
+.crumb-icon {
+  color: var(--mat-sys-on-surface-variant);
+}
+
+// current (last) crumb: stronger color, not a link
+.crumb-current {
+  color: var(--color-foreground);
+  cursor: default;
+  pointer-events: none;
 }
 
 .separator {
-  margin-left: 0.5em;
-  margin-right: 0.5em;
+  color: var(--mat-sys-on-surface-variant);
 }
