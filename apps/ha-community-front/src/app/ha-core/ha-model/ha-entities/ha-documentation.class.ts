@@ -31,3 +31,17 @@ export interface HaDocumentationSearchDTO {
   major?: string;
   isTechnical?: boolean;
 }
+
+/**
+ * Response of PUT documentation/content/:id: the saved documentation, nested next to the
+ * warnings raised by the server side sanitization of the rich text.
+ */
+export interface HaDocumentationUpdateContentResponse {
+  documentation: HaDocumentation;
+  warnings: string[];
+}
+
+export interface HaDocumentationUpdateContentResponseDTO {
+  documentation: Record<string, any>;
+  warnings: string[];
+}

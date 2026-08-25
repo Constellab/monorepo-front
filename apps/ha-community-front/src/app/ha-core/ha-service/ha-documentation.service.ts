@@ -8,11 +8,16 @@ import {
   TeRichTextDTO,
   TeTextEditorHistoryService,
 } from '@monorepo/text-editor';
-import { Observable } from 'rxjs';
+import { plainToInstance } from 'class-transformer';
+import { map, Observable } from 'rxjs';
 
 import { HaFile } from '../entity-module/ha-file-core/model/ha-file';
 import { HaFileServiceInterface } from '../entity-module/ha-file-core/model/ha-file-service.interface';
-import { HaDocumentation } from '../ha-model/ha-entities/ha-documentation.class';
+import {
+  HaDocumentation,
+  HaDocumentationUpdateContentResponse,
+  HaDocumentationUpdateContentResponseDTO,
+} from '../ha-model/ha-entities/ha-documentation.class';
 import { HaNodeDTO } from '../ha-model/ha-entities/ha-node.class';
 
 /**
@@ -22,7 +27,7 @@ import { HaNodeDTO } from '../ha-model/ha-entities/ha-node.class';
   providedIn: 'root',
 })
 export class HaDocumentationService
-implements HaFileServiceInterface<HaDocumentation>, TeTextEditorHistoryService
+  implements HaFileServiceInterface<HaDocumentation>, TeTextEditorHistoryService
 {
   private apiService = inject(FlApiService);
 
@@ -53,10 +58,17 @@ implements HaFileServiceInterface<HaDocumentation>, TeTextEditorHistoryService
   }
 
   /**
-   * Call http updateContent
+   * Call http updateContent.
+   * The server sanitizes the rich text on write: it returns the saved documentation wrapped
+   * with the list of what it stripped. Warnings are empty when the content was already valid.
    */
-  public updateContent(id: string, content: TeRichText): Observable<HaDocumentation> {
-    return this.apiService.put(this.route + '/content/' + id, content.toJson());
+  public updateContent(id: string, content: TeRichText): Observable<HaDocumentationUpdateContentResponse> {
+    return this.apiService.put(this.route + '/content/' + id, content.toJson()).pipe(
+      map((response: HaDocumentationUpdateContentResponseDTO) => ({
+        documentation: plainToInstance(HaDocumentation, response.documentation),
+        warnings: response.warnings ?? [],
+      }))
+    );
   }
 
   /**

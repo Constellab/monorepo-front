@@ -1,5 +1,14 @@
 import { NgClass } from '@angular/common';
-import { ChangeDetectionStrategy,Component, computed, effect, inject, OnDestroy, OnInit, Signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  effect,
+  inject,
+  OnDestroy,
+  OnInit,
+  Signal,
+} from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
@@ -23,7 +32,10 @@ import { Observable, Subscription } from 'rxjs';
 
 import { Ha404Component } from '../../../ha-404/ha-404/ha-404.component';
 import { HaBrick } from '../../../ha-core/ha-model/ha-entities/ha-brick.class';
-import { HaDocumentation } from '../../../ha-core/ha-model/ha-entities/ha-documentation.class';
+import {
+  HaDocumentation,
+  HaDocumentationUpdateContentResponse,
+} from '../../../ha-core/ha-model/ha-entities/ha-documentation.class';
 import { HaCommunityPageDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
 import { HaDocumentationService } from '../../../ha-core/ha-service/ha-documentation.service';
 import { HaHttpRedirectionService } from '../../../ha-core/ha-service/ha-http-redirection.service';
@@ -120,7 +132,7 @@ export class HaBrickDocComponent extends HaCommunityPageDirective implements OnI
     });
   }
 
-  saveContent = (value: TeRichText): Observable<HaDocumentation> =>
+  saveContent = (value: TeRichText): Observable<HaDocumentationUpdateContentResponse> =>
     this.documentationService.updateContent(this.documentation().id, value);
 
   ngOnInit(): void {
