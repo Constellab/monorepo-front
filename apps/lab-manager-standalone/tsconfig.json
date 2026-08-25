@@ -16,6 +16,7 @@
     "strictTemplates": true
   },
   "compilerOptions": {
+    "strictNullChecks": true,
     "module": "preserve",
     "moduleResolution": "bundler",
     "ignoreDeprecations": "6.0"

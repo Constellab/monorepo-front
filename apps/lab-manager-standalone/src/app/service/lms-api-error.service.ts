@@ -10,7 +10,7 @@ import { Observable, throwError } from 'rxjs';
  */
 @Injectable()
 export class LmsApiErrorService extends FlApiErrorService {
-  get defaultApiErrorDuration(): number {
+  get defaultApiErrorDuration(): number | null {
     return null;
   }
 
@@ -30,7 +30,7 @@ export class LmsApiErrorService extends FlApiErrorService {
   ): Observable<never> {
     const serverError: FlServerError = {
       response: errorResponse,
-      message: null,
+      message: '',
     };
 
     // check if the error is formatted from nest api
@@ -69,7 +69,7 @@ export class LmsApiErrorService extends FlApiErrorService {
   /**
    * Handle the error message for the not specific errors
    */
-  private getErrorMessage(error: ClApiError, defaultError: string): string {
+  private getErrorMessage(error: ClApiError | undefined, defaultError: string): string {
     return error?.detail ?? defaultError;
   }
 }

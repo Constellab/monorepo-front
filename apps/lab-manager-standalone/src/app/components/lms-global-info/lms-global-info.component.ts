@@ -54,6 +54,6 @@ export class LmsGlobalInfoComponent {
         text: { text: 'lms.stop_lab', translateText: true },
         type: 'stop-lab',
       })
-      .subscribe(() => this.labManagerState.refreshStatus());
+      ?.subscribe(() => this.labManagerState.refreshStatus());
   }
 }
