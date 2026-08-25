@@ -86,7 +86,7 @@ export class CaHierarchyObjectSearch {
   ): FlSearchFilterCriteriaConverter<CaHierarchyObjectSearchTrashField> {
     return {
       ...CaHierarchyObjectSearch.filterConverter,
-      includeSubObjects: (value: boolean): FlSearchCriteria[] => {
+      includeSubObjects: (value: boolean): FlSearchCriteria[] | null => {
         if (!enableSubObjectFilter) return null;
         if (value === true) return null;
         return [{ key: 'parentId', operator: 'NULL', value: null }];

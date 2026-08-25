@@ -41,7 +41,8 @@ export class CaLabBricksState implements OnDestroy {
 
     // ensure the manager status is being polled even if this state is initialized before the
     // dashboard wires it up — init() is idempotent so this is safe to call here.
-    this.managerState.init(null);
+    // 0 is falsy, so it leaves the manager's own default/already-set refresh frequency untouched.
+    this.managerState.init(0);
 
     this.subscription = this.managerState
       .labManagerIsRunning$()

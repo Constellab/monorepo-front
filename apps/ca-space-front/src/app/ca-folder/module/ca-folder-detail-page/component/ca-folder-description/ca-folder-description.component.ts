@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy,Component, inject, Input, OnInit, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input, OnInit, viewChild } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
@@ -46,7 +46,7 @@ export class CaFolderDescriptionComponent implements OnInit {
   canEdit: boolean;
 
   textEditorConfig: CaFolderDescriptionTextEditorConfig;
-  formControl: FormControl<TeRichText> = new FormControl({ disabled: true, value: null });
+  formControl: FormControl<TeRichText | null> = new FormControl({ disabled: true, value: null });
   saveDescriptionFunc = (value: TeRichText): Observable<void> =>
     this.folderService.updateDescription(this.folderId, value);
 

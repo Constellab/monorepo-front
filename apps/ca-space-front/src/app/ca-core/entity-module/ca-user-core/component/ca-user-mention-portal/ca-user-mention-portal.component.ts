@@ -104,7 +104,7 @@ export class CaUserMentionPortalComponent implements OnInit, OnDestroy {
     const text = this.data.textNode.wholeText;
     const caretInfo = this.getCaretPosition();
 
-    if (caretInfo < this.data.initialCaretPosition) {
+    if (caretInfo == null || caretInfo < this.data.initialCaretPosition) {
       this.overlayRef.dispose();
       return;
     }
@@ -144,11 +144,11 @@ export class CaUserMentionPortalComponent implements OnInit, OnDestroy {
     this.searchInput.complete();
   }
 
-  private getCaretPosition(): number {
+  private getCaretPosition(): number | null {
     // Get the current selection
     const selection = window.getSelection();
 
-    if (selection.rangeCount > 0) {
+    if (selection && selection.rangeCount > 0) {
       // Get the first range in the selection
       const range = selection.getRangeAt(0);
 

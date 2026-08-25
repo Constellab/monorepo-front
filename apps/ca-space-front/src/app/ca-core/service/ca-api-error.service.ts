@@ -28,7 +28,7 @@ export class CaApiErrorService extends FlApiErrorService {
   private apiConfig = inject(FlApiServiceConfig);
   private injector = inject(Injector);
 
-  get defaultApiErrorDuration(): number {
+  get defaultApiErrorDuration(): number | null {
     return null;
   }
 
@@ -48,7 +48,7 @@ export class CaApiErrorService extends FlApiErrorService {
   ): Observable<never> {
     const serverError: FlServerError = {
       response: errorResponse,
-      message: null,
+      message: '',
     };
 
     // check if the error is formatted from nest api
@@ -129,7 +129,10 @@ export class CaApiErrorService extends FlApiErrorService {
   /**
    * Redirect the user to the login page
    */
-  private sessionExpired(serverError: FlServerError, snackBarDuration: number): Observable<never> {
+  private sessionExpired(
+    serverError: FlServerError,
+    snackBarDuration: number | undefined
+  ): Observable<never> {
     // for security clear the authentication expiration cookie
     // to assure the user is disconnected
     this.cookieService.removeCookie(FL_AUTH_EXPIRED_COOKIE, {
@@ -166,7 +169,7 @@ export class CaApiErrorService extends FlApiErrorService {
   /**
    * Handle the error message for the not specific errors
    */
-  private getErrorMessage(error: ClApiError, defaultError: string): string {
+  private getErrorMessage(error: ClApiError | undefined, defaultError: string): string {
     return error?.detail ?? defaultError;
   }
 }

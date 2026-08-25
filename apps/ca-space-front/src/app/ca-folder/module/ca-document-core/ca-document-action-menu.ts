@@ -128,12 +128,12 @@ export class CaDocumentActionMenu extends CaHierarchyObjectBaseActionMenu {
 }
 
 export class CaDocumentActionDetailMenu extends CaDocumentActionMenu {
-  private historyOverlayRef: FlOverlayRef;
+  private historyOverlayRef: FlOverlayRef | null;
 
   constructor(
     injector: Injector,
     documentInfo: CaDocumentBasicInfo,
-    private textEditorConfig: TeCompleteConfig,
+    private textEditorConfig: TeCompleteConfig | null,
     tags?: CaHierarchyObjectActionTags,
     hierarchyObjectToken?: string
   ) {
@@ -159,6 +159,9 @@ export class CaDocumentActionDetailMenu extends CaDocumentActionMenu {
       this.historyOverlayRef.dispose();
       this.historyOverlayRef = null;
     } else {
+      if (this.textEditorConfig == null) {
+        throw new Error('CaDocumentActionDetailMenu: missing textEditorConfig for a constellab document');
+      }
       const portalService = this.injector.get(FlPortalService);
       this.historyOverlayRef = portalService.createPortal(
         TeTextEditorHistoryPortalComponent,

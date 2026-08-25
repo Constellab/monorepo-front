@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
@@ -57,7 +57,7 @@ export class CaFolderUserConfigDialogComponent implements OnInit {
 
   userConfig: CaFolderUserConfig;
 
-  formGp = new FormBuilder().group({
+  formGp = new FormBuilder().nonNullable.group({
     folderNotif: [CaRootFolderNotifOptions.NONE, Validators.required],
     messageNotif: [CaRootFolderNotifOptions.NONE, Validators.required],
     scenarioNotif: [CaRootFolderNotifOptions.NONE, Validators.required],

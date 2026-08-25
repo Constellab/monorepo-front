@@ -59,7 +59,7 @@ export class CaHttpRefreshInterceptorService implements HttpInterceptor {
    * Other tabs are outside its reach, and there the stake is worse than a lost refresh - the API
    * drops the session outright. CaRefreshCoordinatorService covers that.
    */
-  private refreshInFlight: Observable<unknown> = null;
+  private refreshInFlight: Observable<unknown> | null = null;
 
   /**
    * Resolved lazily: CaAuthService depends on HttpClient, which depends on the interceptors.

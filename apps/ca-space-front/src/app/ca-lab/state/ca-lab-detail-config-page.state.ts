@@ -15,13 +15,13 @@ export class CaLabDetailConfigPageState implements OnDestroy {
   private state = inject(CaLabDetailPageState);
   private labService = inject(CaLabService);
 
-  private status$: BehaviorSubject<CaLabStatusDTO>;
+  private status$: BehaviorSubject<CaLabStatusDTO | null>;
 
   private subscriptions = new ClSubscriptionHandler();
 
   public init(): void {
     if (this.status$ != null) return; // already initialized
-    this.status$ = new BehaviorSubject<CaLabStatusDTO>(null);
+    this.status$ = new BehaviorSubject<CaLabStatusDTO | null>(null);
     // refresh status when the busy status changes
     this.subscriptions.add(
       this.state.getBusyStatus$().subscribe((busyStatus) => this.refreshStatus(busyStatus))
@@ -36,7 +36,7 @@ export class CaLabDetailConfigPageState implements OnDestroy {
   }
 
   public getStatus$(): Observable<CaLabStatusDTO> {
-    return this.status$.asObservable().pipe(filter((status) => status != null));
+    return this.status$.asObservable().pipe(filter((status): status is CaLabStatusDTO => status != null));
   }
 
   ngOnDestroy(): void {

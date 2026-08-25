@@ -50,7 +50,7 @@ export class CaTagService extends FlTagService implements OnDestroy {
       return this.availableTags.connect().pipe(
         map((tags) => {
           const keys = tags.map((tag) => tag.key);
-          return this.filterStrResult(keys, filters.key, 'key');
+          return this.filterStrResult(keys, filters.key ?? '', 'key');
         })
       );
     }
@@ -59,14 +59,14 @@ export class CaTagService extends FlTagService implements OnDestroy {
       map((tags) => {
         const matchingTag = tags.find((tag) => tag.key === filters.key);
         const values = matchingTag?.values.map((value) => value.toString()) ?? [];
-        return this.filterStrResult(values, filters.value, 'value');
+        return this.filterStrResult(values, filters.value ?? '', 'value');
       })
     );
   }
 
   searchCommunityTag(): Observable<ClPageI<FlTagSearchResult>> {
     // TODO: Implement community tag search for space if needed
-    return null;
+    throw new Error('searchCommunityTag not implemented in CaTagService');
   }
 
   /**

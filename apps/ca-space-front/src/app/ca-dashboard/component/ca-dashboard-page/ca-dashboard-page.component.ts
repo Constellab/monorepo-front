@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy,Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { MatRipple } from '@angular/material/core';
 import { MatIcon } from '@angular/material/icon';
 import { CoCommunityHelperService } from '@monorepo/community-lib';
@@ -60,7 +60,7 @@ export class CaDashboardPageComponent implements OnInit, OnDestroy {
   isSpaceUser = this.authenticatedUserService.isCurrentSpaceUser();
 
   currentSpace$: Observable<CaSpace> = this.currentSpaceService.getCurrentSpace$();
-  spaceUsers: CaUserDatasourcePaginated = this.isSpaceUser
+  spaceUsers: CaUserDatasourcePaginated | null = this.isSpaceUser
     ? this.currentSpaceService.getCurrentSpaceUsersDatasource()
     : null;
 

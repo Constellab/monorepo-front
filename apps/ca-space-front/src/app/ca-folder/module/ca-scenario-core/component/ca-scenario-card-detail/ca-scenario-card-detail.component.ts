@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, computed, inject, Injector, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, Injector, input } from '@angular/core';
 import { MatAnchor, MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
@@ -59,7 +59,8 @@ export class CaScenarioCardDetailComponent {
     scenarioActionMenu.openActionMenu(event, false).subscribe((action) => this.onScenarioAction(action));
   }
 
-  private onScenarioAction(event: CaScenarioActionEvent): void {
+  private onScenarioAction(event: CaScenarioActionEvent | null): void {
+    if (!event) return;
     if (this.eventState) {
       this.eventState.emitHierarchyObjectEvent(event);
     }

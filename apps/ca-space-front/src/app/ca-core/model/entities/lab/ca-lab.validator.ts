@@ -44,7 +44,7 @@ export class CaLabValidator {
   }
 
   public static differentBackupRegionValidator(): ValidatorFn {
-    return (control: UntypedFormGroup): { [key: string]: any } => {
+    return (control: UntypedFormGroup): ValidationErrors | null => {
       const value: CaLabAdminForm = control.value;
       if (!value) return null;
 

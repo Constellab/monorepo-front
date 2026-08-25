@@ -83,7 +83,7 @@ export class CaConstellabDocumentDetailComponent {
   getIsLoading: boolean = true;
 
   textEditorConfig: CaConstellabDocumentTextEditorConfig;
-  contentFormControl: FormControl<TeRichText> = new FormControl({ disabled: true, value: null });
+  contentFormControl: FormControl<TeRichText | null> = new FormControl({ disabled: true, value: null });
   saveDescriptionFunc: (value: TeRichText) => Observable<CaConstellabDocument>;
 
   constructor() {
@@ -146,7 +146,8 @@ export class CaConstellabDocumentDetailComponent {
     });
   }
 
-  private onDocumentAction(event: CaDocumentActionEvent): void {
+  private onDocumentAction(event: CaDocumentActionEvent | null): void {
+    if (!event) return;
     switch (event.action) {
       case 'update':
         this.document = event.document;

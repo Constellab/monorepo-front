@@ -46,7 +46,7 @@ export class CaChatWriteMessageComponent implements OnInit, OnDestroy {
 
   @Input({ required: true }) mode: 'create' | 'update';
 
-  @Input() messageContent: TeRichText;
+  @Input() messageContent: TeRichText | null;
 
   @Output() send = new EventEmitter<TeRichText>();
   @Output() cancelEdition = new EventEmitter<void>();

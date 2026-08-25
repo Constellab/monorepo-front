@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy,Component, inject, Injector } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Injector } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
@@ -121,7 +121,7 @@ export class CaFolderDetailActionsComponent {
     }
   }
 
-  private createChildSuccess(folder?: CaFolderWithHierarchy): void {
+  private createChildSuccess(folder: CaFolderWithHierarchy | null): void {
     if (folder) {
       this.eventState.emitCreateEvent(folder.hierarchyRepresentation, true);
     }

@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { ChangeDetectionStrategy,Component, inject, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
@@ -121,7 +121,7 @@ export class CaSpaceInvitTableComponent {
   }
 
   private onRefreshClosed(result: FlConfirmDialogResult<CaSpaceInvit>): void {
-    if (result.choice) {
+    if (result.choice && result.result) {
       this.datasource.updateItem(result.result);
     }
   }

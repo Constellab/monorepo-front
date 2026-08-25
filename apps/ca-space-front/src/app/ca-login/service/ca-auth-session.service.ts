@@ -49,10 +49,10 @@ export class CaAuthSessionService implements FlCleanableService {
    */
   private static readonly MAX_DELAY_MS: number = 2147483647;
 
-  private timer: ReturnType<typeof setTimeout> = null;
+  private timer: ReturnType<typeof setTimeout> | null = null;
 
   /** Last known access token lifetime, kept to re-arm the timer when a refresh was skipped. */
-  private lastExpiresIn: number = null;
+  private lastExpiresIn: number | null = null;
 
   /** Whether this page already knows what its session is - resumed or logged in. */
   private sessionResolved: boolean = false;
@@ -142,9 +142,9 @@ export class CaAuthSessionService implements FlCleanableService {
    * @param expiresIn access token lifetime in milliseconds. Null or zero keeps the last known one,
    * which is what a skipped refresh leaves behind.
    */
-  public schedule(expiresIn: number): void {
+  public schedule(expiresIn: number | null): void {
     this.sessionResolved = true;
-    if (expiresIn > 0) {
+    if (expiresIn != null && expiresIn > 0) {
       this.lastExpiresIn = expiresIn;
     }
 

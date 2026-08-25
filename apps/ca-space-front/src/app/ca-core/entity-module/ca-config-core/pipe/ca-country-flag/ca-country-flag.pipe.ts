@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
  */
 @Pipe({ name: 'caCountryFlag' })
 export class CaCountryFlagPipe implements PipeTransform {
-  transform(countryShortName: string): string {
+  transform(countryShortName: string): string | null {
     if (!countryShortName) return null;
 
     return `assets/icons/country-svg/${countryShortName}.svg`;

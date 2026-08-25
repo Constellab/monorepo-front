@@ -251,13 +251,13 @@ export class CaFolderActionService {
     folder?: CaFolder
   ): Observable<CaHierarchyObject | null> {
     if (folder) {
-      return this.actionService
-        .addAction({
-          type: this.moveFolderActionName,
-          action: this.hierarchyObjectService.moveToFolder(hierarchyObjectId, folder.id),
-          text: { text: 'moving_to_folder', translateText: true },
-        })
-        .pipe(
+      const action$ = this.actionService.addAction({
+        type: this.moveFolderActionName,
+        action: this.hierarchyObjectService.moveToFolder(hierarchyObjectId, folder.id),
+        text: { text: 'moving_to_folder', translateText: true },
+      });
+      if (action$) {
+        return action$.pipe(
           map((result) => {
             if (result.status === 'success') {
               return result.result;
@@ -266,6 +266,7 @@ export class CaFolderActionService {
             }
           })
         );
+      }
     }
     return of(null);
   }

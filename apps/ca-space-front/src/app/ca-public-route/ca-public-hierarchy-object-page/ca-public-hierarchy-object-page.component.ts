@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy,Component, inject, OnDestroy, OnInit, viewChild, ViewContainerRef } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  OnDestroy,
+  OnInit,
+  viewChild,
+  ViewContainerRef,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FlServerError } from '@monorepo/front-core-lib/fl-api';
 import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
@@ -40,7 +48,7 @@ export class CaPublicHierarchyObjectPageComponent implements OnInit, OnDestroy {
   error: string | null = null;
   hierarchyObject: CaHierarchyObject;
 
-  container = viewChild('container', { read: ViewContainerRef });
+  container = viewChild.required('container', { read: ViewContainerRef });
   ngOnInit(): void {
     this.route.params.subscribe((params) => this.init(params['token']));
   }

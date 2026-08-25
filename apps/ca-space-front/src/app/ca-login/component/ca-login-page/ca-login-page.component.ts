@@ -62,7 +62,7 @@ export class CaLoginPageComponent implements OnInit {
    * both through it, so the flow resumes whichever way the visitor got in.
    */
   onLoginSuccess(): void {
-    const returnUrl: string = this.authorizeReturnUrl();
+    const returnUrl: string | null = this.authorizeReturnUrl();
     if (returnUrl) {
       this.returnUrlService.resume(returnUrl);
     }

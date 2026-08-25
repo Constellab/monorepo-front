@@ -30,7 +30,7 @@ export class CaFolderDetailState implements OnDestroy {
 
   private id$: Observable<string>;
 
-  private folder$: BehaviorSubject<CaFolder>;
+  private folder$: BehaviorSubject<CaFolder | null>;
   private users$: FlArrayObs<CaUser>;
 
   private subscription: ClSubscriptionHandler = new ClSubscriptionHandler();
@@ -85,7 +85,9 @@ export class CaFolderDetailState implements OnDestroy {
   }
 
   public getFolder$(skipNull: boolean = true): Observable<CaFolder> {
-    return this.folder$.asObservable().pipe(filter((folder) => !skipNull || folder != null));
+    return this.folder$
+      .asObservable()
+      .pipe(filter((folder): folder is CaFolder => !skipNull || folder != null));
   }
 
   public isRootFolder$(): Observable<boolean> {

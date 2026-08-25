@@ -83,7 +83,7 @@ export class CaRefreshCoordinatorService {
    * API rejects one refresh without touching the session.
    */
   private withLock<T>(work: () => Observable<T | null>): Observable<T | null> {
-    const lockManager: LockManager = this.getLockManager();
+    const lockManager: LockManager | null = this.getLockManager();
     if (!lockManager) {
       return work();
     }
@@ -97,7 +97,7 @@ export class CaRefreshCoordinatorService {
     );
   }
 
-  private getLockManager(): LockManager {
+  private getLockManager(): LockManager | null {
     return typeof navigator !== 'undefined' && navigator.locks ? navigator.locks : null;
   }
 
@@ -121,7 +121,7 @@ export class CaRefreshCoordinatorService {
    * localStorage throws rather than returning null when it is disabled or full. Losing the shared
    * timestamp only costs a redundant refresh, so it must never break the renewal itself.
    */
-  private readStorage(key: string): string {
+  private readStorage(key: string): string | null {
     try {
       return localStorage.getItem(key);
     } catch {

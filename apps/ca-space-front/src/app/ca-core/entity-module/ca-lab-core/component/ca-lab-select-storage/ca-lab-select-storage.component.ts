@@ -1,5 +1,5 @@
 import { AsyncPipe, DecimalPipe } from '@angular/common';
-import { ChangeDetectionStrategy,Component, inject, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatMiniFabButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
@@ -48,19 +48,24 @@ export class CaLabSelectStorageComponent implements OnInit {
 
   public static createFormGp(): FormGroup<CaLabSelectVolumeForm> {
     return new FormBuilder().group({
-      storageSize: [100, [Validators.required, FlGlobalValidators.isInteger, Validators.min(100)]],
-      storagePrice: [0],
+      storageSize: new FormControl(100, {
+        nonNullable: true,
+        validators: [Validators.required, FlGlobalValidators.isInteger, Validators.min(100)],
+      }),
+      storagePrice: new FormControl(0, { nonNullable: true }),
     });
   }
 
   ngOnInit(): void {
     this.storagePrice$.subscribe((price) =>
-      this.formGp.get('storagePrice').patchValue(price.totalApproximatePrice)
+      this.formGp.get('storagePrice')?.patchValue(price.totalApproximatePrice)
     );
   }
 
   reduceStorageSize(): void {
-    let storagePrice = this.formGp.get('storageSize').value;
+    const storageSizeControl = this.formGp.get('storageSize');
+    if (storageSizeControl == null) return;
+    let storagePrice = storageSizeControl.value;
     if (storagePrice <= this.MIN_STORAGE_SIZE) {
       return;
     } else if (storagePrice <= 1000) {
@@ -68,11 +73,13 @@ export class CaLabSelectStorageComponent implements OnInit {
     } else {
       storagePrice -= 100;
     }
-    this.formGp.get('storageSize').setValue(storagePrice);
+    storageSizeControl.setValue(storagePrice);
   }
 
   increaseStorageSize(): void {
-    let storagePrice = this.formGp.get('storageSize').value;
+    const storageSizeControl = this.formGp.get('storageSize');
+    if (storageSizeControl == null) return;
+    let storagePrice = storageSizeControl.value;
     if (storagePrice >= this.MAX_STORAGE_SIZE) {
       return;
     } else if (storagePrice >= 1000) {
@@ -80,6 +87,6 @@ export class CaLabSelectStorageComponent implements OnInit {
     } else {
       storagePrice += 50;
     }
-    this.formGp.get('storageSize').setValue(storagePrice);
+    storageSizeControl.setValue(storagePrice);
   }
 }

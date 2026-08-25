@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent } from '@angular/material/dialog';
@@ -63,20 +63,21 @@ export class CaFolderConfigureStorageComponent
   }
 
   buildForm(): UntypedFormGroup {
+    const object = this.dialogInput.object;
+    if (object == null) {
+      throw new Error('CaFolderConfigureStorageComponent: missing object, this dialog is update-only');
+    }
     return new FormBuilder().group(
       {
-        mainStorage: [
-          { value: null, disabled: this.dialogInput.object.mainStorage != null },
-          Validators.required,
-        ],
-        backupStorage: [{ value: null, disabled: this.dialogInput.object.backupStorage != null }],
+        mainStorage: [{ value: null, disabled: object.mainStorage != null }, Validators.required],
+        backupStorage: [{ value: null, disabled: object.backupStorage != null }],
       },
       { validator: this.differentBackupStorageValidator() }
     );
   }
 
   create(): Observable<CaFolderStorageDTO> {
-    return undefined;
+    throw new Error('create not implemented in CaFolderConfigureStorageComponent, update-only dialog');
   }
 
   getCreateSuccessMessage(): string {
@@ -93,7 +94,7 @@ export class CaFolderConfigureStorageComponent
   }
 
   private differentBackupStorageValidator(): ValidatorFn {
-    return (control: UntypedFormGroup): { [key: string]: any } => {
+    return (control: UntypedFormGroup): { [key: string]: any } | null => {
       const value: CaFolderStorageDTO = control.value;
       if (value.mainStorage == null || value.backupStorage == null) return null;
 

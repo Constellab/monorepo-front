@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
-import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatOption } from '@angular/material/core';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
@@ -55,8 +55,11 @@ export class CaFolderShareDialogComponent {
   private folderService = inject(CaFolderService);
 
   formGp = new FormBuilder().group({
-    group: [null as CaGroup, Validators.required],
-    role: [CaRootFolderUserRole.USER as CaRootFolderUserRole, Validators.required],
+    group: [null as CaGroup | null, Validators.required],
+    role: new FormControl(CaRootFolderUserRole.USER, {
+      nonNullable: true,
+      validators: Validators.required,
+    }),
   });
 
   roles = CaRootFolderUserRole;
@@ -70,8 +73,11 @@ export class CaFolderShareDialogComponent {
   }
 
   private shareObject(): void {
-    this.isLoading = true;
     const value = this.formGp.getRawValue();
+    if (value.group == null) {
+      return;
+    }
+    this.isLoading = true;
     this.folderService.shareFolder(this.input.rootFolderId, value.group.id, value.role).subscribe({
       next: (result) => this.shareObjectSuccess(result),
       error: () => (this.isLoading = false),

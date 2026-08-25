@@ -43,7 +43,7 @@ export class CaExternalSpaceLinkDirective implements OnInit {
       );
     } else {
       // in dev no link, it is handled by the click event
-      this.elementRef.nativeElement.href = null;
+      this.elementRef.nativeElement.removeAttribute('href');
     }
   }
 }

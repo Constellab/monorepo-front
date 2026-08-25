@@ -23,19 +23,21 @@ type CaObjectType = 'folder' | 'scenario' | 'note' | 'lab' | 'group' | 'document
  */
 @Pipe({ name: 'caDetailRoute' })
 export class CaDetailRoutePipe implements PipeTransform {
-  transform(value: string, objectType?: CaObjectType): string;
-  transform(value: CaEntity): string;
-  transform(value: string | CaEntity, objectType?: CaObjectType): string {
-    let id: string;
+  transform(value: string, objectType?: CaObjectType): string | null;
+  transform(value: CaEntity): string | null;
+  transform(value: string | CaEntity, objectType?: CaObjectType): string | null {
+    let resolvedType: CaObjectType | null;
+    let id: string | null;
     if (objectType == null) {
-      [objectType, id] = this.getObjectType(value);
+      [resolvedType, id] = this.getObjectType(value);
     } else {
+      resolvedType = objectType;
       id = value as string;
     }
 
-    if (objectType == null) return null;
+    if (resolvedType == null || id == null) return null;
 
-    switch (objectType) {
+    switch (resolvedType) {
       case 'folder':
         return CaRouterService.getFolderDetailRoute(id);
       case 'scenario':
@@ -53,12 +55,12 @@ export class CaDetailRoutePipe implements PipeTransform {
       case 'resource':
         return CaRouterService.getResourceDetailRoute(id);
       default:
-        console.error(`[caDetailRoute] object type ${objectType} not supported`);
+        console.error(`[caDetailRoute] object type ${resolvedType} not supported`);
         return null;
     }
   }
 
-  private getObjectType(obj: any): [CaObjectType, string] {
+  private getObjectType(obj: any): [CaObjectType | null, string | null] {
     if (obj instanceof CaHierarchyObject) {
       return this.getObjectTypeFromHierarchyObject(obj);
     } else if (obj instanceof CaFolder) {
@@ -88,7 +90,9 @@ export class CaDetailRoutePipe implements PipeTransform {
     }
   }
 
-  private getObjectTypeFromHierarchyObject(hierarchyObject: CaHierarchyObject): [CaObjectType, string] {
+  private getObjectTypeFromHierarchyObject(
+    hierarchyObject: CaHierarchyObject
+  ): [CaObjectType | null, string | null] {
     switch (hierarchyObject.objectType) {
       case 'FOLDER':
         return ['folder', hierarchyObject.id];

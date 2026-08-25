@@ -23,7 +23,7 @@ export class CaNotificationMarkDirective implements OnInit, OnDestroy {
    * if > 0, check the associated object and the first n objects
    * if < 0, check all the associated objects
    */
-  @Input() caNotificationAssociatedObjectIds: number = null;
+  @Input() caNotificationAssociatedObjectIds: number | null = null;
 
   @Input() caNotificationMarkDisabled: boolean = false;
 
@@ -45,7 +45,7 @@ export class CaNotificationMarkDirective implements OnInit, OnDestroy {
         const options: CaNotificationStateFind = {
           objectId: objectId,
           objectType: this.caNotificationObjectType,
-          checkAssociatedObjects: this.caNotificationAssociatedObjectIds,
+          checkAssociatedObjects: this.caNotificationAssociatedObjectIds ?? undefined,
         };
 
         // if we include parent object, this means the directive is placed on a parent object

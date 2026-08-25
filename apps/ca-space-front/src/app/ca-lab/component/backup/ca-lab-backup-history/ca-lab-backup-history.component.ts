@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy,Component, inject, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input, OnInit } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
@@ -79,7 +79,7 @@ export class CaLabBackupHistoryComponent implements OnInit {
   }
 
   private onBackupProdClosed(result: FlConfirmDialogResult<CaLabBackupHistory[]>): void {
-    if (result.choice) {
+    if (result.choice && result.result != null) {
       this.datasource.addItem(result.result, () => true);
     }
   }
@@ -99,7 +99,7 @@ export class CaLabBackupHistoryComponent implements OnInit {
   }
 
   private onStopCurrentBackupClosed(result: FlConfirmDialogResult<CaLabBackupHistory[]>): void {
-    if (result.choice) {
+    if (result.choice && result.result != null) {
       this.datasource.updateItem(result.result);
     }
   }

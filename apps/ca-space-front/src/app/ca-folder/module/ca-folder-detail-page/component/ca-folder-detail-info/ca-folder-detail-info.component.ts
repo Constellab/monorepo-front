@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -44,7 +44,7 @@ export class CaFolderDetailInfoComponent {
       .subscribe((folder) => this.updateDialogClosed(folder));
   }
 
-  private updateDialogClosed(folder?: CaFolderWithHierarchy): void {
+  private updateDialogClosed(folder: CaFolderWithHierarchy | null): void {
     if (folder) {
       this.eventState.emitFolderUpdate(folder);
     }

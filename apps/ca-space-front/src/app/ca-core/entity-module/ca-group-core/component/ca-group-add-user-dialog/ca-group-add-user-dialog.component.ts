@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
@@ -50,7 +50,7 @@ export class CaGroupAddUserDialogComponent implements OnInit {
   private dialogRef = inject<MatDialogRef<CaGroupAddUserDialogComponent>>(MatDialogRef);
   private snackBarService = inject(FlSnackBarService);
 
-  formControl: FormControl<CaUser>;
+  formControl: FormControl<CaUser | null>;
 
   isLoading: boolean = false;
 
@@ -59,11 +59,11 @@ export class CaGroupAddUserDialogComponent implements OnInit {
   constructor() {
     const input = this.input;
 
-    this.selectUserMode = input.selectUserMode;
+    this.selectUserMode = input.selectUserMode ?? 'space';
   }
 
   ngOnInit(): void {
-    this.formControl = new FormControl<CaUser>(null, Validators.required);
+    this.formControl = new FormControl<CaUser | null>(null, Validators.required);
   }
 
   get title(): string {
@@ -71,7 +71,7 @@ export class CaGroupAddUserDialogComponent implements OnInit {
   }
 
   submit(): void {
-    if (this.formControl.valid && !this.isLoading) {
+    if (this.formControl.valid && !this.isLoading && this.formControl.value != null) {
       this.addUserToSpace(this.formControl.value.id);
     }
   }

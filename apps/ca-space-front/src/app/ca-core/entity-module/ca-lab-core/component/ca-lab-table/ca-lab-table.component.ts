@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
@@ -93,7 +93,6 @@ export class CaLabTableComponent {
   openUpdateDialog(lab: CaLabWithSpace): void {
     const dialogInput: CaLabAdminFormDialogInput = {
       mode: 'update',
-      object: null,
       id: lab.id,
     };
 

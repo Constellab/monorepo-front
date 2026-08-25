@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatDatepicker, MatDatepickerInput, MatDatepickerToggle } from '@angular/material/datepicker';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
@@ -52,8 +52,8 @@ export class CaLabFreeFormDialogComponent {
   private dialogRef = inject<MatDialogRef<CaLabFreeFormDialogComponent>>(MatDialogRef);
 
   formGp = new FormBuilder().group({
-    usageLimitInHours: [0 as number, Validators.required],
-    expirationDate: [null as DateTime],
+    usageLimitInHours: new FormControl(0, { nonNullable: true, validators: Validators.required }),
+    expirationDate: [null as DateTime | null, Validators.required],
   });
 
   isLoading: boolean = false;
@@ -66,8 +66,12 @@ export class CaLabFreeFormDialogComponent {
   }
 
   submit(): void {
-    if (this.formGp.value && !this.isLoading) {
-      this.updateFreeLab(this.formGp.getRawValue());
+    const value = this.formGp.getRawValue();
+    if (this.formGp.value && !this.isLoading && value.expirationDate != null) {
+      this.updateFreeLab({
+        usageLimitInHours: value.usageLimitInHours,
+        expirationDate: value.expirationDate,
+      });
     }
   }
 

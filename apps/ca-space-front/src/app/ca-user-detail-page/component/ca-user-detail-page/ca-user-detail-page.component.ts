@@ -51,7 +51,7 @@ export class CaUserDetailPageComponent implements OnInit {
   private spaceService = inject(CaSpaceService);
   private dialogService = inject(FlDialogService);
 
-  user$: Observable<CaUser>;
+  user$: Observable<CaUser | null>;
 
   id: string;
   isCurrentUser: boolean = false;

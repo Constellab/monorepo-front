@@ -139,18 +139,20 @@ export class CaNotificationState implements OnDestroy {
     }
 
     if (options.objectId) {
-      if (options.checkAssociatedObjects != null) {
+      const objectId = options.objectId;
+      const checkAssociatedObjects = options.checkAssociatedObjects;
+      if (checkAssociatedObjects != null) {
         return notifications.filter((notif) => {
           const parentObjectIds = notif.associatedObjectIds ?? [];
           const limit =
-            options.checkAssociatedObjects < 0
+            checkAssociatedObjects < 0
               ? parentObjectIds.length
-              : Math.min(options.checkAssociatedObjects, parentObjectIds.length);
+              : Math.min(checkAssociatedObjects, parentObjectIds.length);
           const limitParents = parentObjectIds.slice(0, limit);
-          return notif.objectId === options.objectId || limitParents.includes(options.objectId);
+          return notif.objectId === objectId || limitParents.includes(objectId);
         });
       } else {
-        return notifications.filter((notif) => notif.objectId === options.objectId);
+        return notifications.filter((notif) => notif.objectId === objectId);
       }
     }
     return notifications;

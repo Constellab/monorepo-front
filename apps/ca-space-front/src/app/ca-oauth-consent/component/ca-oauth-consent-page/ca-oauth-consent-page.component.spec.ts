@@ -88,8 +88,8 @@ describe('CaOauthConsentPageComponent', () => {
 
       expect(consentServiceSpy.getDetails).toHaveBeenCalledWith(CONSENT_ID);
       expect(page.status()).toBe('READY');
-      expect(page.details().clientName).toBe('Some AI client');
-      expect(page.details().resources).toHaveLength(1);
+      expect(page.details()?.clientName).toBe('Some AI client');
+      expect(page.details()?.resources).toHaveLength(1);
     });
 
     it('should grant nothing by being opened', () => {

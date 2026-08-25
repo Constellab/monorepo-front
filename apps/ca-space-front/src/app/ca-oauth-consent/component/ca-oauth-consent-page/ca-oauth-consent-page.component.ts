@@ -58,13 +58,13 @@ export class CaOauthConsentPageComponent implements OnInit {
   logo: string = this.themeService.getConstellabLogo();
 
   status: WritableSignal<CaOauthConsentStatus> = signal('LOADING');
-  details: WritableSignal<CaOauthConsentDetails> = signal(null);
+  details: WritableSignal<CaOauthConsentDetails | null> = signal(null);
 
   /** Set when an answer could not be sent, so the decision screen can say so and be tried again. */
   decisionFailed: WritableSignal<boolean> = signal(false);
 
   /** The pending authorization this page is about. Opaque: kept as given, parsed by nobody here. */
-  private consentId: string = null;
+  private consentId: string | null = null;
 
   ngOnInit(): void {
     this.consentId = this.route.snapshot.queryParamMap.get(CaOauthConsentService.CONSENT_ID_QUERY_PARAM);
@@ -102,6 +102,13 @@ export class CaOauthConsentPageComponent implements OnInit {
   }
 
   private loadDetails(): void {
+    // defensive: only called after ngOnInit's guard (or from a screen shown after it), but never
+    // load a details request for a flow we cannot name
+    if (!this.consentId) {
+      this.status.set('INVALID_LINK');
+      return;
+    }
+
     this.status.set('LOADING');
     this.decisionFailed.set(false);
 
@@ -128,9 +135,9 @@ export class CaOauthConsentPageComponent implements OnInit {
    * an access token that had merely expired, so nothing that could be recovered reaches this point.
    */
   private onDetailsError(error: FlServerError): void {
-    const httpStatus: number = error?.response?.status;
+    const httpStatus: number | undefined = error?.response?.status;
 
-    if (httpStatus === 401) {
+    if (httpStatus === 401 && this.consentId) {
       this.consentService.goToLogin(this.consentId);
       return;
     }
@@ -164,7 +171,7 @@ export class CaOauthConsentPageComponent implements OnInit {
   }
 
   private onDecisionError(error: FlServerError): void {
-    if (error?.response?.status === 401) {
+    if (error?.response?.status === 401 && this.consentId) {
       this.consentService.goToLogin(this.consentId);
       return;
     }

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RvResourceView } from '@monorepo/resource-view';
 import { RvResourceViewModule } from '@monorepo/resource-view';
 import { TeElementBlockDirective } from '@monorepo/text-editor';
@@ -19,7 +19,7 @@ export class CaNoteContentViewComponent extends TeElementBlockDirective {
 
   view$: Observable<RvResourceView>;
 
-  resourceId: string;
+  resourceId: string | undefined;
   viewTitle: string;
   caption: string;
 

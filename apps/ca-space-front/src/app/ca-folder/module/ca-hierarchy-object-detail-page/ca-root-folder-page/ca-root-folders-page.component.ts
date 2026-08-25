@@ -81,7 +81,7 @@ export class CaRootFoldersPageComponent implements OnInit {
       .subscribe((folders) => this.onCreateFolderClosed(folders));
   }
 
-  private onCreateFolderClosed(folder?: CaFolderWithHierarchy): void {
+  private onCreateFolderClosed(folder: CaFolderWithHierarchy | null): void {
     if (folder) {
       this.state.addFoldersInTree([folder.hierarchyRepresentation]);
       this.children.addItem(folder.hierarchyRepresentation, () => true);

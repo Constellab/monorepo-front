@@ -38,7 +38,7 @@ export class CaDocument extends CaBaseEntity {
 
   public static supportsPreview(documentName: string): boolean {
     const extension = FlFileHelper.getFileExtension(documentName);
-    return ['doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx'].includes(extension);
+    return extension != null && ['doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx'].includes(extension);
   }
 }
 

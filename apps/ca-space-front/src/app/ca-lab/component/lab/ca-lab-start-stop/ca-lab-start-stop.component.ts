@@ -61,7 +61,7 @@ export class CaLabStartStopComponent {
   }
 
   private onLabUpdate(result: FlConfirmDialogResult<CaLab>): void {
-    if (!result.choice) return;
+    if (!result.choice || result.result == null) return;
     let successText: string;
     if (result.result.currentStatus.status.value === 'SERVER_STARTING') {
       successText = 'lab_is_starting';
@@ -74,9 +74,7 @@ export class CaLabStartStopComponent {
     }
 
     this.snackBarService.openSuccessMessage({ text: successText, translateText: true });
-    if (result.result) {
-      this.state.updateLab(result.result);
-    }
+    this.state.updateLab(result.result);
   }
 
   stopLab(): void {

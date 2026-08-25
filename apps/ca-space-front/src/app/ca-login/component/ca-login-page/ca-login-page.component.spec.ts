@@ -26,7 +26,7 @@ describe('CaLoginPageComponent', () => {
    * @param safeReturnUrl what CaOauthReturnUrlService makes of the params - null when there is
    * nothing safe to honour, which covers both an ordinary login and a refused url.
    */
-  function buildPage(queryParams: Params = {}, safeReturnUrl: string = null): CaLoginPageComponent {
+  function buildPage(queryParams: Params = {}, safeReturnUrl: string | null = null): CaLoginPageComponent {
     returnUrlServiceSpy = {
       getSafeAuthorizeReturnUrl: vi.fn().mockReturnValue(safeReturnUrl),
       resume: vi.fn(),

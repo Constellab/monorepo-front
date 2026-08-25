@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatOption } from '@angular/material/core';
@@ -60,7 +60,7 @@ export class CaSpaceInvitFormDialogComponent {
   private snackBarService = inject(FlSnackBarService);
 
   formGp = new FormBuilder().group({
-    userMail: [null as string, [Validators.required, Validators.email]],
+    userMail: [null as string | null, [Validators.required, Validators.email]],
     role: [CaSpaceRole.USER as CaSpaceRole, Validators.required],
   });
   spaceType: CaSpaceType;
@@ -77,7 +77,9 @@ export class CaSpaceInvitFormDialogComponent {
 
   submit(): void {
     if (this.formGp.valid && !this.isLoading) {
-      this.createInvitation(this.formGp.getRawValue());
+      // form.valid guarantees userMail and role are set (both required), the form's null-until-filled
+      // typing does not narrow on it
+      this.createInvitation(this.formGp.getRawValue() as CaSpaceInvitCreateDTO);
     }
   }
 

@@ -7,10 +7,10 @@ import { CaSpaceService } from '../../../service-api/ca-space.service';
 export class CaSpacePhotoPipe implements PipeTransform {
   private spaceService = inject(CaSpaceService);
 
-  transform(value: CaSpace | string): string {
+  transform(value: CaSpace | string): string | null {
     if (!value) return null;
 
-    let photo: string;
+    let photo: string | null;
     if (typeof value === 'string') {
       photo = value;
     } else {

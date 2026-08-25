@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy,Component, inject, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input, OnInit } from '@angular/core';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -18,9 +18,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import {
-  CaSpacePhotoComponent
-} from '../../../../ca-core/entity-module/ca-space-core/component/ca-space-photo/ca-space-photo.component';
+import { CaSpacePhotoComponent } from '../../../../ca-core/entity-module/ca-space-core/component/ca-space-photo/ca-space-photo.component';
 import { CaSpace } from '../../../../ca-core/model/entities/space/ca-space.class';
 import { CaSpaceSettingsDto } from '../../../../ca-core/model/entities/space/ca-space.dto';
 import { CaIsSpaceAdminDirective } from '../../../../ca-core/module/ca-core-directive/ca-is-space-admlin/ca-is-space-admin.directive';
@@ -63,7 +61,7 @@ export class CaCurrentSpaceDetailComponent implements OnInit {
   @Input() spaceSettings: CaSpaceSettingsDto;
 
   space$: Observable<CaSpace>;
-  spaceImage$: Observable<string>;
+  spaceImage$: Observable<string | null>;
   imageConfig$: Observable<FlUploadImageDialogConfig>;
   deleteImageConfig: Observable<FlConfirmDialogInput>;
 

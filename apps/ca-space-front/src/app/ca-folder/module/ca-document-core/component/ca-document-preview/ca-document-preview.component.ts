@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, Injector, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Injector, input } from '@angular/core';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -75,7 +75,8 @@ export class CaDocumentPreviewComponent {
     documentMenu.openDetailActionsMenu(event).subscribe((event) => this.onDocumentEvent(event));
   }
 
-  private onDocumentEvent(event: CaDocumentActionEvent): void {
+  private onDocumentEvent(event: CaDocumentActionEvent | null): void {
+    if (!event) return;
     if (this.eventState) {
       this.eventState.emitDocumentEvent(event);
     }

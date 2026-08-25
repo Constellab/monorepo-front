@@ -88,7 +88,7 @@ export class CaLabFoldersListComponent implements OnInit {
           action: this.labFolderService.addFolderToLab(this.labId, folder.id),
           text: { text: 'adding_lab_folder', translateText: true },
         })
-        .subscribe((result) => this.onActionFinished(result));
+        ?.subscribe((result) => this.onActionFinished(result));
     }
   }
 

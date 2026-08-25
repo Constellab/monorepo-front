@@ -69,8 +69,8 @@ export class CaSignupToSpacePageComponent implements OnInit {
 
   private getInvitationSuccess(invitation: CaSpaceInvitReadDTO): void {
     this.signupFormGp = FlSignupFormComponent.buildFormGroup();
-    this.signupFormGp.get('email').setValue(invitation.invitation.userMail);
-    this.signupFormGp.get('email').disable();
+    this.signupFormGp.get('email')?.setValue(invitation.invitation.userMail);
+    this.signupFormGp.get('email')?.disable();
   }
 
   signupSubmit(): void {
@@ -97,7 +97,7 @@ export class CaSignupToSpacePageComponent implements OnInit {
       });
   }
 
-  private generateCaptcha(): Observable<string> {
+  private generateCaptcha(): Observable<string | null> {
     return this.captchaService.executeCaptcha('signup');
   }
 

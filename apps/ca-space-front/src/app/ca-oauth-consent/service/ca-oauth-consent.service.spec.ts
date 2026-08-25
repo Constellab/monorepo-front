@@ -67,7 +67,7 @@ describe('CaOauthConsentService', () => {
           provide: FlApiServiceConfig,
           useValue: {
             getApiUrl: (): string => `${API_URL}/`,
-            getHeaders: (): Record<string, string> => undefined,
+            getHeaders: (): Record<string, string> => ({}),
           },
         },
         {
@@ -95,11 +95,14 @@ describe('CaOauthConsentService', () => {
 
   describe('getDetails', () => {
     it('should ask the authorization server what the client is requesting', () => {
-      let details: CaOauthConsentDetails = null;
+      let details: CaOauthConsentDetails | null | undefined;
       service.getDetails(CONSENT_ID).subscribe((result) => (details = result));
 
       httpMock.expectOne(DETAILS_URL).flush(detailsResponse());
 
+      if (details == null) {
+        throw new Error('getDetails did not resolve synchronously');
+      }
       expect(details).toBeInstanceOf(CaOauthConsentDetails);
       expect(details.clientName).toBe('Some AI client');
       expect(details.clientId).toBe('e068a0e3');
@@ -109,7 +112,7 @@ describe('CaOauthConsentService', () => {
     });
 
     it('should read every requested resource, so none can be granted unseen', () => {
-      let details: CaOauthConsentDetails = null;
+      let details: CaOauthConsentDetails | null | undefined;
       const response = detailsResponse();
       response.resources = [
         { name: 'Your Spaces', url: `${API_URL}/mcp/space` },
@@ -119,6 +122,9 @@ describe('CaOauthConsentService', () => {
 
       httpMock.expectOne(DETAILS_URL).flush(response);
 
+      if (details == null) {
+        throw new Error('getDetails did not resolve synchronously');
+      }
       expect(details.resources).toHaveLength(2);
       expect(details.resources[0].name).toBe('Your Spaces');
       expect(details.resources[0].url).toBe(`${API_URL}/mcp/space`);
@@ -127,12 +133,15 @@ describe('CaOauthConsentService', () => {
 
     it('should hand the failure to the caller with its status, and no snackbar', () => {
       // the page turns each status into its own screen, a toast on top would only repeat it worse
-      let error: FlServerError = null;
+      let error: FlServerError | null | undefined;
       service.getDetails(CONSENT_ID).subscribe({ error: (result: FlServerError) => (error = result) });
 
       httpMock.expectOne(DETAILS_URL).flush(null, { status: 404, statusText: 'Not Found' });
 
-      expect(error.response.status).toBe(404);
+      if (error == null) {
+        throw new Error('getDetails did not error synchronously');
+      }
+      expect(error.response?.status).toBe(404);
     });
 
     it('should ask for nothing but a description', () => {
@@ -169,7 +178,7 @@ describe('CaOauthConsentService', () => {
 
     it('should not leave the page when the answer carries no token', () => {
       // leaving for the api without one drops the visitor on an error page with their decision lost
-      let error: FlServerError = null;
+      let error: FlServerError | null = null;
       service.decide(CONSENT_ID, 'allow').subscribe({ error: (result: FlServerError) => (error = result) });
 
       httpMock.expectOne(TOKEN_URL).flush({});
@@ -180,13 +189,16 @@ describe('CaOauthConsentService', () => {
 
     it('should not leave the page when the token could not be minted', () => {
       // there is nothing to send without it, and the page has to stay to say so
-      let error: FlServerError = null;
+      let error: FlServerError | null | undefined;
       service.decide(CONSENT_ID, 'allow').subscribe({ error: (result: FlServerError) => (error = result) });
 
       httpMock.expectOne(TOKEN_URL).flush(null, { status: 500, statusText: 'Server Error' });
 
       expect(assign).not.toHaveBeenCalled();
-      expect(error.response.status).toBe(500);
+      if (error == null) {
+        throw new Error('decide did not error synchronously');
+      }
+      expect(error.response?.status).toBe(500);
     });
   });
 

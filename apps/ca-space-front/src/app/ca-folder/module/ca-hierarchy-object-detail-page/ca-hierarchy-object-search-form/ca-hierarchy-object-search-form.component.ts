@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy,Component, computed, inject, input, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { MatOption } from '@angular/material/core';
 import { MatFormField, MatLabel, MatPrefix } from '@angular/material/form-field';
@@ -9,7 +17,7 @@ import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { FlSearchState } from '@monorepo/front-core-lib/fl-search';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import { TranslatePipe } from '@ngx-translate/core';
-import { debounceTime, merge, Observable, Subscription } from 'rxjs';
+import { debounceTime, EMPTY, merge, Observable, Subscription } from 'rxjs';
 
 import { CaHierarchyObjectIconComponent } from '../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-icon/ca-hierarchy-object-icon.component';
 import { CaUserListInlineComponent } from '../../../../ca-core/entity-module/ca-user-core/component/ca-user-list-inline/ca-user-list-inline.component';
@@ -84,8 +92,8 @@ export class CaHierarchyObjectSearchFormComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.formGp = this.searchState.advancedSearchFormGroup;
     this.subscription = merge(
-      this.formGp.get('objectType').valueChanges,
-      this.formGp.get('users').valueChanges
+      this.formGp.get('objectType')?.valueChanges ?? EMPTY,
+      this.formGp.get('users')?.valueChanges ?? EMPTY
     )
       .pipe(debounceTime(300))
       .subscribe(() => this.submit());
@@ -105,11 +113,11 @@ export class CaHierarchyObjectSearchFormComponent implements OnInit, OnDestroy {
   }
 
   typeIsSelected(): boolean {
-    return !!this.formGp.get('objectType').value;
+    return !!this.formGp.get('objectType')?.value;
   }
 
-  getSelectedTypeLabel(): CaHierarchyObjectInfo {
-    const value = this.formGp.get('objectType').value;
+  getSelectedTypeLabel(): CaHierarchyObjectInfo | null {
+    const value = this.formGp.get('objectType')?.value;
     return value ? (this.objectTypes as any)[value] : null;
   }
 

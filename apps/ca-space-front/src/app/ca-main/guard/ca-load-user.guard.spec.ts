@@ -31,10 +31,13 @@ describe('CaLoadUserGuard', () => {
 
   /** activate the route and report what the guard answered */
   function activate(): boolean | UrlTree {
-    let result: boolean | UrlTree;
+    let result: boolean | UrlTree | undefined;
     (guard.canActivate() as Observable<boolean | UrlTree>).subscribe(
       (value: boolean | UrlTree) => (result = value)
     );
+    if (result === undefined) {
+      throw new Error('canActivate observable did not resolve synchronously');
+    }
     return result;
   }
 

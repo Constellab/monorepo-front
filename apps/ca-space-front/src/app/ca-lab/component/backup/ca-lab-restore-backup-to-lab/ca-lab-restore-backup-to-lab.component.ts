@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatCheckbox } from '@angular/material/checkbox';
@@ -55,10 +55,10 @@ export class CaLabRestoreBackupToLabComponent {
   data: CaLabRestoreBackupToLabDialogInput = inject(MAT_DIALOG_DATA);
 
   formGp = this.formBuilder.group({
-    destinationLab: [null as CaLab, Validators.required],
-    restoreDb: [true],
-    restoreData: [true],
-    force: [false],
+    destinationLab: this.formBuilder.control<CaLab | null>(null, Validators.required),
+    restoreDb: this.formBuilder.control(true, { nonNullable: true }),
+    restoreData: this.formBuilder.control(true, { nonNullable: true }),
+    force: this.formBuilder.control(false, { nonNullable: true }),
   });
 
   isLoading: boolean = false;
@@ -71,7 +71,13 @@ export class CaLabRestoreBackupToLabComponent {
 
   private restoreBackup(): void {
     this.isLoading = true;
-    const formValue = this.formGp.value;
+    const formValue = this.formGp.getRawValue();
+    if (formValue.destinationLab == null) return;
+    // the dialog is only opened from a row that has a successful backup (see
+    // ca-lab-backup-status-table.component.html `@if (row.lastSuccessBackupId)`)
+    if (this.data.backupStatus.lastSuccessBackupId == null) {
+      throw new Error('CaLabRestoreBackupToLabComponent: missing lastSuccessBackupId');
+    }
     const configDTO: CaLabManagerRestoreBackupConfigDTO = {
       restoreDb: formValue.restoreDb,
       restoreData: formValue.restoreData,

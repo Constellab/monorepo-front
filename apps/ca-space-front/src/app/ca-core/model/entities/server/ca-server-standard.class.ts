@@ -17,7 +17,7 @@ export interface CaServerStandardSaveDTO {
   name: string;
   description: string;
   technicalDescription: string;
-  price: number; // only for create mode
+  price?: number | null; // only for create mode
 }
 
 /**

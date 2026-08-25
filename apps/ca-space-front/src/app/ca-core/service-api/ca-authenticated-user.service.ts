@@ -31,9 +31,9 @@ export class CaAuthenticatedUserService implements FlCleanableService {
 
   private readonly currentUserRoute: string = 'users/current';
 
-  private userAuthenticated: CaUser;
+  private userAuthenticated: CaUser | null = null;
   // subject to subscribe to user changes
-  private userSubject: BehaviorSubject<CaUser> = new BehaviorSubject<CaUser>(null);
+  private userSubject: BehaviorSubject<CaUser | null> = new BehaviorSubject<CaUser | null>(null);
 
   constructor() {
     FlCleanerService.getInstance().registerService(this);
@@ -70,28 +70,28 @@ export class CaAuthenticatedUserService implements FlCleanableService {
 
   public getCurrentUser(): CaUser {
     if (this.userAuthenticated == null) {
-      console.error('The user is not loaded yet');
-      return null;
+      throw new Error('The user is not loaded yet');
     }
     return this.userAuthenticated;
   }
 
-  public getUser$(): Observable<CaUser> {
+  public getUser$(): Observable<CaUser | null> {
     return this.userSubject.asObservable();
   }
 
   private storeCurrentAuthenticatedInfo(spaceInfo: CaSpaceInfoDto): CaSpaceInfoDto {
-    if (CaEnvironmentHelper.isProduction()) {
+    if (CaEnvironmentHelper.isProduction() && this.document.defaultView != null) {
       // if the website space domain does not correspond to the user space domain
       // redirect to the website space domain
-      const hostname = this.document.defaultView.location.hostname;
+      const defaultView = this.document.defaultView;
+      const hostname = defaultView.location.hostname;
       const domains = hostname.split('.');
 
       const spaceInfoUrl = `https://${spaceInfo.space.domain}.${CaEnvironmentHelper.getFrontDomain()}`;
       // if there is no subdomain, redirect to user space domain with the full route
       if (domains.length === 2) {
         // redirect to the space domain, keep the route.
-        this.document.defaultView.location.href = `${spaceInfoUrl}${this.location.path(true)}`;
+        defaultView.location.href = `${spaceInfoUrl}${this.location.path(true)}`;
         // throw an error so the guard does not navigate to the page
         throw new Error('Redirect to the space domain');
       } else {
@@ -99,7 +99,7 @@ export class CaAuthenticatedUserService implements FlCleanableService {
         if (domains[0] !== spaceInfo.space.domain) {
           // redirect to the space domain dashboard (remove the route) so he does not ends up
           // in an object not accessible in the new space
-          this.document.defaultView.location.href = `${spaceInfoUrl}`;
+          defaultView.location.href = `${spaceInfoUrl}`;
           // throw an error so the guard does not navigate to the page
           throw new Error('Redirect to the space domain');
         }
@@ -153,8 +153,10 @@ export class CaAuthenticatedUserService implements FlCleanableService {
   }
 
   private changeThemeSuccess(theme: ClTheme): void {
-    this.userAuthenticated.theme = theme;
-    this.notifyUserChange();
+    if (this.userAuthenticated) {
+      this.userAuthenticated.theme = theme;
+      this.notifyUserChange();
+    }
   }
 
   public uploadPhoto(file: File): Observable<CaUser> {

@@ -1,10 +1,11 @@
-import { ChangeDetectionStrategy,Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import {
   AbstractControlOptions,
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
   UntypedFormGroup,
+  ValidationErrors,
   ValidatorFn,
   Validators,
 } from '@angular/forms';
@@ -52,7 +53,7 @@ export class CaSpaceStorageFormComponent {
   }
 
   private static differentFolderStorageValidator(): ValidatorFn {
-    return (control: UntypedFormGroup): { [key: string]: any } => {
+    return (control: UntypedFormGroup): ValidationErrors | null => {
       const value: CaSpaceUpdateStorageLocationDTO = control.value;
       if (value.defaultFolderStorageLocation == null || value.defaultFolderBackupStorageLocation == null)
         return null;

@@ -94,12 +94,12 @@ export class CaAuthService extends FlAuthService {
    * that. The marker tracks the session, not the token, so it deliberately ignores this value: see
    * SESSION_MARKER_DURATION_MS.
    */
-  public afterLogin(expiresIn: number): void {
+  public afterLogin(expiresIn: number | undefined): void {
     this.storeAuthExpirationCookie(
       CaAuthService.SESSION_MARKER_DURATION_MS,
       CaEnvironmentHelper.getFrontDomain()
     );
-    this.sessionService.schedule(expiresIn);
+    this.sessionService.schedule(expiresIn ?? null);
   }
 
   /**

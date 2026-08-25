@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent } from '@angular/material/dialog';
@@ -64,7 +64,7 @@ export class CaUserProfileEditDialogComponent
   }
 
   create(): Observable<CaUser> {
-    return undefined;
+    throw new Error('create not implemented in CaUserProfileEditDialogComponent: update only');
   }
 
   getCreateSuccessMessage(): string {

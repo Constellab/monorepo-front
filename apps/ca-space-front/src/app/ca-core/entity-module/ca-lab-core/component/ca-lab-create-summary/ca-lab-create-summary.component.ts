@@ -1,5 +1,5 @@
 import { AsyncPipe, DecimalPipe } from '@angular/common';
-import { ChangeDetectionStrategy,Component, inject, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatDivider } from '@angular/material/divider';
 import { MatIcon } from '@angular/material/icon';
@@ -52,14 +52,14 @@ export class CaLabCreateSummaryComponent implements OnInit {
 
   private serverService = inject(CaServerService);
 
-  serverPrice$: Observable<number>;
+  serverPrice$: Observable<number | null>;
 
   serverRunningSimulation$: Observable<CaLabServerPriceEstimation[]>;
 
   backupApproximateRatio = CaStoragePrice.backupApproximateRatio * 100;
 
   ngOnInit(): void {
-    this.serverPrice$ = this.server.get('standardServer').valueChanges.pipe(
+    this.serverPrice$ = (this.server.get('standardServer')?.valueChanges ?? of(null)).pipe(
       switchMap((serverStandard) => {
         if (!serverStandard) {
           return of(null);
@@ -71,7 +71,9 @@ export class CaLabCreateSummaryComponent implements OnInit {
 
     this.serverRunningSimulation$ = combineLatest([this.serverPrice$, this.storage.valueChanges]).pipe(
       map(([serverPrice, volume]) => {
-        if (!serverPrice || !volume.storagePrice) {
+        const storagePrice = volume.storagePrice;
+        const storageSize = volume.storageSize;
+        if (!serverPrice || !storagePrice || storageSize == null) {
           return [];
         }
 
@@ -94,7 +96,7 @@ export class CaLabCreateSummaryComponent implements OnInit {
         return simulations.map((simulation) => {
           return {
             hourPerMonth: simulation.nbOfHours,
-            pricePerMonth: serverPrice * simulation.nbOfHours + volume.storagePrice * volume.storageSize,
+            pricePerMonth: serverPrice * simulation.nbOfHours + storagePrice * storageSize,
             title: simulation.title,
           };
         });

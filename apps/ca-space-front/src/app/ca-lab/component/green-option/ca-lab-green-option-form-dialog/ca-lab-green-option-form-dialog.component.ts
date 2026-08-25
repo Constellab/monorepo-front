@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent } from '@angular/material/dialog';
@@ -24,8 +24,6 @@ import { Observable } from 'rxjs';
 import {
   CaLabGreenOption,
   CaLabGreenOptionFormDto,
-  CaLabGreenOptionStopAfterInactivityValue,
-  CaLabGreenOptionStopAfterTimeValue,
   CaLabGreenOptionType,
 } from '../../../../ca-core/model/entities/lab/ca-lab-green-option.class';
 import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
@@ -65,7 +63,7 @@ export class CaLabGreenOptionFormDialogComponent
 
   greenOptionType: any = CaLabGreenOptionType;
 
-  warningText: string = null;
+  warningText: string | null = null;
 
   subFormConfig: FlDynamicFormGroupConfig;
   subFormGroup: UntypedFormGroup;
@@ -76,8 +74,8 @@ export class CaLabGreenOptionFormDialogComponent
   ngOnInit(): void {
     this.init();
 
-    if (this.isUpdateMode()) {
-      this.buildSubForm(this.formGp.get('type').value, this.dialogInput.object.value);
+    if (this.isUpdateMode() && this.dialogInput.object != null) {
+      this.buildSubForm(this.formGp.get('type')?.value, this.dialogInput.object.value);
     }
   }
 
@@ -109,7 +107,7 @@ export class CaLabGreenOptionFormDialogComponent
     }
   }
 
-  private buildSubForm(type: CaLabGreenOptionType, value?: any): void {
+  private buildSubForm(type: CaLabGreenOptionType | undefined, value?: any): void {
     this.subFormConfig = {
       controlType: 'formGroup',
       subConfigs: this.getSubFormGroupConfig(type),
@@ -122,20 +120,18 @@ export class CaLabGreenOptionFormDialogComponent
     this.formGp.updateValueAndValidity();
   }
 
-  private getDefaultValue(type: CaLabGreenOptionType): any {
+  private getDefaultValue(type: CaLabGreenOptionType | undefined): any {
     switch (type) {
       case CaLabGreenOptionType.STOP_AFTER_TIME:
         return {
           hours: null,
           minutes: 0,
           timezone: ClDateHelper.getDate().zoneName,
-          days: null,
-        } as CaLabGreenOptionStopAfterTimeValue;
+        };
       case CaLabGreenOptionType.STOP_AFTER_INACTIVITY_TIME:
         return {
           inactivityDuration: null,
-          days: null,
-        } as CaLabGreenOptionStopAfterInactivityValue;
+        };
       default:
         return {};
     }
@@ -146,15 +142,17 @@ export class CaLabGreenOptionFormDialogComponent
       type === CaLabGreenOptionType.STOP_AFTER_SCENARIO ||
       type === CaLabGreenOptionType.STOP_AFTER_BACKUP
     ) {
-      this.formGp.get('isPersistent').setValue(false);
-      this.formGp.get('isPersistent').disable();
+      this.formGp.get('isPersistent')?.setValue(false);
+      this.formGp.get('isPersistent')?.disable();
     } else {
-      this.formGp.get('isPersistent').setValue(null);
-      this.formGp.get('isPersistent').enable();
+      this.formGp.get('isPersistent')?.setValue(null);
+      this.formGp.get('isPersistent')?.enable();
     }
   }
 
-  private getSubFormGroupConfig(type: CaLabGreenOptionType): Record<string, FlDynamicFieldConfig> {
+  private getSubFormGroupConfig(
+    type: CaLabGreenOptionType | undefined
+  ): Record<string, FlDynamicFieldConfig> {
     switch (type) {
       case CaLabGreenOptionType.STOP_AFTER_TIME:
         return {
@@ -210,10 +208,16 @@ export class CaLabGreenOptionFormDialogComponent
   }
 
   create(formValue: CaLabGreenOptionFormDto): Observable<CaLabGreenOption> {
+    if (this.dialogInput.labId == null) {
+      throw new Error('CaLabGreenOptionFormDialogComponent: missing labId in create mode');
+    }
     return this.labService.createGreenOption(this.dialogInput.labId, formValue);
   }
 
   update(formValue: CaLabGreenOptionFormDto): Observable<CaLabGreenOption> {
+    if (this.dialogInput.id == null) {
+      throw new Error('CaLabGreenOptionFormDialogComponent: missing id in update mode');
+    }
     return this.labService.updateGreenOption(this.dialogInput.id, formValue);
   }
 

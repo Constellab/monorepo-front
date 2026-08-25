@@ -65,8 +65,8 @@ export class CaOauthReturnUrlService {
       return null;
     }
 
-    const url: URL = CaOauthReturnUrlService.parseUrl(returnUrl);
-    const apiUrl: URL = CaOauthReturnUrlService.parseUrl(CaEnvironmentHelper.getApiUrl());
+    const url: URL | null = CaOauthReturnUrlService.parseUrl(returnUrl);
+    const apiUrl: URL | null = CaOauthReturnUrlService.parseUrl(CaEnvironmentHelper.getApiUrl());
     if (!url || !apiUrl) {
       return null;
     }

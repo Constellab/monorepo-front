@@ -111,7 +111,7 @@ export class CaHierarchyObjectTagsDialogComponent implements OnInit {
         action: this.hierarchyObjectService.createTags(this.data.hierarchyObjectId, this.newTags.array),
         autoClose: true,
       })
-      .subscribe((result: FlPortalActionResult<FlTag[]>) => {
+      ?.subscribe((result: FlPortalActionResult<FlTag[]>) => {
         if (result.status === 'success') {
           this.tags.addItem(result.result);
           this.tagService.availableTags.addTag(result.result);

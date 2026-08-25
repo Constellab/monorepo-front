@@ -175,7 +175,7 @@ export class CaLabHeroHeaderComponent implements OnInit {
     if (!busyStatus?.isBusy) return null;
 
     return {
-      mainText: busyStatus.mainText,
+      mainText: busyStatus.mainText ?? '',
       subText: busyStatus.subText,
       progress: busyStatus.progress,
       datetime: busyStatus.datetime,
@@ -189,7 +189,7 @@ export class CaLabHeroHeaderComponent implements OnInit {
    */
   private getErrorBanner(
     status: CaLabStatusDTO,
-    managerStatus?: LmlLabManagerStatus
+    managerStatus?: LmlLabManagerStatus | null
   ): LmlStatusBannerError | null {
     if (status == null) return null;
 

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, computed, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { FlStatus, FlStatusHelper, FlStatusModule } from '@monorepo/front-core-lib/fl-status';
@@ -28,9 +28,9 @@ export class CaNoteFormBlockComponent extends TeElementBlockDirective {
   private noteService = inject(CaNoteService);
 
   isLoading = signal(false);
-  form = signal<CaNoteFormData>(null);
-  specs = signal<TdParamSpecs>(null);
-  values = signal<Record<string, unknown>>(null);
+  form = signal<CaNoteFormData | null>(null);
+  specs = signal<TdParamSpecs | null>(null);
+  values = signal<Record<string, unknown> | null>(null);
 
   formStatus = computed<FlStatus | null>(() => {
     const f = this.form();

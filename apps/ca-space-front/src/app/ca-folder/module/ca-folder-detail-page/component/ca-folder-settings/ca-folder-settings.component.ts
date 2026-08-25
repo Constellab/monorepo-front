@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy,Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import {
@@ -104,7 +104,7 @@ export class CaFolderSettingsComponent implements OnInit, OnDestroy {
   }
 
   private onMoveToTrashClosed(result: FlConfirmDialogResult<CaHierarchyObject>): void {
-    if (result.choice) {
+    if (result.choice && result.result) {
       this.eventState.emitFolderEvent({ action: 'moveToTrash', hierarchyObject: result.result });
       this.rightPanelState.closeRightPanel();
     }

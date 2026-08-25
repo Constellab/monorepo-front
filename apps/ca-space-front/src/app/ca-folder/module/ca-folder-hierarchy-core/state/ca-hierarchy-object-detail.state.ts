@@ -56,10 +56,10 @@ export class CaHierarchyObjectDetailState implements OnDestroy {
   private router = inject(Router);
   private routerService = inject(CaRouterService);
   private eventState = inject(CaHierarchyObjectEventState);
-  private queryParamHandler: FlQueryParamHandler<{ showTree?: string; hideHeader?: string }> =
+  private queryParamHandler: FlQueryParamHandler<{ showTree?: string | null; hideHeader?: string }> =
     inject(FlQueryParamHandler);
 
-  private hierarchyObject$: BehaviorSubject<CaHierarchyObjectContext>;
+  private hierarchyObject$: BehaviorSubject<CaHierarchyObjectContext | null>;
   private hierarchyObjectId$: Observable<CaHierarchyObjectContextId>;
   private folderTree: CaHierarchyObjectsTreeDatasource;
 
@@ -110,7 +110,12 @@ export class CaHierarchyObjectDetailState implements OnDestroy {
         .pipe(
           // only load the ancestors in the first call, then the ancestors should already be loaded
           first(),
-          filter((hierarchyContext) => hierarchyContext.hierarchyObject != null),
+          filter(
+            (
+              hierarchyContext
+            ): hierarchyContext is CaHierarchyObjectContext & { hierarchyObject: CaHierarchyObject } =>
+              hierarchyContext.hierarchyObject != null
+          ),
           switchMap((hierarchyContext) =>
             this.hierarchyObjectService.getObjectAncestors(hierarchyContext.hierarchyObject.getFolderId())
           )
@@ -190,6 +195,9 @@ export class CaHierarchyObjectDetailState implements OnDestroy {
       // we consider that the user role is viewer to prevent modification
       return of({ type: contextId.type, userRole: new CaRootFolderUserRoleObj(CaRootFolderUserRole.VIEWER) });
     }
+    if (contextId.hierarchyObjectId == null) {
+      throw new Error('CaHierarchyObjectDetailState: missing hierarchyObjectId for hierarchyObject context');
+    }
     return this.hierarchyObjectService.getHierarchyObject(contextId.hierarchyObjectId).pipe(
       map((findResult) => ({
         type: findResult.hierarchyObject.objectType,
@@ -200,7 +208,9 @@ export class CaHierarchyObjectDetailState implements OnDestroy {
   }
 
   public getHierarchyContext$(): Observable<CaHierarchyObjectContext> {
-    return this.hierarchyObject$.pipe(filter((context) => context != null));
+    return this.hierarchyObject$.pipe(
+      filter((context): context is CaHierarchyObjectContext => context != null)
+    );
   }
 
   public getUserRole$(): Observable<CaRootFolderUserRoleObj> {
@@ -300,7 +310,9 @@ export class CaHierarchyObjectDetailState implements OnDestroy {
   }
 
   public getFolder$(folderId: string): Observable<CaHierarchyObjectSimple> {
-    return this.folderTree.findNodeObject$(folderId);
+    return this.folderTree
+      .findNodeObject$(folderId)
+      .pipe(filter((folder): folder is CaHierarchyObjectSimple => folder != null));
   }
 
   public getTags(): CaHierarchyObjectTagDatasource {
@@ -420,7 +432,7 @@ export class CaHierarchyObjectDetailState implements OnDestroy {
       this.deleteFolderInTree(hierarchyObjectId);
     }
 
-    const currentHierarchyObject = this.hierarchyObject$.value.hierarchyObject;
+    const currentHierarchyObject = this.hierarchyObject$.value?.hierarchyObject;
     if (currentHierarchyObject?.id === hierarchyObjectId) {
       this.navigateToParentFolder();
     }

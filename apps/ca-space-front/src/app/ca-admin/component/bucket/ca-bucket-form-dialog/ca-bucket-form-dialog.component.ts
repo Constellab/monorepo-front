@@ -78,8 +78,9 @@ export class CaBucketFormDialogComponent
   ngOnInit(): void {
     this.init();
 
-    if (this.isUpdateMode() && this.dialogInput.object.bucketType) {
-      this.onBucketTypeChange(this.dialogInput.object.bucketType);
+    const bucketType = this.dialogInput.object?.bucketType;
+    if (this.isUpdateMode() && bucketType) {
+      this.onBucketTypeChange(bucketType);
     } else {
       this.onBucketTypeChange(CaBucketType.NORMAL);
     }
@@ -100,16 +101,16 @@ export class CaBucketFormDialogComponent
   onBucketTypeChange(bucketType: CaBucketType): void {
     // for the lab bucket the name is forced
     if (bucketType === CaBucketType.LAB) {
-      this.formGp.get('name').disable();
-      this.formGp.get('region').disable();
-      this.formGp.get('lab').enable();
-      this.formGp.get('contentType').setValue(CaBucketContentType.FOLDER);
-      this.formGp.get('contentType').disable();
+      this.formGp.get('name')?.disable();
+      this.formGp.get('region')?.disable();
+      this.formGp.get('lab')?.enable();
+      this.formGp.get('contentType')?.setValue(CaBucketContentType.FOLDER);
+      this.formGp.get('contentType')?.disable();
     } else {
-      this.formGp.get('name').enable();
-      this.formGp.get('region').enable();
-      this.formGp.get('lab').disable();
-      this.formGp.get('contentType').enable();
+      this.formGp.get('name')?.enable();
+      this.formGp.get('region')?.enable();
+      this.formGp.get('lab')?.disable();
+      this.formGp.get('contentType')?.enable();
 
       if (bucketType === CaBucketType.NORMAL) {
         this.regionOption = 'S3';
@@ -124,7 +125,7 @@ export class CaBucketFormDialogComponent
   }
 
   showRegion(): boolean {
-    return this.formGp.get('bucketType').value !== CaBucketType.LAB;
+    return this.formGp.get('bucketType')?.value !== CaBucketType.LAB;
   }
 
   create(formValue: Partial<CaBucketFull>): Observable<CaBucketFull> {

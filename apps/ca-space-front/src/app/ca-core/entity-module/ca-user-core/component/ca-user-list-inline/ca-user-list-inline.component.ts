@@ -10,7 +10,8 @@ import {
   Output,
   TemplateRef,
   ViewChild,
-  ViewContainerRef} from '@angular/core';
+  ViewContainerRef,
+} from '@angular/core';
 import { FormsModule, NgControl, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -79,7 +80,7 @@ export class CaUserListInlineComponent
 
   // use to store the selected user before the user list is loaded
   private tempSelectedUser: CaUser[] = [];
-  private additionalOverlay: FlOverlayRef;
+  private additionalOverlay: FlOverlayRef | null;
 
   private subscription: Subscription;
 
@@ -106,7 +107,7 @@ export class CaUserListInlineComponent
 
     // calculate the number of additional user
     if (this.userDatasource) {
-      this.additionalUserLength = this.userDatasource.page.totalElements - this.previewListSize;
+      this.additionalUserLength = (this.userDatasource.page?.totalElements ?? 0) - this.previewListSize;
     } else {
       this.additionalUserLength = this.value.additionalUsers.length;
     }

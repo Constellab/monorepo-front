@@ -1,6 +1,6 @@
 import { AsyncPipe, DecimalPipe } from '@angular/common';
-import { ChangeDetectionStrategy,Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatIconButton } from '@angular/material/button';
 import { MatOption } from '@angular/material/core';
 import { MatDatepicker, MatDatepickerInput, MatDatepickerToggle } from '@angular/material/datepicker';
@@ -22,7 +22,7 @@ import { combineLatest, debounceTime, Observable, share, startWith, Subscription
 import { map } from 'rxjs/operators';
 
 import { CaUserListInlineComponent } from '../../../../ca-core/entity-module/ca-user-core/component/ca-user-list-inline/ca-user-list-inline.component';
-import { CaUserDatasourcePaginated } from '../../../../ca-core/model/entities/ca-user.class';
+import { CaUser, CaUserDatasourcePaginated } from '../../../../ca-core/model/entities/ca-user.class';
 import {
   CaLabRunningStatus,
   CaLabRunningStatusArrayObs,
@@ -80,10 +80,13 @@ export class CaLabUsageComponent implements OnInit, OnDestroy {
   customPeriod: CaLabStatusRunPeriod = CaLabStatusRunPeriod.CUSTOM;
 
   formGroup = new FormBuilder().group({
-    period: [CaLabStatusRunPeriod.CURRENT_MONTH, Validators.required],
-    customStartDate: [null as DateTime],
-    customEndDate: [null as DateTime],
-    users: [null],
+    period: new FormControl(CaLabStatusRunPeriod.CURRENT_MONTH, {
+      nonNullable: true,
+      validators: Validators.required,
+    }),
+    customStartDate: new FormControl<DateTime | null>(null),
+    customEndDate: new FormControl<DateTime | null>(null),
+    users: new FormControl<CaUser[] | null>(null),
   });
 
   runResponse$: Observable<CaLabStatusRunResponse>;
@@ -91,7 +94,7 @@ export class CaLabUsageComponent implements OnInit, OnDestroy {
 
   storageKpi$: Observable<CaLabStorageResponse>;
 
-  totalPrice$: Observable<number>;
+  totalPrice$: Observable<number | null>;
 
   currentDate = ClDateHelper.getDate();
 
@@ -102,7 +105,7 @@ export class CaLabUsageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.subscription = this.formGroup.valueChanges
       .pipe(debounceTime(500), startWith(null))
-      .subscribe(() => this.callKpi(this.formGroup.getRawValue()));
+      .subscribe(() => this.callKpi());
 
     this.usersStatus = new FlEntityPaginatedDatasource(
       (page, size) => this.labService.getUsersStatus(this.labId, page, size),
@@ -110,8 +113,16 @@ export class CaLabUsageComponent implements OnInit, OnDestroy {
     );
   }
 
-  private callKpi(request: CaLabStatusRunRequest): void {
+  private callKpi(): void {
     if (this.formGroup.valid) {
+      const formValue = this.formGroup.getRawValue();
+      const request: CaLabStatusRunRequest = {
+        period: formValue.period,
+        customStartDate: formValue.customStartDate ?? undefined,
+        customEndDate: formValue.customEndDate ?? undefined,
+        users: formValue.users ?? undefined,
+      };
+
       const obs = this.labService.getLabRunningStats(this.labId, request).pipe(share());
       this.runResponse$ = obs;
       this.runStatuses$ = new CaLabRunningStatusArrayObs(obs.pipe(map((response) => response.statuses)));

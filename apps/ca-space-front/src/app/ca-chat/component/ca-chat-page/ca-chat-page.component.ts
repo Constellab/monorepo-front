@@ -36,7 +36,7 @@ export class CaChatPageComponent {
 
   selectedObjectId$: Observable<string>;
 
-  getRoute: (node: CaChatFolder) => string = (node: CaChatFolder) => {
+  getRoute: (node: CaChatFolder) => string | null = (node: CaChatFolder) => {
     if (node.chatEnabled) {
       return CaRouterService.getChatFolderRoute(node.id);
     } else {

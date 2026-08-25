@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy,Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -26,7 +34,7 @@ import { CaLabInlineComponent } from '../ca-lab-inline/ca-lab-inline.component';
   changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlInputSearchModule, MatIcon, MatTooltip, CaLabInlineComponent, TranslatePipe],
 })
-export class CaSelectLabComponent extends FlFormFieldDirective<CaLab> implements OnInit {
+export class CaSelectLabComponent extends FlFormFieldDirective<CaLab | null> implements OnInit {
   private labService = inject(CaLabService);
 
   @Input() mode: 'all' | 'all-cloud';
@@ -35,7 +43,7 @@ export class CaSelectLabComponent extends FlFormFieldDirective<CaLab> implements
 
   @Output() valueChange: EventEmitter<CaLab> = new EventEmitter();
 
-  selectedLab: CaLab | Observable<CaLab>;
+  selectedLab: CaLab | Observable<CaLab> | null;
 
   labDatasource: CaLabDatasource<FlInputSearchFilter>;
 
@@ -48,7 +56,7 @@ export class CaSelectLabComponent extends FlFormFieldDirective<CaLab> implements
   ngOnInit(): void {
     this.labDatasource = new FlEntityPaginatedDatasource(
       (page, size, data) =>
-        this.labService.searchAll(page, size, this.getFilter(data.filtersCriteria.searchText)),
+        this.labService.searchAll(page, size, this.getFilter(data.filtersCriteria.searchText ?? '')),
       20,
       { initFirstPage: false }
     );
@@ -69,7 +77,7 @@ export class CaSelectLabComponent extends FlFormFieldDirective<CaLab> implements
 
   onDisableChange(): void {}
 
-  writeValue(obj: CaLab): void {
+  writeValue(obj: CaLab | null): void {
     if (obj == null || obj.id == null) {
       this.selectedLab = null;
       this.value = null;

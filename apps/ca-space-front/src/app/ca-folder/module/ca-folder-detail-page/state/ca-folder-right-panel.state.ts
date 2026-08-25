@@ -15,7 +15,7 @@ export class CaFolderRightPanelState implements OnDestroy {
   private portalService = inject(FlPortalService);
   private viewContainerRef = inject(ViewContainerRef);
 
-  private currentOverlayRef: FlOverlayRef;
+  private currentOverlayRef: FlOverlayRef | null;
 
   private subscription: Subscription;
 

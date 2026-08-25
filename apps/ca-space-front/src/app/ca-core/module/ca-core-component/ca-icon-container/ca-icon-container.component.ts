@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, computed, effect, HostBinding, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, HostBinding, input } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { TdIconAutoColorPipe, TdIconBackgroundColorPipe } from '@monorepo/technical-doc';
@@ -15,21 +15,23 @@ export class CaIconContainerComponent {
 
   emoji = input<string>();
 
-  backgroundColor = input<string>(null);
+  backgroundColor = input<string | null>(null);
 
   @HostBinding('style.background') background: string;
 
   constructor() {
     effect(() => {
-      if (this.backgroundColor()) {
-        this.background = TdIconBackgroundColorPipe.getLinearGradient(this.backgroundColor());
+      const backgroundColor = this.backgroundColor();
+      if (backgroundColor) {
+        this.background = TdIconBackgroundColorPipe.getLinearGradient(backgroundColor);
       }
     });
   }
 
   iconColor = computed(() => {
-    if (this.backgroundColor()) {
-      return TdIconAutoColorPipe.getIconColorFromBackgroundColor(this.backgroundColor());
+    const backgroundColor = this.backgroundColor();
+    if (backgroundColor) {
+      return TdIconAutoColorPipe.getIconColorFromBackgroundColor(backgroundColor);
     }
     return null;
   });

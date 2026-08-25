@@ -88,7 +88,7 @@ export class FlSearchConverter {
    * @param sortConverter
    */
   public static convertDatasourceGetPageDataToSearchParams<T>(
-    data: FlDatasourceGetPageData,
+    data: FlDatasourceGetPageData | undefined,
     filterConverter: FlSearchFilterCriteriaConverter<T>,
     sortConverter: FlSearchSortCriteriaConverter
   ): FlAdvancedSearchInput {

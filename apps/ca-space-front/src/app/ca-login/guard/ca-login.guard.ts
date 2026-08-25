@@ -54,7 +54,7 @@ export class CaLoginGuard {
    * @returns false in that case: the browser is leaving the app, so the router must not route.
    */
   private destinationOfLiveSession(route: ActivatedRouteSnapshot): boolean | UrlTree {
-    const returnUrl: string = this.returnUrlService.getSafeAuthorizeReturnUrl(route.queryParams);
+    const returnUrl: string | null = this.returnUrlService.getSafeAuthorizeReturnUrl(route.queryParams);
     if (returnUrl) {
       this.returnUrlService.resume(returnUrl);
       return false;

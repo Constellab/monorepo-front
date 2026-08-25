@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input, OnInit } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -66,6 +66,8 @@ export class CaLabFreeCardInfoComponent implements OnInit {
   }
 
   updateFreeLab(freeLab: CaLabFreeGetDto): void {
+    if (freeLab.freeLab == null) return;
+
     const data: CaLabFreeFormDialogInput = {
       freeLabId: freeLab.freeLab.id,
       usageLimitInHours: freeLab.freeLab.usageLimitInHours,
@@ -85,6 +87,8 @@ export class CaLabFreeCardInfoComponent implements OnInit {
   }
 
   deleteFreeLab(freeLab: CaLabFreeGetDto): void {
+    if (freeLab.freeLab == null) return;
+
     const input: FlConfirmDialogInput = {
       title: 'free_data_lab_delete',
       content: 'free_data_lab_delete_confirmation',
@@ -99,7 +103,7 @@ export class CaLabFreeCardInfoComponent implements OnInit {
   }
 
   private deleteFreeLabSuccess(result: FlConfirmDialogResult<CaLabFreeGetDto>): void {
-    if (result.choice) {
+    if (result.choice && result.result != null) {
       this.freeLabDTO$ = of(result.result);
     }
   }

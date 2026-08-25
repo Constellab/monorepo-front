@@ -69,7 +69,7 @@ export class CaHierarchyObjectDetailPageComponent implements OnInit {
 
   hierarchyObjects: CaHierarchyObjectsTreeDatasource;
 
-  activeObject$: Observable<string>;
+  activeObject$: Observable<string | null>;
 
   tagFormControl: FormControl;
 
@@ -96,7 +96,7 @@ export class CaHierarchyObjectDetailPageComponent implements OnInit {
     this.state.updateViewSettings({ hideHeader: false });
   }
 
-  private getActiveFolderId(ancestors: CaHierarchyObjectSimple[]): string {
+  private getActiveFolderId(ancestors: CaHierarchyObjectSimple[]): string | null {
     const lastAncestor = ancestors[0];
 
     if (!lastAncestor) return null;

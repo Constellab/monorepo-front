@@ -51,8 +51,11 @@ describe('CaLoginGuard', () => {
       return result as boolean | UrlTree;
     }
 
-    let resolved: boolean | UrlTree;
+    let resolved: boolean | UrlTree | undefined;
     result.subscribe((value: boolean | UrlTree) => (resolved = value));
+    if (resolved === undefined) {
+      throw new Error('canActivate observable did not resolve synchronously');
+    }
     return resolved;
   }
 
