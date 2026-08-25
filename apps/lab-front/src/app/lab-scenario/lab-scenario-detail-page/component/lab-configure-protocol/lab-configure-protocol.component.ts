@@ -1,5 +1,5 @@
 import { AsyncPipe, NgClass } from '@angular/common';
-import { ChangeDetectionStrategy,Component, inject, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input, OnInit } from '@angular/core';
 import { MatRipple } from '@angular/material/core';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { LiProcess } from '@monorepo/lab-lib/li-core';
@@ -26,7 +26,7 @@ export class LabConfigureProtocolComponent implements OnInit {
 
   selectedProcess$: Observable<LiProcess>;
 
-  private selectedProcessId: BehaviorSubject<string> = new BehaviorSubject(null);
+  private selectedProcessId: BehaviorSubject<string | null> = new BehaviorSubject<string | null>(null);
 
   childrenProcesses$: Observable<LiProcess[]>;
 
@@ -43,7 +43,7 @@ export class LabConfigureProtocolComponent implements OnInit {
     );
 
     this.selectedProcess$ = this.selectedProcessId.asObservable().pipe(
-      filter((processId) => processId != null),
+      filter((processId): processId is string => processId != null),
       switchMap((processId) => this.scenarioState.getLabProcess$(processId))
     );
   }

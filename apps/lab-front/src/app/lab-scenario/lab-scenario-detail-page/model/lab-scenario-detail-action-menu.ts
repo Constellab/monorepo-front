@@ -230,7 +230,7 @@ export class LabScenarioDetailActionMenu extends LiScenarioActionMenu {
   }
 
   private onConfirmUpdateClosed(result: FlConfirmDialogResult<LiScenario>): void {
-    if (result?.choice) {
+    if (result?.choice && result.result != null) {
       this.scenarioState.updateScenario(result.result);
     }
     this.subject.complete();

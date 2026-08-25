@@ -30,13 +30,13 @@ export class LabScenarioDetailPageState {
   private dialogService = inject(FlDialogService);
   private tagService = inject(LiTagService);
 
-  private scenario$: BehaviorSubject<LiScenario>;
-  private scenarioDescription$: BehaviorSubject<TeRichText>;
+  private scenario$: BehaviorSubject<LiScenario | null>;
+  private scenarioDescription$: BehaviorSubject<TeRichText | null>;
   private tags$: LiTagDatasource;
 
   public workflow: PrWorkflow;
   private mainProtocolId: string;
-  private protocols: Record<string, BehaviorSubject<LiProtocol>>;
+  private protocols: Record<string, BehaviorSubject<LiProtocol | null>>;
   private processes: Record<string, BehaviorSubject<LiProcess>>;
 
   // does not emit scenario until ready is true
@@ -52,8 +52,8 @@ export class LabScenarioDetailPageState {
 
   public init(scenarioId: string): void {
     this.ready$ = new BehaviorSubject(false);
-    this.scenario$ = new BehaviorSubject(null);
-    this.scenarioDescription$ = new BehaviorSubject(null);
+    this.scenario$ = new BehaviorSubject<LiScenario | null>(null);
+    this.scenarioDescription$ = new BehaviorSubject<TeRichText | null>(null);
     this.protocols = {};
     this.processes = {};
     this.scenarioService.getScenario(scenarioId).subscribe({
@@ -70,7 +70,7 @@ export class LabScenarioDetailPageState {
     this.scenario$.next(scenario);
     this.scenarioDescription$.next(scenario.description);
     this.mainProtocolId = scenario.protocol.id;
-    this.protocols[this.mainProtocolId] = new BehaviorSubject(null);
+    this.protocols[this.mainProtocolId] = new BehaviorSubject<LiProtocol | null>(null);
 
     this.protocolService.getProtocol(this.mainProtocolId).subscribe({
       next: (protocol) => this.onMainProtocolLoaded(protocol),
@@ -96,11 +96,15 @@ export class LabScenarioDetailPageState {
   }
 
   public getScenario$(): Observable<LiScenario> {
-    return this.scenario$.asObservable().pipe(filter((scenario) => scenario != null));
+    return this.scenario$.asObservable().pipe(filter((scenario): scenario is LiScenario => scenario != null));
   }
 
   public get currentScenario(): LiScenario {
-    return this.scenario$.value;
+    const scenario = this.scenario$.value;
+    if (scenario == null) {
+      throw new Error('Scenario not loaded');
+    }
+    return scenario;
   }
 
   public isEditable$(): Observable<boolean> {
@@ -131,12 +135,16 @@ export class LabScenarioDetailPageState {
     return this.tags$;
   }
 
-  public getDescription$(): Observable<TeRichText> {
+  public getDescription$(): Observable<TeRichText | null> {
     return this.scenarioDescription$.asObservable();
   }
 
   public get currentDescription(): TeRichText {
-    return this.scenarioDescription$.value;
+    const description = this.scenarioDescription$.value;
+    if (description == null) {
+      throw new Error('Scenario description not loaded');
+    }
+    return description;
   }
 
   public updateDescription(description: TeRichText): void {
@@ -157,6 +165,7 @@ export class LabScenarioDetailPageState {
   private checkAndStartRefreshProtocol(): void {
     if (this.timeout) return;
     const mainProtocol = this.protocols[this.mainProtocolId].value;
+    if (mainProtocol == null) return;
     const scenario = this.currentScenario;
     // Stop refresh if scenario is not running (including queue) and the main protocol is finished
     if (!scenario.isRunning() && scenario.status !== 'IN_QUEUE' && !mainProtocol.isRunning()) return;
@@ -198,7 +207,9 @@ export class LabScenarioDetailPageState {
   }
 
   private getCurrentProtocols(): LiProtocol[] {
-    return Object.values(this.protocols).map((behavior) => behavior.value);
+    return Object.values(this.protocols)
+      .map((behavior) => behavior.value)
+      .filter((protocol): protocol is LiProtocol => protocol != null);
   }
 
   private refreshProtocols(protocolIds: string[]): Observable<LiProtocol> {
@@ -264,13 +275,15 @@ export class LabScenarioDetailPageState {
   public getProtocol$(protocolId: string): Observable<LiProtocol> {
     // if the protocol is not loaded, load it
     if (this.protocols[protocolId] == null) {
-      this.protocols[protocolId] = new BehaviorSubject(null);
+      this.protocols[protocolId] = new BehaviorSubject<LiProtocol | null>(null);
       this.protocolService.getProtocol(protocolId).subscribe({
         next: (protocol) => this.refreshProtocolSuccess(protocol),
         error: (error) => this.protocols[protocolId].error(error),
       });
     }
-    return this.protocols[protocolId].asObservable().pipe(filter((protocol) => protocol != null));
+    return this.protocols[protocolId]
+      .asObservable()
+      .pipe(filter((protocol): protocol is LiProtocol => protocol != null));
   }
 
   private refreshProtocolProcesses(protocol: LiProtocol): void {
@@ -336,7 +349,7 @@ export class LabScenarioDetailPageState {
       .openConfirmDialog(data)
       .afterClosed()
       .subscribe((result: FlConfirmDialogResult<LiScenario>) => {
-        if (result.choice) {
+        if (result.choice && result.result != null) {
           this.updateScenario(result.result);
         }
       });

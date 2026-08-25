@@ -36,7 +36,7 @@ export class LabWorkflowNodeMenuConfig extends PrWorkflowNodeMenuConfig {
     currentLayer: PrWorkflowLayer,
     workflowMode: PrWorkflowMode
   ): FlMenuDynamicButton[] {
-    const resourceId: string = node.getCurrentInputResourceId(port.name);
+    const resourceId: string | null = node.getCurrentInputResourceId(port.name);
 
     const buttons: FlMenuDynamicButton[] = [];
 
@@ -61,7 +61,7 @@ export class LabWorkflowNodeMenuConfig extends PrWorkflowNodeMenuConfig {
     currentLayer: PrWorkflowLayer,
     workflowMode: PrWorkflowMode
   ): FlMenuDynamicButton[] {
-    const resourceId: string = node.getCurrentOutputResourceId(port.name);
+    const resourceId: string | null = node.getCurrentOutputResourceId(port.name);
 
     // {
     //   type: 'button',
@@ -177,7 +177,7 @@ export class LabWorkflowNodeMenuConfig extends PrWorkflowNodeMenuConfig {
     };
   }
 
-  private openResourceDetail(resourceId: string): void {
+  private openResourceDetail(resourceId: string | null): void {
     this.dialogService.openBigDialog(LiResourceDetailDialogComponent, {
       data: resourceId,
       panelClass: 'g-dialog-main-background',
@@ -283,8 +283,9 @@ export class LabWorkflowNodeMenuConfig extends PrWorkflowNodeMenuConfig {
   private getPortTypingNames(port: PrWorkflowPort, node: PrWorkflowNode): string[] {
     // special case
     // of the type of the port
-    if (node instanceof PrWorkflowNodeInput && node.getCurrentResource() != null) {
-      return [node.getCurrentResource().resourceTypingName];
+    const currentResource = node instanceof PrWorkflowNodeInput ? node.getCurrentResource() : null;
+    if (currentResource != null) {
+      return [currentResource.resourceTypingName];
     } else {
       // use the port typing names
       return port.getResourceTypingNames();

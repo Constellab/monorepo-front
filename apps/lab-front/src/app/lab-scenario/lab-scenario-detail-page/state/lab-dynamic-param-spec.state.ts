@@ -28,7 +28,7 @@ export class LabDynamicParamSpecState extends TdAbstractDynamicParamSpecState im
 
   override reorderEnabled = true;
 
-  private process: LiProcess = null;
+  private process: LiProcess | null = null;
 
   setProcess(process: LiProcess): void {
     this.process = process;
@@ -38,15 +38,30 @@ export class LabDynamicParamSpecState extends TdAbstractDynamicParamSpecState im
     }
   }
 
+  private requireProcess(): LiProcess {
+    if (this.process == null) {
+      throw new Error('Process not set');
+    }
+    return this.process;
+  }
+
+  private requireDynamicConfigSpecName(): string {
+    const specName = this.getDynamicConfigSpecName();
+    if (specName == null) {
+      throw new Error('No dynamic config spec found for this process');
+    }
+    return specName;
+  }
+
   getParamSpecsInfos(): TdParamSpecInfo[] {
     // if the process is a virtual agent, we only allow simple types
-    if (this.process.isVirtualEnvAgent()) {
+    if (this.requireProcess().isVirtualEnvAgent()) {
       const paramSetSpecInfo = TD_PARAM_SPEC_INFO_LIST.find(
         (info) => info.type === TdParamSpecTypeEnum.PARAM_SET
       );
       return [
         ...tdGetParamSpecInfo([TdParamSpecCategory.SIMPLE, TdParamSpecCategory.CODE]),
-        paramSetSpecInfo,
+        ...(paramSetSpecInfo ? [paramSetSpecInfo] : []),
       ];
     }
     // don't allow computed_param type
@@ -54,8 +69,9 @@ export class LabDynamicParamSpecState extends TdAbstractDynamicParamSpecState im
   }
 
   getDynamicConfigSpecName(): string | null {
-    for (const spec of Object.keys(this.process.config.specs)) {
-      if (this.process.config.specs[spec] && this.process.config.specs[spec].type == 'dynamic') {
+    const process = this.requireProcess();
+    for (const spec of Object.keys(process.config.specs)) {
+      if (process.config.specs[spec] && process.config.specs[spec].type == 'dynamic') {
         return spec;
       }
     }
@@ -65,7 +81,7 @@ export class LabDynamicParamSpecState extends TdAbstractDynamicParamSpecState im
   getDynamicConfigSpecParamSpecs(): TdParamSpec | null {
     const specName = this.getDynamicConfigSpecName();
     if (!specName) return null;
-    return this.process.config.specs[specName];
+    return this.requireProcess().config.specs[specName];
   }
 
   openConfigureParamSpecsTableDialog(): void {
@@ -77,10 +93,11 @@ export class LabDynamicParamSpecState extends TdAbstractDynamicParamSpecState im
   }
 
   addParamSpec(paramName: string, paramSpec: TdParamSpec): Observable<TdParamSpecs> {
+    const process = this.requireProcess();
     const obs = this.labProtocolService.addDynamicParamSpec(
-      this.process.parentProtocolId,
-      this.process.instanceName,
-      this.getDynamicConfigSpecName(),
+      process.parentProtocolId,
+      process.instanceName,
+      this.requireDynamicConfigSpecName(),
       paramName,
       paramSpec
     );
@@ -88,20 +105,22 @@ export class LabDynamicParamSpecState extends TdAbstractDynamicParamSpecState im
   }
 
   deleteParamSpec(paramName: string): Observable<TdParamSpecs> {
+    const process = this.requireProcess();
     const obs = this.labProtocolService.deleteDynamicParamSpec(
-      this.process.parentProtocolId,
-      this.process.instanceName,
-      this.getDynamicConfigSpecName(),
+      process.parentProtocolId,
+      process.instanceName,
+      this.requireDynamicConfigSpecName(),
       paramName
     );
     return this.onPortalActionResult(obs);
   }
 
   editParamSpec(paramName: string, paramSpec: TdParamSpec): Observable<TdParamSpecs> {
+    const process = this.requireProcess();
     const obs = this.labProtocolService.updateDynamicParamSpec(
-      this.process.parentProtocolId,
-      this.process.instanceName,
-      this.getDynamicConfigSpecName(),
+      process.parentProtocolId,
+      process.instanceName,
+      this.requireDynamicConfigSpecName(),
       paramName,
       paramSpec
     );
@@ -109,10 +128,11 @@ export class LabDynamicParamSpecState extends TdAbstractDynamicParamSpecState im
   }
 
   renameAndEditParamSpec(oldName: string, newName: string, paramSpec: TdParamSpec): Observable<TdParamSpecs> {
+    const process = this.requireProcess();
     const obs = this.labProtocolService.renameAndUpdateDynamicParamSpec(
-      this.process.parentProtocolId,
-      this.process.instanceName,
-      this.getDynamicConfigSpecName(),
+      process.parentProtocolId,
+      process.instanceName,
+      this.requireDynamicConfigSpecName(),
       oldName,
       newName,
       paramSpec
@@ -121,10 +141,11 @@ export class LabDynamicParamSpecState extends TdAbstractDynamicParamSpecState im
   }
 
   reorderParamSpecs(paramNames: string[]): Observable<TdParamSpecs> {
+    const process = this.requireProcess();
     const obs = this.labProtocolService.reorderDynamicParamSpecs(
-      this.process.parentProtocolId,
-      this.process.instanceName,
-      this.getDynamicConfigSpecName(),
+      process.parentProtocolId,
+      process.instanceName,
+      this.requireDynamicConfigSpecName(),
       paramNames
     );
     return this.onPortalActionResult(obs);
@@ -133,10 +154,14 @@ export class LabDynamicParamSpecState extends TdAbstractDynamicParamSpecState im
   private onPortalActionResult(obs: Observable<LiProtocolUpdateDTO>): Observable<TdParamSpecs> {
     return obs.pipe(
       map((result: LiProtocolUpdateDTO): TdParamSpecs => {
+        if (result.process == null) {
+          throw new Error('Missing process in the param spec update result');
+        }
         const config = result.process.config as TdConfig;
-        this.updateProcessConfig(this.getDynamicConfigSpecName(), config);
+        const specName = this.requireDynamicConfigSpecName();
+        this.updateProcessConfig(specName, config);
         this.editConfig.updateProcessDynamicConfig(result);
-        return config.specs[this.getDynamicConfigSpecName()].additional_info.specs;
+        return config.specs[specName].additional_info.specs;
       })
     );
   }

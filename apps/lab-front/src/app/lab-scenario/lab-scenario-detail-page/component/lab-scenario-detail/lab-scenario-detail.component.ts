@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy,Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTooltip } from '@angular/material/tooltip';
 import { ClSubscriptionHandler } from '@monorepo/core-lib';
@@ -63,7 +63,7 @@ export class LabScenarioDetailComponent implements OnInit, OnDestroy {
 
   textEditorConfig: TeBasicConfig = new TeBasicConfig();
 
-  descriptionFormControl: FormControl<TeRichText> = new FormControl({ value: null });
+  descriptionFormControl: FormControl<TeRichText | null> = new FormControl(null);
 
   saveDescriptionFunc: (content: TeRichText) => Observable<LiScenario>;
 

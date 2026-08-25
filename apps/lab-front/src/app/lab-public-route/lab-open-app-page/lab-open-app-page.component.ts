@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy,Component, computed, inject, OnDestroy, OnInit, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  OnDestroy,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { ActivatedRoute } from '@angular/router';
 import { FlServerError } from '@monorepo/front-core-lib/fl-api';
@@ -181,6 +189,12 @@ export class LabOpenAppPageComponent implements OnInit, OnDestroy {
   }
 
   private handoff(): void {
+    if (this.appKey == null) {
+      // Defensive: handoff() is only reached after start() succeeded, which already guards appKey.
+      this.onError();
+      return;
+    }
+
     this.appService.gatewayHandoff(this.appKey, this.authorizeGrant).subscribe({
       next: (result) => {
         // Full-page navigation into the app host (carries ?gws_code=…, exchanged + scrubbed by the app).

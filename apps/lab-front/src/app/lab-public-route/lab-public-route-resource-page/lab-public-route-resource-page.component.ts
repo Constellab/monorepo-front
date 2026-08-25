@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy,Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
 import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
@@ -68,7 +68,7 @@ export class LabPublicRouteResourcePageComponent implements OnInit, OnDestroy {
 
   logo = this.themeService.getConstellabLogo();
 
-  getViewConfig(view: LiResourceView): RvViewConfig {
+  getViewConfig(view: LiResourceView): RvViewConfig | null {
     if (view.viewConfig == null) return null;
     return {
       methodName: view.viewConfig.viewName,

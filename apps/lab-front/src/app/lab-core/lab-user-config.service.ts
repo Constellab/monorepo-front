@@ -21,7 +21,7 @@ export class LabUserConfig extends FlUserConfig {
     return LabEnvironmentHelper.getSpaceApiUrl() + '/users/photo-v2/' + photo;
   }
 
-  getUserDetailRoute(): string {
+  getUserDetailRoute(): string | null {
     // disabled user detail route
     return null;
   }
@@ -35,6 +35,10 @@ export class LabUserConfig extends FlUserConfig {
   }
 
   getAuthenticatedUser(): LiUser {
-    return this.authenticatedUserService.getCurrentUser();
+    const user = this.authenticatedUserService.getCurrentUser();
+    if (user == null) {
+      throw new Error('No authenticated user available');
+    }
+    return user;
   }
 }

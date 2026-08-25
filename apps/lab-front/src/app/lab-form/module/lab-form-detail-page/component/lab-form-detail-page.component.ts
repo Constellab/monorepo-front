@@ -1,4 +1,13 @@
-import { ChangeDetectionStrategy,Component, computed, inject, Injector, OnInit, signal, ViewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  Injector,
+  OnInit,
+  signal,
+  ViewChild,
+} from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatButtonToggle, MatButtonToggleGroup } from '@angular/material/button-toggle';
 import { MatIcon } from '@angular/material/icon';
@@ -66,9 +75,9 @@ export class LabFormDetailPageComponent implements OnInit {
 
   @ViewChild(LiFormContentComponent) private formContentComponent: LiFormContentComponent;
 
-  form = signal<LiForm>(null);
-  formContent = signal<LiFormContent>(null);
-  tags$ = signal<LiTagDatasource>(null);
+  form = signal<LiForm | null>(null);
+  formContent = signal<LiFormContent | null>(null);
+  tags$ = signal<LiTagDatasource | null>(null);
   isLoading = signal(false);
   isReadonly = signal(false);
   displayMode = signal<LiFormDisplayMode>('form');
@@ -94,7 +103,12 @@ export class LabFormDetailPageComponent implements OnInit {
 
   openActionMenu(event: MouseEvent): void {
     const specs = this.formContent()?.specs;
-    const actionMenu = new LiFormActionMenu(this.injector, this.form(), this.tags$(), specs);
+    const actionMenu = new LiFormActionMenu(
+      this.injector,
+      this.requireForm(),
+      this.tags$() ?? undefined,
+      specs
+    );
     actionMenu.openDetailActionMenu(event).subscribe((action) => this.onFormAction(action));
   }
 
@@ -105,17 +119,25 @@ export class LabFormDetailPageComponent implements OnInit {
   onContentSubmitted(content: LiFormContent): void {
     this.formContent.set(content);
     this.isReadonly.set(true);
-    this.formService.getById(this.form().id).subscribe((form) => {
+    this.formService.getById(this.requireForm().id).subscribe((form) => {
       this.form.set(form);
     });
   }
 
   updateName(name: string): void {
-    this.formService.update(this.form().id, { name }).subscribe((updated) => {
-      const f = this.form();
+    this.formService.update(this.requireForm().id, { name }).subscribe((updated) => {
+      const f = this.requireForm();
       f.name = updated.name;
       this.form.set(f);
     });
+  }
+
+  private requireForm(): LiForm {
+    const form = this.form();
+    if (form == null) {
+      throw new Error('Form not loaded');
+    }
+    return form;
   }
 
   private onFormAction(action: LiFormActionEvent): void {

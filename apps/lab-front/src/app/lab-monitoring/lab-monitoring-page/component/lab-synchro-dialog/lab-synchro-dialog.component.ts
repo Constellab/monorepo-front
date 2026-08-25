@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
@@ -32,20 +32,21 @@ export class LabSynchroDialogComponent {
   private dialogRef = inject<MatDialogRef<LabSynchroDialogComponent>>(MatDialogRef);
 
   formGp = new FormBuilder().group({
-    syncUsers: true,
-    syncFolders: true,
-    syncScenarios: true,
-    syncNotes: true,
-    syncLabConfig: true,
+    syncUsers: new FormControl(true, { nonNullable: true }),
+    syncFolders: new FormControl(true, { nonNullable: true }),
+    syncScenarios: new FormControl(true, { nonNullable: true }),
+    syncNotes: new FormControl(true, { nonNullable: true }),
+    syncLabConfig: new FormControl(true, { nonNullable: true }),
   });
 
   submit(): void {
+    const value = this.formGp.getRawValue();
     const obs = this.systemService.synchronize({
-      sync_users: this.formGp.value.syncUsers,
-      sync_folders: this.formGp.value.syncFolders,
-      sync_scenarios: this.formGp.value.syncScenarios,
-      sync_notes: this.formGp.value.syncNotes,
-      sync_lab_config: this.formGp.value.syncLabConfig,
+      sync_users: value.syncUsers,
+      sync_folders: value.syncFolders,
+      sync_scenarios: value.syncScenarios,
+      sync_notes: value.syncNotes,
+      sync_lab_config: value.syncLabConfig,
     });
 
     this.actionService.addAction({

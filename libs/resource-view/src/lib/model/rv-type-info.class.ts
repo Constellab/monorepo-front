@@ -22,7 +22,8 @@ export interface RvResourceViewTypeInfo {
     // Lazy load the component
     | {
         load: () => Promise<ComponentType<RvResourceViewDirective>>;
-      };
+      }
+    | null;
 }
 
 /**

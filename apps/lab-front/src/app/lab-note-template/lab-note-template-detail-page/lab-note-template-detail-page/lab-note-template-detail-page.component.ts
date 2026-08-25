@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, Injector, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Injector, OnInit } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
@@ -59,7 +59,7 @@ export class LabNoteTemplateDetailPageComponent implements OnInit {
 
   isLoading: boolean = false;
 
-  formControl: FormControl<TeRichText> = new FormControl({ value: null });
+  formControl: FormControl<TeRichText | null> = new FormControl(null);
 
   saveContentFunc: (value: TeRichText) => Observable<TeRichTextDTO>;
   private noteTemplateId: string;

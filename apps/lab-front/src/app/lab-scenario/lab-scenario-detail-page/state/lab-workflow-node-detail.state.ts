@@ -1,4 +1,4 @@
-import { inject,Injectable, ViewContainerRef } from '@angular/core';
+import { inject, Injectable, ViewContainerRef } from '@angular/core';
 import { ClSubscriptionHandler } from '@monorepo/core-lib';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlPortalConnectedPosition, FlPortalService } from '@monorepo/front-core-lib/fl-portal';
@@ -42,12 +42,12 @@ export class LabWorkflowNodeDetailState {
   private portalService = inject(FlPortalService);
   private routerService = inject(LiRouterService);
 
-  private node$: BehaviorSubject<PrWorkflowNodeProcess>;
+  private node$: BehaviorSubject<PrWorkflowNodeProcess | null>;
 
   private subscription: ClSubscriptionHandler = new ClSubscriptionHandler();
 
   public init(): void {
-    this.node$ = new BehaviorSubject(null);
+    this.node$ = new BehaviorSubject<PrWorkflowNodeProcess | null>(null);
 
     this.subscription.add(this.actionState.getAction$().subscribe((action) => this.onNewAction(action)));
 
@@ -58,7 +58,7 @@ export class LabWorkflowNodeDetailState {
     );
   }
 
-  private onNewAction(action: PrWorkflowActionEvent): void {
+  private onNewAction(action: PrWorkflowActionEvent | null): void {
     if (action == null) return;
 
     switch (action.action) {
@@ -109,17 +109,17 @@ export class LabWorkflowNodeDetailState {
     }
   }
 
-  public setNode(node: PrWorkflowNodeProcess): void {
+  public setNode(node: PrWorkflowNodeProcess | null): void {
     this.node$.next(node);
   }
 
-  public getNode$(): Observable<PrWorkflowNodeProcess> {
+  public getNode$(): Observable<PrWorkflowNodeProcess | null> {
     return this.node$.asObservable();
   }
 
   public getProcess$(): Observable<LiProcess> {
     return this.getNode$().pipe(
-      filter((node) => node != null),
+      filter((node): node is PrWorkflowNodeProcess => node != null),
       switchMap((node) => this.scenarioState.getLabProcess$(node.currentObject.id))
     );
   }
@@ -130,32 +130,40 @@ export class LabWorkflowNodeDetailState {
   }
 
   public resetProcess(): void {
-    const node = this.node$.value;
+    const node = this.requireNode();
     this.workflowEditConfig.resetProcess(node.parentLayerId, node.instanceName);
   }
 
   public createDynamicInputPort(): void {
-    this.workflowEditConfig.addDynamicInputPort(this.node$.value);
+    this.workflowEditConfig.addDynamicInputPort(this.requireNode());
   }
 
   public createDynamicOutputPort(): void {
-    this.workflowEditConfig.addDynamicOutputPort(this.node$.value);
+    this.workflowEditConfig.addDynamicOutputPort(this.requireNode());
   }
 
   public deleteDynamicInputPort(portName: string): void {
-    this.workflowEditConfig.removeDynamicInputPort(this.node$.value, portName);
+    this.workflowEditConfig.removeDynamicInputPort(this.requireNode(), portName);
   }
 
   public deleteDynamicOutputPort(portName: string): void {
-    this.workflowEditConfig.removeDynamicOutputPort(this.node$.value, portName);
+    this.workflowEditConfig.removeDynamicOutputPort(this.requireNode(), portName);
   }
 
   public updateDynamicInputPort(portName: string, ioSpec: TdIOSpec): void {
-    this.workflowEditConfig.updateDynamicInputPort(this.node$.value, portName, ioSpec);
+    this.workflowEditConfig.updateDynamicInputPort(this.requireNode(), portName, ioSpec);
   }
 
   public updateDynamicOutputPort(portName: string, ioSpec: TdIOSpec): void {
-    this.workflowEditConfig.updateDynamicOutputPort(this.node$.value, portName, ioSpec);
+    this.workflowEditConfig.updateDynamicOutputPort(this.requireNode(), portName, ioSpec);
+  }
+
+  private requireNode(): PrWorkflowNodeProcess {
+    const node = this.node$.value;
+    if (node == null) {
+      throw new Error('No workflow node selected');
+    }
+    return node;
   }
 
   private openResourceDetail(resourceId: string): void {

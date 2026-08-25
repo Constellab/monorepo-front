@@ -1,4 +1,4 @@
-import { inject,Injectable, NgZone } from '@angular/core';
+import { inject, Injectable, NgZone } from '@angular/core';
 import { LiProcess, LiProcessLayout, LiProtocol } from '@monorepo/lab-lib/li-core';
 import {
   PrAddNodeWithConnection,
@@ -80,7 +80,10 @@ export class LabWorkflowFactory {
     return layer;
   }
 
-  public labProcessToWorkflowNode(process: LiProcess, processLayout?: LiProcessLayout): PrWorkflowNode {
+  public labProcessToWorkflowNode(
+    process: LiProcess,
+    processLayout?: LiProcessLayout | null
+  ): PrWorkflowNode {
     let processNode: PrWorkflowNode;
     if (process.isInput()) {
       processNode = new PrWorkflowNodeInput(

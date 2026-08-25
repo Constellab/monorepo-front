@@ -71,7 +71,7 @@ export class LabMainAppComponent implements OnInit {
   labName: string;
 
   logo = 'assets/fl-logo/constellab-logo.svg';
-  spaceName?: string = null;
+  spaceName?: string;
 
   toolbarColorClass: string;
 
@@ -88,7 +88,7 @@ export class LabMainAppComponent implements OnInit {
 
   openChatbot(event: MouseEvent): void {
     this.chatbotService.toggle({
-      user: this.authenticatedUserService.getCurrentUser(),
+      user: this.authenticatedUserService.getCurrentUser() ?? undefined,
       origin: event.currentTarget as HTMLElement,
     });
   }
@@ -106,7 +106,7 @@ export class LabMainAppComponent implements OnInit {
     this.brickService.getBrick(ClBrick.GWS_BIOTA).subscribe((brick) => this.checkBiotaSuccess(brick));
   }
 
-  private checkBiotaSuccess(brick: LiBrickEntity): void {
+  private checkBiotaSuccess(brick: LiBrickEntity | null): void {
     if (brick && brick.status.value !== 'CRITICAL') {
       this.accessibleLinks.push(LAB_BIOTA_MENU_LINK);
     }

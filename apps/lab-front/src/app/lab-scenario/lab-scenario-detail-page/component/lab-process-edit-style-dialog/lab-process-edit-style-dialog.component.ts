@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
@@ -42,6 +42,9 @@ export class LabProcessEditStyleDialogComponent
     const data = inject<LabProcessEditStyleDialogInputData>(MAT_DIALOG_DATA);
 
     super();
+    if (data.object == null) {
+      throw new Error('LabProcessEditStyleDialogComponent requires a process (update mode only)');
+    }
     this.process = data.object;
   }
 
@@ -56,7 +59,7 @@ export class LabProcessEditStyleDialogComponent
   }
 
   create(): Observable<LiProcess> {
-    return undefined;
+    throw new Error('create() not implemented in LabProcessEditStyleDialogComponent');
   }
 
   getCreateSuccessMessage(): string {

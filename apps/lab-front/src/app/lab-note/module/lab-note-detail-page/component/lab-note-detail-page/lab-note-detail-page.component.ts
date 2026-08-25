@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, Injector, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Injector, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
@@ -66,7 +66,7 @@ export class LabNoteDetailPageComponent implements OnInit, OnDestroy {
   private injector = inject(Injector);
 
   note$: Observable<LiNote>;
-  formControl: FormControl<TeRichText> = new FormControl({ value: null });
+  formControl: FormControl<TeRichText | null> = new FormControl(null);
 
   textEditorConfig: LabNoteTextEditorConfig;
 

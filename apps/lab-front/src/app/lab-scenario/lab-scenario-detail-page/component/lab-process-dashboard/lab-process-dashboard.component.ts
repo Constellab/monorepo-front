@@ -1,5 +1,14 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy,Component, HostListener, inject, OnDestroy, OnInit, signal, WritableSignal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  HostListener,
+  inject,
+  OnDestroy,
+  OnInit,
+  signal,
+  WritableSignal,
+} from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatDialogContent } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
@@ -130,6 +139,8 @@ export class LabProcessDashboardComponent implements OnInit, OnDestroy {
   }
 
   openExternalLabDetail(process: LiProcess): void {
+    if (process.externalLabId == null) return;
+
     const data: LiExternalLabDetailDialogData = {
       labModelId: process.externalLabId,
       routePath: LiRouterService.getScenarioDetailRoute(process.scenarioId),

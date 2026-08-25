@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
@@ -69,12 +69,14 @@ export class LabDynamicPortConfigDialogComponent {
 
     this.portType = data.portType;
     this.formGp = new FormBuilder().group({
-      resourceType: new FormControl(LiTypeEntity.fromResourceType(data.spec.resource_types[0])),
-      humanName: new FormControl(data.spec.human_name),
-      shortDescription: new FormControl(data.spec.short_description),
-      optional: new FormControl(data.spec.optional),
+      resourceType: new FormControl(LiTypeEntity.fromResourceType(data.spec.resource_types[0]), {
+        nonNullable: true,
+      }),
+      humanName: new FormControl(data.spec.human_name, { nonNullable: true }),
+      shortDescription: new FormControl(data.spec.short_description, { nonNullable: true }),
+      optional: new FormControl(data.spec.optional ?? false, { nonNullable: true }),
       // force subClass to true if portType is output
-      subClass: new FormControl(data.portType === 'output'),
+      subClass: new FormControl(data.portType === 'output', { nonNullable: true }),
     });
   }
 
