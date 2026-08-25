@@ -36,7 +36,7 @@ export class LmlConfigureEnvVarDialogComponent {
   submit(): void {
     if (this.formGp.valid) {
       const raw = this.formGp.getRawValue();
-      const envVar: LmlCustomEnvVariableDTO = { key: raw.key, value: raw.value ?? '' };
+      const envVar: LmlCustomEnvVariableDTO = { key: raw.key ?? '', value: raw.value ?? '' };
       this.dialogRef.close(envVar);
     }
   }

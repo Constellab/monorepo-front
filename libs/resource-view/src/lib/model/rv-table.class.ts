@@ -50,10 +50,11 @@ export function rvTableToSpreadsheet(
   sheet.totalColumnsCount = table.data.total_number_of_columns;
   sheet.totalRowsCount = table.data.total_number_of_rows;
 
-  sheet.columns = new SpSheetHeaders(table.data.columns, {
-    headerName: table.data.sort?.column,
-    direction: table.data.sort?.direction,
-  });
+  const sort = table.data.sort;
+  sheet.columns = new SpSheetHeaders(
+    table.data.columns,
+    sort ? { headerName: sort.column, direction: sort.direction } : undefined
+  );
   sheet.rows = new SpSheetHeaders(table.data.rows);
 
   if (!ignoreOffsets) {

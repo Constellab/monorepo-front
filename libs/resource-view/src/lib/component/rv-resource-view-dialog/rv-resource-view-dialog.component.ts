@@ -1,13 +1,13 @@
-import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { RvResourceViewBase } from '../../model/rv-resource-view.class';
 import { RvViewConfig } from '../../model/rv-view-config.class';
 
 export interface RvResourceViewDialogData {
-  resourceId: string;
+  resourceId?: string;
   view: RvResourceViewBase;
-  config: RvViewConfig;
+  config?: RvViewConfig;
   viewTitle: string;
 }
 

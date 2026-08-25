@@ -39,12 +39,12 @@ export class ChChart3dDatum extends ChChart2dDatum {
   constructor(
     x: number,
     y: number,
-    private z: number
+    private z: number | null
   ) {
     super(x, y);
   }
 
-  getZ(defaultValue: number | null = null): number {
+  getZ(defaultValue: number | null = null): number | null {
     return this.z ?? defaultValue;
   }
 

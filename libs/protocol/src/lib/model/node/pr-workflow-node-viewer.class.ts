@@ -49,7 +49,7 @@ export class PrWorkflowNodeViewer extends PrWorkflowNodeResource<PrProcess> {
   }
 
   getExternalButtons$(): Observable<PrWorkNodeIoExternalButton | null> {
-    return undefined;
+    return of(null);
   }
 
   protected getDefaultIcon(): PrWorkflowNodeIcon {

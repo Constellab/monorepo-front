@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject,Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { RvResourceViewText } from '../../model/rv-resource-view.class';
@@ -75,7 +75,9 @@ export class RvViewTextComponent extends RvResourceViewDirective<RvResourceViewT
 
   private callPagination(page: any): Observable<RvResourceViewText> {
     // merge config with pagination config
-    const viewConfig = Object.assign(this.config.configValues, { [this.view.data.page_param_name]: page });
+    const viewConfig = Object.assign(this.config?.configValues ?? {}, {
+      [this.view.data.page_param_name]: page,
+    });
 
     const config = this.moduleConfig.getTextViewConfig();
     return config.callPagination(viewConfig, this.resourceId, this.config) as Observable<RvResourceViewText>;

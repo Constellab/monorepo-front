@@ -9,15 +9,15 @@ import { RvConfigValues, RvViewConfig } from './rv-view-config.class';
 
 export abstract class RvSpreadsheetViewConfig {
   abstract getChartConfig(
-    resourceId: string,
-    config: RvViewConfig,
+    resourceId: string | undefined,
+    config: RvViewConfig | undefined,
     viewContainerRef: ViewContainerRef
   ): SpSheetChartConfig[] | null;
 
   abstract getPagination(
     view: RvResourceViewTable,
-    resourceId: string,
-    config: RvViewConfig
+    resourceId: string | undefined,
+    config: RvViewConfig | undefined
   ): SpSpreadsheetPageLoader | null;
 }
 
@@ -26,9 +26,9 @@ export abstract class RvTextViewConfig {
 
   abstract callPagination(
     viewConfig: RvConfigValues,
-    resourceId: string,
-    config: RvViewConfig
-  ): Observable<RvResourceViewText>;
+    resourceId: string | undefined,
+    config: RvViewConfig | undefined
+  ): Observable<RvResourceViewText> | null;
 }
 
 /**
@@ -77,7 +77,7 @@ export class RvTextViewBasicConfig extends RvTextViewConfig {
     return false;
   }
 
-  callPagination(): Observable<RvResourceViewText> {
+  callPagination(): Observable<RvResourceViewText> | null {
     return null;
   }
 }

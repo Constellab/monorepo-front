@@ -14,7 +14,7 @@ import { LmlBrickVersionDTODatasource, LmlLabManagerConfig } from '../../model/l
   standalone: false,
 })
 export class LmlManagerConfigComponent implements OnInit, OnDestroy {
-  brickVersions = signal<LmlBrickVersionDTODatasource>(undefined);
+  brickVersions = signal<LmlBrickVersionDTODatasource | undefined>(undefined);
 
   getIsLoading = signal<boolean>(false);
 

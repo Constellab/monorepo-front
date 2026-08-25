@@ -139,13 +139,14 @@ export class LmlBricksConfigFormComponent {
    * Returns false (no-op) when the brick has no known latest version.
    */
   private bumpToLatest(brickVersionDTO: LmlLabManagerBrickVersionDTO): boolean {
-    const lastVersion = brickVersionDTO.info?.lastVersion;
-    if (!lastVersion) return false;
+    const info = brickVersionDTO.info;
+    const lastVersion = info?.lastVersion;
+    if (!info || !lastVersion) return false;
 
     this.brickVersions().updateItem({
       ...brickVersionDTO,
       version: lastVersion,
-      info: { ...brickVersionDTO.info, hasNewVersion: false },
+      info: { ...info, hasNewVersion: false },
     });
     return true;
   }
@@ -220,7 +221,7 @@ export class LmlBricksConfigFormComponent {
   }
 
   isConfigured(): boolean {
-    return this.brickVersions().findItem({ name: ClBrick.GWS_CORE, version: null }) != null;
+    return this.brickVersions().findItemByName(ClBrick.GWS_CORE) != null;
   }
 
   addGwsCoreBrick(): void {

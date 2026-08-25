@@ -7,7 +7,8 @@ import {
   OnDestroy,
   OnInit,
   ViewChild,
-  ViewContainerRef} from '@angular/core';
+  ViewContainerRef,
+} from '@angular/core';
 import { ClHelpService } from '@monorepo/core-lib';
 import { FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
 
@@ -50,7 +51,7 @@ export class RvResourceViewComponent implements OnInit, OnDestroy {
 
   private isReady: boolean = false;
 
-  private viewComponentRef: ComponentRef<RvResourceViewDirective>;
+  private viewComponentRef: ComponentRef<RvResourceViewDirective> | null = null;
 
   private moduleConfig: RvResourceViewModuleConfig = inject(RV_MODULE_CONFIG);
 

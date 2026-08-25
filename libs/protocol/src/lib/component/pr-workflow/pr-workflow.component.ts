@@ -7,7 +7,8 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  ViewChild} from '@angular/core';
+  ViewChild,
+} from '@angular/core';
 import { FlPortalConnectedPosition, FlPortalService } from '@monorepo/front-core-lib/fl-portal';
 import { Observable, Subscription } from 'rxjs';
 
@@ -77,7 +78,7 @@ export class PrWorkflowComponent implements OnInit, AfterViewInit, OnDestroy {
     this.flowIsLoading = false;
   }
 
-  private onNewAction(action: PrWorkflowActionEvent): void {
+  private onNewAction(action: PrWorkflowActionEvent | null): void {
     if (action?.action === 'showIOFace') {
       this.openIoFacePortal(action, action.element);
     }
@@ -94,7 +95,7 @@ export class PrWorkflowComponent implements OnInit, AfterViewInit, OnDestroy {
 
     // find the connected node to the interface
     const layer = this.workflow.findLayerById(action.parentLayerId);
-    if (layer.parentLayer) {
+    if (layer != null && layer.parentLayer) {
       if (action.type === 'interface') {
         const connection = layer.parentLayer.findConnectionByRightNode(layer.instanceName, action.name);
         if (connection != null) {

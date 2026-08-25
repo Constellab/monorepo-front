@@ -52,7 +52,7 @@ export class PrWorkflowFactory {
   }
 
   private createLayerObjects(layer: PrWorkflowLayer, graph: PrProtocolGraph): PrWorkflowLayer {
-    const layout: PrProtocolLayout = graph.layout;
+    const layout: PrProtocolLayout | undefined = graph.layout;
 
     for (const key of Object.keys(graph.nodes)) {
       const caProcess = graph.nodes[key];
@@ -91,7 +91,7 @@ export class PrWorkflowFactory {
     process: PrProtocol,
     name: string,
     protocolId: string,
-    layout?: FlCoord
+    layout?: FlCoord | null
   ): PrWorkflowNode {
     const prProcess = this.caProcessToPrProcess(process, name, protocolId);
     this.conversionMatch[prProcess.id] = process;
@@ -125,8 +125,9 @@ export class PrWorkflowFactory {
         this.actionState
       );
     } else if (process.graph != null) {
+      const graph = process.graph;
       const layer: () => Observable<PrWorkflowLayer> = () =>
-        of(this.createSubLayer(process.graph, prProcess.id, prProcess.instanceName, name));
+        of(this.createSubLayer(graph, prProcess.id, prProcess.instanceName, name));
       processNode = new PrWorkflowNodeProtocol(prProcess, layer, this.resourceState, this.actionState);
     } else {
       processNode = new PrWorkflowNodeProcess(prProcess, this.resourceState, this.actionState);

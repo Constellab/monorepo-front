@@ -29,20 +29,20 @@ interface LmlConfigureBrickDialogData {
 })
 export class LmlConfigureBrickComponent implements OnInit {
   formGp = new FormBuilder().group({
-    name: [null as string, Validators.required],
-    version: [null as string, Validators.required],
-    brick: [null as CoBrick, Validators.required],
+    name: [null as string | null, Validators.required],
+    version: [null as string | null, Validators.required],
+    brick: [null as CoBrick | null, Validators.required],
   });
   brickSelectionMode = signal<boolean>(true);
   isLoading = signal<boolean>(true);
 
-  bricks$ = signal<LmlCommunityBrickDatasource<LmlCommunityBrickFilers>>(null);
+  bricks$ = signal<LmlCommunityBrickDatasource<LmlCommunityBrickFilers> | null>(null);
 
   versions = signal<string[]>([]);
   oldVersions = signal<string[]>([]);
 
   spaceIdFilter: string[] = [];
-  titleFormControl: FormControl<string> = new FormControl('');
+  titleFormControl: FormControl<string> = new FormControl('', { nonNullable: true });
 
   isUpdate: boolean;
 
@@ -60,15 +60,14 @@ export class LmlConfigureBrickComponent implements OnInit {
   formIsValid = computed(() => this.formStatus() === 'VALID');
 
   ngOnInit(): void {
-    this.isUpdate = this.brickVersionDTO != null;
+    const brickVersionDTO = this.brickVersionDTO;
+    this.isUpdate = brickVersionDTO != null;
 
-    if (this.brickVersionDTO) {
-      this.formGp.patchValue(this.brickVersionDTO);
-    }
+    if (brickVersionDTO) {
+      this.formGp.patchValue(brickVersionDTO);
 
-    if (this.isUpdate) {
       this.brickSelectionMode.set(false);
-      this.communityBrickService.getByName(this.brickVersionDTO.name).subscribe((brick) => {
+      this.communityBrickService.getByName(brickVersionDTO.name).subscribe((brick) => {
         this.initBrickVersionSelection(brick);
       });
     }
@@ -83,7 +82,10 @@ export class LmlConfigureBrickComponent implements OnInit {
   }
 
   updateBricks(): void {
-    this.bricks$().getFirstPage({
+    const bricks = this.bricks$();
+    if (!bricks) return;
+
+    bricks.getFirstPage({
       spaceIds: this.spaceIdFilter,
       title: this.titleFormControl.value,
     });
@@ -113,8 +115,8 @@ export class LmlConfigureBrickComponent implements OnInit {
       new FlEntityPaginatedDatasource(
         (page, size, requestData) =>
           this.communityBrickService.getAllWithFilters(
-            requestData.filtersCriteria.spaceIds,
-            requestData.filtersCriteria.title,
+            requestData.filtersCriteria.spaceIds ?? [],
+            requestData.filtersCriteria.title ?? '',
             page,
             size
           ),

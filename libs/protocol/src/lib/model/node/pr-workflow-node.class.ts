@@ -9,6 +9,14 @@ import { PrPort } from '../pr-io.class';
 import { PrWorkflowPort, PrWorkflowPortType } from '../workflow/pr-workflow-port.class';
 
 /**
+ * Coordinates of a node; x/y are null until the node has been positioned
+ */
+export interface PrNodeCoord {
+  x: number | null;
+  y: number | null;
+}
+
+/**
  * Single node in the workflow
  */
 export abstract class PrWorkflowNode<T = any> {
@@ -17,7 +25,7 @@ export abstract class PrWorkflowNode<T = any> {
   public inputPorts: PrWorkflowPort[];
   public outputPorts: PrWorkflowPort[];
 
-  private getDrawflowNodeMethod: (id: string) => DrawflowNode;
+  private getDrawflowNodeMethod: ((id: string) => DrawflowNode) | null;
 
   private object$: BehaviorSubject<T>;
   private inputPortsChange$: BehaviorSubject<PrWorkflowPort[]>;
@@ -26,8 +34,8 @@ export abstract class PrWorkflowNode<T = any> {
   private objectSubscription: ClSubscriptionHandler;
   private currentTitle: FlTranslatableText;
 
-  public x: number = null;
-  public y: number = null;
+  public x: number | null = null;
+  public y: number | null = null;
 
   protected constructor(
     // unique node name in the layer
@@ -67,7 +75,7 @@ export abstract class PrWorkflowNode<T = any> {
 
   public abstract getCurrentOutputResourceId(portName: string): string | null;
 
-  public abstract getNodeColor$(): Observable<string>;
+  public abstract getNodeColor$(): Observable<string | undefined>;
 
   // call when the HTML node is clicked
   public abstract onNodeClick(event: MouseEvent): void;
@@ -93,8 +101,11 @@ export abstract class PrWorkflowNode<T = any> {
    */
   public countInputConnections(portName: string): number {
     const portDrawflowName = this.getInputPortDrawflowName(portName);
-    const connection: DrawflowConnectionDetail[] =
-      this.getDrawflowNode().inputs[portDrawflowName]?.connections || null;
+    // if the input port doesn't exist, consider it is not available
+    if (portDrawflowName == null) return 2;
+
+    const connection: DrawflowConnectionDetail[] | null =
+      this.getDrawflowNode()?.inputs[portDrawflowName]?.connections || null;
 
     // if the input doesn't exist, consider it is not available
     if (connection == null) {
@@ -114,11 +125,11 @@ export abstract class PrWorkflowNode<T = any> {
     return this.inputPorts.length;
   }
 
-  public findInputPortByName(name: string): PrWorkflowPort {
+  public findInputPortByName(name: string): PrWorkflowPort | undefined {
     return this.inputPorts.find((p) => p.name === name);
   }
 
-  public findInputPortByDrawflowName(drawflowName: string): PrWorkflowPort {
+  public findInputPortByDrawflowName(drawflowName: string): PrWorkflowPort | undefined {
     return this.inputPorts.find((p) => this.getInputPortDrawflowName(p.name) === drawflowName);
   }
 
@@ -138,7 +149,7 @@ export abstract class PrWorkflowNode<T = any> {
     this.inputPortsChange$.next(this.inputPorts);
   }
 
-  public getInputPortDrawflowName(portName: string): string {
+  public getInputPortDrawflowName(portName: string): string | null {
     const index = this.inputPorts.findIndex((p) => p.name === portName);
     if (index === -1) return null;
     return PrWorkflowPort.getInputDrawflowName(index + 1);
@@ -158,11 +169,11 @@ export abstract class PrWorkflowNode<T = any> {
     return this.outputPorts.length;
   }
 
-  public findOutputPortByName(name: string): PrWorkflowPort {
+  public findOutputPortByName(name: string): PrWorkflowPort | undefined {
     return this.outputPorts.find((p) => p.name === name);
   }
 
-  public findOutputPortByDrawflowName(drawflowName: string): PrWorkflowPort {
+  public findOutputPortByDrawflowName(drawflowName: string): PrWorkflowPort | undefined {
     return this.outputPorts.find((p) => this.getOutputPortDrawflowName(p.name) === drawflowName);
   }
 
@@ -182,7 +193,7 @@ export abstract class PrWorkflowNode<T = any> {
     port.destroy();
   }
 
-  public getOutputPortDrawflowName(portName: string): string {
+  public getOutputPortDrawflowName(portName: string): string | null {
     const index = this.outputPorts.findIndex((p) => p.name === portName);
     if (index === -1) return null;
     return PrWorkflowPort.getOutputDrawflowName(index + 1);
@@ -229,7 +240,7 @@ export abstract class PrWorkflowNode<T = any> {
     }
   }
 
-  public getPortDrawflowName(port: PrWorkflowPort): string {
+  public getPortDrawflowName(port: PrWorkflowPort): string | null {
     return port.type === 'input'
       ? this.getInputPortDrawflowName(port.name)
       : this.getOutputPortDrawflowName(port.name);
@@ -237,10 +248,11 @@ export abstract class PrWorkflowNode<T = any> {
 
   protected getPortElement(port: PrWorkflowPort): HTMLElement | null {
     // retrieve the node HTML element
-    const element: HTMLElement = this.getHTMLElement();
+    const element: HTMLElement | null = this.getHTMLElement();
     if (element == null) return null;
 
     const drawflowPortName = this.getPortDrawflowName(port);
+    if (drawflowPortName == null) return null;
 
     const portElement: Element = element.getElementsByClassName(drawflowPortName)[0];
 
@@ -252,7 +264,7 @@ export abstract class PrWorkflowNode<T = any> {
     portElement.style.backgroundColor = color;
   }
 
-  public findPortByName(name: string, portType: PrWorkflowPortType): PrWorkflowPort {
+  public findPortByName(name: string, portType: PrWorkflowPortType): PrWorkflowPort | undefined {
     return portType === 'input' ? this.findInputPortByName(name) : this.findOutputPortByName(name);
   }
 
@@ -303,15 +315,15 @@ export abstract class PrWorkflowNode<T = any> {
 
   /////////////////////////////// OTHER //////////////////////////////
 
-  private getDrawflowNode(): DrawflowNode {
-    return this.getDrawflowNodeMethod(this.drawflowId);
+  private getDrawflowNode(): DrawflowNode | null {
+    return this.getDrawflowNodeMethod?.(this.drawflowId) ?? null;
   }
 
   public getHTMLId(): string {
     return 'node-' + this.drawflowId;
   }
 
-  protected getHTMLElement(): HTMLElement {
+  protected getHTMLElement(): HTMLElement | null {
     return document.getElementById(this.getHTMLId());
   }
 
@@ -319,20 +331,21 @@ export abstract class PrWorkflowNode<T = any> {
     return this.x != null && this.y != null;
   }
 
-  public getCoords(): FlCoord {
+  public getCoords(): PrNodeCoord {
     return {
       x: this.x,
       y: this.y,
     };
   }
 
-  public setCoords(coords: FlCoord): void {
+  public setCoords(coords: PrNodeCoord): void {
     this.x = coords.x;
     this.y = coords.y;
   }
 
-  private getNodeCoord(): FlCoord {
-    const drawflowNode: DrawflowNode = this.getDrawflowNode();
+  private getNodeCoord(): FlCoord | null {
+    const drawflowNode = this.getDrawflowNode();
+    if (drawflowNode == null) return null;
     return {
       x: drawflowNode.pos_x,
       y: drawflowNode.pos_y,
@@ -340,18 +353,21 @@ export abstract class PrWorkflowNode<T = any> {
   }
 
   public refreshCoords(): void {
-    const coord: FlCoord = this.getNodeCoord();
+    const coord = this.getNodeCoord();
+    if (coord == null) return;
     this.x = coord.x;
     this.y = coord.y;
   }
 
   public getCurrentTitle(): string {
     if (this.currentTitle == null) return '';
-    return FlTranslateService.getInstance().translatableText(this.currentTitle);
+    return FlTranslateService.getInstance()?.translatableText(this.currentTitle) ?? '';
   }
 
   public deInitDrawflow(): void {
-    this.drawflowId = null;
+    // drawflowId is intentionally left set: the node is discarded after this call and nothing
+    // reads drawflowId to detect a torn-down node, so keeping it non-nullable avoids widening it
+    // everywhere it is used as a live node id
     this.getDrawflowNodeMethod = null;
     this.objectSubscription?.unsubscribe();
   }

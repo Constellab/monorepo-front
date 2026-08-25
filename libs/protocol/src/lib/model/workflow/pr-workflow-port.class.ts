@@ -38,7 +38,7 @@ export class PrWorkflowPort {
     return this.currentObject.specs;
   }
 
-  public getResourceId$(): Observable<string> {
+  public getResourceId$(): Observable<string | undefined> {
     return this.object$.asObservable().pipe(map((port) => port.resource_id));
   }
 

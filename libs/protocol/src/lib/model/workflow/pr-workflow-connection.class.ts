@@ -42,9 +42,10 @@ export class PrWorkflowConnection {
     });
   }
 
-  public getConnectionElement(containerElement: HTMLElement): HTMLElement {
+  public getConnectionElement(containerElement: HTMLElement): HTMLElement | null {
     const portNodeName = `node_in_node-${this.inputNode.drawflowId}`;
     const portName = this.inputNode.getInputPortDrawflowName(this.inputPort.name);
-    return containerElement.querySelector(`.${portNodeName}.${portName}`);
+    // querySelector types its result as the generic Element; the selector always targets a drawflow port div
+    return containerElement.querySelector(`.${portNodeName}.${portName}`) as HTMLElement | null;
   }
 }

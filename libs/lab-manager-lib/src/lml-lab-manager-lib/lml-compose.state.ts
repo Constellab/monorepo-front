@@ -55,6 +55,18 @@ export class LmlComposeState implements OnDestroy {
     );
   }
 
+  /**
+   * `compose` is only null in the brief window before `init()` runs. Every method below is
+   * only reachable once the component that provides this state has called `init()` in
+   * `ngOnInit`, so this never actually throws.
+   */
+  private requireCompose(): LmlComposeUniqueId {
+    if (this.compose == null) {
+      throw new Error('LmlComposeState: init() must be called before using the compose state');
+    }
+    return this.compose;
+  }
+
   private onActionResult(result: FlPortalActionResult): void {
     const additionalData = result?.additionalInformation as LmlAdditionalData;
     if (additionalData?.refreshDockerServices) {
@@ -85,7 +97,7 @@ export class LmlComposeState implements OnDestroy {
   private refreshDockerServices(): void {
     if (this.dockerServices.value.status === 'loading') return;
     this.dockerServices.next({ status: 'loading' });
-    this.labManagerService.listServices(this.compose).subscribe({
+    this.labManagerService.listServices(this.requireCompose()).subscribe({
       next: (service: LmlDockerInspect[]) =>
         this.dockerServices.next({
           status: 'success',
@@ -110,7 +122,7 @@ export class LmlComposeState implements OnDestroy {
   private refreshComposeStatus(): void {
     if (this.composeStatus.value.status === 'loading') return;
     this.composeStatus.next({ status: 'loading' });
-    this.labManagerService.getComposeStatus(this.compose).subscribe({
+    this.labManagerService.getComposeStatus(this.requireCompose()).subscribe({
       next: (status: LmlSubComposeStatus) =>
         this.composeStatus.next({
           status: 'success',
@@ -126,7 +138,7 @@ export class LmlComposeState implements OnDestroy {
     this.openLabUpForm({ mode: 'start' }).subscribe((formValue) => {
       if (formValue) {
         this.actionService.addAction({
-          action: this.labManagerService.upServices(this.compose, {
+          action: this.labManagerService.upServices(this.requireCompose(), {
             updateContainers: formValue.updateContainers,
             services: services,
           }),
@@ -145,7 +157,7 @@ export class LmlComposeState implements OnDestroy {
     this.openLabUpForm({ mode: 'restart' }).subscribe((formValue) => {
       if (formValue) {
         this.actionService.addAction({
-          action: this.labManagerService.restartServices(this.compose, formValue),
+          action: this.labManagerService.restartServices(this.requireCompose(), formValue),
           text: { text: 'lml.restart_services', translateText: true },
           type: this.actionType,
           additionalInformation: {
@@ -165,7 +177,7 @@ export class LmlComposeState implements OnDestroy {
 
   stopServices(): void {
     this.actionService.addAction({
-      action: this.labManagerService.stopServices(this.compose),
+      action: this.labManagerService.stopServices(this.requireCompose()),
       text: { text: 'lml.stop_services', translateText: true },
       type: this.actionType,
       additionalInformation: {
@@ -177,7 +189,7 @@ export class LmlComposeState implements OnDestroy {
 
   deleteServices(): void {
     this.actionService.addAction({
-      action: this.labManagerService.deleteServices(this.compose),
+      action: this.labManagerService.deleteServices(this.requireCompose()),
       text: { text: 'lml.delete_services', translateText: true },
       type: this.actionType,
       additionalInformation: {
@@ -189,21 +201,26 @@ export class LmlComposeState implements OnDestroy {
 
   pullServices(): void {
     this.actionService.addAction({
-      action: this.labManagerService.pullServices(this.compose),
+      action: this.labManagerService.pullServices(this.requireCompose()),
       text: { text: 'lml.pull_services', translateText: true },
       type: this.actionType,
     });
   }
 
   unregisterSubCompose(): Observable<FlPortalActionResult> {
-    return this.actionService.addAction({
-      action: this.labManagerService.unregisterSubCompose(this.compose),
+    const result = this.actionService.addAction({
+      action: this.labManagerService.unregisterSubCompose(this.requireCompose()),
       text: { text: 'lml.unregister_sub_compose', translateText: true },
       type: this.actionType,
       additionalInformation: {
         refreshComposeStatus: true,
       } as LmlAdditionalData,
     });
+    // addAction only returns null when its `action` argument is null, which never happens here
+    if (result == null) {
+      throw new Error('LmlComposeState: addAction unexpectedly returned null');
+    }
+    return result;
   }
 
   //////////////////// SINGLE CONTAINER MANAGEMENT /////////////////////

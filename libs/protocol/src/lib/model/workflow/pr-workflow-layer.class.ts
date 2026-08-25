@@ -1,10 +1,9 @@
 import { ClSubscriptionHandler } from '@monorepo/core-lib';
-import { FlCoord } from '@monorepo/front-core-lib/fl-core';
 import Drawflow, { ConnectionEvent } from 'drawflow';
 
 import { PrWorkflowActionState } from '../../state/pr-workflow-action-state';
 import { PrWorkflowResourcesState } from '../../state/pr-workflow-resources.state';
-import { PrWorkflowNode } from '../node/pr-workflow-node.class';
+import { PrNodeCoord, PrWorkflowNode } from '../node/pr-workflow-node.class';
 import { PrWorkflowNodeInterface } from '../node/pr-workflow-node-interface.class';
 import { PrWorkflowNodeOuterface } from '../node/pr-workflow-node-outerface.class';
 import { PrWorkflowNodeProcess } from '../node/pr-workflow-node-process.class';
@@ -22,10 +21,10 @@ export class PrWorkflowLayer {
 
   public readonly connections: PrWorkflowConnection[] = [];
 
-  public parentLayer: PrWorkflowLayer = null;
+  public parentLayer: PrWorkflowLayer | null = null;
 
   private containerElement: HTMLElement;
-  private editor: Drawflow;
+  private editor: Drawflow | null;
 
   protected subscriptions: ClSubscriptionHandler;
 
@@ -100,7 +99,7 @@ export class PrWorkflowLayer {
     }
   }
 
-  public findNodeByDrawflowId(nodeId: string): PrWorkflowNode {
+  public findNodeByDrawflowId(nodeId: string): PrWorkflowNode | undefined {
     return this.findNode((node) => node.drawflowId === nodeId);
   }
 
@@ -110,11 +109,11 @@ export class PrWorkflowLayer {
     ) as PrWorkflowNodeProcess;
   }
 
-  public findNodeByName(nodeName: string): PrWorkflowNode {
+  public findNodeByName(nodeName: string): PrWorkflowNode | undefined {
     return this.findNode((node) => node.instanceName === nodeName);
   }
 
-  public findNode(predicate: (node: PrWorkflowNode) => boolean): PrWorkflowNode {
+  public findNode(predicate: (node: PrWorkflowNode) => boolean): PrWorkflowNode | undefined {
     return this.nodes.find((node) => predicate(node));
   }
 
@@ -147,7 +146,7 @@ export class PrWorkflowLayer {
     node.destroy();
     // the remove it from the editor
     // so on delete node event, the node is already removed from the local array
-    this.editor.removeNodeId(nodeHTMLId);
+    this.editor?.removeNodeId(nodeHTMLId);
   }
 
   public updateProcessObject(process: PrProcess): void {
@@ -189,21 +188,36 @@ export class PrWorkflowLayer {
 
   private addNodePort(nodeName: string, portName: string, port: PrPort, portType: PrWorkflowPortType): void {
     const node = this.findNodeByName(nodeName);
+    if (node == null) {
+      console.error("[PrWorkflowLayer] can't find node with name " + nodeName);
+      return;
+    }
 
     if (portType === 'input') {
-      this.editor.addNodeInput(node.drawflowId);
+      this.editor?.addNodeInput(node.drawflowId);
     } else {
-      this.editor.addNodeOutput(node.drawflowId);
+      this.editor?.addNodeOutput(node.drawflowId);
     }
     node.createPort(portName, port, portType);
   }
 
   private deleteNodePort(nodeName: string, portName: string, portType: PrWorkflowPortType): void {
     const node = this.findNodeByName(nodeName);
+    if (node == null) {
+      console.error("[PrWorkflowLayer] can't find node with name " + nodeName);
+      return;
+    }
+
     if (portType === 'input') {
-      this.editor.removeNodeInput(node.drawflowId, node.getInputPortDrawflowName(portName));
+      const drawflowName = node.getInputPortDrawflowName(portName);
+      if (drawflowName != null) {
+        this.editor?.removeNodeInput(node.drawflowId, drawflowName);
+      }
     } else {
-      this.editor.removeNodeOutput(node.drawflowId, node.getOutputPortDrawflowName(portName));
+      const drawflowName = node.getOutputPortDrawflowName(portName);
+      if (drawflowName != null) {
+        this.editor?.removeNodeOutput(node.drawflowId, drawflowName);
+      }
     }
     node.deletePort(portName, portType);
   }
@@ -269,8 +283,12 @@ export class PrWorkflowLayer {
         shiftY++;
       }
 
+      // hasCoords() (checked above, or already true) guarantees x and y are set at this point
+      const nodeX = node.x ?? 0;
+      const nodeY = node.y ?? 0;
+
       const nextNodes = this.getNextNodes(node.instanceName);
-      this.setNodesPositionRecursively(nextNodes, node.x, node.y);
+      this.setNodesPositionRecursively(nextNodes, nodeX, nodeY);
     }
   }
 
@@ -278,12 +296,13 @@ export class PrWorkflowLayer {
    * Return a relative node position based on another node
    * @private
    */
-  public getRelativeNodePosition(nodeName: string, position: 'before' | 'after'): FlCoord {
-    const node: PrWorkflowNode = this.findNodeByName(nodeName);
-    if (node == null || !node.hasCoords()) return { x: null, y: null };
+  public getRelativeNodePosition(nodeName: string, position: 'before' | 'after'): PrNodeCoord {
+    const node = this.findNodeByName(nodeName);
+    if (node == null) return { x: null, y: null };
 
     // calculate the X pos based on relative node
     const baseNodeCoord = node.getCoords();
+    if (baseNodeCoord.x == null || baseNodeCoord.y == null) return { x: null, y: null };
 
     let xCoord: number;
     if (position === 'before') {
@@ -302,7 +321,12 @@ export class PrWorkflowLayer {
   }
 
   ////////////////////////////////// INTERFACE & OUTERFACE ////////////////////////////////
-  public addInterface(interfaceName: string, nodeName: string, portName: string, coords?: FlCoord): void {
+  public addInterface(
+    interfaceName: string,
+    nodeName: string,
+    portName: string,
+    coords?: PrNodeCoord | null
+  ): void {
     const node: PrWorkflowNodeProcess = this.findNodeByName(nodeName) as PrWorkflowNodeProcess;
 
     if (node == null) {
@@ -310,6 +334,10 @@ export class PrWorkflowLayer {
       return;
     }
     const port = node.findInputPortByName(portName);
+    if (port == null) {
+      console.error("[PrWorkflowLayer] can't find input port with name " + portName + ' in node ' + nodeName);
+      return;
+    }
     const interfaceNode = new PrWorkflowNodeInterface(
       {
         name: interfaceName,
@@ -337,7 +365,12 @@ export class PrWorkflowLayer {
     this.addConnection(connection);
   }
 
-  public addOuterface(outerfaceName: string, nodeName: string, portName: string, coords?: FlCoord): void {
+  public addOuterface(
+    outerfaceName: string,
+    nodeName: string,
+    portName: string,
+    coords?: PrNodeCoord | null
+  ): void {
     const node: PrWorkflowNodeProcess = this.findNodeByName(nodeName) as PrWorkflowNodeProcess;
 
     if (node == null) {
@@ -345,6 +378,12 @@ export class PrWorkflowLayer {
       return;
     }
     const port = node.findOutputPortByName(portName);
+    if (port == null) {
+      console.error(
+        "[PrWorkflowLayer] can't find output port with name " + portName + ' in node ' + nodeName
+      );
+      return;
+    }
     if (coords == null) {
       // calculate and set the position of the outerface node
       coords = this.getRelativeNodePosition(nodeName, 'after');
@@ -421,7 +460,7 @@ export class PrWorkflowLayer {
       console.error("[PrProtocol] can't find input port drawflow name for port " + connection.inputPort.name);
       return;
     }
-    this.editor.addConnection(
+    this.editor?.addConnection(
       connection.outputNode.drawflowId,
       connection.inputNode.drawflowId,
       outputPortDrawflowName,
@@ -429,20 +468,20 @@ export class PrWorkflowLayer {
     );
   }
 
-  public addPrConnection(connection: PrConnection): PrWorkflowConnection {
+  public addPrConnection(connection: PrConnection): PrWorkflowConnection | null {
     // check if input is available for the node
-    const outputNode: PrWorkflowNode = this.findNodeByName(connection.fromNode);
+    const outputNode = this.findNodeByName(connection.fromNode);
     if (outputNode == null) {
       console.error("[PrProtocol] can't find output node with name " + connection.fromNode);
       return null;
     }
-    const inputNode: PrWorkflowNode = this.findNodeByName(connection.toNode);
+    const inputNode = this.findNodeByName(connection.toNode);
     if (inputNode == null) {
       console.error("[PrProtocol] can't find input node with name " + connection.toNode);
       return null;
     }
 
-    const outputPort: PrWorkflowPort = outputNode.findOutputPortByName(connection.fromPort);
+    const outputPort = outputNode.findOutputPortByName(connection.fromPort);
     if (outputPort == null) {
       console.error(
         "[PrProtocol] can't find output port with name " +
@@ -452,7 +491,7 @@ export class PrWorkflowLayer {
       );
       return null;
     }
-    const inputPort: PrWorkflowPort = inputNode.findInputPortByName(connection.toPort);
+    const inputPort = inputNode.findInputPortByName(connection.toPort);
     if (inputPort == null) {
       console.error(
         "[PrProtocol] can't find input port with name " +
@@ -479,7 +518,7 @@ export class PrWorkflowLayer {
     inputNode: PrWorkflowNode,
     outputPort: PrWorkflowPort,
     inputPort: PrWorkflowPort
-  ): PrWorkflowConnection | undefined {
+  ): PrWorkflowConnection | null {
     // only add the connection if it doesn't exist
     if (
       this.findConnection(outputNode.drawflowId, inputNode.drawflowId, outputPort.name, inputPort.name) !=
@@ -500,16 +539,24 @@ export class PrWorkflowLayer {
   // add the connection in the local array and in the editor
 
   // this method is triggered when the connection is deleted by program
-  public removeConnection(connection: PrWorkflowConnection): PrWorkflowConnection | undefined {
+  public removeConnection(connection: PrWorkflowConnection): PrWorkflowConnection | null {
     const removedConnection = this.saveUserConnectionRemoved(connection);
 
     if (removedConnection) {
-      this.editor.removeSingleConnection(
-        removedConnection.outputNode.drawflowId,
-        removedConnection.inputNode.drawflowId,
-        removedConnection.outputNode.getOutputPortDrawflowName(removedConnection.outputPort.name),
-        removedConnection.inputNode.getInputPortDrawflowName(removedConnection.inputPort.name)
+      const outputPortDrawflowName = removedConnection.outputNode.getOutputPortDrawflowName(
+        removedConnection.outputPort.name
       );
+      const inputPortDrawflowName = removedConnection.inputNode.getInputPortDrawflowName(
+        removedConnection.inputPort.name
+      );
+      if (outputPortDrawflowName != null && inputPortDrawflowName != null) {
+        this.editor?.removeSingleConnection(
+          removedConnection.outputNode.drawflowId,
+          removedConnection.inputNode.drawflowId,
+          outputPortDrawflowName,
+          inputPortDrawflowName
+        );
+      }
       return removedConnection;
     }
     return null;
@@ -517,7 +564,7 @@ export class PrWorkflowLayer {
 
   // add the connection to the local list
   // this method is triggered when the user manually remove a connection
-  public saveUserConnectionRemoved(connection: PrWorkflowConnection): PrWorkflowConnection | undefined {
+  public saveUserConnectionRemoved(connection: PrWorkflowConnection): PrWorkflowConnection | null {
     const connectionIndex: number = this.findConnectionIndex(
       connection.outputNode.drawflowId,
       connection.inputNode.drawflowId,
@@ -541,10 +588,13 @@ export class PrWorkflowLayer {
   // remove the connection from the local list
   public findConnectionIndexByConnectionEvent(connectionEvent: ConnectionEvent): number {
     // check if input is available for the node
-    const inputNode: PrWorkflowNode = this.findNodeByDrawflowId(connectionEvent.input_id);
-    const outputNode: PrWorkflowNode = this.findNodeByDrawflowId(connectionEvent.output_id);
-    const inputPort: PrWorkflowPort = inputNode.findInputPortByDrawflowName(connectionEvent.input_class);
-    const outputPort: PrWorkflowPort = outputNode.findOutputPortByDrawflowName(connectionEvent.output_class);
+    const inputNode = this.findNodeByDrawflowId(connectionEvent.input_id);
+    const outputNode = this.findNodeByDrawflowId(connectionEvent.output_id);
+    if (inputNode == null || outputNode == null) return -1;
+
+    const inputPort = inputNode.findInputPortByDrawflowName(connectionEvent.input_class);
+    const outputPort = outputNode.findOutputPortByDrawflowName(connectionEvent.output_class);
+    if (inputPort == null || outputPort == null) return -1;
 
     return this.findConnectionIndex(
       outputNode.drawflowId,
@@ -559,7 +609,7 @@ export class PrWorkflowLayer {
     inputNodeId: string,
     outputPortName: string,
     inputPortName: string
-  ): PrWorkflowConnection {
+  ): PrWorkflowConnection | null {
     const connectionIndex: number = this.findConnectionIndex(
       outputNodeId,
       inputNodeId,
@@ -588,7 +638,7 @@ export class PrWorkflowLayer {
     return this.connections.filter((connection) => connection.isConnectedToNode(nodeName));
   }
 
-  public findConnectionByRightNode(nodeName: string, portName: string): PrWorkflowConnection | null {
+  public findConnectionByRightNode(nodeName: string, portName: string): PrWorkflowConnection | undefined {
     return this.connections.find(
       (connection) => connection.inputNode.instanceName === nodeName && connection.inputPort.name === portName
     );
@@ -616,7 +666,10 @@ export class PrWorkflowLayer {
    * Create the node in the editor and init those values
    */
   private createAndInitDrawflowNode(node: PrWorkflowNode): void {
-    const nodeId: number = this.editor.addNode(
+    const editor = this.editor;
+    if (editor == null) return;
+
+    const nodeId: number = editor.addNode(
       node.getCurrentTitle(),
       node.countInputs(),
       node.countOutputs(),
@@ -629,7 +682,7 @@ export class PrWorkflowLayer {
     );
 
     // set the nodeId in workflow node
-    node.initNode(nodeId.toString(), (id: string) => this.editor.getNodeFromId(id));
+    node.initNode(nodeId.toString(), (id: string) => editor.getNodeFromId(id));
   }
 
   public isDrawflowReady(): boolean {
@@ -656,8 +709,8 @@ export class PrWorkflowLayer {
     }
   }
 
-  public exportLayout(): Record<string, FlCoord> {
-    const layout: Record<string, FlCoord> = {};
+  public exportLayout(): Record<string, PrNodeCoord> {
+    const layout: Record<string, PrNodeCoord> = {};
     for (const node of this.nodes) {
       layout[node.instanceName] = { x: node.x, y: node.y };
     }

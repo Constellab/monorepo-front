@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FL_PORTAL_DATA } from '@monorepo/front-core-lib/fl-portal';
 
 import { ChChartLabelFormatter } from '../../../model/ch-chart-label-formatter.class';
@@ -22,7 +22,7 @@ export class ChChartHeatMapDataPortalComponent {
 
   x: number;
   y: number;
-  z: number;
+  z: number | null;
 
   xLabelFormatter: ChChartLabelFormatter;
   yLabelFormatter: ChChartLabelFormatter;
