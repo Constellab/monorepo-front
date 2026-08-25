@@ -58,10 +58,12 @@ export class BnBioNetworkNodesRenderer extends BnBioNetworkObjectRenderer {
         this.selectionState.selectNodeAndDirectLinks(node, 'singleNodeByClick')
       )
       .onNodeDrag((node: BnBioNetworkNode) => {
-        const coord = { x: node.x, y: node.y };
-        const newPos = this.gridState.roundCoordOnGrid(coord);
-        if (newPos) {
-          node.setPositionAndFreeze(newPos);
+        const coord = node.getCoords();
+        if (coord.x != null && coord.y != null) {
+          const newPos = this.gridState.roundCoordOnGrid({ x: coord.x, y: coord.y });
+          if (newPos) {
+            node.setPositionAndFreeze(newPos);
+          }
         }
 
         if (node instanceof BnBioNetworkNodeReaction) {
@@ -115,12 +117,15 @@ export class BnBioNetworkNodesRenderer extends BnBioNetworkObjectRenderer {
     showText: boolean
   ): void {
     // if node position are not  inside positions
+    const { x, y } = node;
     if (
       this.positions &&
-      (node.x < this.positions.fromX ||
-        node.x > this.positions.toX ||
-        node.y < this.positions.fromY ||
-        node.y > this.positions.toY)
+      x != null &&
+      y != null &&
+      (x < this.positions.fromX ||
+        x > this.positions.toX ||
+        y < this.positions.fromY ||
+        y > this.positions.toY)
     ) {
       return;
     }

@@ -20,7 +20,10 @@ export class BnBioNetworkGridRenderer {
     if (showGrid) {
       this.graphRenderer.graph.onRenderFramePre((ctx: CanvasRenderingContext2D) => this.drawGrid(ctx));
     } else {
-      this.graphRenderer.graph.onRenderFramePre(null);
+      // force-graph clears the callback on null, but its typings only declare the function type
+      this.graphRenderer.graph.onRenderFramePre(
+        null as unknown as (canvasContext: CanvasRenderingContext2D, globalScale: number) => void
+      );
     }
   }
 

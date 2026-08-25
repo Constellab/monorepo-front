@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, computed, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import { FlDynamicAbstractFormDirective } from '@monorepo/front-core-lib/fl-dynamic-field';
 import { FlDynamicEditableFormGroupConfig } from '@monorepo/front-core-lib/fl-dynamic-field';
@@ -16,9 +16,9 @@ export class TdDynamicEditableFormGroupComponent implements FlDynamicAbstractFor
   /**
    * Form where control will be added
    */
-  control = input<UntypedFormGroup>();
+  control = input.required<UntypedFormGroup>();
 
-  config = input<FlDynamicEditableFormGroupConfig>();
+  config = input.required<FlDynamicEditableFormGroupConfig>();
 
   empty_text = input<string>('td.no_value_in_array');
 

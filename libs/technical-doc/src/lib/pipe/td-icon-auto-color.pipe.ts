@@ -13,7 +13,7 @@ import { TdTypeStyle } from '../model/td-type.class';
 export class TdIconAutoColorPipe implements PipeTransform {
   private themeService = inject(FlThemeService);
 
-  transform(style: TdTypeStyle): string {
+  transform(style: TdTypeStyle): string | null | undefined {
     if (!style) return null;
 
     if (style.icon_color === 'primaryContrast')

@@ -77,7 +77,7 @@ export class BnBioNetworkFactory {
       const sameReactionNodes: BnBioNetworkNodeReaction[] = [];
 
       for (const cluster of selectedCluster) {
-        const reactionCluster: BnBioNetworkClusterInfo = reactionsClusters.find(
+        const reactionCluster: BnBioNetworkClusterInfo | undefined = reactionsClusters.find(
           (c) => c.clusterId === cluster
         );
 
@@ -143,7 +143,7 @@ export class BnBioNetworkFactory {
       // add one metabolite node for each cluster of the metabolite
       for (const cluster of clusters) {
         // retrieve level of the metabolite
-        const positionCluster = metabolite.layout.clusters[cluster.subClusterIds[0]];
+        const positionCluster = metabolite.layout?.clusters[cluster.subClusterIds[0]];
         const level = positionCluster?.level ?? metabolite.level;
 
         // find compartment info
@@ -160,7 +160,7 @@ export class BnBioNetworkFactory {
         );
 
         // for the metabolite position, take the position of the first sub cluster
-        const clusterPosition = metabolite.layout.clusters[cluster.subClusterIds[0]];
+        const clusterPosition = metabolite.layout?.clusters[cluster.subClusterIds[0]];
         if (
           !this.ignoreNodePositions &&
           clusterPosition &&
@@ -180,7 +180,7 @@ export class BnBioNetworkFactory {
   private initLinksAndCofactors(metabolites: BnBioNetworkMetabolite[]): void {
     for (const reactionNode of this.reactions) {
       for (const metaboliteId of Object.keys(reactionNode.data.metabolites)) {
-        const metabolite: BnBioNetworkMetabolite = metabolites.find(
+        const metabolite: BnBioNetworkMetabolite | undefined = metabolites.find(
           (metabolite) => metabolite.id === metaboliteId
         );
 
@@ -191,7 +191,7 @@ export class BnBioNetworkFactory {
           continue;
         }
 
-        let metaboliteNode: BnBioNetworkNode;
+        let metaboliteNode: BnBioNetworkNode | undefined;
 
         if (bnBioNetworkIsCofactor(metabolite.type)) {
           // create the cofactor node (ignore its cluster)
@@ -262,10 +262,17 @@ export class BnBioNetworkFactory {
         if (!this.ignoreNodePositions && nodes.length >= 2) {
           const firstPosition = nodes[0].getCoords();
           const secondPosition = nodes[1].getCoords();
-          reaction.setPositionAndFreeze({
-            x: (firstPosition.x + secondPosition.x) / 2,
-            y: (firstPosition.y + secondPosition.y) / 2,
-          });
+          if (
+            firstPosition.x != null &&
+            firstPosition.y != null &&
+            secondPosition.x != null &&
+            secondPosition.y != null
+          ) {
+            reaction.setPositionAndFreeze({
+              x: (firstPosition.x + secondPosition.x) / 2,
+              y: (firstPosition.y + secondPosition.y) / 2,
+            });
+          }
         }
       }
     }

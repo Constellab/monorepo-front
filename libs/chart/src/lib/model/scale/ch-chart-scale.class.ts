@@ -27,6 +27,8 @@ export interface ChD3ScaleLinear extends ChD3Scale<number> {
   // tickValues(values: Value[]): this;
 }
 
+export type ChD3ScaleBand = ScaleBand<number> & ChD3Scale<number>;
+
 export interface ChChartScaleI {
   /**
    * Scale the value
@@ -148,16 +150,17 @@ export class ChChartScaleNumber extends ChChartScaleLinear {
 }
 
 export class ChChartScaleBand extends ChChartScale {
-  public readonly d3Scale: ScaleBand<number>;
+  public readonly d3Scale: ChD3ScaleBand;
 
   constructor() {
     super();
   }
 
-  protected initScale(): ScaleBand<number> {
+  protected initScale(): ChD3ScaleBand {
     const band: ScaleBand<number> = scaleBand();
     band.paddingInner(0.1);
-    return band;
+    // a band scale returns undefined for a value outside of its domain, which is handled by scale()
+    return band as ChD3ScaleBand;
   }
 
   public bandwidth(): number {

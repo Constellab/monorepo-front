@@ -90,7 +90,9 @@ export class ChChartRendererScatterPlot extends ChChart2AxisRendererWithColors<
       const colorFunction: ChChartColorFunction<ChChartDataWithSerie<ChChart2dDatum>> = (
         d: ChChartDataWithSerie<ChChart2dDatum>
       ) => {
-        return FlTagColorer.getObjectColor(d.data.tags, selectedTags, FlColorHelper.transparentBlack);
+        const tags = d.data.tags;
+        if (tags == null) return FlColorHelper.transparentBlack;
+        return FlTagColorer.getObjectColor(tags, selectedTags, FlColorHelper.transparentBlack);
       };
       this.setColorFunction(colorFunction);
     } else {

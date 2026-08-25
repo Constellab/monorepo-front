@@ -67,16 +67,22 @@ export class TeMention extends TePortalPlugin {
       );
 
       // move the caret just after the mention
-      FlHtmlHelper.setCaretAtElementPosition(mentionElement.nextSibling, 0);
+      const nextSibling = mentionElement.nextSibling;
+      if (nextSibling) {
+        FlHtmlHelper.setCaretAtElementPosition(nextSibling, 0);
+      }
     }
   }
 
-  protected openPortal(): FlOverlayRef {
+  protected openPortal(): FlOverlayRef | null {
+    const caretCoordinates = FlHtmlHelper.getCaretCoordinates();
+    if (!caretCoordinates) return null;
+
     const input: TeMentionPortalInput = {
       config: this.config,
       element: this.event.target as any,
       filter$: this.keyListener.getText$(),
-      caretCoordinates: FlHtmlHelper.getCaretCoordinates(),
+      caretCoordinates,
     };
 
     const portalService = FL_ROOT_INJECTOR.get(FlPortalService);
@@ -85,6 +91,8 @@ export class TeMention extends TePortalPlugin {
       TeMentionPortalComponent.PORTAL_MAX_WIDTH,
       TeMentionPortalComponent.PORTAL_MAX_HEIGHT
     );
+
+    if (!portalPosition) return null;
 
     const config = portalService.configureAbsolutePortal(portalPosition, {
       disposeOnOutsideClick: true,

@@ -10,8 +10,8 @@ import { TeComponentBlock } from './te-component-block.class';
 export type TeTimestampFormat = FlDateFormatKey | 'FROM_NOW';
 
 export interface TeTimestampBlockData {
-  timestamp: string;
-  format: TeTimestampFormat;
+  timestamp: string | null;
+  format?: TeTimestampFormat;
 }
 
 export class TeTimestampBlock extends TeComponentBlock<TeTimestampComponent> {
@@ -36,7 +36,7 @@ export class TeTimestampBlock extends TeComponentBlock<TeTimestampComponent> {
   }
 
   initInputs(data: TeTimestampBlockData): void {
-    this.componentInstance.timestamp = ClDateHelper.getDate(data.timestamp) ?? ClDateHelper.getDate();
+    this.componentInstance.timestamp = ClDateHelper.getDate(data.timestamp ?? undefined);
     this.componentInstance.format = data.format;
   }
 
@@ -48,6 +48,6 @@ export class TeTimestampBlock extends TeComponentBlock<TeTimestampComponent> {
   }
 
   validate(blockData: TeTimestampBlockData): boolean {
-    return ClDateHelper.getDate(blockData.timestamp).isValid;
+    return ClDateHelper.getDate(blockData.timestamp ?? undefined).isValid;
   }
 }

@@ -31,9 +31,10 @@ export class ChChartBoxPlotSerie extends ChChartSerie<ChChartBoxPlotData> {
 export function chChartGetBoxPlotData(data: number[]): ChChartBoxPlotData {
   const sortedData: number[] = data.sort(ascending);
 
-  const q1 = quantile(sortedData, 0.25);
-  const median = quantile(sortedData, 0.5);
-  const q3 = quantile(sortedData, 0.75);
+  // quantile() only returns undefined for an empty data set
+  const q1 = quantile(sortedData, 0.25) as number;
+  const median = quantile(sortedData, 0.5) as number;
+  const q3 = quantile(sortedData, 0.75) as number;
   const interQuantileRange = q3 - q1;
   const lowerWhisker = q1 - 1.5 * interQuantileRange;
   const upperWhisker = q3 + 1.5 * interQuantileRange;

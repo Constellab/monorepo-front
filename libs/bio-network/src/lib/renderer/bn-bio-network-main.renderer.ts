@@ -35,7 +35,7 @@ export class BnBioNetworkMainRenderer implements OnDestroy {
 
   private container: HTMLElement;
 
-  private _graph$: BehaviorSubject<BnBioNetworkGraphRenderer> = new BehaviorSubject(null);
+  private _graph$: BehaviorSubject<BnBioNetworkGraphRenderer | null> = new BehaviorSubject(null);
 
   private initSubscriptions: ClSubscriptionHandler;
 
@@ -51,7 +51,7 @@ export class BnBioNetworkMainRenderer implements OnDestroy {
     this.state.getChartData$().subscribe((data) => this.startSimulation(data));
   }
 
-  private async startSimulation(data: BnBioNetworkGraph): Promise<void> {
+  private async startSimulation(data: BnBioNetworkGraph | null): Promise<void> {
     this.clearNetwork();
 
     if (data == null) return;
@@ -92,10 +92,10 @@ export class BnBioNetworkMainRenderer implements OnDestroy {
       .minZoom(BnBioNetworkZoomRenderer.minZoomScale)
       .zoom(BnBioNetworkZoomRenderer.defaultZoomScale)
       .onBackgroundClick(() => this.selectionState.clearSelection())
-      .cooldownTime(engineConfig.liveDrawing ? 60000 : null)
+      .cooldownTime(engineConfig.liveDrawing ? 60000 : (null as unknown as number))
       // if live drawing, we set null so it will calculate positions
       // otherwise we set 0 because positions where calculated already
-      .cooldownTicks(engineConfig.liveDrawing ? undefined : 0)
+      .cooldownTicks(engineConfig.liveDrawing ? (undefined as unknown as number) : 0)
       .d3AlphaDecay(engineConfig.alphaDecay)
       .d3AlphaMin(engineConfig.alphaMin)
       .d3VelocityDecay(engineConfig.velocityDecay)
@@ -162,7 +162,8 @@ export class BnBioNetworkMainRenderer implements OnDestroy {
 
       for (const node of data.getMetabolitesAndReactions()) {
         // set visibility of nodes from position
-        node.isVisible = node.x >= fromX && node.x <= toX && node.y >= fromY && node.y <= toY;
+        const { x, y } = node;
+        node.isVisible = x != null && y != null && x >= fromX && x <= toX && y >= fromY && y <= toY;
       }
       for (const link of data.getMetaboliteAndReactionLinks()) {
         // set visibility of links from position
@@ -172,9 +173,10 @@ export class BnBioNetworkMainRenderer implements OnDestroy {
   }
 
   private forceDraw(graphData: GraphData): void {
-    if (this.graphRenderer == null) return;
+    const graphRenderer = this.graphRenderer;
+    if (graphRenderer == null) return;
 
-    this.graphRenderer.graph.graphData(graphData);
+    graphRenderer.graph.graphData(graphData);
   }
 
   private dataToGraph(data: BnBioNetworkGraph, includeCofactors: boolean): GraphData {
@@ -191,11 +193,11 @@ export class BnBioNetworkMainRenderer implements OnDestroy {
     }
   }
 
-  private get graphRenderer(): BnBioNetworkGraphRenderer {
+  private get graphRenderer(): BnBioNetworkGraphRenderer | null {
     return this._graph$.value;
   }
 
-  public getGraphRenderer$(filterNull: boolean = true): Observable<BnBioNetworkGraphRenderer> {
+  public getGraphRenderer$(filterNull: boolean = true): Observable<BnBioNetworkGraphRenderer | null> {
     if (filterNull) {
       return this._graph$.asObservable().pipe(filter((graph) => graph != null));
     } else {

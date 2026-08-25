@@ -8,7 +8,8 @@ import {
   OnInit,
   SecurityContext,
   TemplateRef,
-  ViewChild} from '@angular/core';
+  ViewChild,
+} from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ClHelpService, ClStringHelper } from '@monorepo/core-lib';
 import { FlInputFileDirective } from '@monorepo/front-core-lib/fl-input-file';
@@ -50,7 +51,7 @@ export class TeFigureComponent extends TeElementBlockDirective implements OnInit
   imageWidth: number;
   imageHeight: number;
 
-  sanitizedUrl: string;
+  sanitizedUrl: string | null;
 
   imageReady = false;
 
@@ -88,10 +89,13 @@ export class TeFigureComponent extends TeElementBlockDirective implements OnInit
 
   private initImage(data: TeBlockFigureData): void {
     const imageUrl = this.config.getImageUrl(data.filename);
-    this.sanitizedUrl = this.sanitizer.sanitize(SecurityContext.URL, imageUrl);
+    const sanitizedUrl = this.sanitizer.sanitize(SecurityContext.URL, imageUrl);
+    this.sanitizedUrl = sanitizedUrl;
 
     // Set source URL attributes for cross-document copy support
-    this.elementRef.nativeElement.setAttribute(TeSourceUrlRegistry.SOURCE_URL_ATTR, this.sanitizedUrl);
+    if (sanitizedUrl != null) {
+      this.elementRef.nativeElement.setAttribute(TeSourceUrlRegistry.SOURCE_URL_ATTR, sanitizedUrl);
+    }
     this.elementRef.nativeElement.setAttribute(TeSourceUrlRegistry.SOURCE_FILENAME_ATTR, data.filename);
 
     const parentWidth = this.elementRef.nativeElement.clientWidth;

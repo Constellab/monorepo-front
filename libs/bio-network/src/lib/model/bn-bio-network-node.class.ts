@@ -11,6 +11,12 @@ import { BnBioNetworkLink } from './bn-bio-network-node-link.class';
 
 export type BnBioNetworkNodeType = 'metabolite' | 'reaction' | 'cofactor';
 
+// Coord of a node. x and y are undefined until d3 (or initPosition) has set them.
+export interface BnBioNetworkNodeCoord {
+  x: number | undefined;
+  y: number | undefined;
+}
+
 export abstract class BnBioNetworkNode extends BnBioNetworkGraphObject implements SimulationNodeDatum {
   private static globalId: number = 0;
 
@@ -57,7 +63,7 @@ export abstract class BnBioNetworkNode extends BnBioNetworkGraphObject implement
 
   ///////////////////////////////////////////// POSITIONS ////////////////////////////////
 
-  public getCoords(): FlCoord {
+  public getCoords(): BnBioNetworkNodeCoord {
     return {
       x: this.x,
       y: this.y,
@@ -124,7 +130,7 @@ export abstract class BnBioNetworkNode extends BnBioNetworkGraphObject implement
    * Search the link, link to the node and the provided node
    * @param nodeId
    */
-  public getLinkToNode(nodeId: number): BnBioNetworkLink | null {
+  public getLinkToNode(nodeId: number): BnBioNetworkLink | undefined {
     // search on departure links
     let link = this.departureLinks.find((link) => link.target.id === nodeId);
     if (link) return link;

@@ -43,7 +43,10 @@ export class TeCodeBlock extends TeComponentBlock<TeCodeComponent> {
   }
 
   initInputs(data: TeCodeBlockData): void {
-    this.componentInstance.formControl = new FormControl({ value: data.code, disabled: this.disabled });
+    this.componentInstance.formControl = new FormControl(
+      { value: data.code, disabled: this.disabled },
+      { nonNullable: true }
+    );
     this.componentInstance.language = (data.language as FlCodeEditorLanguage) ?? 'python';
   }
 

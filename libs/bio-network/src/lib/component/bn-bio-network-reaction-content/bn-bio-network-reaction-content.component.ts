@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input, OnInit } from '@angular/core';
 import { firstValueFrom, Observable, of, switchMap } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -57,9 +57,11 @@ export class BnBioNetworkReactionContentComponent implements OnInit {
    */
   private getReactionContent(
     reaction: BnBioNetworkNodeReaction,
-    chartData: BnBioNetworkGraph,
+    chartData: BnBioNetworkGraph | null,
     type: 'product' | 'substrat'
   ): BnBioNetworkMetabolite[] {
+    if (chartData == null) return [];
+
     const ids = type === 'product' ? reaction.getProductIds() : reaction.getSubstratIds();
 
     const metabolites: BnBioNetworkMetabolite[] = [];
@@ -91,6 +93,8 @@ export class BnBioNetworkReactionContentComponent implements OnInit {
 
     // select the first found node in the graph
     const chartData = await firstValueFrom(this.state.getChartData$());
+    if (chartData == null) return;
+
     const node = chartData.getMetaboliteAndCofactors().find((n) => n.data.id === metabolite.id);
     if (node != null) {
       this.selectionState.selectNode(node, 'singleNode');

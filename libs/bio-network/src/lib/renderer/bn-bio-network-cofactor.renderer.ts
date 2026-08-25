@@ -18,6 +18,10 @@ export class BnBioNetworkCofactorRenderer {
     showText: boolean,
     themeDetail: FlThemeDetail
   ): void {
+    // nothing to draw while the node has no position
+    const center = cofactor.getCoords();
+    if (center.x == null || center.y == null) return;
+
     if (!cofactor.selected) {
       ctx.globalAlpha = 0.1;
     } else {
@@ -28,7 +32,7 @@ export class BnBioNetworkCofactorRenderer {
 
     // add white ring
     ctx.fillStyle = themeDetail.foreground;
-    BnBioNetworkCanvasHelper.diamond(ctx, cofactor.x, cofactor.y, globalRadius);
+    BnBioNetworkCanvasHelper.diamond(ctx, center.x, center.y, globalRadius);
 
     // draw the circle
     if (colorFunc == null) {
@@ -36,12 +40,12 @@ export class BnBioNetworkCofactorRenderer {
     } else {
       ctx.fillStyle = colorFunc(cofactor);
     }
-    BnBioNetworkCanvasHelper.diamond(ctx, cofactor.x, cofactor.y, BnBioNetworkCofactorRenderer.size);
+    BnBioNetworkCanvasHelper.diamond(ctx, center.x, center.y, BnBioNetworkCofactorRenderer.size);
 
     // draw the text
     if (showText) {
       ctx.fillStyle = themeDetail.foreground;
-      BnBioNetworkCanvasHelper.text(ctx, cofactor.x, cofactor.y + globalRadius * 1.7, cofactor.data.name, {
+      BnBioNetworkCanvasHelper.text(ctx, center.x, center.y + globalRadius * 1.7, cofactor.data.name, {
         fontSize: '0.3em',
         fontFamily: 'Sans-Serif', // todo to fix
         textAlign: 'center',
@@ -60,12 +64,15 @@ export class BnBioNetworkCofactorRenderer {
     metabolite: BnBioNetworkNodeCofactor,
     color: string
   ): void {
+    const center = metabolite.getCoords();
+    if (center.x == null || center.y == null) return;
+
     // use the unique color for the pointer area
     ctx.fillStyle = color;
 
     const globalRadius = BnBioNetworkCofactorRenderer.size + BnBioNetworkCofactorRenderer.strokeWidth;
 
     // simplify area to only select on node
-    BnBioNetworkCanvasHelper.diamond(ctx, metabolite.x, metabolite.y, globalRadius);
+    BnBioNetworkCanvasHelper.diamond(ctx, center.x, center.y, globalRadius);
   }
 }

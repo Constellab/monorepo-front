@@ -8,7 +8,7 @@ export type BnBioNetworkDrawerActionName = 'nodeDetail' | 'config';
  */
 export interface BnBioNetworkDrawerStateValue {
   action: BnBioNetworkDrawerActionName;
-  selectedNode: BnBioNetworkNode;
+  selectedNode: BnBioNetworkNode | null;
 }
 
 // List of possible action for the pathway drawer

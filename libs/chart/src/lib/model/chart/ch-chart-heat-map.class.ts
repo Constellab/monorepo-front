@@ -1,6 +1,4 @@
-import {
-  ChChartLegendHeatMapComponent,
-} from '../../component/ch-chart-right-section/ch-chart-legend-heat-map/ch-chart-legend-heat-map.component';
+import { ChChartLegendHeatMapComponent } from '../../component/ch-chart-right-section/ch-chart-legend-heat-map/ch-chart-legend-heat-map.component';
 import { ChChartRendererHeatMap } from '../../renderer/ch-chart-renderer-heat-map.plot';
 import { ChChartConfig, ChChartRightSectionConfig } from '../ch-chart-config.class';
 import { ChChartDomain } from '../ch-chart-domain.class';
@@ -148,7 +146,7 @@ export class ChChartHeatMap extends ChChartConfig {
   }
 
   // no zoom
-  getZoomBrush(): ChChartBrush {
+  getZoomBrush(): ChChartBrush | undefined {
     return undefined;
   }
 

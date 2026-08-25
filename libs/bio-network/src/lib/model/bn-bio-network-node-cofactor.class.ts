@@ -40,6 +40,7 @@ export class BnBioNetworkNodeCofactor extends BnBioNetworkNode {
   }
 
   public getChebiId(): string | null {
-    return ClHelpService.isNullOrEmpty(this.data.chebi_id) ? null : this.data.chebi_id;
+    const chebiId = this.data.chebi_id ?? null;
+    return ClHelpService.isNullOrEmpty(chebiId) ? null : chebiId;
   }
 }

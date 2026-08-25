@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input } from '@angular/core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlFormulaDialogComponent, FlFormulaDialogInput } from '@monorepo/front-core-lib/fl-formula';
 import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
@@ -15,9 +15,9 @@ import { TeElementBlockDirective } from '../../model/te-element.directive';
 export class TeFormulaComponent extends TeElementBlockDirective {
   private dialogService = inject(FlDialogService);
 
-  @Input() formulaTitle: string;
+  @Input() formulaTitle?: string;
 
-  @Input() caption: string;
+  @Input() caption?: string;
 
   @Input() helpText: FlTranslatableText;
 

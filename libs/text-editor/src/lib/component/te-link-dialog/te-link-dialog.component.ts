@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, ValidatorFn, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ClYoutubeHelper } from '@monorepo/core-lib';
@@ -18,11 +18,11 @@ export interface TeLinkDialogInput {
 export class TeLinkDialogComponent implements OnInit {
   private dialogRef = inject<MatDialogRef<TeLinkDialogComponent>>(MatDialogRef);
 
-  linkControl: FormControl<string>;
+  linkControl: FormControl<string | null>;
 
   title: string;
 
-  isYoutube: boolean;
+  isYoutube: boolean | undefined;
 
   constructor() {
     const data = inject<TeLinkDialogInput>(MAT_DIALOG_DATA);
@@ -32,7 +32,7 @@ export class TeLinkDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.linkControl = new FormControl<string>(null, [Validators.required, this.isYoutubeVideo()]);
+    this.linkControl = new FormControl<string | null>(null, [Validators.required, this.isYoutubeVideo()]);
   }
 
   submit(): void {
@@ -42,7 +42,7 @@ export class TeLinkDialogComponent implements OnInit {
   }
 
   public isYoutubeVideo(): ValidatorFn {
-    return (control: AbstractControl): { [key: string]: any } => {
+    return (control: AbstractControl): { [key: string]: any } | null => {
       const value: string = control.value;
 
       if (!this.isYoutube) {

@@ -1,5 +1,14 @@
 import { isPlatformBrowser } from '@angular/common';
-import { ChangeDetectionStrategy,Component, ElementRef, inject, Input, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  inject,
+  Input,
+  OnInit,
+  PLATFORM_ID,
+  ViewChild,
+} from '@angular/core';
 import { FlHighlight } from '@monorepo/front-core-lib/fl-markdown';
 
 import {
@@ -22,7 +31,7 @@ export class TdResourceDocFunctionSignatureComponent implements OnInit {
 
   @ViewChild('signature', { static: true }) signature: ElementRef;
 
-  methodType: TdTechDocFunctionType;
+  methodType: TdTechDocFunctionType | undefined;
 
   ngOnInit(): void {
     this.signature.nativeElement.innerHTML = this.getFunctionSignature(this.func);
@@ -50,7 +59,7 @@ export class TdResourceDocFunctionSignatureComponent implements OnInit {
   private getFunctionArgsToString(args: TdResourceFunctionArg[]): string {
     return args
       .map((a) => {
-        if (a.arg_default_value.length > 0)
+        if (a.arg_default_value && a.arg_default_value.length > 0)
           return a.arg_name + ': ' + a.arg_type + ' = ' + a.arg_default_value;
         return a.arg_name + ': ' + a.arg_type;
       })

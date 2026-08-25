@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { DateTime } from 'luxon';
@@ -29,8 +29,8 @@ export class TeTimestampConfigDialogComponent {
   private dialogRef = inject<MatDialogRef<TeTimestampConfigDialogComponent>>(MatDialogRef);
 
   formGp = new FormBuilder().group({
-    timestamp: null as DateTime,
-    format: null as TeTimestampFormat,
+    timestamp: null as DateTime | null,
+    format: null as TeTimestampFormat | null,
   });
 
   formatOptions: TeTimestampFormatOptions[] = [
@@ -68,7 +68,7 @@ export class TeTimestampConfigDialogComponent {
     }
   }
 
-  get timestamp(): DateTime {
+  get timestamp(): DateTime | null | undefined {
     return this.formGp.value.timestamp;
   }
 }

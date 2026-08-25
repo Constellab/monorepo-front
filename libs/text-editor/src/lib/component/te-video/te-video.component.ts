@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, Input, OnInit, SecurityContext } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input, OnInit, SecurityContext } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ClYoutubeHelper } from '@monorepo/core-lib';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
@@ -17,14 +17,14 @@ export class TeVideoComponent extends TeElementBlockDirective implements OnInit 
   private sanitize = inject(DomSanitizer);
   private dialogService = inject(FlDialogService);
 
-  @Input() url: string;
+  @Input() url?: string;
 
-  @Input() videoTitle: string;
+  @Input() videoTitle?: string;
 
-  @Input() caption: string;
+  @Input() caption?: string;
 
   sanitizedUrl: SafeUrl;
-  thumbnailUrl: string;
+  thumbnailUrl: string | null;
   urlError: boolean = false;
   iframeLoaded: boolean = false;
 
@@ -53,22 +53,28 @@ export class TeVideoComponent extends TeElementBlockDirective implements OnInit 
 
   private setUrl(url?: string): void {
     if (url && ClYoutubeHelper.isYoutubeUrl(url)) {
-      if (!ClYoutubeHelper.isYoutubeEmbedVideoUrl(url)) {
-        url = ClYoutubeHelper.convertToEmbedUrl(url);
+      const embedUrl = ClYoutubeHelper.isYoutubeEmbedVideoUrl(url)
+        ? url
+        : ClYoutubeHelper.convertToEmbedUrl(url);
+      const sanitizedUrl = embedUrl == null ? null : this.sanitize.sanitize(SecurityContext.URL, embedUrl);
+
+      if (embedUrl == null || sanitizedUrl == null) {
+        this.urlError = true;
+        this.url = url;
+        return;
       }
 
-      this.sanitizedUrl = this.sanitize.bypassSecurityTrustResourceUrl(
-        this.sanitize.sanitize(SecurityContext.URL, url)
-      );
+      this.sanitizedUrl = this.sanitize.bypassSecurityTrustResourceUrl(sanitizedUrl);
 
-      const videoId = ClYoutubeHelper.getYoutubeVideoId(url);
+      const videoId = ClYoutubeHelper.getYoutubeVideoId(embedUrl);
       this.thumbnailUrl = videoId ? `https://img.youtube.com/vi/${videoId}/hqdefault.jpg` : null;
 
       this.urlError = false;
       this.iframeLoaded = false;
-    } else {
-      this.urlError = true;
+      this.url = embedUrl;
+      return;
     }
+    this.urlError = true;
     this.url = url;
   }
 }

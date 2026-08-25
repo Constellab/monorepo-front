@@ -160,7 +160,9 @@ export class ChChartRendererBoxPlot extends ChChart2AxisRendererWithColors<
       const colorFunction: (d: ChChartDataWithSerie<ChChartBoxPlotData>) => string = (
         d: ChChartDataWithSerie<ChChartBoxPlotData>
       ) => {
-        return FlTagColorer.getObjectColor(d.data.tags, selectedTags, FlColorHelper.transparentBlack);
+        const tags = d.data.tags;
+        if (tags == null) return FlColorHelper.transparentBlack;
+        return FlTagColorer.getObjectColor(tags, selectedTags, FlColorHelper.transparentBlack);
       };
       this.setColorFunction(colorFunction);
     } else {

@@ -20,14 +20,18 @@ export class TeNestedListBlock extends List implements BlockTool {
 
     if (!this.options.readOnly) {
       // Capture phase: intercept backspace before the list plugin can delete the block
-      node.addEventListener('keydown', (event: KeyboardEvent) => {
-        if (event.key === FlKeyboardKey.BACKSPACE) {
-          this.patchRangeForInlineElements();
-          this.handleBackspace(event, node);
-        } else if (event.key === FlKeyboardKey.ENTER && !event.shiftKey) {
-          this.patchRangeForInlineElements();
-        }
-      }, true);
+      node.addEventListener(
+        'keydown',
+        (event: KeyboardEvent) => {
+          if (event.key === FlKeyboardKey.BACKSPACE) {
+            this.patchRangeForInlineElements();
+            this.handleBackspace(event, node);
+          } else if (event.key === FlKeyboardKey.ENTER && !event.shiftKey) {
+            this.patchRangeForInlineElements();
+          }
+        },
+        true
+      );
 
       node.addEventListener('keydown', (event: KeyboardEvent) => this.handleKeyDown(event));
     }
@@ -136,7 +140,7 @@ export class TeNestedListBlock extends List implements BlockTool {
   private isCursorAtContentStart(range: Range, container: Element): boolean {
     if (range.startOffset !== 0) return false;
 
-    let current = range.startContainer;
+    let current: Node | null = range.startContainer;
     while (current && current !== container) {
       if (current.parentNode && current !== current.parentNode.firstChild) return false;
       current = current.parentNode;

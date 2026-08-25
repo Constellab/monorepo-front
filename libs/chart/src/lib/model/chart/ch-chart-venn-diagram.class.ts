@@ -56,7 +56,7 @@ export class ChChartVennDiagram extends ChChartConfig {
   }
 
   // no zoom
-  getZoomBrush(): ChChartBrush {
+  getZoomBrush(): ChChartBrush | undefined {
     return undefined;
   }
 

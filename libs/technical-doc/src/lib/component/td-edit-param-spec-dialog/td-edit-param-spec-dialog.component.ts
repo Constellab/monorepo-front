@@ -8,7 +8,8 @@ import {
   signal,
   TemplateRef,
   ViewChild,
-  ViewContainerRef} from '@angular/core';
+  ViewContainerRef,
+} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ClStringHelper, ClSubscriptionHandler } from '@monorepo/core-lib';
@@ -48,7 +49,7 @@ export interface TdEditParamSpecDialogInput {
   /**
    * Provided if mode is update, null if create
    */
-  paramSpec?: TdParamSpecEntry;
+  paramSpec?: TdParamSpecEntry | null;
   title: FlTranslatableText;
   saveButtonText?: FlTranslatableText;
 }
@@ -160,14 +161,14 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
   }
 
   onTypeSelected(type: TdParamSpecTypeEnum): void {
-    this.formGroup.get('type').setValue(type);
+    this.formGroup.get('type')?.setValue(type);
     this.typeSearchControl.setValue(type as any, { emitEvent: false });
     this.typeSearchText.set('');
     this.onTypeChange(type);
   }
 
   onTypeChange(type: TdParamSpecTypeEnum): void {
-    this.formGroup.get('default_value').reset(null);
+    this.formGroup.get('default_value')?.reset(null);
     this.isParamSetType.set(type === TdParamSpecTypeEnum.PARAM_SET);
     this.hideDefaultValue.set(TD_TYPES_WITHOUT_DEFAULT_VALUE.includes(type));
     this.selectedType.set(type);
@@ -186,7 +187,7 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
 
     this.isButtonLoading.set(true);
     const paramSpec = this.buildParamSpecFromForm();
-    const key = this.formGroup.get('key').value;
+    const key = this.formGroup.get('key')?.value;
 
     const save$ = this.getSaveObservable(key, paramSpec);
     save$.subscribe({
@@ -203,12 +204,12 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
   cancelKeyEditing(): void {
     this.keyEditing.set(false);
     this.keyManuallyEdited = false;
-    const label = this.formGroup.get('human_name').value || '';
+    const label = this.formGroup.get('human_name')?.value || '';
     const key = ClStringHelper.sentenceToSnakeCase(label).slice(
       0,
       TdEditParamSpecDialogComponent.KEY_MAX_LENGTH
     );
-    this.formGroup.get('key').setValue(key, { emitEvent: false });
+    this.formGroup.get('key')?.setValue(key, { emitEvent: false });
   }
 
   cancel(): void {
@@ -216,8 +217,11 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
   }
 
   openAddSubParamDialog(): void {
+    const subParamSpecState = this.subParamSpecState;
+    if (!subParamSpecState) return;
+
     const input: TdEditParamSpecDialogInput = {
-      dynamicParamSpecState: this.subParamSpecState,
+      dynamicParamSpecState: subParamSpecState,
       title: { text: 'td.add_sub_field', translateText: true },
       saveButtonText: { text: 'td.add_sub_field', translateText: true },
     };
@@ -233,8 +237,11 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
   }
 
   openEditSubParamDialog(entry: TdParamSpecEntry): void {
+    const subParamSpecState = this.subParamSpecState;
+    if (!subParamSpecState) return;
+
     const input: TdEditParamSpecDialogInput = {
-      dynamicParamSpecState: this.subParamSpecState,
+      dynamicParamSpecState: subParamSpecState,
       paramSpec: entry,
       title: { text: 'td.update_sub_field', translateText: true },
       saveButtonText: { text: 'td.update_sub_field', translateText: true },
@@ -299,12 +306,14 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
 
   addSelectOption(): void {
     const control = this.formGroup.get('additional_info.options');
+    if (!control) return;
     const current: TdSelectParamOption[] = control.value ?? [];
     control.setValue([...current, { label: null, value: null }]);
   }
 
   removeSelectOption(index: number): void {
     const control = this.formGroup.get('additional_info.options');
+    if (!control) return;
     const current: TdSelectParamOption[] = [...(control.value ?? [])];
     if (current.length <= 1) return;
     current.splice(index, 1);
@@ -313,17 +322,18 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
 
   updateSelectOption(index: number, value: string): void {
     const control = this.formGroup.get('additional_info.options');
+    if (!control) return;
     const current: TdSelectParamOption[] = [...(control.value ?? [])];
     current[index] = { label: value, value };
     control.setValue(current);
   }
 
   deleteSubParam(entry: TdParamSpecEntry): void {
-    this.subParamSpecState.deleteParamSpec(entry.key).subscribe();
+    this.subParamSpecState?.deleteParamSpec(entry.key).subscribe();
   }
 
   reorderSubParams(paramNames: string[]): void {
-    this.subParamSpecState.reorderParamSpecs(paramNames)?.subscribe();
+    this.subParamSpecState?.reorderParamSpecs(paramNames)?.subscribe();
   }
 
   validateExpression(): void {
@@ -362,7 +372,8 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
     this.snackBar.openSuccessMessage({ text: 'td.ai_expression_generated_notice', translateText: true });
   }
 
-  aiGenerateField = (text: string): Observable<TdGenerateFieldResult> => {
+  // Only bound when aiFieldAvailable() is true, ie. when generateField does not return null
+  aiGenerateField = (text: string): Observable<TdGenerateFieldResult> | null => {
     // Always send the field's CURRENT FORM value (including unsaved tweaks) and key as
     // context so the AI builds on exactly what the user sees on screen.
     return this.data.dynamicParamSpecState.generateField(
@@ -432,26 +443,30 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
     if (this.data.paramSpec) {
       this.loadSpecIntoForm(this.data.paramSpec.key, this.data.paramSpec.spec);
     } else {
-      const defaultType = this.formGroup.get('type').value;
+      const defaultType = this.formGroup.get('type')?.value;
       this.buildAdditionalInfoControls(defaultType);
       this.buildDefaultValueConfig(defaultType);
     }
 
     // Auto-sync key from label until the user manually edits the key
-    this.subscriptions.add([
-      this.formGroup.get('key').valueChanges.subscribe(() => {
-        this.keyManuallyEdited = true;
-      }),
-      this.formGroup.get('human_name').valueChanges.subscribe((label: string) => {
-        if (!this.keyManuallyEdited) {
-          const key = ClStringHelper.sentenceToSnakeCase(label).slice(
-            0,
-            TdEditParamSpecDialogComponent.KEY_MAX_LENGTH
-          );
-          this.formGroup.get('key').setValue(key, { emitEvent: false });
-        }
-      }),
-    ]);
+    const keyControl = this.formGroup.get('key');
+    const humanNameControl = this.formGroup.get('human_name');
+    if (keyControl && humanNameControl) {
+      this.subscriptions.add([
+        keyControl.valueChanges.subscribe(() => {
+          this.keyManuallyEdited = true;
+        }),
+        humanNameControl.valueChanges.subscribe((label: string) => {
+          if (!this.keyManuallyEdited) {
+            const key = ClStringHelper.sentenceToSnakeCase(label).slice(
+              0,
+              TdEditParamSpecDialogComponent.KEY_MAX_LENGTH
+            );
+            keyControl.setValue(key, { emitEvent: false });
+          }
+        }),
+      ]);
+    }
   }
 
   /**
@@ -502,7 +517,7 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
       optional: true,
       visibility: 'public',
       human_name: this.translateService.translate('td.default_value'),
-      short_description: null,
+      short_description: undefined,
       additional_info: additionalInfo ?? {},
     };
 

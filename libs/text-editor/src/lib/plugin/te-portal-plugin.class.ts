@@ -20,11 +20,13 @@ export abstract class TePortalPlugin {
 
     // store the current caret position
     const selection = window.getSelection();
+    if (!selection) return;
     const range = selection.getRangeAt(0);
     this.textNode = range.endContainer;
 
     // special case, disable portal in code block
-    if (FlHtmlHelper.getParent(this.textNode.parentElement, { tagName: 'te-code' })) return;
+    const parentElement = this.textNode.parentElement;
+    if (parentElement && FlHtmlHelper.getParent(parentElement, { tagName: 'te-code' })) return;
 
     // if the node is not a text node, create a new text node
     if (this.textNode.nodeType !== Node.TEXT_NODE) {
@@ -38,7 +40,7 @@ export abstract class TePortalPlugin {
     // check the next character, if it is not a space or undefined, we do nothing
     // it happens when the trigger key is pressed in the middle of a word
     // it doesn't work when the caret is before an inline element but it is not a big deal
-    const nextCharacter = this.textNode.textContent[this.cursorOffset + 1];
+    const nextCharacter = this.textNode.textContent?.[this.cursorOffset + 1];
     if (nextCharacter && nextCharacter !== ' ') return;
 
     this.keyListener = this.buildKeyListener();
@@ -63,6 +65,7 @@ export abstract class TePortalPlugin {
     }
 
     const overlayRef = this.openPortal();
+    if (!overlayRef) return;
 
     // store the overlay reference
     TeHelper.setOverlay(overlayRef);
@@ -79,7 +82,7 @@ export abstract class TePortalPlugin {
 
   protected abstract buildKeyListener(): TeKeyListener;
 
-  protected abstract openPortal(): FlOverlayRef;
+  protected abstract openPortal(): FlOverlayRef | null;
 
   protected abstract onClose(value: any): void;
 }

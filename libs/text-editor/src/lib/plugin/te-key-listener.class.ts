@@ -37,6 +37,7 @@ export class TeKeyListener {
 
   private onKeyUp(event: KeyboardEvent): void {
     const selection = window.getSelection();
+    if (!selection) return;
     const range = selection.getRangeAt(0);
     const textNode = range.endContainer;
 
@@ -58,12 +59,16 @@ export class TeKeyListener {
 
   private getText(): string {
     const selection = window.getSelection();
+    if (!selection) return '';
     const range = selection.getRangeAt(0);
     const node = range.endContainer;
     const offset = range.endOffset;
+    const textContent = node.textContent;
+    if (textContent == null) return '';
 
     // get the text between  the last trigger key and the cursor
-    return node.textContent.slice(0, offset).split(this.triggerKey).pop();
+    const parts = textContent.slice(0, offset).split(this.triggerKey);
+    return parts[parts.length - 1];
   }
 
   public getText$(): Observable<string> {

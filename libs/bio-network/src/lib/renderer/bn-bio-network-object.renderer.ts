@@ -45,7 +45,7 @@ export abstract class BnBioNetworkObjectRenderer {
     ];
     const showRelatedCofactors = modeToShowCofactor.includes(selection.mode);
 
-    let selectedNodes: BnBioNetworkNode = null;
+    let selectedNodes: BnBioNetworkNode | null = null;
     if (selection.mode === 'singleNode' || selection.mode === 'singleNodeByClick') {
       selectedNodes = (selection as BnBioNetworkSelectionEventSingleNode).selectedNode;
     }
@@ -53,7 +53,7 @@ export abstract class BnBioNetworkObjectRenderer {
     // when showing related cofactor, firstly we reset the cofactor position
     // (useful for the live drawing mode)
     if (showRelatedCofactors) {
-      for (const node of selection.nodes) {
+      for (const node of selection.nodes ?? []) {
         if (node instanceof BnBioNetworkNodeReaction) {
           node.setCofactorsPositions();
         }

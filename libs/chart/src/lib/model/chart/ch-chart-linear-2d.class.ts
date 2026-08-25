@@ -71,7 +71,7 @@ export abstract class ChChartLinear2d extends ChChartConfig {
     return chartContainer;
   }
 
-  getSVGLegend(): ChChartSVGLegend {
+  getSVGLegend(): ChChartSVGLegend | null {
     return new ChChartLegendMultiSeries(this.dataContainer.series, this.seriesColorScale);
   }
 

@@ -328,10 +328,9 @@ export interface TdGroupedParamSpecTypes {
 export function tdBuildGroupedTypes(list: TdParamSpecInfo[]): TdGroupedParamSpecTypes[] {
   const groupMap = new Map<TdParamSpecCategory, TdParamSpecTypeEnum[]>();
   for (const info of list) {
-    if (!groupMap.has(info.category)) {
-      groupMap.set(info.category, []);
-    }
-    groupMap.get(info.category).push(info.type);
+    const types = groupMap.get(info.category) ?? [];
+    types.push(info.type);
+    groupMap.set(info.category, types);
   }
   return Array.from(groupMap.entries()).map(([category, types]) => ({
     category,

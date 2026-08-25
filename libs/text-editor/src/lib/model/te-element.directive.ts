@@ -62,7 +62,7 @@ export abstract class TeElementInlineDirective<T = any> extends TeElementDirecti
     this.disabled = !TeHelper.parentBlockParagraphIsEditable(this.elementRef.nativeElement);
 
     const strData = this.elementRef.nativeElement.getAttribute(TeElementInlineDirective.dataAttribute);
-    this.data = JSON.parse(strData);
+    this.data = JSON.parse(strData ?? 'null');
   }
 
   public setData(data: T): void {

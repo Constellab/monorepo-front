@@ -37,7 +37,10 @@ export class BnBioNetworkNodeMetabolite extends BnBioNetworkNode {
 
   savePosition(): void {
     const center = this.getCoords();
-    const cluster = this.data.layout.clusters[this.cluster.subClusterIds[0]];
+    const layout = this.data.layout;
+    if (layout == null || center.x == null || center.y == null) return;
+
+    const cluster = layout.clusters[this.cluster.subClusterIds[0]];
     if (cluster) {
       cluster.x = center.x;
       cluster.y = center.y;
@@ -45,6 +48,7 @@ export class BnBioNetworkNodeMetabolite extends BnBioNetworkNode {
   }
 
   public getChebiId(): string | null {
-    return ClHelpService.isNullOrEmpty(this.data.chebi_id) ? null : this.data.chebi_id;
+    const chebiId = this.data.chebi_id ?? null;
+    return ClHelpService.isNullOrEmpty(chebiId) ? null : chebiId;
   }
 }

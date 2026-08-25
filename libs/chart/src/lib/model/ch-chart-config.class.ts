@@ -1,9 +1,7 @@
 import { Type } from '@angular/core';
 import { FlThemeDetail, FlThemeService } from '@monorepo/front-core-lib/fl-theme';
 
-import {
-  ChChartRightSectionDirective,
-} from '../component/ch-chart-right-section/ch-chart-right-section.directive';
+import { ChChartRightSectionDirective } from '../component/ch-chart-right-section/ch-chart-right-section.directive';
 import { ChChartBrush } from './drawer/ch-chart-brush.class';
 import { ChChartContainer } from './drawer/ch-chart-container.class';
 import { ChChartSVGLegend } from './legend/ch-chart-legend.class';
@@ -43,9 +41,9 @@ export abstract class ChChartConfig {
 
   abstract getRightSectionConfig(): ChChartRightSectionConfig;
 
-  abstract getSVGLegend(): ChChartSVGLegend;
+  abstract getSVGLegend(): ChChartSVGLegend | null;
 
-  abstract getZoomBrush(): ChChartBrush;
+  abstract getZoomBrush(): ChChartBrush | undefined;
 
   abstract destroy(): void;
 

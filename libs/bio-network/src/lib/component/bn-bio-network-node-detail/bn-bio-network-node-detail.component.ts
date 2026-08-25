@@ -15,7 +15,7 @@ import { BnBioNetworkDrawerState } from '../../state/bn-bio-network-drawer.state
 export class BnBioNetworkNodeDetailComponent implements OnInit {
   private drawerState = inject(BnBioNetworkDrawerState);
 
-  node$: Observable<BnBioNetworkNode>;
+  node$: Observable<BnBioNetworkNode | null>;
 
   ngOnInit(): void {
     this.node$ = this.drawerState.getState$().pipe(map((state) => state.selectedNode));

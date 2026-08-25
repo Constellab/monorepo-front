@@ -17,7 +17,8 @@ export class ChChartDomain {
     minValue?: number,
     maxValue?: number
   ): [number, number] {
-    const domain: [number, number] = extent(data, (data) => data);
+    // extent() returns [undefined, undefined] for an empty data set
+    const domain = extent(data, (data) => data) as [number, number];
 
     if (domain[1] == null) {
       domain[1] = domain[0];

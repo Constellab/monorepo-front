@@ -25,6 +25,10 @@ export class BnBioNetworkMetaboliteRenderer {
     showText: boolean,
     themeDetail: FlThemeDetail
   ): void {
+    // nothing to draw while the node has no position
+    const center = metabolite.getCoords();
+    if (center.x == null || center.y == null) return;
+
     if (!metabolite.selected) {
       ctx.globalAlpha = 0.1;
     } else {
@@ -39,19 +43,19 @@ export class BnBioNetworkMetaboliteRenderer {
 
     // add text color ring
     ctx.fillStyle = themeDetail.foreground;
-    BnBioNetworkCanvasHelper.circle(ctx, metabolite.x, metabolite.y, globalRadius);
+    BnBioNetworkCanvasHelper.circle(ctx, center.x, center.y, globalRadius);
 
     // draw the circle
     ctx.fillStyle = colorFunc(metabolite);
-    BnBioNetworkCanvasHelper.circle(ctx, metabolite.x, metabolite.y, centerRadius);
+    BnBioNetworkCanvasHelper.circle(ctx, center.x, center.y, centerRadius);
 
     // draw the text
     if (showText) {
       ctx.fillStyle = themeDetail.foreground;
       BnBioNetworkCanvasHelper.text(
         ctx,
-        metabolite.x,
-        metabolite.y + globalRadius * 1.5,
+        center.x,
+        center.y + globalRadius * 1.5,
         metabolite.data.name.slice(0, 20),
         {
           fontSize: BnBioNetworkMetaboliteRenderer.getFontTextSize(metabolite),
@@ -70,8 +74,8 @@ export class BnBioNetworkMetaboliteRenderer {
       ctx.fillStyle = themeDetail.foreground;
       BnBioNetworkCanvasHelper.circle(
         ctx,
-        metabolite.x,
-        metabolite.y,
+        center.x,
+        center.y,
         BnBioNetworkMetaboliteRenderer.existsInMultipleClusterRadius
       );
     }
@@ -84,6 +88,9 @@ export class BnBioNetworkMetaboliteRenderer {
     metabolite: BnBioNetworkNodeMetabolite,
     color: string
   ): void {
+    const center = metabolite.getCoords();
+    if (center.x == null || center.y == null) return;
+
     // use the unique color for the pointer area
     ctx.fillStyle = color;
 
@@ -94,7 +101,7 @@ export class BnBioNetworkMetaboliteRenderer {
     const globalRadius = centerRadius + strokeWidth;
 
     // simplify area to only select on node
-    BnBioNetworkCanvasHelper.circle(ctx, metabolite.x, metabolite.y, globalRadius);
+    BnBioNetworkCanvasHelper.circle(ctx, center.x, center.y, globalRadius);
   }
 
   private static getRadius(metabolite: BnBioNetworkNodeMetabolite): number {

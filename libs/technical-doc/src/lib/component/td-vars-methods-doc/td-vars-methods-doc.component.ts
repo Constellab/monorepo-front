@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 
 import { TdTechDocFunction } from '../../model/td-resource-type.class';
 
@@ -17,27 +17,29 @@ export class TdVarsMethodsDocComponent implements OnInit {
     if (this.funcs?.length > 0) {
       this.funcs = this.funcs.sort((a, b) => {
         // sort by method type null then classmethod then staticmethod, then by name
-        if (a.method_type === b.method_type) {
+        const aType = a.method_type;
+        const bType = b.method_type;
+        if (aType === bType) {
           return a.name.localeCompare(b.name);
         }
 
-        if (a.method_type === null) {
+        if (aType == null) {
           return -1;
         }
 
-        if (b.method_type === null) {
+        if (bType == null) {
           return 1;
         }
 
-        if (a.method_type === 'classmethod' && b.method_type === 'staticmethod') {
+        if (aType === 'classmethod' && bType === 'staticmethod') {
           return -1;
         }
 
-        if (a.method_type === 'staticmethod' && b.method_type === 'classmethod') {
+        if (aType === 'staticmethod' && bType === 'classmethod') {
           return 1;
         }
 
-        return a.method_type.localeCompare(b.method_type);
+        return aType.localeCompare(bType);
       });
     }
   }

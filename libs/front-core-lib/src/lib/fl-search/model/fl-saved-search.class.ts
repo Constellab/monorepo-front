@@ -2,8 +2,13 @@ import { FlEntity } from '@monorepo/front-core-lib/fl-core';
 
 /**
  * Interface representing a saved search
+ *
+ * Does not extend FlEntity directly because the predefined searches carry a null id.
  */
-export interface FlSavedSearch extends FlEntity {
+export interface FlSavedSearch extends Omit<FlEntity, 'id'> {
+  // null for the predefined searches, which are not persisted
+  id: string | null;
+
   // name of the search form
   searchName: string;
 
@@ -24,5 +29,4 @@ export interface FlSavedSearch extends FlEntity {
 
   // object containing all the filters
   filtersCriteria: Record<string, any>;
-
 }

@@ -156,7 +156,8 @@ export class FlHtmlHelper {
 
   public static getCaretCoordinates(): { top: number; left: number } | null {
     const selection = window.getSelection();
-    if (!selection) return null;
+    // rangeCount is 0 when nothing is selected, and getRangeAt would throw an IndexSizeError
+    if (!selection || selection.rangeCount === 0) return null;
 
     const range = selection.getRangeAt(0);
     const rect = range.getBoundingClientRect();

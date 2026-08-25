@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, ElementRef, inject, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, inject, OnDestroy, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FlConfirmDialogInput } from '@monorepo/front-core-lib/fl-dialog';
 import { FlConfirmDialogResult } from '@monorepo/front-core-lib/fl-dialog';
@@ -58,6 +58,7 @@ export class TeTextEditorHistoryModificationVisualizerDialogComponent implements
   ngOnInit(): void {
     const modificationId = this.group.mainModificationId();
     this.textEditorEvent = new TeEvent();
+    if (modificationId == null) return;
     this.service.getPreviousVersion(this.entityId, modificationId).subscribe((content) => {
       this.richText = new TeRichText(content);
       this.highlightChanges();
@@ -73,17 +74,22 @@ export class TeTextEditorHistoryModificationVisualizerDialogComponent implements
       const textEditorUser = this.textEditorHistoryUsers.find(
         (textEditorUser) => textEditorUser.user.id === modification.userId
       );
+      if (!textEditorUser) continue;
       this.hollowElement(modification.blockId, textEditorUser.color);
     }
     this.isLoading = false;
   }
 
   openConfirmRollback(): void {
+    const modificationId = this.group.mainModificationId();
+    const rollbackContent = this.service.rollbackContent;
+    if (modificationId == null || rollbackContent == null) return;
+
     const confirmDialogData: FlConfirmDialogInput = {
       title: 'teTextEditor.confirm_rollback_title',
       content: 'teTextEditor.confirm_rollback_content',
       successMessage: 'teTextEditor.confirm_rollback_success',
-      observable: this.service.rollbackContent(this.entityId, this.group.mainModificationId()),
+      observable: rollbackContent.call(this.service, this.entityId, modificationId),
     };
 
     this.dialogService

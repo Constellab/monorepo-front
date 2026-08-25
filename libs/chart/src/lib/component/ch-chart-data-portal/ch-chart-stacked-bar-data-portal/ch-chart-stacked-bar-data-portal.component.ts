@@ -11,7 +11,7 @@ export interface ChChartStackedBarDataPortalInput {
   seriesColorScale: ChChartScaleColor;
   xLabelFormatter: ChChartLabelFormatter;
   yLabelFormatter: ChChartLabelFormatter;
-  selectedValue: ChChart2dDatum;
+  selectedValue: ChChart2dDatum | null;
 }
 
 /**
@@ -33,7 +33,7 @@ export class ChChartStackedBarDataPortalComponent {
   data: ChChartDataWithSerie<ChChart2dDatum>[];
   seriesColorScale: ChChartScaleColor;
 
-  selectedValue: ChChart2dDatum;
+  selectedValue: ChChart2dDatum | null;
 
   constructor() {
     const input = inject<ChChartStackedBarDataPortalInput>(FL_PORTAL_DATA);

@@ -19,6 +19,10 @@ export class BnBioNetworkReactionRenderer {
     colorFunc: BnBioNetworkObjectColorFunction,
     themeDetail: FlThemeDetail
   ): void {
+    // nothing to draw while the node has no position
+    const center = reaction.getCoords();
+    if (center.x == null || center.y == null) return;
+
     if (!reaction.selected) {
       ctx.globalAlpha = 0.1;
     } else {
@@ -30,8 +34,8 @@ export class BnBioNetworkReactionRenderer {
     const globalSize = BnBioNetworkReactionRenderer.size + BnBioNetworkReactionRenderer.strokeWidth;
     BnBioNetworkCanvasHelper.roundedRect(
       ctx,
-      reaction.x - globalSize / 2,
-      reaction.y - globalSize / 2,
+      center.x - globalSize / 2,
+      center.y - globalSize / 2,
       globalSize,
       globalSize,
       BnBioNetworkReactionRenderer.borderRadius
@@ -46,8 +50,8 @@ export class BnBioNetworkReactionRenderer {
     const size = BnBioNetworkReactionRenderer.size;
     BnBioNetworkCanvasHelper.roundedRect(
       ctx,
-      reaction.x - size / 2,
-      reaction.y - size / 2,
+      center.x - size / 2,
+      center.y - size / 2,
       size,
       size,
       BnBioNetworkReactionRenderer.borderRadius
@@ -58,8 +62,8 @@ export class BnBioNetworkReactionRenderer {
       ctx.fillStyle = themeDetail.foreground;
       BnBioNetworkCanvasHelper.circle(
         ctx,
-        reaction.x,
-        reaction.y,
+        center.x,
+        center.y,
         BnBioNetworkReactionRenderer.existsInMultipleClusterRadius
       );
     }
@@ -72,14 +76,17 @@ export class BnBioNetworkReactionRenderer {
     reaction: BnBioNetworkNodeReaction,
     color: string
   ): void {
+    const center = reaction.getCoords();
+    if (center.x == null || center.y == null) return;
+
     // use the unique color for the pointer area
     ctx.fillStyle = color;
 
     const globalSize = BnBioNetworkReactionRenderer.size + BnBioNetworkReactionRenderer.strokeWidth;
     BnBioNetworkCanvasHelper.roundedRect(
       ctx,
-      reaction.x - globalSize / 2,
-      reaction.y - globalSize / 2,
+      center.x - globalSize / 2,
+      center.y - globalSize / 2,
       globalSize,
       globalSize,
       BnBioNetworkReactionRenderer.borderRadius

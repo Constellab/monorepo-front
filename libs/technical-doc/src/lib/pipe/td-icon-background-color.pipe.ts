@@ -10,7 +10,7 @@ import { TdTypeStyleBackgroundColor } from '../model/td-type.class';
 export class TdIconBackgroundColorPipe implements PipeTransform {
   private themeService = inject(FlThemeService);
 
-  transform(color: TdTypeStyleBackgroundColor): string {
+  transform(color: TdTypeStyleBackgroundColor): string | null {
     if (!color) return null;
 
     if (color === 'primary')

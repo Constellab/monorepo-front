@@ -95,17 +95,21 @@ export class TeRichTextBlockModification {
     const changes = diffChars(oldValueString, newValue);
     let i = 0;
     for (const change of changes) {
-      if (change.added || change.removed) {
+      // the diff lib types those as optional, but diffChars always provides them
+      const added = change.added ?? false;
+      const removed = change.removed ?? false;
+      const count = change.count ?? change.value.length;
+      if (added || removed) {
         res.push({
           index: i,
-          added: change.added,
-          removed: change.removed,
+          added,
+          removed,
           value: change.value,
-          count: change.count,
+          count,
         });
       }
-      if (!change.removed) {
-        i += change.count;
+      if (!removed) {
+        i += count;
       }
     }
     this.differences = res;

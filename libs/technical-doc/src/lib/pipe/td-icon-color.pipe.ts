@@ -10,7 +10,7 @@ import { TdTypeStyleIconColor } from '../model/td-type.class';
 export class TdIconColorPipe implements PipeTransform {
   private themeService = inject(FlThemeService);
 
-  transform(color: TdTypeStyleIconColor): string {
+  transform(color: TdTypeStyleIconColor): string | null {
     if (!color) return null;
 
     if (color === 'primaryContrast') return this.themeService.getCurrentThemeDetail().primaryContrast;

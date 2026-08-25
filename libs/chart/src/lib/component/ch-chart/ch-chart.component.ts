@@ -10,7 +10,8 @@ import {
   OnDestroy,
   OnInit,
   ViewChild,
-  ViewContainerRef} from '@angular/core';
+  ViewContainerRef,
+} from '@angular/core';
 import { ClHelpService } from '@monorepo/core-lib';
 import { FlResizeObservable } from '@monorepo/front-core-lib/fl-core';
 import { FlMenuDynamic, FlMenuDynamicService } from '@monorepo/front-core-lib/fl-menu-dynamic';
@@ -65,7 +66,7 @@ export class ChChartComponent implements OnInit, OnDestroy {
   // padding in the chart container to prevent the svg to overflow
   private chartContainerPadding: number = 10;
 
-  private legendComponentRef: ComponentRef<ChChartRightSectionDirective>;
+  private legendComponentRef: ComponentRef<ChChartRightSectionDirective> | null;
 
   @HostListener('contextmenu', ['$event'])
   contextMenu(event: MouseEvent): void {

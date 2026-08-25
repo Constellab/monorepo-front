@@ -44,7 +44,7 @@ export class BnBioNetworkState implements OnDestroy {
     this.chartData$ = new BehaviorSubject(null);
     // this.database$ = new BehaviorSubject(null);
     this.clusters$ = new BehaviorSubject([]);
-    this.clustersSelectionChange$ = new BehaviorSubject(null);
+    this.clustersSelectionChange$ = new BehaviorSubject<void>(undefined);
 
     this.pathwayListCache = {};
 
@@ -75,13 +75,13 @@ export class BnBioNetworkState implements OnDestroy {
 
   public selectNetwork(name: string): void {
     // find the network with the name
-    const network: BnBioNetwork = this.networks.find((network) => network.name === name);
-    this.selectedNetwork$.next(network);
+    const network: BnBioNetwork | undefined = this.networks.find((network) => network.name === name);
+    this.selectedNetwork$.next(network ?? null);
     this.clusters$.next([]);
     this.emitClustersSelectionChange();
   }
 
-  public getSelectedNetwork(): BnBioNetwork {
+  public getSelectedNetwork(): BnBioNetwork | null {
     return this.selectedNetwork$.value;
   }
 
@@ -117,12 +117,9 @@ export class BnBioNetworkState implements OnDestroy {
   private selectClusters(clusters: BnBioNetworkClusterSelection[]): void {
     clusters.forEach((cluster) => (cluster.highlighted = false));
     const clusterIds: string[] = clusters.filter((cluster) => cluster.selected).map((cluster) => cluster.id);
+    const selectedNetwork = this.getSelectedNetwork();
     // if no ids are selected, we return null
-    if (
-      ClHelpService.isNullOrEmpty(clusterIds) ||
-      this.getDatabase() == null ||
-      this.getSelectedNetwork() == null
-    ) {
+    if (ClHelpService.isNullOrEmpty(clusterIds) || this.getDatabase() == null || selectedNetwork == null) {
       this.chartData$.next(null);
       return;
     }
@@ -131,10 +128,7 @@ export class BnBioNetworkState implements OnDestroy {
       this.themeService.getCurrentThemeDetail(),
       this.engineState.engineConfig.ignoreNodePositions
     );
-    const chartData: BnBioNetworkGraph = factory.convertNetworkToNetworkD3(
-      this.getSelectedNetwork(),
-      clusterIds
-    );
+    const chartData: BnBioNetworkGraph = factory.convertNetworkToNetworkD3(selectedNetwork, clusterIds);
 
     this.chartData$.next(chartData);
   }
@@ -153,11 +147,11 @@ export class BnBioNetworkState implements OnDestroy {
   }
 
   private getClustersList(): BnBioNetworkClusterSelection[] {
-    if (this.getSelectedNetwork() == null) {
+    const network = this.getSelectedNetwork();
+    if (network == null) {
       return [];
     }
 
-    const network = this.getSelectedNetwork();
     const clusters: BnBioNetworkClusterSelection[] = [];
 
     clusters.push({
@@ -168,7 +162,7 @@ export class BnBioNetworkState implements OnDestroy {
       selected: false,
     });
     for (const metabolite of network.metabolites) {
-      for (const cluster of Object.values(metabolite.layout.clusters)) {
+      for (const cluster of Object.values(metabolite.layout?.clusters ?? {})) {
         if (clusters.find((c) => c.id === cluster.id) == null) {
           clusters.push({
             id: cluster.id,
@@ -236,7 +230,7 @@ export class BnBioNetworkState implements OnDestroy {
   }
 
   public downloadNetworkJson(): void {
-    const network: BnBioNetwork = this.exportAllNetwork();
+    const network: BnBioNetwork | null = this.exportAllNetwork();
 
     // TODO to remove, this is temporary to export a view object
     const viewObject = {
@@ -247,14 +241,14 @@ export class BnBioNetworkState implements OnDestroy {
     FlFileHelper.downloadJsonFile(viewObject, 'network.json');
   }
 
-  public exportAllNetwork(): BnBioNetwork {
+  public exportAllNetwork(): BnBioNetwork | null {
     return this.getSelectedNetwork();
   }
 
   /////////////////////////////////////// OTHER /////////////////////////////////////////
 
   public getCompartments$(): Observable<BnBioNetworkCompartment[]> {
-    return this.selectedNetwork$.pipe(map((network) => network.compartments));
+    return this.selectedNetwork$.pipe(map((network) => network?.compartments ?? []));
   }
 
   ngOnDestroy(): void {

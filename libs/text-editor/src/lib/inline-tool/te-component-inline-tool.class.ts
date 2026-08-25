@@ -8,14 +8,16 @@ import { TeElementInlineDirective } from '../model/te-element.directive';
  * called, it is pure HTML
  *
  */
-export abstract class TeComponentInlineTool<T> implements InlineTool {
+// render is excluded from the implemented interface because editor js types it as always
+// returning an element, while returning undefined is how this tool declares itself unavailable
+export abstract class TeComponentInlineTool<T> implements Omit<InlineTool, 'render'> {
   protected element: HTMLElement;
 
   protected inlineButton: HTMLElement;
 
   constructor(protected options: InlineToolConstructorOptions) {}
 
-  static get title(): string {
+  static get title(): string | null {
     return null;
   }
 
@@ -33,7 +35,7 @@ export abstract class TeComponentInlineTool<T> implements InlineTool {
    */
   abstract renderInlineButton(): HTMLElement | undefined;
 
-  render(): HTMLElement {
+  render(): HTMLElement | undefined {
     return this.renderInlineButton();
   }
 
@@ -92,7 +94,7 @@ export abstract class TeComponentInlineTool<T> implements InlineTool {
     this.options.api.selection.expandToTag(termWrapper);
 
     const sel = window.getSelection();
-    if (sel.rangeCount === 0) return;
+    if (!sel || sel.rangeCount === 0) return;
     const range = sel.getRangeAt(0);
     if (!range) return;
 
@@ -101,7 +103,7 @@ export abstract class TeComponentInlineTool<T> implements InlineTool {
     /**
      * Remove empty term-tag
      */
-    termWrapper.parentNode.removeChild(termWrapper);
+    termWrapper.parentNode?.removeChild(termWrapper);
 
     /**
      * Insert extracted content
@@ -119,7 +121,7 @@ export abstract class TeComponentInlineTool<T> implements InlineTool {
    * Method to retrieve the inline element on the current selection  if it exists
    * @private
    */
-  private getSelectionInlineElement(): HTMLElement | undefined {
+  private getSelectionInlineElement(): HTMLElement | null {
     if (this.element) return this.element;
     const variableElement = this.options.api.selection.findParentTag(this.getInlineElementTag());
     if (!variableElement) return null;

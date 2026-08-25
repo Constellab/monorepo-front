@@ -3,7 +3,7 @@ export type TeVariableFormType = 'string' | 'number' | 'boolean';
 export interface TeVariableFormInfo {
   name?: string;
   description?: string;
-  value?: string;
+  value?: string | null;
   type?: TeVariableFormType;
 }
 

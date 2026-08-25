@@ -65,7 +65,7 @@ export class BnBioNetworkActionBarComponent implements OnInit {
       .subscribe(() => this.resetSlider());
   }
 
-  private onNewData(chartData: BnBioNetworkGraph): void {
+  private onNewData(chartData: BnBioNetworkGraph | null): void {
     if (chartData) {
       this.maxFluxValue = Math.trunc(chartData.getLinksMaxAbsoluteValue());
       this.isReady = true;

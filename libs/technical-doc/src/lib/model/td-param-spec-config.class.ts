@@ -142,7 +142,7 @@ export class TdParamSpecConfig {
       .filter((opt) => opt.value != null && String(opt.value).length > 0)
       .map((opt) => ({ key: String(opt.value), humanName: opt.label || String(opt.value) }));
     const base = TdParamSpecConfig.convertToBaseFieldConfig(spec);
-    const noneOption: { key: string; humanName: string } = { key: null, humanName: '—' };
+    const noneOption: { key: string | null; humanName: string } = { key: null, humanName: '—' };
 
     const isMultiple = !!spec.additional_info?.multiple;
     // if there are more than 10 options and it's not multiple, use select-search
@@ -169,7 +169,9 @@ export class TdParamSpecConfig {
     return config;
   }
 
-  public static convertToBaseFieldConfig(spec: TdParamSpec | TdParamSpecBase): FlDynamicFieldConfigBase {
+  public static convertToBaseFieldConfig(
+    spec: TdParamSpec | TdParamSpecBase
+  ): Omit<FlDynamicFieldConfigBase, 'type'> & { type: string | null } {
     return {
       controlType: 'formControl',
       type: null,

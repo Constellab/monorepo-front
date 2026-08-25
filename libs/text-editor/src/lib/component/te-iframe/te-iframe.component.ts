@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ClStringHelper } from '@monorepo/core-lib';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
@@ -23,7 +23,7 @@ export class TeIframeComponent extends TeElementBlockDirective implements OnInit
   @Input() data: TeIframeBlockData;
 
   urlError: boolean = false;
-  secureUrl: SafeResourceUrl;
+  secureUrl: SafeResourceUrl | null;
 
   disabled$: Observable<boolean>;
 

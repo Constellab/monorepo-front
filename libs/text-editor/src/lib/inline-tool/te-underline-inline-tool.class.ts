@@ -43,7 +43,7 @@ export class TeUnderlineInlineTool implements InlineTool {
   /**
    * Elements
    */
-  private nodes: { button: HTMLButtonElement } = {
+  private nodes: { button: HTMLButtonElement | undefined } = {
     button: undefined,
   };
 
@@ -74,7 +74,7 @@ export class TeUnderlineInlineTool implements InlineTool {
   public checkState(): boolean {
     const isActive = document.queryCommandState(this.commandName);
 
-    this.nodes.button.classList.toggle(this.CSS.buttonActive, isActive);
+    this.nodes.button?.classList.toggle(this.CSS.buttonActive, isActive);
 
     return isActive;
   }

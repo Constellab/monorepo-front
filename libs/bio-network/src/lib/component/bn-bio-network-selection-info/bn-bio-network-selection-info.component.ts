@@ -79,7 +79,7 @@ export class BnBioNetworkSelectionInfoComponent implements OnInit {
   }
 
   private getAllSelectionInfo(): SelectionInfo {
-    const data: BnBioNetworkGraph = this.state.getCurrentChartData();
+    const data: BnBioNetworkGraph | null = this.state.getCurrentChartData();
     if (data) {
       return {
         metabolites: this.removeDuplicate(data.metabolites).length,
