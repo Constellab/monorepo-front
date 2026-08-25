@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy,Component, inject, Injector, Input, Signal, ViewContainerRef } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  Injector,
+  Input,
+  Signal,
+  ViewContainerRef,
+} from '@angular/core';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatDialogClose } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
@@ -63,9 +71,9 @@ export class LiResourceDetailHeaderComponent {
 
   @Input() displayMode: 'fullPage' | 'fullDialog' | 'dense' = 'fullPage';
 
-  resource: Signal<LiResource> = this.state.selectedResource;
+  resource: Signal<LiResource | undefined> = this.state.selectedResource;
 
-  private overlay: FlOverlayRef;
+  private overlay: FlOverlayRef | null;
 
   openViewSpecListPortal(event: MouseEvent): void {
     const config = this.portalService.configureRelativePortalFromMouseEvent(
@@ -82,8 +90,11 @@ export class LiResourceDetailHeaderComponent {
   }
 
   openResourceInfoDialog(): void {
+    const resource = this.resource();
+    if (resource == null) return;
+
     const data: LiResourceInfoDialogInput = {
-      resource: this.resource(),
+      resource: resource,
     };
     this.dialogService.openBigDialog(LiResourceInfoDialogComponent, {
       data: data,
@@ -95,6 +106,7 @@ export class LiResourceDetailHeaderComponent {
 
   openResourceMenu(event: MouseEvent): void {
     const resource = this.resource();
+    if (resource == null) return;
 
     const extraItems: FlMenuDynamic[] = [];
     if (this.displayMode === 'fullPage') {
@@ -139,6 +151,9 @@ export class LiResourceDetailHeaderComponent {
   async openTransformerResource(): Promise<void> {
     if (this.overlay) return;
 
+    const resource = this.resource();
+    if (resource == null) return;
+
     const config: FlPortalConfig = this.portalService.configureAbsolutePortal(
       { centerHorizontally: '0', top: '0' },
       {
@@ -149,9 +164,9 @@ export class LiResourceDetailHeaderComponent {
     );
 
     const input: LiTransformResourcePortalInput = {
-      resourceName: this.resource().name,
-      resourceTypingName: this.resource().resourceTypingName,
-      resourceId: this.resource().id,
+      resourceName: resource.name,
+      resourceTypingName: resource.resourceTypingName,
+      resourceId: resource.id,
       currentTransformers: [],
     };
 
@@ -160,17 +175,26 @@ export class LiResourceDetailHeaderComponent {
   }
 
   updateName(name: string): void {
+    const resource = this.resource();
+    if (resource == null) return;
+
     this.resourceService
-      .updateName(this.resource().id, name)
+      .updateName(resource.id, name)
       .subscribe((resource) => this.state.updateResource(resource));
   }
 
   openImportResource(): void {
+    const resource = this.resource();
+    if (resource == null || resource.resourceType == null || resource.fsNode == null) return;
+
+    const nodeExtension = resource.fsNode.getExtension();
+    if (nodeExtension == null) return;
+
     const input: LiImportResourceDialogInput = {
-      resourceId: this.resource().id,
-      resourceHumanName: this.resource().resourceType.human_name,
-      resourceTypingName: this.resource().resourceTypingName,
-      nodeExtension: this.resource().fsNode.getExtension(),
+      resourceId: resource.id,
+      resourceHumanName: resource.resourceType.human_name,
+      resourceTypingName: resource.resourceTypingName,
+      nodeExtension: nodeExtension,
     };
 
     this.dialogService.openMediumDialog(LiImportResourceDialogComponent, { data: input });

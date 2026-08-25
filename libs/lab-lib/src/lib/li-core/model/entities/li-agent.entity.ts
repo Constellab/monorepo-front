@@ -9,8 +9,8 @@ import { LiEntity } from '../global/li-entity.entity';
 export class LiAgent extends LiEntity {
   title: string;
   space?: any;
-  created_at?: string;
-  last_modified_at?: string;
+  created_at: string;
+  last_modified_at: string;
   created_by?: CoUser;
 
   @TeRichTextTransform()
@@ -18,8 +18,8 @@ export class LiAgent extends LiEntity {
   latest_publish_version: number;
   latest_style?: TdTypeStyle;
   agent_co_authors?: CoUser[];
-  likes?: number;
-  comments?: number;
+  likes: number;
+  comments: number;
 
   toCoAgent(): CoAgent {
     const coAgent = new CoAgent();

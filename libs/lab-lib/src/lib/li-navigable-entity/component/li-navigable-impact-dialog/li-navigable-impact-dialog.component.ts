@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import {
   MAT_DIALOG_DATA,
@@ -61,7 +61,7 @@ export class LiNavigableImpactDialogComponent implements OnInit {
 
   ngOnInit(): void {
     // check if there are some validated scenario
-    const scenariosGroup: LiNavigableEntityGrouped<LiScenario> = this.data.impactedEntities.find(
+    const scenariosGroup: LiNavigableEntityGrouped<LiScenario> | undefined = this.data.impactedEntities.find(
       (group) => group.type === 'SCENARIO'
     );
     if (scenariosGroup) {
@@ -69,7 +69,7 @@ export class LiNavigableImpactDialogComponent implements OnInit {
     }
 
     // check if there are some validated note
-    const notesGroup: LiNavigableEntityGrouped<LiNote> = this.data.impactedEntities.find(
+    const notesGroup: LiNavigableEntityGrouped<LiNote> | undefined = this.data.impactedEntities.find(
       (group) => group.type === 'NOTE'
     );
     if (notesGroup) {

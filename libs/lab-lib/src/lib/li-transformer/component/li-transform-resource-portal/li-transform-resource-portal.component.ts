@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { FlFormHelper } from '@monorepo/front-core-lib/fl-core';
@@ -83,8 +83,11 @@ export class LiTransformResourcePortalComponent {
     });
   }
 
-  private onTransformSuccess(resource: LiResource): void {
+  private onTransformSuccess(resource: LiResource | null): void {
     this.isLoading = false;
+    // the polled scenario can complete without producing an output resource
+    if (resource == null) return;
+
     this.overlayRef.dispose();
     this.routerService.navigateToResourceDetail(resource.id);
   }

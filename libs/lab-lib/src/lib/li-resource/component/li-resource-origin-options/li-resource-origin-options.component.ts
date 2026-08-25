@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy,Component, inject } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MatOption } from '@angular/material/core';
 import { MatSelect } from '@angular/material/select';
 import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib/fl-core';
@@ -21,7 +21,7 @@ export class LiResourceOriginOptionsComponent
   originOptions: LiResourceOrigin[] = ['UPLOADED', 'GENERATED', 'IMPORTED_FROM_LAB', 'S3_FOLDER_STORAGE'];
 
   constructor() {
-    const select = inject(MatSelect, { host: true, optional: true });
+    const select = inject(MatSelect, { host: true });
 
     super(select);
 

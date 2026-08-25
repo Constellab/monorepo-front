@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatCheckbox } from '@angular/material/checkbox';
@@ -132,7 +132,7 @@ export class LiBulkManageEntityTagsDialogComponent {
         ),
         autoClose: true,
       })
-      .subscribe((result: FlPortalActionResult<Record<string, LiTag[]>>) => {
+      ?.subscribe((result: FlPortalActionResult<Record<string, LiTag[]>>) => {
         if (result.status === 'success') {
           this.dialogRef.close();
         }

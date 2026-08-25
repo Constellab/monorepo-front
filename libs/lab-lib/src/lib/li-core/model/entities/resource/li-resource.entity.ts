@@ -1,7 +1,7 @@
 import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 import { FlFileHelper } from '@monorepo/front-core-lib/fl-translate';
 import { PrResource } from '@monorepo/protocol';
-import { TdTypeObjectStatus, TdTypeRefDTO, TdTypeStyle,TdTypingErrorDTO } from '@monorepo/technical-doc';
+import { TdTypeObjectStatus, TdTypeRefDTO, TdTypeStyle, TdTypingErrorDTO } from '@monorepo/technical-doc';
 import { Expose, Type } from 'class-transformer';
 
 import { LiEntity } from '../../global/li-entity.entity';
@@ -23,7 +23,7 @@ export class LiFsNodeEntity extends LiEntity {
 
   path: string;
 
-  getExtension(): string {
+  getExtension(): string | null {
     return FlFileHelper.getFileExtension(this.name);
   }
 }
@@ -88,7 +88,7 @@ export class LiResource extends LiBaseEntityWithUser implements LiFlaggedEntity 
   }
 
   isFile(): boolean {
-    return this.isFsNode() && this.fsNode.isFile;
+    return this.fsNode != null && this.fsNode.isFile;
   }
 
   canUpdateType(): boolean {
@@ -108,8 +108,8 @@ export class LiResource extends LiBaseEntityWithUser implements LiFlaggedEntity 
       id: this.id,
       name: this.name,
       resourceTypingName: this.resourceTypingName,
-      resourceType: this.resourceType,
-      scenario: this.scenario,
+      resourceType: this.resourceType ?? null,
+      scenario: this.scenario ?? null,
       style: this.style,
     };
   }

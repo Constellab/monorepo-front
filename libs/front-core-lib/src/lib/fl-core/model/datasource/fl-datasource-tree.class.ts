@@ -86,7 +86,7 @@ export class FlDatasourceTree<T extends FlEntity> {
 
   //////////////////////////////////////// ADD ////////////////////////////////////////
 
-  public addOrReplaceNode(object: T | T[], parentNodeId: string): void {
+  public addOrReplaceNode(object: T | T[], parentNodeId: string | null): void {
     const nodes: T[] = ClHelpService.convertObjectOrArrayToArray(object);
     for (const node of nodes) {
       this.tree.addOrReplaceNode(node, parentNodeId);
@@ -97,7 +97,7 @@ export class FlDatasourceTree<T extends FlEntity> {
 
   public addOrReplaceNodesAndChildren(
     object: T | T[],
-    parentNodeId: string,
+    parentNodeId: string | null,
     getChildren: (object: T) => T[] | null
   ): void {
     const nodes: T[] = ClHelpService.convertObjectOrArrayToArray(object);

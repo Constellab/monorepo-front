@@ -1,4 +1,4 @@
-import { inject,Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { FlOverlayRef, FlPortalConfig, FlPortalService } from '@monorepo/front-core-lib/fl-portal';
 import { LiResourceViewSpecWithConfig } from '@monorepo/lab-lib/li-core';
 import { TdParamSpecsValues, TdTypeStyle } from '@monorepo/technical-doc';
@@ -25,7 +25,7 @@ export class LiViewConfigurerState {
     methodName: string,
     viewName: string,
     hasConfigSpecs: boolean,
-    resourceId: string,
+    resourceId: string | null,
     resourceTypingName: string,
     viewStyle: TdTypeStyle,
     viewConfigValues: TdParamSpecsValues = {}
@@ -53,7 +53,7 @@ export class LiViewConfigurerState {
 
     const data: LiConfigureResourceViewInput = {
       resourceTypingName: resourceTypingName,
-      resourceId: resourceId,
+      resourceId: resourceId ?? undefined,
       title: viewName,
       viewMethodName: methodName,
       preConfiguration: specWithConfig,
@@ -81,7 +81,7 @@ export class LiViewConfigurerState {
   private onViewConfigured(
     config: LiConfigureResourceViewOutput,
     viewName: string
-  ): LiResourceViewSpecWithConfig {
+  ): LiResourceViewSpecWithConfig | null {
     if (config == null) return null;
 
     return {

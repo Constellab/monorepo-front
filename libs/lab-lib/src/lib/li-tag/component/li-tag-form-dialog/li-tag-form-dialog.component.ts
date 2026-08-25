@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatDialogActions, MatDialogContent } from '@angular/material/dialog';
@@ -68,6 +68,9 @@ export class LiTagFormDialogComponent
   }
 
   create(formValue: FlTag): Observable<LiCreateTagResponse> {
+    if (formValue.value == null) {
+      throw new Error('Cannot create a tag without a value');
+    }
     return this.tagService.createTag(formValue.key, formValue.value);
   }
 
@@ -80,11 +83,11 @@ export class LiTagFormDialogComponent
   }
 
   update(formValue: FlTag): Observable<LiCreateTagResponse> {
-    return this.tagService.updateTag(
-      this.dialogInput.object.key,
-      this.dialogInput.object.value,
-      formValue.value
-    );
+    const tag = this.dialogInput.object;
+    if (tag?.value == null || formValue.value == null) {
+      throw new Error('Cannot update a tag without an existing value');
+    }
+    return this.tagService.updateTag(tag.key, tag.value, formValue.value);
   }
 
   get title(): string {

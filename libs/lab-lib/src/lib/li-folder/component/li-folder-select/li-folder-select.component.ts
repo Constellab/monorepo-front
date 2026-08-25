@@ -1,5 +1,13 @@
 import { NgClass } from '@angular/common';
-import { ChangeDetectionStrategy,Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
 import {
@@ -50,7 +58,7 @@ interface LabFolderFlatNode {
   ],
 })
 export class LiFolderSelectComponent
-  extends FlFormFieldDirective<FlFlatTreeControl<LabFolderFlatNode, string>, LiFolder[] | LiFolder>
+  extends FlFormFieldDirective<FlFlatTreeControl<LabFolderFlatNode, string>, LiFolder[] | LiFolder | null>
   implements OnInit
 {
   private folderService = inject(LiFolderService);
@@ -63,7 +71,7 @@ export class LiFolderSelectComponent
    */
   @Input() multiple: boolean = true;
 
-  @Output() selectionChange: EventEmitter<LiFolder[] | LiFolder> = new EventEmitter();
+  @Output() selectionChange: EventEmitter<LiFolder[] | LiFolder | null> = new EventEmitter();
 
   dataSource: MatTreeFlatDataSource<LiFolderWithChildren, LabFolderFlatNode>;
 
@@ -79,7 +87,7 @@ export class LiFolderSelectComponent
   private _transformer = (node: LiFolderWithChildren, level: number): LabFolderFlatNode => {
     return {
       folder: node,
-      expandable: node.children?.length > 0,
+      expandable: (node.children?.length ?? 0) > 0,
       level: level,
       selected: false,
     };
@@ -140,14 +148,14 @@ export class LiFolderSelectComponent
     });
   }
 
-  callChangeEvent(value: LiFolder[] | LiFolder): void {
+  callChangeEvent(value: LiFolder[] | LiFolder | null): void {
     this.selectionChange.emit(value);
   }
 
   onDisableChange(): void {}
 
-  writeValue(obj: LiFolder[] | LiFolder): void {
-    const folders: LiFolder[] = ClHelpService.convertObjectOrArrayToArray(obj);
+  writeValue(obj: LiFolder[] | LiFolder | null): void {
+    const folders: LiFolder[] = ClHelpService.convertObjectOrArrayToArray<LiFolder>(obj ?? []);
     this.selectFolders(folders);
   }
 
@@ -167,7 +175,7 @@ export class LiFolderSelectComponent
 
   protected convertInnerToOuter(
     innerValue: FlFlatTreeControl<LabFolderFlatNode, string>
-  ): LiFolder[] | LiFolder {
+  ): LiFolder[] | LiFolder | null {
     const folders = innerValue.dataNodes.filter((node) => node.selected).map((node) => node.folder);
     if (!this.multiple) {
       return folders.length > 0 ? folders[0] : null;

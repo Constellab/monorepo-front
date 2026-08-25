@@ -155,8 +155,11 @@ export class LiEntityActionMenu extends FlBaseActionMenu {
     entityId: string,
     button: LiEntityActionButton
   ): void {
+    const configSpecs = button.config_specs;
+    if (configSpecs == null) return;
+
     const input: LiQuickConfigureProcessDialogInput = {
-      specs$: of(button.config_specs),
+      specs$: of(configSpecs),
       title: { text: button.text, translateText: false },
     };
 

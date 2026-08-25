@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent } from '@angular/material/dialog';
@@ -74,7 +74,11 @@ export class LiFormTemplateFormDialogComponent
   }
 
   update(formValue: LiCreateFormTemplateDTO): Observable<LiFormTemplate> {
-    return this.formTemplateService.update(this.dialogInput.templateId, {
+    const templateId = this.dialogInput.templateId;
+    if (!templateId) {
+      throw new Error('templateId is required to update a form template');
+    }
+    return this.formTemplateService.update(templateId, {
       name: formValue.name,
       description: formValue.description,
     });

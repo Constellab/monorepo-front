@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
@@ -56,7 +56,7 @@ export class LiResourceUpdateFolderDialogComponent implements OnInit {
   private scenarioService = inject(LiScenarioService);
   private snackBarService = inject(FlSnackBarService);
 
-  formControl: FormControl<LiFolder>;
+  formControl: FormControl<LiFolder | null | undefined>;
 
   isLoading: boolean;
 
@@ -81,7 +81,7 @@ export class LiResourceUpdateFolderDialogComponent implements OnInit {
     }
   }
 
-  private updateResourceFolder(folderId: string): void {
+  private updateResourceFolder(folderId: string | null): void {
     this.resourceService.updateFolder(this.data.resourceId, folderId).subscribe({
       next: (resource) => this.updateResourceFolderSuccess(resource),
       error: () => (this.isLoading = false),
@@ -93,8 +93,11 @@ export class LiResourceUpdateFolderDialogComponent implements OnInit {
     this.closeDialog(resource.folder);
   }
 
-  private updateScenarioFolder(folderId: string): void {
-    this.scenarioService.updateFolder(this.data.scenario.id, folderId).subscribe({
+  private updateScenarioFolder(folderId: string | null): void {
+    const scenario = this.data.scenario;
+    if (scenario == null) return;
+
+    this.scenarioService.updateFolder(scenario.id, folderId).subscribe({
       next: (scenario) => this.updateScenarioFolderSuccess(scenario),
       error: () => (this.isLoading = false),
     });
@@ -105,7 +108,7 @@ export class LiResourceUpdateFolderDialogComponent implements OnInit {
     this.closeDialog(scenario.folder);
   }
 
-  private closeDialog(folder: LiFolder): void {
+  private closeDialog(folder: LiFolder | undefined): void {
     this.isLoading = false;
     this.dialogRef.close({ folder: folder } as LiResourceUpdateFolderDialogOutput);
   }

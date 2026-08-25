@@ -9,7 +9,7 @@ import { LiTask } from './li-task.entity';
  * Method to instantiate the correct process object when getting it from DB
  * @param json
  */
-export function liInstantiateProcess(json: any): LiProcess {
+export function liInstantiateProcess(json: any): LiProcess | null {
   if (json === null) return null;
   // if this is a resource file
   if (json.is_protocol) {

@@ -53,12 +53,12 @@ export class LiResourceDetailState implements OnDestroy {
   private static id = 0;
   private id = LiResourceDetailState.id++;
 
-  private mainResourceId: WritableSignal<string> = signal(null);
-  private selectedResourceId: WritableSignal<string> = signal(null);
+  private mainResourceId: WritableSignal<string | null> = signal(null);
+  private selectedResourceId: WritableSignal<string | null> = signal(null);
 
   private resources: WritableSignal<LiResource[]> = signal([]);
 
-  private _selectedView: WritableSignal<FlStatusEvent<LiResourceView>> = signal(null);
+  private _selectedView: WritableSignal<FlStatusEvent<LiResourceView> | null> = signal(null);
 
   private favoriteViews: Record<string, LiViewConfigDatasource> = {};
 
@@ -69,7 +69,7 @@ export class LiResourceDetailState implements OnDestroy {
 
   private viewPortalSubscription: Subscription;
 
-  public mainResource: Signal<LiResource> = computed(() => {
+  public mainResource: Signal<LiResource | undefined> = computed(() => {
     const mainId = this.mainResourceId();
     const resources = this.resources();
     return resources.find((resource) => resource.id === mainId);
@@ -86,13 +86,13 @@ export class LiResourceDetailState implements OnDestroy {
     return mainResource?.hasChildren ?? false;
   });
 
-  public selectedResource: Signal<LiResource> = computed(() => {
+  public selectedResource: Signal<LiResource | undefined> = computed(() => {
     const selectedId = this.selectedResourceId();
     const resources = this.resources();
     return resources.find((resource) => resource.id === selectedId);
   });
 
-  public get selectedView(): Signal<FlStatusEvent<LiResourceView>> {
+  public get selectedView(): Signal<FlStatusEvent<LiResourceView> | null> {
     return this._selectedView.asReadonly();
   }
 
@@ -120,7 +120,10 @@ export class LiResourceDetailState implements OnDestroy {
   }
 
   private initResource(resourceId: string): void {
-    this.resourceService.getById(resourceId).subscribe((resource) => this.initResourceSuccess(resource));
+    this.resourceService.getById(resourceId).subscribe((resource) => {
+      if (resource == null) return;
+      this.initResourceSuccess(resource);
+    });
   }
 
   private initResourceSuccess(resource: LiResource): void {
@@ -149,7 +152,11 @@ export class LiResourceDetailState implements OnDestroy {
    * @param viewId (optional) the view id to load, if not provided the default view will be loaded
    * @param setQueryParams (optional) if true the query params will be updated
    */
-  public selectResource(resourceId: string, viewId: string = null, setQueryParams: boolean = true): void {
+  public selectResource(
+    resourceId: string,
+    viewId: string | null = null,
+    setQueryParams: boolean = true
+  ): void {
     if (resourceId === this.selectedResourceId()) return;
     this.selectedResourceId.set(resourceId);
 
@@ -159,7 +166,7 @@ export class LiResourceDetailState implements OnDestroy {
       this.loadDefaultView(resourceId);
     }
     if (setQueryParams && this.updateQueryParams) {
-      this.queryParamHandler.mergeQueryParams({ resourceId, viewId });
+      this.queryParamHandler.mergeQueryParams({ resourceId, viewId: viewId ?? undefined });
     }
   }
 
@@ -230,13 +237,13 @@ export class LiResourceDetailState implements OnDestroy {
 
   public undockCurrentView(): void {
     const view = this._selectedView();
-    if (view.status === 'success') {
+    if (view?.status === 'success') {
       this.openViewInPortal(view.object);
     }
   }
 
   public getSelectedResourceFavoriteViews(): LiViewConfigDatasource {
-    return this.getFavoriteViews(this.selectedResourceId());
+    return this.getFavoriteViews(this.selectedResourceId() ?? '');
   }
 
   private getFavoriteViews(resourceId: string): LiViewConfigDatasource {
@@ -299,16 +306,17 @@ export class LiResourceDetailState implements OnDestroy {
 
   public updateView(view: LiResourceView, viewOverlayRef: FlOverlayRef): void {
     const resource = this.resources().find((r) => r.id === view.resourceId);
-    if (resource == null) return;
+    const viewConfig = view.viewConfig;
+    if (resource == null || viewConfig == null) return;
     this.viewConfigState
       .openConfigPortal(
-        view.viewConfig.viewName,
+        viewConfig.viewName,
         view.title,
         true,
         resource.id,
         resource.resourceTypingName,
         view.style,
-        view.viewConfig.configValues
+        viewConfig.configValues
       )
       .subscribe((result) => this.onViewConfiguredClosed(resource.id, result, viewOverlayRef));
   }
@@ -317,6 +325,7 @@ export class LiResourceDetailState implements OnDestroy {
   // prepare the data and open the view configuration portal
   public openConfigPortal(view: LiResourceViewSpec): void {
     const resource = this.selectedResource();
+    if (resource == null) return;
     this.viewConfigState
       .openConfigPortal(
         view.methodName,
@@ -331,7 +340,7 @@ export class LiResourceDetailState implements OnDestroy {
 
   private onViewConfiguredClosed(
     resourceId: string,
-    config?: LiResourceViewSpecWithConfig,
+    config: LiResourceViewSpecWithConfig | null,
     overlayRef?: FlOverlayRef
   ): void {
     if (config == null) return;

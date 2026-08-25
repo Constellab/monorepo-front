@@ -29,7 +29,7 @@ export class LiGetEntityTagsPipe implements PipeTransform {
     return this.tagService.getEntityTagsDatasource(tagType, entity.id);
   }
 
-  private getTagType(entity: FlEntity): LiEntityTagType {
+  private getTagType(entity: FlEntity): LiEntityTagType | null {
     if (entity instanceof LiScenario) {
       return 'SCENARIO';
     } else if (entity instanceof LiNote) {

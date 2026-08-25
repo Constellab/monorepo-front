@@ -39,7 +39,7 @@ export class LiResourceService {
 
   //////////////////////////////////////// RESOURCE ///////////////////////////////////////
 
-  public getById(id: string): Observable<LiResource> {
+  public getById(id: string): Observable<LiResource | null> {
     if (!id) {
       return of(null);
     }
@@ -119,7 +119,7 @@ export class LiResourceService {
     return this.apiService.put(`${this.route}/${id}/flagged`, { flagged: flagged }, LiResource);
   }
 
-  public updateFolder(id: string, folderId: string): Observable<LiResource> {
+  public updateFolder(id: string, folderId: string | null): Observable<LiResource> {
     return this.apiService.put(`${this.route}/${id}/folder`, { folder_id: folderId }, LiResource);
   }
 
@@ -219,7 +219,10 @@ export class LiResourceService {
    * @param transformers
    * @param resourceId
    */
-  public transformResource(transformers: LiTransformerParams[], resourceId: string): Observable<LiResource> {
+  public transformResource(
+    transformers: LiTransformerParams[],
+    resourceId: string
+  ): Observable<LiResource | null> {
     return this.pollResourceFromScenario(
       this.apiService.post(`${this.route}/${resourceId}/transform`, transformers, LiScenario),
       LiResourceService.fastPollIntervalMs
@@ -232,7 +235,7 @@ export class LiResourceService {
     resourceId: string,
     importerType: string,
     config: TdParamSpecsValues
-  ): Observable<LiResource> {
+  ): Observable<LiResource | null> {
     return this.pollResourceFromScenario(
       this.apiService.post(`${this.route}/${resourceId}/import/${importerType}`, config, LiScenario),
       LiResourceService.fastPollIntervalMs
@@ -249,7 +252,7 @@ export class LiResourceService {
     resourceId: string,
     exporterTypingName: string,
     config: TdParamSpecsValues
-  ): Observable<LiResource> {
+  ): Observable<LiResource | null> {
     return this.pollResourceFromScenario(
       this.apiService.post(`${this.route}/${resourceId}/export/${exporterTypingName}`, config, LiScenario),
       LiResourceService.fastPollIntervalMs
@@ -258,7 +261,7 @@ export class LiResourceService {
 
   //////////////////////////////////////// DOWNLOAD CONTENT ///////////////////////////////////////
 
-  public downloadContent(id: string): Observable<LiResource> {
+  public downloadContent(id: string): Observable<LiResource | null> {
     return this.pollResourceFromScenario(
       this.apiService.post(`${this.route}/${id}/download-content`, null, LiScenario)
     );
@@ -274,7 +277,7 @@ export class LiResourceService {
   private pollResourceFromScenario(
     scenario$: Observable<LiScenario>,
     intervalMs?: number
-  ): Observable<LiResource> {
+  ): Observable<LiResource | null> {
     return scenario$.pipe(
       switchMap((scenario: LiScenario) =>
         this.scenarioService.pollScenarioOutputResource(scenario.id, intervalMs)
@@ -285,7 +288,7 @@ export class LiResourceService {
 
   //////////////////////////////////////// SHARED RESOURCE ///////////////////////////////////////
 
-  public importResourceFromLink(configValues: TdParamSpecsValues): Observable<LiResource> {
+  public importResourceFromLink(configValues: TdParamSpecsValues): Observable<LiResource | null> {
     return this.pollResourceFromScenario(
       this.apiService.post(`${this.route}/import-from-link`, configValues, LiScenario)
     );
@@ -295,7 +298,7 @@ export class LiResourceService {
     return this.apiService.get(`${this.route}/import-from-link/config-specs`);
   }
 
-  public exportResourceToLab(id: string, configValues: TdParamSpecsValues): Observable<LiResource> {
+  public exportResourceToLab(id: string, configValues: TdParamSpecsValues): Observable<LiResource | null> {
     return this.pollResourceFromScenario(
       this.apiService.post(`${this.route}/${id}/export-to-lab`, configValues, LiScenario)
     );
@@ -314,7 +317,7 @@ export class LiResourceService {
   ): Observable<LiShareLink> {
     const requestDTO = {
       folder_id: shareInfo.folder.id,
-      valid_until: ClDateHelper.serializeDate(shareInfo.validUntil),
+      valid_until: shareInfo.validUntil != null ? ClDateHelper.serializeDate(shareInfo.validUntil) : null,
     };
     return this.apiService.post(`${this.route}/${resourceId}/share-with-space`, requestDTO, LiShareLink);
   }

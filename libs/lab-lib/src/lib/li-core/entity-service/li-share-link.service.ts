@@ -1,4 +1,4 @@
-import { inject,Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { ClDateHelper, ClPageI } from '@monorepo/core-lib';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
@@ -27,7 +27,7 @@ export class LiShareLinkService {
     });
   }
 
-  public update(shareLinkId: string, validUntil: DateTime): Observable<LiShareLink> {
+  public update(shareLinkId: string, validUntil: DateTime | null): Observable<LiShareLink> {
     return this.apiService.put(
       `${this.route}/${shareLinkId}`,
       { valid_until: ClDateHelper.serializeDate(validUntil) },

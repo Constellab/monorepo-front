@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, computed, inject, Input, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, Input, OnInit, signal } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
@@ -30,14 +30,14 @@ export class LiRichTextFormComponent extends TeElementBlockDirective implements 
 
   displayMode = signal<LiFormDisplayMode | null>(null);
 
-  form = signal<LiForm>(null);
-  formContent = signal<LiFormContent>(null);
+  form = signal<LiForm | null>(null);
+  formContent = signal<LiFormContent | null>(null);
   templateDescription = signal<string | null>(null);
 
   isDraft = computed(() => this.form()?.status === 'DRAFT');
   isSubmitted = computed(() => this.form()?.status === 'SUBMITTED');
 
-  formStatus = computed<FlStatus<LiFormStatus>>(() => {
+  formStatus = computed<FlStatus<LiFormStatus> | null>(() => {
     const f = this.form();
     return f ? liGetFormStatus(f.status) : null;
   });

@@ -1,5 +1,5 @@
 import { CdkScrollable } from '@angular/cdk/scrolling';
-import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
@@ -47,7 +47,10 @@ export class LiUpdateResourceNameDialogComponent implements OnInit {
   isLoading: boolean = false;
 
   ngOnInit(): void {
-    this.formCtrl = new FormControl<string>(this.resource.name, [Validators.required]);
+    this.formCtrl = new FormControl<string>(this.resource.name, {
+      nonNullable: true,
+      validators: [Validators.required],
+    });
   }
 
   submit(): void {

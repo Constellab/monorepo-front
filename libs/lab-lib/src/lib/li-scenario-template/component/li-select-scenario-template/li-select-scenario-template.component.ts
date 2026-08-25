@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy,Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { FlFormFieldDirective, FlInputSearchFilter } from '@monorepo/front-core-lib/fl-core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
@@ -30,7 +38,7 @@ import {
   imports: [FlInputSearchModule, FlUserModule, LiScenarioTemplateInlineComponent],
 })
 export class LiSelectScenarioTemplateComponent
-  extends FlFormFieldDirective<LiScenarioTemplate>
+  extends FlFormFieldDirective<LiScenarioTemplate | null>
   implements OnInit
 {
   private scenarioTemplateService = inject(LiScenarioTemplateService);
@@ -38,9 +46,9 @@ export class LiSelectScenarioTemplateComponent
 
   @Input() placeholder: string;
 
-  @Output() valueChange: EventEmitter<LiScenarioTemplate> = new EventEmitter();
+  @Output() valueChange: EventEmitter<LiScenarioTemplate | null> = new EventEmitter();
 
-  selectedTemplate: LiScenarioTemplate;
+  selectedTemplate: LiScenarioTemplate | null;
 
   datasource: LiScenarioTemplateDatasource<FlInputSearchFilter>;
 
@@ -67,14 +75,14 @@ export class LiSelectScenarioTemplateComponent
     return this.dialogService.openBigDialog(LiSelectScenarioTemplateDialogComponent, { data }).afterClosed();
   }
 
-  callChangeEvent(value: LiScenarioTemplate): void {
+  callChangeEvent(value: LiScenarioTemplate | null): void {
     this.valueChange.emit(value);
     this.selectedTemplate = value;
   }
 
   onDisableChange(): void {}
 
-  writeValue(obj: LiScenarioTemplate): void {
+  writeValue(obj: LiScenarioTemplate | null): void {
     if (obj == null || obj.id == null) {
       this.selectedTemplate = null;
       this.value = null;

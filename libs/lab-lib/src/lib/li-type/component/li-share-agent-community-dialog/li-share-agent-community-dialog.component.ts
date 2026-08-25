@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { MatDivider } from '@angular/material/divider';
@@ -59,7 +59,7 @@ export class LiShareAgentCommunityDialogComponent implements OnInit {
   processId: string;
   agentVersionId: string;
   currentAgent: LiAgent;
-  currentUser: LiUser;
+  currentUser: LiUser | null;
   isLoading: boolean = false;
 
   constructor() {

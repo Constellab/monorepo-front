@@ -121,7 +121,7 @@ export class LiResourceTableComponent implements OnInit {
   subTableColumns: FlTableColumnStatic<LiResource>[];
 
   // for parent resource only, store the current expanded resource
-  expandedResource: LiResource;
+  expandedResource: LiResource | null;
   // store the children resources of the current expanded resource
   expandedChildrenResources$: FlEntityArrayObs<LiResource>;
   expandedChildrenStatus$: Observable<FlArrayObsStatus>;

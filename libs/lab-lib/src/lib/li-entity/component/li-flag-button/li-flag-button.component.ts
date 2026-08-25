@@ -32,7 +32,7 @@ export class LiFlagButtonComponent {
     if (this.isLoading) return;
 
     this.entity.flagged = !this.entity.flagged;
-    let obs: Observable<LiFlaggedEntity> = null;
+    let obs: Observable<LiFlaggedEntity>;
     if (this.entity instanceof LiResource) {
       obs = this.resourceService.updateFlagged(this.entity.id, this.entity.flagged);
     } else {

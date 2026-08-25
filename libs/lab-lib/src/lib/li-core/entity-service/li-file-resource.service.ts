@@ -31,7 +31,9 @@ export class LiFileResourceService {
   public uploadFile(file: File, typingName?: string): Observable<HttpEvent<any>> {
     const formData: FormData = new FormData();
     formData.append('file', file);
-    formData.append('typing_name', typingName);
+    if (typingName != null) {
+      formData.append('typing_name', typingName);
+    }
 
     return this.apiService.post(`${this.route}/upload-file`, formData, null, {
       observe: 'events',
@@ -63,7 +65,7 @@ export class LiFileResourceService {
 
   //////////////////////////// FOLDER ROUTES ///////////////////////////////////////
 
-  public extractNode(id: string, subPath: string, typingName: string): Observable<LiResource> {
+  public extractNode(id: string, subPath: string, typingName: string): Observable<LiResource | null> {
     // the route returns the created scenario immediately, then runs
     // asynchronously: poll it until it produces its output resource
     return this.apiService

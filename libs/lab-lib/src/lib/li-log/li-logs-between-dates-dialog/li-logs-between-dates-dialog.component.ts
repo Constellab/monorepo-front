@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, computed, inject, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, OnInit, signal } from '@angular/core';
 import { MatButton, MatIconAnchor } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
@@ -46,7 +46,7 @@ export class LiLogsBetweenDatesDialogComponent implements OnInit {
   title = signal(this.input.title);
   downloadUrl = signal(this.input.downloadUrl);
   isLoading = signal(false);
-  logs = signal<LiLogsBetweenDates>(undefined);
+  logs = signal<LiLogsBetweenDates | undefined>(undefined);
   loadNextPageDisabled = computed(() => this.isLoading() || this.logs()?.isLastPage);
 
   private loadFunction = this.input.loadFunction;
@@ -76,7 +76,7 @@ export class LiLogsBetweenDatesDialogComponent implements OnInit {
     const mergedLogLines = currentLogs ? [...currentLogs.logs, ...newLogs.logs] : newLogs.logs;
     const nextPageDate = !newLogs.isLastPage
       ? (newLogs.logs[newLogs.logs.length - 1].datetime.plus({ milliseconds: 1 }) as DateTime)
-      : undefined;
+      : newLogs.nextPageDate;
 
     this.logs.set({
       ...newLogs,

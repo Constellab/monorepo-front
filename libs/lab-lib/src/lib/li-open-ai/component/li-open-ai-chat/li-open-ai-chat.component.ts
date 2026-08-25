@@ -1,4 +1,13 @@
-import { ChangeDetectionStrategy,Component, ElementRef, EventEmitter, inject, Input, Output, ViewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  EventEmitter,
+  inject,
+  Input,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { FormControl, NgControl, ReactiveFormsModule } from '@angular/forms';
 import { MatIconButton } from '@angular/material/button';
 import { MatFormField, MatHint, MatLabel, MatSuffix } from '@angular/material/form-field';
@@ -35,13 +44,13 @@ import {
     MatHint,
   ],
 })
-export class LiOpenAiChatComponent extends FlFormFieldDirective<LiOpenAiChat> {
+export class LiOpenAiChatComponent extends FlFormFieldDirective<LiOpenAiChat, LiOpenAiChat | null> {
   private authenticatedUserService = inject(LiAuthenticatedUserService);
 
   @Input() placeholder: string;
   @Input() hint: string;
 
-  @Output() chatChange: EventEmitter<LiOpenAiChat> = new EventEmitter();
+  @Output() chatChange: EventEmitter<LiOpenAiChat | null> = new EventEmitter();
 
   @ViewChild('textarea', { static: true, read: ElementRef }) textarea: ElementRef<HTMLElement>;
 
@@ -53,19 +62,19 @@ export class LiOpenAiChatComponent extends FlFormFieldDirective<LiOpenAiChat> {
     super(ngControl);
   }
 
-  callChangeEvent(value: LiOpenAiChat): void {
+  callChangeEvent(value: LiOpenAiChat | null): void {
     this.chatChange.emit(value);
   }
 
   onDisableChange(): void {}
 
-  writeValue(obj: LiOpenAiChat): void {
+  writeValue(obj: LiOpenAiChat | null): void {
     this.value = {
       messages: obj?.messages ?? [],
     };
   }
 
-  protected convertInnerToOuter(innerValue: LiOpenAiChat): LiOpenAiChat {
+  protected convertInnerToOuter(innerValue: LiOpenAiChat): LiOpenAiChat | null {
     if (innerValue == null) return null;
     // if there is no message consider it as null
     if (ClHelpService.isNullOrEmpty(innerValue.messages)) return null;

@@ -6,15 +6,15 @@ import { TdParamSpecs } from '@monorepo/technical-doc';
 export class LiTagDetailState implements OnDestroy {
   private tagService = inject(LiTagService);
 
-  private _tagKey: WritableSignal<LiTagKeyModel> = signal(null);
+  private _tagKey: WritableSignal<LiTagKeyModel | null> = signal(null);
 
-  private _values$: WritableSignal<LiTagValueModelDatasource> = signal(null);
+  private _values$: WritableSignal<LiTagValueModelDatasource | null> = signal(null);
 
-  public get tagKey(): Signal<LiTagKeyModel> {
+  public get tagKey(): Signal<LiTagKeyModel | null> {
     return this._tagKey;
   }
 
-  public get values$(): Signal<LiTagValueModelDatasource> {
+  public get values$(): Signal<LiTagValueModelDatasource | null> {
     return this._values$;
   }
 

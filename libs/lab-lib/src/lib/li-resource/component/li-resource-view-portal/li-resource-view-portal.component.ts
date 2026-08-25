@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenuItem } from '@angular/material/menu';
@@ -68,8 +68,8 @@ export class LiResourceViewPortalComponent {
   rvConfig: RvViewConfig;
   contextMenuItems?: FlMenuDynamic[];
 
-  width: string;
-  height: string;
+  width: string | null;
+  height: string | null;
 
   editTitle: boolean = false;
 

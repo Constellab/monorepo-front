@@ -1,6 +1,5 @@
-import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import {
-  FormArray,
   FormBuilder,
   ReactiveFormsModule,
   UntypedFormArray,
@@ -39,7 +38,7 @@ interface LabForm {
 }
 
 interface LabFsNodeWithType {
-  filename: string;
+  filename: string | null;
   typingName: string;
 }
 
@@ -106,7 +105,7 @@ export class LiFsNodeTypesSelectionDialogComponent implements OnInit {
 
   resourceTypes$: Observable<LiTypeEntity[]>;
 
-  helpText: string;
+  helpText: string | undefined;
 
   private fileTypes$: ClCachedObservable<LiTypeEntity[]>;
   private folderTypes$: ClCachedObservable<LiTypeEntity[]>;
@@ -131,7 +130,7 @@ export class LiFsNodeTypesSelectionDialogComponent implements OnInit {
   }
 
   private buildForm(): void {
-    this.formArray = new FormArray([]);
+    this.formArray = new UntypedFormArray([]);
     this.formGp = new FormBuilder().group({
       nodeMode: this.selectedNodes === 'files' ? 'files' : 'folder',
       files: this.formArray,
@@ -223,7 +222,7 @@ export class LiFsNodeTypesSelectionDialogComponent implements OnInit {
 
     for (const type of typeEntities) {
       const additionalInfo: LiFileTypeAdditionalInfo = type.additionalInfo;
-      if (additionalInfo && additionalInfo.default_extensions.includes(extension)) {
+      if (additionalInfo && extension != null && additionalInfo.default_extensions.includes(extension)) {
         return type.typingName;
       }
     }

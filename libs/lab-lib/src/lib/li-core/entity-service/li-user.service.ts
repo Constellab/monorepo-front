@@ -1,4 +1,4 @@
-import { inject,Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { ClPageI } from '@monorepo/core-lib';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { FlEntityPaginatedDatasource, FlInputSearchFilter } from '@monorepo/front-core-lib/fl-core';
@@ -12,7 +12,7 @@ export class LiUserService {
 
   private readonly route = 'user';
 
-  public searchByName(name: string, page: number, pageSize: number): Observable<ClPageI<LiUser>> {
+  public searchByName(name: string | undefined, page: number, pageSize: number): Observable<ClPageI<LiUser>> {
     return this.apiService.get(`${this.route}/name-search/${name}`, LiUser, {
       page,
       pageSize,

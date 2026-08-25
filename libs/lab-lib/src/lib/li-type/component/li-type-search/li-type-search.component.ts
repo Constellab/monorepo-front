@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy,Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { ClBrick } from '@monorepo/core-lib';
 import { FlEntityPaginatedDatasource, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import {
@@ -45,7 +53,7 @@ export class LiTypeSearchComponent implements OnInit {
 
   ngOnInit(): void {
     // set hidden filters based on config
-    let hiddenFilters: Partial<LiTypeSearchFields>;
+    let hiddenFilters: Partial<LiTypeSearchFields> = {};
     let searchFunction: FlSearchFunction;
 
     switch (this.config.mode) {

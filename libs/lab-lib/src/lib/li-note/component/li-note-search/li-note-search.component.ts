@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy,Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -62,9 +70,9 @@ export class LiNoteSearchComponent implements OnInit {
 
   @Input() columns: FlTableColumnStatic<LiNote>[] = ['title', 'tags', 'creation', 'lastModification'];
 
-  @Input() defaultFilters: Partial<LiNoteSearchFields> = null;
+  @Input() defaultFilters: Partial<LiNoteSearchFields> | null = null;
 
-  @Input() disabledFilters: LiNoteSearchFieldsDisabled = null;
+  @Input() disabledFilters: LiNoteSearchFieldsDisabled | null = null;
 
   @Output() noteSelected: EventEmitter<LiNote> = new EventEmitter();
 

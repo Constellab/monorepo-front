@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
 import { FormBuilder, FormControl, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatCheckbox } from '@angular/material/checkbox';
@@ -27,7 +27,7 @@ import { LiFormTemplateService } from '../../service/li-form-template.service';
 import { LiSelectFormTemplateComponent } from '../li-select-form-template/li-select-form-template.component';
 
 interface LiCreateFormFormValue {
-  name: string;
+  name: string | null;
   template: LiFormTemplate;
   versionId: string | null;
 }
@@ -169,7 +169,7 @@ export class LiCreateFormDialogComponent
   }
 
   update(): Observable<LiForm> {
-    return null;
+    throw new Error('Not implemented');
   }
 
   getCreateSuccessMessage(): string {

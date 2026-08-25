@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy,Component, inject, input, OnInit, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, OnInit, output } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
 import {
@@ -30,7 +30,10 @@ import { LiSelectFormTemplateDialogComponent } from '../li-select-form-template-
   changeDetection: ChangeDetectionStrategy.Eager,
   imports: [AsyncPipe, FlInputSearchModule, FlIconModule, FlTranslateModule, MatIcon],
 })
-export class LiSelectFormTemplateComponent extends FlFormFieldDirective<LiFormTemplate> implements OnInit {
+export class LiSelectFormTemplateComponent
+  extends FlFormFieldDirective<LiFormTemplate | null>
+  implements OnInit
+{
   private formTemplateService = inject(LiFormTemplateService);
   private dialogService = inject(FlDialogService);
 
@@ -38,7 +41,7 @@ export class LiSelectFormTemplateComponent extends FlFormFieldDirective<LiFormTe
 
   templateChange = output<LiFormTemplate>();
 
-  selectedTemplate: LiFormTemplate | Observable<LiFormTemplate>;
+  selectedTemplate: LiFormTemplate | Observable<LiFormTemplate> | null;
 
   datasource: LiFormTemplateDatasource<any>;
 
@@ -70,7 +73,7 @@ export class LiSelectFormTemplateComponent extends FlFormFieldDirective<LiFormTe
     };
   }
 
-  writeValue(obj: LiFormTemplate): void {
+  writeValue(obj: LiFormTemplate | null): void {
     if (obj == null) {
       this.selectedTemplate = null;
       this.value = null;

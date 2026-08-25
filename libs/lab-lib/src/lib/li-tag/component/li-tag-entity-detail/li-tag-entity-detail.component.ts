@@ -75,7 +75,7 @@ export class LiTagEntityDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.tagValues = new FlEntityPaginatedDatasource(
-      (page, size) => this.tagService.searchValues(this.tagEntity.key, null, page, size),
+      (page, size) => this.tagService.searchValues(this.tagEntity.key, '', page, size),
       5
     );
   }
@@ -84,7 +84,7 @@ export class LiTagEntityDetailComponent implements OnInit {
     ClHelpService.stopEventPropagation(event);
     const input: FlFormDialogInput<FlTag> = {
       mode: 'create',
-      object: { key: this.tagEntity.key, value: null },
+      object: { key: this.tagEntity.key, value: undefined },
     };
 
     this.dialogService

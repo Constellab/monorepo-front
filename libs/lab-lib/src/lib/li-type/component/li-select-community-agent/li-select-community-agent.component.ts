@@ -1,5 +1,13 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy,Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconButton } from '@angular/material/button';
 import { MatChipOption } from '@angular/material/chips';
@@ -50,7 +58,7 @@ export class LiSelectCommunityAgentComponent implements OnInit {
   @Output() agentSelected: EventEmitter<LiAgent> = new EventEmitter<LiAgent>();
 
   agentsDatasource: LiAgentDatasourcePaginated;
-  titleFormControl: FormControl<string> = new FormControl('');
+  titleFormControl: FormControl<string> = new FormControl('', { nonNullable: true });
   spaceIdFilter: string[] = [];
   spaces: LiCommunitySpace[];
 

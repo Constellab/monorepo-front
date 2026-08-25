@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, computed, inject, input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
@@ -25,7 +25,7 @@ import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import { LiRouterService, LiTagService } from '@monorepo/lab-lib/li-core';
+import { LiRouterService, LiTagKeyModel, LiTagService } from '@monorepo/lab-lib/li-core';
 import { TdAbstractDynamicParamSpecState, TdParamSpecs } from '@monorepo/technical-doc';
 import { TeCompleteConfig, TeTextEditorModule } from '@monorepo/text-editor';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -106,11 +106,8 @@ export class LiTagDetailComponent implements OnInit {
 
     this.tagAdditionalInfoSpecState.onAdditionalInfoSpecsChanged$.subscribe(
       (additionalInfoSpecs: TdParamSpecs) => {
-        if (
-          this.tagKeyModel() &&
-          additionalInfoSpecs &&
-          additionalInfoSpecs !== this.tagKeyModel().additionalInfosSpecs
-        ) {
+        const tagKeyModel = this.tagKeyModel();
+        if (tagKeyModel && additionalInfoSpecs && additionalInfoSpecs !== tagKeyModel.additionalInfosSpecs) {
           this.state.updateTagKeyAdditionalInfoSpecs(additionalInfoSpecs);
         }
       }
@@ -118,7 +115,7 @@ export class LiTagDetailComponent implements OnInit {
   }
 
   updateLabel(label: string): void {
-    this.tagService.updateTagLabel(this.tagKeyModel().key, label).subscribe((updatedTag) => {
+    this.tagService.updateTagLabel(this.requireTagKeyModel().key, label).subscribe((updatedTag) => {
       if (updatedTag) {
         this.state.updateTagKey(updatedTag);
       }
@@ -127,7 +124,7 @@ export class LiTagDetailComponent implements OnInit {
 
   shareTagKey(): void {
     const input: LiShareTagToCommunityDialogInput = {
-      tagKey: this.tagKeyModel().key,
+      tagKey: this.requireTagKeyModel().key,
     };
     this.dialogService.openSmallDialog(LiShareTagToCommunityDialogComponent, { data: input });
   }
@@ -136,7 +133,7 @@ export class LiTagDetailComponent implements OnInit {
     const input: CoTagValueEditDialogInput = {
       mode: 'create',
       object: {
-        tagKey: this.tagKeyModel().toCoTagKey(),
+        tagKey: this.requireTagKeyModel().toCoTagKey(),
       },
     };
 
@@ -145,7 +142,7 @@ export class LiTagDetailComponent implements OnInit {
       .afterClosed()
       .subscribe((tagValue) => {
         if (tagValue) {
-          this.state.onNewTagKey(this.tagKeyModel());
+          this.state.onNewTagKey(this.requireTagKeyModel());
         }
       });
   }
@@ -160,7 +157,7 @@ export class LiTagDetailComponent implements OnInit {
         title: 'li.delete_tag_key',
         content: 'li.delete_tag_key_content',
         successMessage: 'li.delete_tag_key_success',
-        observable: this.tagService.deleteTagKey(this.tagKeyModel().key),
+        observable: this.tagService.deleteTagKey(this.requireTagKeyModel().key),
       })
       .afterClosed()
       .subscribe((res: FlConfirmDialogResult) => {
@@ -181,7 +178,7 @@ export class LiTagDetailComponent implements OnInit {
       .afterClosed()
       .subscribe((res: FlConfirmDialogResult) => {
         if (res.choice) {
-          this.state.onNewTagKey(this.tagKeyModel());
+          this.state.onNewTagKey(this.requireTagKeyModel());
         }
       });
   }
@@ -190,7 +187,7 @@ export class LiTagDetailComponent implements OnInit {
     const input: CoTagValueEditDialogInput = {
       mode: 'update',
       object: {
-        tagKey: this.tagKeyModel().toCoTagKey(),
+        tagKey: this.requireTagKeyModel().toCoTagKey(),
         id: tagValue.id,
         value: tagValue.value as string,
         additionalInfos: tagValue.additionalInfos ?? {},
@@ -203,7 +200,7 @@ export class LiTagDetailComponent implements OnInit {
       .afterClosed()
       .subscribe((tagValue) => {
         if (tagValue) {
-          this.state.onNewTagKey(this.tagKeyModel());
+          this.state.onNewTagKey(this.requireTagKeyModel());
         }
       });
   }
@@ -211,5 +208,17 @@ export class LiTagDetailComponent implements OnInit {
   private onNewTagKey(key: string): void {
     if (key == null) return;
     this.state.init(key);
+  }
+
+  /**
+   * The tag key model is only null before the initial load; every action here is only
+   * reachable once it is displayed, so this throws if that invariant is ever broken.
+   */
+  private requireTagKeyModel(): LiTagKeyModel {
+    const tagKeyModel = this.tagKeyModel();
+    if (tagKeyModel == null) {
+      throw new Error('Tag key model is not loaded yet');
+    }
+    return tagKeyModel;
   }
 }

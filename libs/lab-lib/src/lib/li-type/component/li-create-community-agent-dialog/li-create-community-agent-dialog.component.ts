@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CoAgentType, CoCommunityLibModule, CoCreateAgentFormData, CoSpace } from '@monorepo/community-lib';
@@ -34,12 +34,12 @@ export class LiCreateCommunityAgentDialogComponent implements OnInit {
   processId: string;
   spaces$: Observable<CoSpace[]>;
   formGp = new FormBuilder().group({
-    title: [null as string, Validators.required],
-    type: [null as CoAgentType, Validators.required],
-    space: [null as CoSpace],
+    title: [null as string | null, Validators.required],
+    type: [null as CoAgentType | null, Validators.required],
+    space: [null as CoSpace | null],
   });
   mode: LiCreateCommunityAgentDialogMode;
-  agentVersionId: string;
+  agentVersionId?: string;
 
   constructor() {
     const data = this.data;
@@ -56,20 +56,34 @@ export class LiCreateCommunityAgentDialogComponent implements OnInit {
   submit(formData: CoCreateAgentFormData): void {
     this.formGp.patchValue(formData);
     if (this.formGp.valid) {
+      const agentFormData = this.requireAgentFormData();
       if (this.mode === LiCreateCommunityAgentDialogMode.FORK) {
-        if (!this.agentVersionId) return;
+        const agentVersionId = this.agentVersionId;
+        if (!agentVersionId) return;
         this.protocolService
-          .forkIntoNewCommunityAgent(this.processId, this.formGp.getRawValue(), this.agentVersionId)
+          .forkIntoNewCommunityAgent(this.processId, agentFormData, agentVersionId)
           .subscribe((res: LiCreateCommunityAgentVersionResDto) => {
             this.dialogRef.close(res);
           });
       } else {
         this.protocolService
-          .createCommunityAgent(this.processId, this.formGp.getRawValue())
+          .createCommunityAgent(this.processId, agentFormData)
           .subscribe((res: LiCreateCommunityAgentVersionResDto) => {
             this.dialogRef.close(res);
           });
       }
     }
+  }
+
+  /**
+   * The form is only submitted after validation (title and type are required), so this
+   * only throws if that invariant is ever broken.
+   */
+  private requireAgentFormData(): CoCreateAgentFormData {
+    const { title, type, space } = this.formGp.getRawValue();
+    if (title == null || type == null) {
+      throw new Error('Cannot submit the community agent form without a title and a type');
+    }
+    return { title, type, space: space ?? undefined };
   }
 }

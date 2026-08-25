@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatDatepicker, MatDatepickerInput, MatDatepickerToggle } from '@angular/material/datepicker';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
@@ -10,7 +10,7 @@ import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
-import { LiResource, LiResourceService, LiShareLink } from '@monorepo/lab-lib/li-core';
+import { LiFolder, LiResource, LiResourceService, LiShareLink } from '@monorepo/lab-lib/li-core';
 import { LiFolderInlineSelectComponent } from '@monorepo/lab-lib/li-folder';
 import { TranslatePipe } from '@ngx-translate/core';
 import { DateTime } from 'luxon';
@@ -50,8 +50,8 @@ export class LiShareResourceWithSpaceDialogComponent {
   private input: LiShareResourceWithSpaceDialogInput = inject(MAT_DIALOG_DATA);
 
   formGp = new FormBuilder().group({
-    folder: [this.input.resource.folder, Validators.required],
-    validUntil: [null as DateTime],
+    folder: new FormControl<LiFolder | null>(this.input.resource.folder ?? null, Validators.required),
+    validUntil: new FormControl<DateTime | null>(null),
   });
 
   isLoading: boolean = false;
@@ -70,11 +70,19 @@ export class LiShareResourceWithSpaceDialogComponent {
   }
 
   private shareResourceWithSpace(): void {
+    const formValue = this.formGp.getRawValue();
+    if (!formValue.folder) return;
+
     this.isLoading = true;
-    this.resourceService.shareWithSpace(this.input.resource.id, this.formGp.getRawValue()).subscribe({
-      next: (shareLink) => this.shareResourceSuccess(shareLink),
-      error: () => (this.isLoading = false),
-    });
+    this.resourceService
+      .shareWithSpace(this.input.resource.id, {
+        folder: formValue.folder,
+        validUntil: formValue.validUntil ?? undefined,
+      })
+      .subscribe({
+        next: (shareLink) => this.shareResourceSuccess(shareLink),
+        error: () => (this.isLoading = false),
+      });
   }
 
   private shareResourceSuccess(shareLink: LiShareLink): void {

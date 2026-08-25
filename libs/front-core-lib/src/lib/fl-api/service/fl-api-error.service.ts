@@ -34,7 +34,7 @@ export abstract class FlApiErrorService {
    *
    * If not provided, default is 5000 milliseconds
    */
-  public abstract get defaultApiErrorDuration(): number;
+  public abstract get defaultApiErrorDuration(): number | null;
 
   /**
    * Handle an error during deserialization of the API response
@@ -70,7 +70,7 @@ export abstract class FlApiErrorService {
    */
   protected showError(message: string, duration?: number): void {
     if (duration == null) {
-      duration = this.defaultApiErrorDuration;
+      duration = this.defaultApiErrorDuration ?? undefined;
     }
 
     this.snackBarService.openErrorMessage({ text: message, translateText: false }, duration, {

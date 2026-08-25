@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlSavedSearch } from '@monorepo/front-core-lib/fl-search';
@@ -34,9 +34,9 @@ export interface LiSelectResourceDialogInput {
 export class LiSelectResourceDialogComponent {
   private dialogRef = inject<MatDialogRef<LiSelectResourceDialogComponent>>(MatDialogRef);
 
-  savedSearch: FlSavedSearch[];
-  defaultFilters: LiResourceSearchFields;
-  disabledFilters: LiResourceSearchFieldsDisabled;
+  savedSearch: FlSavedSearch[] | undefined;
+  defaultFilters: LiResourceSearchFields | undefined;
+  disabledFilters: LiResourceSearchFieldsDisabled | undefined;
 
   constructor() {
     const data = inject<LiSelectResourceDialogInput>(MAT_DIALOG_DATA);

@@ -1,4 +1,4 @@
-import { inject,Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { ClPageI } from '@monorepo/core-lib';
 import { FlApiWithCacheService } from '@monorepo/front-core-lib/fl-api';
 import {
@@ -42,15 +42,33 @@ export class LiTypeService {
   }
 
   private getResourceTyping(typingName: string): Observable<LiResourceType> {
-    return this.apiService.getWithCache(`${this.route}/resource/${typingName}`, LiResourceType).getObs();
+    const cachedObservable = this.apiService.getWithCache(
+      `${this.route}/resource/${typingName}`,
+      LiResourceType
+    );
+    if (cachedObservable == null) {
+      return throwError(() => Error(`Unable to get resource typing ${typingName}`));
+    }
+    return cachedObservable.getObs();
   }
 
   public getTaskTyping(typingName: string): Observable<LiProcessType> {
-    return this.apiService.getWithCache(`${this.route}/task/${typingName}`, LiProcessType).getObs();
+    const cachedObservable = this.apiService.getWithCache(`${this.route}/task/${typingName}`, LiProcessType);
+    if (cachedObservable == null) {
+      return throwError(() => Error(`Unable to get task typing ${typingName}`));
+    }
+    return cachedObservable.getObs();
   }
 
   public getProtocolTyping(typingName: string): Observable<LiProcessType> {
-    return this.apiService.getWithCache(`${this.route}/protocol/${typingName}`, LiProcessType).getObs();
+    const cachedObservable = this.apiService.getWithCache(
+      `${this.route}/protocol/${typingName}`,
+      LiProcessType
+    );
+    if (cachedObservable == null) {
+      return throwError(() => Error(`Unable to get protocol typing ${typingName}`));
+    }
+    return cachedObservable.getObs();
   }
 
   public getAdvancedSearchFunction(): FlSearchFunction<LiTypeEntity> {

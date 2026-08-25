@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy,Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -53,9 +61,9 @@ export class LiFormSearchComponent implements OnInit {
 
   @Input() columns: FlTableColumnStatic<LiForm>[] = ['name', 'status', 'template', 'tags'];
 
-  @Input() defaultFilters: Partial<LiFormSearchFields> = null;
+  @Input() defaultFilters: Partial<LiFormSearchFields> | null = null;
 
-  @Input() disabledFilters: LiFormSearchFieldsDisabled = null;
+  @Input() disabledFilters: LiFormSearchFieldsDisabled | null = null;
 
   @Output() formSelected: EventEmitter<LiForm> = new EventEmitter();
 

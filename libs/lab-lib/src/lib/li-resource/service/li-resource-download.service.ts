@@ -48,10 +48,11 @@ export class LiResourceDownloadService {
       action: this.downloadBasicResource(resource),
       autoClose: true,
     });
+    if (action == null) return;
     action.subscribe((result) => this.callDownloadResource(result));
   }
 
-  private downloadBasicResource(resource: LiResource): Observable<LiResource> {
+  private downloadBasicResource(resource: LiResource): Observable<LiResource | null> {
     return this.resourceService
       .getResourceExporterConfig(resource.resourceTypingName)
       .pipe(mergeMap((type) => this.openExporterConfig(resource, type)));
@@ -63,7 +64,10 @@ export class LiResourceDownloadService {
    * @param exporterType
    * @private
    */
-  private openExporterConfig(resource: LiResource, exporterType: LiProcessType): Observable<LiResource> {
+  private openExporterConfig(
+    resource: LiResource,
+    exporterType: LiProcessType
+  ): Observable<LiResource | null> {
     // if there is no config, call it directly without config
     if (!exporterType.hasConfigSpecs()) {
       return this.exportResource(resource.id, exporterType.typingName, {});
@@ -85,7 +89,7 @@ export class LiResourceDownloadService {
     resourceId: string,
     exporterTypingName: string,
     config?: TdParamSpecsValues
-  ): Observable<LiResource> {
+  ): Observable<LiResource | null> {
     // cancel the process
     if (config == null) {
       throw Error('Canceled');
@@ -95,7 +99,7 @@ export class LiResourceDownloadService {
   }
 
   // on dialog closed, download the resource with the configuration (if it exists)
-  private callDownloadResource(result: FlPortalActionResult<LiResource>): void {
+  private callDownloadResource(result: FlPortalActionResult<LiResource | null>): void {
     if (result.status !== 'success') return;
 
     const resource = result.result;

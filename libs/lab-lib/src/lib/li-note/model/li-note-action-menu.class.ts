@@ -78,11 +78,12 @@ export class LiNoteActionMenu extends LiEntityActionMenu {
   }
 
   private onArchiveClosed(result: FlConfirmDialogResult<LiNote>): void {
-    if (result.choice) {
-      if (result.result.isArchived) {
-        this.subject.next({ action: 'archive', note: result.result });
+    const note = result.result;
+    if (result.choice && note) {
+      if (note.isArchived) {
+        this.subject.next({ action: 'archive', note });
       } else {
-        this.subject.next({ action: 'unarchive', note: result.result });
+        this.subject.next({ action: 'unarchive', note });
       }
     }
 

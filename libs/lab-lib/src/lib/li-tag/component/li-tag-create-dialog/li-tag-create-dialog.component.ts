@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatDialogRef } from '@angular/material/dialog';
@@ -52,9 +52,12 @@ export class LiTagCreateDialogComponent implements OnInit, OnDestroy {
 
     this.labelSubscription = this.formGp.controls['label'].valueChanges.subscribe((label) => {
       if (label && !this.keyChanged) {
-        this.formGp.controls['key'].patchValue(ClStringHelper.toKebabCase(label).replaceAll('-', '_'), {
-          emitEvent: false,
-        });
+        const kebabLabel = ClStringHelper.toKebabCase(label);
+        if (kebabLabel != null) {
+          this.formGp.controls['key'].patchValue(kebabLabel.replaceAll('-', '_'), {
+            emitEvent: false,
+          });
+        }
       }
     });
   }

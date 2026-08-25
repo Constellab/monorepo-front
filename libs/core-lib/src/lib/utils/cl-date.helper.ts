@@ -140,7 +140,7 @@ export class ClDateHelper {
   /**
    * Serializer luxon Date to 'YYYY-MM-DD' format
    */
-  public static serializeDate(date: DateTime): string | null {
+  public static serializeDate(date: DateTime | null): string | null {
     if (date == null) {
       return null;
     }

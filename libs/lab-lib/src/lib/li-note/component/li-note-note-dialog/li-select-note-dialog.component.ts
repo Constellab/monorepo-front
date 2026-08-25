@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { LiNote, LiNoteSearchFields, LiNoteSearchFieldsDisabled } from '@monorepo/lab-lib/li-core';
@@ -28,8 +28,8 @@ export class LiSelectNoteDialogComponent {
 
   title: string;
   noteSelectable: boolean;
-  defaultFilters: Partial<LiNoteSearchFields>;
-  disabledFilters: LiNoteSearchFieldsDisabled;
+  defaultFilters: Partial<LiNoteSearchFields> | undefined;
+  disabledFilters: LiNoteSearchFieldsDisabled | undefined;
 
   constructor() {
     const data = inject<LiSelectNoteDialogInput>(MAT_DIALOG_DATA, { optional: true });

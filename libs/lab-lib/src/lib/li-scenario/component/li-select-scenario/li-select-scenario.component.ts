@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy,Component, inject, input, OnInit, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, OnInit, output } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
 import { FlFormFieldDirective, FlInputSearchFilter } from '@monorepo/front-core-lib/fl-core';
@@ -30,7 +30,7 @@ import { LiSelectScenarioDialogComponent } from '../li-select-scenario-dialog/li
     FlTranslateModule,
   ],
 })
-export class LiSelectScenarioComponent extends FlFormFieldDirective<LiScenario> implements OnInit {
+export class LiSelectScenarioComponent extends FlFormFieldDirective<LiScenario | null> implements OnInit {
   private scenarioService = inject(LiScenarioService);
   private dialogService = inject(FlDialogService);
 
@@ -38,7 +38,7 @@ export class LiSelectScenarioComponent extends FlFormFieldDirective<LiScenario> 
 
   scenarioChange = output<LiScenario>();
 
-  selectedScenario: LiScenario | Observable<LiScenario>;
+  selectedScenario: LiScenario | Observable<LiScenario> | null;
 
   datasource: LiScenarioDatasource<FlInputSearchFilter>;
 

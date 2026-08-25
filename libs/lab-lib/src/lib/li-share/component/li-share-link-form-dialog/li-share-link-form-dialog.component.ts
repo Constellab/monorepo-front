@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatDatepicker, MatDatepickerInput, MatDatepickerToggle } from '@angular/material/datepicker';
@@ -72,15 +72,20 @@ export class LiShareLinkFormDialogComponent
   }
 
   update(formValue: Partial<LiShareLink>): Observable<LiShareLink> {
-    return this.shareLinkService.update(formValue.id, formValue.validUntil);
+    const id = formValue.id;
+    if (!id) {
+      throw new Error('[LiShareLinkFormDialogComponent] Missing share link id in update mode');
+    }
+
+    return this.shareLinkService.update(id, formValue.validUntil ?? null);
   }
 
-  get title(): string {
+  get title(): string | undefined {
     if (this.isCreateMode()) {
       return this.dialogInput.createTitle;
     }
 
-    return this.dialogInput.object.linkType === 'PUBLIC'
+    return this.dialogInput.object?.linkType === 'PUBLIC'
       ? 'li.update_share_link'
       : 'li.update_space_share_link';
   }
@@ -94,6 +99,6 @@ export class LiShareLinkFormDialogComponent
   }
 
   get isPublicLink(): boolean {
-    return this.isCreateMode() || this.dialogInput.object.linkType === 'PUBLIC';
+    return this.isCreateMode() || this.dialogInput.object?.linkType === 'PUBLIC';
   }
 }

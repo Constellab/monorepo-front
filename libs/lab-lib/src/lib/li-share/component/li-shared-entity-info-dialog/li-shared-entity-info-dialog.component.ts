@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
 import { MatDivider } from '@angular/material/divider';
@@ -93,11 +93,11 @@ export class LiSharedEntityInfoDialogComponent implements OnInit {
 
   sharedEntities: LiSharedEntityDatasource;
 
-  publicShareLink$: Observable<LiShareLink> = this.shareLinkService
+  publicShareLink$: Observable<LiShareLink | null> = this.shareLinkService
     .getShareLink(this.input.entityType, this.input.entityId, 'PUBLIC')
     .pipe(share());
 
-  spaceShareLink$: Observable<LiShareLink> = this.shareLinkService
+  spaceShareLink$: Observable<LiShareLink | null> = this.shareLinkService
     .getShareLink(this.input.entityType, this.input.entityId, 'SPACE')
     .pipe(share());
 
@@ -193,6 +193,8 @@ export class LiSharedEntityInfoDialogComponent implements OnInit {
   }
 
   shareResourceWithSpace(): void {
+    if (!this.input.shareResourceWithSpaceConfig) return;
+
     const input: LiShareResourceWithSpaceDialogInput = {
       resource: this.input.shareResourceWithSpaceConfig.resource,
     };

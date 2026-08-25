@@ -1,5 +1,13 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy,Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
 import {
@@ -35,7 +43,10 @@ import { LiSelectCredentialsDialogComponent } from '../li-select-credentials-dia
     FlTranslateModule,
   ],
 })
-export class LiSelectCredentialsComponent extends FlFormFieldDirective<LiCredentials> implements OnInit {
+export class LiSelectCredentialsComponent
+  extends FlFormFieldDirective<LiCredentials | null>
+  implements OnInit
+{
   private credentialsService = inject(LiCredentialsService);
   private dialogService = inject(FlDialogService);
 
@@ -43,9 +54,9 @@ export class LiSelectCredentialsComponent extends FlFormFieldDirective<LiCredent
 
   @Input() type: string;
 
-  @Output() credentialsChange: EventEmitter<LiCredentials> = new EventEmitter();
+  @Output() credentialsChange: EventEmitter<LiCredentials | null> = new EventEmitter();
 
-  selectedCredentials: LiCredentials | Observable<LiCredentials>;
+  selectedCredentials: LiCredentials | Observable<LiCredentials | null> | null;
 
   datasource: LiCredentialsDatasource<FlInputSearchFilter>;
 
@@ -78,7 +89,7 @@ export class LiSelectCredentialsComponent extends FlFormFieldDirective<LiCredent
     };
   }
 
-  writeValue(obj: LiCredentials): void {
+  writeValue(obj: LiCredentials | null): void {
     // consider null value: null, not string, object without name
     if (obj == null || (typeof obj != 'string' && obj.name == null)) {
       this.selectedCredentials = null;
@@ -97,7 +108,7 @@ export class LiSelectCredentialsComponent extends FlFormFieldDirective<LiCredent
     this.value = obj;
   }
 
-  callChangeEvent(value: LiCredentials): void {
+  callChangeEvent(value: LiCredentials | null): void {
     this.credentialsChange.next(value);
     this.selectedCredentials = value;
   }

@@ -201,11 +201,16 @@ export class LiResourceActionMenu extends LiEntityActionMenu {
   }
 
   private openImportResource(): void {
+    if (this.resource.resourceType == null || this.resource.fsNode == null) return;
+
+    const nodeExtension = this.resource.fsNode.getExtension();
+    if (nodeExtension == null) return;
+
     const input: LiImportResourceDialogInput = {
       resourceId: this.resource.id,
       resourceHumanName: this.resource.resourceType.human_name,
       resourceTypingName: this.resource.resourceTypingName,
-      nodeExtension: this.resource.fsNode.getExtension(),
+      nodeExtension: nodeExtension,
     };
 
     this.injector.get(FlDialogService).openMediumDialog(LiImportResourceDialogComponent, { data: input });

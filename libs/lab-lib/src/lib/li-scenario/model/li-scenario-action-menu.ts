@@ -121,11 +121,12 @@ export class LiScenarioActionMenu extends LiEntityActionMenu {
   }
 
   private onArchiveClosed(result: FlConfirmDialogResult<LiScenario>): void {
-    if (result.choice) {
-      if (result.result.isArchived) {
-        this.subject.next({ action: 'archive', scenario: result.result });
+    const scenario = result.result;
+    if (result.choice && scenario) {
+      if (scenario.isArchived) {
+        this.subject.next({ action: 'archive', scenario });
       } else {
-        this.subject.next({ action: 'unarchive', scenario: result.result });
+        this.subject.next({ action: 'unarchive', scenario });
       }
     }
 
@@ -170,8 +171,9 @@ export class LiScenarioActionMenu extends LiEntityActionMenu {
 
   private onDuplicateClosed(result: FlConfirmDialogResult<LiScenario>): void {
     this.subject.complete();
-    if (result.choice) {
-      this.injector.get(LiRouterService).navigateToScenarioDetail(result.result.id);
+    const scenario = result.result;
+    if (result.choice && scenario) {
+      this.injector.get(LiRouterService).navigateToScenarioDetail(scenario.id);
     }
   }
 

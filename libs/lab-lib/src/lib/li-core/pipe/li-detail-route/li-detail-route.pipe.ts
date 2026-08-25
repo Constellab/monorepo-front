@@ -22,9 +22,9 @@ import { LiRouterService } from '../../service/li-router.service';
  */
 @Pipe({ name: 'liDetailRoute' })
 export class LiDetailRoutePipe implements PipeTransform {
-  transform(value: LiEntity): string;
-  transform(value: string, objectType: LiEntityType): string;
-  transform(value: string | LiEntity, objectType?: LiEntityType): string {
+  transform(value: LiEntity): string | null;
+  transform(value: string, objectType: LiEntityType): string | null;
+  transform(value: string | LiEntity, objectType?: LiEntityType | null): string | null {
     if (objectType == null) {
       objectType = this.getObjectType(value);
     }
@@ -59,7 +59,7 @@ export class LiDetailRoutePipe implements PipeTransform {
     }
   }
 
-  private getObjectType(obj: any): LiEntityType {
+  private getObjectType(obj: any): LiEntityType | null {
     if (obj instanceof LiScenario) {
       return 'SCENARIO';
     } else if (obj instanceof LiResource) {
