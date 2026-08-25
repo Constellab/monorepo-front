@@ -119,7 +119,7 @@ export abstract class SpSheetChartConfig {
       const ySeries = this.createMultipleSeriesForY(sheet, selectionRange, -1);
       // Extract the first selection as x selection
       // noinspection JSSuspiciousNameCombination
-      const x: SpSheetSelectionRange = ySeries.shift().y;
+      const x: SpSheetSelectionRange | null | undefined = ySeries.shift()?.y;
 
       // add the x to each serie and reset name
       ySeries.forEach((serie) => {

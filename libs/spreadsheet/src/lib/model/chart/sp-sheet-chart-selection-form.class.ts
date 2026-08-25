@@ -10,7 +10,7 @@ export type SpSpreadsheetChartSelectionInput =
 // data for when selecting data for a new chart
 export interface SpSpreadsheetChartSelectionInputCreate {
   mode: 'create';
-  currentSelection: SpSheetSingleSelection;
+  currentSelection: SpSheetSingleSelection | null;
 }
 
 // data for when re-selecting data for an existing chart chart
@@ -35,7 +35,7 @@ export interface SpSheetChartSelectionForm {
   chartType: ChChartType;
 
   // global data range form a multiple selection
-  dataRange?: SpSheetSelectionRange;
+  dataRange?: SpSheetSelectionRange | null;
 
   // list of series
   series: SpSheetChart2dSerieSelectionForm[];
@@ -56,30 +56,30 @@ export type SpSheetSelectionRange =
 
 export interface SpSheetChartSelectionFormAdditional {
   // for the Histogram
-  nbOfBins?: number;
-  density?: boolean;
-  histogramMode?: ChChartHistogramMode;
+  nbOfBins?: number | null;
+  density?: boolean | null;
+  histogramMode?: ChChartHistogramMode | null;
   // for the stack bar
-  normalize?: boolean;
+  normalize?: boolean | null;
   // for 2d charts
-  xAxisLabel?: string;
-  yAxisLabel?: string;
+  xAxisLabel?: string | null;
+  yAxisLabel?: string | null;
   // for vulcano plot
-  xThreshold?: number;
-  yThreshold?: number;
+  xThreshold?: number | null;
+  yThreshold?: number | null;
 }
 
 /**
  * Form value of a serie selection
  */
 export interface SpSheetChartSerieSelectionForm {
-  name?: string;
-  y: SpSheetSelectionRange; // string of the selection
+  name: string;
+  y: SpSheetSelectionRange | null; // string of the selection
 }
 
 /**
  * Form value of a serie selection where X is selectable
  */
 export interface SpSheetChart2dSerieSelectionForm extends SpSheetChartSerieSelectionForm {
-  x?: SpSheetSelectionRange; // string of the x selection
+  x?: SpSheetSelectionRange | null; // string of the x selection
 }

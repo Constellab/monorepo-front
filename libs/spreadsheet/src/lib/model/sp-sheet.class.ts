@@ -53,7 +53,7 @@ export class SpSheet {
     this.name = name;
     this.id = SpSheet.idGenerator++;
     this.cells = [];
-    this.cellsChanged = new BehaviorSubject(null);
+    this.cellsChanged = new BehaviorSubject<void>(undefined);
     this.rowsChanged = new BehaviorSubject(0);
     this.columnsChanged = new BehaviorSubject(0);
   }
@@ -427,9 +427,9 @@ export class SpSheet {
     this.cellsChanged.next();
   }
 
-  public findCell(id: number): SpCell {
+  public findCell(id: number): SpCell | null {
     for (const row of this.cells) {
-      const cell: SpCell | null = row.find((cell) => cell.id === id);
+      const cell: SpCell | undefined = row.find((cell) => cell.id === id);
       if (cell != null) {
         return cell;
       }

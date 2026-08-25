@@ -17,11 +17,13 @@ import {
 import { TranslatePipe } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
-import { CoTagKeyType } from '../../model/co-tag-key.class';
+import { CoTagKey, CoTagKeyType } from '../../model/co-tag-key.class';
 import { CoTagValue, CoTagValueEditDTO } from '../../model/co-tag-value.class';
 import { CoConfig } from '../../service/co-service-config.config';
 
-export type CoTagValueEditDialogInput = FlFormDialogInput<Partial<CoTagValueEditDTO>>;
+export type CoTagValueEditDialogInput = FlFormDialogInput<Partial<CoTagValueEditDTO>> & {
+  object: Partial<CoTagValueEditDTO> & { tagKey: CoTagKey };
+};
 
 @Component({
   selector: 'co-tag-value-edit-dialog',
@@ -81,13 +83,13 @@ export class CoTagValueEditDialogComponent
   }
 
   create(formValue: CoTagValueEditDTO): Observable<CoTagValue> {
-    if ('public' in formValue.additionalInfos)
+    if (formValue.additionalInfos && 'public' in formValue.additionalInfos)
       formValue.additionalInfos = formValue.additionalInfos['public'];
     return this.coConfig.createTagValue(formValue);
   }
 
   update(formValue: CoTagValueEditDTO): Observable<CoTagValue> {
-    if ('public' in formValue.additionalInfos)
+    if (formValue.additionalInfos && 'public' in formValue.additionalInfos)
       formValue.additionalInfos = formValue.additionalInfos['public'];
     return this.coConfig.updateTagValue(formValue);
   }

@@ -19,8 +19,8 @@ export class SpSpreadsheetSelectionListenerManagerService {
   private groups: Map<string, GroupSelected> = new Map();
 
   public unregisterListener(group: string): void {
-    if (!this.groups.has(group)) return;
     const groupSelected = this.groups.get(group);
+    if (groupSelected == null) return;
     groupSelected.count--;
 
     // if there is not more registered to it, clear the subject and remove group
@@ -34,19 +34,22 @@ export class SpSpreadsheetSelectionListenerManagerService {
    * The children SpSpreadsheetSelectionInputComponent emit its id when it selected
    */
   public emitSelection(group: string, id: symbol): void {
-    if (!this.groups.has(group)) return;
-    this.groups.get(group).subject.next(id);
+    const groupSelected = this.groups.get(group);
+    if (groupSelected == null) return;
+    groupSelected.subject.next(id);
   }
 
   /**
    * Use to subscribe to selection change event
    */
   public subscribeToSelection(group: string): Observable<symbol> {
-    if (!this.groups.has(group)) {
-      this.groups.set(group, { count: 1, subject: new Subject() });
+    let groupSelected = this.groups.get(group);
+    if (groupSelected == null) {
+      groupSelected = { count: 1, subject: new Subject<symbol>() };
+      this.groups.set(group, groupSelected);
     } else {
-      this.groups.get(group).count++;
+      groupSelected.count++;
     }
-    return this.groups.get(group).subject.asObservable();
+    return groupSelected.subject.asObservable();
   }
 }

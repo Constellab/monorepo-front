@@ -54,7 +54,7 @@ export class SpSpreadsheetHeaderCellComponent implements OnInit, OnDestroy {
 
   subscription: Subscription;
 
-  private overlayRef: FlOverlayRef;
+  private overlayRef: FlOverlayRef | null;
 
   ngOnInit(): void {
     this.subscribeToSelection();
@@ -67,7 +67,7 @@ export class SpSpreadsheetHeaderCellComponent implements OnInit, OnDestroy {
       .subscribe((selection) => this.onSelectionChange(selection));
   }
 
-  private onSelectionChange(selection: SpSheetSingleSelection): void {
+  private onSelectionChange(selection: SpSheetSingleSelection | null): void {
     if (selection == null) {
       this.renderer.removeClass(this.elementRef.nativeElement, this.getSelectedClass());
     } else {
@@ -105,7 +105,7 @@ export class SpSpreadsheetHeaderCellComponent implements OnInit, OnDestroy {
 
   openHeaderPortal(): void {
     const sheet = this.state.currentSheet;
-    let headerInfo: SpSheetHeaderInfo = null;
+    let headerInfo: SpSheetHeaderInfo | null = null;
     if (this.type === 'row') {
       if (sheet.rowHasInfo(this.index)) {
         headerInfo = sheet.getRowInfo(this.index);

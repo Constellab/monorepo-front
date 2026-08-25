@@ -17,8 +17,8 @@ import { SpSpreadsheetState } from './sp-spreadsheet.state';
 export class SpSpreadsheetSelectionState implements OnDestroy {
   private state = inject(SpSpreadsheetState);
 
-  private currentSelection$: BehaviorSubject<SpSheetSingleSelectionFull> =
-    new BehaviorSubject<SpSheetSingleSelectionFull>(null);
+  private currentSelection$: BehaviorSubject<SpSheetSingleSelectionFull | null> =
+    new BehaviorSubject<SpSheetSingleSelectionFull | null>(null);
 
   public init(): void {
     this.clearSelectionOnNewSheet();
@@ -38,11 +38,11 @@ export class SpSpreadsheetSelectionState implements OnDestroy {
    * Return a simple SpSheetSelection without the edit method because
    * the outside must not edit the selection
    */
-  public get currentSelection(): SpSheetSingleSelection {
+  public get currentSelection(): SpSheetSingleSelection | null {
     return this.currentSelection$.value;
   }
 
-  private get currentSelectionFull(): SpSheetSingleSelectionFull {
+  private get currentSelectionFull(): SpSheetSingleSelectionFull | null {
     return this.currentSelection$.value;
   }
 
@@ -117,7 +117,7 @@ export class SpSpreadsheetSelectionState implements OnDestroy {
       return;
     }
 
-    const currentSelectionFull: SpSheetSingleSelectionFull = this.currentSelectionFull;
+    const currentSelectionFull: SpSheetSingleSelectionFull | null = this.currentSelectionFull;
 
     // check if the current selection is valid to expand
     if (
@@ -161,7 +161,7 @@ export class SpSpreadsheetSelectionState implements OnDestroy {
     this.currentSelection$.next(newSelection);
   }
 
-  public getSelection$(): Observable<SpSheetSingleSelection> {
+  public getSelection$(): Observable<SpSheetSingleSelection | null> {
     return this.currentSelection$.asObservable();
   }
 
@@ -171,10 +171,11 @@ export class SpSpreadsheetSelectionState implements OnDestroy {
    * @param columnShift
    */
   public expandSelectionWithShift(rowShift: number, columnShift: number): void {
-    const newCoord: SpCellCoord = this.shiftCurrentSelection(rowShift, columnShift);
+    const newCoord: SpCellCoord | null = this.shiftCurrentSelection(rowShift, columnShift);
+    const currentSelection: SpSheetSingleSelection | null = this.currentSelection;
 
-    if (newCoord) {
-      switch (this.currentSelection.type) {
+    if (newCoord && currentSelection) {
+      switch (currentSelection.type) {
         case 'rows':
           this.expandRowsSelection(newCoord.row);
           break;
@@ -189,10 +190,11 @@ export class SpSpreadsheetSelectionState implements OnDestroy {
   }
 
   public moveCurrentSelection(rowShift: number, columnShift: number): SpSheetSingleSelection | null {
-    const newCoord: SpCellCoord = this.shiftCurrentSelection(rowShift, columnShift);
+    const newCoord: SpCellCoord | null = this.shiftCurrentSelection(rowShift, columnShift);
+    const currentSelection: SpSheetSingleSelection | null = this.currentSelection;
 
-    if (newCoord) {
-      switch (this.currentSelection.type) {
+    if (newCoord && currentSelection) {
+      switch (currentSelection.type) {
         case 'rows':
           return this.selectUniqueRow(newCoord.row);
         case 'columns':
@@ -208,7 +210,7 @@ export class SpSpreadsheetSelectionState implements OnDestroy {
   // shit the current selection coord
   // return null if the new coord is not valid
   private shiftCurrentSelection(rowShift: number, columnShift: number): SpCellCoord | null {
-    const selection: SpSheetSingleSelection = this.currentSelection;
+    const selection: SpSheetSingleSelection | null = this.currentSelection;
 
     if (selection != null) {
       const coord: SpCellCoord = {

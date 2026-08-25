@@ -26,7 +26,11 @@ export class CoIconService {
     );
   }
 
-  private getAllByFilter(subNameFilter: string, page: number, size: number): Observable<ClPage<CoIcon>> {
+  private getAllByFilter(
+    subNameFilter: string | undefined,
+    page: number,
+    size: number
+  ): Observable<ClPage<CoIcon>> {
     const route = '/' + this.route + '/filter';
     return this.apiService.post(route, { subNameFilter: subNameFilter }, CoIcon, {
       page: page,

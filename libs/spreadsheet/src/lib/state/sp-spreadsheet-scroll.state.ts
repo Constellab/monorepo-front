@@ -33,7 +33,9 @@ export class SpSpreadsheetScrollState {
   private elementState = inject(SpSpreadsheetElementState);
   private paginationState = inject(SpSpreadsheetPaginationState);
 
-  private rowsToDisplay$: BehaviorSubject<SpSheetRow[]> = new BehaviorSubject(null);
+  private rowsToDisplay$: BehaviorSubject<SpSheetRow[] | null> = new BehaviorSubject<
+    SpSheetRow[] | null
+  >(null);
 
   // parent of the heightSimulator that scroll
   private tableContainer: HTMLElement;
@@ -236,12 +238,15 @@ export class SpSpreadsheetScrollState {
     this.clearSubscription();
   }
 
-  private get rowsToDisplay(): SpSheetRow[] {
+  private get rowsToDisplay(): SpSheetRow[] | null {
     return this.rowsToDisplay$.value;
   }
 
   private getVisibleInterval(): SpInterval {
-    const rows: SpSheetRow[] = this.rowsToDisplay;
+    const rows: SpSheetRow[] | null = this.rowsToDisplay;
+    if (rows == null) {
+      throw new Error('The rows to display are not initialized');
+    }
 
     return {
       from: rows[0].index,

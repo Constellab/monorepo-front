@@ -10,8 +10,8 @@ export class SpSheetChartSelectionVulcanoPlot extends SpSheetChartSelection {
     private serie: SpSheetChart2dSerieSelectionForm,
     private xThreshold: number,
     private yThreshold: number,
-    private xAxisLabel?: string,
-    private yAxisLabel?: string
+    private xAxisLabel?: string | null,
+    private yAxisLabel?: string | null
   ) {
     super(sheet);
   }

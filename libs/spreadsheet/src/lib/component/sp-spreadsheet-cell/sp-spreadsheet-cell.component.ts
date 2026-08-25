@@ -81,7 +81,7 @@ export class SpSpreadsheetCellComponent implements OnInit, OnDestroy {
 
   private subscription: ClSubscriptionHandler = new ClSubscriptionHandler();
 
-  private overlayRef: FlOverlayRef;
+  private overlayRef: FlOverlayRef | null;
 
   constructor() {
     this.id = SpSpreadsheetCellComponent.id++;
@@ -114,7 +114,7 @@ export class SpSpreadsheetCellComponent implements OnInit, OnDestroy {
     );
   }
 
-  private onSelectionChange(selection: SpSheetSingleSelection): void {
+  private onSelectionChange(selection: SpSheetSingleSelection | null): void {
     // check if the current cell is selected
     if (selection && selection.coordIsSelected({ row: this.row, column: this.column })) {
       this.selectCell(selection.getRange());

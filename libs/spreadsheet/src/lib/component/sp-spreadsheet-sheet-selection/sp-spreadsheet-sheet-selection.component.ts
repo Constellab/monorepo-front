@@ -26,7 +26,11 @@ export class SpSpreadsheetSheetSelectionComponent implements OnInit {
   ngOnInit(): void {
     this.sheets$ = this.state.spreadsheet.getSheets$();
 
-    this.state.spreadsheet.getCurrentSheet$().subscribe((sheet) => this.formControl.patchValue(sheet.id));
+    this.state.spreadsheet.getCurrentSheet$().subscribe((sheet) => {
+      if (sheet != null) {
+        this.formControl.patchValue(sheet.id);
+      }
+    });
   }
 
   selectSpreadsheet(change: MatButtonToggleChange): void {

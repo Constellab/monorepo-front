@@ -37,8 +37,8 @@ export class CoCommunityListItemComponent {
   space = input<CoSpace | null>(null);
   showVisibility = input<boolean>(true);
   likes = input<number>(0);
-  comments = input<number>(undefined);
-  executions = input<number>(undefined);
+  comments = input<number | undefined>(undefined);
+  executions = input<number | undefined>(undefined);
   publishedAt = input<DateTime | null>(null);
 
   author = input<CoUser | null>(null);

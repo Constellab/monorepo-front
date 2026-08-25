@@ -32,7 +32,7 @@ export class ChChartAxis {
 
   protected tickTextIsRotated: boolean = false;
 
-  protected label: string;
+  protected label: string | null | undefined;
 
   private tickFormatter: ChChartLabelFormatter | null;
 
@@ -106,7 +106,7 @@ export class ChChartAxis {
     }
   }
 
-  public setLabel(label: string): this {
+  public setLabel(label: string | null | undefined): this {
     this.label = label;
     return this;
   }

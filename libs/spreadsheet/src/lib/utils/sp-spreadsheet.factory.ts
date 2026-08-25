@@ -156,6 +156,11 @@ export class SpSpreadsheetFactory {
   }
 
   public static getSheetNameFromId(id: number): string {
-    return FlTranslateService.getInstance().translate('spSpreadsheet.sheet') + ' ' + id;
+    const translateService = FlTranslateService.getInstance();
+    if (translateService == null) {
+      throw new Error('The FlTranslateService is not initialized');
+    }
+
+    return translateService.translate('spSpreadsheet.sheet') + ' ' + id;
   }
 }

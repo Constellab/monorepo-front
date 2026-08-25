@@ -108,7 +108,10 @@ export class SpSpreadsheetHelper {
    */
   public static coordFromString(coord: string): SpCellCoord {
     // find the position of the first digit
-    const match: RegExpExecArray = /\d/.exec(coord);
+    const match: RegExpExecArray | null = /\d/.exec(coord);
+    if (match == null) {
+      throw new Error('Invalid coord ' + coord);
+    }
 
     return {
       column: SpSpreadsheetHelper.columnIndexFromName(coord.substring(0, match.index)),

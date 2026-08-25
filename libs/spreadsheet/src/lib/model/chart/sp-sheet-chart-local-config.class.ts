@@ -151,8 +151,9 @@ export class SpSheetLocalChartConfigVulcanoPlot extends SpSheetLocalChartConfig 
     const selection = new SpSheetChartSelectionVulcanoPlot(
       options.sheet,
       series[0],
-      options.additionalFields.xThreshold,
-      options.additionalFields.yThreshold,
+      // the thresholds are required fields of the vulcano plot form
+      options.additionalFields.xThreshold as number,
+      options.additionalFields.yThreshold as number,
       options.additionalFields.xAxisLabel,
       options.additionalFields.yAxisLabel
     );

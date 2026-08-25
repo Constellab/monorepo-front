@@ -45,7 +45,7 @@ export class SpSpreadsheetElementState {
    * Retrieve the header cell element from the column id
    * @param columnId
    */
-  public getColumnHeaderCellElement(columnId: number): HTMLElement {
+  public getColumnHeaderCellElement(columnId: number): HTMLElement | null {
     return this.tableContainer.querySelector(
       `[${SP_HEADER_TYPE_ATTRIBUTE_NAME}="column"][${SP_HEADER_INDEX_ATTRIBUTE_NAME}="${columnId}"]`
     );
@@ -69,8 +69,8 @@ export class SpSpreadsheetElementState {
 
   // returns cell based on a html element : SP-SPREADSHEET-CELL
   private getNormalCellFromHTMLElement(element: HTMLElement): CellEvent {
-    const row: number = parseInt(element.getAttribute(SP_ROW_ID_ATTRIBUTE_NAME));
-    const column: number = parseInt(element.getAttribute(SP_COLUMN_ID_ATTRIBUTE_NAME));
+    const row: number = parseInt(element.getAttribute(SP_ROW_ID_ATTRIBUTE_NAME) ?? '');
+    const column: number = parseInt(element.getAttribute(SP_COLUMN_ID_ATTRIBUTE_NAME) ?? '');
 
     return {
       type: 'cell',
@@ -85,7 +85,7 @@ export class SpSpreadsheetElementState {
 
   // returns header cell info based on a html element : SP-SPREADSHEET-HEADER-CELL
   private getHeaderCellFromHTMLElement(element: HTMLElement): HeaderCellEvent {
-    const index: number = parseInt(element.getAttribute(SP_HEADER_INDEX_ATTRIBUTE_NAME));
+    const index: number = parseInt(element.getAttribute(SP_HEADER_INDEX_ATTRIBUTE_NAME) ?? '');
     const type: SpHeaderCellType = element.getAttribute(SP_HEADER_TYPE_ATTRIBUTE_NAME) as SpHeaderCellType;
 
     return {

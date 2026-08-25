@@ -15,8 +15,8 @@ export class SpSheetChartSelectionBasic extends SpSheetChartSelection {
     sheet: SpSheet,
     private chartType: ChChartType.LINE | ChChartType.SCATTER_PLOT,
     private series: SpSheetChart2dSerieSelectionForm[],
-    private xAxisLabel?: string,
-    private yAxisLabel?: string
+    private xAxisLabel?: string | null,
+    private yAxisLabel?: string | null
   ) {
     super(sheet);
   }

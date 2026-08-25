@@ -15,8 +15,8 @@ export class SpSheetChartSelectionBoxPlot extends SpSheetChartSelection {
   constructor(
     sheet: SpSheet,
     private series: SpSheetChartSerieSelectionForm[],
-    private xAxisLabel?: string,
-    private yAxisLabel?: string
+    private xAxisLabel?: string | null,
+    private yAxisLabel?: string | null
   ) {
     super(sheet);
   }
@@ -25,7 +25,7 @@ export class SpSheetChartSelectionBoxPlot extends SpSheetChartSelection {
     const series: ChChartMultiSerie<any> = new ChChartMultiSerie();
 
     for (const serie of this.series) {
-      const ySelection: SpSheetSelection = this.getMultiSelectionFromSelectionRange(serie.y);
+      const ySelection: SpSheetSelection | null = this.getMultiSelectionFromSelectionRange(serie.y);
       const values: number[] = this.getSelectionValues(ySelection);
 
       series.addSerie(new ChChartBoxPlotSerie([chChartGetBoxPlotData(values)], serie.name));

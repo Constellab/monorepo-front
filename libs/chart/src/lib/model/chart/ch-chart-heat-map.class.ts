@@ -17,8 +17,8 @@ import { ChChartScaleColor, ChChartScaleColorLinear } from '../scale/ch-chart-sc
  */
 export class ChChartHeatMapDataContainer implements ChChartDataContainer<ChChart3dDatum> {
   // name of the axis
-  axisXLabel: string;
-  axisYLabel: string;
+  axisXLabel: string | null | undefined;
+  axisYLabel: string | null | undefined;
 
   /**
    * Function to format the x-axis labels

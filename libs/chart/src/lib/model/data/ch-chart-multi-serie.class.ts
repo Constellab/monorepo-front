@@ -12,8 +12,8 @@ export class ChChartMultiSerie<Data extends ChChartData> implements ChChartDataC
   series: ChChartSerie<Data>[];
 
   // name of the axis
-  axisXLabel: string;
-  axisYLabel: string;
+  axisXLabel: string | null | undefined;
+  axisYLabel: string | null | undefined;
 
   /**
    * Function to format the x-axis labels

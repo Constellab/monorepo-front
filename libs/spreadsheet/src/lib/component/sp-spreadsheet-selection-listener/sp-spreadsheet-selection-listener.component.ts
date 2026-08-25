@@ -28,11 +28,11 @@ export class SpSpreadsheetSelectionListenerComponent implements OnInit, OnDestro
    */
   @Input() group: string;
 
-  @Output() selectionChange: EventEmitter<SpSheetSingleSelection> = new EventEmitter();
+  @Output() selectionChange: EventEmitter<SpSheetSingleSelection | null> = new EventEmitter();
 
   selected: boolean = false;
 
-  private subscription: Subscription;
+  private subscription: Subscription | null;
   private groupSubscription: Subscription;
 
   private readonly id: symbol;
@@ -72,7 +72,7 @@ export class SpSpreadsheetSelectionListenerComponent implements OnInit, OnDestro
 
   private disableSelection(): void {
     this.selected = false;
-    this.subscription.unsubscribe();
+    this.subscription?.unsubscribe();
     this.subscription = null;
   }
 
@@ -88,7 +88,7 @@ export class SpSpreadsheetSelectionListenerComponent implements OnInit, OnDestro
     }
   }
 
-  private onNewSelection(selection: SpSheetSingleSelection): void {
+  private onNewSelection(selection: SpSheetSingleSelection | null): void {
     this.selectionChange.next(selection);
   }
 

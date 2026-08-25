@@ -78,7 +78,7 @@ export class CoListFiltersComponent implements OnInit, OnDestroy {
   filterTitleText: WritableSignal<string> = signal('coCommunityLib.filter_by_title');
   titleText: WritableSignal<string> = signal('coCommunityLib.title');
 
-  titleFormControl: FormControl<string> = new FormControl('');
+  titleFormControl: FormControl<string> = new FormControl('', { nonNullable: true });
   titleSubscription: Subscription;
   spacesFilterIsOpen = false;
   titleFilterIsOpen = false;
@@ -132,7 +132,7 @@ export class CoListFiltersComponent implements OnInit, OnDestroy {
     }
   }
 
-  getSpacePhoto(photo: string): string {
+  getSpacePhoto(photo: string): string | null {
     if (!photo) return null;
     return this.coConfigService.getSpacePhotoUrl(photo);
   }

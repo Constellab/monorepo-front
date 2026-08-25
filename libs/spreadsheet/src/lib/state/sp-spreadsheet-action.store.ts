@@ -41,12 +41,15 @@ export class SpSpreadsheetActionStore {
     this.currentAction--;
 
     if (!action.disabledSelectionAfterAction) {
-      this.selectionState.setSelection(this.getSheet(action.sheetId), action.range);
+      const sheet: SpSheet | undefined = this.getSheet(action.sheetId);
+      if (sheet != null) {
+        this.selectionState.setSelection(sheet, action.range);
+      }
     }
   }
 
   private executeAction(action: SpSheetAction): void {
-    const sheet: SpSheet = this.getSheet(action.sheetId);
+    const sheet: SpSheet | undefined = this.getSheet(action.sheetId);
 
     if (sheet == null) {
       console.error(`Can't find the sheet with id ${action.sheetId}`);
@@ -60,7 +63,7 @@ export class SpSpreadsheetActionStore {
     if (action == null) {
       return;
     }
-    const sheet: SpSheet = this.getSheet(action.sheetId);
+    const sheet: SpSheet | undefined = this.getSheet(action.sheetId);
 
     if (sheet == null) {
       console.error(`Can't find the sheet with id ${action.sheetId}`);
@@ -77,7 +80,7 @@ export class SpSpreadsheetActionStore {
     }
   }
 
-  private getSheet(id: number): SpSheet {
+  private getSheet(id: number): SpSheet | undefined {
     return this.state.getSheet(id);
   }
 

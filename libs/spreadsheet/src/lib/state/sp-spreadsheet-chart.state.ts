@@ -27,7 +27,7 @@ export class SpSpreadsheetChartState implements OnDestroy {
   private snackBarService = inject(FlSnackBarService);
   private actionService = inject(FlPortalActionsService);
 
-  private overlayRef: FlOverlayRef;
+  private overlayRef: FlOverlayRef | null;
 
   // store all the current overlay ref and the corresponding selection
   private currentSelections: Map<symbol, SelectionWithOverlay> = new Map();
@@ -88,7 +88,10 @@ export class SpSpreadsheetChartState implements OnDestroy {
    *        the chart corresponding to the selection is deleted
    * @private
    */
-  private generateChart(result?: SpSheetChartSelectionResult, fromSelectionId?: symbol): void {
+  private generateChart(
+    result?: SpSheetChartSelectionResult,
+    fromSelectionId: symbol | null = null
+  ): void {
     this.overlayRef = null;
 
     if (!result) return;
@@ -101,6 +104,9 @@ export class SpSpreadsheetChartState implements OnDestroy {
     // generate chart
     try {
       const chartConfig = this.state.getChartConfig(result.formValue.chartType);
+      if (chartConfig == null) {
+        throw new Error('No chart config found for the chart type');
+      }
 
       const chartOverlay = chartConfig.generateChart(result.formValue.series, {
         sheet: this.state.currentSheet,
@@ -148,7 +154,7 @@ export class SpSpreadsheetChartState implements OnDestroy {
    * @private
    */
   private openUpdateChartSelectionPortal(selectionId: symbol): void {
-    const selection: SelectionWithOverlay = this.currentSelections.get(selectionId);
+    const selection: SelectionWithOverlay | undefined = this.currentSelections.get(selectionId);
     if (selection) {
       this.openChartSelectionPortal(selection.selection);
     }

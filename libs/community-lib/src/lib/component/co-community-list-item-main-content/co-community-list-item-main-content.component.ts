@@ -14,11 +14,11 @@ import { CoUser } from '../../model/co-user.class';
 export class CoCommunityListItemMainContentComponent {
   @Input({ required: true }) title: string;
   @Input() showVisibility: boolean;
-  @Input() space?: CoSpace;
+  @Input() space: CoSpace | null = null;
   @Input() description: string;
   @Input() user: CoUser;
   @Input() date: ClDateInput;
-  @Input() likes: number = null;
-  @Input() comments: number = null;
-  @Input() executions: number = null;
+  @Input() likes: number | null = null;
+  @Input() comments: number | null = null;
+  @Input() executions: number | null = null;
 }

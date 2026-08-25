@@ -107,11 +107,11 @@ export class SpSpreadsheetKeyboardManagerState implements OnDestroy {
   // Handler for the DELETE key
   private handleDeleteKey(): void {
     if (this.readOnly) return;
-    const selection: SpSheetSingleSelection = this.selectionState.currentSelection;
+    const selection: SpSheetSingleSelection | null = this.selectionState.currentSelection;
 
     if (selection != null) {
       // construct an array of null values the same size as the selection
-      const cellsValues: void[][] = selection.getCells().map((rows) => rows.map((): void => null));
+      const cellsValues: null[][] = selection.getCells().map((rows) => rows.map((): null => null));
       this.actionState.updateCellsValues(cellsValues, selection);
     }
   }
@@ -120,7 +120,7 @@ export class SpSpreadsheetKeyboardManagerState implements OnDestroy {
   // we pass the selected cell to the edit mode if not already
   private handlePrintableKeys(key: string): void {
     if (this.readOnly) return;
-    const selection: SpSheetSingleSelection = this.selectionState.currentSelection;
+    const selection: SpSheetSingleSelection | null = this.selectionState.currentSelection;
 
     if (selection != null) {
       const cell = selection.getFirstSelectedCell();
