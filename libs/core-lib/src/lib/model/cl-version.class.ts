@@ -11,7 +11,7 @@ export class ClVersion {
     public major: number,
     public minor: number,
     public patch: number,
-    public subPatch?: number
+    public subPatch?: number | null
   ) {}
 
   public static fromString(version: string): ClVersion {
@@ -28,7 +28,7 @@ export class ClVersion {
     let mainVersionsStr = version;
 
     // if there is a sub-patch, extract it
-    let subPatch: number = null;
+    let subPatch: number | null = null;
     if (version.includes('-beta.')) {
       let subPatchStr: string;
       [mainVersionsStr, subPatchStr] = version.split('-beta.');

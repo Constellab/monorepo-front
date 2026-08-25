@@ -32,12 +32,12 @@ export class ClCSVHelper {
    * characters
    * @param csv
    */
-  public static detectDelimiter(csv: string): ClCSVDelimiter {
+  public static detectDelimiter(csv: string): ClCSVDelimiter | null {
     if (csv == null || csv.length === 0) {
       return null;
     }
 
-    let maxDelimiter: ClCSVDelimiter;
+    let maxDelimiter: ClCSVDelimiter | null = null;
     let maxDelimiterCount: number = 0;
 
     // use a sub csv to improve speed

@@ -47,7 +47,7 @@ export class ClStringHelper {
     return containerStr.indexOf(partialStr) !== -1;
   }
 
-  public static getCleanUrlPath(str: string): string {
+  public static getCleanUrlPath(str: string): string | null {
     if (str == null) return null;
     if (typeof str !== 'string') {
       str = (str as any).toString();
@@ -227,7 +227,7 @@ export class ClStringHelper {
    * Convert Test hello --> test-hello
    * @param str
    */
-  public static toKebabCase(str: string): string {
+  public static toKebabCase(str: string | null): string | null {
     if (str == null) return null;
     return str.trim().replace(/\s+/g, '-').toLowerCase();
   }
@@ -236,7 +236,7 @@ export class ClStringHelper {
    * Convert test-hello --> Test Hello
    * @param str
    */
-  public static fromKebabCaseToSentence(str: string): string {
+  public static fromKebabCaseToSentence(str: string): string | null {
     if (str == null) return null;
     return this.capitalize(str.replace(/-/g, ' '));
   }
@@ -247,7 +247,7 @@ export class ClStringHelper {
    * Example : https://test.constellab.com --> test
    * @param url
    */
-  public static getLowestDomainFromUrl(url: string): string {
+  public static getLowestDomainFromUrl(url: string): string | null {
     if (url == null) return null;
     url = url.replace('https://', '').replace('http://', '');
     const domains = url.split('.');
@@ -259,7 +259,7 @@ export class ClStringHelper {
    * Return a valid id/string for url parameters
    * @param str
    */
-  public static toIdForUrl(str: string): string {
+  public static toIdForUrl(str: string): string | null {
     if (str == null) return null;
     if (typeof str !== 'string') {
       str = (str as any).toString();
