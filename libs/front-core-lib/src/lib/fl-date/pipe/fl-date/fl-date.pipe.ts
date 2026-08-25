@@ -15,7 +15,7 @@ export type FlDateFormatKey = keyof typeof ClDateFormat | string;
   standalone: false,
 })
 export class FlDatePipe implements PipeTransform {
-  transform(value: ClDateInput, format: FlDateFormatKey = 'DATE'): string {
+  transform(value: ClDateInput | undefined, format: FlDateFormatKey = 'DATE'): string {
     if (value == null) {
       return '';
     }

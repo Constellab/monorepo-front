@@ -15,7 +15,7 @@
         [placeholder]="'server_price' | translate" />
 
       <mat-hint>{{ 'server_price_unit' | translate }}</mat-hint>
-      @if (formGp.get('price').invalid) {
+      @if (formGp.get('price')?.invalid) {
         <mat-error>{{ 'server_price_error' | translate }}</mat-error>
       }
     </mat-form-field>
@@ -31,7 +31,7 @@
         [placeholder]="'server_price_start_date' | translate" />
       <mat-datepicker-toggle matSuffix [for]="startingPicker"></mat-datepicker-toggle>
       <mat-datepicker #startingPicker startView="month"></mat-datepicker>
-      @if (formGp.get('startDate').hasError('required')) {
+      @if (formGp.get('startDate')?.hasError('required')) {
         <mat-error>{{ 'server_price_start_date' | flErrorRequired }}</mat-error>
       }
     </mat-form-field>

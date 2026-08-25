@@ -317,11 +317,11 @@ export class LmlSubComposeProcessInfo {
   @ClLuxonDateTimeTransform()
   completedAt?: DateTime;
 
-  get durationInMs(): number | null {
-    if (!this.completedAt) {
-      return null;
-    }
-    return this.completedAt.toMillis() - this.startedAt.toMillis();
+  /**
+   * Duration of the process, computed from the already-narrowed `completedAt` (see {@link completedAt}).
+   */
+  getDurationInMs(completedAt: DateTime): number {
+    return completedAt.toMillis() - this.startedAt.toMillis();
   }
 }
 

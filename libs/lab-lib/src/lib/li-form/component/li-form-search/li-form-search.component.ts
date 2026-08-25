@@ -61,9 +61,9 @@ export class LiFormSearchComponent implements OnInit {
 
   @Input() columns: FlTableColumnStatic<LiForm>[] = ['name', 'status', 'template', 'tags'];
 
-  @Input() defaultFilters: Partial<LiFormSearchFields> | null = null;
+  @Input() defaultFilters: Partial<LiFormSearchFields> | null | undefined = null;
 
-  @Input() disabledFilters: LiFormSearchFieldsDisabled | null = null;
+  @Input() disabledFilters: LiFormSearchFieldsDisabled | null | undefined = null;
 
   @Output() formSelected: EventEmitter<LiForm> = new EventEmitter();
 

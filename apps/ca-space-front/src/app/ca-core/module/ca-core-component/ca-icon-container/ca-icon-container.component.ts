@@ -15,7 +15,7 @@ export class CaIconContainerComponent {
 
   emoji = input<string>();
 
-  backgroundColor = input<string | null>(null);
+  backgroundColor = input<string | null | undefined>(null);
 
   @HostBinding('style.background') background: string;
 

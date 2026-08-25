@@ -21,7 +21,7 @@
         <div
           class="all-agent-list-div"
           [ngClass]="
-            currentAgent && currentAgent.created_by.id === currentUser.id ? 'all-lt-list-div-short' : ''
+            currentAgent && currentAgent.created_by?.id === currentUser?.id ? 'all-lt-list-div-short' : ''
           ">
           <li-select-community-agent
             [personalOnly]="true"

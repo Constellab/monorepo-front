@@ -1,5 +1,13 @@
 import { NgClass, NgTemplateOutlet } from '@angular/common';
-import { ChangeDetectionStrategy,Component, ContentChild, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ContentChild,
+  EventEmitter,
+  Input,
+  Output,
+  TemplateRef,
+} from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatSortHeader } from '@angular/material/sort';
@@ -88,7 +96,7 @@ export class CaHierarchyObjectTableComponent {
   // when true, the row become clickable and selectedFolderChange and folderDblClicked event is trigger
   @Input() rowSelectable: boolean = false;
 
-  @Input() selectedObject: CaHierarchyObject;
+  @Input() selectedObject: CaHierarchyObject | null;
 
   @Input() showTrashIcon: boolean = false;
 

@@ -33,7 +33,9 @@ export type CaHierarchyObjectSearchFormContext =
   | CaHierarchyObjectContext
   | {
       type: 'trash';
-    };
+    }
+  // null while the context (from an async pipe) hasn't emitted its first value yet
+  | null;
 
 /**
  * Form inside folder detail page to filter hierarchy objects of a folder
@@ -102,6 +104,7 @@ export class CaHierarchyObjectSearchFormComponent implements OnInit, OnDestroy {
   async submit(): Promise<void> {
     if (this.formGp.valid) {
       const context = this.context();
+      if (context == null) return;
       if (context.type === 'rootFolders') {
         // in root folders, the search redirect to global search
         // and we trigger the search

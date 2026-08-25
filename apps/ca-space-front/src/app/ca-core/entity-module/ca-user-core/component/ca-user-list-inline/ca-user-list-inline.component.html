@@ -51,7 +51,7 @@
           @if (userDatasource && !userDatasource.page?.last) {
             <fl-infinite-load-more-result
               [datasource]="userDatasource"
-              [textNoMoreResult]="null"
+              [textNoMoreResult]="''"
               class="load-more"></fl-infinite-load-more-result>
           }
         </div>

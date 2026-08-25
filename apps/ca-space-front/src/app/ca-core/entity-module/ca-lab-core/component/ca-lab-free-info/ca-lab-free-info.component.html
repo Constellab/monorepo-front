@@ -16,10 +16,9 @@
   @case ('EXPIRED') {
     <fl-text-icon>
       <mat-icon>clear</mat-icon>
-      {{
-        'free_data_lab_expired'
-          | translate: { date: (freeLab.deletionDate | flDate: 'DATE_TIME_WITH_SECONDS') }
-      }}
+      @if (freeLab.deletionDate; as deletionDate) {
+        {{ 'free_data_lab_expired' | translate: { date: (deletionDate | flDate: 'DATE_TIME_WITH_SECONDS') } }}
+      }
     </fl-text-icon>
   }
   @case ('EXPIRED_AND_DELETED') {
@@ -48,7 +47,7 @@
     <mat-icon>data_usage</mat-icon>
     <fl-key-value>
       <fl-key>{{ 'free_data_lab_usage' | translate }}</fl-key>
-      {{ freeLab.currentUsageInSeconds * 1000 | flDuration: 2 : 'minutes' }}
+      {{ (freeLab.currentUsageInSeconds ?? 0) * 1000 | flDuration: 2 : 'minutes' }}
       / {{ freeLab.freeLab.usageLimitInHours }} {{ 'lab_usage_hours' | translate }}
     </fl-key-value>
   </fl-text-icon>

@@ -49,10 +49,6 @@ export class CaHierarchyObjectAdminSearchFormComponent implements OnInit {
     this.formGp = this.searchState.advancedSearchFormGroup;
   }
 
-  typeIsSelected(): boolean {
-    return !!this.formGp.get('objectType')?.value;
-  }
-
   getSelectedTypeLabel(): CaHierarchyObjectInfo | null {
     const value = this.formGp.get('objectType')?.value;
     return value ? (this.objectTypes as any)[value] : null;

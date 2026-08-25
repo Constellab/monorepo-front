@@ -105,7 +105,7 @@
           <td-type-inline
             [text]="resource.resourceType.human_name"
             [style]="resource.style"
-            [subText]="resource.fsNode?.size | flByteText"></td-type-inline>
+            [subText]="(resource.fsNode?.size | flByteText) ?? ''"></td-type-inline>
         </div>
       }
     </mat-cell>

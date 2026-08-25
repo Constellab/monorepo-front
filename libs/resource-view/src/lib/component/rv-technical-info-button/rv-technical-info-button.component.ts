@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject,Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input } from '@angular/core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 
 import { RvTechnicalInfo } from '../../model/rv-technical-info.class';
@@ -17,10 +17,10 @@ import { RvTechnicalInfoDialogComponent } from '../rv-technical-info-dialog/rv-t
 export class RvTechnicalInfoButtonComponent {
   private dialogService = inject(FlDialogService);
 
-  @Input() technicalInfo: RvTechnicalInfo[];
+  @Input() technicalInfo: RvTechnicalInfo[] | undefined;
 
   hasTechnicalInfo(): boolean {
-    return this.technicalInfo?.length > 0;
+    return (this.technicalInfo?.length ?? 0) > 0;
   }
 
   openDialog(): void {

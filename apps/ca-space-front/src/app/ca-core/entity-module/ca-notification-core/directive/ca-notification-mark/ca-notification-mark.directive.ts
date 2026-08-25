@@ -15,7 +15,7 @@ export class CaNotificationMarkDirective implements OnInit, OnDestroy {
    */
   @Input({ required: true }) caNotificationMark: string | Observable<string>;
 
-  @Input() caNotificationObjectType: CaNotificationType;
+  @Input() caNotificationObjectType: CaNotificationType | undefined;
 
   /**
    * Where to check parentObjectId or not

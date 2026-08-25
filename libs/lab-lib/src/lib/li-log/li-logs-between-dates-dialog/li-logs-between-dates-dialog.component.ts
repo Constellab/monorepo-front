@@ -47,7 +47,7 @@ export class LiLogsBetweenDatesDialogComponent implements OnInit {
   downloadUrl = signal(this.input.downloadUrl);
   isLoading = signal(false);
   logs = signal<LiLogsBetweenDates | undefined>(undefined);
-  loadNextPageDisabled = computed(() => this.isLoading() || this.logs()?.isLastPage);
+  loadNextPageDisabled = computed(() => this.isLoading() || (this.logs()?.isLastPage ?? false));
 
   private loadFunction = this.input.loadFunction;
 

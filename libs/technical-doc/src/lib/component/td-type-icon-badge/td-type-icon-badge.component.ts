@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 
-import { TdTypeStyle } from '../../model/td-type.class';
+import { TD_TYPE_STYLE_DEFAULT, TdTypeStyle } from '../../model/td-type.class';
 
 /**
  * Component to show the icon of a type in a round circle
@@ -13,7 +13,9 @@ import { TdTypeStyle } from '../../model/td-type.class';
   standalone: false,
 })
 export class TdTypeIconBadgeComponent {
-  style = input.required<TdTypeStyle>();
+  // Genuinely optional: callers may not have a style yet (eg. technicalDoc?.style).
+  style = input.required<TdTypeStyle | undefined>();
   iconSize = input.required<number>();
   padding = computed(() => Math.round(this.iconSize() / 4) + 'px');
+  styleWithDefault = computed(() => this.style() ?? TD_TYPE_STYLE_DEFAULT);
 }

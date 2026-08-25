@@ -6,7 +6,7 @@
   <fl-card-body>
     <fl-async-section [object]="pluginInfo$" [showServerErrorText]="true">
       <ng-container *flSectionBody="pluginInfo$ as pluginInfo">
-        @if (pluginInfo.isAvailable()) {
+        @if (pluginInfo.isAvailable() && pluginInfo.commands; as commands) {
           <p>{{ 'monitoring.claude_plugin_lead' | translate }}</p>
 
           <ng-container
@@ -18,8 +18,7 @@
           <!--  Step 1  -->
           <div class="step">
             <p class="g-text-big">{{ 'monitoring.claude_plugin_step_1' | translate }}</p>
-            <lab-claude-plugin-command
-              [command]="pluginInfo.commands.addMarketplace"></lab-claude-plugin-command>
+            <lab-claude-plugin-command [command]="commands.addMarketplace"></lab-claude-plugin-command>
             <p class="g-text-small g-text-light">
               {{ 'monitoring.claude_plugin_step_1_hint' | translate }}
             </p>
@@ -28,7 +27,7 @@
           <!--  Step 2  -->
           <div class="step">
             <p class="g-text-big">{{ 'monitoring.claude_plugin_step_2' | translate }}</p>
-            <lab-claude-plugin-command [command]="pluginInfo.commands.install"></lab-claude-plugin-command>
+            <lab-claude-plugin-command [command]="commands.install"></lab-claude-plugin-command>
             <p class="g-text-small g-text-light">
               {{ 'monitoring.claude_plugin_step_2_hint' | translate: { plugin: pluginInfo.pluginName } }}
             </p>
@@ -64,10 +63,8 @@
             </fl-key-value>
 
             <p class="update-intro">{{ 'monitoring.claude_plugin_update_intro' | translate }}</p>
-            <lab-claude-plugin-command
-              [command]="pluginInfo.commands.updateMarketplace"></lab-claude-plugin-command>
-            <lab-claude-plugin-command
-              [command]="pluginInfo.commands.updatePlugin"></lab-claude-plugin-command>
+            <lab-claude-plugin-command [command]="commands.updateMarketplace"></lab-claude-plugin-command>
+            <lab-claude-plugin-command [command]="commands.updatePlugin"></lab-claude-plugin-command>
             <p class="g-text-small g-text-light">
               {{ 'monitoring.claude_plugin_404_hint' | translate }}
             </p>

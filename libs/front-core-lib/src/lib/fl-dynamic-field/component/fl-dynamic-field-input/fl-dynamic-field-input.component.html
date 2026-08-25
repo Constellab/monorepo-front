@@ -14,7 +14,7 @@
         matInput
         type="text"
         [formControl]="formCtrl"
-        [placeholder]="cellRendering ? '' : placeholder"
+        [placeholder]="cellRendering ? '' : (placeholder ?? '')"
         [required]="required" />
     }
     @case ('number') {
@@ -22,7 +22,7 @@
         matInput
         type="number"
         [formControl]="formCtrl"
-        [placeholder]="cellRendering ? '' : placeholder"
+        [placeholder]="cellRendering ? '' : (placeholder ?? '')"
         [required]="required" />
     }
   }

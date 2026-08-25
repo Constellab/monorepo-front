@@ -3,16 +3,16 @@
   [isLoading]="isLoading()"
   [notFound]="notFound()"
   [showPageDescription]="false">
-  @if (story()) {
+  @if (story(); as storyValue) {
     <div class="entity-page-section">
       <div class="entity-page-infos">
         <ha-entity-page-info
           [imageUrl]="imageUrl()"
-          [entityId]="story().id"
+          [entityId]="storyValue.id"
           [entityType]="entityType"
           [isAuthor]="isAuthor()"
           [contributors]="contributors()"
-          [date]="story().createdAt">
+          [date]="storyValue.createdAt">
           @if (canEdit()) {
             <div class="entity-page-infos">
               <a type="button" mat-flat-button [routerLink]="storyEditRoute()" class="g-full">

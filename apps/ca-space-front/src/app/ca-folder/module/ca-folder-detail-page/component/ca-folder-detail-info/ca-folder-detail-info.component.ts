@@ -33,7 +33,9 @@ import { CaHierarchyObjectEventState } from '../../../ca-folder-hierarchy-core/s
 })
 export class CaFolderDetailInfoComponent {
   folder = input.required<CaFolder>();
-  canEditFolder = input.required<boolean>();
+  // nullable because callers typically feed it straight from an async pipe, which is null
+  // until the permission check has resolved
+  canEditFolder = input.required<boolean | null>();
 
   private folderActionService = inject(CaFolderActionService);
   private eventState = inject(CaHierarchyObjectEventState);

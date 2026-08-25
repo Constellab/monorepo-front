@@ -83,7 +83,7 @@ export class CaSelectSpaceComponent extends FlFormFieldDirective<CaSpace | null>
     this.value = obj;
   }
 
-  async onFocused(selectedSpace?: CaSpace): Promise<void> {
+  async onFocused(selectedSpace?: CaSpace | null): Promise<void> {
     // by default add the current user and selected user
     const users: CaSpace[] = [];
     if (selectedSpace) {

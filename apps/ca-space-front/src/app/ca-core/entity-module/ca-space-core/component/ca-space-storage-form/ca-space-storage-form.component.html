@@ -6,10 +6,9 @@
       formControlName="defaultFolderStorageLocation"
       required
       [placeholder]="'space_folder_default_storage_location' | translate">
-      @if (formGp.get('defaultFolderStorageLocation').value) {
+      @if (formGp.get('defaultFolderStorageLocation')?.value; as location) {
         <mat-select-trigger>
-          <ca-bucket-location-inline
-            [bucketLocation]="formGp.get('defaultFolderStorageLocation').value"></ca-bucket-location-inline>
+          <ca-bucket-location-inline [bucketLocation]="location"></ca-bucket-location-inline>
         </mat-select-trigger>
       }
       <ca-bucket-location-select-options mode="all"></ca-bucket-location-select-options>
@@ -17,7 +16,7 @@
     <mat-hint>
       {{ 'space_folder_default_storage_location_help' | translate }}
     </mat-hint>
-    @if (formGp.get('defaultFolderStorageLocation').hasError('required')) {
+    @if (formGp.get('defaultFolderStorageLocation')?.hasError('required')) {
       <mat-error>{{ 'space_folder_default_storage_location' | flErrorRequired }}</mat-error>
     }
   </mat-form-field>
@@ -28,12 +27,9 @@
     <mat-select
       formControlName="defaultFolderBackupStorageLocation"
       [placeholder]="'space_default_folder_backup_storage_location' | translate">
-      @if (formGp.get('defaultFolderBackupStorageLocation').value) {
+      @if (formGp.get('defaultFolderBackupStorageLocation')?.value; as backupLocation) {
         <mat-select-trigger>
-          <ca-bucket-location-inline
-            [bucketLocation]="
-              formGp.get('defaultFolderBackupStorageLocation').value
-            "></ca-bucket-location-inline>
+          <ca-bucket-location-inline [bucketLocation]="backupLocation"></ca-bucket-location-inline>
         </mat-select-trigger>
       }
       <ca-bucket-location-select-options mode="all"></ca-bucket-location-select-options>
@@ -41,7 +37,7 @@
     <mat-hint>
       {{ 'space_default_folder_backup_storage_location_help' | translate }}
     </mat-hint>
-    @if (formGp.get('defaultFolderBackupStorageLocation').hasError('required')) {
+    @if (formGp.get('defaultFolderBackupStorageLocation')?.hasError('required')) {
       <mat-error>{{ 'space_default_folder_backup_storage_location' | flErrorRequired }}</mat-error>
     }
   </mat-form-field>

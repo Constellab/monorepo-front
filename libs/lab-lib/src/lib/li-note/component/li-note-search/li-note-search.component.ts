@@ -70,9 +70,9 @@ export class LiNoteSearchComponent implements OnInit {
 
   @Input() columns: FlTableColumnStatic<LiNote>[] = ['title', 'tags', 'creation', 'lastModification'];
 
-  @Input() defaultFilters: Partial<LiNoteSearchFields> | null = null;
+  @Input() defaultFilters: Partial<LiNoteSearchFields> | null | undefined = null;
 
-  @Input() disabledFilters: LiNoteSearchFieldsDisabled | null = null;
+  @Input() disabledFilters: LiNoteSearchFieldsDisabled | null | undefined = null;
 
   @Output() noteSelected: EventEmitter<LiNote> = new EventEmitter();
 

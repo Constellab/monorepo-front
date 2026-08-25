@@ -19,7 +19,7 @@
     [isFlStatusEvent]="true"
     [showServerErrorText]="true"
     class="g-flex-auto main-view">
-    <ng-container *flSectionBodyStatusEvent="selectedView() as view">
+    <ng-container *flSectionBodyStatusEvent="selectedView() ?? '' as view">
       @if (view) {
         <li-resource-view-detail [labView]="view" class="g-full-height">
           <button

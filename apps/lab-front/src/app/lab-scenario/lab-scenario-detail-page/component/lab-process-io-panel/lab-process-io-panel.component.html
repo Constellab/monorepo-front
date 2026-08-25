@@ -65,9 +65,9 @@
   </div>
 
   @if (isOpened) {
-    @if (selectedResourceId$ | async) {
+    @if (selectedResourceId$ | async; as resourceId) {
       <li-resource-detail
-        [resourceId]="selectedResourceId$"
+        [resourceId]="resourceId"
         displayMode="dense"
         class="view-container"></li-resource-detail>
     } @else {

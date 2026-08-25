@@ -2,7 +2,7 @@
 <div class="g-layout-row g-layout-start-center">
   <td-type-inline
     [text]="process.name"
-    [style]="process.style"
+    [style]="process.style ?? tdTypeStyleDefault"
     class="g-text-big g-flex-auto"></td-type-inline>
 
   <!--   Mat menu containing action buttons   -->

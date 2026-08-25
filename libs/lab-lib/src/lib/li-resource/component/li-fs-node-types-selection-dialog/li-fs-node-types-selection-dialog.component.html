@@ -38,9 +38,9 @@
           @for (control of formArray.controls; track control; let i = $index) {
             <div [formGroupName]="i">
               <div class="g-layout-row g-layout-between">
-                @if (control.get('filename').value) {
+                @if (control.get('filename')?.value) {
                   <p class="filename">
-                    {{ control.get('filename').value }}
+                    {{ control.get('filename')?.value }}
                   </p>
                 }
                 <!--  File type  -->
@@ -56,7 +56,7 @@
                       </mat-option>
                     }
                   </mat-select>
-                  @if (control.get('typingName').hasError('required')) {
+                  @if (control.get('typingName')?.hasError('required')) {
                     <mat-error>{{ typePlaceholder | flErrorRequired }}</mat-error>
                   }
                 </mat-form-field>

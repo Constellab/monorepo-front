@@ -3,10 +3,10 @@ import { DateTime } from 'luxon';
 import { TeRichTextBlockModificationWithUser } from './lib';
 
 export class TeTextEditorHistoryModificationGroup {
-  end: DateTime | undefined;
+  end: DateTime;
   modifications: TeRichTextBlockModificationWithUser[];
 
-  constructor(end?: DateTime) {
+  constructor(end: DateTime) {
     this.end = end;
   }
 

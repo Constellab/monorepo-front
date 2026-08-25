@@ -13,7 +13,7 @@
         required
         flInputMaxLength="100"
         placeholder="{{ 'name' | translate }}" />
-      @if (formGp.get('name').hasError('required')) {
+      @if (formGp.get('name')?.hasError('required')) {
         <mat-error>{{ 'name' | flErrorRequired }}</mat-error>
       }
     </mat-form-field>
@@ -43,7 +43,7 @@
         <input
           matInput
           formControlName="endingDate"
-          [min]="formGp.get('startingDate').value"
+          [min]="formGp.get('startingDate')?.value"
           [matDatepicker]="endingPicker"
           [placeholder]="'date_picker_placeholder' | translate" />
         <mat-datepicker-toggle matSuffix [for]="endingPicker"></mat-datepicker-toggle>
@@ -51,7 +51,7 @@
         <!--        <mat-error *ngIf="formGp.get('endingDate').hasError('required')">-->
         <!--          {{'ending_date' | flErrorRequired }}-->
         <!--        </mat-error>-->
-        @if (formGp.get('endingDate').hasError('matDatepickerMin')) {
+        @if (formGp.get('endingDate')?.hasError('matDatepickerMin')) {
           <mat-error>{{ 'error_end_date_before_start' | translate }}</mat-error>
         }
       </mat-form-field>
@@ -69,15 +69,14 @@
             formControlName="mainStorage"
             required
             [placeholder]="'folder_main_storage_location' | translate">
-            @if (formGp.get('mainStorage').value) {
+            @if (formGp.get('mainStorage')?.value; as mainStorageValue) {
               <mat-select-trigger>
-                <ca-bucket-location-inline
-                  [bucketLocation]="formGp.get('mainStorage').value"></ca-bucket-location-inline>
+                <ca-bucket-location-inline [bucketLocation]="mainStorageValue"></ca-bucket-location-inline>
               </mat-select-trigger>
             }
             <ca-bucket-location-select-options></ca-bucket-location-select-options>
           </mat-select>
-          @if (formGp.get('mainStorage').hasError('required')) {
+          @if (formGp.get('mainStorage')?.hasError('required')) {
             <mat-error>{{ 'folder_main_storage_location' | flErrorRequired }}</mat-error>
           }
         </mat-form-field>
@@ -86,10 +85,9 @@
           <mat-select
             formControlName="backupStorage"
             [placeholder]="'folder_backup_storage_location' | translate">
-            @if (formGp.get('backupStorage').value) {
+            @if (formGp.get('backupStorage')?.value; as backupStorageValue) {
               <mat-select-trigger>
-                <ca-bucket-location-inline
-                  [bucketLocation]="formGp.get('backupStorage').value"></ca-bucket-location-inline>
+                <ca-bucket-location-inline [bucketLocation]="backupStorageValue"></ca-bucket-location-inline>
               </mat-select-trigger>
             }
             <ca-bucket-location-select-options></ca-bucket-location-select-options>

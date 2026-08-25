@@ -21,7 +21,7 @@
               matBadgeColor="warn"
               class="logo-container">
               <img
-                [ngSrc]="spaceLogo$ | async"
+                [ngSrc]="(spaceLogo$ | async) ?? ''"
                 [priority]="true"
                 [width]="40"
                 [height]="40"

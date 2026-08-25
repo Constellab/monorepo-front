@@ -1,7 +1,8 @@
 <ha-page [showHeaderCreateButton]="true">
   <fl-infinite-scroll [datasource]="communityAppsPaginated" infiniteMode="auto" class="section">
+    <!-- co-list-filters.user (community-lib) is typed CoUser | null; coerce our undefined "not loaded yet" state -->
     <co-list-filters
-      [user]="user"
+      [user]="user ?? null"
       [listEntityType]="listEntityType"
       [sortsCriteriaKeys]="sortsCriteriaKeys"
       (sortsCriteriaChanged)="onSortsCriteriaChanged($event)"

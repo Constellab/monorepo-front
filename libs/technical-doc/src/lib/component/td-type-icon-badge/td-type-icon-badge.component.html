@@ -1,9 +1,9 @@
 <td-type-icon
-  [iconType]="style().icon_type"
-  [iconTechnicalName]="style().icon_technical_name"
-  [iconColor]="style().icon_color"
+  [iconType]="styleWithDefault().icon_type"
+  [iconTechnicalName]="styleWithDefault().icon_technical_name"
+  [iconColor]="styleWithDefault().icon_color"
   [iconSize]="iconSize()"
-  [style.background]="style().background_color | tdIconBackgroundColor"
+  [style.background]="styleWithDefault().background_color | tdIconBackgroundColor"
   [style.padding]="padding()"
   class="icon">
 </td-type-icon>

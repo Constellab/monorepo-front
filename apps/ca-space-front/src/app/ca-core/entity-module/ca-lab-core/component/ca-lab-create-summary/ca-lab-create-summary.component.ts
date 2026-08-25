@@ -42,7 +42,7 @@ interface CaLabServerPriceEstimation {
   ],
 })
 export class CaLabCreateSummaryComponent implements OnInit {
-  @Input() name: string;
+  @Input() name: string | null | undefined;
 
   @Input({ required: true }) server: FormGroup<CaLabSelectServerForm>;
 

@@ -30,7 +30,7 @@ export class LiSelectNoteComponent extends FlFormFieldDirective<LiNote | null> i
   private noteService = inject(LiNoteService);
   private dialogService = inject(FlDialogService);
 
-  @Input() placeholder: string;
+  @Input() placeholder: string | undefined;
 
   @Output() valueChange: EventEmitter<LiNote | null> = new EventEmitter();
 

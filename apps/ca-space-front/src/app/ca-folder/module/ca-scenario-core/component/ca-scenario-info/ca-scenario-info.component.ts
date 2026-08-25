@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlTagModule } from '@monorepo/front-core-lib/fl-tag';
 import { TeBasicConfig, TeTextEditorModule } from '@monorepo/text-editor';
@@ -25,7 +25,7 @@ import { CaValidatedObjectInfoComponent } from '../../../ca-folder-hierarchy-cor
 export class CaScenarioInfoComponent {
   @Input() scenario: CaScenario;
 
-  @Input() tags: CaHierarchyObjectTagDatasource;
+  @Input() tags: CaHierarchyObjectTagDatasource | undefined;
 
   textEditorConfig = new TeBasicConfig();
 }

@@ -6,7 +6,7 @@
         <h1
           flElementEditable
           (flElementValueChange)="renameDocument(documentPreview.document, $event)"
-          [flElementDisabled]="!userRole().canEdit()">
+          [flElementDisabled]="!canEdit()">
           {{ documentPreview.document.name }}
         </h1>
       </div>
@@ -16,8 +16,8 @@
       </button>
     </div>
 
-    @if (tags()) {
-      <fl-tag-list class="g-text-small" [tags]="tags()" [showNoTagMessage]="false"></fl-tag-list>
+    @if (tags(); as tagsValue) {
+      <fl-tag-list class="g-text-small" [tags]="tagsValue" [showNoTagMessage]="false"></fl-tag-list>
     }
 
     @if (documentPreviewUrl) {

@@ -68,8 +68,8 @@ export class LabPublicRouteResourcePageComponent implements OnInit, OnDestroy {
 
   logo = this.themeService.getConstellabLogo();
 
-  getViewConfig(view: LiResourceView): RvViewConfig | null {
-    if (view.viewConfig == null) return null;
+  getViewConfig(view: LiResourceView): RvViewConfig | undefined {
+    if (view.viewConfig == null) return undefined;
     return {
       methodName: view.viewConfig.viewName,
       configValues: view.viewConfig.configValues,

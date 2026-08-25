@@ -8,19 +8,27 @@
     <mat-label>{{ placeholder }}</mat-label>
   }
   <mat-select
-    [placeholder]="cellRendering ? '' : placeholder"
+    [placeholder]="cellRendering ? '' : (placeholder ?? '')"
     [formControl]="formCtrl"
     [required]="required"
     [multiple]="multiple">
-    @if (selectOptionsGroups() && (selectOptionsGroups() | flObjectKeys).length > 0) {
-      @for (selectOptionsGroupKey of selectOptionsGroups() | flObjectKeys; track selectOptionsGroupKey) {
-        <mat-optgroup [label]="selectOptionsGroupKey" class="opt-group">
-          @for (option of selectOptionsGroups()[selectOptionsGroupKey]; track option.key) {
-            <mat-option [value]="option.key">
-              <span>{{ option.humanName }}</span>
-            </mat-option>
-          }
-        </mat-optgroup>
+    @if (selectOptionsGroups(); as groups) {
+      @if ((groups | flObjectKeys).length > 0) {
+        @for (selectOptionsGroupKey of groups | flObjectKeys; track selectOptionsGroupKey) {
+          <mat-optgroup [label]="selectOptionsGroupKey" class="opt-group">
+            @for (option of groups[selectOptionsGroupKey]; track option.key) {
+              <mat-option [value]="option.key">
+                <span>{{ option.humanName }}</span>
+              </mat-option>
+            }
+          </mat-optgroup>
+        }
+      } @else {
+        @for (option of selectOptions(); track option.key) {
+          <mat-option [value]="option.key">
+            <span>{{ option.humanName }}</span>
+          </mat-option>
+        }
       }
     } @else {
       @for (option of selectOptions(); track option.key) {

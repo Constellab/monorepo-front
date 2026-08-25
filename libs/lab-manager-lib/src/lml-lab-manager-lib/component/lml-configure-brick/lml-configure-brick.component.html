@@ -47,10 +47,10 @@
           </form>
         </div>
 
-        @if (bricks$()) {
-          <fl-infinite-scroll [datasource]="bricks$()" class="community-bricks-list">
+        @if (bricks$(); as bricksDatasource) {
+          <fl-infinite-scroll [datasource]="bricksDatasource" class="community-bricks-list">
             <div class="community-bricks-list-div">
-              @for (brick of bricks$() | flDatasourceConnect | async; track brick.id) {
+              @for (brick of bricksDatasource | flDatasourceConnect | async; track brick.id) {
                 <div>
                   <co-brick-list-item
                     [brick]="brick"
@@ -77,12 +77,14 @@
         <!--  Brick  -->
         <div class="brick-div-info">
           <div class="selected-brick-div">
-            <co-brick-list-item
-              [brick]="formGp.get('brick').value"
-              [brickImage]="formGp.get('brick').value?.imageLink | lmlCommunityBrickImage"
-              [mainBackground]="true"
-              [hideDiscover]="true"
-              class="selected-brick-item"></co-brick-list-item>
+            @if (formGp.get('brick')?.value; as brick) {
+              <co-brick-list-item
+                [brick]="brick"
+                [brickImage]="brick.imageLink | lmlCommunityBrickImage"
+                [mainBackground]="true"
+                [hideDiscover]="true"
+                class="selected-brick-item"></co-brick-list-item>
+            }
           </div>
 
           @if (!isUpdate) {
@@ -104,7 +106,7 @@
               <mat-option [value]="version">{{ version }}</mat-option>
             }
           </mat-select>
-          @if (formGp.get('version').hasError('required')) {
+          @if (formGp.get('version')?.hasError('required')) {
             <mat-error>{{ 'lml.brick_version' | flErrorRequired }}</mat-error>
           }
         </mat-form-field>

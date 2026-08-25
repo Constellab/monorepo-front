@@ -1,11 +1,13 @@
 <div class="version-editor">
   <!-- Version info -->
-  @if (version().status === 'PUBLISHED' && version().publishedAt) {
-    <div
-      class="g-text-small g-text-light version-info g-layout-row-wrap g-layout-start-center g-layout-gap-05em">
-      <div>{{ 'li.form_published_at' | translate }} :</div>
-      <fl-user-with-date [user]="version().publishedBy" [date]="version().publishedAt"></fl-user-with-date>
-    </div>
+  @if (version().status === 'PUBLISHED' && version().publishedBy; as publishedBy) {
+    @if (version().publishedAt; as publishedAt) {
+      <div
+        class="g-text-small g-text-light version-info g-layout-row-wrap g-layout-start-center g-layout-gap-05em">
+        <div>{{ 'li.form_published_at' | translate }} :</div>
+        <fl-user-with-date [user]="publishedBy" [date]="publishedAt"></fl-user-with-date>
+      </div>
+    }
   }
   @if (version().status === 'DRAFT' && version().lastModifiedAt) {
     <div class="g-text-small g-text-light version-info">

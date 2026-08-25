@@ -1,7 +1,7 @@
 <fl-form-field>
   <li-select-scenario
     [formControl]="formCtrl"
-    [placeholder]="{ text: placeholder, translateText: false }"
+    [placeholder]="{ text: placeholder ?? '', translateText: false }"
     [required]="required"></li-select-scenario>
 
   @if (formCtrl.hasError('required')) {

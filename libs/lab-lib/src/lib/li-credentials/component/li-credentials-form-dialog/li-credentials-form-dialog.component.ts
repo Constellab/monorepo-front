@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/cor
 import {
   AbstractControl,
   FormBuilder,
+  FormControl,
   ReactiveFormsModule,
   UntypedFormGroup,
   Validators,
@@ -124,8 +125,15 @@ export class LiCredentialsFormDialogComponent implements OnInit {
     }
   }
 
-  getTypeHumanName(type: string): string {
-    return this.dataSpecs.find((s) => s.type === type)?.humanName ?? type;
+  getTypeHumanName(type: string | undefined): string {
+    return this.dataSpecs.find((s) => s.type === type)?.humanName ?? type ?? '';
+  }
+
+  // 'data' control is always present (set in buildForm/buildDataForm); the fallback FormControl()
+  // is a stopgap for fl-dynamic-abstract-form's `control` input, which is typed as non-nullable
+  // AbstractControl (owned by front-core-lib).
+  getDataControl(): AbstractControl {
+    return this.formGp.get('data') ?? new FormControl();
   }
 
   onTypeChange(event: MatSelectChange): void {

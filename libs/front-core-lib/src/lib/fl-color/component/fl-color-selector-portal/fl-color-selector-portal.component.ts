@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FL_PORTAL_DATA, FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
 
 @Component({
@@ -13,7 +13,7 @@ export class FlColorSelectorPortalComponent {
 
   color?: string = inject(FL_PORTAL_DATA);
 
-  onColorSelected(color: string): void {
+  onColorSelected(color: string | undefined): void {
     this.overlayRef.dispose(color);
   }
 }

@@ -3,17 +3,17 @@
   [showPageDescription]="false"
   [isLoading]="isLoading()"
   [notFound]="notFound()">
-  @if (communityApp()) {
+  @if (communityApp(); as communityAppValue) {
     <div class="entity-page-section">
       <div class="entity-page-infos">
         <ha-entity-page-info
-          [imageUrl]="communityApp().picture | haAppPicture"
-          [entityId]="communityApp().id"
+          [imageUrl]="communityAppValue.picture | haAppPicture"
+          [entityId]="communityAppValue.id"
           [entityType]="entityType"
           [contributors]="contributors()"
-          [date]="communityApp().createdAt"
-          [space]="communityApp().space"
-          [executions]="communityApp().executions ?? 0"
+          [date]="communityAppValue.createdAt"
+          [space]="communityAppValue.space"
+          [executions]="communityAppValue.executions ?? 0"
           [isAuthor]="isAuthor()">
           @if (canEdit()) {
             <div class="entity-page-info-div">
@@ -23,7 +23,7 @@
                   {{ 'edit_app' | translate }}
                 </button>
 
-                @if (communityApp().createdBy.id === currentUser?.id) {
+                @if (communityAppValue.createdBy.id === currentUser?.id) {
                   <button
                     mat-icon-button
                     (click)="deleteCommunityApp()"
@@ -43,17 +43,17 @@
             <div class="app-page-title-div app-page-launch-div">
               <h2>{{ 'the_app' | translate }}</h2>
               <div class="g-layout-row g-gap-05em">
-                @if (communityApp().contactMail) {
-                  <a type="button" mat-flat-button [href]="'mailto:' + communityApp().contactMail">{{
+                @if (communityAppValue.contactMail) {
+                  <a type="button" mat-flat-button [href]="'mailto:' + communityAppValue.contactMail">{{
                     'contact_creator' | translate
                   }}</a>
                 }
 
-                @if (communityApp().appUrl) {
+                @if (communityAppValue.appUrl) {
                   <a
                     type="button"
                     mat-flat-button
-                    [href]="communityApp().appUrl"
+                    [href]="communityAppValue.appUrl"
                     target="_blank"
                     rel="noopener noreferrer"
                     >{{ 'open_app' | translate }}</a
@@ -64,7 +64,7 @@
             <div class="entity-page-separator"></div>
           </div>
 
-          @if (canEdit() || communityApp().figures?.length > 0 || communityApp().video) {
+          @if (canEdit() || (communityAppValue.figures?.length ?? 0) > 0 || communityAppValue.video) {
             <div>
               @if (canEdit()) {
                 <div class="app-page-title-div edit-figures-div g-layout-row-reverse">
@@ -75,7 +75,7 @@
               }
 
               <div class="carousel">
-                @if (communityApp().figures?.length > 0 || communityApp().video) {
+                @if ((communityAppValue.figures?.length ?? 0) > 0 || communityAppValue.video) {
                   <ha-community-app-carousel></ha-community-app-carousel>
                 } @else {
                   <p>{{ 'app_no_media_yet' | translate }}</p>

@@ -1,7 +1,10 @@
-@if (brick()) {
+@if (brick(); as brickValue) {
   <div class="table-version">
     @if (userHasEditRight()) {
-      <button mat-flat-button class="button-add-version primary" (click)="openNewVersionDialog(brick().name)">
+      <button
+        mat-flat-button
+        class="button-add-version primary"
+        (click)="openNewVersionDialog(brickValue.name)">
         {{ 'add_version' | translate }}
       </button>
     }

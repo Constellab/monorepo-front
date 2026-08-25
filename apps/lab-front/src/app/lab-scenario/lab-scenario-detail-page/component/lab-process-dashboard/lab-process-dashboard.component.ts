@@ -47,11 +47,12 @@ import {
   LiTypeDialogComponent,
   LiTypeDialogInput,
 } from '@monorepo/lab-lib/li-type';
+import { PrWorkflowNodeProcess } from '@monorepo/protocol';
 import { TdParamSpecVisibility, TdTypingName } from '@monorepo/technical-doc';
 import { TranslatePipe } from '@ngx-translate/core';
 import { DateTime } from 'luxon';
 import { Observable, Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 
 import { LabCoServiceConfig } from '../../../../lab-core/lab-co-service-config.service';
 import { LabWorkflowEditConfig } from '../../model/lab-workflow-edit-config.class';
@@ -105,7 +106,11 @@ export class LabProcessDashboardComponent implements OnInit, OnDestroy {
   private labCoServiceConfig = inject(LabCoServiceConfig);
 
   process$ = this.nodeState.getProcess$();
-  nodeProcess$ = this.nodeState.getNode$();
+  // the dashboard is only opened once a node is selected; filter out the null emitted
+  // when the node gets deselected/deleted while the dashboard is still open
+  nodeProcess$ = this.nodeState
+    .getNode$()
+    .pipe(filter((node): node is PrWorkflowNodeProcess => node != null));
 
   isEditable$ = this.scenarioState.isEditable$();
   isWaiting$ = this.scenarioState.getScenario$().pipe(map((scenario) => scenario.isWaiting()));

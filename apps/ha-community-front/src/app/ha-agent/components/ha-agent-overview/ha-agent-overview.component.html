@@ -1,4 +1,4 @@
-@if (agent()) {
+@if (agent(); as agentValue) {
   <div class="agent-page-content">
     <div>
       <div class="agent-page-title g-layout-row g-layout-between-center">
@@ -26,7 +26,7 @@
     </div>
 
     <div class="entity-page-separator"></div>
-    @if (agent().latestPublishVersion) {
+    @if (agentValue.latestPublishVersion) {
       <ha-agent-version-detail [isOverview]="true"></ha-agent-version-detail>
     } @else {
       <p class="not-published-message">{{ 'no_agent_version_published_yet' | translate }}</p>

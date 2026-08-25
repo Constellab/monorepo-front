@@ -3,6 +3,6 @@
     <mat-icon flIcon="group" class="icon"></mat-icon>
     <span>{{ group.label }}</span>
   </fl-text-icon>
-} @else {
-  <fl-user-inline [user]="group.user" [portalOnHover]="!disableUserPortal"></fl-user-inline>
+} @else if (group.user; as user) {
+  <fl-user-inline [user]="user" [portalOnHover]="!disableUserPortal"></fl-user-inline>
 }

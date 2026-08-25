@@ -1,5 +1,15 @@
 import { NgClass } from '@angular/common';
-import { ChangeDetectionStrategy,Component, inject, Input, input, OnDestroy, OnInit, Signal, viewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  Input,
+  input,
+  OnDestroy,
+  OnInit,
+  Signal,
+  viewChild,
+} from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import {
@@ -12,7 +22,7 @@ import {
 import { RouterLink } from '@angular/router';
 import { ClSubscriptionHandler } from '@monorepo/core-lib';
 import { FlTree } from '@monorepo/front-core-lib/fl-core';
-import { Observable, switchMap } from 'rxjs';
+import { filter, Observable, switchMap } from 'rxjs';
 
 import { CaNotificationType } from '../../../../model/entities/ca-notification.class';
 import {
@@ -45,9 +55,9 @@ import { CaHierarchyObjectIconComponent } from '../ca-hierarchy-object-icon/ca-h
 export class CaHierarchyObjectTreeComponent implements OnInit, OnDestroy {
   hierarchyObjects = input.required<CaHierarchyObjectsTreeDatasource>();
 
-  @Input({ required: true }) selectedObject$: Observable<string>;
+  @Input({ required: true }) selectedObject$: Observable<string | null>;
 
-  getRoute = input.required<(node: CaHierarchyObjectSimple) => string>();
+  getRoute = input.required<(node: CaHierarchyObjectSimple) => string | null>();
 
   notificationObjectType = input<CaNotificationType>();
 
@@ -66,7 +76,10 @@ export class CaHierarchyObjectTreeComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       this.subscription.add(
         this.selectedObject$
-          .pipe(switchMap((selectedObjectId) => this.hierarchyObjects().findAncestorsNode$(selectedObjectId)))
+          .pipe(
+            filter((selectedObjectId): selectedObjectId is string => selectedObjectId != null),
+            switchMap((selectedObjectId) => this.hierarchyObjects().findAncestorsNode$(selectedObjectId))
+          )
           .subscribe((ancestors) => this.refreshSelectedAndExpand(ancestors))
       );
     }, 0);

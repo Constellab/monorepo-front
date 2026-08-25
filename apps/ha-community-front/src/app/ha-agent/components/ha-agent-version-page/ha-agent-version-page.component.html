@@ -1,15 +1,15 @@
-@if (agentVersion()) {
+@if (agentVersion(); as version) {
   <div class="agent-version-page-content">
     <div>
       <div class="agent-version-page-title g-layout-row g-layout-between-center">
-        <h2>{{ 'version' | translate }} {{ agentVersion().version }}</h2>
+        <h2>{{ 'version' | translate }} {{ version.version }}</h2>
         @if (canEdit()) {
           <div class="agent-version-info">
-            @if (agentVersion().versionState === 'DRAFT') {
+            @if (version.versionState === 'DRAFT') {
               <span class="g-text-small g-warn-text">{{
                 'warn_agent_version_not_published' | translate
               }}</span>
-              <button mat-flat-button (click)="publishAgentVersion(agentVersion().id)">
+              <button mat-flat-button (click)="publishAgentVersion(version.id)">
                 {{ 'publish' | translate }}
               </button>
             }

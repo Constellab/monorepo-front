@@ -7,7 +7,7 @@
       </ng-container>
 
       <ng-container ca-detail-card-actions>
-        @if (userRole().canEdit()) {
+        @if (userRole()?.canEdit()) {
           <button mat-stroked-button type="button" (click)="openNoteInformation(note)" class="g-button-small">
             {{ 'note_information' | translate }}
             <mat-icon>info</mat-icon>
@@ -25,8 +25,8 @@
       </ng-container>
 
       <ng-container ca-detail-card-meta>
-        @if (tags()) {
-          <fl-tag-list class="g-text-small" [tags]="tags()" [showNoTagMessage]="false"></fl-tag-list>
+        @if (tags(); as tagsDatasource) {
+          <fl-tag-list class="g-text-small" [tags]="tagsDatasource" [showNoTagMessage]="false"></fl-tag-list>
         }
 
         <div class="g-text-small g-layout-row-wrap authors">
@@ -35,13 +35,13 @@
             <fl-user-with-date [user]="note.createdBy" [date]="note.createdAt"></fl-user-with-date>
           </div>
 
-          @if (note.lastModifiedBy || note.lastModifiedAt) {
-            <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
-              <span class="author-label">{{ 'modified' | translate }}</span>
-              <fl-user-with-date
-                [user]="note.lastModifiedBy"
-                [date]="note.lastModifiedAt"></fl-user-with-date>
-            </div>
+          @if (note.lastModifiedBy; as lastModifiedBy) {
+            @if (note.lastModifiedAt; as lastModifiedAt) {
+              <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
+                <span class="author-label">{{ 'modified' | translate }}</span>
+                <fl-user-with-date [user]="lastModifiedBy" [date]="lastModifiedAt"></fl-user-with-date>
+              </div>
+            }
           }
         </div>
 

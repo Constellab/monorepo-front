@@ -36,7 +36,7 @@
       <div
         class="agents-list-div g-scrollable-element"
         (flInfiniteScroll)="agentsDatasource.getNextPage()"
-        [flInfiniteDisabled]="agentsDatasource?.isLoading || agentsDatasource?.page?.last"
+        [flInfiniteDisabled]="agentsDatasource.isLoading || agentsDatasource.page?.last || false"
         flInfiniteMode="auto">
         @for (agent of agentsDatasource.connect() | async; track agent) {
           <div class="g-clickable">

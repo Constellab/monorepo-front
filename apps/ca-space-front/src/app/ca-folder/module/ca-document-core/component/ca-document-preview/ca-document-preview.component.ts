@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, Injector, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, Injector, input } from '@angular/core';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -38,7 +38,9 @@ import { CaDocumentActionDetailMenu, CaDocumentActionEvent } from '../../ca-docu
 })
 export class CaDocumentPreviewComponent {
   documentId = input.required<string>();
-  userRole = input.required<CaRootFolderUserRoleObj>();
+  // nullable because the async pipe used by consumers only ever resolves the role once the hierarchy
+  // object context has loaded
+  userRole = input.required<CaRootFolderUserRoleObj | null>();
   hierarchyObjectToken = input<string>();
 
   tags = input<CaHierarchyObjectTagDatasource>();
@@ -58,13 +60,18 @@ export class CaDocumentPreviewComponent {
     )
   );
 
+  canEdit = computed(() => this.userRole()?.canEdit() ?? false);
+
   openMenu(document: CaDocument, event: MouseEvent): void {
+    const userRole = this.userRole();
+    if (userRole == null) return;
+
     const documentMenu = new CaDocumentActionDetailMenu(
       this.injector,
       {
         id: document.id,
         name: document.name,
-        userRole: this.userRole(),
+        userRole,
         isConstellabDocument: document.isConstellabDocument(),
       },
       null,

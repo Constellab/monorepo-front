@@ -62,17 +62,17 @@
       </div>
     </fl-text-icon>
 
-    @if (resource.isFsNode()) {
+    @if (resource.fsNode; as fsNode) {
       <!--  File  -->
       <fl-text-icon class="line">
-        <mat-icon>{{ resource.fsNode.isFile ? 'description' : 'folder' }}</mat-icon>
-        {{ resource.fsNode.name }} : {{ resource.fsNode.size | flByteText }}
+        <mat-icon>{{ fsNode.isFile ? 'description' : 'folder' }}</mat-icon>
+        {{ fsNode.name }} : {{ fsNode.size | flByteText }}
       </fl-text-icon>
 
       <!--  Path  -->
       <fl-text-icon class="line path">
         <mat-icon>location_on</mat-icon>
-        {{ resource.fsNode.path }}
+        {{ fsNode.path }}
       </fl-text-icon>
     }
 

@@ -15,7 +15,7 @@
           type="number"
           [placeholder]="'lab_volume_size' | translate" />
 
-        @if (formGp.get('size').invalid) {
+        @if (formGp.get('size')?.invalid) {
           <mat-error>{{ 'lab_volume_size_error' | translate }}</mat-error>
         }
       </mat-form-field>
@@ -27,7 +27,7 @@
           <mat-option [value]="'CLASSIC'">{{ 'lab_volume_type_CLASSIC' | translate }}</mat-option>
           <mat-option [value]="'HIGH_SPEED'">{{ 'lab_volume_type_HIGH_SPEED' | translate }}</mat-option>
         </mat-select>
-        @if (formGp.get('type').hasError('required')) {
+        @if (formGp.get('type')?.hasError('required')) {
           <mat-error>{{ 'lab_volume_type' | flErrorRequired }}</mat-error>
         }
       </mat-form-field>
@@ -44,7 +44,7 @@
         [placeholder]="'start_date' | translate" />
       <mat-datepicker-toggle matSuffix [for]="startingPicker"></mat-datepicker-toggle>
       <mat-datepicker #startingPicker startView="month"></mat-datepicker>
-      @if (formGp.get('startDate').hasError('required')) {
+      @if (formGp.get('startDate')?.hasError('required')) {
         <mat-error>{{ 'start_date' | flErrorRequired }}</mat-error>
       }
     </mat-form-field>

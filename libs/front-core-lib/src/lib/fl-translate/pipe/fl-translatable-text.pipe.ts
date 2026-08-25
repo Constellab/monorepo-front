@@ -14,7 +14,9 @@ import { FlTranslateService } from '../service/fl-translate.service';
 export class FlTranslatableTextPipe implements PipeTransform {
   private translateService = inject(FlTranslateService);
 
-  transform(value: FlTranslatableText | Observable<FlTranslatableText>): Observable<string> | null {
+  transform(
+    value: FlTranslatableText | Observable<FlTranslatableText> | null | undefined
+  ): Observable<string> | null {
     if (!value) return null;
     if (value instanceof Observable) {
       return value.pipe(mergeMap((value) => this.translateService.translatableTextObs(value) ?? EMPTY));

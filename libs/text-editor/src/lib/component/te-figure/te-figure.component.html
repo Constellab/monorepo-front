@@ -8,7 +8,7 @@
       [style.width]="imageWidth + 'px'"
       [style.height]="imageHeight + 'px'">
       <img
-        [ngSrc]="sanitizedUrl"
+        [ngSrc]="sanitizedUrl ?? ''"
         [width]="imageWidth"
         [height]="imageHeight"
         draggable="false"

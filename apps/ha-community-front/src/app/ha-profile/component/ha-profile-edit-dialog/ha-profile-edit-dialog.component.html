@@ -12,7 +12,7 @@
       <mat-hint>{{ 'alias_hint' | translate }}</mat-hint>
       <mat-label>{{ 'alias' | translate }}</mat-label>
       <input matInput formControlName="alias" placeholder="{{ 'alias' | translate }}" />
-      @if (formGp.get('alias').hasError('pattern') || formGp.get('alias').hasError('required')) {
+      @if (formGp.get('alias')?.hasError('pattern') || formGp.get('alias')?.hasError('required')) {
         <mat-error>{{ 'invalid_alias' | translate }}</mat-error>
       }
     </mat-form-field>
@@ -21,7 +21,7 @@
       <mat-label>LinkedIn</mat-label>
       <mat-icon svgIcon="linkedin" matPrefix></mat-icon>
       <input matInput formControlName="linkedinLink" placeholder="LinkedIn" />
-      @if (formGp.get('linkedinLink').hasError('pattern')) {
+      @if (formGp.get('linkedinLink')?.hasError('pattern')) {
         <mat-error>{{ 'invalid_link' | translate }}</mat-error>
       }
     </mat-form-field>
@@ -30,7 +30,7 @@
       <mat-label>Github</mat-label>
       <mat-icon svgIcon="github" matPrefix></mat-icon>
       <input matInput formControlName="githubLink" placeholder="Github" />
-      @if (formGp.get('githubLink').hasError('pattern')) {
+      @if (formGp.get('githubLink')?.hasError('pattern')) {
         <mat-error>{{ 'invalid_link' | translate }}</mat-error>
       }
     </mat-form-field>
@@ -39,7 +39,7 @@
       <mat-label>X</mat-label>
       <mat-icon svgIcon="x" matPrefix></mat-icon>
       <input matInput formControlName="xLink" placeholder="X" />
-      @if (formGp.get('xLink').hasError('pattern')) {
+      @if (formGp.get('xLink')?.hasError('pattern')) {
         <mat-error>{{ 'invalid_link' | translate }}</mat-error>
       }
     </mat-form-field>

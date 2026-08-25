@@ -49,7 +49,7 @@ export class FlFormInputsManagerComponent implements OnInit, OnDestroy {
   /**
    * If true, the false values are considered as null and the chip will not be created
    */
-  @Input() skipFalseBoolean: boolean = false;
+  @Input() skipFalseBoolean: boolean | undefined = false;
 
   /**
    * Event called whenever the chip list is refreshed (on form value change)

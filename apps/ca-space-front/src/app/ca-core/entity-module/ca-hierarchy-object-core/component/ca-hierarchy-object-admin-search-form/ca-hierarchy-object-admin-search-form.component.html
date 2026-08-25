@@ -13,9 +13,9 @@
         formControlName="objectType"
         panelClass="g-mat-select-panel-no-max-height"
         [placeholder]="'folder_object_type' | translate">
-        @if (typeIsSelected()) {
+        @if (getSelectedTypeLabel(); as selectedType) {
           <mat-select-trigger>
-            {{ getSelectedTypeLabel().label | translate }}
+            {{ selectedType.label | translate }}
           </mat-select-trigger>
         }
 

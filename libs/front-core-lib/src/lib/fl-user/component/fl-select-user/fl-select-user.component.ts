@@ -74,7 +74,7 @@ export class FlSelectUserComponent extends FlFormFieldDirective<FlUser | null> i
     this.value = obj;
   }
 
-  onFocused(selectedUser?: FlUser): void {
+  onFocused(selectedUser?: FlUser | null): void {
     // by default add the current user and selected user
     const users: FlUser[] = [];
     if (selectedUser) {

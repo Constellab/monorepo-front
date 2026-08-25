@@ -1,6 +1,6 @@
 <div class="center">
-  @if (error()) {
-    <fl-error-text [errorMessage]="error()"></fl-error-text>
+  @if (error(); as errorMessage) {
+    <fl-error-text [errorMessage]="errorMessage"></fl-error-text>
   } @else {
     <fl-loader></fl-loader>
   }

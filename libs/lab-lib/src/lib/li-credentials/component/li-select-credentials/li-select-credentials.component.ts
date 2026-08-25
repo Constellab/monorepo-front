@@ -52,7 +52,7 @@ export class LiSelectCredentialsComponent
 
   @Input() placeholder: FlTranslatableText = { text: 'li.select_credentials', translateText: true };
 
-  @Input() type: string;
+  @Input() type: string | undefined;
 
   @Output() credentialsChange: EventEmitter<LiCredentials | null> = new EventEmitter();
 

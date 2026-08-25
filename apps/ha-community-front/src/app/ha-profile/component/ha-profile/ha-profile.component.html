@@ -1,19 +1,19 @@
 <div class="profile-page">
-  @if (user()) {
+  @if (user(); as u) {
     <ha-header>
       <div class="profile-header-section">
         <div class="picture-alias-div">
           <fl-user-profile-picture
-            [user]="user()"
+            [user]="u"
             [size]="180"
             [sizeInPx]="true"
             class="icon"></fl-user-profile-picture>
 
           <div class="alias-div">
             <div class="alias-certification-row">
-              <h1>{{ user().alias }}</h1>
+              <h1>{{ u.alias }}</h1>
             </div>
-            <span class="g-large-text">#{{ user().userCode }}</span>
+            <span class="g-large-text">#{{ u.userCode }}</span>
           </div>
         </div>
         <!--      <div class="user-header-stats-div">-->
@@ -27,7 +27,7 @@
       <div class="entity-page-infos user-infos-list">
         @if (isCurrentUser()) {
           <div class="entity-page-infos">
-            <button type="button" mat-flat-button (click)="openEditProfileDialog(user())" class="g-full">
+            <button type="button" mat-flat-button (click)="openEditProfileDialog(u)" class="g-full">
               <mat-icon>edit</mat-icon>
               {{ 'edit_profile' | translate }}
             </button>
@@ -59,7 +59,7 @@
         <div class="entity-page-info-div">
           <span class="g-text-medium g-weight-600">{{ 'interests' | translate }}</span>
           <div class="entity-page-info-div-content">
-            {{ user().interests || ('no_interests_specified' | translate) }}
+            {{ u.interests || ('no_interests_specified' | translate) }}
           </div>
         </div>
 

@@ -39,14 +39,14 @@ export class CaLoginPageComponent implements OnInit {
   private authorizeReturnUrl: WritableSignal<string | null> = signal(null);
 
   /**
-   * Route fl-complete-login navigates to once the login is through. Null when the redirection leaves
-   * the app entirely: an in-app navigation would tear this page down mid-redirection, and a route
-   * saved by an expired session would win over the flow the visitor came here to complete.
+   * Route fl-complete-login navigates to once the login is through. Undefined when the redirection
+   * leaves the app entirely: an in-app navigation would tear this page down mid-redirection, and a
+   * route saved by an expired session would win over the flow the visitor came here to complete.
    *
    * Derived rather than stored, so the two can never disagree about where the visitor is going.
    */
-  redirectionRoute: Signal<string | null> = computed(() =>
-    this.authorizeReturnUrl() ? null : CaRouterService.getAppRoute()
+  redirectionRoute: Signal<string | undefined> = computed(() =>
+    this.authorizeReturnUrl() ? undefined : CaRouterService.getAppRoute()
   );
 
   ngOnInit(): void {

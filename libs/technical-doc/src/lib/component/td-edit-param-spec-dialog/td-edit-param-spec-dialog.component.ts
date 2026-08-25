@@ -373,14 +373,21 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
   }
 
   // Only bound when aiFieldAvailable() is true, ie. when generateField does not return null
-  aiGenerateField = (text: string): Observable<TdGenerateFieldResult> | null => {
+  aiGenerateField = (text: string): Observable<TdGenerateFieldResult> => {
     // Always send the field's CURRENT FORM value (including unsaved tweaks) and key as
     // context so the AI builds on exactly what the user sees on screen.
-    return this.data.dynamicParamSpecState.generateField(
+    const result$ = this.data.dynamicParamSpecState.generateField(
       text,
       this.formGroup.get('key')?.value || undefined,
       this.buildParamSpecFromForm()
     );
+    if (!result$) {
+      // Guaranteed by the contract above: aiFieldAvailable() (backed by
+      // supportsFieldGeneration()) is only true when generateField() is overridden
+      // to never return null.
+      throw new Error('generateField() unexpectedly returned null while aiFieldAvailable() is true');
+    }
+    return result$;
   };
 
   onAiFieldResult(result: unknown): void {

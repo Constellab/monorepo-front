@@ -68,6 +68,7 @@
 
     <ch-chart-serie-inline [serieName]="data.serieName" [color]="color"> </ch-chart-serie-inline>
 
-    <fl-tag-list [tags]="data.data.tags" [tagColorer]="tagColorer"></fl-tag-list>
+    <!-- fl-tag-list.tags (front-core-lib) is required and non-nullable; fall back to {} -->
+    <fl-tag-list [tags]="data.data.tags ?? {}" [tagColorer]="tagColorer"></fl-tag-list>
   </fl-portal-content>
 </fl-portal>

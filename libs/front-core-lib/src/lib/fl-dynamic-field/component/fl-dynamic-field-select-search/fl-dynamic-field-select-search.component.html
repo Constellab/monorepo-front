@@ -5,7 +5,7 @@
     [selectedItem]="formCtrl.value"
     (selectedItemChange)="selectOption($event)"
     [datasource]="datasource"
-    [placeholder]="cellRendering ? '' : placeholder"
+    [placeholder]="cellRendering ? '' : (placeholder ?? '')"
     [required]="required"
     [disabled]="disabled"
     [minInputSearchLength]="0">

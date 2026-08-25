@@ -21,9 +21,11 @@
         <ng-content></ng-content>
         <rv-technical-info-button [technicalInfo]="labView.view.technical_info"></rv-technical-info-button>
 
-        <li-view-config-actions-menu
-          [viewConfig]="labView.viewConfig"
-          (update)="onUpdate($event)"></li-view-config-actions-menu>
+        @if (labView.viewConfig; as viewConfig) {
+          <li-view-config-actions-menu
+            [viewConfig]="viewConfig"
+            (update)="onUpdate($event)"></li-view-config-actions-menu>
+        }
       </fl-section-actions>
     </fl-section-header>
   }
@@ -32,7 +34,7 @@
     <rv-resource-view
       [view]="labView.view"
       [config]="viewConfig"
-      [resourceId]="labView.viewConfig.resource.id">
+      [resourceId]="labView.viewConfig?.resource.id">
     </rv-resource-view>
   </ng-container>
 </fl-section>

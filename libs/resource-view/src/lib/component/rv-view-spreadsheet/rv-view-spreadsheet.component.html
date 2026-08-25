@@ -1,5 +1,9 @@
+<!-- stopgap: sp-spreadsheet (libs/spreadsheet, out of scope here) types chartConfigs/pagination as
+     non-nullable, but no chart config / no pagination are legitimate states (see
+     RvSpreadsheetViewConfig.getChartConfig/getPagination, which can return null) - see
+     paginationForSpreadsheet() for details on why the cast there is runtime-safe. -->
 <sp-spreadsheet
   [spreadsheet]="spreadSheet"
-  [chartConfigs]="chartConfig"
-  [pagination]="pagination"
+  [chartConfigs]="chartConfig ?? []"
+  [pagination]="paginationForSpreadsheet"
   [readOnly]="true"></sp-spreadsheet>

@@ -12,7 +12,7 @@
         required
         flInputMaxLength="100"
         [placeholder]="'title' | translate" />
-      @if (formGp.get('title').hasError('required')) {
+      @if (formGp.get('title')?.hasError('required')) {
         <mat-error>{{ 'title' | flErrorRequired }}</mat-error>
       }
     </mat-form-field>
@@ -37,7 +37,11 @@
       </div>
     }
 
-    <button mat-raised-button type="button" [matTooltip]="'edit_agent_style' | translate" (click)="openEditStyleDialog()">
+    <button
+      mat-raised-button
+      type="button"
+      [matTooltip]="'edit_agent_style' | translate"
+      (click)="openEditStyleDialog()">
       <mat-icon>edit</mat-icon>
       {{ 'edit_agent_style' | translate }}
     </button>

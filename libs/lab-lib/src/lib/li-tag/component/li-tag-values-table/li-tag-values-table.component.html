@@ -1,5 +1,4 @@
-<mat-table mat-table [dataSource]="dataSource()">
-
+<mat-table mat-table [dataSource]="dataSource() ?? []">
   <ng-container matColumnDef="isCommunityTagValue">
     <mat-header-cell *matHeaderCellDef class="g-table-icon-button-cell"></mat-header-cell>
     <mat-cell *matCellDef="let tagValue" class="g-table-icon-button-cell">

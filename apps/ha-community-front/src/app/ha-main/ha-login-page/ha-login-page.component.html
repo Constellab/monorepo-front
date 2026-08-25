@@ -9,8 +9,10 @@
     </p>
 
     <div class="login-card">
+      <!-- fl-complete-login.redirectionRoute (front-core-lib) is typed string | undefined; our own
+           redirectionRoute is honestly string | null (from FlLoginSavedRoute.getRoutePath()). -->
       <fl-complete-login
-        [redirectionRoute]="redirectionRoute"
+        [redirectionRoute]="redirectionRoute ?? undefined"
         (loginSuccess)="onLoginSuccess()"
         class="login">
         <ng-content select="fl-login-footer"></ng-content>

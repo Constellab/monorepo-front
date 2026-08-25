@@ -55,10 +55,10 @@
       <mat-form-field class="full-width g-form-input">
         <mat-label>{{ 'td.label' | translate }}</mat-label>
         <input matInput formControlName="human_name" />
-        @if (formGroup.get('human_name').hasError('required')) {
+        @if (formGroup.get('human_name')?.hasError('required')) {
           <mat-error>{{ 'td.label' | flErrorRequired }}</mat-error>
         }
-        <mat-hint> {{ 'td.key' | translate }}: {{ formGroup.get('key').value }} </mat-hint>
+        <mat-hint> {{ 'td.key' | translate }}: {{ formGroup.get('key')?.value }} </mat-hint>
       </mat-form-field>
 
       <mat-form-field class="full-width">
@@ -76,14 +76,14 @@
             <mat-form-field class="half-width">
               <mat-label>{{ 'td.min_length' | translate }}</mat-label>
               <input matInput type="number" min="0" formControlName="min_length" />
-              @if (formGroup.get('additional_info.min_length').hasError('min')) {
+              @if (formGroup.get('additional_info.min_length')?.hasError('min')) {
                 <mat-error>{{ 'td.value_must_be_positive' | translate }}</mat-error>
               }
             </mat-form-field>
             <mat-form-field class="half-width">
               <mat-label>{{ 'td.max_length' | translate }}</mat-label>
               <input matInput type="number" min="0" formControlName="max_length" />
-              @if (formGroup.get('additional_info.max_length').hasError('min')) {
+              @if (formGroup.get('additional_info.max_length')?.hasError('min')) {
                 <mat-error>{{ 'td.value_must_be_positive' | translate }}</mat-error>
               }
             </mat-form-field>
@@ -201,14 +201,14 @@
             <mat-form-field class="half-width">
               <mat-label>{{ 'td.min_number_of_occurrences' | translate }}</mat-label>
               <input matInput type="number" min="0" formControlName="min_number_of_occurrences" />
-              @if (formGroup.get('additional_info.min_number_of_occurrences').hasError('min')) {
+              @if (formGroup.get('additional_info.min_number_of_occurrences')?.hasError('min')) {
                 <mat-error>{{ 'td.value_must_be_positive' | translate }}</mat-error>
               }
             </mat-form-field>
             <mat-form-field class="half-width">
               <mat-label>{{ 'td.max_number_of_occurrences' | translate }}</mat-label>
               <input matInput type="number" min="1" formControlName="max_number_of_occurrences" />
-              @if (formGroup.get('additional_info.max_number_of_occurrences').hasError('min')) {
+              @if (formGroup.get('additional_info.max_number_of_occurrences')?.hasError('min')) {
                 <mat-error>{{ 'td.value_must_be_at_least_one' | translate }}</mat-error>
               }
             </mat-form-field>
@@ -244,7 +244,7 @@
             </button>
           </div>
 
-          @for (option of formGroup.get('additional_info.options').value; track $index) {
+          @for (option of formGroup.get('additional_info.options')?.value; track $index) {
             <div class="row">
               <mat-form-field class="full-width">
                 <mat-label>{{ 'td.option_value' | translate }}</mat-label>
@@ -252,7 +252,7 @@
                   matInput
                   [value]="option.value"
                   (input)="updateSelectOption($index, $any($event.target).value)" />
-                @if (formGroup.get('additional_info.options').value.length > 1) {
+                @if (formGroup.get('additional_info.options')?.value.length > 1) {
                   <button matSuffix mat-icon-button type="button" (click)="removeSelectOption($index)">
                     <mat-icon>clear</mat-icon>
                   </button>
@@ -303,8 +303,8 @@
           </div>
         }
 
-        @if (defaultValueConfig()) {
-          <fl-dynamic-field [config]="defaultValueConfig()" [control]="$any(formGroup.get('default_value'))">
+        @if (defaultValueConfig(); as config) {
+          <fl-dynamic-field [config]="config" [control]="$any(formGroup.get('default_value'))">
           </fl-dynamic-field>
         }
       </div>

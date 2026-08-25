@@ -12,7 +12,7 @@
         [placeholder]="'li.label' | translate"
         autocomplete="off"
         required />
-      @if (formGp.get('label').hasError('required')) {
+      @if (formGp.get('label')?.hasError('required')) {
         <mat-error>{{ 'li.label' | flErrorRequired }}</mat-error>
       }
     </mat-form-field>
@@ -25,10 +25,10 @@
         [placeholder]="'li.key' | translate"
         (change)="keyChanged = true"
         required />
-      @if (formGp.get('key').hasError('required')) {
+      @if (formGp.get('key')?.hasError('required')) {
         <mat-error>{{ 'li.key' | flErrorRequired }}</mat-error>
       }
-      @if (formGp.get('key').hasError('pattern')) {
+      @if (formGp.get('key')?.hasError('pattern')) {
         <mat-error>{{ 'li.key_invalid' | translate }}</mat-error>
       }
     </mat-form-field>

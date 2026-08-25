@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { TdTypeStyleIconType } from '@monorepo/technical-doc';
 
 export interface PrWorkflowNodeIcon {
@@ -16,5 +16,7 @@ export interface PrWorkflowNodeIcon {
   standalone: false,
 })
 export class PrWorkflowNodeContentComponent {
-  @Input({ required: true }) icon: PrWorkflowNodeIcon;
+  // nullable: bound from an async pipe on an Observable<PrWorkflowNodeIcon> (no value before the
+  // first emission)
+  @Input({ required: true }) icon: PrWorkflowNodeIcon | null;
 }

@@ -11,7 +11,7 @@
         (focus)="(null)"
         (mouseleave)="hideTooltip()"
         (blur)="hideTooltip()"
-        >{{ seg.isOuter ? '@@' : '@' }}{{ seg.entry?.spec.human_name || seg.key }}</span
+        >{{ seg.isOuter ? '@@' : '@' }}{{ seg.entry?.spec?.human_name || seg.key }}</span
       >
     }
   }

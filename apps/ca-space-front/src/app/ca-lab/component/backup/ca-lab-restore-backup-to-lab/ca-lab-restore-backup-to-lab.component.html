@@ -13,7 +13,7 @@
         mode="all-cloud"
         [required]="true"
         [placeholder]="'destination_lab' | translate"></ca-select-lab>
-      @if (formGp.get('destinationLab').hasError('required')) {
+      @if (formGp.get('destinationLab')?.hasError('required')) {
         <mat-error>{{ 'destination_lab' | flErrorRequired }}</mat-error>
       }
     </fl-form-field>

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, DestroyRef, inject, input, OnInit, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, input, OnInit, output } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
@@ -29,12 +29,12 @@ export class FlDatetimePickerComponent implements ControlValueAccessor, OnInit {
   /**
    * Label for the date field
    */
-  label = input<string>('');
+  label = input<string | undefined>('');
 
   /**
    * Hint text displayed below the date field
    */
-  hint = input<string>('');
+  hint = input<string | undefined>('');
 
   /**
    * Minimum selectable date

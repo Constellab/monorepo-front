@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, Injector, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Injector, input, signal } from '@angular/core';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
@@ -44,7 +44,8 @@ import {
 })
 export class CaResourceDetailComponent {
   resourceId = input.required<string>();
-  userRole = input.required<CaRootFolderUserRoleObj>();
+  // null while the user role (from an async pipe) hasn't emitted its first value yet
+  userRole = input.required<CaRootFolderUserRoleObj | null>();
   tags = input<CaHierarchyObjectTagDatasource>();
 
   private resourceService = inject(CaResourceService);
@@ -72,12 +73,15 @@ export class CaResourceDetailComponent {
   );
 
   openMenu(resource: CaResource, event: MouseEvent): void {
+    const userRole = this.userRole();
+    if (!userRole) return;
+
     const resourceMenu = new CaResourceActionMenu(
       this.injector,
       {
         id: resource.id,
         name: resource.name,
-        userRole: this.userRole(),
+        userRole: userRole,
       },
       { tags: this.tags() }
     );

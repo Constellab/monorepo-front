@@ -1,8 +1,8 @@
-@if (agentVersion()) {
+@if (agentVersion(); as version) {
   <div class="agent-page-title g-layout-row g-layout-between-center">
     <h3>
-      @if (agentVersion()?.agent && isOverview()) {
-        {{ ('latest_version_info' | translate) + ' (V' + agentVersion()?.agent.latestPublishVersion + ')' }}
+      @if (isOverview() && version.agent; as agentField) {
+        {{ ('latest_version_info' | translate) + ' (V' + agentField.latestPublishVersion + ')' }}
       } @else {
         {{ 'detail_of_the_version' | translate }}
       }
@@ -22,7 +22,7 @@
     }
   </div>
 
-  @if (!versionInfosFormControl()?.value.isEmpty() || canEdit()) {
+  @if (!versionInfosFormControl()?.value?.isEmpty() || canEdit()) {
     <te-text-editor
       class="community-text-editor"
       [config]="textEditorConfig"
@@ -31,48 +31,47 @@
     </te-text-editor>
   }
 
-  @if (
-    (agentVersion()?.inputSpecs?.specs | flIsNotEmpty) || (agentVersion()?.outputSpecs?.specs | flIsNotEmpty)
-  ) {
+  @if ((version.inputSpecs?.specs | flIsNotEmpty) || (version.outputSpecs?.specs | flIsNotEmpty)) {
     <div class="agent-version-card io-card">
-      @if (agentVersion()?.inputSpecs?.specs | flIsNotEmpty) {
-        <div class="io-div">
-          <h3 class="g-small-title">{{ 'input' | translate }}(s)</h3>
-          @for (spec of agentVersion()?.inputSpecs?.specs | flObjectKeys; track spec) {
-            <td-doc-io [ioSpec]="agentVersion()?.inputSpecs?.specs[spec]"></td-doc-io>
-          }
-        </div>
+      @if (version.inputSpecs?.specs; as inputSpecs) {
+        @if (inputSpecs | flIsNotEmpty) {
+          <div class="io-div">
+            <h3 class="g-small-title">{{ 'input' | translate }}(s)</h3>
+            @for (spec of inputSpecs | flObjectKeys; track spec) {
+              <td-doc-io [ioSpec]="inputSpecs[spec]"></td-doc-io>
+            }
+          </div>
+        }
       }
 
-      @if (agentVersion()?.outputSpecs?.specs | flIsNotEmpty) {
-        <div class="io-div">
-          <h3 class="g-small-title">{{ 'output' | translate }}(s)</h3>
-          @for (spec of agentVersion()?.outputSpecs?.specs | flObjectKeys; track spec) {
-            <td-doc-io [ioSpec]="agentVersion()?.outputSpecs?.specs[spec]"></td-doc-io>
-          }
-        </div>
+      @if (version.outputSpecs?.specs; as outputSpecs) {
+        @if (outputSpecs | flIsNotEmpty) {
+          <div class="io-div">
+            <h3 class="g-small-title">{{ 'output' | translate }}(s)</h3>
+            @for (spec of outputSpecs | flObjectKeys; track spec) {
+              <td-doc-io [ioSpec]="outputSpecs[spec]"></td-doc-io>
+            }
+          </div>
+        }
       }
     </div>
   }
 
-  @if (agentVersion()?.configSpecs | flIsNotEmpty) {
+  @if (version.configSpecs | flIsNotEmpty) {
     <div class="agent-version-card">
       <h3 class="g-small-title">{{ 'configuration' | translate }}</h3>
-      <td-config [configSpecs]="agentVersion()?.configSpecs"></td-config>
+      <td-config [configSpecs]="version.configSpecs"></td-config>
     </div>
   }
 
-  @if (agentVersion().params?.['specs'] | flIsNotEmpty) {
+  @if (version.params?.['specs'] | flIsNotEmpty) {
     <div class="agent-version-card">
       <h3 class="g-small-title">{{ 'parameters' | translate }}</h3>
-      <td-config [configSpecs]="agentVersion().params['specs']" />
+      <td-config [configSpecs]="version.params['specs']" />
     </div>
   }
 
-  @if (
-    ((isEditable() && canEdit()) || agentVersion()?.environment | flIsNotEmpty) &&
-    agentVersion().type !== 'PYTHON'
-  ) {
+  @if (((isEditable() && canEdit()) || version.environment | flIsNotEmpty) && version.type !== 'PYTHON') {
     <div class="agent-version-card">
       <div class="title-copy-div">
         <h3 class="g-small-title">{{ 'environment_file' | translate }}</h3>
@@ -81,8 +80,10 @@
           {{ 'copy_environment' | translate }}
         </button>
       </div>
+      <!-- fl-code-editor.language is a required non-nullable input owned by front-core-lib; languageEnvironment()
+           legitimately returns null for PIP-based environments, so fall back to 'yaml' at the binding site. -->
       <fl-code-editor
-        [language]="languageEnvironment()"
+        [language]="languageEnvironment() ?? 'yaml'"
         [formCtrl]="environmentFormControl()"></fl-code-editor>
     </div>
   }

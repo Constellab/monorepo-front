@@ -8,7 +8,7 @@
         required
         flInputMaxLength="100"
         [placeholder]="'coCommunityLib.title' | translate" />
-      @if (formGp.get('title').hasError('required')) {
+      @if (formGp.get('title')?.hasError('required')) {
         <mat-error>{{ 'title' | flErrorRequired }}</mat-error>
       }
     </mat-form-field>
@@ -27,7 +27,7 @@
       </mat-radio-group>
     </div>
 
-    @if (formGp.get('type').value === 'SPACE') {
+    @if (formGp.get('type')?.value === 'SPACE') {
       <fl-async-section [object]="spaces$">
         <ng-container *flSectionBody="spaces$ as spaces">
           <div class="spaces-title">{{ 'coCommunityLib.your_spaces' | translate }}</div>

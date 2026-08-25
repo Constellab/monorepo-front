@@ -51,7 +51,7 @@ export class ChChartComponent implements OnInit, OnDestroy {
   /**
    * If provided, it appends the item to the context menu
    */
-  @Input() contextMenuItems: FlMenuDynamic[];
+  @Input() contextMenuItems: FlMenuDynamic[] | undefined;
 
   @ViewChild('grid', { static: true }) grid: ElementRef;
   @ViewChild('chartContainer', { static: true }) chartContainer: ElementRef;
@@ -165,7 +165,7 @@ export class ChChartComponent implements OnInit, OnDestroy {
       );
     }
 
-    if (this.contextMenuItems?.length > 0) {
+    if (this.contextMenuItems && this.contextMenuItems.length > 0) {
       menu.push(...this.contextMenuItems);
     }
 

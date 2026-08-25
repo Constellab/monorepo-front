@@ -3,16 +3,16 @@
   [showPageDescription]="false"
   [isLoading]="isLoading()"
   [notFound]="brickNotFound()">
-  @if (brick()) {
+  @if (brick(); as brickValue) {
     <div class="entity-page-section">
       <div class="entity-page-infos">
         <ha-entity-page-info
-          [imageUrl]="brick().imageLink | haBrickImage"
-          [entityId]="brick().id"
+          [imageUrl]="brickValue.imageLink | haBrickImage"
+          [entityId]="brickValue.id"
           [entityType]="entityType"
           [contributors]="contributors()"
-          [date]="brick().createdAt"
-          [space]="brick().space"
+          [date]="brickValue.createdAt"
+          [space]="brickValue.space"
           [isAuthor]="isAuthor()">
           @if (userHasEditRight()) {
             <div class="entity-page-info-div">
@@ -51,18 +51,20 @@
             <div class="entity-page-separator"></div>
           }
 
-          @if (isDocPage() && docFiles() && docFiles().length > 0) {
-            <div class="entity-page-info-div">
-              <span class="g-text-medium g-weight-600">{{ 'attached_files' | translate }}</span>
-              <div class="entity-page-info-div-content table-of-contents">
-                @for (file of docFiles(); track file.name) {
-                  <a type="button" [href]="docFileUrlPrefix() + file.name" download>
-                    <fl-file-text-icon [filename]="file.name"></fl-file-text-icon>
-                  </a>
-                }
+          @if (isDocPage() && docFiles(); as files) {
+            @if (files.length > 0) {
+              <div class="entity-page-info-div">
+                <span class="g-text-medium g-weight-600">{{ 'attached_files' | translate }}</span>
+                <div class="entity-page-info-div-content table-of-contents">
+                  @for (file of files; track file.name) {
+                    <a type="button" [href]="docFileUrlPrefix() + file.name" download>
+                      <fl-file-text-icon [filename]="file.name"></fl-file-text-icon>
+                    </a>
+                  }
+                </div>
               </div>
-            </div>
-            <div class="entity-page-separator"></div>
+              <div class="entity-page-separator"></div>
+            }
           }
         </ha-entity-page-info>
       </div>

@@ -38,10 +38,10 @@
       </fl-key-value>
     }
 
-    @if (entity.objectType === 'RESOURCE' && entity.parentTypingName) {
+    @if (entity.objectType === 'RESOURCE' && parentResourceRef; as parentResource) {
       <div class="section-item g-layout-row g-layout-start-center g-layout-gap-05em">
         <span>{{ 'td.parent' | translate }} :</span>
-        <td-io-resource [resource]="parentResourceRef"></td-io-resource>
+        <td-io-resource [resource]="parentResource"></td-io-resource>
       </div>
     }
   </div>

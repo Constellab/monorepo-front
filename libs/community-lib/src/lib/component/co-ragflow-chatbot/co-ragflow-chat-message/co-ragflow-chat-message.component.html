@@ -2,8 +2,8 @@
   class="co-chat-message"
   [class.co-chat-message--user]="isUser()"
   [class.co-chat-message--assistant]="isAssistant()">
-  @if (isUser() && user()) {
-    <fl-user-profile-picture class="co-chat-message-photo" [user]="user()" size="small">
+  @if (isUser() && user(); as currentUser) {
+    <fl-user-profile-picture class="co-chat-message-photo" [user]="currentUser" size="small">
     </fl-user-profile-picture>
   } @else {
     <div class="co-chat-message-avatar">

@@ -21,7 +21,7 @@
         required
         flInputMaxLength="255"
         placeholder="{{ 'li.name' | translate }}" />
-      @if (formGp.get('name').hasError('required')) {
+      @if (formGp.get('name')?.hasError('required')) {
         <mat-error>{{ 'li.name' | flErrorRequired }}</mat-error>
       }
     </mat-form-field>
@@ -54,7 +54,7 @@
     <mat-form-field class="g-form-input">
       <mat-label>{{ 'li.job_cron_expression' | translate }}</mat-label>
       <input matInput formControlName="cronExpression" required placeholder="0 0 * * *" />
-      @if (formGp.get('cronExpression').hasError('required')) {
+      @if (formGp.get('cronExpression')?.hasError('required')) {
         <mat-error>{{ 'li.job_cron_expression' | flErrorRequired }}</mat-error>
       }
     </mat-form-field>
@@ -66,7 +66,7 @@
 
     <!--  Active  -->
     <mat-slide-toggle formControlName="isActive">
-      @if (formGp.get('isActive').value) {
+      @if (formGp.get('isActive')?.value) {
         <span class="status-active">{{ 'li.job_active_yes' | translate }}</span>
       } @else {
         <span class="status-inactive">{{ 'li.job_active_no' | translate }}</span>

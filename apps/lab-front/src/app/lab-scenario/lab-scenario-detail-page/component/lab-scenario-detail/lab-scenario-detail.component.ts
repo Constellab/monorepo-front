@@ -101,7 +101,7 @@ export class LabScenarioDetailComponent implements OnInit, OnDestroy {
     }
   }
 
-  updateFolder(folder: LiFolder): void {
+  updateFolder(folder: LiFolder | null): void {
     this.scenarioService.updateFolder(this.scenarioState.currentScenario.id, folder?.id ?? null).subscribe({
       next: (scenario) => this.scenarioState.updateScenario(scenario),
       // call refresh scenario to set the folder back

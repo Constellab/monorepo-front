@@ -12,6 +12,12 @@ import { TdParamSpecParamSet, TdParamSpecs } from '../../model/td-config-spec.cl
 export class TdConfigComponent {
   configSpecs = input<TdParamSpecs>();
 
+  /**
+   * `configSpecs()` honestly (this is an optional input), but the template needs to index
+   * into it repeatedly without re-checking for `undefined` each time.
+   */
+  specs: Signal<TdParamSpecs> = computed(() => this.configSpecs() ?? {});
+
   paramSet: Signal<Record<string, TdParamSpecs>> = computed(() => {
     const record: Record<string, TdParamSpecs> = {};
     const configSpecs = this.configSpecs() ?? {};

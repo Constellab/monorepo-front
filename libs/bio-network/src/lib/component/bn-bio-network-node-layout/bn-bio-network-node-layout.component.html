@@ -6,7 +6,7 @@
     <div>x: {{ node.x }}</div>
     <div>y: {{ node.y }}</div>
     <!-- Section to save positions to biota only for metabolite -->
-    @if (serviceIsEnabled && metabolites$ | async; as metabolite) {
+    @if (serviceIsEnabled && (metabolites$ | async); as metabolite) {
       <div>
         <p class="g-text-light g-text-small help-text">
           {{ 'bnBioNetwork.save_positions_to_biota_help' | translate }}

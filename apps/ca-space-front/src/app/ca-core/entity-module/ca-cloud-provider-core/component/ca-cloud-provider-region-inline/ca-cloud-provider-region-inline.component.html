@@ -1,26 +1,28 @@
 <div class="g-layout-row g-layout-start-center g-layout-gap-05em g-text-dense-height">
-  @if (region.cloudProvider) {
-    <img
-      [ngSrc]="region.cloudProvider.logo"
-      class="image"
-      [alt]="region.cloudProvider.name"
-      [width]="imageSize"
-      [height]="imageSize" />
-  }
-
-  <div>
-    <div>{{ region.name }}</div>
-
-    @if (size === 'medium') {
-      <div class="g-text-small g-text-light">
-        @if (region.city) {
-          <span>{{ region.city.name }}</span>
-        }
-
-        @if (region.city.country) {
-          <span> - {{ region.city.country.name }}</span>
-        }
-      </div>
+  @if (region; as r) {
+    @if (r.cloudProvider) {
+      <img
+        [ngSrc]="r.cloudProvider.logo"
+        class="image"
+        [alt]="r.cloudProvider.name"
+        [width]="imageSize"
+        [height]="imageSize" />
     }
-  </div>
+
+    <div>
+      <div>{{ r.name }}</div>
+
+      @if (size === 'medium') {
+        <div class="g-text-small g-text-light">
+          @if (r.city) {
+            <span>{{ r.city.name }}</span>
+          }
+
+          @if (r.city.country) {
+            <span> - {{ r.city.country.name }}</span>
+          }
+        </div>
+      }
+    </div>
+  }
 </div>

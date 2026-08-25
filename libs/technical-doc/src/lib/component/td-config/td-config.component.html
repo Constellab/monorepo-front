@@ -1,45 +1,38 @@
-@for (configSpec of configSpecs() | flObjectKeys; track configSpec) {
+@for (configSpec of specs() | flObjectKeys; track configSpec) {
   <div
     [class]="
-      (configSpecs() | flObjectKeys).indexOf(configSpec) < (configSpecs() | flObjectKeys).length - 1
-        ? 'spacing-6-v2'
-        : ''
+      (specs() | flObjectKeys).indexOf(configSpec) < (specs() | flObjectKeys).length - 1 ? 'spacing-6-v2' : ''
     ">
     <div class="g-layout-row g-layout-between-center config-spec-head">
       <p class="spacing-4-v2">
         {{ configSpec }}
       </p>
       <div class="chip-div">
-        @if (configSpecs()[configSpec].optional) {
+        @if (specs()[configSpec].optional) {
           <fl-chip class="g-primary-background chip" size="small">
             {{ 'td.optional' | translate }}
           </fl-chip>
         }
-        @if (configSpecs()[configSpec].visibility !== 'public') {
+        @if (specs()[configSpec].visibility !== 'public') {
           <fl-chip class="g-primary-background chip" size="small">
             {{ 'td.advanced_parameter' | translate }}
           </fl-chip>
         }
       </div>
     </div>
-    <p class="code1-v2">{{ configSpecs()[configSpec].short_description }}</p>
-    @if (configSpecs()[configSpec].type !== 'param_set') {
-      @if (configSpecs()[configSpec].type) {
+    <p class="code1-v2">{{ specs()[configSpec].short_description }}</p>
+    @if (specs()[configSpec].type !== 'param_set') {
+      @if (specs()[configSpec].type) {
         <fl-key-value class="code1-v2">
           <fl-key>{{ 'td.type' | translate }}</fl-key>
-          <code>{{
-            configSpecs()[configSpec].type === 'str' ? 'string' : configSpecs()[configSpec].type
-          }}</code>
+          <code>{{ specs()[configSpec].type === 'str' ? 'string' : specs()[configSpec].type }}</code>
         </fl-key-value>
       }
-      @if (configSpecs()[configSpec].additional_info?.allowed_values) {
+      @if (specs()[configSpec].additional_info?.allowed_values) {
         <fl-key-value class="code1-v2">
           <fl-key>{{ 'td.allowed_values' | translate }}</fl-key>
           <div>
-            @for (
-              allowedValue of configSpecs()[configSpec].additional_info?.allowed_values;
-              track allowedValue
-            ) {
+            @for (allowedValue of specs()[configSpec].additional_info?.allowed_values; track allowedValue) {
               <span
                 ><code>{{ allowedValue }}</code></span
               ><br />
@@ -47,23 +40,23 @@
           </div>
         </fl-key-value>
       }
-      @if (configSpecs()[configSpec].default_value) {
+      @if (specs()[configSpec].default_value) {
         <fl-key-value class="code1-v2">
           <fl-key>{{ 'td.default_value' | translate }}</fl-key>
-          <code>{{ configSpecs()[configSpec].default_value }}</code>
+          <code>{{ specs()[configSpec].default_value }}</code>
         </fl-key-value>
       }
     } @else {
-      @if (configSpecs()[configSpec].type) {
+      @if (specs()[configSpec].type) {
         <fl-key-value class="code1-v2">
           <fl-key>{{ 'td.type' | translate }}</fl-key>
           <code>{{ 'td.param_set' | translate }}</code>
         </fl-key-value>
       }
-      @if (configSpecs()[configSpec].additional_info?.min_number_of_occurrences) {
+      @if (specs()[configSpec].additional_info?.min_number_of_occurrences) {
         <fl-key-value class="code1-v2">
           <fl-key>{{ 'td.min_number_of_occurrences' | translate }}</fl-key>
-          <code>{{ configSpecs()[configSpec].additional_info?.min_number_of_occurrences }}</code>
+          <code>{{ specs()[configSpec].additional_info?.min_number_of_occurrences }}</code>
         </fl-key-value>
       }
       @if (naxParamSetOccurrences()[configSpec]) {
@@ -72,16 +65,16 @@
           <code>{{ naxParamSetOccurrences()[configSpec] }}</code>
         </fl-key-value>
       }
-      @if (configSpecs()[configSpec].additional_info?.default_rows?.length) {
+      @if (specs()[configSpec].additional_info?.default_rows?.length) {
         <fl-key-value class="code1-v2">
           <fl-key>{{ 'td.default_rows' | translate }}</fl-key>
-          <code>{{ configSpecs()[configSpec].additional_info?.default_rows?.length }}</code>
+          <code>{{ specs()[configSpec].additional_info?.default_rows?.length }}</code>
         </fl-key-value>
         <fl-key-value class="code1-v2">
           <fl-key>{{ 'td.default_rows_mode' | translate }}</fl-key>
           <code>{{
-            'td.default_rows_mode_' +
-              (configSpecs()[configSpec].additional_info?.default_rows_mode ?? 'editable') | translate
+            'td.default_rows_mode_' + (specs()[configSpec].additional_info?.default_rows_mode ?? 'editable')
+              | translate
           }}</code>
         </fl-key-value>
       }

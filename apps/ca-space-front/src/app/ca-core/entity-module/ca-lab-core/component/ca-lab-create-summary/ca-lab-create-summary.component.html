@@ -96,15 +96,14 @@
     </tr>
   }
 
-  @if (storage.value.storagePrice) {
+  @if (storage.getRawValue().storagePrice) {
     <tr>
       <td>{{ 'lab_storage' | translate }}</td>
       <td class="right-cell">
         <div class="g-layout-row g-layout-start-center g-layout-gap-1em">
           <div>
-            {{ storage.value.storagePrice * storage.value.storageSize | number: '1.0-2' }} € /{{
-              'month' | translate
-            }}
+            {{ storage.getRawValue().storagePrice * storage.getRawValue().storageSize | number: '1.0-2' }} €
+            /{{ 'month' | translate }}
           </div>
           <mat-icon
             [matTooltip]="'lab_storage_price_help' | translate: { ratio: backupApproximateRatio }"

@@ -52,7 +52,7 @@ export class LiNoteService implements TeTextEditorHistoryService {
     return this.apiService.put(`${this.route}/${id}/title`, { title: title }, LiNote);
   }
 
-  public updateFolder(id: string, folderId: string): Observable<LiNote> {
+  public updateFolder(id: string, folderId: string | null): Observable<LiNote> {
     return this.apiService.put(`${this.route}/${id}/folder`, { folder_id: folderId }, LiNote);
   }
 

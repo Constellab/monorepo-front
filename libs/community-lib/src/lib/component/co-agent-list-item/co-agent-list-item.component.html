@@ -1,7 +1,7 @@
 <co-community-list-item
   [type]="type"
   [title]="agent.title"
-  [shortDescription]="agent.description.getFirstParagraphsText()"
+  [shortDescription]="agent.description?.getFirstParagraphsText()"
   [author]="agent.createdBy"
   [space]="agent.space"
   [likes]="agent.likes"

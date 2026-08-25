@@ -45,7 +45,8 @@ import { CaNoteTextEditorConfig } from '../../../ca-note-core/model/ca-note-text
 })
 export class CaNoteDetailComponent {
   noteId = input.required<string>();
-  userRole = input.required<CaRootFolderUserRoleObj>();
+  // null while the user role (from an async pipe) hasn't emitted its first value yet
+  userRole = input.required<CaRootFolderUserRoleObj | null>();
   hierarchyObjectToken = input<string>();
 
   tags = input<CaHierarchyObjectTagDatasource>();
@@ -68,17 +69,14 @@ export class CaNoteDetailComponent {
   }
 
   async openActionMenu(note: CaNote, event: MouseEvent): Promise<void> {
+    const userRole = this.userRole();
+    if (!userRole) return;
+
     const textEditorConfig = new CaNoteTextEditorConfig(this.noteService, note.id);
 
-    const noteActionMenu = new CaNoteDetailActionMenu(
-      this.injector,
-      note.id,
-      this.userRole(),
-      textEditorConfig,
-      {
-        tags: this.tags(),
-      }
-    );
+    const noteActionMenu = new CaNoteDetailActionMenu(this.injector, note.id, userRole, textEditorConfig, {
+      tags: this.tags(),
+    });
 
     noteActionMenu.openDetailActionMenu(event).subscribe((action) => this.onNoteAction(action));
   }

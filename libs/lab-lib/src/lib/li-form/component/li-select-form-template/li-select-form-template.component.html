@@ -2,7 +2,7 @@
   [selectedItem]="selectedTemplate"
   (selectedItemChange)="setAndEmitValue($event)"
   [datasource]="datasource"
-  [placeholder]="placeholder() | flTranslatableText | async"
+  [placeholder]="(placeholder() | flTranslatableText | async) ?? ''"
   [required]="required"
   [disabled]="disabled"
   [minInputSearchLength]="0"

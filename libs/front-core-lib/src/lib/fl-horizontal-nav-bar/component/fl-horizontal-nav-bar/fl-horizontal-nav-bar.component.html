@@ -29,7 +29,7 @@
             mat-menu-item
             [routerLink]="item.route"
             routerLinkActive="primary"
-            [routerLinkActiveOptions]="{ exact: item.linkActiveExact }">
+            [routerLinkActiveOptions]="{ exact: item.linkActiveExact ?? false }">
             <mat-icon [flIcon]="item.icon" class="menu-icon"></mat-icon>
             <span class="menu-icon">{{ item.label | flTranslatableText | async }}</span>
           </a>
@@ -48,7 +48,7 @@
             class="nav-item"
             [routerLink]="item.route"
             routerLinkActive="primary"
-            [routerLinkActiveOptions]="{ exact: item.linkActiveExact }">
+            [routerLinkActiveOptions]="{ exact: item.linkActiveExact ?? false }">
             <mat-icon [flIcon]="item.icon"></mat-icon>
             <span class="item-text">{{ item.label | flTranslatableText | async }}</span>
           </a>

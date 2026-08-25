@@ -19,20 +19,24 @@
     <mat-form-field class="g-full input">
       <mat-label>{{ placeholder }}</mat-label>
       <input matInput formControlName="rangeSelection" [placeholder]="placeholder" [required]="required" />
-      @if (formGp.get('rangeSelection').hasError('required')) {
-        <mat-error>{{ placeholder | flErrorRequired }}</mat-error>
-      }
-      @if (formGp.get('rangeSelection').hasError('invalidFormat')) {
-        <mat-error>{{ 'spSpreadsheet.series_data_wrong_format' | translate }}
-          {{ formGp.get('rangeSelection').getError('invalidFormat') }}
-        </mat-error>
-      }
-      @if (formGp.get('rangeSelection').hasError('selectionOutOfBound')) {
-        <mat-error>{{
-            'spSpreadsheet.selection_out_of_bound'
-              | translate: formGp.get('rangeSelection').getError('selectionOutOfBound')
-          }}
-        </mat-error>
+      @if (formGp.get('rangeSelection'); as rangeSelectionCtrl) {
+        @if (rangeSelectionCtrl.hasError('required')) {
+          <mat-error>{{ placeholder | flErrorRequired }}</mat-error>
+        }
+        @if (rangeSelectionCtrl.hasError('invalidFormat')) {
+          <mat-error
+            >{{ 'spSpreadsheet.series_data_wrong_format' | translate }}
+            {{ rangeSelectionCtrl.getError('invalidFormat') }}
+          </mat-error>
+        }
+        @if (rangeSelectionCtrl.hasError('selectionOutOfBound')) {
+          <mat-error
+            >{{
+              'spSpreadsheet.selection_out_of_bound'
+                | translate: rangeSelectionCtrl.getError('selectionOutOfBound')
+            }}
+          </mat-error>
+        }
       }
     </mat-form-field>
   } @else {

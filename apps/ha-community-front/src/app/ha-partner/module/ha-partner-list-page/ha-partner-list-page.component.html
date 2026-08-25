@@ -1,11 +1,9 @@
 <ha-page [hideCreateSection]="hideCreate()" [showHeaderCreateButton]="true">
-  @if (currentUserPartner()) {
+  @if (currentUserPartner(); as currentPartner) {
     <div class="section my-partner-page-div">
       <h3>{{ 'my-partner-page' | translate }}</h3>
-      <a [routerLink]="currentUserPartner() | haDetailRoute">
-        <co-partner-list-item
-          [partner]="currentUserPartner()"
-          [partnerLogo]="currentUserPartner() | haPartnerLogoUrl">
+      <a [routerLink]="currentPartner | haDetailRoute">
+        <co-partner-list-item [partner]="currentPartner" [partnerLogo]="currentPartner | haPartnerLogoUrl">
         </co-partner-list-item>
       </a>
     </div>
@@ -13,8 +11,9 @@
 
   <fl-infinite-scroll [datasource]="partnerPaginated" infiniteMode="auto" class="section">
     <h3>{{ 'certified_partners' | translate }}</h3>
+    <!-- co-list-filters.user (community-lib) is typed CoUser | null -->
     <co-list-filters
-      [user]="user()"
+      [user]="user() ?? null"
       [sortsCriteriaKeys]="sortsCriteriaKeys"
       (sortsCriteriaChanged)="onSortsCriteriaChanged($event)"
       (titleFilterChanged)="onNameFilterChange($event)"

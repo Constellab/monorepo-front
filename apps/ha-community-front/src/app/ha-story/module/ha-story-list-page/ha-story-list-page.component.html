@@ -1,7 +1,7 @@
 <ha-page [showHeaderCreateButton]="true">
   <fl-infinite-scroll [datasource]="stories" infiniteMode="auto" class="section">
     <co-list-filters
-      [user]="user()"
+      [user]="user() ?? null"
       [listEntityType]="listEntityType"
       [hideSpaceFilter]="true"
       (myEntitiesChanged)="onMyEntitiesChanged($event)"

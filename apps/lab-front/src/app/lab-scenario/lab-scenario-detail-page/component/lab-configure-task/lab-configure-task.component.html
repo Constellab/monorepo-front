@@ -1,9 +1,13 @@
-<form (ngSubmit)="submit()" id="process-config-form" [formGroup]="formGp()" class="form g-layout-col">
-  @if (!processConfig().hasConfigs()) {
-    <fl-error-text [errorMessage]="'biox.no_config_for_task' | translate"></fl-error-text>
-  }
+@if (formGp(); as fg) {
+  <form (ngSubmit)="submit()" id="process-config-form" [formGroup]="fg" class="form g-layout-col">
+    @if (processConfig(); as pc) {
+      @if (!pc.hasConfigs()) {
+        <fl-error-text [errorMessage]="'biox.no_config_for_task' | translate"></fl-error-text>
+      }
 
-  <div class="g-flex-auto">
-    <td-configure-specs-form [configData]="processConfig()" [formGp]="formGp()"></td-configure-specs-form>
-  </div>
-</form>
+      <div class="g-flex-auto">
+        <td-configure-specs-form [configData]="pc" [formGp]="fg"></td-configure-specs-form>
+      </div>
+    }
+  </form>
+}

@@ -11,10 +11,15 @@ import { ChChartLabelFormatter } from '../model/ch-chart-label-formatter.class';
 })
 export class ChChartValueFormatterPipe implements PipeTransform {
   transform(
-    value: number,
+    value: number | null,
     formatter: ChChartLabelFormatter,
     text: 'short' | 'long' = 'short'
   ): string | null {
+    // value can be genuinely null (e.g. missing heat-map cell); mirror the 'null'
+    // convention already used by ChChartLabelFormatter.formatNumberShort
+    if (value == null) {
+      return 'null';
+    }
     if (text === 'short') {
       return formatter.formatShort(value);
     }

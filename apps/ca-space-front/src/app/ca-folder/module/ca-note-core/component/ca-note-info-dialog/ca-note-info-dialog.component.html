@@ -7,19 +7,29 @@
 
 <mat-dialog-content>
   <div class="grid">
-    @if (note.isValidated) {
-      <div>{{ 'validation_info' | translate }} :</div>
-      <fl-user-with-date [user]="note.validatedBy" [date]="note.validatedAt"></fl-user-with-date>
+    @if (note.isValidated && note.validatedBy; as validatedBy) {
+      @if (note.validatedAt; as validatedAt) {
+        <div>{{ 'validation_info' | translate }} :</div>
+        <fl-user-with-date [user]="validatedBy" [date]="validatedAt"></fl-user-with-date>
+      }
     }
 
-    <div>{{ 'last_sync' | translate }}</div>
-    <fl-user-with-date [user]="note.lastSyncBy" [date]="note.lastSyncAt"></fl-user-with-date>
+    @if (note.lastSyncBy; as lastSyncBy) {
+      @if (note.lastSyncAt; as lastSyncAt) {
+        <div>{{ 'last_sync' | translate }}</div>
+        <fl-user-with-date [user]="lastSyncBy" [date]="lastSyncAt"></fl-user-with-date>
+      }
+    }
 
     <div>{{ 'creation' | translate }}</div>
     <fl-user-with-date [user]="note.createdBy" [date]="note.createdAt"></fl-user-with-date>
 
-    <div>{{ 'last_modification' | translate }}</div>
-    <fl-user-with-date [user]="note.lastModifiedBy" [date]="note.lastModifiedAt"></fl-user-with-date>
+    @if (note.lastModifiedBy; as lastModifiedBy) {
+      @if (note.lastModifiedAt; as lastModifiedAt) {
+        <div>{{ 'last_modification' | translate }}</div>
+        <fl-user-with-date [user]="lastModifiedBy" [date]="lastModifiedAt"></fl-user-with-date>
+      }
+    }
 
     <div>{{ 'lab' | translate }}</div>
     @if (lab$ | async; as lab) {

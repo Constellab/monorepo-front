@@ -14,7 +14,7 @@
         flInputMaxLength="50"
         [placeholder]="'li.title' | translate"
         (change)="onTitleChange()" />
-      @if (formGp.get('title').hasError('required')) {
+      @if (formGp.get('title')?.hasError('required')) {
         <mat-error>{{ 'li.title' | flErrorRequired }}</mat-error>
       }
       @if (sameTitleCount$ | async; as count) {

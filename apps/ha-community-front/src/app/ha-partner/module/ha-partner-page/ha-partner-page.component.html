@@ -4,7 +4,7 @@
   [notFound]="notFound()"
   [showPageDescription]="false"
   [hideCreateSection]="true">
-  @if (partner()) {
+  @if (partner(); as partnerValue) {
     <div class="entity-page-section">
       <div class="entity-page-infos">
         <!--        <ha-entity-page-infos-->
@@ -26,11 +26,11 @@
         <!--        </ha-entity-page-infos>-->
         <ha-entity-page-info
           [imageUrl]="imageUrl()"
-          [entityId]="partner().id"
+          [entityId]="partnerValue.id"
           [entityType]="entityType"
           [isAuthor]="canEdit()"
           [contributors]="[]"
-          [date]="partner().createdAt">
+          [date]="partnerValue.createdAt">
           @if (canEdit()) {
             <div class="entity-page-infos">
               <button type="button" mat-flat-button (click)="openEditPartnerDialog()" class="g-full">
@@ -42,7 +42,7 @@
         </ha-entity-page-info>
       </div>
       <div class="entity-page-content">
-        @if (!partner().certified && canEdit()) {
+        @if (!partnerValue.certified && canEdit()) {
           <div class="not-certified-info-div">
             {{ 'partner_not_certified_info' | translate }}
           </div>

@@ -3,15 +3,15 @@
   [showPageDescription]="false"
   [isLoading]="isLoading()"
   [notFound]="notFound()">
-  @if (agent()) {
+  @if (agent(); as agentValue) {
     <div class="entity-page-section">
       <div class="entity-page-infos">
         <ha-entity-page-info
-          [entityId]="agent().id"
+          [entityId]="agentValue.id"
           [entityType]="entityType"
           [contributors]="contributors()"
-          [date]="agent().createdAt"
-          [space]="agent().space"
+          [date]="agentValue.createdAt"
+          [space]="agentValue.space"
           [isAuthor]="isAuthor()">
           <div class="entity-page-info-div">
             @if (canEdit()) {
@@ -61,7 +61,7 @@
             </div>
           </div>
 
-          @if (brickDependencies()?.length > 0) {
+          @if ((brickDependencies()?.length ?? 0) > 0) {
             <div class="entity-page-separator"></div>
 
             <div class="entity-page-info-div">

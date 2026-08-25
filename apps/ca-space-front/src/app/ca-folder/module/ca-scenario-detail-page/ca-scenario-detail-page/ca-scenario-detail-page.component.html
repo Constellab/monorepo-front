@@ -1,7 +1,9 @@
 <div class="g-page page">
-  <ca-scenario-detail
-    [scenarioId]="scenarioId$ | async"
-    [userRole]="userRole$ | async"
-    [tags]="tags"
-    class="scenario"></ca-scenario-detail>
+  @if (userRole$ | async; as userRole) {
+    <ca-scenario-detail
+      [scenarioId]="scenarioId$ | async"
+      [userRole]="userRole"
+      [tags]="tags"
+      class="scenario"></ca-scenario-detail>
+  }
 </div>

@@ -1,7 +1,7 @@
 <div
   class="container g-scrollable-element"
   (flInfiniteScroll)="loadMoreResults()"
-  [flInfiniteDisabled]="datasource.isLoading || datasource.page?.last">
+  [flInfiniteDisabled]="datasource.isLoading || datasource.page?.last || false">
   <ng-content></ng-content>
   <fl-infinite-load-more-result
     [datasource]="datasource"

@@ -1,7 +1,9 @@
 <a [routerLink]="route">
-  <fl-user-inline
-    [user]="user$ | async"
-    [showName]="showName"
-    [portalOnHover]="false"
-    profilePictureSize="medium"></fl-user-inline>
+  @if (user$ | async; as user) {
+    <fl-user-inline
+      [user]="user"
+      [showName]="showName"
+      [portalOnHover]="false"
+      profilePictureSize="medium"></fl-user-inline>
+  }
 </a>

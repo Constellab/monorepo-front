@@ -3,6 +3,10 @@
     @if (showText) {
       <div>{{ 'last_sync' | translate }} :</div>
     }
-    <fl-user-with-date [user]="object.lastSyncBy" [date]="object.lastSyncAt"></fl-user-with-date>
+    @if (object.lastSyncBy; as syncBy) {
+      @if (object.lastSyncAt; as syncAt) {
+        <fl-user-with-date [user]="syncBy" [date]="syncAt"></fl-user-with-date>
+      }
+    }
   </div>
 }

@@ -57,15 +57,15 @@
 
     <div class="nav-bar-action-div">
       <div class="nav-bar-login-signup-div">
-        @if (currentUser()) {
+        @if (currentUser(); as currentUserValue) {
           <button
             mat-raised-button
             class="logged-in-user-button g-button-shadow-border"
             [matMenuTriggerFor]="loggedInMenu"
             [attr.aria-label]="'open_user_menu' | translate">
             <div class="logged-in-user-button-content g-weight-600">
-              <fl-user-profile-picture [user]="currentUser()" [size]="2.125"></fl-user-profile-picture>
-              {{ currentUser()?.alias }}
+              <fl-user-profile-picture [user]="currentUserValue" [size]="2.125"></fl-user-profile-picture>
+              {{ currentUserValue.alias }}
             </div>
           </button>
         } @else {

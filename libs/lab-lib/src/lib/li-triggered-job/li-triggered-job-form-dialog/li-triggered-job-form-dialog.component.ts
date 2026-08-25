@@ -141,8 +141,8 @@ export class LiTriggeredJobFormDialogComponent
     return '';
   }
 
-  onTemplateSelected(template: LiScenarioTemplate): void {
-    if (!this.formGp.value.name) {
+  onTemplateSelected(template: LiScenarioTemplate | null): void {
+    if (template && !this.formGp.value.name) {
       this.formGp.patchValue({ name: template.name });
     }
   }

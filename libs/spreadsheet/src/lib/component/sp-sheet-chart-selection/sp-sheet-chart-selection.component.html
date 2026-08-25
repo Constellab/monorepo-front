@@ -22,7 +22,7 @@
               [availableChartTypes]="availableChartTypes"></ch-chart-type-select-options>
           </mat-select>
 
-          @if (formGp.get('chartType').hasError('required')) {
+          @if (formGp.get('chartType')?.hasError('required')) {
             <mat-error>{{ 'spSpreadsheet.create_chart' | flErrorRequired }}</mat-error>
           }
         </mat-form-field>
@@ -47,7 +47,7 @@
                 [min]="1"
                 [placeholder]="'spSpreadsheet.chart_nb_of_bins' | translate"
                 type="number" />
-              @if (formGp.get('additionalFields').get('nbOfBins').invalid) {
+              @if (formGp.get('additionalFields')?.get('nbOfBins')?.invalid) {
                 <mat-error>{{ 'spSpreadsheet.chart_nb_of_bins_error' | translate }}</mat-error>
               }
             </mat-form-field>
@@ -89,7 +89,7 @@
                   required
                   [placeholder]="'spSpreadsheet.chart_x_threshold' | translate"
                   type="number" />
-                @if (additionalFieldFormGp.get('xThreshold').hasError('required')) {
+                @if (additionalFieldFormGp.get('xThreshold')?.hasError('required')) {
                   <mat-error>{{ 'spSpreadsheet.chart_x_threshold' | flErrorRequired }}</mat-error>
                 }
               </mat-form-field>
@@ -105,7 +105,7 @@
                   required
                   [placeholder]="'spSpreadsheet.chart_y_threshold' | translate"
                   type="number" />
-                @if (additionalFieldFormGp.get('yThreshold').hasError('required')) {
+                @if (additionalFieldFormGp.get('yThreshold')?.hasError('required')) {
                   <mat-error>{{ 'spSpreadsheet.chart_y_threshold' | flErrorRequired }}</mat-error>
                 }
               </mat-form-field>
@@ -177,7 +177,7 @@
           }
           @if (submitted) {
             <div class="series-error">
-              @if (formGp.get('series').hasError('required')) {
+              @if (formGp.get('series')?.hasError('required')) {
                 <div class="g-text-small g-warn-text">
                   {{ 'spSpreadsheet.chart_serie_required_error' | translate }}
                 </div>

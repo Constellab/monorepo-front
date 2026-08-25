@@ -104,17 +104,17 @@ export class LiResourceSearchComponent implements OnInit, OnDestroy {
    * Use to add custom searches in the list of saved search. If one of them is the default one,
    * it overrides the other default.
    */
-  @Input() customSavedSearches: FlSavedSearch[] | null = null;
+  @Input() customSavedSearches: FlSavedSearch[] | null | undefined = null;
 
   /**
    * Use to set default filters in the search, those filters are not modifiable by the user.
    */
-  @Input() defaultFilters: LiResourceSearchFields | null = null;
+  @Input() defaultFilters: LiResourceSearchFields | null | undefined = null;
 
   /**
    * Use to disable some fields in the advanced search form.
    */
-  @Input() disabledFilters: LiResourceSearchFieldsDisabled | null = null;
+  @Input() disabledFilters: LiResourceSearchFieldsDisabled | null | undefined = null;
 
   @Output() resourceSelected: EventEmitter<LiResource> = new EventEmitter<LiResource>();
 

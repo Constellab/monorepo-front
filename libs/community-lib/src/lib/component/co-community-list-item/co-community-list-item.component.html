@@ -1,8 +1,8 @@
 <div class="list-item-container">
   <div class="list-item-div" [class.main-background-list-item]="mainBackground()">
     <div class="image-div">
-      @if (image()) {
-        <img [ngSrc]="image()" fill="" alt="" />
+      @if (image(); as img) {
+        <img [ngSrc]="img" fill="" alt="" />
       } @else {
         <co-item-type-icon [type]="type()" size="big"></co-item-type-icon>
       }
@@ -16,10 +16,10 @@
           }
         </div>
         <div class="author-visibility-div">
-          @if (author()) {
+          @if (author(); as authorValue) {
             <div class="author-badge">
               <mat-icon class="author-icon">person</mat-icon>
-              <span>{{ author().alias || author().firstname + ' ' + author().lastname }}</span>
+              <span>{{ authorValue.alias || authorValue.firstname + ' ' + authorValue.lastname }}</span>
             </div>
           }
           @if (author() && showVisibility()) {

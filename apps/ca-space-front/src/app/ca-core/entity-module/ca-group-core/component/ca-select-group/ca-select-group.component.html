@@ -9,8 +9,8 @@
   <div class="photo" *flInputSearchPrefix="datasource as group">
     @if (!group || group.type === 'TEAM') {
       <mat-icon flIcon="group"></mat-icon>
-    } @else {
-      <fl-user-profile-picture [user]="group.user" size="small"></fl-user-profile-picture>
+    } @else if (group.user; as user) {
+      <fl-user-profile-picture [user]="user" size="small"></fl-user-profile-picture>
     }
   </div>
 

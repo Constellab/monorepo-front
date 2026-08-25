@@ -1,6 +1,7 @@
 @if (hasTags()) {
   <div class="tags g-text-small">
     {{ 'spSpreadsheet.header_tags' | translate }}
-    <fl-tag-list [tags]="tags" [tagColorer]="tagColorer"></fl-tag-list>
+    <!-- fl-tag-list.tags (front-core-lib) is required and non-nullable; fall back to {} -->
+    <fl-tag-list [tags]="tags ?? {}" [tagColorer]="tagColorer"></fl-tag-list>
   </div>
 }

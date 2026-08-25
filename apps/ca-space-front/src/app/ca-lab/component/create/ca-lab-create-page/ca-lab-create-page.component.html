@@ -23,7 +23,7 @@
                   [flInputMaxLength]="maxNameLength"
                   [placeholder]="'name' | translate"
                   class="input" />
-                @if (nameForm.get('name').hasError('required')) {
+                @if (nameForm.get('name')?.hasError('required')) {
                   <mat-error>{{ 'name' | flErrorRequired }}</mat-error>
                 }
               </mat-form-field>

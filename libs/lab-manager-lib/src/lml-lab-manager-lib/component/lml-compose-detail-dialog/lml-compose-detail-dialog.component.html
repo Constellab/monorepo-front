@@ -72,11 +72,11 @@
             <span class="detail-key">{{ 'lml.started_at' | translate }}</span>
             <span class="detail-value g-text-light">{{ processObj.startedAt | flDate: 'DATE_TIME' }}</span>
 
-            @if (processObj.completedAt) {
+            @if (processObj.completedAt; as completedAt) {
               <span class="detail-key">{{ 'lml.completed_at' | translate }}</span>
               <span class="detail-value g-text-light">
-                {{ processObj.completedAt | flDate: 'DATE_TIME' }} ({{
-                  processObj.durationInMs | flDuration
+                {{ completedAt | flDate: 'DATE_TIME' }} ({{
+                  processObj.getDurationInMs(completedAt) | flDuration
                 }})
               </span>
             }

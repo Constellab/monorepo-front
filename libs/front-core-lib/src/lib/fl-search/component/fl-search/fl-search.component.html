@@ -14,9 +14,11 @@
 
     <!--   Number of results   -->
     <p class="result-count g-text-light">
-      @if (datasource.page?.totalElements > 0) {
-        @if (!datasource.page.totalIsApproximate) {
-          {{ 'flSearch.count_result' | translate: { count: datasource.page.totalElements } }}
+      @if (datasource.page; as page) {
+        @if (page.totalElements > 0) {
+          @if (!page.totalIsApproximate) {
+            {{ 'flSearch.count_result' | translate: { count: page.totalElements } }}
+          }
         }
       }
     </p>

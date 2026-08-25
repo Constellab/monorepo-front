@@ -19,7 +19,7 @@
         required
         [flInputMaxLength]="maxLength"
         placeholder="{{ 'li.tag_key' | translate }}" />
-      @if (formGp.get('key').hasError('required')) {
+      @if (formGp.get('key')?.hasError('required')) {
         <mat-error>{{ 'tag_key' | flErrorRequired }}</mat-error>
       }
     </mat-form-field>
@@ -33,7 +33,7 @@
         required
         [flInputMaxLength]="maxLength"
         placeholder="{{ 'li.tag_value' | translate }}" />
-      @if (formGp.get('value').hasError('required')) {
+      @if (formGp.get('value')?.hasError('required')) {
         <mat-error>{{ 'tag_value' | flErrorRequired }}</mat-error>
       }
     </mat-form-field>

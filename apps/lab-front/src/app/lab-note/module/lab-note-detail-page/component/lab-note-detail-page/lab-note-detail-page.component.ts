@@ -112,7 +112,7 @@ export class LabNoteDetailPageComponent implements OnInit, OnDestroy {
       .subscribe((note) => this.state.updateNote(note));
   }
 
-  updateFolder(folder: LiFolder): void {
+  updateFolder(folder: LiFolder | null): void {
     this.noteService.updateFolder(this.state.currentNote.id, folder?.id ?? null).subscribe({
       next: (note) => this.state.updateNote(note),
       // call refresh note to set the folder back

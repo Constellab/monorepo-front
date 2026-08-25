@@ -76,7 +76,7 @@ export class HaBrickSidenavTreeComponent implements OnDestroy {
 
   dragAndDropDisabled = input<boolean>(true);
 
-  canEdit = input<boolean>(false);
+  canEdit = input<boolean | null>(false);
 
   showActionIcons = input<boolean>(false);
 
@@ -88,7 +88,7 @@ export class HaBrickSidenavTreeComponent implements OnDestroy {
 
   refreshDatasource = output<void>();
 
-  hoverId: string;
+  hoverId: string | null = null;
 
   selectedObjectAndParent: FlTree<HaNode>[] = [];
 

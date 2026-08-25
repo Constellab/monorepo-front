@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, Input, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, input } from '@angular/core';
 
 import { CoBrick } from '../../model/co-brick.class';
 import { CoListItemType } from '../../model/co-list-item-type.enum';
@@ -12,7 +12,7 @@ import { CoListItemType } from '../../model/co-list-item-type.enum';
 })
 export class CoBrickListItemComponent {
   @Input({ required: true }) brick: CoBrick;
-  @Input() brickImage: string;
+  @Input() brickImage: string | null | undefined;
 
   mainBackground = input<boolean>(false);
   hideDiscover = input<boolean>(false);

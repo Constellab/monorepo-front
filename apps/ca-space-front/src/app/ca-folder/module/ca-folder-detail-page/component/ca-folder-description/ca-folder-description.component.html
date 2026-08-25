@@ -7,11 +7,13 @@
       </div>
     }
     <fl-section-actions>
-      <te-text-editor-save
-        [textEditor]="textEditorRef()"
-        [saveFunc]="saveDescriptionFunc"
-        [debounceTime]="1000"
-        class="save-status"></te-text-editor-save>
+      @if (textEditorRef(); as textEditor) {
+        <te-text-editor-save
+          [textEditor]="textEditor"
+          [saveFunc]="saveDescriptionFunc"
+          [debounceTime]="1000"
+          class="save-status"></te-text-editor-save>
+      }
 
       @if (canEdit) {
         <button mat-icon-button type="button" (click)="toggleEdit()">

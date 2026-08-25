@@ -63,7 +63,9 @@ import { CaDocumentActionDetailMenu, CaDocumentActionEvent } from '../../ca-docu
 })
 export class CaConstellabDocumentDetailComponent {
   documentId = input.required<string>();
-  userRole = input.required<CaRootFolderUserRoleObj>();
+  // nullable because the async pipe used by consumers only ever resolves the role once the hierarchy
+  // object context has loaded
+  userRole = input.required<CaRootFolderUserRoleObj | null>();
   hierarchyObjectToken = input<string>();
 
   tags = input<CaHierarchyObjectTagDatasource>();
@@ -76,7 +78,7 @@ export class CaConstellabDocumentDetailComponent {
   private constellabDocumentService = inject(CaConstellabDocumentService);
   private eventState = inject(CaHierarchyObjectEventState, { optional: true });
 
-  canEdit = computed(() => this.userRole().canEdit());
+  canEdit = computed(() => this.userRole()?.canEdit() ?? false);
 
   document: CaDocument;
 
@@ -128,6 +130,9 @@ export class CaConstellabDocumentDetailComponent {
   }
 
   async openDocumentActionMenu(document: CaDocument, event: MouseEvent): Promise<void> {
+    const userRole = this.userRole();
+    if (userRole == null) return;
+
     ClHelpService.stopEventPropagation(event);
     const documentActionMenu = new CaDocumentActionDetailMenu(
       this.injector,
@@ -135,7 +140,7 @@ export class CaConstellabDocumentDetailComponent {
         id: document.id,
         name: document.name,
         isConstellabDocument: document.isConstellabDocument(),
-        userRole: this.userRole(),
+        userRole,
       },
       this.textEditorConfig,
       { tags: this.tags() }

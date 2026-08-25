@@ -66,9 +66,9 @@ export class CaUserListInlineComponent
   private portalService = inject(FlPortalService);
   private viewContainerRef = inject(ViewContainerRef);
 
-  @Input() users$: Observable<CaUser[]>;
+  @Input() users$: Observable<CaUser[]> | undefined;
 
-  @Input() userDatasource: CaUserDatasourcePaginated;
+  @Input() userDatasource: CaUserDatasourcePaginated | null;
 
   @Input() previewListSize: number = 6;
 
@@ -93,7 +93,7 @@ export class CaUserListInlineComponent
   ngOnInit(): void {
     if (this.userDatasource) {
       this.subscription = this.userDatasource.connect().subscribe((users) => this.onUserLoaded(users));
-    } else {
+    } else if (this.users$) {
       this.subscription = this.users$.subscribe((users) => this.onUserLoaded(users));
     }
   }
