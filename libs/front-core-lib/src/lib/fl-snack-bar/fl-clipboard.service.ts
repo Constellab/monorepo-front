@@ -34,7 +34,7 @@ export class FlClipboardService {
     if (navigator.clipboard) {
       return navigator.clipboard.readText();
     } else {
-      return Promise.resolve() as Promise<null>;
+      return Promise.resolve(null);
     }
   }
 }

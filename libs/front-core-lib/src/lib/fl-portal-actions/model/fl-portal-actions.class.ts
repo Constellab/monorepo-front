@@ -125,9 +125,9 @@ export interface FlPortalActionSuccess<T = any> {
   result: T;
   action: FlPortalAction;
   additionalInformation?: any;
-  link?: string;
-  onSuccessClick?: () => void;
-  successMessage?: FlTranslatableText;
+  link?: string | null;
+  onSuccessClick?: (() => void) | null;
+  successMessage?: FlTranslatableText | null;
 }
 
 /**

@@ -84,7 +84,7 @@ export abstract class FlFormFieldDirective<INNER, OUTER = INNER> implements Cont
    * @protected
    */
   // eslint-disable-next-line @angular-eslint/prefer-inject
-  protected constructor(ngControl: NgControl) {
+  protected constructor(ngControl: NgControl | null) {
     // Replace the provider from above with this.
     if (ngControl != null) {
       // Setting the value accessor directly (instead of using
@@ -99,7 +99,10 @@ export abstract class FlFormFieldDirective<INNER, OUTER = INNER> implements Cont
    * @protected
    */
   protected registerValidateMethod(): void {
-    this.ngControl.control.setValidators([this.validate.bind(this)]);
+    const control = this.ngControl.control;
+    if (!control) return;
+
+    control.setValidators([this.validate.bind(this)]);
   }
 
   private onChange: (_: OUTER) => void = () => {

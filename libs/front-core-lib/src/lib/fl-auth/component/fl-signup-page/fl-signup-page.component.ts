@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ClStringHelper } from '@monorepo/core-lib';
 import { FlCaptchaService } from '@monorepo/front-core-lib/fl-captcha';
@@ -45,7 +45,7 @@ export class FlSignupPageComponent implements OnInit {
 
     this.activatedRoute.queryParams.subscribe((params) => {
       if (params['email'] && ClStringHelper.isEmail(params['email'])) {
-        this.formGp.get('email').setValue(params['email']);
+        this.formGp.get('email')?.setValue(params['email']);
       }
     });
   }
@@ -75,7 +75,7 @@ export class FlSignupPageComponent implements OnInit {
       });
   }
 
-  private generateCaptcha(): Observable<string> {
+  private generateCaptcha(): Observable<string | null> {
     return this.captchaService.executeCaptcha('signup');
   }
 

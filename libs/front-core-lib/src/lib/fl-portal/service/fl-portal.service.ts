@@ -224,7 +224,7 @@ export class FlPortalService {
     component: ComponentType<T>,
     config: FlPortalConfig,
     data: any = {},
-    viewContainerRef: ViewContainerRef = null
+    viewContainerRef: ViewContainerRef | null = null
   ): FlOverlayRef {
     // we create the overlay
     const overlayRef: FlOverlayRef = this.createOverlay(config.config);
@@ -348,7 +348,11 @@ export class FlPortalService {
   }
 
   // create an injector to send data to the portal and the overlay ref
-  private createInjector(data: any, overlayRef: FlOverlayRef, parentInjector: Injector = null): Injector {
+  private createInjector(
+    data: any,
+    overlayRef: FlOverlayRef,
+    parentInjector: Injector | null = null
+  ): Injector {
     const injectionTokens = new WeakMap();
     // send data to the portal
     injectionTokens.set(FL_PORTAL_DATA, data);

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FlCompressBlobOption, FlImageHelper } from '@monorepo/front-core-lib/fl-core';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
@@ -58,8 +58,8 @@ export class FlUploadImageDialogComponent implements OnInit {
 
   uploadIsLoading = false;
 
-  compressImageSrc: string;
-  compressImage: File;
+  compressImageSrc: string | null;
+  compressImage: File | null;
 
   ngOnInit(): void {
     this.onNewFile(this.dialogInput.file).then();
@@ -82,8 +82,11 @@ export class FlUploadImageDialogComponent implements OnInit {
   }
 
   save(): void {
+    const compressImage = this.compressImage;
+    if (compressImage == null) return;
+
     this.uploadIsLoading = true;
-    this.dialogInput.config.uploadImage(this.compressImage).subscribe({
+    this.dialogInput.config.uploadImage(compressImage).subscribe({
       next: (result) => this.saveSuccess(result),
       error: () => (this.uploadIsLoading = false),
     });

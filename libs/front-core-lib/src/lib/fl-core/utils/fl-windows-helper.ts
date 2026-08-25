@@ -1,5 +1,5 @@
 export class FlWindowsHelper {
-  private static blockFunction: (event: BeforeUnloadEvent) => string = null;
+  private static blockFunction: ((event: BeforeUnloadEvent) => string) | null = null;
 
   public static blockWindowsClose(): void {
     if (FlWindowsHelper.blockFunction != null) {

@@ -42,7 +42,7 @@ export interface FlSearchAttributeCriteriaConverter<T = string> {
  * The value of the function is the object value (usually value from form),
  * IT CAN BE NULL or EMPTY
  */
-export type FlSearchAttributeFunctionCriteriaConverter<T> = (value?: T) => FlSearchCriteria[];
+export type FlSearchAttributeFunctionCriteriaConverter<T> = (value?: T) => FlSearchCriteria[] | null;
 
 /**
  * Type for describing a conversion from an object of type P to a list of criteria
@@ -209,7 +209,7 @@ export class FlSearchConverter {
    * of the ids
    * @param objects entities
    */
-  public static getEntitiesId(objects: FlEntity[]): string[] {
+  public static getEntitiesId(objects: FlEntity[]): string[] | null {
     if (objects == null) return null;
     return objects.map((o) => FlSearchConverter.getEntityId(o));
   }
@@ -228,7 +228,7 @@ export class FlSearchConverter {
    * for the advanced search
    * @param date to convert
    */
-  public static convertDateTimeToString(date: DateTime): string {
+  public static convertDateTimeToString(date: DateTime): string | null {
     return ClDateHelper.serializeDateTime(date);
   }
 
@@ -237,7 +237,7 @@ export class FlSearchConverter {
    * for the advanced search
    * @param date to convert
    */
-  public static convertDateToString(date: DateTime): string {
+  public static convertDateToString(date: DateTime): string | null {
     return ClDateHelper.serializeDate(date);
   }
 
@@ -263,9 +263,9 @@ export class FlSearchConverter {
 
   private static convertDateInterval(
     key: string,
-    dateConverter: (date: DateTime) => string
+    dateConverter: (date: DateTime) => string | null
   ): FlSearchAttributeFunctionCriteriaConverter<FlSearchDateInterval> {
-    return (dates?: FlSearchDateInterval): FlSearchCriteria[] => {
+    return (dates?: FlSearchDateInterval): FlSearchCriteria[] | null => {
       let criteria: FlSearchCriteria;
       // if the 2 dates are null
       if (dates == null || (dates.from == null && dates.to == null)) {

@@ -80,7 +80,9 @@ export abstract class FlEmbeddedOptionsAbstractDirective implements AfterViewIni
       // search and select the values
       for (const val of values) {
         // find the option with the compareWith method
-        const option: MatOption = select.options.toArray().find((opt) => select.compareWith(opt.value, val));
+        const option: MatOption | undefined = select.options
+          .toArray()
+          .find((opt) => select.compareWith(opt.value, val));
 
         // if the options exist, call the select method on it
         if (option) {

@@ -21,7 +21,7 @@ export class FlRecreateViewDirective {
 
   flRecreateView = input.required<any>();
 
-  viewRef: EmbeddedViewRef<any>;
+  viewRef: EmbeddedViewRef<any> | null = null;
 
   constructor() {
     effect(() => {
@@ -39,7 +39,7 @@ export class FlRecreateViewDirective {
   }
 
   private destroyView(): void {
-    this.viewRef.destroy();
+    this.viewRef?.destroy();
     this.viewRef = null;
   }
 }

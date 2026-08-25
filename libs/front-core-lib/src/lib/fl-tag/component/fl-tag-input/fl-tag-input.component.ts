@@ -17,7 +17,7 @@ import { FlFormFieldDirective } from '@monorepo/front-core-lib/fl-core';
 import { FlTag, FlTagValue } from '../../fl-tag.class';
 import { FlTagHelper } from '../../fl-tag.helper';
 
-type FlTagInput = FlTag[] | Record<string, FlTagValue>;
+type FlTagInput = FlTag[] | Record<string, FlTagValue | undefined>;
 
 @Component({
   selector: 'fl-tag-input',
@@ -51,7 +51,7 @@ export class FlTagInputComponent extends FlFormFieldDirective<FlTag[], FlTagInpu
 
   // provided when adding a new tag. It is set when the key has been defined but not the value
   // this is a temp storage
-  newTag: string;
+  newTag: string | null;
 
   constructor() {
     const ngControl = inject(NgControl, { optional: true, self: true });
@@ -120,9 +120,10 @@ export class FlTagInputComponent extends FlFormFieldDirective<FlTag[], FlTagInpu
 
   private addChip(value: string): void {
     if (!value) return;
-    if (this.isValueSelection) {
+    const newTag = this.newTag;
+    if (newTag != null) {
       if (this.value == null) this.value = [];
-      this.setAndEmitValue(FlTagHelper.addOrReplaceTag(this.value, { key: this.newTag, value: value }));
+      this.setAndEmitValue(FlTagHelper.addOrReplaceTag(this.value, { key: newTag, value: value }));
       this.emitCurrentValue();
 
       // clear the new tag key (to switch to key selection)
@@ -153,7 +154,7 @@ export class FlTagInputComponent extends FlFormFieldDirective<FlTag[], FlTagInpu
     if (this.mode === 'array') {
       return innerValue;
     } else {
-      const tags: Record<string, FlTagValue> = {};
+      const tags: Record<string, FlTagValue | undefined> = {};
       for (const tag of innerValue) {
         tags[tag.key] = tag.value;
       }

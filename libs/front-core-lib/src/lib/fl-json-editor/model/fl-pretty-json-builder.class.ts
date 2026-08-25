@@ -121,10 +121,9 @@ export class FlPrettyJsonBuilder {
         id: this.id++,
         // set the node key, if there is an key offset, add it to the key
         key: keyOffset > 0 ? (parseInt(key) + keyOffset).toString() : key,
-        type: null,
+        type: this.getType(value),
       };
 
-      node.type = this.getType(value);
       if (value != null) {
         // for object that contains at least one element
         if (node.type === 'object' && Object.keys(value).length > 0) {

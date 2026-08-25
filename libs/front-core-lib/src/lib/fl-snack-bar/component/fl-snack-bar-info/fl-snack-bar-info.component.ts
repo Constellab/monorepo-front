@@ -19,7 +19,7 @@ export class FlSnackBarInfoComponent {
 
   mode: FlSnackBarMode;
   text: FlTranslatableText;
-  showCloseButton: boolean;
+  showCloseButton: boolean | undefined;
   action?: FlSnackBarAction;
 
   constructor() {

@@ -6,7 +6,7 @@ import {
   FlAcceptanceCookie,
   FlAcceptanceCookiesConfig,
   FlCookieOptions,
-  FlPlatformService
+  FlPlatformService,
 } from '@monorepo/front-core-lib/fl-core';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable, of } from 'rxjs';
@@ -101,7 +101,10 @@ export class FlCookieService {
    * @return the parsed value of the cookie
    */
   public getParsedCookie(key: string, defaultValue: any = null): any {
-    return JSON.parse(this.getStringCookie(key, defaultValue));
+    const value = this.getStringCookie(key, defaultValue);
+    if (value == null) return null;
+
+    return JSON.parse(value);
   }
 
   /**
@@ -110,7 +113,7 @@ export class FlCookieService {
    * @param defaultValue the value returned if the cookie key does not exist
    * @return the string of the cookie
    */
-  public getStringCookie(key: string, defaultValue: any = null): string {
+  public getStringCookie(key: string, defaultValue: any = null): string | null {
     if (!this.canAccessCookies()) {
       return null;
     }

@@ -68,7 +68,10 @@ export class FlInputFileDirective
    */
   @HostListener('change')
   listenOnChange(): void {
-    this.fileChanged(this.elementRef.nativeElement.files);
+    const files = this.elementRef.nativeElement.files;
+    if (files) {
+      this.fileChanged(files);
+    }
     if (this.autoClearHtmlInput) {
       this.elementRef.nativeElement.value = '';
       this.clearValue();

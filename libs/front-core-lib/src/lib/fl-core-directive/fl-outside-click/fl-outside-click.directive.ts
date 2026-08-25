@@ -32,7 +32,7 @@ export class FlOutsideClickDirective implements OnInit, OnDestroy {
   private checkElement(event: MouseEvent): void {
     const host: HTMLElement = this.elementRef.nativeElement;
 
-    let element: HTMLElement = event.target as HTMLElement;
+    let element: HTMLElement | null = event.target as HTMLElement;
 
     while (element != null) {
       if (element === host) {

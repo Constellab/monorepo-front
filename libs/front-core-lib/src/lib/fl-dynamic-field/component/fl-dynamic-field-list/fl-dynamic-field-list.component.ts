@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { FlDynamicFieldAbstractDirective } from '../../model/fl-dynamic-field-abstract.directive';
 
@@ -10,7 +10,7 @@ import { FlDynamicFieldAbstractDirective } from '../../model/fl-dynamic-field-ab
   standalone: false,
 })
 export class FlDynamicFieldListComponent extends FlDynamicFieldAbstractDirective {
-  @Input() prefix: string;
+  @Input() prefix?: string;
 
-  @Input() suffix: string;
+  @Input() suffix?: string;
 }

@@ -99,16 +99,19 @@ export class FlDragHoverDirective {
       // stop event to avoid file opening in browser
       this.stopEvent(event);
 
+      const dataTransfer = event.dataTransfer;
+      if (dataTransfer == null) return;
+
       const dropEvent: FlDropEvent = {
         event: event,
       };
 
       switch (this.flDragHoverMode) {
         case 'file':
-          dropEvent.files = FlFileHelper.convertFileListToArray(event.dataTransfer.files);
+          dropEvent.files = FlFileHelper.convertFileListToArray(dataTransfer.files);
           break;
         case 'all':
-          dropEvent.files = FlFileHelper.convertFileListToArray(event.dataTransfer.files);
+          dropEvent.files = FlFileHelper.convertFileListToArray(dataTransfer.files);
           dropEvent.data = this.dragManager.getData();
           break;
         default:
@@ -181,7 +184,7 @@ export class FlDragHoverDirective {
     return !this.flDragHoverDisabled && this.checkDataTransferType(event.dataTransfer);
   }
 
-  private checkDataTransferType(dataTransfer: DataTransfer): boolean {
+  private checkDataTransferType(dataTransfer: DataTransfer | null): boolean {
     if (dataTransfer == null) {
       return false;
     }

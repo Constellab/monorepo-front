@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
 
 /**
@@ -32,7 +32,7 @@ export class FlInfiniteLoadMoreResultComponent {
   }
 
   get emptyText(): string {
-    if (this.datasource.page.totalElements > 0) {
+    if ((this.datasource.page?.totalElements ?? 0) > 0) {
       return this.textNoMoreResult;
     } else {
       return this.textNoResult;

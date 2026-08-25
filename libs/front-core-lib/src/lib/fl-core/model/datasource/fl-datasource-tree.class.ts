@@ -7,7 +7,8 @@ import { FlEntity } from '../fl-entity.class';
 import { FlTree } from './fl-tree-object.class';
 
 export class FlDatasourceTree<T extends FlEntity> {
-  private tree$ = new BehaviorSubject<FlTree<T>>(new FlTree<T>({ id: null } as T, []));
+  // the root is a fake node with a null id, it is filtered out when returning ancestors
+  private tree$ = new BehaviorSubject<FlTree<T>>(new FlTree<T>({ id: null } as unknown as T, []));
 
   private readonly childrenOrder?: (a: T, b: T) => number;
 
@@ -20,7 +21,7 @@ export class FlDatasourceTree<T extends FlEntity> {
   }
 
   connect(): Observable<FlTree<T>[]> {
-    return this.tree$.asObservable().pipe(map((tree) => tree.children));
+    return this.tree$.asObservable().pipe(map((tree) => tree.children ?? []));
   }
 
   connectRoot(): Observable<FlTree<T>> {
@@ -127,13 +128,14 @@ export class FlDatasourceTree<T extends FlEntity> {
   ////////////////////////////////////// SORT /////////////////////////////////////////
   protected sortAndEmits(): void {
     const tree = this.tree;
-    tree.children = this.sortAllRecur(tree.children);
+    tree.children = this.sortAllRecur(tree.children ?? []);
     this.tree$.next(tree);
   }
 
   private sortAllRecur(nodes: FlTree<T>[]): FlTree<T>[] {
-    if (this.childrenOrder) {
-      nodes = nodes.sort((a, b) => this.childrenOrder(a.object, b.object));
+    const childrenOrder = this.childrenOrder;
+    if (childrenOrder) {
+      nodes = nodes.sort((a, b) => childrenOrder(a.object, b.object));
       for (const node of nodes) {
         if (node.children) {
           this.sortAllRecur(node.children);
@@ -147,7 +149,7 @@ export class FlDatasourceTree<T extends FlEntity> {
   ///////////////////////////// OTHERS //////////////////////////////
   public getVisibleNodes(tree: MatTree<FlTree<T>>): FlTree<T>[] {
     const visibleNodes: FlTree<T>[] = [];
-    for (const child of this.tree.children) {
+    for (const child of this.tree.children ?? []) {
       visibleNodes.push(...this.getVisibleNodesRecur(tree, child));
     }
     return visibleNodes;
@@ -168,7 +170,7 @@ export class FlDatasourceTree<T extends FlEntity> {
   }
 
   public isEmpty$(): Observable<boolean> {
-    return this.tree$.pipe(map((tree) => tree.children.length === 0));
+    return this.tree$.pipe(map((tree) => (tree.children?.length ?? 0) === 0));
   }
 
   public hasNode(nodeId: string): boolean {

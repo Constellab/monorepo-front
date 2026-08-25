@@ -143,8 +143,8 @@ export class FlDialogService {
     return dialogRef;
   }
 
-  private addPanelClass(currentPanelClass: string | string[], newClass: string): string[] {
-    const panelClasses = ClHelpService.convertObjectOrArrayToArray(currentPanelClass);
+  private addPanelClass(currentPanelClass: string | string[] | undefined, newClass: string): string[] {
+    const panelClasses = ClHelpService.convertObjectOrArrayToArray<string>(currentPanelClass ?? []);
     panelClasses.push(newClass);
     return panelClasses;
   }
@@ -206,7 +206,7 @@ export class FlDialogService {
    */
   public isDialogComponentOpened(dialogComponent: Type<any>): boolean {
     return (
-      this.dialog.openDialogs.find((dialogRef) => dialogRef.componentRef.componentType == dialogComponent) !=
+      this.dialog.openDialogs.find((dialogRef) => dialogRef.componentRef?.componentType == dialogComponent) !=
       null
     );
   }

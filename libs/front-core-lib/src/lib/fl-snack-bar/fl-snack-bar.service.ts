@@ -29,7 +29,7 @@ export class FlSnackBarService {
     message: FlTranslatableText,
     duration: number = 3000,
     additionalConfig: FlSnackBarAdditionalConfig = FL_SNACKBAR_ADDITIONAL_CONFIG_DEFAULT
-  ): MatSnackBarRef<FlSnackBarInfoComponent> {
+  ): MatSnackBarRef<FlSnackBarInfoComponent> | null {
     return this.openSnackBarInfo(
       {
         mode: 'success',
@@ -49,9 +49,9 @@ export class FlSnackBarService {
    */
   public openErrorMessage(
     message: FlTranslatableText,
-    duration: number = null,
+    duration: number | null = null,
     additionalConfig: FlSnackBarAdditionalConfig = FL_SNACKBAR_ADDITIONAL_CONFIG_DEFAULT
-  ): MatSnackBarRef<FlSnackBarInfoComponent> {
+  ): MatSnackBarRef<FlSnackBarInfoComponent> | null {
     return this.openSnackBarInfo(
       {
         mode: 'error',
@@ -66,15 +66,15 @@ export class FlSnackBarService {
   private openSnackBarInfo(
     data: FlSnackBarInfoInput,
     panelClass: string,
-    duration: number
-  ): MatSnackBarRef<FlSnackBarInfoComponent> {
+    duration: number | null
+  ): MatSnackBarRef<FlSnackBarInfoComponent> | null {
     if (isPlatformServer(this.platformId)) {
       return null;
     }
 
     return this.openSnackBar(FlSnackBarInfoComponent, {
       data: data,
-      duration: duration,
+      duration: duration ?? undefined,
       panelClass: panelClass,
     });
   }

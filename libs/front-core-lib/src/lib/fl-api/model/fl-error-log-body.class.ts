@@ -4,6 +4,6 @@
 export interface FlErrorLogBody {
   name: string;
   message: string;
-  stackTrace: string;
+  stackTrace?: string;
   route: string;
 }

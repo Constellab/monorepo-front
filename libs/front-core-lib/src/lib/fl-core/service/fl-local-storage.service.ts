@@ -1,4 +1,4 @@
-import { inject,Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
 import { FlPlatformService } from './fl-plateform.service';
@@ -17,7 +17,7 @@ export class FlLocalStorageService {
    * @param key key of the item
    * @return a none parsed string
    */
-  public getItem(key: string): string {
+  public getItem(key: string): string | null {
     if (!this.platformService.isBrowserPlatform()) {
       return null;
     }
@@ -51,7 +51,12 @@ export class FlLocalStorageService {
     }
 
     try {
-      return JSON.parse(this.getItem(key)) ?? defaultValue;
+      const item: string | null = this.getItem(key);
+      if (item == null) {
+        return defaultValue;
+      }
+
+      return JSON.parse(item) ?? defaultValue;
     } catch {
       if (removeItemOnParseError) {
         this.removeItem(key);

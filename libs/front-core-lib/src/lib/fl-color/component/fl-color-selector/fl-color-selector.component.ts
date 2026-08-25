@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { FlColorHelper, FlFormFieldDirective } from '@monorepo/front-core-lib/fl-core';
 
@@ -10,7 +10,7 @@ import { FlColorHelper, FlFormFieldDirective } from '@monorepo/front-core-lib/fl
   changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
-export class FlColorSelectorComponent extends FlFormFieldDirective<string> {
+export class FlColorSelectorComponent extends FlFormFieldDirective<string | null> {
   @Input() placeholder: string;
 
   @Input() availableColor: string[] = FlColorHelper.getColorList();
@@ -25,7 +25,7 @@ export class FlColorSelectorComponent extends FlFormFieldDirective<string> {
    */
   @Input() boxBorderColor: string = 'transparent';
 
-  @Output() colorChange: EventEmitter<string> = new EventEmitter();
+  @Output() colorChange: EventEmitter<string | null> = new EventEmitter();
 
   constructor() {
     const ngControl = inject(NgControl, { optional: true, self: true });
@@ -33,7 +33,7 @@ export class FlColorSelectorComponent extends FlFormFieldDirective<string> {
     super(ngControl);
   }
 
-  callChangeEvent(value: string): void {
+  callChangeEvent(value: string | null): void {
     this.colorChange.emit(value);
   }
 

@@ -57,7 +57,9 @@ export class FlPortalActionDetail {
   private emitProgress(result: HttpEvent<any>): void {
     // if upload progress
     if (result.type === HttpEventType.UploadProgress) {
-      const progress = Math.trunc((result.loaded / result.total) * 100);
+      // total is optional on the http event, without it the progress is not computable
+      const total: number = result.total ?? NaN;
+      const progress = Math.trunc((result.loaded / total) * 100);
       if (progress >= 100) {
         // upload complete, switch to processing state
         this.emitProcessing(this.action.processingMessage);
@@ -73,7 +75,8 @@ export class FlPortalActionDetail {
 
   private emitSuccess(result: any): void {
     const link = this.action.successLink ? this.action.successLink(result) : null;
-    const onSuccessClick = this.action.onSuccessClick ? () => this.action.onSuccessClick(result) : null;
+    const onSuccessClickCallback = this.action.onSuccessClick;
+    const onSuccessClick = onSuccessClickCallback ? () => onSuccessClickCallback(result) : null;
     const successMessage = this.action.successMessage ? this.action.successMessage(result) : null;
 
     this.actionSubject$.next({
@@ -119,7 +122,7 @@ export class FlPortalActionDetail {
   }
 
   public isTrackingHttpEvents(): boolean {
-    return this.action.trackHttpEvents;
+    return this.action.trackHttpEvents === true;
   }
 
   /**

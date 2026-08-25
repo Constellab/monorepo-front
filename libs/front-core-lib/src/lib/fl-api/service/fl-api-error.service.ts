@@ -24,7 +24,7 @@ export abstract class FlApiErrorService {
    */
   public abstract handleServerError(
     errorResponse: HttpErrorResponse,
-    hideError: boolean,
+    hideError?: boolean,
     snackBarDuration?: number,
     defaultError?: string
   ): Observable<never>;

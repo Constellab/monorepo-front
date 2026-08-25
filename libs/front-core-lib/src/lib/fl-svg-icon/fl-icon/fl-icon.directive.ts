@@ -1,5 +1,5 @@
 import { isPlatformServer } from '@angular/common';
-import { Directive, ElementRef, inject,Input, PLATFORM_ID } from '@angular/core';
+import { Directive, ElementRef, inject, Input, PLATFORM_ID } from '@angular/core';
 import { MatIcon, MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -49,13 +49,13 @@ export class FlIconDirective {
       return;
     }
 
-    const registerIcon: FlIcon = this.getRegisterIcon(icon);
+    const registerIcon = this.getRegisterIcon(icon);
 
     // if this is an SVG icon
     if (registerIcon && (registerIcon as FlSvgIcon).filename) {
       // set the svgIcon property of mat icon
       this.setMatIcon(null);
-      this.matIcon.fontSet = null;
+      this.matIcon.fontSet = '';
       this.setSvgIcon(icon);
     } else {
       // if the mat icon is register use the mat icon name
@@ -66,15 +66,15 @@ export class FlIconDirective {
   }
 
   // return true if this is an SVG icon and not a material icon
-  private getRegisterIcon(icon: string): FlIcon {
+  private getRegisterIcon(icon: string): FlIcon | undefined {
     return this.config.iconsToRegister.find((svgIcon) => svgIcon.name === icon);
   }
 
-  private setMatIcon(icon: string): void {
-    this.elementRef.nativeElement.innerText = icon;
+  private setMatIcon(icon: string | null): void {
+    this.elementRef.nativeElement.innerText = icon ?? '';
   }
 
-  private setSvgIcon(icon: string): void {
-    this.matIcon.svgIcon = icon;
+  private setSvgIcon(icon: string | null): void {
+    this.matIcon.svgIcon = icon ?? '';
   }
 }

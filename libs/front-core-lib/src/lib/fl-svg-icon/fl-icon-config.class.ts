@@ -85,7 +85,7 @@ export const FL_ICONS_DEFAULT: FlIcon[] = [
   { name: 'form_template', matIconName: 'assignment_add' },
 ];
 
-export function flGetFileIconFromExtension(extension: string): string {
+export function flGetFileIconFromExtension(extension: string | null): string {
   if (!extension) return 'insert_drive_file';
 
   extension = extension.replace('.', '').toLowerCase();

@@ -87,7 +87,7 @@ export class FlAddTagInputComponent implements OnInit, OnDestroy {
 
   // provided when adding a new tag. It is set when the key has been defined but not the value
   // this is a temp storage
-  currentTagKey: FlTagKeySearchResult;
+  currentTagKey: FlTagKeySearchResult | null;
 
   mode$: BehaviorSubject<FlTagMode> = new BehaviorSubject('key');
 
@@ -176,6 +176,9 @@ export class FlAddTagInputComponent implements OnInit, OnDestroy {
   private addChip(value: string | FlTagSearchResult): void {
     if (!value) return;
     if (this.mode$.value === 'value') {
+      const currentTagKey = this.currentTagKey;
+      if (currentTagKey == null) return;
+
       let tagValue: FlTagSearchResult;
       if (typeof value === 'string') {
         tagValue = { type: 'value', content: value };
@@ -183,7 +186,7 @@ export class FlAddTagInputComponent implements OnInit, OnDestroy {
         tagValue = value;
       }
       this.addTag.emit({
-        key: this.currentTagKey,
+        key: currentTagKey,
         value: tagValue as FlTagValueSearchResult,
       });
 
@@ -219,7 +222,7 @@ export class FlAddTagInputComponent implements OnInit, OnDestroy {
     filtersCriteria?: FlTagSearchFilter,
     sortsCriteria?: FlDatasourceSortCriteria[]
   ): void {
-    if (filtersCriteria.key == null) return;
+    if (filtersCriteria?.key == null) return;
     this.filteredOptions.getFirstPage(filtersCriteria, sortsCriteria);
     this.filteredCommunityOptions?.getFirstPage(filtersCriteria, sortsCriteria);
   }

@@ -16,7 +16,8 @@ export class FlHtmlHelper {
   public static domTokenListToArray(tokenList: DOMTokenList): string[] {
     const array: string[] = [];
     for (let i = 0; i < tokenList.length; i++) {
-      array.push(tokenList.item(i));
+      const item = tokenList.item(i);
+      if (item != null) array.push(item);
     }
     return array;
   }
@@ -106,7 +107,7 @@ export class FlHtmlHelper {
    * @param parent provide one of the field to search
    */
   public static getParent(element: HTMLElement, parent: FlHtmlFindParentOptions): HTMLElement | null {
-    let current: HTMLElement = element;
+    let current: HTMLElement | null = element;
 
     while (current != null && current.tagName !== 'BODY') {
       if (parent.element) {
@@ -133,6 +134,8 @@ export class FlHtmlHelper {
 
   public static setCaretAtElementEnd(element: Node): void {
     const selection = window.getSelection();
+    if (!selection) return;
+
     const range = document.createRange();
     range.selectNodeContents(element);
     range.collapse(false);
@@ -142,6 +145,8 @@ export class FlHtmlHelper {
 
   public static setCaretAtElementPosition(element: Node, position: number): void {
     const selection = window.getSelection();
+    if (!selection) return;
+
     const range = document.createRange();
     range.setStart(element, position);
     range.collapse(true);
@@ -149,8 +154,10 @@ export class FlHtmlHelper {
     selection.addRange(range);
   }
 
-  public static getCaretCoordinates(): { top: number; left: number } {
+  public static getCaretCoordinates(): { top: number; left: number } | null {
     const selection = window.getSelection();
+    if (!selection) return null;
+
     const range = selection.getRangeAt(0);
     const rect = range.getBoundingClientRect();
     return { top: rect.top, left: rect.left };
@@ -163,13 +170,15 @@ export class FlHtmlHelper {
     element: HTMLElement
   ): void {
     const textContent = node.textContent;
+    const parentNode = node.parentNode;
+    if (textContent == null || parentNode == null) return;
 
     const before = document.createTextNode(textContent.slice(0, from));
     const after = document.createTextNode(textContent.slice(to));
 
     node.textContent = '';
-    node.parentNode.appendChild(before);
-    node.parentNode.appendChild(element);
-    node.parentNode.appendChild(after);
+    parentNode.appendChild(before);
+    parentNode.appendChild(element);
+    parentNode.appendChild(after);
   }
 }

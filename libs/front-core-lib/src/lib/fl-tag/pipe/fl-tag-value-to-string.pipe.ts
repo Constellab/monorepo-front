@@ -8,7 +8,7 @@ import { FlTagHelper } from '../fl-tag.helper';
   standalone: false,
 })
 export class FlTagValueToStringPipe implements PipeTransform {
-  transform(value: FlTagValue): string {
+  transform(value: FlTagValue): string | null {
     return FlTagHelper.tagValueToString(value);
   }
 }

@@ -6,7 +6,7 @@ export interface FlObjectNode {
   key: string;
   value?: any;
   type: FlObjectNodeType;
-  preview?: string;
+  preview?: string | null;
 }
 
 export interface FlObjectFlatNode {
@@ -16,6 +16,6 @@ export interface FlObjectFlatNode {
   key: string;
   value?: any;
   type: FlObjectNodeType;
-  preview?: string;
+  preview?: string | null;
   className: string;
 }

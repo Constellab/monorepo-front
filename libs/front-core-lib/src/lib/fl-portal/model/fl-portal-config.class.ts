@@ -73,7 +73,7 @@ export class FlPortalConfig {
   }
 
   // convert the string | string[] to string[]
-  protected convertToStringArray(obj: string | string[]): string[] {
+  protected convertToStringArray(obj: string | string[] | undefined): string[] {
     let array: string[] = [];
     if (typeof obj === 'string') {
       array.push(obj);

@@ -48,7 +48,7 @@ export interface FlDatasourcePaginatedOptions {
   throwError?: boolean;
 }
 
-const defaultOptions: FlDatasourcePaginatedOptions = {
+const defaultOptions: Required<FlDatasourcePaginatedOptions> = {
   initFirstPage: true,
   disableAutoDisconnect: false,
   throwError: false,
@@ -63,7 +63,7 @@ export abstract class FlDatasourcePaginated<T, F = void> extends FlArrayObs<T> {
   /**
    * Current page information
    */
-  public page?: ClPageI<T>;
+  public page?: ClPageI<T> | null;
 
   // true when a request is being made
   public isLoading: boolean = false;
@@ -89,7 +89,7 @@ export abstract class FlDatasourcePaginated<T, F = void> extends FlArrayObs<T> {
   ) {
     super(null, options.disableAutoDisconnect);
 
-    const fullOptions = { ...defaultOptions, ...options };
+    const fullOptions: Required<FlDatasourcePaginatedOptions> = { ...defaultOptions, ...options };
     if (fullOptions.initFirstPage) {
       this.getFirstPage();
     }
@@ -143,7 +143,7 @@ export abstract class FlDatasourcePaginated<T, F = void> extends FlArrayObs<T> {
 
   private callGetPageFunction(pageNumber: number): void {
     this.isLoading = true;
-    const requestData: FlDatasourceGetPageData = {
+    const requestData: FlDatasourceGetPageData<F> = {
       filtersCriteria: this.filtersCriteria,
       sortsCriteria: this.sortsCriteria,
     };

@@ -94,7 +94,7 @@ export class FlInfiniteScrollDirective implements OnInit, AfterViewInit, OnDestr
    *
    * The emitted value can be null
    */
-  @Output() flInfiniteScroll: EventEmitter<Event> = new EventEmitter<Event>();
+  @Output() flInfiniteScroll: EventEmitter<Event | null> = new EventEmitter<Event | null>();
 
   // true when we are waiting flInfiniteAfterDebounce after an event
   private isWaiting: boolean = false;
@@ -118,9 +118,10 @@ export class FlInfiniteScrollDirective implements OnInit, AfterViewInit, OnDestr
         this.scrollableElement = this.flInfiniteMode;
       } else if (this.flInfiniteMode === 'auto') {
         // retrieve scrollable parents
-        const scrollableElements = this.scrollDispatcher.getAncestorScrollContainers(
-          this.elementRef.nativeElement.parentElement
-        );
+        const parentElement = this.elementRef.nativeElement.parentElement;
+        const scrollableElements = parentElement
+          ? this.scrollDispatcher.getAncestorScrollContainers(parentElement)
+          : [];
 
         // if there are some scrollable parent, use the first one
         if (scrollableElements.length > 0) {
@@ -151,7 +152,7 @@ export class FlInfiniteScrollDirective implements OnInit, AfterViewInit, OnDestr
   }
 
   // method to check the trigger distance from bottom
-  private checkDistance(event: Event): void {
+  private checkDistance(event: Event | null): void {
     // check if the infinite scroll if disable
     if (this.flInfiniteDisabled || this.isWaiting) {
       return;
@@ -181,7 +182,7 @@ export class FlInfiniteScrollDirective implements OnInit, AfterViewInit, OnDestr
     }
   }
 
-  private emitEvent(event: Event): void {
+  private emitEvent(event: Event | null): void {
     // emit trigger event
     this.flInfiniteScroll.emit(event);
 

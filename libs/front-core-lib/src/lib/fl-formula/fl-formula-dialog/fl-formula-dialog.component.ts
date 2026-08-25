@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy,Component, inject, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  OnInit,
+  ViewChild,
+  ViewContainerRef,
+} from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
@@ -21,9 +28,9 @@ export class FlFormulaDialogComponent implements OnInit {
 
   @ViewChild('viewContainer', { static: true, read: ViewContainerRef }) viewContainer: ViewContainerRef;
 
-  formulaControl: FormControl<string>;
+  formulaControl: FormControl<string | null | undefined>;
 
-  formula$: Observable<string>;
+  formula$: Observable<string | null | undefined>;
   input: FlFormulaDialogInput = inject(MAT_DIALOG_DATA);
 
   async ngOnInit(): Promise<void> {

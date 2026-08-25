@@ -61,7 +61,7 @@ export class FlTranslateModule {
    * @param skipDefaultLoader if true, the loader is not created. Useful for SSR to provide a custom loader
    */
   public static forRoot2(skipDefaultLoader: boolean = false): ModuleWithProviders<TranslateModule> {
-    let loader: Provider = undefined;
+    let loader: Provider | undefined = undefined;
     if (!skipDefaultLoader) {
       loader = {
         provide: TranslateLoader,

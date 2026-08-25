@@ -11,9 +11,9 @@ export class FlDynamicFieldAbstractDirective {
 
   @Input() formCtrl: FormControl;
 
-  @Input() placeholder: string;
+  @Input() placeholder?: string;
 
-  @Input() hint: string;
+  @Input() hint?: string;
 
   @Input() disabled: boolean;
 

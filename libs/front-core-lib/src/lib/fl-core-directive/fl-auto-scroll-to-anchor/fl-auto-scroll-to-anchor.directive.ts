@@ -16,13 +16,13 @@ export class FlAutoScrollToAnchorDirective implements AfterViewInit, OnDestroy {
   private router = inject(Router);
 
   // Observable that emits true when the component using targeted is loaded
-  @Input() flAutoScrollIsLoaded$: Observable<boolean> = null;
+  @Input() flAutoScrollIsLoaded$: Observable<boolean> | null = null;
 
   // True if the component has a flAutoScrollIsLoaded$ observable
   @Input() flAutoScrollHasIsLoaded = false;
 
   subscriptions: Subscription[] = [];
-  fragment: Observable<string>;
+  fragment: Observable<string | null>;
   lastScrolledAnchor: string;
 
   ngAfterViewInit(): void {
@@ -53,7 +53,7 @@ export class FlAutoScrollToAnchorDirective implements AfterViewInit, OnDestroy {
     );
 
     // Scroll on load if flAutoScrollIsLoaded$ is provided
-    if (this.flAutoScrollHasIsLoaded) {
+    if (this.flAutoScrollHasIsLoaded && this.flAutoScrollIsLoaded$) {
       this.subscriptions.push(
         this.flAutoScrollIsLoaded$.subscribe((loaded) => {
           if (loaded) {
@@ -64,7 +64,7 @@ export class FlAutoScrollToAnchorDirective implements AfterViewInit, OnDestroy {
     }
   }
 
-  private scrollToAnchor(anchor: string): void {
+  private scrollToAnchor(anchor: string | null): void {
     // If the anchor is null or contains %, do not scroll
     if (!anchor) return;
     if (anchor.includes('%')) {
@@ -82,7 +82,7 @@ export class FlAutoScrollToAnchorDirective implements AfterViewInit, OnDestroy {
     }
 
     // Find the element with the anchor
-    const children: HTMLElement = this.elementRef.nativeElement.querySelector(`#${anchor}`);
+    const children: HTMLElement | null = this.elementRef.nativeElement.querySelector(`#${anchor}`);
 
     if (children) {
       // Scroll to the element

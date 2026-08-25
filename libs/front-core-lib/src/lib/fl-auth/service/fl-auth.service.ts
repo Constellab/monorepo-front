@@ -3,11 +3,9 @@ import { FL_AUTH_EXPIRED_COOKIE } from '@monorepo/front-core-lib/fl-core';
 import { FlCookieService } from '@monorepo/front-core-lib/fl-dialog';
 import { Observable } from 'rxjs';
 
-export interface FlAuthLoginResponse {
-  status: 'LOGGED_IN' | '2FA_REQUIRED';
-  expiresIn?: number;
-  twoFAUrlCode?: string;
-}
+export type FlAuthLoginResponse =
+  | { status: 'LOGGED_IN'; expiresIn: number; twoFAUrlCode?: string }
+  | { status: '2FA_REQUIRED'; expiresIn?: number; twoFAUrlCode?: string };
 
 export interface FlAuthLogin2FaResponse {
   status: 'LOGGED_IN';

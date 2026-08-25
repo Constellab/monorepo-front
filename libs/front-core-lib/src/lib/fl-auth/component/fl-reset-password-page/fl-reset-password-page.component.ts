@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FlGlobalValidators } from '@monorepo/front-core-lib/fl-core';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
@@ -21,16 +21,22 @@ export class FlResetPasswordPageComponent {
   private router = inject(Router);
 
   formGp = new FormBuilder().group({
-    password: [null, [Validators.required, FlGlobalValidators.passwordValidator()]],
-    repeatPassword: [null, [Validators.required, FlGlobalValidators.repeatPasswordValidator('password')]],
+    password: new FormControl<string | null>(null, [
+      Validators.required,
+      FlGlobalValidators.passwordValidator(),
+    ]),
+    repeatPassword: new FormControl<string | null>(null, [
+      Validators.required,
+      FlGlobalValidators.repeatPasswordValidator('password'),
+    ]),
   });
 
   isLoading: boolean = false;
 
   submit(): void {
-    if (this.formGp.valid && !this.isLoading) {
+    const password = this.formGp.getRawValue().password;
+    if (this.formGp.valid && !this.isLoading && password != null) {
       this.isLoading = true;
-      const password: string = this.formGp.value.password;
 
       // get the token from URL and call reset password
       this.route.params.pipe(first()).subscribe((params) => this.resetPassword(password, params.token));

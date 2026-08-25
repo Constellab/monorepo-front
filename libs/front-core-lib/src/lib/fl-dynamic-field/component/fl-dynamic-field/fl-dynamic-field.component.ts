@@ -9,7 +9,8 @@ import {
   OnDestroy,
   OnInit,
   ViewChild,
-  ViewContainerRef} from '@angular/core';
+  ViewContainerRef,
+} from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
 
 import { FlDynamicAbstractFormDirective } from '../../model/fl-dynamic-abstract-form.directive';
@@ -31,9 +32,9 @@ export class FlDynamicFieldComponent implements OnInit, OnDestroy, FlDynamicAbst
   private fieldConfig = inject(FlDynamicFieldConfigService);
   private injector = inject(Injector);
 
-  config = input<FlDynamicFieldConfig>();
+  config = input.required<FlDynamicFieldConfig>();
 
-  control = input<UntypedFormControl>();
+  control = input.required<UntypedFormControl>();
 
   cellRendering = input<boolean>(false);
 

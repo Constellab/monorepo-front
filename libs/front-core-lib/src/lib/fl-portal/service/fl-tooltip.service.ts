@@ -1,4 +1,4 @@
-import { ElementRef, inject,Injectable, OnDestroy } from '@angular/core';
+import { ElementRef, inject, Injectable, OnDestroy } from '@angular/core';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import { FlTranslateParam } from '@monorepo/front-core-lib/fl-translate';
 import { BehaviorSubject, Subject } from 'rxjs';
@@ -42,10 +42,11 @@ export class FlTooltipService implements OnDestroy {
     duration: number = 3000
   ): FlOverlayRef {
     // check if the overlay already exists
-    if (this.overlays.has(uniqueId)) {
+    const existingOverlay = this.overlays.get(uniqueId);
+    if (existingOverlay) {
       // emit a value in the subject to reset the debounce timer
-      this.disposeTooltip.get(uniqueId).next(uniqueId);
-      return this.overlays.get(uniqueId);
+      this.disposeTooltip.get(uniqueId)?.next(uniqueId);
+      return existingOverlay;
     }
 
     // configure the portal

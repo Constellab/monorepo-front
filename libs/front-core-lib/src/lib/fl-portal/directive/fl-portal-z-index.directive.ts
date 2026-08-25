@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostListener, inject,Input, OnInit, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, HostListener, inject, Input, OnInit, Renderer2 } from '@angular/core';
 import { FlHtmlHelper } from '@monorepo/front-core-lib/fl-core';
 
 /**
@@ -15,7 +15,7 @@ export class FlPortalZIndexDirective implements OnInit {
   @Input() flPortalZIndexDisabled: boolean = false;
 
   private readonly className = 'g-overlay-z-index';
-  private overlayElement: HTMLElement;
+  private overlayElement: HTMLElement | null = null;
 
   @HostListener('mousedown')
   click(): void {

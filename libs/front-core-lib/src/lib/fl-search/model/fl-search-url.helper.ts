@@ -14,8 +14,8 @@ export interface FlAdvancedSearchObjectUrl {
  * Object stored in the url to save the search
  */
 export interface FlSearchUrlObject {
-  search: string;
-  timestamp: string;
+  search: string | null;
+  timestamp: string | null;
 }
 
 /**
@@ -31,7 +31,7 @@ export class FlSearchPageUrlHelper {
    * @param search search criteria
    * @param timestamp of the search
    */
-  public static buildSearchUrlObject(search: string, timestamp: string): FlSearchUrlObject {
+  public static buildSearchUrlObject(search: string | null, timestamp: string): FlSearchUrlObject {
     if (!search) return { search: null, timestamp: null };
     return { search: search, timestamp: timestamp };
   }
@@ -61,7 +61,8 @@ export class FlSearchPageUrlHelper {
     return null;
   }
 
-  private static simplifyFilterObject(filters: Record<string, any>): Record<string, any> | null {
+  private static simplifyFilterObject(filters: Record<string, any> | undefined): Record<string, any> | null {
+    if (filters == null) return null;
     const simpleFilters: Record<string, any> = {};
 
     for (const key of Object.keys(filters)) {
@@ -104,7 +105,7 @@ export class FlSearchPageUrlHelper {
   }
 
   // parse and check if the search string from URL is a list of SearchCriteria for advanced search
-  public static advancedSearchFromString(strSearch: string): FlAdvancedSearchObjectUrl | null {
+  public static advancedSearchFromString(strSearch: string | null): FlAdvancedSearchObjectUrl | null {
     if (!strSearch) {
       return null;
     }

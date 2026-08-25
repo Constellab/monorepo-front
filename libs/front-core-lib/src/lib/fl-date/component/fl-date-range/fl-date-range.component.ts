@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { ClOnChange } from '@monorepo/core-lib';
 import { DateTime } from 'luxon';
 
@@ -30,7 +30,7 @@ export class FlDateRangeComponent implements OnInit {
 
   @Input() dateFormat: FlDateFormatKey = 'DATE';
 
-  mode: 'between' | 'from' | 'to';
+  mode: 'between' | 'from' | 'to' | null;
 
   ngOnInit(): void {
     this.initMode();

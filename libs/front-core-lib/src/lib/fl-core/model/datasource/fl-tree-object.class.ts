@@ -3,7 +3,7 @@ import { FlEntity } from '../fl-entity.class';
 export class FlTree<T extends FlEntity> {
   id: string;
   object: T;
-  children: FlTree<T>[];
+  children: FlTree<T>[] | undefined;
   parent: FlTree<T> | null;
 
   constructor(object: T, children?: FlTree<T>[]) {
@@ -14,13 +14,14 @@ export class FlTree<T extends FlEntity> {
     this.parent = null;
   }
 
-  public findNodeById(id: string): FlTree<T> | null {
+  public findNodeById(id: string | null): FlTree<T> | null {
     if (this.id === id) {
       return this;
     }
 
-    if (!this.childrenAreLoaded()) return null;
-    for (const child of this.children) {
+    const children = this.children;
+    if (!children) return null;
+    for (const child of children) {
       const node = child.findNodeById(id);
       if (node) {
         return node;
@@ -41,13 +42,14 @@ export class FlTree<T extends FlEntity> {
   }
 
   public deleteNodeById(id: string): boolean {
-    if (!this.childrenAreLoaded()) return false;
-    const index = this.children.findIndex((child) => child.id === id);
+    const children = this.children;
+    if (!children) return false;
+    const index = children.findIndex((child) => child.id === id);
     if (index > -1) {
-      this.children.splice(index, 1);
+      children.splice(index, 1);
       return true;
     } else {
-      for (const child of this.children) {
+      for (const child of children) {
         if (child.deleteNodeById(id)) {
           return true;
         }
@@ -60,7 +62,7 @@ export class FlTree<T extends FlEntity> {
     const ancestors: FlTree<T>[] = [];
 
     // eslint-disable-next-line @typescript-eslint/no-this-alias
-    let node: FlTree<T> = this;
+    let node: FlTree<T> | null = this;
     while (node) {
       ancestors.push(node);
       node = node.parent;
@@ -70,15 +72,17 @@ export class FlTree<T extends FlEntity> {
   }
 
   public addOrReplaceDirectChild(child: FlTree<T>): void {
-    if (!this.childrenAreLoaded()) {
-      this.children = [];
+    let children = this.children;
+    if (!children) {
+      children = [];
+      this.children = children;
     }
 
-    const index = this.children.findIndex((c) => c.id === child.id);
+    const index = children.findIndex((c) => c.id === child.id);
     if (index > -1) {
-      this.children[index] = child;
+      children[index] = child;
     } else {
-      this.children.push(child);
+      children.push(child);
     }
     child.parent = this;
   }
@@ -92,7 +96,7 @@ export class FlTree<T extends FlEntity> {
     return false;
   }
 
-  public addOrReplaceNode(object: T, parentNodeId: string, initChildren: boolean = false): boolean {
+  public addOrReplaceNode(object: T, parentNodeId: string | null, initChildren: boolean = false): boolean {
     this.deleteNodeById(object.id);
 
     const parentNode = this.findNodeById(parentNodeId);
@@ -104,7 +108,7 @@ export class FlTree<T extends FlEntity> {
     return true;
   }
 
-  public addOrReplaceObject(object: T, parentNodeId: string): void {
+  public addOrReplaceObject(object: T, parentNodeId: string | null): void {
     const existingNode = this.findNodeById(object.id);
     if (existingNode) {
       this.updateNodeObject(object);
@@ -116,7 +120,7 @@ export class FlTree<T extends FlEntity> {
 
   public addOrReplaceNodesAndChildren(
     objects: T[],
-    parentNodeId: string,
+    parentNodeId: string | null,
     getChildren: (object: T) => T[] | null
   ): void {
     for (const object of objects) {
@@ -135,15 +139,16 @@ export class FlTree<T extends FlEntity> {
    * and adds or replaces objects in the newChildren list.
    */
   public refreshNodeObjectsAndChildren(
-    newChildren: T[],
-    parentNodeId: string,
+    newChildren: T[] | null,
+    parentNodeId: string | null,
     getChildren: (object: T) => T[] | null
   ): void {
     if (!newChildren) return;
 
     // delete children that are not in the newChildren list
-    if (this.childrenAreLoaded()) {
-      const existingChildrenIds = this.children.map((child) => child.object.id);
+    const children = this.children;
+    if (children) {
+      const existingChildrenIds = children.map((child) => child.object.id);
       for (const childId of existingChildrenIds) {
         const newChild = newChildren.find((c) => c.id === childId);
         if (!newChild) {
@@ -156,6 +161,7 @@ export class FlTree<T extends FlEntity> {
     for (const object of newChildren) {
       this.addOrReplaceObject(object, parentNodeId);
       const node = this.findNodeById(object.id);
+      if (!node) continue;
       const subChildren = getChildren(object);
       node.refreshNodeObjectsAndChildren(subChildren, object.id, getChildren);
     }

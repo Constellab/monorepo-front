@@ -22,9 +22,9 @@ export abstract class FlMouseHoverPortalAbstractDirective
   @Input() flDisableHover: boolean = false;
 
   // current overlay if portal is open
-  protected currentOverlay: FlOverlayRef;
+  protected currentOverlay: FlOverlayRef | null = null;
 
-  private listener: () => void;
+  private listener: (() => void) | null = null;
 
   protected portalService = inject(FlPortalService);
   private render = inject(Renderer2);
@@ -56,7 +56,7 @@ export abstract class FlMouseHoverPortalAbstractDirective
     }
 
     // get the directive config
-    const config: FlMouseHoverPortalConfig = this.getConfig();
+    const config: FlMouseHoverPortalConfig | null = this.getConfig();
 
     if (config == null) {
       return;
@@ -85,13 +85,13 @@ export abstract class FlMouseHoverPortalAbstractDirective
   // close the overlay on mouse out of the current card and the portal
   private checkAndCloseDetail(event: MouseEvent): void {
     // get the directive config
-    const config: FlMouseHoverPortalConfig = this.getConfig();
+    const config: FlMouseHoverPortalConfig | null = this.getConfig();
 
     if (config == null || this.currentOverlay == null) {
       return;
     }
 
-    let element: HTMLElement = event.relatedTarget as HTMLElement;
+    let element: HTMLElement | null = event.relatedTarget as HTMLElement;
 
     // check if the destination target is a child of the detail portal
     while (element != null && element.tagName !== 'BODY') {

@@ -13,7 +13,7 @@ export class FlCaptchaService {
   private config = inject<FlCaptchaModuleConfig>(FL_CAPTCHA_MODULE_CONFIG);
   private snackBarService = inject(FlSnackBarService);
 
-  public executeCaptcha(action: string): Observable<string> {
+  public executeCaptcha(action: string): Observable<string | null> {
     // disable captcha on local
     if (ClHelpService.isNullOrEmpty(this.config.siteKey)) return of(null);
 

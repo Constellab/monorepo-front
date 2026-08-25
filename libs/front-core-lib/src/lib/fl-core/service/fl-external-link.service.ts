@@ -9,7 +9,7 @@ export class FlExternalLinkService {
    * Get a search link for google scholar
    * @param search
    */
-  public static getGoogleArchiveSearch(search: string): string {
+  public static getGoogleArchiveSearch(search: string): string | null {
     if (search == null) return null;
 
     // replace spaces with + and set to lower case for the search
@@ -18,7 +18,7 @@ export class FlExternalLinkService {
     return `https://scholar.google.com/scholar?q=${searchParams}`;
   }
 
-  public static getWikipediaSearch(search: string): string {
+  public static getWikipediaSearch(search: string): string | null {
     if (search == null) return null;
 
     // replace spaces with + and set to lower case for the search

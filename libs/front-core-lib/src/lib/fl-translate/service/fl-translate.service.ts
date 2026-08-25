@@ -25,7 +25,7 @@ export class FlTranslateService {
   private adapter = inject<DateAdapter<any>>(DateAdapter);
   private injector = inject(Injector);
 
-  private static instance: FlTranslateService = null;
+  private static instance: FlTranslateService | null = null;
 
   // key to store the user language in the cookie
   private readonly cookieKey = 'lang';
@@ -45,7 +45,7 @@ export class FlTranslateService {
   /**
    * @return the current instance of the translate service
    */
-  public static getInstance(): FlTranslateService {
+  public static getInstance(): FlTranslateService | null {
     return FlTranslateService.instance;
   }
 
@@ -80,7 +80,7 @@ export class FlTranslateService {
    * Translate or not a text
    * @param translatableText
    */
-  public translatableText(translatableText: FlTranslatableText): string {
+  public translatableText(translatableText: FlTranslatableText): string | null {
     if (translatableText == null) return null;
     if (typeof translatableText === 'string') {
       return this.translate(translatableText);
@@ -95,7 +95,7 @@ export class FlTranslateService {
    * Translate or not a text
    * @param translatableText
    */
-  public translatableTextObs(translatableText: FlTranslatableText): Observable<string> {
+  public translatableTextObs(translatableText: FlTranslatableText): Observable<string> | null {
     if (translatableText == null) return null;
     if (typeof translatableText === 'string') {
       return this.translateService.get(translatableText);
@@ -122,7 +122,7 @@ export class FlTranslateService {
    * @param text string to convert
    * @param mode mode
    */
-  private convertTranslatedTextCase(text: string, mode: FlTranslateMode): string {
+  private convertTranslatedTextCase(text: string, mode: FlTranslateMode | undefined): string {
     if (text == null || mode == null) {
       return text;
     }
@@ -142,7 +142,7 @@ export class FlTranslateService {
    */
   public getUserLanguage(): ClSupportedLanguage {
     // get the language from the cookie if it exists
-    const cookieLang: string = this.getUserLanguageCookie();
+    const cookieLang: string | null = this.getUserLanguageCookie();
 
     // if it exists, returns the lang from the cookie
     if (cookieLang && this.langIsSupported(cookieLang)) {
@@ -195,7 +195,7 @@ export class FlTranslateService {
   /**
    * Return the language store in the cookies
    */
-  public getUserLanguageCookie(): string {
+  public getUserLanguageCookie(): string | null {
     if (this.platformService.isBrowserPlatform() && this.cookieService.check(this.cookieKey))
       return this.cookieService.get(this.cookieKey);
 
@@ -214,7 +214,7 @@ export class FlTranslateService {
     if (this.getUserLanguageCookie() === lang) return;
 
     // set the language in the cookies
-    this.cookieService.set(this.cookieKey, lang, this.getDateInTenYears(), '/', null, false);
+    this.cookieService.set(this.cookieKey, lang, this.getDateInTenYears(), '/', undefined, false);
 
     this.setAppLanguage(lang);
   }

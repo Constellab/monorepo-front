@@ -30,7 +30,7 @@ export class FlApiService {
   public getById(
     route: string,
     id: string,
-    classReference?: ClDeserializationRef,
+    classReference?: ClDeserializationRef | null,
     options: FlHttpOption = {}
   ): Observable<any> {
     options.headers = this.mergeHeader(options.headers);
@@ -49,7 +49,7 @@ export class FlApiService {
    */
   public get(
     route: string,
-    classReference?: ClDeserializationRef,
+    classReference?: ClDeserializationRef | null,
     options: FlHttpOption = {}
   ): Observable<any> {
     options.headers = this.mergeHeader(options.headers);
@@ -72,17 +72,15 @@ export class FlApiService {
   public put(
     route: string,
     body: any,
-    classReference?: ClDeserializationRef,
+    classReference?: ClDeserializationRef | null,
     options: FlHttpOption = {}
   ): Observable<any> {
     options.headers = this.mergeHeader(options.headers);
     const url = this.getUrl(route, options);
-    return this.http
-      .put(url, this.convertObjectToPlain(body, options.serialization), options)
-      .pipe(
-        catchError((err) => this.catchError(err, options)),
-        map((result) => this.deserialize(result, classReference, options.resultIsPaginated))
-      );
+    return this.http.put(url, this.convertObjectToPlain(body, options.serialization), options).pipe(
+      catchError((err) => this.catchError(err, options)),
+      map((result) => this.deserialize(result, classReference, options.resultIsPaginated))
+    );
   }
 
   /**
@@ -95,17 +93,15 @@ export class FlApiService {
   public patch(
     route: string,
     body: any,
-    classReference?: ClDeserializationRef,
+    classReference?: ClDeserializationRef | null,
     options: FlHttpOption = {}
   ): Observable<any> {
     options.headers = this.mergeHeader(options.headers);
     const url = this.getUrl(route, options);
-    return this.http
-      .patch(url, this.convertObjectToPlain(body, options.serialization), options)
-      .pipe(
-        catchError((err) => this.catchError(err, options)),
-        map((result) => this.deserialize(result, classReference, options.resultIsPaginated))
-      );
+    return this.http.patch(url, this.convertObjectToPlain(body, options.serialization), options).pipe(
+      catchError((err) => this.catchError(err, options)),
+      map((result) => this.deserialize(result, classReference, options.resultIsPaginated))
+    );
   }
 
   /**
@@ -118,17 +114,15 @@ export class FlApiService {
   public post(
     route: string,
     body: any,
-    classReference?: ClDeserializationRef,
+    classReference?: ClDeserializationRef | null,
     options: FlHttpOption = {}
   ): Observable<any> {
     options.headers = this.mergeHeader(options.headers);
     const url = this.getUrl(route, options);
-    return this.http
-      .post(url, this.convertObjectToPlain(body, options.serialization), options)
-      .pipe(
-        catchError((err) => this.catchError(err, options)),
-        map((result) => this.deserialize(result, classReference, options.resultIsPaginated))
-      );
+    return this.http.post(url, this.convertObjectToPlain(body, options.serialization), options).pipe(
+      catchError((err) => this.catchError(err, options)),
+      map((result) => this.deserialize(result, classReference, options.resultIsPaginated))
+    );
   }
 
   /**
@@ -142,7 +136,7 @@ export class FlApiService {
   public deleteById(
     route: string,
     id: string,
-    classReference?: ClDeserializationRef,
+    classReference?: ClDeserializationRef | null,
     options: FlHttpOption = {}
   ): Observable<any> {
     options.headers = this.mergeHeader(options.headers);
@@ -161,7 +155,7 @@ export class FlApiService {
    */
   public delete(
     route: string,
-    classReference?: ClDeserializationRef,
+    classReference?: ClDeserializationRef | null,
     options: FlHttpOption = {}
   ): Observable<any> {
     options.headers = this.mergeHeader(options.headers);
@@ -224,7 +218,11 @@ export class FlApiService {
    * @param classReference class reference of object
    * @param isPaginated if true the result is considered as a {@link ClPage}
    */
-  public deserialize(json: any, classReference: ClDeserializationRef, isPaginated: boolean = false): any {
+  public deserialize(
+    json: any,
+    classReference?: ClDeserializationRef | null,
+    isPaginated: boolean = false
+  ): any {
     if (json && classReference) {
       try {
         if (isPaginated) {
@@ -306,22 +304,25 @@ export class FlApiService {
   }
 
   // download the file to the user's computer is direct download is set to true
-  private downloadFileSuccess(file: Blob, filename: string, directDownload: boolean): void {
+  private downloadFileSuccess(file: Blob, filename: string | undefined, directDownload: boolean): void {
     if (directDownload) {
       FlFileHelper.downloadBlob(file, filename);
     }
   }
 
   // Merge the header of the request with the header of the config
-  private mergeHeader(headers: HttpHeaders): HttpHeaders | null {
+  private mergeHeader(headers?: HttpHeaders): HttpHeaders | undefined {
     const headerObject: Record<string, string> = this.getConfigHeader();
 
     if (headers != null) {
       // append the header of the request
-      headers.keys().map((key) => (headerObject[key] = headers.get(key)));
+      for (const key of headers.keys()) {
+        const value = headers.get(key);
+        if (value != null) headerObject[key] = value;
+      }
     }
 
-    if (Object.keys(headerObject).length === 0) return null;
+    if (Object.keys(headerObject).length === 0) return undefined;
 
     return new HttpHeaders(headerObject);
   }

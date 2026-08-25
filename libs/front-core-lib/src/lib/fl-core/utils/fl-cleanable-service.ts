@@ -16,7 +16,7 @@ export interface FlCleanableService {
  * cleanServices
  */
 export class FlCleanerService {
-  private static instance: FlCleanerService = null;
+  private static instance: FlCleanerService | null = null;
 
   private registeredServices: FlCleanableService[] = [];
 

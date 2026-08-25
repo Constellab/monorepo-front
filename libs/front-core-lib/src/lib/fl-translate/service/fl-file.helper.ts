@@ -13,7 +13,7 @@ export class FlFileHelper {
    * @param file filename or full file path
    * @return return the filename name of a file without the extension
    */
-  public static getFilenameWithoutExtension(file: string): string {
+  public static getFilenameWithoutExtension(file: string): string | null {
     if (!file) return null;
     return FlFileHelper.extractFilenameFromFullPath(file).split('.').slice(0, -1).join('.');
   }
@@ -22,7 +22,7 @@ export class FlFileHelper {
    * @param file filename or full file path
    * @return the file extension without the .
    */
-  public static getFileExtension(file: string): string {
+  public static getFileExtension(file: string): string | null {
     if (!file) return null;
     if (file.indexOf('.') === -1) return null;
     return FlFileHelper.extractFilenameFromFullPath(file).split('.').slice(-1).join('.');
@@ -54,19 +54,19 @@ export class FlFileHelper {
     return FlFileHelper.extensionIsImage(FlFileHelper.getFileExtension(file));
   }
 
-  public static extensionIsPDF(extension: string): boolean {
+  public static extensionIsPDF(extension: string | null): boolean {
     return extension === 'pdf';
   }
 
-  public static extensionIsWord(extension: string): boolean {
+  public static extensionIsWord(extension: string | null): boolean {
     return extension === 'doc' || extension === 'docx';
   }
 
-  public static extensionIsExcel(extension: string): boolean {
+  public static extensionIsExcel(extension: string | null): boolean {
     return extension === 'xls' || extension === 'xlsx';
   }
 
-  public static extensionIsImage(extension: string): boolean {
+  public static extensionIsImage(extension: string | null): boolean {
     return (
       extension === 'png' ||
       extension === 'jpg' ||
@@ -89,6 +89,9 @@ export class FlFileHelper {
       'flCoreComponent.giga_byte_symbole',
     ];
     const translateService = FlTranslateService.getInstance();
+    if (translateService == null) {
+      throw new Error('The FlTranslateService is not initialized');
+    }
 
     for (const unit of units) {
       if (size < 1024) {
@@ -138,7 +141,7 @@ export class FlFileHelper {
 
       // This fires after the blob has been read/loaded.
       reader.addEventListener('loadend', (e) => {
-        const result: string = e.target.result as any;
+        const result: string = e.target?.result as any;
         if (parseResultToJson) {
           try {
             subscriber.next(JSON.parse(result));
@@ -173,7 +176,7 @@ export class FlFileHelper {
    * @param file the blob file to download
    * @param filename the complete name of the file
    */
-  public static downloadBlob(file: Blob, filename: string): void {
+  public static downloadBlob(file: Blob, filename?: string): void {
     const url = URL.createObjectURL(file);
     FlFileHelper.downloadUrl(url, filename);
   }

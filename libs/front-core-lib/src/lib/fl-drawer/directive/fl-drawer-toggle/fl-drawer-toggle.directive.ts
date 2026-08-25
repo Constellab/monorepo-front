@@ -13,6 +13,6 @@ export class FlDrawerToggleDirective {
 
   @HostListener('click')
   click(): void {
-    this.matDrawer.start.toggle();
+    this.matDrawer.start?.toggle();
   }
 }

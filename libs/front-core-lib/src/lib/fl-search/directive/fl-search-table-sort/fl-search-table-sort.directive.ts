@@ -1,4 +1,4 @@
-import { Directive, inject,OnDestroy, OnInit } from '@angular/core';
+import { Directive, inject, OnDestroy, OnInit } from '@angular/core';
 import { MatSort, Sort } from '@angular/material/sort';
 import { FlSortDirection } from '@monorepo/front-core-lib/fl-core';
 import { Subscription } from 'rxjs';
@@ -43,6 +43,7 @@ export class FlSearchTableSortDirective implements OnInit, OnDestroy {
   }
 
   private onSortChange(sort: Sort): void {
+    if (this.searchState == null) return;
     if (!sort.direction) {
       this.searchState.setSortCriteriaAndCallSearch(null);
     } else {

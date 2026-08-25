@@ -21,7 +21,7 @@ export class FlEntityPaginatedDatasource<T extends FlEntity, F = void> extends F
     return ClHelpService.compareFnIds(a, b);
   }
 
-  findItemById(id: string): T | null {
+  findItemById(id: string): T | undefined {
     return this.findItem({ id } as T);
   }
 

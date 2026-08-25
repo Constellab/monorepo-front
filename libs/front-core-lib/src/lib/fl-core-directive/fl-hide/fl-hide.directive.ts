@@ -14,7 +14,7 @@ import { Directive, HostBinding, Input, OnInit } from '@angular/core';
 })
 export class FlHideDirective implements OnInit {
   @HostBinding('class')
-  hideClass: string = null;
+  hideClass: string | null = null;
 
   @Input() flHide: any;
   @Input('flHide.xs') flHideXs: any;

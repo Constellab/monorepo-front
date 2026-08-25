@@ -40,14 +40,13 @@ export class FlApiWithCacheService extends FlApiService implements FlCleanableSe
   ): ClCachedObservable<any> {
     const fullRoute = this.getUrlForId(route, id);
 
-    if (!this.routeObservables.has(fullRoute)) {
-      this.routeObservables.set(
-        fullRoute,
-        new ClCachedObservable<any>(super.getById(route, id, classReference, options))
-      );
+    let cachedObservable = this.routeObservables.get(fullRoute);
+    if (cachedObservable == null) {
+      cachedObservable = new ClCachedObservable<any>(super.getById(route, id, classReference, options));
+      this.routeObservables.set(fullRoute, cachedObservable);
     }
 
-    return this.routeObservables.get(fullRoute);
+    return cachedObservable;
   }
 
   /**
@@ -60,7 +59,7 @@ export class FlApiWithCacheService extends FlApiService implements FlCleanableSe
     route: string,
     classReference?: ClDeserializationRef,
     options: FlHttpOption = {}
-  ): ClCachedObservable<any> {
+  ): ClCachedObservable<any> | null {
     if (options.page != null || options.pageSize != null) {
       console.error('The getWithCache method does not support pagination, please use normal get');
       return null;
@@ -68,14 +67,13 @@ export class FlApiWithCacheService extends FlApiService implements FlCleanableSe
 
     const fullRoute = this.getUrl(route);
 
-    if (!this.routeObservables.has(fullRoute)) {
-      this.routeObservables.set(
-        fullRoute,
-        new ClCachedObservable<any>(super.get(route, classReference, options))
-      );
+    let cachedObservable = this.routeObservables.get(fullRoute);
+    if (cachedObservable == null) {
+      cachedObservable = new ClCachedObservable<any>(super.get(route, classReference, options));
+      this.routeObservables.set(fullRoute, cachedObservable);
     }
 
-    return this.routeObservables.get(fullRoute);
+    return cachedObservable;
   }
 
   /**
