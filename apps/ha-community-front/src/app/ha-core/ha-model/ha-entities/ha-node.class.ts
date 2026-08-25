@@ -21,7 +21,7 @@ export class HaNodeObjectsTreeDatasource extends FlDatasourceTree<HaNode> {
     this.sortAndEmits();
   }
 
-  public updateNodeLocation(node: HaNode, oldParentId: string, newParentId: string): void {
+  public updateNodeLocation(node: HaNode, oldParentId: string | null, newParentId: string | null): void {
     this.tree.updateNodeObject(node);
     if (oldParentId != newParentId) {
       this.moveNode(node.id, oldParentId, newParentId);
@@ -30,13 +30,13 @@ export class HaNodeObjectsTreeDatasource extends FlDatasourceTree<HaNode> {
     }
   }
 
-  private moveNode(nodeId: string, oldParentId: string, newParentId: string): void {
+  private moveNode(nodeId: string, oldParentId: string | null, newParentId: string | null): void {
     const node = this.tree.findNodeById(nodeId);
-    if (!node) return null;
+    if (!node) return;
 
     const oldParent = this.tree.findNodeById(oldParentId);
     const newParent = this.tree.findNodeById(newParentId);
-    if (!oldParent || !newParent) return null;
+    if (!oldParent || !newParent) return;
 
     oldParent.deleteNodeById(nodeId);
     if (oldParent.object.children) {
@@ -64,9 +64,9 @@ export class HaNodeObjectsTreeDatasource extends FlDatasourceTree<HaNode> {
 }
 
 export class HaNode extends HaBaseEntity {
-  path: string;
+  path: string | null;
 
-  completePath: string;
+  completePath: string | null;
 
   name: string;
 
@@ -75,17 +75,17 @@ export class HaNode extends HaBaseEntity {
   @Type(() => HaNode)
   children?: HaNode[];
 
-  parentId: string;
+  parentId: string | null;
 
   isExpanded = false;
 
   constructor(
     id: string,
-    path: string,
-    completePath: string,
+    path: string | null,
+    completePath: string | null,
     name: string,
     order: number,
-    parentId: string,
+    parentId: string | null,
     children?: HaNode[]
   ) {
     super();

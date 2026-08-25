@@ -23,7 +23,7 @@ describe('HaAuthenticatedUserService', () => {
 
   function build(
     platform: 'browser' | 'server',
-    cookies: Record<string, string> = null
+    cookies: Record<string, string> | null = null
   ): HaAuthenticatedUserService {
     TestBed.resetTestingModule();
     apiServiceSpy = {

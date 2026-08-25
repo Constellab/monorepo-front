@@ -77,25 +77,28 @@ export class HaBrickPageComponent implements OnInit, OnDestroy {
     )
   );
 
-  currentUser: Signal<HaUser> = toSignal(this.authenticatedUserService.getUser());
-  brick: Signal<HaBrick> = this.brickPageState.brick;
+  currentUser: Signal<HaUser | null | undefined> = toSignal(this.authenticatedUserService.getUser());
+  brick: Signal<HaBrick | null> = this.brickPageState.brick;
   brickNotFound: Signal<boolean> = this.brickPageState.isBrickError;
   isLoading: Signal<boolean> = this.brickPageState.isBrickLoading;
   tempTitle = this.brickPageState.tempTitle;
   brickCoAuthors = this.brickPageState.coAuthors;
   contributors: Signal<HaUser[]> = computed(() => {
+    const brick = this.brick();
     const coAuthors = this.brickCoAuthors();
-    if (!this.brick() || !coAuthors) return [];
-    return [this.brick().createdBy, ...coAuthors];
+    if (!brick || !coAuthors) return [];
+    return [brick.createdBy, ...coAuthors];
   });
   isAuthor: Signal<boolean> = computed(() => {
-    if (!this.currentUser() || !this.brick()) return false;
-    return this.currentUser().id === this.brick().createdBy.id;
+    const currentUser = this.currentUser();
+    const brick = this.brick();
+    if (!currentUser || !brick) return false;
+    return currentUser.id === brick.createdBy.id;
   });
-  userHasEditRight: Signal<boolean> = this.brickPageState.userHasEditRight;
+  userHasEditRight: Signal<boolean | null> = this.brickPageState.userHasEditRight;
   docHeaders = this.brickPageState.docHeaders;
-  docFiles: Signal<HaFile[]> = this.brickPageState.docFiles;
-  docFileUrlPrefix: Signal<string> = this.brickPageState.docFileUrlPrefix;
+  docFiles: Signal<HaFile[] | null> = this.brickPageState.docFiles;
+  docFileUrlPrefix: Signal<string | null> = this.brickPageState.docFileUrlPrefix;
   isDocPage = this.currentPageState.isDocumentationPage;
   lastActivatedRoute = this.currentPageState.lastActivatedRoute;
 
@@ -134,16 +137,19 @@ export class HaBrickPageComponent implements OnInit, OnDestroy {
   }
 
   createEditBrickDialog(): void {
+    const brick = this.brick();
+    if (brick == null) return;
+
     const node: HaEditBrickDTO = new HaEditBrickDTO();
-    node.id = this.brick().id;
-    node.description = this.brick().description;
-    node.gitRepo = this.brick().gitRepo;
-    node.pipRepo = this.brick().pipRepo;
-    node.visibility = this.brick().visibility;
-    node.credentialUsername = this.brick().credentialUsername;
-    node.hasCredentialPassword = this.brick().hasCredentialPassword;
-    node.space = this.brick().space;
-    node.imageLink = this.brick().imageLink;
+    node.id = brick.id;
+    node.description = brick.description;
+    node.gitRepo = brick.gitRepo;
+    node.pipRepo = brick.pipRepo;
+    node.visibility = brick.visibility;
+    node.credentialUsername = brick.credentialUsername;
+    node.hasCredentialPassword = brick.hasCredentialPassword;
+    node.space = brick.space;
+    node.imageLink = brick.imageLink;
 
     const input: FlFormDialogInput<HaEditBrickDTO> = {
       mode: 'update',

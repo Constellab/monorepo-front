@@ -36,8 +36,8 @@ export class HaOauthHelper {
       return null;
     }
 
-    const url: URL = HaOauthHelper.parseUrl(returnUrl);
-    const apiUrl: URL = HaOauthHelper.parseUrl(HaEnvironmentHelper.getApiUrl());
+    const url: URL | null = HaOauthHelper.parseUrl(returnUrl);
+    const apiUrl: URL | null = HaOauthHelper.parseUrl(HaEnvironmentHelper.getApiUrl());
     if (!url || !apiUrl) {
       return null;
     }

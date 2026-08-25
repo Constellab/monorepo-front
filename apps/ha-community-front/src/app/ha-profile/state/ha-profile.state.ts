@@ -25,11 +25,11 @@ import { HaProfileDatasourceFilters } from '../component/ha-profile/ha-profile.c
 
 @Injectable()
 export class HaProfileState {
-  user: WritableSignal<CoUser> = signal(null);
+  user: WritableSignal<CoUser | null> = signal(null);
   isCurrentUser: WritableSignal<boolean> = signal(false);
   commonSpaces: WritableSignal<HaSpace[]> = signal([]);
-  userRunStatAggregate: WritableSignal<HaRunStatAggregate> = signal(null);
-  partner: WritableSignal<HaPartner> = signal(null);
+  userRunStatAggregate: WritableSignal<HaRunStatAggregate | null> = signal(null);
+  partner: WritableSignal<HaPartner | null> = signal(null);
   agents$: HaAgentDatasourcePaginated<HaProfileDatasourceFilters>;
   stories$: HaStoryListDatasourcePaginated<HaProfileDatasourceFilters>;
   bricks$: HaBrickDatasourcePaginated<HaProfileDatasourceFilters>;
@@ -56,7 +56,7 @@ export class HaProfileState {
     });
 
     const isCurrentUserSubscription = this.authenticatedUserService.getUser().subscribe((currentUser) => {
-      this.isCurrentUser.set(currentUser && currentUser.id === userId);
+      this.isCurrentUser.set(currentUser != null && currentUser.id === userId);
     });
 
     const commonSpacesSubscription = this.spaceService.getUserCommonSpace(userId).subscribe((spaces) => {

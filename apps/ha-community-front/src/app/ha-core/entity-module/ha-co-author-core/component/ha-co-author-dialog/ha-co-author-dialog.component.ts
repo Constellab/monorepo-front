@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, UntypedFormControl, Validators } from '@angular/forms';
 import {
   MatAutocomplete,
@@ -172,7 +172,7 @@ export class HaCoAuthorDialogComponent implements OnInit {
 
   checkAndSendInvite(): void {
     if (this.formGp.controls.coAuthorMail.valid) {
-      const inviteMail: string = this.formGp.controls.coAuthorMail.value;
+      const inviteMail: string = this.formGp.controls.coAuthorMail.value ?? '';
       this.isLoading = true;
       this.service.inviteCoAuthor(this.id, inviteMail).subscribe((result) => {
         if (result) {
@@ -195,7 +195,7 @@ export class HaCoAuthorDialogComponent implements OnInit {
   checkIfCoAuthor(user: HaUser): boolean {
     return (
       this.coAuthors.some((coAuthor) => coAuthor.id == user.id) ||
-      this.coAuthorPendingInvites.some((invite) => invite.email == user.email || invite.user.id == user.id)
+      this.coAuthorPendingInvites.some((invite) => invite.email == user.email || invite.user?.id == user.id)
     );
   }
 

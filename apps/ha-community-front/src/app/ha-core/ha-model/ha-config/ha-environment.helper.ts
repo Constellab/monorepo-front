@@ -15,7 +15,7 @@ export class HaEnvironmentHelper {
       constellabApiUrl: HA_ENVIRONMENT.settings.constellabApiUrl || 'https://api.preconstellab.com',
       constellabFrontUrl: HA_ENVIRONMENT.settings.constellabFrontUrl || 'https://preconstellab.com',
       communityFrontUrl: HA_ENVIRONMENT.settings.communityFrontUrl || 'http://localhost:4200',
-      captchaSiteKey: HA_ENVIRONMENT.settings.captchaSiteKey || null,
+      captchaSiteKey: HA_ENVIRONMENT.settings.captchaSiteKey || '',
       googleAnalyticsId: HA_ENVIRONMENT.settings.googleAnalyticsId || 'eazeaze',
       discordLink: HA_ENVIRONMENT.settings.discordLink || 'https://discord.com/invite/7nmH5qKM',
       algoliaAppId: HA_ENVIRONMENT.settings.algoliaAppId || 'S233I3C24Z',

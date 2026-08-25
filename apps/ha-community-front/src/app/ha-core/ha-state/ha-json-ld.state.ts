@@ -125,9 +125,7 @@ export class HaJsonLdState {
   }
 
   public clearJsonLdContent(): void {
-    if (this.document.head.querySelector('script[type="application/ld+json"]') != null) {
-      this.document.head.querySelector('script[type="application/ld+json"]').remove();
-    }
+    this.document.head.querySelector('script[type="application/ld+json"]')?.remove();
   }
 
   private setJsonLdContent(content: string): void {

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, effect, inject, Signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, inject, Signal } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { Router } from '@angular/router';
 import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
@@ -31,8 +31,8 @@ export class HaBrickVersionsComponent extends HaCommunityPageDirective {
   private router: Router = inject(Router);
 
   brickVersions: HaBrickVersionDataSource;
-  brick: Signal<HaBrick> = this.brickPageState.brick;
-  userHasEditRight: Signal<boolean> = this.brickPageState.userHasEditRight;
+  brick: Signal<HaBrick | null> = this.brickPageState.brick;
+  userHasEditRight: Signal<boolean | null> = this.brickPageState.userHasEditRight;
 
   constructor() {
     super();
@@ -47,31 +47,28 @@ export class HaBrickVersionsComponent extends HaCommunityPageDirective {
     super.setMetaTags(
       { text: 'ha.versions.brick.title', translateParam: { param: { brickTitle: brick.name } } },
       { text: 'ha.versions.brick.description', translateParam: { param: { brickTitle: brick.name } } },
-      brick.imageLink,
+      brick.imageLink ?? '',
       HaRouterService.getFullRoute(this.router.url)
     );
     this.setDataSource(brick);
   }
 
   openNewVersionDialog(brickName: string): void {
-    const input: FlFormDialogInput<HaNewVersionDTO> = {
+    const input: FlFormDialogInput<Partial<HaNewVersionDTO>> = {
       mode: 'create',
       object: {
-        version: null,
-        repoType: null,
-        commit: null,
         brickName: brickName,
-        subPatch: null,
         isBeta: false,
-      } as HaNewVersionDTO,
+      },
     };
 
     this.dialogService
       .openSmallDialog(HaAddVersionDialogComponent, { data: input })
       .afterClosed()
       .subscribe((res: HaNodeDTO) => {
-        if (res != null) {
-          this.setDataSource(this.brick());
+        const brick = this.brick();
+        if (res != null && brick != null) {
+          this.setDataSource(brick);
         }
       });
   }

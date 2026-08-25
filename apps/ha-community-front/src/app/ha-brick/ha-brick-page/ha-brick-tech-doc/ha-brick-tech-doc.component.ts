@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy,Component, computed, inject, OnDestroy, OnInit, Signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  OnDestroy,
+  OnInit,
+  Signal,
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
@@ -32,17 +40,17 @@ export class HaBrickTechDocComponent extends HaCommunityPageDirective implements
   private brickPageState: HaBrickPageState = inject(HaBrickPageState);
   private jsonLdState: HaJsonLdState = inject(HaJsonLdState);
 
-  techDoc: Signal<TdTypeEntity> = computed(() => {
+  techDoc: Signal<TdTypeEntity | null> = computed(() => {
     const techDoc = this.brickPageState.techDoc();
     if (techDoc) {
       this.onTechDoc(techDoc);
     }
     return techDoc;
   });
-  brick: Signal<HaBrick> = this.brickPageState.brick;
+  brick: Signal<HaBrick | null> = this.brickPageState.brick;
   isTechDocLoading: Signal<boolean> = this.brickPageState.isTechDocLoading;
   techDocNotFound: Signal<boolean> = this.brickPageState.isTechDocError;
-  runStatAggregate: Signal<HaRunStatAggregate> = this.brickPageState.runStatAggregate;
+  runStatAggregate: Signal<HaRunStatAggregate | null> = this.brickPageState.runStatAggregate;
 
   url: string;
 
@@ -63,25 +71,28 @@ export class HaBrickTechDocComponent extends HaCommunityPageDirective implements
   }
 
   private onTechDoc(techDoc: TdTypeEntity): void {
+    const brick = this.brick();
+    if (brick == null) return;
+
     super.setMetaTags(
       {
         text: 'ha.techdocumentation.brick.title',
-        translateParam: { param: { brickTitle: this.brick().name, docTitle: techDoc.humanName } },
+        translateParam: { param: { brickTitle: brick.name, docTitle: techDoc.humanName } },
       },
       {
         text: 'ha.techdocumentation.brick.description',
-        translateParam: { param: { brickTitle: this.brick().name, docTitle: techDoc.humanName } },
+        translateParam: { param: { brickTitle: brick.name, docTitle: techDoc.humanName } },
       },
-      this.brick().imageLink,
+      brick.imageLink ?? '',
       HaRouterService.getFullRoute(this.router.url),
       'article'
     );
 
     this.jsonLdState.setArticleJsonLdContent(
       techDoc.humanName,
-      this.brick().imageLink ? [this.brick().imageLink] : [],
-      this.brick().createdAt,
-      [this.brick().createdBy]
+      brick.imageLink ? [brick.imageLink] : [],
+      brick.createdAt,
+      [brick.createdBy]
     );
   }
 

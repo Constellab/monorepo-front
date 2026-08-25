@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatButton, MatIconButton } from '@angular/material/button';
@@ -97,7 +97,7 @@ export class HaTagPageComponent extends HaCommunityPageDirective implements OnIn
   textEditorConfig = new TeCompleteConfig();
 
   canEditTag = false;
-  descriptionFormControl = new FormControl<TeRichText>(new TeRichText());
+  descriptionFormControl = new FormControl<TeRichText>(new TeRichText(), { nonNullable: true });
   oldTagDescription: TeRichText;
   isBooleanType = false;
   profileRoute = HaRouterService.getProfileRoute();
@@ -353,10 +353,11 @@ export class HaTagPageComponent extends HaCommunityPageDirective implements OnIn
       this.updateTagValues();
     }
 
-    if (this.user()) {
+    const user = this.user();
+    if (user) {
       if (
-        this.tagKey.createdBy.id == this.user().id ||
-        this.tagKey.tagCoAuthors?.some((coAuthor) => coAuthor.id == this.user().id)
+        this.tagKey.createdBy?.id == user.id ||
+        this.tagKey.tagCoAuthors?.some((coAuthor) => coAuthor.id == user.id)
       ) {
         this.canEditTag = true;
       }
@@ -371,7 +372,7 @@ export class HaTagPageComponent extends HaCommunityPageDirective implements OnIn
         text: 'ha.tag.description',
         translateParam: { param: { label: this.tagKey.label } },
       },
-      null,
+      '',
       HaRouterService.getTagPageRoute(this.tagKey.id, this.tagKey.technicalName)
     );
   }

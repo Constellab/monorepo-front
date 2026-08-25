@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy,ChangeDetectorRef, Component, computed, inject, OnInit, Signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  computed,
+  inject,
+  OnInit,
+  Signal,
+} from '@angular/core';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -11,6 +19,7 @@ import {
 } from '@monorepo/front-core-lib/fl-dialog';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
+import { TD_TYPE_STYLE_DEFAULT } from '@monorepo/technical-doc';
 import { TranslatePipe } from '@ngx-translate/core';
 
 import { HaTdServiceConfig } from '../../../ha-core/ha-model/ha-config/ha-td-service.config';
@@ -50,13 +59,13 @@ export class HaAgentVersionPageComponent extends HaCommunityPageDirective implem
   private changeDetector: ChangeDetectorRef = inject(ChangeDetectorRef);
   private tdService: HaTdServiceConfig = inject(HaTdServiceConfig);
 
-  agentVersion: Signal<HaAgentVersion> = computed(() => {
+  agentVersion: Signal<HaAgentVersion | null> = computed(() => {
     const agentVersion_ = this.agentPageState.agentVersion();
     if (!agentVersion_) {
       return null;
     }
-    const agentVersionImage: string =
-      agentVersion_.style.icon_type === 'COMMUNITY_IMAGE'
+    const agentVersionImage: string | null =
+      agentVersion_.style?.icon_type === 'COMMUNITY_IMAGE'
         ? this.tdService.getCommunityIconBaseApiUrl() + `/${agentVersion_.style.icon_technical_name}`
         : null;
     super.setMetaTags(
@@ -72,7 +81,7 @@ export class HaAgentVersionPageComponent extends HaCommunityPageDirective implem
           param: { title: agentVersion_.agent.title, version: agentVersion_.version },
         },
       },
-      agentVersionImage,
+      agentVersionImage ?? '',
       HaRouterService.getFullRoute(HaRouterService.getAgentVersionRoute(agentVersion_))
     );
     return agentVersion_;
@@ -91,11 +100,14 @@ export class HaAgentVersionPageComponent extends HaCommunityPageDirective implem
   }
 
   publishAgentVersion(agentVersionId: string): void {
+    const agentVersion = this.agentVersion();
+    if (agentVersion == null) return;
+
     const warnings: FlTranslatableText[] = [];
-    if (this.agentVersion().versionInfos?.isEmpty()) {
+    if (agentVersion.versionInfos?.isEmpty()) {
       warnings.push('agent_version_publish_no_version_info_warning');
     }
-    if (this.agentVersion().agent?.description?.isEmpty()) {
+    if (agentVersion.agent?.description?.isEmpty()) {
       warnings.push('agent_no_description_warning');
     }
 
@@ -118,35 +130,39 @@ export class HaAgentVersionPageComponent extends HaCommunityPageDirective implem
   }
 
   deleteAgentVersion(): void {
+    const agentVersion = this.agentVersion();
+    if (agentVersion == null) return;
+
     //TODO: Check if last version with the state
     this.dialogService
       .openConfirmDialog({
         title: 'delete_agent_version',
         content: 'delete_agent_version_confirmation',
         successMessage: 'agent_version_deleted',
-        observable: this.agentService.deleteAgentVersion(this.agentVersion().id),
+        observable: this.agentService.deleteAgentVersion(agentVersion.id),
       })
       .afterClosed()
       .subscribe((result) => {
         if (result.choice) {
           this.router
-            .navigate([
-              HaRouterService.getAgentRoute(this.agentVersion().agent.id, this.agentVersion().agent.title),
-            ])
+            .navigate([HaRouterService.getAgentRoute(agentVersion.agent.id, agentVersion.agent.title)])
             .then(() => {
-              this.agentPageState.removeAgentVersionToList(this.agentVersion());
+              this.agentPageState.removeAgentVersionToList(agentVersion);
             });
         }
       });
   }
 
   openAgentEditStyleDialog(): void {
+    const agentVersion = this.agentVersion();
+    if (agentVersion == null) return;
+
     const dialogData: HaAgentEditStyleDialogInputData = {
       mode: 'update',
       object: {
-        style: this.agentVersion().style,
+        style: agentVersion.style ?? TD_TYPE_STYLE_DEFAULT,
         isVersion: true,
-        entityId: this.agentVersion().id,
+        entityId: agentVersion.id,
       },
     };
     this.dialogService

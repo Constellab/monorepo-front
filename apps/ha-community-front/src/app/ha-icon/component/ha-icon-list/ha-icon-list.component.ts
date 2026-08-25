@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { CoIcon } from '@monorepo/community-lib';
 import { CoCommunityLibModule } from '@monorepo/community-lib';
 import {
@@ -46,7 +46,7 @@ export class HaIconListComponent implements OnInit, OnDestroy {
   }
 
   openIconInfoPortal(selectedIcon: [Event, CoIcon]): void {
-    let target: Element;
+    let target: Element | undefined;
     const event = selectedIcon[0];
     const icon = selectedIcon[1];
     for (let i = 0; i < event.composedPath().length; i++) {

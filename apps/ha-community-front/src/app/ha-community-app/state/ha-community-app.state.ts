@@ -12,39 +12,44 @@ export class HaCommunityAppState {
   private communityAppService: HaCommunityAppService = inject(HaCommunityAppService);
   private authenticatedUserService: HaAuthenticatedUserService = inject(HaAuthenticatedUserService);
 
-  private appStatusEvent: WritableSignal<FlStatusEvent<HaCommunityApp>> =
-    signal<FlStatusEvent<HaCommunityApp>>(null);
+  private appStatusEvent: WritableSignal<FlStatusEvent<HaCommunityApp> | null> =
+    signal<FlStatusEvent<HaCommunityApp> | null>(null);
 
-  private currentUser: WritableSignal<HaUser> = signal<HaUser>(null);
+  private currentUser: WritableSignal<HaUser | null> = signal<HaUser | null>(null);
 
-  private appCoAuthors: WritableSignal<HaUser[]> = signal<HaUser[]>(null);
+  private appCoAuthors: WritableSignal<HaUser[] | null> = signal<HaUser[] | null>(null);
 
   public canEditApp: Signal<boolean> = computed(() => {
-    if (!this.currentUser()) return false;
-    if (this.isLoading() || !this.app()) return false;
-    if (this.currentUser().id === this.app().createdBy.id) return true;
-    if (!this.appCoAuthors()) return false;
-    return this.appCoAuthors().some((coAuthor) => coAuthor.id === this.currentUser().id);
+    const currentUser = this.currentUser();
+    const app = this.app();
+    if (!currentUser) return false;
+    if (this.isLoading() || !app) return false;
+    if (currentUser.id === app.createdBy.id) return true;
+    const appCoAuthors = this.appCoAuthors();
+    if (!appCoAuthors) return false;
+    return appCoAuthors.some((coAuthor) => coAuthor.id === currentUser.id);
   });
 
-  public isLoading: Signal<boolean> = computed(
-    () => this.appStatusEvent() && this.appStatusEvent().status == 'loading'
-  );
-  public isErrored: Signal<boolean> = computed(
-    () => this.appStatusEvent() && this.appStatusEvent().status == 'error'
-  );
+  public isLoading: Signal<boolean> = computed(() => {
+    const appStatusEvent = this.appStatusEvent();
+    return appStatusEvent != null && appStatusEvent.status == 'loading';
+  });
+  public isErrored: Signal<boolean> = computed(() => {
+    const appStatusEvent = this.appStatusEvent();
+    return appStatusEvent != null && appStatusEvent.status == 'error';
+  });
 
-  public app: Signal<HaCommunityApp> = computed(() => {
+  public app: Signal<HaCommunityApp | null> = computed(() => {
     const appStatusEvent = this.appStatusEvent();
     if (appStatusEvent && appStatusEvent.status == 'success') return appStatusEvent.object;
     return null;
   });
 
-  public getCoAuthors(): Signal<HaUser[]> {
+  public getCoAuthors(): Signal<HaUser[] | null> {
     return this.appCoAuthors;
   }
 
-  public getCurrentUser(): Signal<HaUser> {
+  public getCurrentUser(): Signal<HaUser | null> {
     return this.currentUser;
   }
 
@@ -78,11 +83,12 @@ export class HaCommunityAppState {
   }
 
   private initUser(appId: string): void {
-    this.authenticatedUserService.getUser().pipe(first()).subscribe((user) => {
-      this.currentUser.set(user);
-      this.initCoAuthors(appId);
-    });
+    this.authenticatedUserService
+      .getUser()
+      .pipe(first())
+      .subscribe((user) => {
+        this.currentUser.set(user ?? null);
+        this.initCoAuthors(appId);
+      });
   }
-
-
 }

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatCheckbox } from '@angular/material/checkbox';
@@ -57,6 +57,9 @@ export class HaAgentEditStyleDialogComponent
     const dialogInput = inject<HaAgentEditStyleDialogInputData>(MAT_DIALOG_DATA);
 
     super();
+    if (dialogInput.object == null) {
+      throw new Error('HaAgentEditStyleDialogComponent requires a dialog object');
+    }
     this.style = dialogInput.object.style;
     this.isVersion = dialogInput.object.isVersion;
     this.entityId = dialogInput.object.entityId;
@@ -75,7 +78,7 @@ export class HaAgentEditStyleDialogComponent
   }
 
   create(): Observable<HaAgent | HaAgentVersion> {
-    return undefined;
+    throw new Error('create() not implemented in HaAgentEditStyleDialogComponent');
   }
 
   getCreateSuccessMessage(): string {

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, computed, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, OnInit } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
@@ -68,9 +68,9 @@ export class HaPartnerPageComponent extends HaCommunityPageDirective implements 
       super.setMetaTags(
         { text: 'ha.partner.title', translateParam: { param: { name: partner.name } } },
         { text: 'ha.partner.description', translateParam: { param: { name: partner.name } } },
-        partnerImage,
+        partnerImage ?? '',
         HaRouterService.getFullRoute(
-          HaRouterService.getPartnerPage(partner.id, ClStringHelper.getCleanUrlPath(partner.name))
+          HaRouterService.getPartnerPage(partner.id, ClStringHelper.getCleanUrlPath(partner.name) ?? '')
         )
       );
     }
@@ -82,7 +82,9 @@ export class HaPartnerPageComponent extends HaCommunityPageDirective implements 
   onPartnerInfoLoading = this.partnerState.onPartnerInfoLoading.asReadonly();
   textEditorConfig = computed(() => {
     const partner = this.partner();
-    return new HaPartnerTextEditorConfig(this.partnerService, partner ? partner.id : null);
+    return partner
+      ? new HaPartnerTextEditorConfig(this.partnerService, partner.id)
+      : new HaPartnerTextEditorConfig(this.partnerService, '', false);
   });
   canEdit = computed(() => {
     const user = this.currentUser();
@@ -117,7 +119,7 @@ export class HaPartnerPageComponent extends HaCommunityPageDirective implements 
   }
 
   savePartnerInfo(): void {
-    if (!this.partner().info?.contentAreEquals(this.formControl.value)) {
+    if (!this.partner()?.info?.contentAreEquals(this.formControl.value)) {
       this.partnerState.editPartnerInfo(this.formControl.value);
     }
 
@@ -127,7 +129,7 @@ export class HaPartnerPageComponent extends HaCommunityPageDirective implements 
   openEditPartnerDialog(): void {
     const dialogInput: HaEditPartnerDialogInput = {
       mode: 'update',
-      object: this.partner(),
+      object: this.partner() ?? undefined,
     };
 
     this.dialogService

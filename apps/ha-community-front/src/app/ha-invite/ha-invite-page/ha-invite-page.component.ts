@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
@@ -46,50 +46,58 @@ export class HaInvitePageComponent implements OnInit {
   }
 
   acceptInvite(): void {
+    const service = this.service();
+    if (service == null) {
+      this.inviteNotValid();
+      return;
+    }
+
     this.isLoading = true;
-    this.service()
-      .acceptInvite(this.token)
-      .subscribe({
-        next: (entity) => {
-          this.router.navigate([this.currentPageState.getEntityPage(entity)]);
-        },
-        error: () => {
-          this.isLoading = false;
-        },
-      });
+    service.acceptInvite(this.token).subscribe({
+      next: (entity) => {
+        this.router.navigate([this.currentPageState.getEntityPage(entity)]);
+      },
+      error: () => {
+        this.isLoading = false;
+      },
+    });
   }
 
   private checkValidity(): void {
     if (!this.token) this.inviteNotValid();
 
-    this.service()
-      .isCoAuthorInviteValid(this.token)
-      .subscribe({
-        next: (invite) => {
-          if (!invite) this.inviteNotValid();
-          this.invite = invite;
+    const service = this.service();
+    if (service == null) {
+      this.inviteNotValid();
+      return;
+    }
 
-          switch (this.currentPageState.getCurrentEntityType()()) {
-            case HaEntityType.STORY:
-              this.entityTitle = (invite as HaStoryCoAuthorInvite).story.title;
-              break;
-            case HaEntityType.APP:
-              this.entityTitle = (invite as HaCommunityAppCoAuthorInvite).communityApp.title;
-              break;
-            case HaEntityType.BRICK:
-              this.entityTitle = (invite as HaBrickCoAuthorInvite).brick.name;
-              break;
-            case HaEntityType.AGENT:
-              this.entityTitle = (invite as HaAgentCoAuthorInvite).agent.title;
-              break;
-            default:
-              this.entityTitle = '';
-          }
-        },
-        error: () => {
-          this.inviteNotValid();
-        },
-      });
+    service.isCoAuthorInviteValid(this.token).subscribe({
+      next: (invite) => {
+        if (!invite) this.inviteNotValid();
+        this.invite = invite;
+
+        switch (this.currentPageState.getCurrentEntityType()()) {
+          case HaEntityType.STORY:
+            this.entityTitle = (invite as HaStoryCoAuthorInvite).story.title;
+            break;
+          case HaEntityType.APP:
+            this.entityTitle = (invite as HaCommunityAppCoAuthorInvite).communityApp.title;
+            break;
+          case HaEntityType.BRICK:
+            this.entityTitle = (invite as HaBrickCoAuthorInvite).brick.name;
+            break;
+          case HaEntityType.AGENT:
+            this.entityTitle = (invite as HaAgentCoAuthorInvite).agent.title;
+            break;
+          default:
+            this.entityTitle = '';
+        }
+      },
+      error: () => {
+        this.inviteNotValid();
+      },
+    });
   }
 
   private inviteNotValid(): void {

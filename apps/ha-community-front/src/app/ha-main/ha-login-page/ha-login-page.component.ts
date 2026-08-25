@@ -42,13 +42,13 @@ export class HaLoginPageComponent implements OnInit {
   private platformId = inject(PLATFORM_ID);
 
   spaceSignupRoute: string = HaConstellabHelper.getConstellabSignupUrl();
-  redirectionRoute: string = FlLoginSavedRoute.getRoutePath();
+  redirectionRoute: string | null = FlLoginSavedRoute.getRoutePath();
 
   /**
    * Url of the API /oauth/authorize endpoint to come back to after login, when the login page was
    * opened by the OAuth flow of an MCP client. Null in the normal login case.
    */
-  private oauthReturnUrl: string = null;
+  private oauthReturnUrl: string | null = null;
 
   ngOnInit(): void {
     this.oauthReturnUrl = HaOauthHelper.getSafeAuthorizeReturnUrl(
@@ -112,7 +112,7 @@ export class HaLoginPageComponent implements OnInit {
    * router navigation: the target is the API origin, not an app route.
    */
   private redirectToOauthAuthorize(): void {
-    if (!isPlatformBrowser(this.platformId)) {
+    if (!isPlatformBrowser(this.platformId) || this.oauthReturnUrl == null) {
       return;
     }
     window.location.assign(this.oauthReturnUrl);

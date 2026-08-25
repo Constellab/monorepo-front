@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatLabel } from '@angular/material/form-field';
@@ -66,8 +66,8 @@ export class HaPartnerEditDialogComponent
     this.init();
 
     if (this.dialogInput.mode === 'update') {
-      this.partnerId = this.dialogInput.object.id;
-      this.basePartnerName = this.dialogInput.object.name;
+      this.partnerId = this.dialogInput.object?.id ?? '';
+      this.basePartnerName = this.dialogInput.object?.name ?? '';
 
       this.imageConfig = {
         title: { text: 'upload_partner_logo', translateText: true },

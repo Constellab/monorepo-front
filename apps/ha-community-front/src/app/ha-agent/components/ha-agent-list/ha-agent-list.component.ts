@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { CoCommunityLibModule, CoListEntityType, CoListFiltersComponent } from '@monorepo/community-lib';
@@ -61,7 +61,7 @@ export class HaAgentListComponent extends HaCommunityPageDirective implements On
     super.setMetaTags(
       'ha.agents.title',
       'ha.agents.description',
-      null,
+      '',
       HaRouterService.getFullRoute(HaRouterService.getAgentsListRoute())
     );
   }

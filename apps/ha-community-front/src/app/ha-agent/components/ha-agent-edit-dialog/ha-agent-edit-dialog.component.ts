@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
@@ -16,6 +16,7 @@ import {
   FlDialogService,
   FlFormDialogAbstractDirective,
 } from '@monorepo/front-core-lib/fl-dialog';
+import { TD_TYPE_STYLE_DEFAULT } from '@monorepo/technical-doc';
 import { TranslatePipe } from '@ngx-translate/core';
 import { Observable, switchMap } from 'rxjs';
 
@@ -78,13 +79,16 @@ export class HaAgentEditDialogComponent
   private agentPageState = inject(HaAgentPageState);
 
   agent: HaAgent;
-  version: HaAgentVersion;
+  version: HaAgentVersion | undefined;
   spaces$: Observable<HaSpace[]>;
 
   constructor() {
     const dialogInput = inject<HaAgentEditDialogInputData>(MAT_DIALOG_DATA);
 
     super();
+    if (dialogInput.object == null) {
+      throw new Error('HaAgentEditDialogComponent requires a dialog object');
+    }
     this.agent = dialogInput.object.agent;
     this.version = dialogInput.object.version;
   }
@@ -102,7 +106,7 @@ export class HaAgentEditDialogComponent
   }
 
   create(): Observable<HaAgent> {
-    return undefined;
+    throw new Error('create() not implemented in HaAgentEditDialogComponent');
   }
 
   getCreateSuccessMessage(): string {
@@ -115,9 +119,9 @@ export class HaAgentEditDialogComponent
 
   update(formValue: HaAgentEditFormData): Observable<HaAgent> {
     if (this.formGp.valid) {
-      return this.agentService.updateTitle(this.agent.id, formValue.title).pipe(
-        switchMap(() => this.agentService.updateSpace(this.agent.id, formValue.spaceId))
-      );
+      return this.agentService
+        .updateTitle(this.agent.id, formValue.title)
+        .pipe(switchMap(() => this.agentService.updateSpace(this.agent.id, formValue.spaceId)));
     }
     throw new Error('Form is invalid');
   }
@@ -129,7 +133,7 @@ export class HaAgentEditDialogComponent
     const dialogData: HaAgentEditStyleDialogInputData = {
       mode: 'update',
       object: {
-        style: this.version.style,
+        style: this.version.style ?? TD_TYPE_STYLE_DEFAULT,
         isVersion: true,
         entityId: this.version.id,
       },

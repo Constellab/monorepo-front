@@ -66,11 +66,11 @@ describe('HaStoryGuard', () => {
   let activationError: unknown;
 
   /** resolve whatever shape canActivate returned */
-  function activate(guard: HaStoryGuard): boolean | UrlTree {
+  function activate(guard: HaStoryGuard): boolean | UrlTree | undefined {
     activationError = undefined;
     const result = guard.canActivate(ROUTE);
     if (isObservable(result)) {
-      let resolved: boolean | UrlTree;
+      let resolved: boolean | UrlTree | undefined;
       result.subscribe({
         next: (value) => (resolved = value),
         // the error may itself be undefined, keep a truthy trace of it

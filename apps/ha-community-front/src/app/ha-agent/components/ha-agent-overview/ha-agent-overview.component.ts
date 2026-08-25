@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, computed, inject, OnDestroy, Signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, OnDestroy, Signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { CoCommunityLibModule } from '@monorepo/community-lib';
@@ -44,14 +44,18 @@ export class HaAgentOverviewComponent extends HaCommunityPageDirective implement
   private tdService: HaTdServiceConfig = inject(HaTdServiceConfig);
   private jsonLdState: HaJsonLdState = inject(HaJsonLdState);
 
-  agent: Signal<HaAgent> = computed(() => {
+  agent: Signal<HaAgent | null> = computed(() => {
     const agent_ = this.agentPageState.getAgent()();
-    const agentImage: string =
-      agent_.latestStyle.icon_type === 'COMMUNITY_IMAGE'
+    if (agent_ == null) {
+      return null;
+    }
+
+    const agentImage: string | null =
+      agent_.latestStyle?.icon_type === 'COMMUNITY_IMAGE'
         ? this.tdService.getCommunityIconBaseApiUrl() + `/${agent_.latestStyle.icon_technical_name}`
         : null;
     const pageUrl = HaRouterService.getFullRoute(
-      HaRouterService.getAgentRoute(agent_.id, ClStringHelper.getCleanUrlPath(agent_.title))
+      HaRouterService.getAgentRoute(agent_.id, ClStringHelper.getCleanUrlPath(agent_.title) ?? '')
     );
 
     super.setMetaTags(
@@ -60,22 +64,22 @@ export class HaAgentOverviewComponent extends HaCommunityPageDirective implement
         text: 'ha.agent.description',
         translateParam: { param: { title: agent_.title, author: agent_.createdBy?.alias } },
       },
-      agentImage,
+      agentImage ?? '',
       pageUrl
     );
 
-    this.jsonLdState.setSoftwareAppJsonLdContent(agent_.title, pageUrl, agentImage);
+    this.jsonLdState.setSoftwareAppJsonLdContent(agent_.title, pageUrl, agentImage ?? undefined);
 
     return agent_;
   });
   agentDescriptionFormControl = computed(() => {
     const agent = this.agent();
-    const formControl = new FormControl<TeRichText>(agent ? agent.description : null);
+    const formControl = new FormControl<TeRichText | null>(agent ? (agent.description ?? null) : null);
     formControl.disable();
     return formControl;
   });
   textEditorConfig: Signal<HaAgentTextEditorConfig> = computed(() => {
-    return new HaAgentTextEditorConfig(this.agentService, this.agent().id);
+    return new HaAgentTextEditorConfig(this.agentService, this.agent()?.id ?? '');
   });
   canEdit = this.agentPageState.canEditAgent;
   onAgentDescriptionLoading: boolean = false;
@@ -85,19 +89,21 @@ export class HaAgentOverviewComponent extends HaCommunityPageDirective implement
   }
 
   saveDescription(): void {
-    if (this.agent().description?.contentAreEquals(this.agentDescriptionFormControl().value)) {
+    const agent = this.agent();
+    const newDescription = this.agentDescriptionFormControl().value;
+    if (agent == null || newDescription == null) return;
+
+    if (agent.description?.contentAreEquals(newDescription)) {
       this.agentDescriptionFormControl().disable();
       return;
     }
 
     this.onAgentDescriptionLoading = true;
-    this.agentService
-      .saveAgentDescription(this.agent().id, this.agentDescriptionFormControl().value)
-      .subscribe((updatedAgent) => {
-        this.agentPageState.setAgent(updatedAgent);
-        this.onAgentDescriptionLoading = false;
-        this.agentDescriptionFormControl().disable();
-      });
+    this.agentService.saveAgentDescription(agent.id, newDescription).subscribe((updatedAgent) => {
+      this.agentPageState.setAgent(updatedAgent);
+      this.onAgentDescriptionLoading = false;
+      this.agentDescriptionFormControl().disable();
+    });
   }
 
   override ngOnDestroy(): void {

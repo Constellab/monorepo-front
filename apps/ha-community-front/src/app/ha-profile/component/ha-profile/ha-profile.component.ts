@@ -1,5 +1,13 @@
 import { AsyncPipe, NgClass } from '@angular/common';
-import { ChangeDetectionStrategy,Component, computed, inject, OnDestroy, OnInit, Signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  OnDestroy,
+  OnInit,
+  Signal,
+} from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
@@ -111,7 +119,7 @@ export class HaProfileComponent extends HaCommunityPageDirective implements OnIn
   currentType = 'stories' as HaProfileSectionType;
   sectionsTypes: HaProfileSectionType[] = ['stories', 'apps', 'agents', 'bricks'];
 
-  user: Signal<CoUser> = computed(() => {
+  user: Signal<CoUser | null> = computed(() => {
     const user = this.profileState.user();
     if (user) {
       this.onUser(user);
@@ -123,14 +131,15 @@ export class HaProfileComponent extends HaCommunityPageDirective implements OnIn
 
   commonSpaces: Signal<HaSpace[]> = this.profileState.commonSpaces.asReadonly();
 
-  userRunStatAggregate: Signal<HaRunStatAggregate> = this.profileState.userRunStatAggregate.asReadonly();
+  userRunStatAggregate: Signal<HaRunStatAggregate | null> =
+    this.profileState.userRunStatAggregate.asReadonly();
 
   partner = this.profileState.partner.asReadonly();
 
   partnerPageUrl = computed(() => {
     const partner = this.partner();
     if (partner) {
-      return HaRouterService.getPartnerPage(partner.id, ClStringHelper.getCleanUrlPath(partner.name));
+      return HaRouterService.getPartnerPage(partner.id, ClStringHelper.getCleanUrlPath(partner.name) ?? '');
     }
     return null;
   });
@@ -178,7 +187,7 @@ export class HaProfileComponent extends HaCommunityPageDirective implements OnIn
       .subscribe((result: HaPartner) => {
         if (result) {
           this.router.navigateByUrl(
-            HaRouterService.getPartnerPage(result.id, ClStringHelper.getCleanUrlPath(result.name))
+            HaRouterService.getPartnerPage(result.id, ClStringHelper.getCleanUrlPath(result.name) ?? '')
           );
         }
       });
@@ -198,7 +207,7 @@ export class HaProfileComponent extends HaCommunityPageDirective implements OnIn
   }
 
   private onUser(user: CoUser): void {
-    const photoUrl = user.photo ? this.userConfig.getUserPhotoUrl(user.photo) : null;
+    const photoUrl = user.photo ? this.userConfig.getUserPhotoUrl(user.photo) : '';
 
     this.jsonLdState.setProfilePageJsonLdContent(user, photoUrl);
 

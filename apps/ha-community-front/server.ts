@@ -20,7 +20,7 @@ HA_ENVIRONMENT.settings = {
   constellabApiUrl: process?.env['CONSTELLAB_API_URL'] || 'https://api.preconstellab.com',
   constellabFrontUrl: process?.env['CONSTELLAB_FRONT_URL'] || 'https://preconstellab.com',
   communityFrontUrl: process?.env['COMMUNITY_FRONT_URL'] || 'http://localhost:4200',
-  captchaSiteKey: process?.env['CAPTCHA_SITE_KEY'] || null,
+  captchaSiteKey: process?.env['CAPTCHA_SITE_KEY'] || '',
   googleAnalyticsId: process?.env['GOOGLE_ANALYTICS_ID'] || 'eazeaze',
   discordLink: process?.env['DISCORD_LINK'] || 'https://discord.com/invite/7nmH5qKM',
   algoliaAppId: process?.env['ALGOLIA_APP_ID'] || 'S233I3C24Z',
@@ -161,8 +161,8 @@ function app(): express.Express {
 Disallow:
 Sitemap: ${HA_ENVIRONMENT.settings.communityFrontUrl}/sitemap.xml`);
   });
-  let lastSiteMapUpdate: Date = null;
-  let siteMap: string = null;
+  let lastSiteMapUpdate: Date | null = null;
+  let siteMap: string | null = null;
 
   server.get('/sitemap.xml', async (req, res) => {
     res.header('Content-Type', 'application/xml');
@@ -379,7 +379,7 @@ async function fetchProfilesMap(): Promise<SitemapItem[]> {
   }
 }
 
-function getMetaTagContent(html: string, tagName: string): string {
+function getMetaTagContent(html: string, tagName: string): string | undefined {
   const regex = new RegExp(`<meta\\s+name="${tagName}"\\s+content="(.+)"\\s*\\/?>`, 'i');
   const match = html.match(regex);
   const content = match ? match[1] : null;

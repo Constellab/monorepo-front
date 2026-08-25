@@ -6,7 +6,7 @@ import { HaBrickService } from '../../../ha-service/ha-brick.service';
 export class HaBrickImagePipe implements PipeTransform {
   private brickService = inject(HaBrickService);
 
-  transform(imageLink: any): string {
+  transform(imageLink: any): string | null {
     if (imageLink) {
       return this.brickService.getImageUrl(imageLink);
     }

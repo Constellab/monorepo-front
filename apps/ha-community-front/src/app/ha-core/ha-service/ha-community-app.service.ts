@@ -53,8 +53,8 @@ export class HaCommunityAppService implements HaCoAuthorService {
     return new FlEntityPaginatedDatasource(
       (page, size, requestData) =>
         this.getAll(
-          requestData.filtersCriteria.spacesFilter,
-          requestData.filtersCriteria.titleFilter,
+          requestData.filtersCriteria.spacesFilter ?? [],
+          requestData.filtersCriteria.titleFilter ?? '',
           requestData.sortsCriteria,
           page,
           size
@@ -86,7 +86,8 @@ export class HaCommunityAppService implements HaCoAuthorService {
     pageSize = 4
   ): HaCommunityAppDatasourcePaginated<HaProfileDatasourceFilters> {
     return new FlEntityPaginatedDatasource(
-      (page, size, requestData) => this.getUserCommunityApps(requestData.filtersCriteria.userId, page, size),
+      (page, size, requestData) =>
+        this.getUserCommunityApps(requestData.filtersCriteria.userId ?? '', page, size),
       pageSize,
       { initFirstPage: false }
     );
@@ -185,7 +186,7 @@ export class HaCommunityAppService implements HaCoAuthorService {
     return this.apiService.put(`${this.route}/co-authors/invite/${token}/accept`, {}, HaCommunityApp);
   }
 
-  updateAppMedia(appId: string, videoUrl: string, figures: string[]): Observable<HaCommunityApp> {
+  updateAppMedia(appId: string, videoUrl: string | null, figures: string[]): Observable<HaCommunityApp> {
     return this.apiService.put(
       `${this.route}/media/${appId}`,
       { video: videoUrl, figures: figures },

@@ -69,7 +69,7 @@ describe('HaHttpRefreshInterceptorService', () => {
     return outcome;
   }
 
-  function unauthorized(): [unknown, { status: number; statusText: string }] {
+  function unauthorized(): [null, { status: number; statusText: string }] {
     return [null, { status: 401, statusText: 'Unauthorized' }];
   }
 

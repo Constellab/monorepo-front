@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy,Component, computed, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, OnInit } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
 import {
@@ -72,7 +72,7 @@ export class HaPartnerListPageComponent extends HaCommunityPageDirective impleme
     super.setMetaTags(
       'ha.partners.title',
       'ha.partners.description',
-      null,
+      '',
       HaRouterService.getFullRoute(HaRouterService.getPartnerListRoute())
     );
   }

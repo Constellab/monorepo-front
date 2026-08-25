@@ -30,7 +30,7 @@ export class HaCliAuthPageComponent implements OnInit {
   private platformId = inject(PLATFORM_ID);
 
   state: 'loading' | 'confirmation' | 'success' | 'error' | 'denied' = 'loading';
-  code: string;
+  code: string | null;
   errorMessage: string;
   currentUser = toSignal(this.authenticatedUserService.getUser());
 
@@ -67,6 +67,10 @@ export class HaCliAuthPageComponent implements OnInit {
   }
 
   authorize(): void {
+    if (!this.code) {
+      return;
+    }
+
     this.state = 'loading';
     this.cliAuthService.validate(this.code).subscribe({
       next: () => {
@@ -81,6 +85,10 @@ export class HaCliAuthPageComponent implements OnInit {
   }
 
   deny(): void {
+    if (!this.code) {
+      return;
+    }
+
     this.state = 'loading';
     this.cliAuthService.refuse(this.code).subscribe({
       next: () => {

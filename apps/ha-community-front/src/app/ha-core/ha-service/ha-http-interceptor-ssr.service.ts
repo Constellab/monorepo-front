@@ -20,7 +20,7 @@ import { HA_AUTHORIZATION_COOKIE } from './ha-auth.service';
 export class HaHttpInterceptorSsrService implements HttpInterceptor {
   private platformId = inject(PLATFORM_ID);
 
-  private request: Request;
+  private request: Request | null;
 
   constructor() {
     const request = inject<Request>(REQUEST, { optional: true });

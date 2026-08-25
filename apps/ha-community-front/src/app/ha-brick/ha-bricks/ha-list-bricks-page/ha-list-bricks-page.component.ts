@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy,Component, inject, makeStateKey, OnInit, StateKey } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, makeStateKey, OnInit, StateKey } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { CoCommunityLibModule, CoListFiltersComponent } from '@monorepo/community-lib';
@@ -54,7 +54,7 @@ export class HaListBricksPageComponent extends HaCommunityPageDirective implemen
   BRICKS_KEY: StateKey<object>;
   spaceIdFilter: string[] = [];
   titleFilter: string = '';
-  user: HaUser;
+  user: HaUser | null | undefined;
   sortsCriteria: FlDatasourceSortCriteria[] = [];
 
   ngOnInit(): void {
@@ -65,7 +65,7 @@ export class HaListBricksPageComponent extends HaCommunityPageDirective implemen
     super.setMetaTags(
       'ha.bricks.title',
       'ha.bricks.description',
-      null,
+      '',
       HaRouterService.getFullRoute(HaRouterService.getBrickListRoute())
     );
 

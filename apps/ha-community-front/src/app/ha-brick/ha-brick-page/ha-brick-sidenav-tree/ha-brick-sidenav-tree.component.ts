@@ -131,7 +131,7 @@ export class HaBrickSidenavTreeComponent implements OnDestroy {
     const node = event.item.data;
     const visibleNodes: FlTree<HaNode>[] = this.sidenavObjects().getVisibleNodes(tree);
 
-    let newParentId: string = null;
+    let newParentId: string | null = null;
     if (event.currentIndex > 0) {
       for (let i = event.currentIndex - (event.currentIndex > event.previousIndex ? 0 : 1); i >= 0; i--) {
         if (visibleNodes[i].object.children && tree.isExpanded(visibleNodes[i])) {
@@ -229,7 +229,7 @@ export class HaBrickSidenavTreeComponent implements OnDestroy {
     }
   }
 
-  private getContextMenuConfig(isFolder: boolean, id?: string, hasChild: boolean = false): FlMenuDynamic[] {
+  private getContextMenuConfig(isFolder: boolean, id: string, hasChild: boolean = false): FlMenuDynamic[] {
     if (isFolder) {
       return [
         {

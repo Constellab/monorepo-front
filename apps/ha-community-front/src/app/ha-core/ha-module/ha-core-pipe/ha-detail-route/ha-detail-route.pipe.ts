@@ -11,16 +11,16 @@ import { HaRouterService } from '../../../ha-service/ha-router.service';
 
 @Pipe({ name: 'haDetailRoute' })
 export class HaDetailRoutePipe implements PipeTransform {
-  transform(value: any): string {
+  transform(value: any): string | null {
     if (value instanceof HaStory || value instanceof HaListStoryDto) {
       if (value.publishedAt == null) {
         return HaRouterService.getStoryEditRoute(value.id);
       }
-      return HaRouterService.getStoryRoute(value.id, value.titlePath);
+      return HaRouterService.getStoryRoute(value.id, value.titlePath ?? '');
     }
 
     if (value instanceof HaAgent) {
-      return HaRouterService.getAgentRoute(value.id, ClStringHelper.getCleanUrlPath(value.title));
+      return HaRouterService.getAgentRoute(value.id, ClStringHelper.getCleanUrlPath(value.title) ?? '');
     }
 
     if (value instanceof HaBrick) {
@@ -28,15 +28,21 @@ export class HaDetailRoutePipe implements PipeTransform {
     }
 
     if (value instanceof HaCommunityApp) {
-      return HaRouterService.getCommunityAppRoute(value.id, ClStringHelper.getCleanUrlPath(value.title));
+      return HaRouterService.getCommunityAppRoute(
+        value.id,
+        ClStringHelper.getCleanUrlPath(value.title) ?? ''
+      );
     }
 
     if (value instanceof HaTagKey) {
-      return HaRouterService.getTagPageRoute(value.id, ClStringHelper.getCleanUrlPath(value.technicalName));
+      return HaRouterService.getTagPageRoute(
+        value.id,
+        ClStringHelper.getCleanUrlPath(value.technicalName) ?? ''
+      );
     }
 
     if (value instanceof HaPartner) {
-      return HaRouterService.getPartnerPage(value.id, ClStringHelper.getCleanUrlPath(value.name));
+      return HaRouterService.getPartnerPage(value.id, ClStringHelper.getCleanUrlPath(value.name) ?? '');
     }
 
     return null;

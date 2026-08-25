@@ -32,6 +32,10 @@ export class HaStoryGuard {
 
     const storyId = route.paramMap.get('id');
 
+    if (storyId == null) {
+      return this.loginPage();
+    }
+
     // the server must answer without waiting and cannot renew an expired access token, so the
     // marker cookie is the only signal it has. The browser asks the API instead.
     if (isPlatformServer(this.platformId)) {

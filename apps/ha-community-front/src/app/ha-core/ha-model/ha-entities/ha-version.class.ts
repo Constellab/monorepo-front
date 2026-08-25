@@ -48,7 +48,7 @@ export class HaAddVersionInput {
   brickVersionReferences: HaReferenceDTO[];
   technicalInfo: Record<string, any>;
   isBeta: boolean;
-  subPatch: number;
+  subPatch?: number | null;
 
   constructor(
     isNew: boolean,

@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import {
@@ -59,8 +59,8 @@ export class HaCommunityAppListPageComponent extends HaCommunityPageDirective im
   sortsCriteriaKeys: string[] = ['createdAt', 'title'];
   sortsCriteria: FlDatasourceSortCriteria[] = [];
   communityAppsPaginated: HaCommunityAppDatasourcePaginated<HaCommunityAppDatasourceFilters>;
-  user: HaUser;
-  filters: HaCommunityAppDatasourceFilters = { titleFilter: null, spacesFilter: null };
+  user: HaUser | null | undefined;
+  filters: HaCommunityAppDatasourceFilters = { titleFilter: '', spacesFilter: [] };
 
   ngOnInit(): void {
     this.authenticatedUserService.getUser().subscribe((user) => {
@@ -70,7 +70,7 @@ export class HaCommunityAppListPageComponent extends HaCommunityPageDirective im
     super.setMetaTags(
       'ha.apps.title',
       'ha.apps.description',
-      null,
+      '',
       HaRouterService.getFullRoute(HaRouterService.getCommunityAppListRoute())
     );
     this.updateCommunityApps();

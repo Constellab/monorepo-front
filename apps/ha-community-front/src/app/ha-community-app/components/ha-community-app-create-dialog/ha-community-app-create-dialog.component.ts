@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -148,7 +148,7 @@ export class HaCommunityAppCreateDialogComponent
   }
 
   update(formValue: HaCommunityAppEdit): Observable<HaCommunityApp> {
-    formValue.appUrl = formValue.appUrl.trim();
+    formValue.appUrl = formValue.appUrl?.trim();
     return this.communityAppService.update(formValue);
   }
 }

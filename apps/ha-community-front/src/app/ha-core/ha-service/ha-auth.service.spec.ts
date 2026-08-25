@@ -67,6 +67,9 @@ describe('HaAuthService', () => {
       ([key]: [string]) => key === FL_AUTH_EXPIRED_COOKIE
     );
     expect(call).toBeDefined();
+    if (!call) {
+      throw new Error('setCookie was not called with the session marker cookie');
+    }
     return call[2].expires;
   }
 

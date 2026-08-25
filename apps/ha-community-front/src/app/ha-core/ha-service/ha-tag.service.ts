@@ -26,7 +26,6 @@ import { HaUser } from '../ha-model/ha-entities/ha-user';
   providedIn: 'root',
 })
 export class HaTagService implements HaCoAuthorService {
-
   private apiService = inject(FlApiService);
 
   private readonly route: string = 'tag';
@@ -50,8 +49,8 @@ export class HaTagService implements HaCoAuthorService {
     return new FlEntityPaginatedDatasource(
       (page, size, requestData) =>
         this.getAllWithFilters(
-          requestData.filtersCriteria.spacesFilter,
-          requestData.filtersCriteria.labelFilter,
+          requestData.filtersCriteria.spacesFilter ?? [],
+          requestData.filtersCriteria.labelFilter ?? '',
           requestData.sortsCriteria ?? [],
           page,
           size
@@ -138,7 +137,7 @@ export class HaTagService implements HaCoAuthorService {
   ): HaTagValueDatasourcePaginated<HaTagValueDatasourceFilters> {
     return new FlEntityPaginatedDatasource(
       (page, size, requestData) =>
-        this.getAllValueWithFilters(requestData.filtersCriteria.tagKeyIdFilter, page, size),
+        this.getAllValueWithFilters(requestData.filtersCriteria.tagKeyIdFilter ?? '', page, size),
       pageSize,
       { initFirstPage: false }
     );

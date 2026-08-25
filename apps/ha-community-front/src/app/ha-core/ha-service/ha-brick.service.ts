@@ -107,8 +107,8 @@ export class HaBrickService implements HaCoAuthorService {
     return new FlEntityPaginatedDatasource(
       (page, size, requestData) =>
         this.getAllWithFilters(
-          requestData.filtersCriteria.spacesFilter,
-          requestData.filtersCriteria.titleFilter,
+          requestData.filtersCriteria.spacesFilter ?? [],
+          requestData.filtersCriteria.titleFilter ?? '',
           requestData.sortsCriteria ?? [],
           page,
           size
@@ -128,7 +128,7 @@ export class HaBrickService implements HaCoAuthorService {
 
   public getUserBricksPaginated(pageSize = 4): HaBrickDatasourcePaginated<HaProfileDatasourceFilters> {
     return new FlEntityPaginatedDatasource(
-      (page, size, requestData) => this.getUserBricks(requestData.filtersCriteria.userId, page, size),
+      (page, size, requestData) => this.getUserBricks(requestData.filtersCriteria.userId ?? '', page, size),
       pageSize,
       { initFirstPage: false }
     );

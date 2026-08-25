@@ -23,7 +23,7 @@ export class HaAiIntegrationPageComponent extends HaCommunityPageDirective imple
     super.setMetaTags(
       { text: 'ai_integration.page_title', translateText: true },
       { text: 'ai_integration.page_description', translateText: true },
-      null,
+      '',
       HaRouterService.getFullRoute(HaRouterService.getAiIntegrationRoute())
     );
   }

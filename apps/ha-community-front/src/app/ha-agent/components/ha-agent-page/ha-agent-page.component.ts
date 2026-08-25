@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy,Component, computed, inject, OnInit, Signal, ViewContainerRef } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  OnInit,
+  Signal,
+  ViewContainerRef,
+} from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
@@ -74,26 +82,30 @@ export class HaAgentPageComponent implements OnInit {
 
   profileRoute = HaRouterService.getProfileRoute();
 
-  agent: Signal<HaAgent> = this.agentPageState.getAgent();
+  agent: Signal<HaAgent | null> = this.agentPageState.getAgent();
   notFound: Signal<boolean> = this.agentPageState.isAgentError;
   isLoading: Signal<boolean> = this.agentPageState.getIsLoading();
-  agentCoAuthors: Signal<HaUser[]> = this.agentPageState.getAgentCoAuthors();
+  agentCoAuthors: Signal<HaUser[] | null> = this.agentPageState.getAgentCoAuthors();
   contributors: Signal<HaUser[]> = computed(() => {
-    if (!this.agent()) return [];
-    if (!this.agentCoAuthors()) return [this.agent().createdBy];
-    return [this.agent().createdBy, ...this.agentCoAuthors()];
+    const agent = this.agent();
+    if (!agent) return [];
+    const agentCoAuthors = this.agentCoAuthors();
+    if (!agentCoAuthors) return [agent.createdBy];
+    return [agent.createdBy, ...agentCoAuthors];
   });
-  currentUser: Signal<HaUser> = this.agentPageState.getCurrentUser();
+  currentUser: Signal<HaUser | null> = this.agentPageState.getCurrentUser();
   brickDependencies = this.agentPageState.getBrickDependencies();
   versions = this.agentPageState.getAgentVersionsList();
   isAuthor = computed(() => {
-    if (!this.currentUser() || !this.agent()) return false;
-    return this.currentUser().id === this.agent().createdBy.id;
+    const currentUser = this.currentUser();
+    const agent = this.agent();
+    if (!currentUser || !agent) return false;
+    return currentUser.id === agent.createdBy.id;
   });
   canEdit = this.agentPageState.canEditAgent;
   currentVersion = this.agentPageState.agentVersion;
 
-  tempTitle: string;
+  tempTitle: string | null;
   entityType = HaEntityType.AGENT;
   inputFile: any;
 
@@ -110,11 +122,15 @@ export class HaAgentPageComponent implements OnInit {
   }
 
   openEditAgentDialog(): void {
+    const agent = this.agent();
+    if (agent == null) {
+      return;
+    }
     const dialogData: HaAgentEditDialogInputData = {
       mode: 'update',
       object: {
-        agent: this.agent(),
-        version: this.currentVersion(),
+        agent,
+        version: this.currentVersion() ?? undefined,
       },
     };
 
@@ -150,13 +166,18 @@ export class HaAgentPageComponent implements OnInit {
           this.snackBarService.openErrorMessage({ text: 'file_wrong_format', translateText: true });
           return;
         }
+        const agent = this.agent();
+        if (agent == null) {
+          return;
+        }
+        const versions = this.versions();
         let inputData: FlConfirmDialogInput;
-        if (this.versions() && this.versions()[0].versionState == 'PUBLISHED') {
+        if (versions && versions[0].versionState == 'PUBLISHED') {
           inputData = {
             title: 'create_new_agent_version',
             content: 'create_new_agent_version_content',
             successMessage: 'agent_version_created',
-            observable: this.agentService.createNewDraftVersion(this.agent().id, srcResult),
+            observable: this.agentService.createNewDraftVersion(agent.id, srcResult),
           };
         } else {
           isReplace = true;
@@ -164,7 +185,7 @@ export class HaAgentPageComponent implements OnInit {
             title: 'replace_not_published_agent_version',
             content: 'replace_not_published_agent_version_content',
             successMessage: 'agent_version_replaced',
-            observable: this.agentService.replaceDraftVersion(this.agent().id, srcResult),
+            observable: this.agentService.replaceDraftVersion(agent.id, srcResult),
           };
         }
         this.dialogService

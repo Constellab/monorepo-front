@@ -72,7 +72,12 @@ export class HaPartnerService {
   searchAllPartners(pageSize: number = 10): HaPartnerDatasourcePaginated<HaPartnerDatasourceFilters> {
     return new FlEntityPaginatedDatasource(
       (page, size, requestData) =>
-        this.search(requestData.filtersCriteria.nameFilter, requestData.sortsCriteria ?? [], page, size),
+        this.search(
+          requestData.filtersCriteria.nameFilter ?? '',
+          requestData.sortsCriteria ?? [],
+          page,
+          size
+        ),
       pageSize,
       { initFirstPage: false }
     );

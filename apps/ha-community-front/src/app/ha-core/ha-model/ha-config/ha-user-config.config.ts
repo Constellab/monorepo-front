@@ -4,6 +4,7 @@ import { FlInputSearchFilter } from '@monorepo/front-core-lib/fl-core';
 import { FlUserConfig } from '@monorepo/front-core-lib/fl-user';
 import { Observable } from 'rxjs';
 
+import { HaRouterService } from '../../ha-service/ha-router.service';
 import { HaUser } from '../ha-entities/ha-user';
 import { HaEnvironmentHelper } from './ha-environment.helper';
 
@@ -19,8 +20,8 @@ export class HaUserConfig extends FlUserConfig {
     return HaEnvironmentHelper.getConstellabApiUrl() + '/users/photo-v2/' + photoUrl;
   }
 
-  getUserDetailRoute(): string {
-    return null;
+  getUserDetailRoute(userId: string): string {
+    return HaRouterService.getUserProfileRoute(userId);
   }
 
   getUserById(): Observable<HaUser> {

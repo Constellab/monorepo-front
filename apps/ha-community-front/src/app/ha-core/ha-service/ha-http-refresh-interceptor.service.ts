@@ -70,7 +70,7 @@ export class HaHttpRefreshInterceptorService implements HttpInterceptor {
    * Other tabs are outside its reach, and there the stake is worse than a lost refresh - the API
    * destroys the session outright. HaRefreshCoordinatorService covers that.
    */
-  private refreshInFlight: Observable<unknown> = null;
+  private refreshInFlight: Observable<unknown> | null = null;
 
   /**
    * Resolved lazily: HaAuthService depends on HttpClient, which depends on the interceptors.

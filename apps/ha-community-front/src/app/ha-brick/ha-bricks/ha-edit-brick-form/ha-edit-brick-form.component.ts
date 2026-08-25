@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatDivider } from '@angular/material/divider';
@@ -53,7 +53,7 @@ export class HaEditBrickFormComponent implements OnInit {
   formGp: UntypedFormGroup;
 
   isLoading: boolean;
-  inputFile: HaAddVersionInput;
+  inputFile: HaAddVersionInput | null;
   errorFile: boolean;
   errorFileText: string;
   repoError: boolean;
@@ -147,7 +147,7 @@ export class HaEditBrickFormComponent implements OnInit {
       reader.onload = (e: ProgressEvent<FileReader>) => {
         let srcResult: any;
         try {
-          srcResult = JSON.parse(e.target.result as string);
+          srcResult = JSON.parse((e.target as FileReader | null)?.result as string);
         } catch {
           this.errorFile = true;
           this.errorFileText = 'file_wrong_format';

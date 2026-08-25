@@ -24,10 +24,12 @@ export class HaIconService {
     return this.apiService.post(this.route, formData);
   }
 
-  public update(icon: HaIconCreateDto, file: File): Observable<CoIcon> {
+  public update(icon: HaIconCreateDto, file: File | null): Observable<CoIcon> {
     const formData = new FormData();
     formData.append('icon', JSON.stringify(icon));
-    formData.append('file', file);
+    if (file != null) {
+      formData.append('file', file);
+    }
     return this.apiService.put(this.route, formData);
   }
 

@@ -22,7 +22,7 @@ export class HaMetadataService {
 
   addMetaTag(name: string, content: string, hasTranslation: boolean = false, data?: any): void {
     const isProperty = name.startsWith('og:') || name.startsWith('article:') || name.startsWith('profile:');
-    const tag = isProperty ? { property: name, content } : { name, content };
+    const tag: Record<string, string> = isProperty ? { property: name, content } : { name, content };
 
     if (hasTranslation) {
       this.translateService.get(content, data).subscribe((contentTrad: string) => {
@@ -46,17 +46,17 @@ export class HaMetadataService {
     this.setOGMetaTags(title, description, image, url, hasTranslation, data, ogType);
   }
 
-  getMetaTag(name: string, isProperty: boolean = false): string {
+  getMetaTag(name: string, isProperty: boolean = false): string | undefined {
     return isProperty
       ? this.metaService.getTag(`property="${name}"`)?.content
       : this.metaService.getTag(`name="${name}"`)?.content;
   }
 
   getFacebookShareUrl(): string {
-    const url: string = this.getMetaTag('og:url', true);
-    const title: string = this.getMetaTag('og:title', true);
-    const description: string = this.getMetaTag('og:description', true);
-    const image: string = this.getMetaTag('og:image', true);
+    const url: string = this.getMetaTag('og:url', true) ?? '';
+    const title: string = this.getMetaTag('og:title', true) ?? '';
+    const description: string = this.getMetaTag('og:description', true) ?? '';
+    const image: string = this.getMetaTag('og:image', true) ?? '';
 
     return (
       `https://www.facebook.com/sharer/sharer.php?u=${url}&title=${title}` +
@@ -65,11 +65,11 @@ export class HaMetadataService {
   }
 
   getTwitterShareUrl(): string {
-    const title: string = this.getMetaTag('twitter:title');
-    const card: string = this.getMetaTag('twitter:card');
-    const description: string = this.getMetaTag('twitter:description');
-    const image: string = this.getMetaTag('twitter:image');
-    const site: string = this.getMetaTag('twitter:site');
+    const title: string = this.getMetaTag('twitter:title') ?? '';
+    const card: string = this.getMetaTag('twitter:card') ?? '';
+    const description: string = this.getMetaTag('twitter:description') ?? '';
+    const image: string = this.getMetaTag('twitter:image') ?? '';
+    const site: string = this.getMetaTag('twitter:site') ?? '';
 
     return (
       `https://twitter.com/intent/tweet?text=${title}&card=${card}` +
@@ -78,10 +78,10 @@ export class HaMetadataService {
   }
 
   getLinkedInShareUrl(): string {
-    const url: string = this.getMetaTag('og:url', true);
-    const title: string = this.getMetaTag('og:title', true);
-    const description: string = this.getMetaTag('og:description', true);
-    const image: string = this.getMetaTag('og:image', true);
+    const url: string = this.getMetaTag('og:url', true) ?? '';
+    const title: string = this.getMetaTag('og:title', true) ?? '';
+    const description: string = this.getMetaTag('og:description', true) ?? '';
+    const image: string = this.getMetaTag('og:image', true) ?? '';
 
     return (
       `https://www.linkedin.com/shareArticle?mini=true&url=${url}` +

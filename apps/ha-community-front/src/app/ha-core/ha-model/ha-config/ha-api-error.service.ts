@@ -27,11 +27,11 @@ export class HaApiErrorService extends FlApiErrorService {
   /**
    * Handle the error message for the not specific errors
    */
-  private static getErrorMessage(error: ClApiError, defaultError: string): string {
+  private static getErrorMessage(error: ClApiError | undefined, defaultError: string): string {
     return error?.detail ?? defaultError;
   }
 
-  get defaultApiErrorDuration(): number {
+  get defaultApiErrorDuration(): number | null {
     return null;
   }
 
@@ -51,7 +51,7 @@ export class HaApiErrorService extends FlApiErrorService {
   ): Observable<never> {
     const serverError: FlServerError = {
       response: errorResponse,
-      message: null,
+      message: '',
     };
 
     // check if the error is formatted from nest api
@@ -120,7 +120,10 @@ export class HaApiErrorService extends FlApiErrorService {
   /**
    * Redirect the user to the login page
    */
-  private sessionExpired(serverError: FlServerError, snackBarDuration: number): Observable<never> {
+  private sessionExpired(
+    serverError: FlServerError,
+    snackBarDuration: number | undefined
+  ): Observable<never> {
     // drop the authenticated user: the session is over, and it also disarms isSessionExpired() so a
     // second 401 already in flight cannot ask for a second reload
     this.authenticatedUserService.clean();

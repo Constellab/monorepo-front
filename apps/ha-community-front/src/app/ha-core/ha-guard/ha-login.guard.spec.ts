@@ -41,10 +41,10 @@ describe('HaLoginGuard', () => {
   }
 
   /** resolve whatever shape canActivate returned */
-  function activate(guard: HaLoginGuard): boolean | UrlTree {
+  function activate(guard: HaLoginGuard): boolean | UrlTree | undefined {
     const result = guard.canActivate();
     if (isObservable(result)) {
-      let resolved: boolean | UrlTree;
+      let resolved: boolean | UrlTree | undefined;
       result.subscribe((value) => (resolved = value));
       return resolved;
     }

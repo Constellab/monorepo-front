@@ -37,7 +37,7 @@ import { HaUser } from '../ha-model/ha-entities/ha-user';
   providedIn: 'root',
 })
 export class HaStoryService
-implements HaCoAuthorService, HaFileServiceInterface<HaStory>, TeTextEditorHistoryService
+  implements HaCoAuthorService, HaFileServiceInterface<HaStory>, TeTextEditorHistoryService
 {
   private apiService = inject(FlApiService);
 
@@ -110,7 +110,7 @@ implements HaCoAuthorService, HaFileServiceInterface<HaStory>, TeTextEditorHisto
     pageSize: number = 4
   ): HaStoryListDatasourcePaginated<HaProfileDatasourceFilters> {
     return new FlEntityPaginatedDatasource(
-      (page, size, filters) => this.getUserStories(filters.filtersCriteria.userId, page, size),
+      (page, size, filters) => this.getUserStories(filters.filtersCriteria.userId ?? '', page, size),
       pageSize,
       { initFirstPage: false }
     );

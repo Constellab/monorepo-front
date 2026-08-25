@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { ChangeDetectionStrategy,Component, computed, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, OnInit } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
@@ -56,16 +56,19 @@ export class HaStoryPageComponent extends HaCommunityPageDirective implements On
   private storyService: HaStoryService = inject(HaStoryService);
   private entityCommentState: HaEntityCommentState = inject(HaEntityCommentState);
   titles = computed(() => {
-    if (!this.story()?.content) return [];
-    return this.story().content?.getHeadersData([TeBlockHeaderLevel.HEADER_1, TeBlockHeaderLevel.HEADER_2]);
+    const story = this.story();
+    if (!story?.content) return [];
+    return story.content.getHeadersData([TeBlockHeaderLevel.HEADER_1, TeBlockHeaderLevel.HEADER_2]);
   });
   tempTitle: string;
 
   textEditorConfig: HaStoryTextEditorConfig;
   entityType = HaEntityType.STORY;
   isAuthor = computed(() => {
-    if (!this.currentUser() || !this.story()) return false;
-    return this.currentUser().id === this.story().createdBy.id;
+    const currentUser = this.currentUser();
+    const story = this.story();
+    if (!currentUser || !story) return false;
+    return currentUser.id === story.createdBy.id;
   });
   formControl: FormControl<TeRichText> = new FormControl();
   private storyState: HaStoryState = inject(HaStoryState);
@@ -84,11 +87,12 @@ export class HaStoryPageComponent extends HaCommunityPageDirective implements On
   });
   contributors = computed(() => {
     const coAuthors = this.storyState.coAuthors();
-    if (!this.story()?.createdBy) return [];
-    if (!coAuthors) return [this.story().createdBy];
-    return [this.story().createdBy, ...coAuthors];
+    const story = this.story();
+    if (!story?.createdBy) return [];
+    if (!coAuthors) return [story.createdBy];
+    return [story.createdBy, ...coAuthors];
   });
-  storyEditRoute = computed(() => HaRouterService.getStoryEditRoute(this.story()?.id));
+  storyEditRoute = computed(() => HaRouterService.getStoryEditRoute(this.story()?.id ?? ''));
   imageUrl = computed(() => {
     const story = this.story();
     if (story && story.mainPicture) {
@@ -104,7 +108,7 @@ export class HaStoryPageComponent extends HaCommunityPageDirective implements On
   ngOnInit(): void {
     this.activatedRoute.params.pipe(first()).subscribe((params) => {
       this.textEditorConfig = new HaStoryTextEditorConfig(this.storyService, params.id);
-      this.tempTitle = ClStringHelper.fromKebabCaseToSentence(params.title);
+      this.tempTitle = ClStringHelper.fromKebabCaseToSentence(params.title) ?? '';
       this.storyState.init(params.id);
       this.entityCommentState.init(this.entityType, params.id);
     });

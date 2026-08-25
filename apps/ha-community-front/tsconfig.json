@@ -16,6 +16,7 @@
     "strictTemplates": true
   },
   "compilerOptions": {
+    "strictNullChecks": true,
     "outDir": "./dist/out-tsc",
     "esModuleInterop": true,
     "module": "preserve",

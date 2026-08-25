@@ -1,5 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { MatButton } from '@angular/material/button';
 import {
@@ -99,7 +99,7 @@ export class HaHomeComponent extends HaCommunityPageDirective implements OnInit 
     super.setMetaTags(
       'ha.home.title',
       'ha.home.description',
-      null,
+      '',
       HaRouterService.getFullRoute(HaRouterService.getHomeRoute())
     );
 

@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
@@ -66,7 +66,7 @@ export class HaTagListPageComponent extends HaCommunityPageDirective implements 
       {
         text: 'ha.tag_list.description',
       },
-      null,
+      '',
       HaRouterService.getTagsListRoute()
     );
   }

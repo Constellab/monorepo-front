@@ -79,8 +79,8 @@ export class HaEditBrickDialogComponent
 
   ngOnInit(): void {
     this.init();
-    this.formGp.value.id = this.dialogInput.object.id;
-    this.hasCredentialPassword = !!this.dialogInput.object.hasCredentialPassword;
+    this.formGp.value.id = this.dialogInput.object?.id;
+    this.hasCredentialPassword = !!this.dialogInput.object?.hasCredentialPassword;
     this.spaceService.getSpacesOfCurrentUser().subscribe((spaces: HaSpace[]) => {
       this.spaces = spaces;
     });
@@ -131,7 +131,7 @@ export class HaEditBrickDialogComponent
   }
 
   create(): Observable<HaBrick> {
-    return null;
+    throw new Error('create not implemented in HaEditBrickDialogComponent: update only');
   }
 
   submit(): void {

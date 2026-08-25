@@ -89,7 +89,7 @@ export class HaAuthService extends FlAuthService {
 
   public logout(): Observable<void> {
     return this.apiService.post(`${this.route}/logout`, null).pipe(
-      tap(() => this.clearAuthExpirationCookie(null, 'Lax')),
+      tap(() => this.clearAuthExpirationCookie(undefined, 'Lax')),
       tap(() => this.clearServices())
     );
   }
@@ -102,9 +102,9 @@ export class HaAuthService extends FlAuthService {
    * that. The marker tracks the session, not the token, so it deliberately ignores this value: see
    * SESSION_MARKER_DURATION_MS.
    */
-  public afterLogin(expiresIn: number): void {
-    this.storeAuthExpirationCookie(HaAuthService.SESSION_MARKER_DURATION_MS, null, 'Lax');
-    this.sessionService.schedule(expiresIn);
+  public afterLogin(expiresIn: number | undefined): void {
+    this.storeAuthExpirationCookie(HaAuthService.SESSION_MARKER_DURATION_MS, undefined, 'Lax');
+    this.sessionService.schedule(expiresIn ?? null);
   }
 
   /**

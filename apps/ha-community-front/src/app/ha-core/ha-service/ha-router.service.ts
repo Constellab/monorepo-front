@@ -105,7 +105,7 @@ export class HaRouterService {
   public static getAgentVersionRoute(agentVersion: HaAgentVersion): string {
     return `${this.getAgentRoute(
       agentVersion.agent.id,
-      ClStringHelper.getCleanUrlPath(agentVersion.agent.title)
+      ClStringHelper.getCleanUrlPath(agentVersion.agent.title) ?? ''
     )}/version/${agentVersion.version}`;
   }
 
@@ -223,6 +223,6 @@ export class HaRouterService {
         url[4] != 'technical-folder',
       ];
     }
-    return [false, null];
+    return [false, false];
   }
 }

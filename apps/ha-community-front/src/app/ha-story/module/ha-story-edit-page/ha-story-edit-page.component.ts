@@ -1,7 +1,7 @@
 import { NgClass } from '@angular/common';
-import { ChangeDetectionStrategy,Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { MatAutocompleteSelectedEvent, } from '@angular/material/autocomplete';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -31,9 +31,7 @@ import { HaPageComponent } from '../../../ha-core/ha-component/ha-page/ha-page.c
 import { HaStory } from '../../../ha-core/ha-model/ha-entities/ha-story.class';
 import { HaTopic, HaTopicDto } from '../../../ha-core/ha-model/ha-entities/ha-topic.class';
 import { HaUser } from '../../../ha-core/ha-model/ha-entities/ha-user';
-import {
-  HaIsAuthenticatedDirective
-} from '../../../ha-core/ha-module/ha-core-directive/ha-is-authenticated/ha-is-authenticated.directive';
+import { HaIsAuthenticatedDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-is-authenticated/ha-is-authenticated.directive';
 import { HaAuthenticatedUserService } from '../../../ha-core/ha-service/ha-authenticated-user.service';
 import { HaStoryService } from '../../../ha-core/ha-service/ha-story.service';
 import { HaTopicService } from '../../../ha-core/ha-service/ha-topic.service';
@@ -75,12 +73,12 @@ export class HaStoryEditPageComponent implements OnInit {
   formGp: FormGroup;
   textEditorConfig: HaStoryTextEditorConfig;
 
-  historyOverlayRef: FlOverlayRef;
+  historyOverlayRef: FlOverlayRef | null;
 
   contentEditorIsFocused: boolean = false;
   contentHasError: boolean = false;
   contentError: string;
-  topicControl: FormControl<string | HaTopic> = new FormControl<string | HaTopic>('');
+  topicControl: FormControl<string | HaTopic | null> = new FormControl<string | HaTopic | null>('');
   topics: HaTopicDto[];
   filteredTopics: Observable<HaTopicDto[]>;
   canSaveTopic: boolean = false;
@@ -92,7 +90,7 @@ export class HaStoryEditPageComponent implements OnInit {
   isLoading: boolean = false;
   imageConfig: FlUploadImageDialogConfig;
   deleteImageConfig: FlConfirmDialogInput;
-  contentEditionFormControl: FormControl<TeRichText> = new FormControl({ value: null });
+  contentEditionFormControl: FormControl<TeRichText | null> = new FormControl<TeRichText | null>(null);
   @ViewChild('topicInput') topicInput: ElementRef<HTMLInputElement>;
   @ViewChild('input') inputPhoto: ElementRef<HTMLInputElement>;
 
@@ -154,11 +152,11 @@ export class HaStoryEditPageComponent implements OnInit {
         map((value) => {
           if (value == null || value == '') return [];
           const name = typeof value === 'string' ? value : value.name;
-          this.canSaveTopic = name && name.trim() !== '';
+          this.canSaveTopic = !!name && name.trim() !== '';
           return name
             ? this._filter(name)
-              .slice(0, 3)
-              .filter((topic) => !this.story.topics.find((t) => t.id === topic.id))
+                .slice(0, 3)
+                .filter((topic) => !this.story.topics.find((t) => t.id === topic.id))
             : this.topics.slice(0, 3).filter((topic) => !this.story.topics.find((t) => t.id === topic.id));
         })
       );
@@ -170,7 +168,7 @@ export class HaStoryEditPageComponent implements OnInit {
       this.saveTitle(event);
     } else {
       const titleElement = document.getElementById('storyTitle');
-      titleElement.innerText = this.story.title;
+      if (titleElement) titleElement.innerText = this.story.title;
     }
   }
 
@@ -181,10 +179,9 @@ export class HaStoryEditPageComponent implements OnInit {
   }
 
   saveTopic(): void {
+    const value = this.topicControl.value;
     const topic: HaTopicDto =
-      typeof this.topicControl.value === 'string'
-        ? new HaTopicDto(this.topicControl.value)
-        : new HaTopicDto(this.topicControl.value.name, this.topicControl.value.id);
+      typeof value === 'string' ? new HaTopicDto(value) : new HaTopicDto(value?.name ?? '', value?.id);
 
     if (topic.id == null) {
       const input: FlConfirmDialogInput = {
@@ -226,7 +223,7 @@ export class HaStoryEditPageComponent implements OnInit {
 
   publish(): void {
     if (
-      this.contentEditionFormControl.value.getFiguresBlocks()?.length > 0 ||
+      (this.contentEditionFormControl.value?.getFiguresBlocks()?.length ?? 0) > 0 ||
       this.story.mainPicture != null
     ) {
       this.contentHasError = false;
@@ -253,7 +250,7 @@ export class HaStoryEditPageComponent implements OnInit {
 
   save(): void {
     if (
-      this.contentEditionFormControl.value.getFirstFigureLink()?.length > 0 ||
+      (this.contentEditionFormControl.value?.getFirstFigureLink()?.length ?? 0) > 0 ||
       this.story.mainPicture != null
     ) {
       this.contentHasError = false;

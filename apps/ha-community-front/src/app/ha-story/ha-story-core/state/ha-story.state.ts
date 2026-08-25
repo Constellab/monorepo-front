@@ -20,18 +20,18 @@ export class HaStoryState extends HaCommunityPageDirective implements OnDestroy 
 
   private router: Router = inject(Router);
 
-  private story: WritableSignal<HaStory> = signal(null);
+  private story: WritableSignal<HaStory | null> = signal(null);
   private storyFiles: WritableSignal<HaFile[]> = signal([]);
   private isLoading: WritableSignal<boolean> = signal(false);
   private notFound: WritableSignal<boolean> = signal(false);
-  private storyFileUrlPrefix: WritableSignal<string> = signal<string>(null);
-  private currentUser: WritableSignal<HaUser> = signal<HaUser>(null);
+  private storyFileUrlPrefix: WritableSignal<string | null> = signal<string | null>(null);
+  private currentUser: WritableSignal<HaUser | null> = signal<HaUser | null>(null);
 
   private storySubscription: Subscription;
   private storyFilesSubscription: Subscription;
   private userSubscription: Subscription;
 
-  public getStory(): Signal<HaStory> {
+  public getStory(): Signal<HaStory | null> {
     return this.story;
   }
 
@@ -47,11 +47,11 @@ export class HaStoryState extends HaCommunityPageDirective implements OnDestroy 
     return this.storyFiles;
   }
 
-  public getStoryFileUrlPrefix(): Signal<string> {
+  public getStoryFileUrlPrefix(): Signal<string | null> {
     return this.storyFileUrlPrefix;
   }
 
-  public getCurrentUser(): Signal<HaUser> {
+  public getCurrentUser(): Signal<HaUser | null> {
     return this.currentUser;
   }
 
@@ -86,7 +86,7 @@ export class HaStoryState extends HaCommunityPageDirective implements OnDestroy 
         this.isLoading.set(false);
         this.notFound.set(false);
 
-        const imageUrl = this.getStoryImageLink(story.mainPicture, story.id);
+        const imageUrl = this.getStoryImageLink(story.mainPicture ?? '', story.id);
         const pageUrl = HaRouterService.getFullRoute(this.router.url);
 
         super.setMetaTags(
@@ -137,8 +137,8 @@ export class HaStoryState extends HaCommunityPageDirective implements OnDestroy 
   }
 
   private initUser(): void {
-    this.authenticatedUserService.getUser().subscribe((user: HaUser) => {
-      this.currentUser.set(user);
+    this.authenticatedUserService.getUser().subscribe((user) => {
+      this.currentUser.set(user ?? null);
     });
   }
 

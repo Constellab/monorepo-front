@@ -61,9 +61,9 @@ export class HaAuthenticatedUserService implements FlCleanableService {
   private authService = inject(HaAuthService);
   private readonly userRoute: string = 'user';
   private userAuthenticated: HaUser;
-  public userSubject: BehaviorSubject<HaUser | undefined> = new BehaviorSubject<HaUser | undefined>(
-    undefined
-  );
+  public userSubject: BehaviorSubject<HaUser | null | undefined> = new BehaviorSubject<
+    HaUser | null | undefined
+  >(undefined);
   private request: any;
 
   constructor() {
@@ -163,7 +163,7 @@ export class HaAuthenticatedUserService implements FlCleanableService {
   /**
    * Last known user, null when anonymous or not resolved yet. Only for callers that cannot wait.
    */
-  public getCurrentUser(): HaUser {
+  public getCurrentUser(): HaUser | null {
     return this.userSubject.value ?? null;
   }
 
@@ -191,7 +191,7 @@ export class HaAuthenticatedUserService implements FlCleanableService {
     );
   }
 
-  public getUser(): Observable<HaUser> {
+  public getUser(): Observable<HaUser | null | undefined> {
     return this.userSubject.pipe();
   }
 
