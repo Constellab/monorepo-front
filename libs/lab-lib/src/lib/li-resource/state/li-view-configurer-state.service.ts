@@ -11,6 +11,16 @@ import {
   LiConfigureResourceViewOutput,
 } from '../component/li-configure-resource-view/li-configure-resource-view.component';
 
+export interface LiOpenViewConfigPortalOptions {
+  methodName: string;
+  viewName: string;
+  hasConfigSpecs: boolean;
+  resourceId: string | null;
+  resourceTypingName: string;
+  viewStyle: TdTypeStyle;
+  viewConfigValues?: TdParamSpecsValues;
+}
+
 /**
  * State to open and manage view configuration portal
  */
@@ -22,14 +32,18 @@ export class LiViewConfigurerState {
 
   // prepare the data and open the view configuration portal
   public openConfigPortal(
-    methodName: string,
-    viewName: string,
-    hasConfigSpecs: boolean,
-    resourceId: string | null,
-    resourceTypingName: string,
-    viewStyle: TdTypeStyle,
-    viewConfigValues: TdParamSpecsValues = {}
+    options: LiOpenViewConfigPortalOptions
   ): Observable<LiResourceViewSpecWithConfig | null> {
+    const {
+      methodName,
+      viewName,
+      hasConfigSpecs,
+      resourceId,
+      resourceTypingName,
+      viewStyle,
+      viewConfigValues = {},
+    } = options;
+
     this.viewConfigOverlay?.dispose();
 
     // if the view doesn't have a config, don't show the config portal, create the view directly

@@ -31,6 +31,12 @@ import { CaObjectStorageService } from '../../../../ca-core/service-api/ca-objec
 
 export type CaBucketFormDialogInput = FlFormDialogInput<CaBucketFull>;
 
+const REGION_OPTION_BY_BUCKET_TYPE: Partial<Record<CaBucketType, CaSelectCloudProviderRegionOptionsMode>> = {
+  [CaBucketType.NORMAL]: 'S3',
+  [CaBucketType.AZURE]: 'AZURE',
+  [CaBucketType.GCP]: 'GCP',
+};
+
 @Component({
   selector: 'ca-bucket-form-dialog',
   templateUrl: './ca-bucket-form-dialog.component.html',
@@ -101,27 +107,39 @@ export class CaBucketFormDialogComponent
   onBucketTypeChange(bucketType: CaBucketType): void {
     // for the lab bucket the name is forced
     if (bucketType === CaBucketType.LAB) {
-      this.formGp.get('name')?.disable();
-      this.formGp.get('region')?.disable();
-      this.formGp.get('lab')?.enable();
-      this.formGp.get('contentType')?.setValue(CaBucketContentType.FOLDER);
-      this.formGp.get('contentType')?.disable();
+      this.applyLabBucketType();
     } else {
-      this.formGp.get('name')?.enable();
-      this.formGp.get('region')?.enable();
-      this.formGp.get('lab')?.disable();
-      this.formGp.get('contentType')?.enable();
-
-      if (bucketType === CaBucketType.NORMAL) {
-        this.regionOption = 'S3';
-      } else if (bucketType === CaBucketType.AZURE) {
-        this.regionOption = 'AZURE';
-      } else if (bucketType === CaBucketType.GCP) {
-        this.regionOption = 'GCP';
-      }
+      this.applyCloudBucketType(bucketType);
     }
 
     this.formGp.updateValueAndValidity();
+  }
+
+  private applyLabBucketType(): void {
+    this.disableControls(['name', 'region']);
+    this.enableControls(['lab']);
+    this.formGp.get('contentType')?.setValue(CaBucketContentType.FOLDER);
+    this.disableControls(['contentType']);
+  }
+
+  private applyCloudBucketType(bucketType: CaBucketType): void {
+    this.enableControls(['name', 'region']);
+    this.disableControls(['lab']);
+    this.enableControls(['contentType']);
+
+    this.regionOption = REGION_OPTION_BY_BUCKET_TYPE[bucketType] ?? this.regionOption;
+  }
+
+  private enableControls(names: string[]): void {
+    for (const name of names) {
+      this.formGp.get(name)?.enable();
+    }
+  }
+
+  private disableControls(names: string[]): void {
+    for (const name of names) {
+      this.formGp.get(name)?.disable();
+    }
   }
 
   showRegion(): boolean {

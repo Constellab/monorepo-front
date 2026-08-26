@@ -26,6 +26,8 @@ import {
   PrProtocolIntOut,
   PrWorkflow,
   PrWorkflowConnection,
+  PrWorkflowConnectionEvent,
+  PrWorkflowDeleteNodeEvent,
   PrWorkflowEvent,
   PrWorkflowNode,
   PrWorkflowNodeInterface,
@@ -648,112 +650,123 @@ export class LabWorkflowEditConfig implements OnDestroy {
   //////////////////////////// HANDLING WORKFLOW EVENTS ////////////////////////////////
 
   private onWorkflowEvent(workflowEvent: PrWorkflowEvent): void {
-    let portalAction: FlPortalAction;
-    let process: PrProcess | null = null;
-
     switch (workflowEvent.action) {
       case 'deleteNode':
-        const node: PrWorkflowNode = workflowEvent.node;
-        const additionalInfo: LabWorkflowEventNodeAdditionalInfo = {
-          protocolId: workflowEvent.protocolId,
-          node: workflowEvent.node,
-          connections: workflowEvent.connections,
-        };
-
-        if (node instanceof PrWorkflowNodeInterface) {
-          portalAction = {
-            type: LabWorkflowAction.DELETE_INTERFACE,
-            text: {
-              text: 'pr.deleting_interface',
-              translateText: true,
-              translateParam: { param: { name: node.getCurrentTitle() } },
-            },
-            action: this.protocolService.deleteInterface(workflowEvent.protocolId, node.interfaceName),
-            additionalInformation: additionalInfo,
-          };
-        } else if (node instanceof PrWorkflowNodeOuterface) {
-          portalAction = {
-            type: LabWorkflowAction.DELETE_OUTERFACE,
-            text: {
-              text: 'pr.deleting_outerface',
-              translateText: true,
-              translateParam: { param: { name: node.getCurrentTitle() } },
-            },
-            action: this.protocolService.deleteOuterface(workflowEvent.protocolId, node.outerfaceName),
-            additionalInformation: additionalInfo,
-          };
-        } else {
-          process = node.currentObject;
-          portalAction = {
-            type: LabWorkflowAction.DELETE_PROCESS,
-            text: {
-              text: 'pr.deleting_process',
-              translateText: true,
-              translateParam: { param: { processName: node.getCurrentTitle() } },
-            },
-            action: this.protocolService.deleteProcessInProtocol(
-              workflowEvent.protocolId,
-              workflowEvent.node.instanceName
-            ),
-            additionalInformation: additionalInfo,
-          };
-        }
+        this.onDeleteNodeEvent(workflowEvent);
         break;
       case 'addConnection':
       case 'deleteConnection':
-        if (workflowEvent.connection.isIOFaceConnection()) {
-          this.snackBarService.openErrorMessage({
-            text: 'pr.delete_link_interface_error',
-            translateText: true,
-          });
-          // re-create the connection
-          const layer = this.workflow.findLayerById(workflowEvent.protocolId);
-          layer?.addConnection(workflowEvent.connection);
-          return;
-        }
-
-        const additionalInformation: LabWorkflowEventConnectionAdditionalInfo = {
-          protocolId: workflowEvent.protocolId,
-          connection: workflowEvent.connection,
-        };
-
-        // associate the right process of the connection for the action
-        process = workflowEvent.connection.inputNode.currentObject;
-
-        if (workflowEvent.action === 'addConnection') {
-          portalAction = {
-            type: LabWorkflowAction.ADD_CONNECTION,
-            text: {
-              text: 'pr.adding_connection',
-              translateText: true,
-            },
-            action: this.protocolService.addConnection(workflowEvent.protocolId, {
-              input_port_name: workflowEvent.connection.inputPort.name,
-              input_process_name: workflowEvent.connection.inputNode.instanceName,
-              output_port_name: workflowEvent.connection.outputPort.name,
-              output_process_name: workflowEvent.connection.outputNode.instanceName,
-            }),
-            additionalInformation: additionalInformation,
-          };
-        } else {
-          portalAction = {
-            type: LabWorkflowAction.DELETE_CONNECTION,
-            text: {
-              text: 'pr.deleting_connection',
-              translateText: true,
-            },
-            action: this.protocolService.deleteConnection(
-              workflowEvent.protocolId,
-              workflowEvent.connection.inputNode.instanceName,
-              workflowEvent.connection.inputPort.name
-            ),
-            additionalInformation: additionalInformation,
-          };
-        }
+        this.onConnectionEvent(workflowEvent);
         break;
       case 'nodeMoved':
         this.saveNodePosition(workflowEvent.node, workflowEvent.protocolId);
-        return;
+        break;
+    }
+  }
+
+  private onDeleteNodeEvent(workflowEvent: PrWorkflowDeleteNodeEvent): void {
+    let portalAction: FlPortalAction;
+    let process: PrProcess | null = null;
+
+    const node: PrWorkflowNode = workflowEvent.node;
+    const additionalInfo: LabWorkflowEventNodeAdditionalInfo = {
+      protocolId: workflowEvent.protocolId,
+      node: workflowEvent.node,
+      connections: workflowEvent.connections,
+    };
+
+    if (node instanceof PrWorkflowNodeInterface) {
+      portalAction = {
+        type: LabWorkflowAction.DELETE_INTERFACE,
+        text: {
+          text: 'pr.deleting_interface',
+          translateText: true,
+          translateParam: { param: { name: node.getCurrentTitle() } },
+        },
+        action: this.protocolService.deleteInterface(workflowEvent.protocolId, node.interfaceName),
+        additionalInformation: additionalInfo,
+      };
+    } else if (node instanceof PrWorkflowNodeOuterface) {
+      portalAction = {
+        type: LabWorkflowAction.DELETE_OUTERFACE,
+        text: {
+          text: 'pr.deleting_outerface',
+          translateText: true,
+          translateParam: { param: { name: node.getCurrentTitle() } },
+        },
+        action: this.protocolService.deleteOuterface(workflowEvent.protocolId, node.outerfaceName),
+        additionalInformation: additionalInfo,
+      };
+    } else {
+      process = node.currentObject;
+      portalAction = {
+        type: LabWorkflowAction.DELETE_PROCESS,
+        text: {
+          text: 'pr.deleting_process',
+          translateText: true,
+          translateParam: { param: { processName: node.getCurrentTitle() } },
+        },
+        action: this.protocolService.deleteProcessInProtocol(
+          workflowEvent.protocolId,
+          workflowEvent.node.instanceName
+        ),
+        additionalInformation: additionalInfo,
+      };
+    }
+
+    this.executeUpdateAction(portalAction, process);
+  }
+
+  private onConnectionEvent(workflowEvent: PrWorkflowConnectionEvent): void {
+    if (workflowEvent.connection.isIOFaceConnection()) {
+      this.snackBarService.openErrorMessage({
+        text: 'pr.delete_link_interface_error',
+        translateText: true,
+      });
+      // re-create the connection
+      const layer = this.workflow.findLayerById(workflowEvent.protocolId);
+      layer?.addConnection(workflowEvent.connection);
+      return;
+    }
+
+    const additionalInformation: LabWorkflowEventConnectionAdditionalInfo = {
+      protocolId: workflowEvent.protocolId,
+      connection: workflowEvent.connection,
+    };
+
+    // associate the right process of the connection for the action
+    const process: PrProcess | null = workflowEvent.connection.inputNode.currentObject;
+
+    let portalAction: FlPortalAction;
+    if (workflowEvent.action === 'addConnection') {
+      portalAction = {
+        type: LabWorkflowAction.ADD_CONNECTION,
+        text: {
+          text: 'pr.adding_connection',
+          translateText: true,
+        },
+        action: this.protocolService.addConnection(workflowEvent.protocolId, {
+          input_port_name: workflowEvent.connection.inputPort.name,
+          input_process_name: workflowEvent.connection.inputNode.instanceName,
+          output_port_name: workflowEvent.connection.outputPort.name,
+          output_process_name: workflowEvent.connection.outputNode.instanceName,
+        }),
+        additionalInformation: additionalInformation,
+      };
+    } else {
+      portalAction = {
+        type: LabWorkflowAction.DELETE_CONNECTION,
+        text: {
+          text: 'pr.deleting_connection',
+          translateText: true,
+        },
+        action: this.protocolService.deleteConnection(
+          workflowEvent.protocolId,
+          workflowEvent.connection.inputNode.instanceName,
+          workflowEvent.connection.inputPort.name
+        ),
+        additionalInformation: additionalInformation,
+      };
     }
 
     this.executeUpdateAction(portalAction, process);
@@ -778,47 +791,67 @@ export class LabWorkflowEditConfig implements OnDestroy {
     }
 
     // success
-    if (actionResult.action.type === LabWorkflowAction.ADD_PROCESS) {
-      if (actionResult.result.process == null) {
-        throw new Error('Missing process in the add process result');
-      }
-      const node = this.workflowFactory.labProcessToWorkflowNode(actionResult.result.process);
-      this.onNewNode(
-        node,
-        (actionResult.additionalInformation as LabWorkflowEventBasicAdditionalInfo).protocolId
-      );
-    } else if (actionResult.action.type === LabWorkflowAction.ADD_PROCESS_WITH_CONNECTIONS) {
-      if (actionResult.result.process == null) {
-        throw new Error('Missing process in the add process with connections result');
-      }
-      const processWithLink = this.workflowFactory.labProcessWithLinkToNodeWithLink(
-        actionResult.result.process,
-        actionResult.result.link
-      );
-      this.onNewNodeWithConnector(processWithLink, actionResult.additionalInformation);
-    } else if (actionResult.action.type === LabWorkflowAction.DELETE_PROCESS) {
-      // clear the node observable, if the deletion worked
-      const info: LabWorkflowEventNodeAdditionalInfo = actionResult.additionalInformation;
-      info.node.destroy();
-
-      if (info.node instanceof PrWorkflowNodeProtocol) {
-        this.scenarioState.deleteProtocol(info.node.currentObject.id);
-      }
-      // clear interface and outerface
-      const layer = this.workflow.findLayerById(info.protocolId);
-      layer?.removeDanglingIOFaces();
-    } else if (
-      actionResult.action.type === LabWorkflowAction.ADD_INTERFACE ||
-      actionResult.action.type === LabWorkflowAction.ADD_OUTERFACE
-    ) {
-      const info: LabWorkflowEventBasicAdditionalInfo = actionResult.additionalInformation;
-      this.onNewIoFace(
-        info.protocolId,
-        actionResult.result.ioface,
-        actionResult.action.type === LabWorkflowAction.ADD_INTERFACE ? 'interface' : 'outerface'
-      );
+    switch (actionResult.action.type as LabWorkflowAction) {
+      case LabWorkflowAction.ADD_PROCESS:
+        this.onAddProcessResult(actionResult);
+        break;
+      case LabWorkflowAction.ADD_PROCESS_WITH_CONNECTIONS:
+        this.onAddProcessWithConnectionsResult(actionResult);
+        break;
+      case LabWorkflowAction.DELETE_PROCESS:
+        this.onDeleteProcessResult(actionResult);
+        break;
+      case LabWorkflowAction.ADD_INTERFACE:
+        this.onAddIoFaceResult(actionResult, 'interface');
+        break;
+      case LabWorkflowAction.ADD_OUTERFACE:
+        this.onAddIoFaceResult(actionResult, 'outerface');
+        break;
     }
     this.refreshProtocolAndParent(actionResult.result);
+  }
+
+  private onAddProcessResult(actionResult: FlPortalActionResult<LiProtocolUpdateDTO>): void {
+    if (actionResult.result.process == null) {
+      throw new Error('Missing process in the add process result');
+    }
+    const node = this.workflowFactory.labProcessToWorkflowNode(actionResult.result.process);
+    this.onNewNode(
+      node,
+      (actionResult.additionalInformation as LabWorkflowEventBasicAdditionalInfo).protocolId
+    );
+  }
+
+  private onAddProcessWithConnectionsResult(actionResult: FlPortalActionResult<LiProtocolUpdateDTO>): void {
+    if (actionResult.result.process == null) {
+      throw new Error('Missing process in the add process with connections result');
+    }
+    const processWithLink = this.workflowFactory.labProcessWithLinkToNodeWithLink(
+      actionResult.result.process,
+      actionResult.result.link
+    );
+    this.onNewNodeWithConnector(processWithLink, actionResult.additionalInformation);
+  }
+
+  private onDeleteProcessResult(actionResult: FlPortalActionResult<LiProtocolUpdateDTO>): void {
+    // clear the node observable, if the deletion worked
+    const info: LabWorkflowEventNodeAdditionalInfo = actionResult.additionalInformation;
+    info.node.destroy();
+
+    if (info.node instanceof PrWorkflowNodeProtocol) {
+      this.scenarioState.deleteProtocol(info.node.currentObject.id);
+    }
+    // clear interface and outerface
+    const layer = this.workflow.findLayerById(info.protocolId);
+    layer?.removeDanglingIOFaces();
+  }
+
+  private onAddIoFaceResult(
+    actionResult: FlPortalActionResult<LiProtocolUpdateDTO>,
+    mode: 'interface' | 'outerface'
+  ): void {
+    const info: LabWorkflowEventBasicAdditionalInfo = actionResult.additionalInformation;
+    this.onNewIoFace(info.protocolId, actionResult.result.ioface, mode);
   }
 
   private revertWorkflowEvent(actionType: LabWorkflowAction, additionalInfo: any): void {

@@ -24,15 +24,13 @@ export class HaCommunityPageDirective implements OnDestroy {
     }).subscribe((value) => {
       this.metadataService.setPageTitle(value.title, false);
       this.metadataService.addMetaTag('description', value.description);
-      this.metadataService.setSocialMetaTags(
-        value.title,
-        value.description,
+      this.metadataService.setSocialMetaTags({
+        title: value.title,
+        description: value.description,
         image,
         url,
-        false,
-        undefined,
-        ogType
-      );
+        ogType,
+      });
     });
   }
 

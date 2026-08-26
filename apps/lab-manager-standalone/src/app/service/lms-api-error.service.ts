@@ -35,13 +35,7 @@ export class LmsApiErrorService extends FlApiErrorService {
 
     // check if the error is formatted from nest api
     const nestError: ClApiError = errorResponse.error;
-    if (
-      nestError &&
-      nestError.code != null &&
-      nestError.instanceId != null &&
-      nestError.detail != null &&
-      nestError.status != null
-    ) {
+    if (this.isNestedApiError(nestError)) {
       serverError.nestedError = nestError;
     }
 
@@ -64,6 +58,19 @@ export class LmsApiErrorService extends FlApiErrorService {
 
     // throw the error to propagate it
     return throwError(() => serverError);
+  }
+
+  /**
+   * True when the error payload is an error formatted by the nest api
+   */
+  private isNestedApiError(error: ClApiError | undefined): boolean {
+    return (
+      error != null &&
+      error.code != null &&
+      error.instanceId != null &&
+      error.detail != null &&
+      error.status != null
+    );
   }
 
   /**

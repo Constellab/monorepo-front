@@ -1,4 +1,4 @@
-import { inject,Pipe, PipeTransform } from '@angular/core';
+import { inject, Pipe, PipeTransform } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 interface LiCronI18n {
@@ -82,6 +82,14 @@ const FR: LiCronI18n = {
 
 const I18N_MAP: Record<string, LiCronI18n> = { en: EN, fr: FR };
 
+interface LiCronParts {
+  minute: string;
+  hour: string;
+  dayOfMonth: string;
+  month: string;
+  dayOfWeek: string;
+}
+
 @Pipe({
   name: 'liCronHuman',
   standalone: true,
@@ -103,107 +111,137 @@ export class LiCronHumanPipe implements PipeTransform {
     const i18n = I18N_MAP[this.translateService.currentLang] || EN;
     const [minute, hour, dayOfMonth, month, dayOfWeek] = parts;
 
-    // Every minute: * * * * *
-    if (minute === '*' && hour === '*' && dayOfMonth === '*' && month === '*' && dayOfWeek === '*') {
-      return i18n.everyMinute;
-    }
+    return this.describeCron({ minute, hour, dayOfMonth, month, dayOfWeek }, i18n) ?? cronExpression;
+  }
 
-    // Every N minutes: */N * * * *
-    if (minute.startsWith('*/') && hour === '*' && dayOfMonth === '*' && month === '*' && dayOfWeek === '*') {
-      return i18n.everyNMinutes(minute.slice(2));
-    }
-
-    // Every hour: M * * * *
-    if (
-      minute !== '*' &&
-      !minute.includes('/') &&
-      hour === '*' &&
-      dayOfMonth === '*' &&
-      month === '*' &&
-      dayOfWeek === '*'
-    ) {
-      return i18n.everyHourAt(this.padZero(minute));
-    }
-
-    // Every N hours: M */N * * *
-    if (
-      !minute.includes('*') &&
-      hour.startsWith('*/') &&
-      dayOfMonth === '*' &&
-      month === '*' &&
-      dayOfWeek === '*'
-    ) {
-      return i18n.everyNHours(hour.slice(2));
+  /**
+   * Describe the cron expression, null when it does not match any known pattern
+   */
+  private describeCron(cron: LiCronParts, i18n: LiCronI18n): string | null {
+    const recurring = this.describeRecurring(cron, i18n);
+    if (recurring != null) {
+      return recurring;
     }
 
     // From here, we need a fixed time
-    const time = this.formatTime(minute, hour);
-    if (!time) {
-      return cronExpression;
+    const time = this.formatTime(cron.minute, cron.hour);
+    if (time == null) {
+      return null;
     }
 
-    // Every day at HH:MM: M H * * *
-    if (dayOfMonth === '*' && month === '*' && dayOfWeek === '*') {
-      return i18n.everyDayAt(time);
+    return this.describeAtFixedTime(cron, i18n, time);
+  }
+
+  // patterns repeating on every date: every minute, every N minutes, hourly, every N hours
+  private describeRecurring(cron: LiCronParts, i18n: LiCronI18n): string | null {
+    const { minute, hour, dayOfMonth, month, dayOfWeek } = cron;
+
+    if (dayOfMonth !== '*' || month !== '*' || dayOfWeek !== '*') {
+      return null;
     }
 
-    // Specific day(s) of week: M H * * DOW
-    if (dayOfMonth === '*' && month === '*' && dayOfWeek !== '*') {
-      if (dayOfWeek === '1-5') {
-        return i18n.weekdaysAt(time);
+    // Every N hours: M */N * * *
+    if (hour !== '*') {
+      return !minute.includes('*') && hour.startsWith('*/') ? i18n.everyNHours(hour.slice(2)) : null;
+    }
+
+    // Every minute: * * * * *
+    if (minute === '*') {
+      return i18n.everyMinute;
+    }
+    // Every N minutes: */N * * * *
+    if (minute.startsWith('*/')) {
+      return i18n.everyNMinutes(minute.slice(2));
+    }
+    // Every hour: M * * * *
+    if (!minute.includes('/')) {
+      return i18n.everyHourAt(this.padZero(minute));
+    }
+    return null;
+  }
+
+  // patterns happening at a fixed time of day
+  private describeAtFixedTime(cron: LiCronParts, i18n: LiCronI18n, time: string): string | null {
+    const { dayOfMonth, month, dayOfWeek } = cron;
+
+    if (dayOfMonth === '*' && month === '*') {
+      // Every day at HH:MM: M H * * *
+      if (dayOfWeek === '*') {
+        return i18n.everyDayAt(time);
       }
-      if (dayOfWeek === '0,6' || dayOfWeek === '6,0') {
-        return i18n.weekendsAt(time);
-      }
-      if (dayOfWeek.includes('-')) {
-        const [start, end] = dayOfWeek.split('-');
-        const startDay = i18n.days[+start];
-        const endDay = i18n.days[+end];
-        if (startDay && endDay) {
-          return i18n.dayRangeAt(startDay, endDay, time);
-        }
-      }
-      if (dayOfWeek.includes(',')) {
-        const days = dayOfWeek
-          .split(',')
-          .map((d) => i18n.days[+d])
-          .filter(Boolean);
-        if (days.length > 0) {
-          return i18n.daysAt(days.join(', '), time);
-        }
-      }
-      const dayName = i18n.days[+dayOfWeek];
-      if (dayName) {
-        return i18n.everyDayNameAt(dayName, time);
-      }
+      // Specific day(s) of week: M H * * DOW
+      return this.describeDayOfWeek(dayOfWeek, i18n, time);
+    }
+
+    return this.describeDayOfMonth(cron, i18n, time);
+  }
+
+  private describeDayOfWeek(dayOfWeek: string, i18n: LiCronI18n, time: string): string | null {
+    if (dayOfWeek === '1-5') {
+      return i18n.weekdaysAt(time);
+    }
+    if (dayOfWeek === '0,6' || dayOfWeek === '6,0') {
+      return i18n.weekendsAt(time);
+    }
+
+    return (
+      this.describeDayOfWeekRange(dayOfWeek, i18n, time) ??
+      this.describeDayOfWeekList(dayOfWeek, i18n, time) ??
+      this.describeSingleDayOfWeek(dayOfWeek, i18n, time)
+    );
+  }
+
+  private describeDayOfWeekRange(dayOfWeek: string, i18n: LiCronI18n, time: string): string | null {
+    if (!dayOfWeek.includes('-')) {
+      return null;
+    }
+    const [start, end] = dayOfWeek.split('-');
+    const startDay = i18n.days[+start];
+    const endDay = i18n.days[+end];
+    return startDay && endDay ? i18n.dayRangeAt(startDay, endDay, time) : null;
+  }
+
+  private describeDayOfWeekList(dayOfWeek: string, i18n: LiCronI18n, time: string): string | null {
+    if (!dayOfWeek.includes(',')) {
+      return null;
+    }
+    const days = dayOfWeek
+      .split(',')
+      .map((d) => i18n.days[+d])
+      .filter(Boolean);
+    return days.length > 0 ? i18n.daysAt(days.join(', '), time) : null;
+  }
+
+  private describeSingleDayOfWeek(dayOfWeek: string, i18n: LiCronI18n, time: string): string | null {
+    const dayName = i18n.days[+dayOfWeek];
+    return dayName ? i18n.everyDayNameAt(dayName, time) : null;
+  }
+
+  // monthly (M H DOM * *) and yearly (M H DOM MON *) patterns
+  private describeDayOfMonth(cron: LiCronParts, i18n: LiCronI18n, time: string): string | null {
+    const { dayOfMonth, month, dayOfWeek } = cron;
+
+    // both patterns need a fixed day of month and no day of week
+    if (dayOfMonth === '*' || dayOfWeek !== '*') {
+      return null;
     }
 
     // Monthly: M H DOM * *
-    if (
-      dayOfMonth !== '*' &&
-      !dayOfMonth.includes('/') &&
-      !dayOfMonth.includes(',') &&
-      month === '*' &&
-      dayOfWeek === '*'
-    ) {
-      return i18n.monthlyOnDayAt(dayOfMonth, time);
+    if (month === '*') {
+      return this.isSingleValue(dayOfMonth) ? i18n.monthlyOnDayAt(dayOfMonth, time) : null;
     }
 
     // Yearly: M H DOM MON *
-    if (
-      dayOfMonth !== '*' &&
-      month !== '*' &&
-      !month.includes('/') &&
-      !month.includes(',') &&
-      dayOfWeek === '*'
-    ) {
-      const monthName = i18n.months[+month];
-      if (monthName) {
-        return i18n.yearlyOnAt(dayOfMonth, monthName, time);
-      }
+    if (!this.isSingleValue(month)) {
+      return null;
     }
+    const monthName = i18n.months[+month];
+    return monthName ? i18n.yearlyOnAt(dayOfMonth, monthName, time) : null;
+  }
 
-    return cronExpression;
+  // a cron field holding a single value, not a list nor a step
+  private isSingleValue(cronField: string): boolean {
+    return !cronField.includes('/') && !cronField.includes(',');
   }
 
   private formatTime(minute: string, hour: string): string | null {

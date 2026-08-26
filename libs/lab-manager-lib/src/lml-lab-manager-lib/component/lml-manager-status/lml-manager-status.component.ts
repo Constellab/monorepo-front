@@ -10,6 +10,7 @@ import { LmlLabManagerStatus } from '../../model/lml-lab-manager.class';
 import { LmlAdminerInfoDialogComponent } from '../lml-adminer-info-dialog/lml-adminer-info-dialog.component';
 import { LmlDockerContainerErrorDialogComponent } from '../lml-docker-container-error-dialog/lml-docker-container-error-dialog.component';
 import {
+  LmlStatusBannerAction,
   LmlStatusBannerBusy,
   LmlStatusBannerError,
   LmlStatusBannersConfig,
@@ -95,30 +96,29 @@ export class LmlManagerStatusComponent {
    * (apps down/error, not configured/initialized) offer a restart or initialize action.
    */
   private convertToErrorBanner(labStatus: LmlLabManagerStatus): LmlStatusBannerError | null {
-    const restartAction = {
-      label: 'lml.lab_manager_restart',
-      action: () => this.initLab('lml.lab_manager_restart'),
-    };
-    const initializeAction = {
-      label: 'lml.lab_manager_initialize',
-      action: () => this.initLab('lml.lab_manager_initialize'),
-    };
-
     // A start error (e.g. during install) — show it with a link to the logs and a restart.
     if (labStatus.glabStatus?.hasStartError) {
       return {
         body: this.translateService.translate('lml.glab_error'),
-        actions: [{ label: 'lml.show_errors', action: () => this.openLabErrorLogs() }, restartAction],
+        actions: [{ label: 'lml.show_errors', action: () => this.openLabErrorLogs() }, this.restartAction()],
       };
     }
 
     // Don't surface a state banner while an action is running.
     if (labStatus.actionInProgress) return null;
 
+    return this.convertToStateBanner(labStatus);
+  }
+
+  /**
+   * The banner for an unhealthy lab-manager state (apps down/error, not configured/initialized),
+   * or null when healthy. Only called when no action is in progress.
+   */
+  private convertToStateBanner(labStatus: LmlLabManagerStatus): LmlStatusBannerError | null {
     if (labStatus.containersStatus.status.value === 'ERROR') {
       return {
         body: this.translateService.translate('lml.lab_manager_some_apps_error'),
-        actions: [restartAction],
+        actions: [this.restartAction()],
       };
     }
     if (!labStatus.isConfigured) {
@@ -127,20 +127,26 @@ export class LmlManagerStatusComponent {
     if (!labStatus.isInitialized) {
       return {
         body: this.translateService.translate('lml.lab_manager_not_initialized'),
-        actions: [initializeAction],
+        actions: [this.initializeAction()],
       };
     }
     // the lab manager was updated but not re-initialized since
     if (labStatus.lastInitVersion && labStatus.lastInitVersion !== labStatus.version) {
       return {
         body: this.translateService.translate('lml.lab_manager_not_initialized_since_new_version'),
-        actions: [initializeAction],
+        actions: [this.initializeAction()],
       };
     }
+
+    return this.convertToContainersDownBanner(labStatus);
+  }
+
+  /** The banner for containers that are (partially) down, or null when they are all up. */
+  private convertToContainersDownBanner(labStatus: LmlLabManagerStatus): LmlStatusBannerError | null {
     if (labStatus.containersStatus.status.value === 'PARTIALLY_UP') {
       return {
         body: this.translateService.translate('lml.lab_manager_some_apps_down'),
-        actions: [restartAction],
+        actions: [this.restartAction()],
       };
     }
     if (
@@ -149,12 +155,26 @@ export class LmlManagerStatusComponent {
     ) {
       return {
         body: this.translateService.translate('lml.lab_manager_all_apps_down'),
-        actions: [restartAction],
+        actions: [this.restartAction()],
       };
     }
 
     // Healthy — no banner.
     return null;
+  }
+
+  private restartAction(): LmlStatusBannerAction {
+    return {
+      label: 'lml.lab_manager_restart',
+      action: () => this.initLab('lml.lab_manager_restart'),
+    };
+  }
+
+  private initializeAction(): LmlStatusBannerAction {
+    return {
+      label: 'lml.lab_manager_initialize',
+      action: () => this.initLab('lml.lab_manager_initialize'),
+    };
   }
 
   private initLab(buttonText: string): void {

@@ -73,28 +73,22 @@ export class ClVersion {
    * @param other
    */
   public getDif(other: ClVersion): number {
-    if (
-      this.major === other.major &&
-      this.minor === other.minor &&
-      this.patch === other.patch &&
-      this.getSubPatchAsNumber() === other.getSubPatchAsNumber()
-    ) {
-      return 0;
+    // compare segment by segment, the first difference decides
+    for (const [value, otherValue] of this.getComparableSegments(other)) {
+      if (value !== otherValue) {
+        return value > otherValue ? 1 : -1;
+      }
     }
+    return 0;
+  }
 
-    if (
-      this.major > other.major ||
-      (this.major === other.major && this.minor > other.minor) ||
-      (this.major === other.major && this.minor === other.minor && this.patch > other.patch) ||
-      (this.major === other.major &&
-        this.minor === other.minor &&
-        this.patch === other.patch &&
-        this.getSubPatchAsNumber() > other.getSubPatchAsNumber())
-    ) {
-      return 1;
-    } else {
-      return -1;
-    }
+  private getComparableSegments(other: ClVersion): [number, number][] {
+    return [
+      [this.major, other.major],
+      [this.minor, other.minor],
+      [this.patch, other.patch],
+      [this.getSubPatchAsNumber(), other.getSubPatchAsNumber()],
+    ];
   }
 
   public isBeta(): boolean {

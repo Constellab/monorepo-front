@@ -188,12 +188,16 @@ export class ChChartRendererVennDiagram extends ChChartNoAxisRenderer<ChChartVen
     ];
     this.drawEllipse(this.data.container, ellipsePositions);
 
+    this.drawTexts(this.data.container, this.build4GroupsTextPositions(xCenter, yCenter), 15);
+  }
+
+  // all positions are based on chart width and height
+  private build4GroupsTextPositions(xCenter: number, yCenter: number): ChSectionTextPosition[] {
+    const [firstGroup, secondGroup, thirdGroup, fourthGroup] = this.data.data.groupNames;
     const chartWidth: number = this.data.chartWidth;
     const chartHeight: number = this.data.chartHeight;
-    // Draw texts
     const sections: ChChartVennDataSection[] = this.data.data.sections;
 
-    // all positions are based on chart width and height
     const textPosition: ChSectionTextPosition[] = [
       // 1 (left)
       { x: chartWidth * 0.21, y: chartHeight * 0.38, section: this.findSection(sections, [firstGroup]) },
@@ -262,7 +266,8 @@ export class ChChartRendererVennDiagram extends ChChartNoAxisRenderer<ChChartVen
         section: this.findSection(sections, [firstGroup, secondGroup, thirdGroup, fourthGroup]),
       },
     ];
-    this.drawTexts(this.data.container, textPosition, 15);
+
+    return textPosition;
   }
 
   // return the correct section based on a group list

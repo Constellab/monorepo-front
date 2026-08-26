@@ -202,6 +202,11 @@ export class CaLabHeroHeaderComponent implements OnInit {
 
     if (!managerStatus) return null;
 
+    return this.getManagerErrorBanner(managerStatus);
+  }
+
+  /** The lab-manager side of the banner: a failed start first, then the containers state. */
+  private getManagerErrorBanner(managerStatus: LmlLabManagerStatus): LmlStatusBannerError | null {
     // The restart banner carries its own restart button, so don't offer a second one.
     const restart: LmlStatusBannerAction[] = this.needsRestart(managerStatus)
       ? []
@@ -219,25 +224,30 @@ export class CaLabHeroHeaderComponent implements OnInit {
     // Don't surface a state banner while an action is running.
     if (managerStatus.actionInProgress) return null;
 
-    if (managerStatus.containersStatus?.status.value === 'ERROR') {
-      return this.errorBanner(this.translateService.translate('lab_containers_error_warning'), restart);
-    }
-    // The lab is reachable but its services are off: the header's start button is the way
-    // back up, so this stays a plain notice.
-    if (
-      managerStatus.containersStatus?.status.value === 'DOWN' ||
-      managerStatus.containersStatus?.status.value === 'STOP'
-    ) {
-      return this.errorBanner(this.translateService.translate('lab_containers_down_warning'));
-    }
-    if (managerStatus.containersStatus?.status.value === 'PARTIALLY_UP') {
-      return this.errorBanner(
-        this.translateService.translate('lab_containers_partially_up_warning'),
-        restart
-      );
-    }
+    return this.getContainersErrorBanner(managerStatus, restart);
+  }
 
-    return null;
+  /** The banner for the containers state, or null when they are up (or unknown). */
+  private getContainersErrorBanner(
+    managerStatus: LmlLabManagerStatus,
+    restart: LmlStatusBannerAction[]
+  ): LmlStatusBannerError | null {
+    switch (managerStatus.containersStatus?.status.value) {
+      case 'ERROR':
+        return this.errorBanner(this.translateService.translate('lab_containers_error_warning'), restart);
+      // The lab is reachable but its services are off: the header's start button is the way
+      // back up, so this stays a plain notice.
+      case 'DOWN':
+      case 'STOP':
+        return this.errorBanner(this.translateService.translate('lab_containers_down_warning'));
+      case 'PARTIALLY_UP':
+        return this.errorBanner(
+          this.translateService.translate('lab_containers_partially_up_warning'),
+          restart
+        );
+      default:
+        return null;
+    }
   }
 
   /** True when a saved lab-manager change is waiting for a restart to be applied. */

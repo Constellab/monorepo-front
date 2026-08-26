@@ -8,6 +8,7 @@ import {
 import {
   TdParamSetDefaultRowsMode,
   TdParamSpec,
+  TdParamSpecParamSet,
   TdParamSpecs,
   TdParamSpecsValues,
   TdParamSpecTypeEnum,
@@ -207,31 +208,39 @@ export class TdConfig implements TdConfigI {
     return columnDefaults;
   }
 
+  /**
+   * Build the default rows of a param set: the configured preset rows (merged over the
+   * column defaults) padded with empty rows to reach the minimum number of occurrences.
+   */
+  private getParamSetDefaultRows(spec: TdParamSpecParamSet): any[] {
+    const info = spec.additional_info;
+
+    // Build the per-column default row (recursively).
+    const columnDefaults = this.getParamSetColumnDefaults(spec);
+
+    const rows: any[] = [];
+
+    // First, the configured preset rows: merge each partial row over the
+    // column defaults (partial values win, missing keys fall back to defaults).
+    if (Array.isArray(info.default_rows) && info.default_rows.length > 0) {
+      for (const row of info.default_rows) {
+        rows.push({ ...ClHelpService.deepClone(columnDefaults), ...(row ?? {}) });
+      }
+    }
+
+    // Then pad with empty (column-default) rows to reach the minimum number of
+    // occurrences. At least one row when there is no preset row at all.
+    const minRows = Math.max(info.min_number_of_occurrences ?? 0, rows.length > 0 ? 0 : 1);
+    while (rows.length < minRows) {
+      rows.push(ClHelpService.deepClone(columnDefaults));
+    }
+
+    return rows;
+  }
+
   private getConfigSpecDefaultValue(spec: TdParamSpec): any {
     if (spec.type === TdParamSpecTypeEnum.PARAM_SET) {
-      const info = spec.additional_info;
-
-      // Build the per-column default row (recursively).
-      const columnDefaults = this.getParamSetColumnDefaults(spec);
-
-      const rows: any[] = [];
-
-      // First, the configured preset rows: merge each partial row over the
-      // column defaults (partial values win, missing keys fall back to defaults).
-      if (Array.isArray(info.default_rows) && info.default_rows.length > 0) {
-        for (const row of info.default_rows) {
-          rows.push({ ...ClHelpService.deepClone(columnDefaults), ...(row ?? {}) });
-        }
-      }
-
-      // Then pad with empty (column-default) rows to reach the minimum number of
-      // occurrences. At least one row when there is no preset row at all.
-      const minRows = Math.max(info.min_number_of_occurrences ?? 0, rows.length > 0 ? 0 : 1);
-      while (rows.length < minRows) {
-        rows.push(ClHelpService.deepClone(columnDefaults));
-      }
-
-      return rows;
+      return this.getParamSetDefaultRows(spec);
     } else if (spec.type === 'dynamic') {
       const defaultConfig: any = {};
       for (const subSpecName of Object.keys(spec.additional_info.specs)) {

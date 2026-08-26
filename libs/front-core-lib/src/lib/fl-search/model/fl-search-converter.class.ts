@@ -134,57 +134,57 @@ export class FlSearchConverter {
         fieldValue = fieldValue.trim();
       }
 
-      // handle specific convert as function
-      // for SearchAttributeFunctionCriteriaConverter
-      if (typeof (converter as any)[key] === 'function') {
-        // call the function to get the criteria
-        const newCriteria: FlSearchCriteria[] = (converter as any)[key](fieldValue);
-        if (newCriteria != null) {
-          criteria.push(...newCriteria);
-        }
-        continue;
-      }
+      criteria.push(...FlSearchConverter.convertFieldToCriteria(key, fieldValue, converter));
+    }
+    return criteria;
+  }
 
-      const fieldConverter: FlSearchAttributeCriteriaConverter<T> = (converter as any)[key];
+  /**
+   * Convert a single object attribute to the criteria it produces,
+   * an empty list when the field must be skipped.
+   */
+  private static convertFieldToCriteria<T>(
+    key: string,
+    fieldValue: any,
+    converter: FlSearchFilterCriteriaConverter<T>
+  ): FlSearchCriteria[] {
+    // handle specific convert as function
+    // for SearchAttributeFunctionCriteriaConverter
+    if (typeof (converter as any)[key] === 'function') {
+      // call the function to get the criteria
+      return (converter as any)[key](fieldValue) ?? [];
+    }
 
-      // check if the convert for this field exists
-      if (fieldConverter == null) {
-        console.error("The convert for the field '" + key + "' does not exists. Skipping field");
-        continue;
-      }
+    const fieldConverter: FlSearchAttributeCriteriaConverter<T> = (converter as any)[key];
 
-      // get the operation
-      let operator: FlSearchOperator;
-      // if the operation is a function, call it
-      if (typeof fieldConverter.operator === 'function') {
-        operator = fieldConverter.operator(fieldValue);
-      } else {
-        // otherwise get the operation directly
-        operator = fieldConverter.operator;
-      }
+    // check if the convert for this field exists
+    if (fieldConverter == null) {
+      console.error("The convert for the field '" + key + "' does not exists. Skipping field");
+      return [];
+    }
 
-      // get the value
-      let value: any;
-      // if a convert function exists, call it
-      if (fieldConverter.convertValue != null) {
-        value = fieldConverter.convertValue(fieldValue);
-      } else {
-        // get the value directly
-        value = fieldValue;
-      }
+    // if the operation is a function, call it, otherwise get the operation directly
+    const operator: FlSearchOperator =
+      typeof fieldConverter.operator === 'function'
+        ? fieldConverter.operator(fieldValue)
+        : fieldConverter.operator;
 
-      // if the converted value is null or empty, skip
-      if (ClHelpService.isNullOrEmpty(value)) {
-        continue;
-      }
+    // if a convert function exists, call it, otherwise get the value directly
+    const value: any =
+      fieldConverter.convertValue != null ? fieldConverter.convertValue(fieldValue) : fieldValue;
 
-      criteria.push({
+    // if the converted value is null or empty, skip
+    if (ClHelpService.isNullOrEmpty(value)) {
+      return [];
+    }
+
+    return [
+      {
         key: fieldConverter.key,
         operator: operator as any,
         value: value,
-      });
-    }
-    return criteria;
+      },
+    ];
   }
 
   /**

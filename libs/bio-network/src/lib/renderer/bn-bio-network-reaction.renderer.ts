@@ -32,14 +32,13 @@ export class BnBioNetworkReactionRenderer {
     // add white ring
     ctx.fillStyle = reaction.strokeColor;
     const globalSize = BnBioNetworkReactionRenderer.size + BnBioNetworkReactionRenderer.strokeWidth;
-    BnBioNetworkCanvasHelper.roundedRect(
-      ctx,
-      center.x - globalSize / 2,
-      center.y - globalSize / 2,
-      globalSize,
-      globalSize,
-      BnBioNetworkReactionRenderer.borderRadius
-    );
+    BnBioNetworkCanvasHelper.roundedRect(ctx, {
+      x: center.x - globalSize / 2,
+      y: center.y - globalSize / 2,
+      width: globalSize,
+      height: globalSize,
+      radius: BnBioNetworkReactionRenderer.borderRadius,
+    });
 
     // draw the rect center
     if (colorFunc == null) {
@@ -48,14 +47,13 @@ export class BnBioNetworkReactionRenderer {
       ctx.fillStyle = colorFunc(reaction);
     }
     const size = BnBioNetworkReactionRenderer.size;
-    BnBioNetworkCanvasHelper.roundedRect(
-      ctx,
-      center.x - size / 2,
-      center.y - size / 2,
-      size,
-      size,
-      BnBioNetworkReactionRenderer.borderRadius
-    );
+    BnBioNetworkCanvasHelper.roundedRect(ctx, {
+      x: center.x - size / 2,
+      y: center.y - size / 2,
+      width: size,
+      height: size,
+      radius: BnBioNetworkReactionRenderer.borderRadius,
+    });
 
     // if reaction also exist in another cluster, draw a small circle inside it
     if (reaction.existsInMultipleCluster) {
@@ -83,14 +81,13 @@ export class BnBioNetworkReactionRenderer {
     ctx.fillStyle = color;
 
     const globalSize = BnBioNetworkReactionRenderer.size + BnBioNetworkReactionRenderer.strokeWidth;
-    BnBioNetworkCanvasHelper.roundedRect(
-      ctx,
-      center.x - globalSize / 2,
-      center.y - globalSize / 2,
-      globalSize,
-      globalSize,
-      BnBioNetworkReactionRenderer.borderRadius
-    );
+    BnBioNetworkCanvasHelper.roundedRect(ctx, {
+      x: center.x - globalSize / 2,
+      y: center.y - globalSize / 2,
+      width: globalSize,
+      height: globalSize,
+      radius: BnBioNetworkReactionRenderer.borderRadius,
+    });
     ctx.fill();
   }
 }

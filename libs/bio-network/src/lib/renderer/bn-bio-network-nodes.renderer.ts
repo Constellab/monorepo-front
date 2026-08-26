@@ -117,16 +117,7 @@ export class BnBioNetworkNodesRenderer extends BnBioNetworkObjectRenderer {
     showText: boolean
   ): void {
     // if node position are not  inside positions
-    const { x, y } = node;
-    if (
-      this.positions &&
-      x != null &&
-      y != null &&
-      (x < this.positions.fromX ||
-        x > this.positions.toX ||
-        y < this.positions.fromY ||
-        y > this.positions.toY)
-    ) {
+    if (this.isOutsideRenderedPositions(node)) {
       return;
     }
 
@@ -139,6 +130,16 @@ export class BnBioNetworkNodesRenderer extends BnBioNetworkObjectRenderer {
     } else {
       console.log('node type not supported');
     }
+  }
+
+  private isOutsideRenderedPositions(node: BnBioNetworkNode): boolean {
+    const { x, y } = node;
+    if (!this.positions || x == null || y == null) {
+      return false;
+    }
+    return (
+      x < this.positions.fromX || x > this.positions.toX || y < this.positions.fromY || y > this.positions.toY
+    );
   }
 
   private nodePaintPointerArea(node: BnBioNetworkNode, ctx: CanvasRenderingContext2D, color: string): void {

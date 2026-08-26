@@ -55,6 +55,11 @@ export class LiResourceActionMenu extends LiEntityActionMenu {
   //////////////////////////////////// MENU BUILDER ////////////////////////////////////
 
   private buildStaticMenu(): FlMenuDynamicInput {
+    return [...this.buildContentMenuItems(), ...this.buildMetadataMenuItems()];
+  }
+
+  // actions on the resource content itself (import, download, rename, move)
+  private buildContentMenuItems(): FlMenuDynamicInput {
     const menu: FlMenuDynamicInput = [];
 
     if (!this.options.readOnly && this.resource.isFsNode()) {
@@ -73,6 +78,13 @@ export class LiResourceActionMenu extends LiEntityActionMenu {
       menu.push(this.getRenameButton());
       menu.push(this.getFolderButton());
     }
+
+    return menu;
+  }
+
+  // actions on the resource metadata, its extensions and its deletion
+  private buildMetadataMenuItems(): FlMenuDynamicInput {
+    const menu: FlMenuDynamicInput = [];
 
     menu.push(this.getTagsButton('RESOURCE', this.resource.id));
     menu.push(this.getShareButton());

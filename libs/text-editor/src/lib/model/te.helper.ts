@@ -187,32 +187,62 @@ export class TeHelper {
 
     if (!editableContainer || !node) return;
 
-    let lastChild: Node | null = editableContainer.lastChild;
-    if (lastChild && lastChild.nodeType === Node.TEXT_NODE && lastChild.textContent === '') {
-      lastChild = lastChild.parentElement;
-    }
+    const lastChild = TeHelper.getEditableContainerLastChild(editableContainer);
     if (!lastChild) return;
 
+    // if the cursor is not at the end of the element, let the browser handle the arrow
+    if (range.endOffset !== node.textContent?.length) return;
+
+    TeHelper.addSpaceOrMoveCaretAtEnd(event, editableContainer, cursorContainer, lastChild);
+  }
+
+  /**
+   * Get the last child of the editable container, if it is an empty text node,
+   * return its parent element instead
+   * @param editableContainer
+   * @private
+   */
+  private static getEditableContainerLastChild(editableContainer: HTMLElement): Node | null {
+    const lastChild: Node | null = editableContainer.lastChild;
+    if (lastChild && lastChild.nodeType === Node.TEXT_NODE && lastChild.textContent === '') {
+      return lastChild.parentElement;
+    }
+    return lastChild;
+  }
+
+  /**
+   * Called when the caret is at the end of the element, append a space or move the caret
+   * after the existing one
+   * @param event
+   * @param editableContainer
+   * @param cursorContainer
+   * @param lastChild
+   * @private
+   */
+  private static addSpaceOrMoveCaretAtEnd(
+    event: KeyboardEvent,
+    editableContainer: HTMLElement,
+    cursorContainer: HTMLElement,
+    lastChild: Node
+  ): void {
+    // Case where there is nothing after the cursor
+    if (cursorContainer === lastChild) {
+      // Append a space to the end of the div's content
+      editableContainer.innerHTML += '&nbsp;';
+
+      ClHelpService.stopEventPropagation(event);
+      FlHtmlHelper.setCaretAtElementEnd(editableContainer);
+      return;
+    }
+
+    // Case where there is only a space after the cursor
+    // we don't add the space as it is already there, but we move the cursor to the end of the div
+    // TODO check if this is fixed in next version of editorjs current
+    //  (2.30.2) because this was working before
     const lastChildText = lastChild.textContent;
-
-    // if the cursor is at the end of the element
-    if (range.endOffset === node.textContent?.length) {
-      // Case where there is nothing after the cursor
-      if (cursorContainer === lastChild) {
-        // Append a space to the end of the div's content
-        editableContainer.innerHTML += '&nbsp;';
-
-        ClHelpService.stopEventPropagation(event);
-        FlHtmlHelper.setCaretAtElementEnd(editableContainer);
-
-        // Case where there is only a space after the cursor
-        // we don't add the space as it is already there, but we move the cursor to the end of the div
-        // TODO check if this is fixed in next version of editorjs current
-        //  (2.30.2) because this was working before
-      } else if (lastChild.previousSibling === cursorContainer && lastChildText?.trim() === '') {
-        ClHelpService.stopEventPropagation(event);
-        FlHtmlHelper.setCaretAtElementEnd(lastChild);
-      }
+    if (lastChild.previousSibling === cursorContainer && lastChildText?.trim() === '') {
+      ClHelpService.stopEventPropagation(event);
+      FlHtmlHelper.setCaretAtElementEnd(lastChild);
     }
   }
 

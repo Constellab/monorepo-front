@@ -90,12 +90,9 @@ export class CaLabCreatePageComponent {
     // the stepper is linear with each step bound to its form via [stepControl], so by the time
     // this last step is reached, nameForm/serverForm/storageForm are all valid and these fields
     // are set.
-    const name = this.nameForm.get('name')?.value;
-    const serverCloud = this.serverForm.get('serverCloud')?.value;
-    const region = this.serverForm.get('region')?.value;
-    const volumeSize = this.storageForm.get('storageSize')?.value;
-    const dailyBackupRegion = this.serverForm.get('dailyBackupRegion')?.value;
-    const weeklyBackupRegion = this.serverForm.get('weeklyBackupRegion')?.value;
+    const name = this.nameForm.controls.name.value;
+    const volumeSize = this.storageForm.controls.storageSize.value;
+    const { serverCloud, region, dailyBackupRegion, weeklyBackupRegion } = this.serverForm.getRawValue();
     if (
       name == null ||
       serverCloud == null ||

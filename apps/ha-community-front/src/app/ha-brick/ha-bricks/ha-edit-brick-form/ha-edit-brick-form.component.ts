@@ -135,83 +135,80 @@ export class HaEditBrickFormComponent implements OnInit {
       return;
     }
     if (!$event.name.endsWith('.json')) {
-      this.errorFile = true;
-      this.errorFileText = 'file_wrong_type';
-      this.snackBarService.openErrorMessage({ text: this.errorFileText, translateText: true });
-      this.fileName = '';
+      this.setFileError('file_wrong_type');
       return;
     }
-    if (typeof FileReader !== 'undefined' && !this.errorFile) {
-      const reader = new FileReader();
-
-      reader.onload = (e: ProgressEvent<FileReader>) => {
-        let srcResult: any;
-        try {
-          srcResult = JSON.parse((e.target as FileReader | null)?.result as string);
-        } catch {
-          this.errorFile = true;
-          this.errorFileText = 'file_wrong_format';
-          this.snackBarService.openErrorMessage({ text: this.errorFileText, translateText: true });
-          this.fileName = '';
-          return;
-        }
-
-        if (!srcResult.name || !srcResult.version || !srcResult.environment) {
-          this.errorFile = true;
-          this.errorFileText = 'file_wrong_format';
-          this.snackBarService.openErrorMessage({ text: this.errorFileText, translateText: true });
-          this.fileName = '';
-          return;
-        } else {
-          this.brickService.checkIfBrickExistByName(srcResult.name).subscribe((res) => {
-            if (!res) {
-              this.inputFile = new HaAddVersionInput(
-                true,
-                srcResult.name,
-                srcResult.version,
-                srcResult.environment,
-                srcResult.technical_info
-              );
-              this.formGp.controls.name.setValue(this.inputFile.name);
-              const version: string[] = this.inputFile.version.split('-');
-              this.formGp.controls.version.setValue(version[0]);
-              this.formGp.controls.references.setValue(this.inputFile.brickVersionReferences);
-              this.formGp.controls.technicalInfo.setValue(this.inputFile.technicalInfo);
-              this.formGp.controls.isBeta.setValue(this.inputFile.isBeta);
-
-              this.formGp.controls.space.setValue(null);
-
-              this.formGp.controls.repoType.setValue(HaRepoType.PIP);
-              if (this.inputFile.isBeta) {
-                this.formGp.controls.subPatch.setValue(this.inputFile.subPatch);
-              }
-
-              if (!this.formGp.controls.name.valid) {
-                this.errorInput['name'] = true;
-              }
-              if (!this.formGp.controls.version.valid) {
-                this.errorInput['version'] = true;
-              }
-              if (this.errorInput['name'] || this.errorInput['version']) {
-                this.errorFile = true;
-                this.errorFileText = 'file_wrong_format';
-                this.snackBarService.openErrorMessage({ text: this.errorFileText, translateText: true });
-                this.fileName = '';
-                return;
-              }
-              this.fileName = $event.name;
-            } else {
-              this.errorFile = true;
-              this.errorFileText = 'brick_already_exists';
-              this.snackBarService.openErrorMessage({ text: this.errorFileText, translateText: true });
-              this.fileName = '';
-              return;
-            }
-          });
-        }
-      };
-
-      reader.readAsText($event);
+    if (typeof FileReader === 'undefined') {
+      return;
     }
+
+    const reader = new FileReader();
+    reader.onload = (e: ProgressEvent<FileReader>) => this.onFileRead(e, $event.name);
+    reader.readAsText($event);
+  }
+
+  private setFileError(errorText: string): void {
+    this.errorFile = true;
+    this.errorFileText = errorText;
+    this.snackBarService.openErrorMessage({ text: this.errorFileText, translateText: true });
+    this.fileName = '';
+  }
+
+  private onFileRead(e: ProgressEvent<FileReader>, fileName: string): void {
+    let srcResult: any;
+    try {
+      srcResult = JSON.parse((e.target as FileReader | null)?.result as string);
+    } catch {
+      this.setFileError('file_wrong_format');
+      return;
+    }
+
+    if (!srcResult.name || !srcResult.version || !srcResult.environment) {
+      this.setFileError('file_wrong_format');
+      return;
+    }
+
+    this.brickService.checkIfBrickExistByName(srcResult.name).subscribe((res) => {
+      if (res) {
+        this.setFileError('brick_already_exists');
+        return;
+      }
+      this.fillFormFromFile(srcResult, fileName);
+    });
+  }
+
+  private fillFormFromFile(srcResult: any, fileName: string): void {
+    this.inputFile = new HaAddVersionInput(
+      true,
+      srcResult.name,
+      srcResult.version,
+      srcResult.environment,
+      srcResult.technical_info
+    );
+    this.formGp.controls.name.setValue(this.inputFile.name);
+    const version: string[] = this.inputFile.version.split('-');
+    this.formGp.controls.version.setValue(version[0]);
+    this.formGp.controls.references.setValue(this.inputFile.brickVersionReferences);
+    this.formGp.controls.technicalInfo.setValue(this.inputFile.technicalInfo);
+    this.formGp.controls.isBeta.setValue(this.inputFile.isBeta);
+
+    this.formGp.controls.space.setValue(null);
+
+    this.formGp.controls.repoType.setValue(HaRepoType.PIP);
+    if (this.inputFile.isBeta) {
+      this.formGp.controls.subPatch.setValue(this.inputFile.subPatch);
+    }
+
+    if (!this.formGp.controls.name.valid) {
+      this.errorInput['name'] = true;
+    }
+    if (!this.formGp.controls.version.valid) {
+      this.errorInput['version'] = true;
+    }
+    if (this.errorInput['name'] || this.errorInput['version']) {
+      this.setFileError('file_wrong_format');
+      return;
+    }
+    this.fileName = fileName;
   }
 }

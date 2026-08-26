@@ -199,23 +199,45 @@ export class ClDateHelper {
     if (milliseconds <= 0) {
       return `0s`;
     }
+
+    const durationLike: DurationLikeObject = ClDateHelper.splitMillisecondsInScales(
+      milliseconds,
+      precision,
+      maxPrecision
+    );
+
+    // create a duration object with the right value set and return the duration
+    // as human
+    const duration = Duration.fromDurationLike(durationLike);
+    const strDuration = duration.toHuman();
+
+    if (strDuration === '') {
+      return '~0s';
+    }
+    return strDuration;
+  }
+
+  /**
+   * Split a duration in millisecond into the `precision` biggest date scales
+   * (days, hours, min...), the last one being rounded.
+   */
+  private static splitMillisecondsInScales(
+    milliseconds: number,
+    precision: number,
+    maxPrecision: ClDateScale | null
+  ): DurationLikeObject {
+    const durationLike: DurationLikeObject = {};
     // store the rest of milliseconds to show
     let millisecondsRest: number = milliseconds;
-    // let durationStr = '';
     let precisionCount: number = 0;
-
-    const durationLike: DurationLikeObject = {};
 
     for (const scale of ClDateHelper.DATE_SCALE_LIST) {
       if (millisecondsRest >= scale.value) {
-        let nbScale;
-
         // if this is the last scale to show, round it
-        if (precisionCount === precision - 1 || maxPrecision === scale.scale) {
-          nbScale = Math.round(millisecondsRest / scale.value);
-        } else {
-          nbScale = Math.trunc(millisecondsRest / scale.value);
-        }
+        const isLastScale: boolean = precisionCount === precision - 1 || maxPrecision === scale.scale;
+        const nbScale: number = isLastScale
+          ? Math.round(millisecondsRest / scale.value)
+          : Math.trunc(millisecondsRest / scale.value);
 
         // store the scale with the value
         durationLike[scale.scale] = nbScale;
@@ -229,14 +251,6 @@ export class ClDateHelper {
       }
     }
 
-    // create a duration object with the right value set and return the duration
-    // as human
-    const duration = Duration.fromDurationLike(durationLike);
-    const strDuration = duration.toHuman();
-
-    if (strDuration === '') {
-      return '~0s';
-    }
-    return strDuration;
+    return durationLike;
   }
 }

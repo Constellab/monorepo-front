@@ -107,22 +107,39 @@ export class FlHtmlHelper {
    * @param parent provide one of the field to search
    */
   public static getParent(element: HTMLElement, parent: FlHtmlFindParentOptions): HTMLElement | null {
+    const matchesParent = FlHtmlHelper.buildParentMatcher(parent);
     let current: HTMLElement | null = element;
 
     while (current != null && current.tagName !== 'BODY') {
-      if (parent.element) {
-        if (current === parent.element) return current;
-      } else if (parent.tagName) {
-        if (current.tagName === parent.tagName.toUpperCase()) return current;
-      } else if (parent.className) {
-        if (current.classList.contains(parent.className)) return current;
-      } else if (parent.attribute) {
-        if (FlHtmlHelper.hasAttributes(current, parent.attribute)) return current;
-      }
+      if (matchesParent(current)) return current;
       current = current.parentElement;
     }
 
     return null;
+  }
+
+  /**
+   * Build the predicate matching the first provided field of the options,
+   * it never matches when no field is provided.
+   */
+  private static buildParentMatcher(parent: FlHtmlFindParentOptions): (element: HTMLElement) => boolean {
+    if (parent.element) {
+      const target = parent.element;
+      return (element) => element === target;
+    }
+    if (parent.tagName) {
+      const tagName = parent.tagName.toUpperCase();
+      return (element) => element.tagName === tagName;
+    }
+    if (parent.className) {
+      const className = parent.className;
+      return (element) => element.classList.contains(className);
+    }
+    if (parent.attribute) {
+      const attribute = parent.attribute;
+      return (element) => FlHtmlHelper.hasAttributes(element, attribute);
+    }
+    return () => false;
   }
 
   public static hasAttributes(element: HTMLElement, attributes: Record<string, string>): boolean {

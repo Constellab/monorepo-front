@@ -1,4 +1,4 @@
-import { ElementRef, inject,Injectable, NgZone, OnDestroy, Renderer2 } from '@angular/core';
+import { ElementRef, inject, Injectable, NgZone, OnDestroy, Renderer2 } from '@angular/core';
 import { FlCoord } from '@monorepo/front-core-lib/fl-core';
 import { FlMouseButton } from '@monorepo/front-core-lib/fl-core';
 
@@ -252,26 +252,50 @@ export class SpSpreadsheetMouseManagerState implements OnDestroy {
 
     if (cellEvent.type === 'header') {
       if (cellEvent.headerType === 'row') {
-        this.contextMenuState.openHeaderRowContextMenu(event);
-
-        // if the clicked row is not within selection
-        if (!selection || selection.type !== 'rows' || !selection.rowIsSelected(cellEvent.index)) {
-          this.selectionState.selectUniqueRow(cellEvent.index);
-        }
+        this.openRowHeaderMenu(event, cellEvent.index, selection);
       } else {
-        this.contextMenuState.openHeaderColumnContextMenu(event);
-
-        // if the clicked column is not within selection
-        if (!selection || selection.type !== 'columns' || !selection.columnIsSelected(cellEvent.index)) {
-          this.selectionState.selectUniqueColumn(cellEvent.index);
-        }
+        this.openColumnHeaderMenu(event, cellEvent.index, selection);
       }
     } else {
-      this.contextMenuState.openCellContextMenu(event);
-      // if clicked cell is not in the current selection, select the cell
-      if (!selection || !selection.coordIsSelected(cellEvent.coord)) {
-        this.selectionState.selectUniqueCell(cellEvent.coord);
-      }
+      this.openCellMenu(event, cellEvent.coord, selection);
+    }
+  }
+
+  private openRowHeaderMenu(
+    event: MouseEvent,
+    index: number,
+    selection: SpSheetSingleSelection | null
+  ): void {
+    this.contextMenuState.openHeaderRowContextMenu(event);
+
+    // if the clicked row is not within selection
+    if (!selection || selection.type !== 'rows' || !selection.rowIsSelected(index)) {
+      this.selectionState.selectUniqueRow(index);
+    }
+  }
+
+  private openColumnHeaderMenu(
+    event: MouseEvent,
+    index: number,
+    selection: SpSheetSingleSelection | null
+  ): void {
+    this.contextMenuState.openHeaderColumnContextMenu(event);
+
+    // if the clicked column is not within selection
+    if (!selection || selection.type !== 'columns' || !selection.columnIsSelected(index)) {
+      this.selectionState.selectUniqueColumn(index);
+    }
+  }
+
+  private openCellMenu(
+    event: MouseEvent,
+    coord: SpCellCoord,
+    selection: SpSheetSingleSelection | null
+  ): void {
+    this.contextMenuState.openCellContextMenu(event);
+    // if clicked cell is not in the current selection, select the cell
+    if (!selection || !selection.coordIsSelected(coord)) {
+      this.selectionState.selectUniqueCell(coord);
     }
   }
 

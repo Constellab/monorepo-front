@@ -1,3 +1,9 @@
+interface ClStringNormalizeOptions {
+  trim: boolean;
+  toLowerCase: boolean;
+  replaceAccent: boolean;
+}
+
 /**
  * Helper class with only static methods to simplify String management
  */
@@ -17,34 +23,30 @@ export class ClStringHelper {
     toLowerCase: boolean = true,
     replaceAccent: boolean = false
   ): boolean {
-    if (
-      container == null ||
-      partialString == null ||
-      typeof container !== 'string' ||
-      typeof partialString !== 'string'
-    ) {
+    // typeof also rejects null and undefined
+    if (typeof container !== 'string' || typeof partialString !== 'string') {
       return false;
     }
 
-    let containerStr: string = container;
-    let partialStr: string = partialString;
-
-    if (trim) {
-      containerStr = containerStr.trim();
-      partialStr = partialStr.trim();
-    }
-
-    if (toLowerCase) {
-      containerStr = containerStr.toLowerCase();
-      partialStr = partialString.toLowerCase();
-    }
-
-    if (replaceAccent) {
-      containerStr = this.removeAccentFromString(containerStr);
-      partialStr = this.removeAccentFromString(partialStr);
-    }
+    const options: ClStringNormalizeOptions = { trim, toLowerCase, replaceAccent };
+    const containerStr: string = this.normalizeForComparison(container, options);
+    const partialStr: string = this.normalizeForComparison(partialString, options);
 
     return containerStr.indexOf(partialStr) !== -1;
+  }
+
+  private static normalizeForComparison(str: string, options: ClStringNormalizeOptions): string {
+    let result: string = options.trim ? str.trim() : str;
+
+    if (options.toLowerCase) {
+      result = result.toLowerCase();
+    }
+
+    if (options.replaceAccent) {
+      result = this.removeAccentFromString(result);
+    }
+
+    return result;
   }
 
   public static getCleanUrlPath(str: string): string | null {

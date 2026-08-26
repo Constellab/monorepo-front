@@ -72,68 +72,29 @@ export class FlClassDirective implements OnInit, OnDestroy {
    * @private
    */
   private getInputBreakpointsAndClasses(): FlBreakpointInfo[] {
-    const breakpoints: FlBreakpointInfo[] = [];
+    const { XSmall, Small, Medium, Large, XLarge } = Breakpoints;
 
-    if (this.flClass)
-      breakpoints.push({
-        breakpoints: [
-          Breakpoints.XSmall,
-          Breakpoints.Small,
-          Breakpoints.Medium,
-          Breakpoints.Large,
-          Breakpoints.XLarge,
-        ],
-        classes: this.flClass,
-      });
-    if (this.flClassXs) breakpoints.push({ breakpoints: [Breakpoints.XSmall], classes: this.flClassXs });
-    if (this.flClassSm) breakpoints.push({ breakpoints: [Breakpoints.Small], classes: this.flClassSm });
-    if (this.flClassMd) breakpoints.push({ breakpoints: [Breakpoints.Medium], classes: this.flClassMd });
-    if (this.flClassLg) breakpoints.push({ breakpoints: [Breakpoints.Large], classes: this.flClassLg });
-    if (this.flClassXl) breakpoints.push({ breakpoints: [Breakpoints.XLarge], classes: this.flClassXl });
-    if (this.flClassLtSm)
-      breakpoints.push({
-        breakpoints: [Breakpoints.XSmall, Breakpoints.Small],
-        classes: this.flClassLtSm,
-      });
-    if (this.flClassLtMd)
-      breakpoints.push({
-        breakpoints: [Breakpoints.XSmall, Breakpoints.Small, Breakpoints.Medium],
-        classes: this.flClassLtMd,
-      });
-    if (this.flClassLtLg)
-      breakpoints.push({
-        breakpoints: [Breakpoints.XSmall, Breakpoints.Small, Breakpoints.Medium, Breakpoints.Large],
-        classes: this.flClassLtLg,
-      });
-    if (this.flClassLtXl)
-      breakpoints.push({
-        breakpoints: [
-          Breakpoints.XSmall,
-          Breakpoints.Small,
-          Breakpoints.Medium,
-          Breakpoints.Large,
-          Breakpoints.XLarge,
-        ],
-        classes: this.flClassLtXl,
-      });
-    if (this.flClassGtXs)
-      breakpoints.push({
-        breakpoints: [Breakpoints.Small, Breakpoints.Medium, Breakpoints.Large, Breakpoints.XLarge],
-        classes: this.flClassGtXs,
-      });
-    if (this.flClassGtSm)
-      breakpoints.push({
-        breakpoints: [Breakpoints.Medium, Breakpoints.Large, Breakpoints.XLarge],
-        classes: this.flClassGtSm,
-      });
-    if (this.flClassGtMd)
-      breakpoints.push({
-        breakpoints: [Breakpoints.Large, Breakpoints.XLarge],
-        classes: this.flClassGtMd,
-      });
-    if (this.flClassGtLg) breakpoints.push({ breakpoints: [Breakpoints.XLarge], classes: this.flClassGtLg });
+    // input value -> breakpoints it applies to, in declaration order
+    const inputs: [string | string[], string[]][] = [
+      [this.flClass, [XSmall, Small, Medium, Large, XLarge]],
+      [this.flClassXs, [XSmall]],
+      [this.flClassSm, [Small]],
+      [this.flClassMd, [Medium]],
+      [this.flClassLg, [Large]],
+      [this.flClassXl, [XLarge]],
+      [this.flClassLtSm, [XSmall, Small]],
+      [this.flClassLtMd, [XSmall, Small, Medium]],
+      [this.flClassLtLg, [XSmall, Small, Medium, Large]],
+      [this.flClassLtXl, [XSmall, Small, Medium, Large, XLarge]],
+      [this.flClassGtXs, [Small, Medium, Large, XLarge]],
+      [this.flClassGtSm, [Medium, Large, XLarge]],
+      [this.flClassGtMd, [Large, XLarge]],
+      [this.flClassGtLg, [XLarge]],
+    ];
 
-    return breakpoints;
+    return inputs
+      .filter(([classes]) => Boolean(classes))
+      .map(([classes, breakpoints]) => ({ breakpoints, classes }));
   }
 
   private convertClass(classes: string | string[]): string[] {

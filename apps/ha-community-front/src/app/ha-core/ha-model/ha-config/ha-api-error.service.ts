@@ -31,6 +31,19 @@ export class HaApiErrorService extends FlApiErrorService {
     return error?.detail ?? defaultError;
   }
 
+  /**
+   * True when the payload carries every field of the error shape the nest api answers with.
+   */
+  private static isNestError(error: ClApiError | undefined): boolean {
+    return (
+      error != null &&
+      error.code != null &&
+      error.instanceId != null &&
+      error.detail != null &&
+      error.status != null
+    );
+  }
+
   get defaultApiErrorDuration(): number | null {
     return null;
   }
@@ -56,13 +69,7 @@ export class HaApiErrorService extends FlApiErrorService {
 
     // check if the error is formatted from nest api
     const nestError: ClApiError = errorResponse.error;
-    if (
-      nestError &&
-      nestError.code != null &&
-      nestError.instanceId != null &&
-      nestError.detail != null &&
-      nestError.status != null
-    ) {
+    if (HaApiErrorService.isNestError(nestError)) {
       serverError.nestedError = nestError;
     }
 

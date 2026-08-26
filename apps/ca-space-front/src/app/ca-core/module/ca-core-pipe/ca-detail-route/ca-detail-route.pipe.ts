@@ -72,12 +72,7 @@ export class CaDetailRoutePipe implements PipeTransform {
     } else if (obj instanceof CaLab) {
       return ['lab', obj.id];
     } else if (obj instanceof CaGroup) {
-      switch (obj.type) {
-        case CaGroupType.TEAM:
-          return ['group', obj.id];
-        case CaGroupType.SINGLE_USER:
-          return ['user', obj.id];
-      }
+      return this.getObjectTypeFromGroup(obj);
     } else if (obj instanceof CaDocument) {
       return ['document', obj.id];
     } else if (obj instanceof CaUser) {
@@ -87,6 +82,15 @@ export class CaDetailRoutePipe implements PipeTransform {
     } else {
       console.error('[caDetailRoute] The object is not supported');
       return [null, null];
+    }
+  }
+
+  private getObjectTypeFromGroup(group: CaGroup): [CaObjectType | null, string | null] {
+    switch (group.type) {
+      case CaGroupType.TEAM:
+        return ['group', group.id];
+      case CaGroupType.SINGLE_USER:
+        return ['user', group.id];
     }
   }
 

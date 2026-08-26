@@ -309,15 +309,15 @@ export class LiResourceDetailState implements OnDestroy {
     const viewConfig = view.viewConfig;
     if (resource == null || viewConfig == null) return;
     this.viewConfigState
-      .openConfigPortal(
-        viewConfig.viewName,
-        view.title,
-        true,
-        resource.id,
-        resource.resourceTypingName,
-        view.style,
-        viewConfig.configValues
-      )
+      .openConfigPortal({
+        methodName: viewConfig.viewName,
+        viewName: view.title,
+        hasConfigSpecs: true,
+        resourceId: resource.id,
+        resourceTypingName: resource.resourceTypingName,
+        viewStyle: view.style,
+        viewConfigValues: viewConfig.configValues,
+      })
       .subscribe((result) => this.onViewConfiguredClosed(resource.id, result, viewOverlayRef));
   }
 
@@ -327,14 +327,14 @@ export class LiResourceDetailState implements OnDestroy {
     const resource = this.selectedResource();
     if (resource == null) return;
     this.viewConfigState
-      .openConfigPortal(
-        view.methodName,
-        view.getName(),
-        view.hasConfigSpecs,
-        resource.id,
-        resource.resourceTypingName,
-        view.style
-      )
+      .openConfigPortal({
+        methodName: view.methodName,
+        viewName: view.getName(),
+        hasConfigSpecs: view.hasConfigSpecs,
+        resourceId: resource.id,
+        resourceTypingName: resource.resourceTypingName,
+        viewStyle: view.style,
+      })
       .subscribe((result) => this.onViewConfiguredClosed(resource.id, result));
   }
 

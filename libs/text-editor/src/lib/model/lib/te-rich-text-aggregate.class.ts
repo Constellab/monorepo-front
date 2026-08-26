@@ -32,7 +32,9 @@ export interface TeOldRichTextContentWithModificationsI {
  * otherwise it will be TeRichTextContent
  */
 export type TeRichTextAggregateJsonInput =
-  TeHTMLEditorJSON | TeOldRichTextContentWithModificationsI | TeNewFullRichTextDTO;
+  | TeHTMLEditorJSON
+  | TeOldRichTextContentWithModificationsI
+  | TeNewFullRichTextDTO;
 
 export class TeRichTextAggregate {
   private static readonly CURRENT_VERSION = 1;
@@ -120,6 +122,20 @@ export class TeRichTextAggregate {
    * @param userId
    */
   public compareWithCurrent(newRichText: TeRichText, userId: string): TeRichTextModifications {
+    const differences: TeRichTextBlockModification[] = [
+      ...this.getDeletedModifications(newRichText, userId),
+      ...this.getCreatedUpdatedAndMovedModifications(newRichText, userId),
+    ];
+
+    return new TeRichTextModifications(differences);
+  }
+
+  /**
+   * Get the modifications for the blocks of the current rich text that are not in the new rich text
+   * @param newRichText
+   * @param userId
+   */
+  private getDeletedModifications(newRichText: TeRichText, userId: string): TeRichTextBlockModification[] {
     const differences: TeRichTextBlockModification[] = [];
 
     // find deleted blocks, start by the last block
@@ -145,64 +161,116 @@ export class TeRichTextAggregate {
       index--;
     }
 
-    index = 0;
-    for (const block of newRichText.getBlocks()) {
-      if (block.id == null) {
-        index++;
-        continue;
-      }
-      const oldBlock = this.richText.getBlock(block.id);
-      const oldBlockIndex = this.richText.getBlockIndex(block.id);
-      if (oldBlock == null) {
-        // block is new
-        const modif = new TeRichTextBlockModification(
-          block.id,
-          block.type,
-          TeRichTextModificationType.CREATED,
-          index,
-          userId
-        );
-        modif.blockValue = block.data;
-        differences.push(modif);
-      } else if (
-        TeRichTextBlockModification.stringifyBlockData(oldBlock) !==
-        TeRichTextBlockModification.stringifyBlockData(block)
-      ) {
-        // block is updated
-        const modif = new TeRichTextBlockModification(
-          block.id,
-          block.type,
-          TeRichTextModificationType.UPDATED,
-          index,
-          userId
-        );
-        if (modif.blockType == TeBlockType.LIST) {
-          if ('meta' in block.data) delete block.data['meta'];
-          if ('meta' in oldBlock.data) delete oldBlock.data['meta'];
-        }
+    return differences;
+  }
 
-        modif.blockValue = block.data;
-        // get the differences between the old block data and the new block data,
-        // we stringify the data to compare them as string with the lib diff
-        modif.setDifferences(oldBlock.data);
-        differences.push(modif);
-      } else if (oldBlockIndex !== -1 && oldBlockIndex != index) {
-        // block is moved
-        const modif = new TeRichTextBlockModification(
-          block.id,
-          block.type,
-          TeRichTextModificationType.MOVED,
-          index,
-          userId
-        );
-        modif.oldIndex = oldBlockIndex; // old index of the block
-        modif.blockValue = block.data;
+  /**
+   * Get the modifications for the blocks of the new rich text that were created, updated or moved
+   * @param newRichText
+   * @param userId
+   */
+  private getCreatedUpdatedAndMovedModifications(
+    newRichText: TeRichText,
+    userId: string
+  ): TeRichTextBlockModification[] {
+    const differences: TeRichTextBlockModification[] = [];
+
+    let index = 0;
+    for (const block of newRichText.getBlocks()) {
+      const modif = this.getBlockModification(block, index, userId);
+      if (modif != null) {
         differences.push(modif);
       }
       index++;
     }
 
-    return new TeRichTextModifications(differences);
+    return differences;
+  }
+
+  /**
+   * Get the modification of a single block of the new rich text, null if the block did not change
+   * @param block
+   * @param index index of the block in the new rich text
+   * @param userId
+   */
+  private getBlockModification(
+    block: TeBlock,
+    index: number,
+    userId: string
+  ): TeRichTextBlockModification | null {
+    const blockId = block.id;
+    if (blockId == null) {
+      return null;
+    }
+    const oldBlock = this.richText.getBlock(blockId);
+    const oldBlockIndex = this.richText.getBlockIndex(blockId);
+    if (oldBlock == null) {
+      // block is new
+      const modif = new TeRichTextBlockModification(
+        blockId,
+        block.type,
+        TeRichTextModificationType.CREATED,
+        index,
+        userId
+      );
+      modif.blockValue = block.data;
+      return modif;
+    }
+    if (
+      TeRichTextBlockModification.stringifyBlockData(oldBlock) !==
+      TeRichTextBlockModification.stringifyBlockData(block)
+    ) {
+      return this.buildUpdatedModification(blockId, block, oldBlock, index, userId);
+    }
+    if (oldBlockIndex !== -1 && oldBlockIndex != index) {
+      // block is moved
+      const modif = new TeRichTextBlockModification(
+        blockId,
+        block.type,
+        TeRichTextModificationType.MOVED,
+        index,
+        userId
+      );
+      modif.oldIndex = oldBlockIndex; // old index of the block
+      modif.blockValue = block.data;
+      return modif;
+    }
+    return null;
+  }
+
+  /**
+   * Build the modification of a block that was updated
+   * @param blockId
+   * @param block
+   * @param oldBlock
+   * @param index
+   * @param userId
+   */
+  private buildUpdatedModification(
+    blockId: string,
+    block: TeBlock,
+    oldBlock: TeBlock,
+    index: number,
+    userId: string
+  ): TeRichTextBlockModification {
+    // block is updated
+    const modif = new TeRichTextBlockModification(
+      blockId,
+      block.type,
+      TeRichTextModificationType.UPDATED,
+      index,
+      userId
+    );
+    if (modif.blockType == TeBlockType.LIST) {
+      if ('meta' in block.data) delete block.data['meta'];
+      if ('meta' in oldBlock.data) delete oldBlock.data['meta'];
+    }
+
+    modif.blockValue = block.data;
+    // get the differences between the old block data and the new block data,
+    // we stringify the data to compare them as string with the lib diff
+    modif.setDifferences(oldBlock.data);
+    return modif;
   }
 
   /**

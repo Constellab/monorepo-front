@@ -149,16 +149,7 @@ export class HaStoryEditPageComponent implements OnInit {
       this.topics = topics;
       this.filteredTopics = this.topicControl.valueChanges.pipe(
         startWith(''),
-        map((value) => {
-          if (value == null || value == '') return [];
-          const name = typeof value === 'string' ? value : value.name;
-          this.canSaveTopic = !!name && name.trim() !== '';
-          return name
-            ? this._filter(name)
-                .slice(0, 3)
-                .filter((topic) => !this.story.topics.find((t) => t.id === topic.id))
-            : this.topics.slice(0, 3).filter((topic) => !this.story.topics.find((t) => t.id === topic.id));
-        })
+        map((value) => this.getTopicSuggestions(value))
       );
     });
   }
@@ -370,6 +361,15 @@ export class HaStoryEditPageComponent implements OnInit {
         this.notFound = true;
       }
     });
+  }
+
+  /** The first 3 topics matching the input, minus the ones already on the story. */
+  private getTopicSuggestions(value: string | HaTopic | null): HaTopicDto[] {
+    if (value == null || value == '') return [];
+    const name = typeof value === 'string' ? value : value.name;
+    this.canSaveTopic = !!name && name.trim() !== '';
+    const suggestions = name ? this._filter(name).slice(0, 3) : this.topics.slice(0, 3);
+    return suggestions.filter((topic) => !this.story.topics.find((t) => t.id === topic.id));
   }
 
   private _filter(name: string): HaTopicDto[] {

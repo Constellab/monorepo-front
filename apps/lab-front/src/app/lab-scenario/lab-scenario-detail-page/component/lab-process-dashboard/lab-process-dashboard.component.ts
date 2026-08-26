@@ -47,7 +47,7 @@ import {
   LiTypeDialogComponent,
   LiTypeDialogInput,
 } from '@monorepo/lab-lib/li-type';
-import { PrWorkflowNodeProcess } from '@monorepo/protocol';
+import { PrPort, PrWorkflowNodeProcess } from '@monorepo/protocol';
 import { TdParamSpecVisibility, TdTypingName } from '@monorepo/technical-doc';
 import { TranslatePipe } from '@ngx-translate/core';
 import { DateTime } from 'luxon';
@@ -344,47 +344,40 @@ export class LabProcessDashboardComponent implements OnInit, OnDestroy {
     // Check if warnings are
     const warnings: string[] = [];
 
-    if (Object.keys(process.config.specs?.params?.additional_info?.specs)?.length == 0) {
+    const paramSpecs = process.config.specs?.params?.additional_info?.specs;
+    if (Object.keys(paramSpecs)?.length == 0) {
       // Warning on no additional info params specs defined
       warnings.push('biox.share_agent_warning.no_config');
     }
 
-    for (const param of Object.keys(process.config.specs.params.additional_info.specs)) {
-      const spec = process.config.specs.params.additional_info.specs[param];
-      if (spec.short_description == null || spec.short_description === '') {
-        // Warning on param spec without description set
-        warnings.push('biox.share_agent_warning.parameter_without_description');
-        break;
-      }
+    if (this.hasParamSpecWithoutDescription(process.config.specs.params.additional_info.specs)) {
+      // Warning on param spec without description set
+      warnings.push('biox.share_agent_warning.parameter_without_description');
     }
 
-    for (const input_key of Object.keys(process.inputs.ports)) {
-      const input = process.inputs.ports[input_key];
-      for (const resource_type of input.specs.resource_types) {
-        if (resource_type.typing_name === TdTypingName.resource.resource) {
-          // Warning if an input port of the resource type Resource is found
-          warnings.push('biox.share_agent_warning.input_port_with_type_resource');
-          break;
-        }
-      }
-      if (warnings.includes('biox.share_agent_warning.input_port_with_type_resource')) {
-        break;
-      }
+    if (this.hasPortWithResourceType(process.inputs.ports)) {
+      // Warning if an input port of the resource type Resource is found
+      warnings.push('biox.share_agent_warning.input_port_with_type_resource');
     }
 
-    for (const output_key of Object.keys(process.outputs.ports)) {
-      const output = process.outputs.ports[output_key];
-      for (const resource_type of output.specs.resource_types) {
-        if (resource_type.typing_name === TdTypingName.resource.resource) {
-          // Warning if an output port of the resource type Resource is found
-          warnings.push('biox.share_agent_warning.output_port_with_type_resource');
-          break;
-        }
-      }
-      if (warnings.includes('biox.share_agent_warning.output_port_with_type_resource')) {
-        break;
-      }
+    if (this.hasPortWithResourceType(process.outputs.ports)) {
+      // Warning if an output port of the resource type Resource is found
+      warnings.push('biox.share_agent_warning.output_port_with_type_resource');
     }
     return warnings;
+  }
+
+  private hasParamSpecWithoutDescription(specs: Record<string, any>): boolean {
+    return Object.values(specs).some(
+      (spec) => spec.short_description == null || spec.short_description === ''
+    );
+  }
+
+  private hasPortWithResourceType(ports: Record<string, PrPort>): boolean {
+    return Object.values(ports).some((port) =>
+      port.specs.resource_types.some(
+        (resourceType) => resourceType.typing_name === TdTypingName.resource.resource
+      )
+    );
   }
 }

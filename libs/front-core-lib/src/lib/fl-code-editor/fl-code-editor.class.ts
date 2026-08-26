@@ -24,6 +24,68 @@ export function flCheckLanguage(language: string): FlCodeEditorLanguage {
   return 'python';
 }
 
+// Python-specific keywords
+const PYTHON_KEYWORDS = [
+  'def ',
+  'class ',
+  'import ',
+  'from ',
+  'elif ',
+  'lambda ',
+  '__name__',
+  'try:',
+  'except',
+  'finally:',
+  'with ',
+  'as ',
+  'print(',
+];
+
+// Shell-specific patterns
+const SHELL_PATTERNS = [
+  /^\s*(cd|ls|mkdir|cp|mv|rm|grep|sed|awk|echo|cat|chmod|chown)\s/m,
+  /\$\{?[A-Za-z_][A-Za-z0-9_]*\}?/, // Variable usage: $VAR or ${VAR}
+  /\|/, // Pipe
+  />>|2>&1/, // Redirection
+];
+
+const SHELL_SHEBANGS = ['/bash', '/sh', '/zsh', '/ksh'];
+
+/**
+ * Detect the language from the shebang of the first line, null if there is none
+ * or if it is not recognized.
+ */
+function detectLanguageFromShebang(firstLine: string): 'python' | 'shell' | null {
+  if (!firstLine.startsWith('#!')) {
+    return null;
+  }
+  if (SHELL_SHEBANGS.some((shebang) => firstLine.includes(shebang))) {
+    return 'shell';
+  }
+  // If shebang contains python, return python
+  if (firstLine.includes('python')) {
+    return 'python';
+  }
+  return null;
+}
+
+function countPythonScore(code: string, lines: string[]): number {
+  const codeContent = code.toLowerCase();
+  let score = PYTHON_KEYWORDS.filter((keyword) => codeContent.includes(keyword.toLowerCase())).length;
+
+  // Check for Python indentation (4 spaces or tab at line start)
+  const hasIndentation = lines.some((line) => /^(\s{4}|\t)/.test(line) && line.trim().length > 0);
+  if (hasIndentation) {
+    score += 2;
+  }
+
+  return score;
+}
+
+function countShellScore(code: string): number {
+  return SHELL_PATTERNS.filter((pattern) => pattern.test(code)).length;
+}
+
 /**
  * Detect language from code content (Python vs Shell)
  * @param code - The code content to analyze
@@ -37,70 +99,13 @@ export function flDetectLanguage(code: string): 'python' | 'shell' {
   const lines = code.split('\n').filter((line) => line.trim().length > 0);
 
   // Check for shell shebang at the start
-  const firstLine = lines[0]?.trim() || '';
-  if (firstLine.startsWith('#!')) {
-    if (
-      firstLine.includes('/bash') ||
-      firstLine.includes('/sh') ||
-      firstLine.includes('/zsh') ||
-      firstLine.includes('/ksh')
-    ) {
-      return 'shell';
-    }
-    // If shebang contains python, return python
-    if (firstLine.includes('python')) {
-      return 'python';
-    }
+  const shebangLanguage = detectLanguageFromShebang(lines[0]?.trim() || '');
+  if (shebangLanguage != null) {
+    return shebangLanguage;
   }
 
-  // Python-specific keywords
-  const pythonKeywords = [
-    'def ',
-    'class ',
-    'import ',
-    'from ',
-    'elif ',
-    'lambda ',
-    '__name__',
-    'try:',
-    'except',
-    'finally:',
-    'with ',
-    'as ',
-    'print(',
-  ];
-
-  // Shell-specific patterns
-  const shellPatterns = [
-    /^\s*(cd|ls|mkdir|cp|mv|rm|grep|sed|awk|echo|cat|chmod|chown)\s/m,
-    /\$\{?[A-Za-z_][A-Za-z0-9_]*\}?/, // Variable usage: $VAR or ${VAR}
-    /\|/, // Pipe
-    />>|2>&1/, // Redirection
-  ];
-
-  let pythonScore = 0;
-  let shellScore = 0;
-
-  // Count Python keywords
-  const codeContent = code.toLowerCase();
-  for (const keyword of pythonKeywords) {
-    if (codeContent.includes(keyword.toLowerCase())) {
-      pythonScore++;
-    }
-  }
-
-  // Check for Python indentation (4 spaces or tab at line start)
-  const hasIndentation = lines.some((line) => /^(\s{4}|\t)/.test(line) && line.trim().length > 0);
-  if (hasIndentation) {
-    pythonScore += 2;
-  }
-
-  // Check for shell patterns
-  for (const pattern of shellPatterns) {
-    if (pattern.test(code)) {
-      shellScore++;
-    }
-  }
+  const pythonScore = countPythonScore(code, lines);
+  const shellScore = countShellScore(code);
 
   // Return based on scores
   return shellScore >= pythonScore ? 'shell' : 'python';
