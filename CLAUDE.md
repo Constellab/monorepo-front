@@ -52,6 +52,25 @@ machine and hands the run to the kernel OOM killer. Two guards keep a full run b
 Prefer `bunx nx affected -t test` while working; Nx caches test results, so a repeated full run only
 re-executes the projects you touched.
 
+#### Tests never watch by default
+
+`@angular/build:unit-test` defaults `watch` to `isTTY()`, so a bare `bunx nx test <app>` used to run
+the specs and then sit there waiting for a file change - the task never returned. Every app therefore
+pins `"watch": false` in the `test` options of its `project.json`, and the libs get the same from
+`flLibTestConfig()`. Pass `--watch` explicitly when you do want the watcher; the flag still wins.
+
+#### Tests gate the release builds
+
+Every tag-triggered workflow (`ca_*`, `lab_*`, `ha_*`, `lms_*`, `dc_*`) runs the test suite before
+it builds anything: each one starts a `test` job that calls the reusable
+`.github/workflows/test.yml`, and the build job declares `needs: test`. A red suite therefore blocks
+the image build and the release, so a tag must be cut from a green commit.
+
+`test.yml` runs `nx run-many -t test` over the whole workspace and accepts an optional `projects`
+input to narrow it. Every project keeps at least one spec on purpose: `@angular/build:unit-test`
+throws on a project with zero tests instead of passing, so deleting a project's last spec turns its
+target red rather than skipping it.
+
 ### Code Quality
 
 - `bunx nx lint` - Run linting across the workspace

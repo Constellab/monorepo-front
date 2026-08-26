@@ -7,7 +7,7 @@
 
   @if (showName) {
     <div class="user-name g-text-dense-height" [ngClass]="getTextSizeClass()">
-      {{ user?.alias ? user.alias : user?.firstname + ' ' + user?.lastname }}
+      {{ user.alias ? user.alias : user.firstname + ' ' + user.lastname }}
     </div>
   }
 </div>

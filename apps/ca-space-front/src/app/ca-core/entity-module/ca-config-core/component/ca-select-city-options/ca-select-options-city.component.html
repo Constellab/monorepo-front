@@ -3,7 +3,7 @@
     {{ 'loading' | translate }}
   </mat-option>
 } @else {
-  @if (countries?.length > 0) {
+  @if (countries.length > 0) {
     @for (country of countries; track country) {
       <mat-optgroup [label]="country.name">
         @for (city of country.cities; track city) {

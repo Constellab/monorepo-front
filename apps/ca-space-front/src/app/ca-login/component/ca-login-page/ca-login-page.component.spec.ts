@@ -91,7 +91,7 @@ describe('CaLoginPageComponent', () => {
     // expired session would win over the flow the visitor came here to complete
     const page = buildPage({ returnUrl: AUTHORIZE_URL }, AUTHORIZE_URL);
 
-    expect(page.redirectionRoute()).toBeNull();
+    expect(page.redirectionRoute()).toBeUndefined();
   });
 
   it('should fall back to the app when the return url is not a safe target', () => {

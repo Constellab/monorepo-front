@@ -13,7 +13,7 @@
           [contributors]="contributors()"
           [date]="communityAppValue.createdAt"
           [space]="communityAppValue.space"
-          [executions]="communityAppValue.executions ?? 0"
+          [executions]="communityAppValue.executions"
           [isAuthor]="isAuthor()">
           @if (canEdit()) {
             <div class="entity-page-info-div">

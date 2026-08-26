@@ -1,12 +1,12 @@
-@if (filesToShow()?.length > 0 || titles()?.length > 0) {
+@if (filesToShow().length > 0 || titles().length > 0) {
   <div class="right-div right-panel g-scrollable-element">
-    @if (titles()?.length > 0) {
+    @if (titles().length > 0) {
       <te-titles-list [titles]="titles()"></te-titles-list>
     }
-    @if (titles()?.length > 0 && filesToShow()?.length > 0) {
+    @if (titles().length > 0 && filesToShow().length > 0) {
       <mat-divider class="g-full divider"></mat-divider>
     }
-    @if (filesToShow()?.length > 0) {
+    @if (filesToShow().length > 0) {
       <te-files-list
         [files]="filesToShow()"
         [urlToDownloadPrefix]="urlToDownloadFilePrefix()"></te-files-list>

@@ -3,7 +3,7 @@ name: Main Workflow space front
 on:
   push:
     tags:
-      - "ca_*"
+      - 'ca_*'
 
 permissions:
   contents: read
@@ -14,7 +14,11 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  test:
+    uses: ./.github/workflows/test.yml
+
   call_reusable_workflow:
+    needs: test
     uses: ./.github/workflows/build_github_package.yml
     with:
       registry: ghcr.io

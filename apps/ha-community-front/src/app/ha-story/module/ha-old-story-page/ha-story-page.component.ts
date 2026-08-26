@@ -10,7 +10,6 @@ import {
   TransferState,
 } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { MatAnchor } from '@angular/material/button';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ClCoreJsonConvert, ClStringHelper } from '@monorepo/core-lib';
 import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
@@ -42,7 +41,6 @@ import { HaStoryTextEditorConfig } from '../ha-story-edit-page/ha-story-text-edi
     FlUserModule,
     FlDateModule,
     FlKeyValueModule,
-    MatAnchor,
     TeTextEditorModule,
     ReactiveFormsModule,
     FlLoaderModule,

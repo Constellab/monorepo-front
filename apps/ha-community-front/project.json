@@ -134,7 +134,8 @@
     "test": {
       "executor": "@angular/build:unit-test",
       "options": {
-        "runnerConfig": true
+        "runnerConfig": true,
+        "watch": false
       }
     }
   }

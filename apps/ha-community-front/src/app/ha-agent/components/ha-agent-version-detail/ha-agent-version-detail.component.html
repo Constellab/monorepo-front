@@ -22,7 +22,7 @@
     }
   </div>
 
-  @if (!versionInfosFormControl()?.value?.isEmpty() || canEdit()) {
+  @if (!versionInfosFormControl().value?.isEmpty() || canEdit()) {
     <te-text-editor
       class="community-text-editor"
       [config]="textEditorConfig"
@@ -64,7 +64,7 @@
     </div>
   }
 
-  @if (version.params?.['specs'] | flIsNotEmpty) {
+  @if (version.params['specs'] | flIsNotEmpty) {
     <div class="agent-version-card">
       <h3 class="g-small-title">{{ 'parameters' | translate }}</h3>
       <td-config [configSpecs]="version.params['specs']" />

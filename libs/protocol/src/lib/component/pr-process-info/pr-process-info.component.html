@@ -40,10 +40,10 @@
 
     <fl-key-value>
       <fl-key>{{ 'pr.brick' | translate }}</fl-key>
-      {{ typingName?.brickName }} v{{ process.brick_version_on_run }}
+      {{ typingName.brickName }} v{{ process.brick_version_on_run }}
     </fl-key-value>
 
-    @if (process.process_type?.short_description) {
+    @if (process.process_type.short_description) {
       <fl-key-value>
         <fl-key>{{ 'pr.short_description' | translate }}</fl-key>
         {{ process.process_type.short_description }}

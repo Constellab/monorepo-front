@@ -21,7 +21,7 @@
             <button mat-raised-button (click)="hideCommentTextEditor()">
               {{ 'cancel' | translate }}
             </button>
-            @if (!formControlCommentInputData.value?.isEmpty()) {
+            @if (!formControlCommentInputData.value.isEmpty()) {
               <button mat-flat-button [disabled]="isLoading" (click)="sendComment()">
                 @if (isLoading) {
                   <fl-button-loader></fl-button-loader>

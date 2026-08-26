@@ -21,7 +21,7 @@
   <div
     class="icons-list-div"
     (flInfiniteScroll)="loadMoreResults()"
-    [flInfiniteDisabled]="(icons?.isLoading || icons?.page?.last) ?? false"
+    [flInfiniteDisabled]="(icons.isLoading || icons.page?.last) ?? false"
     [flInfiniteMode]="'auto'">
     @for (icon of icons | flDatasourceConnect | async; track icon) {
       <div
@@ -44,7 +44,7 @@
   </div>
 }
 
-@if (!icons.isLoading && !icons?.page?.last) {
+@if (!icons.isLoading && !icons.page?.last) {
   <button mat-flat-button class="load-more-icons-button primary" (click)="loadMoreResults()">
     {{ 'coCommunityLib.load_more_icons' | translate }}
   </button>
