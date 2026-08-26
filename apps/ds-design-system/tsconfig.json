@@ -1,7 +1,6 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "strictNullChecks": true,
     "moduleResolution": "bundler",
     "module": "preserve",
     "ignoreDeprecations": "6.0"
