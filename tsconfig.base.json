@@ -140,7 +140,7 @@
     },
     "noUncheckedSideEffectImports": false,
     "types": ["*"],
-    "esModuleInterop": false,
+    "esModuleInterop": true,
     "ignoreDeprecations": "6.0"
   },
   "exclude": ["node_modules", "tmp", "dist", ".angular", ".nx", ".idea", ".vscode", ".claude", ".github"]
