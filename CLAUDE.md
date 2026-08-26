@@ -31,6 +31,9 @@ Common apps: `ca-space-front`, `lab-front`, `ha-community-front`, `lab-manager-s
 - `bunx nx test <project> --watch` - Run tests in watch mode
 - `bunx nx affected:test` - Run tests for all affected projects
 - `bun run test:all` - Run every test target (`nx run-many -t test`)
+- `bun run test:apps` - Run the test target of the five apps
+- `bun run test:lib <project>` - Run one project's tests, e.g. `bun run test:lib core-lib` (extra flags
+  are forwarded: `bun run test:lib core-lib --watch`)
 - `bunx nx e2e <app>-e2e` - Run end-to-end tests for an app
 
 #### Test memory budget

@@ -81,7 +81,9 @@ export class TeRichTextBlockModification {
     } else {
       modification.blockValue = json.blockValue;
     }
-    if (json.oldIndex) {
+    // `0` is a real index: a block dragged away from the very top of the document has an oldIndex
+    // of 0, and a falsy test used to drop it on the way back in — undo then had nothing to splice on.
+    if (json.oldIndex != null) {
       modification.oldIndex = json.oldIndex;
     }
     return modification;
@@ -95,21 +97,17 @@ export class TeRichTextBlockModification {
     const changes = diffChars(oldValueString, newValue);
     let i = 0;
     for (const change of changes) {
-      // the diff lib types those as optional, but diffChars always provides them
-      const added = change.added ?? false;
-      const removed = change.removed ?? false;
-      const count = change.count ?? change.value.length;
-      if (added || removed) {
+      if (change.added || change.removed) {
         res.push({
           index: i,
-          added,
-          removed,
+          added: change.added,
+          removed: change.removed,
           value: change.value,
-          count,
+          count: change.count,
         });
       }
-      if (!removed) {
-        i += count;
+      if (!change.removed) {
+        i += change.count;
       }
     }
     this.differences = res;
