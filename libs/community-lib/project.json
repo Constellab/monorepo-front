@@ -7,10 +7,12 @@
   "tags": ["front"],
   "targets": {
     "test": {
-      "executor": "@nx/vitest:test",
-      "outputs": ["{options.reportsDirectory}"],
+      "outputs": [
+        "{projectRoot}/{options.coverage.reportsDirectory}",
+        "{workspaceRoot}/coverage/libs/community-lib"
+      ],
       "options": {
-        "reportsDirectory": "{projectRoot}/../../coverage/libs/community-lib"
+        "coverage.reportsDirectory": "../../../coverage/libs/community-lib"
       }
     },
     "lint": {

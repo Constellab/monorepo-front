@@ -7,10 +7,9 @@
   "tags": [],
   "targets": {
     "test": {
-      "executor": "@nx/vitest:test",
-      "outputs": ["{options.reportsDirectory}"],
+      "outputs": ["{projectRoot}/{options.coverage.reportsDirectory}", "{workspaceRoot}/coverage/libs/chart"],
       "options": {
-        "reportsDirectory": "{projectRoot}/../../coverage/libs/chart"
+        "coverage.reportsDirectory": "../../../coverage/libs/chart"
       }
     },
     "lint": {

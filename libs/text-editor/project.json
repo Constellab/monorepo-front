@@ -7,19 +7,17 @@
   "tags": [],
   "targets": {
     "test": {
-      "executor": "@nx/vitest:test",
       "outputs": [
-        "{options.reportsDirectory}"
+        "{projectRoot}/{options.coverage.reportsDirectory}",
+        "{workspaceRoot}/coverage/libs/text-editor"
       ],
       "options": {
-        "reportsDirectory": "{projectRoot}/../../coverage/libs/text-editor"
+        "coverage.reportsDirectory": "../../../coverage/libs/text-editor"
       }
     },
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": [
-        "{options.outputFile}"
-      ]
+      "outputs": ["{options.outputFile}"]
     }
   }
 }

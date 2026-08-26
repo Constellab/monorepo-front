@@ -14,13 +14,13 @@
       "inputs": ["default", "^production"],
       "cache": true
     },
+    "test": {
+      "parallelism": false
+    },
     "@angular/build:unit-test": {
       "cache": true,
-      "inputs": ["default", "^production"]
-    },
-    "@nx/vitest:test": {
-      "cache": true,
-      "inputs": ["default", "^production"]
+      "inputs": ["default", "^production"],
+      "parallelism": false
     },
     "@angular/build:application": {
       "cache": true,
@@ -109,5 +109,29 @@
   "useInferencePlugins": false,
   "defaultBase": "master",
   "analytics": false,
-  "neverConnectToCloud": true
+  "neverConnectToCloud": true,
+  "plugins": [
+    {
+      "plugin": "@nx/vitest",
+      "options": {
+        "testTargetName": "test",
+        "testMode": "watch"
+      },
+      "include": [
+        "libs/bio-network/**/*",
+        "libs/chart/**/*",
+        "libs/community-lib/**/*",
+        "libs/core-lib/**/*",
+        "libs/front-core-lib/**/*",
+        "libs/lab-lib/**/*",
+        "libs/lab-manager-lib/**/*",
+        "libs/mail/**/*",
+        "libs/protocol/**/*",
+        "libs/resource-view/**/*",
+        "libs/spreadsheet/**/*",
+        "libs/technical-doc/**/*",
+        "libs/text-editor/**/*"
+      ]
+    }
+  ]
 }
