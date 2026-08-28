@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy,Component, inject, input, OnInit, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, OnInit, output } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
 import {
@@ -43,21 +43,21 @@ import {
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './li-select-resource.component.scss',
 })
-export class LiSelectResourceComponent extends FlFormFieldDirective<LiResource> implements OnInit {
+export class LiSelectResourceComponent extends FlFormFieldDirective<LiResource | null> implements OnInit {
   private resourceService = inject(LiResourceService);
   private dialogService = inject(FlDialogService);
 
   placeholder = input<FlTranslatableText>('li.resource_select');
-  defaultFilters = input(null, {
+  defaultFilters = input(new LiResourceSearchFields(), {
     transform: (value: LiResourceSearchFields | null) =>
       value == null ? new LiResourceSearchFields() : value,
   });
-  disabledFilters = input<LiResourceSearchFieldsDisabled>(null);
+  disabledFilters = input<LiResourceSearchFieldsDisabled | null>(null);
 
   resourceChange = output<LiResource>();
   openDialog = output();
 
-  selectedResource: LiResource | Observable<LiResource>;
+  selectedResource: LiResource | Observable<LiResource | null> | null;
 
   datasource: LiResourceDatasource<FlInputSearchFilter>;
 
@@ -92,7 +92,7 @@ export class LiSelectResourceComponent extends FlFormFieldDirective<LiResource> 
         this.openDialog.emit();
         const data: LiSelectResourceDialogInput = {
           defaultFilters: this.defaultFilters(),
-          disabledFilters: this.disabledFilters(),
+          disabledFilters: this.disabledFilters() ?? undefined,
         };
         return this.dialogService
           .openBigDialog(LiSelectResourceDialogComponent, { data: data })

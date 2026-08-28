@@ -6,15 +6,26 @@
   word-break: break-word;
 }
 
+// The snackbar background is the *-container color (light pink / light teal), so
+// the message must use the matching on-*-container contrast color. (on-error /
+// on-primary are the contrast for the *solid* color and read white here, making
+// the text invisible on the light container.)
+.message-warn {
+  color: var(--mat-sys-on-error-container);
+}
+
+.message-success {
+  color: var(--mat-sys-on-primary-container);
+}
+
 .button {
   margin-left: 1em;
   flex-shrink: 0;
 }
 
-.button-warn {
-  color: var(--warn-color-contrast) !important;
-}
-
-.button-success {
-  color: var(--primary-color-contrast) !important;
+// underline links in the HTML message (matches fl-snack-bar-info)
+::ng-deep {
+  li-error-snack-bar .message a {
+    text-decoration: underline;
+  }
 }

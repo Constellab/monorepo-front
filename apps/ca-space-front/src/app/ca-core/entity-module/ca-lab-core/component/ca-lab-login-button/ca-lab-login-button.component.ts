@@ -18,7 +18,7 @@ import { CaLabService } from '../../../../service-api/ca-lab.service';
 export class CaLabLoginButtonComponent {
   private labService = inject(CaLabService);
 
-  labId = input<string>();
+  labId = input.required<string>();
 
   isRunning = input<boolean>(false);
 

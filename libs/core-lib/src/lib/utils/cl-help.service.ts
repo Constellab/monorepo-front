@@ -7,7 +7,7 @@ export class ClHelpService {
    * @param object object to clone
    */
   public static deepClone<A>(object: A): A {
-    if (object == null) return null;
+    if (object == null) return null as A;
     return JSON.parse(JSON.stringify(object));
   }
 
@@ -211,7 +211,7 @@ export class ClHelpService {
     array: T[],
     getSortableAttribute?: (item: T) => string,
     nullMode: 'nullLast' | 'nullFirst' = 'nullLast'
-  ): T[] {
+  ): T[] | null {
     if (array == null) {
       return null;
     }

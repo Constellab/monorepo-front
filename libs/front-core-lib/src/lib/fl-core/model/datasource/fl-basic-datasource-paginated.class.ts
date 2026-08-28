@@ -21,9 +21,10 @@ export class FlBasicDatasourcePaginated<T> extends FlDatasourcePaginated<T, FlIn
   public static fromStringArray(array: string[]): FlBasicDatasourcePaginated<string> {
     return new FlBasicDatasourcePaginated((_, __, data: FlDatasourceGetPageData<FlInputSearchFilter>) => {
       let filteredData: string[];
-      if (data.filtersCriteria?.searchText) {
+      const searchText = data.filtersCriteria?.searchText;
+      if (searchText) {
         filteredData = array.filter((value) =>
-          ClStringHelper.stringContains(value, data.filtersCriteria?.searchText, true, true, true)
+          ClStringHelper.stringContains(value, searchText, true, true, true)
         );
       } else {
         filteredData = array;

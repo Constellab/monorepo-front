@@ -9,7 +9,7 @@ export class HaPartnerState {
   private partnerService = inject(HaPartnerService);
 
   isLoading: WritableSignal<boolean> = signal(false);
-  partner: WritableSignal<HaPartnerDetail> = signal(null);
+  partner: WritableSignal<HaPartnerDetail | null> = signal<HaPartnerDetail | null>(null);
   notFound: WritableSignal<boolean> = signal(false);
   onPartnerInfoLoading: WritableSignal<boolean> = signal(false);
 
@@ -28,8 +28,13 @@ export class HaPartnerState {
   }
 
   editPartnerInfo(info: TeRichText): void {
+    const partner = this.partner();
+    if (partner == null) {
+      return;
+    }
+
     this.onPartnerInfoLoading.set(true);
-    this.partnerService.updatePartnerInfo(this.partner().id, info).subscribe({
+    this.partnerService.updatePartnerInfo(partner.id, info).subscribe({
       next: (updatedPartner) => {
         this.partner.set(updatedPartner);
         this.onPartnerInfoLoading.set(false);

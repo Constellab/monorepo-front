@@ -1,5 +1,5 @@
 import { inject, Pipe, PipeTransform, SecurityContext } from '@angular/core';
-import { DomSanitizer, SafeHtml, SafeResourceUrl } from '@angular/platform-browser';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ClStringHelper, ClYoutubeHelper } from '@monorepo/core-lib';
 import { marked, Tokens } from 'marked';
 import { markedHighlight } from 'marked-highlight';
@@ -22,7 +22,7 @@ marked.use(
 export class FlMarkdownPipe implements PipeTransform {
   private domSanitizer = inject(DomSanitizer);
 
-  transform(value: string): SafeHtml {
+  transform(value: string): SafeHtml | null {
     if (!value) return null;
     const renderer = new marked.Renderer();
 
@@ -43,7 +43,7 @@ export class FlMarkdownPipe implements PipeTransform {
       let out: string = '';
 
       if (ClYoutubeHelper.isYoutubeVideoUrl(href)) {
-        const embedHref: SafeResourceUrl = ClYoutubeHelper.convertToEmbedUrl(href);
+        const embedHref: string | null = ClYoutubeHelper.convertToEmbedUrl(href);
         // eslint-disable-next-line max-len
         let iframe: string = `<div class="iframe-div"><iframe title="Youtube video ${title}" src="${embedHref}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen property="binding"`;
         if (title) {
@@ -66,15 +66,18 @@ export class FlMarkdownPipe implements PipeTransform {
     };
 
     const parsedDoc: string = marked.parse(value, { renderer: renderer, async: false });
-    let safeDoc: string = this.domSanitizer.sanitize(SecurityContext.HTML, parsedDoc);
+    const sanitizedDoc: string | null = this.domSanitizer.sanitize(SecurityContext.HTML, parsedDoc);
+    if (sanitizedDoc == null) return null;
+
+    let safeDoc: string = sanitizedDoc;
     for (const key of Object.keys(iframes)) {
-      safeDoc = safeDoc.replace(
-        key,
-        this.domSanitizer.sanitize(
-          SecurityContext.RESOURCE_URL,
-          this.domSanitizer.bypassSecurityTrustResourceUrl(iframes[key])
-        )
+      const safeIframe: string | null = this.domSanitizer.sanitize(
+        SecurityContext.RESOURCE_URL,
+        this.domSanitizer.bypassSecurityTrustResourceUrl(iframes[key])
       );
+      if (safeIframe == null) continue;
+
+      safeDoc = safeDoc.replace(key, safeIframe);
     }
     return this.domSanitizer.bypassSecurityTrustHtml(safeDoc);
   }

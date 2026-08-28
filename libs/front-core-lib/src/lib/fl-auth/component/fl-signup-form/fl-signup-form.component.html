@@ -8,8 +8,10 @@
       required
       flInputMaxLength="50"
       [placeholder]="'flAuth.firstname' | translate" />
-    @if (formGp.get('firstname').hasError('required')) {
-      <mat-error>{{ 'flAuth.error_required' | translate: { field: ('flAuth.firstname' | translate) } }}</mat-error>
+    @if (formGp.get('firstname')?.hasError('required')) {
+      <mat-error>{{
+        'flAuth.error_required' | translate: { field: ('flAuth.firstname' | translate) }
+      }}</mat-error>
     }
   </mat-form-field>
 
@@ -22,8 +24,10 @@
       required
       flInputMaxLength="50"
       [placeholder]="'flAuth.lastname' | translate" />
-    @if (formGp.get('lastname').hasError('required')) {
-      <mat-error>{{ 'flAuth.error_required' | translate: { field: ('flAuth.lastname' | translate) } }}</mat-error>
+    @if (formGp.get('lastname')?.hasError('required')) {
+      <mat-error>{{
+        'flAuth.error_required' | translate: { field: ('flAuth.lastname' | translate) }
+      }}</mat-error>
     }
   </mat-form-field>
 
@@ -37,10 +41,12 @@
       required
       [placeholder]="'flAuth.email' | translate"
       autocomplete="username" />
-    @if (formGp.get('email').hasError('required')) {
-      <mat-error>{{ 'flAuth.error_required' | translate: { field: ('flAuth.email' | translate) } }}</mat-error>
+    @if (formGp.get('email')?.hasError('required')) {
+      <mat-error>{{
+        'flAuth.error_required' | translate: { field: ('flAuth.email' | translate) }
+      }}</mat-error>
     }
-    @if (formGp.get('email').hasError('email')) {
+    @if (formGp.get('email')?.hasError('email')) {
       <mat-error>{{ 'flAuth.email_invalid' | translate }}</mat-error>
     }
   </mat-form-field>
@@ -56,10 +62,12 @@
       [placeholder]="'flAuth.password' | translate"
       autocomplete="new-password"
       (change)="updateRepeatPasswordValidity()" />
-    @if (formGp.get('password').hasError('required')) {
-      <mat-error>{{ 'flAuth.error_required' | translate: { field: ('flAuth.password' | translate) } }}</mat-error>
+    @if (formGp.get('password')?.hasError('required')) {
+      <mat-error>{{
+        'flAuth.error_required' | translate: { field: ('flAuth.password' | translate) }
+      }}</mat-error>
     }
-    @if (formGp.get('password').hasError('incorrectPasswordFormat')) {
+    @if (formGp.get('password')?.hasError('incorrectPasswordFormat')) {
       <mat-error>{{ 'flAuth.password_weak_error' | translate }}</mat-error>
     }
   </mat-form-field>
@@ -74,10 +82,12 @@
       required
       [placeholder]="'flAuth.repeat_password' | translate"
       autocomplete="off" />
-    @if (formGp.get('repeatPassword').hasError('required')) {
-      <mat-error>{{ 'flAuth.error_required' | translate: { field: ('flAuth.repeat_password' | translate) } }}</mat-error>
+    @if (formGp.get('repeatPassword')?.hasError('required')) {
+      <mat-error>{{
+        'flAuth.error_required' | translate: { field: ('flAuth.repeat_password' | translate) }
+      }}</mat-error>
     }
-    @if (formGp.get('repeatPassword').hasError('incorrectRepeatPassword')) {
+    @if (formGp.get('repeatPassword')?.hasError('incorrectRepeatPassword')) {
       <mat-error>{{ 'flAuth.repeat_password_error' | translate }}</mat-error>
     }
   </mat-form-field>
@@ -101,7 +111,7 @@
         [innerHTML]="'flAuth.accept_cgu_cgv_text' | translate"></div>
     </div>
 
-    @if (formGp.get('validateCGU').hasError('differentValue') && formGp.get('validateCGU').touched) {
+    @if (formGp.get('validateCGU')?.hasError('differentValue') && formGp.get('validateCGU')?.touched) {
       <div class="g-warn-text g-text-small">
         {{ 'flAuth.accept_cgu_cgv_error' | translate }}
       </div>

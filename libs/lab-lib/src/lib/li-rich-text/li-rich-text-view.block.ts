@@ -71,7 +71,7 @@ export class LiRichTextViewBlock extends TeComponentBlock<LiRichTextViewComponen
 
   public static readonly TAG_NAME = 'li-note-content-view';
 
-  static override get toolbox(): ToolboxConfig {
+  static override get toolbox(): ToolboxConfig | null {
     return {
       title: TeHelper.getTranslateService().translate('li.note_resource_view'),
       icon: TeHelper.getMatIconElement('add_chart'),
@@ -103,7 +103,7 @@ export class LiRichTextViewBlock extends TeComponentBlock<LiRichTextViewComponen
       case 'note-resource':
         const noteResourceData = data as LiNoteResourceContentView;
         this.componentInstance.setNoteResourceInput(
-          this.additionalData.entityId,
+          this.getRequiredEntityId(),
           noteResourceData.sub_resource_key,
           {
             methodName: noteResourceData.view_method_name,
@@ -122,13 +122,21 @@ export class LiRichTextViewBlock extends TeComponentBlock<LiRichTextViewComponen
             : LiRichTextObjectType.NOTE_TEMPLATE;
         this.componentInstance.setFileViewInput(
           objectType,
-          this.additionalData.entityId,
+          this.getRequiredEntityId(),
           fileViewData.filename,
           fileViewData.title,
           fileViewData.caption
         );
         break;
     }
+  }
+
+  private getRequiredEntityId(): string {
+    const entityId = this.additionalData.entityId;
+    if (entityId == null) {
+      throw new Error(`Missing entityId for a "${this.additionalData.type}" content view`);
+    }
+    return entityId;
   }
 
   save(): BlockToolData {
@@ -198,7 +206,7 @@ export class LiRichTextViewBlock extends TeComponentBlock<LiRichTextViewComponen
  * As this can't be added from the editor.
  */
 export class LiRichTextFileViewBlock extends LiRichTextViewBlock {
-  static override get toolbox(): ToolboxConfig {
+  static override get toolbox(): ToolboxConfig | null {
     return null;
   }
 }

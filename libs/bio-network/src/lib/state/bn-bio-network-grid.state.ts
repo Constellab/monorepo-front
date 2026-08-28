@@ -14,13 +14,13 @@ export class BnBioNetworkGridState {
    * @param coord
    */
   public roundCoordOnGrid(coord: FlCoord): FlCoord | null {
-    const roundedX: number = this.roundToAxisTick(coord.x);
+    const roundedX: number | null = this.roundToAxisTick(coord.x);
     // if the x can't be rounded
     if (roundedX == null) {
       return null;
     }
 
-    const roundedY: number = this.roundToAxisTick(coord.y);
+    const roundedY: number | null = this.roundToAxisTick(coord.y);
     // f the y can't be rounded
     if (roundedY == null) {
       return null;

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
@@ -27,8 +27,8 @@ export class LiSelectFormDialogComponent {
   columns: FlTableColumnStatic<LiForm>[] = ['name', 'status', 'template', 'tags'];
   title: string;
   formSelectable: boolean;
-  defaultFilters: Partial<LiFormSearchFields>;
-  disabledFilters: LiFormSearchFieldsDisabled;
+  defaultFilters: Partial<LiFormSearchFields> | undefined;
+  disabledFilters: LiFormSearchFieldsDisabled | undefined;
 
   constructor() {
     const data = inject<LiSelectFormDialogInput>(MAT_DIALOG_DATA, { optional: true });

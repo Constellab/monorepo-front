@@ -9,8 +9,8 @@
   </div>
 
   <div class="content">
-    @if (cleanedFuncDoc()) {
-      <div class="func-doc g-text-light" [innerHTML]="cleanedFuncDoc() | flMarkdown"></div>
+    @if (cleanedFuncDoc(); as doc) {
+      <div class="func-doc g-text-light" [innerHTML]="doc | flMarkdown"></div>
     }
 
     @if (funcArgsDocs().length > 0) {
@@ -39,14 +39,14 @@
       </div>
     }
 
-
-    @if (returnTypeName()) {
+    @if (returnTypeName(); as returnType) {
       @if (cleanedFuncDoc() || func().args.length > 0) {
         <mat-divider></mat-divider>
       }
 
       <div class="return-type-div">
-        {{ 'td.return_type' | translate }} : <code class="g-embed-inline-code">{{ returnTypeName() | tdCleanType }}</code>
+        {{ 'td.return_type' | translate }} :
+        <code class="g-embed-inline-code">{{ returnType | tdCleanType }}</code>
       </div>
     }
   </div>

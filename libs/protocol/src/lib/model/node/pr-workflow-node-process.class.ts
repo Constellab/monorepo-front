@@ -85,11 +85,11 @@ export class PrWorkflowNodeProcess extends PrWorkflowNode<PrProcess> {
     return process.outputs?.ports[portName]?.resource_id ?? null;
   }
 
-  getNodeColor$(): Observable<string> {
+  getNodeColor$(): Observable<string | undefined> {
     return this.getObject$().pipe(map((process) => this.getNodeColor(process)));
   }
 
-  public getNodeColor(process: PrProcess): string {
+  public getNodeColor(process: PrProcess): string | undefined {
     return process.style.background_color;
   }
 

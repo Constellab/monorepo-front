@@ -3,8 +3,10 @@
 </fl-dialog-header>
 
 <mat-dialog-content>
-  @if (arrayConfig() && formArray) {
-    <fl-dynamic-form-array [control]="formArray" [config]="arrayConfig()" />
+  @if (arrayConfig(); as config) {
+    @if (formArray) {
+      <fl-dynamic-form-array [control]="formArray" [config]="config" />
+    }
   }
 </mat-dialog-content>
 

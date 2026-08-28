@@ -1,4 +1,4 @@
-import { inject,Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { FlOverlayRef, FlPortalConfig, FlPortalService } from '@monorepo/front-core-lib/fl-portal';
 import { LiResourceViewSpecWithConfig } from '@monorepo/lab-lib/li-core';
 import { TdParamSpecsValues, TdTypeStyle } from '@monorepo/technical-doc';
@@ -11,6 +11,16 @@ import {
   LiConfigureResourceViewOutput,
 } from '../component/li-configure-resource-view/li-configure-resource-view.component';
 
+export interface LiOpenViewConfigPortalOptions {
+  methodName: string;
+  viewName: string;
+  hasConfigSpecs: boolean;
+  resourceId: string | null;
+  resourceTypingName: string;
+  viewStyle: TdTypeStyle;
+  viewConfigValues?: TdParamSpecsValues;
+}
+
 /**
  * State to open and manage view configuration portal
  */
@@ -22,14 +32,18 @@ export class LiViewConfigurerState {
 
   // prepare the data and open the view configuration portal
   public openConfigPortal(
-    methodName: string,
-    viewName: string,
-    hasConfigSpecs: boolean,
-    resourceId: string,
-    resourceTypingName: string,
-    viewStyle: TdTypeStyle,
-    viewConfigValues: TdParamSpecsValues = {}
+    options: LiOpenViewConfigPortalOptions
   ): Observable<LiResourceViewSpecWithConfig | null> {
+    const {
+      methodName,
+      viewName,
+      hasConfigSpecs,
+      resourceId,
+      resourceTypingName,
+      viewStyle,
+      viewConfigValues = {},
+    } = options;
+
     this.viewConfigOverlay?.dispose();
 
     // if the view doesn't have a config, don't show the config portal, create the view directly
@@ -53,7 +67,7 @@ export class LiViewConfigurerState {
 
     const data: LiConfigureResourceViewInput = {
       resourceTypingName: resourceTypingName,
-      resourceId: resourceId,
+      resourceId: resourceId ?? undefined,
       title: viewName,
       viewMethodName: methodName,
       preConfiguration: specWithConfig,
@@ -81,7 +95,7 @@ export class LiViewConfigurerState {
   private onViewConfigured(
     config: LiConfigureResourceViewOutput,
     viewName: string
-  ): LiResourceViewSpecWithConfig {
+  ): LiResourceViewSpecWithConfig | null {
     if (config == null) return null;
 
     return {

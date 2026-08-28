@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatOption } from '@angular/material/core';
@@ -44,7 +44,10 @@ export class CaUserUpdateLicenseFormDialogComponent {
   private dialogRef = inject<MatDialogRef<CaUserUpdateLicenseFormDialogComponent>>(MatDialogRef);
   private snackBarService = inject(FlSnackBarService);
 
-  formCtrl = new FormControl('' as CaUserLicense, Validators.required);
+  formCtrl = new FormControl('' as CaUserLicense, {
+    nonNullable: true,
+    validators: Validators.required,
+  });
 
   licenses = Object.values(CaUserLicense);
 

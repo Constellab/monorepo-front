@@ -1,4 +1,4 @@
-import { inject,Injectable, NgZone } from '@angular/core';
+import { inject, Injectable, NgZone } from '@angular/core';
 import { LiProcess, LiProcessLayout, LiProtocol } from '@monorepo/lab-lib/li-core';
 import {
   PrAddNodeWithConnection,
@@ -34,20 +34,32 @@ export class LabWorkflowFactory {
   }
 
   public createLayer(protocol: LiProtocol, rootLayer: boolean): PrWorkflowLayer {
-    let layer: PrWorkflowLayer;
+    const layer = this.createEmptyLayer(protocol, rootLayer);
+
+    this.addProtocolNodes(layer, protocol);
+    this.addProtocolLinks(layer, protocol);
+    this.addProtocolIOFaces(layer, protocol);
+    layer.initNodesPositions();
+
+    return layer;
+  }
+
+  private createEmptyLayer(protocol: LiProtocol, rootLayer: boolean): PrWorkflowLayer {
     if (rootLayer) {
-      layer = PrWorkflowLayer.rootLayer(protocol.id, this.resourceState, this.actionState);
-    } else {
-      layer = new PrWorkflowLayer(
-        protocol.id,
-        protocol.id,
-        protocol.instanceName,
-        protocol.name,
-        this.resourceState,
-        this.actionState
-      );
+      return PrWorkflowLayer.rootLayer(protocol.id, this.resourceState, this.actionState);
     }
 
+    return new PrWorkflowLayer(
+      protocol.id,
+      protocol.id,
+      protocol.instanceName,
+      protocol.name,
+      this.resourceState,
+      this.actionState
+    );
+  }
+
+  private addProtocolNodes(layer: PrWorkflowLayer, protocol: LiProtocol): void {
     const protocolLayout = protocol.data.layout;
 
     for (const key in protocol.data.nodes) {
@@ -57,7 +69,9 @@ export class LabWorkflowFactory {
       const node = this.labProcessToWorkflowNode(process, processLayout);
       layer.addNode(node);
     }
+  }
 
+  private addProtocolLinks(layer: PrWorkflowLayer, protocol: LiProtocol): void {
     for (const link of protocol.data.links) {
       layer.addPrConnection({
         fromNode: link.from.node,
@@ -66,6 +80,10 @@ export class LabWorkflowFactory {
         toPort: link.to.port,
       });
     }
+  }
+
+  private addProtocolIOFaces(layer: PrWorkflowLayer, protocol: LiProtocol): void {
+    const protocolLayout = protocol.data.layout;
 
     for (const inter of Object.values(protocol.data.interfaces)) {
       const layout = protocolLayout?.getInterface(inter.name) ?? null;
@@ -75,12 +93,12 @@ export class LabWorkflowFactory {
       const layout = protocolLayout?.getOuterface(outer.name) ?? null;
       layer.addOuterface(outer.name, outer.process_instance_name, outer.port_name, layout);
     }
-    layer.initNodesPositions();
-
-    return layer;
   }
 
-  public labProcessToWorkflowNode(process: LiProcess, processLayout?: LiProcessLayout): PrWorkflowNode {
+  public labProcessToWorkflowNode(
+    process: LiProcess,
+    processLayout?: LiProcessLayout | null
+  ): PrWorkflowNode {
     let processNode: PrWorkflowNode;
     if (process.isInput()) {
       processNode = new PrWorkflowNodeInput(

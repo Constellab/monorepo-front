@@ -14,7 +14,7 @@ import { LiApiError } from '../model/global/li-api-error.class';
 export abstract class LiApiErrorService extends FlApiErrorService {
   private flSnackBarService = inject(FlSnackBarService);
 
-  get defaultApiErrorDuration(): number {
+  get defaultApiErrorDuration(): number | null {
     return null;
   }
 
@@ -27,7 +27,7 @@ export abstract class LiApiErrorService extends FlApiErrorService {
     console.error(errorResponse);
     const serverError: FlServerError = {
       response: errorResponse,
-      message: null,
+      message: '',
     };
 
     const apiError: LiApiError = errorResponse.error;
@@ -37,6 +37,7 @@ export abstract class LiApiErrorService extends FlApiErrorService {
       serverError.message = this.translateService.translate('li.connection_lost');
     } else if (!errorResponse.status) {
       this.showError(errorResponse.message);
+      serverError.message = this.translateService.translate('li.connection_lost');
       return throwError(() => serverError);
     } else {
       // get the error message
@@ -65,7 +66,7 @@ export abstract class LiApiErrorService extends FlApiErrorService {
   /**
    * Handle the error message for the not specific errors
    */
-  private getErrorMessage(error: any, defaultError: string): string {
+  private getErrorMessage(error: any, defaultError: string | undefined): string {
     return error.detail || defaultError;
   }
 
@@ -92,8 +93,8 @@ export abstract class LiApiErrorService extends FlApiErrorService {
 
     this.flSnackBarService.openSnackBar(LiErrorSnackBarComponent, {
       data,
-      duration: duration ?? this.defaultApiErrorDuration,
-      panelClass: showAsSuccess ? 'g-snackbar-success' : 'g-snackbar-warn',
+      duration: duration ?? this.defaultApiErrorDuration ?? undefined,
+      panelClass: showAsSuccess ? 'g-snackbar-primary' : 'g-snackbar-warn',
     });
   }
 }

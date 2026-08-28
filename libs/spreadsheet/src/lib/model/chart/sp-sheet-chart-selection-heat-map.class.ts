@@ -10,23 +10,25 @@ export class SpSheetChartSelectionHeatMap extends SpSheetChartSelection {
   constructor(
     sheet: SpSheet,
     private serie: SpSheetChartSerieSelectionForm,
-    private xAxisLabel?: string,
-    private yAxisLabel?: string
+    private xAxisLabel?: string | null,
+    private yAxisLabel?: string | null
   ) {
     super(sheet);
   }
 
   exportToChart(): ChChartConfig {
-    const ySelection: SpSheetMultiSelection = this.getMultiSelectionFromSelectionRange(this.serie.y);
+    const ySelection: SpSheetMultiSelection | null = this.getMultiSelectionFromSelectionRange(
+      this.serie.y
+    );
 
-    const selections = ySelection.splitToColumnSelections();
+    const selections = ySelection?.splitToColumnSelections() ?? [];
 
     const chartData: ChChart3dDatum[][] = [];
     for (let i = 0; i < selections.length; i++) {
       chartData.push(
         selections[i]
           .getCellsValuesFlat()
-          .map((value, index) => new ChChart3dDatum(i, index, ClNumberHelper.fromString(value, 0)))
+          .map((value, index) => new ChChart3dDatum(i, index, ClNumberHelper.fromString(value, 0) ?? 0))
       );
     }
 

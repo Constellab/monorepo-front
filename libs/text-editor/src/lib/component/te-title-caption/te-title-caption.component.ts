@@ -7,7 +7,8 @@ import {
   OnDestroy,
   Output,
   TemplateRef,
-  ViewChild} from '@angular/core';
+  ViewChild,
+} from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 
@@ -24,10 +25,10 @@ import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 export class TeTitleCaptionComponent implements OnDestroy {
   private dialogService = inject(FlDialogService);
 
-  @Input() title: string;
+  @Input() title: string | undefined;
   @Output() titleChange: EventEmitter<string> = new EventEmitter();
 
-  @Input() caption: string;
+  @Input() caption: string | undefined;
   @Output() captionChange: EventEmitter<string> = new EventEmitter();
 
   @Input() editable: boolean;
@@ -42,8 +43,8 @@ export class TeTitleCaptionComponent implements OnDestroy {
 
   closeDialog(): void {
     this.dialogRef?.close();
-    this.titleChange.next(this.title);
-    this.captionChange.next(this.caption);
+    this.titleChange.next(this.title ?? '');
+    this.captionChange.next(this.caption ?? '');
   }
 
   ngOnDestroy(): void {

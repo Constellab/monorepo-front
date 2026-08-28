@@ -15,7 +15,12 @@ import { SpSpreadsheetHelper } from './sp-spreadsheet.helper';
  */
 export class SpSpreadsheetChartSelectionHelper {
   public static getDefaultSerieName(index: number): string {
-    return FlTranslateService.getInstance().translate('spSpreadsheet.chart_serie') + ' ' + (index + 1);
+    const translateService = FlTranslateService.getInstance();
+    if (translateService == null) {
+      throw new Error('The FlTranslateService is not initialized');
+    }
+
+    return translateService.translate('spSpreadsheet.chart_serie') + ' ' + (index + 1);
   }
 
   /**
@@ -25,7 +30,7 @@ export class SpSpreadsheetChartSelectionHelper {
    * @private
    */
   public static singleSelectionValidator(sheet: SpSheet): ValidatorFn {
-    return (control: AbstractControl): { [key: string]: any } => {
+    return (control: AbstractControl): { [key: string]: any } | null => {
       if (!control.value) {
         return null;
       }
@@ -47,7 +52,7 @@ export class SpSpreadsheetChartSelectionHelper {
    * @private
    */
   public static multipleSelectionValidator(sheet: SpSheet): ValidatorFn {
-    return (control: AbstractControl): { [key: string]: any } => {
+    return (control: AbstractControl): { [key: string]: any } | null => {
       if (!control.value) {
         return null;
       }

@@ -82,7 +82,7 @@ export class LabEnvironmentHelper {
   }
 
   public static getSpaceConfigLabUrl(labId: string): string {
-    return `${LabEnvironmentHelper.getSpaceFrontAppUrl()}/labs/${labId}/config`;
+    return `${LabEnvironmentHelper.getSpaceFrontAppUrl()}/labs/${labId}`;
   }
 
   ////////////////////// Community //////////////////////

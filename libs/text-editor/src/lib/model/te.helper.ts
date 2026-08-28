@@ -19,7 +19,7 @@ export class TeHelper {
   public static blockParagraphClass = 'ce-paragraph';
   public static blockParagraphTagName = 'DIV';
 
-  private static globalOverlay: FlOverlayRef;
+  private static globalOverlay: FlOverlayRef | null;
 
   /**
    * Extract the editor id from the editor html block element
@@ -43,7 +43,7 @@ export class TeHelper {
    * Get the block if of the ce-block--drop-target block if it exists (useful for drag and drop)
    * @param editorHtml
    */
-  public static getBlockDropTargetId(editorHtml: HTMLElement): string | null {
+  public static getBlockDropTargetId(editorHtml: HTMLElement | null): string | null {
     if (editorHtml == null) return null;
     const blockTarget = TeHelper.getBlockTargetElement(editorHtml);
     if (blockTarget == null) return null;
@@ -176,6 +176,7 @@ export class TeHelper {
   public static handleRightArrow(event: KeyboardEvent): void {
     // get the element where the caret is with standard browser api
     const selection = window.getSelection();
+    if (!selection) return;
     const range = selection.getRangeAt(0);
     const node = range.endContainer;
     const cursorContainer: HTMLElement = node.parentNode as HTMLElement;
@@ -186,29 +187,62 @@ export class TeHelper {
 
     if (!editableContainer || !node) return;
 
-    let lastChild = editableContainer.lastChild;
-    if (lastChild.nodeType === Node.TEXT_NODE && lastChild.textContent === '') {
-      lastChild = lastChild.parentElement;
+    const lastChild = TeHelper.getEditableContainerLastChild(editableContainer);
+    if (!lastChild) return;
+
+    // if the cursor is not at the end of the element, let the browser handle the arrow
+    if (range.endOffset !== node.textContent?.length) return;
+
+    TeHelper.addSpaceOrMoveCaretAtEnd(event, editableContainer, cursorContainer, lastChild);
+  }
+
+  /**
+   * Get the last child of the editable container, if it is an empty text node,
+   * return its parent element instead
+   * @param editableContainer
+   * @private
+   */
+  private static getEditableContainerLastChild(editableContainer: HTMLElement): Node | null {
+    const lastChild: Node | null = editableContainer.lastChild;
+    if (lastChild && lastChild.nodeType === Node.TEXT_NODE && lastChild.textContent === '') {
+      return lastChild.parentElement;
+    }
+    return lastChild;
+  }
+
+  /**
+   * Called when the caret is at the end of the element, append a space or move the caret
+   * after the existing one
+   * @param event
+   * @param editableContainer
+   * @param cursorContainer
+   * @param lastChild
+   * @private
+   */
+  private static addSpaceOrMoveCaretAtEnd(
+    event: KeyboardEvent,
+    editableContainer: HTMLElement,
+    cursorContainer: HTMLElement,
+    lastChild: Node
+  ): void {
+    // Case where there is nothing after the cursor
+    if (cursorContainer === lastChild) {
+      // Append a space to the end of the div's content
+      editableContainer.innerHTML += '&nbsp;';
+
+      ClHelpService.stopEventPropagation(event);
+      FlHtmlHelper.setCaretAtElementEnd(editableContainer);
+      return;
     }
 
-    // if the cursor is at the end of the element
-    if (range.endOffset === node.textContent.length) {
-      // Case where there is nothing after the cursor
-      if (cursorContainer === lastChild) {
-        // Append a space to the end of the div's content
-        editableContainer.innerHTML += '&nbsp;';
-
-        ClHelpService.stopEventPropagation(event);
-        FlHtmlHelper.setCaretAtElementEnd(editableContainer);
-
-        // Case where there is only a space after the cursor
-        // we don't add the space as it is already there, but we move the cursor to the end of the div
-        // TODO check if this is fixed in next version of editorjs current
-        //  (2.30.2) because this was working before
-      } else if (lastChild.previousSibling === cursorContainer && lastChild.textContent.trim() === '') {
-        ClHelpService.stopEventPropagation(event);
-        FlHtmlHelper.setCaretAtElementEnd(lastChild);
-      }
+    // Case where there is only a space after the cursor
+    // we don't add the space as it is already there, but we move the cursor to the end of the div
+    // TODO check if this is fixed in next version of editorjs current
+    //  (2.30.2) because this was working before
+    const lastChildText = lastChild.textContent;
+    if (lastChild.previousSibling === cursorContainer && lastChildText?.trim() === '') {
+      ClHelpService.stopEventPropagation(event);
+      FlHtmlHelper.setCaretAtElementEnd(lastChild);
     }
   }
 
@@ -220,8 +254,9 @@ export class TeHelper {
   public static getPortalPositionForCursor(
     portalMaxWidth: number,
     portalMaxHeight: number
-  ): FlPortalAbsolutePosition {
+  ): FlPortalAbsolutePosition | null {
     const position = FlHtmlHelper.getCaretCoordinates();
+    if (!position) return null;
 
     let topPosition: string;
 
@@ -281,7 +316,7 @@ export class TeHelper {
    * @param editorElement
    */
   public static hollowElement(blockId: string, color: string, editorElement: HTMLElement): void {
-    const element: HTMLElement = editorElement.querySelector('.ce-block[data-id="' + blockId + '"]');
+    const element = editorElement.querySelector<HTMLElement>('.ce-block[data-id="' + blockId + '"]');
     if (element) {
       element.style.backgroundColor = color;
       element.style.padding = '4px';
@@ -293,9 +328,8 @@ export class TeHelper {
    * Generate a header id from a text string
    */
   public static getHeaderId(text: string): string {
-    let id = ClStringHelper.toKebabCase(text);
-    id = id.replace(/[^a-zA-Z0-9-]/g, '');
-    return id;
+    const kebabCase = ClStringHelper.toKebabCase(text) ?? text;
+    return kebabCase.replace(/[^a-zA-Z0-9-]/g, '');
   }
 
   /**
@@ -310,7 +344,7 @@ export class TeHelper {
   /**
    * Get the redactor element
    */
-  public static getRedactorElement(): HTMLElement {
-    return document.querySelector('.codex-editor__redactor');
+  public static getRedactorElement(): HTMLElement | null {
+    return document.querySelector<HTMLElement>('.codex-editor__redactor');
   }
 }

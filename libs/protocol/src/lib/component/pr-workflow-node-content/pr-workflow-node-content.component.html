@@ -1,9 +1,11 @@
 <div class="g-layout-col g-layout-between-center container">
-  <td-type-icon
-    [iconTechnicalName]="icon.icon"
-    [iconType]="icon.iconType"
-    [iconColor]="icon.iconColor"
-    [iconSize]="55"
-    [matTooltip]="icon.iconTooltip | translate"></td-type-icon>
+  @if (icon; as ic) {
+    <td-type-icon
+      [iconTechnicalName]="ic.icon"
+      [iconType]="ic.iconType"
+      [iconColor]="ic.iconColor"
+      [iconSize]="55"
+      [matTooltip]="ic.iconTooltip | translate"></td-type-icon>
+  }
   <ng-content select="pr-workflow-node-content-bottom"></ng-content>
 </div>

@@ -37,11 +37,9 @@
     <mat-form-field class="g-search-field">
       <mat-label>{{ 'cloud_provider_region' | translate }}</mat-label>
       <mat-select formControlName="region" [placeholder]="'cloud_provider_region' | translate">
-        @if (formGp.get('region').value) {
+        @if (formGp.get('region')?.value; as region) {
           <mat-select-trigger>
-            <ca-cloud-provider-region-inline
-              [region]="formGp.get('region').value"
-              size="small"></ca-cloud-provider-region-inline>
+            <ca-cloud-provider-region-inline [region]="region" size="small"></ca-cloud-provider-region-inline>
           </mat-select-trigger>
         }
         <ca-select-cloud-provider-region-options mode="S3"></ca-select-cloud-provider-region-options>
@@ -51,7 +49,7 @@
     <!--  Lab  -->
     <fl-form-field class="g-search-field">
       <ca-select-lab formControlName="lab" mode="all-cloud" [placeholder]="'lab' | translate"></ca-select-lab>
-      @if (formGp.get('lab').hasError('required')) {
+      @if (formGp.get('lab')?.hasError('required')) {
         <mat-error>{{ 'lab' | flErrorRequired }}</mat-error>
       }
     </fl-form-field>

@@ -48,7 +48,7 @@ export function ClRecordWrapperTransform<WRAPPER extends ClRecordWrapper<ITEM>, 
 function clSerializeRecordWrapper(
   recordWrapper: ClRecordWrapper<any>,
   serializeItem: ClSerializeItem<any>
-): Record<string, any> {
+): Record<string, any> | null {
   if (recordWrapper == null) {
     return null;
   }
@@ -64,7 +64,7 @@ export function clDeserializeRecordWrapper<T extends ClRecordWrapper<any>>(
   record: Record<string, any>,
   wrapperReference: new () => T,
   itemReference?: new () => any
-): T {
+): T | null {
   if (record == null) {
     return null;
   }
@@ -113,13 +113,15 @@ export function ClRecordTransformOverride<T>(
 ): PropertyDecorator {
   // convert date to time
   const transformToPlain = Transform(
-    (params: ClTransformFnParams<Record<string, T>>) => clClassToPlainRecord(params.value, classToPlainItem),
+    (params: ClTransformFnParams<Record<string, T>>) =>
+      params.value == null ? null : clClassToPlainRecord(params.value, classToPlainItem),
     { toPlainOnly: true }
   );
 
   // create date from string
   const transformToClass = Transform(
-    (params: ClTransformFnParams<Record<string, any>>) => clDeserializeRecord(params.value, deserializeItem),
+    (params: ClTransformFnParams<Record<string, any>>) =>
+      params.value == null ? null : clDeserializeRecord(params.value, deserializeItem),
     { toClassOnly: true }
   );
 
@@ -133,10 +135,6 @@ function clClassToPlainRecord<T>(
   record: Record<string, T>,
   classToPlainItem: ClSerializeItem<T>
 ): Record<string, any> {
-  if (record == null) {
-    return null;
-  }
-
   const result: Record<string, any> = {};
   for (const property of Object.keys(record)) {
     result[property] = classToPlainItem(record[property]);
@@ -149,10 +147,6 @@ function clDeserializeRecord<T>(
   record: Record<string, any>,
   deserializeItem: ClDeserializeItem<T>
 ): Record<string, T> {
-  if (record == null) {
-    return null;
-  }
-
   const result: Record<string, T> = {};
   for (const property of Object.keys(record)) {
     result[property] = deserializeItem(record[property]);

@@ -3,7 +3,7 @@ import { FlHighlight } from '@monorepo/front-core-lib/fl-markdown';
 
 @Pipe({ name: 'labOpenAiMessageContent' })
 export class LiOpenAiMessageContentPipe implements PipeTransform {
-  transform(value: string): string {
+  transform(value: string | null): string | null {
     if (value == null) return null;
 
     // replace all ```python with ``` and ```\n with ```

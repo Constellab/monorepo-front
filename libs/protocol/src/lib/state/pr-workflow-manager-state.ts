@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 import { PrWorkflowNode } from '../model/node/pr-workflow-node.class';
 import { PrWorkflowNodeProtocol } from '../model/node/pr-workflow-node-protocol.class';
@@ -12,8 +12,8 @@ import { PrWorkflowNodeMenuConfig } from '../model/workflow/pr-workflow-node-men
  */
 @Injectable()
 export class PrWorkflowManagerState {
-  public workflow: PrWorkflow = null;
-  public viewConfig: PrWorkflowNodeMenuConfig = null;
+  public workflow: PrWorkflow | null = null;
+  public viewConfig: PrWorkflowNodeMenuConfig | null = null;
 
   private workflowElement: HTMLElement;
 
@@ -40,33 +40,37 @@ export class PrWorkflowManagerState {
 
     this.workflow = workflow;
 
-    this.workflow.start(element);
+    workflow.start(element);
 
     this.subscribeToMode();
 
-    return this.workflow;
+    return workflow;
   }
 
   public selectLayer(layerId: string, protocolNode?: PrWorkflowNodeProtocol): void {
+    if (this.workflow == null) {
+      console.error('[PrWorkflowManagerState] no workflow initialized');
+      return;
+    }
+
     if (this.workflow.hasLayer(layerId)) {
       this.workflow.selectLayer(layerId);
-    } else {
-      if (protocolNode) {
-        this.workflow.loadSubProtocolLayer(protocolNode, true);
-      }
+    } else if (protocolNode) {
+      this.workflow.loadSubProtocolLayer(protocolNode, true);
     }
   }
 
-  public findNodeWithNameInCurrentLayer(name: string): PrWorkflowNode {
-    return this.workflow.findNodeByNameInCurrentLayer(name);
+  public findNodeWithNameInCurrentLayer(name: string): PrWorkflowNode | undefined {
+    return this.workflow?.findNodeByNameInCurrentLayer(name);
   }
 
   public clear(): void {
-    this.workflow.deInitDrawflow();
+    this.workflow?.deInitDrawflow();
     this.workflow = null;
   }
 
   public getCurrentLayerHierarchy$(): Observable<PrWorkflowLayer[]> {
+    if (this.workflow == null) return of([]);
     return this.workflow.getCurrentLayerHierarchy$();
   }
 

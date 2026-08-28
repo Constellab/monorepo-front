@@ -1,5 +1,5 @@
 import { NgOptimizedImage } from '@angular/common';
-import { ChangeDetectionStrategy,Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { CaCloudProviderRegion } from '../../../../model/entities/ca-cloud-provider.class';
 
@@ -11,7 +11,7 @@ import { CaCloudProviderRegion } from '../../../../model/entities/ca-cloud-provi
   imports: [NgOptimizedImage],
 })
 export class CaCloudProviderRegionInlineComponent {
-  @Input({ required: true }) region: CaCloudProviderRegion;
+  @Input({ required: true }) region: CaCloudProviderRegion | undefined;
 
   @Input() size: 'small' | 'medium' = 'medium';
 

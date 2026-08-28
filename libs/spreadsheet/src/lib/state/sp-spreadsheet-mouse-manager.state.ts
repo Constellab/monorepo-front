@@ -1,4 +1,4 @@
-import { ElementRef, inject,Injectable, NgZone, OnDestroy, Renderer2 } from '@angular/core';
+import { ElementRef, inject, Injectable, NgZone, OnDestroy, Renderer2 } from '@angular/core';
 import { FlCoord } from '@monorepo/front-core-lib/fl-core';
 import { FlMouseButton } from '@monorepo/front-core-lib/fl-core';
 
@@ -25,7 +25,7 @@ export class SpSpreadsheetMouseManagerState implements OnDestroy {
   private ngZone = inject(NgZone);
 
   private mouseDownListener: () => void;
-  private mouseMoveListener: () => void;
+  private mouseMoveListener: (() => void) | null;
   private mouseUpListener: () => void;
   private dblClickListener: () => void;
   private contextMenuListener: () => void;
@@ -75,7 +75,9 @@ export class SpSpreadsheetMouseManagerState implements OnDestroy {
       return;
     }
 
-    const cellEvent: SpSheetMouseEventCell = this.elementState.getCellFromHTMLElement(event.target as any);
+    const cellEvent: SpSheetMouseEventCell | null = this.elementState.getCellFromHTMLElement(
+      event.target as any
+    );
 
     // if the cell couldn't be found
     if (cellEvent == null) {
@@ -115,7 +117,9 @@ export class SpSpreadsheetMouseManagerState implements OnDestroy {
     };
 
     // retrieve the cell form the mouse event to expand the selection
-    const cellEvent: SpSheetMouseEventCell = this.elementState.getCellFromHTMLElement(event.target as any);
+    const cellEvent: SpSheetMouseEventCell | null = this.elementState.getCellFromHTMLElement(
+      event.target as any
+    );
     if (cellEvent == null) {
       return;
     }
@@ -161,7 +165,7 @@ export class SpSpreadsheetMouseManagerState implements OnDestroy {
     lockRow: boolean = false,
     lockColumn: boolean = false
   ): void {
-    const currentSelection: SpSheetSingleSelection = this.selectionState.currentSelection;
+    const currentSelection: SpSheetSingleSelection | null = this.selectionState.currentSelection;
 
     if (currentSelection == null) return;
 
@@ -216,7 +220,9 @@ export class SpSpreadsheetMouseManagerState implements OnDestroy {
 
   private onMouseDblClick(event: MouseEvent): void {
     if (this.readOnly) return;
-    const cellEvent: SpSheetMouseEventCell = this.elementState.getCellFromHTMLElement(event.target as any);
+    const cellEvent: SpSheetMouseEventCell | null = this.elementState.getCellFromHTMLElement(
+      event.target as any
+    );
 
     if (cellEvent == null) {
       return;
@@ -232,7 +238,9 @@ export class SpSpreadsheetMouseManagerState implements OnDestroy {
   }
 
   private onContextMenu(event: MouseEvent): void {
-    const cellEvent: SpSheetMouseEventCell = this.elementState.getCellFromHTMLElement(event.target as any);
+    const cellEvent: SpSheetMouseEventCell | null = this.elementState.getCellFromHTMLElement(
+      event.target as any
+    );
 
     if (cellEvent == null) {
       return;
@@ -240,30 +248,54 @@ export class SpSpreadsheetMouseManagerState implements OnDestroy {
 
     event.preventDefault();
 
-    const selection: SpSheetSingleSelection = this.selectionState.currentSelection;
+    const selection: SpSheetSingleSelection | null = this.selectionState.currentSelection;
 
     if (cellEvent.type === 'header') {
       if (cellEvent.headerType === 'row') {
-        this.contextMenuState.openHeaderRowContextMenu(event);
-
-        // if the clicked row is not within selection
-        if (!selection || selection.type !== 'rows' || !selection.rowIsSelected(cellEvent.index)) {
-          this.selectionState.selectUniqueRow(cellEvent.index);
-        }
+        this.openRowHeaderMenu(event, cellEvent.index, selection);
       } else {
-        this.contextMenuState.openHeaderColumnContextMenu(event);
-
-        // if the clicked column is not within selection
-        if (!selection || selection.type !== 'columns' || !selection.columnIsSelected(cellEvent.index)) {
-          this.selectionState.selectUniqueColumn(cellEvent.index);
-        }
+        this.openColumnHeaderMenu(event, cellEvent.index, selection);
       }
     } else {
-      this.contextMenuState.openCellContextMenu(event);
-      // if clicked cell is not in the current selection, select the cell
-      if (!selection || !selection.coordIsSelected(cellEvent.coord)) {
-        this.selectionState.selectUniqueCell(cellEvent.coord);
-      }
+      this.openCellMenu(event, cellEvent.coord, selection);
+    }
+  }
+
+  private openRowHeaderMenu(
+    event: MouseEvent,
+    index: number,
+    selection: SpSheetSingleSelection | null
+  ): void {
+    this.contextMenuState.openHeaderRowContextMenu(event);
+
+    // if the clicked row is not within selection
+    if (!selection || selection.type !== 'rows' || !selection.rowIsSelected(index)) {
+      this.selectionState.selectUniqueRow(index);
+    }
+  }
+
+  private openColumnHeaderMenu(
+    event: MouseEvent,
+    index: number,
+    selection: SpSheetSingleSelection | null
+  ): void {
+    this.contextMenuState.openHeaderColumnContextMenu(event);
+
+    // if the clicked column is not within selection
+    if (!selection || selection.type !== 'columns' || !selection.columnIsSelected(index)) {
+      this.selectionState.selectUniqueColumn(index);
+    }
+  }
+
+  private openCellMenu(
+    event: MouseEvent,
+    coord: SpCellCoord,
+    selection: SpSheetSingleSelection | null
+  ): void {
+    this.contextMenuState.openCellContextMenu(event);
+    // if clicked cell is not in the current selection, select the cell
+    if (!selection || !selection.coordIsSelected(coord)) {
+      this.selectionState.selectUniqueCell(coord);
     }
   }
 

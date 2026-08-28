@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
@@ -18,7 +18,6 @@ import {
   CaHierarchyObjectDatasource,
 } from '../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
 import { CaHierarchyObjectActionsMenuComponent } from '../../ca-folder-hierarchy-core/component/ca-hierarchy-object-actions-menu/ca-hierarchy-object-actions-menu.component';
-import { CaHierarchyObjectBreadcrumbComponent } from '../../ca-folder-hierarchy-core/component/ca-hierarchy-object-breadcrumb/ca-hierarchy-object-breadcrumb.component';
 import { CaHierarchyObjectActionsMenuState } from '../../ca-folder-hierarchy-core/state/ca-hierarchy-object-actions-menu.state';
 import { CaHierarchyObjectDetailState } from '../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
 import { CaHierarchyObjectSearchState } from '../../ca-folder-hierarchy-core/state/ca-hierarchy-object-search.state';
@@ -34,7 +33,6 @@ import { CaHierarchyObjectSearchFormComponent } from '../../ca-hierarchy-object-
     FlInfiniteScrollModule,
     FlTextIconModule,
     TranslatePipe,
-    CaHierarchyObjectBreadcrumbComponent,
     CaHierarchyObjectActionsMenuComponent,
     MatIcon,
     AsyncPipe,

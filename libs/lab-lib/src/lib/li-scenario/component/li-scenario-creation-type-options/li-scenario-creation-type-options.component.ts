@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy,Component, inject } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MatOption } from '@angular/material/core';
 import { MatIcon } from '@angular/material/icon';
 import { MatSelect } from '@angular/material/select';
@@ -24,7 +24,7 @@ export class LiScenarioCreationTypeOptionsComponent
   creationTypes = LI_SCENARIO_CREATION_TYPES;
 
   constructor() {
-    const select = inject(MatSelect, { host: true, optional: true });
+    const select = inject(MatSelect, { host: true });
 
     super(select);
 

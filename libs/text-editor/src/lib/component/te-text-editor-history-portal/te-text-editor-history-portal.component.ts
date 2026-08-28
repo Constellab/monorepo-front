@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { FlColorHelper } from '@monorepo/front-core-lib/fl-core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FL_PORTAL_DATA } from '@monorepo/front-core-lib/fl-portal';
@@ -101,12 +101,9 @@ export class TeTextEditorHistoryPortalComponent implements OnInit {
 
   private createGroups(modifications: TeRichTextBlockModificationWithUser[]): void {
     for (const modification of modifications.reverse()) {
-      if (
-        this.modificationsGroups.length != 0 &&
-        this.modificationsGroups[this.modificationsGroups.length - 1]?.end.minus(GROUP_TIME_INTERVAL) <
-          modification.time
-      ) {
-        this.modificationsGroups[this.modificationsGroups.length - 1].modifications.push(modification);
+      const lastGroup = this.modificationsGroups[this.modificationsGroups.length - 1];
+      if (lastGroup?.end && lastGroup.end.minus(GROUP_TIME_INTERVAL) < modification.time) {
+        lastGroup.modifications.push(modification);
       } else {
         const group: TeTextEditorHistoryModificationGroup = new TeTextEditorHistoryModificationGroup(
           modification.time as DateTime
@@ -117,7 +114,7 @@ export class TeTextEditorHistoryPortalComponent implements OnInit {
     }
   }
 
-  private findUserById(userId: string): TeTextEditorHistoryUser {
+  private findUserById(userId: string): TeTextEditorHistoryUser | undefined {
     return this.users.find((user) => user.user.id === userId);
   }
 }

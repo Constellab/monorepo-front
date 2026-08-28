@@ -24,14 +24,18 @@
     </fl-card-header>
     <fl-card-body>
       <div class="g-layout-col g-layout-start-center center-info">
-        <fl-update-image-container
-          [uploadConfig]="imageConfig$ | async"
-          [deleteConfig]="deleteImageConfig | async"
-          [showDelete]="!!space.photo"
-          (imageChanged)="onSpaceUpdate($event)"
-          (imageDeleted)="onSpaceUpdate($event)">
-          <ca-space-photo size="big" [space]="space$"></ca-space-photo>
-        </fl-update-image-container>
+        @if (imageConfig$ | async; as uploadConfig) {
+          @if (deleteImageConfig | async; as deleteConfig) {
+            <fl-update-image-container
+              [uploadConfig]="uploadConfig"
+              [deleteConfig]="deleteConfig"
+              [showDelete]="!!space.photo"
+              (imageChanged)="onSpaceUpdate($event)"
+              (imageDeleted)="onSpaceUpdate($event)">
+              <ca-space-photo size="big" [space]="space$"></ca-space-photo>
+            </fl-update-image-container>
+          }
+        }
         <h1
           class="title"
           flElementEditable

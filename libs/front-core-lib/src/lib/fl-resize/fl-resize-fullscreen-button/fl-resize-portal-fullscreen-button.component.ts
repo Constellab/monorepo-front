@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, ElementRef, inject, Renderer2 } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, inject, Renderer2 } from '@angular/core';
 import { FL_CDK_OVERLAY_PANEL_CLASS, FlHtmlHelper } from '@monorepo/front-core-lib/fl-core';
 import { FlPortalHeaderComponent } from '@monorepo/front-core-lib/fl-portal';
 
@@ -70,7 +70,7 @@ export class FlResizePortalFullscreenButtonComponent {
     this.portalHeader.setEnableDrag(true);
   }
 
-  private getParent(): HTMLElement {
+  private getParent(): HTMLElement | null {
     return FlHtmlHelper.getParent(this.elementRef.nativeElement, { className: FL_CDK_OVERLAY_PANEL_CLASS });
   }
 

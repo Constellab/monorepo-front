@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
@@ -45,7 +45,10 @@ export class LiLabUpdateDomainDialogComponent implements OnInit {
   isLoading: boolean = false;
 
   ngOnInit(): void {
-    this.formCtrl = new FormControl<string>(this.lab.domain, [Validators.required]);
+    this.formCtrl = new FormControl<string>(this.lab.domain ?? '', {
+      nonNullable: true,
+      validators: [Validators.required],
+    });
   }
 
   submit(): void {

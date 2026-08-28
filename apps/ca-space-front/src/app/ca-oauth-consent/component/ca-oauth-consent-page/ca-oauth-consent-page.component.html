@@ -1,0 +1,129 @@
+<div class="page g-layout-col g-layout-center-center">
+  <div class="panel g-layout-col">
+    <!-- the visitor arrives here from a client, not from the app: the logo is what says whose page
+         asks for the grant -->
+    <img class="logo" [src]="logo" alt="Constellab" />
+
+    @switch (status()) {
+      @case ('LOADING') {
+        <div class="loading g-layout-row g-layout-center-center">
+          <fl-loader></fl-loader>
+        </div>
+      }
+
+      @case ('INVALID_LINK') {
+        <div class="state g-layout-col g-layout-center-center g-text-centered">
+          <mat-icon class="g-icon-big g-text-light">link_off</mat-icon>
+          <h1>{{ 'oauth_consent_invalid_title' | translate }}</h1>
+          <p class="g-text-light">{{ 'oauth_consent_invalid_message' | translate }}</p>
+        </div>
+      }
+
+      @case ('EXPIRED') {
+        <div class="state g-layout-col g-layout-center-center g-text-centered">
+          <mat-icon class="g-icon-big g-text-light">hourglass_disabled</mat-icon>
+          <h1>{{ 'oauth_consent_expired_title' | translate }}</h1>
+          <p class="g-text-light">{{ 'oauth_consent_expired_message' | translate }}</p>
+        </div>
+      }
+
+      @case ('ERROR') {
+        <div class="state g-layout-col g-layout-center-center g-text-centered">
+          <mat-icon class="g-icon-big g-text-light">cloud_off</mat-icon>
+          <h1>{{ 'oauth_consent_error_title' | translate }}</h1>
+          <p class="g-text-light">{{ 'oauth_consent_error_message' | translate }}</p>
+          <button mat-flat-button type="button" class="primary retry" (click)="retryLoad()">
+            {{ 'oauth_consent_retry' | translate }}
+          </button>
+        </div>
+      }
+
+      @default {
+        <!--
+          READY and SUBMITTING: the decision itself. Every word about the client and its access comes
+          from details(), and clientName is rendered through interpolation, which escapes it.
+        -->
+        @if (details(); as consent) {
+          <h1>{{ 'oauth_consent_title' | translate }}</h1>
+
+          @if (consent.clientNameIsVerified) {
+            <p>{{ 'oauth_consent_client' | translate: { client: consent.clientName } }}</p>
+          } @else {
+            <p>{{ 'oauth_consent_client_claim' | translate: { client: consent.clientName } }}</p>
+            <!-- the name is the client's own claim: said plainly, and never styled to look trusted -->
+            <div class="callout unverified g-layout-row">
+              <mat-icon class="g-icon-small g-text-light">help</mat-icon>
+              <span class="g-text-small g-text-light">{{
+                'oauth_consent_client_unverified' | translate
+              }}</span>
+            </div>
+          }
+
+          @if (consent.warning) {
+            <div class="callout warning g-layout-row" role="alert">
+              <mat-icon class="g-icon-small warning-icon">warning</mat-icon>
+              <span>{{ consent.warning }}</span>
+            </div>
+          }
+
+          <div class="resources g-layout-col">
+            <h2>{{ 'oauth_consent_resources_title' | translate }}</h2>
+
+            <div class="resource-list g-layout-col">
+              <!-- tracked by position: the list comes from the API and two Resources sharing a url
+                   would blank the whole screen rather than merely look odd -->
+              @for (resource of consent.resources; track $index) {
+                <div class="resource g-layout-row">
+                  <mat-icon class="g-icon-small resource-icon">lan</mat-icon>
+                  <div class="resource-text g-layout-col">
+                    <span class="resource-name">{{ resource.name }}</span>
+                    @if (resource.description) {
+                      <span class="g-text-small g-text-light">{{ resource.description }}</span>
+                    }
+                    <span class="resource-url g-text-tiny g-text-light">{{ resource.url }}</span>
+                  </div>
+                </div>
+              }
+            </div>
+          </div>
+
+          <div class="identity g-layout-col g-text-small g-text-light">
+            <span class="identity-line g-layout-row">
+              <mat-icon class="g-icon-tiny">person</mat-icon>
+              <span>{{ 'oauth_consent_account' | translate: { email: consent.userEmail } }}</span>
+            </span>
+            <span class="identity-line g-layout-row">
+              <mat-icon class="g-icon-tiny">fingerprint</mat-icon>
+              <span class="client-id">{{
+                'oauth_consent_client_id' | translate: { id: consent.clientId }
+              }}</span>
+            </span>
+          </div>
+
+          @if (decisionFailed()) {
+            <div class="callout decision-error g-layout-row" role="alert">
+              <mat-icon class="g-icon-small">error</mat-icon>
+              <span class="g-text-small">{{ 'oauth_consent_decision_error' | translate }}</span>
+            </div>
+          }
+
+          <div class="actions g-layout-row g-layout-center-center">
+            <button mat-stroked-button type="button" [disabled]="status() === 'SUBMITTING'" (click)="deny()">
+              {{ 'oauth_consent_deny' | translate }}
+            </button>
+            <button
+              mat-flat-button
+              type="button"
+              class="primary"
+              [disabled]="status() === 'SUBMITTING'"
+              (click)="allow()">
+              {{ 'oauth_consent_allow' | translate }}
+            </button>
+          </div>
+
+          <p class="g-text-small g-text-light g-text-centered">{{ 'oauth_consent_deny_hint' | translate }}</p>
+        }
+      }
+    }
+  </div>
+</div>

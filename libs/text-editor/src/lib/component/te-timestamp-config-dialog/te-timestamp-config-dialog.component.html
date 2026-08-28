@@ -14,7 +14,7 @@
         <input matInput [matDatepicker]="datepicker" formControlName="timestamp" />
         <mat-datepicker #datepicker />
         <mat-datepicker-toggle [for]="datepicker" matSuffix />
-        @if (formGp.get('timestamp').hasError('required')) {
+        @if (formGp.get('timestamp')?.hasError('required')) {
           <mat-error>{{ 'teTextEditor.timestamp_format_date' | flErrorRequired }}</mat-error>
         }
       </mat-form-field>
@@ -46,7 +46,8 @@
           @if (formGp.value.format === 'FROM_NOW') {
             <fl-from-now [date]="timestamp"></fl-from-now>
           } @else {
-            {{ timestamp | flDate: formGp.value.format }}
+            <!-- flDate (front-core-lib) format param doesn't accept null; coalesce to undefined -->
+            {{ timestamp | flDate: formGp.value.format ?? undefined }}
           }
         </mat-hint>
       }

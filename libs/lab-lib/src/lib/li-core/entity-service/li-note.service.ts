@@ -1,4 +1,4 @@
-import { inject,Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { ClHelpService, ClPageI } from '@monorepo/core-lib';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import {
@@ -52,7 +52,7 @@ export class LiNoteService implements TeTextEditorHistoryService {
     return this.apiService.put(`${this.route}/${id}/title`, { title: title }, LiNote);
   }
 
-  public updateFolder(id: string, folderId: string): Observable<LiNote> {
+  public updateFolder(id: string, folderId: string | null): Observable<LiNote> {
     return this.apiService.put(`${this.route}/${id}/folder`, { folder_id: folderId }, LiNote);
   }
 
@@ -165,10 +165,10 @@ export class LiNoteService implements TeTextEditorHistoryService {
     );
   }
 
-  public searchByName(page: number, pageSize: number, name: string): Observable<ClPageI<LiNote>> {
+  public searchByName(page: number, pageSize: number, name: string | undefined): Observable<ClPageI<LiNote>> {
     // if empty search, return all
     if (ClHelpService.isNullOrEmpty(name)) {
-      return this.search(page, pageSize, null);
+      return this.search(page, pageSize, { filtersCriteria: {}, sortsCriteria: [] });
     }
     return this.apiService.get(`${this.route}/search-name/${name}`, LiNote, {
       page: page,

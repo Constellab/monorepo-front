@@ -72,15 +72,11 @@ export class CaHierarchyObjectSearchState implements OnDestroy {
           this.childrenDatasource.setPageFunction((page, pageSize, requestData) =>
             this.hierarchyObjectService.searchInRootFoldersAndChildren(page, pageSize, requestData)
           );
-        } else if (context.type === CaHierarchyObjectType.FOLDER) {
+        } else if (context.type === CaHierarchyObjectType.FOLDER && context.hierarchyObject != null) {
+          const hierarchyObjectId = context.hierarchyObject.id;
           this.searchState.disabled = false;
           this.childrenDatasource.setPageFunction((page, pageSize, requestData) =>
-            this.hierarchyObjectService.searchChildren(
-              context.hierarchyObject.id,
-              page,
-              pageSize,
-              requestData
-            )
+            this.hierarchyObjectService.searchChildren(hierarchyObjectId, page, pageSize, requestData)
           );
         } else {
           this.searchState.disabled = true;

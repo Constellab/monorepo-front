@@ -584,12 +584,16 @@ body {
   }
 
   /************************************* MAT SNACKBAR ***********************************/
+  // Match the fl-info-banner style: softer "container" palette so a projected
+  // action button (drawn in the primary/error colour) stays visible.
   .g-snackbar-primary {
-    --mat-snack-bar-container-color: var(--primary-color);
+    --mat-snack-bar-container-color: var(--mat-sys-primary-container);
+    --mat-snack-bar-supporting-text-color: var(--mat-sys-on-primary-container);
   }
 
   .g-snackbar-warn {
-    --mat-snack-bar-container-color: var(--warn-color);
+    --mat-snack-bar-container-color: var(--mat-sys-error-container);
+    --mat-snack-bar-supporting-text-color: var(--mat-sys-on-error-container);
   }
 
   .g-snackbar-card {

@@ -49,7 +49,7 @@ export class LiTypeEntity extends LiBaseEntity implements FlSearchObjectToUrl {
 
   parent?: TdTypeRefDTO;
 
-  doc: string | undefined;
+  doc: string;
 
   status: TdTypeObjectStatus;
 
@@ -101,10 +101,10 @@ export class LiTypeEntity extends LiBaseEntity implements FlSearchObjectToUrl {
       deprecatedSince: this.deprecatedSince,
       deprecatedMessage: this.deprecatedMessage,
       style: this.style,
-      parentTypingName: this.parent?.typing_name ?? null,
-      parentHumanName: this.parent?.human_name ?? null,
-      parentVersion: this.parent?.brick_version ?? null,
-      parentStyle: this.parent?.style ?? null,
+      parentTypingName: this.parent?.typing_name,
+      parentHumanName: this.parent?.human_name,
+      parentVersion: this.parent?.brick_version,
+      parentStyle: this.parent?.style,
     };
   }
 }

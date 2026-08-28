@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy,Component, inject, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { Observable } from 'rxjs';
@@ -23,7 +23,7 @@ export class CaAuthenticatedUserInlineComponent implements OnInit {
 
   @Input() showName: boolean = true;
 
-  user$: Observable<CaUser>;
+  user$: Observable<CaUser | null>;
 
   route: string;
 

@@ -33,7 +33,10 @@ export class ChChartRendererHeatMap extends ChChart2AxisRenderer<ChChartHeatMapD
       .attr('y', (d) => yScale.scale(d.getY()))
       .attr('width', xScale.bandwidth())
       .attr('height', yScale.bandwidth())
-      .style('fill', (d) => (d.getZ() ? this.colorScale.scale(d.getZ().valueOf()) : null));
+      .style('fill', (d) => {
+        const z = d.getZ();
+        return z != null ? this.colorScale.scale(z.valueOf()) : null;
+      });
   }
 
   refreshRender(): void {

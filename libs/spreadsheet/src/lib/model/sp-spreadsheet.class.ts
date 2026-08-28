@@ -3,15 +3,17 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { SpSheet } from './sp-sheet.class';
 
 export class SpSpreadsheet {
-  private readonly sheets$: BehaviorSubject<SpSheet[]> = new BehaviorSubject([]);
-  private readonly currentSheet$: BehaviorSubject<SpSheet> = new BehaviorSubject(null);
+  private readonly sheets$: BehaviorSubject<SpSheet[]> = new BehaviorSubject<SpSheet[]>([]);
+  private readonly currentSheet$: BehaviorSubject<SpSheet | null> = new BehaviorSubject<SpSheet | null>(
+    null
+  );
 
   ///////////////////////////// SHEET //////////////////////////////
-  public get currentSheet(): SpSheet {
+  public get currentSheet(): SpSheet | null {
     return this.currentSheet$.value;
   }
 
-  public getCurrentSheet$(): Observable<SpSheet> {
+  public getCurrentSheet$(): Observable<SpSheet | null> {
     return this.currentSheet$.asObservable();
   }
 
@@ -32,14 +34,14 @@ export class SpSpreadsheet {
 
   public selectSheet(id: number): void {
     if (id === this.currentSheet?.id) return;
-    const sheet: SpSheet = this.getSheet(id);
+    const sheet: SpSheet | undefined = this.getSheet(id);
 
     if (sheet) {
       this.currentSheet$.next(sheet);
     }
   }
 
-  public getSheet(id: number): SpSheet {
+  public getSheet(id: number): SpSheet | undefined {
     return this.sheets.find((sheet) => sheet.id === id);
   }
 

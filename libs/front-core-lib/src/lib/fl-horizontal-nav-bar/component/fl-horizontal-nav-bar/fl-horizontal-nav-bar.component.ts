@@ -42,7 +42,7 @@ export class FlHorizontalNavBarComponent {
     .observe(this.smallScreenMatches)
     .pipe(map((state) => state.matches));
 
-  activeItem$: Observable<FlHorizontalNavBarItem> = this.router.events.pipe(
+  activeItem$: Observable<FlHorizontalNavBarItem | null> = this.router.events.pipe(
     startWith(null),
     filter((event) => event == null || event instanceof NavigationEnd),
     map(() => this.getActiveItem())
@@ -52,7 +52,7 @@ export class FlHorizontalNavBarComponent {
     this.trigger.openMenu();
   }
 
-  private getActiveItem(): FlHorizontalNavBarItem {
+  private getActiveItem(): FlHorizontalNavBarItem | null {
     for (const item of this.items()) {
       if (
         item.route &&

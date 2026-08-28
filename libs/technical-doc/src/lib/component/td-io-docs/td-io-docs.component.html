@@ -1,4 +1,4 @@
-@if (ioSpecs?.is_dynamic) {
+@if (ioSpecs.is_dynamic) {
   <div class="g-layout-row g-layout-between-center">
     <div class="g-text-light g-text-small" [matTooltip]="'td.dynamic_port_help' | translate">
       {{ 'td.dynamic_ports' | translate }}
@@ -10,7 +10,7 @@
   </div>
 }
 
-@for (io of ioSpecs?.specs | flObjectKeys; track io) {
+@for (io of ioSpecs.specs | flObjectKeys; track io) {
   <div class="ios-div">
     <td-doc-io
       [ioSpec]="ioSpecs.specs[io]"

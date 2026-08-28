@@ -52,15 +52,32 @@ export class PrWorkflowFactory {
   }
 
   private createLayerObjects(layer: PrWorkflowLayer, graph: PrProtocolGraph): PrWorkflowLayer {
-    const layout: PrProtocolLayout = graph.layout;
+    const layout: PrProtocolLayout | undefined = graph.layout;
 
+    this.addLayerNodes(layer, graph, layout);
+    this.addLayerConnections(layer, graph);
+    this.addLayerInterfaces(layer, graph, layout);
+    this.addLayerOuterfaces(layer, graph, layout);
+
+    layer.initNodesPositions();
+
+    return layer;
+  }
+
+  private addLayerNodes(
+    layer: PrWorkflowLayer,
+    graph: PrProtocolGraph,
+    layout: PrProtocolLayout | undefined
+  ): void {
     for (const key of Object.keys(graph.nodes)) {
       const caProcess = graph.nodes[key];
       const nodeLayout = layout?.process_layouts[key] ?? null;
       const node = this.createProcessNode(caProcess, key, layer.id, nodeLayout);
       layer.addNode(node);
     }
+  }
 
+  private addLayerConnections(layer: PrWorkflowLayer, graph: PrProtocolGraph): void {
     for (const link of graph.links) {
       layer.addPrConnection({
         fromNode: link.from.node,
@@ -69,29 +86,37 @@ export class PrWorkflowFactory {
         toPort: link.to.port,
       });
     }
+  }
 
+  private addLayerInterfaces(
+    layer: PrWorkflowLayer,
+    graph: PrProtocolGraph,
+    layout: PrProtocolLayout | undefined
+  ): void {
     for (const key of Object.keys(graph.interfaces)) {
       const inter = graph.interfaces[key];
       const interfaceLayout = layout?.interface_layouts[key] ?? null;
       layer.addInterface(inter.name, inter.process_instance_name, inter.port_name, interfaceLayout);
     }
+  }
 
+  private addLayerOuterfaces(
+    layer: PrWorkflowLayer,
+    graph: PrProtocolGraph,
+    layout: PrProtocolLayout | undefined
+  ): void {
     for (const key of Object.keys(graph.outerfaces)) {
       const outer = graph.outerfaces[key];
       const outerfaceLayout = layout?.outerface_layouts[key] ?? null;
       layer.addOuterface(outer.name, outer.process_instance_name, outer.port_name, outerfaceLayout);
     }
-
-    layer.initNodesPositions();
-
-    return layer;
   }
 
   private createProcessNode(
     process: PrProtocol,
     name: string,
     protocolId: string,
-    layout?: FlCoord
+    layout?: FlCoord | null
   ): PrWorkflowNode {
     const prProcess = this.caProcessToPrProcess(process, name, protocolId);
     this.conversionMatch[prProcess.id] = process;
@@ -125,8 +150,9 @@ export class PrWorkflowFactory {
         this.actionState
       );
     } else if (process.graph != null) {
+      const graph = process.graph;
       const layer: () => Observable<PrWorkflowLayer> = () =>
-        of(this.createSubLayer(process.graph, prProcess.id, prProcess.instanceName, name));
+        of(this.createSubLayer(graph, prProcess.id, prProcess.instanceName, name));
       processNode = new PrWorkflowNodeProtocol(prProcess, layer, this.resourceState, this.actionState);
     } else {
       processNode = new PrWorkflowNodeProcess(prProcess, this.resourceState, this.actionState);

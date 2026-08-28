@@ -22,7 +22,8 @@ export class LiProcessService {
     id: string,
     fromPageDate?: DateTime
   ): Observable<LiLogsBetweenDates> {
-    const params = fromPageDate ? { from_page_date: ClDateHelper.serializeDateTime(fromPageDate) } : null;
+    const serializedFromPageDate = fromPageDate ? ClDateHelper.serializeDateTime(fromPageDate) : null;
+    const params = serializedFromPageDate != null ? { from_page_date: serializedFromPageDate } : undefined;
     return this.apiService.get(`${this.route}/${processType}/${id}/logs`, LiLogsBetweenDates, { params });
   }
 

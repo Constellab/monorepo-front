@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatCheckbox } from '@angular/material/checkbox';
@@ -146,7 +146,7 @@ export class LiManageEntityTagsDialogComponent {
         ),
         autoClose: true,
       })
-      .subscribe((result: FlPortalActionResult<LiTag[]>) => {
+      ?.subscribe((result: FlPortalActionResult<LiTag[]>) => {
         if (result.status === 'success') {
           this.currentTags.addItem(result.result);
         }
@@ -180,7 +180,7 @@ export class LiManageEntityTagsDialogComponent {
           action: this.tagService.deleteEntityTag(this.input.entityType, this.input.entityId, tag),
           autoClose: true,
         })
-        .subscribe((result: FlPortalActionResult<void>) => {
+        ?.subscribe((result: FlPortalActionResult<void>) => {
           if (result.status === 'success') {
             this.currentTags.removeItem(tag);
           }

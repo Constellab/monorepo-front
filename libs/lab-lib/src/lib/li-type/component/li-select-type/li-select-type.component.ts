@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy,Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { FlFormFieldDirective, FlInputSearchFilter } from '@monorepo/front-core-lib/fl-core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
@@ -23,7 +31,7 @@ import {
   changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlInputSearchModule, TdTechnicalDocModule],
 })
-export class LiSelectTypeComponent extends FlFormFieldDirective<LiTypeEntity> implements OnInit {
+export class LiSelectTypeComponent extends FlFormFieldDirective<LiTypeEntity | null> implements OnInit {
   private typeService = inject(LiTypeService);
   private dialogService = inject(FlDialogService);
 
@@ -33,7 +41,7 @@ export class LiSelectTypeComponent extends FlFormFieldDirective<LiTypeEntity> im
 
   @Output() typeChange: EventEmitter<LiTypeEntity> = new EventEmitter();
 
-  selectedType: LiTypeEntity | Observable<LiTypeEntity>;
+  selectedType: LiTypeEntity | Observable<LiTypeEntity> | null;
 
   datasource: LiTypeEntityDatasource<FlInputSearchFilter>;
 

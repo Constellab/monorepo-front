@@ -35,7 +35,7 @@
         flInputMaxLength="50"
         placeholder="{{ 'title' | translate }}"
         cdkFocusInitial />
-      @if (formGp.get('title').hasError('required')) {
+      @if (formGp.get('title')?.hasError('required')) {
         <mat-error>{{ 'title' | flErrorRequired }}</mat-error>
       }
     </mat-form-field>
@@ -44,7 +44,7 @@
       <mat-form-field class="g-form-input">
         <mat-label>{{ 'app_url' | translate }}</mat-label>
         <input matInput formControlName="appUrl" placeholder="{{ 'app_url' | translate }}" />
-        @if (formGp.get('appUrl').hasError('pattern')) {
+        @if (formGp.get('appUrl')?.hasError('pattern')) {
           <mat-error>{{ 'app_url_pattern_error' | translate }}</mat-error>
         }
       </mat-form-field>
@@ -56,14 +56,14 @@
           formControlName="contactMail"
           placeholder="{{ 'contact_mail' | translate }}"
           type="email" />
-        @if (formGp.get('contactMail').hasError('email')) {
+        @if (formGp.get('contactMail')?.hasError('email')) {
           <mat-error>{{ 'contact_mail_pattern_error' | translate }}</mat-error>
         }
       </mat-form-field>
 
       @if (
         formGp.hasError('atLeastOneContactRequired') &&
-        (formGp.get('appUrl').touched || formGp.get('contactMail').touched)
+        (formGp.get('appUrl')?.touched || formGp.get('contactMail')?.touched)
       ) {
         <mat-error class="at-least-one-contact-error">
           {{ 'the_contact_mail_is_required' | translate }}

@@ -1,8 +1,8 @@
 <div class="container g-layout-col">
   <div class="section g-scrollable-element">
-    @if (data.series) {
+    @if (multiSeriesData; as multiSeriesData) {
       <ch-chart-legend-multi-series
-        [data]="data"
+        [data]="multiSeriesData"
         [disableLegends]="tagAreSelected"></ch-chart-legend-multi-series>
     }
   </div>

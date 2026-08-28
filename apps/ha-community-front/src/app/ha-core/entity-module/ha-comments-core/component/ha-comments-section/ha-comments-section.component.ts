@@ -1,5 +1,13 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy,Component, ElementRef, inject, input, OnInit, ViewChildren } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  inject,
+  input,
+  OnInit,
+  ViewChildren,
+} from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAnchor, MatButton } from '@angular/material/button';
 import { CoUser } from '@monorepo/community-lib';
@@ -39,7 +47,7 @@ import { HaCommentComponent } from '../ha-comment/ha-comment.component';
   styleUrl: './ha-comments-section.component.scss',
 })
 export class HaCommentsSectionComponent implements OnInit {
-  user = input<CoUser>();
+  user = input<CoUser | null>();
 
   isWritingComment = false;
 

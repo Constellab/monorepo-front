@@ -59,8 +59,8 @@ export class HaAgentService implements HaCoAuthorService {
     return new FlEntityPaginatedDatasource(
       (page, size, requestData) =>
         this.getAllWithFilters(
-          requestData.filtersCriteria.spacesFilter,
-          requestData.filtersCriteria.titleFilter,
+          requestData.filtersCriteria.spacesFilter ?? [],
+          requestData.filtersCriteria.titleFilter ?? '',
           requestData.sortsCriteria ?? [],
           page,
           size
@@ -80,7 +80,7 @@ export class HaAgentService implements HaCoAuthorService {
 
   getUserAgentsPaginated(pageSize: number = 4): HaAgentDatasourcePaginated<HaProfileDatasourceFilters> {
     return new FlEntityPaginatedDatasource(
-      (page, size, requestData) => this.getUserAgents(requestData.filtersCriteria.userId, page, size),
+      (page, size, requestData) => this.getUserAgents(requestData.filtersCriteria.userId ?? '', page, size),
       pageSize,
       { initFirstPage: false }
     );

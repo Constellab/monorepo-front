@@ -16,7 +16,7 @@ import { BnBioNetworkHelper } from '../../utils/bn-bio-network.helper';
 export class BnBioNetworkReactionFluxComponent {
   @Input() reaction: BnBioNetworkReaction;
 
-  get getFlux(): BnBioNetworkReactionDataFlux {
+  get getFlux(): BnBioNetworkReactionDataFlux | null {
     return BnBioNetworkHelper.getReactionFlux(this.reaction.data);
   }
 
@@ -24,14 +24,14 @@ export class BnBioNetworkReactionFluxComponent {
     return this.reaction.lower_bound != null && this.reaction.upper_bound != null;
   }
 
-  get fluxConstraintsTooltip(): string {
+  get fluxConstraintsTooltip(): string | null {
     if (this.hasConstraints) {
       return `[${this.reaction.lower_bound},${this.reaction.upper_bound}]`;
     }
     return null;
   }
 
-  fluxEstimateInterval(flux: BnBioNetworkReactionDataFlux): string {
+  fluxEstimateInterval(flux: BnBioNetworkReactionDataFlux): string | null {
     if (flux.upper_bound != null && flux.lower_bound != null) {
       return `[${flux.lower_bound},${flux.upper_bound}]`;
     }

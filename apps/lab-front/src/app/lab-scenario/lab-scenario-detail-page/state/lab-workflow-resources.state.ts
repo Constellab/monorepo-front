@@ -1,9 +1,14 @@
-import { inject,Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { ClCachedObservable } from '@monorepo/core-lib';
-import { FlStatusEvent, flStatutEvent, flStatutEventMap } from '@monorepo/front-core-lib/fl-core';
+import {
+  FlStatusEvent,
+  FlStatusEventEmpty,
+  flStatutEvent,
+  flStatutEventMap,
+} from '@monorepo/front-core-lib/fl-core';
 import { LiResource, LiResourceService } from '@monorepo/lab-lib/li-core';
 import { PrResource, PrWorkflowResourcesState } from '@monorepo/protocol';
-import { Observable, of } from 'rxjs';
+import { Observable, of, switchMap, throwError } from 'rxjs';
 
 /**
  * State to resources of the workflow
@@ -25,10 +30,19 @@ export class LabWorkflowResourcesState extends PrWorkflowResourcesState {
   }
 
   getLabResource(resourceId: string): Observable<FlStatusEvent<LiResource>> {
-    if (resourceId == null) return of(null);
+    if (resourceId == null) return of({ status: 'loading' } as FlStatusEventEmpty);
 
     if (this.resources[resourceId] == null) {
-      this.resources[resourceId] = new ClCachedObservable(this.resourceService.getById(resourceId));
+      // the resource is genuinely not found when getById() returns null: surface it as an error
+      // status rather than caching/propagating a null resource downstream.
+      const resource$ = this.resourceService
+        .getById(resourceId)
+        .pipe(
+          switchMap((resource) =>
+            resource == null ? throwError(() => new Error(`Resource ${resourceId} not found`)) : of(resource)
+          )
+        );
+      this.resources[resourceId] = new ClCachedObservable(resource$);
     }
 
     return this.resources[resourceId].getObs().pipe(flStatutEvent());

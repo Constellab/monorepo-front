@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 import { MatTooltip } from '@angular/material/tooltip';
 import { FlClipboardService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { LiShareLink } from '@monorepo/lab-lib/li-core';
@@ -24,7 +24,10 @@ export class LiShareLinkLinksComponent {
   }
 
   copyPreviewLink(): void {
-    this.clipboardService.copy(this.shareLink().previewLink, {
+    const previewLink = this.shareLink().previewLink;
+    if (!previewLink) return;
+
+    this.clipboardService.copy(previewLink, {
       text: 'li.share_link_copied',
       translateText: true,
     });

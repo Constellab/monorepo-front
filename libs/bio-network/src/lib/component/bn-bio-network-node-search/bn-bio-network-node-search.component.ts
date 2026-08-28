@@ -68,12 +68,13 @@ export class BnBioNetworkNodeSearchComponent implements OnInit, OnDestroy {
     this.subscription.add(this.state.getChartData$().subscribe((network) => this.onNewChartData(network)));
   }
 
-  private onNewChartData(bioNetwork: BnBioNetworkGraph): void {
+  private onNewChartData(bioNetwork: BnBioNetworkGraph | null): void {
     if (bioNetwork) {
-      this.objects = ClHelpService.sortAlphabeticalOrder(
-        bioNetwork.getMetabolitesAndReactionData(),
-        (object) => object.name
-      );
+      this.objects =
+        ClHelpService.sortAlphabeticalOrder(
+          bioNetwork.getMetabolitesAndReactionData(),
+          (object) => object.name
+        ) ?? [];
     } else {
       this.objects = [];
     }

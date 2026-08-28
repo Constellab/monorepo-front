@@ -7,10 +7,12 @@
   "tags": ["front"],
   "targets": {
     "test": {
-      "executor": "@nx/vitest:test",
-      "outputs": ["{options.reportsDirectory}"],
+      "outputs": [
+        "{projectRoot}/{options.coverage.reportsDirectory}",
+        "{workspaceRoot}/coverage/libs/resource-view"
+      ],
       "options": {
-        "reportsDirectory": "{projectRoot}/../../coverage/libs/resource-view"
+        "coverage.reportsDirectory": "../../../coverage/libs/resource-view"
       }
     },
     "lint": {

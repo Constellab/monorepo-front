@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 
@@ -6,14 +6,13 @@ import { CaActivitySearchComponent } from '../../../../../ca-core/entity-module/
 import { CaActivitySearchFields } from '../../../../../ca-core/entity-module/ca-activity-core/model/ca-activity-search.class';
 import { CaActivityDatasource } from '../../../../../ca-core/model/entities/ca-activity.class';
 import { CaFolderService } from '../../../../../ca-core/service-api/ca-folder.service';
-import { CaHierarchyObjectBreadcrumbComponent } from '../../../ca-folder-hierarchy-core/component/ca-hierarchy-object-breadcrumb/ca-hierarchy-object-breadcrumb.component';
 
 @Component({
   selector: 'ca-folder-activity-page',
   templateUrl: './ca-folder-activity-page.component.html',
   styleUrls: ['./ca-folder-activity-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.Eager,
-  imports: [CaHierarchyObjectBreadcrumbComponent, CaActivitySearchComponent],
+  imports: [CaActivitySearchComponent],
 })
 export class CaFolderActivityPageComponent implements OnInit {
   private route = inject(ActivatedRoute);

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, ViewContainerRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, ViewContainerRef } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {
   FlConfirmDialogInput,
@@ -35,7 +35,7 @@ export class TdConfigureParamSpecsTableDialogComponent {
   table = this.dynamicParamSpecState.paramSpecsTable;
   reorderEnabled = this.dynamicParamSpecState.reorderEnabled;
 
-  openEditParamSpecDialog(entry: TdParamSpecEntry = null): void {
+  openEditParamSpecDialog(entry: TdParamSpecEntry | null = null): void {
     const input: TdEditParamSpecDialogInput = {
       dynamicParamSpecState: this.dynamicParamSpecState,
       paramSpec: entry,
@@ -66,7 +66,7 @@ export class TdConfigureParamSpecsTableDialogComponent {
       .openConfirmDialog(input)
       .afterClosed()
       .subscribe((res: FlConfirmDialogResult<TdParamSpecs>) => {
-        if (!res || !res.choice || 'values' in res.result) return;
+        if (!res || !res.choice || !res.result || 'values' in res.result) return;
         this.dynamicParamSpecState.setParamSpecs(res.result as TdParamSpecs);
       });
   }

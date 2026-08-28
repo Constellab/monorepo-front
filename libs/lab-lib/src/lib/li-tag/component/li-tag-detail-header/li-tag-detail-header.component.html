@@ -1,16 +1,16 @@
-@if (tagKeyModel()) {
+@if (tagKeyModel(); as tagKeyModel) {
   <div class="g-layout-row g-layout-start-center g-layout-gap-05em container">
     <div class="g-flex-auto g-layout-col g-layout-start-start header-left">
       <!--  Tag  -->
       <h2 class="header-title g-text-ellipsis-2-lines">
-        {{ tagKeyModel().key }}
+        {{ tagKeyModel.key }}
       </h2>
 
       @if (displayMode() !== 'dense') {
         <div class="g-layout-row g-layout-start-center g-layout-gap-05em g-text-light g-text-small">
-          @if (tagKeyModel().label) {
+          @if (tagKeyModel.label) {
             <div class="g-layout-row g-layout-start-center">
-              {{ tagKeyModel().label }}
+              {{ tagKeyModel.label }}
             </div>
           }
         </div>

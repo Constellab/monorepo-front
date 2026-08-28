@@ -9,7 +9,8 @@
         </ch-chart-serie-inline>
       </div>
 
-      <fl-tag-list class="g-text-small" [tags]="data.data.tags" [tagColorer]="tagColorer"></fl-tag-list>
+      <!-- fl-tag-list.tags (front-core-lib) is required and non-nullable; fall back to {} -->
+      <fl-tag-list class="g-text-small" [tags]="data.data.tags ?? {}" [tagColorer]="tagColorer"></fl-tag-list>
     </div>
   </fl-portal-content>
 </fl-portal>

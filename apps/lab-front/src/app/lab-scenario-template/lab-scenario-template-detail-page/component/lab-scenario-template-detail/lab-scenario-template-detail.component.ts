@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input, OnInit } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { FlDrawerModule } from '@monorepo/front-core-lib/fl-drawer';
 import {
@@ -35,7 +35,7 @@ export class LabScenarioTemplateDetailComponent implements OnInit {
 
   tags$: LiTagDatasource;
 
-  formControl: FormControl<TeRichText> = new FormControl({ value: null });
+  formControl: FormControl<TeRichText | null> = new FormControl(null);
 
   textEditorConfig: TeBasicConfig = new TeBasicConfig();
 

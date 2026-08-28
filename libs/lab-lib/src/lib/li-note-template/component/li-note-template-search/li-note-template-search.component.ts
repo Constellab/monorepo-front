@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy,Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -57,9 +65,9 @@ export class LiNoteTemplateSearchComponent implements OnInit {
 
   @Input() fullPageSearch: boolean = true;
 
-  @Input() defaultFilters: Partial<LiNoteTemplateSearchFields> = null;
+  @Input() defaultFilters: Partial<LiNoteTemplateSearchFields> | null = null;
 
-  @Input() disabledFilters: LiNoteTemplateSearchFieldsDisabled = null;
+  @Input() disabledFilters: LiNoteTemplateSearchFieldsDisabled | null = null;
 
   @Output() noteTemplateSelected: EventEmitter<LiNoteTemplate> = new EventEmitter();
 

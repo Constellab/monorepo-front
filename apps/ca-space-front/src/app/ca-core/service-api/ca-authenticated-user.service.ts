@@ -5,8 +5,8 @@ import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { FlCleanableService, FlCleanerService } from '@monorepo/front-core-lib/fl-core';
 import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
 
 import { CaUser } from '../model/entities/ca-user.class';
 import { CaSpaceInfoDto } from '../model/entities/space/ca-space.class';
@@ -31,9 +31,9 @@ export class CaAuthenticatedUserService implements FlCleanableService {
 
   private readonly currentUserRoute: string = 'users/current';
 
-  private userAuthenticated: CaUser;
+  private userAuthenticated: CaUser | null = null;
   // subject to subscribe to user changes
-  private userSubject: BehaviorSubject<CaUser> = new BehaviorSubject<CaUser>(null);
+  private userSubject: BehaviorSubject<CaUser | null> = new BehaviorSubject<CaUser | null>(null);
 
   constructor() {
     FlCleanerService.getInstance().registerService(this);
@@ -52,30 +52,46 @@ export class CaAuthenticatedUserService implements FlCleanableService {
       .pipe(map((spaceInfo) => this.storeCurrentAuthenticatedInfo(spaceInfo)));
   }
 
+  /**
+   * Whether a session really exists, answered by the API.
+   *
+   * For the places that have to know before the app has loaded a user - the login page and the
+   * invitation page. They used to read the 'Auth_Expiration' marker instead, which was self
+   * correcting only while it expired with the token. It now outlives the session by design, so a
+   * marker left behind by a session that ended weeks ago would send its owner into the app just to
+   * be thrown out again. A marker may only ever spare a pointless call; it never answers this.
+   */
+  public hasLiveSession(): Observable<boolean> {
+    return this.loadCurrentInfo().pipe(
+      map(() => true),
+      catchError(() => of(false))
+    );
+  }
+
   public getCurrentUser(): CaUser {
     if (this.userAuthenticated == null) {
-      console.error('The user is not loaded yet');
-      return null;
+      throw new Error('The user is not loaded yet');
     }
     return this.userAuthenticated;
   }
 
-  public getUser$(): Observable<CaUser> {
+  public getUser$(): Observable<CaUser | null> {
     return this.userSubject.asObservable();
   }
 
   private storeCurrentAuthenticatedInfo(spaceInfo: CaSpaceInfoDto): CaSpaceInfoDto {
-    if (CaEnvironmentHelper.isProduction()) {
+    if (CaEnvironmentHelper.isProduction() && this.document.defaultView != null) {
       // if the website space domain does not correspond to the user space domain
       // redirect to the website space domain
-      const hostname = this.document.defaultView.location.hostname;
+      const defaultView = this.document.defaultView;
+      const hostname = defaultView.location.hostname;
       const domains = hostname.split('.');
 
       const spaceInfoUrl = `https://${spaceInfo.space.domain}.${CaEnvironmentHelper.getFrontDomain()}`;
       // if there is no subdomain, redirect to user space domain with the full route
       if (domains.length === 2) {
         // redirect to the space domain, keep the route.
-        this.document.defaultView.location.href = `${spaceInfoUrl}${this.location.path(true)}`;
+        defaultView.location.href = `${spaceInfoUrl}${this.location.path(true)}`;
         // throw an error so the guard does not navigate to the page
         throw new Error('Redirect to the space domain');
       } else {
@@ -83,7 +99,7 @@ export class CaAuthenticatedUserService implements FlCleanableService {
         if (domains[0] !== spaceInfo.space.domain) {
           // redirect to the space domain dashboard (remove the route) so he does not ends up
           // in an object not accessible in the new space
-          this.document.defaultView.location.href = `${spaceInfoUrl}`;
+          defaultView.location.href = `${spaceInfoUrl}`;
           // throw an error so the guard does not navigate to the page
           throw new Error('Redirect to the space domain');
         }
@@ -137,8 +153,10 @@ export class CaAuthenticatedUserService implements FlCleanableService {
   }
 
   private changeThemeSuccess(theme: ClTheme): void {
-    this.userAuthenticated.theme = theme;
-    this.notifyUserChange();
+    if (this.userAuthenticated) {
+      this.userAuthenticated.theme = theme;
+      this.notifyUserChange();
+    }
   }
 
   public uploadPhoto(file: File): Observable<CaUser> {

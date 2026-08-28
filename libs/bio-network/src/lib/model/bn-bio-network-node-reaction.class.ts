@@ -62,20 +62,24 @@ export class BnBioNetworkNodeReaction extends BnBioNetworkNode {
    * Set all the cofactors position based on reaction position
    */
   public setCofactorsPositions(): void {
+    const center = this.getCoords();
+    if (center.x == null || center.y == null) return;
+
     // init cofactor positions
     const tSpaces = (Math.PI * 2) / this.childNodes.length;
     let t = 0;
 
     for (const node of this.childNodes) {
-      const x = this.cofactorDistance * Math.cos(t) + this.x;
-      const y = this.cofactorDistance * Math.sin(t) + this.y;
+      const x = this.cofactorDistance * Math.cos(t) + center.x;
+      const y = this.cofactorDistance * Math.sin(t) + center.y;
       node.setPositionAndFreeze({ x, y });
       t += tSpaces;
     }
   }
 
   public getRheaId(): string | null {
-    return ClHelpService.isNullOrEmpty(this.data.rhea_id) ? null : this.data.rhea_id;
+    const rheaId = this.data.rhea_id ?? null;
+    return ClHelpService.isNullOrEmpty(rheaId) ? null : rheaId;
   }
 
   public getReadIdLink(): string | null {

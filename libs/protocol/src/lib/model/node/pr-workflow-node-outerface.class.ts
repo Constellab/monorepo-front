@@ -37,7 +37,7 @@ export class PrWorkflowNodeOuterface extends PrWorkflowNodeResource<PrOuterface>
   }
 
   protected initPorts(object: PrOuterface): void {
-    this.createPort(object.portName, { specs: object.portType, resource_id: null }, 'input');
+    this.createPort(object.portName, { specs: object.portType }, 'input');
   }
 
   getPort(): PrWorkflowPort {
@@ -60,17 +60,17 @@ export class PrWorkflowNodeOuterface extends PrWorkflowNodeResource<PrOuterface>
     return null;
   }
 
-  getResourceId$(): Observable<string> {
+  getResourceId$(): Observable<string | null> {
     return this.connectedNode
       .getObject$()
       .pipe(map((process) => process.outputs.ports[this.connectedPort.name]?.resource_id ?? null));
   }
 
-  getResource$(): Observable<FlStatusEvent<PrResource>> {
+  getResource$(): Observable<FlStatusEvent<PrResource> | null> {
     return this.connectedNode.getObject$().pipe(switchMap((node) => this.resourceIsProvided(node)));
   }
 
-  private resourceIsProvided(process: PrProcess): Observable<FlStatusEvent<PrResource>> {
+  private resourceIsProvided(process: PrProcess): Observable<FlStatusEvent<PrResource> | null> {
     const resourceId = process.outputs.ports[this.connectedPort.name]?.resource_id ?? null;
     if (!resourceId) return of(null);
 

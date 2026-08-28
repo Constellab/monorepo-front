@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { FlDynamicFieldAbstractDirective } from '../../model/fl-dynamic-field-abstract.directive';
 
@@ -11,25 +11,25 @@ import { FlDynamicFieldAbstractDirective } from '../../model/fl-dynamic-field-ab
   host: { '[class.cell-rendering]': 'cellRendering' },
 })
 export class FlDynamicFieldInputComponent extends FlDynamicFieldAbstractDirective {
-  @Input() prefix: string;
+  @Input() prefix?: string;
 
-  @Input() suffix: string;
+  @Input() suffix?: string;
 
   @Input() inputType: 'text' | 'number';
 
-  @Input() min: number;
+  @Input() min?: number;
 
-  @Input() max: number;
+  @Input() max?: number;
 
-  @Input() integer: boolean;
+  @Input() integer?: boolean;
 
-  @Input() minLength: number;
+  @Input() minLength?: number;
 
-  @Input() maxLength: number;
+  @Input() maxLength?: number;
 
-  @Input() regex: string;
+  @Input() regex?: string;
 
-  @Input() regexDescription: string;
+  @Input() regexDescription?: string;
 
   override get errorMessage(): string {
     const ctrl = this.formCtrl;

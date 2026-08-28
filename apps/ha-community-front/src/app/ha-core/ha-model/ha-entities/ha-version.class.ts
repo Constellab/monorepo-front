@@ -48,7 +48,7 @@ export class HaAddVersionInput {
   brickVersionReferences: HaReferenceDTO[];
   technicalInfo: Record<string, any>;
   isBeta: boolean;
-  subPatch: number;
+  subPatch?: number | null;
 
   constructor(
     isNew: boolean,
@@ -60,35 +60,39 @@ export class HaAddVersionInput {
     this.isNew = isNew;
     this.name = name;
     this.version = version;
-    this.isBeta = ClVersion.fromString(version).isBeta();
+    const clVersion: ClVersion = ClVersion.fromString(version);
+    this.isBeta = clVersion.isBeta();
     if (this.isBeta) {
-      this.subPatch = ClVersion.fromString(version).subPatch;
+      this.subPatch = clVersion.subPatch;
     }
     this.technicalInfo = technicalInfo;
-    this.brickVersionReferences = [];
-    if (environment.bricks) {
-      for (const b of environment.bricks) {
-        this.brickVersionReferences.push({ name: b.name, version: b.version });
-      }
+    this.brickVersionReferences = HaAddVersionInput.getBrickReferences(environment);
+  }
+
+  /**
+   * Every brick the environment references: the explicit brick list first, then the bricks
+   * found among the pip and git packages.
+   */
+  private static getBrickReferences(environment: HaEnvironmentDTO): HaReferenceDTO[] {
+    const references: HaReferenceDTO[] = [];
+    for (const brick of environment.bricks ?? []) {
+      references.push({ name: brick.name, version: brick.version });
     }
-    if (environment.pip && environment.pip.length > 0) {
-      for (const d of environment.pip) {
-        for (const p of d.packages) {
-          if (p.is_brick) {
-            this.brickVersionReferences.push({ name: p.name, version: p.version });
-          }
+    references.push(...HaAddVersionInput.getBrickPackages(environment.pip));
+    references.push(...HaAddVersionInput.getBrickPackages(environment.git));
+    return references;
+  }
+
+  private static getBrickPackages(sources: HaRepoTypeNewVersionDTO[]): HaReferenceDTO[] {
+    const references: HaReferenceDTO[] = [];
+    for (const source of sources ?? []) {
+      for (const dependency of source.packages) {
+        if (dependency.is_brick) {
+          references.push({ name: dependency.name, version: dependency.version });
         }
       }
     }
-    if (environment.git && environment.git.length > 0) {
-      for (const d of environment.git) {
-        for (const p of d.packages) {
-          if (p.is_brick) {
-            this.brickVersionReferences.push({ name: p.name, version: p.version });
-          }
-        }
-      }
-    }
+    return references;
   }
 }
 

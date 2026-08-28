@@ -1,5 +1,4 @@
 import { CdkDrag, CdkDragDrop, CdkDragHandle, CdkDropList } from '@angular/cdk/drag-drop';
-import { NgClass } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -10,7 +9,8 @@ import {
   output,
   Signal,
   untracked,
-  viewChild} from '@angular/core';
+  viewChild,
+} from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import {
@@ -54,7 +54,6 @@ export interface HaBrickSidenavTreeEvent {
     MatTreeNodePadding,
     CdkDropList,
     CdkDrag,
-    NgClass,
     CdkDragHandle,
     MatIcon,
     MatIconButton,
@@ -77,7 +76,7 @@ export class HaBrickSidenavTreeComponent implements OnDestroy {
 
   dragAndDropDisabled = input<boolean>(true);
 
-  canEdit = input<boolean>(false);
+  canEdit = input<boolean | null>(false);
 
   showActionIcons = input<boolean>(false);
 
@@ -89,7 +88,7 @@ export class HaBrickSidenavTreeComponent implements OnDestroy {
 
   refreshDatasource = output<void>();
 
-  hoverId: string;
+  hoverId: string | null = null;
 
   selectedObjectAndParent: FlTree<HaNode>[] = [];
 
@@ -132,19 +131,7 @@ export class HaBrickSidenavTreeComponent implements OnDestroy {
     const node = event.item.data;
     const visibleNodes: FlTree<HaNode>[] = this.sidenavObjects().getVisibleNodes(tree);
 
-    let newParentId: string = null;
-    if (event.currentIndex > 0) {
-      for (let i = event.currentIndex - (event.currentIndex > event.previousIndex ? 0 : 1); i >= 0; i--) {
-        if (visibleNodes[i].object.children && tree.isExpanded(visibleNodes[i])) {
-          newParentId = visibleNodes[i].id;
-          break;
-        }
-        if (!visibleNodes[i].object.children) {
-          newParentId = visibleNodes[i].object.parentId;
-          break;
-        }
-      }
-    }
+    const newParentId = this.findNewParentId(event, tree, visibleNodes);
 
     const nodesBeforeInTheSameFolder = visibleNodes.filter(
       (n) => n.object.parentId == newParentId && visibleNodes.indexOf(n) < event.currentIndex
@@ -153,45 +140,24 @@ export class HaBrickSidenavTreeComponent implements OnDestroy {
     const newOrder = nodesBeforeInTheSameFolder.length;
 
     const oldParentId = node.object.parentId;
+    const oldOrder = node.object.order;
 
-    if (this.parentDocFolderId() == null) {
+    const mainFolderId = this.parentDocFolderId();
+    if (mainFolderId == null) {
       return;
     }
 
     const body = {
       nodeId: node.object.id,
       nodeType: node.object.children ? 'FOLDER' : 'DOCUMENTATION',
-      oldOrder: node.object.order,
+      oldOrder: oldOrder,
       newOrder: newOrder,
-      oldParentId: oldParentId ?? this.parentDocFolderId(),
-      newParentId: newParentId ?? this.parentDocFolderId(),
-      mainFolderId: this.parentDocFolderId(),
+      oldParentId: oldParentId ?? mainFolderId,
+      newParentId: newParentId ?? mainFolderId,
+      mainFolderId: mainFolderId,
     };
 
-    if (newParentId != oldParentId) {
-      const nodesToMoveDown = visibleNodes.filter(
-        (n) => n.object.parentId == newParentId && n.object.order >= newOrder
-      );
-      this.moveDownNodes(nodesToMoveDown);
-    } else {
-      if (node.object.order > newOrder) {
-        const nodesToMoveDown = visibleNodes.filter(
-          (n) =>
-            n.object.parentId == newParentId &&
-            n.object.order >= newOrder &&
-            n.object.order < node.object.order
-        );
-        this.moveDownNodes(nodesToMoveDown);
-      } else {
-        const nodesToMoveUp = visibleNodes.filter(
-          (n) =>
-            n.object.parentId == newParentId &&
-            n.object.order <= newOrder &&
-            n.object.order > node.object.order
-        );
-        this.moveUpNodes(nodesToMoveUp);
-      }
-    }
+    this.reorderSiblings(visibleNodes, oldParentId, newParentId, oldOrder, newOrder);
 
     node.object.parentId = newParentId;
     node.object.order = newOrder;
@@ -203,6 +169,65 @@ export class HaBrickSidenavTreeComponent implements OnDestroy {
         this.refreshDatasource.emit();
       }
     });
+  }
+
+  /**
+   * The node dropped becomes a child of the closest node above it: the first expanded folder found
+   * while walking up the visible nodes, or the parent of the first non-folder found there.
+   */
+  private findNewParentId(
+    event: CdkDragDrop<MatTree<FlTree<HaNode>>, MatTree<FlTree<HaNode>>, FlTree<HaNode>>,
+    tree: MatTree<FlTree<HaNode>>,
+    visibleNodes: FlTree<HaNode>[]
+  ): string | null {
+    if (event.currentIndex <= 0) {
+      return null;
+    }
+
+    const startIndex = event.currentIndex - (event.currentIndex > event.previousIndex ? 0 : 1);
+
+    for (let i = startIndex; i >= 0; i--) {
+      const candidate = visibleNodes[i];
+      if (!candidate.object.children) {
+        return candidate.object.parentId;
+      }
+      if (tree.isExpanded(candidate)) {
+        return candidate.id;
+      }
+    }
+
+    return null;
+  }
+
+  /** Shift the orders of the nodes the dropped node moved past, so that they stay contiguous. */
+  private reorderSiblings(
+    visibleNodes: FlTree<HaNode>[],
+    oldParentId: string | null,
+    newParentId: string | null,
+    oldOrder: number,
+    newOrder: number
+  ): void {
+    if (newParentId != oldParentId) {
+      this.moveDownNodes(
+        visibleNodes.filter((n) => n.object.parentId == newParentId && n.object.order >= newOrder)
+      );
+      return;
+    }
+
+    if (oldOrder > newOrder) {
+      this.moveDownNodes(
+        visibleNodes.filter(
+          (n) => n.object.parentId == newParentId && n.object.order >= newOrder && n.object.order < oldOrder
+        )
+      );
+      return;
+    }
+
+    this.moveUpNodes(
+      visibleNodes.filter(
+        (n) => n.object.parentId == newParentId && n.object.order <= newOrder && n.object.order > oldOrder
+      )
+    );
   }
 
   onClickMenu(event: MouseEvent, isFolder: boolean, hasChild: boolean = false, id: string): void {
@@ -230,7 +255,7 @@ export class HaBrickSidenavTreeComponent implements OnDestroy {
     }
   }
 
-  private getContextMenuConfig(isFolder: boolean, id?: string, hasChild: boolean = false): FlMenuDynamic[] {
+  private getContextMenuConfig(isFolder: boolean, id: string, hasChild: boolean = false): FlMenuDynamic[] {
     if (isFolder) {
       return [
         {

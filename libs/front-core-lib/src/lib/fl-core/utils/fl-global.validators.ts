@@ -26,7 +26,7 @@ export class FlGlobalValidators {
    * return error incorrectPasswordFormat if not
    */
   public static passwordValidator(): ValidatorFn {
-    return (control: AbstractControl): { [key: string]: any } => {
+    return (control: AbstractControl): ValidationErrors | null => {
       if (!control.value) {
         return null;
       }
@@ -47,7 +47,7 @@ export class FlGlobalValidators {
    * return error incorrectRepeatPassword
    */
   public static repeatPasswordValidator(passwordFormField: string): ValidatorFn {
-    return (control: AbstractControl): { [key: string]: any } => {
+    return (control: AbstractControl): ValidationErrors | null => {
       if (!control.parent || !control.value) {
         return null;
       }
@@ -66,7 +66,7 @@ export class FlGlobalValidators {
    * return error notInteger
    */
   public static isInteger(): ValidatorFn {
-    return (control: AbstractControl): { [key: string]: any } => {
+    return (control: AbstractControl): ValidationErrors | null => {
       const value = control.value;
       if (value !== 0 && !value) {
         return null;
@@ -84,7 +84,7 @@ export class FlGlobalValidators {
    * @param length
    */
   public static arrayMinLength(length: number): ValidatorFn {
-    return (control: UntypedFormArray): { [key: string]: any } => {
+    return (control: UntypedFormArray): ValidationErrors | null => {
       const arrayLength = control.value?.length ?? 0;
 
       if (arrayLength < length) {

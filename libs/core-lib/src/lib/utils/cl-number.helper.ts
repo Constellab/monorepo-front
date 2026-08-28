@@ -8,7 +8,7 @@ export class ClNumberHelper {
    * @param defaultValue if provided, it returns the value if we couldn't convert the string to number
    *                      If not provided it returns null
    */
-  public static fromString(str: string | number, defaultValue: number = null): number {
+  public static fromString(str: string | number, defaultValue: number | null = null): number | null {
     if (typeof str === 'number') {
       return str;
     }

@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy,Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { FlDatasourcePaginated, FlInputSearchFilter } from '@monorepo/front-core-lib/fl-core';
 import { FlFormFieldDirective } from '@monorepo/front-core-lib/fl-core';
@@ -19,16 +27,16 @@ import { FlUserConfig, FlUserConfigSearchNameMode } from '../../service/fl-user-
   changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
-export class FlSelectUserComponent extends FlFormFieldDirective<FlUser> implements OnInit {
+export class FlSelectUserComponent extends FlFormFieldDirective<FlUser | null> implements OnInit {
   private userConfig = inject(FlUserConfig);
 
   @Input() placeholder: string;
 
   @Input() mode: FlUserConfigSearchNameMode = 'space';
 
-  @Output() valueChange: EventEmitter<FlUser> = new EventEmitter();
+  @Output() valueChange: EventEmitter<FlUser | null> = new EventEmitter();
 
-  selectedUser: FlUser | Observable<FlUser>;
+  selectedUser: FlUser | Observable<FlUser> | null;
 
   usersDatasource: FlDatasourcePaginated<FlUser, FlInputSearchFilter>;
 
@@ -42,14 +50,14 @@ export class FlSelectUserComponent extends FlFormFieldDirective<FlUser> implemen
     this.usersDatasource = this.userConfig.getSearchByNamesDatasource(this.mode);
   }
 
-  callChangeEvent(value: FlUser): void {
+  callChangeEvent(value: FlUser | null): void {
     this.valueChange.emit(value);
     this.selectedUser = value;
   }
 
   onDisableChange(): void {}
 
-  writeValue(obj: FlUser): void {
+  writeValue(obj: FlUser | null): void {
     if (obj == null || obj.id == null) {
       this.selectedUser = null;
       this.value = null;
@@ -66,7 +74,7 @@ export class FlSelectUserComponent extends FlFormFieldDirective<FlUser> implemen
     this.value = obj;
   }
 
-  onFocused(selectedUser?: FlUser): void {
+  onFocused(selectedUser?: FlUser | null): void {
     // by default add the current user and selected user
     const users: FlUser[] = [];
     if (selectedUser) {

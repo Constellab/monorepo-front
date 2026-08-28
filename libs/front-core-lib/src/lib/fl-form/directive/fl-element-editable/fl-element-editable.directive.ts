@@ -47,18 +47,18 @@ export class FlElementEditableDirective {
 
   @Input() flIgnoreEnterKey: boolean = false;
 
-  @Input() flElementValue: string = null;
+  @Input() flElementValue: string | null = null;
 
-  @Input() maxLength: number = null;
+  @Input() maxLength: number | null = null;
 
-  @Input() minLength: number = null;
+  @Input() minLength: number | null = null;
 
   /**
    * Event triggered on blur event with the new text value
    */
   @Output() flElementValueChange: EventEmitter<string> = new EventEmitter<string>();
 
-  private mouseDownTime: DateTime;
+  private mouseDownTime: DateTime | null;
 
   private readonly mouseDownThreshold: number = 200;
 
@@ -72,8 +72,10 @@ export class FlElementEditableDirective {
   // only trigger when click down last for less than 500ms
   @HostListener('mouseup') onMouseUp(): void {
     if (this.flElementDisabled || !this.flElementIgnoreDrag) return;
+    const mouseDownTime = this.mouseDownTime;
+    if (mouseDownTime == null) return;
     const mouseUpTime = ClDateHelper.getDate();
-    const diff = mouseUpTime.diff(this.mouseDownTime, 'milliseconds').milliseconds;
+    const diff = mouseUpTime.diff(mouseDownTime, 'milliseconds').milliseconds;
     if (diff < this.mouseDownThreshold) {
       this.setEditable();
     }

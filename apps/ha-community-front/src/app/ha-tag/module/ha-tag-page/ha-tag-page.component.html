@@ -1,5 +1,5 @@
 <ha-page
-  [pageTitle]="tagKey?.label ?? tempTitle"
+  [pageTitle]="tagKey.label"
   [showPageDescription]="false"
   [isLoading]="isLoading"
   [notFound]="notFound">
@@ -9,10 +9,10 @@
         <ha-entity-page-info
           [entityId]="tagKey.id"
           [entityType]="entityType"
-          [contributors]="[tagKey.createdBy]"
+          [contributors]="tagKey.createdBy ? [tagKey.createdBy] : []"
           [date]="tagKey.createdAt"
           [space]="tagKey.space"
-          [isAuthor]="tagKey.createdBy.id === user()?.id"
+          [isAuthor]="tagKey.createdBy?.id === user()?.id"
           [showCoAuthorsButton]="false">
           @if (canEditTag) {
             <div class="entity-page-info-div">
@@ -22,7 +22,7 @@
                   {{ 'edit_tag' | translate }}
                 </button>
 
-                @if (tagKey.createdBy.id === user()?.id) {
+                @if (tagKey.createdBy?.id === user()?.id) {
                   <button
                     mat-icon-button
                     (click)="openConfirmDeleteTagKeyDialog()"

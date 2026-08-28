@@ -1,4 +1,13 @@
-import { ChangeDetectionStrategy,Component, EventEmitter, inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -95,17 +104,17 @@ export class LiResourceSearchComponent implements OnInit, OnDestroy {
    * Use to add custom searches in the list of saved search. If one of them is the default one,
    * it overrides the other default.
    */
-  @Input() customSavedSearches: FlSavedSearch[] = null;
+  @Input() customSavedSearches: FlSavedSearch[] | null | undefined = null;
 
   /**
    * Use to set default filters in the search, those filters are not modifiable by the user.
    */
-  @Input() defaultFilters: LiResourceSearchFields = null;
+  @Input() defaultFilters: LiResourceSearchFields | null | undefined = null;
 
   /**
    * Use to disable some fields in the advanced search form.
    */
-  @Input() disabledFilters: LiResourceSearchFieldsDisabled = null;
+  @Input() disabledFilters: LiResourceSearchFieldsDisabled | null | undefined = null;
 
   @Output() resourceSelected: EventEmitter<LiResource> = new EventEmitter<LiResource>();
 
@@ -206,14 +215,18 @@ export class LiResourceSearchComponent implements OnInit, OnDestroy {
   //////////////////////////// FILE ///////////////////////
 
   onFileDrop(event: FlDropEvent): void {
-    const items = event.event.dataTransfer.items;
+    const items = event.event.dataTransfer?.items;
+    if (items == null) return;
+
     for (let i = 0; i < items.length; i++) {
       const entry = items[i].webkitGetAsEntry();
-      if (entry.isDirectory) {
+      if (entry?.isDirectory) {
         this.snackBarService.openErrorMessage('li.drop_folder_error');
         return;
       }
     }
+
+    if (event.files == null) return;
     this.openUploadFiles(event.files);
   }
 
@@ -332,14 +345,15 @@ export class LiResourceSearchComponent implements OnInit, OnDestroy {
 
   private savedSearches(): FlSavedSearch[] {
     const savedSearchCloned: FlSavedSearch[] = ClHelpService.deepClone(this.getSavedSearch());
-    if (this.customSavedSearches?.length > 0) {
+    const customSavedSearches = this.customSavedSearches;
+    if (customSavedSearches != null && customSavedSearches.length > 0) {
       // if one of the custom saved search is the default one, we override the default
-      if (this.customSavedSearches.some((search) => search.default)) {
+      if (customSavedSearches.some((search) => search.default)) {
         savedSearchCloned.forEach((search) => (search.default = false));
       }
 
       // add the custom search to the list
-      savedSearchCloned.unshift(...this.customSavedSearches);
+      savedSearchCloned.unshift(...customSavedSearches);
     }
 
     return savedSearchCloned;

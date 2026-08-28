@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogContent, MatDialogRef } from '@angular/material/dialog';
@@ -59,6 +59,8 @@ export class LiLabRegistrationDialogComponent {
   }
 
   copyUrl(): void {
+    if (this.generatedUrl == null) return;
+
     this.clipboardService.copy(this.generatedUrl, {
       text: 'li.lab_url_copied',
       translateText: true,

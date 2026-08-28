@@ -170,6 +170,7 @@ export class LabResourceViewModuleConfig extends RvResourceViewModuleConfig {
     return {
       ...RV_DEFAULT_VIEW_TYPE_INFOS,
       view: {
+        // the 'view' type is resolved dynamically elsewhere, so it has no component
         viewComponent: null,
       },
       'resources-list-view': {

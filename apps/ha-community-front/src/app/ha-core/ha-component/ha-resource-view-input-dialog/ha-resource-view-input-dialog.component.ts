@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlInputFileModule } from '@monorepo/front-core-lib/fl-input-file';
@@ -54,7 +54,7 @@ export class HaResourceViewInputDialogComponent {
       const fileReader = new FileReader();
       fileReader.onload = (event) => {
         try {
-          resolve(JSON.parse(event.target.result as string));
+          resolve(JSON.parse((event.target as FileReader | null)?.result as string));
         } catch (e) {
           reject(e);
         }

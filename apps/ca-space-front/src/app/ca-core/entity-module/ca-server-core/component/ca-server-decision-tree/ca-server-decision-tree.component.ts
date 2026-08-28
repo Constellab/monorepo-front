@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
 import { MatRadioButton, MatRadioChange, MatRadioGroup } from '@angular/material/radio';
 import { FlRadioButtonBigModule } from '@monorepo/front-core-lib/fl-radio-button-big';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
@@ -65,7 +65,7 @@ export class CaServerDecisionTreeComponent implements OnInit {
     if (option.suggestedServerNames) {
       this.standardServerChanged.emit(option.suggestedServerNames);
     } else {
-      this.standardServerChanged.emit(null);
+      this.standardServerChanged.emit();
 
       // add the next level
       const nextOptions = this.getFlatOptionsByParentId(option.id);

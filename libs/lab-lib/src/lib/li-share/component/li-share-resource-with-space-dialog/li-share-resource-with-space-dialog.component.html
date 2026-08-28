@@ -13,7 +13,7 @@
       <div class="g-text-big folder-title">{{ 'li.select_folder' | translate }}</div>
       <fl-form-field>
         <li-folder-inline-select formControlName="folder"></li-folder-inline-select>
-        @if (formGp.get('folder').hasError('required')) {
+        @if (formGp.get('folder')?.hasError('required')) {
           <mat-error>{{ 'li.folder' | flErrorRequired }}</mat-error>
         }
       </fl-form-field>

@@ -11,16 +11,13 @@ import { HaRouterService } from '../../../ha-service/ha-router.service';
 
 @Pipe({ name: 'haDetailRoute' })
 export class HaDetailRoutePipe implements PipeTransform {
-  transform(value: any): string {
+  transform(value: any): string | null {
     if (value instanceof HaStory || value instanceof HaListStoryDto) {
-      if (value.publishedAt == null) {
-        return HaRouterService.getStoryEditRoute(value.id);
-      }
-      return HaRouterService.getStoryRoute(value.id, value.titlePath);
+      return HaDetailRoutePipe.getStoryRoute(value);
     }
 
     if (value instanceof HaAgent) {
-      return HaRouterService.getAgentRoute(value.id, ClStringHelper.getCleanUrlPath(value.title));
+      return HaRouterService.getAgentRoute(value.id, HaDetailRoutePipe.getUrlPath(value.title));
     }
 
     if (value instanceof HaBrick) {
@@ -28,17 +25,31 @@ export class HaDetailRoutePipe implements PipeTransform {
     }
 
     if (value instanceof HaCommunityApp) {
-      return HaRouterService.getCommunityAppRoute(value.id, ClStringHelper.getCleanUrlPath(value.title));
+      return HaRouterService.getCommunityAppRoute(value.id, HaDetailRoutePipe.getUrlPath(value.title));
     }
 
     if (value instanceof HaTagKey) {
-      return HaRouterService.getTagPageRoute(value.id, ClStringHelper.getCleanUrlPath(value.technicalName));
+      return HaRouterService.getTagPageRoute(value.id, HaDetailRoutePipe.getUrlPath(value.technicalName));
     }
 
     if (value instanceof HaPartner) {
-      return HaRouterService.getPartnerPage(value.id, ClStringHelper.getCleanUrlPath(value.name));
+      return HaRouterService.getPartnerPage(value.id, HaDetailRoutePipe.getUrlPath(value.name));
     }
 
     return null;
+  }
+
+  /**
+   * An unpublished story has no public route yet, so it points at its edit page.
+   */
+  private static getStoryRoute(story: HaStory | HaListStoryDto): string {
+    if (story.publishedAt == null) {
+      return HaRouterService.getStoryEditRoute(story.id);
+    }
+    return HaRouterService.getStoryRoute(story.id, story.titlePath ?? '');
+  }
+
+  private static getUrlPath(value: string): string {
+    return ClStringHelper.getCleanUrlPath(value) ?? '';
   }
 }

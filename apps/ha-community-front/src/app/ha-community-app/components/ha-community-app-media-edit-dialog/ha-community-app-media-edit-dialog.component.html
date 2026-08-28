@@ -12,41 +12,48 @@
         [formControl]="videoUrlFormControl()"
         tabindex="0" />
     </mat-form-field>
-    @if (videoUrlFormControl().value !== app().video) {
-      <button mat-icon-button (click)="saveVideo()" [matTooltip]="'save' | translate">
-        <mat-icon>save</mat-icon>
-      </button>
+    @if (app(); as communityApp) {
+      @if (videoUrlFormControl().value !== communityApp.video) {
+        <button mat-icon-button (click)="saveVideo()" [matTooltip]="'save' | translate">
+          <mat-icon>save</mat-icon>
+        </button>
+      }
     }
   </div>
 
-  <div>
-    <div class="g-large-text">
-      {{ 'images' | translate }}
-      <span class="g-text-small">({{ 'recommended_dimension' | translate }} : 16/9)</span>
+  @if (app(); as communityApp) {
+    <div>
+      <div class="g-large-text">
+        {{ 'images' | translate }}
+        <span class="g-text-small">({{ 'recommended_dimension' | translate }} : 16/9)</span>
+      </div>
+      <div class="media-figures-div">
+        @for (figure of communityApp.figures; track figure; let i = $index) {
+          <fl-update-image-container
+            [uploadConfig]="getImageConfig(figure)"
+            [deleteConfig]="getDeleteImageConfig(figure)"
+            [additionalActions]="getReorderActions(i)"
+            [matTooltip]="'replace_delete_image' | translate">
+            <div class="figure-div">
+              <img
+                [src]="figure | haAppPicture"
+                class="figure"
+                [alt]="communityApp.title + ' media preview'" />
+            </div>
+          </fl-update-image-container>
+        }
+        @if ((communityApp.figures?.length ?? 0) < 5) {
+          <fl-update-image-container
+            [uploadConfig]="getImageConfig()"
+            [showDelete]="false"
+            [showEditIcon]="false"
+            [matTooltip]="'add_image' | translate">
+            <div class="figure-div add-image-div">
+              <mat-icon class="image-placeholder"> add_a_photo </mat-icon>
+            </div>
+          </fl-update-image-container>
+        }
+      </div>
     </div>
-    <div class="media-figures-div">
-      @for (figure of this.app().figures; track figure; let i = $index) {
-        <fl-update-image-container
-          [uploadConfig]="getImageConfig(figure)"
-          [deleteConfig]="getDeleteImageConfig(figure)"
-          [additionalActions]="getReorderActions(i)"
-          [matTooltip]="'replace_delete_image' | translate">
-          <div class="figure-div">
-            <img [src]="figure | haAppPicture" class="figure" [alt]="(app().title ?? '') + ' media preview'" />
-          </div>
-        </fl-update-image-container>
-      }
-      @if (this.app().figures?.length < 5) {
-        <fl-update-image-container
-          [uploadConfig]="getImageConfig()"
-          [showDelete]="false"
-          [showEditIcon]="false"
-          [matTooltip]="'add_image' | translate">
-          <div class="figure-div add-image-div">
-            <mat-icon class="image-placeholder"> add_a_photo </mat-icon>
-          </div>
-        </fl-update-image-container>
-      }
-    </div>
-  </div>
+  }
 </mat-dialog-content>

@@ -13,12 +13,12 @@
         required
         type="number"
         [placeholder]="'storage_limit' | translate" />
-      @if (formGp.get('limit').hasError('required')) {
+      @if (formGp.get('limit')?.hasError('required')) {
         <mat-error>{{ 'storage_limit' | flErrorRequired }}</mat-error>
       }
 
       <mat-hint>
-        {{ formGp.get('limit').value | flByteText }}
+        {{ formGp.get('limit')?.value | flByteText }}
       </mat-hint>
     </mat-form-field>
   </form>

@@ -63,9 +63,9 @@ export class FlResizeDirective implements OnInit, OnDestroy {
   // if the current resizing is width or height
   private currentResizeMode: FlResizeMode;
   // pos of the mouse on mouseDown event relative to current mode
-  private baseEventPos: FlCoord;
+  private baseEventPos: FlCoord | null;
   // size of the host on mouse down event  relative to current mode
-  private baseHostSize: FlCoord;
+  private baseHostSize: FlCoord | null;
 
   private resizerDivs: HTMLElement[] = [];
 
@@ -197,19 +197,23 @@ export class FlResizeDirective implements OnInit, OnDestroy {
   }
 
   private onMouseMove(event: MouseEvent): void {
-    const newHeight: number = this.baseHostSize.y + event.pageY - this.baseEventPos.y;
+    const baseEventPos = this.baseEventPos;
+    const baseHostSize = this.baseHostSize;
+    if (baseEventPos == null || baseHostSize == null) return;
+
+    const newHeight: number = baseHostSize.y + event.pageY - baseEventPos.y;
 
     let newWidth: number;
 
     if (this.currentResizeMode === 'bothKeepRatio') {
       // get ratio of the image
-      const ratio = this.baseHostSize.x / this.baseHostSize.y;
+      const ratio = baseHostSize.x / baseHostSize.y;
 
       // calculate width automatically bases on height and ratio
       newWidth = newHeight * ratio;
     } else {
       // calculate width base on mouse position
-      newWidth = this.baseHostSize.x + event.pageX - this.baseEventPos.x;
+      newWidth = baseHostSize.x + event.pageX - baseEventPos.x;
     }
 
     this.updateSize(newWidth, newHeight, this.currentResizeMode);

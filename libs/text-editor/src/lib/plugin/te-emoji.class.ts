@@ -46,10 +46,10 @@ export class TeEmoji extends TePortalPlugin {
     if (emoji) {
       // replace the search text with the emoji
       const positions = this.keyListener.getSearchTextPosition();
+      const textContent = this.textNode.textContent;
+      if (textContent == null) return;
       this.textNode.textContent =
-        this.textNode.textContent.slice(0, positions.start) +
-        emoji +
-        this.textNode.textContent.slice(positions.end);
+        textContent.slice(0, positions.start) + emoji + textContent.slice(positions.end);
 
       // move the caret just after the emoji
       // +2 otherwise the cursor seems to be inside the emoji
@@ -57,7 +57,7 @@ export class TeEmoji extends TePortalPlugin {
     }
   }
 
-  protected openPortal(): FlOverlayRef {
+  protected openPortal(): FlOverlayRef | null {
     const input: FlEmojiPickerPortalInput = {
       filter: this.keyListener.getText$(),
       element: this.event.target as any,
@@ -69,6 +69,8 @@ export class TeEmoji extends TePortalPlugin {
       FlEmojiPickerPortalComponent.PORTAL_MAX_WIDTH,
       FlEmojiPickerPortalComponent.PORTAL_MAX_HEIGHT
     );
+    if (!portalPosition) return null;
+
     const config = portalService.configureAbsolutePortal(portalPosition, {
       disposeOnOutsideClick: true,
       disposeOnNavigation: true,

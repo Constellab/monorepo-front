@@ -10,7 +10,7 @@ import { BnBioNetworkLinkHelper } from '../utils/bn-bio-network-link.helper';
   standalone: false,
 })
 export class BnBioNetworkLinkPipe implements PipeTransform {
-  transform(value: string, type: 'rhea' | 'chebi' | 'brenda'): string {
+  transform(value: string, type: 'rhea' | 'chebi' | 'brenda'): string | null {
     if (!value) return null;
 
     switch (type) {

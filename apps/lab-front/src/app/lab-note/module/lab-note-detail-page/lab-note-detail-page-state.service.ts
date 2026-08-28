@@ -1,4 +1,4 @@
-import { inject,Injectable, OnDestroy } from '@angular/core';
+import { inject, Injectable, OnDestroy } from '@angular/core';
 import { LiNote, LiNoteService } from '@monorepo/lab-lib/li-core';
 import { TeRichText } from '@monorepo/text-editor';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -8,8 +8,8 @@ import { filter } from 'rxjs/operators';
 export class LabNoteDetailPageState implements OnDestroy {
   private noteService = inject(LiNoteService);
 
-  private note$: BehaviorSubject<LiNote> = new BehaviorSubject(null);
-  private noteContent$: BehaviorSubject<TeRichText> = new BehaviorSubject(null);
+  private note$: BehaviorSubject<LiNote | null> = new BehaviorSubject<LiNote | null>(null);
+  private noteContent$: BehaviorSubject<TeRichText | null> = new BehaviorSubject<TeRichText | null>(null);
 
   public init(noteId: string): void {
     this.noteService.getNote(noteId).subscribe({
@@ -24,15 +24,19 @@ export class LabNoteDetailPageState implements OnDestroy {
   }
 
   public get currentNote(): LiNote {
-    return this.note$.value;
+    const note = this.note$.value;
+    if (note == null) {
+      throw new Error('Note not loaded');
+    }
+    return note;
   }
 
   public getNote$(): Observable<LiNote> {
-    return this.note$.asObservable().pipe(filter((note) => note != null));
+    return this.note$.asObservable().pipe(filter((note): note is LiNote => note != null));
   }
 
   public getContent$(): Observable<TeRichText> {
-    return this.noteContent$.asObservable().pipe(filter((note) => note != null));
+    return this.noteContent$.asObservable().pipe(filter((note): note is TeRichText => note != null));
   }
 
   public updateNote(note: LiNote): void {

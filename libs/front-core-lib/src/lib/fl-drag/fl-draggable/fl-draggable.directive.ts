@@ -45,7 +45,7 @@ export class FlDraggableDirective implements OnInit {
 
     this.flDragStart.emit(event);
 
-    if (this.flDraggableGhostElement) {
+    if (this.flDraggableGhostElement && event.dataTransfer) {
       event.dataTransfer.setDragImage(this.flDraggableGhostElement, 0, 0);
     }
   }

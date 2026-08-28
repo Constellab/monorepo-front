@@ -24,7 +24,7 @@ export class FlPortalActionsService {
   private platformId = inject(PLATFORM_ID);
 
   //provided if a portal is currently opened
-  private currentOverlay: FlOverlayRef = null;
+  private currentOverlay: FlOverlayRef | null = null;
 
   private autoCloseDelay: number = 3000;
   private autoCloseTimer: any = null;
@@ -63,7 +63,7 @@ export class FlPortalActionsService {
   public addAction<T>(
     action: FlPortalAction<T>,
     openPortal: boolean = true
-  ): Observable<FlPortalActionResult<T>> {
+  ): Observable<FlPortalActionResult<T>> | null {
     if (action == null) return null;
     // clear the auto close timer if it exists
     this.clearAutoCloseTimer();

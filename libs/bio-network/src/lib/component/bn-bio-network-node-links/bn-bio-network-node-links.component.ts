@@ -4,7 +4,7 @@ import { FlExternalLinkService } from '@monorepo/front-core-lib/fl-core';
 import { BnBioNetworkNode } from '../../model/bn-bio-network-node.class';
 
 interface Link {
-  link: string;
+  link: string | null;
   name: string;
 }
 

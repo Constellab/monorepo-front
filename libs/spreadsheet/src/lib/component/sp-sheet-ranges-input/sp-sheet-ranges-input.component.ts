@@ -11,8 +11,8 @@ import { SpSpreadsheetChartSelectionHelper } from '../../utils/sp-spreadsheet-ch
 
 interface SpSpreadsheetRangeForm {
   type: 'range' | 'columns';
-  rangeSelection?: string;
-  columnsSelection?: string[];
+  rangeSelection?: string | null;
+  columnsSelection?: string[] | null;
 }
 
 /**
@@ -30,7 +30,7 @@ interface SpSpreadsheetRangeForm {
   standalone: false,
 })
 export class SpSheetRangesInputComponent
-  extends FlFormFieldDirective<SpSpreadsheetRangeForm, SpSheetSelectionRange>
+  extends FlFormFieldDirective<SpSpreadsheetRangeForm | null, SpSheetSelectionRange | null>
   implements OnInit, OnDestroy
 {
   private state = inject(SpSpreadsheetState);
@@ -43,7 +43,7 @@ export class SpSheetRangesInputComponent
 
   @Input() rangeMode: 'single' | 'multi' = 'multi';
 
-  @Output() selectionChange: EventEmitter<SpSheetSelectionRange> = new EventEmitter();
+  @Output() selectionChange: EventEmitter<SpSheetSelectionRange | null> = new EventEmitter();
 
   formGp: UntypedFormGroup;
 
@@ -89,19 +89,20 @@ export class SpSheetRangesInputComponent
     }
   }
 
-  callChangeEvent(value: SpSheetSelectionRange): void {
+  callChangeEvent(value: SpSheetSelectionRange | null): void {
     this.selectionChange.next(value);
   }
 
   onDisableChange(): void {}
 
-  writeValue(obj: SpSheetSelectionRange): void {
+  writeValue(obj: SpSheetSelectionRange | null): void {
     this.value = this.convertOuterToInner(obj);
 
     if (!obj) return;
 
-    if (this.formGp) {
-      this.formGp.patchValue(this.value);
+    const value = this.value;
+    if (this.formGp && value != null) {
+      this.formGp.patchValue(value);
     }
   }
 
@@ -109,7 +110,7 @@ export class SpSheetRangesInputComponent
     return this.formGp.value.type;
   }
 
-  protected convertOuterToInner(outerValue: SpSheetSelectionRange): SpSpreadsheetRangeForm {
+  protected convertOuterToInner(outerValue: SpSheetSelectionRange | null): SpSpreadsheetRangeForm | null {
     if (!outerValue) return null;
 
     if (outerValue.type === 'range') {
@@ -128,11 +129,12 @@ export class SpSheetRangesInputComponent
     }
   }
 
-  protected convertInnerToOuter(innerValue: SpSpreadsheetRangeForm): SpSheetSelectionRange {
+  protected convertInnerToOuter(innerValue: SpSpreadsheetRangeForm | null): SpSheetSelectionRange | null {
     if (!innerValue || this.formGp.invalid) return null;
 
     if (innerValue.type === 'range') {
-      if (!innerValue.rangeSelection || this.formGp.get('rangeSelection').invalid) return null;
+      const rangeControl = this.formGp.get('rangeSelection');
+      if (!innerValue.rangeSelection || rangeControl == null || rangeControl.invalid) return null;
       const multipleRange = SpCellsMultipleRange.fromString(innerValue.rangeSelection);
       return {
         type: 'range',
@@ -147,7 +149,7 @@ export class SpSheetRangesInputComponent
     }
   }
 
-  onNewSelection(selection: SpSheetSingleSelection): void {
+  onNewSelection(selection: SpSheetSingleSelection | null): void {
     if (selection == null) return;
 
     this.writeValue(selection.toSpSheetSelectionRange());

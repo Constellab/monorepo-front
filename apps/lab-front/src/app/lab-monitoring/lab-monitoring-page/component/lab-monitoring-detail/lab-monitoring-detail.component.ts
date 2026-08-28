@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -14,7 +14,7 @@ import { LiMonitorGraphicsBetweenDates, LiMonitorService } from '@monorepo/lab-l
 import { LiMonitorBetweenDatesComponent } from '@monorepo/lab-lib/li-monitor';
 import { TranslatePipe } from '@ngx-translate/core';
 import { DateTime } from 'luxon';
-import { debounceTime,Observable, Subscription } from 'rxjs';
+import { debounceTime, Observable, Subscription } from 'rxjs';
 
 export enum LabMonitoringRunPeriod {
   CURRENT_DAY = 'CURRENT_DAY',
@@ -54,8 +54,8 @@ export class LabMonitoringDetailComponent implements OnInit, OnDestroy {
 
   formGroup = new FormBuilder().group({
     period: [LabMonitoringRunPeriod.CURRENT_DAY, Validators.required],
-    customStartDate: [null as DateTime],
-    customEndDate: [null as DateTime],
+    customStartDate: [null as DateTime | null],
+    customEndDate: [null as DateTime | null],
   });
   customPeriod: LabMonitoringRunPeriod = LabMonitoringRunPeriod.CUSTOM;
 
@@ -74,13 +74,13 @@ export class LabMonitoringDetailComponent implements OnInit, OnDestroy {
   }
 
   private updateMonitor(
-    period: LabMonitoringRunPeriod,
-    customStartDate?: DateTime,
-    customEndDate?: DateTime
+    period: LabMonitoringRunPeriod | null | undefined,
+    customStartDate?: DateTime | null,
+    customEndDate?: DateTime | null
   ): void {
     if (this.formGroup.invalid) return;
-    let fromDate = null;
-    let toDate = null;
+    let fromDate: DateTime | null = null;
+    let toDate: DateTime | null = null;
 
     switch (period) {
       case LabMonitoringRunPeriod.CURRENT_DAY:
@@ -100,8 +100,8 @@ export class LabMonitoringDetailComponent implements OnInit, OnDestroy {
         toDate = ClDateHelper.getDate();
         break;
       case LabMonitoringRunPeriod.CUSTOM:
-        fromDate = customStartDate;
-        toDate = customEndDate;
+        fromDate = customStartDate ?? null;
+        toDate = customEndDate ?? null;
         break;
     }
 

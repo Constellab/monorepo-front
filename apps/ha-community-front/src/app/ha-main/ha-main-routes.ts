@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 
 import { HA_ADMIN_ROUTES } from '../ha-admin/ha-admin-routes';
 import { HA_AGENT_ROUTES } from '../ha-agent/ha-agent-routes';
+import { HA_AI_INTEGRATION_ROUTES } from '../ha-ai-integration/ha-ai-integration-routes';
 import { HA_BRICK_ROUTES } from '../ha-brick/ha-brick-routes';
 import { HA_COMMUNITY_APP_ROUTES } from '../ha-community-app/ha-community-app-routes';
 import { HA_PARTNER_ROUTES } from '../ha-partner/ha-partner-routes';
@@ -77,6 +78,11 @@ export const haMainRoutes: Routes = [
     path: 'tags',
     loadComponent: () => import('./ha-main/ha-main.component').then((m) => m.HaMainComponent),
     children: HA_TAG_ROUTES,
+  },
+  {
+    path: 'ai-integration',
+    loadComponent: () => import('./ha-main/ha-main.component').then((m) => m.HaMainComponent),
+    children: HA_AI_INTEGRATION_ROUTES,
   },
   {
     path: 'login',

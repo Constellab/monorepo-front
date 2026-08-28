@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatOption } from '@angular/material/core';
@@ -48,7 +48,7 @@ export class LabBrickCallMigrationDialogComponent implements OnInit {
 
   brickMigrations$: Observable<LiBrickMigration[]>;
 
-  formControl: FormControl<LiBrickMigration>;
+  formControl: FormControl<LiBrickMigration | null>;
 
   isLoading: boolean = false;
 
@@ -62,8 +62,9 @@ export class LabBrickCallMigrationDialogComponent implements OnInit {
   }
 
   submit(): void {
-    if (!this.isLoading && this.formControl.valid) {
-      this.callMigration(this.formControl.value);
+    const migration = this.formControl.value;
+    if (!this.isLoading && this.formControl.valid && migration != null) {
+      this.callMigration(migration);
     }
   }
 

@@ -25,10 +25,10 @@ export class TeDragBlockTune implements BlockTune {
 
     // no drag image
     button.addEventListener('dragstart', (event) => {
-      event.dataTransfer.setDragImage(new Image(), 0, 0);
+      event.dataTransfer?.setDragImage(new Image(), 0, 0);
     });
 
-    let blockId: string;
+    let blockId: string | null;
 
     // while dragging get the text editor drop target block id
     button.addEventListener('drag', () => {

@@ -124,7 +124,7 @@ export class CaFolderActionsMenu extends CaHierarchyObjectBaseActionMenu {
       .subscribe((folder) => this.updateDialogClosed(folder));
   }
 
-  private updateDialogClosed(folder?: CaFolderWithHierarchy): void {
+  private updateDialogClosed(folder?: CaFolderWithHierarchy | null): void {
     if (folder) {
       this.subject.next({
         action: 'update',
@@ -141,7 +141,7 @@ export class CaFolderActionsMenu extends CaHierarchyObjectBaseActionMenu {
       .subscribe((folder) => this.createChildSuccess(folder));
   }
 
-  private createChildSuccess(folder?: CaFolderWithHierarchy): void {
+  private createChildSuccess(folder?: CaFolderWithHierarchy | null): void {
     if (folder) {
       this.subject.next({
         action: 'createChild',

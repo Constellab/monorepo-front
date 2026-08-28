@@ -10,7 +10,8 @@ import {
   Output,
   TemplateRef,
   ViewChild,
-  ViewContainerRef} from '@angular/core';
+  ViewContainerRef,
+} from '@angular/core';
 import { FormsModule, NgControl, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -65,9 +66,9 @@ export class CaUserListInlineComponent
   private portalService = inject(FlPortalService);
   private viewContainerRef = inject(ViewContainerRef);
 
-  @Input() users$: Observable<CaUser[]>;
+  @Input() users$: Observable<CaUser[]> | undefined;
 
-  @Input() userDatasource: CaUserDatasourcePaginated;
+  @Input() userDatasource: CaUserDatasourcePaginated | null;
 
   @Input() previewListSize: number = 6;
 
@@ -79,7 +80,7 @@ export class CaUserListInlineComponent
 
   // use to store the selected user before the user list is loaded
   private tempSelectedUser: CaUser[] = [];
-  private additionalOverlay: FlOverlayRef;
+  private additionalOverlay: FlOverlayRef | null;
 
   private subscription: Subscription;
 
@@ -92,7 +93,7 @@ export class CaUserListInlineComponent
   ngOnInit(): void {
     if (this.userDatasource) {
       this.subscription = this.userDatasource.connect().subscribe((users) => this.onUserLoaded(users));
-    } else {
+    } else if (this.users$) {
       this.subscription = this.users$.subscribe((users) => this.onUserLoaded(users));
     }
   }
@@ -106,7 +107,7 @@ export class CaUserListInlineComponent
 
     // calculate the number of additional user
     if (this.userDatasource) {
-      this.additionalUserLength = this.userDatasource.page.totalElements - this.previewListSize;
+      this.additionalUserLength = (this.userDatasource.page?.totalElements ?? 0) - this.previewListSize;
     } else {
       this.additionalUserLength = this.value.additionalUsers.length;
     }

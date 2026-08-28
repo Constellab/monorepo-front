@@ -9,7 +9,9 @@
   <fl-card-body>
     <fl-section [object]="brickVersions()" [isLoading]="getIsLoading()">
       <ng-container *flSectionBody>
-        <lml-bricks-config-form [brickVersions]="brickVersions()"></lml-bricks-config-form>
+        @if (brickVersions(); as brickVersionsDatasource) {
+          <lml-bricks-config-form [brickVersions]="brickVersionsDatasource"></lml-bricks-config-form>
+        }
       </ng-container>
     </fl-section>
   </fl-card-body>

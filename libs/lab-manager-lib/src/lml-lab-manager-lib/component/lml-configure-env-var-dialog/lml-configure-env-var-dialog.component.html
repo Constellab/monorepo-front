@@ -11,10 +11,10 @@
     <mat-form-field class="g-form-input">
       <mat-label>{{ 'lml.custom_env_key' | translate }}</mat-label>
       <input matInput formControlName="key" placeholder="MY_VARIABLE" />
-      @if (formGp.get('key').hasError('required')) {
+      @if (formGp.get('key')?.hasError('required')) {
         <mat-error>{{ 'lml.custom_env_key' | flErrorRequired }}</mat-error>
       }
-      @if (formGp.get('key').hasError('pattern')) {
+      @if (formGp.get('key')?.hasError('pattern')) {
         <mat-error>{{ 'lml.custom_env_key_invalid' | translate }}</mat-error>
       }
     </mat-form-field>

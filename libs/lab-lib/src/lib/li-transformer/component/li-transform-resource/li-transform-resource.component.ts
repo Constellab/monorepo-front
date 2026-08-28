@@ -1,8 +1,7 @@
 import { CdkDrag, CdkDragDrop, CdkDragHandle, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
-import { ChangeDetectionStrategy,ChangeDetectorRef, Component, inject, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, Input, OnInit } from '@angular/core';
 import {
   ControlContainer,
-  FormArray,
   FormBuilder,
   FormControl,
   FormGroup,
@@ -97,7 +96,7 @@ export class LiTransformResourceComponent implements OnInit {
     transformers: LiTransformerWithConfig[] = [],
     arrayMinLength: number = 0
   ): UntypedFormArray {
-    const formArray = new FormArray([], FlGlobalValidators.arrayMinLength(arrayMinLength));
+    const formArray = new UntypedFormArray([], FlGlobalValidators.arrayMinLength(arrayMinLength));
     for (const transformer of transformers) {
       formArray.push(this.buildFormGroup(transformer));
     }

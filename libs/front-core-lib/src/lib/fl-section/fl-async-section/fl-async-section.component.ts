@@ -75,7 +75,7 @@ export class FlAsyncSectionComponent<T> implements OnDestroy {
    * Show if the observable end up in error and the errorText is defined
    * The text is translated
    */
-  @Input() errorText: string = null;
+  @Input() errorText: string | null = null;
 
   /**
    * If true, the null, undefined or empty array result is considered as a valid value

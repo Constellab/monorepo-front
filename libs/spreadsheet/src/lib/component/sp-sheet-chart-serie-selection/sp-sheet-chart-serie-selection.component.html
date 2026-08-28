@@ -13,7 +13,7 @@
           formControlName="name"
           required
           placeholder="{{ 'spSpreadsheet.serie_name' | translate }}" />
-        @if (formGp.get('name').hasError('required')) {
+        @if (formGp.get('name')?.hasError('required')) {
           <mat-error>{{ 'spSpreadsheet.serie_name' | flErrorRequired }}</mat-error>
         }
       </mat-form-field>
@@ -23,7 +23,7 @@
         <sp-sheet-ranges-input
           formControlName="x"
           selectionListenerGroup="sheet-chart"
-          [rangeMode]="input.xSelectionMode"
+          [rangeMode]="input.xSelectionMode ?? 'multi'"
           [placeholder]="'spSpreadsheet.chart_serie_selection_x' | translate"></sp-sheet-ranges-input>
       }
 

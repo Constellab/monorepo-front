@@ -3,9 +3,11 @@
 }
 
 .sidenav {
-  top: var(--main-menu-margin) !important;
-  bottom: var(--main-menu-margin) !important;
-  border-radius: 0 var(--card-radius) var(--card-radius) 0;
+  top: 0 !important;
+  bottom: 0 !important;
+  background-color: var(--card-background);
+  border-radius: 0;
+  border-right: 1px solid var(--hover-color);
 }
 
 // set the width of the expanded menu
@@ -103,6 +105,10 @@
 }
 
 .notif-button {
+  margin-bottom: 1em;
+}
+
+.chatbot-button {
   margin-bottom: 1em;
 }
 

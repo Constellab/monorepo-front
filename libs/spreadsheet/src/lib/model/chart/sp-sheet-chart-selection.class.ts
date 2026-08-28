@@ -20,10 +20,13 @@ export abstract class SpSheetChartSelection {
    */
   public abstract exportToChart(): ChChartConfig;
 
-  protected getMultiSelectionFromSelectionRange(selection: SpSheetSelectionRange): SpSheetMultiSelection {
-    return !ClHelpService.isNullOrEmpty(selection)
-      ? SpSheetMultiSelection.fromSelectionRange(this.sheet, selection)
-      : null;
+  protected getMultiSelectionFromSelectionRange(
+    selection: SpSheetSelectionRange | null | undefined
+  ): SpSheetMultiSelection | null {
+    if (selection == null || ClHelpService.isNullOrEmpty(selection)) {
+      return null;
+    }
+    return SpSheetMultiSelection.fromSelectionRange(this.sheet, selection);
   }
 
   /**
@@ -31,7 +34,7 @@ export abstract class SpSheetChartSelection {
    * @param selection
    * @private
    */
-  protected convertSelectionTo2dDatum(selection: SpSheetSelection): ChChart2dDatum[] {
+  protected convertSelectionTo2dDatum(selection: SpSheetSelection | null): ChChart2dDatum[] {
     // create a chart datum for each values
     return this.getSelectionValues(selection).map((value, index) => new ChChart2dDatum(index, value));
   }
@@ -40,8 +43,8 @@ export abstract class SpSheetChartSelection {
    * Convert the selections values to 2d datum with x = xData and y = value as number
    */
   protected convertSelectionTo2dDatumWithXData(
-    xSelection: SpSheetSelection,
-    ySelection: SpSheetSelection
+    xSelection: SpSheetSelection | null,
+    ySelection: SpSheetSelection | null
   ): ChChart2dDatum[] {
     const xValues: number[] = this.getSelectionValues(xSelection);
     const yValues: number[] = this.getSelectionValues(ySelection);
@@ -62,10 +65,12 @@ export abstract class SpSheetChartSelection {
   protected convert2DFormSelectionToChartSerie(
     formSelection: SpSheetChart2dSerieSelectionForm
   ): ChChartSerie<any> {
-    const ySelection: SpSheetSelection = this.getMultiSelectionFromSelectionRange(formSelection.y);
+    const ySelection: SpSheetSelection | null = this.getMultiSelectionFromSelectionRange(formSelection.y);
 
     if (!ClHelpService.isNullOrEmpty(formSelection.x)) {
-      const xSelection: SpSheetSelection = this.getMultiSelectionFromSelectionRange(formSelection.x);
+      const xSelection: SpSheetSelection | null = this.getMultiSelectionFromSelectionRange(
+        formSelection.x
+      );
       return new ChChartSerie<any>(
         this.convertSelectionTo2dDatumWithXData(xSelection, ySelection),
         formSelection.name
@@ -78,10 +83,14 @@ export abstract class SpSheetChartSelection {
   /**
    * return the selection values as numbers, it excludes the value that are not numbers
    */
-  protected getSelectionValues(selection: SpSheetSelection): number[] {
+  protected getSelectionValues(selection: SpSheetSelection | null): number[] {
+    if (selection == null) return [];
+
     const values: any[] = selection.getCellsValuesFlat();
 
     // convert the values to number if possible
-    return values.map((value) => ClNumberHelper.fromString(value));
+    // the cast is needed because the chart datum classes declare x/y as number while they
+    // handle null values (see their 'valid' getter)
+    return values.map((value) => ClNumberHelper.fromString(value) as number);
   }
 }

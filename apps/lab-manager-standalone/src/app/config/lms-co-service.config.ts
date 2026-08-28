@@ -11,7 +11,7 @@ import { LmsEnvironmentHelper } from './lms-environmnet.helper';
 })
 export class LmsCoServiceConfig extends CoConfig {
   getSpacePhotoUrl(): string {
-    return null;
+    throw new Error(`Error: getSpacePhotoUrl() not implemented in LmsCoServiceConfig`);
   }
 
   getCommunityApiUrl(): string {
@@ -23,19 +23,19 @@ export class LmsCoServiceConfig extends CoConfig {
   }
 
   addAdditionalInfoSpec(tagKey: string, specName: string, spec: TdParamSpec): Observable<TdParamSpecs> {
-    return undefined;
+    throw new Error(`Error: addAdditionalInfoSpec() not implemented in LmsCoServiceConfig`);
   }
 
   createTagValue(tagValueEdit: CoTagValueEditDTO): Observable<CoTagValue> {
-    return undefined;
+    throw new Error(`Error: createTagValue() not implemented in LmsCoServiceConfig`);
   }
 
   deleteAdditionalInfoSpec(tagKey: string, specName: string): Observable<TdParamSpecs> {
-    return undefined;
+    throw new Error(`Error: deleteAdditionalInfoSpec() not implemented in LmsCoServiceConfig`);
   }
 
   editAdditionalInfoSpec(tagKey: string, specName: string, spec: TdParamSpec): Observable<TdParamSpecs> {
-    return undefined;
+    throw new Error(`Error: editAdditionalInfoSpec() not implemented in LmsCoServiceConfig`);
   }
 
   renameAndEditAdditionalInfoSpec(
@@ -44,14 +44,14 @@ export class LmsCoServiceConfig extends CoConfig {
     newName: string,
     spec: TdParamSpec
   ): Observable<TdParamSpecs> {
-    return undefined;
+    throw new Error(`Error: renameAndEditAdditionalInfoSpec() not implemented in LmsCoServiceConfig`);
   }
 
   updateTagValue(tagValueEdit: CoTagValueEditDTO): Observable<CoTagValue> {
-    return undefined;
+    throw new Error(`Error: updateTagValue() not implemented in LmsCoServiceConfig`);
   }
 
-  getSpacesOfCurrentUser():Observable<CoSpace[]>{
+  getSpacesOfCurrentUser(): Observable<CoSpace[]> {
     throw new Error(`Error: getSpacesOfCurrentUser() not implemented in LmsCoServiceConfig`);
   }
 }

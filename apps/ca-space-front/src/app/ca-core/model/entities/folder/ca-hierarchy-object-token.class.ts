@@ -17,7 +17,7 @@ export class CaHierarchyObjectToken extends CaBaseEntity {
 
 export class CaHierarchyObjectTokenSaveDTO {
   @ClLuxonDateTransform()
-  expirationDate: DateTime;
+  expirationDate?: DateTime;
 }
 
 export type CaHierarchyObjectTokenDatasource = FlDatasourcePaginated<CaHierarchyObjectToken>;

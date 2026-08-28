@@ -1,0 +1,9 @@
+.command {
+  flex: 1;
+  min-width: 0;
+  padding: 0.5em 0.75em;
+  border-radius: var(--card-radius);
+  background-color: var(--hover-color);
+  white-space: nowrap;
+  overflow-x: auto;
+}

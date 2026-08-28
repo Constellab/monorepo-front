@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 
 import { FlSavedSearch } from '../../model/fl-saved-search.class';
 import { FlSearchState } from '../../model/fl-search.state';
@@ -16,7 +16,7 @@ import { FlSearchState } from '../../model/fl-search.state';
 export class FlSearchSavedListComponent implements OnInit {
   private searchState = inject<FlSearchState<any>>(FlSearchState);
 
-  savedSearch: FlSavedSearch[];
+  savedSearch: FlSavedSearch[] | undefined;
 
   ngOnInit(): void {
     this.savedSearch = this.searchState.getConfig().savedSearch;

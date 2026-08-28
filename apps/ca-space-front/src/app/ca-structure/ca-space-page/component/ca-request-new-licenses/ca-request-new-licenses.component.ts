@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
@@ -40,7 +40,7 @@ export class CaRequestNewLicensesComponent {
 
   isLoading: boolean = false;
 
-  formGroup = new FormBuilder().group({
+  formGroup = new FormBuilder().nonNullable.group({
     nbLicenses: [0, Validators.required],
     text: '',
   });

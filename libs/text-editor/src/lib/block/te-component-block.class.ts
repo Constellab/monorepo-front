@@ -33,7 +33,7 @@ export abstract class TeComponentBlock<T extends TeElementBlockDirective> implem
     protected readonly additionalData?: any
   ) {}
 
-  static get toolbox(): ToolboxConfig {
+  static get toolbox(): ToolboxConfig | null {
     return null;
   }
 

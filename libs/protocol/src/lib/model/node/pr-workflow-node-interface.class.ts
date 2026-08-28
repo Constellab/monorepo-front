@@ -41,7 +41,6 @@ export class PrWorkflowNodeInterface extends PrWorkflowNodeResource<PrInterface>
       object.portName,
       {
         specs: object.portType,
-        resource_id: null,
       },
       'output'
     );
@@ -67,17 +66,17 @@ export class PrWorkflowNodeInterface extends PrWorkflowNodeResource<PrInterface>
     return this.connectedNode.getCurrentOutputResourceId(this.connectedPort.name);
   }
 
-  getResourceId$(): Observable<string> {
+  getResourceId$(): Observable<string | null> {
     return this.connectedNode
       .getObject$()
       .pipe(map((process) => process.inputs.ports[this.connectedPort.name]?.resource_id ?? null));
   }
 
-  getResource$(): Observable<FlStatusEvent<PrResource>> {
+  getResource$(): Observable<FlStatusEvent<PrResource> | null> {
     return this.connectedNode.getObject$().pipe(switchMap((node) => this.getResourceFromProcess(node)));
   }
 
-  private getResourceFromProcess(process: PrProcess): Observable<FlStatusEvent<PrResource>> {
+  private getResourceFromProcess(process: PrProcess): Observable<FlStatusEvent<PrResource> | null> {
     const resourceId = process.inputs.ports[this.connectedPort.name]?.resource_id ?? null;
     if (!resourceId) return of(null);
 

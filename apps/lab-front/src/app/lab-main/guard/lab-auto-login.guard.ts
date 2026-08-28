@@ -1,4 +1,4 @@
-import { inject,Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Router, UrlTree } from '@angular/router';
 import { LiAuthService, LiRouterService } from '@monorepo/lab-lib/li-core';
 import { Observable } from 'rxjs';
@@ -22,7 +22,7 @@ export class LabAutoLoginGuard {
     try {
       expiresIn = parseInt(route.queryParams['expiresIn']);
     } catch {
-      expiresIn = null;
+      expiresIn = NaN;
     }
 
     if (expiresIn) {

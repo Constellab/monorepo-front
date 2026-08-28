@@ -1,0 +1,11 @@
+<ha-page
+  [pageTitle]="'ai_integration.page_title' | translate"
+  [showPageDescription]="false"
+  [hideCreateSection]="true">
+  <div class="section">
+    <p class="page-description">{{ 'ai_integration.page_description' | translate }}</p>
+
+    <!--  The card reads the api on init: it has nothing to render server side  -->
+    <ha-claude-mcp-card *haHideServerSide></ha-claude-mcp-card>
+  </div>
+</ha-page>

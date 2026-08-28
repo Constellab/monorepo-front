@@ -39,7 +39,7 @@ export class CaHierarchyObjectActionsMenuState {
       );
   }
 
-  private onHierarchyObjectActionMenuEvent(event: CaHierarchyObjectActionEvent): void {
+  private onHierarchyObjectActionMenuEvent(event: CaHierarchyObjectActionEvent | null): void {
     if (!event) return;
     this.eventState.hierarchyObjectActionEvent(event);
   }

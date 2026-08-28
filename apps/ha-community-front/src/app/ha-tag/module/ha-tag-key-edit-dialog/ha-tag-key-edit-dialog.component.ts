@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
@@ -83,7 +83,7 @@ export class HaTagKeyEditDialogComponent
       this.formGp.controls['technicalName'].disable();
     }
     const visibility = this.dialogInput?.object?.space ? 'SPACE' : 'PUBLIC';
-    this.visibilityFormControl = new FormControl<'PUBLIC' | 'SPACE'>(visibility);
+    this.visibilityFormControl = new FormControl<'PUBLIC' | 'SPACE'>(visibility, { nonNullable: true });
     this.spaceService.getSpacesOfCurrentUser().subscribe((spaces) => {
       this.spaces = spaces;
     });
@@ -144,7 +144,9 @@ export class HaTagKeyEditDialogComponent
     )
       return;
 
-    this.formGp.controls['technicalName'].patchValue(ClStringHelper.getCleanUrlPath(label).replace('-', '_'));
+    this.formGp.controls['technicalName'].patchValue(
+      (ClStringHelper.getCleanUrlPath(label) ?? '').replace('-', '_')
+    );
   }
 
   onVisibilityChange(visibility: 'PUBLIC' | 'SPACE'): void {

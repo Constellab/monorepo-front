@@ -627,17 +627,17 @@ describe('TeTextEditorUndoRedo', () => {
 
       // Undo twice
       undoRedo.undoEvent(aggregate);
-      expect(aggregate.richText.getBlock('p1').data.text).toBe('V2');
+      expect(aggregate.richText.getBlock('p1')?.data.text).toBe('V2');
 
       undoRedo.undoEvent(aggregate);
-      expect(aggregate.richText.getBlock('p1').data.text).toBe('V1');
+      expect(aggregate.richText.getBlock('p1')?.data.text).toBe('V1');
 
       // Redo twice
       undoRedo.redoEvent(aggregate);
-      expect(aggregate.richText.getBlock('p1').data.text).toBe('V2');
+      expect(aggregate.richText.getBlock('p1')?.data.text).toBe('V2');
 
       undoRedo.redoEvent(aggregate);
-      expect(aggregate.richText.getBlock('p1').data.text).toBe('V3');
+      expect(aggregate.richText.getBlock('p1')?.data.text).toBe('V3');
     });
 
     it('should handle grouped modifications undo/redo correctly', () => {
@@ -667,13 +667,13 @@ describe('TeTextEditorUndoRedo', () => {
       // Undo entire group
       undoRedo.undoEvent(aggregate);
       expect(aggregate.richText.getBlocks()).toHaveLength(2);
-      expect(aggregate.richText.getBlock('p1').data.text).toBe('A');
-      expect(aggregate.richText.getBlock('p2').data.text).toBe('B');
+      expect(aggregate.richText.getBlock('p1')?.data.text).toBe('A');
+      expect(aggregate.richText.getBlock('p2')?.data.text).toBe('B');
 
       // Redo entire group
       undoRedo.redoEvent(aggregate);
       expect(aggregate.richText.getBlocks()).toHaveLength(1);
-      expect(aggregate.richText.getBlock('p1').data.text).toBe('A modified');
+      expect(aggregate.richText.getBlock('p1')?.data.text).toBe('A modified');
     });
   });
 

@@ -1,5 +1,14 @@
 import { NgClass } from '@angular/common';
-import { ChangeDetectionStrategy,Component, computed, effect, inject, OnDestroy, OnInit, Signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  effect,
+  inject,
+  OnDestroy,
+  OnInit,
+  Signal,
+} from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
@@ -23,7 +32,10 @@ import { Observable, Subscription } from 'rxjs';
 
 import { Ha404Component } from '../../../ha-404/ha-404/ha-404.component';
 import { HaBrick } from '../../../ha-core/ha-model/ha-entities/ha-brick.class';
-import { HaDocumentation } from '../../../ha-core/ha-model/ha-entities/ha-documentation.class';
+import {
+  HaDocumentation,
+  HaDocumentationUpdateContentResponse,
+} from '../../../ha-core/ha-model/ha-entities/ha-documentation.class';
 import { HaCommunityPageDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
 import { HaDocumentationService } from '../../../ha-core/ha-service/ha-documentation.service';
 import { HaHttpRedirectionService } from '../../../ha-core/ha-service/ha-http-redirection.service';
@@ -63,11 +75,11 @@ export class HaBrickDocComponent extends HaCommunityPageDirective implements OnI
   private brickPageState: HaBrickPageState = inject(HaBrickPageState);
   private jsonLdState: HaJsonLdState = inject(HaJsonLdState);
 
-  versionPath: Signal<string> = this.brickPageState.pathVersion;
+  versionPath: Signal<string | null> = this.brickPageState.pathVersion;
 
-  brick: Signal<HaBrick> = this.brickPageState.brick;
+  brick: Signal<HaBrick | null> = this.brickPageState.brick;
 
-  documentation: Signal<HaDocumentation> = computed(() => {
+  documentation: Signal<HaDocumentation | null> = computed(() => {
     const doc = this.brickPageState.doc();
     if (doc) {
       this.onDocLoaded(doc);
@@ -75,21 +87,21 @@ export class HaBrickDocComponent extends HaCommunityPageDirective implements OnI
     return doc;
   });
 
-  userHasEditRight: Signal<boolean> = this.brickPageState.userHasEditRight;
+  userHasEditRight: Signal<boolean | null> = this.brickPageState.userHasEditRight;
 
   isDocLoading: Signal<boolean> = this.brickPageState.isDocLoading;
 
   docNotFound: Signal<boolean> = this.brickPageState.isDocError;
 
-  formCtrl = new FormControl<TeRichText>(null);
+  formCtrl = new FormControl<TeRichText | null>(null);
 
   textEditorConfig: HaDocTextEditorConfig;
 
-  anchor: string = null;
+  anchor: string | null = null;
 
   currentDocTitle = '';
 
-  historyOverlayRef: FlOverlayRef;
+  historyOverlayRef: FlOverlayRef | null;
 
   urlSubscription: Subscription;
 
@@ -120,8 +132,11 @@ export class HaBrickDocComponent extends HaCommunityPageDirective implements OnI
     });
   }
 
-  saveContent = (value: TeRichText): Observable<HaDocumentation> =>
-    this.documentationService.updateContent(this.documentation().id, value);
+  saveContent = (value: TeRichText): Observable<HaDocumentationUpdateContentResponse> => {
+    const doc = this.documentation();
+    if (doc == null) throw new Error('saveContent called before the documentation was loaded');
+    return this.documentationService.updateContent(doc.id, value);
+  };
 
   ngOnInit(): void {
     this.activatedRoute.fragment.subscribe((anchor) => {
@@ -131,29 +146,35 @@ export class HaBrickDocComponent extends HaCommunityPageDirective implements OnI
 
   onTitleChange(title: string): void {
     if (title.length == 0 || title.length > 50) return;
-    this.documentationService
-      .update({ id: this.documentation().id, title: title })
-      .subscribe((documentation) => {
-        if (documentation) {
-          this.brickPageState.setDoc(documentation);
-          this.httpRedirectionService.redirectTo(
-            HaRouterService.getDocumentationRoute(
-              this.brick().name,
-              this.versionPath(),
-              documentation.completePath,
-              documentation.id
-            )
-          );
-        }
-      });
+    const doc = this.documentation();
+    const brick = this.brick();
+    const versionPath = this.versionPath();
+    if (doc == null || brick == null || versionPath == null) return;
+
+    this.documentationService.update({ id: doc.id, title: title }).subscribe((documentation) => {
+      if (documentation) {
+        this.brickPageState.setDoc(documentation);
+        this.httpRedirectionService.redirectTo(
+          HaRouterService.getDocumentationRoute(
+            brick.name,
+            versionPath,
+            documentation.completePath,
+            documentation.id
+          )
+        );
+      }
+    });
   }
 
   openResourceDelete(): void {
+    const doc = this.documentation();
+    if (doc == null) return;
+
     // TODO : improve message and delete doc once it's done
     const input: FlConfirmDialogInput = {
       title: 'confirm_deletion',
       content: 'confirm_deletion_message',
-      observable: this.documentationService.deleteById(this.documentation().id),
+      observable: this.documentationService.deleteById(doc.id),
       successMessage: 'documentation_deleted',
     };
 
@@ -170,6 +191,9 @@ export class HaBrickDocComponent extends HaCommunityPageDirective implements OnI
   }
 
   openHistoryPanel(): void {
+    const doc = this.documentation();
+    if (doc == null) return;
+
     if (this.historyOverlayRef) {
       this.historyOverlayRef.dispose();
       this.historyOverlayRef = null;
@@ -179,7 +203,7 @@ export class HaBrickDocComponent extends HaCommunityPageDirective implements OnI
         this.portalService.getRightSidePortalConfig(false),
         {
           service: this.documentationService,
-          entityId: this.documentation().id,
+          entityId: doc.id,
           textEditorConfig: this.textEditorConfig,
           isEditable: this.userHasEditRight(),
         } as TeTextEditorHistoryPortalData
@@ -203,16 +227,19 @@ export class HaBrickDocComponent extends HaCommunityPageDirective implements OnI
 
     this.textEditorConfig = new HaDocTextEditorConfig(this.documentationService, doc.id);
 
+    const brick = this.brick();
+    if (brick == null) return;
+
     super.setMetaTags(
       {
         text: 'ha.documentation.brick.title',
-        translateParam: { param: { brickTitle: this.brick().name, docTitle: doc.title } },
+        translateParam: { param: { brickTitle: brick.name, docTitle: doc.title } },
       },
       {
         text: 'ha.documentation.brick.description',
-        translateParam: { param: { brickTitle: this.brick().name, docTitle: doc.title } },
+        translateParam: { param: { brickTitle: brick.name, docTitle: doc.title } },
       },
-      this.brick().imageLink,
+      brick.imageLink ?? '',
       HaRouterService.getFullRoute(this.router.url),
       'article'
     );

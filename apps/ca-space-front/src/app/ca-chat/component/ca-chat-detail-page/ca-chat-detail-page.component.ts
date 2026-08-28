@@ -26,9 +26,9 @@ export class CaChatDetailPageComponent {
   private state = inject(CaChatState);
   private folderService = inject(CaFolderService);
 
-  folderId: Signal<string> = toSignal(this.state.folderId$);
+  folderId: Signal<string> = toSignal(this.state.folderId$, { requireSync: true });
 
-  folder$: Observable<CaHierarchyObjectSimple> = this.state.folderId$.pipe(
+  folder$: Observable<CaHierarchyObjectSimple | null> = this.state.folderId$.pipe(
     mergeMap((folderId) => this.state.getFolders().findNodeObject$(folderId))
   );
 

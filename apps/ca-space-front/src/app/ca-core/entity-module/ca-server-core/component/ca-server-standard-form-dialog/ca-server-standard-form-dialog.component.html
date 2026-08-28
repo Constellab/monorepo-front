@@ -13,7 +13,7 @@
         required
         flInputMaxLength="50"
         [placeholder]="'name' | translate" />
-      @if (formGp.get('name').hasError('required')) {
+      @if (formGp.get('name')?.hasError('required')) {
         <mat-error>{{ 'name' | flErrorRequired }}</mat-error>
       }
     </mat-form-field>
@@ -27,7 +27,7 @@
         rows="2"
         flInputMaxLength="255"
         [placeholder]="'description' | translate"></textarea>
-      @if (formGp.get('description').hasError('required')) {
+      @if (formGp.get('description')?.hasError('required')) {
         <mat-error>{{ 'description' | flErrorRequired }}</mat-error>
       }
     </mat-form-field>
@@ -41,7 +41,7 @@
         rows="2"
         flInputMaxLength="255"
         [placeholder]="'server_standard_technical_description' | translate"></textarea>
-      @if (formGp.get('technicalDescription').hasError('required')) {
+      @if (formGp.get('technicalDescription')?.hasError('required')) {
         <mat-error>{{ 'server_standard_technical_description' | flErrorRequired }}</mat-error>
       }
     </mat-form-field>
@@ -58,7 +58,7 @@
           [placeholder]="'server_price' | translate" />
 
         <mat-hint>{{ 'server_price_unit' | translate }}</mat-hint>
-        @if (formGp.get('price').invalid) {
+        @if (formGp.get('price')?.invalid) {
           <mat-error>{{ 'server_price_error' | translate }}</mat-error>
         }
       </mat-form-field>

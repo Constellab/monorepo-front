@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { TranslatePipe } from '@ngx-translate/core';
 import { combineLatest, Observable } from 'rxjs';
@@ -27,12 +27,15 @@ type CaServerStatus =
 export class CaLabServerStatusComponent {
   private serverState = inject(CaLabDetailServerState);
 
-  status$: Observable<CaServerStatus> = combineLatest([
+  status$: Observable<CaServerStatus | null> = combineLatest([
     inject(CaLabDetailPageState).getBusyStatus$(),
     inject(CaLabDetailConfigPageState).getStatus$(),
   ]).pipe(map(([busyStatus, status]) => this.convertStatusMessage(busyStatus, status)));
 
-  private convertStatusMessage(busyStatus: CaLabBusyStatusDTO, status: CaLabStatusDTO): CaServerStatus {
+  private convertStatusMessage(
+    busyStatus: CaLabBusyStatusDTO,
+    status: CaLabStatusDTO
+  ): CaServerStatus | null {
     // If the lab is busy, we don't want to show any status message
     if (busyStatus.isBusy) return null;
     if (!status.hasServerInstanceId || !status.hasServerVolumeId) {

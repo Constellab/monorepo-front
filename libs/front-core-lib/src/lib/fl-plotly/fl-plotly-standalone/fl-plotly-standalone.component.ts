@@ -1,4 +1,17 @@
-import { ChangeDetectionStrategy,Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+// Pulls the ambient plotly.js-strict-dist declaration into the program of every consumer that
+// compiles these sources through the import graph. An ambient `declare module` for an
+// untyped package only works in a global .d.ts, so it cannot be expressed as an import.
+/* eslint-disable-next-line @typescript-eslint/triple-slash-reference */
+/// <reference path="../../../types.d.ts" />
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { FlResizeObservable } from '@monorepo/front-core-lib/fl-core';
 import { FlPlotlyData } from '@monorepo/front-core-lib/fl-plotly';
 // Plotly.newPlot()

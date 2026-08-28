@@ -9,7 +9,8 @@ import {
   model,
   output,
   signal,
-  ViewChild} from '@angular/core';
+  ViewChild,
+} from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatIcon } from '@angular/material/icon';
 import { FlAiModule } from '@monorepo/front-core-lib/fl-ai';
@@ -60,11 +61,11 @@ export class LiFormContentComponent {
   formLoaded = output<LiForm>();
 
   isLoading = signal(false);
-  error = signal<string>(null);
-  form = signal<LiForm>(null);
-  formContent = signal<LiFormContent>(null);
+  error = signal<string | null>(null);
+  form = signal<LiForm | null>(null);
+  formContent = signal<LiFormContent | null>(null);
 
-  formStatus = computed<FlStatus<LiFormStatus>>(() => {
+  formStatus = computed<FlStatus<LiFormStatus> | null>(() => {
     const f = this.form();
     return f ? liGetFormStatus(f.status) : null;
   });

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, computed, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import {
   MatCell,
   MatCellDef,
@@ -57,7 +57,7 @@ export interface TdParamTableRow {
  * to use the full width and reduce vertical height on large forms.
  */
 export class TdParamTableComponent {
-  values = input.required<Record<string, unknown>>();
+  values = input.required<Record<string, unknown> | null>();
   specs = input.required<TdParamSpecs>();
 
   tableColumns = ['name1', 'value1', 'name2', 'value2'];

@@ -1,6 +1,6 @@
-@if (configData()) {
+@if (configData(); as configData) {
   <form [formGroup]="formGp">
-    <td-configure-specs-form [formGp]="formGp" [configData]="configData()" />
+    <td-configure-specs-form [formGp]="formGp" [configData]="configData" />
   </form>
 
   <div class="form-editor-actions">

@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy,Component, EventEmitter, Output } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
+import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
@@ -32,8 +32,8 @@ import { LabBiotaDatabaseSelectOptionsComponent } from '../lab-biota-database-se
 })
 export class LabBiotaDatabaseSearchFormComponent {
   formGp = new FormBuilder().group({
-    typingName: [null, Validators.required],
-    searchText: [null, Validators.required],
+    typingName: new FormControl('', { nonNullable: true, validators: Validators.required }),
+    searchText: new FormControl('', { nonNullable: true, validators: Validators.required }),
   });
 
   @Output() searched: EventEmitter<LabBiotaDatabaseSearch> = new EventEmitter();

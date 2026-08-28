@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy,Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { FlFormFieldDirective, FlInputSearchFilter } from '@monorepo/front-core-lib/fl-core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
@@ -21,15 +29,18 @@ import {
   changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlInputSearchModule, FlUserModule, LiNoteTemplateInlineComponent],
 })
-export class LiSelectNoteTemplateComponent extends FlFormFieldDirective<LiNoteTemplate> implements OnInit {
+export class LiSelectNoteTemplateComponent
+  extends FlFormFieldDirective<LiNoteTemplate | null>
+  implements OnInit
+{
   private noteTemplateService = inject(LiNoteTemplateService);
   private dialogService = inject(FlDialogService);
 
   @Input() placeholder: string;
 
-  @Output() valueChange: EventEmitter<LiNoteTemplate> = new EventEmitter();
+  @Output() valueChange: EventEmitter<LiNoteTemplate | null> = new EventEmitter();
 
-  selectedNoteTemplate: LiNoteTemplate | Observable<LiNoteTemplate>;
+  selectedNoteTemplate: LiNoteTemplate | Observable<LiNoteTemplate> | null;
 
   datasource: LiNoteTemplateDatasource<FlInputSearchFilter>;
 
@@ -51,14 +62,14 @@ export class LiSelectNoteTemplateComponent extends FlFormFieldDirective<LiNoteTe
     };
   }
 
-  callChangeEvent(value: LiNoteTemplate): void {
+  callChangeEvent(value: LiNoteTemplate | null): void {
     this.valueChange.emit(value);
     this.selectedNoteTemplate = value;
   }
 
   onDisableChange(): void {}
 
-  writeValue(obj: LiNoteTemplate): void {
+  writeValue(obj: LiNoteTemplate | null): void {
     if (obj == null || (typeof obj != 'string' && obj.id == null)) {
       this.selectedNoteTemplate = null;
       this.value = null;

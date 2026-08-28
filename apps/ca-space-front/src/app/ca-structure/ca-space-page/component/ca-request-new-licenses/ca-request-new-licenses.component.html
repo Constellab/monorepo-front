@@ -15,7 +15,7 @@
         type="number"
         [min]="0" />
 
-      @if (formGroup.get('nbLicenses').hasError('required')) {
+      @if (formGroup.get('nbLicenses')?.hasError('required')) {
         <mat-error>{{ 'nb_licenses' | flErrorRequired }}</mat-error>
       }
     </mat-form-field>
@@ -28,7 +28,7 @@
         [placeholder]="'request_licenses_comment' | translate"
         rows="5"></textarea>
 
-      @if (formGroup.get('text').hasError('required')) {
+      @if (formGroup.get('text')?.hasError('required')) {
         <mat-error>{{ 'request_licenses_comment' | flErrorRequired }}</mat-error>
       }
     </mat-form-field>

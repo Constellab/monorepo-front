@@ -1,3 +1,8 @@
+// Pulls the ambient @editorjs/* module declarations into the program of every consumer that
+// compiles these sources through the import graph. An ambient `declare module` for an
+// untyped package only works in a global .d.ts, so it cannot be expressed as an import.
+/* eslint-disable-next-line @typescript-eslint/triple-slash-reference */
+/// <reference path="./types.d.ts" />
 /* eslint-disable max-len */
 // Module
 export * from './lib/te-text-editor.module';

@@ -9,7 +9,7 @@
           @if (v.style) {
             <td-type-icon-badge [style]="v.style" [iconSize]="30"></td-type-icon-badge>
           }
-          <span>{{ v.human_name?.length > 0 ? v.human_name?.toUpperCase() : v.method_name }}</span>
+          <span>{{ v.human_name.length > 0 ? v.human_name.toUpperCase() : v.method_name }}</span>
           @if (v.default_view) {
             <mat-chip class="primary">{{ 'td.default_view' | translate }}</mat-chip>
           }

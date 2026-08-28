@@ -3,7 +3,7 @@ import { curveCatmullRom, line, select, SimulationLinkDatum } from 'd3';
 
 import { BnBioNetworkMetaboliteLevel } from './bn-bio-network.class';
 import { BnBioNetworkGraphObject } from './bn-bio-network-graph.class';
-import { BnBioNetworkNode } from './bn-bio-network-node.class';
+import { BnBioNetworkNode, BnBioNetworkNodeCoord } from './bn-bio-network-node.class';
 import { BnBioNetworkNodeCofactor } from './bn-bio-network-node-cofactor.class';
 import { BnBioNetworkNodeReaction } from './bn-bio-network-node-reaction.class';
 
@@ -121,14 +121,18 @@ export class BnBioNetworkLink
   }
 
   ////////////////////////////////////// POINTS //////////////////////////////////////
-  public getPathAttr(): string {
+  public getPathAttr(): string | null {
     if (!this.source.hasPositions() || !this.target.hasPositions()) return null;
-    return lineFunction(this.getPathPoints());
+    // the source/target positions are checked above, so every point is fully defined
+    const points: FlCoord[] = this.getPathPoints().filter(
+      (point): point is FlCoord => point.x != null && point.y != null
+    );
+    return lineFunction(points);
   }
 
-  public getPathPoints(): FlCoord[] {
-    const startCoord: FlCoord = this.source.getCoords();
-    const endCoord: FlCoord = this.target.getCoords();
+  public getPathPoints(): BnBioNetworkNodeCoord[] {
+    const startCoord: BnBioNetworkNodeCoord = this.source.getCoords();
+    const endCoord: BnBioNetworkNodeCoord = this.target.getCoords();
     return [startCoord, ...this.pointPositions, endCoord];
   }
 
@@ -143,12 +147,13 @@ export class BnBioNetworkLink
       this.pointPositions.push(point);
     } else {
       // get all points including the source and target
+      // an unpositioned extremity gives NaN distances, like the arithmetic on undefined did
       const points: FlCoord[] = [
-        { x: this.source.x, y: this.source.y },
+        { x: this.source.x ?? NaN, y: this.source.y ?? NaN },
         ...this.pointPositions,
         {
-          x: this.target.x,
-          y: this.target.y,
+          x: this.target.x ?? NaN,
+          y: this.target.y ?? NaN,
         },
       ];
       // we have to insert the point at a logical position
@@ -200,20 +205,25 @@ export class BnBioNetworkLink
   //   }
   // }
 
-  public get reaction(): BnBioNetworkNodeReaction {
+  public get reaction(): BnBioNetworkNodeReaction | null {
     if (this.target instanceof BnBioNetworkNodeReaction) return this.target;
     if (this.source instanceof BnBioNetworkNodeReaction) return this.source;
     return null;
   }
 
-  public get metabolite(): BnBioNetworkNode {
+  public get metabolite(): BnBioNetworkNode | null {
     if (this.target instanceof BnBioNetworkNodeReaction) return this.source;
     if (this.source instanceof BnBioNetworkNodeReaction) return this.target;
     return null;
   }
 
+  // returns NaN while one of the extremities has no position yet
   public getLength(): number {
-    return Math.sqrt((this.source.x - this.target.x) ** 2 + (this.source.y - this.target.y) ** 2);
+    const source = this.source.getCoords();
+    const target = this.target.getCoords();
+    return Math.sqrt(
+      ((source.x ?? NaN) - (target.x ?? NaN)) ** 2 + ((source.y ?? NaN) - (target.y ?? NaN)) ** 2
+    );
   }
 
   protected _getLevel(): BnBioNetworkMetaboliteLevel {

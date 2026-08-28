@@ -2,7 +2,7 @@
   <div>{{ placeholder }}</div>
   <li-folder-inline-select
     [formControl]="formCtrl"
-    [placeholder]="{ text: placeholder, translateText: false }"
+    [placeholder]="{ text: placeholder ?? '', translateText: false }"
     [required]="required"></li-folder-inline-select>
 
   @if (formCtrl.hasError('required')) {

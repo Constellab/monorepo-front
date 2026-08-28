@@ -1,6 +1,6 @@
 @if (lab$ | async; as lab) {
   <div>
-    <fl-horizontal-nav-bar [items]="navBarItems$ | async" [smallScreenTitle]="lab.name">
+    <fl-horizontal-nav-bar [items]="(navBarItems$ | async) ?? []" [smallScreenTitle]="lab.name">
       <fl-horizontal-nav-bar-title>
         <fl-text-icon>
           <mat-icon flIcon="lab"></mat-icon>

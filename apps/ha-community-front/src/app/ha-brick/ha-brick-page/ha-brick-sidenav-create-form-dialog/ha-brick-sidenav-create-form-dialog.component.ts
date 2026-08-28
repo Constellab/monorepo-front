@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatDialogActions, MatDialogContent } from '@angular/material/dialog';
@@ -67,7 +67,7 @@ export class HaBrickSidenavCreateFormDialogComponent
   ngOnInit(): void {
     this.isUpdate = this.dialogInput.mode == 'update';
     this.init();
-    this.formGp.value.folderId = this.dialogInput.object.folderId;
+    this.formGp.value.folderId = this.dialogInput.object?.folderId;
   }
 
   buildForm(): UntypedFormGroup {
@@ -80,7 +80,7 @@ export class HaBrickSidenavCreateFormDialogComponent
   }
 
   create(formValue: HaNodeDTO): Observable<HaFolder | HaDocumentation> {
-    formValue.folderId = this.dialogInput.object.folderId;
+    formValue.folderId = this.dialogInput.object?.folderId;
 
     this.formGp.value.isFolder = this.formGp.value.type == HaNodeType.FOL;
 

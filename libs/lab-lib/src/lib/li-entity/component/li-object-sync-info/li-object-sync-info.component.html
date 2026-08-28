@@ -1,4 +1,4 @@
-@if (object.isSynced) {
+@if (object.isSynced && object.lastSyncBy && object.lastSyncAt) {
   <div class="g-layout-row-wrap g-layout-start-center g-layout-gap-05em">
     <mat-icon>sync</mat-icon>
     <div>{{ 'li.last_sync' | translate }} :</div>

@@ -1,6 +1,7 @@
 import { defineConfig } from 'eslint/config';
 import nx from '@nx/eslint-plugin';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
+import sonarjs from 'eslint-plugin-sonarjs';
 
 import angular from 'angular-eslint';
 
@@ -81,10 +82,21 @@ export default defineConfig([
     plugins: {
       '@nx': nx,
       'simple-import-sort': simpleImportSort,
+      sonarjs: sonarjs,
     },
   },
   {
-    ignores: ['**/node_modules', '**/dist', '**/vite.config.*.timestamp*', '**/vitest.config.*.timestamp*'],
+    ignores: [
+      '**/node_modules',
+      '**/dist',
+      '**/out-tsc',
+      '**/coverage',
+      // Build caches holding bundled copies of dependencies, not source.
+      '**/.angular',
+      '**/.nx',
+      '**/vite.config.*.timestamp*',
+      '**/vitest.config.*.timestamp*',
+    ],
   },
   {
     files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
@@ -131,6 +143,30 @@ export default defineConfig([
       '@angular-eslint/no-input-rename': 'off',
       'no-extra-semi': 'off',
       'simple-import-sort/imports': 'error',
+
+      // Method complexity budgets. `variant: 'modified'` counts a whole `switch`
+      // as one path, so mapping tables (status enums, file-icon lookups) are not
+      // punished for having many cases; cognitive-complexity then weights nesting.
+      complexity: ['error', { max: 10, variant: 'modified' }],
+      'sonarjs/cognitive-complexity': ['error', 15],
+      'max-depth': ['error', 4],
+      'max-statements': ['error', 25],
+      'max-nested-callbacks': ['error', 3],
+      'max-lines-per-function': ['error', { max: 80, skipBlankLines: true, skipComments: true }],
+
+      // `max-params` cannot exempt constructors, and NestJS DI constructors
+      // legitimately take many. Restrict the parameter count on everything else.
+      'no-restricted-syntax': [
+        'error',
+        {
+          selector: 'MethodDefinition[kind!="constructor"] > FunctionExpression[params.length>6]',
+          message: 'This method takes more than 6 parameters. Pass an options object instead.',
+        },
+        {
+          selector: 'FunctionDeclaration[params.length>6]',
+          message: 'This function takes more than 6 parameters. Pass an options object instead.',
+        },
+      ],
     },
   },
   {
@@ -163,6 +199,19 @@ export default defineConfig([
   getSubConfigs('spreadsheet', 'sp', true, false),
   getSubConfigs('technical-doc', 'td', true, false),
   getSubConfigs('text-editor', 'te', true, false),
+
+  // A spec is a flat list of arrange/act/assert steps, so its length and
+  // statement count say nothing about complexity, and `describe > describe >
+  // it > callback` already nests four deep. The branching budgets still apply:
+  // no test in the repo exceeds a cognitive complexity of 8.
+  {
+    files: ['**/*.spec.ts', 'apps/*/test/**/*.ts'],
+    rules: {
+      'max-lines-per-function': 'off',
+      'max-statements': 'off',
+      'max-nested-callbacks': 'off',
+    },
+  },
 
   // Must stay last: it overrides `nx.configs['flat/angular']`, which enables this rule.
   //

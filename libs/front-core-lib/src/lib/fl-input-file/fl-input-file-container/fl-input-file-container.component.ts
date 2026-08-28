@@ -9,7 +9,8 @@ import {
   input,
   OnDestroy,
   OnInit,
-  signal} from '@angular/core';
+  signal,
+} from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { ThemePalette } from '@angular/material/core';
 import { ClHelpService } from '@monorepo/core-lib';
@@ -48,7 +49,7 @@ export class FlInputFileContainerComponent implements OnInit, AfterContentInit, 
   /**
    * Default text displayed when no file selected
    */
-  placeholder = input<string>(null);
+  placeholder = input<string | null>(null);
 
   /**
    * Icon show before the text
@@ -61,7 +62,7 @@ export class FlInputFileContainerComponent implements OnInit, AfterContentInit, 
   // true if the control is required
   private isRequired = signal(false);
 
-  private files = signal<File | File[]>(null);
+  private files = signal<File | File[] | null>(null);
 
   text = computed((): string => {
     const files = this.files();
@@ -117,8 +118,10 @@ export class FlInputFileContainerComponent implements OnInit, AfterContentInit, 
   private listenToControlChanges(): void {
     const ngControl: NgControl = this.inputFile.ngControl;
 
-    if (ngControl) {
-      this.stateSubscription = ngControl.statusChanges.subscribe(() => this.refreshRequired());
+    const statusChanges = ngControl?.statusChanges;
+
+    if (statusChanges) {
+      this.stateSubscription = statusChanges.subscribe(() => this.refreshRequired());
     }
   }
 
@@ -142,7 +145,11 @@ export class FlInputFileContainerComponent implements OnInit, AfterContentInit, 
   }
 
   onDropFile(event: FlDropEvent): void {
-    this.inputFile.fileChanged(event.event.dataTransfer.files);
+    const dataTransfer = event.event.dataTransfer;
+
+    if (dataTransfer) {
+      this.inputFile.fileChanged(dataTransfer.files);
+    }
   }
 
   // clear the subscription

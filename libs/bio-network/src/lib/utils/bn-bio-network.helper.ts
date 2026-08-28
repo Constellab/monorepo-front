@@ -16,7 +16,9 @@ export class BnBioNetworkHelper {
   public static readonly defaultClusterId = 'Default';
 
   public static getMetaboliteClusters(metabolite: BnBioNetworkMetabolite): BnBioNetworkClusterInfo[] {
-    if (Object.keys(metabolite.layout.clusters).length === 0) {
+    const layoutClusters = metabolite.layout?.clusters;
+
+    if (layoutClusters == null || Object.keys(layoutClusters).length === 0) {
       return [
         {
           clusterId: BnBioNetworkHelper.defaultClusterId,
@@ -27,7 +29,7 @@ export class BnBioNetworkHelper {
 
     const clusters: BnBioNetworkClusterInfo[] = [];
 
-    for (const [key, value] of Object.entries(metabolite.layout.clusters)) {
+    for (const [key, value] of Object.entries(layoutClusters)) {
       let cluster = clusters.find((c) => c.clusterId === value.id);
 
       if (!cluster) {
@@ -51,7 +53,7 @@ export class BnBioNetworkHelper {
 
     // the reaction is the clusters of all metabolites associated to the reaction (excluding the cofactors)
     for (const metaboliteId of Object.keys(reaction.metabolites)) {
-      const metabolite: BnBioNetworkMetabolite = metabolites.find((m) => m.id === metaboliteId);
+      const metabolite: BnBioNetworkMetabolite | undefined = metabolites.find((m) => m.id === metaboliteId);
       if (!metabolite || bnBioNetworkIsCofactor(metabolite.type)) continue;
 
       const metabolitesClusters = BnBioNetworkHelper.getMetaboliteClusters(metabolite);
@@ -90,7 +92,8 @@ export class BnBioNetworkHelper {
   }
 
   public static getReactionFlux(reactionData: BnBioNetworkReactionData): BnBioNetworkReactionDataFlux | null {
-    if (ClHelpService.isNullOrEmpty(reactionData.simulations)) return null;
-    return Object.values(reactionData.simulations)[0];
+    const simulations = reactionData.simulations;
+    if (simulations == null || ClHelpService.isNullOrEmpty(simulations)) return null;
+    return Object.values(simulations)[0];
   }
 }

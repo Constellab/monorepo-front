@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, Input, OnChanges, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit } from '@angular/core';
 import { FlColorHelper } from '@monorepo/front-core-lib/fl-core';
 
 import { TdTypeEntity } from '../../model/td-type.class';
@@ -40,6 +40,8 @@ export class TdTechnicalDocHeaderComponent implements OnInit, OnChanges {
   }
 
   private setColor(): void {
-    this.color = FlColorHelper.stringToRGBColor(this.technicalDoc.typingName);
+    const typingName = this.technicalDoc.typingName;
+    if (typingName == null) return;
+    this.color = FlColorHelper.stringToRGBColor(typingName);
   }
 }

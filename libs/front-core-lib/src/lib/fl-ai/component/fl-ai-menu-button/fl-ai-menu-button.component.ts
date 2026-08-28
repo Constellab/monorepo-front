@@ -1,4 +1,14 @@
-import { ChangeDetectionStrategy,Component, computed, inject, input, NgZone, OnDestroy, output, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  input,
+  NgZone,
+  OnDestroy,
+  output,
+  signal,
+} from '@angular/core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
@@ -31,9 +41,9 @@ export class FlAiMenuButtonComponent implements OnDestroy {
   disabled = input(false);
   tooltip = input<string>('flAi.ai_assistant');
 
-  dialogTitle = input<FlTranslatableText>(undefined);
-  dialogDescription = input<string>(undefined);
-  dialogPlaceholder = input<FlTranslatableText>(undefined);
+  dialogTitle = input<FlTranslatableText>();
+  dialogDescription = input<string>();
+  dialogPlaceholder = input<FlTranslatableText>();
 
   submitted = output<unknown>();
 

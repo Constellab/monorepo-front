@@ -1,13 +1,13 @@
 import { NgClass } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { MatAnchor, MatButton } from '@angular/material/button';
 import { MatDivider } from '@angular/material/divider';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { Title } from '@angular/platform-browser';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { CoRagflowChatbotBubbleComponent } from '@monorepo/community-lib';
+import { CoRagflowChatbotService } from '@monorepo/community-lib';
 import { ClBrick } from '@monorepo/core-lib';
 import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
 import { FlExpansionMenuModule } from '@monorepo/front-core-lib/fl-expansion-menu';
@@ -47,7 +47,6 @@ import { LabMainMenuSettingsComponent } from '../lab-main-menu-settings/lab-main
     LabMainMenuSettingsComponent,
     RouterOutlet,
     TranslatePipe,
-    CoRagflowChatbotBubbleComponent,
   ],
 })
 export class LabMainAppComponent implements OnInit {
@@ -56,6 +55,7 @@ export class LabMainAppComponent implements OnInit {
   private systemService = inject(LiSystemService);
   private titleService = inject(Title);
   private brickService = inject(LiBrickService);
+  private chatbotService = inject(CoRagflowChatbotService);
   private http = inject(HttpClient);
 
   accessibleLinks: LabMainMenuLink[] = labGetMainMenuLinks();
@@ -71,7 +71,7 @@ export class LabMainAppComponent implements OnInit {
   labName: string;
 
   logo = 'assets/fl-logo/constellab-logo.svg';
-  spaceName?: string = null;
+  spaceName?: string;
 
   toolbarColorClass: string;
 
@@ -84,6 +84,13 @@ export class LabMainAppComponent implements OnInit {
     this.checkChatbotActive();
 
     this.toolbarColorClass = this.labEnvManager.isDev() ? 'g-accent-background' : 'g-card-background';
+  }
+
+  openChatbot(event: MouseEvent): void {
+    this.chatbotService.toggle({
+      user: this.authenticatedUserService.getCurrentUser() ?? undefined,
+      origin: event.currentTarget as HTMLElement,
+    });
   }
 
   private checkChatbotActive(): void {
@@ -99,7 +106,7 @@ export class LabMainAppComponent implements OnInit {
     this.brickService.getBrick(ClBrick.GWS_BIOTA).subscribe((brick) => this.checkBiotaSuccess(brick));
   }
 
-  private checkBiotaSuccess(brick: LiBrickEntity): void {
+  private checkBiotaSuccess(brick: LiBrickEntity | null): void {
     if (brick && brick.status.value !== 'CRITICAL') {
       this.accessibleLinks.push(LAB_BIOTA_MENU_LINK);
     }

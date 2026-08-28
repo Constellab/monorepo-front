@@ -1,5 +1,5 @@
 <!--    Save status        -->
-@if (!(textEditor()?.disabled ?? true) || saveIsLoading) {
+@if (!textEditor().disabled || saveIsLoading) {
   <fl-text-icon class="g-text-light">
     <mat-icon>{{ saveIsLoading ? 'sync' : 'cloud_done' }}</mat-icon>
     {{ (saveIsLoading ? 'teTextEditor.saving_document' : 'teTextEditor.document_saved') | translate }}

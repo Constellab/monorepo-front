@@ -62,6 +62,8 @@ export class PrWorkflowNodeInput extends PrWorkflowNodeResource<PrProcess> {
         if (!resource) return null;
         if (resource.status !== 'success' || !resource.object.scenario) return null;
 
+        const scenarioId = resource.object.scenario.id;
+
         return {
           position: 'before',
           icon: 'arrow_backward',
@@ -69,7 +71,7 @@ export class PrWorkflowNodeInput extends PrWorkflowNodeResource<PrProcess> {
           action: () => {
             this.actionState.newAction({
               action: 'navigateToScenario',
-              scenarioId: resource.object.scenario.id,
+              scenarioId: scenarioId,
             });
           },
         };

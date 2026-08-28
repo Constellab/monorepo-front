@@ -1,58 +1,75 @@
 <fl-section [isLoading]="getIsLoading" [object]="document" class="section">
   <ng-template flSectionBody>
-    <div class="card-container g-layout-col">
-      <div class="g-layout-row g-layout-between-center">
+    <ca-detail-card>
+      <ng-container ca-detail-card-title>
         <h1
+          class="title"
           flElementEditable
           (flElementValueChange)="renameDocument($event)"
           [flElementDisabled]="!canEdit()">
           {{ document.name }}
         </h1>
+      </ng-container>
 
-        <div class="g-print-hide g-layout-row g-layout-start-center">
-          @if (canEdit()) {
-            <button mat-stroked-button type="button" (click)="toggleEditMode()" class="button g-button-small">
-              <mat-icon>{{ contentFormControl.disabled ? 'edit' : 'visibility' }}</mat-icon>
-              <span>{{ (contentFormControl.disabled ? 'edit' : 'view') | translate }}</span>
+      <ng-container ca-detail-card-actions>
+        @if (canEdit()) {
+          @if (contentFormControl.disabled) {
+            <button mat-flat-button type="button" (click)="toggleEditMode()" class="g-button-small primary">
+              <mat-icon>edit</mat-icon>
+              <span>{{ 'edit' | translate }}</span>
+            </button>
+          } @else {
+            <button mat-stroked-button type="button" (click)="toggleEditMode()" class="g-button-small">
+              <mat-icon>visibility</mat-icon>
+              <span>{{ 'view' | translate }}</span>
             </button>
           }
+        }
 
-          <button mat-stroked-button type="button" (click)="print()" class="button g-button-small">
-            {{ 'print_document' | translate }}
-            <mat-icon>print</mat-icon>
-          </button>
+        <button mat-stroked-button type="button" (click)="print()" class="g-button-small primary">
+          {{ 'print_document' | translate }}
+          <mat-icon>print</mat-icon>
+        </button>
 
-          <button mat-icon-button type="button" (click)="openDocumentActionMenu(document, $event)">
-            <mat-icon>more_vert</mat-icon>
-          </button>
-        </div>
-      </div>
+        <button mat-icon-button type="button" (click)="openDocumentActionMenu(document, $event)">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+      </ng-container>
 
-      @if (tags()) {
-        <fl-tag-list class="g-text-small" [tags]="tags()" [showNoTagMessage]="false"></fl-tag-list>
-      }
-
-      <div class="g-print-hide doc-header">
-        <fl-creation-info [user]="document.createdBy" [date]="document.createdAt"></fl-creation-info>
+      <ng-container ca-detail-card-meta>
+        @if (tags(); as tagsValue) {
+          <fl-tag-list class="g-text-small" [tags]="tagsValue" [showNoTagMessage]="false"></fl-tag-list>
+        }
 
         <div class="g-layout-row g-layout-between-center">
-          <fl-last-modification-info
-            [user]="document.lastModifiedBy"
-            [date]="document.lastModifiedAt"></fl-last-modification-info>
+          <div class="g-text-small g-layout-row-wrap authors">
+            <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
+              <span class="author-label">{{ 'created_by' | translate }}</span>
+              <fl-user-with-date [user]="document.createdBy" [date]="document.createdAt"></fl-user-with-date>
+            </div>
+
+            @if (document.lastModifiedBy && document.lastModifiedAt) {
+              <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
+                <span class="author-label">{{ 'modified' | translate }}</span>
+                <fl-user-with-date
+                  [user]="document.lastModifiedBy"
+                  [date]="document.lastModifiedAt"></fl-user-with-date>
+              </div>
+            }
+          </div>
 
           <te-text-editor-save
             [textEditor]="textEditor"
             [saveFunc]="saveDescriptionFunc"
             [debounceTime]="2500"></te-text-editor-save>
         </div>
-      </div>
+      </ng-container>
 
       <te-text-editor
         #textEditor
         [formControl]="contentFormControl"
         [config]="textEditorConfig"
-        class="g-print-section text-editor"
-        [ngClass]="{ 'text-editor-edit': !contentFormControl.disabled }"></te-text-editor>
-    </div>
+        class="g-print-section text-editor"></te-text-editor>
+    </ca-detail-card>
   </ng-template>
 </fl-section>

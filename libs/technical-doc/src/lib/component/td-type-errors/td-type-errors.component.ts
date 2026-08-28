@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 
 import { TdTypeObjectType, TdTypingErrorDTO } from '../../model/td-type.class';
 import { TdTypingName } from '../../model/td-typing-name.class';
@@ -23,7 +23,7 @@ export class TdTypeErrorsComponent implements OnInit {
     this.objectType = typingName.type;
   }
 
-  get objectTypeText(): string {
+  get objectTypeText(): string | null {
     switch (this.objectType) {
       case 'RESOURCE':
         return 'td.type_error_detail_resource';

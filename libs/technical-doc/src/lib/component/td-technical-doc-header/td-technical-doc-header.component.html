@@ -1,20 +1,20 @@
 <div class="doc-title-div g-layout-row g-layout-between-center">
   <div class="title-tech-doc">
     @if (this.isTyping) {
-      <td-type-icon-badge [style]="technicalDoc?.style" [iconSize]="40"></td-type-icon-badge>
+      <td-type-icon-badge [style]="technicalDoc.style" [iconSize]="40"></td-type-icon-badge>
     }
     <h1 class="doc-title">{{ technicalDoc.humanName }}</h1>
   </div>
   @if (this.isTyping) {
     <div class="chip-list">
-      @if (technicalDoc?.deprecatedSince) {
+      @if (technicalDoc.deprecatedSince) {
         <fl-chip class="deprecated-chip g-warn-background">
           {{ 'td.deprecated' | translate }}
         </fl-chip>
       }
-      @if (technicalDoc?.objectSubType) {
+      @if (technicalDoc.objectSubType) {
         <fl-chip class="g-primary-background">
-          {{ technicalDoc?.objectSubType }}
+          {{ technicalDoc.objectSubType }}
         </fl-chip>
       }
     </div>

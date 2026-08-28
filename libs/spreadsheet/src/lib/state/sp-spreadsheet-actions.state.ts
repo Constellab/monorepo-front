@@ -56,7 +56,8 @@ export class SpSpreadsheetActions {
 
   public addColumn(): void {
     const sheet: SpSheet = this.state.currentSheet;
-    const selection: SpSheetSingleSelection = this.selectionState.currentSelection;
+    const selection: SpSheetSingleSelection | null = this.selectionState.currentSelection;
+    if (selection == null) return;
 
     const action: SpSheetAction = new SpAddColumnAction(sheet.id, selection.getRange());
 
@@ -69,7 +70,8 @@ export class SpSpreadsheetActions {
 
   public addRow(): void {
     const sheet: SpSheet = this.state.currentSheet;
-    const selection: SpSheetSingleSelection = this.selectionState.currentSelection;
+    const selection: SpSheetSingleSelection | null = this.selectionState.currentSelection;
+    if (selection == null) return;
 
     const action: SpSheetAction = new SpAddRowAction(sheet.id, selection.getRange());
 
@@ -82,7 +84,8 @@ export class SpSpreadsheetActions {
 
   public deleteColumns(): void {
     const sheet: SpSheet = this.state.currentSheet;
-    const selection: SpSheetSingleSelection = this.selectionState.currentSelection;
+    const selection: SpSheetSingleSelection | null = this.selectionState.currentSelection;
+    if (selection == null) return;
 
     const action: SpSheetAction = new SpDeleteColumnAction(
       sheet.id,
@@ -99,7 +102,8 @@ export class SpSpreadsheetActions {
 
   public deleteRows(): void {
     const sheet: SpSheet = this.state.currentSheet;
-    const selection: SpSheetSingleSelection = this.selectionState.currentSelection;
+    const selection: SpSheetSingleSelection | null = this.selectionState.currentSelection;
+    if (selection == null) return;
 
     const action: SpSheetAction = new SpDeleteRowAction(
       sheet.id,

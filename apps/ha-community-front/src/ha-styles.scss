@@ -308,3 +308,51 @@
     transform: translateY(0);
   }
 }
+
+// Soft "shadow border" for a button: a 2px ring around the label that darkens toward
+// the bottom, plus an inset shadow on hover. This is the look community buttons used
+// to get from a global .mat-mdc-raised-button override; it is now opt-in per button.
+html .g-button-shadow-border {
+  @include mat.button-overrides(
+    (
+      text-label-text-color: var(--color-foreground),
+      outlined-outline-color: transparent,
+      outlined-label-text-color: var(--color-foreground),
+      protected-label-text-color: var(--color-foreground),
+      protected-container-elevation-shadow: none,
+      protected-hover-container-elevation-shadow: none,
+    )
+  );
+
+  position: relative;
+  background-color: var(--main-background);
+  background-image: linear-gradient(
+    180deg,
+    transparent 0%,
+    color-mix(in srgb, var(--color-foreground) 8%, transparent) 100%
+  );
+
+  // masks the middle so only a 2px ring of the gradient above stays visible
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 2px;
+    border-radius: inherit;
+    background-color: var(--main-background);
+    transition: 0.2s;
+  }
+
+  &:hover {
+    box-shadow: 0 6px 6px 0 color-mix(in srgb, var(--color-foreground) 8%, transparent) inset;
+  }
+
+  &:hover::before {
+    background-image: linear-gradient(180deg, transparent 0%, var(--main-background) 100%);
+  }
+
+  .mdc-button__label,
+  .mat-icon {
+    position: relative;
+    z-index: 1;
+  }
+}

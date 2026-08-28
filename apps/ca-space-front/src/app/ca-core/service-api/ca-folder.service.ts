@@ -217,7 +217,7 @@ export class CaFolderService {
 
   public searchFolderUser(
     folderId: string,
-    name: string,
+    name: string | null | undefined,
     page: number,
     pageSize: number
   ): Observable<ClPage<CaUser>> {

@@ -1,0 +1,33 @@
+<!--  Step 1: the script wires everything through the claude CLI itself  -->
+<div class="step">
+  <p class="g-text-big">{{ 'monitoring.claude_plugin_dev_step_1' | translate }}</p>
+  <mat-button-toggle-group class="os-toggle" [value]="selectedOs()" (valueChange)="selectedOs.set($event)">
+    <mat-button-toggle value="posix">
+      {{ 'monitoring.claude_plugin_dev_os_posix' | translate }}
+    </mat-button-toggle>
+    <mat-button-toggle value="windows">
+      {{ 'monitoring.claude_plugin_dev_os_windows' | translate }}
+    </mat-button-toggle>
+  </mat-button-toggle-group>
+  <lab-claude-plugin-command [command]="command()"></lab-claude-plugin-command>
+  <p class="g-text-small g-text-light">
+    {{ 'monitoring.claude_plugin_dev_step_1_hint' | translate }}
+  </p>
+</div>
+
+<!--  Step 2: nothing left to paste  -->
+<div class="step">
+  <p class="g-text-big">{{ 'monitoring.claude_plugin_dev_step_2' | translate }}</p>
+  <p>{{ 'monitoring.claude_plugin_dev_step_2_hint' | translate }}</p>
+</div>
+
+<!--
+  Re-running the same command is the update: it refreshes the local marketplace and reinstalls.
+  devInstall.install and devInstall.updateMarketplace are the script's own fallback for a machine
+  without the claude CLI on its PATH: it prints them, numbered, only when it needs them.
+  Showing them here would invite someone to run them before the script.
+-->
+<div class="step">
+  <p class="g-text-big">{{ 'monitoring.claude_plugin_dev_update_title' | translate }}</p>
+  <p>{{ 'monitoring.claude_plugin_dev_update_hint' | translate }}</p>
+</div>

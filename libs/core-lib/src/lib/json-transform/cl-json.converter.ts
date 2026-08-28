@@ -125,11 +125,11 @@ export class ClCoreJsonConvert {
    */
   public static deepCloneClassAndMerge<A>(
     object: A,
-    partialObject: Partial<any>,
+    partialObject: Partial<A>,
     classReference: new () => A
   ): A {
     const cloned = ClCoreJsonConvert.deepCloneClass(object, classReference);
-    return Object.assign(cloned, partialObject);
+    return Object.assign(cloned as object, partialObject) as A;
   }
 
   /**

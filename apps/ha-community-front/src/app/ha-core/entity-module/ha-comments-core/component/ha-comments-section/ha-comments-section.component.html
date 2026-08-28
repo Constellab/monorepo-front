@@ -13,15 +13,15 @@
   </div>
 
   <div class="write-comment-div">
-    @if (isWritingComment) {
+    @if (isWritingComment && user(); as u) {
       <div class="write-comment-text-editor-div">
         <div class="g-flex g-layout-row g-layout-between-center">
-          <fl-user-inline [user]="user()" [portalOnHover]="false"></fl-user-inline>
+          <fl-user-inline [user]="u" [portalOnHover]="false"></fl-user-inline>
           <div class="g-flex g-layout-row g-gap-05em">
             <button mat-raised-button (click)="hideCommentTextEditor()">
               {{ 'cancel' | translate }}
             </button>
-            @if (!formControlCommentInputData.value?.isEmpty()) {
+            @if (!formControlCommentInputData.value.isEmpty()) {
               <button mat-flat-button [disabled]="isLoading" (click)="sendComment()">
                 @if (isLoading) {
                   <fl-button-loader></fl-button-loader>

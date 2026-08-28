@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { ChangeDetectionStrategy,Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { ClHelpService } from '@monorepo/core-lib';
 import { Observable, Subscription } from 'rxjs';
 
@@ -30,7 +30,7 @@ export class CaSpacePhotoComponent implements OnInit, OnDestroy {
   sizeNumber: number = 3;
   fontSize: number;
 
-  photo: string;
+  photo: string | null;
   initial: string;
 
   private subscription: Subscription;

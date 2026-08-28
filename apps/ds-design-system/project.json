@@ -93,7 +93,10 @@
     },
     "test": {
       "executor": "@angular/build:unit-test",
-      "options": {}
+      "options": {
+        "runnerConfig": true,
+        "watch": false
+      }
     },
     "serve-static": {
       "continuous": true,

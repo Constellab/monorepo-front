@@ -198,7 +198,7 @@ export class BnBioNetworkSelectionState {
     const links: BnBioNetworkLink[] = [];
 
     for (const link of this.data.links) {
-      let otherNode: BnBioNetworkNode;
+      let otherNode: BnBioNetworkNode | undefined;
       if (nodeIds.includes(link.target.id)) {
         otherNode = link.source;
       } else if (nodeIds.includes(link.source.id)) {

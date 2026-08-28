@@ -49,6 +49,7 @@ import { CookieService } from 'ngx-cookie-service';
 
 import { CaAppComponent } from './app/ca-app.component';
 import { CA_APP_ROUTES } from './app/ca-app-routes';
+import { CaHttpRefreshInterceptorService } from './app/ca-core/interceptor/ca-http-refresh-interceptor.service';
 import { CaSpaceInterceptor } from './app/ca-core/interceptor/ca-space-interceptor.service';
 import { CaApiServiceConfig } from './app/ca-core/model/config/ca-api-module.config';
 import { CaCommunityLibConfigService } from './app/ca-core/model/config/ca-community-lib-config.service';
@@ -122,6 +123,13 @@ function bootstrapApp(): void {
       {
         provide: HTTP_INTERCEPTORS,
         useExisting: CaSpaceInterceptor,
+        multi: true,
+      },
+      // last of the chain, so the request it replays after a renewal is the fully decorated one
+      // the other interceptors already built
+      {
+        provide: HTTP_INTERCEPTORS,
+        useClass: CaHttpRefreshInterceptorService,
         multi: true,
       },
       provideAppInitializer(() => loadThemeOnInit(inject(FlThemeService))),

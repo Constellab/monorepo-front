@@ -30,7 +30,7 @@ export class HaApiServiceConfig extends FlApiServiceConfig {
   }
 
   getHeaders(): Record<string, string> {
-    return undefined;
+    return {};
   }
 
   get pageQueryParam(): string {

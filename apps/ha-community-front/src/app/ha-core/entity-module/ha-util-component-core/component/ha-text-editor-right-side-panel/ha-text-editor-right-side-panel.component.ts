@@ -16,14 +16,11 @@ export class HaTextEditorRightSidePanelComponent {
 
   urlToDownloadFilePrefix = input.required<string>();
 
-  files = input<HaFile[]>();
+  files = input<HaFile[]>([]);
 
-  filesToShow = computed(() => {
-    return this.files()?.filter((file) => file.type === HaFileType.FILE);
-  });
+  filesToShow = computed(() => this.files().filter((file) => file.type === HaFileType.FILE));
 
-  titles = computed(() => {
-    if (!this.content()) return [];
-    return this.content()?.getHeadersData([TeBlockHeaderLevel.HEADER_1, TeBlockHeaderLevel.HEADER_2]);
-  });
+  titles = computed(() =>
+    this.content().getHeadersData([TeBlockHeaderLevel.HEADER_1, TeBlockHeaderLevel.HEADER_2])
+  );
 }

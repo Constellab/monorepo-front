@@ -2,7 +2,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 
 export type SpHeaderCellType = 'row' | 'column';
 
-export type SpCellEditChange = { edit: false; value: void } | { edit: true; value: string };
+export type SpCellEditChange = { edit: false; value: void | null } | { edit: true; value: string };
 
 export abstract class SpCell {
   private static idGenerator: number = 0;

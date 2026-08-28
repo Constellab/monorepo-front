@@ -13,7 +13,7 @@
   </mat-form-field>
 
   <div class="hits-div g-scrollable-element" cdkScrollable #hitsDiv>
-    @if (hits.length > 0 && query?.length > 0) {
+    @if (hits.length > 0 && query.length > 0) {
       @for (hit of hits; track hit.objectId; let idx = $index) {
         <a
           [routerLink]="hit.path"

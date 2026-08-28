@@ -15,7 +15,10 @@ import { ChChart2dDatum } from '../data/ch-chart-data.class';
 import { ChChart2dMultiSerie } from '../data/ch-chart-multi-serie.class';
 import { ChChartDataWithSerie } from '../data/ch-chart-serie.class';
 import { ChChartSVGLegend } from '../legend/ch-chart-legend.class';
-import { CH_CHART_TRANSPARENT_COLOR_OPACITY,ChChartColorFunction } from '../scale/ch-chart-scale-color.class';
+import {
+  CH_CHART_TRANSPARENT_COLOR_OPACITY,
+  ChChartColorFunction,
+} from '../scale/ch-chart-scale-color.class';
 import { ChChartLinear2d } from './ch-chart-linear-2d.class';
 
 export class ChChartVulcanoPlot extends ChChartLinear2d {
@@ -66,7 +69,7 @@ export class ChChartVulcanoPlot extends ChChartLinear2d {
     };
   }
 
-  getSVGLegend(): ChChartSVGLegend {
+  getSVGLegend(): ChChartSVGLegend | null {
     return null;
   }
 

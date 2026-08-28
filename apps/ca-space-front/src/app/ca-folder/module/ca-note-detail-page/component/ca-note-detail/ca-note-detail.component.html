@@ -1,37 +1,49 @@
 <fl-async-section [object]="note$" class="section">
   <ng-container *flSectionBody="note$ as note">
-    <div class="card-container g-layout-col">
-      <div class="g-layout-row g-layout-start-center">
+    <ca-detail-card>
+      <ng-container ca-detail-card-title>
         <ca-hierarchy-object-icon [style]="note.style" class="g-print-hide icon"></ca-hierarchy-object-icon>
         <h1 class="title g-text-dense-height">{{ note.title }}</h1>
+      </ng-container>
 
-        <div class="g-print-hide g-layout-row g-layout-start-center">
-          @if (userRole().canEdit()) {
-            <button
-              mat-stroked-button
-              type="button"
-              (click)="openNoteInformation(note)"
-              class="g-button-small button">
-              {{ 'note_information' | translate }}
-              <mat-icon>info</mat-icon>
-            </button>
-          }
-
-          <button mat-stroked-button type="button" (click)="printNote()" class="g-button-small button">
-            {{ 'print_note' | translate }}
-            <mat-icon>print</mat-icon>
+      <ng-container ca-detail-card-actions>
+        @if (userRole()?.canEdit()) {
+          <button mat-stroked-button type="button" (click)="openNoteInformation(note)" class="g-button-small">
+            {{ 'note_information' | translate }}
+            <mat-icon>info</mat-icon>
           </button>
-
-          <button mat-icon-button (click)="openActionMenu(note, $event)">
-            <mat-icon>more_vert</mat-icon>
-          </button>
-        </div>
-      </div>
-
-      <div class="g-print-hide">
-        @if (tags()) {
-          <fl-tag-list class="g-text-small" [tags]="tags()" [showNoTagMessage]="false"></fl-tag-list>
         }
+
+        <button mat-stroked-button type="button" (click)="printNote()" class="g-button-small primary">
+          {{ 'print_note' | translate }}
+          <mat-icon>print</mat-icon>
+        </button>
+
+        <button mat-icon-button (click)="openActionMenu(note, $event)">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+      </ng-container>
+
+      <ng-container ca-detail-card-meta>
+        @if (tags(); as tagsDatasource) {
+          <fl-tag-list class="g-text-small" [tags]="tagsDatasource" [showNoTagMessage]="false"></fl-tag-list>
+        }
+
+        <div class="g-text-small g-layout-row-wrap authors">
+          <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
+            <span class="author-label">{{ 'created_by' | translate }}</span>
+            <fl-user-with-date [user]="note.createdBy" [date]="note.createdAt"></fl-user-with-date>
+          </div>
+
+          @if (note.lastModifiedBy; as lastModifiedBy) {
+            @if (note.lastModifiedAt; as lastModifiedAt) {
+              <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
+                <span class="author-label">{{ 'modified' | translate }}</span>
+                <fl-user-with-date [user]="lastModifiedBy" [date]="lastModifiedAt"></fl-user-with-date>
+              </div>
+            }
+          }
+        </div>
 
         <!--  Validated info  -->
         @if (note.isValidated) {
@@ -40,12 +52,12 @@
 
         <!-- Sync info -->
         <ca-sync-object-info class="g-text-small" [object]="note"></ca-sync-object-info>
-      </div>
+      </ng-container>
 
       <ca-note-content
         [noteId]="note.id"
         [hierarchyObjectToken]="hierarchyObjectToken()"
         class="note-content"></ca-note-content>
-    </div>
+    </ca-detail-card>
   </ng-container>
 </fl-async-section>

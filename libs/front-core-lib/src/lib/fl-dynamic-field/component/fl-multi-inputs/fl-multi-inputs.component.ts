@@ -24,11 +24,11 @@ import { FlFormFieldDirective } from '@monorepo/front-core-lib/fl-core';
 export class FlMultiInputsComponent extends FlFormFieldDirective<string, string[]> {
   private cdr = inject(ChangeDetectorRef);
 
-  @Input() placeholder: string;
+  @Input() placeholder: string | undefined;
 
-  @Input() hint: string;
-  @Input() prefix: string;
-  @Input() suffix: string;
+  @Input() hint: string | undefined;
+  @Input() prefix: string | undefined;
+  @Input() suffix: string | undefined;
 
   @Input() rows: number = 3;
 

@@ -14,7 +14,7 @@ export class HaBrickVersion extends HaEntity {
   repoType: HaRepoType;
   versionType: HaVersionType = HaVersionType.NORMAL;
   technicalInfo: Record<string, any>;
-  subPatch?: number;
+  subPatch?: number | null;
 
   public get version(): ClVersion {
     return this.versionType === HaVersionType.BETA

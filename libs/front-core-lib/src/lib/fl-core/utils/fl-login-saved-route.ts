@@ -7,7 +7,7 @@
 import { Params } from '@angular/router';
 
 export class FlLoginSavedRoute {
-  public static route: string = null;
+  public static route: string | null = null;
 
   /**
    * Save a route (path, optionally with query params) to redirect to after login.
@@ -26,9 +26,10 @@ export class FlLoginSavedRoute {
   /**
    * return the path before any '?'
    */
-  public static getRoutePath(): string {
-    if (FlLoginSavedRoute.hasRoute()) {
-      return FlLoginSavedRoute.route.split('?')[0];
+  public static getRoutePath(): string | null {
+    const route = FlLoginSavedRoute.route;
+    if (route != null && route !== '') {
+      return route.split('?')[0];
     } else {
       return null;
     }
@@ -38,11 +39,12 @@ export class FlLoginSavedRoute {
    * return the saved query params as object
    */
   public static getRouteQueryParams(): Params | null {
-    if (!FlLoginSavedRoute.hasRoute()) {
+    const route = FlLoginSavedRoute.route;
+    if (route == null || route === '') {
       return null;
     }
 
-    let params = FlLoginSavedRoute.route.split('?')[1];
+    let params = route.split('?')[1];
 
     if (params == null || params === '') {
       return null;

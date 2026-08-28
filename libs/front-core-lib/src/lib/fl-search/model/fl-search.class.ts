@@ -74,5 +74,5 @@ interface FlSearchCriteriaMultiple<COLUMN = any> {
  */
 export interface FlAdvancedSearchInput {
   filtersCriteria: FlSearchCriteria[];
-  sortsCriteria: FlSortCriteria[];
+  sortsCriteria: FlSortCriteria[] | null;
 }

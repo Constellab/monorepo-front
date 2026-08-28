@@ -215,7 +215,8 @@ export class CaSpaceService {
 
   public searchSpaceUsersByNameDatasource(spaceId: string): CaUserDatasourcePaginated<FlInputSearchFilter> {
     return new FlEntityPaginatedDatasource(
-      (page, size, data) => this.searchSpaceUsersByName(spaceId, data.filtersCriteria.searchText, page, size),
+      (page, size, data) =>
+        this.searchSpaceUsersByName(spaceId, data.filtersCriteria.searchText ?? '', page, size),
       20,
       { initFirstPage: false }
     );

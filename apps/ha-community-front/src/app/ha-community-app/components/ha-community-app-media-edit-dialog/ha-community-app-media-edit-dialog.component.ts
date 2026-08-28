@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, computed, inject, Signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, Signal } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconButton } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -40,22 +40,30 @@ export class HaCommunityAppMediaEditDialogComponent {
   private communityAppState = inject(HaCommunityAppState);
   private communityAppService = inject(HaCommunityAppService);
 
-  app: Signal<HaCommunityApp> = this.communityAppState.app;
+  app: Signal<HaCommunityApp | null> = this.communityAppState.app;
 
   videoUrlFormControl = computed(() => {
     const app = this.app();
-    if (!app) return new FormControl<string>(null);
-    return new FormControl<string>(app.video);
+    if (!app) return new FormControl<string | null>(null);
+    return new FormControl<string | null>(app.video ?? null);
   });
 
   saveVideo(): void {
-    const app = this.app();
+    const app = this.requireApp();
     let video = this.videoUrlFormControl().value;
     if (app.video === video) return;
     if (video?.length == 0) video = null;
-    this.communityAppService.updateAppMedia(app.id, video, app.figures).subscribe((communityApp) => {
+    this.communityAppService.updateAppMedia(app.id, video, app.figures ?? []).subscribe((communityApp) => {
       this.communityAppState.set(communityApp);
     });
+  }
+
+  private requireApp(): HaCommunityApp {
+    const app = this.app();
+    if (app == null) {
+      throw new Error('HaCommunityAppMediaEditDialogComponent used without a loaded app');
+    }
+    return app;
   }
 
   getImageConfig(figure?: string): FlUploadImageDialogConfig {
@@ -70,10 +78,10 @@ export class HaCommunityAppMediaEditDialogComponent {
             const filename = res.filename;
             return (figure ? this.deleteFigure(figure) : of(null)).pipe(
               mergeMap(() => {
-                const app = this.app();
+                const app = this.requireApp();
                 app.figures = app.figures || [];
                 app.figures.push(filename);
-                return this.communityAppService.updateAppMedia(app.id, app.video, app.figures);
+                return this.communityAppService.updateAppMedia(app.id, app.video ?? '', app.figures);
               })
             );
           }),
@@ -100,7 +108,7 @@ export class HaCommunityAppMediaEditDialogComponent {
   }
 
   getReorderActions(index: number): FlMenuDynamic[] {
-    const app = this.app();
+    const app = this.requireApp();
     const actions: FlMenuDynamic[] = [];
 
     if (index > 0) {
@@ -112,7 +120,7 @@ export class HaCommunityAppMediaEditDialogComponent {
       });
     }
 
-    if (index < app.figures.length - 1) {
+    if (index < (app.figures?.length ?? 0) - 1) {
       actions.push({
         text: { text: 'move_right', translateText: true },
         icon: 'arrow_forward',
@@ -127,9 +135,9 @@ export class HaCommunityAppMediaEditDialogComponent {
   private deleteFigure(figure: string): Observable<any> {
     return this.communityAppService.deleteFile(figure).pipe(
       mergeMap(() => {
-        const app = this.app();
+        const app = this.requireApp();
         app.figures = (app.figures || []).filter((f) => f !== figure);
-        return this.communityAppService.updateAppMedia(app.id, app.video, app.figures);
+        return this.communityAppService.updateAppMedia(app.id, app.video ?? '', app.figures);
       }),
       map((communityApp: HaCommunityApp) => {
         this.communityAppState.set(communityApp);
@@ -139,22 +147,22 @@ export class HaCommunityAppMediaEditDialogComponent {
 
   moveFigureUp(index: number): void {
     if (index === 0) return;
-    const app = this.app();
-    const figures = [...app.figures];
+    const app = this.requireApp();
+    const figures = [...(app.figures ?? [])];
     [figures[index - 1], figures[index]] = [figures[index], figures[index - 1]];
     this.rearrangeFigures(figures);
   }
 
   moveFigureDown(index: number): void {
-    const app = this.app();
-    if (index === app.figures.length - 1) return;
-    const figures = [...app.figures];
+    const app = this.requireApp();
+    if (index === (app.figures?.length ?? 0) - 1) return;
+    const figures = [...(app.figures ?? [])];
     [figures[index], figures[index + 1]] = [figures[index + 1], figures[index]];
     this.rearrangeFigures(figures);
   }
 
   private rearrangeFigures(figures: string[]): void {
-    const app = this.app();
+    const app = this.requireApp();
     this.communityAppService.rearrangeMedias(app.id, figures).subscribe((communityApp) => {
       this.communityAppState.set(communityApp);
     });

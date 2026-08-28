@@ -16,7 +16,8 @@ export class FlHtmlHelper {
   public static domTokenListToArray(tokenList: DOMTokenList): string[] {
     const array: string[] = [];
     for (let i = 0; i < tokenList.length; i++) {
-      array.push(tokenList.item(i));
+      const item = tokenList.item(i);
+      if (item != null) array.push(item);
     }
     return array;
   }
@@ -106,22 +107,39 @@ export class FlHtmlHelper {
    * @param parent provide one of the field to search
    */
   public static getParent(element: HTMLElement, parent: FlHtmlFindParentOptions): HTMLElement | null {
-    let current: HTMLElement = element;
+    const matchesParent = FlHtmlHelper.buildParentMatcher(parent);
+    let current: HTMLElement | null = element;
 
     while (current != null && current.tagName !== 'BODY') {
-      if (parent.element) {
-        if (current === parent.element) return current;
-      } else if (parent.tagName) {
-        if (current.tagName === parent.tagName.toUpperCase()) return current;
-      } else if (parent.className) {
-        if (current.classList.contains(parent.className)) return current;
-      } else if (parent.attribute) {
-        if (FlHtmlHelper.hasAttributes(current, parent.attribute)) return current;
-      }
+      if (matchesParent(current)) return current;
       current = current.parentElement;
     }
 
     return null;
+  }
+
+  /**
+   * Build the predicate matching the first provided field of the options,
+   * it never matches when no field is provided.
+   */
+  private static buildParentMatcher(parent: FlHtmlFindParentOptions): (element: HTMLElement) => boolean {
+    if (parent.element) {
+      const target = parent.element;
+      return (element) => element === target;
+    }
+    if (parent.tagName) {
+      const tagName = parent.tagName.toUpperCase();
+      return (element) => element.tagName === tagName;
+    }
+    if (parent.className) {
+      const className = parent.className;
+      return (element) => element.classList.contains(className);
+    }
+    if (parent.attribute) {
+      const attribute = parent.attribute;
+      return (element) => FlHtmlHelper.hasAttributes(element, attribute);
+    }
+    return () => false;
   }
 
   public static hasAttributes(element: HTMLElement, attributes: Record<string, string>): boolean {
@@ -133,6 +151,8 @@ export class FlHtmlHelper {
 
   public static setCaretAtElementEnd(element: Node): void {
     const selection = window.getSelection();
+    if (!selection) return;
+
     const range = document.createRange();
     range.selectNodeContents(element);
     range.collapse(false);
@@ -142,6 +162,8 @@ export class FlHtmlHelper {
 
   public static setCaretAtElementPosition(element: Node, position: number): void {
     const selection = window.getSelection();
+    if (!selection) return;
+
     const range = document.createRange();
     range.setStart(element, position);
     range.collapse(true);
@@ -149,8 +171,11 @@ export class FlHtmlHelper {
     selection.addRange(range);
   }
 
-  public static getCaretCoordinates(): { top: number; left: number } {
+  public static getCaretCoordinates(): { top: number; left: number } | null {
     const selection = window.getSelection();
+    // rangeCount is 0 when nothing is selected, and getRangeAt would throw an IndexSizeError
+    if (!selection || selection.rangeCount === 0) return null;
+
     const range = selection.getRangeAt(0);
     const rect = range.getBoundingClientRect();
     return { top: rect.top, left: rect.left };
@@ -163,13 +188,15 @@ export class FlHtmlHelper {
     element: HTMLElement
   ): void {
     const textContent = node.textContent;
+    const parentNode = node.parentNode;
+    if (textContent == null || parentNode == null) return;
 
     const before = document.createTextNode(textContent.slice(0, from));
     const after = document.createTextNode(textContent.slice(to));
 
     node.textContent = '';
-    node.parentNode.appendChild(before);
-    node.parentNode.appendChild(element);
-    node.parentNode.appendChild(after);
+    parentNode.appendChild(before);
+    parentNode.appendChild(element);
+    parentNode.appendChild(after);
   }
 }

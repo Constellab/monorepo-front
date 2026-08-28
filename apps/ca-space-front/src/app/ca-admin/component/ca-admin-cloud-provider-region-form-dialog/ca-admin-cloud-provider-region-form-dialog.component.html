@@ -12,7 +12,7 @@
         <mat-option value="SERVER">Server</mat-option>
         <mat-option value="S3">S3</mat-option>
       </mat-select>
-      @if (formGp.get('type').hasError('required')) {
+      @if (formGp.get('type')?.hasError('required')) {
         <mat-error>{{ 'type' | flErrorRequired }}</mat-error>
       }
     </mat-form-field>
@@ -26,7 +26,7 @@
         required
         flInputMaxLength="20"
         [placeholder]="'region_technical_name' | translate" />
-      @if (formGp.get('technicalName').hasError('required')) {
+      @if (formGp.get('technicalName')?.hasError('required')) {
         <mat-error>{{ 'region_technical_name' | flErrorRequired }}</mat-error>
       }
     </mat-form-field>
@@ -40,7 +40,7 @@
         required
         flInputMaxLength="100"
         [placeholder]="'name' | translate" />
-      @if (formGp.get('name').hasError('required')) {
+      @if (formGp.get('name')?.hasError('required')) {
         <mat-error>{{ 'name' | flErrorRequired }}</mat-error>
       }
     </mat-form-field>
@@ -51,7 +51,7 @@
       <mat-select formControlName="cloudProvider">
         <ca-select-cloud-provider-options></ca-select-cloud-provider-options>
       </mat-select>
-      @if (formGp.get('cloudProvider').hasError('required')) {
+      @if (formGp.get('cloudProvider')?.hasError('required')) {
         <mat-error>{{ 'cloud_provider' | flErrorRequired }}</mat-error>
       }
     </mat-form-field>
@@ -62,7 +62,7 @@
       <mat-select formControlName="city" required>
         <ca-select-city-options></ca-select-city-options>
       </mat-select>
-      @if (formGp.get('city').hasError('required')) {
+      @if (formGp.get('city')?.hasError('required')) {
         <mat-error>{{ 'city' | flErrorRequired }}</mat-error>
       }
     </mat-form-field>

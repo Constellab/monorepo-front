@@ -58,7 +58,7 @@
             <dt>{{ 'oauthConsent.detail_access' | translate }}</dt>
             <dd>
               <div>{{ d.accessSummary }}</div>
-              @if (d.accessDetails?.length) {
+              @if (d.accessDetails.length) {
                 <ul class="access-details">
                   @for (item of d.accessDetails; track item) {
                     <li>{{ item }}</li>

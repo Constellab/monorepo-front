@@ -58,10 +58,12 @@ export class BnBioNetworkNodesRenderer extends BnBioNetworkObjectRenderer {
         this.selectionState.selectNodeAndDirectLinks(node, 'singleNodeByClick')
       )
       .onNodeDrag((node: BnBioNetworkNode) => {
-        const coord = { x: node.x, y: node.y };
-        const newPos = this.gridState.roundCoordOnGrid(coord);
-        if (newPos) {
-          node.setPositionAndFreeze(newPos);
+        const coord = node.getCoords();
+        if (coord.x != null && coord.y != null) {
+          const newPos = this.gridState.roundCoordOnGrid({ x: coord.x, y: coord.y });
+          if (newPos) {
+            node.setPositionAndFreeze(newPos);
+          }
         }
 
         if (node instanceof BnBioNetworkNodeReaction) {
@@ -115,13 +117,7 @@ export class BnBioNetworkNodesRenderer extends BnBioNetworkObjectRenderer {
     showText: boolean
   ): void {
     // if node position are not  inside positions
-    if (
-      this.positions &&
-      (node.x < this.positions.fromX ||
-        node.x > this.positions.toX ||
-        node.y < this.positions.fromY ||
-        node.y > this.positions.toY)
-    ) {
+    if (this.isOutsideRenderedPositions(node)) {
       return;
     }
 
@@ -134,6 +130,16 @@ export class BnBioNetworkNodesRenderer extends BnBioNetworkObjectRenderer {
     } else {
       console.log('node type not supported');
     }
+  }
+
+  private isOutsideRenderedPositions(node: BnBioNetworkNode): boolean {
+    const { x, y } = node;
+    if (!this.positions || x == null || y == null) {
+      return false;
+    }
+    return (
+      x < this.positions.fromX || x > this.positions.toX || y < this.positions.fromY || y > this.positions.toY
+    );
   }
 
   private nodePaintPointerArea(node: BnBioNetworkNode, ctx: CanvasRenderingContext2D, color: string): void {

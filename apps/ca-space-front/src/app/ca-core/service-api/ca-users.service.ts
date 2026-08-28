@@ -63,7 +63,7 @@ export class CaUsersService {
 
   public searchByNamesDatasource(): CaUserDatasourcePaginated<FlInputSearchFilter> {
     return new FlEntityPaginatedDatasource(
-      (page, size, data) => this.searchByNames(data.filtersCriteria.searchText, page, size),
+      (page, size, data) => this.searchByNames(data.filtersCriteria.searchText ?? '', page, size),
       20,
       { initFirstPage: false }
     );

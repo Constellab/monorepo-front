@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { ActivatedRoute } from '@angular/router';
@@ -12,18 +12,13 @@ import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { TranslatePipe } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
-import {
-  CaLabFreeCardInfoComponent,
-} from '../../../ca-core/entity-module/ca-lab-core/component/ca-lab-free-card-info/ca-lab-free-card-info.component';
+import { CaLabFreeCardInfoComponent } from '../../../ca-core/entity-module/ca-lab-core/component/ca-lab-free-card-info/ca-lab-free-card-info.component';
 import { CaUser } from '../../../ca-core/model/entities/ca-user.class';
-import {
-  CaIsAdminDirective
-} from '../../../ca-core/module/ca-core-directive/ca-is-admin/ca-is-admin.directive';
+import { CaIsAdminDirective } from '../../../ca-core/module/ca-core-directive/ca-is-admin/ca-is-admin.directive';
 import { CaAuthenticatedUserService } from '../../../ca-core/service-api/ca-authenticated-user.service';
 import { CaSpaceService } from '../../../ca-core/service-api/ca-space.service';
-import {
-  CaUserProfileEditDialogComponent,
-} from '../ca-user-profile-edit-dialog/ca-user-profile-edit-dialog.component';
+import { CaClaudeMcpCardComponent } from '../ca-claude-mcp-card/ca-claude-mcp-card.component';
+import { CaUserProfileEditDialogComponent } from '../ca-user-profile-edit-dialog/ca-user-profile-edit-dialog.component';
 import { CaUserSettingsDialogComponent } from '../ca-user-settings-dialog/ca-user-settings-dialog.component';
 import { CaUserSpacesListComponent } from '../ca-user-spaces-list/ca-user-spaces-list.component';
 
@@ -46,6 +41,7 @@ import { CaUserSpacesListComponent } from '../ca-user-spaces-list/ca-user-spaces
     CaIsAdminDirective,
     CaUserSpacesListComponent,
     CaLabFreeCardInfoComponent,
+    CaClaudeMcpCardComponent,
     TranslatePipe,
   ],
 })
@@ -55,7 +51,7 @@ export class CaUserDetailPageComponent implements OnInit {
   private spaceService = inject(CaSpaceService);
   private dialogService = inject(FlDialogService);
 
-  user$: Observable<CaUser>;
+  user$: Observable<CaUser | null>;
 
   id: string;
   isCurrentUser: boolean = false;

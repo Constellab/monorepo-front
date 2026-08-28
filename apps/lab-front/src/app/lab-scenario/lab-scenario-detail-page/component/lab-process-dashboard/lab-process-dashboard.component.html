@@ -13,7 +13,7 @@
           <h2 flElementEditable (flElementValueChange)="updateProcessName(process, $event)">
             {{ process.name }}
           </h2>
-          @if (process.processType?.short_description) {
+          @if (process.processType.short_description) {
             <p class="process-description">{{ process.processType.short_description }}</p>
           }
         </div>

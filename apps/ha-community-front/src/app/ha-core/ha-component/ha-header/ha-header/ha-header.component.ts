@@ -1,5 +1,13 @@
 import { NgClass, NgOptimizedImage } from '@angular/common';
-import { ChangeDetectionStrategy,Component, effect, inject, input, signal, WritableSignal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  effect,
+  inject,
+  input,
+  signal,
+  WritableSignal,
+} from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { MatButton } from '@angular/material/button';
 import { MatDivider } from '@angular/material/divider';
@@ -78,6 +86,8 @@ export class HaHeaderComponent {
   agentListRoute = HaRouterService.getAgentsListRoute();
 
   profileRoute = HaRouterService.getProfileRoute();
+
+  aiIntegrationRoute = HaRouterService.getAiIntegrationRoute();
 
   constellabRoute = HaConstellabHelper.getConstellabUrl();
 

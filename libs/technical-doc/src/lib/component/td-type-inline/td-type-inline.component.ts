@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy,Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
-import { TD_TYPE_STYLE_DEFAULT,TdTypeStyle } from '../../model/td-type.class';
+import { TD_TYPE_STYLE_DEFAULT, TdTypeStyle } from '../../model/td-type.class';
 
 /**
  * Simple component to show a chip for a type
@@ -15,7 +15,8 @@ import { TD_TYPE_STYLE_DEFAULT,TdTypeStyle } from '../../model/td-type.class';
 export class TdTypeInlineComponent {
   @Input({ required: true }) text: string;
 
-  @Input({ required: true }) style: TdTypeStyle;
+  // Genuinely optional: callers may not have a style yet (eg. a TdTypeRefDTO.style).
+  @Input({ required: true }) style: TdTypeStyle | undefined;
 
   @Input() subText: string;
 

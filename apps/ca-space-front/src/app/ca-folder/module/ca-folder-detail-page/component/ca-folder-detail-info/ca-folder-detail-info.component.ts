@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -33,7 +33,9 @@ import { CaHierarchyObjectEventState } from '../../../ca-folder-hierarchy-core/s
 })
 export class CaFolderDetailInfoComponent {
   folder = input.required<CaFolder>();
-  canEditFolder = input.required<boolean>();
+  // nullable because callers typically feed it straight from an async pipe, which is null
+  // until the permission check has resolved
+  canEditFolder = input.required<boolean | null>();
 
   private folderActionService = inject(CaFolderActionService);
   private eventState = inject(CaHierarchyObjectEventState);
@@ -44,7 +46,7 @@ export class CaFolderDetailInfoComponent {
       .subscribe((folder) => this.updateDialogClosed(folder));
   }
 
-  private updateDialogClosed(folder?: CaFolderWithHierarchy): void {
+  private updateDialogClosed(folder: CaFolderWithHierarchy | null): void {
     if (folder) {
       this.eventState.emitFolderUpdate(folder);
     }

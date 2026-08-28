@@ -6,7 +6,7 @@ import { HaCommunityAppService } from '../../../ha-service/ha-community-app.serv
 export class HaAppPicturePipe implements PipeTransform {
   private communityAppService = inject(HaCommunityAppService);
 
-  transform(picture: string): any {
+  transform(picture: string | undefined): any {
     if (picture) {
       return this.communityAppService.getAppPictureUrl(picture);
     }

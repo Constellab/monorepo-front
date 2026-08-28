@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, EventEmitter, inject, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, inject, Output } from '@angular/core';
 import { FlCaptchaService } from '@monorepo/front-core-lib/fl-captcha';
 import { Observable, switchMap } from 'rxjs';
 
@@ -46,7 +46,7 @@ export class FlLoginComponent {
     }
   }
 
-  private generateCaptcha(): Observable<string> {
+  private generateCaptcha(): Observable<string | null> {
     return this.captchaService.executeCaptcha('login');
   }
 
@@ -58,6 +58,6 @@ export class FlLoginComponent {
 
   private error(): void {
     this.isLoading = false;
-    this.formGp.get('password').reset();
+    this.formGp.get('password')?.reset();
   }
 }

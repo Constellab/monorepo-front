@@ -1,4 +1,4 @@
-import { inject,Pipe, PipeTransform } from '@angular/core';
+import { inject, Pipe, PipeTransform } from '@angular/core';
 
 import { FlThemeService } from '../fl-theme.service';
 import { FlThemeSwitch } from '../model/fl-theme-switch.class';
@@ -13,7 +13,7 @@ import { FlThemeSwitch } from '../model/fl-theme-switch.class';
 export class FlThemeSwitchPipe<T> implements PipeTransform {
   private themeService = inject(FlThemeService);
 
-  transform(themeSwitch: FlThemeSwitch<T>): T {
+  transform(themeSwitch: FlThemeSwitch<T>): T | null {
     if (themeSwitch == null) return null;
 
     return this.themeService.isDarkTheme() ? themeSwitch.darkTheme : themeSwitch.lightTheme;

@@ -27,7 +27,7 @@ export class LmsApiServiceConfig extends FlApiServiceConfig {
   }
 
   getHeaders(): Record<string, string> {
-    return undefined;
+    return {};
   }
 
   get pageQueryParam(): string {

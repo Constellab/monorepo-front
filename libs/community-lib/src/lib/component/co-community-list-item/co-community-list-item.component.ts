@@ -1,5 +1,5 @@
 import { NgOptimizedImage } from '@angular/common';
-import { ChangeDetectionStrategy,Component, computed, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -30,18 +30,18 @@ import { CoVisibilityBadgeComponent } from '../co-visibility-badge/co-visibility
   ],
 })
 export class CoCommunityListItemComponent {
-  image = input<string | null>(null);
+  image = input<string | null | undefined>(null);
   type = input.required<CoListItemType>();
   title = input<string | null>(null);
-  shortDescription = input<string | null>(null);
-  space = input<CoSpace | null>(null);
+  shortDescription = input<string | null | undefined>(null);
+  space = input<CoSpace | null | undefined>(null);
   showVisibility = input<boolean>(true);
   likes = input<number>(0);
-  comments = input<number>(undefined);
-  executions = input<number>(undefined);
-  publishedAt = input<DateTime | null>(null);
+  comments = input<number | undefined>(undefined);
+  executions = input<number | undefined>(undefined);
+  publishedAt = input<DateTime | null | undefined>(null);
 
-  author = input<CoUser | null>(null);
+  author = input<CoUser | null | undefined>(null);
 
   mainBackground = input<boolean>(false);
   hideDiscover = input<boolean>(false);

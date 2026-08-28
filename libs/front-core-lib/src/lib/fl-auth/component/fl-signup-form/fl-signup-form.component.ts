@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { FlGlobalValidators } from '@monorepo/front-core-lib/fl-core';
 
@@ -29,6 +29,6 @@ export class FlSignupFormComponent {
 
   // update the repeat password validity on password change
   updateRepeatPasswordValidity(): void {
-    this.formGp.get('repeatPassword').updateValueAndValidity();
+    this.formGp.get('repeatPassword')?.updateValueAndValidity();
   }
 }

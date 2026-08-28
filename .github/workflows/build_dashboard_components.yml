@@ -3,7 +3,7 @@ name: Build dashboard components
 on:
   push:
     tags:
-      - "dc_*"
+      - 'dc_*'
 
 permissions:
   contents: read
@@ -13,12 +13,15 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  test:
+    uses: ./.github/workflows/test.yml
+
   build:
+    needs: test
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        app_name:
-          [streamlit-iframe-message, streamlit-components, reflex-components]
+        app_name: [streamlit-iframe-message, streamlit-components, reflex-components]
 
     steps:
       - name: Check out the repository

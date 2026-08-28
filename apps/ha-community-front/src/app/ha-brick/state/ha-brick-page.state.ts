@@ -77,60 +77,62 @@ export class HaBrickPageState {
   private DOC_FILES_KEY: StateKey<object> = makeStateKey<object>('doc-files');
 
   // --- Writable signals (private) ---
-  private _pathVersion = signal<string>(null);
-  private _userHasEditRight = signal<boolean>(null);
-  private _docFileUrlPrefix = signal<string>(null);
-  private _docFiles = signal<HaFile[]>(null);
+  private _pathVersion = signal<string | null>(null);
+  private _userHasEditRight = signal<boolean | null>(null);
+  private _docFileUrlPrefix = signal<string | null>(null);
+  private _docFiles = signal<HaFile[] | null>(null);
   private _tempTitle = signal<string>('');
-  private _coAuthors = signal<HaUser[]>(null);
-  private _directReferences = signal<HaReferenceDTO[]>(null);
+  private _coAuthors = signal<HaUser[] | null>(null);
+  private _directReferences = signal<HaReferenceDTO[] | null>(null);
 
-  private _brick = signal<HaBrick>(null);
+  private _brick = signal<HaBrick | null>(null);
   private _brickLoading = signal(false);
   private _brickError = signal(false);
 
-  private _latestBrickVersion = signal<HaBrickVersion>(null);
+  private _latestBrickVersion = signal<HaBrickVersion | null>(null);
 
-  private _doc = signal<HaDocumentation>(null);
+  private _doc = signal<HaDocumentation | null>(null);
   private _docLoading = signal(false);
   private _docError = signal(false);
 
-  private _techDoc = signal<TdTypeEntity>(null);
+  private _techDoc = signal<TdTypeEntity | null>(null);
   private _techDocLoading = signal(false);
   private _techDocError = signal(false);
 
-  private _brickRunStatAggregate = signal<HaRunStatAggregate>(null);
-  private _runStatAggregate = signal<HaRunStatAggregate>(null);
+  private _brickRunStatAggregate = signal<HaRunStatAggregate | null>(null);
+  private _runStatAggregate = signal<HaRunStatAggregate | null>(null);
 
   // --- Public readonly signals ---
-  readonly pathVersion: Signal<string> = this._pathVersion.asReadonly();
-  readonly userHasEditRight: Signal<boolean> = this._userHasEditRight.asReadonly();
-  readonly docFileUrlPrefix: Signal<string> = this._docFileUrlPrefix.asReadonly();
-  readonly docFiles: Signal<HaFile[]> = this._docFiles.asReadonly();
+  readonly pathVersion: Signal<string | null> = this._pathVersion.asReadonly();
+  readonly userHasEditRight: Signal<boolean | null> = this._userHasEditRight.asReadonly();
+  readonly docFileUrlPrefix: Signal<string | null> = this._docFileUrlPrefix.asReadonly();
+  readonly docFiles: Signal<HaFile[] | null> = this._docFiles.asReadonly();
   readonly tempTitle: Signal<string> = this._tempTitle.asReadonly();
-  readonly coAuthors: Signal<HaUser[]> = this._coAuthors.asReadonly();
-  readonly directReferences: Signal<HaReferenceDTO[]> = this._directReferences.asReadonly();
+  readonly coAuthors: Signal<HaUser[] | null> = this._coAuthors.asReadonly();
+  readonly directReferences: Signal<HaReferenceDTO[] | null> = this._directReferences.asReadonly();
 
-  readonly brick: Signal<HaBrick> = this._brick.asReadonly();
+  readonly brick: Signal<HaBrick | null> = this._brick.asReadonly();
   readonly isBrickLoading: Signal<boolean> = this._brickLoading.asReadonly();
   readonly isBrickError: Signal<boolean> = this._brickError.asReadonly();
 
-  readonly latestBrickVersion: Signal<HaBrickVersion> = this._latestBrickVersion.asReadonly();
+  readonly latestBrickVersion: Signal<HaBrickVersion | null> = this._latestBrickVersion.asReadonly();
 
-  readonly doc: Signal<HaDocumentation> = this._doc.asReadonly();
+  readonly doc: Signal<HaDocumentation | null> = this._doc.asReadonly();
   readonly isDocLoading: Signal<boolean> = this._docLoading.asReadonly();
   readonly isDocError: Signal<boolean> = this._docError.asReadonly();
 
-  readonly techDoc: Signal<TdTypeEntity> = this._techDoc.asReadonly();
+  readonly techDoc: Signal<TdTypeEntity | null> = this._techDoc.asReadonly();
   readonly isTechDocLoading: Signal<boolean> = this._techDocLoading.asReadonly();
   readonly isTechDocError: Signal<boolean> = this._techDocError.asReadonly();
 
-  readonly brickRunStatAggregate: Signal<HaRunStatAggregate> = this._brickRunStatAggregate.asReadonly();
-  readonly runStatAggregate: Signal<HaRunStatAggregate> = this._runStatAggregate.asReadonly();
+  readonly brickRunStatAggregate: Signal<HaRunStatAggregate | null> =
+    this._brickRunStatAggregate.asReadonly();
+  readonly runStatAggregate: Signal<HaRunStatAggregate | null> = this._runStatAggregate.asReadonly();
 
   readonly docHeaders: Signal<TeBlockHeaderData[]> = computed(() => {
-    if (!this.doc()?.content) return [];
-    return this.doc().content?.getHeadersData([TeBlockHeaderLevel.HEADER_1, TeBlockHeaderLevel.HEADER_2]);
+    const doc = this.doc();
+    if (!doc?.content) return [];
+    return doc.content.getHeadersData([TeBlockHeaderLevel.HEADER_1, TeBlockHeaderLevel.HEADER_2]);
   });
 
   // --- Public methods ---
@@ -142,7 +144,7 @@ export class HaBrickPageState {
       return;
     }
     this._pathVersion.set(version);
-    this._tempTitle.set(ClStringHelper.fromKebabCaseToSentence(brickName));
+    this._tempTitle.set(ClStringHelper.fromKebabCaseToSentence(brickName) ?? '');
     this.initBrick(brickName);
   }
 
@@ -161,8 +163,8 @@ export class HaBrickPageState {
     this.initCoAuthors(brick.id);
   }
 
-  public initDoc(docId: string, url: UrlSegment[], brick: HaBrick): void {
-    if (this.doc() && this.doc().id === docId) {
+  public initDoc(docId: string, url: UrlSegment[], brick: HaBrick | null): void {
+    if (this.doc()?.id === docId) {
       // Doc already loaded
       this._docLoading.set(false);
       this._docError.set(false);
@@ -198,10 +200,12 @@ export class HaBrickPageState {
 
     this.documentationService.getById(docId).subscribe({
       next: (doc) => {
-        if (url.slice(0, -1).join('/') + '/' != doc.completePath && this.brick() && this.pathVersion()) {
+        const currentBrick = this.brick();
+        const currentPathVersion = this.pathVersion();
+        if (url.slice(0, -1).join('/') + '/' != doc.completePath && currentBrick && currentPathVersion) {
           const realDocUrl = HaRouterService.getDocumentationRoute(
-            this.brick().name,
-            this.pathVersion(),
+            currentBrick.name,
+            currentPathVersion,
             doc.completePath,
             doc.id
           );
@@ -315,20 +319,17 @@ export class HaBrickPageState {
   }
 
   private redirectToGettingStartedDoc(brick: HaBrick): void {
-    this.brickService
-      .getBrickGettingStarted(this.brick()?.name ?? brick?.name, this.pathVersion())
-      .subscribe((doc) => {
-        if (doc) {
-          this.httpRedirectionService.redirectTo(
-            HaRouterService.getDocumentationRoute(
-              this.brick().name,
-              this.pathVersion(),
-              doc.completePath,
-              doc.id
-            )
-          );
-        }
-      });
+    const brickName = this.brick()?.name ?? brick?.name;
+    const pathVersion = this.pathVersion();
+    if (brickName == null || pathVersion == null) return;
+
+    this.brickService.getBrickGettingStarted(brickName, pathVersion).subscribe((doc) => {
+      if (doc) {
+        this.httpRedirectionService.redirectTo(
+          HaRouterService.getDocumentationRoute(brickName, pathVersion, doc.completePath, doc.id)
+        );
+      }
+    });
   }
 
   private initUserHasEditRight(brick: HaBrick): void {
@@ -431,32 +432,34 @@ export class HaBrickPageState {
   private redirectToCompletePathDoc(url: UrlSegment[]): void {
     const currentUrl = url.join('/');
     const completePath = url.map((segment) => segment.path).join('/');
-    this.documentationService
-      .getByCompletePath(this.brick().name, this.pathVersion(), completePath)
-      .subscribe({
-        next: (doc) => {
-          if (doc) {
-            const docUrl = HaRouterService.getDocumentationRoute(
-              this.brick().name,
-              this.pathVersion(),
-              doc.completePath,
-              doc.id
-            );
-            if (docUrl != currentUrl) {
-              this.httpRedirectionService.redirectTo(docUrl);
-            }
-          } else {
-            this._docError.set(true);
-            this._docLoading.set(false);
-            this._doc.set(null);
+    const brick = this.brick();
+    const pathVersion = this.pathVersion();
+    if (brick == null || pathVersion == null) return;
+
+    this.documentationService.getByCompletePath(brick.name, pathVersion, completePath).subscribe({
+      next: (doc) => {
+        if (doc) {
+          const docUrl = HaRouterService.getDocumentationRoute(
+            brick.name,
+            pathVersion,
+            doc.completePath,
+            doc.id
+          );
+          if (docUrl != currentUrl) {
+            this.httpRedirectionService.redirectTo(docUrl);
           }
-        },
-        error: () => {
+        } else {
           this._docError.set(true);
           this._docLoading.set(false);
           this._doc.set(null);
-        },
-      });
+        }
+      },
+      error: () => {
+        this._docError.set(true);
+        this._docLoading.set(false);
+        this._doc.set(null);
+      },
+    });
   }
 
   private setTechDoc(techDoc: TdTypeEntity): void {
@@ -472,9 +475,9 @@ export class HaBrickPageState {
     this._techDocError.set(false);
 
     if (techDoc.objectType == HaRunStatAggregateObjectType.TASK) {
-      this.initRunStatAggregate(HaRunStatAggregateObjectType.TASK, techDoc.typingName);
+      this.initRunStatAggregate(HaRunStatAggregateObjectType.TASK, techDoc.typingName ?? '');
     } else if (techDoc.objectType == HaRunStatAggregateObjectType.PROTOCOL) {
-      this.initRunStatAggregate(HaRunStatAggregateObjectType.PROTOCOL, techDoc.typingName);
+      this.initRunStatAggregate(HaRunStatAggregateObjectType.PROTOCOL, techDoc.typingName ?? '');
     } else {
       this._runStatAggregate.set(null);
     }

@@ -28,10 +28,10 @@ export class CaLabDetailPageState implements OnDestroy {
   private authenticatedUserService = inject(CaAuthenticatedUserService);
   private portalService = inject(FlPortalActionsService);
 
-  private lab$: BehaviorSubject<CaLab>;
-  private userRole$: BehaviorSubject<CaLabUserRole>;
-  private status$: BehaviorSubject<CaLabSimpleStatusDTO>;
-  private busyStatus$: BehaviorSubject<CaLabBusyStatusDTO>;
+  private lab$: BehaviorSubject<CaLab | null>;
+  private userRole$: BehaviorSubject<CaLabUserRole | null>;
+  private status$: BehaviorSubject<CaLabSimpleStatusDTO | null>;
+  private busyStatus$: BehaviorSubject<CaLabBusyStatusDTO | null>;
 
   private id: string;
 
@@ -42,15 +42,15 @@ export class CaLabDetailPageState implements OnDestroy {
 
   public init(id: string, labManagerStatus$: Observable<LmlLabManagerStatus>): void {
     this.id = id;
-    this.lab$ = new BehaviorSubject(null);
-    this.userRole$ = new BehaviorSubject(null);
+    this.lab$ = new BehaviorSubject<CaLab | null>(null);
+    this.userRole$ = new BehaviorSubject<CaLabUserRole | null>(null);
     this.labService.findById(id).subscribe({
       next: (lab) => this.getLabSuccess(lab),
       error: (error) => this.getLabError(error),
     });
 
-    this.status$ = new BehaviorSubject(null);
-    this.busyStatus$ = new BehaviorSubject(null);
+    this.status$ = new BehaviorSubject<CaLabSimpleStatusDTO | null>(null);
+    this.busyStatus$ = new BehaviorSubject<CaLabBusyStatusDTO | null>(null);
     this.refreshStatus();
 
     this.subscriptions.add(
@@ -110,19 +110,25 @@ export class CaLabDetailPageState implements OnDestroy {
   }
 
   public getLab$(): Observable<CaLab> {
-    return this.lab$.asObservable().pipe(filter((lab) => lab != null));
+    return this.lab$.asObservable().pipe(filter((lab): lab is CaLab => lab != null));
   }
 
   public getCurrentUserRole$(): Observable<CaLabUserRole> {
-    return this.userRole$.asObservable().pipe(filter((userRole) => userRole != null));
+    return this.userRole$
+      .asObservable()
+      .pipe(filter((userRole): userRole is CaLabUserRole => userRole != null));
   }
 
   public getSimpleStatus$(): Observable<CaLabSimpleStatusDTO> {
-    return this.status$.asObservable().pipe(filter((status) => status != null));
+    return this.status$
+      .asObservable()
+      .pipe(filter((status): status is CaLabSimpleStatusDTO => status != null));
   }
 
   public getBusyStatus$(): Observable<CaLabBusyStatusDTO> {
-    return this.busyStatus$.asObservable().pipe(filter((busyStatus) => busyStatus != null));
+    return this.busyStatus$
+      .asObservable()
+      .pipe(filter((busyStatus): busyStatus is CaLabBusyStatusDTO => busyStatus != null));
   }
 
   /**

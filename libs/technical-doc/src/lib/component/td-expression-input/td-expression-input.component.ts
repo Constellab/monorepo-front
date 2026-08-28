@@ -9,7 +9,8 @@ import {
   signal,
   TemplateRef,
   ViewChild,
-  ViewContainerRef} from '@angular/core';
+  ViewContainerRef,
+} from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { FlFormFieldDirective } from '@monorepo/front-core-lib/fl-core';
 import { FlOverlayRef, FlPortalService } from '@monorepo/front-core-lib/fl-portal';
@@ -165,22 +166,9 @@ export class TdExpressionInputComponent extends FlFormFieldDirective<string> imp
   }
 
   onKeydown(event: KeyboardEvent): void {
-    // Handle Backspace/Delete on field token spans — delete the entire token
-    if (event.key === 'Backspace' || event.key === 'Delete') {
-      const handled = this.handleTokenDelete(event.key);
-      if (handled) {
-        event.preventDefault();
-        return;
-      }
-    }
-
-    // Handle arrow keys to escape from inside field token spans
-    if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
-      const escaped = this.handleTokenEscape(event.key);
-      if (escaped) {
-        event.preventDefault();
-        return;
-      }
+    if (this.handleTokenKey(event)) {
+      event.preventDefault();
+      return;
     }
 
     if (event.key === 'Escape') {
@@ -197,6 +185,25 @@ export class TdExpressionInputComponent extends FlFormFieldDirective<string> imp
 
     if (!this.overlayRef) return;
 
+    this.handleSuggestionNavigation(event);
+  }
+
+  /** Returns true when the key was consumed by a token deletion or a token escape */
+  private handleTokenKey(event: KeyboardEvent): boolean {
+    // Handle Backspace/Delete on field token spans — delete the entire token
+    if (event.key === 'Backspace' || event.key === 'Delete') {
+      return this.handleTokenDelete(event.key);
+    }
+
+    // Handle arrow keys to escape from inside field token spans
+    if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+      return this.handleTokenEscape(event.key);
+    }
+
+    return false;
+  }
+
+  private handleSuggestionNavigation(event: KeyboardEvent): void {
     const total = this.totalSuggestionCount();
     switch (event.key) {
       case 'ArrowDown':
@@ -239,38 +246,17 @@ export class TdExpressionInputComponent extends FlFormFieldDirective<string> imp
     }
 
     const beforeTrigger = text.substring(0, this.triggerCaretOffset);
+    // Replace @partial (field mode) or the partial word (function mode) with @key + trailing space
+    const rest = this.getTextAfterPartial(text, this.triggerCaretOffset);
+    const newText = beforeTrigger + '@' + entry.key + ' ' + rest;
 
-    if (this.autocompleteMode() === 'field') {
-      // Replace @partial with @key + trailing space
-      const afterAt = text.substring(this.triggerCaretOffset + 1);
-      const partialMatch = afterAt.match(/^([a-zA-Z0-9_]*(?:\[\]\.[a-zA-Z0-9_]*)?)/);
-      const partialLength = partialMatch?.[0]?.length ?? 0;
-      const rest = text.substring(this.triggerCaretOffset + 1 + partialLength);
-      const newText = beforeTrigger + '@' + entry.key + ' ' + rest;
+    this._value = newText;
+    this.emitCurrentValue();
+    this.renderHighlighted(newText);
 
-      this._value = newText;
-      this.emitCurrentValue();
-      this.renderHighlighted(newText);
-
-      const modelCaretPos = beforeTrigger.length + 1 + entry.key.length + 1;
-      const displayCaretPos = this.modelOffsetToDisplayOffset(newText, modelCaretPos);
-      this.setCaretAtOffset(displayCaretPos);
-    } else {
-      // Function mode context but user picked a field — insert @key + trailing space
-      const afterWord = text.substring(this.triggerCaretOffset);
-      const partialMatch = afterWord.match(/^([a-zA-Z_]\w*(?:\[\]\.\w*)?)/);
-      const partialLength = partialMatch?.[0]?.length ?? 0;
-      const rest = text.substring(this.triggerCaretOffset + partialLength);
-      const newText = beforeTrigger + '@' + entry.key + ' ' + rest;
-
-      this._value = newText;
-      this.emitCurrentValue();
-      this.renderHighlighted(newText);
-
-      const modelCaretPos = beforeTrigger.length + 1 + entry.key.length + 1;
-      const displayCaretPos = this.modelOffsetToDisplayOffset(newText, modelCaretPos);
-      this.setCaretAtOffset(displayCaretPos);
-    }
+    const modelCaretPos = beforeTrigger.length + 1 + entry.key.length + 1;
+    const displayCaretPos = this.modelOffsetToDisplayOffset(newText, modelCaretPos);
+    this.setCaretAtOffset(displayCaretPos);
 
     this.closeSuggestions();
     this.editableDiv.nativeElement.focus();
@@ -315,41 +301,36 @@ export class TdExpressionInputComponent extends FlFormFieldDirective<string> imp
     }
 
     const beforeTrigger = text.substring(0, this.triggerCaretOffset);
+    // Replace @partial (field mode context, the @ trigger is removed too) or the partial word
+    // (function mode) with fn(
+    const insertion = fn.name + '(';
+    const newText = beforeTrigger + insertion + this.getTextAfterPartial(text, this.triggerCaretOffset);
 
-    if (this.autocompleteMode() === 'field') {
-      // Field mode context but user picked a function — replace @partial with fn(
-      const afterAt = text.substring(this.triggerCaretOffset + 1);
-      const partialMatch = afterAt.match(/^([a-zA-Z0-9_]*(?:\[\]\.[a-zA-Z0-9_]*)?)/);
-      const partialLength = partialMatch?.[0]?.length ?? 0;
-      // Remove the @ trigger too
-      const insertion = fn.name + '(';
-      const newText = beforeTrigger + insertion + text.substring(this.triggerCaretOffset + 1 + partialLength);
+    this._value = newText;
+    this.emitCurrentValue();
+    this.renderHighlighted(newText);
 
-      this._value = newText;
-      this.emitCurrentValue();
-      this.renderHighlighted(newText);
-
-      const caretPos = beforeTrigger.length + insertion.length;
-      this.setCaretAtOffset(caretPos);
-    } else {
-      // Function mode — replace partial word with fn(
-      const afterWord = text.substring(this.triggerCaretOffset);
-      const partialMatch = afterWord.match(/^([a-zA-Z_]\w*(?:\[\]\.\w*)?)/);
-      const partialLength = partialMatch?.[0]?.length ?? 0;
-
-      const insertion = fn.name + '(';
-      const newText = beforeTrigger + insertion + text.substring(this.triggerCaretOffset + partialLength);
-
-      this._value = newText;
-      this.emitCurrentValue();
-      this.renderHighlighted(newText);
-
-      const caretPos = beforeTrigger.length + insertion.length;
-      this.setCaretAtOffset(caretPos);
-    }
+    const caretPos = beforeTrigger.length + insertion.length;
+    this.setCaretAtOffset(caretPos);
 
     this.closeSuggestions();
     this.editableDiv.nativeElement.focus();
+  }
+
+  // -- Partial word being completed at the trigger position --
+
+  /** Text following the trigger and the partial the user already typed, in the current mode */
+  private getTextAfterPartial(text: string, triggerOffset: number): string {
+    if (this.autocompleteMode() === 'field') {
+      // The @ trigger is part of what gets replaced
+      const afterAt = text.substring(triggerOffset + 1);
+      const partialMatch = afterAt.match(/^([a-zA-Z0-9_]*(?:\[\]\.[a-zA-Z0-9_]*)?)/);
+      return afterAt.substring(partialMatch?.[0]?.length ?? 0);
+    }
+
+    const afterWord = text.substring(triggerOffset);
+    const partialMatch = afterWord.match(/^([a-zA-Z_]\w*(?:\[\]\.\w*)?)/);
+    return afterWord.substring(partialMatch?.[0]?.length ?? 0);
   }
 
   onMouseOver(event: MouseEvent): void {
@@ -399,69 +380,15 @@ export class TdExpressionInputComponent extends FlFormFieldDirective<string> imp
     const range = sel.getRangeAt(0);
     if (!range.collapsed) return false;
 
-    const container = range.startContainer;
     const div = this.editableDiv.nativeElement;
-    if (!div.contains(container)) return false;
+    if (!div.contains(range.startContainer)) return false;
 
-    let tokenSpan: HTMLElement | null = null;
-
-    // Check if cursor is inside a token span
-    const parent =
-      container.nodeType === Node.TEXT_NODE ? container.parentElement : (container as HTMLElement);
-    if (parent?.classList?.contains('td-field-token') && div.contains(parent)) {
-      tokenSpan = parent;
-    }
-
-    // Check if cursor is right after (Backspace) or right before (Delete) a token
-    if (!tokenSpan && container.nodeType === Node.TEXT_NODE) {
-      if (key === 'Backspace' && range.startOffset === 0) {
-        const prev = container.previousSibling;
-        if (prev instanceof HTMLElement && prev.classList.contains('td-field-token')) {
-          tokenSpan = prev;
-        }
-      } else if (key === 'Delete' && range.startOffset === (container.textContent?.length ?? 0)) {
-        const next = container.nextSibling;
-        if (next instanceof HTMLElement && next.classList.contains('td-field-token')) {
-          tokenSpan = next;
-        }
-      }
-    }
-
-    // Also handle when cursor is at a direct child level of the div
-    if (!tokenSpan && container === div) {
-      const childIndex = range.startOffset;
-      if (key === 'Backspace' && childIndex > 0) {
-        const prev = div.childNodes[childIndex - 1];
-        if (prev instanceof HTMLElement && prev.classList.contains('td-field-token')) {
-          tokenSpan = prev;
-        }
-      } else if (key === 'Delete' && childIndex < div.childNodes.length) {
-        const next = div.childNodes[childIndex];
-        if (next instanceof HTMLElement && next.classList.contains('td-field-token')) {
-          tokenSpan = next;
-        }
-      }
-    }
-
+    const tokenSpan = this.findTokenSpanToDelete(key, range, div);
     if (!tokenSpan) return false;
 
     // Find model-space position of this token and remove it
-    const tokenKey = tokenSpan.getAttribute('data-key') ?? '';
-    let modelOffset = 0;
-    for (const child of Array.from(div.childNodes)) {
-      if (child === tokenSpan) break;
-      if (child.nodeType === Node.TEXT_NODE) {
-        modelOffset += (child.textContent ?? '').replace(/\u200B/g, '').length;
-      } else if (child instanceof HTMLElement && child.classList.contains('td-field-token')) {
-        const childIsOuter = (child as HTMLElement).hasAttribute('data-outer');
-        modelOffset += (childIsOuter ? 2 : 1) + (child.getAttribute('data-key') ?? '').length;
-      } else {
-        modelOffset += (child.textContent ?? '').replace(/\u200B/g, '').length;
-      }
-    }
-
-    const isOuter = tokenSpan.hasAttribute('data-outer');
-    const modelTokenLen = (isOuter ? 2 : 1) + tokenKey.length;
+    const modelOffset = this.getTokenModelOffset(div, tokenSpan);
+    const modelTokenLen = this.getTokenModelLength(tokenSpan);
     const modelText = this._value;
     const newText = modelText.substring(0, modelOffset) + modelText.substring(modelOffset + modelTokenLen);
 
@@ -473,6 +400,82 @@ export class TdExpressionInputComponent extends FlFormFieldDirective<string> imp
     this.setCaretAtOffset(displayOffset);
 
     return true;
+  }
+
+  private findTokenSpanToDelete(
+    key: 'Backspace' | 'Delete',
+    range: Range,
+    div: HTMLDivElement
+  ): HTMLElement | null {
+    return (
+      this.findEnclosingTokenSpan(range.startContainer, div) ??
+      this.findAdjacentTokenSpanInText(key, range) ??
+      this.findAdjacentTokenSpanInDiv(key, range, div)
+    );
+  }
+
+  /** Check if cursor is inside a token span */
+  private findEnclosingTokenSpan(container: Node, div: HTMLDivElement): HTMLElement | null {
+    const parent =
+      container.nodeType === Node.TEXT_NODE ? container.parentElement : (container as HTMLElement);
+    return parent?.classList?.contains('td-field-token') && div.contains(parent) ? parent : null;
+  }
+
+  /** Check if cursor is right after (Backspace) or right before (Delete) a token */
+  private findAdjacentTokenSpanInText(key: 'Backspace' | 'Delete', range: Range): HTMLElement | null {
+    const container = range.startContainer;
+    if (container.nodeType !== Node.TEXT_NODE) return null;
+
+    if (key === 'Backspace' && range.startOffset === 0) {
+      return this.asTokenSpan(container.previousSibling);
+    }
+    if (key === 'Delete' && range.startOffset === (container.textContent?.length ?? 0)) {
+      return this.asTokenSpan(container.nextSibling);
+    }
+    return null;
+  }
+
+  /** Also handle when cursor is at a direct child level of the div */
+  private findAdjacentTokenSpanInDiv(
+    key: 'Backspace' | 'Delete',
+    range: Range,
+    div: HTMLDivElement
+  ): HTMLElement | null {
+    if (range.startContainer !== div) return null;
+
+    const childIndex = range.startOffset;
+    if (key === 'Backspace' && childIndex > 0) {
+      return this.asTokenSpan(div.childNodes[childIndex - 1]);
+    }
+    if (key === 'Delete' && childIndex < div.childNodes.length) {
+      return this.asTokenSpan(div.childNodes[childIndex]);
+    }
+    return null;
+  }
+
+  // -- Token span helpers --
+
+  private asTokenSpan(node: Node | null): HTMLElement | null {
+    return node instanceof HTMLElement && node.classList.contains('td-field-token') ? node : null;
+  }
+
+  /** Model-space length of a token span: its prefix (@ or @@) plus its key */
+  private getTokenModelLength(tokenSpan: HTMLElement): number {
+    const key = tokenSpan.getAttribute('data-key') ?? '';
+    return (tokenSpan.hasAttribute('data-outer') ? 2 : 1) + key.length;
+  }
+
+  /** Model-space offset of a token span among the children of the editable div */
+  private getTokenModelOffset(div: HTMLDivElement, tokenSpan: HTMLElement): number {
+    let modelOffset = 0;
+    for (const child of Array.from(div.childNodes)) {
+      if (child === tokenSpan) break;
+      const childToken = this.asTokenSpan(child);
+      modelOffset += childToken
+        ? this.getTokenModelLength(childToken)
+        : (child.textContent ?? '').replace(/\u200B/g, '').length;
+    }
+    return modelOffset;
   }
 
   // -- Arrow key token escape --
@@ -492,7 +495,13 @@ export class TdExpressionInputComponent extends FlFormFieldDirective<string> imp
     if (!tokenSpan?.classList?.contains('td-field-token')) return false;
     if (!div.contains(tokenSpan)) return false;
 
-    // Ensure there's a text node to land on outside the token
+    this.ensureTextNodeAroundToken(tokenSpan, key);
+    this.setCaretOutsideToken(sel, tokenSpan, key);
+    return true;
+  }
+
+  /** Ensure there's a text node to land on outside the token */
+  private ensureTextNodeAroundToken(tokenSpan: HTMLElement, key: 'ArrowLeft' | 'ArrowRight'): void {
     if (key === 'ArrowRight') {
       if (!tokenSpan.nextSibling || tokenSpan.nextSibling.nodeType !== Node.TEXT_NODE) {
         const textNode = document.createTextNode('\u200B');
@@ -504,8 +513,14 @@ export class TdExpressionInputComponent extends FlFormFieldDirective<string> imp
         tokenSpan.before(textNode);
       }
     }
+  }
 
-    // Move caret outside the token
+  /** Move caret outside the token */
+  private setCaretOutsideToken(
+    sel: Selection,
+    tokenSpan: HTMLElement,
+    key: 'ArrowLeft' | 'ArrowRight'
+  ): void {
     const newRange = document.createRange();
     if (key === 'ArrowRight') {
       const next = tokenSpan.nextSibling as Text;
@@ -517,7 +532,6 @@ export class TdExpressionInputComponent extends FlFormFieldDirective<string> imp
     newRange.collapse(true);
     sel.removeAllRanges();
     sel.addRange(newRange);
-    return true;
   }
 
   // -- Plain text extraction (model-space: uses keys, not human names) --
@@ -555,6 +569,14 @@ export class TdExpressionInputComponent extends FlFormFieldDirective<string> imp
     }
 
     // Compute display offset (in display-space characters)
+    const displayOffset = this.getRangeDisplayOffset(div, range);
+
+    // Convert display offset to model offset by walking child nodes
+    return { modelText, displayOffset: this.displayOffsetToModelOffset(div, displayOffset) };
+  }
+
+  /** Display-space offset of the range start, walking the text nodes of the editable div */
+  private getRangeDisplayOffset(div: HTMLDivElement, range: Range): number {
     let displayOffset = 0;
     const walker = document.createTreeWalker(div, NodeFilter.SHOW_TEXT);
     let node: Text | null;
@@ -565,42 +587,25 @@ export class TdExpressionInputComponent extends FlFormFieldDirective<string> imp
       }
       displayOffset += node.textContent?.length ?? 0;
     }
+    return displayOffset;
+  }
 
-    // Convert display offset to model offset by walking child nodes
+  private displayOffsetToModelOffset(div: HTMLDivElement, displayOffset: number): number {
     let modelOffset = 0;
     let displayConsumed = 0;
     for (const child of Array.from(div.childNodes)) {
-      if (child.nodeType === Node.TEXT_NODE) {
-        const len = child.textContent?.length ?? 0;
-        if (displayConsumed + len >= displayOffset) {
-          modelOffset += displayOffset - displayConsumed;
-          return { modelText, displayOffset: modelOffset };
-        }
-        displayConsumed += len;
-        modelOffset += len;
-      } else if (child instanceof HTMLElement && child.classList.contains('td-field-token')) {
-        const displayLen = child.textContent?.length ?? 0;
-        const key = child.getAttribute('data-key') ?? '';
-        const isOuter = child.hasAttribute('data-outer');
-        const modelLen = key.length + (isOuter ? 2 : 1);
-        if (displayConsumed + displayLen >= displayOffset) {
-          modelOffset += modelLen;
-          return { modelText, displayOffset: modelOffset };
-        }
-        displayConsumed += displayLen;
-        modelOffset += modelLen;
-      } else {
-        const len = child.textContent?.length ?? 0;
-        if (displayConsumed + len >= displayOffset) {
-          modelOffset += displayOffset - displayConsumed;
-          return { modelText, displayOffset: modelOffset };
-        }
-        displayConsumed += len;
-        modelOffset += len;
+      const displayLen = child.textContent?.length ?? 0;
+      const childToken = this.asTokenSpan(child);
+      const modelLen = childToken ? this.getTokenModelLength(childToken) : displayLen;
+      if (displayConsumed + displayLen >= displayOffset) {
+        // A token is atomic: the caret lands after the whole token
+        return modelOffset + (childToken ? modelLen : displayOffset - displayConsumed);
       }
+      displayConsumed += displayLen;
+      modelOffset += modelLen;
     }
 
-    return { modelText, displayOffset: modelOffset };
+    return modelOffset;
   }
 
   // -- Convert model offset to display offset for caret restoration --
@@ -612,34 +617,42 @@ export class TdExpressionInputComponent extends FlFormFieldDirective<string> imp
     let i = 0;
 
     while (i < modelOffset && i < modelText.length) {
-      if (modelText[i] === '@') {
-        const isOuter = modelText[i + 1] === '@';
-        const prefix = isOuter ? '@@' : '@';
-        const remainder = modelText.substring(i);
-        const match = remainder.match(/^@@?([a-zA-Z_][a-zA-Z0-9_]*(?:\[\]\.[a-zA-Z_][a-zA-Z0-9_]*)?)/);
-        if (match) {
-          const key = match[1];
-          const lookupMap = isOuter ? outerSpecMap : specMap;
-          const entry = lookupMap.get(key);
-          const displayName = entry?.spec.human_name || key;
-          const modelTokenLen = prefix.length + key.length;
-          const displayTokenLen = prefix.length + displayName.length;
-
-          if (i + modelTokenLen <= modelOffset) {
-            displayOffset += displayTokenLen;
-            i += modelTokenLen;
-          } else {
-            displayOffset += displayTokenLen;
-            i += modelTokenLen;
-          }
-          continue;
-        }
+      const token = this.matchTokenLengthsAt(modelText, i, specMap, outerSpecMap);
+      if (token) {
+        displayOffset += token.displayTokenLen;
+        i += token.modelTokenLen;
+        continue;
       }
       displayOffset++;
       i++;
     }
 
     return displayOffset;
+  }
+
+  /** Model and display lengths of the token starting at `index`, or null when there is none */
+  private matchTokenLengthsAt(
+    modelText: string,
+    index: number,
+    specMap: Map<string, TdParamSpecEntry>,
+    outerSpecMap: Map<string, TdParamSpecEntry>
+  ): { modelTokenLen: number; displayTokenLen: number } | null {
+    if (modelText[index] !== '@') return null;
+
+    const isOuter = modelText[index + 1] === '@';
+    const prefix = isOuter ? '@@' : '@';
+    const remainder = modelText.substring(index);
+    const match = remainder.match(/^@@?([a-zA-Z_][a-zA-Z0-9_]*(?:\[\]\.[a-zA-Z_][a-zA-Z0-9_]*)?)/);
+    if (!match) return null;
+
+    const key = match[1];
+    const lookupMap = isOuter ? outerSpecMap : specMap;
+    const entry = lookupMap.get(key);
+    const displayName = entry?.spec.human_name || key;
+    return {
+      modelTokenLen: prefix.length + key.length,
+      displayTokenLen: prefix.length + displayName.length,
+    };
   }
 
   // -- Highlighting --
@@ -697,12 +710,9 @@ export class TdExpressionInputComponent extends FlFormFieldDirective<string> imp
     // Try field trigger (@ or @@)
     const fieldTrigger = this.findFieldTriggerIndex(textBeforeCaret);
     if (fieldTrigger != null) {
-      this.autocompleteMode.set(fieldTrigger.isOuter ? 'outerField' : 'field');
-      this.triggerCaretOffset = fieldTrigger.index;
       const skipChars = fieldTrigger.isOuter ? 2 : 1;
-      this.currentFilter.set(textBeforeCaret.substring(fieldTrigger.index + skipChars));
-      this.hoveredIndex.set(0);
-      if (!this.overlayRef) this.openSuggestions();
+      const mode = fieldTrigger.isOuter ? 'outerField' : 'field';
+      this.openTrigger(mode, fieldTrigger.index, textBeforeCaret.substring(fieldTrigger.index + skipChars));
       return;
     }
 
@@ -710,26 +720,30 @@ export class TdExpressionInputComponent extends FlFormFieldDirective<string> imp
     const funcMatch = textBeforeCaret.match(/(?:^|[^@a-zA-Z_])([a-zA-Z_]\w*)$/);
     if (funcMatch) {
       const word = funcMatch[1];
-      this.autocompleteMode.set('function');
-      this.triggerCaretOffset = caretOffset - word.length;
-      this.currentFilter.set(word);
-      this.hoveredIndex.set(0);
-      if (!this.overlayRef) this.openSuggestions();
+      this.openTrigger('function', caretOffset - word.length, word);
       return;
     }
 
     // No word being typed — show all suggestions (0 char trigger)
     const charBefore = caretOffset > 0 ? text[caretOffset - 1] : null;
     if (charBefore == null || /[\s(,+\-*/%=<>!&|]/.test(charBefore)) {
-      this.autocompleteMode.set('function');
-      this.triggerCaretOffset = caretOffset;
-      this.currentFilter.set('');
-      this.hoveredIndex.set(0);
-      if (!this.overlayRef) this.openSuggestions();
+      this.openTrigger('function', caretOffset, '');
       return;
     }
 
     this.closeSuggestions();
+  }
+
+  private openTrigger(
+    mode: 'field' | 'outerField' | 'function',
+    triggerCaretOffset: number,
+    filter: string
+  ): void {
+    this.autocompleteMode.set(mode);
+    this.triggerCaretOffset = triggerCaretOffset;
+    this.currentFilter.set(filter);
+    this.hoveredIndex.set(0);
+    if (!this.overlayRef) this.openSuggestions();
   }
 
   private findFieldTriggerIndex(textBeforeCaret: string): { index: number; isOuter: boolean } | null {

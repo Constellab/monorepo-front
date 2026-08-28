@@ -51,8 +51,15 @@ export class FlImageHelper {
     }
 
     const ctx = canvas.getContext('2d');
+    if (!ctx) {
+      throw new Error('Unable to get the 2d context of the canvas');
+    }
     ctx.drawImage(img, -xBegin, -yBegin, newWidth, newHeight);
-    const compressedBlob: Blob = await new Promise((resolve) => canvas.toBlob(resolve));
+    const compressedBlob: Blob = await new Promise<Blob>((resolve, reject) =>
+      canvas.toBlob((newBlob) =>
+        newBlob ? resolve(newBlob) : reject(new Error('Unable to compress the image'))
+      )
+    );
     return FlImageHelper.blobToFile(compressedBlob);
   }
 

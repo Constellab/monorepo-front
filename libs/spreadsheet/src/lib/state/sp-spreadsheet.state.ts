@@ -1,7 +1,7 @@
 import { inject,Injectable, OnDestroy } from '@angular/core';
 import { ChChartPortalService, ChChartType } from '@monorepo/chart';
 import { Observable } from 'rxjs';
-import { mergeMap } from 'rxjs/operators';
+import { filter, mergeMap } from 'rxjs/operators';
 
 import { SpSheetChartConfig } from '../model/chart/sp-sheet-chart-config.class';
 import {
@@ -49,17 +49,23 @@ export class SpSpreadsheetState implements OnDestroy {
     return this._spreadsheet;
   }
 
-  public getSheet(id: number): SpSheet {
+  public getSheet(id: number): SpSheet | undefined {
     return this._spreadsheet.getSheet(id);
   }
 
   ///////////////////////// CURRENT SHEET /////////////////////////
   public get currentSheet(): SpSheet {
-    return this._spreadsheet.currentSheet;
+    const sheet = this._spreadsheet.currentSheet;
+    if (sheet == null) {
+      throw new Error('The spreadsheet state is not initialized');
+    }
+    return sheet;
   }
 
   public get currentSheet$(): Observable<SpSheet> {
-    return this._spreadsheet.getCurrentSheet$();
+    return this._spreadsheet
+      .getCurrentSheet$()
+      .pipe(filter((sheet): sheet is SpSheet => sheet != null));
   }
 
   // emit the columns
@@ -81,7 +87,7 @@ export class SpSpreadsheetState implements OnDestroy {
    */
   public openCellInNewSheet(cell: SpCell): void {
     // check if the sheet for this cell already exists
-    const sheet: SpSheet = this.cellObjectSheets.get(cell.id);
+    const sheet: SpSheet | undefined = this.cellObjectSheets.get(cell.id);
     if (sheet != null) {
       this._spreadsheet.selectSheet(sheet.id);
       return;
@@ -99,7 +105,7 @@ export class SpSpreadsheetState implements OnDestroy {
     return this.chartConfigs;
   }
 
-  public getChartConfig(chartType: ChChartType): SpSheetChartConfig {
+  public getChartConfig(chartType: ChChartType): SpSheetChartConfig | undefined {
     return this.chartConfigs.find((config) => config.getChartType() === chartType);
   }
 

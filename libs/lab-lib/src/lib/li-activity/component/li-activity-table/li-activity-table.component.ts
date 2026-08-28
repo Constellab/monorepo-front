@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { MatAnchor } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatSortHeader } from '@angular/material/sort';
@@ -71,7 +71,7 @@ export class LiActivityTableComponent {
   showLink(activity: LiActivity): boolean {
     return (
       activity.activityType !== ActivityType.DELETE &&
-      activity.objectId &&
+      !!activity.objectId &&
       (activity.objectType === ActivityObjectType.SCENARIO || activity.objectType === ActivityObjectType.NOTE)
     );
   }
@@ -83,7 +83,8 @@ export class LiActivityTableComponent {
       case ActivityObjectType.NOTE:
         return 'NOTE';
       default:
-        return null;
+        // only called from the template when showLink(activity) is true, i.e. for SCENARIO or NOTE
+        throw new Error(`[LiActivityTableComponent] unsupported object type ${activity.objectType}`);
     }
   }
 }

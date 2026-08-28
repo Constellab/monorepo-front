@@ -8,22 +8,22 @@ import { Observable } from 'rxjs';
 })
 export class LmsUserConfig extends FlUserConfig {
   getUserPhotoUrl(): string {
-    return null;
+    throw new Error(`Error: getUserPhotoUrl() not implemented in LmsUserConfig`);
   }
 
   getUserDetailRoute(): string {
-    return null;
+    throw new Error(`Error: getUserDetailRoute() not implemented in LmsUserConfig`);
   }
 
   getUserById(): Observable<FlUser> {
-    return null;
+    throw new Error(`Error: getUserById() not implemented in LmsUserConfig`);
   }
 
   getSearchByNamesDatasource(): FlDatasourcePaginated<FlUser, FlInputSearchFilter> {
-    return null;
+    throw new Error(`Error: getSearchByNamesDatasource() not implemented in LmsUserConfig`);
   }
 
   getAuthenticatedUser(): FlUser {
-    return null;
+    throw new Error(`Error: getAuthenticatedUser() not implemented in LmsUserConfig`);
   }
 }

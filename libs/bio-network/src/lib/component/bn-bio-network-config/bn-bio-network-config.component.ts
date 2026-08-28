@@ -21,7 +21,7 @@ export class BnBioNetworkConfigComponent implements OnInit {
   private dialogService = inject(FlDialogService);
 
   networks: BnBioNetwork[] | null;
-  networkName: string;
+  networkName: string | undefined;
 
   // database: BnPathwayDatabase;
   // pathwayDatabases: BnPathwayDatabase[] = flPathwayDatabases;
@@ -32,7 +32,7 @@ export class BnBioNetworkConfigComponent implements OnInit {
       this.networks = this.state.networks;
     }
 
-    this.networkName = this.state.getSelectedNetwork().name;
+    this.networkName = this.state.getSelectedNetwork()?.name;
     // this.database = this.state.getDatabase();
   }
 

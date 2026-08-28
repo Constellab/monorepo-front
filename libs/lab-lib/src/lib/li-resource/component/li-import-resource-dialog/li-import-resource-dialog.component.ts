@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
@@ -71,13 +71,13 @@ export interface LiImportResourceDialogInput {
   ],
 })
 export class LiImportResourceDialogComponent implements OnInit, OnDestroy {
-  formGp: FormGroup<TdConfigureSpecsForm>;
+  formGp: FormGroup<TdConfigureSpecsForm> | null;
 
-  selectedImporterType: LiProcessType = null;
-  sourceSpec: TdIOSpec;
-  targetSpec: TdIOSpec;
+  selectedImporterType: LiProcessType | null = null;
+  sourceSpec: TdIOSpec | null;
+  targetSpec: TdIOSpec | null;
 
-  configData: TdConfig;
+  configData: TdConfig | null;
 
   processTypeIsLoading: boolean = false;
   callIsLoading: boolean = false;
@@ -147,7 +147,7 @@ export class LiImportResourceDialogComponent implements OnInit, OnDestroy {
     this.setImporterType(importer);
   }
 
-  private setImporterType(importer?: LiProcessType): void {
+  private setImporterType(importer?: LiProcessType | null): void {
     if (importer == null) {
       this.selectedImporterType = null;
       this.sourceSpec = null;
@@ -164,25 +164,34 @@ export class LiImportResourceDialogComponent implements OnInit, OnDestroy {
   }
 
   get showNoConfigMessage(): boolean {
-    return this.selectedImporterType && !this.selectedImporterType.hasConfigSpecs();
+    return !!this.selectedImporterType && !this.selectedImporterType.hasConfigSpecs();
   }
 
   submit(): void {
     if (this.callIsLoading) return;
-    if (this.formGp.valid) {
-      const value: TdParamSpecsValues = TdConfigureSpecsFormComponent.buildValues(this.formGp);
+    const formGp = this.formGp;
+    if (formGp == null) return;
+
+    if (formGp.valid) {
+      const value: TdParamSpecsValues = TdConfigureSpecsFormComponent.buildValues(formGp);
       this.callImport(value);
     } else {
-      FlFormHelper.markAllAsTouched(this.formGp);
+      FlFormHelper.markAllAsTouched(formGp);
     }
   }
 
   private callImport(configValue: TdParamSpecsValues): void {
+    const selectedImporterType = this.selectedImporterType;
+    if (selectedImporterType == null) return;
+
     this.callIsLoading = true;
     this.resourceService
-      .callImporter(this.input.resourceId, this.selectedImporterType.typingName, configValue)
+      .callImporter(this.input.resourceId, selectedImporterType.typingName, configValue)
       .subscribe({
-        next: (resource) => this.callImportSuccess(resource),
+        next: (resource) => {
+          if (resource == null) return;
+          this.callImportSuccess(resource);
+        },
         error: () => (this.callIsLoading = false),
       });
   }

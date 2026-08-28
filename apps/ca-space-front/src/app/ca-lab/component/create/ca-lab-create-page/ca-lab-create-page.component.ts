@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
@@ -87,14 +87,31 @@ export class CaLabCreatePageComponent {
   // }
 
   createLab(): void {
+    // the stepper is linear with each step bound to its form via [stepControl], so by the time
+    // this last step is reached, nameForm/serverForm/storageForm are all valid and these fields
+    // are set.
+    const name = this.nameForm.controls.name.value;
+    const volumeSize = this.storageForm.controls.storageSize.value;
+    const { serverCloud, region, dailyBackupRegion, weeklyBackupRegion } = this.serverForm.getRawValue();
+    if (
+      name == null ||
+      serverCloud == null ||
+      region == null ||
+      volumeSize == null ||
+      dailyBackupRegion == null ||
+      weeklyBackupRegion == null
+    ) {
+      throw new Error('CaLabCreatePageComponent: missing form value at lab creation');
+    }
+
     const createLab: CaLabCloudCreateDTO = {
-      name: this.nameForm.get('name').value,
-      serverCloud: this.serverForm.get('serverCloud').value,
-      region: this.serverForm.get('region').value,
-      volumeSize: this.storageForm.get('storageSize').value,
+      name,
+      serverCloud,
+      region,
+      volumeSize,
       labConfig: this.labConfig,
-      dailyBackupRegion: this.serverForm.get('dailyBackupRegion').value,
-      weeklyBackupRegion: this.serverForm.get('weeklyBackupRegion').value,
+      dailyBackupRegion,
+      weeklyBackupRegion,
     };
 
     this.createIsLoading = true;

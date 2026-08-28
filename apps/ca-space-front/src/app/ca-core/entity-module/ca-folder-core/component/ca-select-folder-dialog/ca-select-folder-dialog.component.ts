@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy,Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
@@ -70,8 +70,8 @@ export class CaSelectFolderDialogComponent implements OnInit, OnDestroy {
   columns: FlTableColumnStatic<CaHierarchyObject>[] = ['name', 'user', 'lastModifiedAt'];
 
   // contains the list of parent folder for the breadcrumbs
-  parentFolders: CaHierarchyObject[] = null;
-  selectedFolder: CaHierarchyObject;
+  parentFolders: CaHierarchyObject[] = [];
+  selectedFolder: CaHierarchyObject | null;
 
   dialogInput: CaSelectFolderDialogInput = inject(MAT_DIALOG_DATA);
 
@@ -101,6 +101,10 @@ export class CaSelectFolderDialogComponent implements OnInit, OnDestroy {
     }
 
     const currentObject = ancestors.shift();
+    if (currentObject == null) {
+      this.initRoots();
+      return;
+    }
 
     if (currentObject.isRoot()) {
       this.initRoots();

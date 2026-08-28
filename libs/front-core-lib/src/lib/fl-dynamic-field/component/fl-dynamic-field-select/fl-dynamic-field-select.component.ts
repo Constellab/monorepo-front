@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, Input, OnInit, signal, WritableSignal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, signal, WritableSignal } from '@angular/core';
 
 import { FlDynamicFieldAbstractDirective } from '../../model/fl-dynamic-field-abstract.directive';
 import {
@@ -21,13 +21,13 @@ export class FlDynamicFieldSelectComponent extends FlDynamicFieldAbstractDirecti
 
   selectOptions: WritableSignal<FlDynamicFieldSelectKeyNameOption[]> = signal([]);
 
-  selectOptionsGroups: WritableSignal<FlGroupedSelectOption> = signal(null);
+  selectOptionsGroups: WritableSignal<FlGroupedSelectOption | null> = signal(null);
 
   @Input() multiple = false;
 
-  @Input() prefix: string;
+  @Input() prefix?: string;
 
-  @Input() suffix: string;
+  @Input() suffix?: string;
 
   ngOnInit(): void {
     if (!this.selectOptionsInput?.length) {

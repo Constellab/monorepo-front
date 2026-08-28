@@ -142,7 +142,7 @@ export class CaFolderDetailActionMenu extends CaFolderActionsMenu {
   }
 
   private onDocumentInTrashClosed(restoredDocs?: CaHierarchyObject[]): void {
-    if (restoredDocs?.length > 0) {
+    if (restoredDocs && restoredDocs.length > 0) {
       this.emitEvent({ action: 'restoreObjectFromTrash', hierarchyObjects: restoredDocs });
     }
     this.subject.complete();

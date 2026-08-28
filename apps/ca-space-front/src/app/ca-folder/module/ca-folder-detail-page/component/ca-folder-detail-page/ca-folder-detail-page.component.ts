@@ -1,10 +1,14 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy,Component, DestroyRef, inject, Injector, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, Injector, OnInit } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatIcon } from '@angular/material/icon';
 import { ActivatedRoute } from '@angular/router';
 import { ClHelpService } from '@monorepo/core-lib';
-import { FlBulkActionButton, FlBulkSelectionModule } from '@monorepo/front-core-lib/fl-bulk-selection';
+import {
+  FlBulkActionButton,
+  FlBulkActionContext,
+  FlBulkSelectionModule,
+} from '@monorepo/front-core-lib/fl-bulk-selection';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { FlQueryParamHandler, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import { FlDragModule, FlDropEvent } from '@monorepo/front-core-lib/fl-drag';
@@ -34,7 +38,6 @@ import {
 import { CaBulkActionService } from '../../../../../ca-core/service/ca-bulk-action.service';
 import { CaRouterService } from '../../../../../ca-core/service/ca-router.service';
 import { CaHierarchyObjectActionsMenuComponent } from '../../../ca-folder-hierarchy-core/component/ca-hierarchy-object-actions-menu/ca-hierarchy-object-actions-menu.component';
-import { CaHierarchyObjectBreadcrumbComponent } from '../../../ca-folder-hierarchy-core/component/ca-hierarchy-object-breadcrumb/ca-hierarchy-object-breadcrumb.component';
 import { CaHierarchyObjectActionsMenuState } from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-actions-menu.state';
 import { CaHierarchyObjectDetailState } from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
 import { CaHierarchyObjectEventState } from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-event.state';
@@ -54,7 +57,6 @@ import { CaFolderDetailActionsComponent } from '../ca-folder-detail-actions/ca-f
   providers: [CaFolderDetailState, FlQueryParamHandler],
   changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
-    CaHierarchyObjectBreadcrumbComponent,
     FlDragModule,
     FlCardModule,
     FlBulkSelectionModule,
@@ -89,7 +91,7 @@ export class CaFolderDetailPageComponent implements OnInit {
       type: 'tag',
       text: { text: 'tags', translateText: true },
       icon: 'tag',
-      onClick: (ctx) => this.bulkActionService.bulkAddTags(ctx, this.state.getCurrentFolder()?.id),
+      onClick: (ctx) => this.bulkAddTags(ctx),
     },
     {
       type: 'moveToFolder',
@@ -175,15 +177,18 @@ export class CaFolderDetailPageComponent implements OnInit {
   }
 
   async onFileDrop(event: FlDropEvent): Promise<void> {
-    const items = event.event.dataTransfer.items;
-    for (let i = 0; i < items.length; i++) {
-      const entry = items[i].webkitGetAsEntry();
-      if (entry?.isDirectory) {
-        this.snackBarService.openErrorMessage('drop_folder_error');
-        return;
+    const items = event.event.dataTransfer?.items;
+    if (items) {
+      for (let i = 0; i < items.length; i++) {
+        const entry = items[i].webkitGetAsEntry();
+        if (entry?.isDirectory) {
+          this.snackBarService.openErrorMessage('drop_folder_error');
+          return;
+        }
       }
     }
 
+    if (!event.files) return;
     const folderId = await firstValueFrom(this.state.getFolderId$());
     this.folderActionService.uploadDocument(folderId, event.files);
   }
@@ -203,6 +208,12 @@ export class CaFolderDetailPageComponent implements OnInit {
     folderActionsMenu.openFolderChildrenActionMenu(event).subscribe((event) => {
       this.onFolderAction(event);
     });
+  }
+
+  private bulkAddTags(ctx: FlBulkActionContext): void {
+    const folder = this.state.getCurrentFolder();
+    if (!folder) return;
+    this.bulkActionService.bulkAddTags(ctx, folder.id);
   }
 
   private getIds$(): Observable<string> {

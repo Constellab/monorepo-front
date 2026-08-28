@@ -13,7 +13,7 @@
         required
         type="number"
         [placeholder]="'free_data_lab_hour_limit' | translate" />
-      @if (formGp.get('usageLimitInHours').hasError('required')) {
+      @if (formGp.get('usageLimitInHours')?.hasError('required')) {
         <mat-error>{{ 'free_data_lab_hour_limit' | flErrorRequired }}</mat-error>
       }
     </mat-form-field>

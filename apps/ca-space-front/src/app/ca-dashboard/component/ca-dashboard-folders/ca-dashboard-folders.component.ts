@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
@@ -62,7 +62,7 @@ export class CaDashboardFoldersComponent implements OnInit {
     );
   }
 
-  private onCreateFolderDialogClosed(folder?: CaFolder): void {
+  private onCreateFolderDialogClosed(folder?: CaFolder | null): void {
     if (folder) {
       this.routerService.navigateToFolderDetail(folder.id);
     }

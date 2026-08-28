@@ -123,7 +123,7 @@ export class LmlLabManagerStatus {
   glabStatus: LmlGlabStatus;
 
   get actionInProgress(): boolean {
-    return this.labStatus === 'STARTING' || (this.currentTask && this.currentTask.status.value === 'RUNNING');
+    return this.labStatus === 'STARTING' || this.currentTask?.status.value === 'RUNNING';
   }
 
   get codelabFullUrl(): string | null {
@@ -165,6 +165,11 @@ export class LmlBrickVersionDTODatasource extends FlArrayObs<LmlLabManagerBrickV
     return {
       brickVersions: this.array,
     };
+  }
+
+  /** Find an installed brick by name only (no version at hand yet, e.g. a presence check). */
+  public findItemByName(name: string): LmlLabManagerBrickVersionDTO | undefined {
+    return this.array.find((item) => item.name === name);
   }
 
   /** Number of installed bricks for which a newer version is available. */
@@ -312,11 +317,11 @@ export class LmlSubComposeProcessInfo {
   @ClLuxonDateTimeTransform()
   completedAt?: DateTime;
 
-  get durationInMs(): number | null {
-    if (!this.completedAt) {
-      return null;
-    }
-    return this.completedAt.toMillis() - this.startedAt.toMillis();
+  /**
+   * Duration of the process, computed from the already-narrowed `completedAt` (see {@link completedAt}).
+   */
+  getDurationInMs(completedAt: DateTime): number {
+    return completedAt.toMillis() - this.startedAt.toMillis();
   }
 }
 

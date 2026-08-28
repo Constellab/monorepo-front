@@ -1,5 +1,5 @@
 import { NgOptimizedImage } from '@angular/common';
-import { ChangeDetectionStrategy,Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import {
   FlEntityPaginatedDatasource,
@@ -27,13 +27,16 @@ import { CaServerCloudInlineComponent } from '../ca-server-cloud-inline/ca-serve
   changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlInputSearchModule, NgOptimizedImage, CaServerCloudInlineComponent, TranslatePipe],
 })
-export class CaSelectServerCloudComponent extends FlFormFieldDirective<CaServerCloud> implements OnInit {
+export class CaSelectServerCloudComponent
+  extends FlFormFieldDirective<CaServerCloud | null>
+  implements OnInit
+{
   private serverService = inject(CaServerService);
   private dialogService = inject(FlDialogService);
 
   @Output() serverChange: EventEmitter<CaServerCloud> = new EventEmitter();
 
-  selectedServer: CaServerCloud | Observable<CaServerCloud>;
+  selectedServer: CaServerCloud | Observable<CaServerCloud> | null;
 
   datasource: CaServerCloudDatasource<FlInputSearchFilter>;
 
@@ -48,7 +51,7 @@ export class CaSelectServerCloudComponent extends FlFormFieldDirective<CaServerC
   ngOnInit(): void {
     this.datasource = new FlEntityPaginatedDatasource(
       (page: number, pageSize: number, data) =>
-        this.serverService.searchServerCloudByName(data.filtersCriteria.searchText, page, pageSize),
+        this.serverService.searchServerCloudByName(data.filtersCriteria.searchText ?? '', page, pageSize),
       20,
       { initFirstPage: false }
     );
@@ -58,7 +61,7 @@ export class CaSelectServerCloudComponent extends FlFormFieldDirective<CaServerC
     };
   }
 
-  writeValue(obj: CaServerCloud): void {
+  writeValue(obj: CaServerCloud | null): void {
     if (obj == null || obj.id == null) {
       this.selectedServer = null;
       this.value = null;

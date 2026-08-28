@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, Injector, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Injector, OnInit } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { MatIconButton } from '@angular/material/button';
 import { MatCheckbox } from '@angular/material/checkbox';
@@ -158,7 +158,7 @@ export class CaHierarchyObjectTrashDialogComponent implements OnInit {
     });
   }
 
-  private onAction(event: CaHierarchyObjectActionBase): void {
+  private onAction(event: CaHierarchyObjectActionBase | null): void {
     if (event == null) return;
 
     switch (event.action) {

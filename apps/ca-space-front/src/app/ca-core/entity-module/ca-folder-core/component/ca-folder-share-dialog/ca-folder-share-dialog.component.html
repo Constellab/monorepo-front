@@ -7,7 +7,7 @@
     <!--  Group  -->
     <fl-form-field class="g-form-input">
       <ca-select-group formControlName="group" [required]="true"></ca-select-group>
-      @if (formGp.get('group').hasError('required')) {
+      @if (formGp.get('group')?.hasError('required')) {
         <mat-error>{{ 'group' | flErrorRequired }}</mat-error>
       }
     </fl-form-field>
@@ -26,7 +26,7 @@
           {{ 'folder_user_role_' + formGp.value.role | translate }}
         </mat-select-trigger>
       </mat-select>
-      @if (formGp.get('role').hasError('required')) {
+      @if (formGp.get('role')?.hasError('required')) {
         <mat-error>{{ 'folder_user_role' | flErrorRequired }}</mat-error>
       }
     </mat-form-field>

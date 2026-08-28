@@ -8,17 +8,17 @@ import { PrWorkflowActionEvent } from '../model/workflow/pr-workflow-action-even
  */
 @Injectable()
 export class PrWorkflowActionState {
-  private action$: BehaviorSubject<PrWorkflowActionEvent>;
+  private action$: BehaviorSubject<PrWorkflowActionEvent | null>;
 
   public init(): void {
-    this.action$ = new BehaviorSubject<PrWorkflowActionEvent>(null);
+    this.action$ = new BehaviorSubject<PrWorkflowActionEvent | null>(null);
   }
 
   public newAction(action: PrWorkflowActionEvent): void {
     this.action$.next(action);
   }
 
-  public getAction$(): Observable<PrWorkflowActionEvent> {
+  public getAction$(): Observable<PrWorkflowActionEvent | null> {
     return this.action$.asObservable();
   }
 

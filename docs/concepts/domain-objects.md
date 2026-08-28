@@ -11,7 +11,8 @@ Constellab has three environments. The same objects flow between them, each envi
 its own purpose.
 
 ### Data lab
-Where **data and pipelines are managed**. Users *create, run and edit* things here. It manages
+
+Where **data and pipelines are managed**. Users _create, run and edit_ things here. It manages
 **scenarios** — which produce **resources** and **applications** — and also manages **notes** and
 **forms**. It is the origin of most domain objects.
 
@@ -28,8 +29,9 @@ or workflow execution itself — those are run by (regular) **data labs**; the D
 with them.
 
 ### Space
+
 Project management, sharing and organisation, inside a company and across companies (inter/intra
-enterprise). Users *organise, consult, share and govern* the objects produced in the Data lab.
+enterprise). Users _organise, consult, share and govern_ the objects produced in the Data lab.
 Objects are collected into **folders** (a tree of root folders and sub-folders), shared with
 people and teams, discussed via folder **chat**, and tracked via **notifications**. Most objects
 are **read-only** here (consulted, not created) — the exception is the **Constellab document**,
@@ -37,6 +39,7 @@ which is authored directly in the Space. Access is governed by **space roles** a
 roles** (see `roles-and-access.md`).
 
 ### Community
+
 A **public website** where users can **share things** with the wider community — the
 **publish/discover** environment. It hosts its own objects (**bricks**, **stories**, **community
 agents**, **partners**, **community tags**). Content shared out from the **Data lab** is limited to
@@ -49,37 +52,38 @@ public-facing, it is the outward counterpart of the private Data lab / Space.
 Each row is one directed edge `Source — relationship → Target`. This is the authoritative edge
 list; the per-object **Links** fields below give the same facts in context.
 
-| Source | Relationship | Target |
-|---|---|---|
-| Data lab | manages | scenarios, notes, note templates, forms, form templates |
-| Scenario | runs in | data lab |
-| Scenario | produces | resources, applications |
-| Scenario | can be linked to | notes |
-| Brick | defined in | Community |
-| Brick | installed / used in | data lab |
-| Brick | defines | tasks, protocols, resource types, applications |
-| Scenario | is built on | a protocol |
-| Protocol | holds | processes + links |
-| Process | is either | a task or a protocol (sub scenario) |
-| Task | takes / generates | resources (via named ports); has a configuration |
-| Resource | has | one or more views |
-| View | renders | a resource (e.g. table → table / scatter plot) |
-| Note template | generates | notes (variables → text / view / image) |
-| Form template | defines schema for | forms |
-| Form | is an instance of | a form template |
-| Note / note template | can embed | resource views, forms / form templates |
-| Tag | shared to / retrieved from | Community (homogeneous tag database across labs) |
-| Agent (special process) | defined in | data lab |
-| Agent | shared with | the Community (→ community agent) |
-| Scenario (in the data lab) | stored in | a space folder (folder assigned) |
-| Resource | takes folder of | its scenario (if defined) |
-| Lab objects (scenario, resource, application, note) | optionally shared to | the space (via their folder) |
-| Constellab document | authored in | the Space |
-| Space | configures / manages | its data labs (access, config, version, start/stop, backups) |
-| Story, partner | published on | Community (public only) |
-| Every space object (incl. data labs) | belongs to | exactly one space |
+| Source                                              | Relationship               | Target                                                       |
+| --------------------------------------------------- | -------------------------- | ------------------------------------------------------------ |
+| Data lab                                            | manages                    | scenarios, notes, note templates, forms, form templates      |
+| Scenario                                            | runs in                    | data lab                                                     |
+| Scenario                                            | produces                   | resources, applications                                      |
+| Scenario                                            | can be linked to           | notes                                                        |
+| Brick                                               | defined in                 | Community                                                    |
+| Brick                                               | installed / used in        | data lab                                                     |
+| Brick                                               | defines                    | tasks, protocols, resource types, applications               |
+| Scenario                                            | is built on                | a protocol                                                   |
+| Protocol                                            | holds                      | processes + links                                            |
+| Process                                             | is either                  | a task or a protocol (sub scenario)                          |
+| Task                                                | takes / generates          | resources (via named ports); has a configuration             |
+| Resource                                            | has                        | one or more views                                            |
+| View                                                | renders                    | a resource (e.g. table → table / scatter plot)               |
+| Note template                                       | generates                  | notes (variables → text / view / image)                      |
+| Form template                                       | defines schema for         | forms                                                        |
+| Form                                                | is an instance of          | a form template                                              |
+| Note / note template                                | can embed                  | resource views, forms / form templates                       |
+| Tag                                                 | shared to / retrieved from | Community (homogeneous tag database across labs)             |
+| Agent (special process)                             | defined in                 | data lab                                                     |
+| Agent                                               | shared with                | the Community (→ community agent)                            |
+| Scenario (in the data lab)                          | stored in                  | a space folder (folder assigned)                             |
+| Resource                                            | takes folder of            | its scenario (if defined)                                    |
+| Lab objects (scenario, resource, application, note) | optionally shared to       | the space (via their folder)                                 |
+| Constellab document                                 | authored in                | the Space                                                    |
+| Space                                               | configures / manages       | its data labs (access, config, version, start/stop, backups) |
+| Story, partner                                      | published on               | Community (public only)                                      |
+| Every space object (incl. data labs)                | belongs to                 | exactly one space                                            |
 
 Notes:
+
 - **Space objects are not published to the Community.** Only agents (from the lab) and
   Community-native content (bricks, stories, agents, partners) live on the public Community.
 - A lab object is **stored in a folder** in the data lab (folder assigned); it becomes
@@ -100,6 +104,7 @@ single space. (Community-native objects are the exception, being platform-public
 > in a scenario (either a task or a sub scenario).
 
 ### Folder
+
 - **Definition** — the organisational container in the Space. Folders form a tree of **root
   folders** and **sub-folders**. A root folder is the unit of sharing and access; sub-folders
   inherit access from their root.
@@ -109,13 +114,15 @@ single space. (Community-native objects are the exception, being platform-public
   Access is defined by **folder roles** (see `roles-and-access.md`).
 
 ### Document
+
 - **Definition** — an uploaded file (PDF / office / etc.) stored in a folder.
 - **Where used** — **Space** (uploaded and consulted there).
-- **Links** — lives in a **folder**; can carry **tags**. Distinct from a *Constellab document*
+- **Links** — lives in a **folder**; can carry **tags**. Distinct from a _Constellab document_
   (below), which is native rich text rather than an uploaded file.
 - **Actions** — open / preview, download, rename.
 
 ### Note (a.k.a. lab note)
+
 - **Definition** — a rich-text note **created and modified in the Data lab**, then synced to the
   Space. **Cannot be modified in the Space** — consulted read-only, with version history. A note's
   content can embed **resource views** (as well as text, images and forms).
@@ -126,6 +133,7 @@ single space. (Community-native objects are the exception, being platform-public
   can carry **tags**.
 
 ### Note template
+
 - **Definition** — a **lab object**: a reusable **template used to generate notes**. It can hold
   **variables** that are **replaced with objects during note generation** — text, a **resource
   view**, or an image.
@@ -134,6 +142,7 @@ single space. (Community-native objects are the exception, being platform-public
   can embed a **form template** block.
 
 ### Constellab document
+
 - **Definition** — a native rich-text document **created and modified directly in the Space**,
   with version history. Uses the **same rich-text technology as a note**; in short, "a note
   managed by the Space".
@@ -141,6 +150,7 @@ single space. (Community-native objects are the exception, being platform-public
 - **Links** — the Space-side counterpart of a **note**. Lives in a **folder**; can carry **tags**.
 
 ### Form template
+
 - **Definition** — a **lab object**: a **reusable, versioned definition of a form's schema** (its
   fields), similar to a Google Forms template. Has draft / published / archived version states.
 - **Where used** — **Data lab** (authoring/managing templates); embeddable in **note templates**
@@ -148,6 +158,7 @@ single space. (Community-native objects are the exception, being platform-public
 - **Links** — a **form** is an instance of a form template; embeddable in **note templates**.
 
 ### Form
+
 - **Definition** — a **lab object**: an **instance of a form template**, filled (or being filled)
   with values, bound to a specific published template version. Lifecycle: draft → submitted
   (locked).
@@ -156,6 +167,7 @@ single space. (Community-native objects are the exception, being platform-public
   in which case deleting the note cascades to the form).
 
 ### Scenario
+
 - **Definition** — a **pipeline execution** that ran in a lab. Carries a scenario card (status,
   the lab it ran on) and a technical report.
 - **Where used** — created and run in the **Data lab**; consulted read-only in the **Space**.
@@ -166,6 +178,7 @@ single space. (Community-native objects are the exception, being platform-public
   notes** ("associated notes"). Can carry **tags**.
 
 ### Resource
+
 - **Definition** — a **data object produced by a scenario**. Has one or more **views** for
   visualising its content.
 - **Where used** — produced in the **Data lab**; consulted / shared from the **Space**.
@@ -175,6 +188,7 @@ single space. (Community-native objects are the exception, being platform-public
   technically a resource. Can carry **tags**.
 
 ### View (resource view)
+
 - **Definition** — a way of **viewing a resource**. A resource stores raw data (e.g. a table
   stored as CSV) that can be rendered through different views — the same table can be shown as a
   **table**, a **scatter plot**, etc.
@@ -184,12 +198,16 @@ single space. (Community-native objects are the exception, being platform-public
   **Constellab documents**.
 
 ### Application
+
 - **Definition** — an **interactive app** that can be launched. Technically an application **is a
   resource**, but it is presented to users as a **distinct concept**.
-- **Where used** — **produced and hosted by the Data lab**; launched / shared from the **Space**.
+- **Where used** — **produced and hosted by the Data lab**. Can be **launched and shared directly
+  from the Data lab**, and can also be **launched / shared from the Space** once the Data lab has
+  **shared it with the space** (via its folder) to make it available there.
 - **Links** — a specialised **resource**; can carry **tags**.
 
 ### Tag
+
 - **Definition** — a **key/value** label attached to hierarchy objects to classify and search them.
 - **Where used** — across **Data lab**, **Space** and **Community** (Community has its own tags).
 - **Sharing** — tags can be **shared to and retrieved from the Community**, so that labs build a
@@ -198,15 +216,17 @@ single space. (Community-native objects are the exception, being platform-public
   resource, application).
 
 ### Brick
+
 - **Definition** — a **Python library for Constellab** that **defines tasks, resources, protocols
   and applications**. Bricks are **installed and managed in a data lab** and **configure what that
   lab can do**; they are published and discovered on the Community.
 - **Where used** — published/discovered on **Community**; installed into a **data lab**.
 - **Links** — defines the **tasks**, **protocols**, **resource** types and **applications** a lab
   can use. A lab's capabilities are the sum of its installed bricks. Contrast with **agents** —
-  custom code that lives *outside* bricks and skips the project/git/version ceremony.
+  custom code that lives _outside_ bricks and skips the project/git/version ceremony.
 
 ### Task
+
 - **Definition** — the unit of **code/logic** that performs a computation. A task has **named
   input and output ports**, **takes resources** (inputs) and **generates resources** (outputs),
   and has a **configuration**.
@@ -215,6 +235,7 @@ single space. (Community-native objects are the exception, being platform-public
   **resources**.
 
 ### Process
+
 - **Definition** — an **abstraction for a running block inside a scenario**. A process is
   **either a task or a protocol**. Processes are the blocks you place and connect in a scenario.
 - **Where used** — **Data lab** (inside scenarios).
@@ -222,6 +243,7 @@ single space. (Community-native objects are the exception, being platform-public
   a **protocol** / scenario.
 
 ### Protocol (sub scenario)
+
 - **Definition** — technically, the container that **holds processes and the links between them**.
   A **scenario has a protocol** (which holds its processes — possibly sub-protocols — and links). A
   nested/sub-protocol is called a **sub scenario**.
@@ -233,11 +255,13 @@ single space. (Community-native objects are the exception, being platform-public
   built on a protocol.
 
 ### Story
+
 - **Definition** — an **article**, like a Medium story — published editorial content. Stories are
   **public only**.
 - **Where used** — **Community** (public).
 
 ### Agent (Community agent)
+
 - **Definition** — a special **process defined in the data lab** that holds **custom Python or R
   code** to run bespoke manipulations (supports **virtual environments**). Agents live **outside
   bricks**: they are lightweight **code snippets** with none of the brick ceremony (no real
@@ -248,5 +272,6 @@ single space. (Community-native objects are the exception, being platform-public
 - **Links** — a special kind of **process**, but **not** packaged in a **brick**.
 
 ### Partner
+
 - **Definition** — partner entities / pages on the Community.
 - **Where used** — **Community** (public).

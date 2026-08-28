@@ -1,12 +1,8 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
-import { MatIcon } from '@angular/material/icon';
-import { MatTooltipModule } from '@angular/material/tooltip';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { TranslatePipe } from '@ngx-translate/core';
 import { map } from 'rxjs/operators';
 
-import { CaHierarchyObjectBreadcrumbComponent } from '../../ca-folder-hierarchy-core/component/ca-hierarchy-object-breadcrumb/ca-hierarchy-object-breadcrumb.component';
 import { CaHierarchyObjectDetailState } from '../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
 import { CaResourceDetailComponent } from '../../ca-resource-core/ca-resource-detail/ca-resource-detail.component';
 
@@ -15,14 +11,7 @@ import { CaResourceDetailComponent } from '../../ca-resource-core/ca-resource-de
   templateUrl: './ca-resource-detail-page.component.html',
   styleUrl: './ca-resource-detail-page.component.scss',
   changeDetection: ChangeDetectionStrategy.Eager,
-  imports: [
-    CaHierarchyObjectBreadcrumbComponent,
-    AsyncPipe,
-    CaResourceDetailComponent,
-    MatIcon,
-    TranslatePipe,
-    MatTooltipModule,
-  ],
+  imports: [AsyncPipe, CaResourceDetailComponent],
 })
 export class CaResourceDetailPageComponent {
   private state = inject(CaHierarchyObjectDetailState);
@@ -30,10 +19,4 @@ export class CaResourceDetailPageComponent {
   userRole$ = this.state.getUserRole$();
 
   tags = this.state.getTags();
-
-  headerHidden = this.state.isHeaderHidden;
-
-  showHeader(): void {
-    this.state.updateViewSettings({ hideHeader: false });
-  }
 }

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, computed, inject, OnDestroy, Signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, OnDestroy, Signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { CoCommunityLibModule } from '@monorepo/community-lib';
 import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
@@ -35,16 +35,16 @@ export class HaBrickDescriptionPageComponent extends HaCommunityPageDirective im
   private brickPageState: HaBrickPageState = inject(HaBrickPageState);
   private jsonLdState: HaJsonLdState = inject(HaJsonLdState);
 
-  brick: Signal<HaBrick> = computed(() => {
+  brick: Signal<HaBrick | null> = computed(() => {
     const brick = this.brickPageState.brick();
     if (brick) {
       this.onBrick(brick);
     }
     return brick;
   });
-  latestBrickVersion: Signal<HaBrickVersion> = this.brickPageState.latestBrickVersion;
-  directReferences: Signal<HaReferenceDTO[]> = this.brickPageState.directReferences;
-  brickRunStatAggregate: Signal<HaRunStatAggregate> = this.brickPageState.brickRunStatAggregate;
+  latestBrickVersion: Signal<HaBrickVersion | null> = this.brickPageState.latestBrickVersion;
+  directReferences: Signal<HaReferenceDTO[] | null> = this.brickPageState.directReferences;
+  brickRunStatAggregate: Signal<HaRunStatAggregate | null> = this.brickPageState.brickRunStatAggregate;
 
   entityType = HaEntityType.BRICK;
 
@@ -60,7 +60,7 @@ export class HaBrickDescriptionPageComponent extends HaCommunityPageDirective im
         text: 'ha.brick.description',
         translateParam: { param: { title: brick.name } },
       },
-      brick.imageLink,
+      brick.imageLink ?? '',
       pageUrl
     );
 

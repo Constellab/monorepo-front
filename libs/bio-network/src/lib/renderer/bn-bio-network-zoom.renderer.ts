@@ -23,14 +23,16 @@ export class BnBioNetworkZoomRenderer {
 
   public init(): void {
     combineLatest([this.mainRenderer.getGraphRenderer$(), this.selectionState.getSelectionMode$()]).subscribe(
-      ([graphRenderer, selection]) => this.zoomOnSelection(graphRenderer.graph, selection)
+      ([graphRenderer, selection]) => this.zoomOnSelection(graphRenderer?.graph ?? null, selection)
     );
   }
 
-  private zoomOnSelection(graph: ForceGraphInstance, selection: BnBioNetworkSelectionEvent): void {
+  private zoomOnSelection(graph: ForceGraphInstance | null, selection: BnBioNetworkSelectionEvent): void {
     if (graph == null || selection == null) return;
     if (selection.mode === 'singleNode') {
-      this.zoomToPosition(graph, selection.selectedNode.x, selection.selectedNode.y);
+      const { x, y } = selection.selectedNode;
+      if (x == null || y == null) return;
+      this.zoomToPosition(graph, x, y);
     } else if (selection.mode === 'multipleNodes') {
       this.zoomToSelectedElements(graph);
     }

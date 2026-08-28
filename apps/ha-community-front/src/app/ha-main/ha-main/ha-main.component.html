@@ -1,5 +1,6 @@
 <router-outlet></router-outlet>
 
 @if (isBrowser && isChatbotActive) {
-  <co-ragflow-chatbot-bubble></co-ragflow-chatbot-bubble>
+  <!-- co-ragflow-chatbot-bubble.user (community-lib) is typed FlUser | undefined; our user$ can emit null -->
+  <co-ragflow-chatbot-bubble [user]="(user$ | async) ?? undefined"></co-ragflow-chatbot-bubble>
 }

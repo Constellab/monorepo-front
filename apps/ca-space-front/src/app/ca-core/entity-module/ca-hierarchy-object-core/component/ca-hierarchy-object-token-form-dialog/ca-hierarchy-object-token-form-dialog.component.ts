@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -17,11 +17,10 @@ import {
 } from '../../../../model/entities/folder/ca-hierarchy-object-token.class';
 import { CaHierarchyObjectTokenService } from '../../../../service-api/ca-hierarchy-object-token.service';
 
-export interface CaHierarchyObjectTokenFormDialogInput
-  extends FlFormDialogInput<CaHierarchyObjectTokenSaveDTO> {
+export type CaHierarchyObjectTokenFormDialogInput = FlFormDialogInput<CaHierarchyObjectTokenSaveDTO> & {
   hierarchyObjectId?: string; // in create mode
   hierarchyObjectTokenId?: string; // in update mode
-}
+};
 
 /**
  * Dialog to create and update a hierarchy object token
@@ -61,7 +60,11 @@ export class CaHierarchyObjectTokenFormDialogComponent
   }
 
   create(formValue: CaHierarchyObjectTokenSaveDTO): Observable<CaHierarchyObjectToken> {
-    return this.hierarchyObjectTokenService.createToken(this.dialogInput.hierarchyObjectId, formValue);
+    const hierarchyObjectId = this.dialogInput.hierarchyObjectId;
+    if (hierarchyObjectId == null) {
+      throw new Error('CaHierarchyObjectTokenFormDialogComponent: missing hierarchyObjectId in create mode');
+    }
+    return this.hierarchyObjectTokenService.createToken(hierarchyObjectId, formValue);
   }
 
   getCreateSuccessMessage(): string {
@@ -73,7 +76,13 @@ export class CaHierarchyObjectTokenFormDialogComponent
   }
 
   update(formValue: CaHierarchyObjectTokenSaveDTO): Observable<CaHierarchyObjectToken> {
-    return this.hierarchyObjectTokenService.updateToken(this.dialogInput.hierarchyObjectTokenId, formValue);
+    const hierarchyObjectTokenId = this.dialogInput.hierarchyObjectTokenId;
+    if (hierarchyObjectTokenId == null) {
+      throw new Error(
+        'CaHierarchyObjectTokenFormDialogComponent: missing hierarchyObjectTokenId in update mode'
+      );
+    }
+    return this.hierarchyObjectTokenService.updateToken(hierarchyObjectTokenId, formValue);
   }
 
   get title(): string {

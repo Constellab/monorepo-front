@@ -1,29 +1,34 @@
 import { HA_ENVIRONMENT } from '../../../../environments/ha-environment';
-import { HaEnvironment } from '../../../../environments/ha-environment.class';
+import { HaEnvironment, HaEnvironmentSettings } from '../../../../environments/ha-environment.class';
 
 /**
  * Centralized access to environment configuration.
  *
  * Settings are loaded at bootstrap from assets/settings.json (production) or hardcoded
  * defaults (development) — see main.ts for the loading logic.
- * Each getter provides a fallback default so the app works locally without a settings file.
+ * Each setting falls back to a default so the app works locally without a settings file.
  */
 export class HaEnvironmentHelper {
+  /**
+   * Fallback used for every setting the loaded settings file leaves empty.
+   */
+  private static readonly DEFAULT_SETTINGS: HaEnvironmentSettings = {
+    apiUrl: 'http://localhost:3333',
+    constellabApiUrl: 'https://api.preconstellab.com',
+    constellabFrontUrl: 'https://preconstellab.com',
+    communityFrontUrl: 'http://localhost:4200',
+    captchaSiteKey: '',
+    googleAnalyticsId: 'eazeaze',
+    discordLink: 'https://discord.com/invite/7nmH5qKM',
+    algoliaAppId: 'S233I3C24Z',
+    algoliaSearchKey: '8fd4e2048efc6363ff0dca169b6522af',
+    algoliaIndexName: 'Community Preprod',
+    algoliaSiteVerificationKey: null,
+    homeVideoLink: null,
+  };
+
   public static getEnv(): HaEnvironment {
-    HA_ENVIRONMENT.settings = {
-      apiUrl: HA_ENVIRONMENT.settings.apiUrl || 'http://localhost:3333',
-      constellabApiUrl: HA_ENVIRONMENT.settings.constellabApiUrl || 'https://api.preconstellab.com',
-      constellabFrontUrl: HA_ENVIRONMENT.settings.constellabFrontUrl || 'https://preconstellab.com',
-      communityFrontUrl: HA_ENVIRONMENT.settings.communityFrontUrl || 'http://localhost:4200',
-      captchaSiteKey: HA_ENVIRONMENT.settings.captchaSiteKey || null,
-      googleAnalyticsId: HA_ENVIRONMENT.settings.googleAnalyticsId || 'eazeaze',
-      discordLink: HA_ENVIRONMENT.settings.discordLink || 'https://discord.com/invite/7nmH5qKM',
-      algoliaAppId: HA_ENVIRONMENT.settings.algoliaAppId || 'S233I3C24Z',
-      algoliaSearchKey: HA_ENVIRONMENT.settings.algoliaSearchKey || '8fd4e2048efc6363ff0dca169b6522af',
-      algoliaIndexName: HA_ENVIRONMENT.settings.algoliaIndexName || 'Community Preprod',
-      algoliaSiteVerificationKey: HA_ENVIRONMENT.settings.algoliaSiteVerificationKey || null,
-      homeVideoLink: HA_ENVIRONMENT.settings.homeVideoLink || null,
-    };
+    HA_ENVIRONMENT.settings = HaEnvironmentHelper.withDefaults(HA_ENVIRONMENT.settings);
     return HA_ENVIRONMENT;
   }
 
@@ -61,5 +66,18 @@ export class HaEnvironmentHelper {
 
   public static getHomeVideoLink(): string | null {
     return HaEnvironmentHelper.getEnv().settings.homeVideoLink || null;
+  }
+
+  /**
+   * Start from the defaults and let every value actually provided by the settings file win.
+   * Equivalent to `loaded || default` on each key, without one branch per setting.
+   */
+  private static withDefaults(settings: HaEnvironmentSettings): HaEnvironmentSettings {
+    const resolved: HaEnvironmentSettings = { ...HaEnvironmentHelper.DEFAULT_SETTINGS };
+    for (const key of Object.keys(resolved) as (keyof HaEnvironmentSettings)[]) {
+      const value = settings[key];
+      if (value) resolved[key] = value;
+    }
+    return resolved;
   }
 }

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, Input, OnInit, ViewContainerRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input, OnInit, ViewContainerRef } from '@angular/core';
 import { SpSheetChartConfig, SpSpreadsheet, SpSpreadsheetPageLoader } from '@monorepo/spreadsheet';
 
 import { RvResourceViewDirective } from '../../model/rv-resource-view.directive';
@@ -22,11 +22,22 @@ export class RvViewSpreadsheetComponent
 
   spreadSheet: SpSpreadsheet;
 
-  chartConfig?: SpSheetChartConfig[] = [];
+  chartConfig?: SpSheetChartConfig[] | null = [];
 
-  pagination?: SpSpreadsheetPageLoader;
+  pagination?: SpSpreadsheetPageLoader | null;
 
   private viewContainerRef = inject(ViewContainerRef);
+
+  /**
+   * Stopgap: sp-spreadsheet (libs/spreadsheet, out of scope here) types its `pagination` Input as
+   * non-nullable `SpSpreadsheetPageLoader`, but "no pagination" is a legitimate state (see
+   * `RvSpreadsheetViewConfig.getPagination`, which can return null). `SpSpreadsheetPaginationState.init()`
+   * null-checks `this.pagination` before every use, so passing null through this cast is safe at runtime.
+   * Would need `pagination: SpSpreadsheetPageLoader | null` on sp-spreadsheet to be fixed properly.
+   */
+  get paginationForSpreadsheet(): SpSpreadsheetPageLoader {
+    return (this.pagination ?? null) as SpSpreadsheetPageLoader;
+  }
 
   ngOnInit(): void {
     // ignore the table offset (fromRow and fromCol) because it doesn't work with local chart

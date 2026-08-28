@@ -30,7 +30,7 @@
           flInputMaxLength="50"
           placeholder="{{ 'title' | translate }}"
           cdkFocusInitial />
-        @if (formGp.get('title').hasError('required')) {
+        @if (formGp.get('title')?.hasError('required')) {
           <mat-error>{{ 'title' | flErrorRequired }}</mat-error>
         }
       </mat-form-field>

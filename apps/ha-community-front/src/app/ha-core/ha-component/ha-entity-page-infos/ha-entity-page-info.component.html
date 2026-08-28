@@ -43,10 +43,10 @@
     <div class="entity-page-separator"></div>
   }
 
-  @if (space() !== undefined) {
+  @if (space(); as spaceValue) {
     <div class="entity-page-info-div">
       <span class="g-text-medium g-weight-600">{{ 'confidentiality' | translate }}</span>
-      <co-visibility-badge [space]="space()" size="medium"></co-visibility-badge>
+      <co-visibility-badge [space]="spaceValue" size="medium"></co-visibility-badge>
     </div>
 
     <div class="entity-page-separator"></div>
@@ -60,7 +60,7 @@
         [comments]="commentsCount()"
         [executions]="executions()"
         [isClickable]="true"
-        [isLiked]="isLiked()"
+        [isLiked]="isLiked() ?? false"
         (likeClicked)="onLikeClicked()"
         (commentClicked)="onCommentClicked()"></co-stats-list>
     </div>

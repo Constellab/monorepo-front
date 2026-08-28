@@ -7,11 +7,9 @@ import { BnBioNetworkGraph } from '../model/bn-bio-network-graph.class';
 import { BnBioNetworkNode } from '../model/bn-bio-network-node.class';
 import { BnBioNetworkEngineConfig } from './bn-bio-network-engine.state';
 
-export interface BnBioNetworkSimulationProgressEvent {
-  status: 'started' | 'ended' | 'progress';
-  progress: number;
-  duration?: number;
-}
+export type BnBioNetworkSimulationProgressEvent =
+  | { status: 'started' | 'progress'; progress: number; duration?: number }
+  | { status: 'ended'; progress: number; duration: number };
 
 @Injectable()
 export class BnBioNetworkSimulationState implements OnDestroy {

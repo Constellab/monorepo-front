@@ -9,7 +9,8 @@ import {
   inject,
   OnDestroy,
   ViewChild,
-  ViewEncapsulation} from '@angular/core';
+  ViewEncapsulation,
+} from '@angular/core';
 import { MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
 import { MatFormField, MatInput, MatPrefix, MatSuffix } from '@angular/material/input';
@@ -60,7 +61,7 @@ export class HaInstantSearchDialogComponent implements AfterContentInit, OnDestr
   theme: 'dark' | 'light';
 
   hits: BaseHit[] = [];
-  highlightedHitIndex = 0;
+  highlightedHitIndex: number | undefined = 0;
   refine: (query: string) => void;
   query: string;
 

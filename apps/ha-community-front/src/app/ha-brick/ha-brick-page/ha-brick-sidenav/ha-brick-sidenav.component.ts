@@ -1,4 +1,4 @@
-import { isPlatformBrowser, isPlatformServer, NgClass } from '@angular/common';
+import { isPlatformBrowser, isPlatformServer } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -74,7 +74,6 @@ import {
     MatTreeNodeToggle,
     MatTooltip,
     HaBrickSidenavTreeComponent,
-    NgClass,
   ],
 })
 export class HaBrickSidenavComponent {
@@ -92,8 +91,8 @@ export class HaBrickSidenavComponent {
 
   userHasEditRight = this.brickPageState.userHasEditRight;
 
-  pathVersion: Signal<string> = this.brickPageState.pathVersion;
-  brick: Signal<HaBrick> = this.brickPageState.brick;
+  pathVersion: Signal<string | null> = this.brickPageState.pathVersion;
+  brick: Signal<HaBrick | null> = this.brickPageState.brick;
 
   private currentUrl = toSignal(
     this.router.events.pipe(
@@ -164,13 +163,17 @@ export class HaBrickSidenavComponent {
     this.techDataSource$.addNodeObjectsWithChildren([techFolder]);
   }
 
-  private getTechnicalDocumentations(brick: HaBrick, pathVersion: string): void {
+  private getTechnicalDocumentations(brick: HaBrick | null, pathVersion: string | null): void {
+    if (brick == null || pathVersion == null) return;
+
     this.brickService.getTechnicalDocumentation(brick.id, pathVersion).subscribe((data) => {
       this.onTechDocumentationsData(data?.children);
     });
   }
 
-  private getDocumentations(brick: HaBrick, pathVersion: string): void {
+  private getDocumentations(brick: HaBrick | null, pathVersion: string | null): void {
+    if (brick == null || pathVersion == null) return;
+
     if (isPlatformBrowser(this.platformId) && this.transferState.hasKey(this.DOCS_KEY)) {
       const data = this.transferState.get(this.DOCS_KEY, null) as HaNode;
       this.transferState.remove(this.DOCS_KEY);
@@ -188,7 +191,8 @@ export class HaBrickSidenavComponent {
     });
   }
 
-  private onDocumentationsData(nodes: HaNode[]): void {
+  private onDocumentationsData(nodes: HaNode[] | undefined): void {
+    if (!nodes) return;
     nodes.map((n) => {
       n.parentId = null;
       return n;
@@ -197,7 +201,7 @@ export class HaBrickSidenavComponent {
     this.dataSource$.addNodeObjectsWithChildren(nodes);
   }
 
-  private onTechDocumentationsData(nodes: HaNode[]): void {
+  private onTechDocumentationsData(nodes: HaNode[] | undefined): void {
     if (!nodes || nodes?.length == 0) return;
     const techFolder = new HaNode(
       'technical-folder',
@@ -211,7 +215,7 @@ export class HaBrickSidenavComponent {
     techFolder.isExpanded = true;
     for (const child of nodes) {
       child.parentId = 'technical-folder';
-      techFolder.children.push(child);
+      techFolder.children?.push(child);
     }
     this.techDataSource$.addNodeObjectsWithChildren([techFolder]);
   }
@@ -219,7 +223,11 @@ export class HaBrickSidenavComponent {
   onClickMenu(event: MouseEvent): void {
     event.preventDefault();
     event.stopPropagation();
-    this.brickService.getRootFolderId(this.brick()?.id, this.pathVersion()).subscribe((res) => {
+    const brick = this.brick();
+    const pathVersion = this.pathVersion();
+    if (brick == null || pathVersion == null) return;
+
+    this.brickService.getRootFolderId(brick.id, pathVersion).subscribe((res) => {
       this.openCreateDialog(res.id);
     });
   }
@@ -230,10 +238,10 @@ export class HaBrickSidenavComponent {
         this.openCreateDialog(event.id);
         break;
       case HaBrickSidenavTreeEventType.EDIT_TITLE:
-        this.prepareEditDialog(event.id, event.isFolder);
+        this.prepareEditDialog(event.id, event.isFolder ?? false);
         break;
       case HaBrickSidenavTreeEventType.DELETE:
-        this.openResourceDelete(event.id, event.isFolder);
+        this.openResourceDelete(event.id, event.isFolder ?? false);
         break;
     }
   }
@@ -265,15 +273,9 @@ export class HaBrickSidenavComponent {
   }
 
   private openCreateDialog(folderId: string): void {
-    const input: FlFormDialogInput<HaNodeDTO> = {
+    const input: FlFormDialogInput<Partial<HaNodeDTO>> = {
       mode: 'create',
-      object: {
-        id: null,
-        path: null,
-        title: null,
-        isFolder: null,
-        folderId: folderId,
-      } as HaNodeDTO,
+      object: { folderId },
     };
 
     this.openSmallDialog(input);
@@ -286,10 +288,13 @@ export class HaBrickSidenavComponent {
       .subscribe((res) => {
         if (res != null) {
           if (res[1] == HaNodeType.TEC) {
+            const brick = this.brick();
+            if (brick == null) return;
+
             this.portalActionsService
               .addAction({
                 action: this.brickService.importTechnicalDocumentation({
-                  brickName: this.brick().name,
+                  brickName: brick.name,
                   importFile: res[0],
                 }),
                 text: {
@@ -298,7 +303,7 @@ export class HaBrickSidenavComponent {
                 },
                 type: 'brick_tech_doc',
               })
-              .subscribe((res) => {
+              ?.subscribe((res) => {
                 if (res) {
                   this.getTechnicalDocumentations(this.brick(), this.pathVersion());
                 }

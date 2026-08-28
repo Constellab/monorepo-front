@@ -23,7 +23,7 @@
     </div>
   }
 
-  @if (selectedImporterType) {
+  @if (selectedImporterType && formGp && configData) {
     <form (ngSubmit)="submit()" [formGroup]="formGp">
       <mat-divider class="divider"></mat-divider>
       <!--   Info about importer with button to see detail     -->

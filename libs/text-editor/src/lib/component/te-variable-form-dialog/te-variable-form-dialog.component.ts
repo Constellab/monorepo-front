@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
@@ -19,7 +19,7 @@ export class TeVariableFormDialogComponent implements OnInit {
     name: '',
     description: '',
     type: 'string' as TeVariableFormType,
-    value: null as string,
+    value: null as string | null,
   });
 
   ngOnInit(): void {

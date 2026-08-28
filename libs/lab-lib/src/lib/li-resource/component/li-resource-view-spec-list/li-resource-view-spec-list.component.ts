@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, EventEmitter, inject,Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
@@ -49,18 +49,18 @@ export class LiResourceViewSpecListComponent {
   // prepare the data and open the view configuration portal
   openConfigPortal(view: LiResourceViewSpec): void {
     this.viewConfigurerState
-      .openConfigPortal(
-        view.methodName,
-        view.getName(),
-        view.hasConfigSpecs,
-        null,
-        this._resourceTypingName,
-        view.style
-      )
+      .openConfigPortal({
+        methodName: view.methodName,
+        viewName: view.getName(),
+        hasConfigSpecs: view.hasConfigSpecs,
+        resourceId: null,
+        resourceTypingName: this._resourceTypingName,
+        viewStyle: view.style,
+      })
       .subscribe((config) => this.callView(config));
   }
 
-  private callView(config: LiResourceViewSpecWithConfig): void {
+  private callView(config: LiResourceViewSpecWithConfig | null): void {
     if (config == null) return;
     this.viewConfigured.next(config);
   }

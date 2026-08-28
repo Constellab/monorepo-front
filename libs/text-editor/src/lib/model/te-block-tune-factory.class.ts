@@ -23,7 +23,7 @@ export abstract class TeBlockTune implements BlockTune {
     return true;
   }
 
-  static get sanitize(): SanitizerConfig {
+  static get sanitize(): SanitizerConfig | null {
     return null;
   }
 

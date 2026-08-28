@@ -17,13 +17,13 @@ export class HaThemeState {
   private themeService = inject(FlThemeService);
   private authUserService = inject(HaAuthenticatedUserService);
 
-  private currentTheme: WritableSignal<ClTheme> = signal<ClTheme>(null);
+  private currentTheme: WritableSignal<ClTheme | null> = signal<ClTheme | null>(null);
   public isDarkTheme: Signal<boolean> = computed(() => {
     return this.currentTheme() === ClTheme.DARK_THEME;
   });
   public onThemeChange$: Subject<ClTheme> = new Subject<ClTheme>();
 
-  public getCurrentTheme(): Signal<ClTheme> {
+  public getCurrentTheme(): Signal<ClTheme | null> {
     return this.currentTheme;
   }
 
@@ -33,7 +33,8 @@ export class HaThemeState {
 
   changeTheme(theme: ClTheme): void {
     this.setTheme(theme);
-    if (this.authUserService.hasAuthorizationCookie()) {
+    // only a resolved user has a theme to persist, a cookie says nothing about that
+    if (this.authUserService.getCurrentUser() != null) {
       this.authUserService.changeTheme(theme).subscribe();
     }
   }

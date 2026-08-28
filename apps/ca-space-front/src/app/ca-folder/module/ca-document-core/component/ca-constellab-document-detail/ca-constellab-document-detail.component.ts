@@ -1,5 +1,13 @@
-import { NgClass } from '@angular/common';
-import { ChangeDetectionStrategy,Component, computed, effect, inject, Injector, input, output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  effect,
+  inject,
+  Injector,
+  input,
+  output,
+} from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
@@ -25,6 +33,7 @@ import {
 } from '../../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
 import { CaConstellabDocumentService } from '../../../../../ca-core/service-api/ca-constellab-document.service';
 import { CaDocumentService } from '../../../../../ca-core/service-api/ca-document.service';
+import { CaDetailCardComponent } from '../../../ca-folder-hierarchy-core/component/ca-detail-card/ca-detail-card.component';
 import { CaHierarchyObjectEventState } from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-event.state';
 import { CaConstellabDocumentTextEditorConfig } from '../../ca-constellab-document-text-editor.config';
 import { CaDocumentActionDetailMenu, CaDocumentActionEvent } from '../../ca-document-action-menu';
@@ -36,6 +45,7 @@ import { CaDocumentActionDetailMenu, CaDocumentActionEvent } from '../../ca-docu
 @Component({
   selector: 'ca-constellab-document-detail',
   imports: [
+    CaDetailCardComponent,
     FlFormModule,
     FlSectionModule,
     FlTagModule,
@@ -46,7 +56,6 @@ import { CaDocumentActionDetailMenu, CaDocumentActionEvent } from '../../ca-docu
     TeTextEditorModule,
     TranslatePipe,
     ReactiveFormsModule,
-    NgClass,
   ],
   templateUrl: './ca-constellab-document-detail.component.html',
   changeDetection: ChangeDetectionStrategy.Eager,
@@ -54,7 +63,9 @@ import { CaDocumentActionDetailMenu, CaDocumentActionEvent } from '../../ca-docu
 })
 export class CaConstellabDocumentDetailComponent {
   documentId = input.required<string>();
-  userRole = input.required<CaRootFolderUserRoleObj>();
+  // nullable because the async pipe used by consumers only ever resolves the role once the hierarchy
+  // object context has loaded
+  userRole = input.required<CaRootFolderUserRoleObj | null>();
   hierarchyObjectToken = input<string>();
 
   tags = input<CaHierarchyObjectTagDatasource>();
@@ -67,14 +78,14 @@ export class CaConstellabDocumentDetailComponent {
   private constellabDocumentService = inject(CaConstellabDocumentService);
   private eventState = inject(CaHierarchyObjectEventState, { optional: true });
 
-  canEdit = computed(() => this.userRole().canEdit());
+  canEdit = computed(() => this.userRole()?.canEdit() ?? false);
 
   document: CaDocument;
 
   getIsLoading: boolean = true;
 
   textEditorConfig: CaConstellabDocumentTextEditorConfig;
-  contentFormControl: FormControl<TeRichText> = new FormControl({ disabled: true, value: null });
+  contentFormControl: FormControl<TeRichText | null> = new FormControl({ disabled: true, value: null });
   saveDescriptionFunc: (value: TeRichText) => Observable<CaConstellabDocument>;
 
   constructor() {
@@ -119,6 +130,9 @@ export class CaConstellabDocumentDetailComponent {
   }
 
   async openDocumentActionMenu(document: CaDocument, event: MouseEvent): Promise<void> {
+    const userRole = this.userRole();
+    if (userRole == null) return;
+
     ClHelpService.stopEventPropagation(event);
     const documentActionMenu = new CaDocumentActionDetailMenu(
       this.injector,
@@ -126,7 +140,7 @@ export class CaConstellabDocumentDetailComponent {
         id: document.id,
         name: document.name,
         isConstellabDocument: document.isConstellabDocument(),
-        userRole: this.userRole(),
+        userRole,
       },
       this.textEditorConfig,
       { tags: this.tags() }
@@ -137,7 +151,8 @@ export class CaConstellabDocumentDetailComponent {
     });
   }
 
-  private onDocumentAction(event: CaDocumentActionEvent): void {
+  private onDocumentAction(event: CaDocumentActionEvent | null): void {
+    if (!event) return;
     switch (event.action) {
       case 'update':
         this.document = event.document;

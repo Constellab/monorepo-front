@@ -44,7 +44,7 @@ export class SpSpreadsheetClipboardState {
   }
 
   // todo gérer quand le text copié a + de colones ou lignes que le tableau
-  private pasteValue(clipText: string): void {
+  private pasteValue(clipText: string | null): void {
     const selection = this.selectionState.currentSelection;
     if (clipText == null || clipText.length === 0 || selection == null) {
       return;

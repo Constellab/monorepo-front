@@ -121,33 +121,41 @@ export class FlPrettyJsonBuilder {
         id: this.id++,
         // set the node key, if there is an key offset, add it to the key
         key: keyOffset > 0 ? (parseInt(key) + keyOffset).toString() : key,
-        type: null,
+        type: this.getType(value),
       };
 
-      node.type = this.getType(value);
-      if (value != null) {
-        // for object that contains at least one element
-        if (node.type === 'object' && Object.keys(value).length > 0) {
-          node.preview = this.getPreview(value);
-
-          // build the sub objects
-          node.children = this.buildObjectNodeRecur(value, level + 1);
-        } else {
-          // case for the empty object and array
-          if (node.type === 'object') {
-            node.value = value instanceof Array ? '[ ]' : '{ }';
-          } else {
-            node.value = value;
-          }
-        }
-      } else {
-        node.value = 'null';
-      }
+      this.fillNodeValue(node, value, level);
 
       nodes.push(node);
     }
 
     return nodes;
+  }
+
+  /**
+   * Set the value, preview and children of a node depending on its type
+   */
+  private fillNodeValue(node: FlObjectNode, value: any, level: number): void {
+    if (value == null) {
+      node.value = 'null';
+      return;
+    }
+
+    // for object that contains at least one element
+    if (node.type === 'object' && Object.keys(value).length > 0) {
+      node.preview = this.getPreview(value);
+
+      // build the sub objects
+      node.children = this.buildObjectNodeRecur(value, level + 1);
+      return;
+    }
+
+    // case for the empty object and array
+    if (node.type === 'object') {
+      node.value = value instanceof Array ? '[ ]' : '{ }';
+    } else {
+      node.value = value;
+    }
   }
 
   // get the preview text of complexe object (json object or array)

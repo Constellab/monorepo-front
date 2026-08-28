@@ -17,12 +17,12 @@ export enum CoCommunityListItemColor {
 })
 export class CoCommunityListItemComponent {
   @Input({ required: true }) title: string;
-  @Input() space?: CoSpace = null;
+  @Input() space: CoSpace | null = null;
   @Input() showVisibility = false;
   @Input() description: string;
   @Input() user: CoUser;
   @Input() date: ClDateInput;
-  @Input() likes: number = null;
-  @Input() comments: number = null;
-  @Input() executions: number = null;
+  @Input() likes: number | null = null;
+  @Input() comments: number | null = null;
+  @Input() executions: number | null = null;
 }

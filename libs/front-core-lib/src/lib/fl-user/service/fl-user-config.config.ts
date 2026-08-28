@@ -11,7 +11,7 @@ export type FlUserConfigSearchNameMode = 'all' | 'space' | 'allForAdmin';
 export abstract class FlUserConfig {
   public abstract getUserPhotoUrl(photoUrl: string): string;
 
-  public abstract getUserDetailRoute(userId: string): string;
+  public abstract getUserDetailRoute(userId: string): string | null;
 
   /**
    * Use by the {@link FlSelectUserComponent} to get the user by id

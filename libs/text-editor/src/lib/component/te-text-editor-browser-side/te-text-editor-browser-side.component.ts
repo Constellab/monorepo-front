@@ -419,8 +419,8 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
       if (event.key === FlKeyboardKey.COLON && additionalConfig.emoji) {
         const emoji = new TeEmoji(event);
         emoji.init();
-      } else if (FlKeyboardHelper.keypressIsAt(event.key) && this.config.getAdditionalConfig().mention) {
-        const mention = new TeMention(this.config.getAdditionalConfig().mention, event);
+      } else if (FlKeyboardHelper.keypressIsAt(event.key) && additionalConfig.mention) {
+        const mention = new TeMention(additionalConfig.mention, event);
         mention.init();
       }
     }, 0);
@@ -441,6 +441,9 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
     // Only intercept if the text contains markdown fenced code blocks
     if (!/^```/m.test(text)) return;
 
+    const target = e.target;
+    if (!target) return;
+
     e.preventDefault();
     e.stopImmediatePropagation();
 
@@ -457,7 +460,7 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
     dt.setData('text/html', convertedHtml);
     dt.setData('text/plain', text);
     const newEvent = new ClipboardEvent('paste', { clipboardData: dt, bubbles: true, cancelable: true });
-    e.target.dispatchEvent(newEvent);
+    target.dispatchEvent(newEvent);
   };
 
   /**

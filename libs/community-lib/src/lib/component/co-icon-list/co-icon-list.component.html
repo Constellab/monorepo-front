@@ -5,8 +5,12 @@
         matInput
         [formControl]="searchFormControl"
         placeholder="{{ 'coCommunityLib.search_icon' | translate }}" />
-      <button mat-icon-button matSuffix type="submit" [matTooltip]="'coCommunityLib.search' | translate"
-              aria-label="Search icon button">
+      <button
+        mat-icon-button
+        matSuffix
+        type="submit"
+        [matTooltip]="'coCommunityLib.search' | translate"
+        aria-label="Search icon button">
         <mat-icon>search</mat-icon>
       </button>
     </mat-form-field>
@@ -17,10 +21,15 @@
   <div
     class="icons-list-div"
     (flInfiniteScroll)="loadMoreResults()"
-    [flInfiniteDisabled]="icons?.isLoading || icons?.page?.last"
+    [flInfiniteDisabled]="(icons.isLoading || icons.page?.last) ?? false"
     [flInfiniteMode]="'auto'">
     @for (icon of icons | flDatasourceConnect | async; track icon) {
-      <div class="icon-div" role="button" tabindex="0" (click)="onIconClick($event, icon)" (keydown.enter)="onIconClick($event, icon)">
+      <div
+        class="icon-div"
+        role="button"
+        tabindex="0"
+        (click)="onIconClick($event, icon)"
+        (keydown.enter)="onIconClick($event, icon)">
         <div class="icon-file-div">
           <td-type-icon
             [iconSize]="75"
@@ -35,7 +44,7 @@
   </div>
 }
 
-@if (!icons.isLoading && !icons?.page?.last) {
+@if (!icons.isLoading && !icons.page?.last) {
   <button mat-flat-button class="load-more-icons-button primary" (click)="loadMoreResults()">
     {{ 'coCommunityLib.load_more_icons' | translate }}
   </button>

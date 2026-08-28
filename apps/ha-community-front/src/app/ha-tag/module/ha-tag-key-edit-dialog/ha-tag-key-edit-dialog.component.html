@@ -13,7 +13,7 @@
           [placeholder]="'label' | translate"
           autocomplete="off"
           required />
-        @if (formGp.get('label').hasError('required')) {
+        @if (formGp.get('label')?.hasError('required')) {
           <mat-error>{{ 'label' | flErrorRequired }}</mat-error>
         }
       </mat-form-field>
@@ -26,7 +26,7 @@
           formControlName="technicalName"
           required
           (change)="technicalNameManuallySet = true" />
-        @if (formGp.get('technicalName').hasError('required')) {
+        @if (formGp.get('technicalName')?.hasError('required')) {
           <mat-error>{{ 'technical_name' | flErrorRequired }}</mat-error>
         }
       </mat-form-field>
@@ -42,13 +42,13 @@
             </mat-option>
           }
         </mat-select>
-        @if (formGp.get('type').hasError('required')) {
+        @if (formGp.get('type')?.hasError('required')) {
           <mat-error>{{ 'type' | flErrorRequired }}</mat-error>
         }
       </mat-form-field>
     }
 
-    @if (formGp.get('type').value === 'INTEGER' || formGp.get('type').value === 'FLOAT') {
+    @if (formGp.get('type')?.value === 'INTEGER' || formGp.get('type')?.value === 'FLOAT') {
       <mat-form-field class="g-full">
         <mat-label>{{ 'unit' | translate }}</mat-label>
         <input matInput formControlName="unit" [placeholder]="'unit' | translate" />

@@ -1,0 +1,82 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+// full-width card; the width limit lives on the inner content wrappers only
+.card-container {
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: var(--card-background);
+  border: 1px solid var(--mat-sys-outline-variant);
+  border-radius: var(--card-radius);
+}
+
+.header {
+  // full-width divider between header and body
+  border-bottom: 1px solid var(--mat-sys-outline-variant);
+}
+
+// header spans the full card width
+.header-inner {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 1.5em 2em;
+}
+
+// body content is centered and limited to the article width
+.body-inner {
+  width: var(--article-width);
+  max-width: 100%;
+  margin-inline: auto;
+  box-sizing: border-box;
+}
+
+.body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.body-inner {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  padding: 1.5em 2em 2em;
+}
+
+.header-row {
+  gap: 1em;
+}
+
+.title-slot {
+  flex: 1;
+  min-width: 0;
+  gap: 0.5em;
+}
+
+.actions {
+  flex-shrink: 0;
+  gap: 0.5em;
+}
+
+.meta {
+  margin-top: 1em;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+@media print {
+  .card-container {
+    border: none;
+  }
+
+  .header-inner,
+  .body-inner {
+    padding: 0;
+  }
+}

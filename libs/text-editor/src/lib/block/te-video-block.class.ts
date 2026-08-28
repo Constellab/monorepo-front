@@ -6,7 +6,7 @@ import { TeHelper } from '../model/te.helper';
 import { TeComponentBlock } from './te-component-block.class';
 
 export class TeVideoBlockData {
-  url: string;
+  url?: string;
   title?: string;
   caption?: string;
 }
@@ -44,7 +44,7 @@ export class TeVideoBlock extends TeComponentBlock<TeVideoComponent> {
   }
 
   validate(blockData: TeVideoBlockData): boolean {
-    return blockData?.url?.length > 0;
+    return (blockData?.url?.length ?? 0) > 0;
   }
 
   override appendCallback(): void {

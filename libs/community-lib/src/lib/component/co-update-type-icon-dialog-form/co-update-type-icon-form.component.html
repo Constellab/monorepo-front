@@ -19,7 +19,7 @@
     <fl-color-picker
       id="change-bg-color"
       (ngModelChange)="changeBgColor($event)"
-      [ngModel]="value.background_color | tdIconBackgroundColor"
+      [ngModel]="value.background_color ?? '' | tdIconBackgroundColor"
       size="40px">
     </fl-color-picker>
   </div>

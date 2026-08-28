@@ -1,8 +1,9 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
+  FormControl,
   ReactiveFormsModule,
   UntypedFormGroup,
   Validators,
@@ -80,10 +81,10 @@ export class LiCredentialsFormDialogComponent implements OnInit {
   isLoading: boolean = false;
 
   formGp: UntypedFormGroup;
-  dataConfig: FlDynamicFormAbstractControl;
+  dataConfig: FlDynamicFormAbstractControl | null;
 
   // only provided in update mode
-  private originalName: string;
+  private originalName: string | undefined;
 
   private credentialsService = inject(LiCredentialsService);
   private snackBarService = inject(FlSnackBarService);
@@ -94,7 +95,7 @@ export class LiCredentialsFormDialogComponent implements OnInit {
   ngOnInit(): void {
     this.originalName = this.dialogInput.object?.name;
     this.buildForm();
-    if (this.isUpdateMode()) {
+    if (this.isUpdateMode() && this.dialogInput.object) {
       this.formGp.patchValue(this.dialogInput.object);
     }
     this.getSpecs();
@@ -118,13 +119,21 @@ export class LiCredentialsFormDialogComponent implements OnInit {
   private getSpecsSuccess(specs: LiCredentialsDataSpecs): void {
     this.specs = specs;
     this.dataSpecs = specs.dataSpecs;
-    if (this.formGp.get('type').value) {
-      this.buildDataForm(specs, this.formGp.get('type').value, this.dialogInput.object?.data);
+    const typeControl = this.formGp.get('type');
+    if (typeControl?.value) {
+      this.buildDataForm(specs, typeControl.value, this.dialogInput.object?.data);
     }
   }
 
-  getTypeHumanName(type: string): string {
-    return this.dataSpecs.find((s) => s.type === type)?.humanName ?? type;
+  getTypeHumanName(type: string | undefined): string {
+    return this.dataSpecs.find((s) => s.type === type)?.humanName ?? type ?? '';
+  }
+
+  // 'data' control is always present (set in buildForm/buildDataForm); the fallback FormControl()
+  // is a stopgap for fl-dynamic-abstract-form's `control` input, which is typed as non-nullable
+  // AbstractControl (owned by front-core-lib).
+  getDataControl(): AbstractControl {
+    return this.formGp.get('data') ?? new FormControl();
   }
 
   onTypeChange(event: MatSelectChange): void {
@@ -177,7 +186,10 @@ export class LiCredentialsFormDialogComponent implements OnInit {
   }
 
   update(formValue: LiSaveCredentialsDTO): void {
-    this.credentialsService.update(this.dialogInput.id, formValue).subscribe({
+    const id = this.dialogInput.id;
+    if (!id) return;
+
+    this.credentialsService.update(id, formValue).subscribe({
       next: (credentials) => this.onUpdateSuccess(credentials),
       error: () => (this.isLoading = false),
     });
@@ -194,7 +206,7 @@ export class LiCredentialsFormDialogComponent implements OnInit {
   }
 
   onNameChange(): void {
-    const name = this.formGp.get('name').value;
+    const name = this.formGp.get('name')?.value;
 
     if (ClHelpService.isNullOrEmpty(name) || name === this.originalName) {
       this.sameNameExist$ = of(false);

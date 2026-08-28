@@ -1,4 +1,4 @@
-@if (resource()) {
+@if (resource(); as res) {
   <div
     class="g-layout-row g-layout-start-center g-layout-gap-05em container"
     [class.full-page]="displayMode === 'fullPage'"
@@ -9,36 +9,36 @@
         class="header-title g-text-ellipsis-2-lines"
         flElementEditable
         (flElementValueChange)="updateName($event)">
-        {{ resource().name }}
+        {{ res.name }}
       </h2>
 
       @if (displayMode !== 'dense') {
         <div class="g-layout-row g-layout-start-center g-layout-gap-05em g-text-light g-text-small">
-          @if (resource().scenario) {
-            <a [routerLink]="resource().scenario.id | liDetailRoute: 'SCENARIO'" class="g-text-link subtitle">
+          @if (res.scenario; as scenario) {
+            <a [routerLink]="scenario.id | liDetailRoute: 'SCENARIO'" class="g-text-link subtitle">
               <div class="g-layout-row g-layout-start-center">
                 <mat-icon flIcon="scenario" class="g-icon-small separator"></mat-icon>
-                {{ resource().scenario.title }}
+                {{ scenario.title }}
               </div>
             </a>
           }
 
-          @if (resource().scenario && resource().folder) {
+          @if (res.scenario && res.folder) {
             <div class="subtitle">-</div>
           }
 
-          @if (resource().folder) {
-            <li-folder-inline [folder]="resource().folder" class="subtitle"></li-folder-inline>
+          @if (res.folder; as folder) {
+            <li-folder-inline [folder]="folder" class="subtitle"></li-folder-inline>
           }
         </div>
       }
     </div>
 
     @if (displayMode !== 'dense') {
-      <li-flag-button [entity]="resource()"></li-flag-button>
+      <li-flag-button [entity]="res"></li-flag-button>
     }
 
-    @if (resource().isFsNode()) {
+    @if (res.isFsNode()) {
       <button
         mat-stroked-button
         type="button"

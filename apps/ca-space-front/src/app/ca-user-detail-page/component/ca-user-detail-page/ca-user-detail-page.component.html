@@ -1,65 +1,71 @@
 <div class="g-page page">
   <fl-async-section [object]="user$">
     <ng-container *flSectionBody="user$ as user">
-      <fl-card>
-        @if (isCurrentUser) {
-          <fl-card-header>
-            <fl-card-actions>
-              <button
-                class="g-button-small"
-                mat-stroked-button
-                type="button"
-                (click)="openEditProfileDialog(user)">
-                <mat-icon>edit</mat-icon>
-                {{ 'edit_profile' | translate }}
-              </button>
+      @if (user; as u) {
+        <fl-card>
+          @if (isCurrentUser) {
+            <fl-card-header>
+              <fl-card-actions>
+                <button
+                  class="g-button-small"
+                  mat-stroked-button
+                  type="button"
+                  (click)="openEditProfileDialog(u)">
+                  <mat-icon>edit</mat-icon>
+                  {{ 'edit_profile' | translate }}
+                </button>
 
-              <button
-                class="g-button-small button-settings"
-                mat-stroked-button
-                type="button"
-                (click)="openSettings()">
-                <mat-icon>settings</mat-icon>
-                {{ 'settings' | translate }}
-              </button>
-            </fl-card-actions>
-          </fl-card-header>
-        }
-
-        <fl-card-body>
-          <div class="g-layout-row g-layout-center-center">
-            <fl-update-image-container
-              [uploadConfig]="imageConfig"
-              [disabled]="!isCurrentUser"
-              [deleteConfig]="deleteImageConfig"
-              [showDelete]="!!user.photo">
-              <fl-user-profile-picture [user]="user" [size]="10"></fl-user-profile-picture>
-            </fl-update-image-container>
-          </div>
-
-          <h2 class="g-text-centered text">{{ user.firstname }} {{ user.lastname }}</h2>
-
-          @if (user.company) {
-            <fl-text-icon class="g-centered text">
-              <mat-icon>business</mat-icon>
-              {{ user.company }}
-            </fl-text-icon>
+                <button
+                  class="g-button-small button-settings"
+                  mat-stroked-button
+                  type="button"
+                  (click)="openSettings()">
+                  <mat-icon>settings</mat-icon>
+                  {{ 'settings' | translate }}
+                </button>
+              </fl-card-actions>
+            </fl-card-header>
           }
 
-          @if (user.activity) {
-            <fl-text-icon class="g-centered text">
-              <mat-icon>badge</mat-icon>
-              {{ user.activity }}
-            </fl-text-icon>
-          }
+          <fl-card-body>
+            <div class="g-layout-row g-layout-center-center">
+              <fl-update-image-container
+                [uploadConfig]="imageConfig"
+                [disabled]="!isCurrentUser"
+                [deleteConfig]="deleteImageConfig"
+                [showDelete]="!!u.photo">
+                <fl-user-profile-picture [user]="u" [size]="10"></fl-user-profile-picture>
+              </fl-update-image-container>
+            </div>
 
-          @if (user.biography) {
-            <p class="g-centered g-max-article-width biography">{{ user.biography }}</p>
-          }
-        </fl-card-body>
-      </fl-card>
+            <h2 class="g-text-centered text">{{ u.firstname }} {{ u.lastname }}</h2>
+
+            @if (u.company) {
+              <fl-text-icon class="g-centered text">
+                <mat-icon>business</mat-icon>
+                {{ u.company }}
+              </fl-text-icon>
+            }
+
+            @if (u.activity) {
+              <fl-text-icon class="g-centered text">
+                <mat-icon>badge</mat-icon>
+                {{ u.activity }}
+              </fl-text-icon>
+            }
+
+            @if (u.biography) {
+              <p class="g-centered g-max-article-width biography">{{ u.biography }}</p>
+            }
+          </fl-card-body>
+        </fl-card>
+      }
     </ng-container>
   </fl-async-section>
+
+  @if (isCurrentUser) {
+    <ca-claude-mcp-card class="g-section"></ca-claude-mcp-card>
+  }
 
   <ng-container *caIsAdmin>
     <ca-user-spaces-list class="g-section" [userId]="id"></ca-user-spaces-list>

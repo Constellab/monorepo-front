@@ -41,7 +41,7 @@ export class LiSystemService {
   public killApi(): Observable<void> {
     return this.apiService.post(`${this.route}/kill`, null, null, { hideSnackBarError: true }).pipe(
       catchError((err: FlServerError) => {
-        if (err.response.status === 0 || err.response.status === 504) {
+        if (err.response == null || err.response.status === 0 || err.response.status === 504) {
           return of(null);
         }
         return throwError(err as any);

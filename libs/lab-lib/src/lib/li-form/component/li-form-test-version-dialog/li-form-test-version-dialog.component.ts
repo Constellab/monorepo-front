@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
@@ -58,7 +58,7 @@ export class LiFormTestVersionDialogComponent {
   isTesting = signal(false);
   testErrors = signal<string[]>([]);
   testValid = signal<boolean | null>(null);
-  configData = signal<TdConfig>(null);
+  configData = signal<TdConfig | null>(null);
   formGp: FormGroup<TdConfigureSpecsForm>;
 
   constructor() {

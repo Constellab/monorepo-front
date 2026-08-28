@@ -8,7 +8,7 @@ import {
 
 interface TdResourceFunctionArgWithDoc {
   arg: TdResourceFunctionArg;
-  doc: string;
+  doc: string | null;
 }
 
 @Component({
@@ -21,20 +21,21 @@ interface TdResourceFunctionArgWithDoc {
 export class TdResourceDocFuncInfoComponent {
   func = input.required<TdTechDocFunction>();
 
-  cleanedFuncDoc: Signal<string> = computed(() => this.getFunctionCleanDocInfo(this.func()));
+  cleanedFuncDoc: Signal<string | null> = computed(() => this.getFunctionCleanDocInfo(this.func()));
   funcArgsDocs: Signal<TdResourceFunctionArgWithDoc[]> = computed(() => this.buildFuncArgDocs(this.func()));
 
-  returnTypeName: Signal<string> = computed(() => {
-    if (this.func().return_type === 'None' || this.func().return_type == null) {
+  returnTypeName: Signal<string | null> = computed(() => {
+    const returnType = this.func().return_type;
+    if (returnType === 'None' || returnType == null) {
       return null;
     }
-    return this.func().return_type;
+    return returnType;
   });
 
   CLASS_METHOD = TdTechDocFunctionType.CLASSMETHOD;
   STATIC_METHOD = TdTechDocFunctionType.STATICMETHOD;
 
-  private getFunctionCleanDocInfo(func: TdTechDocFunction): string {
+  private getFunctionCleanDocInfo(func: TdTechDocFunction): string | null {
     if (!func.doc) {
       return null;
     }
@@ -70,7 +71,7 @@ export class TdResourceDocFuncInfoComponent {
    * Method to extract the description of an argument from the docstring of the method
    * Ex : for string ":param argName: argument name" it will extract 'argument_name'
    */
-  private getFuncArgDoc(func: TdTechDocFunction, arg: TdResourceFunctionArg): string {
+  private getFuncArgDoc(func: TdTechDocFunction, arg: TdResourceFunctionArg): string | null {
     if (!func.doc) {
       return null;
     }

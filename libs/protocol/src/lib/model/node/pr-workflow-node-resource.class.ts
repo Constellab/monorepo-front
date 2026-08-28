@@ -84,14 +84,14 @@ export abstract class PrWorkflowNodeResource<T = any> extends PrWorkflowNode<T> 
     return this.getResource$().pipe(map((resource) => this.getResourceBackgroundColor(resource)));
   }
 
-  private getResourceBackgroundColor(resource: FlStatusEvent<PrResource>): string {
+  private getResourceBackgroundColor(resource: FlStatusEvent<PrResource> | null): string {
     if (resource && resource.status === 'success' && resource.object.style?.background_color) {
       return resource.object.style.background_color;
     }
     return this.getDefaultBackgroundColor();
   }
 
-  public getResource$(): Observable<FlStatusEvent<PrResource>> {
+  public getResource$(): Observable<FlStatusEvent<PrResource> | null> {
     return this.getResourceId$().pipe(switchMap((resourceId) => this.resourceState.getResource(resourceId)));
   }
 
@@ -99,7 +99,7 @@ export abstract class PrWorkflowNodeResource<T = any> extends PrWorkflowNode<T> 
     return this.getResource$().pipe(map((resource) => this.getResourceIcon(resource)));
   }
 
-  private getResourceIcon(resource: FlStatusEvent<PrResource>): PrWorkflowNodeIcon {
+  private getResourceIcon(resource: FlStatusEvent<PrResource> | null): PrWorkflowNodeIcon {
     const defaultIcon: PrWorkflowNodeIcon = this.getDefaultIcon();
     if (!resource) return defaultIcon;
 

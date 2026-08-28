@@ -1,5 +1,5 @@
 import { NgOptimizedImage } from '@angular/common';
-import { ChangeDetectionStrategy,Component, computed, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { ClStringHelper } from '@monorepo/core-lib';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -17,7 +17,7 @@ import { CoConfig } from '../../service/co-service-config.config';
 export class CoVisibilityBadgeComponent {
   private coServiceConfig = inject(CoConfig);
 
-  space = input<CoSpace | null>(null);
+  space = input<CoSpace | null | undefined>(null);
 
   size = input<'small' | 'medium'>('small');
 

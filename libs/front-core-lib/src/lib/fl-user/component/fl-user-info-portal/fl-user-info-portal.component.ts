@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { FL_PORTAL_DATA } from '@monorepo/front-core-lib/fl-portal';
 
 import { FlUser } from '../../model/fl-user.class';
@@ -19,7 +19,7 @@ export class FlUserInfoPortalComponent implements OnInit {
 
   user: FlUser = inject(FL_PORTAL_DATA);
 
-  userRoute: string;
+  userRoute: string | null;
 
   ngOnInit(): void {
     this.userRoute = this.userConfig.getUserDetailRoute(this.user.id);

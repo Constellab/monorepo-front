@@ -6,7 +6,8 @@ import {
   OnDestroy,
   OnInit,
   ViewChild,
-  ViewContainerRef} from '@angular/core';
+  ViewContainerRef,
+} from '@angular/core';
 import { FL_PORTAL_DATA } from '@monorepo/front-core-lib/fl-portal';
 
 import { CaFolderDetailRightPanel } from '../../state/ca-folder-right-panel.state';
@@ -30,7 +31,7 @@ export class CaFolderDetailRightPanelComponent implements OnInit, OnDestroy {
 
   @ViewChild('container', { static: true, read: ViewContainerRef }) container: ViewContainerRef;
 
-  private viewComponentRef: ComponentRef<any>;
+  private viewComponentRef: ComponentRef<any> | null;
 
   ngOnInit(): void {
     this.createComponent(this.data);

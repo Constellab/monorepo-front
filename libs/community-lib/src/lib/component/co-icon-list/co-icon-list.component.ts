@@ -28,7 +28,7 @@ export class CoIconListComponent implements OnInit, OnDestroy {
 
   reloadListSubscription: Subscription;
 
-  searchFormControl: FormControl<string> = new FormControl('');
+  searchFormControl: FormControl<string> = new FormControl('', { nonNullable: true });
 
   ngOnInit(): void {
     this.loadIcons();

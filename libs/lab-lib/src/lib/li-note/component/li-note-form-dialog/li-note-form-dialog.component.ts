@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent } from '@angular/material/dialog';
@@ -87,7 +87,12 @@ export class LiNoteFormDialogComponent
   }
 
   update(formValue: LiNoteForm): Observable<LiNote> {
-    return this.noteService.update(this.dialogInput.noteId, formValue);
+    const noteId = this.dialogInput.noteId;
+    if (!noteId) {
+      throw new Error('[LiNoteFormDialogComponent] Missing note id in update mode');
+    }
+
+    return this.noteService.update(noteId, formValue);
   }
 
   getCreateSuccessMessage(): string {
@@ -98,8 +103,8 @@ export class LiNoteFormDialogComponent
     return 'li.note_updated';
   }
 
-  onTemplateSelected(template: LiNoteTemplate): void {
-    if (!this.formGp.value.title) {
+  onTemplateSelected(template: LiNoteTemplate | null): void {
+    if (template && !this.formGp.value.title) {
       this.formGp.patchValue({ title: template.title });
     }
   }

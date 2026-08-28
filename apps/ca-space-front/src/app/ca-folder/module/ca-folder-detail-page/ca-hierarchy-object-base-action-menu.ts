@@ -101,7 +101,7 @@ export class CaHierarchyObjectBaseActionMenu extends FlBaseActionMenu {
       .subscribe((document) => this.onMoveClosed(document));
   }
 
-  private onMoveClosed(hierarchyObject: CaHierarchyObject): void {
+  private onMoveClosed(hierarchyObject: CaHierarchyObject | null): void {
     if (hierarchyObject) {
       this.subject.next({
         action: 'moveToFolder',

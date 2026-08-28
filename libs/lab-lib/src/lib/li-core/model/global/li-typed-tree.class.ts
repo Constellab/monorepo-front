@@ -21,7 +21,7 @@ export class LiTypedTree<T> {
   object?: T;
 
   hasChildren(): boolean {
-    return this.subTrees?.length > 0;
+    return (this.subTrees?.length ?? 0) > 0;
   }
 
   isLeaf(): boolean {
@@ -46,15 +46,17 @@ export class LiTypedTree<T> {
     current.subTrees = [];
     current.object = this.object;
 
+    const subTrees = this.subTrees;
+
     // if the node is reducable, we merge it with its child
-    if (this.isReducable()) {
-      const child = this.subTrees[0].reduceHierarchy();
+    if (this.isReducable() && subTrees != null) {
+      const child = subTrees[0].reduceHierarchy();
       current.typePart += ' / ' + child.typePart; // merge names
       current.subTrees = child.subTrees; // get child sub trees
       current.object = child.object; // get child object
-    } else if (this.hasChildren()) {
+    } else if (this.hasChildren() && subTrees != null) {
       // reduce the children
-      for (const child of this.subTrees) {
+      for (const child of subTrees) {
         current.subTrees.push(child.reduceHierarchy());
       }
     }
@@ -102,7 +104,7 @@ function labInstantiateTypedTreeObjectRecur<T extends LiBaseEntity>(
       tree.object = ClCoreJsonConvert.deserializeObject(tree.object, modelClassReference);
     }
 
-    if (tree.hasChildren()) {
+    if (tree.hasChildren() && tree.subTrees != null) {
       labInstantiateTypedTreeObjectRecur(tree.subTrees, modelClassReference);
     }
   }

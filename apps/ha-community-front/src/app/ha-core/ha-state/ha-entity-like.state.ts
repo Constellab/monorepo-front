@@ -26,7 +26,7 @@ export class HaEntityLikeState implements OnDestroy {
 
   private LIKES_COUNT_KEY: StateKey<number> = makeStateKey<number>('likes-count');
 
-  private isLiked: WritableSignal<boolean> = signal(null);
+  private isLiked: WritableSignal<boolean | null> = signal<boolean | null>(null);
   private likesCount: WritableSignal<number> = signal(0);
 
   private entityId: string;
@@ -35,7 +35,7 @@ export class HaEntityLikeState implements OnDestroy {
   private isLikedSubscription: Subscription;
   private likesCountSubscription: Subscription;
 
-  public getIsLiked(): Signal<boolean> {
+  public getIsLiked(): Signal<boolean | null> {
     return this.isLiked;
   }
 
@@ -47,10 +47,13 @@ export class HaEntityLikeState implements OnDestroy {
     this.entityId = entityId;
     this.entityType = entityType;
 
-    this.authenticatedUserService.getUser().pipe(first()).subscribe((user) => {
-      if (user) this.setIsLiked(entityType, entityId);
-      this.setLikesCount(entityType, entityId);
-    });
+    this.authenticatedUserService
+      .getUser()
+      .pipe(first())
+      .subscribe((user) => {
+        if (user) this.setIsLiked(entityType, entityId);
+        this.setLikesCount(entityType, entityId);
+      });
   }
 
   public toggleLike(): void {

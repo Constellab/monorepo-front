@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input, OnInit } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
@@ -38,7 +38,7 @@ export class CaFolderStorageSettingsComponent implements OnInit {
   private folderService = inject(CaFolderService);
   private dialogService = inject(FlDialogService);
 
-  folderStorage: Observable<CaFolderStorageDTO>;
+  folderStorage: Observable<CaFolderStorageDTO | null>;
 
   ngOnInit(): void {
     this.folderStorage = this.folderService.getFolderStorages(this.folderId);
@@ -46,6 +46,7 @@ export class CaFolderStorageSettingsComponent implements OnInit {
 
   async configureStorage(rootFolderId: string): Promise<void> {
     const folderStorage = await firstValueFrom(this.folderStorage);
+    if (!folderStorage) return;
 
     const input: CaFolderConfigureStorageInput = {
       mode: 'update',

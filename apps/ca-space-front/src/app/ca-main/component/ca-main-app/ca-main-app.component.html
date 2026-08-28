@@ -5,7 +5,7 @@
     [opened]="true"
     [disableClose]="true"
     position="start"
-    class="g-card sidenav g-print-hide">
+    class="sidenav g-print-hide">
     <fl-expansion-menu [(expanded)]="menuExpanded" class="expansion-menu">
       <div class="column-container g-scrollable-element g-layout-col">
         <div
@@ -21,7 +21,7 @@
               matBadgeColor="warn"
               class="logo-container">
               <img
-                [ngSrc]="spaceLogo$ | async"
+                [ngSrc]="(spaceLogo$ | async) ?? ''"
                 [priority]="true"
                 [width]="40"
                 [height]="40"
@@ -77,6 +77,18 @@
               </span>
             </button>
           </div>
+
+          @if (isChatbotActive) {
+            <button
+              mat-button
+              type="button"
+              (click)="openChatbot($event)"
+              flExpansionMenuButton
+              class="chatbot-button">
+              <mat-icon>smart_toy</mat-icon>
+              <span>{{ 'chatbot' | translate }}</span>
+            </button>
+          }
 
           <ca-authenticated-user-inline [showName]="menuExpanded"></ca-authenticated-user-inline>
         </div>

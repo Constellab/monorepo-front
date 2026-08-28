@@ -52,16 +52,16 @@ export class SpSheetChartSelectionComponent implements OnInit, OnDestroy {
   private cdr = inject(ChangeDetectorRef);
 
   formGp = new FormBuilder().group({
-    id: [null as symbol],
-    chartType: [null as ChChartType, [Validators.required]],
-    dataRange: [null as SpSheetSelectionRange],
+    id: [null as symbol | null],
+    chartType: [null as ChChartType | null, [Validators.required]],
+    dataRange: [null as SpSheetSelectionRange | null],
     series: [[] as SpSheetChart2dSerieSelectionForm[], Validators.required],
     additionalFields: new FormBuilder().group({
       nbOfBins: [10, [Validators.min(1), FlGlobalValidators.isInteger()]],
       histogramMode: [ChChartHistogramMode.FREQUENCY],
-      normalize: [null],
-      xAxisLabel: [null],
-      yAxisLabel: [null],
+      normalize: [null as boolean | null],
+      xAxisLabel: [null as string | null],
+      yAxisLabel: [null as string | null],
       xThreshold: [0.05, Validators.required],
       yThreshold: [0.05, Validators.required],
     }),
@@ -115,7 +115,7 @@ export class SpSheetChartSelectionComponent implements OnInit, OnDestroy {
 
   private initCreate(input: SpSpreadsheetChartSelectionInputCreate): void {
     if (input.currentSelection) {
-      this.formGp.get('dataRange').patchValue(input.currentSelection.toSpSheetSelectionRange());
+      this.formGp.controls.dataRange.patchValue(input.currentSelection.toSpSheetSelectionRange());
     }
   }
 
@@ -127,12 +127,14 @@ export class SpSheetChartSelectionComponent implements OnInit, OnDestroy {
   private listenToChanges(): void {
     // subscribe to chart type
     this.subscriptions.add(
-      this.formGp.get('chartType').valueChanges.subscribe((chartType) => this.onChartTypeChange(chartType))
+      this.formGp.controls.chartType.valueChanges.subscribe((chartType) =>
+        this.onChartTypeChange(chartType)
+      )
     );
 
     // subscribe to chart type and data range change to create series based on data range
     this.subscriptions.add(
-      merge(this.formGp.get('chartType').valueChanges, this.formGp.get('dataRange').valueChanges)
+      merge(this.formGp.controls.chartType.valueChanges, this.formGp.controls.dataRange.valueChanges)
         .pipe(debounceTime(100))
         .subscribe(() => this.createSerieFromDataRange())
     );
@@ -149,11 +151,22 @@ export class SpSheetChartSelectionComponent implements OnInit, OnDestroy {
   private validateForm(mode: 'create' | 'update'): void {
     this.submitted = true;
     if (this.formGp.valid && !this.maxNbOfSeriesReached) {
-      const value: SpSheetChartSelectionForm = this.formGp.getRawValue();
+      const rawValue = this.formGp.getRawValue();
       // if we are in create mode we create a new id
-      if (mode === 'create') {
-        value.id = Symbol();
+      const id: symbol | null = mode === 'create' ? Symbol() : rawValue.id;
+
+      // the form is valid so the id, the chart type and the series are set
+      if (id == null || rawValue.chartType == null || rawValue.series == null) {
+        return;
       }
+
+      const value: SpSheetChartSelectionForm = {
+        id: id,
+        chartType: rawValue.chartType,
+        dataRange: rawValue.dataRange,
+        series: rawValue.series,
+        additionalFields: rawValue.additionalFields,
+      };
 
       const result: SpSheetChartSelectionResult = {
         formValue: value,
@@ -163,24 +176,26 @@ export class SpSheetChartSelectionComponent implements OnInit, OnDestroy {
     }
   }
 
-  private onChartTypeChange(chartType: ChChartType): void {
+  private onChartTypeChange(chartType: ChChartType | null): void {
     if (chartType == null) return;
-    this.formConfig = this.getConfigForChartType(chartType);
+    const formConfig = this.getConfigForChartType(chartType);
+    if (formConfig == null) return;
+    this.formConfig = formConfig;
 
     this.ngMaxOfSeries = this.formConfig.getNbMaxOfSeries();
 
     // limit the size of the series
     if (this.series.length >= this.ngMaxOfSeries) {
-      this.formGp.get('series').patchValue(this.series.slice(0, this.ngMaxOfSeries));
+      this.formGp.controls.series.patchValue(this.series.slice(0, this.ngMaxOfSeries));
     }
   }
 
   get series(): SpSheetChart2dSerieSelectionForm[] {
-    return this.formGp.get('series').value;
+    return this.formGp.controls.series.value ?? [];
   }
 
-  get chartType(): ChChartType {
-    return this.formGp.get('chartType').value;
+  get chartType(): ChChartType | null {
+    return this.formGp.controls.chartType.value;
   }
 
   showAdditionalField(key: keyof SpSheetChartSelectionFormAdditional): boolean {
@@ -210,7 +225,7 @@ export class SpSheetChartSelectionComponent implements OnInit, OnDestroy {
     // get the series and remove the element
     const series = this.series;
     series.splice(index, 1);
-    this.formGp.get('series').patchValue(series);
+    this.formGp.controls.series.patchValue(series);
   }
 
   private openSerieSelection(serie: SpSheetChart2dSerieSelectionForm, index?: number): void {
@@ -249,7 +264,7 @@ export class SpSheetChartSelectionComponent implements OnInit, OnDestroy {
         series.push(serie);
       }
 
-      this.formGp.get('series').patchValue([...series]);
+      this.formGp.controls.series.patchValue([...series]);
       this.cdr.markForCheck();
     }
   }
@@ -264,13 +279,15 @@ export class SpSheetChartSelectionComponent implements OnInit, OnDestroy {
 
   // create the series base on main data selection
   private createSerieFromDataRange(): void {
-    const chartType: ChChartType = this.formGp.get('chartType').value;
-    const dataRange: SpSheetSelectionRange = this.formGp.get('dataRange').value;
+    const chartType: ChChartType | null = this.formGp.controls.chartType.value;
+    const dataRange: SpSheetSelectionRange | null = this.formGp.controls.dataRange.value;
 
     if (
+      chartType == null ||
+      dataRange == null ||
       ClHelpService.isNullOrEmpty(chartType) ||
       ClHelpService.isNullOrEmpty(dataRange) ||
-      this.formGp.get('dataRange').invalid
+      this.formGp.controls.dataRange.invalid
     ) {
       return;
     }
@@ -280,7 +297,7 @@ export class SpSheetChartSelectionComponent implements OnInit, OnDestroy {
       dataRange
     );
 
-    this.formGp.get('series').patchValue(series);
+    this.formGp.controls.series.patchValue(series);
     this.cdr.markForCheck();
   }
 
@@ -295,7 +312,7 @@ export class SpSheetChartSelectionComponent implements OnInit, OnDestroy {
     return this.input.mode === 'create' ? 'spSpreadsheet.create_chart' : 'spSpreadsheet.update_chart';
   }
 
-  private getConfigForChartType(chartType: ChChartType): SpSheetChartConfig {
+  private getConfigForChartType(chartType: ChChartType): SpSheetChartConfig | undefined {
     return this.state.getChartConfig(chartType);
   }
 
@@ -304,7 +321,7 @@ export class SpSheetChartSelectionComponent implements OnInit, OnDestroy {
   }
 
   get maxNbOfSeriesReached(): boolean {
-    return this.formGp.value.series.length > this.maxNbOfSeries;
+    return this.series.length > this.maxNbOfSeries;
   }
 
   ngOnDestroy(): void {

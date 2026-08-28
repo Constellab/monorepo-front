@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent } from '@angular/material/dialog';
@@ -66,7 +66,7 @@ export class LiScenarioFormDialogComponent
   sameTitleCount$: Observable<number>;
 
   // only provided in update mode
-  private originalName: string;
+  private originalName: string | undefined;
 
   constructor() {
     super();
@@ -86,7 +86,7 @@ export class LiScenarioFormDialogComponent
     });
 
     if (this.isUpdateMode() && this.dialogInput.disabledFolder) {
-      formGroup.get('folder').disable();
+      formGroup.get('folder')?.disable();
     }
 
     return formGroup;
@@ -97,7 +97,11 @@ export class LiScenarioFormDialogComponent
   }
 
   update(formValue: LiScenarioSimpleForm): Observable<LiScenario> {
-    return this.scenarioService.update(this.dialogInput.scenarioId, formValue);
+    const scenarioId = this.dialogInput.scenarioId;
+    if (scenarioId == null) {
+      throw new Error('Cannot update a scenario without a scenarioId');
+    }
+    return this.scenarioService.update(scenarioId, formValue);
   }
 
   get title(): string {
@@ -113,7 +117,7 @@ export class LiScenarioFormDialogComponent
   }
 
   onTitleChange(): void {
-    const title = this.formGp.get('title').value;
+    const title = this.formGp.get('title')?.value;
 
     if (ClHelpService.isNullOrEmpty(title) || title === this.originalName) {
       this.sameTitleCount$ = of(0);

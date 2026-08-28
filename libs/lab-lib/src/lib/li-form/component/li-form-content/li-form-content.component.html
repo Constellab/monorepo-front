@@ -7,43 +7,47 @@
     <mat-icon>error_outline</mat-icon>
     <span>{{ error() | translate }}</span>
   </div>
-} @else if (form() && formContent()) {
-  <div class="li-form-content">
-    @if (showHeader()) {
-      <div class="li-form-content-header">
-        <div class="li-form-content-header-left">
-          <span class="li-form-content-name">{{ form().name }}</span>
-          <li-form-template-ref-inline [templateRef]="form().template" [showLink]="true" />
+} @else if (form(); as f) {
+  @if (formContent(); as content) {
+    <div class="li-form-content">
+      @if (showHeader()) {
+        <div class="li-form-content-header">
+          <div class="li-form-content-header-left">
+            <span class="li-form-content-name">{{ f.name }}</span>
+            <li-form-template-ref-inline [templateRef]="f.template" [showLink]="true" />
+          </div>
+          <div class="li-form-content-header-right">
+            @if (isDraft() && !readonly()) {
+              <fl-ai-menu-button
+                [onSubmit]="aiFillFromText"
+                [tooltip]="'li.form_ai_fill'"
+                [dialogTitle]="'li.form_ai_fill_title'"
+                [dialogPlaceholder]="'li.form_ai_fill_placeholder'"
+                (submitted)="onAiFillResult($event)" />
+            }
+            @if (formStatus(); as status) {
+              <fl-status-chip [status]="status" />
+            }
+          </div>
         </div>
-        <div class="li-form-content-header-right">
-          @if (isDraft() && !readonly()) {
-            <fl-ai-menu-button
-              [onSubmit]="aiFillFromText"
-              [tooltip]="'li.form_ai_fill'"
-              [dialogTitle]="'li.form_ai_fill_title'"
-              [dialogPlaceholder]="'li.form_ai_fill_placeholder'"
-              (submitted)="onAiFillResult($event)" />
-          }
-          <fl-status-chip [status]="formStatus()" />
-        </div>
-      </div>
-    }
+      }
 
-    @switch (displayMode()) {
-      @case ('form') {
-        <li-form-editor
-          [formId]="formId()"
-          [content]="formContent()"
-          [readonly]="readonly() || isSubmitted()"
-          (contentSaved)="onContentSaved($event)"
-          (contentSubmitted)="onContentSubmitted($event)" />
+      @switch (displayMode()) {
+        @case ('form') {
+          <li-form-editor
+            [formId]="formId()"
+            [content]="content"
+            [readonly]="readonly() || isSubmitted()"
+            (contentSaved)="onContentSaved($event)"
+            (contentSubmitted)="onContentSubmitted($event)" />
+        }
+        @case ('json') {
+          <fl-pretty-json [object]="content.values"></fl-pretty-json>
+        }
+        @case ('table') {
+          <td-param-table [values]="content.values" [specs]="content.specs" />
+        }
       }
-      @case ('json') {
-        <fl-pretty-json [object]="formContent().values"></fl-pretty-json>
-      }
-      @case ('table') {
-        <td-param-table [values]="formContent().values" [specs]="formContent().specs" />
-      }
-    }
-  </div>
+    </div>
+  }
 }

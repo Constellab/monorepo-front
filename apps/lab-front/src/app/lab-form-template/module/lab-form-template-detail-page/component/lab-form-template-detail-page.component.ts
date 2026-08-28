@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy,Component, computed, inject, Injector, OnInit, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  Injector,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
@@ -83,10 +91,10 @@ export class LabFormTemplateDetailPageComponent implements OnInit {
   private tagService = inject(LiTagService);
   private dynamicState = inject(LiFormTemplateDynamicParamSpecState);
 
-  template = signal<LiFormTemplate>(null);
+  template = signal<LiFormTemplate | null>(null);
   versions = signal<LiFormTemplateVersionSummary[]>([]);
-  selectedVersion = signal<LiFormTemplateVersion>(null);
-  tags$ = signal<LiTagDatasource>(null);
+  selectedVersion = signal<LiFormTemplateVersion | null>(null);
+  tags$ = signal<LiTagDatasource | null>(null);
   isLoading = signal(false);
   isVersionLoading = signal(false);
 
@@ -138,7 +146,7 @@ export class LabFormTemplateDetailPageComponent implements OnInit {
   }
 
   getVersionRoute(version: LiFormTemplateVersionSummary): string {
-    return LiRouterService.getFormTemplateVersionRoute(this.template().id, version.id);
+    return LiRouterService.getFormTemplateVersionRoute(this.requireTemplate().id, version.id);
   }
 
   isSelectedVersion(version: LiFormTemplateVersionSummary): boolean {
@@ -146,23 +154,27 @@ export class LabFormTemplateDetailPageComponent implements OnInit {
   }
 
   updateName(name: string): void {
-    this.formTemplateService.update(this.template().id, { name }).subscribe((updated) => {
-      const t = this.template();
+    this.formTemplateService.update(this.requireTemplate().id, { name }).subscribe((updated) => {
+      const t = this.requireTemplate();
       t.name = updated.name;
       this.template.set(t);
     });
   }
 
   updateDescription(description: string): void {
-    this.formTemplateService.update(this.template().id, { description }).subscribe((updated) => {
-      const t = this.template();
+    this.formTemplateService.update(this.requireTemplate().id, { description }).subscribe((updated) => {
+      const t = this.requireTemplate();
       t.description = updated.description;
       this.template.set(t);
     });
   }
 
   openActionMenu(event: MouseEvent): void {
-    const actionMenu = new LiFormTemplateActionMenu(this.injector, this.template(), this.tags$());
+    const actionMenu = new LiFormTemplateActionMenu(
+      this.injector,
+      this.requireTemplate(),
+      this.tags$() ?? undefined
+    );
     actionMenu.openDetailActionMenu(event).subscribe((action) => this.onTemplateAction(action));
   }
 
@@ -179,7 +191,7 @@ export class LabFormTemplateDetailPageComponent implements OnInit {
   }
 
   createNewDraft(): void {
-    const template = this.template();
+    const template = this.requireTemplate();
     this.formTemplateService.createVersion(template.id, {}).subscribe((version) => {
       this.reloadTemplate(version.id);
     });
@@ -189,7 +201,10 @@ export class LabFormTemplateDetailPageComponent implements OnInit {
     const input: FlConfirmDialogInput = {
       title: 'li.form_publish_version',
       content: 'li.form_publish_version_confirmation',
-      observable: this.formTemplateService.publishVersion(this.template().id, this.selectedVersion().id),
+      observable: this.formTemplateService.publishVersion(
+        this.requireTemplate().id,
+        this.requireSelectedVersion().id
+      ),
       successMessage: 'li.form_version_published',
     };
 
@@ -198,7 +213,7 @@ export class LabFormTemplateDetailPageComponent implements OnInit {
       .afterClosed()
       .subscribe((result: FlConfirmDialogResult<LiFormTemplateVersion>) => {
         if (result?.choice) {
-          this.reloadTemplate(this.selectedVersion().id);
+          this.reloadTemplate(this.requireSelectedVersion().id);
         }
       });
   }
@@ -207,7 +222,10 @@ export class LabFormTemplateDetailPageComponent implements OnInit {
     const input: FlConfirmDialogInput = {
       title: 'li.form_archive_version',
       content: 'li.form_archive_version_confirmation',
-      observable: this.formTemplateService.archiveVersion(this.template().id, this.selectedVersion().id),
+      observable: this.formTemplateService.archiveVersion(
+        this.requireTemplate().id,
+        this.requireSelectedVersion().id
+      ),
       successMessage: 'li.form_version_archived',
     };
 
@@ -216,7 +234,7 @@ export class LabFormTemplateDetailPageComponent implements OnInit {
       .afterClosed()
       .subscribe((result: FlConfirmDialogResult<LiFormTemplateVersion>) => {
         if (result?.choice) {
-          this.reloadTemplate(this.selectedVersion().id);
+          this.reloadTemplate(this.requireSelectedVersion().id);
         }
       });
   }
@@ -225,7 +243,10 @@ export class LabFormTemplateDetailPageComponent implements OnInit {
     const input: FlConfirmDialogInput = {
       title: 'li.form_unarchive_version',
       content: 'li.form_unarchive_version_confirmation',
-      observable: this.formTemplateService.unarchiveVersion(this.template().id, this.selectedVersion().id),
+      observable: this.formTemplateService.unarchiveVersion(
+        this.requireTemplate().id,
+        this.requireSelectedVersion().id
+      ),
       successMessage: 'li.form_version_unarchived',
     };
 
@@ -234,15 +255,15 @@ export class LabFormTemplateDetailPageComponent implements OnInit {
       .afterClosed()
       .subscribe((result: FlConfirmDialogResult<LiFormTemplateVersion>) => {
         if (result?.choice) {
-          this.reloadTemplate(this.selectedVersion().id);
+          this.reloadTemplate(this.requireSelectedVersion().id);
         }
       });
   }
 
   testVersion(): void {
     const data: LiFormTestVersionDialogInput = {
-      templateId: this.template().id,
-      versionId: this.selectedVersion().id,
+      templateId: this.requireTemplate().id,
+      versionId: this.requireSelectedVersion().id,
       specs: this.dynamicState.getParamSpecs(),
     };
     this.dialogService.openMediumDialog(LiFormTestVersionDialogComponent, { data });
@@ -253,8 +274,8 @@ export class LabFormTemplateDetailPageComponent implements OnInit {
       mode: 'create',
       object: {
         name: null,
-        template: this.template(),
-        versionId: this.selectedVersion().id,
+        template: this.requireTemplate(),
+        versionId: this.requireSelectedVersion().id,
       },
     };
 
@@ -269,8 +290,8 @@ export class LabFormTemplateDetailPageComponent implements OnInit {
   }
 
   createDraftFromVersion(): void {
-    const dto = { copy_from_version_id: this.selectedVersion().id };
-    this.formTemplateService.createVersion(this.template().id, dto).subscribe((version) => {
+    const dto = { copy_from_version_id: this.requireSelectedVersion().id };
+    this.formTemplateService.createVersion(this.requireTemplate().id, dto).subscribe((version) => {
       this.reloadTemplate(version.id);
     });
   }
@@ -278,9 +299,9 @@ export class LabFormTemplateDetailPageComponent implements OnInit {
   duplicateFromVersion(): void {
     const data: LiFormTemplateDuplicateDialogInput = {
       mode: 'create',
-      object: null,
-      template: this.template(),
-      version: this.selectedVersion(),
+      object: undefined,
+      template: this.requireTemplate(),
+      version: this.requireSelectedVersion(),
     };
 
     this.dialogService
@@ -297,7 +318,10 @@ export class LabFormTemplateDetailPageComponent implements OnInit {
     const input: FlConfirmDialogInput = {
       title: 'li.form_delete_version',
       content: 'li.form_delete_version_confirmation',
-      observable: this.formTemplateService.deleteVersion(this.template().id, this.selectedVersion().id),
+      observable: this.formTemplateService.deleteVersion(
+        this.requireTemplate().id,
+        this.requireSelectedVersion().id
+      ),
       successMessage: 'li.form_version_deleted',
     };
 
@@ -332,7 +356,7 @@ export class LabFormTemplateDetailPageComponent implements OnInit {
   }
 
   private reloadTemplate(keepVersionId?: string): void {
-    this.formTemplateService.getById(this.template().id).subscribe((template) => {
+    this.formTemplateService.getById(this.requireTemplate().id).subscribe((template) => {
       this.template.set(template);
       this.formTemplateService.getVersions(template.id).subscribe((versions) => {
         this.versions.set(versions);
@@ -343,5 +367,21 @@ export class LabFormTemplateDetailPageComponent implements OnInit {
         }
       });
     });
+  }
+
+  private requireTemplate(): LiFormTemplate {
+    const template = this.template();
+    if (template == null) {
+      throw new Error('Template not loaded');
+    }
+    return template;
+  }
+
+  private requireSelectedVersion(): LiFormTemplateVersion {
+    const version = this.selectedVersion();
+    if (version == null) {
+      throw new Error('No version selected');
+    }
+    return version;
   }
 }

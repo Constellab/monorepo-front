@@ -17,7 +17,7 @@ interface ChEllipsePosition {
 interface ChSectionTextPosition {
   x: number;
   y: number;
-  section: ChChartVennDataSection;
+  section: ChChartVennDataSection | undefined;
 }
 
 /**
@@ -188,12 +188,16 @@ export class ChChartRendererVennDiagram extends ChChartNoAxisRenderer<ChChartVen
     ];
     this.drawEllipse(this.data.container, ellipsePositions);
 
+    this.drawTexts(this.data.container, this.build4GroupsTextPositions(xCenter, yCenter), 15);
+  }
+
+  // all positions are based on chart width and height
+  private build4GroupsTextPositions(xCenter: number, yCenter: number): ChSectionTextPosition[] {
+    const [firstGroup, secondGroup, thirdGroup, fourthGroup] = this.data.data.groupNames;
     const chartWidth: number = this.data.chartWidth;
     const chartHeight: number = this.data.chartHeight;
-    // Draw texts
     const sections: ChChartVennDataSection[] = this.data.data.sections;
 
-    // all positions are based on chart width and height
     const textPosition: ChSectionTextPosition[] = [
       // 1 (left)
       { x: chartWidth * 0.21, y: chartHeight * 0.38, section: this.findSection(sections, [firstGroup]) },
@@ -262,11 +266,15 @@ export class ChChartRendererVennDiagram extends ChChartNoAxisRenderer<ChChartVen
         section: this.findSection(sections, [firstGroup, secondGroup, thirdGroup, fourthGroup]),
       },
     ];
-    this.drawTexts(this.data.container, textPosition, 15);
+
+    return textPosition;
   }
 
   // return the correct section based on a group list
-  private findSection(sections: ChChartVennDataSection[], groupNames: string[]): ChChartVennDataSection {
+  private findSection(
+    sections: ChChartVennDataSection[],
+    groupNames: string[]
+  ): ChChartVennDataSection | undefined {
     return sections.find((section) => {
       if (section.groupNames.length !== groupNames.length) return false;
 
@@ -304,7 +312,7 @@ export class ChChartRendererVennDiagram extends ChChartNoAxisRenderer<ChChartVen
       .selectAll('text')
       .data(sections)
       .join('text')
-      .text((section) => section.section.data?.length ?? 0)
+      .text((section) => section.section?.data?.length ?? 0)
       .attr('x', (section) => section.x)
       // set y with some modification to vertically center it
       .attr('y', (section) => section.y + fontSize / 2 - 2)
@@ -313,9 +321,9 @@ export class ChChartRendererVennDiagram extends ChChartNoAxisRenderer<ChChartVen
       // .attr('fill', textColor)
       // .style('text-shadow', this.getTextShadow(backgroundColor))
       .style('font-size', `${fontSize}px`)
-      .on('mouseover', (event, d) => this.openPortal(event, d.section, false))
+      .on('mouseover', (event, d) => d.section && this.openPortal(event, d.section, false))
       .on('mouseout', () => this.closePortal())
-      .on('click', (event, d) => this.openPortal(event, d.section, true));
+      .on('click', (event, d) => d.section && this.openPortal(event, d.section, true));
   }
 
   private openPortal(event: MouseEvent, d: ChChartVennDataSection, fixPortal: boolean): void {

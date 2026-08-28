@@ -94,7 +94,7 @@ export class FlInfiniteScrollDirective implements OnInit, AfterViewInit, OnDestr
    *
    * The emitted value can be null
    */
-  @Output() flInfiniteScroll: EventEmitter<Event> = new EventEmitter<Event>();
+  @Output() flInfiniteScroll: EventEmitter<Event | null> = new EventEmitter<Event | null>();
 
   // true when we are waiting flInfiniteAfterDebounce after an event
   private isWaiting: boolean = false;
@@ -110,37 +110,48 @@ export class FlInfiniteScrollDirective implements OnInit, AfterViewInit, OnDestr
 
   private getElement(): HTMLElement {
     if (!this.scrollableElement) {
-      if (this.flInfiniteMode === 'body') {
-        this.scrollableElement = this.document.body;
-      } else if (this.flInfiniteMode === 'container') {
-        this.scrollableElement = this.elementRef.nativeElement;
-      } else if (this.flInfiniteMode instanceof HTMLElement) {
-        this.scrollableElement = this.flInfiniteMode;
-      } else if (this.flInfiniteMode === 'auto') {
-        // retrieve scrollable parents
-        const scrollableElements = this.scrollDispatcher.getAncestorScrollContainers(
-          this.elementRef.nativeElement.parentElement
-        );
-
-        // if there are some scrollable parent, use the first one
-        if (scrollableElements.length > 0) {
-          this.scrollableElement =
-            scrollableElements[scrollableElements.length - 1].getElementRef().nativeElement;
-        } else {
-          this.scrollableElement = this.elementRef.nativeElement;
-        }
-      } else {
-        const parent = FlHtmlHelper.getParent(this.elementRef.nativeElement, this.flInfiniteMode);
-
-        if (parent) {
-          this.scrollableElement = parent;
-        } else {
-          console.error('No scrollable parent found for the flInfiniteScroll directive');
-          this.scrollableElement = this.elementRef.nativeElement;
-        }
-      }
+      this.scrollableElement = this.resolveScrollableElement();
     }
     return this.scrollableElement;
+  }
+
+  private resolveScrollableElement(): HTMLElement {
+    const mode = this.flInfiniteMode;
+
+    if (mode === 'body') {
+      return this.document.body;
+    }
+    if (mode === 'container') {
+      return this.elementRef.nativeElement;
+    }
+    if (mode instanceof HTMLElement) {
+      return mode;
+    }
+    if (mode === 'auto') {
+      return this.resolveAutoScrollableElement();
+    }
+
+    const parent = FlHtmlHelper.getParent(this.elementRef.nativeElement, mode);
+    if (!parent) {
+      console.error('No scrollable parent found for the flInfiniteScroll directive');
+      return this.elementRef.nativeElement;
+    }
+    return parent;
+  }
+
+  private resolveAutoScrollableElement(): HTMLElement {
+    // retrieve scrollable parents
+    const parentElement = this.elementRef.nativeElement.parentElement;
+    const scrollableElements = parentElement
+      ? this.scrollDispatcher.getAncestorScrollContainers(parentElement)
+      : [];
+
+    if (scrollableElements.length === 0) {
+      return this.elementRef.nativeElement;
+    }
+
+    // if there are some scrollable parent, use the first one
+    return scrollableElements[scrollableElements.length - 1].getElementRef().nativeElement;
   }
 
   ngAfterViewInit(): void {
@@ -151,7 +162,7 @@ export class FlInfiniteScrollDirective implements OnInit, AfterViewInit, OnDestr
   }
 
   // method to check the trigger distance from bottom
-  private checkDistance(event: Event): void {
+  private checkDistance(event: Event | null): void {
     // check if the infinite scroll if disable
     if (this.flInfiniteDisabled || this.isWaiting) {
       return;
@@ -181,7 +192,7 @@ export class FlInfiniteScrollDirective implements OnInit, AfterViewInit, OnDestr
     }
   }
 
-  private emitEvent(event: Event): void {
+  private emitEvent(event: Event | null): void {
     // emit trigger event
     this.flInfiniteScroll.emit(event);
 

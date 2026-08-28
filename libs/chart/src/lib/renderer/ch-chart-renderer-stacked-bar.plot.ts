@@ -54,8 +54,7 @@ export class ChChartRendererStackedBarPlot extends ChChart2AxisRenderer<ChChart2
   }
 
   private drawBars(group: SVGElement): void {
-    const selection: ChD3SelectionSimple<SeriesPoint<ChChartDataWithSerie<ChChart2dDatum>[]>> =
-      select(group);
+    const selection: ChD3SelectionSimple<SeriesPoint<ChChartDataWithSerie<ChChart2dDatum>[]>> = select(group);
 
     selection
       // use the x from the first data because there have the same X, if return undefined, set to
@@ -83,7 +82,7 @@ export class ChChartRendererStackedBarPlot extends ChChart2AxisRenderer<ChChart2
   ): void {
     // find the select bar section by using the sum of the previous data
     let sum = 0;
-    let selectedValue: ChChart2dDatum = null;
+    let selectedValue: ChChart2dDatum | null = null;
     for (const data of d.data) {
       sum += data.data.getY();
       // when the sum of the previous data is equal than the bar top value, it is the selected value

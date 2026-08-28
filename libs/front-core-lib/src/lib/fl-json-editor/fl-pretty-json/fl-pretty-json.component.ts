@@ -72,7 +72,7 @@ export class FlPrettyJsonComponent implements OnInit, OnDestroy {
 
   error: boolean = false;
 
-  selectedNode: FlObjectFlatNode;
+  selectedNode: FlObjectFlatNode | null;
 
   private componentIsInitiated: boolean = false;
   private subscription: Subscription;
@@ -235,7 +235,7 @@ export class FlPrettyJsonComponent implements OnInit, OnDestroy {
   ////////////////////////////// OTHERS //////////////////////////
 
   private selectParentNode(node: FlObjectFlatNode): boolean {
-    const parent: FlObjectFlatNode = this.treeControl.getAncestor(node);
+    const parent: FlObjectFlatNode | null = this.treeControl.getAncestor(node);
     if (parent) {
       this.selectNode(parent);
       this.cdr.markForCheck();
@@ -248,7 +248,7 @@ export class FlPrettyJsonComponent implements OnInit, OnDestroy {
     this.selectedNode = node;
 
     // get the node and check if it's in viewport, if note, scroll to element
-    const nodeElement: HTMLElement = this.getNodeHtmlElement(node.id);
+    const nodeElement: HTMLElement | null = this.getNodeHtmlElement(node.id);
     if (nodeElement) {
       FlHtmlHelper.scrollBodyToElementIfNotVisible(nodeElement);
     }
@@ -263,7 +263,7 @@ export class FlPrettyJsonComponent implements OnInit, OnDestroy {
   }
 
   // retrieve the html element of a node
-  private getNodeHtmlElement(nodeId: number): HTMLElement {
+  private getNodeHtmlElement(nodeId: number): HTMLElement | null {
     return this.container.nativeElement.querySelector('.' + this.getNodeUniqueClass(nodeId));
   }
 

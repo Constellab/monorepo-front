@@ -74,7 +74,7 @@ export class HaCurrentPageState implements OnDestroy {
 
   public isDocumentationPage: WritableSignal<boolean> = signal<boolean>(false);
 
-  public lastActivatedRoute: WritableSignal<ActivatedRoute> = signal<ActivatedRoute>(null);
+  public lastActivatedRoute: WritableSignal<ActivatedRoute | null> = signal<ActivatedRoute | null>(null);
 
   public entityService: Signal<
     HaStoryService | HaBrickService | HaAgentService | HaCommunityAppService | HaTagService | null
@@ -103,20 +103,20 @@ export class HaCurrentPageState implements OnDestroy {
     return this.currentEntityType;
   }
 
-  public getEntityPage(entity: any): string {
+  public getEntityPage(entity: any): string | null {
     switch (this.currentEntityType()) {
       case HaEntityType.STORY:
         const story = entity as HaStory;
-        return HaRouterService.getStoryRoute(story.id, story.titlePath);
+        return HaRouterService.getStoryRoute(story.id, story.titlePath ?? '');
       case HaEntityType.BRICK:
         const brick = entity as HaBrick;
         return HaRouterService.getBrickPageRoute(brick.name);
       case HaEntityType.AGENT:
         const agent = entity as HaAgent;
-        return HaRouterService.getAgentRoute(agent.id, ClStringHelper.getCleanUrlPath(agent.title));
+        return HaRouterService.getAgentRoute(agent.id, ClStringHelper.getCleanUrlPath(agent.title) ?? '');
       case HaEntityType.APP:
         const app = entity as HaCommunityApp;
-        return HaRouterService.getCommunityAppRoute(app.id, ClStringHelper.getCleanUrlPath(app.title));
+        return HaRouterService.getCommunityAppRoute(app.id, ClStringHelper.getCleanUrlPath(app.title) ?? '');
       case HaEntityType.TAG:
         const tag = entity as HaTagKey;
         return HaRouterService.getTagPageRoute(tag.id, tag.technicalName);
@@ -178,7 +178,7 @@ export class HaCurrentPageState implements OnDestroy {
   private openAgentCreateDialog(): void {
     const input: HaCreateAgentInput = {
       mode: 'create',
-      object: null,
+      object: undefined,
     };
 
     this.dialogService
@@ -202,7 +202,7 @@ export class HaCurrentPageState implements OnDestroy {
       .subscribe((partner: HaPartner) => {
         if (partner) {
           this.router.navigateByUrl(
-            HaRouterService.getPartnerPage(partner.id, ClStringHelper.getCleanUrlPath(partner.name))
+            HaRouterService.getPartnerPage(partner.id, ClStringHelper.getCleanUrlPath(partner.name) ?? '')
           );
         }
       });
@@ -215,7 +215,7 @@ export class HaCurrentPageState implements OnDestroy {
   private openCreateStoryDialog(): void {
     const data: HaCreateStoryDtoInput = {
       mode: 'create',
-      object: null,
+      object: undefined,
     };
 
     this.dialogService
@@ -240,7 +240,7 @@ export class HaCurrentPageState implements OnDestroy {
           this.router.navigateByUrl(
             HaRouterService.getCommunityAppRoute(
               communityApp.id,
-              ClStringHelper.getCleanUrlPath(communityApp.title)
+              ClStringHelper.getCleanUrlPath(communityApp.title) ?? ''
             )
           );
         }
@@ -268,7 +268,7 @@ export class HaCurrentPageState implements OnDestroy {
   private setCurrentEntityType(urlSegments: UrlSegment[]): void {
     this.isDocumentationPage.set(false);
 
-    if (urlSegments?.length == 0) return null;
+    if (urlSegments?.length == 0) return;
     const firstSegment = urlSegments[0].path;
     switch (firstSegment) {
       case 'stories':
@@ -296,7 +296,7 @@ export class HaCurrentPageState implements OnDestroy {
         this.currentEntityType.set(HaEntityType.PARTNER);
         break;
       default:
-        return null;
+        return;
     }
   }
 

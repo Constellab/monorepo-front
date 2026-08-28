@@ -11,7 +11,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 export class FlBlobToSrcPipe implements PipeTransform, OnDestroy {
   private sanitizer = inject(DomSanitizer);
 
-  private lastUrl: string;
+  private lastUrl: string | null = null;
 
   transform(blob: Blob): SafeResourceUrl {
     this.revokeLastURL();

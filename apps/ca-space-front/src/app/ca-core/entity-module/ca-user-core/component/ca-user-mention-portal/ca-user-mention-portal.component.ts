@@ -23,6 +23,8 @@ export interface CaUserMentionPortalResult {
   searchInput: string;
 }
 
+const SELECTION_KEYS = [FlKeyboardKey.ENTER, FlKeyboardKey.ARROW_DOWN, FlKeyboardKey.ARROW_UP];
+
 @Component({
   selector: 'ca-user-mention-portal',
   templateUrl: './ca-user-mention-portal.component.html',
@@ -67,44 +69,70 @@ export class CaUserMentionPortalComponent implements OnInit, OnDestroy {
   }
 
   handleKeyboardEvent(event: KeyboardEvent): void {
-    if ([FlKeyboardKey.ENTER, FlKeyboardKey.ARROW_DOWN, FlKeyboardKey.ARROW_UP].includes(event.key as any)) {
-      if (this.users.length == 0) return;
-      event.preventDefault();
-      event.stopImmediatePropagation();
-
-      const filteredUserLength = this.users.length + this.showEveryoneButton;
-
-      if (event.key == FlKeyboardKey.ENTER) {
-        if (this.users?.length > 0) {
-          if (this.selectedUserIndex === 0 && this.showEveryoneButton === 1) {
-            this.selectEveryone();
-          } else {
-            this.selectUser(this.users[this.selectedUserIndex - this.showEveryoneButton]);
-          }
-        }
-      } else if (event.key === FlKeyboardKey.ARROW_DOWN) {
-        this.selectedUserIndex++;
-        if (this.selectedUserIndex >= filteredUserLength) {
-          this.selectedUserIndex = 0;
-        }
-      } else if (event.key === FlKeyboardKey.ARROW_UP) {
-        this.selectedUserIndex--;
-        if (this.selectedUserIndex < 0) {
-          this.selectedUserIndex = filteredUserLength - 1;
-        }
-      }
-    } else if (event.key === FlKeyboardKey.ARROW_LEFT || event.key === FlKeyboardKey.ARROW_RIGHT) {
-      this.overlayRef.dispose();
-    } else {
-      setTimeout(() => this.handleTextSearch(), 0);
+    if (SELECTION_KEYS.includes(event.key as any)) {
+      this.handleSelectionKey(event);
+      return;
     }
+
+    if (event.key === FlKeyboardKey.ARROW_LEFT || event.key === FlKeyboardKey.ARROW_RIGHT) {
+      this.overlayRef.dispose();
+      return;
+    }
+
+    setTimeout(() => this.handleTextSearch(), 0);
+  }
+
+  private handleSelectionKey(event: KeyboardEvent): void {
+    if (this.users.length == 0) return;
+    event.preventDefault();
+    event.stopImmediatePropagation();
+
+    switch (event.key) {
+      case FlKeyboardKey.ENTER:
+        this.selectCurrentUser();
+        break;
+      case FlKeyboardKey.ARROW_DOWN:
+        this.selectNextUser();
+        break;
+      case FlKeyboardKey.ARROW_UP:
+        this.selectPreviousUser();
+        break;
+    }
+  }
+
+  private selectCurrentUser(): void {
+    if (this.users?.length > 0) {
+      if (this.selectedUserIndex === 0 && this.showEveryoneButton === 1) {
+        this.selectEveryone();
+      } else {
+        this.selectUser(this.users[this.selectedUserIndex - this.showEveryoneButton]);
+      }
+    }
+  }
+
+  private selectNextUser(): void {
+    this.selectedUserIndex++;
+    if (this.selectedUserIndex >= this.getSelectableItemCount()) {
+      this.selectedUserIndex = 0;
+    }
+  }
+
+  private selectPreviousUser(): void {
+    this.selectedUserIndex--;
+    if (this.selectedUserIndex < 0) {
+      this.selectedUserIndex = this.getSelectableItemCount() - 1;
+    }
+  }
+
+  private getSelectableItemCount(): number {
+    return this.users.length + this.showEveryoneButton;
   }
 
   private handleTextSearch(): void {
     const text = this.data.textNode.wholeText;
     const caretInfo = this.getCaretPosition();
 
-    if (caretInfo < this.data.initialCaretPosition) {
+    if (caretInfo == null || caretInfo < this.data.initialCaretPosition) {
       this.overlayRef.dispose();
       return;
     }
@@ -144,11 +172,11 @@ export class CaUserMentionPortalComponent implements OnInit, OnDestroy {
     this.searchInput.complete();
   }
 
-  private getCaretPosition(): number {
+  private getCaretPosition(): number | null {
     // Get the current selection
     const selection = window.getSelection();
 
-    if (selection.rangeCount > 0) {
+    if (selection && selection.rangeCount > 0) {
       // Get the first range in the selection
       const range = selection.getRangeAt(0);
 

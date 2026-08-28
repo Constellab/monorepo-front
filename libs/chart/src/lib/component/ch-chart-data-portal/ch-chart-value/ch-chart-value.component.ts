@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { ChChartLabelFormatter } from '../../../model/ch-chart-label-formatter.class';
 
@@ -15,7 +15,7 @@ import { ChChartLabelFormatter } from '../../../model/ch-chart-label-formatter.c
 export class ChChartValueComponent {
   @Input() name: string;
 
-  @Input() value: number;
+  @Input() value: number | null;
 
   @Input() formatter: ChChartLabelFormatter;
 }

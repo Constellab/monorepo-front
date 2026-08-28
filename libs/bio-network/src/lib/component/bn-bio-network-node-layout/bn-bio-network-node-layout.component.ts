@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy,ChangeDetectorRef, Component, inject, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  inject,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -26,10 +33,10 @@ export class BnBioNetworkNodeLayoutComponent implements OnInit, OnDestroy {
   private snackBarService = inject(FlSnackBarService);
   private cdr = inject(ChangeDetectorRef);
 
-  node$: Observable<BnBioNetworkNode>;
-  metabolites$: Observable<BnBioNetworkNodeMetabolite>;
+  node$: Observable<BnBioNetworkNode | null>;
+  metabolites$: Observable<BnBioNetworkNodeMetabolite | null>;
 
-  nodeLevel: BnBioNetworkMetaboliteLevel;
+  nodeLevel: BnBioNetworkMetaboliteLevel | undefined;
 
   serviceIsEnabled: boolean;
 
@@ -47,19 +54,30 @@ export class BnBioNetworkNodeLayoutComponent implements OnInit, OnDestroy {
 
     this.serviceIsEnabled = this.bioNetworkService?.enableSave() ?? false;
 
-    this.subscription = this.node$.subscribe((node) => (this.nodeLevel = node.getLevel()));
+    this.subscription = this.node$.subscribe((node) => (this.nodeLevel = node?.getLevel()));
   }
 
   savePositions(metabolite: BnBioNetworkNodeMetabolite): void {
-    if (this.bioNetworkService && !this.saveIsLoading) {
+    const chebiId = metabolite.data.chebi_id;
+    const coord = metabolite.getCoords();
+    const level = this.nodeLevel;
+
+    if (
+      this.bioNetworkService &&
+      !this.saveIsLoading &&
+      chebiId != null &&
+      coord.x != null &&
+      coord.y != null &&
+      level != null
+    ) {
       this.saveIsLoading = true;
 
       const updateMetabolite: BnUpdateMetabolite = {
-        chebi_id: metabolite.data.chebi_id,
+        chebi_id: chebiId,
         cluster_id: metabolite.cluster.clusterId,
-        x: metabolite.x,
-        y: metabolite.y,
-        level: this.nodeLevel,
+        x: coord.x,
+        y: coord.y,
+        level: level,
       };
 
       this.bioNetworkService.saveMetaboliteLayout(updateMetabolite).subscribe({

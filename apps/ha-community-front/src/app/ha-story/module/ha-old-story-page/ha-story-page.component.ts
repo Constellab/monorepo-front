@@ -10,7 +10,6 @@ import {
   TransferState,
 } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { MatAnchor } from '@angular/material/button';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ClCoreJsonConvert, ClStringHelper } from '@monorepo/core-lib';
 import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
@@ -42,7 +41,6 @@ import { HaStoryTextEditorConfig } from '../ha-story-edit-page/ha-story-text-edi
     FlUserModule,
     FlDateModule,
     FlKeyValueModule,
-    MatAnchor,
     TeTextEditorModule,
     ReactiveFormsModule,
     FlLoaderModule,
@@ -105,7 +103,10 @@ export class HaStoryPageComponent extends HaCommunityPageDirective implements On
     });
   }
 
-  getStoryImageLink(imageLinkOrId: string): string {
+  getStoryImageLink(imageLinkOrId: string | undefined): string {
+    if (!imageLinkOrId) {
+      return '';
+    }
     return ClStringHelper.isHttpLink(imageLinkOrId)
       ? imageLinkOrId
       : this.storyService.getImageUrl(this.story.id, imageLinkOrId);
@@ -155,7 +156,7 @@ export class HaStoryPageComponent extends HaCommunityPageDirective implements On
     // verif if redirection needed
     if (this.paramTitle != this.story.titlePath) {
       this.httpRedirectionService.redirectTo(
-        HaRouterService.getStoryRoute(this.story.id, this.story.titlePath)
+        HaRouterService.getStoryRoute(this.story.id, this.story.titlePath ?? '')
       );
     }
 

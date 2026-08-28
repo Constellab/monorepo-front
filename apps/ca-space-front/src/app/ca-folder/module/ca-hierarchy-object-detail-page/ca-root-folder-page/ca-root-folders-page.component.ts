@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy,Component, inject, Injector, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Injector, OnInit } from '@angular/core';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { ClHelpService } from '@monorepo/core-lib';
@@ -24,7 +24,6 @@ import {
   CaHierarchyObjectDatasource,
 } from '../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
 import { CaIsSpaceUserDirective } from '../../../../ca-core/module/ca-core-directive/ca-is-space-user/ca-is-space-user.directive';
-import { CaHierarchyObjectBreadcrumbComponent } from '../../ca-folder-hierarchy-core/component/ca-hierarchy-object-breadcrumb/ca-hierarchy-object-breadcrumb.component';
 import { CaHierarchyObjectDetailState } from '../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
 import { CaHierarchyObjectSearchState } from '../../ca-folder-hierarchy-core/state/ca-hierarchy-object-search.state';
 import { CaHierarchyObjectSearchFormComponent } from '../ca-hierarchy-object-search-form/ca-hierarchy-object-search-form.component';
@@ -36,7 +35,6 @@ import {
 @Component({
   selector: 'ca-root-folder-page',
   imports: [
-    CaHierarchyObjectBreadcrumbComponent,
     CaHierarchyObjectTableComponent,
     FlCardModule,
     FlInfiniteScrollModule,
@@ -83,7 +81,7 @@ export class CaRootFoldersPageComponent implements OnInit {
       .subscribe((folders) => this.onCreateFolderClosed(folders));
   }
 
-  private onCreateFolderClosed(folder?: CaFolderWithHierarchy): void {
+  private onCreateFolderClosed(folder: CaFolderWithHierarchy | null): void {
     if (folder) {
       this.state.addFoldersInTree([folder.hierarchyRepresentation]);
       this.children.addItem(folder.hierarchyRepresentation, () => true);

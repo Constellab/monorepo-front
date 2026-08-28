@@ -21,7 +21,7 @@ export class LiAuthenticatedUserService implements FlCleanableService {
   private readonly usersRoute: string = 'user';
 
   // subject to subscribe to user changes
-  private userSubject$: BehaviorSubject<LiUser> = new BehaviorSubject<LiUser>(null);
+  private userSubject$: BehaviorSubject<LiUser | null> = new BehaviorSubject<LiUser | null>(null);
 
   constructor() {
     FlCleanerService.getInstance().registerService(this);
@@ -61,7 +61,7 @@ export class LiAuthenticatedUserService implements FlCleanableService {
     return this.userSubject$.value;
   }
 
-  public getUser$(): Observable<LiUser> {
+  public getUser$(): Observable<LiUser | null> {
     return this.userSubject$.asObservable();
   }
 }

@@ -1,0 +1,10 @@
+<div class="g-layout-row g-layout-start-center g-layout-gap-1em">
+  <code class="command">{{ command() }}</code>
+  <button
+    mat-icon-button
+    type="button"
+    [matTooltip]="'claude_mcp_copy_to_clipboard' | translate"
+    (click)="copyToClipboard()">
+    <mat-icon>content_copy</mat-icon>
+  </button>
+</div>

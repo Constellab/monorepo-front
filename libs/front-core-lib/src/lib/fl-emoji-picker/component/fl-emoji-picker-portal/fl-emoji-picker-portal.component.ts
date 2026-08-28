@@ -47,7 +47,7 @@ export class FlEmojiPickerPortalComponent implements OnInit, OnDestroy {
 
   emojiCategories: FlEmojiDatasource = new FlEmojiDatasource();
 
-  hoveredEmoji: FlEmojiCoord = null;
+  hoveredEmoji: FlEmojiCoord | null = null;
 
   private readonly nbOfEmojiPerLine = 10;
   private listener: () => void;
@@ -81,24 +81,27 @@ export class FlEmojiPickerPortalComponent implements OnInit, OnDestroy {
   }
 
   private moveHoveredEmojiIndex(event: KeyboardEvent): void {
+    const coords = this.hoveredEmoji;
+    if (!coords) return;
+
     this.unhoverCurrentEmoji();
 
-    let newCoords: FlEmojiCoord = null;
+    let newCoords: FlEmojiCoord | null = null;
     if (event.key === FlKeyboardKey.ARROW_DOWN) {
-      newCoords = this.moveDown();
+      newCoords = this.moveDown(coords);
     } else if (event.key === FlKeyboardKey.ARROW_UP) {
-      newCoords = this.moveUp();
+      newCoords = this.moveUp(coords);
     } else if (event.key === FlKeyboardKey.ARROW_LEFT) {
-      newCoords = this.moveLeft();
+      newCoords = this.moveLeft(coords);
     } else if (event.key === FlKeyboardKey.ARROW_RIGHT) {
-      newCoords = this.moveRight();
+      newCoords = this.moveRight(coords);
     }
     ClHelpService.stopEventPropagation(event);
 
     this.hoverEmoji(newCoords);
   }
 
-  private hoverEmoji(coord: FlEmojiCoord): void {
+  private hoverEmoji(coord: FlEmojiCoord | null): void {
     if (!coord) return;
     const newSelectedElement = this.getEmojiElementByCoord(coord);
     if (newSelectedElement) {
@@ -119,8 +122,7 @@ export class FlEmojiPickerPortalComponent implements OnInit, OnDestroy {
     }
   }
 
-  private moveRight(): FlEmojiCoord {
-    const coords: FlEmojiCoord = this.hoveredEmoji;
+  private moveRight(coords: FlEmojiCoord): FlEmojiCoord {
     const categories = this.emojiCategories.array;
 
     // if we stay in the same category
@@ -139,8 +141,7 @@ export class FlEmojiPickerPortalComponent implements OnInit, OnDestroy {
     return coords;
   }
 
-  private moveLeft(): FlEmojiCoord {
-    const coords: FlEmojiCoord = this.hoveredEmoji;
+  private moveLeft(coords: FlEmojiCoord): FlEmojiCoord {
     const categories = this.emojiCategories.array;
 
     // if we stay in the same category
@@ -160,8 +161,7 @@ export class FlEmojiPickerPortalComponent implements OnInit, OnDestroy {
     return coords;
   }
 
-  private moveDown(): FlEmojiCoord {
-    const coords: FlEmojiCoord = this.hoveredEmoji;
+  private moveDown(coords: FlEmojiCoord): FlEmojiCoord {
     const categories = this.emojiCategories.array;
 
     // if we stay in the same category
@@ -181,8 +181,7 @@ export class FlEmojiPickerPortalComponent implements OnInit, OnDestroy {
     return coords;
   }
 
-  private moveUp(): FlEmojiCoord {
-    const coords: FlEmojiCoord = this.hoveredEmoji;
+  private moveUp(coords: FlEmojiCoord): FlEmojiCoord {
     const categories = this.emojiCategories.array;
 
     // if we stay in the same category
@@ -257,7 +256,7 @@ export class FlEmojiPickerPortalComponent implements OnInit, OnDestroy {
 
     if (emojiSpan) {
       const emojiId = emojiSpan.getAttribute('id');
-      const emoji = this.emojiCategories.findByHtmlId(emojiId);
+      const emoji = emojiId == null ? null : this.emojiCategories.findByHtmlId(emojiId);
       if (emoji) {
         this.selectEmoji(emoji);
       }

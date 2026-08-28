@@ -77,7 +77,7 @@ export class BnBioNetworkFactory {
       const sameReactionNodes: BnBioNetworkNodeReaction[] = [];
 
       for (const cluster of selectedCluster) {
-        const reactionCluster: BnBioNetworkClusterInfo = reactionsClusters.find(
+        const reactionCluster: BnBioNetworkClusterInfo | undefined = reactionsClusters.find(
           (c) => c.clusterId === cluster
         );
 
@@ -142,37 +142,43 @@ export class BnBioNetworkFactory {
 
       // add one metabolite node for each cluster of the metabolite
       for (const cluster of clusters) {
-        // retrieve level of the metabolite
-        const positionCluster = metabolite.layout.clusters[cluster.subClusterIds[0]];
-        const level = positionCluster?.level ?? metabolite.level;
-
-        // find compartment info
-        const compartmentColor = this.getCompartmentColor(metabolite.compartment);
-
-        const metaboliteNode = new BnBioNetworkNodeMetabolite(
-          metabolite.name ? metabolite.name : metabolite.id,
-          cluster,
-          level,
-          compartmentColor,
-          this.themeDetail.foreground,
-          metabolite,
-          existsInMultipleCluster
-        );
-
-        // for the metabolite position, take the position of the first sub cluster
-        const clusterPosition = metabolite.layout.clusters[cluster.subClusterIds[0]];
-        if (
-          !this.ignoreNodePositions &&
-          clusterPosition &&
-          clusterPosition.x != null &&
-          clusterPosition.y != null
-        ) {
-          metaboliteNode.setPositionAndFreeze(clusterPosition);
-        }
-
-        this.metabolites.push(metaboliteNode);
+        this.metabolites.push(this.createMetaboliteNode(metabolite, cluster, existsInMultipleCluster));
       }
     }
+  }
+
+  private createMetaboliteNode(
+    metabolite: BnBioNetworkMetabolite,
+    cluster: BnBioNetworkClusterInfo,
+    existsInMultipleCluster: boolean
+  ): BnBioNetworkNodeMetabolite {
+    // for the metabolite level and position, take the first sub cluster
+    const positionCluster = metabolite.layout?.clusters[cluster.subClusterIds[0]];
+    const level = positionCluster?.level ?? metabolite.level;
+
+    // find compartment info
+    const compartmentColor = this.getCompartmentColor(metabolite.compartment);
+
+    const metaboliteNode = new BnBioNetworkNodeMetabolite(
+      metabolite.name ? metabolite.name : metabolite.id,
+      cluster,
+      level,
+      compartmentColor,
+      this.themeDetail.foreground,
+      metabolite,
+      existsInMultipleCluster
+    );
+
+    if (
+      !this.ignoreNodePositions &&
+      positionCluster &&
+      positionCluster.x != null &&
+      positionCluster.y != null
+    ) {
+      metaboliteNode.setPositionAndFreeze(positionCluster);
+    }
+
+    return metaboliteNode;
   }
 
   // create the pathway link from list of reaction nodes
@@ -180,54 +186,64 @@ export class BnBioNetworkFactory {
   private initLinksAndCofactors(metabolites: BnBioNetworkMetabolite[]): void {
     for (const reactionNode of this.reactions) {
       for (const metaboliteId of Object.keys(reactionNode.data.metabolites)) {
-        const metabolite: BnBioNetworkMetabolite = metabolites.find(
-          (metabolite) => metabolite.id === metaboliteId
-        );
-
-        if (metabolite == null) {
-          console.error(
-            `Could find metabolite with id ${metaboliteId} used in reaction ${reactionNode.data.id}`
-          );
-          continue;
-        }
-
-        let metaboliteNode: BnBioNetworkNode;
-
-        if (bnBioNetworkIsCofactor(metabolite.type)) {
-          // create the cofactor node (ignore its cluster)
-          metaboliteNode = this.createCofactor(metabolite);
-          reactionNode.addChildNode(metaboliteNode);
-        } else {
-          metaboliteNode = this.metabolites.find(
-            (metabolite) =>
-              metabolite.data.id === metaboliteId &&
-              metabolite.cluster.clusterId === reactionNode.cluster.clusterId
-          );
-        }
-
-        if (metaboliteNode == null) {
-          // console.error(`Could find metabolite with id ${metaboliteId}
-          //       and cluster ${reactionNode.clusterId}
-          //       used in reaction ${reactionNode.name}`);
-          continue;
-        }
-
-        const flux = BnBioNetworkHelper.getReactionFlux(reactionNode.data.data);
-        const fluxValue = flux ? flux.value : 0;
-        // is the metabolite is consumed, the link goes from the metabolite to the reaction
-        if (BnBioNetworkHelper.metaboliteIsConsumed(metaboliteNode.data.id, reactionNode.data)) {
-          this.links.push(
-            new BnBioNetworkLink(metaboliteNode, reactionNode, fluxValue, this.themeDetail.hover, 'link')
-          );
-        }
-        // left side of the link
-        else {
-          this.links.push(
-            new BnBioNetworkLink(reactionNode, metaboliteNode, fluxValue, this.themeDetail.hover, 'link')
-          );
-        }
+        this.initReactionMetaboliteLink(reactionNode, metaboliteId, metabolites);
       }
     }
+  }
+
+  private initReactionMetaboliteLink(
+    reactionNode: BnBioNetworkNodeReaction,
+    metaboliteId: string,
+    metabolites: BnBioNetworkMetabolite[]
+  ): void {
+    const metabolite: BnBioNetworkMetabolite | undefined = metabolites.find(
+      (metabolite) => metabolite.id === metaboliteId
+    );
+
+    if (metabolite == null) {
+      console.error(`Could find metabolite with id ${metaboliteId} used in reaction ${reactionNode.data.id}`);
+      return;
+    }
+
+    const metaboliteNode = this.findOrCreateLinkedMetaboliteNode(reactionNode, metabolite);
+
+    if (metaboliteNode == null) {
+      // console.error(`Could find metabolite with id ${metaboliteId}
+      //       and cluster ${reactionNode.clusterId}
+      //       used in reaction ${reactionNode.name}`);
+      return;
+    }
+
+    const flux = BnBioNetworkHelper.getReactionFlux(reactionNode.data.data);
+    const fluxValue = flux ? flux.value : 0;
+    // is the metabolite is consumed, the link goes from the metabolite to the reaction
+    if (BnBioNetworkHelper.metaboliteIsConsumed(metaboliteNode.data.id, reactionNode.data)) {
+      this.links.push(
+        new BnBioNetworkLink(metaboliteNode, reactionNode, fluxValue, this.themeDetail.hover, 'link')
+      );
+    }
+    // left side of the link
+    else {
+      this.links.push(
+        new BnBioNetworkLink(reactionNode, metaboliteNode, fluxValue, this.themeDetail.hover, 'link')
+      );
+    }
+  }
+
+  private findOrCreateLinkedMetaboliteNode(
+    reactionNode: BnBioNetworkNodeReaction,
+    metabolite: BnBioNetworkMetabolite
+  ): BnBioNetworkNode | undefined {
+    if (bnBioNetworkIsCofactor(metabolite.type)) {
+      // create the cofactor node (ignore its cluster)
+      const cofactorNode = this.createCofactor(metabolite);
+      reactionNode.addChildNode(cofactorNode);
+      return cofactorNode;
+    }
+
+    return this.metabolites.find(
+      (node) => node.data.id === metabolite.id && node.cluster.clusterId === reactionNode.cluster.clusterId
+    );
   }
 
   // create a cofactor and return the node
@@ -262,10 +278,17 @@ export class BnBioNetworkFactory {
         if (!this.ignoreNodePositions && nodes.length >= 2) {
           const firstPosition = nodes[0].getCoords();
           const secondPosition = nodes[1].getCoords();
-          reaction.setPositionAndFreeze({
-            x: (firstPosition.x + secondPosition.x) / 2,
-            y: (firstPosition.y + secondPosition.y) / 2,
-          });
+          if (
+            firstPosition.x != null &&
+            firstPosition.y != null &&
+            secondPosition.x != null &&
+            secondPosition.y != null
+          ) {
+            reaction.setPositionAndFreeze({
+              x: (firstPosition.x + secondPosition.x) / 2,
+              y: (firstPosition.y + secondPosition.y) / 2,
+            });
+          }
         }
       }
     }

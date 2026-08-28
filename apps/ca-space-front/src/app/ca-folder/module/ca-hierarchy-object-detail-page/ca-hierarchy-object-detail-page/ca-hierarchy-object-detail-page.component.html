@@ -1,17 +1,29 @@
-<mat-drawer-container class="g-full drawer-container">
-  <mat-drawer mode="side" [opened]="treeOpened$ | async" class="drawer g-print-hide">
-    <div class="g-card drawer-content">
-      <ca-hierarchy-object-tree
-        [hierarchyObjects]="hierarchyObjects"
-        [selectedObject$]="activeObject$"
-        [enableLazyChildrenLoading]="true"
-        [getRoute]="getRoute"></ca-hierarchy-object-tree>
-
-      <ca-hierarchy-object-tags-filter [formControl]="tagFormControl"></ca-hierarchy-object-tags-filter>
+<div class="g-layout-col g-full page-layout">
+  @if (headerHidden()) {
+    <div class="show-header-container g-print-hide">
+      <mat-icon class="show-header" [matTooltip]="'show_header' | translate" (click)="showHeader()">
+        expand_more
+      </mat-icon>
     </div>
-  </mat-drawer>
+  } @else {
+    <ca-hierarchy-object-breadcrumb class="g-print-hide breadcrumb"></ca-hierarchy-object-breadcrumb>
+  }
 
-  <mat-drawer-content class="print-full-width">
-    <router-outlet></router-outlet>
-  </mat-drawer-content>
-</mat-drawer-container>
+  <mat-drawer-container class="g-full drawer-container">
+    <mat-drawer mode="side" [opened]="treeOpened$ | async" class="drawer g-print-hide">
+      <div class="g-card drawer-content">
+        <ca-hierarchy-object-tree
+          [hierarchyObjects]="hierarchyObjects"
+          [selectedObject$]="activeObject$"
+          [enableLazyChildrenLoading]="true"
+          [getRoute]="getRoute"></ca-hierarchy-object-tree>
+
+        <ca-hierarchy-object-tags-filter [formControl]="tagFormControl"></ca-hierarchy-object-tags-filter>
+      </div>
+    </mat-drawer>
+
+    <mat-drawer-content class="print-full-width">
+      <router-outlet></router-outlet>
+    </mat-drawer-content>
+  </mat-drawer-container>
+</div>

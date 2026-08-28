@@ -1,5 +1,13 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy,Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
 import {
@@ -28,15 +36,15 @@ import { LiSelectLabDialogComponent } from '../li-select-lab-dialog/li-select-la
   changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlInputSearchModule, MatIcon, LiLabInlineComponent, AsyncPipe, FlTranslateModule, FlIconModule],
 })
-export class LiSelectLabComponent extends FlFormFieldDirective<LiLab> implements OnInit {
+export class LiSelectLabComponent extends FlFormFieldDirective<LiLab | null> implements OnInit {
   private labService = inject(LiLabService);
   private dialogService = inject(FlDialogService);
 
   @Input() placeholder: FlTranslatableText = { text: 'li.select_lab', translateText: true };
 
-  @Output() labChange: EventEmitter<LiLab> = new EventEmitter();
+  @Output() labChange: EventEmitter<LiLab | null> = new EventEmitter();
 
-  selectedLab: LiLab | Observable<LiLab>;
+  selectedLab: LiLab | Observable<LiLab> | null;
 
   datasource: LiLabDatasource<FlInputSearchFilter>;
 
@@ -68,7 +76,7 @@ export class LiSelectLabComponent extends FlFormFieldDirective<LiLab> implements
     };
   }
 
-  writeValue(obj: LiLab): void {
+  writeValue(obj: LiLab | null): void {
     if (obj == null || (typeof obj != 'string' && obj.name == null)) {
       this.selectedLab = null;
       this.value = null;
@@ -85,7 +93,7 @@ export class LiSelectLabComponent extends FlFormFieldDirective<LiLab> implements
     this.value = obj;
   }
 
-  callChangeEvent(value: LiLab): void {
+  callChangeEvent(value: LiLab | null): void {
     this.labChange.next(value);
     this.selectedLab = value;
   }

@@ -8,7 +8,8 @@ import {
   signal,
   TemplateRef,
   ViewChild,
-  ViewContainerRef} from '@angular/core';
+  ViewContainerRef,
+} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ClStringHelper, ClSubscriptionHandler } from '@monorepo/core-lib';
@@ -48,7 +49,7 @@ export interface TdEditParamSpecDialogInput {
   /**
    * Provided if mode is update, null if create
    */
-  paramSpec?: TdParamSpecEntry;
+  paramSpec?: TdParamSpecEntry | null;
   title: FlTranslatableText;
   saveButtonText?: FlTranslatableText;
 }
@@ -160,14 +161,14 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
   }
 
   onTypeSelected(type: TdParamSpecTypeEnum): void {
-    this.formGroup.get('type').setValue(type);
+    this.formGroup.get('type')?.setValue(type);
     this.typeSearchControl.setValue(type as any, { emitEvent: false });
     this.typeSearchText.set('');
     this.onTypeChange(type);
   }
 
   onTypeChange(type: TdParamSpecTypeEnum): void {
-    this.formGroup.get('default_value').reset(null);
+    this.formGroup.get('default_value')?.reset(null);
     this.isParamSetType.set(type === TdParamSpecTypeEnum.PARAM_SET);
     this.hideDefaultValue.set(TD_TYPES_WITHOUT_DEFAULT_VALUE.includes(type));
     this.selectedType.set(type);
@@ -186,7 +187,7 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
 
     this.isButtonLoading.set(true);
     const paramSpec = this.buildParamSpecFromForm();
-    const key = this.formGroup.get('key').value;
+    const key = this.formGroup.get('key')?.value;
 
     const save$ = this.getSaveObservable(key, paramSpec);
     save$.subscribe({
@@ -203,12 +204,12 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
   cancelKeyEditing(): void {
     this.keyEditing.set(false);
     this.keyManuallyEdited = false;
-    const label = this.formGroup.get('human_name').value || '';
+    const label = this.formGroup.get('human_name')?.value || '';
     const key = ClStringHelper.sentenceToSnakeCase(label).slice(
       0,
       TdEditParamSpecDialogComponent.KEY_MAX_LENGTH
     );
-    this.formGroup.get('key').setValue(key, { emitEvent: false });
+    this.formGroup.get('key')?.setValue(key, { emitEvent: false });
   }
 
   cancel(): void {
@@ -216,8 +217,11 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
   }
 
   openAddSubParamDialog(): void {
+    const subParamSpecState = this.subParamSpecState;
+    if (!subParamSpecState) return;
+
     const input: TdEditParamSpecDialogInput = {
-      dynamicParamSpecState: this.subParamSpecState,
+      dynamicParamSpecState: subParamSpecState,
       title: { text: 'td.add_sub_field', translateText: true },
       saveButtonText: { text: 'td.add_sub_field', translateText: true },
     };
@@ -233,8 +237,11 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
   }
 
   openEditSubParamDialog(entry: TdParamSpecEntry): void {
+    const subParamSpecState = this.subParamSpecState;
+    if (!subParamSpecState) return;
+
     const input: TdEditParamSpecDialogInput = {
-      dynamicParamSpecState: this.subParamSpecState,
+      dynamicParamSpecState: subParamSpecState,
       paramSpec: entry,
       title: { text: 'td.update_sub_field', translateText: true },
       saveButtonText: { text: 'td.update_sub_field', translateText: true },
@@ -299,12 +306,14 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
 
   addSelectOption(): void {
     const control = this.formGroup.get('additional_info.options');
+    if (!control) return;
     const current: TdSelectParamOption[] = control.value ?? [];
     control.setValue([...current, { label: null, value: null }]);
   }
 
   removeSelectOption(index: number): void {
     const control = this.formGroup.get('additional_info.options');
+    if (!control) return;
     const current: TdSelectParamOption[] = [...(control.value ?? [])];
     if (current.length <= 1) return;
     current.splice(index, 1);
@@ -313,17 +322,18 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
 
   updateSelectOption(index: number, value: string): void {
     const control = this.formGroup.get('additional_info.options');
+    if (!control) return;
     const current: TdSelectParamOption[] = [...(control.value ?? [])];
     current[index] = { label: value, value };
     control.setValue(current);
   }
 
   deleteSubParam(entry: TdParamSpecEntry): void {
-    this.subParamSpecState.deleteParamSpec(entry.key).subscribe();
+    this.subParamSpecState?.deleteParamSpec(entry.key).subscribe();
   }
 
   reorderSubParams(paramNames: string[]): void {
-    this.subParamSpecState.reorderParamSpecs(paramNames)?.subscribe();
+    this.subParamSpecState?.reorderParamSpecs(paramNames)?.subscribe();
   }
 
   validateExpression(): void {
@@ -362,14 +372,22 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
     this.snackBar.openSuccessMessage({ text: 'td.ai_expression_generated_notice', translateText: true });
   }
 
+  // Only bound when aiFieldAvailable() is true, ie. when generateField does not return null
   aiGenerateField = (text: string): Observable<TdGenerateFieldResult> => {
     // Always send the field's CURRENT FORM value (including unsaved tweaks) and key as
     // context so the AI builds on exactly what the user sees on screen.
-    return this.data.dynamicParamSpecState.generateField(
+    const result$ = this.data.dynamicParamSpecState.generateField(
       text,
       this.formGroup.get('key')?.value || undefined,
       this.buildParamSpecFromForm()
     );
+    if (!result$) {
+      // Guaranteed by the contract above: aiFieldAvailable() (backed by
+      // supportsFieldGeneration()) is only true when generateField() is overridden
+      // to never return null.
+      throw new Error('generateField() unexpectedly returned null while aiFieldAvailable() is true');
+    }
+    return result$;
   };
 
   onAiFieldResult(result: unknown): void {
@@ -432,26 +450,30 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
     if (this.data.paramSpec) {
       this.loadSpecIntoForm(this.data.paramSpec.key, this.data.paramSpec.spec);
     } else {
-      const defaultType = this.formGroup.get('type').value;
+      const defaultType = this.formGroup.get('type')?.value;
       this.buildAdditionalInfoControls(defaultType);
       this.buildDefaultValueConfig(defaultType);
     }
 
     // Auto-sync key from label until the user manually edits the key
-    this.subscriptions.add([
-      this.formGroup.get('key').valueChanges.subscribe(() => {
-        this.keyManuallyEdited = true;
-      }),
-      this.formGroup.get('human_name').valueChanges.subscribe((label: string) => {
-        if (!this.keyManuallyEdited) {
-          const key = ClStringHelper.sentenceToSnakeCase(label).slice(
-            0,
-            TdEditParamSpecDialogComponent.KEY_MAX_LENGTH
-          );
-          this.formGroup.get('key').setValue(key, { emitEvent: false });
-        }
-      }),
-    ]);
+    const keyControl = this.formGroup.get('key');
+    const humanNameControl = this.formGroup.get('human_name');
+    if (keyControl && humanNameControl) {
+      this.subscriptions.add([
+        keyControl.valueChanges.subscribe(() => {
+          this.keyManuallyEdited = true;
+        }),
+        humanNameControl.valueChanges.subscribe((label: string) => {
+          if (!this.keyManuallyEdited) {
+            const key = ClStringHelper.sentenceToSnakeCase(label).slice(
+              0,
+              TdEditParamSpecDialogComponent.KEY_MAX_LENGTH
+            );
+            keyControl.setValue(key, { emitEvent: false });
+          }
+        }),
+      ]);
+    }
   }
 
   /**
@@ -502,7 +524,7 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
       optional: true,
       visibility: 'public',
       human_name: this.translateService.translate('td.default_value'),
-      short_description: null,
+      short_description: undefined,
       additional_info: additionalInfo ?? {},
     };
 
@@ -518,71 +540,7 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
       this.formGroup.removeControl('additional_info');
     }
 
-    let group: FormGroup | null = null;
-
-    switch (type) {
-      case TdParamSpecTypeEnum.STR:
-        group = new FormGroup({
-          min_length: new FormControl(initialValue?.min_length ?? null, Validators.min(0)),
-          max_length: new FormControl(initialValue?.max_length ?? null, Validators.min(0)),
-          regex: new FormControl(initialValue?.regex ?? null),
-          regex_description: new FormControl(initialValue?.regex_description ?? null),
-        });
-        break;
-      case TdParamSpecTypeEnum.INT:
-      case TdParamSpecTypeEnum.FLOAT:
-        group = new FormGroup({
-          min_value: new FormControl(initialValue?.min_value ?? null),
-          max_value: new FormControl(initialValue?.max_value ?? null),
-        });
-        break;
-      case TdParamSpecTypeEnum.COMPUTED_PARAM:
-        group = new FormGroup({
-          expression: new FormControl(initialValue?.expression ?? null, Validators.required),
-        });
-        break;
-      case TdParamSpecTypeEnum.PARAM_SET:
-        group = new FormGroup({
-          max_number_of_occurrences: new FormControl(
-            initialValue?.max_number_of_occurrences ?? null,
-            Validators.min(1)
-          ),
-          min_number_of_occurrences: new FormControl(
-            initialValue?.min_number_of_occurrences ?? 1,
-            Validators.min(0)
-          ),
-          default_rows: new FormControl(initialValue?.default_rows ?? []),
-          default_rows_mode: new FormControl(
-            initialValue?.default_rows_mode ?? TdParamSetDefaultRowsMode.EDITABLE
-          ),
-        });
-        break;
-      case TdParamSpecTypeEnum.CREDENTIALS_PARAM:
-        group = new FormGroup({
-          credentials_type: new FormControl(initialValue?.credentials_type ?? null),
-        });
-        break;
-      case TdParamSpecTypeEnum.SELECT_PARAM:
-        group = new FormGroup({
-          options: new FormControl(
-            initialValue?.options ?? [{ label: null, value: null }],
-            Validators.required
-          ),
-          multiple: new FormControl(initialValue?.multiple ?? false),
-        });
-        break;
-      case TdParamSpecTypeEnum.DATE_PARAM:
-        group = new FormGroup({
-          include_time: new FormControl(initialValue?.include_time ?? false),
-          min_value: new FormControl(
-            initialValue?.min_value ? DateTime.fromISO(initialValue.min_value) : null
-          ),
-          max_value: new FormControl(
-            initialValue?.max_value ? DateTime.fromISO(initialValue.max_value) : null
-          ),
-        });
-        break;
-    }
+    const group: FormGroup | null = this.buildAdditionalInfoGroup(type, initialValue);
 
     if (group) {
       this.formGroup.addControl('additional_info', group);
@@ -594,37 +552,102 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * Returns the additional_info controls of the given type, or null for the types
+   * that have no additional_info.
+   */
+  private buildAdditionalInfoGroup(type: TdParamSpecTypeEnum, initialValue?: any): FormGroup | null {
+    switch (type) {
+      case TdParamSpecTypeEnum.STR:
+        return this.buildStrAdditionalInfoGroup(initialValue);
+      case TdParamSpecTypeEnum.INT:
+      case TdParamSpecTypeEnum.FLOAT:
+        return this.buildNumberAdditionalInfoGroup(initialValue);
+      case TdParamSpecTypeEnum.COMPUTED_PARAM:
+        return this.buildComputedAdditionalInfoGroup(initialValue);
+      case TdParamSpecTypeEnum.PARAM_SET:
+        return this.buildParamSetAdditionalInfoGroup(initialValue);
+      case TdParamSpecTypeEnum.CREDENTIALS_PARAM:
+        return this.buildCredentialsAdditionalInfoGroup(initialValue);
+      case TdParamSpecTypeEnum.SELECT_PARAM:
+        return this.buildSelectAdditionalInfoGroup(initialValue);
+      case TdParamSpecTypeEnum.DATE_PARAM:
+        return this.buildDateAdditionalInfoGroup(initialValue);
+      default:
+        return null;
+    }
+  }
+
+  private buildStrAdditionalInfoGroup(initialValue?: any): FormGroup {
+    return new FormGroup({
+      min_length: new FormControl(initialValue?.min_length ?? null, Validators.min(0)),
+      max_length: new FormControl(initialValue?.max_length ?? null, Validators.min(0)),
+      regex: new FormControl(initialValue?.regex ?? null),
+      regex_description: new FormControl(initialValue?.regex_description ?? null),
+    });
+  }
+
+  private buildNumberAdditionalInfoGroup(initialValue?: any): FormGroup {
+    return new FormGroup({
+      min_value: new FormControl(initialValue?.min_value ?? null),
+      max_value: new FormControl(initialValue?.max_value ?? null),
+    });
+  }
+
+  private buildComputedAdditionalInfoGroup(initialValue?: any): FormGroup {
+    return new FormGroup({
+      expression: new FormControl(initialValue?.expression ?? null, Validators.required),
+    });
+  }
+
+  private buildParamSetAdditionalInfoGroup(initialValue?: any): FormGroup {
+    return new FormGroup({
+      max_number_of_occurrences: new FormControl(
+        initialValue?.max_number_of_occurrences ?? null,
+        Validators.min(1)
+      ),
+      min_number_of_occurrences: new FormControl(
+        initialValue?.min_number_of_occurrences ?? 1,
+        Validators.min(0)
+      ),
+      default_rows: new FormControl(initialValue?.default_rows ?? []),
+      default_rows_mode: new FormControl(
+        initialValue?.default_rows_mode ?? TdParamSetDefaultRowsMode.EDITABLE
+      ),
+    });
+  }
+
+  private buildCredentialsAdditionalInfoGroup(initialValue?: any): FormGroup {
+    return new FormGroup({
+      credentials_type: new FormControl(initialValue?.credentials_type ?? null),
+    });
+  }
+
+  private buildSelectAdditionalInfoGroup(initialValue?: any): FormGroup {
+    return new FormGroup({
+      options: new FormControl(initialValue?.options ?? [{ label: null, value: null }], Validators.required),
+      multiple: new FormControl(initialValue?.multiple ?? false),
+    });
+  }
+
+  private buildDateAdditionalInfoGroup(initialValue?: any): FormGroup {
+    return new FormGroup({
+      include_time: new FormControl(initialValue?.include_time ?? false),
+      min_value: new FormControl(initialValue?.min_value ? DateTime.fromISO(initialValue.min_value) : null),
+      max_value: new FormControl(initialValue?.max_value ? DateTime.fromISO(initialValue.max_value) : null),
+    });
+  }
+
   private buildParamSpecFromForm(): TdParamSpec {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { key: _key, ...specValue } = this.formGroup.value;
 
     if (specValue.type === TdParamSpecTypeEnum.PARAM_SET && this.subParamSpecState) {
-      const info = specValue.additional_info ?? {};
-      const toNumber = (v: any): number | null =>
-        v === null || v === undefined || v === '' ? null : Number(v);
-      const minOccurrences = toNumber(info.min_number_of_occurrences) ?? 0;
-      specValue.additional_info = {
-        ...info,
-        param_set: this.subParamSpecState.getCurrentSpecs(),
-        max_number_of_occurrences: toNumber(info.max_number_of_occurrences),
-        min_number_of_occurrences: minOccurrences,
-        default_rows: Array.isArray(info.default_rows) ? info.default_rows : [],
-        default_rows_mode: info.default_rows_mode ?? TdParamSetDefaultRowsMode.EDITABLE,
-      };
-      // The optional checkbox is hidden for param sets; derive it from the
-      // minimum number of rows (0 rows allowed => optional).
-      specValue.optional = minOccurrences === 0;
+      this.applyParamSetValuesToSpec(specValue, this.subParamSpecState);
     }
 
     if (specValue.type === TdParamSpecTypeEnum.DATE_PARAM && specValue.additional_info) {
-      const info = specValue.additional_info;
-      specValue.additional_info = {
-        ...info,
-        min_value:
-          info.min_value instanceof DateTime ? info.min_value.toFormat('yyyy-MM-dd') : info.min_value,
-        max_value:
-          info.max_value instanceof DateTime ? info.max_value.toFormat('yyyy-MM-dd') : info.max_value,
-      };
+      specValue.additional_info = this.serializeDateAdditionalInfo(specValue.additional_info);
     }
 
     return {
@@ -632,6 +655,39 @@ export class TdEditParamSpecDialogComponent implements OnInit, OnDestroy {
       human_name: specValue.human_name || null,
       short_description: specValue.short_description || null,
     } as TdParamSpec;
+  }
+
+  /**
+   * Completes the additional_info of a param set spec with the sub param specs and the
+   * normalized occurrences / default rows values, and derives the optional flag.
+   */
+  private applyParamSetValuesToSpec(specValue: any, subParamSpecState: TdSubParamSpecState): void {
+    const info = specValue.additional_info ?? {};
+    const toNumber = (v: any): number | null =>
+      v === null || v === undefined || v === '' ? null : Number(v);
+    const minOccurrences = toNumber(info.min_number_of_occurrences) ?? 0;
+    specValue.additional_info = {
+      ...info,
+      param_set: subParamSpecState.getCurrentSpecs(),
+      max_number_of_occurrences: toNumber(info.max_number_of_occurrences),
+      min_number_of_occurrences: minOccurrences,
+      default_rows: Array.isArray(info.default_rows) ? info.default_rows : [],
+      default_rows_mode: info.default_rows_mode ?? TdParamSetDefaultRowsMode.EDITABLE,
+    };
+    // The optional checkbox is hidden for param sets; derive it from the
+    // minimum number of rows (0 rows allowed => optional).
+    specValue.optional = minOccurrences === 0;
+  }
+
+  /**
+   * Converts the DateTime values of a date param additional_info into their string form.
+   */
+  private serializeDateAdditionalInfo(info: any): any {
+    return {
+      ...info,
+      min_value: info.min_value instanceof DateTime ? info.min_value.toFormat('yyyy-MM-dd') : info.min_value,
+      max_value: info.max_value instanceof DateTime ? info.max_value.toFormat('yyyy-MM-dd') : info.max_value,
+    };
   }
 
   /**

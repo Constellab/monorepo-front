@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
@@ -61,7 +61,7 @@ export class HaStoryListPageComponent extends HaCommunityPageDirective implement
     super.setMetaTags(
       'ha.stories.title',
       'ha.stories.description',
-      null,
+      '',
       HaRouterService.getFullRoute(this.router.url)
     );
     this.popularTopics$ = this.topicService.getPopularTopics();

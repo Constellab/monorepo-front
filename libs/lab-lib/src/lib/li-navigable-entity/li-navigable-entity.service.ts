@@ -1,4 +1,4 @@
-import { inject,Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
@@ -58,7 +58,11 @@ export class LiNavigableEntityService {
       action: obs,
     };
 
-    return this.actionService.addAction(action);
+    const result = this.actionService.addAction(action);
+    if (result == null) {
+      throw new Error('Failed to add the impact action to the portal actions');
+    }
+    return result;
   }
 
   /**

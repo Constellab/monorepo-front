@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
@@ -102,7 +102,7 @@ export class CaLabGreenOptionTableComponent {
       .subscribe((result: FlConfirmDialogResult) => this.onDeleteGreenOptionClosed(result, greenOption));
   }
 
-  private onDeleteGreenOptionClosed(result: FlConfirmDialogResult, greenOption?: CaLabGreenOption): void {
+  private onDeleteGreenOptionClosed(result: FlConfirmDialogResult, greenOption: CaLabGreenOption): void {
     if (result.choice) {
       this.datasource.removeItem(greenOption);
     }

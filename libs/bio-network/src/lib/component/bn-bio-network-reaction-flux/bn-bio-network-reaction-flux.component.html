@@ -13,7 +13,7 @@
     <span>{{ 'bnBioNetwork.flux_estimate' | translate }} :</span>
     <ul>
       <li>
-        <fl-key-value [matTooltip]="flux.value?.toString()" matTooltipPosition="before">
+        <fl-key-value [matTooltip]="flux.value.toString()" matTooltipPosition="before">
           <fl-key>{{ 'bnBioNetwork.flux_value' | translate }}</fl-key>
           {{ flux.value | number: '1.2-2' }}
         </fl-key-value>

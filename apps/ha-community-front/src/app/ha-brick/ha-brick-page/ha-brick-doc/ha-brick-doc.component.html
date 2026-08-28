@@ -1,6 +1,6 @@
 @if (!docNotFound()) {
   <div>
-    @if (!isDocLoading() && documentation()) {
+    @if (!isDocLoading() && documentation(); as doc) {
       <div class="doc-div">
         <div class="doc-div-content g-max-article-width">
           <div class="doc-title-div">
@@ -11,7 +11,7 @@
               [maxLength]="50"
               [minLength]="2"
               [flElementDisabled]="!userHasEditRight() || formCtrl.disabled">
-              {{ documentation().title }}
+              {{ doc.title }}
             </h2>
 
             <div class="save-info-and-bt-div">
@@ -38,7 +38,7 @@
               </button>
 
               @if (userHasEditRight()) {
-                <button mat-menu-item type="button" (click)="downloadDocMarkdown(documentation().id)">
+                <button mat-menu-item type="button" (click)="downloadDocMarkdown(doc.id)">
                   <mat-icon>download</mat-icon>
                   <span>{{ 'download_markdown' | translate }}</span>
                 </button>

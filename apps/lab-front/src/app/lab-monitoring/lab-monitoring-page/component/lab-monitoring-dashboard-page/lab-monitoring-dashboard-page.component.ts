@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy,Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 import { LabBrickListStatusComponent } from '../lab-brick-list-status/lab-brick-list-status.component';
+import { LabClaudePluginComponent } from '../lab-claude-plugin/lab-claude-plugin.component';
 import { LabInfoComponent } from '../lab-info/lab-info.component';
 
 @Component({
@@ -8,6 +9,6 @@ import { LabInfoComponent } from '../lab-info/lab-info.component';
   templateUrl: './lab-monitoring-dashboard-page.component.html',
   styleUrls: ['./lab-monitoring-dashboard-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.Eager,
-  imports: [LabInfoComponent, LabBrickListStatusComponent],
+  imports: [LabInfoComponent, LabClaudePluginComponent, LabBrickListStatusComponent],
 })
 export class LabMonitoringDashboardPageComponent {}

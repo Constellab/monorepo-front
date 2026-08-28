@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
@@ -21,17 +21,18 @@ export class FlPasswordForgottenComponent implements OnInit {
   private userAccountsService = inject(FlUserAccountService);
   private snackBarService = inject(FlSnackBarService);
 
-  formControl: FormControl<string>;
+  formControl: FormControl<string | null>;
 
   isLoading: boolean = false;
 
   ngOnInit(): void {
-    this.formControl = new FormControl<string>(null, [Validators.required, Validators.email]);
+    this.formControl = new FormControl<string | null>(null, [Validators.required, Validators.email]);
   }
 
   submit(): void {
-    if (this.formControl.valid && !this.isLoading) {
-      this.callPasswordForgotten(this.formControl.value);
+    const email = this.formControl.value;
+    if (this.formControl.valid && !this.isLoading && email != null) {
+      this.callPasswordForgotten(email);
     }
   }
 

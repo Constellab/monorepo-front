@@ -1,15 +1,13 @@
-<div class="g-layout-row g-layout-start-center g-layout-gap-05em">
-  <img
-    [ngSrc]="region.city.country.shortName | caCountryFlag"
-    [alt]="region.city.country.shortName"
-    [width]="30"
-    [height]="30" />
-  <div>
-    <div>{{ region.name }}</div>
-    @if (region.cloudProvider) {
-      <div class="g-text-small g-text-light">{{ region.cloudProvider.name }}</div>
-    }
+@if (region.city.country; as country) {
+  <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
+    <img [ngSrc]="country.shortName | caCountryFlag" [alt]="country.shortName" [width]="30" [height]="30" />
+    <div>
+      <div>{{ region.name }}</div>
+      @if (region.cloudProvider) {
+        <div class="g-text-small g-text-light">{{ region.cloudProvider.name }}</div>
+      }
+    </div>
   </div>
-</div>
 
-<div class="g-text-small g-text-light name">{{ region.city.name }} - {{ region.city.country.name }}</div>
+  <div class="g-text-small g-text-light name">{{ region.city.name }} - {{ country.name }}</div>
+}

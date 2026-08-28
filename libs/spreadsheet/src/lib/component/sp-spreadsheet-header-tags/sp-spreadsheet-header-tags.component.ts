@@ -13,7 +13,7 @@ import { FlTagColorer } from '@monorepo/front-core-lib/fl-tag';
   standalone: false,
 })
 export class SpSpreadsheetHeaderTagsComponent {
-  @Input() tags: Record<string, string>;
+  @Input() tags: Record<string, string> | undefined;
 
   @Input() tagColorer: FlTagColorer;
 

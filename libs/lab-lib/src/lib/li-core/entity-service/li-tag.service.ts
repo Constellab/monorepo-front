@@ -88,7 +88,11 @@ export class LiTagService extends FlTagService {
     });
   }
 
-  public searchKeys(key: string, page: number, pageSize: number): Observable<ClPage<LiTagKeyModel>> {
+  public searchKeys(
+    key: string | undefined,
+    page: number,
+    pageSize: number
+  ): Observable<ClPage<LiTagKeyModel>> {
     const strKey = key ? '/' + key : '';
     return this.apiService.get(`${this.route}/search/key${strKey}`, LiTagKeyModel, {
       page: page,
@@ -118,7 +122,7 @@ export class LiTagService extends FlTagService {
   }
 
   public searchValues(
-    key: string,
+    key: string | undefined,
     value: FlTagValue,
     page: number,
     pageSize: number
@@ -348,7 +352,7 @@ export class LiTagService extends FlTagService {
    */
   public getAllCommunityAgentsWithFilters(
     spacesFilter: string[],
-    labelFilter: string,
+    labelFilter: string | undefined,
     personalOnly: boolean,
     page: number,
     size: number
@@ -362,7 +366,7 @@ export class LiTagService extends FlTagService {
   }
 
   public getCommunityTagValues(
-    tagKey: string,
+    tagKey: string | undefined,
     page: number,
     size: number
   ): Observable<ClPage<LiTagValueModel>> {

@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy,Component, effect, inject, input, OnDestroy, ViewEncapsulation } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  effect,
+  inject,
+  input,
+  OnDestroy,
+  ViewEncapsulation,
+} from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import katex from 'katex';
 import { Subscription } from 'rxjs';
@@ -19,10 +27,10 @@ export class FlFormulaStandaloneComponent implements OnDestroy {
 
   mode = input<'view' | 'edit'>('view');
 
-  private subscription: Subscription;
+  private subscription: Subscription | null;
 
-  katexResult: SafeHtml;
-  katexError: string;
+  katexResult: SafeHtml | null;
+  katexError: string | null;
 
   constructor() {
     effect(() => {

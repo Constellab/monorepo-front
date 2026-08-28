@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy,Component, computed, inject, OnDestroy, OnInit, ViewContainerRef } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  OnDestroy,
+  OnInit,
+  ViewContainerRef,
+} from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -71,8 +79,8 @@ export class HaCommunityAppPageComponent extends HaCommunityPageDirective implem
   private router = inject(Router);
 
   textEditorConfig: HaCommunityAppTextEditorConfig;
-  appDescriptionFormControl = new FormControl<TeRichText>(null);
-  currentUser: HaUser;
+  appDescriptionFormControl = new FormControl<TeRichText | null>(null);
+  currentUser: HaUser | null | undefined;
   entityType = HaEntityType.APP;
   tempTitle: string;
 
@@ -81,19 +89,21 @@ export class HaCommunityAppPageComponent extends HaCommunityPageDirective implem
 
     if (!app) return app;
 
-    const appImage: string = app.picture ? this.communityAppService.getAppPictureUrl(app.picture) : null;
+    const appImage: string | null = app.picture
+      ? this.communityAppService.getAppPictureUrl(app.picture)
+      : null;
     const pageUrl = HaRouterService.getFullRoute(
-      HaRouterService.getCommunityAppRoute(app.id, ClStringHelper.getCleanUrlPath(app.title))
+      HaRouterService.getCommunityAppRoute(app.id, ClStringHelper.getCleanUrlPath(app.title) ?? '')
     );
 
     super.setMetaTags(
       { text: 'ha.app.title', translateParam: { param: { title: app.title } } },
       { text: 'ha.app.description', translateParam: { param: { title: app.title } } },
-      appImage,
+      appImage ?? '',
       pageUrl
     );
 
-    this.jsonLdState.setSoftwareAppJsonLdContent(app.title, pageUrl, appImage);
+    this.jsonLdState.setSoftwareAppJsonLdContent(app.title, pageUrl, appImage ?? undefined);
 
     this.textEditorConfig = new HaCommunityAppTextEditorConfig(this.communityAppService, app.id);
 
@@ -105,14 +115,16 @@ export class HaCommunityAppPageComponent extends HaCommunityPageDirective implem
   notFound = this.communityAppState.isErrored;
   isLoading = this.communityAppState.isLoading;
   contributors = computed(() => {
+    const app = this.communityAppState.app();
     const coAuthors = this.communityAppState.getCoAuthors()();
-    if (!this.communityAppState.app() || !coAuthors) return [];
-    return [this.communityAppState.app().createdBy, ...coAuthors];
+    if (!app || !coAuthors) return [];
+    return [app.createdBy, ...coAuthors];
   });
   canEdit = this.communityAppState.canEditApp;
   isAuthor = computed(() => {
-    if (!this.currentUser || !this.communityAppState.app()) return false;
-    return this.currentUser.id === this.communityAppState.app().createdBy.id;
+    const app = this.communityAppState.app();
+    if (!this.currentUser || !app) return false;
+    return this.currentUser.id === app.createdBy.id;
   });
 
   onAboutEditionLoading: boolean = false;
@@ -121,10 +133,10 @@ export class HaCommunityAppPageComponent extends HaCommunityPageDirective implem
     this.activatedRoute.params.subscribe((params) => {
       this.communityAppState.init(params.id);
       this.entityCommentState.init(this.entityType, params.id);
-      this.tempTitle = ClStringHelper.fromKebabCaseToSentence(params.title);
+      this.tempTitle = ClStringHelper.fromKebabCaseToSentence(params.title) ?? '';
     });
 
-    this.authenticatedUserService.getUser().subscribe((user: HaUser) => {
+    this.authenticatedUserService.getUser().subscribe((user) => {
       this.currentUser = user;
     });
   }
@@ -134,26 +146,29 @@ export class HaCommunityAppPageComponent extends HaCommunityPageDirective implem
   }
 
   saveAbout(): void {
+    const description = this.appDescriptionFormControl.value;
+    if (description == null) return;
+
     this.onAboutEditionLoading = true;
-    this.communityAppService
-      .updateAppDescription(this.communityApp().id, this.appDescriptionFormControl.value)
-      .subscribe((updatedApp) => {
-        this.communityAppState.set(updatedApp);
-        this.onAboutEditionLoading = false;
-        this.appDescriptionFormControl.disable();
-      });
+    const app = this.requireApp();
+    this.communityAppService.updateAppDescription(app.id, description).subscribe((updatedApp) => {
+      this.communityAppState.set(updatedApp);
+      this.onAboutEditionLoading = false;
+      this.appDescriptionFormControl.disable();
+    });
   }
 
   openEditCommunityAppDialog(): void {
+    const app = this.requireApp();
     const data: HaCreateCommunityAppInput = {
       mode: 'update',
       object: {
-        id: this.communityApp().id,
-        title: this.communityApp().title,
-        appUrl: this.communityApp().appUrl,
-        contactMail: this.communityApp().contactMail,
-        picture: this.communityApp().picture,
-        spaceId: this.communityApp().space?.id,
+        id: app.id,
+        title: app.title,
+        appUrl: app.appUrl,
+        contactMail: app.contactMail,
+        picture: app.picture,
+        spaceId: app.space?.id,
       },
     };
     this.dialogService
@@ -173,11 +188,12 @@ export class HaCommunityAppPageComponent extends HaCommunityPageDirective implem
   }
 
   deleteCommunityApp(): void {
+    const app = this.requireApp();
     const data: FlConfirmDialogInput = {
       title: 'delete_community_app_confirm_title',
       content: 'delete_community_app_confirm_message',
       successMessage: 'community_app_deleted',
-      observable: this.communityAppService.deleteApp(this.communityApp().id).pipe(
+      observable: this.communityAppService.deleteApp(app.id).pipe(
         map((res) => {
           if (res) {
             this.router.navigate([HaRouterService.getCommunityAppListRoute()]);
@@ -187,6 +203,14 @@ export class HaCommunityAppPageComponent extends HaCommunityPageDirective implem
     };
 
     this.dialogService.openConfirmDialog(data);
+  }
+
+  private requireApp(): HaCommunityApp {
+    const app = this.communityApp();
+    if (app == null) {
+      throw new Error('HaCommunityAppPageComponent used without a loaded app');
+    }
+    return app;
   }
 
   override ngOnDestroy(): void {

@@ -1,4 +1,6 @@
 <div class="country-div">
-  <img [src]="city.country.shortName | caCountryFlag" [alt]="city.country.shortName" class="country-img" />
-  <div class="country-city">{{ city.name }}, {{ city.country.name }}</div>
+  @if (city.country; as country) {
+    <img [src]="country.shortName | caCountryFlag" [alt]="country.shortName" class="country-img" />
+    <div class="country-city">{{ city.name }}, {{ country.name }}</div>
+  }
 </div>

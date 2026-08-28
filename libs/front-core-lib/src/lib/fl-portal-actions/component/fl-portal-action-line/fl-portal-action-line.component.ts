@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
@@ -30,7 +30,7 @@ export class FlPortalActionLineComponent implements OnInit, OnDestroy {
   @Input() action: FlPortalActionDetail;
 
   statusEvent$: Observable<FlPortalActionDetailStatusEvent>;
-  link$: Observable<string | null>;
+  link$: Observable<string | null | undefined>;
   displayedText$: Observable<FlTranslatableText>;
   currentOnSuccessClick: (() => void) | null = null;
 
@@ -50,11 +50,13 @@ export class FlPortalActionLineComponent implements OnInit, OnDestroy {
     });
     this.displayedText$ = this.statusEvent$.pipe(
       map((event) => {
-        if (event.status === 'processing' && (event as FlPortalActionProcessing).message) {
-          return (event as FlPortalActionProcessing).message;
+        if (event.status === 'processing') {
+          const message = (event as FlPortalActionProcessing).message;
+          if (message) return message;
         }
-        if (event.status === 'success' && (event as FlPortalActionSuccess).successMessage) {
-          return (event as FlPortalActionSuccess).successMessage;
+        if (event.status === 'success') {
+          const successMessage = (event as FlPortalActionSuccess).successMessage;
+          if (successMessage) return successMessage;
         }
         return this.action.text;
       })

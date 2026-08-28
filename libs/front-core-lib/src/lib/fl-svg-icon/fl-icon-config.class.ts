@@ -46,16 +46,16 @@ export const FL_ICON_MODULE = new InjectionToken<FlIconConfig>('FL_ICON_MODULE')
  */
 export const FL_ICONS_DEFAULT: FlIcon[] = [
   { name: 'scenario', matIconName: 'slow_motion_video' },
-  { name: 'protocol', filename: 'cogs-solid.svg' },
+  { name: 'protocol', matIconName: 'manufacturing' },
   { name: 'scenario_template', matIconName: 'extension' },
-  { name: 'process', filename: 'cogs-solid.svg' },
+  { name: 'process', matIconName: 'manufacturing' },
   { name: 'lab', matIconName: 'rocket_launch' },
-  { name: 'process_config', filename: 'task-configuration.svg' },
+  { name: 'process_config', matIconName: 'tune' },
   { name: 'archive', matIconName: 'inventory_2' },
   { name: 'unarchive', matIconName: 'unarchive' },
   { name: 'note', matIconName: 'description' },
-  { name: 'note_template', filename: 'note-template.svg' },
-  { name: 'resource', filename: 'boxes.svg' },
+  { name: 'note_template', matIconName: 'library_books' },
+  { name: 'resource', matIconName: 'deployed_code' },
   { name: 'view', matIconName: 'insert_chart' },
   { name: 'organization', matIconName: 'business' },
   { name: 'group', matIconName: 'group' },
@@ -73,20 +73,19 @@ export const FL_ICONS_DEFAULT: FlIcon[] = [
   { name: 'heart', filename: 'heart.svg' },
   { name: 'heart-fill', filename: 'heart-fill.svg' },
   { name: 'constellab_document', matIconName: 'description' },
-  { name: 'brick', filename: 'brick_logo.svg' },
+  { name: 'brick', matIconName: 'deployed_code' },
   { name: 'agent', filename: 'agent_logo.svg' },
-  { name: 'app', filename: 'app_logo.svg' },
-  { name: 'story', filename: 'story_logo.svg' },
+  { name: 'app', matIconName: 'apps' },
+  { name: 'story', matIconName: 'edit' },
   { name: 'tag', matIconName: 'local_offer' },
-  { name: 'download', filename: 'download.svg' },
   { name: 'like', filename: 'like.svg' },
-  { name: 'comment', filename: 'comment.svg' },
+  { name: 'comment', matIconName: 'tooltip_2' },
   { name: 'community-icon', filename: 'community_logo.svg' },
-  { name: 'form', filename: 'form.svg' },
-  { name: 'form_template', filename: 'form.svg' },
+  { name: 'form', matIconName: 'assignment' },
+  { name: 'form_template', matIconName: 'assignment_add' },
 ];
 
-export function flGetFileIconFromExtension(extension: string): string {
+export function flGetFileIconFromExtension(extension: string | null): string {
   if (!extension) return 'insert_drive_file';
 
   extension = extension.replace('.', '').toLowerCase();

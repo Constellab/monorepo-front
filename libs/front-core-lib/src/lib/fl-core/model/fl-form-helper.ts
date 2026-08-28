@@ -10,7 +10,7 @@ export class FlFormHelper {
    * If the control is a FormGroup or an FormArray it check each field deeply
    * @param control control to check
    */
-  public static isControlEmpty(control: AbstractControl): boolean {
+  public static isControlEmpty(control: AbstractControl | null): boolean {
     if (control == null) {
       return false;
     }
@@ -34,7 +34,7 @@ export class FlFormHelper {
    * Mark the control and children as touched and force updating validity
    * @param control
    */
-  public static markAllAsTouched(control: AbstractControl): void {
+  public static markAllAsTouched(control: AbstractControl | null): void {
     if (control == null) {
       return;
     }

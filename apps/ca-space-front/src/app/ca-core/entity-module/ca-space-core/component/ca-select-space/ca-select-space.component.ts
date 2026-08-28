@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy,Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
 import {
@@ -24,7 +32,7 @@ import { CaSpacePhotoComponent } from '../ca-space-photo/ca-space-photo.componen
   changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlInputSearchModule, CaSpacePhotoComponent, MatIcon, FlIconModule, CaSpaceInlineComponent],
 })
-export class CaSelectSpaceComponent extends FlFormFieldDirective<CaSpace> implements OnInit {
+export class CaSelectSpaceComponent extends FlFormFieldDirective<CaSpace | null> implements OnInit {
   private spaceService = inject(CaSpaceService);
   private currentSpaceService = inject(CaCurrentSpaceService);
 
@@ -32,7 +40,7 @@ export class CaSelectSpaceComponent extends FlFormFieldDirective<CaSpace> implem
 
   @Output() valueChange: EventEmitter<CaSpace> = new EventEmitter();
 
-  selectedSpace: CaSpace | Observable<CaSpace>;
+  selectedSpace: CaSpace | Observable<CaSpace> | null;
 
   spaceDatasource: CaSpaceDatasource<FlInputSearchFilter>;
 
@@ -44,7 +52,8 @@ export class CaSelectSpaceComponent extends FlFormFieldDirective<CaSpace> implem
 
   ngOnInit(): void {
     this.spaceDatasource = new FlEntityPaginatedDatasource(
-      (page, size, data) => this.spaceService.searchByNames(data.filtersCriteria.searchText, page, size),
+      (page, size, data) =>
+        this.spaceService.searchByNames(data.filtersCriteria.searchText ?? '', page, size),
       20,
       { initFirstPage: false }
     );
@@ -57,7 +66,7 @@ export class CaSelectSpaceComponent extends FlFormFieldDirective<CaSpace> implem
 
   onDisableChange(): void {}
 
-  writeValue(obj: CaSpace): void {
+  writeValue(obj: CaSpace | null): void {
     if (obj == null || obj.id == null) {
       this.selectedSpace = null;
       this.value = null;
@@ -74,7 +83,7 @@ export class CaSelectSpaceComponent extends FlFormFieldDirective<CaSpace> implem
     this.value = obj;
   }
 
-  async onFocused(selectedSpace?: CaSpace): Promise<void> {
+  async onFocused(selectedSpace?: CaSpace | null): Promise<void> {
     // by default add the current user and selected user
     const users: CaSpace[] = [];
     if (selectedSpace) {

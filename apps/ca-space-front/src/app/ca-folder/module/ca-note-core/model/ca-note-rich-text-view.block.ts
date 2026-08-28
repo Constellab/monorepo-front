@@ -48,7 +48,7 @@ export class CaNoteRichTextViewBlock extends TeComponentBlock<CaNoteContentViewC
   }
 
   initInputs(data: CaNoteResourceViewBlockData | CaNoteFileViewBlockData): void {
-    let resourceId: string = null;
+    let resourceId: string | undefined;
     if (this.additionalData.type === 'resourceView') {
       resourceId = (data as CaNoteResourceViewBlockData).resource_id;
     }

@@ -28,9 +28,9 @@ interface FlDynamicFormArrayColumn {
 export class FlDynamicFormArrayComponent implements FlDynamicAbstractFormDirective {
   private translateService = inject(FlTranslateService);
 
-  control = input<UntypedFormArray>();
+  control = input.required<UntypedFormArray>();
 
-  config = input<FlDynamicFormArrayConfig>();
+  config = input.required<FlDynamicFormArrayConfig>();
 
   addGroup(): void {
     FlDynamicFormHelper.addFormGroupToFormArray(
@@ -75,11 +75,13 @@ export class FlDynamicFormArrayComponent implements FlDynamicAbstractFormDirecti
   }
 
   get disableAdd(): boolean {
-    return this.config().maxSize != null && this.control().length >= this.config().maxSize;
+    const maxSize = this.config().maxSize;
+    return maxSize != null && this.control().length >= maxSize;
   }
 
   get disableRemove(): boolean {
-    return this.config().minSize != null && this.control().length <= this.config().minSize;
+    const minSize = this.config().minSize;
+    return minSize != null && this.control().length <= minSize;
   }
 
   get addTooltip(): string {

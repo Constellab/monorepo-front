@@ -8,7 +8,8 @@ import {
   Signal,
   signal,
   ViewChild,
-  WritableSignal} from '@angular/core';
+  WritableSignal,
+} from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatRipple } from '@angular/material/core';
 import { MatIcon } from '@angular/material/icon';
@@ -33,11 +34,11 @@ export class LiResourceChildrenTabsComponent implements DoCheck {
 
   @ViewChild('scrollableElement', { static: true }) scrollableElement: ElementRef<HTMLElement>;
 
-  resource: Signal<LiResource> = this.state.mainResource;
+  resource: Signal<LiResource | undefined> = this.state.mainResource;
 
   children: Signal<LiResource[]> = this.state.childrenResources;
 
-  selectedResource: Signal<LiResource> = this.state.selectedResource;
+  selectedResource: Signal<LiResource | undefined> = this.state.selectedResource;
 
   showLeftScrollButton: WritableSignal<boolean> = signal(false);
   showRightScrollButton: WritableSignal<boolean> = signal(false);

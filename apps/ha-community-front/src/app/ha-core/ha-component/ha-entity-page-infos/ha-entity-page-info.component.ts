@@ -61,8 +61,8 @@ export class HaEntityPageInfoComponent implements OnInit {
   entityType = input.required<HaEntityType>();
   contributors = input.required<HaUser[]>();
   date = input.required<DateTime>();
-  space = input<HaSpace>(undefined);
-  executions = input<number>(undefined);
+  space = input<HaSpace | undefined>(undefined);
+  executions = input<number | undefined>(undefined);
   isAuthor = input<boolean>(false);
   showCoAuthorsButton = input<boolean>(true);
   imageUrl = input<string | null>(null);
@@ -141,9 +141,14 @@ export class HaEntityPageInfoComponent implements OnInit {
         throw new Error('Unsupported entity type for co-author dialog');
     }
 
+    const service = this.currentPageState.entityService();
+    if (service == null) {
+      throw new Error('Unsupported entity type for co-author dialog');
+    }
+
     const input: HaCoAuthorsDialogInput = {
       id: this.entityId(),
-      service: this.currentPageState.entityService(),
+      service: service,
       inviteText: inviteText,
       authorId: this.contributors()[0].id,
     };

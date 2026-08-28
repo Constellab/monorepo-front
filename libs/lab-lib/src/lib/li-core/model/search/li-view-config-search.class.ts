@@ -84,7 +84,7 @@ export class LiViewConfigSearch {
    * @param viewType
    * @private
    */
-  private static viewTypeConverter(viewType: LiViewType): LiResourceViewType {
+  private static viewTypeConverter(viewType: LiViewType): LiResourceViewType | null {
     if (viewType == null) return null;
     return viewType.type;
   }

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent } from '@angular/material/dialog';
@@ -9,7 +9,7 @@ import { CoUser } from '@monorepo/community-lib';
 import { FlDialogModule, FlFormDialogAbstractDirective } from '@monorepo/front-core-lib/fl-dialog';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { TranslatePipe } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 import { HaUserService } from '../../../ha-core/ha-service/ha-user.service';
 
@@ -91,7 +91,7 @@ export class HaProfileEditDialogComponent
   }
 
   create(): Observable<CoUser> {
-    return undefined;
+    throw new Error('create not implemented in HaProfileEditDialogComponent: update only');
   }
 
   getCreateSuccessMessage(): string {
@@ -120,6 +120,6 @@ export class HaProfileEditDialogComponent
       return this.userService.editUser(formValue);
     }
 
-    return null;
+    return of(this.user);
   }
 }

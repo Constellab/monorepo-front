@@ -219,7 +219,9 @@
     <fl-card>
       <fl-card-header>
         <div class="ds-section-title">Select</div>
-        <p class="ds-section-description g-text-normal">mat-select with the capitalize override on the selected value.</p>
+        <p class="ds-section-description g-text-normal">
+          mat-select with the capitalize override on the selected value.
+        </p>
       </fl-card-header>
       <fl-card-body>
         <div class="ds-section-body">
@@ -351,7 +353,9 @@
     <fl-card>
       <fl-card-header>
         <div class="ds-section-title">Tabs</div>
-        <p class="ds-section-description g-text-normal">Tab group with the dense and card-background header overrides.</p>
+        <p class="ds-section-description g-text-normal">
+          Tab group with the dense and card-background header overrides.
+        </p>
       </fl-card-header>
       <fl-card-body>
         <div class="ds-section-body">
@@ -398,9 +402,7 @@
     <fl-card>
       <fl-card-header>
         <div class="ds-section-title">Snackbar</div>
-        <p class="ds-section-description g-text-normal">
-          FlSnackBarService success / error messages and raw container color variants.
-        </p>
+        <p class="ds-section-description g-text-normal">FlSnackBarService success / error messages.</p>
       </fl-card-header>
       <fl-card-body>
         <div class="ds-section-body">
@@ -414,15 +416,6 @@
               Success with action
             </button>
           </ds-example>
-
-          <ds-example label="Variants" code=".g-snackbar-primary / -warn / -card">
-            <button mat-flat-button class="primary" (click)="openSnackbar('g-snackbar-primary')">
-              Primary
-            </button>
-            <button mat-flat-button class="warn" (click)="openSnackbar('g-snackbar-warn')">Warn</button>
-            <button mat-stroked-button class="primary" (click)="openSnackbar('g-snackbar-card')">Card</button>
-            <button mat-button (click)="openSnackbar('')">Default</button>
-          </ds-example>
         </div>
       </fl-card-body>
     </fl-card>
@@ -432,19 +425,32 @@
       <fl-card-header>
         <div class="ds-section-title">Custom icons</div>
         <p class="ds-section-description g-text-normal">
-          Custom <code>FlIcon</code>s registered by front-core-lib (<code>FL_ICONS_DEFAULT</code>).
-          Rendered with the <code>flIcon</code> directive by their registered name, which resolves
-          both SVG icons and renamed Material symbols.
+          Custom <code>FlIcon</code>s registered by front-core-lib (<code>FL_ICONS_DEFAULT</code>). Rendered
+          with the <code>flIcon</code> directive by their registered name, which resolves both SVG icons and
+          renamed Material symbols.
         </p>
       </fl-card-header>
       <fl-card-body>
         <div class="ds-section-body">
-          <ds-example label="Registered names" code="<mat-icon flIcon=&quot;name&quot;>">
+          <ds-example label="SVG icons" code="{ name, filename }">
             <div class="ds-icon-grid">
-              @for (icon of customIcons; track icon.name) {
+              @for (icon of svgIcons; track icon.name) {
                 <div class="ds-icon-cell">
                   <mat-icon [flIcon]="icon.name"></mat-icon>
                   <span class="ds-icon-name g-text-small">{{ icon.name }}</span>
+                  <span class="ds-icon-source g-text-tiny">{{ icon.filename }}</span>
+                </div>
+              }
+            </div>
+          </ds-example>
+
+          <ds-example label="Material overrides (renamed symbols)" code="{ name, matIconName }">
+            <div class="ds-icon-grid">
+              @for (icon of matIcons; track icon.name) {
+                <div class="ds-icon-cell">
+                  <mat-icon [flIcon]="icon.name"></mat-icon>
+                  <span class="ds-icon-name g-text-small">{{ icon.name }}</span>
+                  <span class="ds-icon-source g-text-tiny">{{ icon.matIconName }}</span>
                 </div>
               }
             </div>

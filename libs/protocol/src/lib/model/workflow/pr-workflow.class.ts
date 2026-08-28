@@ -6,7 +6,6 @@ import { PrWorkflowNode } from '../node/pr-workflow-node.class';
 import { PrWorkflowNodeProtocol } from '../node/pr-workflow-node-protocol.class';
 import { PrWorkflowConnection } from './pr-workflow-connection.class';
 import { PrWorkflowLayer } from './pr-workflow-layer.class';
-import { PrWorkflowPort } from './pr-workflow-port.class';
 
 export type PrWorkflowMode = 'edit' | 'readOnly';
 
@@ -39,7 +38,7 @@ export interface PrWorkflowNodeMovedEvent {
  */
 export class PrWorkflow {
   private containerElement: HTMLElement;
-  private editor: Drawflow;
+  private editor: Drawflow | null;
 
   private readonly layers: PrWorkflowLayer[];
   private currentLayer$: BehaviorSubject<PrWorkflowLayer>;
@@ -65,14 +64,15 @@ export class PrWorkflow {
 
   public start(element: HTMLElement): void {
     this.containerElement = element;
-    this.editor = new Drawflow(element);
-    this.editor.zoom_value = 0.05;
+    const editor = new Drawflow(element);
+    editor.zoom_value = 0.05;
     // use always edit mode
-    this.editor.editor_mode = 'edit';
+    editor.editor_mode = 'edit';
+    this.editor = editor;
 
     // run the start outside angular to prevent all drawflow event from triggering change detection
     this.ngZone.runOutsideAngular(() => {
-      this.editor.start();
+      editor.start();
 
       this.selectAndInitLayer(this.currentLayer);
     });
@@ -81,17 +81,20 @@ export class PrWorkflow {
   }
 
   private initListeners(): void {
-    this.editor.on('connectionCreated', (connection) =>
+    const editor = this.editor;
+    if (editor == null) return;
+
+    editor.on('connectionCreated', (connection) =>
       this.ngZone.run(() => this.onConnectionCreated(connection))
     );
 
-    this.editor.on('connectionRemoved', (connection) =>
+    editor.on('connectionRemoved', (connection) =>
       this.ngZone.run(() => this.onConnectionRemoved(connection))
     );
 
-    this.editor.on('nodeRemoved', (node) => this.ngZone.run(() => this.onNodeRemoved(node)));
+    editor.on('nodeRemoved', (node) => this.ngZone.run(() => this.onNodeRemoved(node)));
 
-    this.editor.on('nodeMoved', (node) => this.ngZone.run(() => this.onNodeMoved(node)));
+    editor.on('nodeMoved', (node) => this.ngZone.run(() => this.onNodeMoved(node)));
   }
 
   ////////////////////// LAYERS ///////////////////////////
@@ -105,8 +108,8 @@ export class PrWorkflow {
       return;
     }
 
-    const layer: PrWorkflowLayer = this.findLayerById(layerId);
-    if (!layerId) {
+    const layer = this.findLayerById(layerId);
+    if (layer == null) {
       throw new Error(`The layer with id ${layerId} doesn't exist`);
     }
 
@@ -117,28 +120,29 @@ export class PrWorkflow {
     // update the current layer before initializing the layer
     this.currentLayer$.next(layer);
 
-    if (this.isDrawflowReady()) {
-      // if the added layer is not initialized, initialize it
-      const initializeModule = !layer.isDrawflowReady();
+    const editor = this.editor;
+    if (editor == null) return;
 
-      if (initializeModule) {
-        this.editor.addModule(layer.drawflowId);
-      }
+    // if the added layer is not initialized, initialize it
+    const initializeModule = !layer.isDrawflowReady();
 
-      // update the drawflow module before initialized the layer
-      this.editor.changeModule(layer.drawflowId);
-
-      if (initializeModule) {
-        layer.init(this.editor, this.containerElement);
-      }
-
-      layer.initOnSelect();
+    if (initializeModule) {
+      editor.addModule(layer.drawflowId);
     }
+
+    // update the drawflow module before initialized the layer
+    editor.changeModule(layer.drawflowId);
+
+    if (initializeModule) {
+      layer.init(editor, this.containerElement);
+    }
+
+    layer.initOnSelect();
   }
 
   public addLayer(layer: PrWorkflowLayer, parentLayerId: string, selectLayer: boolean = false): void {
     if (parentLayerId != null) {
-      layer.parentLayer = this.findLayerById(parentLayerId);
+      layer.parentLayer = this.findLayerById(parentLayerId) ?? null;
     }
     this.layers.push(layer);
 
@@ -152,7 +156,7 @@ export class PrWorkflow {
   }
 
   // return the layer with the id
-  public findLayerById(layerId: string): PrWorkflowLayer {
+  public findLayerById(layerId: string): PrWorkflowLayer | undefined {
     return this.layers.find((layer) => layer.id === layerId);
   }
 
@@ -219,7 +223,7 @@ export class PrWorkflow {
 
   private onNodeRemoved(nodeId: number): void {
     const layer = this.currentLayer;
-    const node: PrWorkflowNode = layer.findNodeByDrawflowId(nodeId.toString());
+    const node = layer.findNodeByDrawflowId(nodeId.toString());
 
     // if we can't find the node, we don't need to do anything
     // the node was already deleted by code
@@ -235,7 +239,7 @@ export class PrWorkflow {
     }
   }
 
-  public findNodeByDrawflowId(drawflowNodeId: string): PrWorkflowNode {
+  public findNodeByDrawflowId(drawflowNodeId: string): PrWorkflowNode | null {
     for (const layer of this.layers) {
       const node = layer.findNodeByDrawflowId(drawflowNodeId);
       if (node != null) {
@@ -249,7 +253,7 @@ export class PrWorkflow {
    * Find (in the current layer) the node with the given name
    * We must search in current layer because in multiple layer we can have the same
    */
-  public findNodeByNameInCurrentLayer(nodeName: string): PrWorkflowNode {
+  public findNodeByNameInCurrentLayer(nodeName: string): PrWorkflowNode | undefined {
     return this.currentLayer.findNodeByName(nodeName);
   }
 
@@ -271,10 +275,19 @@ export class PrWorkflow {
 
   private onConnectionCreated(connectionEvent: ConnectionEvent): void {
     // check if input is available for the node
-    const inputNode: PrWorkflowNode = this.findNodeByDrawflowId(connectionEvent.input_id);
-    const outputNode: PrWorkflowNode = this.findNodeByDrawflowId(connectionEvent.output_id);
-    const inputPort: PrWorkflowPort = inputNode.findInputPortByDrawflowName(connectionEvent.input_class);
-    const outputPort: PrWorkflowPort = outputNode.findOutputPortByDrawflowName(connectionEvent.output_class);
+    const inputNode = this.findNodeByDrawflowId(connectionEvent.input_id);
+    const outputNode = this.findNodeByDrawflowId(connectionEvent.output_id);
+    if (inputNode == null || outputNode == null) {
+      console.error('[PrWorkflow] could not find node for the created connection');
+      return;
+    }
+
+    const inputPort = inputNode.findInputPortByDrawflowName(connectionEvent.input_class);
+    const outputPort = outputNode.findOutputPortByDrawflowName(connectionEvent.output_class);
+    if (inputPort == null || outputPort == null) {
+      console.error('[PrWorkflow] could not find port for the created connection');
+      return;
+    }
 
     // if the connection already exists, we don't need to do anything
     // this happened when the add_connection is called and the connection is added by code not user
@@ -287,10 +300,9 @@ export class PrWorkflow {
 
     // check if the input is available and if the port are compatible
     // refuse if there are more than one connection (the new one is counting)
-    const port = inputNode.findInputPortByDrawflowName(connectionEvent.input_class);
-    if (inputNode.countInputConnections(port.name) > 1) {
+    if (inputNode.countInputConnections(inputPort.name) > 1) {
       // remove the connection
-      this.editor.removeSingleConnection(
+      this.editor?.removeSingleConnection(
         connectionEvent.output_id,
         connectionEvent.input_id,
         connectionEvent.output_class,
@@ -305,7 +317,7 @@ export class PrWorkflow {
       outputPort,
       inputPort
     );
-    if (connectionEvent) {
+    if (newConnection != null) {
       this.workflowEvent$.next({
         action: 'addConnection',
         connection: newConnection,
@@ -354,7 +366,7 @@ export class PrWorkflow {
     inputNodeId: string,
     outputPortName: string,
     inputPortName: string
-  ): PrWorkflowConnection {
+  ): PrWorkflowConnection | null {
     for (const layer of this.layers) {
       const connection = layer.findConnection(outputNodeId, inputNodeId, outputPortName, inputPortName);
       if (connection != null) {

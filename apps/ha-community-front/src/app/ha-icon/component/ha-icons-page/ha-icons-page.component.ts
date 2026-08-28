@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { CoIcon } from '@monorepo/community-lib';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
@@ -40,7 +40,7 @@ export class HaIconsPageComponent extends HaCommunityPageDirective implements On
         text: 'ha.icons.description',
         translateText: true,
       },
-      null,
+      '',
       HaRouterService.getFullRoute(HaRouterService.getIconsRoute())
     );
   }
@@ -48,7 +48,6 @@ export class HaIconsPageComponent extends HaCommunityPageDirective implements On
   openCreateIconDialog(): void {
     const inputData: HaCreateIconDtoInput = {
       mode: 'create',
-      object: null,
     };
     this.dialogService
       .openSmallDialog(HaIconCreateDialogComponent, { data: inputData })

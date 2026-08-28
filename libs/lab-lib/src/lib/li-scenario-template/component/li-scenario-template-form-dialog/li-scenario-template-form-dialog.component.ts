@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent } from '@angular/material/dialog';
@@ -74,11 +74,19 @@ export class LiScenarioTemplateFormDialogComponent
   }
 
   create(formValue: LiCreateScenarioTemplateDTO): Observable<LiScenarioTemplate> {
-    return this.protocolService.createScenarioTemplate(this.dialogInput.protocolId, formValue);
+    const protocolId = this.dialogInput.protocolId;
+    if (protocolId == null) {
+      throw new Error('Cannot create a scenario template without a protocol id');
+    }
+    return this.protocolService.createScenarioTemplate(protocolId, formValue);
   }
 
   update(formValue: LiCreateScenarioTemplateDTO): Observable<LiScenarioTemplate> {
-    return this.scenarioTemplateService.updateScenarioTemplate(this.dialogInput.object.id, formValue);
+    const template = this.dialogInput.object;
+    if (template == null) {
+      throw new Error('Cannot update a scenario template without an existing object');
+    }
+    return this.scenarioTemplateService.updateScenarioTemplate(template.id, formValue);
   }
 
   get title(): string {

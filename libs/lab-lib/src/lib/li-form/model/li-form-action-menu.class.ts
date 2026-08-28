@@ -153,10 +153,11 @@ export class LiFormActionMenu extends LiEntityActionMenu {
   }
 
   private onArchiveClosed(result: FlConfirmDialogResult<LiForm>): void {
-    if (result.choice) {
+    const updated = result.result;
+    if (result.choice && updated) {
       this.subject.next({
-        action: result.result.isArchived ? 'archive' : 'unarchive',
-        form: result.result,
+        action: updated.isArchived ? 'archive' : 'unarchive',
+        form: updated,
       });
     }
 

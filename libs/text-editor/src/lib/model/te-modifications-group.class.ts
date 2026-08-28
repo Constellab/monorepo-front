@@ -6,7 +6,7 @@ export class TeTextEditorHistoryModificationGroup {
   end: DateTime;
   modifications: TeRichTextBlockModificationWithUser[];
 
-  constructor(end?: DateTime) {
+  constructor(end: DateTime) {
     this.end = end;
   }
 
@@ -14,7 +14,7 @@ export class TeTextEditorHistoryModificationGroup {
     return !this.modifications || this.modifications?.length === 0;
   }
 
-  public mainModificationId(): string {
+  public mainModificationId(): string | null {
     if (this.isEmpty()) {
       return null;
     }

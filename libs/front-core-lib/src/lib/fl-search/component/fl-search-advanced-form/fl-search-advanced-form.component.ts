@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FlFormInputsManagerConfig } from '@monorepo/front-core-lib/fl-form-inputs-manager';
 
@@ -20,7 +20,7 @@ export class FlSearchAdvancedFormComponent implements OnInit {
   formGp: FormGroup;
 
   formInputConfig: FlFormInputsManagerConfig;
-  skipFalseBoolean: boolean;
+  skipFalseBoolean: boolean | undefined;
 
   ngOnInit(): void {
     const config = this.searchState.getConfig();

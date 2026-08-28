@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy,Component, inject, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, output } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
@@ -27,7 +27,7 @@ import {
   changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatIcon, FlIconModule, LiFolderInlineComponent, MatButton, AsyncPipe, FlTranslateModule],
 })
-export class LiFolderInlineSelectComponent extends FlFormFieldDirective<LiFolder> {
+export class LiFolderInlineSelectComponent extends FlFormFieldDirective<LiFolder | null> {
   private portalService = inject(FlPortalService);
   private folderService = inject(LiFolderService);
 
@@ -43,13 +43,13 @@ export class LiFolderInlineSelectComponent extends FlFormFieldDirective<LiFolder
     super(ngControl);
   }
 
-  callChangeEvent(value: LiFolder): void {
+  callChangeEvent(value: LiFolder | null): void {
     this.selectionChange.emit(value);
   }
 
   onDisableChange(): void {}
 
-  writeValue(obj: LiFolder): void {
+  writeValue(obj: LiFolder | null): void {
     if (obj == null) {
       this.value = null;
       return;
@@ -90,7 +90,7 @@ export class LiFolderInlineSelectComponent extends FlFormFieldDirective<LiFolder
   private onPortalClosed(result: LiFolderSelectPortalResult): void {
     if (result == null) return;
 
-    const folder = result.folder;
+    const folder = result.folder ?? null;
     if (this.value?.id === folder?.id || (this.value == null && folder == null)) return;
     this.setAndEmitValue(folder);
   }

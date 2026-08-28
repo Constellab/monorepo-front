@@ -33,12 +33,15 @@ export class CoUpdateTypeIconFormComponent extends FlFormFieldDirective<TdTypeSt
       .afterClosed()
       .subscribe((icon: CoIcon) => {
         if (icon) {
+          const backgroundColor = this.value.background_color;
           const newStyle: TdTypeStyle = {
             icon_type: icon.type,
             icon_technical_name: icon.technicalName,
-            background_color: this.value.background_color,
+            background_color: backgroundColor,
             icon_color:
-              FlColorHelper.getContrastColor(this.value.background_color) == 'black' ? '#000000' : '#FFFFFF',
+              backgroundColor && FlColorHelper.getContrastColor(backgroundColor) == 'black'
+                ? '#000000'
+                : '#FFFFFF',
           };
           this.checkAndSend(newStyle);
         }

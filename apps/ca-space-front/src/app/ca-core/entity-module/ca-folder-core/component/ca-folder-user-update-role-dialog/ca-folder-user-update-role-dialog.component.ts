@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
@@ -43,7 +43,7 @@ export interface CaFolderUserUpdateRoleDialogInput {
 export class CaFolderUserUpdateRoleDialogComponent {
   input: CaFolderUserUpdateRoleDialogInput = inject(MAT_DIALOG_DATA);
 
-  formControl = new FormControl(this.input.role, Validators.required);
+  formControl = new FormControl(this.input.role, { nonNullable: true, validators: Validators.required });
 
   private folderService = inject(CaFolderService);
   private dialogRef = inject(MatDialogRef);

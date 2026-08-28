@@ -62,7 +62,7 @@ export function rvResourceBuildBasicChart2d(
 
     for (let i = 0; i < viewSerie.data.x.length; i++) {
       const datum = new ChChart2dDatum(viewSerie.data.x[i], viewSerie.data.y[i]);
-      datum.tags = viewSerie.data.tags ? viewSerie.data.tags[i] : null;
+      datum.tags = viewSerie.data.tags ? viewSerie.data.tags[i] : undefined;
       data.push(datum);
     }
 
@@ -71,7 +71,7 @@ export function rvResourceBuildBasicChart2d(
   }
 
   // if there are some tick labels
-  if (viewData.x_tick_labels?.length > 0) {
+  if (viewData.x_tick_labels != null && viewData.x_tick_labels.length > 0) {
     series.setXTickLabels(viewData.x_tick_labels);
   }
 

@@ -13,7 +13,7 @@ export class FlYesNoPipe implements PipeTransform {
    * @param value boolean value
    * @param lowercase if true lowercase the string
    */
-  transform(value: boolean, lowercase: boolean = false): string {
+  transform(value: boolean, lowercase: boolean = false): string | null {
     let stringValue: string;
     if (value == null) {
       return null;

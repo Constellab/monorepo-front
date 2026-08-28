@@ -1,5 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { ChangeDetectionStrategy,Component, ContentChild, inject, Input, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChild, inject, Input, TemplateRef } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
@@ -133,7 +133,7 @@ export class CaUserTableComponent {
   }
 
   private onDialogClosed(result: FlConfirmDialogResult<CaUser>): void {
-    if (result.choice) {
+    if (result.choice && result.result != null) {
       this.datasource.updateItem(result.result);
     }
   }

@@ -4,13 +4,13 @@
   <div>
     <div>{{ resource().name }}</div>
 
-    @if (resource().scenario) {
+    @if (resource().scenario; as scenario) {
       <div class="g-layout-row g-layout-start-center g-text-tiny g-text-light">
         <mat-icon flIcon="scenario" class="g-icon-tiny icon"></mat-icon>
         <div
           class="scenario-circle scenario-content"
-          [style.background-color]="resource().scenario?.id | flStringToRgb"></div>
-        <div class="scenario-content">{{ resource().scenario.title }}</div>
+          [style.background-color]="scenario.id | flStringToRgb"></div>
+        <div class="scenario-content">{{ scenario.title }}</div>
       </div>
     }
   </div>

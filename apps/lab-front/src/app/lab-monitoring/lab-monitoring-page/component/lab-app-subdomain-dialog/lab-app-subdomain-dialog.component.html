@@ -13,9 +13,9 @@
         formControlName="subdomain"
         [placeholder]="'monitoring.app_custom_subdomain_placeholder' | translate" />
       <mat-hint>{{ 'monitoring.app_custom_subdomain_hint' | translate }}</mat-hint>
-      @if (formGp.get('subdomain').hasError('required')) {
+      @if (formGp.get('subdomain')?.hasError('required')) {
         <mat-error>{{ 'monitoring.app_custom_subdomain_required' | translate }}</mat-error>
-      } @else if (formGp.get('subdomain').hasError('pattern')) {
+      } @else if (formGp.get('subdomain')?.hasError('pattern')) {
         <mat-error>{{ 'monitoring.app_custom_subdomain_invalid' | translate }}</mat-error>
       }
     </mat-form-field>

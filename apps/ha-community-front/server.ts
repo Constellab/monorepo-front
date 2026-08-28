@@ -20,7 +20,7 @@ HA_ENVIRONMENT.settings = {
   constellabApiUrl: process?.env['CONSTELLAB_API_URL'] || 'https://api.preconstellab.com',
   constellabFrontUrl: process?.env['CONSTELLAB_FRONT_URL'] || 'https://preconstellab.com',
   communityFrontUrl: process?.env['COMMUNITY_FRONT_URL'] || 'http://localhost:4200',
-  captchaSiteKey: process?.env['CAPTCHA_SITE_KEY'] || null,
+  captchaSiteKey: process?.env['CAPTCHA_SITE_KEY'] || '',
   googleAnalyticsId: process?.env['GOOGLE_ANALYTICS_ID'] || 'eazeaze',
   discordLink: process?.env['DISCORD_LINK'] || 'https://discord.com/invite/7nmH5qKM',
   algoliaAppId: process?.env['ALGOLIA_APP_ID'] || 'S233I3C24Z',
@@ -30,95 +30,212 @@ HA_ENVIRONMENT.settings = {
   homeVideoLink: process?.env['HOME_VIDEO_LINK'] || null,
 };
 
-// The Express app is exported so that it can be used by serverless Functions.
-function app(): express.Express {
-  const server = express();
-  const serverDistFolder = dirname(fileURLToPath(import.meta.url));
-  const browserDistFolder = resolve(serverDistFolder, '../browser');
-  const indexHtml = join(serverDistFolder, 'index.server.html');
+/**
+ * The hostnames CommonEngine will render for.
+ *
+ * Angular 22 rejects a render whose url carries an unlisted hostname, so an empty list throws on
+ * every request rather than letting one through. The list is derived from COMMUNITY_FRONT_URL --
+ * the canonical public url, already set per environment -- so a new environment works without a
+ * second variable to remember. NG_ALLOWED_HOSTS still overrides this, which is the way to add a
+ * host without rebuilding the image.
+ */
+function allowedHosts(): string[] {
+  const { communityFrontUrl } = HA_ENVIRONMENT.settings;
+  const override = process.env['NG_ALLOWED_HOSTS'];
 
-  const commonEngine = new CommonEngine();
+  // @angular/ssr reads NG_ALLOWED_HOSTS itself and prefers it over anything passed here, so report
+  // that rather than a list which is not the one in force.
+  if (override) {
+    console.log(`Server-side rendering allows "${override}" (from NG_ALLOWED_HOSTS).`);
+  }
 
-  server.use(compression());
+  if (!URL.canParse(communityFrontUrl)) {
+    // Nothing would render, so say why here rather than once per failed request.
+    console.error(
+      `COMMUNITY_FRONT_URL is "${communityFrontUrl}", which is not a url. Server-side rendering ` +
+        'will reject every request until it is set, or until NG_ALLOWED_HOSTS lists the hostnames.'
+    );
+    return [];
+  }
 
-  server.set('view engine', 'html');
-  server.set('views', browserDistFolder);
+  const { hostname } = new URL(communityFrontUrl);
 
-  const securityHeadersMiddleware = (
-    req: express.Request,
-    res: express.Response,
-    next: express.NextFunction
-  ): void => {
-    if (HA_ENVIRONMENT.production) {
-      res.setHeader('X-Frame-Options', 'SAMEORIGIN');
-      res.setHeader('X-Content-Type-Options', 'nosniff');
-      res.setHeader('X-Xss-Protection', '1; mode=block');
-      // TODO: CHECK IF THERE IS A BETTER WAY
-      const defaultSrc = "default-src 'self' *.constellab.community";
-      //'unsafe-hashes' 'sha256-MhtPZXr7+LpJUY5qtMutB+qWfQtMaPccfe7QXtCcEYc='
-      // is for the inline script in the index.html
-      // script-src : https://www.google.com, https://www.gstatic.com
+  // An unset COMMUNITY_FRONT_URL falls back to localhost, which parses, so the check above lets it
+  // through -- and a deployed server that renders only for localhost rejects every real request
+  // with nothing in the log to say why. That is this exact outage, so name it at startup.
+  if (HA_ENVIRONMENT.production && hostname === 'localhost' && !override) {
+    console.error(
+      'COMMUNITY_FRONT_URL is unset or points at localhost, so server-side rendering will reject ' +
+        'every request to the public hostname. Set COMMUNITY_FRONT_URL to the public url, or list ' +
+        'the hostnames in NG_ALLOWED_HOSTS.'
+    );
+  } else if (!override) {
+    console.log(`Server-side rendering allows "${hostname}" (from COMMUNITY_FRONT_URL).`);
+  }
 
-      const scriptSrc =
-        "script-src 'self' 'unsafe-hashes' 'sha256-MhtPZXr7+LpJUY5qtMutB+qWfQtMaPccfe7QXtCcEYc=' " +
-        "'sha256-fPMfCibMhhkJZAz+L32w5D6q/jMoM8B+cblEqezMH44=' *.constellab.community " +
-        'https://www.google.com https://www.gstatic.com *.googletagmanager.com data:';
+  return [hostname];
+}
 
-      // frame-src https://www.google.com/' is for the recaptcha
+function setSecurityHeaders(res: express.Response): void {
+  res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Xss-Protection', '1; mode=block');
+  // TODO: CHECK IF THERE IS A BETTER WAY
+  const defaultSrc = "default-src 'self' *.constellab.community";
+  //'unsafe-hashes' 'sha256-MhtPZXr7+LpJUY5qtMutB+qWfQtMaPccfe7QXtCcEYc='
+  // is for the inline script in the index.html
+  // script-src : https://www.google.com, https://www.gstatic.com
 
-      const frameSrc =
-        "frame-src 'self' *.gencovery.com *.constellab.community *.gencovery.io *.constellab.app " +
-        'youtube.com www.youtube.com https://www.google.com';
-      const workerSrc = "worker-src  *.gencovery.com *.constellab.community data: 'self' blob:";
-      const styleSrc =
-        "style-src 'self' 'unsafe-inline' *.gencovery.com *.constellab.community " +
-        'https://fonts.googleapis.com';
-      const fontSrc = "font-src 'self' data: http: https: fonts.googleapis.com fonts.gstatic.com";
-      const imgSrc =
-        "img-src 'self' blob: data: http: https: *.gencovery.com *.constellab.community http://www.w3.org";
-      // https://cdn.jsdelivr.net/npm/@emoji-mart/data is used to allow the emoji-mart data
-      const connectSrc =
-        "connect-src 'self' *.gencovery.com *.constellab-pre-prod.gencovery.com " +
-        'wss://*.constellab.community wss://*.constellab-pre-prod.gencovery.com ' +
-        '*.constellab.community https://fonts.googleapis.com ' +
-        'https://fonts.gstatic.com *.google-analytics.com *.googletagmanager.com *.algolianet.com ' +
-        '*.algolia.net https://cdn.jsdelivr.net/npm/@emoji-mart/data https://api.github.com ' +
-        'https://www.google.com/recaptcha';
-      const mediaSrc = "media-src 'self' https://storage.sbg.cloud.ovh.net";
+  const scriptSrc =
+    "script-src 'self' 'unsafe-hashes' 'sha256-MhtPZXr7+LpJUY5qtMutB+qWfQtMaPccfe7QXtCcEYc=' " +
+    "'sha256-fPMfCibMhhkJZAz+L32w5D6q/jMoM8B+cblEqezMH44=' *.constellab.community " +
+    'https://www.google.com https://www.gstatic.com *.googletagmanager.com data:';
 
-      res.setHeader(
-        'Content-Security-Policy',
-        `${defaultSrc}; ${scriptSrc}; ${frameSrc}; ${workerSrc}; ${styleSrc}; ${imgSrc}; ` +
-          `${fontSrc}; ${connectSrc}; ${mediaSrc}`
-      );
+  // frame-src https://www.google.com/' is for the recaptcha
 
-      res.setHeader('Referrer-Policy', 'no-referrer-when-downgrade');
+  const frameSrc =
+    "frame-src 'self' *.gencovery.com *.constellab.community *.gencovery.io *.constellab.app " +
+    'youtube.com www.youtube.com https://www.google.com';
+  const workerSrc = "worker-src  *.gencovery.com *.constellab.community data: 'self' blob:";
+  const styleSrc =
+    "style-src 'self' 'unsafe-inline' *.gencovery.com *.constellab.community " +
+    'https://fonts.googleapis.com';
+  const fontSrc = "font-src 'self' data: http: https: fonts.googleapis.com fonts.gstatic.com";
+  const imgSrc =
+    "img-src 'self' blob: data: http: https: *.gencovery.com *.constellab.community http://www.w3.org";
+  // https://cdn.jsdelivr.net/npm/@emoji-mart/data is used to allow the emoji-mart data
+  const connectSrc =
+    "connect-src 'self' *.gencovery.com *.constellab-pre-prod.gencovery.com " +
+    'wss://*.constellab.community wss://*.constellab-pre-prod.gencovery.com ' +
+    '*.constellab.community https://fonts.googleapis.com ' +
+    'https://fonts.gstatic.com *.google-analytics.com *.googletagmanager.com *.algolianet.com ' +
+    '*.algolia.net https://cdn.jsdelivr.net/npm/@emoji-mart/data https://api.github.com ' +
+    'https://www.google.com/recaptcha';
+  const mediaSrc = "media-src 'self' https://storage.sbg.cloud.ovh.net";
 
-      res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
+  res.setHeader(
+    'Content-Security-Policy',
+    `${defaultSrc}; ${scriptSrc}; ${frameSrc}; ${workerSrc}; ${styleSrc}; ${imgSrc}; ` +
+      `${fontSrc}; ${connectSrc}; ${mediaSrc}`
+  );
 
-      res.setHeader(
-        'Feature-Policy',
-        "accelerometer 'none'; autoplay 'none'; camera 'none'; encrypted-media 'none'; geolocation" +
-          " 'none'; gyroscope 'none'; magnetometer 'none'; microphone 'self'; midi 'none'; payment 'none'"
-      );
-    }
+  res.setHeader('Referrer-Policy', 'no-referrer-when-downgrade');
 
-    next();
-  };
+  res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
 
-  server.use(securityHeadersMiddleware);
-  server.use(cookieParser());
+  res.setHeader(
+    'Feature-Policy',
+    "accelerometer 'none'; autoplay 'none'; camera 'none'; encrypted-media 'none'; geolocation" +
+      " 'none'; gyroscope 'none'; magnetometer 'none'; microphone 'self'; midi 'none'; payment 'none'"
+  );
+}
 
+function securityHeadersMiddleware(
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+): void {
+  if (HA_ENVIRONMENT.production) {
+    setSecurityHeaders(res);
+  }
+
+  next();
+}
+
+function cacheControlMiddleware(
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+): void {
+  // Set the cache control headers for specific file types
+  if (req.url.match(/(dark-theme\.css|light-theme\.css|\.json)$/)) {
+    res.setHeader('Cache-Control', 'no-store, must-revalidate');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
+  }
+
+  if (req.url.match(/\.html$/)) {
+    res.setHeader('Cache-Control', 'no-store, must-revalidate');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
+    res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+  }
+
+  next();
+}
+
+function registerRobotsRoute(server: express.Express): void {
   server.get('/robots.txt', (req, res) => {
     res.type('text/plain');
     res.send(`User-agent: *
 Disallow:
 Sitemap: ${HA_ENVIRONMENT.settings.communityFrontUrl}/sitemap.xml`);
   });
-  let lastSiteMapUpdate: Date = null;
-  let siteMap: string = null;
+}
 
-  server.get('/sitemap.xml', async (req, res) => {
+function getStaticSitemapUrls(): { url: string; changefreq: EnumChangefreq; priority: number }[] {
+  const urls = [
+    { url: '', changefreq: EnumChangefreq.MONTHLY, priority: 1 },
+    { url: HaRouterService.getStoriesListRoute(), changefreq: EnumChangefreq.MONTHLY, priority: 1 },
+    { url: HaRouterService.getBrickListRoute(), changefreq: EnumChangefreq.MONTHLY, priority: 1 },
+    { url: HaRouterService.getAgentsListRoute(), changefreq: EnumChangefreq.MONTHLY, priority: 1 },
+    { url: HaRouterService.getLoginRoute(), changefreq: EnumChangefreq.MONTHLY, priority: 1 },
+    { url: HaRouterService.getIconsRoute(), changefreq: EnumChangefreq.MONTHLY, priority: 1 },
+    {
+      url: HaRouterService.getCommunityAppListRoute(),
+      changefreq: EnumChangefreq.MONTHLY,
+      priority: 1,
+    },
+    {
+      url: HaRouterService.getPartnerListRoute(),
+      changefreq: EnumChangefreq.MONTHLY,
+      priority: 1,
+    },
+    {
+      url: HaRouterService.getTagsListRoute(),
+      changefreq: EnumChangefreq.MONTHLY,
+      priority: 1,
+    },
+  ];
+  return urls;
+}
+
+async function fetchDynamicSitemapUrls(): Promise<SitemapItem[]> {
+  const dynamicBricksUrls = await fetchBricksMap();
+  const dynamicStoriesUrls = await fetchStoriesMap();
+  const dynamicAgentsUrls = await fetchAgentsMap();
+  const dynamicProfilesUrls = await fetchProfilesMap();
+  const dynamicAppsUrls = await fetchAppsMap();
+  const dynamicPartnersUrls = await fetchPartnersMap();
+  const dynamicTagsUrls = await fetchTagsMap();
+  const dynamicUrls = [
+    ...dynamicAppsUrls,
+    ...dynamicBricksUrls,
+    ...dynamicStoriesUrls,
+    ...dynamicAgentsUrls,
+    ...dynamicProfilesUrls,
+    ...dynamicPartnersUrls,
+    ...dynamicTagsUrls,
+  ];
+  return dynamicUrls;
+}
+
+async function buildSiteMap(): Promise<string> {
+  const smStream = new SitemapStream({ hostname: HA_ENVIRONMENT.settings.communityFrontUrl });
+
+  const allUrls = [...getStaticSitemapUrls(), ...(await fetchDynamicSitemapUrls())];
+
+  allUrls.forEach((url) => smStream.write(url));
+  smStream.end();
+
+  return streamToPromise(smStream).then((sm) => sm.toString());
+}
+
+function createSitemapHandler(): express.RequestHandler {
+  let lastSiteMapUpdate: Date | null = null;
+  let siteMap: string | null = null;
+
+  return async (req, res): Promise<void> => {
     res.header('Content-Type', 'application/xml');
 
     try {
@@ -126,55 +243,8 @@ Sitemap: ${HA_ENVIRONMENT.settings.communityFrontUrl}/sitemap.xml`);
       const oneDayInMs = 24 * 60 * 60 * 1000; // 1 day in milliseconds
 
       if (lastSiteMapUpdate === null || now.getTime() - lastSiteMapUpdate.getTime() > oneDayInMs) {
-        const smStream = new SitemapStream({ hostname: HA_ENVIRONMENT.settings.communityFrontUrl });
-
-        const urls = [
-          { url: '', changefreq: EnumChangefreq.MONTHLY, priority: 1 },
-          { url: HaRouterService.getStoriesListRoute(), changefreq: EnumChangefreq.MONTHLY, priority: 1 },
-          { url: HaRouterService.getBrickListRoute(), changefreq: EnumChangefreq.MONTHLY, priority: 1 },
-          { url: HaRouterService.getAgentsListRoute(), changefreq: EnumChangefreq.MONTHLY, priority: 1 },
-          { url: HaRouterService.getLoginRoute(), changefreq: EnumChangefreq.MONTHLY, priority: 1 },
-          { url: HaRouterService.getIconsRoute(), changefreq: EnumChangefreq.MONTHLY, priority: 1 },
-          {
-            url: HaRouterService.getCommunityAppListRoute(),
-            changefreq: EnumChangefreq.MONTHLY,
-            priority: 1,
-          },
-          {
-            url: HaRouterService.getPartnerListRoute(),
-            changefreq: EnumChangefreq.MONTHLY,
-            priority: 1,
-          },
-          {
-            url: HaRouterService.getTagsListRoute(),
-            changefreq: EnumChangefreq.MONTHLY,
-            priority: 1,
-          },
-        ];
-
-        const dynamicBricksUrls = await fetchBricksMap();
-        const dynamicStoriesUrls = await fetchStoriesMap();
-        const dynamicAgentsUrls = await fetchAgentsMap();
-        const dynamicProfilesUrls = await fetchProfilesMap();
-        const dynamicAppsUrls = await fetchAppsMap();
-        const dynamicPartnersUrls = await fetchPartnersMap();
-        const dynamicTagsUrls = await fetchTagsMap();
-        const dynamicUrls = [
-          ...dynamicAppsUrls,
-          ...dynamicBricksUrls,
-          ...dynamicStoriesUrls,
-          ...dynamicAgentsUrls,
-          ...dynamicProfilesUrls,
-          ...dynamicPartnersUrls,
-          ...dynamicTagsUrls,
-        ];
-        const allUrls = [...urls, ...dynamicUrls];
-
-        allUrls.forEach((url) => smStream.write(url));
-        smStream.end();
-
         // Save the sitemap to disk or to a database
-        siteMap = await streamToPromise(smStream).then((sm) => sm.toString());
+        siteMap = await buildSiteMap();
         lastSiteMapUpdate = now;
       }
 
@@ -183,37 +253,42 @@ Sitemap: ${HA_ENVIRONMENT.settings.communityFrontUrl}/sitemap.xml`);
       console.error(e);
       res.status(500).end();
     }
-  });
+  };
+}
 
-  server.use((req, res, next) => {
-    // Set the cache control headers for specific file types
-    if (req.url.match(/(dark-theme\.css|light-theme\.css|\.json)$/)) {
-      res.setHeader('Cache-Control', 'no-store, must-revalidate');
-      res.setHeader('Pragma', 'no-cache');
-      res.setHeader('Expires', '0');
-    }
+function sendRenderedHtml(res: express.Response, html: string): void {
+  res.setHeader('Content-Type', 'text/html');
+  // Rendered per visitor: it carries the header of the logged in user and, since the
+  // session marker cookie is httpOnly, the only answer the browser gets about whether a
+  // session exists. A shared cache would hand one visitor's state to another.
+  // The no-store rules above only match urls ending in .html, which a rendered route never
+  // does.
+  res.setHeader('Cache-Control', 'no-store, must-revalidate');
+  // Check for redirection
+  const metaTagRedirect = getMetaTagContent(html, HaMetadataNamesConfig.REDIRECT_URL);
 
-    if (req.url.match(/\.html$/)) {
-      res.setHeader('Cache-Control', 'no-store, must-revalidate');
-      res.setHeader('Pragma', 'no-cache');
-      res.setHeader('Expires', '0');
-      res.setHeader('X-Frame-Options', 'SAMEORIGIN');
-    }
+  if (metaTagRedirect != null) {
+    res.redirect(301, metaTagRedirect);
+    return;
+  }
 
-    next();
-  });
+  // Check if 404
+  const metaTag404 = getMetaTagContent(html, HaMetadataNamesConfig.NOT_FOUND_URL);
 
-  // Example Express Rest API endpoints
-  // server.get('/api/**', (req, res) => { });
-  // Serve static files from /browser
-  server.use(
-    express.static(browserDistFolder, {
-      maxAge: '1y',
-      index: false, // Important: ne pas servir index.html automatiquement
-    })
-  );
+  if (metaTag404 != null) {
+    res.status(404);
+  }
 
-  // All regular routes use the Angular engine
+  res.send(html);
+}
+
+// All regular routes use the Angular engine
+function registerAngularRoute(
+  server: express.Express,
+  commonEngine: CommonEngine,
+  indexHtml: string,
+  browserDistFolder: string
+): void {
   server.get('/{*splat}', async (req, res, next) => {
     const { protocol, originalUrl, baseUrl, headers } = req;
     commonEngine
@@ -230,29 +305,46 @@ Sitemap: ${HA_ENVIRONMENT.settings.communityFrontUrl}/sitemap.xml`);
           { provide: REQUEST, useValue: req },
         ],
       })
-      .then((html: any) => {
-        res.setHeader('Content-Type', 'text/html');
-        // Check for redirection
-        const metaTagRedirect = getMetaTagContent(html, HaMetadataNamesConfig.REDIRECT_URL);
-
-        if (metaTagRedirect != null) {
-          return res.redirect(301, metaTagRedirect);
-        }
-
-        // Check if 404
-        const metaTag404 = getMetaTagContent(html, HaMetadataNamesConfig.NOT_FOUND_URL);
-
-        if (metaTag404 != null) {
-          res.status(404);
-        }
-
-        res.send(html);
-      })
+      .then((html: any) => sendRenderedHtml(res, html))
       .catch((err: any) => {
         console.error(err);
         next(err);
       });
   });
+}
+
+// The Express app is exported so that it can be used by serverless Functions.
+function app(): express.Express {
+  const server = express();
+  const serverDistFolder = dirname(fileURLToPath(import.meta.url));
+  const browserDistFolder = resolve(serverDistFolder, '../browser');
+  const indexHtml = join(serverDistFolder, 'index.server.html');
+
+  const commonEngine = new CommonEngine({ allowedHosts: allowedHosts() });
+
+  server.use(compression());
+
+  server.set('view engine', 'html');
+  server.set('views', browserDistFolder);
+
+  server.use(securityHeadersMiddleware);
+  server.use(cookieParser());
+
+  registerRobotsRoute(server);
+  server.get('/sitemap.xml', createSitemapHandler());
+  server.use(cacheControlMiddleware);
+
+  // Example Express Rest API endpoints
+  // server.get('/api/**', (req, res) => { });
+  // Serve static files from /browser
+  server.use(
+    express.static(browserDistFolder, {
+      maxAge: '1y',
+      index: false, // Important: ne pas servir index.html automatiquement
+    })
+  );
+
+  registerAngularRoute(server, commonEngine, indexHtml, browserDistFolder);
   return server;
 }
 
@@ -327,7 +419,7 @@ async function fetchProfilesMap(): Promise<SitemapItem[]> {
   }
 }
 
-function getMetaTagContent(html: string, tagName: string): string {
+function getMetaTagContent(html: string, tagName: string): string | undefined {
   const regex = new RegExp(`<meta\\s+name="${tagName}"\\s+content="(.+)"\\s*\\/?>`, 'i');
   const match = html.match(regex);
   const content = match ? match[1] : null;

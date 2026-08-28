@@ -21,7 +21,7 @@ export class FlEntityArrayObs<T extends FlEntity> extends FlArrayObs<T> {
     return ClHelpService.compareFnIds(a, b);
   }
 
-  findItemById(id: string): T | null {
+  findItemById(id: string): T | undefined {
     return this.findItem({ id } as T);
   }
 }

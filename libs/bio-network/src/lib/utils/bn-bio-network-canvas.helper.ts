@@ -11,16 +11,18 @@ export interface BnBioNetworkCanvasText {
 /**
  * Helper to simplify draw of shapes on canvas.
  */
+export interface BnBioNetworkRoundedRectOptions {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  radius?: number;
+  mode?: 'fill' | 'stroke';
+}
+
 export class BnBioNetworkCanvasHelper {
-  public static roundedRect(
-    ctx: CanvasRenderingContext2D,
-    x: number,
-    y: number,
-    width: number,
-    height: number,
-    radius: number = 5,
-    mode: 'fill' | 'stroke' = 'fill'
-  ): void {
+  public static roundedRect(ctx: CanvasRenderingContext2D, options: BnBioNetworkRoundedRectOptions): void {
+    const { x, y, width, height, radius = 5, mode = 'fill' } = options;
     ctx.beginPath();
     ctx.moveTo(x + radius, y);
     ctx.lineTo(x + width - radius, y);

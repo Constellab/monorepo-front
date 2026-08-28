@@ -12,9 +12,9 @@ export type SpSheetColumnSortDirection = 'Ascending' | 'Descending';
 
 export interface SpSheetHeader {
   index: number;
-  name: string;
-  tags: Record<string, string>;
-  sort?: SpSheetColumnSortDirection;
+  name?: string | null;
+  tags?: Record<string, string>;
+  sort?: SpSheetColumnSortDirection | null;
 }
 
 export interface SpSheetRow extends SpSheetHeader {
@@ -28,7 +28,7 @@ export type SpSheetHeaderType = 'INTEGER' | 'FLOAT' | 'STRING' | 'BOOLEAN' | 'OB
  * Input object about row or column information
  */
 export interface SpSheetHeaderInfoInput {
-  name?: string;
+  name?: string | null;
   tags?: Record<string, string>;
   type?: SpSheetHeaderType;
 }
@@ -37,11 +37,11 @@ export interface SpSheetHeaderInfoInput {
  * Information about a row or a column in the sheet
  */
 export interface SpSheetHeaderInfo {
-  name?: string;
+  name?: string | null;
   tags?: Record<string, string>;
   tagColorer: FlTagColorer;
   type?: SpSheetHeaderType;
-  sort?: SpSheetColumnSortDirection;
+  sort?: SpSheetColumnSortDirection | null;
 }
 
 /**
@@ -69,12 +69,13 @@ export class SpSheetHeaders {
       return { name: '', tags: {}, tagColorer: this.tagColorer, sort: null };
     }
     const headerInfo = this._info[index];
+    const sort = this.sort;
     return {
       name: headerInfo.name,
       tags: headerInfo.tags,
       tagColorer: this.tagColorer,
       type: headerInfo.type,
-      sort: this.sort?.headerName === headerInfo.name ? this.sort.direction : null,
+      sort: sort != null && sort.headerName === headerInfo.name ? sort.direction : null,
     };
   }
 
@@ -89,7 +90,7 @@ export class SpSheetHeaders {
     }
 
     // update the tag colors
-    const groupedTags = FlTagHelper.groupTagsByKey(this.info.map((info) => info.tags));
+    const groupedTags = FlTagHelper.groupTagsByKey(this.info.map((info) => info.tags ?? {}));
     this.tagColorer.addTags(groupedTags);
   }
 
@@ -120,10 +121,13 @@ export class SpSheetHeaders {
    */
   public searchByName(name: string): string[] {
     if (!this._info) return [];
-    const result = this._info
-      .filter((info) => info.name && ClStringHelper.stringContains(info.name, name))
-      .map((info) => info.name);
-    return ClHelpService.sortAlphabeticalOrder(result);
+    const result: string[] = [];
+    for (const info of this._info) {
+      if (info.name && ClStringHelper.stringContains(info.name, name)) {
+        result.push(info.name);
+      }
+    }
+    return ClHelpService.sortAlphabeticalOrder(result) ?? result;
   }
 
   /**
@@ -148,7 +152,7 @@ export class SpSheetHeaders {
   }
 
   private groupTagByKeys(): Record<string, string[]> {
-    return FlTagHelper.groupTagsByKey(this.info.map((info) => info.tags));
+    return FlTagHelper.groupTagsByKey(this.info.map((info) => info.tags ?? {}));
   }
 
   private initTagsColors(): void {
@@ -159,7 +163,7 @@ export class SpSheetHeaders {
   public getSelectedIndexTagColors(index: number): Observable<string[]> {
     return this.tagColorer
       .getSelectedTags$()
-      .pipe(map((selectedTags) => this.getHeaderColors(this.getInfo(index).tags, selectedTags)));
+      .pipe(map((selectedTags) => this.getHeaderColors(this.getInfo(index).tags ?? {}, selectedTags)));
   }
 
   private getHeaderColors(headerTags: Record<string, string>, selectedTags: FlTagWithColor[]): string[] {

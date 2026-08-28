@@ -10,7 +10,8 @@ import {
   OnInit,
   Output,
   TemplateRef,
-  ViewChild} from '@angular/core';
+  ViewChild,
+} from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ClHelpService, clRxjsElasticSearch } from '@monorepo/core-lib';
 import { FlDatasourcePaginated, FlInputSearchFilter } from '@monorepo/front-core-lib/fl-core';
@@ -61,9 +62,9 @@ export class FlInputSearchComponent<T> implements OnInit, OnDestroy {
     }
   }
 
-  _selectedItem: T;
+  _selectedItem: T | null;
 
-  @Output() selectedItemChange: EventEmitter<T> = new EventEmitter();
+  @Output() selectedItemChange: EventEmitter<T | null> = new EventEmitter();
 
   @Input() datasource: FlDatasourcePaginated<T, FlInputSearchFilter>;
 
@@ -116,7 +117,7 @@ export class FlInputSearchComponent<T> implements OnInit, OnDestroy {
 
   items$: Observable<T[]>;
 
-  inputControl: FormControl<string> = new FormControl();
+  inputControl: FormControl<string | null> = new FormControl();
 
   // true when an observable is used to init the selected item
   initIsLoading: boolean = false;
@@ -186,7 +187,7 @@ export class FlInputSearchComponent<T> implements OnInit, OnDestroy {
     this.inputBlur.emit();
   }
 
-  private setSelectedItemAndEmit(item: T): void {
+  private setSelectedItemAndEmit(item: T | null): void {
     this._selectedItem = item;
     this.selectedItemChange.next(item);
   }
@@ -197,7 +198,7 @@ export class FlInputSearchComponent<T> implements OnInit, OnDestroy {
    * When the input value is a string, it means that the user is typing something, so we consider
    * that there is not value for the prefix template
    */
-  getPrefixTemplateContext(): FlInputSearchPrefixContext<T> {
+  getPrefixTemplateContext(): FlInputSearchPrefixContext<T | null> {
     const selectedItem: T | null =
       this._selectedItem && typeof this.inputControl.value !== 'string' ? this._selectedItem : null;
     return {

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, computed, inject, input, Signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input, Signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
@@ -44,33 +44,35 @@ export class HaAgentVersionDetailComponent {
 
   canEdit: Signal<boolean> = this.agentPageState.canEditAgent;
   isEditable: Signal<boolean> = this.agentPageState.agentVersionIsEditable;
-  agentVersion: Signal<HaAgentVersion> = this.agentPageState.agentVersion;
+  agentVersion: Signal<HaAgentVersion | null> = this.agentPageState.agentVersion;
 
   languageCode: Signal<FlCodeEditorLanguage> = computed(() => {
     return (this.agentVersion()?.type as string)?.includes('PYTHON') ? 'python' : 'r';
   });
 
-  languageEnvironment: Signal<FlCodeEditorLanguage> = computed(() => {
+  languageEnvironment: Signal<FlCodeEditorLanguage | null> = computed(() => {
     return (this.agentVersion()?.environment as string)?.includes('PIP') ? null : 'yaml';
   });
 
   versionInfosFormControl = computed(() => {
     const agentVersion = this.agentVersion();
-    const formControl = new FormControl<TeRichText>(agentVersion ? agentVersion.versionInfos : null);
+    const formControl = new FormControl<TeRichText | null>(
+      agentVersion ? (agentVersion.versionInfos ?? null) : null
+    );
     formControl.disable();
     return formControl;
   });
 
   environmentFormControl = computed(() => {
     const agentVersion = this.agentVersion();
-    const formControl = new FormControl<string>(agentVersion ? agentVersion.environment : null);
+    const formControl = new FormControl<string | null>(agentVersion ? agentVersion.environment : null);
     formControl.disable();
     return formControl;
   });
 
   codeFormControl = computed(() => {
     const agentVersion = this.agentVersion();
-    const formControl = new FormControl<string>(agentVersion ? agentVersion.code : null);
+    const formControl = new FormControl<string | null>(agentVersion ? agentVersion.code : null);
     formControl.disable();
     return formControl;
   });
@@ -102,24 +104,26 @@ export class HaAgentVersionDetailComponent {
   }
 
   saveAbout(): void {
-    if (this.agentVersion().versionInfos?.contentAreEquals(this.versionInfosFormControl().value)) {
+    const agentVersion = this.agentVersion();
+    const newVersionInfos = this.versionInfosFormControl().value;
+    if (agentVersion == null || newVersionInfos == null) return;
+
+    if (agentVersion.versionInfos?.contentAreEquals(newVersionInfos)) {
       this.versionInfosFormControl().disable();
       return;
     }
 
     this.onAgentVersionInfosLoading = true;
-    this.agentService
-      .saveAgentVersionInfos(this.agentVersion().id, this.versionInfosFormControl().value)
-      .subscribe({
-        next: (updatedAgentVersion) => {
-          this.agentPageState.setAgentVersion(updatedAgentVersion);
-          this.onAgentVersionInfosLoading = false;
-          this.versionInfosFormControl().disable();
-        },
-        error: () => {
-          this.onAgentVersionInfosLoading = false;
-        },
-      });
+    this.agentService.saveAgentVersionInfos(agentVersion.id, newVersionInfos).subscribe({
+      next: (updatedAgentVersion) => {
+        this.agentPageState.setAgentVersion(updatedAgentVersion);
+        this.onAgentVersionInfosLoading = false;
+        this.versionInfosFormControl().disable();
+      },
+      error: () => {
+        this.onAgentVersionInfosLoading = false;
+      },
+    });
   }
 
   // onVersionInfosEditorButtonClick(): void {

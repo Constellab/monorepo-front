@@ -18,7 +18,7 @@ import {
  * on chart renderer object
  */
 export class ChChartPortalHandler {
-  private currentHoverOverlay: FlOverlayRef;
+  private currentHoverOverlay: FlOverlayRef | null;
 
   private portalFixed: boolean = false;
 

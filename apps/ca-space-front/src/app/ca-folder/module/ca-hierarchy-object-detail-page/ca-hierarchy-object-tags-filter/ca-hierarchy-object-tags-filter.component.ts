@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy,Component, inject, OnInit, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit, output } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { MatDivider } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
@@ -47,7 +47,10 @@ import { CaHierarchyObjectDetailState } from '../../ca-folder-hierarchy-core/sta
     },
   ],
 })
-export class CaHierarchyObjectTagsFilterComponent extends FlFormFieldDirective<FlTag> implements OnInit {
+export class CaHierarchyObjectTagsFilterComponent
+  extends FlFormFieldDirective<FlTag | null>
+  implements OnInit
+{
   private state = inject(CaHierarchyObjectDetailState);
   private dynamicMenuService = inject(FlMenuDynamicService);
 

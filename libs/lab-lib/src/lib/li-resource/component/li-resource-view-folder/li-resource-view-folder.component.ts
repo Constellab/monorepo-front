@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy,Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import {
@@ -83,7 +83,8 @@ export class LiResourceViewFolderComponent
 
   ngOnInit(): void {
     this.datasource = new FlDatasourceTree();
-    for (const child of this.view.data.content.children) {
+    // children can be omitted by the backend when the folder is empty
+    for (const child of this.view.data.content.children ?? []) {
       this.convertToTreeDataRecur(child, '');
     }
   }
@@ -91,9 +92,10 @@ export class LiResourceViewFolderComponent
   private convertToTreeDataRecur(
     data: LiResourceViewFolderContent,
     path: string,
-    parentNodeId: string = null
+    parentNodeId: string | null = null
   ): void {
-    const isFolder = data.children != null;
+    const children = data.children;
+    const isFolder = children != null;
     const node: LiResourceViewFolderContentTree = {
       id: path + '/' + data.name,
       name: data.name,
@@ -103,8 +105,8 @@ export class LiResourceViewFolderComponent
     };
     this.datasource.addOrReplaceNode(node, parentNodeId);
 
-    if (isFolder) {
-      for (const child of data.children) {
+    if (children != null) {
+      for (const child of children) {
         this.convertToTreeDataRecur(child, node.id, node.id);
       }
     }
@@ -128,14 +130,19 @@ export class LiResourceViewFolderComponent
     result: LiFsNodeTypesSelectionDialogResult,
     node: FlTree<LiResourceViewFolderContentTree>
   ): void {
-    if (result == null) return;
+    if (result == null || this.resourceId == null) return;
 
-    const path: string = this.getNodePath(node);
+    const path = this.getNodePath(node);
+    if (path == null) return;
+
     const typingName = result.uploadMode === 'files' ? result.fileTypingNames[0] : result.folderTypingName;
 
     node.object.isLoading = true;
     this.fileService.extractNode(this.resourceId, path, typingName).subscribe({
-      next: (resource) => this.extractFileSuccess(node, resource),
+      next: (resource) => {
+        if (resource == null) return;
+        this.extractFileSuccess(node, resource);
+      },
       error: () => (node.object.isLoading = false),
     });
   }
@@ -147,9 +154,9 @@ export class LiResourceViewFolderComponent
   }
 
   // retrieve the node full path by calling ancestors, with '/' separator
-  private getNodePath(node: FlTree<LiResourceViewFolderContentTree>): string {
-    let path: string = null;
-    let currentNode: FlTree<LiResourceViewFolderContentTree> = node;
+  private getNodePath(node: FlTree<LiResourceViewFolderContentTree>): string | null {
+    let path: string | null = null;
+    let currentNode: FlTree<LiResourceViewFolderContentTree> | null = node;
     while (currentNode) {
       if (currentNode.object.name) {
         if (path == null) {
@@ -161,6 +168,13 @@ export class LiResourceViewFolderComponent
       currentNode = currentNode.parent;
     }
     return path;
+  }
+
+  private copyNodePath(node: FlTree<LiResourceViewFolderContentTree>): void {
+    const path = this.getNodePath(node);
+    if (path == null) return;
+
+    this.clipboardService.copy(path, 'li.folder_node_path_copied');
   }
 
   // use to open menu on right click
@@ -210,7 +224,7 @@ export class LiResourceViewFolderComponent
     menuDynamic.push({
       type: 'button',
       text: 'li.folder_copy_node_path',
-      onClick: () => this.clipboardService.copy(this.getNodePath(node), 'li.folder_node_path_copied'),
+      onClick: () => this.copyNodePath(node),
       icon: 'content_copy',
     });
 
@@ -236,16 +250,22 @@ export class LiResourceViewFolderComponent
 
   // open the dialog to select the node type
   private callFileView(node: FlTree<LiResourceViewFolderContentTree>): void {
+    const path = this.getNodePath(node);
+    if (this.resourceState == null || this.resourceId == null || path == null) return;
+
     this.resourceState.callView(
-      this.fileService.callFolderSubFileView(this.resourceId, this.getNodePath(node)),
+      this.fileService.callFolderSubFileView(this.resourceId, path),
       node.object.name
     );
   }
 
   private downloadFolderSubFile(node: FlTree<LiResourceViewFolderContentTree>): void {
+    const path = this.getNodePath(node);
+    if (this.resourceId == null || path == null) return;
+
     const action: FlPortalAction = {
       type: 'download-folder-sub-node',
-      action: this.fileService.downloadFolderSubFile(this.resourceId, this.getNodePath(node)),
+      action: this.fileService.downloadFolderSubFile(this.resourceId, path),
       text: { text: 'li.folder_sub_node_downloading', translateText: true },
     };
 
@@ -253,10 +273,13 @@ export class LiResourceViewFolderComponent
   }
 
   private deleteSubNode(node: FlTree<LiResourceViewFolderContentTree>): void {
+    const path = this.getNodePath(node);
+    if (this.resourceId == null || path == null) return;
+
     const confirm: FlConfirmDialogInput = {
       title: node.object.isFolder ? 'li.delete_folder' : 'li.delete_file',
       content: 'li.delete_node_confirmation',
-      observable: this.fileService.deleteFolderSubNode(this.resourceId, this.getNodePath(node)),
+      observable: this.fileService.deleteFolderSubNode(this.resourceId, path),
       successMessage: 'li.node_deleted',
     };
 
@@ -273,6 +296,10 @@ export class LiResourceViewFolderComponent
   }
 
   private updateSubNodeName(node: FlTree<LiResourceViewFolderContentTree>): void {
+    const resourceId = this.resourceId;
+    const path = this.getNodePath(node);
+    if (resourceId == null || path == null) return;
+
     const data: FlDynamicFieldFormDialogInput = {
       title: node.object.isFolder ? 'li.rename_folder' : 'li.rename_file',
       helpText: 'li.rename_node_help',
@@ -283,7 +310,7 @@ export class LiResourceViewFolderComponent
         inputType: 'text',
         placeholder: this.translateService.translate('name'),
       },
-      submit: (data) => this.fileService.renameFolderSubNode(this.resourceId, this.getNodePath(node), data),
+      submit: (data) => this.fileService.renameFolderSubNode(resourceId, path, data),
       successMessage: 'li.node_renamed',
     };
 

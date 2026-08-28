@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy,Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatError } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
@@ -28,11 +28,11 @@ import { CaServerDecisionTreeComponent } from '../../../ca-server-core/component
 import { CaServerStandardPriceComponent } from '../../../ca-server-core/component/ca-server-standard-price/ca-server-standard-price.component';
 
 export interface CaLabSelectServerForm {
-  standardServer: FormControl<CaServerStandard>;
-  serverCloud: FormControl<CaServerCloud>;
-  region: FormControl<CaCloudProviderRegion>;
-  dailyBackupRegion: FormControl<CaCloudProviderRegion>;
-  weeklyBackupRegion: FormControl<CaCloudProviderRegion>;
+  standardServer: FormControl<CaServerStandard | null>;
+  serverCloud: FormControl<CaServerCloud | null>;
+  region: FormControl<CaCloudProviderRegion | null>;
+  dailyBackupRegion: FormControl<CaCloudProviderRegion | null>;
+  weeklyBackupRegion: FormControl<CaCloudProviderRegion | null>;
 }
 
 @Component({
@@ -65,9 +65,9 @@ export class CaLabSelectServerComponent implements OnInit, OnDestroy {
 
   @Input({ required: true }) formGp: FormGroup<CaLabSelectServerForm>;
 
-  serverStandards$: Observable<CaServerStandard[]>;
-  serverClouds$: Observable<CaServerCloud[]>;
-  regions$: Observable<CaCloudProviderRegion[]>;
+  serverStandards$: Observable<CaServerStandard[]> | null;
+  serverClouds$: Observable<CaServerCloud[]> | null;
+  regions$: Observable<CaCloudProviderRegion[]> | null;
 
   s3Regions: CaCloudProviderRegionDatasource = this.cloudProviderService.getRegionsByType('S3');
 
@@ -83,12 +83,12 @@ export class CaLabSelectServerComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     for (const [name, groupOrder] of Object.entries(this.formGroupOrders)) {
+      const control = this.formGp.get(name);
+      if (control == null) continue;
       this.subscriptions.add(
-        this.formGp
-          .get(name)
-          .valueChanges.subscribe((value) =>
-            this.onChange(name as keyof CaLabSelectServerForm, groupOrder, value)
-          )
+        control.valueChanges.subscribe((value) =>
+          this.onChange(name as keyof CaLabSelectServerForm, groupOrder, value)
+        )
       );
     }
   }
@@ -96,19 +96,19 @@ export class CaLabSelectServerComponent implements OnInit, OnDestroy {
   public static createFormGp(): FormGroup<CaLabSelectServerForm> {
     return new FormBuilder().group(
       {
-        standardServer: [null, Validators.required],
-        serverCloud: [null, Validators.required],
-        region: [null, Validators.required],
-        dailyBackupRegion: [null, Validators.required],
-        weeklyBackupRegion: [null, Validators.required],
+        standardServer: [null as CaServerStandard | null, Validators.required],
+        serverCloud: [null as CaServerCloud | null, Validators.required],
+        region: [null as CaCloudProviderRegion | null, Validators.required],
+        dailyBackupRegion: [null as CaCloudProviderRegion | null, Validators.required],
+        weeklyBackupRegion: [null as CaCloudProviderRegion | null, Validators.required],
       },
       { validators: CaLabValidator.differentBackupRegionValidator() }
-    ) as FormGroup<CaLabSelectServerForm>;
+    );
   }
 
   onDecisionTreeChange(serverStandardNames: string[]): void {
     if (this.serverStandards$) {
-      this.formGp.reset(null);
+      this.formGp.reset();
     }
 
     if (serverStandardNames) {
@@ -122,7 +122,7 @@ export class CaLabSelectServerComponent implements OnInit, OnDestroy {
     // clear all next form groups
     for (const [name, groupOrder] of Object.entries(this.formGroupOrders)) {
       if (groupOrder > order) {
-        this.formGp.get(name).reset(null);
+        this.formGp.get(name)?.reset();
       }
     }
 

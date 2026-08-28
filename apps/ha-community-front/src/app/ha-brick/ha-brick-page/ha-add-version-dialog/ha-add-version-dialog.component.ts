@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatDialogActions, MatDialogContent } from '@angular/material/dialog';
@@ -59,7 +59,7 @@ export class HaAddVersionDialogComponent
   ngOnInit(): void {
     this.isUpdate = this.dialogInput.mode == 'update';
     this.init();
-    this.brickName = this.dialogInput.object.brickName;
+    this.brickName = this.dialogInput.object?.brickName ?? '';
     this.errorFile = false;
   }
 
@@ -78,7 +78,7 @@ export class HaAddVersionDialogComponent
   }
 
   update(): Observable<Partial<HaNewVersionDTO>> {
-    return undefined;
+    throw new Error('update not implemented in HaAddVersionDialogComponent: create only');
   }
 
   getCreateSuccessMessage(): string {

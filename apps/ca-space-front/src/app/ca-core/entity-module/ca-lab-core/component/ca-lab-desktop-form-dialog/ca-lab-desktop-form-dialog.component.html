@@ -4,9 +4,7 @@
 
 <mat-dialog-content>
   @if (isCreateMode()) {
-    <p class="help-text">
-      <span class="g-text-big">⚠️</span> {{ 'create_lab_desktop_warning' | translate }}️
-    </p>
+    <p class="help-text"><span class="g-text-big">⚠️</span> {{ 'create_lab_desktop_warning' | translate }}️</p>
   }
 
   <form (ngSubmit)="submit()" id="lab-name-form" [formGroup]="formGp">
@@ -19,10 +17,10 @@
         required
         [flInputMaxLength]="maxNameLength"
         [placeholder]="'name' | translate" />
-      @if (formGp.get('name').hasError('required')) {
+      @if (formGp.get('name')?.hasError('required')) {
         <mat-error>{{ 'name' | flErrorRequired }}</mat-error>
       }
-      @if (formGp.get('name').hasError('pattern')) {
+      @if (formGp.get('name')?.hasError('pattern')) {
         <mat-error>{{ 'lab_name_invalid' | translate }}</mat-error>
       }
     </mat-form-field>

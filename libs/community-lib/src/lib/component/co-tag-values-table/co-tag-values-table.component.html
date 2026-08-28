@@ -4,8 +4,8 @@
       <mat-header-cell *matHeaderCellDef class="g-table-icon-button-cell"></mat-header-cell>
       <mat-cell *matCellDef="let tagValue" class="g-table-icon-button-cell">
         <div>
-          @if (tagValue.isCommunityTagValue) {
-            <co-tag-community-tag size="small" [key]="tagKey()"></co-tag-community-tag>
+          @if (tagValue.isCommunityTagValue && tagKey(); as key) {
+            <co-tag-community-tag size="small" [key]="key"></co-tag-community-tag>
           }
         </div>
       </mat-cell>

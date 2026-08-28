@@ -20,7 +20,7 @@ import { PrWorkflowManagerState } from '../state/pr-workflow-manager-state';
 
 @Directive()
 export abstract class PrWorkflowNodeDirective implements OnDestroy {
-  static currentOverlayRef: FlOverlayRef = null;
+  static currentOverlayRef: FlOverlayRef | null = null;
 
   // Name of the node
   @Input() name: string;
@@ -29,9 +29,9 @@ export abstract class PrWorkflowNodeDirective implements OnDestroy {
 
   protected subscriptions: ClSubscriptionHandler = new ClSubscriptionHandler();
 
-  private mouseClickListener: () => void;
-  private mouseDownListener: () => void;
-  private mouseDownCoords: FlCoord;
+  private mouseClickListener: (() => void) | undefined;
+  private mouseDownListener: (() => void) | undefined;
+  private mouseDownCoords: FlCoord | null;
 
   protected workflowManager = inject(PrWorkflowManagerState);
   protected elementRef = inject(ElementRef);
@@ -39,10 +39,13 @@ export abstract class PrWorkflowNodeDirective implements OnDestroy {
   protected portalService = inject(FlPortalService);
 
   protected initNode(): void {
-    this.node = this.workflowManager.findNodeWithNameInCurrentLayer(this.name);
-    if (this.node == null) {
+    const node = this.workflowManager.findNodeWithNameInCurrentLayer(this.name);
+    if (node == null) {
       console.error("Couldn't find node with name : " + this.name);
+      return;
     }
+    this.node = node;
+
     this.listenToNodeClick();
 
     this.subscriptions.add(
@@ -52,12 +55,12 @@ export abstract class PrWorkflowNodeDirective implements OnDestroy {
     );
   }
 
-  protected colorNode(color: string): void {
+  protected colorNode(color: string | undefined): void {
     // retrieve the drawflow element that wrap the node
-    const node: HTMLElement = this.getNodeElement();
+    const node: HTMLElement | null = this.getNodeElement();
     if (node == null) return;
 
-    this.renderer.setStyle(node, 'background-color', color);
+    this.renderer.setStyle(node, 'background-color', color ?? '');
   }
 
   protected getNodeElement(): HTMLElement | null {
@@ -72,7 +75,7 @@ export abstract class PrWorkflowNodeDirective implements OnDestroy {
 
   protected listenToNodeClick(): void {
     // retrieve the drawflow element that wrap the node
-    const parent: HTMLElement = this.getNodeParentElement();
+    const parent: HTMLElement | null = this.getNodeParentElement();
     if (parent == null) return;
 
     this.mouseClickListener = this.renderer.listen(parent, 'click', (event) => this.onNodeClick(event));
@@ -91,7 +94,7 @@ export abstract class PrWorkflowNodeDirective implements OnDestroy {
     const classes: string[] = FlHtmlHelper.domTokenListToArray(element.classList);
 
     if (classes.includes('input')) {
-      const inputName: string = classes.find((cls) => cls.startsWith('input_'));
+      const inputName: string | undefined = classes.find((cls) => cls.startsWith('input_'));
       if (inputName == null) return;
 
       const port = this.node.findInputPortByDrawflowName(inputName);
@@ -99,7 +102,7 @@ export abstract class PrWorkflowNodeDirective implements OnDestroy {
 
       this.onInputClick(port, element);
     } else if (classes.includes('output')) {
-      const outputName: string = classes.find((cls) => cls.startsWith('output_'));
+      const outputName: string | undefined = classes.find((cls) => cls.startsWith('output_'));
       if (outputName == null) return;
 
       const port = this.node.findOutputPortByDrawflowName(outputName);
@@ -121,6 +124,8 @@ export abstract class PrWorkflowNodeDirective implements OnDestroy {
   }
 
   onInputClick(port: PrWorkflowPort, element: Element): void {
+    if (this.workflowManager.viewConfig == null || this.workflowManager.workflow == null) return;
+
     const menuDynamics: FlMenuDynamic[] = this.workflowManager.viewConfig.getInputMenu(
       port,
       this.node,
@@ -131,6 +136,8 @@ export abstract class PrWorkflowNodeDirective implements OnDestroy {
   }
 
   onOutputClick(port: PrWorkflowPort, element: Element): void {
+    if (this.workflowManager.viewConfig == null || this.workflowManager.workflow == null) return;
+
     const menuDynamics: FlMenuDynamic[] = this.workflowManager.viewConfig.getOutputMenu(
       port,
       this.node,
@@ -184,11 +191,8 @@ export abstract class PrWorkflowNodeDirective implements OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions?.unsubscribe();
-    if (this.mouseDownListener) {
-      this.mouseClickListener();
-    }
-    if (this.mouseDownListener) {
-      this.mouseDownListener();
-    }
+    // bug fix: this used to check `mouseDownListener` before calling `mouseClickListener`
+    this.mouseClickListener?.();
+    this.mouseDownListener?.();
   }
 }

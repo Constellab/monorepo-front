@@ -1,7 +1,7 @@
 <div>{{ entity.name }}</div>
-@if (entity.parentName && entity.parentType) {
+@if (entity.parentName && entity.parentTypeIcon; as parentTypeIcon) {
   <fl-text-icon class="g-text-tiny g-text-light" gap="0">
-    <mat-icon [flIcon]="entity.parentTypeIcon" class="g-icon-tiny"></mat-icon>
+    <mat-icon [flIcon]="parentTypeIcon" class="g-icon-tiny"></mat-icon>
     {{ entity.parentName }}
   </fl-text-icon>
 }

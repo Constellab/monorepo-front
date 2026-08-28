@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { ClHelpService } from '@monorepo/core-lib';
 import { FlStatus } from '@monorepo/front-core-lib/fl-status';
 import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { PrWorkflowNodeDirective } from '../../directive/pr-workflow-node.directive';
 import { PrWorkflowNodeProcess } from '../../model/node/pr-workflow-node-process.class';
 import { PrWorkflowNodeProtocol } from '../../model/node/pr-workflow-node-protocol.class';
+import { PrProcessStatus } from '../../model/pr-process.class';
 import { PrWorkflowNodeIcon } from '../pr-workflow-node-content/pr-workflow-node-content.component';
 
 /**
@@ -29,7 +30,7 @@ export class PrWorkflowNodeProcessComponent extends PrWorkflowNodeDirective impl
   title$: Observable<FlTranslatableText>;
   icon$: Observable<PrWorkflowNodeIcon>;
 
-  status$: Observable<FlStatus>;
+  status$: Observable<FlStatus<PrProcessStatus> | null>;
 
   ngOnInit(): void {
     this.initNode();

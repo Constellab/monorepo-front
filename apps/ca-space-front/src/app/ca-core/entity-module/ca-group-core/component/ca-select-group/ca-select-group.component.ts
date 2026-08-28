@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
 import { ClHelpService } from '@monorepo/core-lib';
@@ -25,12 +25,12 @@ import { CaGroupInlineComponent } from '../ca-group-inline/ca-group-inline.compo
   changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlInputSearchModule, MatIcon, FlIconModule, FlUserModule, CaGroupInlineComponent, TranslatePipe],
 })
-export class CaSelectGroupComponent extends FlFormFieldDirective<CaGroup> implements OnInit {
+export class CaSelectGroupComponent extends FlFormFieldDirective<CaGroup | null> implements OnInit {
   private groupService = inject(CaGroupService);
 
   @Output() groupChange: EventEmitter<CaGroup> = new EventEmitter<CaGroup>();
 
-  selectGroup: CaGroup | Observable<CaGroup>;
+  selectGroup: CaGroup | Observable<CaGroup> | null;
 
   datasource: CaGroupDatasource<FlInputSearchFilter>;
 
@@ -47,7 +47,7 @@ export class CaSelectGroupComponent extends FlFormFieldDirective<CaGroup> implem
           return this.groupService.getAllCurrentGroups(page, size);
         } else {
           return this.groupService.searchGroupInCurrentSpaceByLabel(
-            data.filtersCriteria.searchText,
+            data.filtersCriteria.searchText ?? '',
             page,
             size
           );
@@ -58,7 +58,7 @@ export class CaSelectGroupComponent extends FlFormFieldDirective<CaGroup> implem
     );
   }
 
-  writeValue(obj: CaGroup): void {
+  writeValue(obj: CaGroup | null): void {
     // consider null value: null, object without id
     if (obj == null || obj.id == null) {
       this.selectGroup = null;

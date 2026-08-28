@@ -6,16 +6,16 @@
         <span class="li-form-preview-name">{{ form()?.name }}</span>
         <span class="li-form-preview-template">
           {{ form()?.template?.templateName }}
-          @if (form()?.template?.versionNumber) {
-            (v{{ form().template.versionNumber }})
+          @if (form()?.template?.versionNumber; as versionNumber) {
+            (v{{ versionNumber }})
           }
         </span>
         @if (templateDescription()) {
           <span class="li-form-preview-description">{{ templateDescription() }}</span>
         }
       </div>
-      @if (formStatus()) {
-        <fl-status-chip [status]="formStatus()" />
+      @if (formStatus(); as status) {
+        <fl-status-chip [status]="status" />
       }
       @if (isDraft() && !disabled) {
         <button mat-stroked-button (click)="openFormDialog()">

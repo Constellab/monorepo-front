@@ -10,7 +10,7 @@ import { Observable, throwError } from 'rxjs';
  */
 @Injectable()
 export class LmsApiErrorService extends FlApiErrorService {
-  get defaultApiErrorDuration(): number {
+  get defaultApiErrorDuration(): number | null {
     return null;
   }
 
@@ -30,18 +30,12 @@ export class LmsApiErrorService extends FlApiErrorService {
   ): Observable<never> {
     const serverError: FlServerError = {
       response: errorResponse,
-      message: null,
+      message: '',
     };
 
     // check if the error is formatted from nest api
     const nestError: ClApiError = errorResponse.error;
-    if (
-      nestError &&
-      nestError.code != null &&
-      nestError.instanceId != null &&
-      nestError.detail != null &&
-      nestError.status != null
-    ) {
+    if (this.isNestedApiError(nestError)) {
       serverError.nestedError = nestError;
     }
 
@@ -67,9 +61,22 @@ export class LmsApiErrorService extends FlApiErrorService {
   }
 
   /**
+   * True when the error payload is an error formatted by the nest api
+   */
+  private isNestedApiError(error: ClApiError | undefined): boolean {
+    return (
+      error != null &&
+      error.code != null &&
+      error.instanceId != null &&
+      error.detail != null &&
+      error.status != null
+    );
+  }
+
+  /**
    * Handle the error message for the not specific errors
    */
-  private getErrorMessage(error: ClApiError, defaultError: string): string {
+  private getErrorMessage(error: ClApiError | undefined, defaultError: string): string {
     return error?.detail ?? defaultError;
   }
 }

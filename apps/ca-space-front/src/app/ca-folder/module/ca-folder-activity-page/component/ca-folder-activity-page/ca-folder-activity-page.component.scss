@@ -1,5 +1,6 @@
 :host {
-  height: 100vh;
+  // fill the drawer content (100vh minus the breadcrumb bar), not the full viewport
+  height: 100%;
   box-sizing: border-box;
   padding: var(--main-menu-margin) 1em;
   display: grid;

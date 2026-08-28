@@ -1,4 +1,13 @@
-import { ChangeDetectionStrategy,Component, EventEmitter, inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { AbstractControl, FormGroupDirective, NgForm, UntypedFormGroup } from '@angular/forms';
 import { FlFormHelper } from '@monorepo/front-core-lib/fl-core';
 import { FlMouseButton } from '@monorepo/front-core-lib/fl-core';
@@ -40,7 +49,7 @@ export class FlFormInputsManagerComponent implements OnInit, OnDestroy {
   /**
    * If true, the false values are considered as null and the chip will not be created
    */
-  @Input() skipFalseBoolean: boolean = false;
+  @Input() skipFalseBoolean: boolean | undefined = false;
 
   /**
    * Event called whenever the chip list is refreshed (on form value change)
@@ -103,7 +112,7 @@ export class FlFormInputsManagerComponent implements OnInit, OnDestroy {
   }
 
   // check a control value to see if it's empty or not
-  private checkControlValue(key: string, control: AbstractControl, config?: FlTranslatableText): void {
+  private checkControlValue(key: string, control: AbstractControl | null, config?: FlTranslatableText): void {
     if (control == null) {
       return;
     }

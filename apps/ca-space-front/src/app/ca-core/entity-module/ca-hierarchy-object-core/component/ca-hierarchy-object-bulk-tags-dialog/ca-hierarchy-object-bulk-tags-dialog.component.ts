@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
@@ -82,7 +82,7 @@ export class CaHierarchyObjectBulkTagsDialogComponent implements OnInit {
         action: this.hierarchyObjectService.bulkCreateTags(this.data.context, this.newTags.array),
         autoClose: true,
       })
-      .subscribe((result: FlPortalActionResult<ClBulkActionResult>) => {
+      ?.subscribe((result: FlPortalActionResult<ClBulkActionResult>) => {
         if (result.status === 'success') {
           this.tagService.availableTags.addTag(this.newTags.array);
           this.dialogRef.close();

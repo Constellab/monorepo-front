@@ -20,9 +20,9 @@ export class SpSheetChartSelectionHistogram extends SpSheetChartSelection {
     sheet: SpSheet,
     private series: SpSheetChartSerieSelectionForm[],
     private mode: ChChartHistogramMode,
-    private nbOfBins?: number,
-    private xAxisLabel?: string,
-    private yAxisLabel?: string
+    private nbOfBins?: number | null,
+    private xAxisLabel?: string | null,
+    private yAxisLabel?: string | null
   ) {
     super(sheet);
   }
@@ -30,16 +30,17 @@ export class SpSheetChartSelectionHistogram extends SpSheetChartSelection {
   exportToChart(): ChChartConfig {
     const series: ChChart2dMultiSerie<any> = new ChChart2dMultiSerie();
 
-    const ySelection: SpSheetSelection = this.getMultiSelectionFromSelectionRange(this.series[0].y);
+    const ySelection: SpSheetSelection | null = this.getMultiSelectionFromSelectionRange(
+      this.series[0].y
+    );
     // convert all the data to numbers
-    const data: number[] = ySelection
-      .getCellsValuesFlat()
+    const data: number[] = (ySelection?.getCellsValuesFlat() ?? [])
       .map((cellValue) => ClNumberHelper.fromString(cellValue))
       .filter((value) => value != null);
 
     // create the serie with bin data
     const serie: ChChartSerie<any> = new ChChartSerie<any>(
-      chChartGetDataBins(data, this.mode, this.nbOfBins),
+      chChartGetDataBins(data, this.mode, this.nbOfBins ?? undefined),
       this.series[0].name
     );
 

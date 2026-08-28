@@ -10,7 +10,7 @@
         formControlName="user"
         [placeholder]="'user' | translate"
         mode="allForAdmin"></fl-select-user>
-      @if (formGp.get('user').hasError('required')) {
+      @if (formGp.get('user')?.hasError('required')) {
         <mat-error>{{ 'user' | flErrorRequired }}</mat-error>
       }
     </fl-form-field>
@@ -22,7 +22,7 @@
         <mat-option [value]="'USER'">{{ 'lab_user_role_USER' | translate }}</mat-option>
         <mat-option [value]="'OWNER'">{{ 'lab_user_role_OWNER' | translate }}</mat-option>
       </mat-select>
-      @if (formGp.get('role').hasError('required')) {
+      @if (formGp.get('role')?.hasError('required')) {
         <mat-error>{{ 'lab_user_role' | flErrorRequired }}</mat-error>
       }
     </mat-form-field>

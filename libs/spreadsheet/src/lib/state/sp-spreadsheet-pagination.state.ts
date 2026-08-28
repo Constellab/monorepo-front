@@ -86,6 +86,7 @@ export class SpSpreadsheetPaginationState implements OnDestroy {
 
     if (actionResult.status === 'success') {
       const sheet = this.state.getSheet(actionResult.additionalInformation);
+      if (sheet == null) return;
       sheet.appendLazyLoadedNextRows(actionResult.result.data, actionResult.result.rows);
     }
   }
@@ -95,6 +96,7 @@ export class SpSpreadsheetPaginationState implements OnDestroy {
 
     if (actionResult.status === 'success') {
       const sheet = this.state.getSheet(actionResult.additionalInformation);
+      if (sheet == null) return;
       sheet.insertLazyLoadedPreviousRows(actionResult.result.data, actionResult.result.rows);
     }
   }

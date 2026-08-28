@@ -2,7 +2,7 @@
 <div class="g-layout-row g-layout-start-center">
   <td-type-inline
     [text]="process.name"
-    [style]="process.style"
+    [style]="process.style ?? tdTypeStyleDefault"
     class="g-text-big g-flex-auto"></td-type-inline>
 
   <!--   Mat menu containing action buttons   -->
@@ -40,10 +40,10 @@
 
     <fl-key-value>
       <fl-key>{{ 'pr.brick' | translate }}</fl-key>
-      {{ typingName?.brickName }} v{{ process.brick_version_on_run }}
+      {{ typingName.brickName }} v{{ process.brick_version_on_run }}
     </fl-key-value>
 
-    @if (process.process_type?.short_description) {
+    @if (process.process_type.short_description) {
       <fl-key-value>
         <fl-key>{{ 'pr.short_description' | translate }}</fl-key>
         {{ process.process_type.short_description }}

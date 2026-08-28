@@ -16,8 +16,8 @@ export class SpSheetChartSelectionBarPlot extends SpSheetChartSelection {
     sheet: SpSheet,
     private chartType: ChChartType.BAR_PLOT | ChChartType.STACKED_PLOT,
     private series: SpSheetChartSerieSelectionForm[],
-    private xAxisLabel?: string,
-    private yAxisLabel?: string
+    private xAxisLabel?: string | null,
+    private yAxisLabel?: string | null
   ) {
     super(sheet);
   }

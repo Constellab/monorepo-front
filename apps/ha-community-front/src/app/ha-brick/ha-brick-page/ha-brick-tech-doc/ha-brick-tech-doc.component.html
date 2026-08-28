@@ -3,17 +3,18 @@
     <fl-loader size="medium"></fl-loader>
   </div>
 } @else {
-  @if (techDoc() && !techDocNotFound()) {
+  @if (!techDocNotFound() && techDoc(); as doc) {
     <div class="doc-div">
       <div class="doc-div-content g-max-article-width g-scrollable-element">
         <div class="doc-title-div">
-          <td-technical-doc-header [technicalDoc]="techDoc()"></td-technical-doc-header>
+          <td-technical-doc-header [technicalDoc]="doc"></td-technical-doc-header>
         </div>
-        @if (runStatAggregate()) {
-          <ha-run-stat-aggregate-panel [runStatAggregate]="runStatAggregate()"></ha-run-stat-aggregate-panel>
+        @if (runStatAggregate(); as runStatAggregateValue) {
+          <ha-run-stat-aggregate-panel
+            [runStatAggregate]="runStatAggregateValue"></ha-run-stat-aggregate-panel>
         }
         <article>
-          <td-technical-doc flAutoScrollToAnchor [technicalDoc]="techDoc()"></td-technical-doc>
+          <td-technical-doc flAutoScrollToAnchor [technicalDoc]="doc"></td-technical-doc>
         </article>
       </div>
     </div>

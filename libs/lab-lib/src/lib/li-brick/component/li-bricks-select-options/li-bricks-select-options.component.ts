@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { AfterViewInit, ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { MatOption } from '@angular/material/core';
 import { MatSelect } from '@angular/material/select';
 import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib/fl-core';
@@ -23,7 +23,7 @@ export class LiBricksSelectOptionsComponent
   bricks$: Observable<LiBrickEntity[]>;
 
   constructor() {
-    const select = inject(MatSelect, { host: true, optional: true });
+    const select = inject(MatSelect, { host: true });
 
     super(select);
 

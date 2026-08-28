@@ -24,7 +24,7 @@ export abstract class ChChartContainer<
   Data,
   Renderer extends ChChartNoAxisRenderer<Data> = ChChartNoAxisRenderer<Data>,
 > {
-  public group: Selection<any, null, null, null>;
+  public group: Selection<any, void, null, undefined>;
   public chartContainer: Selection<SVGElement, null, null, null>;
 
   public dataContainer: Data;

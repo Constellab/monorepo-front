@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { ChangeDetectionStrategy,Component, effect, inject, input, output, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, inject, input, output, signal } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { FlFormHelper } from '@monorepo/front-core-lib/fl-core';
@@ -40,7 +40,7 @@ export class LiFormEditorComponent {
   contentSubmitted = output<LiFormContent>();
 
   isSaving = signal(false);
-  configData = signal<TdConfig>(null);
+  configData = signal<TdConfig | null>(null);
   formGp: FormGroup<TdConfigureSpecsForm>;
 
   constructor() {

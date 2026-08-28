@@ -15,13 +15,13 @@ export class CaWorkflowNodeMenuConfig extends PrWorkflowNodeMenuConfig {
   }
 
   getInputMenu(port: PrWorkflowPort, node: PrWorkflowNode): FlMenuDynamicButton[] {
-    const resourceId: string = node.currentObject.inputs.ports[port.name]?.resource_id ?? null;
+    const resourceId: string | null = node.currentObject.inputs.ports[port.name]?.resource_id ?? null;
 
     return [this.getResourceDetailContextButton(resourceId)];
   }
 
   getOutputMenu(port: PrWorkflowPort, node: PrWorkflowNode): FlMenuDynamicButton[] {
-    const resourceId: string = node.currentObject.outputs.ports[port.name]?.resource_id ?? null;
+    const resourceId: string | null = node.currentObject.outputs.ports[port.name]?.resource_id ?? null;
 
     return [this.getResourceDetailContextButton(resourceId)];
   }
@@ -36,7 +36,8 @@ export class CaWorkflowNodeMenuConfig extends PrWorkflowNodeMenuConfig {
     };
   }
 
-  public openResourceDetail(resourceId: string): void {
+  public openResourceDetail(resourceId: string | null): void {
+    if (resourceId == null) return;
     if (this.lab.isRunning()) {
       window.location.href = CaLabHelper.getResourceUrl(this.lab.frontUrl, resourceId);
     } else {

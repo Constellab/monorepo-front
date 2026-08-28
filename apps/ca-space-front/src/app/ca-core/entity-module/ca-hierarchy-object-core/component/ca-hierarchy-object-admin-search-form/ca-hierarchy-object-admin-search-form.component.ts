@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { MatOption } from '@angular/material/core';
@@ -49,12 +49,8 @@ export class CaHierarchyObjectAdminSearchFormComponent implements OnInit {
     this.formGp = this.searchState.advancedSearchFormGroup;
   }
 
-  typeIsSelected(): boolean {
-    return !!this.formGp.get('objectType').value;
-  }
-
-  getSelectedTypeLabel(): CaHierarchyObjectInfo {
-    const value = this.formGp.get('objectType').value;
+  getSelectedTypeLabel(): CaHierarchyObjectInfo | null {
+    const value = this.formGp.get('objectType')?.value;
     return value ? (this.objectTypes as any)[value] : null;
   }
 }

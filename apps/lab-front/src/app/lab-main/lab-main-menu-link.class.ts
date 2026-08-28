@@ -68,7 +68,7 @@ export function labGetMainMenuLinks(): LabMainMenuLink[] {
     },
     {
       label: 'biox.apps',
-      icon: 'dashboard',
+      icon: 'app',
       route: LI_CONST_APP_FULL_ROUTE,
       divider: true,
     },

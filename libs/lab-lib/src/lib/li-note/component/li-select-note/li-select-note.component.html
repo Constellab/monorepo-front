@@ -2,7 +2,7 @@
   [selectedItem]="selectedNote"
   (selectedItemChange)="setAndEmitValue($event)"
   [datasource]="datasource"
-  [placeholder]="placeholder"
+  [placeholder]="placeholder ?? ''"
   [required]="required"
   [disabled]="disabled"
   [minInputSearchLength]="0"

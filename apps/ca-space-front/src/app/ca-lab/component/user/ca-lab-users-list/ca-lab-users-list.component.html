@@ -17,7 +17,7 @@
 <fl-async-section [arrayObs]="datasource" emptyText="no_user_in_lab">
   <ng-container *flSectionBodyDatasource>
     <div class="g-infinite-table g-scrollable-element">
-      <ca-lab-users-table [datasource]="datasource" [columns]="columns$ | async" [labId]="labId">
+      <ca-lab-users-table [datasource]="datasource" [columns]="(columns$ | async) ?? []" [labId]="labId">
       </ca-lab-users-table>
     </div>
   </ng-container>

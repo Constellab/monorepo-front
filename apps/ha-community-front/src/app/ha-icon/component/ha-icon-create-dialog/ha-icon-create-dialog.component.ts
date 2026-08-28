@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent } from '@angular/material/dialog';
@@ -57,7 +57,7 @@ export class HaIconCreateDialogComponent
 
   constructor() {
     super();
-    if (this.dialogInput.mode === 'update') {
+    if (this.dialogInput.mode === 'update' && this.dialogInput.object != null) {
       this.icon = this.dialogInput.object;
     }
   }
@@ -110,7 +110,7 @@ export class HaIconCreateDialogComponent
   }
 
   onFileSelected(): void {
-    const file: File = this.formGp.get('file').value;
+    const file: File = this.formGp.get('file')?.value;
     if (!file) return;
     this.input_file_trigered = true;
     if (file.size > 50000) {
@@ -119,7 +119,7 @@ export class HaIconCreateDialogComponent
         translateText: true,
       });
       setTimeout(() => {
-        this.formGp.get('file').patchValue(null);
+        this.formGp.get('file')?.patchValue(null);
       }, 0);
     }
   }

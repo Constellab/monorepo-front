@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent } from '@angular/material/dialog';
@@ -73,10 +73,11 @@ export class CaDocumentNameFormDialogComponent
   }
 
   create(formValue: CaDocumentNameForm): Observable<any> {
-    return this.constellabDocumentService.createConstellabDocument(
-      this.dialogInput.parentFolderId,
-      formValue.name
-    );
+    const parentFolderId = this.dialogInput.parentFolderId;
+    if (parentFolderId == null) {
+      throw new Error('CaDocumentNameFormDialogComponent: missing parentFolderId in create mode');
+    }
+    return this.constellabDocumentService.createConstellabDocument(parentFolderId, formValue.name);
   }
 
   getCreateSuccessMessage(): string {
@@ -88,7 +89,11 @@ export class CaDocumentNameFormDialogComponent
   }
 
   update(formValue: { name: string }): Observable<any> {
-    return this.documentService.renameDocument(this.dialogInput.documentId, formValue.name);
+    const documentId = this.dialogInput.documentId;
+    if (documentId == null) {
+      throw new Error('CaDocumentNameFormDialogComponent: missing documentId in update mode');
+    }
+    return this.documentService.renameDocument(documentId, formValue.name);
   }
 
   get title(): string {

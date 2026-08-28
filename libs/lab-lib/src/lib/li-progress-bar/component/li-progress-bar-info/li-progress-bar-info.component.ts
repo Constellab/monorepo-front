@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy,Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatDivider } from '@angular/material/divider';
@@ -85,10 +85,10 @@ export class LiProgressBarInfoComponent implements OnInit, OnDestroy {
   // if load more messages is called, the live mode is disabled automatically to avoid conflict
   // if the progress bar is completed, the live mode is disabled automatically
   // when false, new messages are not loaded
-  liveMode: boolean = null;
+  liveMode: boolean | null = null;
 
   // store if the progress bar was finished when the component was initialized
-  showLiveModeToggle: boolean = null;
+  showLiveModeToggle: boolean | null = null;
 
   private subscription?: Subscription;
 

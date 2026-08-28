@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, Input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input, signal } from '@angular/core';
 import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { LiResourceView, LiViewConfig, LiViewConfigService } from '@monorepo/lab-lib/li-core';
@@ -33,10 +33,13 @@ export class LiResourceViewDetailComponent {
 
   @Input({ required: true }) labView: LiResourceView;
 
-  get viewConfig(): RvViewConfig {
+  get viewConfig(): RvViewConfig | undefined {
+    const viewConfig = this.labView.viewConfig;
+    if (viewConfig == null) return undefined;
+
     return {
-      methodName: this.labView.viewConfig.viewName,
-      configValues: this.labView.viewConfig.configValues,
+      methodName: viewConfig.viewName,
+      configValues: viewConfig.configValues,
     };
   }
 

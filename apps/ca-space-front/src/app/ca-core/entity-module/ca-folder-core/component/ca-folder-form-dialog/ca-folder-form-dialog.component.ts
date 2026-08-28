@@ -1,5 +1,12 @@
-import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import {
+  FormBuilder,
+  ReactiveFormsModule,
+  UntypedFormGroup,
+  ValidationErrors,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatDatepicker, MatDatepickerInput, MatDatepickerToggle } from '@angular/material/datepicker';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent } from '@angular/material/dialog';
@@ -84,22 +91,26 @@ export class CaFolderFormDialogComponent
 
     if (this.showStorage) {
       this.spaceService.getCurrentSpaceSettings().subscribe((spaceSettings) => {
-        this.formGp.get('mainStorage').setValue(spaceSettings.defaultFolderStorageLocation);
-        this.formGp.get('backupStorage').setValue(spaceSettings.defaultFolderBackupStorageLocation);
+        this.formGp.get('mainStorage')?.setValue(spaceSettings.defaultFolderStorageLocation);
+        this.formGp.get('backupStorage')?.setValue(spaceSettings.defaultFolderBackupStorageLocation);
       });
     }
 
     this.formGp.disable();
     if (this.isUpdateMode()) {
-      this.folderService.getById(this.dialogInput.folderId).subscribe((folder) => {
+      const folderId = this.dialogInput.folderId;
+      if (folderId == null) {
+        throw new Error('CaFolderFormDialogComponent: missing folderId in update mode');
+      }
+      this.folderService.getById(folderId).subscribe((folder) => {
         this.formGp.patchValue(folder);
         this.formGp.enable();
       });
     } else if (this.isCreateMode() && this.dialogInput.parentId) {
       // in create child mode, we copy the date from the parent folder
       this.folderService.getById(this.dialogInput.parentId).subscribe((parentFolder) => {
-        this.formGp.get('startingDate').setValue(parentFolder.startingDate);
-        this.formGp.get('endingDate').setValue(parentFolder.endingDate);
+        this.formGp.get('startingDate')?.setValue(parentFolder.startingDate);
+        this.formGp.get('endingDate')?.setValue(parentFolder.endingDate);
         this.formGp.enable();
       });
     } else {
@@ -130,7 +141,11 @@ export class CaFolderFormDialogComponent
   }
 
   update(formValue: CaSaveFolderDTO): Observable<CaFolder> {
-    return this.folderService.update(this.dialogInput.folderId, formValue);
+    const folderId = this.dialogInput.folderId;
+    if (folderId == null) {
+      throw new Error('CaFolderFormDialogComponent: missing folderId in update mode');
+    }
+    return this.folderService.update(folderId, formValue);
   }
 
   getCreateSuccessMessage(): string {
@@ -142,7 +157,7 @@ export class CaFolderFormDialogComponent
   }
 
   private differentStorageValidator(): ValidatorFn {
-    return (control: UntypedFormGroup): { [key: string]: any } => {
+    return (control: UntypedFormGroup): ValidationErrors | null => {
       const value: CaSaveFolderDTO = control.value;
       if (value.mainStorage == null || value.backupStorage == null) return null;
 

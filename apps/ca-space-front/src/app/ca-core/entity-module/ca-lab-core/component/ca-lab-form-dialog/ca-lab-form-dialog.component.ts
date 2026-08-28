@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
@@ -74,7 +74,7 @@ export class CaLabFormDialogComponent {
   private communityHelper = inject(CoCommunityHelperService);
   private dialogRef = inject(MatDialogRef);
 
-  fakeModel: string = null;
+  fakeModel: string | null = null;
   // prevent opening multiple dialogs due to click on radio
   dialogOpened: boolean = false;
 
@@ -91,24 +91,27 @@ export class CaLabFormDialogComponent {
   );
 
   formGp = new FormBuilder().group({
-    type: [null, [Validators.required]],
-    labNeed: [null],
+    type: [null as CaLabType | null, [Validators.required]],
+    labNeed: [null as string | null],
   });
 
   isLoading: boolean = false;
 
   buildForm(): UntypedFormGroup {
     return new FormBuilder().group({
-      type: [null as CaLabType, [Validators.required]],
-      labNeed: [null as string],
+      type: [null as CaLabType | null, [Validators.required]],
+      labNeed: [null as string | null],
     });
   }
 
   submit(): void {
     if (this.isLoading || this.formGp.invalid) return;
 
+    const value = this.formGp.getRawValue();
+    if (value.type == null) return;
+
     this.isLoading = true;
-    this.labService.requestNewLab(this.formGp.getRawValue()).subscribe({
+    this.labService.requestNewLab({ type: value.type, labNeed: value.labNeed ?? undefined }).subscribe({
       next: () => this.onRequestSent(),
       error: () => (this.isLoading = false),
     });

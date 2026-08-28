@@ -68,7 +68,7 @@ export class FlTagHelper {
     return FlColorHelper.stringToRGBColor(`${key}${key}${key}`);
   }
 
-  public static tagValueToString(tag: FlTagValue): string {
+  public static tagValueToString(tag: FlTagValue): string | null {
     if (tag == null) return '';
     if (tag instanceof DateTime) {
       return tag.toISODate();

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, Input, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input, OnInit, signal } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
@@ -20,11 +20,11 @@ import { LiSelectFormTemplateDialogComponent } from '../li-select-form-template-
 })
 export class LiRichTextFormTemplateComponent extends TeElementBlockDirective implements OnInit {
   @Input() formTemplateId: string;
-  @Input() formTemplateVersionId: string;
+  @Input() formTemplateVersionId: string | null | undefined;
 
   isLoading = signal(false);
-  templateName = signal<string>(null);
-  versionNumber = signal<number>(null);
+  templateName = signal<string | null>(null);
+  versionNumber = signal<number | null>(null);
   hasError = signal(false);
 
   private dialogService = inject(FlDialogService);
@@ -50,7 +50,7 @@ export class LiRichTextFormTemplateComponent extends TeElementBlockDirective imp
       });
   }
 
-  loadVersionInfo(formTemplateId: string, formTemplateVersionId?: string): void {
+  loadVersionInfo(formTemplateId: string, formTemplateVersionId?: string | null): void {
     this.isLoading.set(true);
     this.hasError.set(false);
 

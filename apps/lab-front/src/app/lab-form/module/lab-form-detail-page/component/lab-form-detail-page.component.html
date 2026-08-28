@@ -1,32 +1,32 @@
 <fl-sidebar-layout>
   <fl-section class="async-section" [object]="form()" [isLoading]="isLoading()">
     <ng-container *flSectionBody>
-      <!-- Header -->
-      <div class="g-layout-row g-layout-start-center">
-        <div class="g-flex-auto g-flex">
-          <fl-text-icon>
-            <mat-icon flIcon="form" class="g-icon-big"></mat-icon>
-            <h1 flElementEditable (flElementValueChange)="updateName($event)" class="title">
-              {{ form().name }}
-            </h1>
-          </fl-text-icon>
+      @if (form(); as f) {
+        <!-- Header -->
+        <div class="g-layout-row g-layout-start-center">
+          <div class="g-flex-auto g-flex">
+            <fl-text-icon>
+              <mat-icon flIcon="form" class="g-icon-big"></mat-icon>
+              <h1 flElementEditable (flElementValueChange)="updateName($event)" class="title">
+                {{ f.name }}
+              </h1>
+            </fl-text-icon>
+          </div>
+
+          @if (formStatus(); as fs) {
+            <fl-status-chip [status]="fs" />
+          }
+
+          <div class="action-buttons">
+            <button mat-icon-button type="button" (click)="openActionMenu($event)">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+
+            <fl-sidebar-toggle></fl-sidebar-toggle>
+          </div>
         </div>
 
-        @if (formStatus()) {
-          <fl-status-chip [status]="formStatus()" />
-        }
-
-        <div class="action-buttons">
-          <button mat-icon-button type="button" (click)="openActionMenu($event)">
-            <mat-icon>more_vert</mat-icon>
-          </button>
-
-          <fl-sidebar-toggle></fl-sidebar-toggle>
-        </div>
-      </div>
-
-      <!-- Main content -->
-      @if (form()) {
+        <!-- Main content -->
         <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
           <h3 class="section-title g-flex-auto">{{ 'li.form_fields' | translate }}</h3>
           @if (isDraft()) {
@@ -51,7 +51,7 @@
         </div>
         <li-form-content
           class="form-content g-flex-auto"
-          [formId]="form().id"
+          [formId]="f.id"
           [readonly]="isReadonly()"
           [showHeader]="false"
           [displayMode]="displayMode()"
@@ -62,33 +62,37 @@
   </fl-section>
 
   <div sidebar>
-    @if (form()) {
+    @if (form(); as f) {
       <!-- Template ref -->
-      @if (form().template) {
+      @if (f.template; as template) {
         <h4 class="g-sidebar-group-title g-text-small">{{ 'li.form_template' | translate }}</h4>
-        <li-form-template-ref-inline [templateRef]="form().template" [showLink]="true" />
+        <li-form-template-ref-inline [templateRef]="template" [showLink]="true" />
       }
 
       <!-- Tags -->
       <div class="sidebar-group">
         <h4 class="g-sidebar-group-title g-text-small">{{ 'li.tags' | translate }}</h4>
-        <li-tag-list
-          [tags]="tags$()"
-          [showNoTagMessage]="true"
-          entityType="FORM"
-          [enableDetails]="true"
-          [entityId]="form().id"></li-tag-list>
+        @if (tags$(); as tags) {
+          <li-tag-list
+            [tags]="tags"
+            [showNoTagMessage]="true"
+            entityType="FORM"
+            [enableDetails]="true"
+            [entityId]="f.id"></li-tag-list>
+        }
       </div>
 
       <!-- Information -->
       <div class="sidebar-group">
         <h4 class="g-sidebar-group-title g-text-small">{{ 'li.information' | translate }}</h4>
-        <li-object-creation-info [object]="form()">
-          @if (form().submittedBy) {
-            <div class="info-row">
-              <span class="g-text-light">{{ 'li.form_submitted' | translate }}</span>
-              <fl-user-with-date [user]="form().submittedBy" [date]="form().submittedAt" />
-            </div>
+        <li-object-creation-info [object]="f">
+          @if (f.submittedBy; as submittedBy) {
+            @if (f.submittedAt; as submittedAt) {
+              <div class="info-row">
+                <span class="g-text-light">{{ 'li.form_submitted' | translate }}</span>
+                <fl-user-with-date [user]="submittedBy" [date]="submittedAt" />
+              </div>
+            }
           }
         </li-object-creation-info>
       </div>

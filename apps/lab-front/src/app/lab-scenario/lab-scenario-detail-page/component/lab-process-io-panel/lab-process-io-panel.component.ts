@@ -1,5 +1,14 @@
 import { AsyncPipe, NgClass } from '@angular/common';
-import { ChangeDetectionStrategy,Component, HostBinding, inject, Input, input, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  HostBinding,
+  inject,
+  Input,
+  input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
@@ -70,7 +79,7 @@ export class LabProcessIoPanelComponent implements OnInit, OnDestroy {
   ports: Observable<LabWorkflowPortResource>[];
 
   // observable to retrieve the id of the resource of the selected port
-  selectedResourceId$: Observable<string>;
+  selectedResourceId$: Observable<string | null | undefined>;
 
   // store the current selected port, null if none
   private selectedPort$: BehaviorSubject<string | null> = new BehaviorSubject(null);
@@ -131,7 +140,7 @@ export class LabProcessIoPanelComponent implements OnInit, OnDestroy {
           return this.resourceState.getResource(resourceId).pipe(
             map((resource) => ({
               port: port,
-              text: resource.status === 'success' ? resource.object.name : port.humanName,
+              text: resource?.status === 'success' ? resource.object.name : port.humanName,
             }))
           );
         }

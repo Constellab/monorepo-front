@@ -28,10 +28,10 @@ export class CaCurrentSpaceService implements FlCleanableService {
   private cookieService = inject(FlCookieService);
   private titleService = inject(Title);
 
-  private currentSpaceDomainDev: string;
+  private currentSpaceDomainDev: string | null = null;
 
-  private currentSpace$: BehaviorSubject<CaSpace> = new BehaviorSubject(null);
-  private currentUserRoleInSpace: CaSpaceRole;
+  private currentSpace$: BehaviorSubject<CaSpace | null> = new BehaviorSubject<CaSpace | null>(null);
+  private currentUserRoleInSpace: CaSpaceRole | null = null;
 
   // key use to store the current space in the local storage only for dev env
   private devSpaceStorageKey: string = 'local-space';
@@ -50,7 +50,7 @@ export class CaCurrentSpaceService implements FlCleanableService {
     }
   }
 
-  public getCurrentSpaceDomainDev(): string {
+  public getCurrentSpaceDomainDev(): string | null {
     return this.currentSpaceDomainDev;
   }
 
@@ -78,14 +78,14 @@ export class CaCurrentSpaceService implements FlCleanableService {
   }
 
   public getCurrentSpace$(): Observable<CaSpace> {
-    return this.currentSpace$.asObservable().pipe(filter((space) => space != null));
+    return this.currentSpace$.asObservable().pipe(filter((space): space is CaSpace => space != null));
   }
 
   public getCurrentSpacePromise(): Promise<CaSpace> {
     return firstValueFrom(this.getCurrentSpace$());
   }
 
-  public getCurrentSpacePhoto$(): Observable<string> {
+  public getCurrentSpacePhoto$(): Observable<string | null> {
     return this.getCurrentSpace$().pipe(
       map((space) => (space.photo ? this.spaceService.getSpacePhoto(space.photo) : null))
     );

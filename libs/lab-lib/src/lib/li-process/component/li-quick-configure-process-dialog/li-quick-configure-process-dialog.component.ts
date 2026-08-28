@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
@@ -74,7 +74,7 @@ export class LiQuickConfigureProcessDialogComponent implements OnInit {
   }
 
   private getSpecsSuccess(specs: TdParamSpecs): void {
-    this.processConfig = TdConfig.fromSpecs(specs, null);
+    this.processConfig = TdConfig.fromSpecs(specs);
     this.formGp = TdConfigureSpecsFormComponent.buildFormGroup(this.processConfig);
 
     this.getIsLoading = false;

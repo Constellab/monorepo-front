@@ -37,7 +37,7 @@
     <textarea
       matInput
       rows="4"
-      [placeholder]="placeholder | flTranslatableText | async"
+      [placeholder]="(placeholder | flTranslatableText | async) ?? ''"
       [disabled]="isLoading()"
       [value]="textInput()"
       (input)="onTextInput($event)"></textarea>

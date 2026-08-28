@@ -14,7 +14,7 @@ import { Directive, HostBinding, Input, OnInit } from '@angular/core';
 })
 export class FlHideDirective implements OnInit {
   @HostBinding('class')
-  hideClass: string = null;
+  hideClass: string | null = null;
 
   @Input() flHide: any;
   @Input('flHide.xs') flHideXs: any;
@@ -33,39 +33,29 @@ export class FlHideDirective implements OnInit {
   @Input('flHide.print') flHidePrint: any;
 
   ngOnInit(): void {
-    if (coerceBooleanProperty(this.flHide)) {
-      this.hideClass = 'g-hide';
+    // input value -> class to apply, the first truthy input wins
+    const inputs: [any, string][] = [
+      [this.flHide, 'g-hide'],
       // Exact
-    } else if (coerceBooleanProperty(this.flHideXs)) {
-      this.hideClass = 'g-hide-xs';
-    } else if (coerceBooleanProperty(this.flHideSm)) {
-      this.hideClass = 'g-hide-sm';
-    } else if (coerceBooleanProperty(this.flHideMd)) {
-      this.hideClass = 'g-hide-md';
-    } else if (coerceBooleanProperty(this.flHideLg)) {
-      this.hideClass = 'g-hide-lg';
-    } else if (coerceBooleanProperty(this.flHideXl)) {
-      this.hideClass = 'g-hide-xl';
+      [this.flHideXs, 'g-hide-xs'],
+      [this.flHideSm, 'g-hide-sm'],
+      [this.flHideMd, 'g-hide-md'],
+      [this.flHideLg, 'g-hide-lg'],
+      [this.flHideXl, 'g-hide-xl'],
       // Less than
-    } else if (coerceBooleanProperty(this.flHideLtSm)) {
-      this.hideClass = 'g-hide-lt-sm';
-    } else if (coerceBooleanProperty(this.flHideLtMd)) {
-      this.hideClass = 'g-hide-lt-md';
-    } else if (coerceBooleanProperty(this.flHideLtLg)) {
-      this.hideClass = 'g-hide-lt-lg';
-    } else if (coerceBooleanProperty(this.flHideLtXl)) {
-      this.hideClass = 'g-hide-lt-xl';
+      [this.flHideLtSm, 'g-hide-lt-sm'],
+      [this.flHideLtMd, 'g-hide-lt-md'],
+      [this.flHideLtLg, 'g-hide-lt-lg'],
+      [this.flHideLtXl, 'g-hide-lt-xl'],
       // Greater than
-    } else if (coerceBooleanProperty(this.flHideGtXs)) {
-      this.hideClass = 'g-hide-gt-xs';
-    } else if (coerceBooleanProperty(this.flHideGtSm)) {
-      this.hideClass = 'g-hide-gt-sm';
-    } else if (coerceBooleanProperty(this.flHideGtMd)) {
-      this.hideClass = 'g-hide-gt-md';
-    } else if (coerceBooleanProperty(this.flHideGtLg)) {
-      this.hideClass = 'g-hide-gt-lg';
-    } else if (coerceBooleanProperty(this.flHidePrint)) {
-      this.hideClass = 'g-print-hide';
-    }
+      [this.flHideGtXs, 'g-hide-gt-xs'],
+      [this.flHideGtSm, 'g-hide-gt-sm'],
+      [this.flHideGtMd, 'g-hide-gt-md'],
+      [this.flHideGtLg, 'g-hide-gt-lg'],
+      [this.flHidePrint, 'g-print-hide'],
+    ];
+
+    const match = inputs.find(([value]) => coerceBooleanProperty(value));
+    this.hideClass = match ? match[1] : null;
   }
 }

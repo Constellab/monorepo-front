@@ -1,4 +1,13 @@
-import { ChangeDetectionStrategy,Component, ElementRef, inject, Input, OnDestroy, OnInit, Renderer2 } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  inject,
+  Input,
+  OnDestroy,
+  OnInit,
+  Renderer2,
+} from '@angular/core';
 import { MatButton, MatIconButton } from '@angular/material/button';
 
 /**
@@ -69,7 +78,7 @@ export class FlButtonLoaderComponent implements OnInit, OnDestroy {
     return this.isIconButton() ? 'override' : 'right';
   }
 
-  private getButton(): MatButton | MatIconButton {
+  private getButton(): MatButton | MatIconButton | null {
     return this.button ?? this.iconButton;
   }
 

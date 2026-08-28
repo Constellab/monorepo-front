@@ -9,7 +9,7 @@ import { FlFileHelper } from '@monorepo/front-core-lib/fl-translate';
   standalone: false,
 })
 export class FlByteTextPipe implements PipeTransform {
-  transform(value: number): string {
+  transform(value: number): string | null {
     if (value == null) return null;
     return FlFileHelper.getFileSizeText(value);
   }

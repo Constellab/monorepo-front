@@ -1,9 +1,9 @@
-@if (tagKeyModel()) {
+@if (tagKeyModel(); as tagKeyModel) {
   <fl-sidebar-layout>
     <div class="main-content">
       <div class="g-layout-row g-layout-start-center">
-        @if (tagKeyModel().isCommunityTag) {
-          <co-tag-community-tag size="big" class="status-icon" [key]="tagKeyModel()"></co-tag-community-tag>
+        @if (tagKeyModel.isCommunityTag) {
+          <co-tag-community-tag size="big" class="status-icon" [key]="tagKeyModel"></co-tag-community-tag>
         }
         <div class="g-flex-auto g-flex">
           <fl-text-icon>
@@ -12,17 +12,17 @@
               flElementEditable
               (flElementValueChange)="updateLabel($event)"
               class="title"
-              [flElementDisabled]="tagKeyModel().isCommunityTag">
-              {{ tagKeyModel().label ?? tagKeyModel().key }}
+              [flElementDisabled]="tagKeyModel.isCommunityTag">
+              {{ tagKeyModel.label ?? tagKeyModel.key }}
             </h1>
           </fl-text-icon>
         </div>
 
-        @if (tagKeyModel().deprecated) {
+        @if (tagKeyModel.deprecated) {
           <co-deprecated-tag></co-deprecated-tag>
         }
 
-        @if (!tagKeyModel().deprecated && !tagKeyModel().isCommunityTag) {
+        @if (!tagKeyModel.deprecated && !tagKeyModel.isCommunityTag) {
           <div class="g-print-hide action-buttons">
             <button mat-icon-button type="button" [matMenuTriggerFor]="tagMenu">
               <mat-icon>more_vert</mat-icon>
@@ -45,12 +45,12 @@
         }
       </div>
 
-      @if (tagKeyValues$()) {
+      @if (tagKeyValues$(); as tagKeyValues) {
         <div class="tag-values-header-div">
           <h2 class="values-title">{{ 'li.values' | translate }}</h2>
-          @if (!tagKeyModel().deprecated) {
+          @if (!tagKeyModel.deprecated) {
             <div class="g-layout-row g-layout-start-center g-gap-05em">
-              @if (!tagKeyModel().isCommunityTag) {
+              @if (!tagKeyModel.isCommunityTag) {
                 <button
                   class="g-button-small"
                   mat-stroked-button
@@ -73,9 +73,9 @@
           (editTagValue)="openEditTagValueDialog($event)"
           (deleteTagValue)="openDeleteTagValueDialog($event)"
           [deleteButtonToolTip]="'li.delete_tag_value' | translate"
-          [dataSource]="tagKeyValues$()"
+          [dataSource]="tagKeyValues"
           [showIsCommunityTagValue]="true"
-          [tagKey]="tagKeyModel()"></co-tag-values-table>
+          [tagKey]="tagKeyModel"></co-tag-values-table>
       }
     </div>
 
@@ -83,13 +83,13 @@
       <!--  Key  -->
       <div class="sidebar-group">
         <h4 class="g-sidebar-group-title g-text-small">{{ 'li.key' | translate }}</h4>
-        <b>{{ tagKeyModel().key }}</b>
+        <b>{{ tagKeyModel.key }}</b>
       </div>
 
       <!--  Value format  -->
       <div class="sidebar-group">
         <h4 class="g-sidebar-group-title g-text-small">{{ 'li.value_format' | translate }}</h4>
-        <span>{{ 'li.value_format_' + tagKeyModel().valueFormat | translate }}</span>
+        <span>{{ 'li.value_format_' + tagKeyModel.valueFormat | translate }}</span>
       </div>
 
       <!--  Information  -->
@@ -97,24 +97,22 @@
         <h4 class="g-sidebar-group-title g-text-small">{{ 'li.information' | translate }}</h4>
         <div class="info-row">
           <span class="g-text-light">{{ 'flUser.creation' | translate }}</span>
-          <fl-user-with-date [user]="null" [date]="tagKeyModel().createdAt"></fl-user-with-date>
+          <fl-user-with-date [date]="tagKeyModel.createdAt"></fl-user-with-date>
         </div>
         <div class="info-row separator">
           <span class="g-text-light">{{ 'flUser.last_modification' | translate }}</span>
-          <fl-user-with-date [user]="null" [date]="tagKeyModel().lastModifiedAt"></fl-user-with-date>
+          <fl-user-with-date [date]="tagKeyModel.lastModifiedAt"></fl-user-with-date>
         </div>
       </div>
 
       <!--  Description  -->
-      @if (
-        tagKeyModel().description && !tagKeyModel().description.isEmpty() && tagKeyModel().isCommunityTag
-      ) {
+      @if (tagKeyModel.description && !tagKeyModel.description.isEmpty() && tagKeyModel.isCommunityTag) {
         <div class="sidebar-group">
           <h4 class="g-sidebar-group-title g-text-small">{{ 'li.description' | translate }}</h4>
           <te-text-editor
             [disabled]="true"
             [config]="textEditorConfig"
-            [ngModel]="tagKeyModel().description"></te-text-editor>
+            [ngModel]="tagKeyModel.description"></te-text-editor>
         </div>
       }
     </div>

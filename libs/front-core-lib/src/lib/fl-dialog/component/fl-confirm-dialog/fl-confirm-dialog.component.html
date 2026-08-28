@@ -14,7 +14,7 @@
       <mat-label>{{ 'flDialog.confirm_text' | translate }}</mat-label>
       <input
         matInput
-        [placeholder]="inputData.confirmWithText"
+        [placeholder]="inputData.confirmWithText ?? ''"
         [formControl]="confirmTextFormControl"
         required />
       @if (confirmTextFormControl.invalid) {

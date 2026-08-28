@@ -1,6 +1,6 @@
 import { CdkScrollable } from '@angular/cdk/scrolling';
-import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatDialogActions, MatDialogContent } from '@angular/material/dialog';
 import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
@@ -55,7 +55,7 @@ export class LiNoteTemplateFormDialogComponent
 
   buildForm(): UntypedFormGroup {
     return new FormBuilder().group({
-      title: [null as string, Validators.required],
+      title: new FormControl<string | null>(null, Validators.required),
     });
   }
 

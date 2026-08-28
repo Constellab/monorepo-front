@@ -1,5 +1,13 @@
 import { TemplatePortal } from '@angular/cdk/portal';
-import { AfterContentInit, ChangeDetectionStrategy,Component, ContentChild, inject, Input, ViewContainerRef } from '@angular/core';
+import {
+  AfterContentInit,
+  ChangeDetectionStrategy,
+  Component,
+  ContentChild,
+  inject,
+  Input,
+  ViewContainerRef,
+} from '@angular/core';
 import { ClHelpService } from '@monorepo/core-lib';
 
 import { FlSectionBodyDirective } from '../fl-section-body';
@@ -42,7 +50,7 @@ export class FlSectionComponent implements AfterContentInit {
   @ContentChild(FlSectionBodyDirective) private lazyContent: FlSectionBodyDirective<any>;
 
   /** Portal holding the user's content. */
-  portal: TemplatePortal;
+  portal: TemplatePortal | null;
 
   ngAfterContentInit(): void {
     this.lazyRender();

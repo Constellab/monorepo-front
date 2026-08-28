@@ -35,7 +35,7 @@ export class BnBioNetworkLinksRenderer extends BnBioNetworkObjectRenderer {
   }
 
   protected updateObjectColors(options: BnBioNetworkOptions): void {
-    let colorFunc: BnBioNetworkObjectColorFunction;
+    let colorFunc: BnBioNetworkObjectColorFunction | null;
     if (options.coloredClusters?.length > 0) {
       colorFunc = this.getClusterColorFunction(options.coloredClusters);
     } else {
@@ -59,7 +59,8 @@ export class BnBioNetworkLinksRenderer extends BnBioNetworkObjectRenderer {
         })
         .linkDirectionalArrowRelPos(0.5);
     } else {
-      this.graphRenderer.graph.linkDirectionalArrowLength(null);
+      // force-graph resets the prop on null, but its typings only declare the value type
+      this.graphRenderer.graph.linkDirectionalArrowLength(null as unknown as number);
     }
 
     // link directional particles
@@ -75,7 +76,7 @@ export class BnBioNetworkLinksRenderer extends BnBioNetworkObjectRenderer {
       });
 
       // get the transformed media of the link values
-      const quantile = linkColor.transformValue(linkColor.getQuantile(0.5));
+      const quantile = linkColor.transformValue(linkColor.getQuantile(0.5) ?? NaN);
 
       // nb of particules in a link based on the link value and the length of the link
       this.graphRenderer.graph.linkDirectionalParticles((link: BnBioNetworkLink) => {
@@ -153,7 +154,7 @@ export class BnBioNetworkLinksRenderer extends BnBioNetworkObjectRenderer {
     this.graphRenderer.graph.linkVisibility(visibilityLink);
   }
 
-  private setColorFunction(colorFunction: BnBioNetworkLinkColorFunction): void {
+  private setColorFunction(colorFunction: BnBioNetworkLinkColorFunction | null): void {
     this.graphRenderer.graph.linkColor((link: BnBioNetworkLink) => {
       // if the link is not selected, always return grey
       if (!link.selected || colorFunction == null) return this.greyColor;

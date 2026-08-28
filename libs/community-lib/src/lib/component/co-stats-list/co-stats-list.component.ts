@@ -14,8 +14,8 @@ import { TranslatePipe } from '@ngx-translate/core';
 })
 export class CoStatsListComponent {
   likes = input<number>(0);
-  comments = input<number>(undefined);
-  executions = input<number>(undefined);
+  comments = input<number | undefined>(undefined);
+  executions = input<number | undefined>(undefined);
   dense = input<boolean>(false);
   isClickable = input<boolean>(false);
   isLiked = input<boolean>(false);

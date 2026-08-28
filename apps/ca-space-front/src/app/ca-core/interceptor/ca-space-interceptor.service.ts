@@ -26,9 +26,10 @@ export class CaSpaceInterceptor implements HttpInterceptor {
       return next.handle(req);
     }
 
-    if (!CaEnvironmentHelper.isProduction() && this.currentSpaceService.getCurrentSpaceDomainDev() != null) {
+    const currentSpaceDomainDev = this.currentSpaceService.getCurrentSpaceDomainDev();
+    if (!CaEnvironmentHelper.isProduction() && currentSpaceDomainDev != null) {
       req = req.clone({
-        headers: req.headers.set(this.spaceHeader, this.currentSpaceService.getCurrentSpaceDomainDev()),
+        headers: req.headers.set(this.spaceHeader, currentSpaceDomainDev),
       });
     }
 

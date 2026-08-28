@@ -3,3 +3,9 @@
   width: 100%;
   height: 100%;
 }
+
+// remove the default editor border for the note content
+// (element + class raises specificity above te-text-editor's own :host border)
+te-text-editor.g-full-height {
+  border: none;
+}

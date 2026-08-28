@@ -13,8 +13,8 @@ export class ChChartSvg {
   private _width: number;
   private _height: number;
 
-  public svg: Selection<SVGElement, void, null, null>;
-  public chartContainer: Selection<SVGElement, void, null, null>;
+  public svg: Selection<SVGElement, void, null, undefined>;
+  public chartContainer: Selection<SVGElement, void, null, undefined>;
   private container: HTMLElement;
 
   public initSvg(containerElement: HTMLElement): this {
@@ -57,7 +57,7 @@ export class ChChartSvg {
    * Download the SVG as file
    * @invertColors if true invert the #000000 colors with #fffff. It is useful for the dark theme
    */
-  public downloadSVG(svgLegend?: ChChartSVGLegend, invertColors: boolean = false): void {
+  public downloadSVG(svgLegend: ChChartSVGLegend | null = null, invertColors: boolean = false): void {
     // height of the legend in px
     const legendMargin: number = 10;
     const svgLegendWidth: number = 100;

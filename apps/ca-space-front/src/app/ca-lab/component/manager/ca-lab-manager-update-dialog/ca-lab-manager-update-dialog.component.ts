@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
@@ -60,7 +60,7 @@ export class CaLabManagerUpdateDialogComponent {
   ]);
 
   submit(): void {
-    if (this.formCtrl.valid) {
+    if (this.formCtrl.valid && this.formCtrl.value != null) {
       const obs = this.labService.updateLabManager(this.input.labId, this.formCtrl.value);
 
       this.dialogRef.close(obs);

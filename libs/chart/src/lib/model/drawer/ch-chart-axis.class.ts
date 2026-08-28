@@ -32,7 +32,7 @@ export class ChChartAxis {
 
   protected tickTextIsRotated: boolean = false;
 
-  protected label: string;
+  protected label: string | null | undefined;
 
   private tickFormatter: ChChartLabelFormatter | null;
 
@@ -45,7 +45,7 @@ export class ChChartAxis {
     return this;
   }
 
-  public setTickFormatter(tickFormatter: ChChartLabelFormatter): this {
+  public setTickFormatter(tickFormatter: ChChartLabelFormatter | null): this {
     if (tickFormatter) {
       this.tickFormatter = tickFormatter;
     }
@@ -79,9 +79,9 @@ export class ChChartAxis {
   // draw the axis label
   private drawAxisLabel(): void {
     if (this.label) {
-      let x: number;
-      let y: number;
-      let transform: string = null;
+      let x: number | null = null;
+      let y: number | null = null;
+      let transform: string | null = null;
       if (this.type === 'left') {
         x = -(this.axisContainer.node().getBBox().height / 2);
         y = -this.getTickLabelSize();
@@ -106,7 +106,7 @@ export class ChChartAxis {
     }
   }
 
-  public setLabel(label: string): this {
+  public setLabel(label: string | null | undefined): this {
     this.label = label;
     return this;
   }
@@ -166,7 +166,10 @@ export class ChChartAxis {
     // set the tick method if exists
     const tickFormat = this.getTickFormatter();
     // set the tick format method and limit length of tick
-    axis.tickFormat((d, index) => tickFormat.formatShort(d.valueOf(), index, ChChartAxis.maxTickLabelLength));
+    axis.tickFormat(
+      // d3 renders an empty tick label for a null text
+      (d, index) => tickFormat.formatShort(d.valueOf(), index, ChChartAxis.maxTickLabelLength) ?? ''
+    );
 
     return axis;
   }
@@ -259,7 +262,7 @@ export class ChChartAxisBand extends ChChartAxis {
    * @param tickSize average size of the tick in px
    * @param tickFormat
    */
-  public setSmartTickFormat(tickSize: number, tickFormat?: ChChartLabelFormatter): this {
+  public setSmartTickFormat(tickSize: number, tickFormat: ChChartLabelFormatter | null = null): this {
     if (tickFormat == null) {
       tickFormat = new ChChartLabelFormatter((d) => d?.toString() ?? null, ChChartAxis.maxTickLabelLength);
     }
@@ -271,7 +274,7 @@ export class ChChartAxisBand extends ChChartAxis {
       const tickInterval: number = Math.ceil(tickSize / bandWidth);
 
       // for each tick interval modulo, display the tick, otherwise show an empty string
-      return index % tickInterval === 0 ? tickFormat.formatShort(d, index) : null;
+      return (index ?? 0) % tickInterval === 0 ? tickFormat.formatShort(d, index) : null;
     };
 
     const smartTickFormat = new ChChartLabelFormatter(format, tickFormat.shortFormatMaxLength);

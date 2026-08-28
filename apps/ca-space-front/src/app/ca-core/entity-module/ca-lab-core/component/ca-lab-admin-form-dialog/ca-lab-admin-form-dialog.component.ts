@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatOption } from '@angular/material/core';
@@ -31,7 +31,7 @@ import { CaSelectLabComponent } from '../ca-select-lab/ca-select-lab.component';
 
 export interface CaLabAdminFormDialogInput extends FlFormDialogInput<CaLabAdminForm> {
   id?: string; // only on update mode
-  object?: null;
+  object?: never;
 }
 
 /**
@@ -146,7 +146,11 @@ export class CaLabAdminFormDialogComponent
    * @protected
    */
   protected patchUpdate(): void {
-    this.labService.getByIdAdmin(this.dialogInput.id).subscribe({
+    const id = this.dialogInput.id;
+    if (id == null) {
+      throw new Error('CaLabAdminFormDialogComponent: missing lab id in update mode');
+    }
+    this.labService.getByIdAdmin(id).subscribe({
       next: (lab) => {
         this.updateIsInitiated = true;
         this.formGp.patchValue(lab);
@@ -159,76 +163,102 @@ export class CaLabAdminFormDialogComponent
     this.formGp.clearValidators();
     switch (type) {
       case 'CLOUD':
-        this.formGp.get('virtualHost').enable();
-        this.formGp.get('serverCloud').enable();
-        this.formGp.get('billingMode').enable();
-        this.formGp.get('labManagerApiKey').enable();
-        this.formGp.get('codelabToken').enable();
-        this.formGp.get('serverInstanceId').enable();
-        this.formGp.get('serverVolumeId').enable();
-        this.formGp.get('serverIpAddressId').enable();
-        this.formGp.get('region').enable();
-
-        this.formGp.get('labIpOverride').disable();
-        this.formGp.get('labPortOverride').disable();
-        this.formGp.get('desktopPlatform').disable();
-        this.formGp
-          .get('virtualHost')
-          .setValidators([Validators.required, CaLabValidator.virtualHostDomainValidator(true)]);
-        if (this.isCreateMode()) {
-          this.formGp.get('volumeSize').enable();
-          this.formGp.get('volumeType').enable();
-          this.formGp.get('dailyBackupRegion').enable();
-          this.formGp.get('weeklyBackupRegion').enable();
-          this.formGp.addValidators([CaLabValidator.differentBackupRegionValidator()]);
-        }
+        this.applyCloudType();
         break;
       case 'ON_PREMISE':
-        this.formGp.get('virtualHost').enable();
-        this.formGp.get('labManagerApiKey').enable();
-        this.formGp.get('codelabToken').enable();
-
-        this.formGp.get('labIpOverride').enable();
-        this.formGp.get('labPortOverride').enable();
-
-        this.formGp.get('serverCloud').disable();
-        this.formGp.get('billingMode').disable();
-        this.formGp.get('serverInstanceId').disable();
-        this.formGp.get('serverVolumeId').disable();
-        this.formGp.get('serverIpAddressId').disable();
-        this.formGp.get('desktopPlatform').disable();
-        this.formGp.get('region').disable();
-        this.formGp.get('volumeSize').disable();
-        this.formGp.get('volumeType').disable();
-        this.formGp.get('dailyBackupRegion').disable();
-        this.formGp.get('weeklyBackupRegion').disable();
-
-        this.formGp
-          .get('virtualHost')
-          .setValidators([Validators.required, CaLabValidator.virtualHostDomainValidator(false)]);
+        this.applyOnPremiseType();
         break;
       case 'DESKTOP':
-        this.formGp.get('desktopPlatform').enable();
-
-        this.formGp.get('virtualHost').disable();
-        this.formGp.get('serverCloud').disable();
-        this.formGp.get('billingMode').disable();
-        this.formGp.get('labManagerApiKey').disable();
-        this.formGp.get('codelabToken').disable();
-        this.formGp.get('serverInstanceId').disable();
-        this.formGp.get('serverVolumeId').disable();
-        this.formGp.get('serverIpAddressId').disable();
-        this.formGp.get('labIpOverride').disable();
-        this.formGp.get('labPortOverride').disable();
-        this.formGp.get('region').disable();
-        this.formGp.get('volumeSize').disable();
-        this.formGp.get('volumeType').disable();
-        this.formGp.get('dailyBackupRegion').disable();
-        this.formGp.get('weeklyBackupRegion').disable();
-
+        this.applyDesktopType();
         break;
     }
     this.formGp.updateValueAndValidity();
+  }
+
+  private applyCloudType(): void {
+    this.enableControls([
+      'virtualHost',
+      'serverCloud',
+      'billingMode',
+      'labManagerApiKey',
+      'codelabToken',
+      'serverInstanceId',
+      'serverVolumeId',
+      'serverIpAddressId',
+      'region',
+    ]);
+    this.disableControls(['labIpOverride', 'labPortOverride', 'desktopPlatform']);
+
+    this.setVirtualHostValidators(true);
+
+    if (this.isCreateMode()) {
+      this.enableControls(['volumeSize', 'volumeType', 'dailyBackupRegion', 'weeklyBackupRegion']);
+      this.formGp.addValidators([CaLabValidator.differentBackupRegionValidator()]);
+    }
+  }
+
+  private applyOnPremiseType(): void {
+    this.enableControls([
+      'virtualHost',
+      'labManagerApiKey',
+      'codelabToken',
+      'labIpOverride',
+      'labPortOverride',
+    ]);
+    this.disableControls([
+      'serverCloud',
+      'billingMode',
+      'serverInstanceId',
+      'serverVolumeId',
+      'serverIpAddressId',
+      'desktopPlatform',
+      'region',
+      'volumeSize',
+      'volumeType',
+      'dailyBackupRegion',
+      'weeklyBackupRegion',
+    ]);
+
+    this.setVirtualHostValidators(false);
+  }
+
+  private applyDesktopType(): void {
+    this.enableControls(['desktopPlatform']);
+    this.disableControls([
+      'virtualHost',
+      'serverCloud',
+      'billingMode',
+      'labManagerApiKey',
+      'codelabToken',
+      'serverInstanceId',
+      'serverVolumeId',
+      'serverIpAddressId',
+      'labIpOverride',
+      'labPortOverride',
+      'region',
+      'volumeSize',
+      'volumeType',
+      'dailyBackupRegion',
+      'weeklyBackupRegion',
+    ]);
+  }
+
+  private setVirtualHostValidators(isCloud: boolean): void {
+    this.formGp
+      .get('virtualHost')
+      ?.setValidators([Validators.required, CaLabValidator.virtualHostDomainValidator(isCloud)]);
+  }
+
+  private enableControls(names: string[]): void {
+    for (const name of names) {
+      this.formGp.get(name)?.enable();
+    }
+  }
+
+  private disableControls(names: string[]): void {
+    for (const name of names) {
+      this.formGp.get(name)?.disable();
+    }
   }
 
   isCloud(): boolean {

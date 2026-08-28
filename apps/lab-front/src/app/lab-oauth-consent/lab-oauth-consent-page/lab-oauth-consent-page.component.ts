@@ -78,8 +78,15 @@ export class LabOAuthConsentPageComponent implements OnInit {
    * This is what drives every piece of copy on the page — nothing is hardcoded.
    */
   private loadDetails(): void {
+    const loginState = this.loginState;
+    if (loginState == null) {
+      // Defensive: loadDetails() is only ever reached after the ngOnInit login_state guard.
+      this.status.set('INVALID_LINK');
+      return;
+    }
+
     this.status.set('LOADING');
-    this.consentService.getConsentDetails(this.loginState).subscribe({
+    this.consentService.getConsentDetails(loginState).subscribe({
       next: (details) => {
         this.details.set(details);
         this.status.set('READY');
@@ -151,15 +158,19 @@ export class LabOAuthConsentPageComponent implements OnInit {
   private redirectToConsent(code: string): void {
     // Full-page navigation (NOT XHR): the backend answers with a 302 the browser must follow.
     // login_state and code are the only things sent, and only to this API_URL endpoint.
+    const loginState = this.loginState;
+    if (loginState == null) return;
     const url =
       `${this.getApiBaseUrl()}/oauth-auth/consent` +
-      `?login_state=${encodeURIComponent(this.loginState)}` +
+      `?login_state=${encodeURIComponent(loginState)}` +
       `&code=${encodeURIComponent(code)}`;
     window.location.href = url;
   }
 
   private redirectToLogin(): void {
-    const returnUrl = `/oauth-consent?login_state=${encodeURIComponent(this.loginState)}`;
+    const loginState = this.loginState;
+    const returnUrl =
+      loginState != null ? `/oauth-consent?login_state=${encodeURIComponent(loginState)}` : '/oauth-consent';
     window.location.href = `/login?redirect_uri=${encodeURIComponent(returnUrl)}`;
   }
 

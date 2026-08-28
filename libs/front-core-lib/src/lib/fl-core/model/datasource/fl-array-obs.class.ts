@@ -41,7 +41,7 @@ export interface FlArrayObsStatusComplete {
  */
 export abstract class FlArrayObs<T = any> implements FlDatasource<T> {
   // emit when the array has changed
-  private array$: BehaviorSubject<T[]> = new BehaviorSubject(null);
+  private array$: BehaviorSubject<T[] | null> = new BehaviorSubject<T[] | null>(null);
 
   // last status of the array obs
   private status$: BehaviorSubject<FlArrayObsStatus> = new BehaviorSubject({ status: 'waiting' });
@@ -57,13 +57,13 @@ export abstract class FlArrayObs<T = any> implements FlDatasource<T> {
    * @protected
    */
   constructor(
-    data?: T[] | Observable<T[]>,
+    data?: T[] | Observable<T[]> | null,
     private disableAutoDisconnect: boolean = false
   ) {
     this.initData(data);
   }
 
-  private initData(data?: T[] | Observable<T[]>): void {
+  private initData(data?: T[] | Observable<T[]> | null): void {
     if (data) {
       if (data instanceof Array) {
         this.array = data;
@@ -72,7 +72,7 @@ export abstract class FlArrayObs<T = any> implements FlDatasource<T> {
           this.array = [];
         }
 
-        if(this.subscription) {
+        if (this.subscription) {
           this.subscription.unsubscribe();
         }
         this.subscription = data.subscribe({
@@ -242,7 +242,7 @@ export abstract class FlArrayObs<T = any> implements FlDatasource<T> {
   }
 
   //////////////////////// GET /////////////////////////
-  public findItem(item: T): T | null {
+  public findItem(item: T): T | undefined {
     return this.array.find((v) => this.equals(item, v));
   }
 
@@ -323,7 +323,7 @@ export abstract class FlArrayObs<T = any> implements FlDatasource<T> {
    */
   public connect(): Observable<T[]> {
     return this.array$.asObservable().pipe(
-      filter((array) => array != null),
+      filter((array): array is T[] => array != null),
       // return a copy of the array
       map((array) => {
         let newArray = array.slice();

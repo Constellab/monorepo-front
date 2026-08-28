@@ -50,10 +50,14 @@ export class FlEmojiHelper {
     nextCategoryIndex: 0,
   };
 
-  private static emojisData: FlEmojiMartData = null;
+  private static emojisData: FlEmojiMartData | null = null;
 
-  public static search(value: string, page: number, pageSize: number): Observable<ClPageI<FlEmojiCategory>> {
-    if (ClHelpService.isNullOrEmpty(value)) {
+  public static search(
+    value: string | undefined,
+    page: number,
+    pageSize: number
+  ): Observable<ClPageI<FlEmojiCategory>> {
+    if (value == null || ClHelpService.isNullOrEmpty(value)) {
       return this.allPaginated(page, pageSize);
     } else {
       return this.searchPaginated(value, page, pageSize);
@@ -197,13 +201,16 @@ export class FlEmojiHelper {
   }
 
   public static async getEmojiData(): Promise<FlEmojiMartData> {
-    if (FlEmojiHelper.emojisData == null) {
-      // load emojis info from emoji-mart
-      const response = await fetch('https://cdn.jsdelivr.net/npm/@emoji-mart/data');
-      FlEmojiHelper.emojisData = await response.json();
-      init({ data: FlEmojiHelper.emojisData });
-    }
-    return FlEmojiHelper.emojisData;
+    const emojisData = FlEmojiHelper.emojisData;
+    if (emojisData != null) return emojisData;
+
+    // load emojis info from emoji-mart
+    const response = await fetch('https://cdn.jsdelivr.net/npm/@emoji-mart/data');
+    const loadedData: FlEmojiMartData = await response.json();
+    FlEmojiHelper.emojisData = loadedData;
+    init({ data: loadedData });
+
+    return loadedData;
   }
 }
 

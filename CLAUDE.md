@@ -30,7 +30,46 @@ Common apps: `ca-space-front`, `lab-front`, `ha-community-front`, `lab-manager-s
 - `bunx nx test <project>` - Run tests for a specific project
 - `bunx nx test <project> --watch` - Run tests in watch mode
 - `bunx nx affected:test` - Run tests for all affected projects
+- `bun run test:all` - Run every test target (`nx run-many -t test`)
+- `bun run test:apps` - Run the test target of the five apps
+- `bun run test:lib <project>` - Run one project's tests, e.g. `bun run test:lib core-lib` (extra flags
+  are forwarded: `bun run test:lib core-lib --watch`)
 - `bunx nx e2e <app>-e2e` - Run end-to-end tests for an app
+
+#### Test memory budget
+
+Every vitest instance boots a Vite server, the Angular compiler and jsdom, and by default forks one
+worker per CPU core - running the ~20 test targets of this workspace at once exhausts the RAM of a dev
+machine and hands the run to the kernel OOM killer. Two guards keep a full run bounded (~2 GB peak,
+~2.5 min cold); measure before relaxing them:
+
+- `nx.json` sets `parallelism: false` on the `test` target defaults, so test tasks never run concurrently.
+- `vitest.shared.mts` caps the worker pool (`maxWorkers: 2`) and each worker's heap. It is the single
+  source of truth, consumed by the libs through `flLibTestConfig()` in their `vite.config.mts` and by the
+  apps through `vitest-base.config.mts`, which the `@angular/build:unit-test` builder picks up thanks to
+  `runnerConfig: true` in their `project.json`.
+
+Prefer `bunx nx affected -t test` while working; Nx caches test results, so a repeated full run only
+re-executes the projects you touched.
+
+#### Tests never watch by default
+
+`@angular/build:unit-test` defaults `watch` to `isTTY()`, so a bare `bunx nx test <app>` used to run
+the specs and then sit there waiting for a file change - the task never returned. Every app therefore
+pins `"watch": false` in the `test` options of its `project.json`, and the libs get the same from
+`flLibTestConfig()`. Pass `--watch` explicitly when you do want the watcher; the flag still wins.
+
+#### Tests gate the release builds
+
+Every tag-triggered workflow (`ca_*`, `lab_*`, `ha_*`, `lms_*`, `dc_*`) runs the test suite before
+it builds anything: each one starts a `test` job that calls the reusable
+`.github/workflows/test.yml`, and the build job declares `needs: test`. A red suite therefore blocks
+the image build and the release, so a tag must be cut from a green commit.
+
+`test.yml` runs `nx run-many -t test` over the whole workspace and accepts an optional `projects`
+input to narrow it. Every project keeps at least one spec on purpose: `@angular/build:unit-test`
+throws on a project with zero tests instead of passing, so deleting a project's last spec turns its
+target red rather than skipping it.
 
 ### Code Quality
 

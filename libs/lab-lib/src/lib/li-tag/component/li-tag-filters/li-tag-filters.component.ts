@@ -1,5 +1,14 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy,Component, EventEmitter, inject, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  inject,
+  OnDestroy,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { NgControl } from '@angular/forms';
 import {
   MatExpansionPanel,
@@ -67,7 +76,7 @@ export class LiTagFiltersComponent extends FlFormFieldDirective<FlTag[]> impleme
 
   ngOnInit(): void {
     this.tagKeys = new FlEntityPaginatedDatasource(
-      (page, size) => this.tagService.searchKeys(null, page, size),
+      (page, size) => this.tagService.searchKeys(undefined, page, size),
       10
     );
   }

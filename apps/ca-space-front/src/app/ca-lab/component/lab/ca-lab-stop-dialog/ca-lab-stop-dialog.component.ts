@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatCheckbox } from '@angular/material/checkbox';
@@ -43,7 +43,7 @@ export interface CaStopLabDialogInput {
   ],
 })
 export class CaLabStopDialogComponent {
-  formCtrl = new FormControl(false);
+  formCtrl = new FormControl(false, { nonNullable: true });
 
   private input: CaStopLabDialogInput = inject(MAT_DIALOG_DATA);
 

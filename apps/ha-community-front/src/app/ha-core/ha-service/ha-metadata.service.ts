@@ -2,6 +2,25 @@ import { inject, Injectable } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 
+/**
+ * The social meta tags of a page, shared by the twitter and open graph variants.
+ */
+export interface HaSocialMetaTagsOptions {
+  title: string;
+  description: string;
+  image: string;
+  url: string;
+
+  // when true the description is resolved through the translate service
+  hasTranslation?: boolean;
+
+  // interpolation data for the translated description
+  data?: any;
+
+  // open graph type, only used by the open graph tags
+  ogType?: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -22,7 +41,7 @@ export class HaMetadataService {
 
   addMetaTag(name: string, content: string, hasTranslation: boolean = false, data?: any): void {
     const isProperty = name.startsWith('og:') || name.startsWith('article:') || name.startsWith('profile:');
-    const tag = isProperty ? { property: name, content } : { name, content };
+    const tag: Record<string, string> = isProperty ? { property: name, content } : { name, content };
 
     if (hasTranslation) {
       this.translateService.get(content, data).subscribe((contentTrad: string) => {
@@ -33,30 +52,23 @@ export class HaMetadataService {
     }
   }
 
-  setSocialMetaTags(
-    title: string,
-    description: string,
-    image: string,
-    url: string,
-    hasTranslation: boolean = false,
-    data?: any,
-    ogType: string = 'website'
-  ): void {
+  setSocialMetaTags(options: HaSocialMetaTagsOptions): void {
+    const { title, description, image, hasTranslation = false, data } = options;
     this.setTwitterMetaTags(title, description, image, hasTranslation, data);
-    this.setOGMetaTags(title, description, image, url, hasTranslation, data, ogType);
+    this.setOGMetaTags(options);
   }
 
-  getMetaTag(name: string, isProperty: boolean = false): string {
+  getMetaTag(name: string, isProperty: boolean = false): string | undefined {
     return isProperty
       ? this.metaService.getTag(`property="${name}"`)?.content
       : this.metaService.getTag(`name="${name}"`)?.content;
   }
 
   getFacebookShareUrl(): string {
-    const url: string = this.getMetaTag('og:url', true);
-    const title: string = this.getMetaTag('og:title', true);
-    const description: string = this.getMetaTag('og:description', true);
-    const image: string = this.getMetaTag('og:image', true);
+    const url: string = this.getMetaTag('og:url', true) ?? '';
+    const title: string = this.getMetaTag('og:title', true) ?? '';
+    const description: string = this.getMetaTag('og:description', true) ?? '';
+    const image: string = this.getMetaTag('og:image', true) ?? '';
 
     return (
       `https://www.facebook.com/sharer/sharer.php?u=${url}&title=${title}` +
@@ -65,11 +77,11 @@ export class HaMetadataService {
   }
 
   getTwitterShareUrl(): string {
-    const title: string = this.getMetaTag('twitter:title');
-    const card: string = this.getMetaTag('twitter:card');
-    const description: string = this.getMetaTag('twitter:description');
-    const image: string = this.getMetaTag('twitter:image');
-    const site: string = this.getMetaTag('twitter:site');
+    const title: string = this.getMetaTag('twitter:title') ?? '';
+    const card: string = this.getMetaTag('twitter:card') ?? '';
+    const description: string = this.getMetaTag('twitter:description') ?? '';
+    const image: string = this.getMetaTag('twitter:image') ?? '';
+    const site: string = this.getMetaTag('twitter:site') ?? '';
 
     return (
       `https://twitter.com/intent/tweet?text=${title}&card=${card}` +
@@ -78,10 +90,10 @@ export class HaMetadataService {
   }
 
   getLinkedInShareUrl(): string {
-    const url: string = this.getMetaTag('og:url', true);
-    const title: string = this.getMetaTag('og:title', true);
-    const description: string = this.getMetaTag('og:description', true);
-    const image: string = this.getMetaTag('og:image', true);
+    const url: string = this.getMetaTag('og:url', true) ?? '';
+    const title: string = this.getMetaTag('og:title', true) ?? '';
+    const description: string = this.getMetaTag('og:description', true) ?? '';
+    const image: string = this.getMetaTag('og:image', true) ?? '';
 
     return (
       `https://www.linkedin.com/shareArticle?mini=true&url=${url}` +
@@ -104,15 +116,8 @@ export class HaMetadataService {
     this.addMetaTag('twitter:site', '@Gencovery');
   }
 
-  private setOGMetaTags(
-    title: string,
-    description: string,
-    image: string,
-    url: string,
-    hasTranslation: boolean = false,
-    data?: any,
-    ogType: string = 'website'
-  ): void {
+  private setOGMetaTags(options: HaSocialMetaTagsOptions): void {
+    const { title, description, image, url, hasTranslation = false, data, ogType = 'website' } = options;
     this.metaService.updateTag({ property: 'og:type', content: ogType });
     this.metaService.updateTag({ property: 'og:title', content: title });
     if (hasTranslation) {

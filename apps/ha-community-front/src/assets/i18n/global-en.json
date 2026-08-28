@@ -735,5 +735,21 @@
   "error_loading_brick_dependencies": "Failed to load brick dependencies",
   "error_invalid_file_format": "Invalid file format",
   "error_uploading_file": "Failed to upload file",
-  "error_loading_spaces": "Failed to load spaces"
+  "error_loading_spaces": "Failed to load spaces",
+  "ai-integration": "AI integration",
+  "go_to_ai_integration": "Go to AI integration",
+  "ai_integration.menu": "AI integration",
+  "ai_integration.page_title": "AI integration",
+  "ai_integration.page_description": "Connect your AI tools to Constellab Community.",
+  "ai_integration.claude_title": "Claude Code",
+  "ai_integration.claude_lead": "Install the Community plugin to let Claude Code search and read Community content: run these commands in a terminal, in this order.",
+  "ai_integration.requires": "Claude Code must already be installed on your machine. Check it with claude --version.",
+  "ai_integration.details": "Details",
+  "ai_integration.plugin_name": "Plugin",
+  "ai_integration.marketplace": "Marketplace",
+  "ai_integration.api_url": "API address",
+  "ai_integration.endpoint_url": "MCP endpoint",
+  "ai_integration.copy_to_clipboard": "Copy to clipboard",
+  "ai_integration.copied": "Command copied to clipboard",
+  "ai_integration.load_error": "The install commands could not be loaded. Please try again later."
 }

@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy,Component, Directive, ElementRef, HostListener, inject, Renderer2 } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Directive,
+  ElementRef,
+  HostListener,
+  inject,
+  Renderer2,
+} from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 
@@ -84,7 +92,7 @@ export class FlImageFullscreenTestComponent {
   private dialogRef = inject<MatDialogRef<FlImageFullscreenTestComponent>>(MatDialogRef);
 
   src: string;
-  alt: string;
+  alt: string | undefined;
 
   constructor() {
     const input = inject<FlImageFullscreenDialogInput>(MAT_DIALOG_DATA);

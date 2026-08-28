@@ -27,6 +27,10 @@ export class CaAvailableTagDatasource extends FlArrayObs<CaTagKey> {
 
     const tags = ClHelpService.convertObjectOrArrayToArray(tag);
     for (const tag of tags) {
+      // a tag without a value has nothing to contribute to the available values list
+      if (tag.value === undefined) {
+        continue;
+      }
       let tagKey = array.find((tagKey) => tagKey.key === tag.key);
       if (!tagKey) {
         tagKey = { key: tag.key, values: [tag.value] };
@@ -43,6 +47,9 @@ export class CaAvailableTagDatasource extends FlArrayObs<CaTagKey> {
   }
 
   public removeTag(tag: FlTag): void {
+    if (tag.value === undefined) {
+      return;
+    }
     const array = this.array;
     const tagKey = array.find((tagKey) => tagKey.key === tag.key);
     if (tagKey) {

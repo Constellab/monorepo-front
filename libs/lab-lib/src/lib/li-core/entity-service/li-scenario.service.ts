@@ -107,7 +107,7 @@ export class LiScenarioService {
     return this.apiService.put(`${this.route}/${scenarioId}/title`, { title: title }, LiScenario);
   }
 
-  public updateFolder(scenarioId: string, folderId: string): Observable<LiScenario> {
+  public updateFolder(scenarioId: string, folderId: string | null): Observable<LiScenario> {
     return this.apiService.put(`${this.route}/${scenarioId}/folder`, { folder_id: folderId }, LiScenario);
   }
 
@@ -206,10 +206,14 @@ export class LiScenarioService {
     return this.apiService.get(`${this.route}/title/${title}/count`, null, { hideSnackBarError: true });
   }
 
-  public searchByTitle(page: number, pageSize: number, title: string): Observable<ClPageI<LiScenario>> {
+  public searchByTitle(
+    page: number,
+    pageSize: number,
+    title: string | undefined
+  ): Observable<ClPageI<LiScenario>> {
     // if empty search, return all
     if (ClHelpService.isNullOrEmpty(title)) {
-      return this.advancedSearch(page, pageSize, null);
+      return this.advancedSearch(page, pageSize, { filtersCriteria: {}, sortsCriteria: [] });
     }
     return this.apiService.get(`${this.route}/search-title/${title}`, LiScenario, {
       page: page,

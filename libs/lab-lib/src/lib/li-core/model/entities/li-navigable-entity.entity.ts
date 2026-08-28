@@ -52,7 +52,10 @@ export class LiNavigableEntity {
     return LI_ENTITY_TYPE_ICON[this.type];
   }
 
-  get parentTypeIcon(): string {
+  get parentTypeIcon(): string | undefined {
+    if (this.parentType == null) {
+      return undefined;
+    }
     return LI_ENTITY_TYPE_ICON[this.parentType];
   }
 }

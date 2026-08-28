@@ -21,7 +21,7 @@ export interface CaNewUser {
   lastname: string;
   email: string;
   password: string;
-  repeatPassword: string;
+  repeatPassword?: string;
 }
 
 export class CaUser extends CaEntity implements FlUser {

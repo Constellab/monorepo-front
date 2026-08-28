@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LiConfig, LiResourceViewRichText } from '@monorepo/lab-lib/li-core';
 import { RvResourceViewDirective } from '@monorepo/resource-view';
@@ -21,6 +21,8 @@ export class LiResourceRichTextViewComponent
   richText: TeRichText;
 
   ngOnInit(): void {
+    if (this.resourceId == null) return;
+
     this.textEditorConfig = this.liConfig.buildRichTextViewEditorConfig(this.view, this.resourceId);
 
     this.richText = new TeRichText(this.view.data.content);

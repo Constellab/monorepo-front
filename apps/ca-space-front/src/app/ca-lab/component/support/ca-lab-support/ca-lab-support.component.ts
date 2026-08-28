@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy,Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
@@ -27,7 +27,6 @@ export class CaLabSupportComponent {
   openUpdateDialog(): void {
     const dialogInput: CaLabAdminFormDialogInput = {
       mode: 'update',
-      object: null,
       id: this.state.getLabId(),
     };
 

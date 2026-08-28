@@ -33,7 +33,7 @@ export class BnBioNetworkParticleColor {
     const range: [string, string] = [this.greyColor, FlColorHelper.pinkShiny];
 
     let max = this.getColorMaxDomain(this.colorMode);
-    if (max === 0) {
+    if (max == null || max === 0) {
       max = 1;
     }
     // value outside domain are clamped to the edges
@@ -43,7 +43,7 @@ export class BnBioNetworkParticleColor {
   /**
    * Return the link color max domain based on mode
    */
-  private getColorMaxDomain(colorMode: BnBioNetworkParticleColorScale): number {
+  private getColorMaxDomain(colorMode: BnBioNetworkParticleColorScale): number | undefined {
     if (colorMode === 'threshold-75' || colorMode === 'threshold-95') {
       return this.getQuantile(colorMode === 'threshold-75' ? 0.75 : 0.95);
     }
@@ -69,7 +69,8 @@ export class BnBioNetworkParticleColor {
     }
   }
 
-  public getQuantile(threshold: number): number {
+  // d3 quantile returns undefined when there is no link value at all
+  public getQuantile(threshold: number): number | undefined {
     // round all value to merge similar values
     const values = this.allLinkValues.map((value) => ClNumberHelper.round(value, 1));
     // remove duplicates
