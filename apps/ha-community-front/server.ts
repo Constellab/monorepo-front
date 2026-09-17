@@ -31,6 +31,32 @@ HA_ENVIRONMENT.settings = {
 };
 
 /**
+ * The Constellab domains allowed in the Content-Security-Policy.
+ *
+ * One variable for the whole platform, so a deployment on its own domains only has to set
+ * CSP_ALLOWED_DOMAINS (a space separated list) instead of rebuilding the image. The third party
+ * sources below (fonts, analytics, algolia, recaptcha, ...) stay hardcoded: they do not change
+ * from one deployment to the next.
+ *
+ * A wildcard host source matches any depth of subdomain, so *.gencovery.com already covers
+ * *.constellab-pre-prod.gencovery.com.
+ */
+const CSP_ALLOWED_DOMAINS: string[] = (
+  process.env['CSP_ALLOWED_DOMAINS'] ||
+  '*.constellab.community *.gencovery.com *.gencovery.io *.constellab.app'
+)
+  .split(/\s+/)
+  .filter((domain) => domain.length > 0);
+
+/**
+ * The same domains as wss:// sources, needed by the socket of the community AI assistant: a host
+ * source without a scheme only matches the page scheme (https), so it does not cover the upgrade.
+ */
+const CSP_ALLOWED_WS_DOMAINS: string[] = CSP_ALLOWED_DOMAINS.map(
+  (domain) => `wss://${domain.replace(/^[a-z]+:\/\//, '')}`
+);
+
+/**
  * The hostnames CommonEngine will render for.
  *
  * Angular 22 rejects a render whose url carries an unlisted hostname, so an empty list throws on
@@ -81,33 +107,29 @@ function setSecurityHeaders(res: express.Response): void {
   res.setHeader('X-Content-Type-Options', 'nosniff');
   res.setHeader('X-Xss-Protection', '1; mode=block');
   // TODO: CHECK IF THERE IS A BETTER WAY
-  const defaultSrc = "default-src 'self' *.constellab.community";
+  const allowedDomains = CSP_ALLOWED_DOMAINS.join(' ');
+  const allowedWsDomains = CSP_ALLOWED_WS_DOMAINS.join(' ');
+
+  const defaultSrc = `default-src 'self' ${allowedDomains}`;
   //'unsafe-hashes' 'sha256-MhtPZXr7+LpJUY5qtMutB+qWfQtMaPccfe7QXtCcEYc='
   // is for the inline script in the index.html
   // script-src : https://www.google.com, https://www.gstatic.com
 
   const scriptSrc =
     "script-src 'self' 'unsafe-hashes' 'sha256-MhtPZXr7+LpJUY5qtMutB+qWfQtMaPccfe7QXtCcEYc=' " +
-    "'sha256-fPMfCibMhhkJZAz+L32w5D6q/jMoM8B+cblEqezMH44=' *.constellab.community " +
+    `'sha256-fPMfCibMhhkJZAz+L32w5D6q/jMoM8B+cblEqezMH44=' ${allowedDomains} ` +
     'https://www.google.com https://www.gstatic.com *.googletagmanager.com data:';
 
   // frame-src https://www.google.com/' is for the recaptcha
 
-  const frameSrc =
-    "frame-src 'self' *.gencovery.com *.constellab.community *.gencovery.io *.constellab.app " +
-    'youtube.com www.youtube.com https://www.google.com';
-  const workerSrc = "worker-src  *.gencovery.com *.constellab.community data: 'self' blob:";
-  const styleSrc =
-    "style-src 'self' 'unsafe-inline' *.gencovery.com *.constellab.community " +
-    'https://fonts.googleapis.com';
+  const frameSrc = `frame-src 'self' ${allowedDomains} youtube.com www.youtube.com https://www.google.com`;
+  const workerSrc = `worker-src ${allowedDomains} data: 'self' blob:`;
+  const styleSrc = `style-src 'self' 'unsafe-inline' ${allowedDomains} https://fonts.googleapis.com`;
   const fontSrc = "font-src 'self' data: http: https: fonts.googleapis.com fonts.gstatic.com";
-  const imgSrc =
-    "img-src 'self' blob: data: http: https: *.gencovery.com *.constellab.community http://www.w3.org";
+  const imgSrc = `img-src 'self' blob: data: http: https: ${allowedDomains} http://www.w3.org`;
   // https://cdn.jsdelivr.net/npm/@emoji-mart/data is used to allow the emoji-mart data
   const connectSrc =
-    "connect-src 'self' *.gencovery.com *.constellab-pre-prod.gencovery.com " +
-    'wss://*.constellab.community wss://*.constellab-pre-prod.gencovery.com ' +
-    '*.constellab.community https://fonts.googleapis.com ' +
+    `connect-src 'self' ${allowedDomains} ${allowedWsDomains} https://fonts.googleapis.com ` +
     'https://fonts.gstatic.com *.google-analytics.com *.googletagmanager.com *.algolianet.com ' +
     '*.algolia.net https://cdn.jsdelivr.net/npm/@emoji-mart/data https://api.github.com ' +
     'https://www.google.com/recaptcha';
