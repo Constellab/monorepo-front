@@ -3,7 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { ClCredentials, ClCredentials2Fa, ClDateHelper } from '@monorepo/core-lib';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { FlAuthLogin2FaResponse, FlAuthLoginResponse, FlAuthService } from '@monorepo/front-core-lib/fl-auth';
-import { FlCleanerService } from '@monorepo/front-core-lib/fl-core';
+import { FlCleanerService, FlCookieOptions } from '@monorepo/front-core-lib/fl-core';
 import { FlCookieService } from '@monorepo/front-core-lib/fl-dialog';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -89,9 +89,23 @@ export class HaAuthService extends FlAuthService {
 
   public logout(): Observable<void> {
     return this.apiService.post(`${this.route}/logout`, null).pipe(
-      tap(() => this.clearAuthExpirationCookie(undefined, 'Lax')),
+      tap(() => this.clearSessionMarker()),
       tap(() => this.clearServices())
     );
+  }
+
+  /**
+   * Host-only - no 'Domain' - so the marker never reaches another app of the platform, and no
+   * other app can shadow it here. Community is a single host, it has nothing to share it with.
+   *
+   * 'Lax' rather than the default 'Strict', because this marker is read from the request header by
+   * the SSR server, not only from `document.cookie`: a visitor arriving from a search result or a
+   * shared link makes a cross-site top-level navigation, which is precisely where 'Strict'
+   * withholds a cookie. The render would then come out logged out for a user whose session is
+   * perfectly valid.
+   */
+  protected override getSessionMarkerOptions(): FlCookieOptions {
+    return { ...super.getSessionMarkerOptions(), sameSite: 'Lax' };
   }
 
   /**
@@ -103,7 +117,7 @@ export class HaAuthService extends FlAuthService {
    * SESSION_MARKER_DURATION_MS.
    */
   public afterLogin(expiresIn: number | undefined): void {
-    this.storeAuthExpirationCookie(HaAuthService.SESSION_MARKER_DURATION_MS, undefined, 'Lax');
+    this.storeAuthExpirationCookie(HaAuthService.SESSION_MARKER_DURATION_MS);
     this.sessionService.schedule(expiresIn ?? null);
   }
 

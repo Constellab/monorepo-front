@@ -1,4 +1,4 @@
-import { inject,Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { ClCredentials, ClCredentials2Fa } from '@monorepo/core-lib';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { FlAuthLogin2FaResponse, FlAuthLoginResponse, FlAuthService } from '@monorepo/front-core-lib/fl-auth';
@@ -44,7 +44,7 @@ export class LiAuthService extends FlAuthService {
    */
   public logout(): Observable<void> {
     return this.apiService.post('logout', null).pipe(
-      tap(() => this.clearAuthExpirationCookie()),
+      tap(() => this.clearSessionMarker()),
       tap(() => this.clearServices())
     );
   }

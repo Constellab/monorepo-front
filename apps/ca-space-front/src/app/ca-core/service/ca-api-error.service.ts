@@ -4,17 +4,12 @@ import { inject, Injectable, Injector } from '@angular/core';
 import { Router } from '@angular/router';
 import { ClApiError } from '@monorepo/core-lib';
 import { FlApiErrorService, FlApiServiceConfig, FlServerError } from '@monorepo/front-core-lib/fl-api';
-import {
-  FL_AUTH_EXPIRED_COOKIE,
-  FlCleanerService,
-  FlLoginSavedRoute,
-} from '@monorepo/front-core-lib/fl-core';
-import { FlCookieService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlCleanerService, FlLoginSavedRoute } from '@monorepo/front-core-lib/fl-core';
 import { Observable, throwError } from 'rxjs';
 
+import { CaAuthService } from '../../ca-login/service/ca-auth.service';
 import { CaAuthSessionService } from '../../ca-login/service/ca-auth-session.service';
 import { CA_CONST_LOGIN_ROUTE } from '../utils/ca-base-route';
-import { CaEnvironmentHelper } from '../utils/ca-environment.helper';
 
 /**
  * Manage the errors of the application
@@ -23,7 +18,6 @@ import { CaEnvironmentHelper } from '../utils/ca-environment.helper';
 @Injectable()
 export class CaApiErrorService extends FlApiErrorService {
   private router = inject(Router);
-  private cookieService = inject(FlCookieService);
   private platformLocation = inject(PlatformLocation);
   private apiConfig = inject(FlApiServiceConfig);
   private injector = inject(Injector);
@@ -120,6 +114,11 @@ export class CaApiErrorService extends FlApiErrorService {
     return this.injector.get(CaAuthSessionService);
   }
 
+  /** Resolved lazily for the same reason as getSessionService(): it closes the same cycle. */
+  private getAuthService(): CaAuthService {
+    return this.injector.get(CaAuthService);
+  }
+
   /**
    * Redirect the user to the login page
    */
@@ -127,14 +126,11 @@ export class CaApiErrorService extends FlApiErrorService {
     serverError: FlServerError,
     snackBarDuration: number | undefined
   ): Observable<never> {
-    // for security clear the authentication expiration cookie
-    // to assure the user is disconnected
-    this.cookieService.removeCookie(FL_AUTH_EXPIRED_COOKIE, {
-      sameSite: 'Strict',
-      path: '/',
-      secure: false,
-      domain: CaEnvironmentHelper.getFrontDomain(),
-    });
+    // for security clear the session marker to assure the user is disconnected. Through the auth
+    // service rather than the cookie service: the browser only drops a cookie when the delete
+    // matches the name, path and domain it was set with, and a second copy of those attributes
+    // here would silently stop deleting anything the day the marker's scope changed.
+    this.getAuthService().clearSessionMarker();
 
     if (!this.router.url.startsWith(CA_CONST_LOGIN_ROUTE)) {
       FlCleanerService.getInstance().cleanServices();

@@ -3,7 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { ClCredentials, ClCredentials2Fa, ClDateHelper } from '@monorepo/core-lib';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { FlAuthLogin2FaResponse, FlAuthLoginResponse, FlAuthService } from '@monorepo/front-core-lib/fl-auth';
-import { FlCleanerService } from '@monorepo/front-core-lib/fl-core';
+import { FlCleanerService, FlCookieOptions } from '@monorepo/front-core-lib/fl-core';
 import { FlCookieService } from '@monorepo/front-core-lib/fl-dialog';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -81,9 +81,26 @@ export class CaAuthService extends FlAuthService {
    */
   public logout(): Observable<void> {
     return this.apiService.post(this.route + '/logout', null).pipe(
-      tap(() => this.clearAuthExpirationCookie(CaEnvironmentHelper.getFrontDomain())),
+      tap(() => this.clearSessionMarker()),
       tap(() => this.clearServices())
     );
+  }
+
+  /**
+   * The Space is served from every sub-domain of FRONT_DOMAIN - a workspace lives on
+   * `<spaceDomain>.<FRONT_DOMAIN>` (see CaRouterService.getSpaceDomainBaseUrl) - so its marker has
+   * to be shared across them, and only a 'Domain' attribute does that.
+   *
+   * The cost of that attribute, and the reason it is written down here: a cookie scoped to a domain
+   * is sent to that domain AND to every one of its sub-domains. So every app of the platform served
+   * from under FRONT_DOMAIN receives this marker, reads it as its own if it shares the name, and
+   * cannot delete it if it is served from deeper down. **FRONT_DOMAIN must therefore never be an
+   * ancestor of another app's domain** - a Community on `community.<FRONT_DOMAIN>` is exactly the
+   * layout that breaks. Giving the marker a name of its own (getSessionMarkerName) is what keeps
+   * such a layout merely wasteful instead of wrong.
+   */
+  protected override getSessionMarkerOptions(): FlCookieOptions {
+    return { ...super.getSessionMarkerOptions(), domain: CaEnvironmentHelper.getFrontDomain() };
   }
 
   /**
@@ -95,10 +112,7 @@ export class CaAuthService extends FlAuthService {
    * SESSION_MARKER_DURATION_MS.
    */
   public afterLogin(expiresIn: number | undefined): void {
-    this.storeAuthExpirationCookie(
-      CaAuthService.SESSION_MARKER_DURATION_MS,
-      CaEnvironmentHelper.getFrontDomain()
-    );
+    this.storeAuthExpirationCookie(CaAuthService.SESSION_MARKER_DURATION_MS);
     this.sessionService.schedule(expiresIn ?? null);
   }
 

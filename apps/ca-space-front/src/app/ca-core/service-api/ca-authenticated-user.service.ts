@@ -84,25 +84,32 @@ export class CaAuthenticatedUserService implements FlCleanableService {
       // if the website space domain does not correspond to the user space domain
       // redirect to the website space domain
       const defaultView = this.document.defaultView;
-      const hostname = defaultView.location.hostname;
-      const domains = hostname.split('.');
+      const hostname: string = defaultView.location.hostname;
+      const frontDomain: string = CaEnvironmentHelper.getFrontDomain();
+      const spaceHost: string = `${spaceInfo.space.domain}.${frontDomain}`;
+      const spaceInfoUrl: string = `https://${spaceHost}`;
 
-      const spaceInfoUrl = `https://${spaceInfo.space.domain}.${CaEnvironmentHelper.getFrontDomain()}`;
-      // if there is no subdomain, redirect to user space domain with the full route
-      if (domains.length === 2) {
-        // redirect to the space domain, keep the route.
+      // The hosts are compared whole, against the configured FRONT_DOMAIN. Counting the labels of
+      // the hostname instead ('domains.length === 2') only ever worked for a two label front
+      // domain: on an instance served from a deeper one - 'test.constellab.com',
+      // 'space.test.constellab.com' - the "no sub-domain" branch never fires, and the first label
+      // read as a space domain is really part of the front domain. A user landing on the bare
+      // front domain was then redirected without their route.
+      if (hostname === frontDomain) {
+        // no space in the host: redirect to the user space domain and keep the route, the object
+        // asked for lives in that space
         defaultView.location.href = `${spaceInfoUrl}${this.location.path(true)}`;
         // throw an error so the guard does not navigate to the page
         throw new Error('Redirect to the space domain');
-      } else {
-        // if the user is in a space domain that he can't access,
-        if (domains[0] !== spaceInfo.space.domain) {
-          // redirect to the space domain dashboard (remove the route) so he does not ends up
-          // in an object not accessible in the new space
-          defaultView.location.href = `${spaceInfoUrl}`;
-          // throw an error so the guard does not navigate to the page
-          throw new Error('Redirect to the space domain');
-        }
+      }
+
+      // if the user is in a space domain that he can't access,
+      if (hostname !== spaceHost) {
+        // redirect to the space domain dashboard (remove the route) so he does not ends up
+        // in an object not accessible in the new space
+        defaultView.location.href = spaceInfoUrl;
+        // throw an error so the guard does not navigate to the page
+        throw new Error('Redirect to the space domain');
       }
     }
 

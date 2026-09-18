@@ -182,6 +182,30 @@ describe('HaAuthService', () => {
     });
   });
 
+  describe('the scope of the marker', () => {
+    it('should write the marker host-only', () => {
+      // no 'Domain': a scoped cookie is sent to that domain AND to all its sub-domains, so it
+      // would reach - and be readable by - every other app of the platform served under it
+      service.afterLogin(ACCESS_TOKEN_EXPIRES_IN);
+
+      const options = cookieServiceSpy.setCookie.mock.calls[0][2];
+      expect(options.domain).toBeUndefined();
+    });
+
+    it('should write the marker as Lax, not Strict', () => {
+      // this marker is read from the request header by the SSR server, and a visitor arriving from
+      // a search result or a shared link makes a cross-site top-level navigation - exactly where
+      // 'Strict' withholds a cookie. The render would come out logged out for a valid session.
+      service.afterLogin(ACCESS_TOKEN_EXPIRES_IN);
+
+      expect(cookieServiceSpy.setCookie).toHaveBeenCalledWith(
+        FL_AUTH_EXPIRED_COOKIE,
+        expect.anything(),
+        expect.objectContaining({ sameSite: 'Lax' })
+      );
+    });
+  });
+
   describe('logout', () => {
     it('should call the api and clear the session marker', () => {
       service.logout().subscribe();

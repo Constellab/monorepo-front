@@ -3,11 +3,10 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { FlApiServiceConfig } from '@monorepo/front-core-lib/fl-api';
-import { FL_AUTH_EXPIRED_COOKIE } from '@monorepo/front-core-lib/fl-core';
-import { FlCookieService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 
+import { CaAuthService } from '../../ca-login/service/ca-auth.service';
 import { CaAuthSessionService } from '../../ca-login/service/ca-auth-session.service';
 import { CaApiErrorService } from './ca-api-error.service';
 
@@ -17,13 +16,13 @@ describe('CaApiErrorService', () => {
 
   let service: CaApiErrorService;
   let routerSpy: { navigate: ReturnType<typeof vi.fn>; url: string };
-  let cookieServiceSpy: { removeCookie: ReturnType<typeof vi.fn> };
+  let authServiceSpy: { clearSessionMarker: ReturnType<typeof vi.fn> };
   /** the interceptor already tried to renew by the time an error reaches this service */
   let sessionServiceSpy: { isSessionOver: ReturnType<typeof vi.fn> };
 
   beforeEach(() => {
     routerSpy = { navigate: vi.fn(), url: '/app/dashboard' };
-    cookieServiceSpy = { removeCookie: vi.fn() };
+    authServiceSpy = { clearSessionMarker: vi.fn() };
     sessionServiceSpy = { isSessionOver: vi.fn().mockReturnValue(true) };
     // the answer is keyed on the very response the interceptor saw fail
 
@@ -31,7 +30,7 @@ describe('CaApiErrorService', () => {
       providers: [
         CaApiErrorService,
         { provide: Router, useValue: routerSpy },
-        { provide: FlCookieService, useValue: cookieServiceSpy },
+        { provide: CaAuthService, useValue: authServiceSpy },
         { provide: PlatformLocation, useValue: { pathname: '/app/dashboard' } },
         { provide: FlApiServiceConfig, useValue: { getApiUrl: () => API_URL } },
         { provide: CaAuthSessionService, useValue: sessionServiceSpy },
@@ -70,10 +69,9 @@ describe('CaApiErrorService', () => {
     it('should clear the session marker so nothing keeps claiming a session', () => {
       handle(401, `${API_URL}users/current`);
 
-      expect(cookieServiceSpy.removeCookie).toHaveBeenCalledWith(
-        FL_AUTH_EXPIRED_COOKIE,
-        expect.objectContaining({ path: '/' })
-      );
+      // through the auth service, which owns the marker's name and scope: a delete rebuilt here
+      // would stop matching the cookie the day either of them changed
+      expect(authServiceSpy.clearSessionMarker).toHaveBeenCalled();
     });
 
     it('should ask about this very response, not about the service at large', () => {

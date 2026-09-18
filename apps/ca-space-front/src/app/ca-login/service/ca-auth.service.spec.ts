@@ -7,6 +7,7 @@ import { FL_AUTH_EXPIRED_COOKIE } from '@monorepo/front-core-lib/fl-core';
 import { FlCookieService } from '@monorepo/front-core-lib/fl-dialog';
 import { of } from 'rxjs';
 
+import { CaEnvironmentHelper } from '../../ca-core/utils/ca-environment.helper';
 import { CaAuthService } from './ca-auth.service';
 import { CaAuthSessionService } from './ca-auth-session.service';
 
@@ -17,6 +18,8 @@ describe('CaAuthService', () => {
   const REFRESH_TOKEN_DURATION_MS = 30 * ClDateHelper.ONE_DAY;
 
   const API_URL = 'http://api.test/';
+  /** a front domain of more than two labels: every dedicated instance derives one from a DOMAIN */
+  const FRONT_DOMAIN = 'test.constellab.com';
 
   let service: CaAuthService;
   let httpMock: HttpTestingController;
@@ -42,6 +45,7 @@ describe('CaAuthService', () => {
       check: vi.fn().mockReturnValue(false),
     };
     sessionServiceSpy = { schedule: vi.fn() };
+    vi.spyOn(CaEnvironmentHelper, 'getFrontDomain').mockReturnValue(FRONT_DOMAIN);
 
     TestBed.configureTestingModule({
       providers: [
@@ -59,6 +63,7 @@ describe('CaAuthService', () => {
 
   afterEach(() => {
     httpMock.verify();
+    vi.restoreAllMocks();
   });
 
   /** expiration date of the marker cookie of the last setCookie call */
@@ -186,6 +191,47 @@ describe('CaAuthService', () => {
       httpMock.expectOne(REFRESH_URL).flush(null, { status: 401, statusText: 'Unauthorized' });
 
       expect(cookieServiceSpy.removeCookie).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('the scope of the marker', () => {
+    it('should share the marker across the sub-domains of the front domain', () => {
+      // a workspace lives on '<spaceDomain>.<FRONT_DOMAIN>', so a host-only marker would be
+      // missing on every space host the user has not visited yet
+      service.afterLogin(ACCESS_TOKEN_EXPIRES_IN);
+
+      expect(cookieServiceSpy.setCookie).toHaveBeenCalledWith(
+        FL_AUTH_EXPIRED_COOKIE,
+        expect.anything(),
+        expect.objectContaining({ domain: FRONT_DOMAIN })
+      );
+    });
+
+    it('should delete the marker with the very attributes it was written with', () => {
+      // a browser only drops a cookie when the name, the path and the domain of the delete match
+      // the ones it was set with: a delete that rebuilds them by hand leaves the marker standing
+      service.afterLogin(ACCESS_TOKEN_EXPIRES_IN);
+      const written = cookieServiceSpy.setCookie.mock.calls[0][2];
+
+      service.logout().subscribe();
+
+      expect(cookieServiceSpy.removeCookie).toHaveBeenCalledWith(
+        FL_AUTH_EXPIRED_COOKIE,
+        expect.objectContaining({ path: written.path, domain: written.domain })
+      );
+    });
+
+    it('should also drop a host-only copy of the marker', () => {
+      // two cookies of the same name can sit in the jar at once - one scoped to the front domain,
+      // one host-only left by another app of the platform or an earlier release - and
+      // `document.cookie` hands out both with nothing to tell them apart. Clearing only the scoped
+      // one leaves the other answering "maybe a session" until it expires on its own.
+      service.logout().subscribe();
+
+      expect(cookieServiceSpy.removeCookie).toHaveBeenCalledWith(
+        FL_AUTH_EXPIRED_COOKIE,
+        expect.objectContaining({ domain: undefined })
+      );
     });
   });
 
