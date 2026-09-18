@@ -128,11 +128,13 @@ function setSecurityHeaders(res: express.Response): void {
   const fontSrc = "font-src 'self' data: http: https: fonts.googleapis.com fonts.gstatic.com";
   const imgSrc = `img-src 'self' blob: data: http: https: ${allowedDomains} http://www.w3.org`;
   // https://cdn.jsdelivr.net/npm/@emoji-mart/data is used to allow the emoji-mart data
+  // https://www.google.com/recaptcha/ keeps its trailing slash on purpose: a path without one is
+  // matched exactly, so it would not cover /recaptcha/api2/... (the calls the captcha makes)
   const connectSrc =
     `connect-src 'self' ${allowedDomains} ${allowedWsDomains} https://fonts.googleapis.com ` +
     'https://fonts.gstatic.com *.google-analytics.com *.googletagmanager.com *.algolianet.com ' +
     '*.algolia.net https://cdn.jsdelivr.net/npm/@emoji-mart/data https://api.github.com ' +
-    'https://www.google.com/recaptcha';
+    'https://www.google.com/recaptcha/';
   const mediaSrc = "media-src 'self' https://storage.sbg.cloud.ovh.net";
 
   res.setHeader(
