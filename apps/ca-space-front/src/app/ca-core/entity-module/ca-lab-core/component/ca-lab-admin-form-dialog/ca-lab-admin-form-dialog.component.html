@@ -106,11 +106,6 @@
             @if (formGp.get('virtualHost')?.hasError('pattern')) {
               <mat-error>{{ 'lab_virtual_host_pattern_error' | translate }}</mat-error>
             }
-            @if (formGp.get('virtualHost')?.hasError('invalid')) {
-              <mat-error
-                >{{ 'lab_virtual_host_domain_error' | translate: { domain: supportedDomainsText } }}
-              </mat-error>
-            }
           </mat-form-field>
         }
 

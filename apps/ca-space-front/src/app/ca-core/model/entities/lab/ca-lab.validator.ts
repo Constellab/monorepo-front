@@ -6,8 +6,6 @@ import { CaLabAdminForm } from './ca-lab.form';
  * Validator for CaLab
  */
 export class CaLabValidator {
-  public static readonly SUPPORTED_DOMAINS = ['gencovery.io', 'constellab.app'];
-
   public static virtualHostDomainValidator(cloud: boolean): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const value: any = control.value;
@@ -16,18 +14,7 @@ export class CaLabValidator {
       }
 
       if (cloud) {
-        // check that the value is a subdomain of one of supportedDomains
-        const subDomain = value.split('.')[0];
-        if (subDomain.length === 0) {
-          return { invalid: true };
-        }
-
-        const mainDomain = value.substring(subDomain.length + 1);
-        if (cloud && CaLabValidator.SUPPORTED_DOMAINS.indexOf(mainDomain) === -1) {
-          return { invalid: true };
-        }
-
-        // check that subdomain is only lowercase letters, numbers '-' and '.'
+        // any domain is accepted, only check that it is made of lowercase letters, numbers, '-' and '.'
         if (!value.match(/^[a-z0-9-.]+$/)) {
           return { pattern: true };
         }

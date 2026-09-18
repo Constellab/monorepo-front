@@ -240,7 +240,6 @@
   "lab_request_sent": "Request sent, we will contact you as soon as possible.",
   "lab_config_changed": "Configuration modified, please click on the \"Save\" button to save the changes.",
   "lab_global_info": "Global info",
-  "lab_virtual_host_domain_error": "The virtual host must be a subdomain of {{domain}}",
   "lab_virtual_host_pattern_error": "The virtual host must only contain lowercase letters, numbers, dashes and dots.",
   "lab_name_invalid": "The data lab name must only contain alphanumeric characters and '-'. It cannot start or end with a '-'.",
   "lab_green_options": "Green computing",

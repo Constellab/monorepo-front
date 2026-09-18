@@ -83,8 +83,6 @@ export class CaLabAdminFormDialogComponent
 
   maxNameLength = CaLabWithSpace.MAX_NAME_LENGTH;
 
-  supportedDomainsText = CaLabValidator.SUPPORTED_DOMAINS.join(', ');
-
   updateIsInitiated = false;
 
   constructor() {
