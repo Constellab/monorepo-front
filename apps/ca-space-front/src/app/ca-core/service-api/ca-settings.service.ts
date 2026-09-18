@@ -22,7 +22,7 @@ export class CaSettingsService {
   }
 
   public getTutorialVideos(): Observable<CaYoutubeVideo[]> {
-    return this.apiService.get(`${this.route}/tutorial-videos`, CaYoutubeVideo);
+    return this.apiService.get(`${this.route}/tutorial-videos`, CaYoutubeVideo, { hideSnackBarError: true });
   }
 
   public getConstellabSuite(): Observable<CaConstellabSuiteDTO> {

@@ -1,13 +1,13 @@
-<fl-card>
-  <fl-card-header>
-    <fl-text-icon>
-      <mat-icon>play_circle</mat-icon>
-      <h2>{{ 'tutorials' | translate }}</h2>
-    </fl-text-icon>
-  </fl-card-header>
+@if (selectedVideo(); as video) {
+  <fl-card>
+    <fl-card-header>
+      <fl-text-icon>
+        <mat-icon>play_circle</mat-icon>
+        <h2>{{ 'tutorials' | translate }}</h2>
+      </fl-text-icon>
+    </fl-card-header>
 
-  <fl-card-body>
-    @if (selectedVideo) {
+    <fl-card-body>
       <div class="g-layout-row g-layout-center-center">
         <!--   Show youtube iframe     -->
         <button mat-icon-button type="button" (click)="previousVideoManually()">
@@ -15,12 +15,8 @@
         </button>
 
         <!--    Initial image size : 320 - 180 , here we apply a 3/5 ratio     -->
-        <a
-          [href]="selectedVideo.youtubeLink"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="thumbnail-container">
-          <img [ngSrc]="selectedVideo.thumbnailUrl" [width]="192" [height]="108" alt="thumbnail" />
+        <a [href]="video.youtubeLink" target="_blank" rel="noopener noreferrer" class="thumbnail-container">
+          <img [ngSrc]="video.thumbnailUrl" [width]="192" [height]="108" alt="thumbnail" />
         </a>
 
         <button mat-icon-button type="button" (click)="nextVideoManually()">
@@ -29,26 +25,26 @@
       </div>
 
       <a
-        [href]="selectedVideo.youtubeLink"
+        [href]="video.youtubeLink"
         target="_blank"
         rel="noopener noreferrer"
         class="title g-text-small g-text-link">
-        {{ selectedVideo.title }}
+        {{ video.title }}
       </a>
 
       <div class="g-layout-row g-layout-center-center circles">
-        @for (video of youtubeVideos; track video.videoId) {
+        @for (youtubeVideo of youtubeVideos(); track youtubeVideo.videoId) {
           <div
             class="circle"
             role="button"
             tabindex="0"
-            [attr.aria-label]="video.title"
-            [ngClass]="{ 'selected-circle': selectedVideo === video }"
-            (click)="selectVideo(video)"
-            (keydown.enter)="selectVideo(video)"
-            (keydown.space)="selectVideo(video)"></div>
+            [attr.aria-label]="youtubeVideo.title"
+            [ngClass]="{ 'selected-circle': video === youtubeVideo }"
+            (click)="selectVideo(youtubeVideo)"
+            (keydown.enter)="selectVideo(youtubeVideo)"
+            (keydown.space)="selectVideo(youtubeVideo)"></div>
         }
       </div>
-    }
-  </fl-card-body>
-</fl-card>
+    </fl-card-body>
+  </fl-card>
+}
