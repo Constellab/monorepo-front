@@ -23,6 +23,7 @@ COPY apps/lab-front/entrypoint.sh /entrypoint.sh
 EXPOSE 81
 
 RUN sed -i -e 's/\r$//' /entrypoint.sh && \
+    sed -i -e 's/\r$//' /etc/nginx/conf.d/nginx.template && \
     chmod +x /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["nginx","-g","daemon off;"]
